@@ -8,7 +8,7 @@ export class AppInsights {
       appInsights.setup(config.get('appInsights.instrumentationKey')).setSendLiveMetrics(true).start();
 
       appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] =
-        'rpe-expressjs-template';
+        'prl-citizen-frontend';
       appInsights.defaultClient.trackTrace({
         message: 'App insights activated',
       });

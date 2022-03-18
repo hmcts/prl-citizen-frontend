@@ -8,9 +8,71 @@ pipelineTriggers([cron('H 05 * * *')])
 @Library("Infrastructure")
 
 def type = "nodejs"
-def product = "rpe"
-def component = "expressjs-template"
+def product = "prl"
+def component = "citizen-frontend"
+
+// SAUCELABS config - configured on Jenkins
+env.SAUCE_USERNAME = 'username'
+env.SAUCE_ACCESS_KEY = 'privatekey'
+env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
+
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
+static Map<String, Object> secret(String secretName, String envVariable) {
+  [$class     : 'AzureKeyVaultSecret',
+   secretType : 'Secret',
+   name       : secretName,
+   envVariable: envVariable
+  ]
+}
+
+def secrets = [
+  'prl-${env}'    :[
+    secret('idam-secret', 'IDAM_SECRET'),
+    secret('idam-system-user-password', 'TEST_PASSWORD'),
+    secret('citizen-user', 'CITIZEN_USERNAME'),
+    secret('citizen-password', 'CITIZEN_PASSWORD'),
+    secret('prl-pcq-token', 'PCQ_TOKEN')
+  ],
+  's2s-${env}': [
+    secret('microservicekey-adoption-web', 'SERVICE_AUTH_SECRET')
+  ]
+]
+
+def pipelineConf = new AppPipelineConfig()
+pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
 
+  env.PRL_CITIZEN_FRONTEND_URL = params.FRONTEND_URL
+  enableCrossBrowserTest(['firefox'])
+  enableFullFunctionalTest(120)
+  loadVaultSecrets(secrets)
+  enableFortifyScan()
+
+
+  after('test') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
+  }
+
+  before('crossBrowserTest') {
+
+  }
+
+  after('crossBrowserTest') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+
+  before('fullFunctionalTest') {
+    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
+  }
+
+  after('fullFunctionalTest') {
+    archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+
+  after('fortify-scan') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+  }
 }
+
