@@ -8,43 +8,14 @@ def type = "nodejs"
 def product = "prl"
 def component = "citizen-frontend"
 
-static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
-  [ $class: 'AzureKeyVaultSecret',
-    secretType: 'Secret',
-    name: secretName,
-    version: '',
-    envVariable: envVar
-  ]
-}
-
-def secrets = [
-  'prl-${env}': [
-    secret('idam-secret', 'IDAM_SECRET'),
-    secret('citizen-user', 'CITIZEN_USERNAME'),
-    secret('citizen-password', 'CITIZEN_PASSWORD'),
-    secret('prl-pcq-token', 'PCQ_TOKEN')
-  ],
-  's2s-${env}': [
-    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET')
-  ]
-]
-
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
-def branchesToSync = ['demo']
 
 def pipelineConf = new AppPipelineConfig()
-pipelineConf.vaultSecrets = secrets
-
-env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
 
 withPipeline(type, product, component) {
-
   enableAksStagingDeployment()
   disableLegacyDeployment()
-  syncBranchesWithMaster(brancesToSync)
   enableSlackNotifications('#prl-tech-notifications')
-
-  loadVaultSecrets(secrets)
 
   after('build') {
     yarnBuilder.yarn('build')
@@ -91,5 +62,4 @@ withPipeline(type, product, component) {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
 
   }
-
 }
