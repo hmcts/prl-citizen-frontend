@@ -4,7 +4,7 @@ const appInsights = require('applicationinsights');
 
 export class AppInsights {
   enable(): void {
-    if (config.get('appInsights.instrumentationKey')) {
+    /* if (config.get('appInsights.instrumentationKey')) {
       appInsights
           .setup(config.get('appInsights.instrumentationKey'))
           .setSendLiveMetrics(true)
@@ -17,6 +17,6 @@ export class AppInsights {
       appInsights.defaultClient.trackTrace({
         message: 'App insights activated',
       });
-    }
+    } */
   }
 }
