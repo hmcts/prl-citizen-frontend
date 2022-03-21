@@ -21,45 +21,4 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
-  after('test') {
-    yarnBuilder.yarn('test:integration')
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
-  }
-
-  before('functionalTest:preview') {
-    env.PRL_CITIZEN_FRONTEND_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
-  }
-
-  after('functionalTest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('smoketest:preview') {
-    env.PRL_CITIZEN_FRONTEND_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
-
-  }
-
-  after('smoketest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('smoketest:aat') {
-    env.PRL_CITIZEN_FRONTEND_URL = "https://prl-citizen-frontend-staging.service.core-compute-aat.internal/"
-
-  }
-
-  after('smoketest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-
-  }
-
-  before('functionalTest:aat') {
-    yarnBuilder.yarn('test:functional:skip')
-
-  }
-
-  after('functionalTest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-
-  }
 }
