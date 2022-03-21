@@ -1,3 +1,4 @@
+/*
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config from 'config';
 import { Application } from 'express';
@@ -8,7 +9,7 @@ export class PropertiesVolume {
     if (server.locals.ENV !== 'development') {
       propertiesVolume.addTo(config);
 
-     // this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+      this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
     }
   }
 
@@ -18,3 +19,4 @@ export class PropertiesVolume {
     }
   }
 }
+ */
