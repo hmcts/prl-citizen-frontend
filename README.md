@@ -1,30 +1,4 @@
-# Express application template
-
-## Purpose
-
-The purpose of this template is to speed up the creation of new [Express](http://expressjs.com/) frontend
-applications within HMCTS and help keep the same development standards across multiple teams.
-If you need to create a new application, you can simply use this one as a starting point and build on top of it.
-
-## What's inside
-
-The template is a working application with a minimal setup. It contains:
-
-- application skeleton
-- common dependencies
-- Docker setup
-- static analysis set up
-- integration with Travis CI
-- HTTPS set up for development environment
-- CSRF prevention set up
-- Header-based security provided by [Helmet](https://helmetjs.github.io/)
-- basic health endpoint
-- pa11y set up for accessibility testing
-- MIT license and contribution information
-
-## Setup
-
-Located in `./bin/init.sh`. Simply run and follow the explanation how to execute it.
+# prl-citizen-frontend
 
 ## Getting Started
 
@@ -56,7 +30,7 @@ Run:
 $ yarn start
 ```
 
-The applications's home page will be available at https://localhost:3100
+The applications's home page will be available at https://localhost:3000
 
 ### Running with Docker
 
@@ -73,9 +47,9 @@ Run the application by executing the following command:
 ```
 
 This will start the frontend container exposing the application's port
-(set to `3100` in this template app).
+(set to `3000` in this template app).
 
-In order to test if the application is up, you can visit https://localhost:3100 in your browser.
+In order to test if the application is up, you can visit https://localhost:3000 in your browser.
 You should get a very basic home page (no styles, etc.).
 
 ## Developing
@@ -158,7 +132,7 @@ Make sure you have those values set correctly for your application.
 
 ### Healthcheck
 
-The application exposes a health endpoint (https://localhost:3100/health), created with the use of
+The application exposes a health endpoint (https://localhost:3000/health), created with the use of
 [Nodejs Healthcheck](https://github.com/hmcts/nodejs-healthcheck) library. This endpoint is defined
 in [health.ts](src/main/routes/health.ts) file. Make sure you adjust it correctly in your application.
 In particular, remember to replace the sample check with checks specific to your frontend app,

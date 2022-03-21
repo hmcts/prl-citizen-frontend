@@ -1,16 +1,45 @@
 #!groovy
 
 properties([
-// H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
-pipelineTriggers([cron('H 05 * * *')])
+  pipelineTriggers([cron('0 1 * * 1-5')])
 ])
 
 @Library("Infrastructure")
 
 def type = "nodejs"
-def product = "rpe"
-def component = "expressjs-template"
+def product = "prl"
+def component = "citizen-frontend"
+
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
+def pipelineConf = new AppPipelineConfig()
 
 withNightlyPipeline(type, product, component) {
 
+  enableFullFunctionalTest(120)
+
+  after('test') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
+  }
+
+  before('crossBrowserTest') {
+
+  }
+
+  after('crossBrowserTest') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+
+  before('fullFunctionalTest') {
+    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
+  }
+
+  after('fullFunctionalTest') {
+    archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+
+  after('fortify-scan') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+  }
 }
+

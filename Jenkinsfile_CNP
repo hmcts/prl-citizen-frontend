@@ -2,17 +2,23 @@
 
 @Library("Infrastructure")
 
+import uk.gov.hmcts.contino.AppPipelineConfig
+
 def type = "nodejs"
-def product = "rpe"
-def component = "expressjs-template"
+def product = "prl"
+def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
+def pipelineConf = new AppPipelineConfig()
+
 withPipeline(type, product, component) {
+  enableAksStagingDeployment()
   disableLegacyDeployment()
+  enableSlackNotifications('#prl-tech-notifications')
 
   after('build') {
     yarnBuilder.yarn('build')
   }
-  
+
 }
