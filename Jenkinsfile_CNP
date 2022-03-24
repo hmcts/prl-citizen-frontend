@@ -10,8 +10,7 @@ def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
-def pipelineConf = new AppPipelineConfig()
-pipelineConf.vaultSecrets = secrets
+
 
 def secrets = [
   'prl-${env}': [
@@ -28,6 +27,10 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
    envVariable: envVar
   ]
 }
+
+
+def pipelineConf = new AppPipelineConfig()
+pipelineConf.vaultSecrets = secrets
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
