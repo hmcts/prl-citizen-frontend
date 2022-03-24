@@ -11,8 +11,26 @@ def component = "citizen-frontend"
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def pipelineConf = new AppPipelineConfig()
+pipelineConf.vaultSecrets = secrets
+
+def secrets = [
+  'prl-${env}': [
+    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY")
+  ]
+]
+
+
+static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
+  [$class     : 'AzureKeyVaultSecret',
+   secretType : 'Secret',
+   name       : secretName,
+   version    : '',
+   envVariable: envVar
+  ]
+}
 
 withPipeline(type, product, component) {
+  loadVaultSecrets(secrets)
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
