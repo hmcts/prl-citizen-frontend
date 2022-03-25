@@ -9,3 +9,10 @@ nodejs:
   #      secrets:
   #        - AppInsightsInstrumentationKey
   environment:
+  keyVaults:
+    prl:
+      resourceGroup: prl
+      secrets:
+        - AppInsightsInstrumentationKey
+idam-pr:
+  enabled: false

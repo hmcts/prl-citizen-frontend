@@ -2,3 +2,13 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  keyVaults:
+    prl:
+      resourceGroup: prl
+      secrets:
+        - AppInsightsInstrumentationKey
+idam-pr:
+  enabled: true
+  redirect_uris:
+    adoption-web:
+      - https://${SERVICE_FQDN}/receiver

@@ -9,7 +9,7 @@ export class PropertiesVolume {
   enableFor(app: Application): void {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
-      this.setSecret('secrets.adoption.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+      this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
     } else {
       this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
       this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
@@ -17,7 +17,7 @@ export class PropertiesVolume {
       // this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
       // this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
       // this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
-      this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setLocalSecret('prl-pcq-token', 'services.equalityAndDiversity.tokenKey');
     }
   }
 

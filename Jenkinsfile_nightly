@@ -12,10 +12,31 @@ def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
+
+
+def secrets = [
+  'prl-${env}': [
+    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY")
+  ]
+]
+
+
+
+static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
+  [$class     : 'AzureKeyVaultSecret',
+   secretType : 'Secret',
+   name       : secretName,
+   version    : '',
+   envVariable: envVar
+  ]
+}
+
 def pipelineConf = new AppPipelineConfig()
+pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
 
+  loadVaultSecrets(secrets)
   enableFullFunctionalTest(120)
 
   after('test') {
