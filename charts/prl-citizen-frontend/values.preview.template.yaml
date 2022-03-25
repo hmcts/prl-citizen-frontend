@@ -7,3 +7,8 @@ nodejs:
       resourceGroup: prl
       secrets:
         - AppInsightsInstrumentationKey
+idam-pr:
+  enabled: true
+  redirect_uris:
+    adoption-web:
+      - https://${SERVICE_FQDN}/receiver

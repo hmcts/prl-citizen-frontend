@@ -7,3 +7,5 @@ nodejs:
        resourceGroup: prl
        secrets:
          - AppInsightsInstrumentationKey
+idam-pr:
+  enabled: false

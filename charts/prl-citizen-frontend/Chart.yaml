@@ -6,5 +6,9 @@ home: https://github.com/hmcts/prl-citizen-frontend
 version: 0.0.2
 dependencies:
   - name: nodejs
-    version: 2.4.0
-    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
+    version: 2.4.1
+    repository: '@hmctspublic'
+  - name: idam-pr
+    version: 2.2.7
+    repository: '@hmctspublic'
+    condition: idam-pr.enabled
