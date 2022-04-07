@@ -7,5 +7,6 @@ nodejs:
        resourceGroup: prl
        secrets:
          - AppInsightsInstrumentationKey
+         - launchDarkly-sdk-key
 idam-pr:
   enabled: false

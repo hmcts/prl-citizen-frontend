@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2020",
     "strict": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitThis": false,
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -17,9 +17,15 @@
     "baseUrl": "src/main",
     "paths": {
       "router/*": ["router/*"],
-      "routes/*": ["routes/*"]
+      "routes/*": ["routes/*"],
+      "shared/*": ["common/*"],
+      "utils/*": ["app/utils/*"],
+      "idam/*": ["app/idam/*"]
     },
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
   },
   "exclude": ["**/*.test.ts", "**/codecept.conf.ts", "**/__mocks__/*"]
 }

@@ -48,10 +48,13 @@
     "govuk-frontend": "^4.0.1",
     "helmet": "^5.0.1",
     "jquery": "^3.5.1",
+    "launchdarkly-node-server-sdk": "^6.3.0",
+    "ldclient-node": "^4.0.5",
     "lodash": "^4.17.20",
     "nunjucks": "^3.2.2",
     "require-directory": "^2.1.1",
     "serve-favicon": "^2.5.0",
+    "to-boolean": "^1.0.0",
     "ts-node": "^10.7.0",
     "tsconfig-paths": "^3.14.1",
     "typescript": "^4.6.3"

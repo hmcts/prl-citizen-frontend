@@ -4,6 +4,18 @@
     "referrerPolicy": "origin"
   },
   "appInsights": {
-    "instrumentationKey": false
+    "roleName": "citizen-frontend"
+  },
+  "featureToggles": {
+    "testFlag": false
+  },
+  "secrets": {
+    "prl": {
+      "AppInsightsInstrumentationKey": "app_insights_instrumental_key",
+      "launchDarkly-sdk-key": "LAUNCH_DARKLY_SDK_KEY"
+    }
+  },
+  "launchDarkly": {
+    "offline": false
   }
 }
