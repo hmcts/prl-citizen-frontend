@@ -1,13 +1,10 @@
-
 import * as path from 'path';
-
 import * as bodyParser from 'body-parser';
 import config = require('config');
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import { glob } from 'glob';
 import favicon from 'serve-favicon';
-
 import { HTTPError } from './HttpError';
 import { AppInsights } from './modules/appinsights';
 import { Helmet } from './modules/helmet';
@@ -30,13 +27,13 @@ const logger = Logger.getLogger('app');
 new PropertiesVolume().enableFor(app);
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
-logger.info('Creating LaunchDarkly Client')
-const launchDarklyClient = new LaunchDarklyClient()
-const featureToggles = new FeatureToggles(launchDarklyClient)
+logger.info('Creating LaunchDarkly Client');
+const launchDarklyClient = new LaunchDarklyClient();
+const featureToggles = new FeatureToggles(launchDarklyClient);
 app.use(/^\/(?!js|img|pdf|stylesheets).*$/, async (req, res, next) => {
   app.settings.nunjucksEnv.globals.warningBanner = await featureToggles.isTestFlagEnabled()
   next()
-})
+});
 // secure the application by adding various HTTP headers to its responses
 new Helmet(config.get('security')).enableFor(app);
 
