@@ -3,6 +3,11 @@ module.exports = {
   env: { browser: true, es6: true, node: true },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier', 'import', 'jest'],
+  settings: {
+    'import/resolver': {
+        typescript: {} // this loads <rootdir>/tsconfig.json to eslint
+     },
+    },
   extends: [
     'eslint:recommended',
     'plugin:import/errors',

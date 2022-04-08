@@ -14,13 +14,13 @@
     "useUnknownInCatchVariables": false,
     "skipLibCheck": true,
     "lib": ["es2020", "dom", "dom.iterable"],
-    "baseUrl": "src/main",
+    "baseUrl": "src",
     "paths": {
-      "router/*": ["router/*"],
-      "routes/*": ["routes/*"],
-      "shared/*": ["common/*"],
-      "utils/*": ["app/utils/*"],
-      "idam/*": ["app/idam/*"]
+      "router/*": ["main/router/*"],
+      "routes/*": ["main/routes/*"],
+      "shared/*": ["main/common/*"],
+      "utils/*": ["main/app/utils/*"],
+      "idam/*": ["main/app/idam/*"]
     },
     "typeRoots": [
       "./node_modules/@types",
