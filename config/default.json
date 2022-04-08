@@ -12,7 +12,7 @@
   "secrets":{
     "prl":{
       "launchDarkly-sdk-key": "LAUNCH_DARKLY_SDK_KEY",
-      "AppInsightsInstrumentationKey": "app_insights_instrumental_key"
+      "AppInsightsInstrumentationKey":"APP_INSIGHTS_INSTRUMENTATION_KEY"
     }
   },
   "launchDarkly": {
