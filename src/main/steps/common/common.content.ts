@@ -9,7 +9,7 @@ const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Make child arrangements',
   applyForDissolution: 'Make child arrangements',
-  title:'New Dashboard coming soon',
+  title: 'New Dashboard coming soon',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',

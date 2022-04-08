@@ -168,7 +168,11 @@ export class PostController<T extends AnyObject> {
 
   private isBlank(req: AppRequest<Partial<Case>>) {
     console.log('inside isBlank() case id is => ' + req.session?.userCase?.id);
-    if (req.session?.userCase?.id === null || req.session?.userCase?.id === undefined || req.session?.userCase?.id === '') {
+    if (
+      req.session?.userCase?.id === null ||
+      req.session?.userCase?.id === undefined ||
+      req.session?.userCase?.id === ''
+    ) {
       return true;
     }
   }

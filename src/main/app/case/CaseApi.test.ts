@@ -1,3 +1,4 @@
+// eslint-disable-line @typescript-eslint/no-empty-function
 import axios from 'axios';
 import { LoggerInstance } from 'winston';
 

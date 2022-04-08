@@ -43,7 +43,7 @@ export class GetController {
     res.render(this.view, {
       ...content,
       sessionErrors,
-      htmlLang: language
+      htmlLang: language,
       // isDraft: req.session?.userCase?.state ? req.session.userCase.state === State.Draft : true,
       // getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });

@@ -6,18 +6,13 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { KeepAliveController } from './app/keepalive/KeepAliveController';
 import { stepsWithContent } from './steps/';
-import { ErrorController } from './steps/error/error.controller';
-import { HomeGetController } from './steps/home/get';
-
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ContactUsGetController } from './steps/contact-us/get';
+import { CookiesGetController } from './steps/cookies/get';
+import { ErrorController } from './steps/error/error.controller';
+import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
-import { CookiesGetController } from './steps/cookies/get';
-
-// import { SaveSignOutGetController } from './steps/save-sign-out/get';
-// import { TaskListGetController } from './steps/task-list/get';
-// import { TimedOutGetController } from './steps/timed-out/get';
 import {
   // CSRF_TOKEN_ERROR_URL,
   ACCESSIBILITY_STATEMENT,

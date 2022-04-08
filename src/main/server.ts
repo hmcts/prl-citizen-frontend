@@ -6,15 +6,13 @@ import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
-
-
 import { AxiosLogger } from './modules/axios-logger';
-import { ErrorHandler } from './modules/error-handler';;
+import { ErrorHandler } from './modules/error-handler';
+import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { StateRedirectMiddleware } from './modules/state-redirect';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
-import { LanguageToggle } from './modules/i18n';
 import { Routes } from './routes';
 
 const { Logger } = require('@hmcts/nodejs-logging');
@@ -51,7 +49,3 @@ process.on('SIGINT', function () {
   toobusy.shutdown();
   process.exit();
 });
-
-
-
-

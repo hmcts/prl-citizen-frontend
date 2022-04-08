@@ -19,6 +19,6 @@ const languages = {
   cy,
 };
 
-export const generateContent: TranslationFn = (content) => {
+export const generateContent: TranslationFn = content => {
   return languages[content.language];
 };

@@ -14,7 +14,7 @@ export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
 export class SessionStorage {
   public enableFor(app: Application): void {
     app.use(cookieParser());
-   // secret: config.get('session.secret'),
+    // secret: config.get('session.secret'),
     app.use(
       session({
         name: 'ds-ui-session',

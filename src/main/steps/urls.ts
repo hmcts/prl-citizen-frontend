@@ -13,7 +13,6 @@ export const SERVICE_TYPE: PageLink = '/service-type';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
 export const EDGE_CASE_URL: PageLink = '/edge-case';
 
-
 export const COOKIES_PAGE: PageLink = '/cookies';
 export const PRIVACY_POLICY: PageLink = '/privacy-policy';
 export const ACCESSIBILITY_STATEMENT: PageLink = '/accessibility-statement';

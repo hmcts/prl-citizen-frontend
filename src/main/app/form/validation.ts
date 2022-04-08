@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
 
-import { OtherName } from '../case/definition';
 import { Case, CaseDate } from '../case/case';
+import { OtherName } from '../case/definition';
 
 dayjs.extend(customParseFormat);
 
