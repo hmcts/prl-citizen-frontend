@@ -1,4 +1,4 @@
-import * as config from 'config';
+import config = require('config');
 import toBoolean = require('to-boolean');
 
 import { LaunchDarklyClient } from 'shared/clients/launchDarklyClient';

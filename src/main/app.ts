@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import * as config from 'config';
+import config = require('config');
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import { glob } from 'glob';
