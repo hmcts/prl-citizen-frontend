@@ -6,34 +6,19 @@ const pa11y = require('pa11y');
 
 const agent = supertest.agent(app);
 
-class Pa11yResult {
+interface Pa11yResult {
   documentTitle: string;
   pageUrl: string;
   issues: PallyIssue[];
-
-  constructor(documentTitle: string, pageUrl: string, issues: PallyIssue[]) {
-    this.documentTitle = documentTitle;
-    this.pageUrl = pageUrl;
-    this.issues = issues;
-  }
 }
 
-class PallyIssue {
+interface PallyIssue {
   code: string;
   context: string;
   message: string;
   selector: string;
   type: string;
   typeCode: number;
-
-  constructor(code: string, context: string, message: string, selector: string, type: string, typeCode: number) {
-    this.code = code;
-    this.context = context;
-    this.message = message;
-    this.selector = selector;
-    this.type = type;
-    this.typeCode = typeCode;
-  }
 }
 
 function ensurePageCallWillSucceed(url: string): Promise<void> {
