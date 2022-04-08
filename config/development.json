@@ -1,8 +1,0 @@
-{
-  "featureToggles": {
-    "testFlag": false
-  },
-  "appInsights": {
-    "instrumentationKey": "dummy-app-insights-instrumentation-key"
-  }
-}

@@ -3,7 +3,7 @@ import * as ld from 'ldclient-node';
 
 import { User } from 'idam/user';
 
-const sdkKey: string = config.get<string>('secrets.prl.launchDarkly-sdk-key');
+const sdkKey: string = config.get<string>('launchDarkly.sdk-key');
 const ldConfig = {
   offline: config.get<boolean>('launchDarkly.offline'),
 };
