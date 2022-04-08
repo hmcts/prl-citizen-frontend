@@ -4,9 +4,9 @@ const appInsights = require('applicationinsights');
 
 export class AppInsights {
   enable(): void {
-    if (config.get('appInsights.instrumentationKey')) {
+    if (config.get('secrets.prl.AppInsightsInstrumentationKey')) {
       appInsights
-        .setup(config.get('appInsights.instrumentationKey'))
+        .setup(config.get('secrets.prl.AppInsightsInstrumentationKey'))
         .setSendLiveMetrics(true)
         .setAutoCollectConsole(true, true)
         .setAutoCollectExceptions(true)

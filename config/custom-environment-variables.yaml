@@ -1,7 +1,0 @@
-appInsights:
-  instrumentationKey: "APP_INSIGHTS_INSTRUMENTATION_KEY"
-launchDarkly:
-  sdk-key: "LAUNCH_DARKLY_SDK_KEY"
-  offline: "false"
-featureToggles:
-  testFlag: "false"
