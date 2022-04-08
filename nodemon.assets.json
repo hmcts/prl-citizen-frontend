@@ -1,0 +1,6 @@
+{
+    "watch": ["src/main/assets"],
+    "ext": "ts,js,scss",
+    "exec": "yarn build"
+  }
+  

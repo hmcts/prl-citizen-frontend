@@ -1,0 +1,20 @@
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{{ govukTextarea({
+  id: field.id if field.id else fieldName,
+  name: fieldName,
+  label: {
+    text: getContent(field.label),
+    classes: "hidden" if field.labelHidden else labelClasses
+  },
+  hint: {
+    html: getContent(field.hint)
+  },
+  value: userCase[fieldName],
+  rows: field.attributes.rows,
+  attributes: field.attributes,
+  errorMessage: null if field.hideError else getError(fieldName),
+  formGroup: {
+    classes: "hidden " + field.id if field.hidden else field.id
+  }
+}) }}

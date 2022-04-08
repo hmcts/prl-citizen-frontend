@@ -1,0 +1,13 @@
+{% extends "common/page.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <p class="govuk-body">{{ info }}</p>
+  <p class="govuk-body">{{ youCan }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ goBack }}</li>
+    <li>
+      <a class="govuk-link" href="/logout">{{ signInAgain }}</a>
+    </li>
+  </ul>
+{% endblock %}

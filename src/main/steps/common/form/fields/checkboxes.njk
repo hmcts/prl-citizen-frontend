@@ -1,0 +1,28 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% for checkbox in field.values %}
+  {# Required for sending an empty value when the checkbox has not been checked #}
+  <input type="hidden" value="" name="{{ checkbox.name }}">
+{% endfor %}
+
+{% set legendClasses %}govuk-fieldset__legend--{% if field.labelSize %}{{ field.labelSize }}{% else %}s{% endif %}{% endset %}
+{{ govukCheckboxes({
+  classes: field.classes,
+  idPrefix: field.id if field.id else fieldName,
+  name: fieldName,
+  fieldset: {
+    legend: {
+      text: getContent(field.label),
+      classes: legendClasses
+    }
+  } if not field.labelHidden,
+  hint: {
+    html: getContent(field.hint)
+  } if field.hint,
+  items: formItems(field.values, userCase),
+  errorMessage: getError(fieldName),
+  formGroup: {    classes: "hidden " + field.id if field.hidden else field.id
+  }
+}) }}
+
+{% if field.subtext %}{{ getContent(field.subtext) | safe }}{% endif %}

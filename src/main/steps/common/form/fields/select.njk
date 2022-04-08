@@ -1,0 +1,18 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{{ 
+  govukSelect({
+    id: field.id if field.id else fieldName,
+    classes: field.classes or "govuk-!-width-three-quarters",
+    name: fieldName,
+    label: {
+      text: getContent(field.label) if not field.labelHidden else "",
+      classes: labelClasses
+    },
+    items: getContent(field.options),
+    attributes: {
+      autocomplete: "off"
+    },
+    errorMessage: getError(fieldName)
+  })
+}}

@@ -1,0 +1,99 @@
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+
+  <p class="govuk-body">{{ websiteRanBy }}</p>
+  <p class="govuk-body">{{ asManyAsPossible }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ asManyAsPossibleColours }}</li>
+    <li>{{ asManyAsPossibleZoom }}</li>
+    <li>{{ asManyAsPossibleKeyboard }}</li>
+    <li>{{ asManyAsPossibleSpeech }}</li>
+    <li>{{ asManyAsPossibleListen }}</li>
+  </ul>
+  <p class="govuk-body">{{ simpleAsPossible }}</p>
+  <p class="govuk-body">{{ abilityNet | safe }}</p>
+
+  <h3 class="govuk-heading-s">{{ howAccessible }}</h3>
+  <p class="govuk-body">{{ somePartsNot }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ somePartsNotReflow }}</li>
+    <li>{{ somePartsNotSpacing }}</li>
+    <li>{{ somePartsNotFooter }}</li>
+  </ul>
+
+  <h3 class="govuk-heading-s">{{ feedbackAndContactInformation }}</h3>
+  <p class="govuk-body">{{ needMoreInformation }}</p>
+  <p class="govuk-body">{{ email | safe }}</p>
+  <p class="govuk-body">{{ phone }}</p>
+  <p class="govuk-body">{{ considerYourRequest }}</p>
+
+  <h3 class="govuk-heading-s">{{ reportingAccessibility }}</h3>
+  <p class="govuk-body">{{ improveAccessibility | safe }}</p>
+  <p class="govuk-body">{{ email | safe }}</p>
+  <p class="govuk-body">{{ accessibilityPhoneNumber }}</p>
+
+  <h3 class="govuk-heading-s">{{ enforcementProcedure }}</h3>
+  <p class="govuk-body">{{ humanRightsCommission | safe }}</p>
+  <p class="govuk-body">{{ notHappy | safe }}</p>
+
+  <h2 class="govuk-heading-m">{{ contactingUs }}</h2>
+  <p class="govuk-body">{{ contactCourtDirectly | safe }}</p>
+  <p class="govuk-body">{{ contactTextRelay }}</p>
+  <p class="govuk-body">{{ contactInductionLoops }}</p>
+
+  <h2 class="govuk-heading-m">{{ technicalInfo }}</h2>
+  <p class="govuk-body">{{ hmctsIsCommitted }}</p>
+
+  <h2 class="govuk-heading-m">{{ complianceStatus }}</h2>
+  <p class="govuk-body">{{ partiallyCompliant | safe }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ partiallyCompliantMobile }}</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">{{ nonAccessibleContent }}</h2>
+
+  <h3 class="govuk-heading-s">{{ issuesWithDocuments }}</h3>
+  <p class="govuk-body">{{ issuesWithDocumentDescription1 }}</p>
+  <p class="govuk-body">{{ issuesWithDocumentDescription2 }}</p>
+
+  <h3 class="govuk-heading-s">{{ issuesSurveys }}</h3>
+  <p class="govuk-body">{{ issuesSurveysDescription }}</p>
+
+  <h3 class="govuk-heading-s">{{ issuesWithLinks }}</h3>
+  <p class="govuk-body">{{ issuesWithLinksDescription }}</p>
+
+  <h3 class="govuk-heading-s">{{ issuesWithHeadings }}</h3>
+  <p class="govuk-body">{{ issuesWithHeadingsDescription }}</p>
+
+  <h3 class="govuk-heading-s">{{ issuesWithColour }}</h3>
+  <p class="govuk-body">{{ issuesWithColourDescription }}</p>
+
+  <h3 class="govuk-heading-s">{{ issuesWithLanguage }}</h3>
+  <p class="govuk-body">{{ issuesWithLanguageDescription }}</p>
+
+  <h3 class="govuk-heading-s">{{ issuesWithOther }}</h3>
+  <p class="govuk-body">{{ issuesWithOtherDescription1 }}</p>
+
+  <h2 class="govuk-heading-m">{{ howWeTested }}</h2>
+  <p class="govuk-body">{{ howWeTestedUI }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ howWeTestedPatty }}</li>
+    <li>{{ howWeTestedNVDA }}</li>
+    <li>{{ howWeTestedColourContrast }}</li>
+    <li>{{ howWeTestedVoiceOver }}</li>
+    <li>{{ howWeTestedE2E }}</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">{{ improvingAccessibility }}</h2>
+  <p class="govuk-body">{{ statementCommitted }}</p>
+  <p class="govuk-body">{{ statementDAC | safe }}</p>
+
+  <h2 class="govuk-heading-m">{{ preparationAccessibilityStatement }}</h2>
+  <p class="govuk-body">{{ statementPreparationDate }}</p>
+
+  <p class="govuk-body govuk-!-font-weight-bold">{{ contactHelp }}</p>
+  <p class="govuk-body">{{ email | safe }}</p>
+  <p class="govuk-body">{{ accessibilityPhoneNumber }}</p>
+{% endblock %}

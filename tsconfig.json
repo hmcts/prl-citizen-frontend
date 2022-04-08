@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "./src/",
+    "outDir": "./dist/",
     "module": "commonjs",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2020",
     "strict": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitThis": false,
     "moduleResolution": "node",
     "noUnusedLocals": true,
