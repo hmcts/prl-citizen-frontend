@@ -10,14 +10,11 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+      this.setSecret('secret.prl.launchDarkly-sdk-key','launchDarkly.sdk-key');
     } else {
       this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
       this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
       this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
-      // this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
-      // this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
-      // this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
-      this.setLocalSecret('prl-pcq-token', 'services.equalityAndDiversity.tokenKey');
     }
   }
 

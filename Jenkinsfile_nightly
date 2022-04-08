@@ -16,7 +16,8 @@ def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def secrets = [
   'prl-${env}': [
-    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY")
+    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
+    secret("launchDarkly-sdk-key", "LAUNCH_DARKLY_SDK_KEY")
   ]
 ]
 
