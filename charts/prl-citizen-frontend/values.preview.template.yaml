@@ -10,5 +10,5 @@ nodejs:
 idam-pr:
   enabled: true
   redirect_uris:
-    prl-citizen-frontend:
+    adoption-web:
       - https://${SERVICE_FQDN}/receiver
