@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Language, generatePageContent } from '../common/common.content';
 
-// import { errorContent } from './content';
+import { errorContent } from './content';
 
 @autobind
 export class ErrorController {
@@ -55,10 +55,8 @@ export class ErrorController {
     }
 
     const language = (req.session?.lang || 'en') as Language;
-    const errorText = {};
-
-    // const errorText =
-    //   errorContent[language][res.statusCode] || errorContent[language][StatusCodes.INTERNAL_SERVER_ERROR];
+    const errorText =
+      errorContent[language][res.statusCode] || errorContent[language][StatusCodes.INTERNAL_SERVER_ERROR];
     const commonContent = generatePageContent({ language, userEmail: req.session?.user?.email });
     res.locals.isError = true;
 

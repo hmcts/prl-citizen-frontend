@@ -23,7 +23,7 @@ const en = {
   needMoreInformation:
     'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
   email:
-    'Email: <a href="adoptionproject@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to adoptionproject@justice.gov.uk">adoptionproject@justice.gov.uk</a>',
+    'Email: <a href="privatelawproject@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to privatelawproject@justice.gov.uk">privatelawproject@justice.gov.uk</a>',
   phone: 'Call: 01634 887900',
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
@@ -110,13 +110,13 @@ const cy = {
   feedbackAndContactInformation: 'Adborth a gwybodaeth gyswllt',
   needMoreInformation:
     'Os ydych angen gwybodaeth sydd ar y wefan hon mewn fformat arall megis ar ffurf PDF hygyrch, print bras, fformat hawdd ei ddarllen, recordiad sain neu braille:',
-  email: 'E-bost: <a href=”adoptionproject@justice.gov.uk” class=”govuk-link”>adoptionproject@justice.gov.uk</a>',
+  email: 'E-bost: <a href=”privatelawproject@justice.gov.uk” class=”govuk-link”>privatelawproject@justice.gov.uk</a>',
   phone: 'Ffoniwch: 01634 887900',
   considerYourRequest: 'Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.',
   reportingAccessibility: "Riportio problemau hygyrchedd gyda'r wefan hon",
   accessibilityPhoneNumber: 'Ffôn: 01634 887900',
   improveAccessibility:
-    'Rydym wastad yn ceisio gwella hygyrchedd y wefan hon. Os byddwch yn cael unrhyw broblemau nad ydynt yn cael eu crybwyll ar y dudalen hon, neu os ydych yn credu nad ydym yn bodloni gofynion y rheoliadau hygyrchedd, cysylltwch â: <a href=”mailto:adoptionproject@justice.gov.uk” class=”govuk-link”>adoptionproject@justice.gov.uk</a>.',
+    'Rydym wastad yn ceisio gwella hygyrchedd y wefan hon. Os byddwch yn cael unrhyw broblemau nad ydynt yn cael eu crybwyll ar y dudalen hon, neu os ydych yn credu nad ydym yn bodloni gofynion y rheoliadau hygyrchedd, cysylltwch â: <a href=”mailto:privatelawproject@justice.gov.uk” class=”govuk-link”>privatelawproject@justice.gov.uk</a>.',
   enforcementProcedure: 'Y Weithdrefn Orfodi',
   humanRightsCommission:
     'Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’).',

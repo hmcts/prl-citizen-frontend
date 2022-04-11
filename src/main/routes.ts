@@ -1,15 +1,13 @@
 import fs from 'fs';
 
-import { Application, RequestHandler } from 'express';
+import { Application } from 'express';
 
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
-import { KeepAliveController } from './app/keepalive/KeepAliveController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
-import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
@@ -19,7 +17,7 @@ import {
   CONTACT_US,
   COOKIES_PAGE,
   HOME_URL,
-  KEEP_ALIVE_URL,
+  // KEEP_ALIVE_URL,
   PRIVACY_POLICY,
   TERMS_AND_CONDITIONS,
   // SAVE_AND_SIGN_OUT,
@@ -30,7 +28,6 @@ import {
 export class Routes {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
-    const errorController = new ErrorController();
 
     // app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
@@ -61,8 +58,8 @@ export class Routes {
       }
     }
 
-    app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
+    // app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
 
-    app.use(errorController.notFound as unknown as RequestHandler);
+    // app.use(errorController.notFound as unknown as RequestHandler);
   }
 }

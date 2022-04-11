@@ -30,14 +30,15 @@ const cyContentError = {
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('service-type content', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as CommonContent;
+  // , userCase: { applyingWith: 'alone'
+  const commonContent = { language: 'en' } as CommonContent;
   test('should return correct english content', () => {
     const generatedContent = generateContent(commonContent);
     expect(generatedContent.hint).toEqual(
       'Select either adoption or private law. There are specific examples under each section'
     );
     expect(generatedContent.cancel).toEqual('Cancel');
-    expect(generatedContent.serviceName).toEqual('Family');
+    expect(generatedContent.serviceName).toEqual('C100');
     expect(generatedContent.continue).toEqual('Continue');
     expect(generatedContent.label).toEqual('Select type of family law you need');
     expect(generatedContent.one).toEqual('Adoption');
@@ -51,7 +52,7 @@ describe('service-type content', () => {
       'Select either adoption or private law. There are specific examples under each section (in welsh)'
     );
     expect(generatedContent.cancel).toEqual('Cancel (in welsh)');
-    expect(generatedContent.serviceName).toEqual('Family (in welsh)');
+    expect(generatedContent.serviceName).toEqual('C100 (in welsh)');
     expect(generatedContent.continue).toEqual('Continue (in welsh)');
     expect(generatedContent.label).toEqual('Select type of family law you need (in welsh)');
     expect(generatedContent.one).toEqual('Adoption (in welsh)');

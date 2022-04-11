@@ -36,7 +36,8 @@ export class ErrorHandler {
   public handleNextErrorsFor(app: Application): void {
     app.use((err: Error | string | undefined, req: Request, res: Response, next: NextFunction) => {
       if (err) {
-        return errorController.internalServerError(err, req as AppRequest, res);
+        // change
+        return err;
       }
       next();
     });

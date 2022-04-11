@@ -6,13 +6,15 @@ import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
+
+
 import { AxiosLogger } from './modules/axios-logger';
-import { ErrorHandler } from './modules/error-handler';
-import { LanguageToggle } from './modules/i18n';
+import { ErrorHandler } from './modules/error-handler';;
 import { Nunjucks } from './modules/nunjucks';
-import { StateRedirectMiddleware } from './modules/state-redirect';
+// import { StateRedirectMiddleware } from './modules/state-redirect';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
+import { LanguageToggle } from './modules/i18n';
 import { Routes } from './routes';
 
 const { Logger } = require('@hmcts/nodejs-logging');
@@ -34,7 +36,7 @@ new ErrorHandler().enableFor(app, logger);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
 new TooBusy().enableFor(app);
-new StateRedirectMiddleware().enableFor(app);
+// new StateRedirectMiddleware().enableFor(app);
 new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
@@ -49,3 +51,7 @@ process.on('SIGINT', function () {
   toobusy.shutdown();
   process.exit();
 });
+
+
+
+

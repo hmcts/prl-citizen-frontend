@@ -21,8 +21,8 @@ describe('TermsAndConditionsGetController', () => {
         ...generatePageContent({
           language,
           pageContent: generateContent,
-          userEmail: 'test@example.com',
-          userCase: req.session.userCase,
+          // userEmail: 'test@example.com',
+          // userCase: req.session.userCase,
         }),
         ...defaultViewArgs,
       })

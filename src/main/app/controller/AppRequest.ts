@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
-import { CaseApi } from '../case/CaseApi';
+
 import { Case, CaseWithId } from '../case/case';
 import { FormError } from '../form/Form';
 
@@ -12,7 +12,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
     env: string;
     lang: string;
     logger: LoggerInstance;
-    api: CaseApi;
+    api: string;
   };
   body: T;
 }

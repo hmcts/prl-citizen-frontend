@@ -10,7 +10,7 @@ const en = () => ({
   one: 'Adoption',
   two: 'Private Law',
   hint: 'Select either adoption or private law. There are specific examples under each section',
-  serviceName: 'Family',
+  serviceName: 'C100',
   errors: {
     serviceType: {
       required: 'Select the Service type',
@@ -25,7 +25,7 @@ const cy = () => ({
   one: 'Adoption (in welsh)',
   two: 'Private Law (in welsh)',
   hint: 'Select either adoption or private law. There are specific examples under each section (in welsh)',
-  serviceName: 'Family (in welsh)',
+  serviceName: 'C100 (in welsh)',
   errors: {
     serviceType: {
       required: 'Select the Service type (in welsh)',

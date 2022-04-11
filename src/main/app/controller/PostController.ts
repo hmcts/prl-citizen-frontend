@@ -3,20 +3,23 @@ import config from 'config';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_CREATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
-import { Form, FormFields, FormFieldsFn } from '../form/Form';
+// import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+// CaseWithId
+import { Case } from '../case/case';
+// CITIZEN_SAVE_AND_CLOSE, 
+import { CITIZEN_CREATE,CITIZEN_UPDATE } from '../case/definition';
+// Form
+import { FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
 
-enum noHitToSaveAndContinue {
-  CITIZEN_HOME_URL = '/citizen-home',
-  SERVICE_TYPE = '/service-type',
-  ADOPTION_APPLICATION_TYPE = '/adoption-application-type',
-  PRIVATE_LAW_APPLICATION_TYPE = '/private-law-application-type',
-}
+// enum noHitToSaveAndContinue {
+//   CITIZEN_HOME_URL = '/citizen-home',
+//   SERVICE_TYPE = '/service-type',
+//   ADOPTION_APPLICATION_TYPE = '/adoption-application-type',
+//   PRIVATE_LAW_APPLICATION_TYPE = '/private-law-application-type',
+// }
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -27,81 +30,80 @@ export class PostController<T extends AnyObject> {
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
     //const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const fields = typeof this.fields === 'function' ? this.fields(req.session?.userCase) : this.fields;
-    const form = new Form(fields);
+    // const form = new Form(fields);
 
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    // const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     if (req.body.saveAndSignOut) {
-      await this.saveAndSignOut(req, res, formData);
+      // await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
-      await this.saveBeforeSessionTimeout(req, res, formData);
+      // await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.cancel) {
       await this.cancel(req, res);
     } else {
-      await this.saveAndContinue(req, res, form, formData);
+      // await this.saveAndContinue(req, res, form, formData);
     }
   }
 
-  private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    try {
-      await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
-    } catch {
-      // ignore
-    }
-    res.redirect(SAVE_AND_SIGN_OUT);
-  }
+  // private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
+  //   try {
+  //     await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
+  //   } catch {
+  //     // ignore
+  //   }
+  //   res.redirect(SAVE_AND_SIGN_OUT);
+  // }
 
-  private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    try {
-      await this.save(req, formData, this.getEventName(req));
-    } catch {
-      // ignore
-    }
-    res.end();
-  }
+  // private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
+  //   try {
+  //     await this.save(req, formData, this.getEventName(req));
+  //   } catch {
+  //     // ignore
+  //   }
+  //   res.end();
+  // }
 
-  private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    Object.assign(req?.session?.userCase, formData);
-    req.session.errors = form.getErrors(formData);
+  // private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
+  //   Object.assign(req?.session?.userCase, formData);
+  //   req.session.errors = form.getErrors(formData);
 
-    this.filterErrorsForSaveAsDraft(req);
+  //   this.filterErrorsForSaveAsDraft(req);
 
-    const tempServiceType = req.session?.userCase?.serviceType;
-    const tempApplyingWithAdoption = req.session?.userCase?.applyingWithAdoption;
-    const tempApplyingWithPrivateLaw = req.session?.userCase?.applyingWithPrivateLaw;
+  //   const tempServiceType = req.session?.userCase?.serviceType;
+  //   const tempApplyingWithAdoption = req.session?.userCase?.applyingWithAdoption;
+  //   const tempApplyingWithPrivateLaw = req.session?.userCase?.applyingWithPrivateLaw;
 
-    if (req.session?.user && req.session.errors.length === 0) {
-      if (!(Object.values(noHitToSaveAndContinue) as string[]).includes(req.originalUrl)) {
-        const eventName = this.getEventName(req);
-        if (eventName === CITIZEN_CREATE) {
-          req.session.userCase = await this.createCase(req, formData);
-        } else if (eventName === CITIZEN_UPDATE) {
-          req.session.userCase = await this.save(req, formData, eventName);
-        }
-      }
-    }
+  //   if (req.session?.user && req.session.errors.length === 0) {
+  //     if (!(Object.values(noHitToSaveAndContinue) as string[]).includes(req.originalUrl)) {
+  //       const eventName = this.getEventName(req);
+  //       if (eventName === CITIZEN_CREATE) {
+  //         req.session.userCase = await this.createCase(req, formData);
+  //       } else if (eventName === CITIZEN_UPDATE) {
+  //         req.session.userCase = await this.save(req, formData, eventName);
+  //       }
+  //     }
+  //   }
 
-    // here we explicitly assigning the values to userCase to get the title
-    if (typeof req.session.userCase !== 'undefined' && req.session.userCase !== null) {
-      req.session.userCase.serviceType = tempServiceType;
-      req.session.userCase.applyingWithAdoption = tempApplyingWithAdoption;
-      req.session.userCase.applyingWithPrivateLaw = tempApplyingWithPrivateLaw;
-    }
+  //   // here we explicitly assigning the values to userCase to get the title
+  //   if (typeof req.session.userCase !== 'undefined' && req.session.userCase !== null) {
+  //     req.session.userCase.serviceType = tempServiceType;
+  //     req.session.userCase.applyingWithAdoption = tempApplyingWithAdoption;
+  //     req.session.userCase.applyingWithPrivateLaw = tempApplyingWithPrivateLaw;
+  //   }
 
-    this.redirect(req, res);
-  }
-  async createCase(req: AppRequest<T>, formData: Partial<Case>): Promise<CaseWithId | PromiseLike<CaseWithId>> {
-    try {
-      console.log('Create Case New');
-      req.session.userCase = await req.locals.api.createCaseNew(req, req.session.user, formData);
-    } catch (err) {
-      req.locals.logger.error('Error saving', err);
-      req.session.errors = req.session.errors || [];
-      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
-    }
-    return req.session.userCase;
-  }
+  //   this.redirect(req, res);
+  // }
+  // async createCase(req: AppRequest<T>, formData: Partial<Case>): Promise<CaseWithId | PromiseLike<CaseWithId>> {
+  //   try {
+  //     console.log('Create Case New');
+  //     req.session.userCase = await req.locals.api.createCaseNew(req, req.session.user, formData);
+  //   } catch (err) {
+  //     req.locals.logger.error('Error saving', err);
+  //     req.session.errors = req.session.errors || [];
+  //     req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+  //   }
+  //   return req.session.userCase;
+  // }
 
   private async cancel(req: AppRequest<T>, res: Response): Promise<void> {
     const hmctsHomePage: string = config.get('services.hmctsHomePage.url');
@@ -118,17 +120,17 @@ export class PostController<T extends AnyObject> {
     }
   }
 
-  protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    try {
-      console.log('Update Existing Case');
-      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
-    } catch (err) {
-      req.locals.logger.error('Error saving', err);
-      req.session.errors = req.session.errors || [];
-      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
-    }
-    return req.session.userCase;
-  }
+  // protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+  //   try {
+  //     console.log('Update Existing Case');
+  //     req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+  //   } catch (err) {
+  //     req.locals.logger.error('Error saving', err);
+  //     req.session.errors = req.session.errors || [];
+  //     req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+  //   }
+  //   return req.session.userCase;
+  // }
 
   protected redirect(req: AppRequest<T>, res: Response, nextUrl?: string): void {
     if (!nextUrl) {

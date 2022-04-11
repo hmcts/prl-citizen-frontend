@@ -1,15 +1,14 @@
 import { capitalize } from 'lodash';
 
-import { CaseWithId } from '../../app/case/case';
+// import { CaseWithId } from '../../app/case/case';
 import { Fee } from '../../app/case/definition';
-import { Eligibility } from '../../app/controller/AppRequest';
+// import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Make child arrangements',
   applyForDissolution: 'Make child arrangements',
-  title: 'New Dashboard coming soon',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
@@ -187,34 +186,34 @@ const cy: typeof en = {
 export const generatePageContent = ({
   language,
   pageContent,
-  userCase,
+  // userCase,
   userEmail,
-  addresses = [],
+  // addresses = [],
   // eligibility,
   fee,
 }: {
   language: Language;
   pageContent?: TranslationFn;
-  userCase?: Partial<CaseWithId>;
+  // userCase?: Partial<CaseWithId>;
   userEmail?: string;
-  addresses?: [];
+  // addresses?: [];
   // eligibility?: Eligibility;
   fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
-  const contactEmail = 'todo@test.com';
+  // const contactEmail = 'todo@test.com';
 
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
     language,
-    userCase,
+    // userCase,
     userEmail,
-    contactEmail,
-    addresses,
+    // contactEmail,
+    // addresses,
     // eligibility,
-    fee,
+    // fee,
   };
 
   if (pageContent) {
@@ -232,14 +231,14 @@ export type CommonContent = typeof en & {
   language: Language;
   serviceName: string;
   pageContent?: TranslationFn;
-  userCase?: Partial<CaseWithId>;
+  // userCase?: Partial<CaseWithId>;
   userEmail?: string;
-  contactEmail?: string;
-  referenceNumber?: string;
+  // contactEmail?: string;
+  // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  addresses?: any[];
-  eligibility?: Eligibility;
-  fee?: Fee;
+  // addresses?: any[];
+  // eligibility?: Eligibility;
+  // fee?: Fee;
 };
 
 export type Language = 'en' | 'cy';
