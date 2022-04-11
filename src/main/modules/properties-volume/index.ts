@@ -1,4 +1,4 @@
-import { execSync } from 'child_process';
+// import { execSync } from 'child_process';
 
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config from 'config';
@@ -11,13 +11,13 @@ export class PropertiesVolume {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
     } else {
-      this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
-      this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
-      this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
+      // this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
+      // this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
+      // this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
       // this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
       // this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
       // this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
-      this.setLocalSecret('prl-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      // this.setLocalSecret('prl-pcq-token', 'services.equalityAndDiversity.tokenKey');
     }
   }
 
@@ -30,8 +30,8 @@ export class PropertiesVolume {
   /**
    * Load a secret from the AAT vault using azure cli
    */
-  private setLocalSecret(secret: string, toPath: string): void {
-    const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
-    set(config, toPath, result.toString().replace('\n', ''));
-  }
+  // private setLocalSecret(secret: string, toPath: string): void {
+  //   const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
+  //   set(config, toPath, result.toString().replace('\n', ''));
+  // }
 }
