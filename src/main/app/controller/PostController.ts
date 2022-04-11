@@ -34,15 +34,15 @@ export class PostController<T extends AnyObject> {
 
     // const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    if (req.body.saveAndSignOut) {
-      // await this.saveAndSignOut(req, res, formData);
-    } else if (req.body.saveBeforeSessionTimeout) {
-      // await this.saveBeforeSessionTimeout(req, res, formData);
-    } else if (req.body.cancel) {
-      // await this.cancel(req, res);
-    } else {
-      // await this.saveAndContinue(req, res, form, formData);
-    }
+    // if (req.body.saveAndSignOut) {
+    //   // await this.saveAndSignOut(req, res, formData);
+    // } else if (req.body.saveBeforeSessionTimeout) {
+    //   // await this.saveBeforeSessionTimeout(req, res, formData);
+    // } else if (req.body.cancel) {
+    //   // await this.cancel(req, res);
+    // } else {
+    //   // await this.saveAndContinue(req, res, form, formData);
+    // }
     console.log(res);
   }
 

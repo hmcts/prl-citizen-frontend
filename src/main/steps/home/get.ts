@@ -29,14 +29,15 @@ export class HomeGetController {
     //   throw new Error('Invalid case type');
     // }
     // const firstQuestionForm = getApplicantFirstQuestionForm();
-    const isFirstQuestionComplete = true;
+    // const isFirstQuestionComplete = true;
 
-    res.redirect(applicant1RedirectPageSwitch(isFirstQuestionComplete));
+    res.redirect(applicant1RedirectPageSwitch());
   }
 }
 
-const applicant1RedirectPageSwitch = (isFirstQuestionComplete: boolean) => {
-  return isFirstQuestionComplete ? CITIZEN_HOME_URL : CITIZEN_HOME_URL;
+const applicant1RedirectPageSwitch = () => {
+  // return isFirstQuestionComplete ? CITIZEN_HOME_URL : CITIZEN_HOME_URL;
+  return CITIZEN_HOME_URL;
 };
 
 // const getApplicantFirstQuestionForm = () => {
