@@ -39,13 +39,6 @@ withPipeline(type, product, component) {
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
 
-  onMaster() {
-    env.ENV = 'aat'
-  }
-  onPR() {
-    env.ENV = 'preview'
-  }
-
   after('build') {
     yarnBuilder.yarn('build')
   }
