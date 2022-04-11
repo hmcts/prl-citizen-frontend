@@ -35,7 +35,7 @@ describe('service-type content', () => {
   test('should return correct english content', () => {
     const generatedContent = generateContent(commonContent);
     expect(generatedContent.hint).toEqual(
-      'Select either adoption or private law. There are specific examples under each section'
+      'Select either C100 or FL401. There are specific examples under each section'
     );
     expect(generatedContent.cancel).toEqual('Cancel');
     expect(generatedContent.serviceName).toEqual('C100');
@@ -49,7 +49,7 @@ describe('service-type content', () => {
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'cy' });
     expect(generatedContent.hint).toEqual(
-      'Select either adoption or private law. There are specific examples under each section (in welsh)'
+      'Select either C100 or FL401. There are specific examples under each section (in welsh)'
     );
     expect(generatedContent.cancel).toEqual('Cancel (in welsh)');
     expect(generatedContent.serviceName).toEqual('C100 (in welsh)');
@@ -72,7 +72,7 @@ describe('service-type content', () => {
     expect((serviceTypeField.label as Function)(generatedContent)).toBe('Select type of family law you need');
     expect((serviceTypeField.values[0].label as Function)(generatedContent)).toBe('Adoption');
     expect((serviceTypeField.hint as Function)(generatedContent)).toBe(
-      'Select either adoption or private law. There are specific examples under each section'
+      'Select either C100 or FL401. There are specific examples under each section'
     );
     expect((serviceTypeField.values[1].label as Function)(generatedContent)).toBe('Private Law');
 
