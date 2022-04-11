@@ -24,7 +24,7 @@ const cy = () => ({
   label: 'Select type of family law you need (in welsh)',
   one: 'Adoption (in welsh)',
   two: 'Private Law (in welsh)',
-  hint: 'Select C100 or FL401. There are specific examples under each section (in welsh)',
+  hint: 'Select either C100 or FL401. There are specific examples under each section (in welsh)',
   serviceName: 'C100 (in welsh)',
   errors: {
     serviceType: {
