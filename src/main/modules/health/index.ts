@@ -30,7 +30,7 @@ export class HealthCheck {
           }
         : {}),
       buildInfo: {
-        name: 'adoption-web',
+        name: 'prl-citizen-frontend',
         host: os.hostname(),
         uptime: process.uptime(),
       },

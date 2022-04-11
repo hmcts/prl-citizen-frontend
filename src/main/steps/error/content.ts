@@ -10,10 +10,10 @@ const en = {
     line2: 'If you pasted the web address, check you copied the entire address.',
     line3:
       'If you followed a link, there may be a problem with the service or the link has timed out. You should ask for a new link.',
-    line4: 'If you need support for the online adoption service, contact your social worker or adoption agency.',
+    line4: 'If you need support for the online Family Private Law service, contact your social worker or adoption agency.',
   },
   [StatusCodes.INTERNAL_SERVER_ERROR]: {
-    title: 'Sorry, there is a problem with the online adoption service',
+    title: 'Sorry, there is a problem with the online Family Private Law service',
     info: 'Please try again later. We have saved your answers.',
   },
 };

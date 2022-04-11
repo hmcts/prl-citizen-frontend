@@ -9,7 +9,7 @@ const en = () => ({
   label: 'Select type of family law you need',
   one: 'Adoption',
   two: 'Private Law',
-  hint: 'Select either adoption or private law. There are specific examples under each section',
+  hint: 'Select either C100 or FL401. There are specific examples under each section',
   serviceName: 'C100',
   errors: {
     serviceType: {
