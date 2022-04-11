@@ -54,7 +54,7 @@ new ErrorHandler().handleNextErrorsFor(app);
 
 setupDev(app, developmentMode);
 
-const port: number = parseInt(process.env.PORT || '3000', 10);
+const port: number = parseInt(process.env.PORT || '3001', 10);
 const server = app.listen(port, () => {
   logger.info(`Application started: http://localhost:${port}`);
 });

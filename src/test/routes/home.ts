@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { expect } from 'chai';
-const testUrl = process.env.TEST_URL || 'http://localhost:3000';
+const testUrl = process.env.TEST_URL || 'http://localhost:3001';
 // TODO: replace this sample test with proper route tests for your application
 /* eslint-disable jest/expect-expect */
 describe('Home page', () => {

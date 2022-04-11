@@ -2,6 +2,10 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  devmemoryLimits: 2Gi
+  devmemoryRequests: 512Mi
+  devcpuLimits: 1000m
+  devcpuRequests: 500m
   keyVaults:
      prl:
        resourceGroup: prl
