@@ -1,13 +1,16 @@
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
+import config = require('config');
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
+import { AppInsights } from './modules/appinsights';
 import { AxiosLogger } from './modules/axios-logger';
 import { ErrorHandler } from './modules/error-handler';
+import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 // import { StateRedirectMiddleware } from './modules/state-redirect';
@@ -28,10 +31,11 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
-
 new AxiosLogger().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
+new AppInsights().enable();
 new Nunjucks().enableFor(app);
+new Helmet(config.get('security')).enableFor(app);
 new Webpack().enableFor(app);
 new TooBusy().enableFor(app);
 // new StateRedirectMiddleware().enableFor(app);
