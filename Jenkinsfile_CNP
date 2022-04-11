@@ -38,7 +38,8 @@ withPipeline(type, product, component) {
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
-
+  log.info '${env}'
+  log.info '${launchDarkly-sdk-key}'
   after('build') {
     yarnBuilder.yarn('build')
   }
