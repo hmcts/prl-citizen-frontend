@@ -10,6 +10,11 @@ def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
+def vaultOverrides = [
+  'preview': 'aat',
+  'spreview': 'saat'
+]
+
 
 
 def secrets = [
@@ -38,8 +43,8 @@ withPipeline(type, product, component) {
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
-  log.info '${env}'
-  log.info '${launchDarkly-sdk-key}'
+  log.info env
+  log.info launchDarkly-sdk-key
   after('build') {
     yarnBuilder.yarn('build')
   }
