@@ -74,8 +74,6 @@ export class GetController {
     }
   }
 
-
-
   //eslint-disable-next-line @typescript-eslint/ban-types
   public saveSessionAndRedirect(req: AppRequest, res: Response, callback?: Function): void {
     req.session.save(err => {

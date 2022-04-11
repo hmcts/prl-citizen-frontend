@@ -188,10 +188,10 @@ export const generatePageContent = ({
   pageContent,
   // userCase,
   userEmail,
-  // addresses = [],
-  // eligibility,
-  fee,
-}: {
+}: // addresses = [],
+// eligibility,
+// fee,
+{
   language: Language;
   pageContent?: TranslationFn;
   // userCase?: Partial<CaseWithId>;

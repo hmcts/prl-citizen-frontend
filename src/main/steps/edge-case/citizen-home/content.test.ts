@@ -32,8 +32,12 @@ describe('citizen-home content', () => {
     expect(selectJurisdictionField.type).toBe('radios');
     expect(selectJurisdictionField.classes).toBe('govuk-radios');
     expect((selectJurisdictionField.label as Function)(generatedContent)).toBe('Type of application');
-    expect((selectJurisdictionField.values[0].label as Function)(generatedContent)).toBe('C100 Child Arrangements Application');
-    expect((selectJurisdictionField.values[1].label as Function)(generatedContent)).toBe('FL401 Non-Molestation &/or Occupation Order Application');
+    expect((selectJurisdictionField.values[0].label as Function)(generatedContent)).toBe(
+      'C100 Child Arrangements Application'
+    );
+    expect((selectJurisdictionField.values[1].label as Function)(generatedContent)).toBe(
+      'FL401 Non-Molestation &/or Occupation Order Application'
+    );
   });
 
   test('should contain submit button', () => {

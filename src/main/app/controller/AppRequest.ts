@@ -2,7 +2,6 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
-
 import { Case, CaseWithId } from '../case/case';
 import { FormError } from '../form/Form';
 

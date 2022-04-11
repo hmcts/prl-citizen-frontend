@@ -15,15 +15,15 @@ describe('CookiesGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith(expect.anything(),{
+    expect(res.render).toBeCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,
         userEmail: 'test@example.com',
-    //    userCase: req.session.userCase,
+        //    userCase: req.session.userCase,
       }),
       ...defaultViewArgs,
-    //  userCase: req.session.userCase,
+      //  userCase: req.session.userCase,
     });
   });
 });

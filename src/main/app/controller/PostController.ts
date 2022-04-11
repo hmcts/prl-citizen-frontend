@@ -6,8 +6,8 @@ import { getNextStepUrl } from '../../steps';
 // import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 // CaseWithId
 import { Case } from '../case/case';
-// CITIZEN_SAVE_AND_CLOSE, 
-import { CITIZEN_CREATE,CITIZEN_UPDATE } from '../case/definition';
+// CITIZEN_SAVE_AND_CLOSE,
+import { CITIZEN_CREATE, CITIZEN_UPDATE } from '../case/definition';
 // Form
 import { FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
