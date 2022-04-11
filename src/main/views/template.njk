@@ -8,7 +8,7 @@
   <!-- {{ userCase.id }} -->
 {% endblock %}
 {% block header %}
-  {# {% include "../cookie-banner/template.njk" %} #}
+  {% include "./cookie-banner/template.njk" %}
   {{ govukHeader({
     containerClasses: "govuk-width-container",
     serviceName: serviceName,
