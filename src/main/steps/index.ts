@@ -1,7 +1,7 @@
 // import s from 'connect-redis';
 import * as fs from 'fs';
 
-import { Case, CaseWithId } from '../app/case/case';
+import { Case } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
@@ -26,45 +26,41 @@ const stepForms: Record<string, Form> = {};
   }
 });
 
-const getNextIncompleteStep = (
-  data: CaseWithId,
-  step: Step,
-  sequence: Step[],
-  removeExcluded = false,
-  checkedSteps: Step[] = []
-): string => {
-  const stepForm = stepForms[step.url];
-  // if this step has a form
-  if (stepForm !== undefined) {
-    // and that form has errors
-    // if (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0)
-    if (!stepForm.isComplete(data)) {
-      // go to that step
-      return removeExcluded && checkedSteps.length && step.excludeFromContinueApplication
-        ? checkedSteps[checkedSteps.length - 1].url
-        : step.url;
-    } else {
-      // if there are no errors go to the next page and work out what to do
-      const nextStepUrl = step.getNextStep(data);
-      const nextStep = sequence.find(s => s.url === nextStepUrl);
+// const getNextIncompleteStep = (
+//   data: CaseWithId,
+//   step: Step,
+//   sequence: Step[],
+//   removeExcluded = false,
+//   checkedSteps: Step[] = []
+// ): string => {
+//   const stepForm = stepForms[step.url];
+//   // if this step has a form
+//   if (stepForm !== undefined) {
+//     if (!stepForm.isComplete(data)) {
+//       return removeExcluded && checkedSteps.length && step.excludeFromContinueApplication
+//         ? checkedSteps[checkedSteps.length - 1].url
+//         : step.url;
+//     } else {
+//       const nextStepUrl = step.getNextStep(data);
+//       const nextStep = sequence.find(s => s.url === nextStepUrl);
 
-      return nextStep
-        ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
-        : CITIZEN_HOME_URL;
-    }
-  }
+//       return nextStep
+//         ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
+//         : CITIZEN_HOME_URL;
+//     }
+//   }
 
-  // if the page has no form then ask it where to go
-  return step.getNextStep(data);
-};
+//   // if the page has no form then ask it where to go
+//   return step.getNextStep(data);
+// };
 
-export const getNextIncompleteStepUrl = (req: AppRequest): string => {
-  const { queryString } = getPathAndQueryString(req);
-  const sequence = getUserSequence();
-  const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true);
+// export const getNextIncompleteStepUrl = (req: AppRequest): string => {
+//   const { queryString } = getPathAndQueryString(req);
+//   const sequence = getUserSequence();
+//   const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true);
 
-  return `${url}${queryString}`;
-};
+//   return `${url}${queryString}`;
+// };
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -85,9 +81,9 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
   return { path, queryString };
 };
 
-const getUserSequence = () => {
-  return edgecaseSequence;
-};
+// const getUserSequence = () => {
+//   return edgecaseSequence;
+// };
 
 const getStepFiles = (stepDir: string) => {
   const stepContentFile = `${stepDir}/content.ts`;

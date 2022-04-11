@@ -1,16 +1,16 @@
 import autobind from 'autobind-decorator';
-import config from 'config';
+// import config from 'config';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 // import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 // CaseWithId
-import { Case } from '../case/case';
+// import { Case } from '../case/case';
 // CITIZEN_SAVE_AND_CLOSE,
-import { CITIZEN_CREATE, CITIZEN_UPDATE } from '../case/definition';
+// import { CITIZEN_CREATE, CITIZEN_UPDATE } from '../case/definition';
 // Form
 import { FormFields, FormFieldsFn } from '../form/Form';
-import { ValidationError } from '../form/validation';
+// import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
 
@@ -39,10 +39,11 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.saveBeforeSessionTimeout) {
       // await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.cancel) {
-      await this.cancel(req, res);
+      // await this.cancel(req, res);
     } else {
       // await this.saveAndContinue(req, res, form, formData);
     }
+    console.log(res);
   }
 
   // private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
@@ -105,20 +106,20 @@ export class PostController<T extends AnyObject> {
   //   return req.session.userCase;
   // }
 
-  private async cancel(req: AppRequest<T>, res: Response): Promise<void> {
-    const hmctsHomePage: string = config.get('services.hmctsHomePage.url');
-    res.redirect(hmctsHomePage);
-  }
+  // private async cancel(req: AppRequest<T>, res: Response): Promise<void> {
+  //   const hmctsHomePage: string = config.get('services.hmctsHomePage.url');
+  //   res.redirect(hmctsHomePage);
+  // }
 
-  protected filterErrorsForSaveAsDraft(req: AppRequest<T>): void {
-    if (req.body.saveAsDraft) {
-      // skip empty field errors in case of save as draft
-      req.session.errors = req.session.errors!.filter(
-        item => item.errorType !== ValidationError.REQUIRED && item.errorType !== ValidationError.NOT_SELECTED // &&
-        //item.errorType !== ValidationError.NOT_UPLOADED
-      );
-    }
-  }
+  // protected filterErrorsForSaveAsDraft(req: AppRequest<T>): void {
+  //   if (req.body.saveAsDraft) {
+  //     // skip empty field errors in case of save as draft
+  //     req.session.errors = req.session.errors!.filter(
+  //       item => item.errorType !== ValidationError.REQUIRED && item.errorType !== ValidationError.NOT_SELECTED // &&
+  //       //item.errorType !== ValidationError.NOT_UPLOADED
+  //     );
+  //   }
+  // }
 
   // protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
   //   try {
@@ -147,37 +148,37 @@ export class PostController<T extends AnyObject> {
 
   // method to check if there is a returnUrl in session and
   // it is one of the allowed redirects from current page
-  protected checkReturnUrlAndRedirect(req: AppRequest<T>, res: Response, allowedReturnUrls: string[]): void {
-    const returnUrl = req.session.returnUrl;
-    if (returnUrl && allowedReturnUrls.includes(returnUrl)) {
-      req.session.returnUrl = undefined;
-      this.redirect(req, res, returnUrl);
-    } else {
-      this.redirect(req, res);
-    }
-  }
+  // protected checkReturnUrlAndRedirect(req: AppRequest<T>, res: Response, allowedReturnUrls: string[]): void {
+  //   const returnUrl = req.session.returnUrl;
+  //   if (returnUrl && allowedReturnUrls.includes(returnUrl)) {
+  //     req.session.returnUrl = undefined;
+  //     this.redirect(req, res, returnUrl);
+  //   } else {
+  //     this.redirect(req, res);
+  //   }
+  // }
 
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected getEventName(req: AppRequest): string {
-    let eventName = CITIZEN_UPDATE;
-    if (this.isBlank(req)) {
-      console.log('creating new case event');
-      eventName = CITIZEN_CREATE;
-    }
-    console.log('event is => ' + eventName);
-    return eventName;
-  }
+  // protected getEventName(req: AppRequest): string {
+  //   let eventName = CITIZEN_UPDATE;
+  //   if (this.isBlank(req)) {
+  //     console.log('creating new case event');
+  //     eventName = CITIZEN_CREATE;
+  //   }
+  //   console.log('event is => ' + eventName);
+  //   return eventName;
+  // }
 
-  private isBlank(req: AppRequest<Partial<Case>>) {
-    console.log('inside isBlank() case id is => ' + req.session?.userCase?.id);
-    if (
-      req.session?.userCase?.id === null ||
-      req.session?.userCase?.id === undefined ||
-      req.session?.userCase?.id === ''
-    ) {
-      return true;
-    }
-  }
+  // private isBlank(req: AppRequest<Partial<Case>>) {
+  //   console.log('inside isBlank() case id is => ' + req.session?.userCase?.id);
+  //   if (
+  //     req.session?.userCase?.id === null ||
+  //     req.session?.userCase?.id === undefined ||
+  //     req.session?.userCase?.id === ''
+  //   ) {
+  //     return true;
+  //   }
+  // }
 }
 
 export type AnyObject = Record<string, unknown>;

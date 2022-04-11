@@ -21,6 +21,6 @@ export const generateInputField = (values: InputValues): Record<string, FormFiel
     label: l => l[`${values.label}`],
     hint: l => l[`${values.hint}`],
     labelSize: values.labelSize,
-    // validator: values.validator,
+    validator: values.validator,
   },
 });

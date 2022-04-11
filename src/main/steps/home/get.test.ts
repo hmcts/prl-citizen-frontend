@@ -18,12 +18,12 @@ describe('HomeGetController', () => {
 
   test('redirects to the first question for new users', () => {
     const req = mockRequest({
-      session: {
-        userCase: {
-          id: '123',
-          mockQuestion: 'mockExistingAnswer',
-        },
-      },
+      // session: {
+      //   userCase: {
+      //     id: '123',
+      //     mockQuestion: 'mockExistingAnswer',
+      //   },
+      // },
     });
     const res = mockResponse();
     controller.get(req, res);
@@ -33,11 +33,11 @@ describe('HomeGetController', () => {
 
   test('redirects to the check your answers page for existing users', () => {
     const req = mockRequest({
-      session: {
-        userCase: {
-          id: '123',
-        },
-      },
+      // session: {
+      //   userCase: {
+      //     id: '123',
+      //   },
+      // },
     });
     const res = mockResponse();
     controller.get(req, res);
@@ -56,12 +56,12 @@ describe('HomeGetController', () => {
 
   test('redirects to application sent for review page for applicant 1 users in awaitingApplicant2 state', () => {
     const req = mockRequest({
-      session: {
-        userCase: {
-          id: '123',
-          state: State.AwaitingApplicant2Response,
-        },
-      },
+      // session: {
+      //   userCase: {
+      //     id: '123',
+      //     state: State.AwaitingApplicant2Response,
+      //   },
+      // },
     });
     const res = mockResponse();
     controller.get(req, res);
@@ -71,12 +71,12 @@ describe('HomeGetController', () => {
 
   test('redirects to confirmation page for applicant 1 users in applicant2Approved state', () => {
     const req = mockRequest({
-      session: {
-        userCase: {
-          id: '123',
-          state: State.Applicant2Approved,
-        },
-      },
+      // session: {
+      //   userCase: {
+      //     id: '123',
+      //     state: State.Applicant2Approved,
+      //   },
+      // },
     });
     const res = mockResponse();
     controller.get(req, res);
@@ -86,12 +86,12 @@ describe('HomeGetController', () => {
 
   test('redirects to application submitted page for applicant 1 users in submitted state', () => {
     const req = mockRequest({
-      session: {
-        userCase: {
-          id: '123',
-          state: State.Submitted,
-        },
-      },
+      // session: {
+      //   userCase: {
+      //     id: '123',
+      //     state: State.Submitted,
+      //   },
+      // },
     });
     const res = mockResponse();
     controller.get(req, res);
@@ -116,12 +116,12 @@ describe('HomeGetController', () => {
 
   test('redirects to the pay your fee page for applicant 1 users for sole application in awaitingPayment state', () => {
     const req = mockRequest({
-      session: {
-        userCase: {
-          id: '123',
-          state: State.AwaitingPayment,
-        },
-      },
+      // session: {
+      //   userCase: {
+      //     id: '123',
+      //     state: State.AwaitingPayment,
+      //   },
+      // },
     });
     const res = mockResponse();
     controller.get(req, res);
