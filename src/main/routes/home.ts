@@ -1,5 +1,6 @@
 import { Application } from 'express';
-import { commonJson } from '../steps/content'
+
+import { commonJson } from '../steps/content';
 
 export default function (app: Application): void {
   app.get('/', (req, res) => {
