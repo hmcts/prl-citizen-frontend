@@ -10,12 +10,6 @@ def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
-def vaultOverrides = [
-  'preview': 'aat',
-  'spreview': 'saat'
-]
-
-
 
 def secrets = [
   'prl-${env}': [
@@ -39,11 +33,13 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withPipeline(type, product, component) {
+  log.info env.ENV
+  env.ENV = 'aat'
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
-  log.info env
+  log.info env.ENV
   after('build') {
     yarnBuilder.yarn('build')
   }
