@@ -4,6 +4,9 @@
     "referrerPolicy": "origin"
   },
   "appInsights": {
+    "instrumentationKey": false
+  },
+  "appInsights": {
     "roleName": "citizen-frontend"
   },
   "featureToggles": {
