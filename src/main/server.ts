@@ -14,13 +14,20 @@ import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 // import { StateRedirectMiddleware } from './modules/state-redirect';
+import { PropertiesVolume } from './modules/properties-volume';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
 
 const { Logger } = require('@hmcts/nodejs-logging');
+
+const { setupDev } = require('./development');
+
+const env = process.env.NODE_ENV || 'development';
+const developmentMode = env === 'development';
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
+app.locals.ENV = env;
 app.enable('trust proxy');
 app.locals.developmentMode = true;
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
@@ -32,18 +39,20 @@ app.use((req, res, next) => {
   next();
 });
 new AxiosLogger().enableFor(app);
+new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new AppInsights().enable();
 new Nunjucks().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new Webpack().enableFor(app);
 new TooBusy().enableFor(app);
-// new StateRedirectMiddleware().enableFor(app);
 new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 
-const port = 3000;
+setupDev(app, developmentMode);
+
+const port: number = parseInt(process.env.PORT || '3000', 10);
 const server = app.listen(port, () => {
   logger.info(`Application started: http://localhost:${port}`);
 });
