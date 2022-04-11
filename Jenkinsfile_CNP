@@ -33,13 +33,10 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withPipeline(type, product, component) {
-  log.info env.ENV
-  env.ENV = 'aat'
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
-  log.info env.ENV
   after('build') {
     yarnBuilder.yarn('build')
   }
