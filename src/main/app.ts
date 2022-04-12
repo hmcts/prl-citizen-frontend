@@ -57,7 +57,7 @@ glob
 setupDev(app, developmentMode);
 // returning "not found" page for requests with paths not resolved by the router
 app.use((req, res) => {
- logger.info(app.settings.nunjucksEnv.globals.testFlag);
+  logger.info(app.settings.nunjucksEnv.globals.testFlag);
   res.status(404);
   res.render('not-found');
 });
