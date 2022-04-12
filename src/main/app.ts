@@ -33,7 +33,7 @@ logger.info('Creating LaunchDarkly Client');
 const launchDarklyClient = new LaunchDarklyClient();
 const featureToggles = new FeatureToggles(launchDarklyClient);
 app.use(/^\/(?!js|img|pdf|stylesheets).*$/, async (req, res, next) => {
-  app.settings.nunjucksEnv.globals.warningBanner = await featureToggles.isTestFlagEnabled();
+  app.settings.nunjucksEnv.globals.testFlag = await featureToggles.isTestFlagEnabled();
   next();
 });
 // secure the application by adding various HTTP headers to its responses
@@ -57,6 +57,7 @@ glob
 setupDev(app, developmentMode);
 // returning "not found" page for requests with paths not resolved by the router
 app.use((req, res) => {
+ logger.info(app.settings.nunjucksEnv.globals.testFlag);
   res.status(404);
   res.render('not-found');
 });
