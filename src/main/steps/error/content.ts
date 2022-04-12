@@ -11,10 +11,10 @@ const en = {
     line3:
       'If you followed a link, there may be a problem with the service or the link has timed out. You should ask for a new link.',
     line4:
-      'If you need support for the online Family Private Law service, contact your social worker or adoption agency.',
+      'If you need support for the online Make child arrangements service, contact your social worker or adoption agency.',
   },
   [StatusCodes.INTERNAL_SERVER_ERROR]: {
-    title: 'Sorry, there is a problem with the online Family Private Law service',
+    title: 'Sorry, there is a problem with the online Make child arrangements service',
     info: 'Please try again later. We have saved your answers.',
   },
 };

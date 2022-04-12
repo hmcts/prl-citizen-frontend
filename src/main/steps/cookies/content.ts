@@ -10,7 +10,7 @@ const en = () => ({
   howAreCookiesUsedItem3: 'temporarily store the answers you give',
   howAreCookiesUsedParagraph2:
     'Find out more about <a class="govuk-link" href="http://www.aboutcookies.org/">how to manage cookies</a>.',
-  howAreCookiesUsedHeading2: 'How cookies are used in the Family Private Law service',
+  howAreCookiesUsedHeading2: 'How cookies are used in the Make child arrangements service',
   websiteUsageCookiesHeading3: 'To measure website usage',
   websiteUsageCookiesParagraph1:
     'We use Google Analytics software to collect information about how you use this service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements, for example improving site search.',
