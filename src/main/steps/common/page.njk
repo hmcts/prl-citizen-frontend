@@ -7,13 +7,19 @@
   {% include "./webpack/css.njk" %}
   <!-- {{ userCase.id }} -->
 {% endblock %}
-  {% include "../cookie-banner/template.njk" %}
+
 {% block header %}
   {% include "../cookie-banner/template.njk" %}
   {{ govukHeader({
     containerClasses: "govuk-width-container",
     serviceName: serviceName,
-    serviceUrl: (globals.basePath if globals.basePath) + "/"
+    serviceUrl: (globals.basePath if globals.basePath) + "/",
+    navigation: [
+      {
+        href: "/logout" if isLoggedIn else "/",
+        text: signOut if isLoggedIn else signIn
+      }
+    ]
   
   }) }}
 {% endblock %}

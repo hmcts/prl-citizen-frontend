@@ -3,3 +3,60 @@
 {% block backLink %}{% endblock %}
 
 
+{% from "govuk/components/table/macro.njk" import govukTable %}
+ {% block page_content %}
+{{ govukTable({
+  caption: "Heading Case Claim Table",
+  captionClasses: "govuk-table__caption--m",
+  firstCellIsHeader: true,
+  head: [
+    {
+      text: "Field 1",
+      classes: 'govuk-!-width-one-half'
+    },
+    {
+      text: "Field 1",
+      classes: 'govuk-!-width-one-quarter'
+    },
+    {
+      text: "Field 3",
+      classes: 'govuk-!-width-one-quarter'
+    }
+  ],
+  rows: [
+    [
+      {
+        text: "Row 1 data"
+      },
+      {
+        text: "Row 1 data"
+      },
+      {
+        text: "Row 1 data"
+      }
+    ],
+    [
+     {
+        text: "Row 2 data"
+      },
+      {
+        text: "Row 2 data"
+      },
+      {
+        text: "Row 2 data"
+      }
+    ],
+    [
+      {
+        text: "Row 3 data"
+      },
+      {
+        text: "Row 3 data"
+      },
+      {
+        text: "Row 3 data"
+      }
+    ]
+  ]
+}) }}
+{% endblock %}

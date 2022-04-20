@@ -1,4 +1,4 @@
-// import { execSync } from 'child_process';
+import { execSync } from 'child_process';
 
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config from 'config';
@@ -18,6 +18,11 @@ export class PropertiesVolume {
       // this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
       // this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
       // this.setLocalSecret('prl-pcq-token', 'services.equalityAndDiversity.tokenKey');
+
+      this.setLocalSecret('idam-ui-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
+      // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      // this.setLocalEndpoints();
     }
   }
 
@@ -30,8 +35,20 @@ export class PropertiesVolume {
   /**
    * Load a secret from the AAT vault using azure cli
    */
-  // private setLocalSecret(secret: string, toPath: string): void {
-  //   const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
-  //   set(config, toPath, result.toString().replace('\n', ''));
+  private setLocalSecret(secret: string, toPath: string): void {
+    const result = execSync(`az keyvault secret show --vault-name fis-aat -o tsv --query value --name ${secret}`);
+    set(config, toPath, result.toString().replace('\n', ''));
+  }
+
+  // private setLocalEndpoints(): void {
+  //   const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
+  //   const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
+
+  //   const endpoints = JSON.parse(decoded.toString());
+
+  //   set(config, 'services.authProvider.url', endpoints.s2s);
+  //   set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
+  //   set(config, 'services.idam.tokenURL', endpoints.idamToken);
+  //   set(config, 'services.case.url', endpoints.ccd);
   // }
 }

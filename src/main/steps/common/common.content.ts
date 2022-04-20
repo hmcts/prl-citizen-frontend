@@ -7,8 +7,8 @@ import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {
   phase: 'Beta',
-  applyForChildArrangements: 'Make child arrangements',
-  applyForDissolution: 'Make child arrangements',
+  applyForChildArrangements: 'Private Law',
+  applyForDissolution: 'Private Law',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
@@ -111,8 +111,8 @@ const en = {
 const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
-  applyForChildArrangements: 'Make child arrangements" (in welsh)',
-  applyForDissolution: 'Make child arrangements"(in welsh)',
+  applyForChildArrangements: 'Private Law" (in welsh)',
+  applyForDissolution: 'Private Law"(in welsh)',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.(in welsh)',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',

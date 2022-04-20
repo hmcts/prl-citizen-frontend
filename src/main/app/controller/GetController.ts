@@ -25,6 +25,7 @@ export class GetController {
     }
 
     const language = this.getPreferredLanguage(req) as Language;
+
     // const addresses = req.session?.addresses;
     const content = generatePageContent({
       language,
