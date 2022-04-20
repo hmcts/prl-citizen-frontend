@@ -17,5 +17,12 @@ services:
 health:
   timeout: 5000
   deadline: 15000
+session:
+  secret: 'local'
+  redis:
+    host:
+    key:
+e2e:
+  userTestPassword: ''
 appInsights:
   instrumentationKey: false
