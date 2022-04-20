@@ -14,21 +14,6 @@ services:
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
-  case:
-    url: ''
-  feeLookup:
-    url: ''
-  documentManagement:
-    url: ''
-  payments:
-    url: ''
-  equalityAndDiversity:
-    name: 'Equality and Diversity Service'
-    url: ''
-    path: '/service-endpoint'
-    port: 4000
-    tokenKey: 'SERVICE_TOKEN_KEY'
-    pcqEnabled: 'false'
 health:
   timeout: 5000
   deadline: 15000
