@@ -66,15 +66,6 @@ setupDev(app, developmentMode);
 
 const port: number = parseInt(process.env.PORT || '3001', 10);
 if (app.locals.ENV === 'development') {
-  // const sslDirectory = path.join(__dirname, 'resources', 'localhost-ssl');
-  // const sslOptions = {
-  //   cert: fs.readFileSync(path.join(sslDirectory, 'localhost.crt')),
-  //   key: fs.readFileSync(path.join(sslDirectory, 'localhost.key')),
-  // };
-  // const server = https.createServer(sslOptions, app);
-  // server.listen(port, () => {
-  //   logger.info(`Application started: https://localhost:${port}`);
-  // });
   const server = app.listen(port, () => {
     logger.info(`Application started: http://localhost:${port}`);
   });
@@ -88,12 +79,3 @@ if (app.locals.ENV === 'development') {
     logger.info(`Application started: http://localhost:${port}`);
   });
 }
-// const server = app.listen(port, () => {
-//   logger.info(`Application started: http://localhost:${port}`);
-// });
-
-// process.on('SIGINT', function () {
-//   server.close();
-//   toobusy.shutdown();
-//   process.exit();
-// });
