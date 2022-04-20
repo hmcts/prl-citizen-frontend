@@ -10,6 +10,8 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+      this.setSecret('secrets.prl.idam-secret', 'services.idam.clientSecret');
+      this.setSecret('secrets.prl.s2s-secret', 'services.authProvider.secret');
     } else {
       // this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
       // this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
