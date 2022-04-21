@@ -61,7 +61,7 @@ describe('session', () => {
 
   test('should use session middleware with FileStore', () => {
     expect(mockSession).toHaveBeenCalledWith({
-      name: 'ds-ui-session',
+      name: 'prl-citizen-frontend-session',
       resave: false,
       saveUninitialized: false,
       secret: 'MOCK_SECRET',

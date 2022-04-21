@@ -17,7 +17,7 @@ export class SessionStorage {
 
     app.use(
       session({
-        name: 'ds-ui-session',
+        name: 'prl-citizen-frontend-session',
         resave: false,
         saveUninitialized: false,
         secret: config.get('session.secret'),
