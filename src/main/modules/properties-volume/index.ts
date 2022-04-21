@@ -10,8 +10,8 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
-      this.setSecret('secrets.prl.idam-secret', 'services.idam.clientSecret');
-      this.setSecret('secrets.prl.s2s-secret', 'services.authProvider.secret');
+      this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.clientSecret');
+      this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
     } else {
       // this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
       // this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
@@ -21,8 +21,8 @@ export class PropertiesVolume {
       // this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
       // this.setLocalSecret('prl-pcq-token', 'services.equalityAndDiversity.tokenKey');
 
-      this.setLocalSecret('idam-ui-secret', 'services.idam.clientSecret');
-      this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
+      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
       // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
       // this.setLocalEndpoints();
     }
@@ -38,7 +38,7 @@ export class PropertiesVolume {
    * Load a secret from the AAT vault using azure cli
    */
   private setLocalSecret(secret: string, toPath: string): void {
-    const result = execSync(`az keyvault secret show --vault-name fis-aat -o tsv --query value --name ${secret}`);
+    const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
     set(config, toPath, result.toString().replace('\n', ''));
   }
 
