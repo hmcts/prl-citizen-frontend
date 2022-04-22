@@ -14,7 +14,9 @@ def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def secrets = [
   'prl-${env}': [
-    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY")
+    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
+    secret('prl-cos-idam-client-secret', 'IDAM_SECRET'),
+    secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET')
   ]
 ]
 
@@ -28,9 +30,10 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
-
 def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
+
+env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
@@ -42,4 +45,11 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
+  before('smoketest:preview') {
+    env.PRL_CITIZEN_WEB_URLL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
+  }
+
+  after('smoketest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
 }

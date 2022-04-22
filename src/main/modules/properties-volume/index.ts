@@ -13,14 +13,6 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.clientSecret');
       this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
     } else {
-      // this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
-      // this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
-      // this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
-      // this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
-      // this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
-      // this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
-      // this.setLocalSecret('prl-pcq-token', 'services.equalityAndDiversity.tokenKey');
-
       this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
       // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
