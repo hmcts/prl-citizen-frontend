@@ -14,7 +14,7 @@ describe('Smoke Test', () => {
             'Accept-Encoding': 'gzip',
           },
         });
-        expect(response.data).includes(expect.anything());
+        expect(response).includes(expect.anything());
       } catch {
         fail('Heading not present and/or correct');
       }
