@@ -1,0 +1,2 @@
+port: 80 # set to 80 to cause a crash if any tests try to open a port
+

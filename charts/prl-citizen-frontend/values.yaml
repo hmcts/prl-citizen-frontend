@@ -1,18 +1,27 @@
 nodejs:
-  applicationPort: 3000
+  image: 'hmctspublic.azurecr.io/prl/citizen-frontend:latest'
+  applicationPort: 3001
+  readinessDelay: 130
+  livenessDelay: 130
+  autoscaling: # Default is false
+    enabled: true
+    maxReplicas: 5 # Required setting
+    targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
   aadIdentityName: prl
   ingressHost: privatelaw.{{ .Values.global.environment }}.platform.hmcts.net
-  image: 'hmctspublic.azurecr.io/prl/citizen-frontend:latest'
-  #  Uncomment once the vault containing the app insights key has been set up
-  #  keyVaults:
-  #    prl:
-  #      secrets:
-  #        - AppInsightsInstrumentationKey
   environment:
+    NODE_ENV: production
+    REFORM_TEAM: prl
+    REFORM_SERVICE_NAME: prl-citizen-frontend
+    SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
+    IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
   keyVaults:
     prl:
       resourceGroup: prl
       secrets:
         - AppInsightsInstrumentationKey
+        - prl-cos-idam-client-secret
+        - microservicekey-prl-cos-api
 idam-pr:
   enabled: false

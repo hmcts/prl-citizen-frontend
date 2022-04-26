@@ -10,6 +10,7 @@ node_modules/
 *log
 .DS_Store
 
+.vscode
 src/main/public/img/lib/*
 src/main/public/js/lib/**/*.js
 src/main/public/stylesheets/lib/*
@@ -23,3 +24,5 @@ npm-debug.log.*
 .settings/
 dist/
 public/
+
+coverage

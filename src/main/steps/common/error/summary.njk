@@ -1,0 +1,21 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% if sessionErrors and sessionErrors.length > 0 %}
+  {% set errorList = [] %}
+  {% for item in sessionErrors %}
+    {% if item.errorType === 'errorSaving' %}
+      {% set errorList = (errorList.push({
+        text: errorSaving
+      }), errorList) %}
+    {% else %}
+      {% set errorList = (errorList.push({
+        href: '#' + item.propertyName,
+        text: errors[item.propertyName][item.errorType]
+      }), errorList) %}
+    {% endif %}
+  {% endfor %}
+  {{ govukErrorSummary({
+    "titleText": errorSummaryHeading,
+    "errorList": errorList
+  }) }}
+{% endif %}

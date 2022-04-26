@@ -1,0 +1,28 @@
+.global-cookie-message {
+  background-color: govuk-colour('light-grey');
+  padding: 10px 30px;
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  a {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+}
+
+.success-message {
+  border: 5px;
+  border-style: solid;
+  margin-bottom: 50px;
+  margin-top: 16px;
+  padding: 20px;
+}
+
+.cookie-preference-success {
+  display: none;
+}

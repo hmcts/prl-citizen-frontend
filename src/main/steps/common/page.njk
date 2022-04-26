@@ -1,0 +1,94 @@
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+
+{% extends "govuk/template.njk" %}
+
+{% block head %}
+  {% include "./webpack/css.njk" %}
+  <!-- {{ userCase.id }} -->
+{% endblock %}
+
+{% block header %}
+  {% include "../cookie-banner/template.njk" %}
+  {{ govukHeader({
+    containerClasses: "govuk-width-container",
+    serviceName: serviceName,
+    serviceUrl: (globals.basePath if globals.basePath) + "/",
+    navigation: [
+      {
+        href: "/logout" if isLoggedIn else "/",
+        text: signOut if isLoggedIn else signIn
+      }
+    ]
+  
+  }) }}
+{% endblock %}
+
+
+{% block pageTitle %}
+  {{ serviceName }} - {{ title }} - {{ govUk }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: phase
+    },
+    html: feedback + languageToggle
+  }) }}
+  {% block backLink %}
+    <a href="#" class="govuk-back-link">{{ back }}</a>
+  {% endblock %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {# {% block error_summary %}
+        {% include "common/error/summary.njk" %}
+      {% endblock %} #}
+
+      {% block page_content %}
+        {% if title %}
+          <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ title }}</h1>
+        {% endif %}
+      {% endblock %}
+      
+      {% if form %}
+        {% block form %}
+          {% include "common/form/form.njk"%}
+        {% endblock %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "/cookies",
+          text: cookies
+        },
+        {
+          href: "/privacy-policy",
+          text: privacyPolicy
+        },
+        {
+          href: "/accessibility-statement",
+          text: accessibility
+        },
+        {
+          href: "/terms-and-conditions",
+          text: termsAndConditions
+        }
+      ]
+    }
+  }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+  {% include "./webpack/js.njk" %}
+{% endblock %}

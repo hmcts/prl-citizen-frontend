@@ -10,14 +10,13 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+      this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.clientSecret');
+      this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
     } else {
-      this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
-      this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
-      this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
-      // this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
-      // this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
-      // this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
-      this.setLocalSecret('prl-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
+      // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      // this.setLocalEndpoints();
     }
   }
 
@@ -31,7 +30,19 @@ export class PropertiesVolume {
    * Load a secret from the AAT vault using azure cli
    */
   private setLocalSecret(secret: string, toPath: string): void {
-    const result = execSync(`az keyvault secret show --vault-name adoption-aat -o tsv --query value --name ${secret}`);
+    const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
     set(config, toPath, result.toString().replace('\n', ''));
   }
+
+  // private setLocalEndpoints(): void {
+  //   const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
+  //   const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
+
+  //   const endpoints = JSON.parse(decoded.toString());
+
+  //   set(config, 'services.authProvider.url', endpoints.s2s);
+  //   set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
+  //   set(config, 'services.idam.tokenURL', endpoints.idamToken);
+  //   set(config, 'services.case.url', endpoints.ccd);
+  // }
 }

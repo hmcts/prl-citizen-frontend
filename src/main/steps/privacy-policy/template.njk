@@ -1,0 +1,113 @@
+{% extends "common/page.njk" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    <p class="govuk-body">{{ info1 }}</p>
+    <p class="govuk-body">{{ info2 }}</p>
+    <p class="govuk-body">{{ info3 }}</p>
+
+    <h2 class="govuk-heading-s">{{ whoManages }}</h2>
+    <p class="govuk-body">{{ managedBy }}</p>
+    <p class="govuk-body">{{ moj | safe }}</p>
+    <p class="govuk-body">{{ responsibleForDeciding }}</p>
+    <p class="govuk-body">{{ moreInformation | safe }}</p>
+
+    <h3 class="govuk-heading-s">{{ thePersonal }}</h3>
+    <p class="govuk-body">{{ personalInformation }}</p>
+    <p class="govuk-body">{{ whenYouUseAdoptionService }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ applicationProcess }}</li>
+        <li>{{ legalRequirements }}</li>
+        <li>{{ improvementService }}</li>
+    </ul>
+    <p class="govuk-body">{{ personalDataProcessApplication }}</p>
+
+    <h3 class="govuk-heading-s">{{ collectPersonalData }}</h3>
+    <p class="govuk-body">{{ onlineAdoptionServiceUse }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ nameAndOthers }}</li>
+        <li>{{ emailAddress }}</li>
+        <li>{{ phoneNumber }}</li>
+        <li>{{ homeAddress }}</li>
+        <li>{{ dateOfBirth }}</li>
+        <li>{{ occupation }}</li>
+    </ul>
+    <p class="govuk-body">{{ specialCategoriesInformation }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ race }}</li>
+        <li>{{ health }}</li>
+        <li>{{ genetics }}</li>
+        <li>{{ religiousBeliefs }}</li>
+    </ul>
+
+    <h2 class="govuk-heading-s">{{ usingYourData }}</h2>
+    <p class="govuk-body">{{ asPart }}</p>
+    <p class="govuk-body">{{ weMayAskForPermission }}</p>
+    <p class="govuk-body">{{ weUseCookies | safe }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ ifYouOpenEmail }}</li>
+        <li>{{ yourComputer }}</li>
+        <li>{{ theRegion }}</li>
+        <li>{{ theWeb }}</li>
+    </ul>
+
+    <h3 class="govuk-heading-s">{{ storingYourData }}</h3>
+    <p class="govuk-body">{{ savedInformation }}</p>
+    <p class="govuk-body">{{ postSubmissionData}}</p>
+
+    <h2 id="sharingYourData" class="govuk-heading-s">{{ sharingYourData }}</h2>
+    <p class="govuk-body">{{ ifAnother }}</p>
+    <p class="govuk-body">{{ ifYouContactUs | safe}}</p>
+    <p class="govuk-body">{{ crime }}</p>
+    <p class="govuk-body">{{ weUse | safe }}</p>
+    <p class="govuk-body">{{ lawfulBases }}</p>
+    <ul class="govuk-list">
+        <li>(a) {{ consent }}</li>
+        <li>(b) {{ legalObligation }}</li>
+        <li>(c) {{ vitalInterest }}</li>
+        <li>(d) {{ publicTask }}</li>
+        <li>(e) {{ legitimateInterest }}</li>
+    </ul>
+
+    <h2 class="govuk-heading-s">{{ storeAndShare }}</h2>
+    <p class="govuk-body">{{ personalInformationOutsideUK }}</p>
+
+    <h3 class="govuk-heading-s">{{ yourRights }}</h3>
+    <p class="govuk-body">{{ youCanAsk }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ toSeePersonal }}</li>
+        <li>{{ toHavePersonal }}</li>
+        <li>{{ toHaveDataRemoved }}</li>
+        <li>{{ thatAccessIsRestricted }}</li>
+        <li>{{ personalDataNotProcessed }}</li>
+        <li>{{ transferPersonalInformation }}</li>
+    </ul>
+    <p class="govuk-body">{{ ifYouWantToSeePersonal }}</p>
+     <ul class="govuk-list govuk-list--bullet">
+        <li>{{ completeForm | safe }}</li>
+        <li>{{ writeToUs }}</li>
+        <li>{{ emailUs | safe }}</li>
+    </ul>
+
+    <p class="govuk-body">{{ askMoreInformation }}</p>
+     <ul class="govuk-list govuk-list--bullet">
+        <li>{{ agreementsWeHave }}</li>
+        <li>{{ withoutTellingYou }}</li>
+        <li>{{ ourInstructions }}</li>
+        <li>{{ howWeCheck }}</li>
+    </ul>
+
+    <h2 class="govuk-heading-s">{{ howToComplain }}</h2>
+    <p class="govuk-body">{{ seeOurComplaints | safe }}</p>
+    <p class="govuk-body">{{ concernsDataProtection }}</p>
+    <p class="govuk-body">{{ mojAddress | safe }}</p>
+    <p class="govuk-body">{{ mojEmailAddress | safe }}</p>
+    <p class="govuk-body">{{ youCanAlsoComplain }}</p>
+    <p class="govuk-body">{{ icoAddress | safe}}</p>
+    <p class="govuk-body">{{ icoHelplineNumber }}</p>
+    <p class="govuk-body">{{ icoWebsite | safe}}</p>
+  </div>
+</div>
+{% endblock %}
