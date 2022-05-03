@@ -134,7 +134,7 @@
     "mocha-junit-reporter": "^2.0.0",
     "mocha-multi": "^1.1.6",
     "mochawesome": "^6.2.2",
-    "moment": "^2.29.1",
+    "moment": "^2.29.3",
     "node-sass": "^7.0.0",
     "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
@@ -152,5 +152,8 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-middleware": "^5.3.1",
     "webpack-node-externals": "^3.0.0"
+  },
+  "resolutions": {
+    "moment": "2.29.3"
   }
 }
