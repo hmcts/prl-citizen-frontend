@@ -6,7 +6,7 @@ import uk.gov.hmcts.contino.AppPipelineConfig
 
 def type = "nodejs"
 def product = "prl"
-def component = "web"
+def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
