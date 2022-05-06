@@ -4,7 +4,9 @@ import {
   areDateFieldsFilledIn,
   atLeastOneFieldIsChecked,
   doesArrayHaveValues,
+  isAccessCodeValid,
   isAddressSelected,
+  isCaseCodeValid,
   isDateInputInvalid,
   isEmailValid,
   isFieldFilledIn,
@@ -18,8 +20,6 @@ import {
   isTextAreaValid,
   isValidAccessCode,
   isValidCaseReference,
-  isAccessCodeValid,
-  isCaseCodeValid,
 } from './validation';
 
 describe('Validation', () => {
