@@ -7,5 +7,9 @@ describe('applicant1Sequence', () => {
     expect(edgecaseSequence[0].url).toBe('/citizen-home');
     expect(edgecaseSequence[0].showInSection).toBe('aboutEdgeCase');
     expect(edgecaseSequence[0].getNextStep({})).toBe('/dashboard');
+
+    expect(edgecaseSequence[1].url).toBe('/dashboard');
+    expect(edgecaseSequence[0].showInSection).toBe('aboutEdgeCase');
+    expect(edgecaseSequence[0].getNextStep({})).toBe('/dashboard');
   });
 });

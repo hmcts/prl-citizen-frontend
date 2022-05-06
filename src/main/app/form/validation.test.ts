@@ -18,6 +18,8 @@ import {
   isTextAreaValid,
   isValidAccessCode,
   isValidCaseReference,
+  isAccessCodeValid,
+  isCaseCodeValid,
 } from './validation';
 
 describe('Validation', () => {
@@ -326,6 +328,20 @@ describe('Validation', () => {
       const isValid = isAddressSelected('-1');
       expect(isValid).toStrictEqual('notSelected');
     });
+  });
+});
+
+describe('isAccessCodeValid()', () => {
+  test('Should Access Code Valied', async () => {
+    const invalid = isAccessCodeValid('ssssssssssssss');
+    expect(invalid).toStrictEqual('invalid');
+  });
+});
+
+describe('isCaseCodeValid()', () => {
+  test('Should Case Code Valied', async () => {
+    const invalid = isCaseCodeValid('ssssssss');
+    expect(invalid).toStrictEqual('invalid');
   });
 });
 
