@@ -1,6 +1,5 @@
 // import { FormContent, FormFields, FormOptions } from '../../../app/form/Form';
-//import { isFieldFilledIn } from '../../../app/form/validation';
-// generatePageContent
+// import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
@@ -13,9 +12,9 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   test('should return correct english content', () => {
     const generatedContent = generateContent(commonContent);
-    expect(generatedContent.label).toEqual('Type of application');
-    expect(generatedContent.one).toEqual('C100 Child Arrangements Application');
-    expect(generatedContent.two).toEqual('FL401 Non-Molestation &/or Occupation Order Application');
+    expect(generatedContent.title).toEqual('Enter your access details');
+    expect(generatedContent.line1).toEqual('Enter the claim number from the email or letter we sent you.');
+    expect(generatedContent.caseCodeLabel).toEqual('Your case code');
   });
   //   test('should return correct english content', () => {
   //     const generatedContent = generateContent(commonContent);

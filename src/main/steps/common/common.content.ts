@@ -1,7 +1,7 @@
 import { capitalize } from 'lodash';
 
-// import { CaseWithId } from '../../app/case/case';
-import { Fee } from '../../app/case/definition';
+import { CaseWithId } from '../../app/case/case';
+// import { Fee } from '../../app/case/definition';
 // import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
@@ -186,7 +186,7 @@ const cy: typeof en = {
 export const generatePageContent = ({
   language,
   pageContent,
-  // userCase,
+  userCase,
   userEmail,
 }: // addresses = [],
 // eligibility,
@@ -194,11 +194,11 @@ export const generatePageContent = ({
 {
   language: Language;
   pageContent?: TranslationFn;
-  // userCase?: Partial<CaseWithId>;
+  userCase?: Partial<CaseWithId>;
   userEmail?: string;
   // addresses?: [];
   // eligibility?: Eligibility;
-  fee?: Fee;
+  // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
@@ -208,7 +208,7 @@ export const generatePageContent = ({
     ...commonTranslations,
     serviceName,
     language,
-    // userCase,
+    userCase,
     userEmail,
     // contactEmail,
     // addresses,
@@ -231,7 +231,7 @@ export type CommonContent = typeof en & {
   language: Language;
   serviceName: string;
   pageContent?: TranslationFn;
-  // userCase?: Partial<CaseWithId>;
+  userCase?: Partial<CaseWithId>;
   userEmail?: string;
   // contactEmail?: string;
   // referenceNumber?: string;

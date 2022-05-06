@@ -193,3 +193,17 @@ export const isTextAreaValid: Validator = value => {
     return ValidationError.INVALID;
   }
 };
+
+// prl citizen frontend
+
+export const isCaseCodeValid: Validator = value => {
+  if (value && (value as string).trim?.().length !== 16) {
+    return 'invalid';
+  }
+};
+
+export const isAccessCodeValid: Validator = value => {
+  if (value && (value as string).trim?.().length !== 8) {
+    return 'invalid';
+  }
+};

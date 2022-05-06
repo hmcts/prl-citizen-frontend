@@ -185,7 +185,7 @@ const cy = {
 describe('accessibility statement > content', () => {
   const commonContent = generatePageContent({
     language: 'en',
-    // userCase: {},
+    userCase: {},
   }) as CommonContent;
 
   test('should return correct english content', () => {

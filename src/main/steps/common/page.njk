@@ -5,7 +5,6 @@
 
 {% block head %}
   {% include "./webpack/css.njk" %}
-  <!-- {{ userCase.id }} -->
 {% endblock %}
 
 {% block header %}
@@ -17,7 +16,7 @@
     navigation: [
       {
         href: "/logout" if isLoggedIn else "/",
-        text: signOut if isLoggedIn else signIn
+        text: signOut if isLoggedIn
       }
     ]
   
@@ -59,6 +58,9 @@
           {% include "common/form/form.njk"%}
         {% endblock %}
       {% endif %}
+
+      {% block page_content_under_form %}
+      {% endblock %}
     </div>
   </div>
 {% endblock %}
