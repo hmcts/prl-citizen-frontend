@@ -58,7 +58,7 @@ export class OidcMiddleware {
           }
           return next();
         }
-        if ((!req.path || req.path === '/') && !req.session?.user) {
+        if (!req.session?.accessCodeLoginIn) {
           res.redirect(CITIZEN_HOME_URL);
         } else {
           res.redirect(SIGN_IN_URL);

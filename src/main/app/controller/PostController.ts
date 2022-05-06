@@ -61,6 +61,12 @@ export class PostController<T extends AnyObject> {
       req.session.userCase = initData;
     }
     req.session.errors = form.getErrors(formData);
+    if (req.session.errors.length) {
+      req.session.accessCodeLoginIn = false;
+    } else {
+      req.session.accessCodeLoginIn = true;
+    }
+
     this.redirect(req, res);
   }
 
