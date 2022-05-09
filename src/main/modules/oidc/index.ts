@@ -27,7 +27,7 @@ export class OidcMiddleware {
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
-          req.session.save(() => res.redirect('/'));
+          req.session.save(() => res.redirect('/dashboard'));
         } else {
           if (!req.session?.accessCodeLoginIn) {
             res.redirect(CITIZEN_HOME_URL);
