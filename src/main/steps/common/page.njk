@@ -43,9 +43,9 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      {# {% block error_summary %}
+      {% block error_summary %}
         {% include "common/error/summary.njk" %}
-      {% endblock %} #}
+      {% endblock %}
 
       {% block page_content %}
         {% if title %}
