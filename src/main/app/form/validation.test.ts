@@ -16,6 +16,7 @@ import {
   isInvalidPostcode,
   isLessThanAYear,
   isMoreThan18Years,
+  isNumeric,
   isPhoneNoValid,
   isTextAreaValid,
   isValidAccessCode,
@@ -335,6 +336,13 @@ describe('isAccessCodeValid()', () => {
   test('Should Access Code Valied', async () => {
     const invalid = isAccessCodeValid('ssssssssssssss');
     expect(invalid).toStrictEqual('invalid');
+  });
+});
+
+describe('isNumericValid()', () => {
+  test('Should Access Code numeric', async () => {
+    const notNumeric = isNumeric('ssssssssssssssss');
+    expect(notNumeric).toStrictEqual('notNumeric');
   });
 });
 

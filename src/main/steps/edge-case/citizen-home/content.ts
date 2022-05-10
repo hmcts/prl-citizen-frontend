@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isAccessCodeValid, isCaseCodeValid, isFieldFilledIn } from '../../../app/form/validation';
+import { isAccessCodeValid, isCaseCodeValid, isFieldFilledIn, isNumeric } from '../../../app/form/validation';
 
 import { contact_cy, contact_en } from './contact';
 
@@ -18,6 +18,7 @@ const en = {
     caseCode: {
       required: 'Enter your case code',
       invalid: 'The case code must be made up of 16 characters',
+      notNumeric: 'Case code must be numeric',
     },
     accessCode: {
       required: 'Enter your access code',
@@ -40,6 +41,7 @@ const cy: typeof en = {
     caseCode: {
       required: 'Enter your case code',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com',
+      notNumeric: 'Case code must be numeric',
     },
     accessCode: {
       required: 'Enter your access code',
@@ -61,7 +63,7 @@ export const form: FormContent = {
       label: l => l.caseCodeLabel,
       hint: l => l.caseCodeLabelHint,
       labelSize: null,
-      validator: value => isFieldFilledIn(value) || isCaseCodeValid(value),
+      validator: value => isFieldFilledIn(value) || isCaseCodeValid(value) || isNumeric(value),
     },
     accessCode: {
       type: 'text',

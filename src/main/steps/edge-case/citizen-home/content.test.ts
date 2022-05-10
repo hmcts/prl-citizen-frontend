@@ -20,6 +20,7 @@ const enContent = {
     caseCode: {
       required: 'Enter your case code',
       invalid: 'The case code must be made up of 16 characters',
+      notNumeric: 'Case code must be numeric',
     },
     accessCode: {
       required: 'Enter your access code',
@@ -42,6 +43,7 @@ const cyContent = {
     caseCode: {
       required: 'Enter your case code',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com',
+      notNumeric: 'Case code must be numeric',
     },
     accessCode: {
       required: 'Enter your access code',

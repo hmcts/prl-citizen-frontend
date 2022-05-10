@@ -16,6 +16,7 @@ export const enum ValidationError {
   REQUIRED = 'required',
   NOT_SELECTED = 'notSelected',
   INVALID = 'invalid',
+  NOT_NUMERIC = 'notNumeric',
 }
 
 export const isFieldFilledIn: Validator = value => {
@@ -198,12 +199,18 @@ export const isTextAreaValid: Validator = value => {
 
 export const isCaseCodeValid: Validator = value => {
   if (value && (value as string).trim?.().length !== 16) {
-    return 'invalid';
+    return ValidationError.INVALID;
   }
 };
 
 export const isAccessCodeValid: Validator = value => {
   if (value && (value as string).trim?.().length !== 8) {
-    return 'invalid';
+    return ValidationError.INVALID;
+  }
+};
+
+export const isNumeric: Validator = value => {
+  if (value && !(value as string).match(/^[0-9]+$/)) {
+    return ValidationError.NOT_NUMERIC;
   }
 };
