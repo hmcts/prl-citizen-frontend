@@ -24,6 +24,7 @@ export interface AppSession extends Session {
   errors: FormError[] | undefined;
   addresses: [];
   returnUrl?: string;
+  accessCodeLoginIn: boolean;
 }
 
 export interface UserDetails {

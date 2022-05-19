@@ -5,11 +5,12 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 // import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 // CaseWithId
-// import { Case } from '../case/case';
+import { Case } from '../case/case';
+import { State } from '../case/definition';
 // CITIZEN_SAVE_AND_CLOSE,
 // import { CITIZEN_CREATE, CITIZEN_UPDATE } from '../case/definition';
 // Form
-import { FormFields, FormFieldsFn } from '../form/Form';
+import { Form, FormFields, FormFieldsFn } from '../form/Form';
 // import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
@@ -29,21 +30,44 @@ export class PostController<T extends AnyObject> {
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    //const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    // const form = new Form(fields);
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+    const body = req.body;
+    console.log(body);
 
-    // const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    // if (req.body.saveAndSignOut) {
-    //   // await this.saveAndSignOut(req, res, formData);
-    // } else if (req.body.saveBeforeSessionTimeout) {
-    //   // await this.saveBeforeSessionTimeout(req, res, formData);
-    // } else if (req.body.cancel) {
-    //   // await this.cancel(req, res);
-    // } else {
-    //   // await this.saveAndContinue(req, res, form, formData);
-    // }
-    console.log(res);
+    if (req.body.saveAndSignOut) {
+      // await this.saveAndSignOut(req, res, formData);
+    } else if (req.body.saveBeforeSessionTimeout) {
+      // await this.saveBeforeSessionTimeout(req, res, formData);
+    } else if (req.body.cancel) {
+      // await this.cancel(req, res);
+    } else {
+      await this.checkCaseAccessCode(req, res, form, formData);
+    }
+  }
+
+  private async checkCaseAccessCode(
+    req: AppRequest<T>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    if (req?.session?.userCase) {
+      Object.assign(req?.session?.userCase, formData);
+    } else {
+      const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
+      req.session.userCase = initData;
+    }
+    req.session.errors = form.getErrors(formData);
+    if (req.session.errors.length) {
+      req.session.accessCodeLoginIn = false;
+    } else {
+      req.session.accessCodeLoginIn = true;
+    }
+
+    this.redirect(req, res);
   }
 
   // private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
@@ -85,7 +109,7 @@ export class PostController<T extends AnyObject> {
   //     }
   //   }
 
-  //   // here we explicitly assigning the values to userCase to get the title
+  // here we explicitly assigning the values to userCase to get the title
   //   if (typeof req.session.userCase !== 'undefined' && req.session.userCase !== null) {
   //     req.session.userCase.serviceType = tempServiceType;
   //     req.session.userCase.applyingWithAdoption = tempApplyingWithAdoption;

@@ -5,7 +5,7 @@ import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 // import { getCaseApi } from '../../app/case/CaseApi';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { CALLBACK_URL, ELIGIBILITY_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
+import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -27,18 +27,23 @@ export class OidcMiddleware {
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
-          req.session.save(() => res.redirect('/'));
+          req.session.save(() => res.redirect('/dashboard'));
         } else {
-          res.redirect(SIGN_IN_URL);
+          if (!req.session?.accessCodeLoginIn) {
+            res.redirect(CITIZEN_HOME_URL);
+          } else {
+            res.redirect(SIGN_IN_URL);
+          }
         }
       })
     );
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if (req.path.startsWith(ELIGIBILITY_URL)) {
+        if (req.path.startsWith(CITIZEN_HOME_URL) && !req.session?.user) {
           return next();
         }
+
         if (req.session?.user) {
           res.locals.isLoggedIn = true;
           // req.locals.api = getCaseApi(req.session.user, req.locals.logger);
@@ -57,7 +62,11 @@ export class OidcMiddleware {
           }
           return next();
         }
-        res.redirect(SIGN_IN_URL);
+        if (!req.session?.accessCodeLoginIn) {
+          res.redirect(CITIZEN_HOME_URL);
+        } else {
+          res.redirect(SIGN_IN_URL);
+        }
       })
     );
   }

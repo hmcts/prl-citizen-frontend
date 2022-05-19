@@ -4,7 +4,9 @@ import {
   areDateFieldsFilledIn,
   atLeastOneFieldIsChecked,
   doesArrayHaveValues,
+  isAccessCodeValid,
   isAddressSelected,
+  isCaseCodeValid,
   isDateInputInvalid,
   isEmailValid,
   isFieldFilledIn,
@@ -14,6 +16,7 @@ import {
   isInvalidPostcode,
   isLessThanAYear,
   isMoreThan18Years,
+  isNumeric,
   isPhoneNoValid,
   isTextAreaValid,
   isValidAccessCode,
@@ -326,6 +329,27 @@ describe('Validation', () => {
       const isValid = isAddressSelected('-1');
       expect(isValid).toStrictEqual('notSelected');
     });
+  });
+});
+
+describe('isAccessCodeValid()', () => {
+  test('Should Access Code Valied', async () => {
+    const invalid = isAccessCodeValid('ssssssssssssss');
+    expect(invalid).toStrictEqual('invalid');
+  });
+});
+
+describe('isNumericValid()', () => {
+  test('Should Access Code numeric', async () => {
+    const notNumeric = isNumeric('ssssssssssssssss');
+    expect(notNumeric).toStrictEqual('notNumeric');
+  });
+});
+
+describe('isCaseCodeValid()', () => {
+  test('Should Case Code Valied', async () => {
+    const invalid = isCaseCodeValid('ssssssss');
+    expect(invalid).toStrictEqual('invalid');
   });
 });
 

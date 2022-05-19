@@ -151,7 +151,6 @@ export interface FormOptions {
   validator?: ValidationCheck;
   parser?: Parser;
   disabled?: boolean;
-
   // rows?: SummaryListContent;
 }
 
@@ -196,6 +195,7 @@ export type FormError = {
 interface CaseWithFormData extends CaseWithId {
   _csrf: string;
   saveAndSignOut?: string;
+  accessCodeCheck?: string;
   saveBeforeSessionTimeout?: string;
   sendToApplicant2ForReview?: string;
   addAnotherName?: string;

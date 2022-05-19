@@ -20,10 +20,10 @@ describe('CookiesGetController', () => {
         language,
         pageContent: generateContent,
         userEmail: 'test@example.com',
-        //    userCase: req.session.userCase,
+        userCase: req.session.userCase,
       }),
       ...defaultViewArgs,
-      //  userCase: req.session.userCase,
+      userCase: req.session.userCase,
     });
   });
 });
