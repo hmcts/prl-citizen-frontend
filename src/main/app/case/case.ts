@@ -29,6 +29,8 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
+  detailsKnown?:string
+  startAlternative?:string
 }
 
 export interface CaseWithId extends Case {

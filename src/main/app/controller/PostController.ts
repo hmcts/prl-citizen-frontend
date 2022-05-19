@@ -24,7 +24,7 @@ import { AppRequest } from './AppRequest';
 
 @autobind
 export class PostController<T extends AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
+  constructor(protected readonly fields: FormFields | FormFieldsFn) { }
 
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
@@ -92,28 +92,16 @@ export class PostController<T extends AnyObject> {
   //   Object.assign(req?.session?.userCase, formData);
   //   req.session.errors = form.getErrors(formData);
 
-  //   this.filterErrorsForSaveAsDraft(req);
 
   //   const tempServiceType = req.session?.userCase?.serviceType;
-  //   const tempApplyingWithAdoption = req.session?.userCase?.applyingWithAdoption;
-  //   const tempApplyingWithPrivateLaw = req.session?.userCase?.applyingWithPrivateLaw;
 
   //   if (req.session?.user && req.session.errors.length === 0) {
-  //     if (!(Object.values(noHitToSaveAndContinue) as string[]).includes(req.originalUrl)) {
-  //       const eventName = this.getEventName(req);
-  //       if (eventName === CITIZEN_CREATE) {
-  //         req.session.userCase = await this.createCase(req, formData);
-  //       } else if (eventName === CITIZEN_UPDATE) {
-  //         req.session.userCase = await this.save(req, formData, eventName);
-  //       }
-  //     }
+  //     req.session.userCase = await this.save(req, formData, eventName);
   //   }
 
-  // here we explicitly assigning the values to userCase to get the title
+  // // here we explicitly assigning the values to userCase to get the title
   //   if (typeof req.session.userCase !== 'undefined' && req.session.userCase !== null) {
   //     req.session.userCase.serviceType = tempServiceType;
-  //     req.session.userCase.applyingWithAdoption = tempApplyingWithAdoption;
-  //     req.session.userCase.applyingWithPrivateLaw = tempApplyingWithPrivateLaw;
   //   }
 
   //   this.redirect(req, res);

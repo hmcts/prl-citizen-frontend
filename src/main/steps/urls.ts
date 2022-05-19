@@ -19,3 +19,10 @@ export const PRIVACY_POLICY: PageLink = '/privacy-policy';
 export const ACCESSIBILITY_STATEMENT: PageLink = '/accessibility-statement';
 export const TERMS_AND_CONDITIONS: PageLink = '/terms-and-conditions';
 export const CONTACT_US: PageLink = '/contact-us';
+
+
+export const RESPONDENT: PageLink = '/respondent';
+export const KEEP_DETAILS_PRIVATE: PageLink =  `${RESPONDENT}/keep-details-private`;
+export const details_known: PageLink = `${KEEP_DETAILS_PRIVATE}/details_known`;
+export const START_ALTERNATIVE: PageLink = `${KEEP_DETAILS_PRIVATE}/start_alternative`;
+
