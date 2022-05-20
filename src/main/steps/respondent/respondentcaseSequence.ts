@@ -1,21 +1,20 @@
 import { Sections, Step } from '../constants';
-import { DASHBOARD_URL, details_known, RESPONDENT, START_ALTERNATIVE } from '../urls';
+import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE } from '../urls';
 
 export const repondentCaseSequence: Step[] = [
   {
-    url: RESPONDENT,
+    url: RESPONDENT_TASK_LIST_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: details_known,
+    url: DETAILS_KNOWN,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => START_ALTERNATIVE,
   },
   {
     url: START_ALTERNATIVE,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => DASHBOARD_URL,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
-
 ];
