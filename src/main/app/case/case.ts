@@ -31,6 +31,9 @@ export interface Case {
   caseCode?: string;
   detailsKnown?:string
   startAlternative?:string
+  miamStart?:string
+  miamWillingness?:string
+  miamNotWillingExplnation?:string
 }
 
 export interface CaseWithId extends Case {
