@@ -14,6 +14,20 @@
   <div class="govuk-form-group">
     {% block form_actions %}
       <div class="govuk-button-group">
+      {{
+          govukButton({
+            text: getContent(form.accessCodeCheck.text),
+            classes: form.submit.classes,
+            type: "submit",
+            name: "accessCodeCheck",
+            value: true,
+            preventDoubleClick: true,
+            attributes: {
+              id: 'main-form-submit'
+            }
+          }) if getContent(form.accessCodeCheck.text)
+        }}
+
         {{
           govukButton({
             text: getContent(form.submit.text),

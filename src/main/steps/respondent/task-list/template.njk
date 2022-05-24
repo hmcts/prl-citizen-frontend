@@ -1,0 +1,67 @@
+{% extends "common/page.njk" %}
+
+{% macro taskName(item) %}
+  <span class="app-task-list__task-name">
+    {% if item.href %}
+      <a id="{{item.id}}" class="govuk-link" href="{{item.href}}" aria-describedby="{{item.id}}-status">
+        {{item.text}}
+      </a>
+    {% else %}
+      <p id="{{item.id}}" class="govuk-body govuk-!-margin-bottom-0" aria-describedby="{{item.id}}-status">
+        {{item.text}}
+      </p>
+    {% endif %}
+  </span>
+{% endmacro %}
+
+{% macro taskStatus(item) %}
+  {% set statusClass = "" %}
+  {%if item.status == 'IN_PROGRESS' %}
+    {% set statusClass = "govuk-tag--blue" %}
+  {% elif item.status == 'NOT_STARTED' or item.status == 'CAN_NOT_START_YET' %}
+    {% set statusClass = "govuk-tag--grey"%}
+  {% endif %}
+  <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
+{% endmacro %}
+
+{% macro taskListItem(item) %}
+  {% if item.id %}
+    <li class="app-task-list__item">
+      {{ taskName(item) }}
+      {{ taskStatus(item) }}
+    </li>
+  {% else %}
+    <p class="govuk-!-font-weight-bold govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{item.text}}</p>
+  {% endif %}
+{% endmacro %}
+
+{% macro taskListSection(section, index) %}
+  <li>
+    <h2 class="app-task-list__section">
+      <span class="app-task-list__section-number">{{index}}. </span>{{section.title}}
+    </h2>
+    <ul class="app-task-list__items">
+      {% for item in section.items %}
+        {{ taskListItem(item) }}
+      {% endfor %}
+    </ul>
+  </li>
+{% endmacro %}
+
+{% block content %}
+  <div class="govuk-grid-column-full"></div>
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        {{title}}
+      </h1>
+
+      <ol class="app-task-list">
+        {% for section in sections %}
+          {{ taskListSection(section, loop.index) }}
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+{% endblock %}

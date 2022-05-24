@@ -74,7 +74,7 @@ export const form: FormContent = {
       validator: value => isFieldFilledIn(value) || isAccessCodeValid(value),
     },
   },
-  submit: {
+  accessCodeCheck: {
     text: l => l.continue,
   },
 };

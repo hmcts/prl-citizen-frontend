@@ -15,8 +15,8 @@ export class PropertiesVolume {
     } else {
       this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
-      // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
-      // this.setLocalEndpoints();
+      //this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setLocalEndpoints();
     }
   }
 
@@ -34,15 +34,15 @@ export class PropertiesVolume {
     set(config, toPath, result.toString().replace('\n', ''));
   }
 
-  // private setLocalEndpoints(): void {
-  //   const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
-  //   const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
+  private setLocalEndpoints(): void {
+    const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
+    const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
 
-  //   const endpoints = JSON.parse(decoded.toString());
+    const endpoints = JSON.parse(decoded.toString());
 
-  //   set(config, 'services.authProvider.url', endpoints.s2s);
-  //   set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
-  //   set(config, 'services.idam.tokenURL', endpoints.idamToken);
-  //   set(config, 'services.case.url', endpoints.ccd);
-  // }
+    set(config, 'services.authProvider.url', endpoints.s2s);
+    set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
+    set(config, 'services.idam.tokenURL', endpoints.idamToken);
+  set(config, 'services.case.url', endpoints.ccd);
+  }
 }
