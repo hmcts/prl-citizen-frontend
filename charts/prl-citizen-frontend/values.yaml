@@ -1,14 +1,15 @@
 nodejs:
-  image: 'hmctspublic.azurecr.io/prl/citizen-frontend:latest'
   applicationPort: 3001
-  readinessDelay: 130
-  livenessDelay: 130
-  autoscaling: # Default is false
-    enabled: true
-    maxReplicas: 5 # Required setting
-    targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
   aadIdentityName: prl
+  image: 'hmctspublic.azurecr.io/prl/citizen-frontend:latest'
   ingressHost: privatelaw.{{ .Values.global.environment }}.platform.hmcts.net
+  keyVaults:
+    prl:
+      resourceGroup: prl
+      secrets:
+        - AppInsightsInstrumentationKey
+        - prl-cos-idam-client-secret
+        - microservicekey-prl-cos-api
   environment:
     NODE_ENV: production
     REFORM_TEAM: prl

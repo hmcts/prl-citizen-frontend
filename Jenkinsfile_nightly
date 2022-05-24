@@ -1,26 +1,21 @@
 #!groovy
 
 properties([
-  pipelineTriggers([cron('0 1 * * 1-5')])
+  pipelineTriggers([cron('0 1 * * 1-5')]),
+  parameters([
+    string(name: 'TEST_URL', defaultValue: 'https://privatelaw.aat.platform.hmcts.net', description: 'The URL you want to run tests against'),
+  ])
 ])
 
 @Library("Infrastructure")
+
+import uk.gov.hmcts.contino.AppPipelineConfig
 
 def type = "nodejs"
 def product = "prl"
 def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
-
-
-
-def secrets = [
-  'prl-${env}': [
-    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY")
-  ]
-]
-
-
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   [$class     : 'AzureKeyVaultSecret',
@@ -31,36 +26,24 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
+def secrets = [
+  'prl-${env}': [
+    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
+    secret('prl-cos-idam-client-secret', 'IDAM_SECRET'),
+    secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET')
+  ]
+]
+
 def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-
+  disableLegacyDeployment()
   loadVaultSecrets(secrets)
-  enableFullFunctionalTest(120)
+  syncBranchesWithMaster(branchesToSync)
 
-  after('test') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
-  }
-
-  before('crossBrowserTest') {
-
-  }
-
-  after('crossBrowserTest') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('fullFunctionalTest') {
-    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
-  }
-
-  after('fullFunctionalTest') {
-    archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  after('fortify-scan') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+  after('build') {
+    yarnBuilder.yarn('build')
   }
 }
 

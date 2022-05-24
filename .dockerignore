@@ -12,3 +12,4 @@
 !src/main/**
 !config/**
 !webpack.config.js
+!version
