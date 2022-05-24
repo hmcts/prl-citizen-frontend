@@ -1,5 +1,7 @@
 import {
-    getKeepYourDetailsPrivateStatus, getMiamStatus,
+    getKeepYourDetailsPrivateStatus, 
+    getMiamStatus,
+    getInternationalFactorsStatus
   } from './utils';
 import * as URL from '../../urls';
 
@@ -23,6 +25,17 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.mediation_miam,
           status: getMiamStatus(userCase),
           href: URL.MIAM_START,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.respondentAdditionalInformation,
+      items: [
+        {
+          id: 'international-factors',
+          text: taskListItems.international_factors,
+          status: getInternationalFactorsStatus(userCase),
+          href: URL.INTERNATIONAL_FACTORS_START,
         },
       ],
     }
