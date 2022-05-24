@@ -14,4 +14,12 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
   return SectionStatus.NOT_STARTED;
 };
 
-
+export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.start && userCase?.parents && userCase?.jurisdiction && userCase?.request ) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.NOT_STARTED;
+};
