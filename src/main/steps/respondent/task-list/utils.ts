@@ -14,4 +14,14 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
   return SectionStatus.NOT_STARTED;
 };
 
+export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.detailsKnown && userCase?.startAlternative) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.detailsKnown || userCase?.startAlternative) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.NOT_STARTED;
+};
+
 
