@@ -1,3 +1,4 @@
 export const respondent_en = {
-    respondentYourDetails: 'Your details'
+    respondentYourDetails: 'Your details',
+    applicationDetails: 'Application detail'
   }

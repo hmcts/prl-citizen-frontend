@@ -17,7 +17,8 @@ export const enum ValidationError {
   NOT_SELECTED = 'notSelected',
   INVALID = 'invalid',
   NOT_NUMERIC = 'notNumeric',
-  LESS='lessthan20'
+  LESS='lessthan20',
+  NOT_UPLOADED='notUploaded'
 }
 
 export const isFieldFilledIn: Validator = value => {
