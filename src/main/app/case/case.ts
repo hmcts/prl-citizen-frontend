@@ -31,14 +31,9 @@ export interface Case {
   caseCode?: string;
   detailsKnown?:string
   startAlternative?:string
-<<<<<<< HEAD
-<<<<<<< HEAD
   miamStart?:string
   miamWillingness?:string
   miamNotWillingExplnation?:string
-=======
-=======
->>>>>>> 105e1ff11e53aa523d12f8a18872b5c954a5e17b
   start?:YesOrNo
   parents?:YesOrNo
   jurisdiction?:YesOrNo
@@ -47,10 +42,6 @@ export interface Case {
   iFactorsStartProvideDetails?:string
   iFactorsRequestProvideDetails?:string
   iFactorsParentsProvideDetails?:string
-<<<<<<< HEAD
->>>>>>> f5414be (added new fields to case data)
-=======
->>>>>>> 105e1ff11e53aa523d12f8a18872b5c954a5e17b
 }
 
 export interface CaseWithId extends Case {
