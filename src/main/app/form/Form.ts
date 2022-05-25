@@ -119,7 +119,11 @@ export type FormFields = Record<string, FormField>;
 export type FormFieldsFn = (userCase: Partial<Case>) => FormFields;
 
 export interface FormContent {
-  submit: {
+  accessCodeCheck?: {
+    text: Label;
+    classes?: string;
+  };
+  submit?: {
     text: Label;
     classes?: string;
   };
@@ -177,6 +181,8 @@ export interface FormInput {
   open?: boolean;
   options?: DropdownOptionsLookup;
   disabled?: boolean;
+  detailsHtml?: any;
+  link?: string;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {

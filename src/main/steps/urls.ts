@@ -22,14 +22,13 @@ export const CONTACT_US: PageLink = '/contact-us';
 
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
-/* keep-details-private */ 
+/* keep-details-private */
 export const RESPONDENT: PageLink = '/respondent';
 export const KEEP_DETAILS_PRIVATE: PageLink =  `${RESPONDENT}/keep-details-private`;
 export const DETAILS_KNOWN: PageLink = `${KEEP_DETAILS_PRIVATE}/details_known`;
 export const START_ALTERNATIVE: PageLink = `${KEEP_DETAILS_PRIVATE}/start_alternative`;
 /* keep-details-private-end */
 
-/* safety concerns */
-export const SAFETY_CONCERNS: PageLink = `${RESPONDENT}/safety_concerns`;
-export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
-
+export const MIAM: PageLink = `${RESPONDENT}/miam`;
+export const MIAM_START: PageLink = `${MIAM}/miam-start`;
+export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;

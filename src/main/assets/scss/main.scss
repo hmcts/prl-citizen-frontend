@@ -5,3 +5,51 @@
 @import './header';
 @import './cookie-banner';
 @import './task-list';
+
+.hmcts-button-link,
+.uppy-FileInput-btn {
+  @extend %govuk-body-m;
+  @extend %govuk-link;
+  @include govuk-link-style-default;
+  background: none;
+  color: $govuk-link-colour;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+section {
+  margin-bottom: 2em;
+}
+.hidden {
+  display: none;
+}
+.float-left {
+  margin-bottom: 10px !important;
+  p {
+    float: left;
+  }
+  a {
+    float: left;
+    padding-left: 20px;
+  }
+}
+.font-normal {
+  font-weight: 400;
+}
+.summary-list-value {
+  text-align: left;
+  @include govuk-media-query($from: tablet) {
+    text-align: right;
+  }
+}
+.summary-list-actions {
+  width: 100%;
+  @include govuk-media-query($from: tablet) {
+    width: 30%;
+  }
+}
+.not-underlined {
+  text-decoration: none;
+  color: #0B0C0C !important;
+}

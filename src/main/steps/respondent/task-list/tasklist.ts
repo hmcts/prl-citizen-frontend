@@ -1,5 +1,5 @@
 import {
-    getKeepYourDetailsPrivateStatus,
+    getKeepYourDetailsPrivateStatus, getMiamStatus,
   } from './utils';
 import * as URL from '../../urls';
 
@@ -15,15 +15,14 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         },
       ],
     },
-
     {
-      title: sectionTitles.respondentSafetyConcerns,
+      title: sectionTitles.applicationDetails,
       items: [
         {
-          id: 'your-safety',
-          text: taskListItems.your_safety,
-          status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.SAFETY_MAIN_PAGE,
+          id: 'medation-miam',
+          text: taskListItems.mediation_miam,
+          status: getMiamStatus(userCase),
+          href: URL.MIAM_START,
         },
       ],
     }

@@ -1,5 +1,5 @@
 import { Sections, Step } from '../constants';
-import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE, SAFETY_MAIN_PAGE} from '../urls';
+import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE } from '../urls';
 
 export const repondentCaseSequence: Step[] = [
   {
@@ -18,13 +18,16 @@ export const repondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: START_ALTERNATIVE,
+    url: MIAM_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep:  data =>
+    data.miamStart === YesOrNo.NO
+      ? MIAM_ATTEND_WILLINGNESS
+      : RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: MIAM_ATTEND_WILLINGNESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
-  {
-    url: SAFETY_MAIN_PAGE,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  }
 ];
