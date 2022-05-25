@@ -58,6 +58,20 @@
 
         {{
           govukButton({
+            text: getContent(form.editAnswers.text),
+            classes: "govuk-button--secondary",
+            preventDoubleClick: true,
+            type: "submit",
+            name: "editAnswers",
+            value: true,
+            attributes: {
+              id: 'main-form-edit-answers'
+            }
+          }) if getContent(form.editAnswers.text)
+        }}
+
+        {{
+          govukButton({
             text: getContent(form.cancel.text),
             classes: "govuk-button--secondary",
             preventDoubleClick: true,

@@ -311,6 +311,7 @@ export interface CaseData {
   serviceType: string;
   claimNumber: string;
   caseCode: string;
+  respondentFirstName: string;
   
 }
 

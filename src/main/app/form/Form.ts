@@ -135,6 +135,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  editAnswers?: {
+    text: Label;
+    classes?: string;
+  };
   fields: FormFields | FormFieldsFn;
 }
 

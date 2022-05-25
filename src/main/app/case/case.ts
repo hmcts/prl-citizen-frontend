@@ -6,6 +6,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceType: 'serviceType',
   claimNumber: 'claimNumber',
   caseCode: 'caseCode',
+  respondentFirstName: 'respondentFirstName',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -35,6 +36,7 @@ export interface Case {
   miamWillingness?:string
   miamNotWillingExplnation?:string
   confirmcontactdetails?:string
+  respondentFirstName?:string
 }
 
 export interface CaseWithId extends Case {
