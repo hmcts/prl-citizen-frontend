@@ -29,3 +29,7 @@ export const DETAILS_KNOWN: PageLink = `${KEEP_DETAILS_PRIVATE}/details_known`;
 export const START_ALTERNATIVE: PageLink = `${KEEP_DETAILS_PRIVATE}/start_alternative`;
 /* keep-details-private-end */
 
+/* safety concerns */
+export const SAFETY_CONCERNS: PageLink = `${RESPONDENT}/safety_concerns`;
+export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
+

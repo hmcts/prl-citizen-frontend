@@ -14,5 +14,17 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           href: URL.DETAILS_KNOWN,
         },
       ],
+    },
+
+    {
+      title: sectionTitles.respondentSafetyConcerns,
+      items: [
+        {
+          id: 'your-safety',
+          text: taskListItems.your_safety,
+          status: getKeepYourDetailsPrivateStatus(userCase),
+          href: URL.SAFETY_MAIN_PAGE,
+        },
+      ],
     }
   ];
