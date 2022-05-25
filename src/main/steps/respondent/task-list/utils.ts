@@ -3,7 +3,6 @@ import {
   SectionStatus,
 } from '../../../app/case/definition';
 
-
 export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {
     return SectionStatus.COMPLETED;
