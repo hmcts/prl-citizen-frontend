@@ -32,3 +32,8 @@ export const START_ALTERNATIVE: PageLink = `${KEEP_DETAILS_PRIVATE}/start_altern
 export const MIAM: PageLink = `${RESPONDENT}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
+
+/* confirm-contact-details-start */
+export const CONFIRM_CONTACT_DETAILS: PageLink =  `${RESPONDENT}/confirmcontactdetails`;
+export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
+/* confirm-contact-details-end */

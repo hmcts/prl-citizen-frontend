@@ -34,6 +34,7 @@ export interface Case {
   miamStart?:string
   miamWillingness?:string
   miamNotWillingExplnation?:string
+  confirmcontactdetails?:string
 }
 
 export interface CaseWithId extends Case {
