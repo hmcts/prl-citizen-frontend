@@ -41,7 +41,6 @@ interface SummaryList {
 type SummaryListContent = PageContent & {
   sectionTitles: Record<string, string>;
   keys: Record<string, string>;
-  applyingWith: Record<string, string>;
 };
 
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
@@ -82,12 +81,12 @@ export const applicantSummaryList = (
     rows: getSectionSummaryList(
       [
         {
-          key: 'Name',
+          key: keys.name,
           value: 'testValueName',
           changeUrl: 'editNameURL',
         },
         {
-          key: 'Date of birth',
+          key: keys.dateOfBirth,
           value: 'testValueDOB',
           changeUrl: 'editDOBURL',
         },

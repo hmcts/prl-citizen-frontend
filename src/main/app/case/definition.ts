@@ -312,6 +312,7 @@ export interface CaseData {
   claimNumber: string;
   caseCode: string;
   respondentFirstName: string;
+  respondentLastName: string;
   
 }
 

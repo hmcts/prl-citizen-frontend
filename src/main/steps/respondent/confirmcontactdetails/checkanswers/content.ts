@@ -1,5 +1,4 @@
 import { FieldPrefix } from '../../../../app/case/case';
-import { ApplyingWith, YesNoNotsure } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
@@ -11,32 +10,20 @@ import {
 export const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
-  change: 'Change',
-  reason: 'Reason',
-  applyingWith: {
-    [ApplyingWith.ALONE]: "I'm applying on my own",
-    [ApplyingWith.WITH_SPOUSE_OR_CIVIL_PARTNER]: "I'm applying with my spouse or civil partner",
-    [ApplyingWith.WITH_SOME_ONE_ELSE]: "I'm applying with someone who is not my spouse or civil partner",
-  },
-  yesNoNotsure: {
-    [YesNoNotsure.YES]: 'Yes',
-    [YesNoNotsure.NO]: 'No',
-    [YesNoNotsure.NOT_SURE]: 'Not sure',
-  },
   sectionTitles: {
     applicationDetails: 'Application details',
   },
   keys: {
-    noOfApplicants: 'Number of applicants',
-    dateChildMovedIn: 'Date child moved in',
     name: 'Name',
+    dateOfBirth: 'Date of birth',
+    placeOfBirth: 'Place of birth',
+    address: 'Address',
+    addressHistory: 'Address history',
     phoneNumber: 'Phone number',
-    emailAddress: 'Email address',
+    email: 'Email',
   },
   errors: {
-    dateChildMovedIn: {
-      lessThanTenWeeks: 'You can only submit 10 weeks after the date the child started living continuously with you',
-    },
+    
   },
 };
 
@@ -54,33 +41,20 @@ const en = (content: CommonContent) => {
 const cyContent: typeof enContent = {
   section: 'Check your details (Welsh)',
   title: 'Read the information to make sure it is correct, and add any missing details (Welsh)',
-  change: 'Newid',
-  reason: 'Rheswm',
-  applyingWith: {
-    [ApplyingWith.ALONE]: 'Rwy’n gwneud cais ar fy mhen fy hun',
-    [ApplyingWith.WITH_SPOUSE_OR_CIVIL_PARTNER]: 'Rwy’n gwneud cais gyda fy mhriod neu fy mhartner sifil',
-    [ApplyingWith.WITH_SOME_ONE_ELSE]: 'Rwy’n gwneud cais gyda rhywun nad ydynt yn briod neu’n bartner sifil i mi',
-  },
-  yesNoNotsure: {
-    [YesNoNotsure.YES]: 'Ydy',
-    [YesNoNotsure.NO]: 'Nac ydy',
-    [YesNoNotsure.NOT_SURE]: 'Ddim yn siŵr',
-  },
   sectionTitles: {
     applicationDetails: 'Manylion y cais',
   },
   keys: {
-    noOfApplicants: 'Nifer y ceiswyr',
-    dateChildMovedIn: 'Dyddiad wnaeth y plentyn symud i fyw gyda chi',
-    name: 'Enw',
-    phoneNumber: 'Rhif ffôn',
-    emailAddress: 'Cyfeiriad e-bost',
+    name: 'Name (in Welsh)',
+    dateOfBirth: 'Date of birth (in Welsh)',
+    placeOfBirth: 'Place of birth (in Welsh)',
+    address: 'Address (in Welsh)',
+    addressHistory: 'Address history (in Welsh)',
+    phoneNumber: 'Phone number (in Welsh)',
+    email: 'Email (in Welsh)',
   },
   errors: {
-    dateChildMovedIn: {
-      lessThanTenWeeks:
-        'Rhaid i chi aros nes bydd 10 wythnos wedi mynd heibio ers i’r plentyn ddechrau byw gyda chi’n barhaus cyn cyflwyno eich cais',
-    },
+
   },
 };
 
@@ -90,7 +64,7 @@ const cy: typeof en = (content: CommonContent) => {
     ...cyContent,
     language: content.language,
     sections: [
-      applicantSummaryList(enContent, userCase, FieldPrefix.APPLICANT1),
+      applicantSummaryList(cyContent, userCase, FieldPrefix.APPLICANT1),
     ],
   };
 };
