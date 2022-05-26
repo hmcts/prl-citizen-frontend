@@ -34,7 +34,8 @@ export interface Case {
   doYouConsent?: YesOrNo,
   applicationReceived?: CaseDate,
   courtPermission?: YesOrNo
-
+  reasonForNotConsenting?: string, 
+  courtOrderDetails?: string,
 }
 
 export interface CaseWithId extends Case {

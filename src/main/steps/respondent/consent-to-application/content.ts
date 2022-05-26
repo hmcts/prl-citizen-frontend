@@ -1,7 +1,7 @@
 import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../app/form/validation';
 import { covertToDateObject } from '../../../app/form/parser';
 import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../app/form/validation';
 
@@ -17,19 +17,67 @@ const en = {
   continue: 'Save and continue',
   reasonNotConsenting: 'Give your reasons for not consenting to the application.',
   courtOrderDetails: 'Provide details of the court order in place.',
+  errors: {
+    doYouConsent: {
+      required: 'Please select an answer',
+    },
+    courtPermission: {
+      required: 'Provide a reason',
+    },
+    reasonForNotConsenting: {
+      required: 'Please provide a reason',
+      invalid: 'Reason must be 500 characters or fewer',
+    },
+    courtOrderDetails: {
+      required: 'Please provide court details',
+      invalid: 'Details must be 500 characters or fewer',
+    },
+    applicationReceivedDate: {
+      required: 'Enter application received date',
+      invalidDate: 'Application received date must be a real date',
+      incompleteDay: 'Application received date must include a day',
+      incompleteMonth: 'Application received date must include a month',
+      incompleteYear: 'Application received date must include a year',
+      invalidDateInFuture: 'Application received date must be in the past',
+    },
+  },
 };
 
 const cy: typeof en = {
-  title: 'Your understanding of the application',
-  consent: 'Do you consent to the application?',
-  dateReceived: 'When did you receive the application?',
-  courtPermission: 'Does the applicant need permission from the court before making applications?',
-  one: 'Yes',
-  two: 'No',
-  hint: 'For example, 27 3 2007',
-  continue: 'Save and continue',
-  reasonNotConsenting: 'Give your reasons for not consenting to the application.',
-  courtOrderDetails: 'Provide details of the court order in place.',
+  title: 'Your understanding of the application (welsh)',
+  consent: 'Do you consent to the application? (welsh)',
+  dateReceived: 'When did you receive the application? (welsh)',
+  courtPermission: 'Does the applicant need permission from the court before making applications? (welsh)',
+  one: 'Yes (welsh)',
+  two: 'No (welsh)',
+  hint: 'For example, 27 3 2007 (welsh)',
+  continue: 'Save and continue (welsh)',
+  reasonNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
+  courtOrderDetails: 'Provide details of the court order in place. (welsh)',
+  errors: {
+    doYouConsent: {
+      required: 'Please select an answer (welsh)',
+    },
+    courtPermission: {
+      required: 'Please select an answer (welsh)',
+    },
+    reasonForNotConsenting: {
+      required: 'Please provide a reason (welsh)',
+      invalid: 'Reason must be 500 characters or fewer (welsh)',
+    },
+    courtOrderDetails: {
+      required: 'Please provide court details (welsh)',
+      invalid: 'Details must be 500 characters or fewer (welsh)',
+    },
+    applicationReceivedDate: {
+      required: 'Enter application received date (welsh)',
+      invalidDate: 'Application received date must be a real date (welsh)',
+      incompleteDay: 'Application received date must include a day (welsh)',
+      incompleteMonth: 'Application received date must include a month (welsh)',
+      incompleteYear: 'Application received date must include a year (welsh)',
+      invalidDateInFuture: 'Application received date must be in the past (welsh)',
+    },
+  },
 };
 
 const languages = {
@@ -57,15 +105,15 @@ export const form: FormContent = {
             reasonForNotConsenting: {
               type: 'textarea',
               label: l => l.reasonNotConsenting,
-              id: 'notConsentingReason',
-              validator: value => isFieldFilledIn(value),
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         }
       ],
       validator: isFieldFilledIn,
     },
-    applicationReceived: {
+    applicationReceivedDate: {
       type: 'date',
       classes: 'govuk-date-input',
       label: l => l.dateReceived,
@@ -91,7 +139,7 @@ export const form: FormContent = {
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
         },
       ],
-      parser: body => covertToDateObject('applicationReceived', body as Record<string, unknown>),
+      parser: body => covertToDateObject('applicationReceivedDate', body as Record<string, unknown>),
       validator: value =>
               areDateFieldsFilledIn(value as CaseDate) ||
               isDateInputInvalid(value as CaseDate) ||
@@ -111,8 +159,8 @@ export const form: FormContent = {
             courtOrderDetails: {
               type: 'textarea',
               label: l => l.courtOrderDetails,
-              id: 'courtOrderDetails',
-              validator: value => isFieldFilledIn(value),
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
