@@ -1,11 +1,12 @@
+import { MIAM_START } from '../../../../steps/urls';
 import { FieldPrefix } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
 
 import {
-  applicantSummaryList,
-} from './utils';
+  summaryList,
+} from '../../../common/summary/utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -33,7 +34,7 @@ const en = (content: CommonContent) => {
     ...enContent,
     language: content.language,
     sections: [
-      applicantSummaryList(enContent, userCase, FieldPrefix.APPLICANT1),
+      summaryList(enContent, userCase, FieldPrefix.APPLICANT1, urls),
     ],
   };
 };
@@ -58,13 +59,23 @@ const cyContent: typeof enContent = {
   },
 };
 
+const urls = {
+  name: MIAM_START,
+  dateOfBirth: 'dob url',
+  placeOfBirth: 'Place of birth (in Welsh)',
+  address: 'Address (in Welsh)',
+  addressHistory: 'Address history (in Welsh)',
+  phoneNumber: 'Phone number (in Welsh)',
+  email: 'Email (in Welsh)',
+};
+
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   return {
     ...cyContent,
     language: content.language,
     sections: [
-      applicantSummaryList(cyContent, userCase, FieldPrefix.APPLICANT1),
+      summaryList(cyContent, userCase, FieldPrefix.APPLICANT1, urls),
     ],
   };
 };
@@ -75,9 +86,6 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.continue,
-  },
-  editAnswers: {
-    text: l => l.editAnswers,
   },
 };
 

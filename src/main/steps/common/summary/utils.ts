@@ -1,5 +1,5 @@
-import { CaseWithId, FieldPrefix } from '../../../../app/case/case';
-import { PageContent } from '../../../../app/controller/GetController';
+import { CaseWithId, FieldPrefix } from '../../../app/case/case';
+import { PageContent } from '../../../app/controller/GetController';
 //import * as Urls from '../../../../steps/urls';
 
 interface GovUkNunjucksSummary {
@@ -69,28 +69,32 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
 };
 
 /* eslint-disable import/namespace */
-export const applicantSummaryList = (
+export const summaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  prefix: FieldPrefix
+  prefix: FieldPrefix,
+  urls: any
 ): SummaryList | undefined => {
 
   let sectionTitle = sectionTitles.applicantDetails;
+  
+  let summaryData: SummaryListRow[] = [];
+  for (const key in keys) {
+    const keyLabel = keys[key];
+    const url = urls[key]
+    const row = {
+      key: keyLabel,
+      value: 'testValueName',
+      changeUrl: url,
+    };
+
+    summaryData.push(row);
+}
+
   return {
     title: sectionTitle,
     rows: getSectionSummaryList(
-      [
-        {
-          key: keys.name,
-          value: 'testValueName',
-          changeUrl: 'editNameURL',
-        },
-        {
-          key: keys.dateOfBirth,
-          value: 'testValueDOB',
-          changeUrl: 'editDOBURL',
-        },
-      ],
+      summaryData,
       content
     ),
   };
