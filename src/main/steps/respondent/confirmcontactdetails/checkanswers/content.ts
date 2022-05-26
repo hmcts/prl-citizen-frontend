@@ -1,5 +1,4 @@
 import { MIAM_START } from '../../../../steps/urls';
-import { FieldPrefix } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
@@ -34,7 +33,7 @@ const en = (content: CommonContent) => {
     ...enContent,
     language: content.language,
     sections: [
-      summaryList(enContent, userCase, FieldPrefix.APPLICANT1, urls),
+      summaryList(enContent, userCase, urls),
     ],
   };
 };
@@ -75,7 +74,7 @@ const cy: typeof en = (content: CommonContent) => {
     ...cyContent,
     language: content.language,
     sections: [
-      summaryList(cyContent, userCase, FieldPrefix.APPLICANT1, urls),
+      summaryList(cyContent, userCase, urls, 'applicationDetails'),
     ],
   };
 };

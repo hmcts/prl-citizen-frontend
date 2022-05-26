@@ -1,4 +1,4 @@
-import { CaseWithId, FieldPrefix } from '../../../app/case/case';
+import { CaseWithId} from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 //import * as Urls from '../../../../steps/urls';
 
@@ -72,19 +72,17 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
 export const summaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  prefix: FieldPrefix,
-  urls: any
+  urls: any,
+  sectionTitle?: string
 ): SummaryList | undefined => {
 
-  let sectionTitle = sectionTitles.applicantDetails;
-  
   let summaryData: SummaryListRow[] = [];
   for (const key in keys) {
     const keyLabel = keys[key];
     const url = urls[key]
     const row = {
       key: keyLabel,
-      value: 'testValueName',
+      value: userCase[key],
       changeUrl: url,
     };
 
@@ -92,7 +90,7 @@ export const summaryList = (
 }
 
   return {
-    title: sectionTitle,
+    title: sectionTitle || '',
     rows: getSectionSummaryList(
       summaryData,
       content
