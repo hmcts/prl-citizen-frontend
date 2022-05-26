@@ -1,6 +1,9 @@
+import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { covertToDateObject } from '../../../app/form/parser';
+import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../app/form/validation';
 
 
 const en = {
@@ -12,7 +15,8 @@ const en = {
   two: 'No',
   hint: 'For example, 27 3 2007',
   continue: 'Save and continue',
-  
+  reasonNotConsenting: 'Give your reasons for not consenting to the application.',
+  courtOrderDetails: 'Provide details of the court order in place.',
 };
 
 const cy: typeof en = {
@@ -24,6 +28,8 @@ const cy: typeof en = {
   two: 'No',
   hint: 'For example, 27 3 2007',
   continue: 'Save and continue',
+  reasonNotConsenting: 'Give your reasons for not consenting to the application.',
+  courtOrderDetails: 'Provide details of the court order in place.',
 };
 
 const languages = {
@@ -47,6 +53,14 @@ export const form: FormContent = {
         {
           label: l => l.two,
           value: 'No',
+          subFields:{
+            reasonForNotConsenting: {
+              type: 'textarea',
+              label: l => l.reasonNotConsenting,
+              id: 'notConsentingReason',
+              validator: value => isFieldFilledIn(value),
+            },
+          },
         }
       ],
       validator: isFieldFilledIn,
@@ -76,7 +90,12 @@ export const form: FormContent = {
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
         },
-      ]
+      ],
+      parser: body => covertToDateObject('applicationReceived', body as Record<string, unknown>),
+      validator: value =>
+              areDateFieldsFilledIn(value as CaseDate) ||
+              isDateInputInvalid(value as CaseDate) ||
+              isFutureDate(value as CaseDate),
       },
     courtPermission: {
       type: 'radios',
@@ -88,6 +107,14 @@ export const form: FormContent = {
         {
           label: l => l.one,
           value: 'Yes',
+          subFields:{
+            courtOrderDetails: {
+              type: 'textarea',
+              label: l => l.courtOrderDetails,
+              id: 'courtOrderDetails',
+              validator: value => isFieldFilledIn(value),
+            },
+          },
         },
         {
           label: l => l.two,

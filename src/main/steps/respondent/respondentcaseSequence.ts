@@ -10,7 +10,7 @@ export const repondentCaseSequence: Step[] = [
   {
     url: CONSENT_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => START_ALTERNATIVE,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
     url: DETAILS_KNOWN,
