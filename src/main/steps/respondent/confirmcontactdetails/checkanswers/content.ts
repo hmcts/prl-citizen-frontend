@@ -1,4 +1,4 @@
-import { MIAM_START, MIAM_ATTEND_WILLINGNESS } from '../../../../steps/urls';
+import { MIAM_START } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
@@ -14,9 +14,13 @@ export const enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    miamStart :"What is a Mediation Information and Assessment Meeting (MIAM)?",
-    miamWillingness:"Would you be willing to attend a MIAM?",
-    miamNotWillingExplnation:"Explain why"
+    name: 'Name',
+    dateOfBirth: 'Date of birth',
+    placeOfBirth: 'Place of birth',
+    address: 'Address',
+    addressHistory: 'Address history',
+    phoneNumber: 'Phone number',
+    email: 'Email',
   },
   errors: {
     
@@ -35,25 +39,33 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-    section: 'Check your details',
-    title: 'Read the information to make sure it is correct, and add any missing details',
-    sectionTitles: {
-        applicationDetails: 'Application details',
-      },
-    keys: {
-      miamStart :"What is a Mediation Information and Assessment Meeting (MIAM)?",
-      miamWillingness:"Would you be willing to attend a MIAM?",
-      miamNotWillingExplnation:"Explain why"
-    },
-    errors: {
-      
-    },
+  section: 'Check your details (Welsh)',
+  title: 'Read the information to make sure it is correct, and add any missing details (Welsh)',
+  sectionTitles: {
+    applicationDetails: 'Manylion y cais',
+  },
+  keys: {
+    name: 'Name (in Welsh)',
+    dateOfBirth: 'Date of birth (in Welsh)',
+    placeOfBirth: 'Place of birth (in Welsh)',
+    address: 'Address (in Welsh)',
+    addressHistory: 'Address history (in Welsh)',
+    phoneNumber: 'Phone number (in Welsh)',
+    email: 'Email (in Welsh)',
+  },
+  errors: {
+
+  },
 };
 
 const urls = {
-  miamStart: MIAM_START,
-  miamWillingness: MIAM_ATTEND_WILLINGNESS,
-  miamNotWillingExplnation: MIAM_ATTEND_WILLINGNESS,
+  name: MIAM_START,
+  dateOfBirth: 'dob url',
+  placeOfBirth: 'Place of birth (in Welsh)',
+  address: 'Address (in Welsh)',
+  addressHistory: 'Address history (in Welsh)',
+  phoneNumber: 'Phone number (in Welsh)',
+  email: 'Email (in Welsh)',
 };
 
 const cy: typeof en = (content: CommonContent) => {

@@ -27,8 +27,11 @@ export const RESPONDENT: PageLink = '/respondent';
 export const KEEP_DETAILS_PRIVATE: PageLink =  `${RESPONDENT}/keep-details-private`;
 export const DETAILS_KNOWN: PageLink = `${KEEP_DETAILS_PRIVATE}/details_known`;
 export const START_ALTERNATIVE: PageLink = `${KEEP_DETAILS_PRIVATE}/start_alternative`;
+export const PRIVATE_DETAILS_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_confirmed`;
+export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_not_confirmed`;
 /* keep-details-private-end */
 
+/* MIAM */ 
 export const MIAM: PageLink = `${RESPONDENT}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
@@ -40,3 +43,11 @@ export const INTERNATIONAL_FACTORS_PARENTS: PageLink = `${INTERNATIONAL_FACTORS}
 export const INTERNATIONAL_FACTORS_JURISDICTION: PageLink = `${INTERNATIONAL_FACTORS}/jurisdiction`;
 export const INTERNATIONAL_FACTORS_REQUEST: PageLink = `${INTERNATIONAL_FACTORS}/request`;
 /* international-factors */
+
+export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
+/* MIAM */ 
+
+/* confirm-contact-details-start */
+export const CONFIRM_CONTACT_DETAILS: PageLink =  `${RESPONDENT}/confirmcontactdetails`;
+export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
+/* confirm-contact-details-end */
