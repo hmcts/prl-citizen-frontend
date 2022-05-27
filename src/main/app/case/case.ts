@@ -37,7 +37,6 @@ export interface Case {
   miamStart?:string
   miamWillingness?:string
   miamNotWillingExplnation?:string
-<<<<<<< HEAD
   start?:YesOrNo
   parents?:YesOrNo
   jurisdiction?:YesOrNo
@@ -46,11 +45,9 @@ export interface Case {
   iFactorsStartProvideDetails?:string
   iFactorsRequestProvideDetails?:string
   iFactorsParentsProvideDetails?:string
-=======
   confirmcontactdetails?:string
   respondentFirstName?:string
   respondentLastName?:string
->>>>>>> feature/keep-details-private-1433
 }
 
 export interface CaseWithId extends Case {
