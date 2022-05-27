@@ -1,5 +1,5 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-import {  Checkbox } from '../../../../app/case/case';
+// import {  Checkbox } from '../../../../app/case/case';
 // Case
 // import { CommonContent } from 'steps/common/common.content';
 // import { PageContent } from '../../../../app/controller/GetController';
@@ -27,6 +27,9 @@ const en = {
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
+    },
+    contactDetailsPrivate: {
+      required: 'Select your contact details',
     }
   },
 };
@@ -50,6 +53,9 @@ const cy: typeof en = {
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
+    },
+    contactDetailsPrivate: {
+      required: 'Select your contact details',
     }
   },
 };
@@ -77,25 +83,25 @@ export const form: FormContent = {
               label: l => l.contact_details_private,
               hint: l => l.contact_details_private_hint,
               validator: (value, formData) => {
-                if ((value as string[])?.includes(Checkbox.Checked)) {
+                if (formData.startAlternative === 'Yes') {
                   return atLeastOneFieldIsChecked(formData?.contactDetailsPrivate);
                 }
               },
               values: [
                 {
-                  name: 'address',
+                  name: 'contactDetailsPrivate',
                   label: l => l.address,
-                  value: Checkbox.Checked,
+                  value: 'address',
                 },
                 {
-                  name: 'phoneNumber',
+                  name: 'contactDetailsPrivate',
                   label: l => l.Phone_number,
-                  value: Checkbox.Checked,
+                  value: 'phone',
                 },
                 {
-                  name: 'email',
+                  name: 'contactDetailsPrivate',
                   label: l => l.Email,
-                  value: Checkbox.Checked,
+                  value: 'email',
                 },
                
               ],
