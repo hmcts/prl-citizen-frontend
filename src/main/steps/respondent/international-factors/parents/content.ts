@@ -15,6 +15,9 @@ const en = {
   errors: {
     parents: {
       required: 'Please select one of the options before proceeding further',
+    },
+    iFactorsParentsProvideDetails: {
+      required: 'Please fill the provide details field before proceeding further',
     }
   },
 };
@@ -30,6 +33,9 @@ const cy: typeof en = {
   errors: {
     parents: {
       required: 'Please select one of the options before proceeding further',
+    },
+    iFactorsParentsProvideDetails: {
+      required: 'Please fill the provide details field before proceeding further',
     }
   },
 };

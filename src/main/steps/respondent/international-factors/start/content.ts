@@ -14,6 +14,9 @@ const en = {
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',
+    },
+    iFactorsStartProvideDetails: {
+      required: 'Please fill the provide details field before proceeding further',
     }
   },
 };
@@ -29,6 +32,9 @@ const cy: typeof en = {
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',
+    },
+    iFactorsStartProvideDetails: {
+      required: 'Please fill the provide details field before proceeding further',
     }
   },
 };
