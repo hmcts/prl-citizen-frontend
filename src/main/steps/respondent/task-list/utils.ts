@@ -27,6 +27,9 @@ export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStat
   if (userCase?.start && userCase?.parents && userCase?.jurisdiction && userCase?.request ) {
     return SectionStatus.COMPLETED;
   }
+  console.log(userCase?.start + "****** " + userCase?.parents + "****** " + userCase?.request + "******" + userCase?.jurisdiction);
+  console.log(userCase?.iFactorsStartProvideDetails + "****** " + userCase?.iFactorsJurisdictionProvideDetails + "****** " + userCase?.iFactorsParentsProvideDetails + "******" + userCase?.iFactorsRequestProvideDetails);
+  
   if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
     return SectionStatus.IN_PROGRESS;
   }
