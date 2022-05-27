@@ -33,6 +33,7 @@ export interface Case {
   caseCode?: string;
   detailsKnown?:string
   startAlternative?:string
+  contactDetailsPrivate?:any
   miamStart?:string
   miamWillingness?:string
   miamNotWillingExplnation?:string

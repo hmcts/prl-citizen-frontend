@@ -1,5 +1,5 @@
 import { Sections, Step } from '../constants';
-import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE, MIAM_START, MIAM_ATTEND_WILLINGNESS,CHECK_ANSWERS } from '../urls';
+import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE, MIAM_START, MIAM_ATTEND_WILLINGNESS, PRIVATE_DETAILS_CONFIRMED, PRIVATE_DETAILS_NOT_CONFIRMED, MIAM_SUMMARY, CHECK_ANSWERS } from '../urls';
 import { YesOrNo } from 'app/case/definition';
 
 export const repondentCaseSequence: Step[] = [
@@ -16,6 +16,19 @@ export const repondentCaseSequence: Step[] = [
   {
     url: START_ALTERNATIVE,
     showInSection: Sections.AboutRespondentCase,
+    getNextStep: data =>
+    data.startAlternative === YesOrNo.YES
+      ? PRIVATE_DETAILS_CONFIRMED
+      : PRIVATE_DETAILS_NOT_CONFIRMED,
+  },
+  {
+    url: PRIVATE_DETAILS_CONFIRMED,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PRIVATE_DETAILS_NOT_CONFIRMED,
+    showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
@@ -24,10 +37,15 @@ export const repondentCaseSequence: Step[] = [
     getNextStep:  data =>
     data.miamStart === YesOrNo.NO
       ? MIAM_ATTEND_WILLINGNESS
-      : RESPONDENT_TASK_LIST_URL,
+      : MIAM_SUMMARY,
   },
   {
     url: MIAM_ATTEND_WILLINGNESS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => MIAM_SUMMARY,
+  },
+  {
+    url: MIAM_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
