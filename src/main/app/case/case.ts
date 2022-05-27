@@ -30,7 +30,10 @@ export interface Case {
   claimNumber?: string;
   caseCode?: string;
   detailsKnown?:string
-  startAlternative?:string,
+  startAlternative?:string
+  miamStart?:string
+  miamWillingness?:string
+  miamNotWillingExplnation?:string
   doYouConsent?: YesOrNo,
   applicationReceived?: CaseDate,
   courtPermission?: YesOrNo
@@ -64,3 +67,11 @@ export interface UploadedFile {
   name: string;
 }
 
+export enum FieldPrefix {
+  APPLICANT1 = 'applicant1',
+  APPLICANT2 = 'applicant2',
+  CHILDREN = 'children',
+  BIRTH_FATHER = 'birthFather',
+  BIRTH_MOTHER = 'birthMother',
+  OTHER_PARENT = 'otherParent',
+}
