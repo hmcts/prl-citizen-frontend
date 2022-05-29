@@ -6,6 +6,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceType: 'serviceType',
   claimNumber: 'claimNumber',
   caseCode: 'caseCode',
+  respondentFirstName: 'respondentFirstName',
+  respondentLastName: 'respondentLastName',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -31,14 +33,18 @@ export interface Case {
   caseCode?: string;
   detailsKnown?:string
   startAlternative?:string
+  contactDetailsPrivate?:any
   miamStart?:string
   miamWillingness?:string
   miamNotWillingExplnation?:string
   doYouConsent?: YesOrNo,
-  applicationReceived?: CaseDate,
+  applicationReceivedDate?: CaseDate,
   courtPermission?: YesOrNo
   reasonForNotConsenting?: string, 
   courtOrderDetails?: string,
+  confirmcontactdetails?:string
+  respondentFirstName?:string
+  respondentLastName?:string
 }
 
 export interface CaseWithId extends Case {

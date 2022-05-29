@@ -4,10 +4,6 @@ import { respondent_en } from './section-titles';
 import { respondent_tasklist_items_en } from './tasklist-items'
 import { generateRespondentTaskList } from './tasklist'
 
-
-
-
-
 const en = () => ({
   title: 'Respond to the application',
   statuses: {
