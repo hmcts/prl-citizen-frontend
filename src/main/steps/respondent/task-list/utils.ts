@@ -26,3 +26,14 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   }
   return SectionStatus.NOT_STARTED;
 };
+
+
+export const getYourSafetyStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.detailsKnown ) {
+    return SectionStatus.COMPLETED;
+  }
+  // if (userCase?.detailsKnown ) {
+  //   return SectionStatus.IN_PROGRESS;
+  // }
+  return SectionStatus.NOT_STARTED;
+};

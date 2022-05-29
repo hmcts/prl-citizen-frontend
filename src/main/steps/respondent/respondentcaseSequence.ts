@@ -1,5 +1,6 @@
+import { YesOrNo } from 'app/case/definition';
 import { Sections, Step } from '../constants';
-import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE } from '../urls';
+import { DETAILS_KNOWN, DOMESTIC_ABUSE_RISK, DOMESTIC_ABUSE_RISK_NO, MIAM_ATTEND_WILLINGNESS, MIAM_START, RESPONDENT_TASK_LIST_URL, SAFETY_MAIN_PAGE, START_ALTERNATIVE, YOUR_SAFETY } from '../urls';
 
 export const repondentCaseSequence: Step[] = [
   {
@@ -27,6 +28,26 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: MIAM_ATTEND_WILLINGNESS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: SAFETY_MAIN_PAGE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => YOUR_SAFETY,
+  },
+  {
+    url: YOUR_SAFETY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK_NO,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK_NO,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
