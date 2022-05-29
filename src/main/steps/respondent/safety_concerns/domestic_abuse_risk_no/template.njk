@@ -1,0 +1,44 @@
+
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+
+  <span class="govuk-caption-xl">{{section}}</span>
+  <h1 class="govuk-heading-xl">{{title}}</h1>
+  <div>
+
+    <h3 class="govuk-heading-m">{{line1}}</h3>
+    <p class="govuk-body">{{line2}}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{line3}}</li>
+      <li>{{line4}}</li>
+      <li>{{line5}}</li>
+      <li>{{line6}}</li>
+      <li>{{line7}}</li>
+    </ul>
+
+    <p class="govuk-body">{{line8}}</p>
+
+    <h3 class="govuk-heading-s">{{line9}}</h3>
+    <p class="govuk-body">{{line10}}</p>
+    <p lass="govuk-body">{{line11}}</p>
+    <p class="govuk-body">
+      <a href="https://www.refuge.org.uk/get-help-now/recognising-abuse/" class="govuk-link" rel="external">{{line12}}</a>
+    </p>
+    <p class="govuk-body">
+      <a href="https://www.womensaid.org.uk/" class="govuk-link" rel="external">{{line13}}</a>
+    </p>
+    <p class="govuk-body">
+      <a href="www.mensadviceline.org.uk" class="govuk-link" rel="external">{{line14}}</a>
+    </p>
+
+    <p class="govuk-body">
+      <a href="www.nationaldomesticviolencehelpline.org.uk" class="govuk-link" rel="external">{{line15}}</a>
+    </p>
+  </div>
+  <p class="govuk-body">{{line16}}</p>
+
+  <a href="generalquestions" class="govuk-button govuk-button--secondary" data-module="govuk-button">Go back</a>
+
+{% endblock %}
+
