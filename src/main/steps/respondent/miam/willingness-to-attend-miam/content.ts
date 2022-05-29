@@ -1,9 +1,7 @@
 import { PageContent } from '../../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../../app/form/Form';
+import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from 'steps/common/common.content';
-import { Case } from 'app/case/case';
-//import { YesOrNo } from 'app/case/definition';
 import { miam_cost_exemption_content, miam_how_to_arrange_mediation_link, miam_how_to_arrange_mediation_label } from './miam-cost-exemptions';
 
 
@@ -56,6 +54,43 @@ const languages = {
 
 export const form: FormContent = {
     fields: {
+      miamDetails:{
+        type: 'detailsHtml',
+        label: l => l.miamCostExemptionsLabel,
+        detailsHtml: l => l.miamCostExemptionsInfo,
+      },
+      miamWillingness: {
+        type: 'radios',
+        classes: 'govuk-radios',
+        label: l => l.label,
+        section: l => l.section,
+        values: [
+          {
+            label: l => l.one,
+            value: 'Yes',
+            subFields:{
+              miamHowToArrangeMediation: {
+                type: 'link',
+                link: miam_how_to_arrange_mediation_link,
+                label: miam_how_to_arrange_mediation_label,
+              },
+            }
+          },
+          {
+            label: l => l.two,
+            value: 'No',
+            subFields:{
+              miamNotWillingExplnation: {
+                type: 'textarea',
+                label: l => l.explainWhyLabel,
+                id: 'miam-explanation',
+                validator: value => isFieldFilledIn(value),
+              },
+            }
+          },
+        ],
+        validator: isFieldFilledIn,
+      },
     },
     submit: {
       text: l => l.continue,
@@ -65,46 +100,7 @@ export const form: FormContent = {
 
 export const generateContent = (content: CommonContent): PageContent => ({
   ...languages[content.language],
-  form: { ...form, fields: miamFields(content.userCase!) },
+  form,
 });
 
 
-export const miamFields = (userCase: Partial<Case>): FormFields => ({
-  miamDetails:{
-    type: 'detailsHtml',
-    label: l => l.miamCostExemptionsLabel,
-    detailsHtml: l => l.miamCostExemptionsInfo,
-  },
-  miamWillingness: {
-    type: 'radios',
-    classes: 'govuk-radios',
-    label: l => l.label,
-    section: l => l.section,
-    values: [
-      {
-        label: l => l.one,
-        value: 'Yes',
-        subFields:{
-          miamHowToArrangeMediation: {
-            type: 'link',
-            link: miam_how_to_arrange_mediation_link,
-            label: miam_how_to_arrange_mediation_label,
-          },
-        }
-      },
-      {
-        label: l => l.two,
-        value: 'No',
-        subFields:{
-          miamNotWillingExplnation: {
-            type: 'textarea',
-            label: l => l.explainWhyLabel,
-            id: 'miam-explanation',
-            validator: value => isFieldFilledIn(value),
-          },
-        }
-      },
-    ],
-    validator: isFieldFilledIn,
-  },
-});

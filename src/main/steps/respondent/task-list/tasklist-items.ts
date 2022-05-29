@@ -1,5 +1,6 @@
 export const respondent_tasklist_items_en = {
     keep_your_details_private: 'Keep your details private',
-    mediation_miam: 'Mediation(MIAM)',
+    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+    mediation_miam: 'Mediation(MIAM)'
     your_safety: 'Your safety',
   }
