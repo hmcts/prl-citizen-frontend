@@ -42,3 +42,7 @@ export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 export const CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}/confirmcontactdetails`;
 export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
 /* confirm-contact-details-end */
+
+export const PROCEEDINGS: PageLink = `${RESPONDENT}/proceedings`;
+export const PROCEEDINGS_START: PageLink = `${PROCEEDINGS}/start`;
+export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/court-proceedings`;

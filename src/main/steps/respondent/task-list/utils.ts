@@ -30,3 +30,14 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   }
   return SectionStatus.NOT_STARTED;
 };
+
+export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.proceedingsStart && userCase?.courtProceedingsInvolved) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.proceedingsStart || userCase?.courtProceedingsInvolved) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.NOT_STARTED;
+};
+

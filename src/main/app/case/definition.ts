@@ -313,7 +313,7 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  
+
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -709,6 +709,7 @@ export const enum SectionStatus {
   NOT_STARTED = 'NOT_STARTED',
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED',
+  CAN_NOT_START_YET = 'CAN_NOT_START_YET'
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1004,7 +1005,7 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication'
-  
+
 }
 
 export const enum UserRole {
