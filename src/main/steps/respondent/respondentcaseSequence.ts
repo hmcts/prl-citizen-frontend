@@ -1,9 +1,5 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
-<<<<<<< HEAD
-import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE, MIAM_START, MIAM_ATTEND_WILLINGNESS, PRIVATE_DETAILS_CONFIRMED, PRIVATE_DETAILS_NOT_CONFIRMED, MIAM_SUMMARY, CHECK_ANSWERS, CONSENT_TO_APPLICATION, CONSENT_SUMMARY, } from '../urls';
-import { YesOrNo } from 'app/case/definition';
-=======
 import {
   CHECK_ANSWERS,
   DETAILS_KNOWN,
@@ -14,8 +10,9 @@ import {
   PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_TASK_LIST_URL,
   START_ALTERNATIVE,
+  CONSENT_TO_APPLICATION, 
+  CONSENT_SUMMARY,
 } from '../urls';
->>>>>>> feature/keep-details-private-1433
 
 export const repondentCaseSequence: Step[] = [
   {

@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 import { CaseWithId, CaseDate} from '../../../app/case/case';
-=======
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { CaseWithId } from '../../../app/case/case';
->>>>>>> feature/keep-details-private-1433
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import dayjs from 'dayjs';
@@ -86,11 +81,7 @@ export const summaryList = (
   fieldTypes?: any,
   language?: string,
 ): SummaryList | undefined => {
-<<<<<<< HEAD
-  let summaryData: SummaryListRow[] = [];
-=======
   const summaryData: SummaryListRow[] = [];
->>>>>>> feature/keep-details-private-1433
   for (const key in keys) {
     const keyLabel = keys[key];
     const url = urls[key];

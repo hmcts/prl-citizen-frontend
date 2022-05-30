@@ -1,28 +1,21 @@
-<<<<<<< HEAD
-import {getKeepYourDetailsPrivateStatus, getMiamStatus, getConfirmOrEditYourContactDetails, getConsentToApplicationStatus} from './utils';
-import * as URL from '../../urls';
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => [
-  {
-    title: sectionTitles.consentToTheApplication,
-    items: [
-      {
-        id: 'keep-your-details-private',
-        text: taskListItems.do_you_consent_to_the_application,
-        status: getConsentToApplicationStatus(userCase),
-        href: URL.CONSENT_TO_APPLICATION,
-      },
-    ]
-  },
-=======
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
-
-import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus, getMiamStatus } from './utils';
+import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus, getMiamStatus, getConsentToApplicationStatus } from './utils';
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
->>>>>>> feature/keep-details-private-1433
+    {
+      title: sectionTitles.consentToTheApplication,
+      items: [
+        {
+          id: 'keep-your-details-private',
+          text: taskListItems.do_you_consent_to_the_application,
+          status: getConsentToApplicationStatus(userCase),
+          href: URL.CONSENT_TO_APPLICATION,
+        },
+      ]
+    },
     {
       title: sectionTitles.respondentYourDetails,
       items: [
