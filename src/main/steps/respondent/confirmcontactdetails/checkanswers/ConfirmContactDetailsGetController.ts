@@ -29,9 +29,9 @@ export default class ConfirmContactDetailsGetController extends GetController {
       //return next();
     }
     //console.log("BEFORE call to getCaseById method====1111====>>");
-    res.locals.isLoggedIn = true;
-    req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-    await req.locals.api.getCases();
+    //res.locals.isLoggedIn = true;
+    //req.locals.api = getCaseApi(req.session.user, req.locals.logger);
+    //await req.locals.api.getCases();
     //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
     //console.log("userCase===1111====>>"+JSON.stringify(req.session.userCase));
     //console.log("AFTER call to getCaseById method======1111======>>>");

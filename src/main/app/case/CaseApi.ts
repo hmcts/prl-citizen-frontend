@@ -62,7 +62,7 @@ export class CaseApi {
         `http://ccd-data-store-api-aat.service.core-compute-aat.internal/caseworkers/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases/1652796857708749`
       );
 //http://localhost:4452/citizens/beb18a7e-8419-40e4-80dd-ca1636618a3f/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases/1653538384893431
-      console.log("========64======getCaseById response from server============"+JSON.stringify(response.data));
+      //console.log("========64======getCaseById response from server============"+JSON.stringify(response.data));
       //  /citizens/{uid}/jurisdiction/{jid}/case-types/{ctid}/cases/{cid}:
       return response.data;
     } catch (err) {

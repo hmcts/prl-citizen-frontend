@@ -1,5 +1,5 @@
 import { Sections, Step } from '../constants';
-import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE, MIAM_START, MIAM_ATTEND_WILLINGNESS,CHECK_ANSWERS } from '../urls';
+import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE, MIAM_START, MIAM_ATTEND_WILLINGNESS,CHECK_ANSWERS,PERSONAL_DETAILS } from '../urls';
 import { YesOrNo } from 'app/case/definition';
 
 export const repondentCaseSequence: Step[] = [
@@ -33,6 +33,11 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PERSONAL_DETAILS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
