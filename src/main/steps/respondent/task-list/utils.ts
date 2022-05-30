@@ -12,10 +12,10 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
 };
 
 export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.detailsKnown && userCase?.startAlternative) {
+  if (userCase?.doYouConsent && userCase?.applicationReceivedDate && userCase?.courtPermission) {
     return SectionStatus.COMPLETED;
   }
-  if (userCase?.detailsKnown || userCase?.startAlternative) {
+  if (userCase?.doYouConsent || userCase?.applicationReceivedDate || userCase?.courtPermission) {
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.NOT_STARTED;

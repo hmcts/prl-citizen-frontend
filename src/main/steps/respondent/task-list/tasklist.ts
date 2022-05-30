@@ -14,7 +14,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
       title: sectionTitles.consentToTheApplication,
       items: [
         {
-          id: 'keep-your-details-private',
+          id: 'consent-to-the-application',
           text: taskListItems.do_you_consent_to_the_application,
           status: getConsentToApplicationStatus(userCase),
           href: URL.CONSENT_TO_APPLICATION,
