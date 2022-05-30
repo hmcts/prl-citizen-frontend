@@ -2,23 +2,18 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
-
 const en = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
   respondentFirstName: 'respondentFirstName',
-  errors: {
-
-  },
+  errors: {},
 };
 
 const cy: typeof en = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
   respondentFirstName: 'respondentFirstName',
-  errors: {
-
-  },
+  errors: {},
 };
 
 const languages = {

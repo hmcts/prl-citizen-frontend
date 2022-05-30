@@ -31,6 +31,7 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
+<<<<<<< HEAD
   detailsKnown?:string
   startAlternative?:string
   contactDetailsPrivate?:any
@@ -45,6 +46,17 @@ export interface Case {
   confirmcontactdetails?:string
   respondentFirstName?:string
   respondentLastName?:string
+=======
+  detailsKnown?: string;
+  startAlternative?: string;
+  contactDetailsPrivate?: string;
+  miamStart?: string;
+  miamWillingness?: string;
+  miamNotWillingExplnation?: string;
+  confirmcontactdetails?: string;
+  respondentFirstName?: string;
+  respondentLastName?: string;
+>>>>>>> feature/keep-details-private-1433
 }
 
 export interface CaseWithId extends Case {

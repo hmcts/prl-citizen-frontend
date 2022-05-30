@@ -12,14 +12,13 @@ export type Validator = (
 ) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 
-
 export const enum ValidationError {
   REQUIRED = 'required',
   NOT_SELECTED = 'notSelected',
   INVALID = 'invalid',
   NOT_NUMERIC = 'notNumeric',
   LESS = 'lessthan20',
-  NOT_UPLOADED = "NOT_UPLOADED"
+  NOT_UPLOADED = 'NOT_UPLOADED',
 }
 
 export const isFieldFilledIn: Validator = value => {

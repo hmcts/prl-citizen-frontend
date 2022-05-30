@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { CaseWithId, CaseDate} from '../../../app/case/case';
+=======
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { CaseWithId } from '../../../app/case/case';
+>>>>>>> feature/keep-details-private-1433
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import dayjs from 'dayjs';
@@ -47,11 +52,12 @@ type SummaryListContent = PageContent & {
 };
 
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
+  console.log(content);
   return rows.map(item => {
-    let changeUrl = item.changeUrl;
+    const changeUrl = item.changeUrl;
     return {
-      key: { ...(item.key ? { text: item.key } : {})},
-      value: { ...(item.value ? { text: item.value } : {})},
+      key: { ...(item.key ? { text: item.key } : {}) },
+      value: { ...(item.value ? { text: item.value } : {}) },
       ...(changeUrl
         ? {
             actions: {
@@ -61,7 +67,6 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
                   text: 'edit',
                   visuallyHiddenText: `${item.key}`,
                 },
-                
               ],
             },
           }
@@ -75,15 +80,20 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
 export const summaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   urls: any,
   sectionTitle?: string,
   fieldTypes?: any,
   language?: string,
 ): SummaryList | undefined => {
+<<<<<<< HEAD
   let summaryData: SummaryListRow[] = [];
+=======
+  const summaryData: SummaryListRow[] = [];
+>>>>>>> feature/keep-details-private-1433
   for (const key in keys) {
     const keyLabel = keys[key];
-    const url = urls[key]
+    const url = urls[key];
     const row = {
       key: keyLabel,
       value: fieldTypes[key].includes('Date')? getFormattedDate(userCase[key], language) : userCase[key],
@@ -91,14 +101,11 @@ export const summaryList = (
     };
 
     summaryData.push(row);
-}
+  }
 
   return {
     title: sectionTitle || '',
-    rows: getSectionSummaryList(
-      summaryData,
-      content
-    ),
+    rows: getSectionSummaryList(summaryData, content),
   };
 };
 

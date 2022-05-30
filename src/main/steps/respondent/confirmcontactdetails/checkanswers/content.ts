@@ -1,11 +1,8 @@
-import { MIAM_START } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
-
-import {
-  summaryList,
-} from '../../../common/summary/utils';
+import { MIAM_START } from '../../../../steps/urls';
+import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -22,9 +19,7 @@ export const enContent = {
     phoneNumber: 'Phone number',
     email: 'Email',
   },
-  errors: {
-    
-  },
+  errors: {},
 };
 
 const en = (content: CommonContent) => {
@@ -32,9 +27,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [
-      summaryList(enContent, userCase, urls),
-    ],
+    sections: [summaryList(enContent, userCase, urls)],
   };
 };
 
@@ -53,9 +46,7 @@ const cyContent: typeof enContent = {
     phoneNumber: 'Phone number (in Welsh)',
     email: 'Email (in Welsh)',
   },
-  errors: {
-
-  },
+  errors: {},
 };
 
 const urls = {
@@ -73,16 +64,12 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [
-      summaryList(cyContent, userCase, urls, 'applicationDetails'),
-    ],
+    sections: [summaryList(cyContent, userCase, urls, 'applicationDetails')],
   };
 };
 
 export const form: FormContent = {
-  fields: {
-  
-  },
+  fields: {},
   submit: {
     text: l => l.continue,
   },

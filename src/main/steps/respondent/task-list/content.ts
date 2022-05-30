@@ -1,8 +1,15 @@
 import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+<<<<<<< HEAD
 import { respondent_en } from './section-titles';
 import { respondent_tasklist_items_en } from './tasklist-items'
 import { generateRespondentTaskList } from './tasklist'
+=======
+
+import { respondent_en } from './section-titles';
+import { generateRespondentTaskList } from './tasklist';
+import { respondent_tasklist_items_en } from './tasklist-items';
+>>>>>>> feature/keep-details-private-1433
 
 const en = () => ({
   title: 'Respond to the application',

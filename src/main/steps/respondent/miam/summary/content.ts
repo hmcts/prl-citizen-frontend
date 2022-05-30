@@ -1,11 +1,8 @@
-import { MIAM_START, MIAM_ATTEND_WILLINGNESS } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
-
-import {
-  summaryList,
-} from '../../../common/summary/utils';
+import { MIAM_ATTEND_WILLINGNESS, MIAM_START } from '../../../../steps/urls';
+import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -14,13 +11,11 @@ export const enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    miamStart :"What is a Mediation Information and Assessment Meeting (MIAM)?",
-    miamWillingness:"Would you be willing to attend a MIAM?",
-    miamNotWillingExplnation:"Explain why"
+    miamStart: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+    miamWillingness: 'Would you be willing to attend a MIAM?',
+    miamNotWillingExplnation: 'Explain why',
   },
-  errors: {
-    
-  },
+  errors: {},
 };
 
 const en = (content: CommonContent) => {
@@ -28,26 +23,22 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [
-      summaryList(enContent, userCase, urls),
-    ],
+    sections: [summaryList(enContent, userCase, urls)],
   };
 };
 
 const cyContent: typeof enContent = {
-    section: 'Check your details',
-    title: 'Read the information to make sure it is correct, and add any missing details',
-    sectionTitles: {
-        applicationDetails: 'Application details',
-      },
-    keys: {
-      miamStart :"What is a Mediation Information and Assessment Meeting (MIAM)?",
-      miamWillingness:"Would you be willing to attend a MIAM?",
-      miamNotWillingExplnation:"Explain why"
-    },
-    errors: {
-      
-    },
+  section: 'Check your details',
+  title: 'Read the information to make sure it is correct, and add any missing details',
+  sectionTitles: {
+    applicationDetails: 'Application details',
+  },
+  keys: {
+    miamStart: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+    miamWillingness: 'Would you be willing to attend a MIAM?',
+    miamNotWillingExplnation: 'Explain why',
+  },
+  errors: {},
 };
 
 const urls = {
@@ -61,16 +52,12 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [
-      summaryList(cyContent, userCase, urls, 'applicationDetails'),
-    ],
+    sections: [summaryList(cyContent, userCase, urls, 'applicationDetails')],
   };
 };
 
 export const form: FormContent = {
-  fields: {
-  
-  },
+  fields: {},
   submit: {
     text: l => l.continue,
   },
