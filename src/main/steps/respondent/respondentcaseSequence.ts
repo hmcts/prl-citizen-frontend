@@ -1,6 +1,16 @@
+import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
-import { DETAILS_KNOWN, RESPONDENT_TASK_LIST_URL, START_ALTERNATIVE, MIAM_START, MIAM_ATTEND_WILLINGNESS, PRIVATE_DETAILS_CONFIRMED, PRIVATE_DETAILS_NOT_CONFIRMED, MIAM_SUMMARY, CHECK_ANSWERS } from '../urls';
-import { YesOrNo } from 'app/case/definition';
+import {
+  CHECK_ANSWERS,
+  DETAILS_KNOWN,
+  MIAM_ATTEND_WILLINGNESS,
+  MIAM_START,
+  MIAM_SUMMARY,
+  PRIVATE_DETAILS_CONFIRMED,
+  PRIVATE_DETAILS_NOT_CONFIRMED,
+  RESPONDENT_TASK_LIST_URL,
+  START_ALTERNATIVE,
+} from '../urls';
 
 export const repondentCaseSequence: Step[] = [
   {
@@ -17,9 +27,7 @@ export const repondentCaseSequence: Step[] = [
     url: START_ALTERNATIVE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: data =>
-    data.startAlternative === YesOrNo.YES
-      ? PRIVATE_DETAILS_CONFIRMED
-      : PRIVATE_DETAILS_NOT_CONFIRMED,
+      data.startAlternative === YesOrNo.YES ? PRIVATE_DETAILS_CONFIRMED : PRIVATE_DETAILS_NOT_CONFIRMED,
   },
   {
     url: PRIVATE_DETAILS_CONFIRMED,
@@ -34,10 +42,7 @@ export const repondentCaseSequence: Step[] = [
   {
     url: MIAM_START,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep:  data =>
-    data.miamStart === YesOrNo.NO
-      ? MIAM_ATTEND_WILLINGNESS
-      : MIAM_SUMMARY,
+    getNextStep: data => (data.miamStart === YesOrNo.NO ? MIAM_ATTEND_WILLINGNESS : MIAM_SUMMARY),
   },
   {
     url: MIAM_ATTEND_WILLINGNESS,

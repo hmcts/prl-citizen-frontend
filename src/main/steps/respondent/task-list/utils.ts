@@ -1,8 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import {
-  SectionStatus,
-} from '../../../app/case/definition';
-
+import { SectionStatus } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {

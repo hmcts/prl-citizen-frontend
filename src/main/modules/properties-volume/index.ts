@@ -43,6 +43,6 @@ export class PropertiesVolume {
     set(config, 'services.authProvider.url', endpoints.s2s);
     set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
     set(config, 'services.idam.tokenURL', endpoints.idamToken);
-  set(config, 'services.case.url', endpoints.ccd);
+    set(config, 'services.case.url', endpoints.ccd);
   }
 }

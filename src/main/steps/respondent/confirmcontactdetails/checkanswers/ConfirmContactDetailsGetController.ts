@@ -6,9 +6,8 @@ import { GetController } from '../../../../app/controller/GetController';
 
 @autobind
 export default class ConfirmContactDetailsGetController extends GetController {
-
   public async get(req: AppRequest, res: Response): Promise<void> {
-    let redirect = false;
+    const redirect = false;
     const callback = redirect ? undefined : () => super.get(req, res);
     super.saveSessionAndRedirect(req, res, callback);
   }

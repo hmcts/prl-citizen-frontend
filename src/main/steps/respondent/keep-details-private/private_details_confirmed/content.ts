@@ -1,14 +1,14 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
-
 const en = {
   title: 'The court will keep your contact details private',
   line1: 'You have told us you want to keep these contact details private',
   address: 'Address',
   email: 'Email',
-  line2: "What the court will do",
-  line3: "The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.",
+  line2: 'What the court will do',
+  line3:
+    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
   continue: 'Continue',
 };
 
@@ -17,8 +17,9 @@ const cy: typeof en = {
   line1: 'You have told us you want to keep these contact details private',
   address: 'Address',
   email: 'Email',
-  line2: "What the court will do",
-  line3: "The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.",
+  line2: 'What the court will do',
+  line3:
+    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
   continue: 'Continue',
 };
 
@@ -28,8 +29,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-  },
+  fields: {},
   submit: {
     text: l => l.continue,
   },
@@ -42,4 +42,3 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
-
