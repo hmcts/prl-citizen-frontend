@@ -55,6 +55,10 @@ export const form: FormContent = {
           label: l => l.two,
           value: 'No',
         },
+        {
+          label: l => l.three,
+          value: 'I',
+        },
       ],
       validator: isFieldFilledIn,
     },
