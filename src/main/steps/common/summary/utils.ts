@@ -1,5 +1,8 @@
-import { CaseWithId} from '../../../app/case/case';
+import { CaseWithId, CaseDate} from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
+import { isDateInputInvalid } from '../../../app/form/validation';
+import dayjs from 'dayjs';
+//import { CaseDate } from '../../../app/case';
 //import * as Urls from '../../../../steps/urls';
 
 interface GovUkNunjucksSummary {
@@ -73,16 +76,17 @@ export const summaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
   urls: any,
-  sectionTitle?: string
+  sectionTitle?: string,
+  fieldTypes?: any,
+  language?: string,
 ): SummaryList | undefined => {
-
   let summaryData: SummaryListRow[] = [];
   for (const key in keys) {
     const keyLabel = keys[key];
     const url = urls[key]
     const row = {
       key: keyLabel,
-      value: userCase[key],
+      value: fieldTypes[key].includes('Date')? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
 
@@ -97,3 +101,8 @@ export const summaryList = (
     ),
   };
 };
+
+export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>
+  date && !isDateInputInvalid(date)
+    ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
+    : '';
