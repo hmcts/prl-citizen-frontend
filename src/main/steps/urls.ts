@@ -37,4 +37,5 @@ export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-
 export const CONFIRM_CONTACT_DETAILS: PageLink =  `${RESPONDENT}/confirmcontactdetails`;
 export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
 export const PERSONAL_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/personaldetails`;
+export const CONTACT_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/contactdetails`;
 /* confirm-contact-details-end */
