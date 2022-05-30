@@ -59,8 +59,11 @@ export class CaseApi {
   public async getCases(): Promise<CcdV1Response[]> {
     try {
       const response = await this.axios.get<CcdV1Response[]>(
-        `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases`
+        `http://ccd-data-store-api-aat.service.core-compute-aat.internal/caseworkers/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases/1652796857708749`
       );
+//http://localhost:4452/citizens/beb18a7e-8419-40e4-80dd-ca1636618a3f/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases/1653538384893431
+      console.log("========64======getCaseById response from server============"+JSON.stringify(response.data));
+      //  /citizens/{uid}/jurisdiction/{jid}/case-types/{ctid}/cases/{cid}:
       return response.data;
     } catch (err) {
       this.logError(err);
@@ -70,8 +73,11 @@ export class CaseApi {
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
-      const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
-      //...fromApiFormat(response.data.data) 
+      ///cases/case-details/1651759489115676
+      const response = await this.axios.get<CcdV2Response>('http://ccd-data-store-api-aat.service.core-compute-aat.internal/cases/1651752418644999');
+      //...fromApiFormat(response.data.data)
+      //console.log("====77======inside getCaseById caseId ======="+caseId);
+      //console.log("=======77=======getCaseById response from server============"+response.data);
       return { id: response.data.id, state: response.data.state, ...response.data.data };
     } catch (err) {
       this.logError(err);
@@ -164,6 +170,9 @@ export class CaseApi {
 }
 
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
+  //console.log("s2stoken=====================>"+getServiceAuthToken());
+  //console.log("baseURL=====================>"+config.get('services.case.url'));
+  //console.log("userDetails===============>"+JSON.stringify(userDetails));
   return new CaseApi(
     Axios.create({
       baseURL: config.get('services.case.url'),

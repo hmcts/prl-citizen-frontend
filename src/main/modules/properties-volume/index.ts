@@ -29,10 +29,10 @@ export class PropertiesVolume {
   /**
    * Load a secret from the AAT vault using azure cli
    */
-  private setLocalSecret(secret: string, toPath: string): void {
+   private setLocalSecret(secret: string, toPath: string): void {
     const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
-    set(config, toPath, result.toString().replace('\n', ''));
-  }
+     set(config, toPath, result.toString().replace('\n', ''));
+   }
 
   private setLocalEndpoints(): void {
     const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
@@ -40,9 +40,13 @@ export class PropertiesVolume {
 
     const endpoints = JSON.parse(decoded.toString());
 
-    set(config, 'services.authProvider.url', endpoints.s2s);
-    set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
-    set(config, 'services.idam.tokenURL', endpoints.idamToken);
-  set(config, 'services.case.url', endpoints.ccd);
+    // set(config, 'services.authProvider.url', endpoints.s2s);
+    // set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
+    // set(config, 'services.idam.tokenURL', endpoints.idamToken);
+    
+    set(config, 'services.authProvider.url', 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal');
+    set(config, 'services.idam.authorizationURL', 'https://idam-web-public.aat.platform.hmcts.net/login');
+    set(config, 'services.idam.tokenURL', 'https://idam-api.aat.platform.hmcts.net/o/token');
+    set(config, 'services.case.url', endpoints.ccd);
   }
 }
