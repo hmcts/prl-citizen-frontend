@@ -46,7 +46,6 @@ const cyContent = {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
-    [SectionStatus.CAN_NOT_START_YET]: 'Methu dechrau eto',
   },
   sectionTitles: {
     applicationDetails: 'Ychwanegu manylion y cais',
@@ -211,123 +210,44 @@ describe('task-list > content', () => {
       expected: [
         {
           items: [
-            { href: '/applying-with', id: 'applying-with', status: 'IN_PROGRESS', text: 'Number of applicants' },
             {
-              href: '/date-child-moved-in',
-              id: 'date-child-moved-in',
-              status: 'COMPLETED',
-              text: 'Date child moved in with you',
+              "href": "/respondent/keep-details-private/details_known",
+              "id": "keep-your-details-private",
+              "status": "NOT_STARTED",
+              "text": "Keep your details private",
             },
             {
-              href: '/children/adoption-agency?change=MOCK_ID_1',
-              id: 'adoption-agency',
-              status: 'COMPLETED',
-              text: 'Adoption agency and social worker',
-            },
-          ],
-          title: 'Add application details',
-        },
-        {
-          items: [
-            { text: 'First applicant' },
-            {
-              href: '/applicant1/full-name',
-              id: 'applicant1-personal-details',
-              status: 'COMPLETED',
-              text: 'Your personal details',
-            },
-            {
-              href: '/applicant1/address/lookup',
-              id: 'applicant1-contact-details',
-              status: 'COMPLETED',
-              text: 'Your contact details',
-            },
-            { text: 'Second applicant' },
-            {
-              href: '/applicant2/full-name',
-              id: 'applicant2-personal-details',
-              status: 'COMPLETED',
-              text: 'Your personal details',
-            },
-            {
-              href: '/applicant2/same-address',
-              id: 'applicant2-contact-details',
-              status: 'COMPLETED',
-              text: 'Your contact details',
+              "href": "/respondent/confirmcontactdetails/checkanswers",
+             "id": "confirm-or-edit-your-contact-details",
+             "status": "NOT_STARTED",
+            "text": "Confirm or edit your contact details",
             },
           ],
-          title: "Add applicant's details",
+          "title": "Your details",
         },
         {
           items: [
             {
-              href: '/children/full-name',
-              id: 'children-birth-certificate-details',
-              status: 'COMPLETED',
-              text: 'Birth certificate details',
+              "href": "/respondent/miam/miam-start",
+            "id": "medation-miam",
+             "status": "NOT_STARTED",
+             "text": "Mediation(MIAM)",
             },
-            {
-              href: '/children/full-name-after-adoption',
-              id: 'adoption-certificate-details',
-              status: 'COMPLETED',
-              text: "Child's name after adoption",
-            },
-            {
-              href: '/birth-mother/full-name',
-              id: 'birth-mother-details',
-              status: 'COMPLETED',
-              text: 'Birth mother details',
-            },
-            {
-              href: '/birth-father/name-on-certificate',
-              id: 'birth-father',
-              status: 'COMPLETED',
-              text: 'Birth father details',
-            },
-            {
-              href: '/other-parent/exists',
-              id: 'other-parent',
-              status: 'COMPLETED',
-              text: 'Other person with parental responsibility',
-            },
-            {
-              href: '/children/placement-order-number',
-              id: 'children-placement-order-details',
-              status: 'NOT_STARTED',
-              text: 'Placement and court orders',
-            },
-            { href: '/sibling/exists', id: 'sibling', status: 'COMPLETED', text: 'Sibling court order details' },
-            {
-              href: '',
-              id: 'find-family-court',
-              status: 'CAN_NOT_START_YET',
-              text: 'Choose your family court',
-            },
+            
           ],
-          title: "Add child's details",
+          title: "Application detail",
         },
         {
           items: [
             {
-              href: '',
-              id: 'upload-your-documents',
-              status: 'CAN_NOT_START_YET',
-              text: 'Upload documents',
+              "href": "/respondent/international-factors/start",
+             "id": "international-factors",
+             "text": "International factors",
             },
           ],
-          title: 'Upload documents',
+          "title": "Additional information",
         },
-        {
-          items: [
-            {
-              href: '',
-              id: 'review-pay-and-submit',
-              status: 'CAN_NOT_START_YET',
-              text: 'Review, pay and submit your application',
-            },
-          ],
-          title: 'Review, pay and submit',
-        },
+        
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {

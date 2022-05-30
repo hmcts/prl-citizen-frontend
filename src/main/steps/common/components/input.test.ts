@@ -46,6 +46,8 @@ describe('input class', () => {
   });
 
   it('should contain submit button', () => {
+    console.log(form);
+    
     expect((form.submit.text as Function)(enContent)).toBe('Save and continue');
   });
 
