@@ -19,6 +19,7 @@ export const enContent = {
 };
 
 const en = (content: CommonContent) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
   return {
     ...enContent,
@@ -48,6 +49,7 @@ const urls = {
 };
 
 const cy: typeof en = (content: CommonContent) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
   return {
     ...cyContent,

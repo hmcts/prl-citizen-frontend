@@ -31,13 +31,13 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Application details',
-  title: 'Enter your access details',
+  section: 'Keeping your contact details private',
+  title: 'Would you be willing to attend a MIAM?',
   one: 'Yes',
   two: 'No',
+  explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
   miamCostExemptionsInfo: miam_cost_exemption_content,
-  explainWhyLabel: 'Explain why',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   continue: 'Continue',
