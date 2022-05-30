@@ -1,9 +1,10 @@
-import { CaseWithId, CaseDate} from '../../../app/case/case';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import dayjs from 'dayjs';
+
+import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-import dayjs from 'dayjs';
-//import { CaseDate } from '../../../app/case';
-//import * as Urls from '../../../../steps/urls';
 
 interface GovUkNunjucksSummary {
   key: {
@@ -79,7 +80,7 @@ export const summaryList = (
   urls: any,
   sectionTitle?: string,
   fieldTypes?: any,
-  language?: string,
+  language?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
@@ -87,7 +88,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: fieldTypes[key].includes('Date')? getFormattedDate(userCase[key], language) : userCase[key],
+      value: fieldTypes[key].includes('Date') ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
 

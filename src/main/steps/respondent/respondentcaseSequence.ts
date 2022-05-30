@@ -2,6 +2,8 @@ import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
   CHECK_ANSWERS,
+  CONSENT_SUMMARY,
+  CONSENT_TO_APPLICATION,
   DETAILS_KNOWN,
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
@@ -10,8 +12,6 @@ import {
   PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_TASK_LIST_URL,
   START_ALTERNATIVE,
-  CONSENT_TO_APPLICATION, 
-  CONSENT_SUMMARY,
 } from '../urls';
 
 export const repondentCaseSequence: Step[] = [

@@ -1,5 +1,6 @@
 import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+
 import { respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_en } from './tasklist-items';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnyObject } from '../controller/PostController';
 
 import { CaseData, State, YesOrNo } from './definition';
@@ -31,20 +32,20 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
-  detailsKnown?:string
-  startAlternative?:string
-  contactDetailsPrivate?:any
-  miamStart?:string
-  miamWillingness?:string
-  miamNotWillingExplnation?:string
-  doYouConsent?: YesOrNo,
-  applicationReceivedDate?: CaseDate,
-  courtPermission?: YesOrNo
-  reasonForNotConsenting?: string, 
-  courtOrderDetails?: string,
-  confirmcontactdetails?:string
-  respondentFirstName?:string
-  respondentLastName?:string
+  detailsKnown?: string;
+  startAlternative?: string;
+  contactDetailsPrivate?: any;
+  miamStart?: string;
+  miamWillingness?: string;
+  miamNotWillingExplnation?: string;
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
+  confirmcontactdetails?: string;
+  respondentFirstName?: string;
+  respondentLastName?: string;
 }
 
 export interface CaseWithId extends Case {

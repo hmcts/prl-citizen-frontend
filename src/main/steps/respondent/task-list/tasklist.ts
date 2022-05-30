@@ -1,7 +1,12 @@
-
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
-import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus, getMiamStatus, getConsentToApplicationStatus } from './utils';
+
+import {
+  getConfirmOrEditYourContactDetails,
+  getConsentToApplicationStatus,
+  getKeepYourDetailsPrivateStatus,
+  getMiamStatus,
+} from './utils';
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
@@ -14,7 +19,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           status: getConsentToApplicationStatus(userCase),
           href: URL.CONSENT_TO_APPLICATION,
         },
-      ]
+      ],
     },
     {
       title: sectionTitles.respondentYourDetails,

@@ -1,10 +1,14 @@
 import { CaseDate } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { covertToDateObject } from '../../../../app/form/parser';
-import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
-
+import {
+  areDateFieldsFilledIn,
+  isDateInputInvalid,
+  isFieldFilledIn,
+  isFutureDate,
+  isTextAreaValid,
+} from '../../../../app/form/validation';
 
 const en = {
   title: 'Your understanding of the application',
@@ -101,7 +105,7 @@ export const form: FormContent = {
         {
           label: l => l.two,
           value: 'No',
-          subFields:{
+          subFields: {
             reasonForNotConsenting: {
               type: 'textarea',
               label: l => l.reasonNotConsenting,
@@ -109,7 +113,7 @@ export const form: FormContent = {
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
-        }
+        },
       ],
       validator: isFieldFilledIn,
     },
@@ -141,10 +145,10 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('applicationReceivedDate', body as Record<string, unknown>),
       validator: value =>
-              areDateFieldsFilledIn(value as CaseDate) ||
-              isDateInputInvalid(value as CaseDate) ||
-              isFutureDate(value as CaseDate),
-      },
+        areDateFieldsFilledIn(value as CaseDate) ||
+        isDateInputInvalid(value as CaseDate) ||
+        isFutureDate(value as CaseDate),
+    },
     courtPermission: {
       type: 'radios',
       classes: 'govuk-radios',
@@ -155,7 +159,7 @@ export const form: FormContent = {
         {
           label: l => l.one,
           value: 'Yes',
-          subFields:{
+          subFields: {
             courtOrderDetails: {
               type: 'textarea',
               label: l => l.courtOrderDetails,
@@ -167,7 +171,7 @@ export const form: FormContent = {
         {
           label: l => l.two,
           value: 'No',
-        }
+        },
       ],
       validator: isFieldFilledIn,
     },
