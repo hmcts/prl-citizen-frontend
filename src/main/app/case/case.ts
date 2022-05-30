@@ -40,6 +40,8 @@ export interface Case {
   confirmcontactdetails?:string
   respondentFirstName?:string
   respondentLastName?:string
+  safetyConcerns?: string
+
 }
 
 export interface CaseWithId extends Case {

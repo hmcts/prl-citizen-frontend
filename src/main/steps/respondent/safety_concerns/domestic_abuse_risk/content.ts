@@ -24,12 +24,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
-  errors: {
-    detailsKnown: {
-      required: 'Enter your details known',
-    }
-  },
+  saveAndContinue: 'Save and Continue',
 };
 
 const cy: typeof en = {
@@ -53,12 +48,7 @@ const cy: typeof en = {
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
-  errors: {
-    detailsKnown: {
-      required: 'Enter your details known',
-    }
-  },
+  saveAndContinue: 'Save and Continue',
 };
 
 const languages = {
@@ -68,7 +58,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    detailsKnown: {
+    safetyConcerns: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.label,
@@ -91,7 +81,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.saveAndContinue,
   },
 };
 

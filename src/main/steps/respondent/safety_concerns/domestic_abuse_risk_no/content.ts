@@ -22,7 +22,7 @@ const en = {
   line16: 'If you want to change your answer, go back to the previous screen.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
-
+  goBack: 'Go back'
 };
 
 const cy: typeof en = {
@@ -46,6 +46,7 @@ const cy: typeof en = {
   line16: 'If you want to change your answer, go back to the previous screen.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
+  goBack: 'Go back'
 };
 
 const languages = {

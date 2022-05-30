@@ -1,5 +1,6 @@
 import {
-    getKeepYourDetailsPrivateStatus, getMiamStatus,
+  getConfirmOrEditYourContactDetails,
+    getKeepYourDetailsPrivateStatus, getMiamStatus, getYourSafetyStatus,
   } from './utils';
 import * as URL from '../../urls';
 
