@@ -1,4 +1,4 @@
-//import { SummaryListContent } from '../../steps/common/models/summaryListContent';
+import { SummaryListContent } from '../../steps/common/models/summaryListContent';
 import { Case, CaseDate, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
@@ -140,6 +140,7 @@ export interface FormContent {
     classes?: string;
   };
   
+
   fields: FormFields | FormFieldsFn;
 }
 
@@ -160,7 +161,7 @@ export interface FormOptions {
   validator?: ValidationCheck;
   parser?: Parser;
   disabled?: boolean;
-  // rows?: SummaryListContent;
+  rows?: SummaryListContent;
 }
 
 export interface FormInput {
@@ -186,7 +187,7 @@ export interface FormInput {
   open?: boolean;
   options?: DropdownOptionsLookup;
   disabled?: boolean;
-  detailsHtml?: any;
+  detailsHtml?: Label;
   link?: string;
 }
 

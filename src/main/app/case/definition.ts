@@ -980,6 +980,15 @@ export const enum SolicitorPaymentMethod {
   FEES_HELP_WITH = 'feesHelpWith',
 }
 
+export interface PRLDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
+}
+
 export const enum State {
   Holding = 'Holding',
   AwaitingAos = 'AwaitingAos',

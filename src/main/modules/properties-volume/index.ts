@@ -12,6 +12,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.clientSecret');
       this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
+      set(config, 'services.case.url', 'https://manage-case.aat.platform.hmcts.net/cases');
     } else {
       this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
@@ -40,13 +41,9 @@ export class PropertiesVolume {
 
     const endpoints = JSON.parse(decoded.toString());
 
-    // set(config, 'services.authProvider.url', endpoints.s2s);
-    // set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
-    // set(config, 'services.idam.tokenURL', endpoints.idamToken);
-    
-    set(config, 'services.authProvider.url', 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal');
-    set(config, 'services.idam.authorizationURL', 'https://idam-web-public.aat.platform.hmcts.net/login');
-    set(config, 'services.idam.tokenURL', 'https://idam-api.aat.platform.hmcts.net/o/token');
+    set(config, 'services.authProvider.url', endpoints.s2s);
+    set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
+    set(config, 'services.idam.tokenURL', endpoints.idamToken);
     set(config, 'services.case.url', endpoints.ccd);
   }
 }

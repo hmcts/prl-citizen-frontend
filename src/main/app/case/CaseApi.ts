@@ -139,7 +139,7 @@ export class CaseApi {
   //       data,
   //       event_token: token,
   //     });
-  //     //...fromApiFormat(response.data.data) 
+  //     //...fromApiFormat(response.data.data)
   //     return { id: response.data.id, state: response.data.state, ...response.data.data };
   //   } catch (err) {
   //     this.logError(err);
@@ -150,8 +150,9 @@ export class CaseApi {
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     //const data = toApiFormat(userData);
     //const data = userData;
-   // return this.sendEvent(caseId, data, eventName);
-   return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
+    // return this.sendEvent(caseId, data, eventName);
+    console.log(eventName);
+    return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
   }
 
   // public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
