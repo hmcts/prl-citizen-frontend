@@ -2,9 +2,12 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
+
 const en = {
-  section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  section: 'Safety concerns',
+  title: 'Your safety',
+  line1: 'The court needs to know if you have suffered, or are at risk of suffering, any form of domestic violence or abuse.',
+  line2: 'The following questions will ask whether you have suffered, or are at risk of suffering, any form of harm.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
@@ -14,13 +17,15 @@ const en = {
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
-    },
+    }
   },
 };
 
 const cy: typeof en = {
-  section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  section: 'Safety concerns',
+  title: 'Your safety',
+  line1: 'The court needs to know if you have suffered, or are at risk of suffering, any form of domestic violence or abuse.',
+  line2: 'The following questions will ask whether you have suffered, or are at risk of suffering, any form of harm.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
@@ -30,7 +35,7 @@ const cy: typeof en = {
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
-    },
+    }
   },
 };
 

@@ -1,10 +1,12 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+
 
 const en = {
-  section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  section: '',
+  title: 'Safety concerns',
+  line1: "The answers you give in your response will be shared with the other people named in this application (the aThe court needs to know if anyone who spends time with the children poses a risk to their safety or yours.",
+  line2: 'FWe use ‘children’ as a general term to avoid repetition. In this service it applies to whether it is about a child or children.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
@@ -14,13 +16,15 @@ const en = {
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
-    },
+    }
   },
 };
 
 const cy: typeof en = {
-  section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  section: 'Safety concerns',
+  title: 'Safety concerns',
+  line1: "The answers you give in your response will be shared with the other people named in this application (the aThe court needs to know if anyone who spends time with the children poses a risk to their safety or yours.",
+  line2: 'FWe use ‘children’ as a general term to avoid repetition. In this service it applies to whether it is about a child or children.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
@@ -30,7 +34,7 @@ const cy: typeof en = {
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
-    },
+    }
   },
 };
 
@@ -41,28 +45,9 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    detailsKnown: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.label,
-      section: l => l.section,
-      values: [
-        {
-          label: l => l.one,
-          value: 'Yes',
-        },
-        {
-          label: l => l.two,
-          value: 'No',
-        },
-        {
-          label: l => l.three,
-          value: 'I',
-        },
-      ],
-      validator: isFieldFilledIn,
+   
     },
-  },
+
   submit: {
     text: l => l.continue,
   },

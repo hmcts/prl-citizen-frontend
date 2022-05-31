@@ -4,19 +4,21 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import {
-  miam_cost_exemption_content,
-  miam_how_to_arrange_mediation_label,
+  miam_cost_exemption_content_cy,
+  miam_cost_exemption_content_en,
+  miam_how_to_arrange_mediation_label_cy,
+  miam_how_to_arrange_mediation_label_en,
   miam_how_to_arrange_mediation_link,
 } from './miam-cost-exemptions';
 
 const en = {
-  section: 'Keeping your contact details private',
   title: 'Would you be willing to attend a MIAM?',
   one: 'Yes',
   two: 'No',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
-  miamCostExemptionsInfo: miam_cost_exemption_content,
+  miamCostExemptionsInfo: miam_cost_exemption_content_en,
+  miamLabel: miam_how_to_arrange_mediation_label_en,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   continue: 'Continue',
@@ -31,13 +33,13 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Application details',
-  title: 'Enter your access details',
+  title: 'Would you be willing to attend a MIAM?',
   one: 'Yes',
   two: 'No',
-  miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
-  miamCostExemptionsInfo: miam_cost_exemption_content,
   explainWhyLabel: 'Explain why',
+  miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
+  miamCostExemptionsInfo: miam_cost_exemption_content_cy,
+  miamLabel: miam_how_to_arrange_mediation_label_cy,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   continue: 'Continue',
@@ -76,7 +78,7 @@ export const form: FormContent = {
             miamHowToArrangeMediation: {
               type: 'link',
               link: miam_how_to_arrange_mediation_link,
-              label: miam_how_to_arrange_mediation_label,
+              label: l => l.miamLabel,
             },
           },
         },

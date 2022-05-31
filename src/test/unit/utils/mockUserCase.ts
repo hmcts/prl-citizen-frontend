@@ -115,6 +115,7 @@ export default {
   otherParentAddressPostcode: 'MOCK_ADDRESS_POSTCODE',
   otherParentAddressCountry: 'MOCK_ADDRESS_COUNTRY',
   otherParentAddressKnown: YesOrNo.YES,
+  miamStart: 'Yes',
 
   hasSiblings: YesNoNotsure.YES,
   hasPoForSiblings: YesNoNotsure.YES,

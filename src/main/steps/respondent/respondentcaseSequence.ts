@@ -1,7 +1,6 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  CHECK_ANSWERS,
   DETAILS_KNOWN,
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
@@ -51,11 +50,6 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: MIAM_SUMMARY,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
-  {
-    url: CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
