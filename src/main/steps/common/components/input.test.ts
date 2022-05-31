@@ -46,7 +46,7 @@ describe('input class', () => {
   });
 
   it('should contain submit button', () => {
-    expect((form.submit.text as Function)(enContent)).toBe('Save and continue');
+    expect((form.submit?.text as Function)(enContent)).toBe('Save and continue');
   });
 
   it('should contain saveAsDraft button', () => {

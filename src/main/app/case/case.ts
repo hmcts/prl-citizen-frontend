@@ -31,15 +31,15 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
-  detailsKnown?:string
-  startAlternative?:string
-  contactDetailsPrivate?:any
-  miamStart?:string
-  miamWillingness?:string
-  miamNotWillingExplnation?:string
-  confirmcontactdetails?:string
-  respondentFirstName?:string
-  respondentLastName?:string
+  detailsKnown?: string
+  startAlternative?: string
+  contactDetailsPrivate?: string
+  miamStart?: string
+  miamWillingness?: string
+  miamNotWillingExplnation?: string
+  confirmcontactdetails?: string
+  respondentFirstName?: string
+  respondentLastName?: string
   safetyConcerns?: string
 
 }

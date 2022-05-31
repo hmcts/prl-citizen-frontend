@@ -12,6 +12,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.clientSecret');
       this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
+      set(config, 'services.case.url', 'https://manage-case.aat.platform.hmcts.net/cases');
     } else {
       this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
@@ -43,6 +44,6 @@ export class PropertiesVolume {
     set(config, 'services.authProvider.url', endpoints.s2s);
     set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
     set(config, 'services.idam.tokenURL', endpoints.idamToken);
-  set(config, 'services.case.url', endpoints.ccd);
+    set(config, 'services.case.url', endpoints.ccd);
   }
 }

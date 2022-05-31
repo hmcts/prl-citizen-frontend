@@ -4,7 +4,10 @@ import {
   } from './utils';
 import * as URL from '../../urls';
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => [
+import { getKeepYourDetailsPrivateStatus, getMiamStatus } from './utils';
+
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+  return [
     {
       title: sectionTitles.respondentYourDetails,
       items: [
@@ -13,12 +16,6 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.keep_your_details_private,
           status: getKeepYourDetailsPrivateStatus(userCase),
           href: URL.DETAILS_KNOWN,
-        },
-        {
-          id: 'confirm-or-edit-your-contact-details',
-          text: taskListItems.confirm_or_edit_your_contact_details,
-          status: getConfirmOrEditYourContactDetails(userCase),
-          href: URL.CHECK_ANSWERS,
         },
       ],
     },
@@ -33,6 +30,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         },
       ],
     },
+  ];
+};
     {
       title: sectionTitles.respondentSafetyConcerns,
       items: [

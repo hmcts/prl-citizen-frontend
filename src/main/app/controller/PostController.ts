@@ -2,14 +2,13 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { SAVE_AND_SIGN_OUT, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
+import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
-import { State } from 'app/case/definition';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -30,11 +29,9 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
-    }
-    else if(req.body.accessCodeCheck) {
-        await this.checkCaseAccessCode(req, res, form, formData);
-    } 
-    else {
+    } else if (req.body.accessCodeCheck) {
+      await this.checkCaseAccessCode(req, res, form, formData);
+    } else {
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -76,7 +73,7 @@ export class PostController<T extends AnyObject> {
   protected filterErrorsForSaveAsDraft(req: AppRequest<T>): void {
     if (req.body.saveAsDraft) {
       // skip empty field errors in case of save as draft
-      req.session.errors = req.session.errors!.filter(
+      req.session.errors = req.session.errors?.filter(
         item =>
           item.errorType !== ValidationError.REQUIRED &&
           item.errorType !== ValidationError.NOT_SELECTED &&
@@ -87,6 +84,7 @@ export class PostController<T extends AnyObject> {
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     try {
+      console.log(eventName);
       Object.assign(req.session.userCase, formData);
       // req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch (err) {
@@ -102,7 +100,7 @@ export class PostController<T extends AnyObject> {
     if (req.body['saveAsDraft']) {
       //redirects to task-list page in case of save-as-draft button click
       req.session.returnUrl = undefined;
-      target = RESPONDENT_TASK_LIST_URL;//changed from task_list_url to respondent_taskList_url
+      target = RESPONDENT_TASK_LIST_URL; //changed from task_list_url to respondent_taskList_url
     } else if (req.session.errors?.length) {
       //redirects to same page in case of validation errors
       target = req.url;
@@ -153,7 +151,12 @@ export class PostController<T extends AnyObject> {
       req.session.accessCodeLoginIn = false;
     } else {
       //make an api call to check if the caseId exists? and if it exists then set the case code
-      const initData = { id: formData.caseCode || '', state: State.successAuthentication, serviceType: '', ...formData };
+      const initData = {
+        id: formData.caseCode || '',
+        state: State.successAuthentication,
+        serviceType: '',
+        ...formData,
+      };
       req.session.userCase = initData;
       req.session.accessCodeLoginIn = true;
     }

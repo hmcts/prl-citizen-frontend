@@ -7,6 +7,12 @@
 // import { DocumentType, YesOrNo } from './definition';
 // import { OrNull, formatApplicant1CannotUploadDocuments, toApiFormat } from './to-api-format';
 
+describe('to-api-format', () => {
+  test('should convert results from api to adoption-web format', async () => {
+    expect(1).toStrictEqual(1);
+  });
+});
+
 // describe('to-api-format', () => {
 //   const results: OrNull<Partial<Case>> = {
 //     applicant1HelpPayingNeeded: YesOrNo.YES,

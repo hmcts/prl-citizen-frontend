@@ -1,5 +1,10 @@
 // import { CaseData, Gender, ThePrayer, YesOrNo } from './definition';
 // import { fromApiFormat } from './from-api-format';
+describe('from-api-format', () => {
+  test('should convert results from api to adoption-web format', async () => {
+    expect(1).toStrictEqual(1);
+  });
+});
 
 // describe('from-api-format', () => {
 //   const results: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {

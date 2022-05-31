@@ -71,10 +71,12 @@ describe('citizen-home content', () => {
     expect(generatedContent.caseCodeLabel).toEqual('Your case code');
   });
 
+  // eslint-disable-next-line jest/expect-expect
   test('should return correct english content Data', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
   });
 
+  // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
@@ -104,7 +106,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.submit.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.accessCodeCheck?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
