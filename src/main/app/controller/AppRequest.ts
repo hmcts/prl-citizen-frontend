@@ -3,7 +3,7 @@ import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
 import { CaseApi } from '../case/CaseApi';
-import { Case, CaseWithId,  } from '../case/case';
+import { Case, CaseWithId } from '../case/case';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {

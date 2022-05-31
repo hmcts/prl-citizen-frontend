@@ -1,9 +1,10 @@
-import {
-    getKeepYourDetailsPrivateStatus, getMiamStatus,
-  } from './utils';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => [
+import { getKeepYourDetailsPrivateStatus, getMiamStatus } from './utils';
+
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+  return [
     {
       title: sectionTitles.respondentYourDetails,
       items: [
@@ -25,5 +26,6 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           href: URL.MIAM_START,
         },
       ],
-    }
+    },
   ];
+};

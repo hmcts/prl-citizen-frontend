@@ -311,6 +311,8 @@ export interface CaseData {
   serviceType: string;
   claimNumber: string;
   caseCode: string;
+  respondentFirstName: string;
+  respondentLastName: string;
   
 }
 
@@ -956,6 +958,15 @@ export const enum ServicePaymentMethod {
 export const enum SolicitorPaymentMethod {
   FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
   FEES_HELP_WITH = 'feesHelpWith',
+}
+
+export interface PRLDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
 }
 
 export const enum State {
