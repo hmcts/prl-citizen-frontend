@@ -1,11 +1,13 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { INTERNATIONAL_FACTORS_JURISDICTION,INTERNATIONAL_FACTORS_PARENTS,INTERNATIONAL_FACTORS_REQUEST,INTERNATIONAL_FACTORS_START } from '../../../../steps/urls';
 import { CommonContent } from '../../../../steps/common/common.content';
-
 import {
-  summaryList,
-} from '../../../common/summary/utils';
+  INTERNATIONAL_FACTORS_JURISDICTION,
+  INTERNATIONAL_FACTORS_PARENTS,
+  INTERNATIONAL_FACTORS_REQUEST,
+  INTERNATIONAL_FACTORS_START,
+} from '../../../../steps/urls';
+import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -15,13 +17,12 @@ export const enContent = {
   },
   keys: {
     start: 'Please select one of the options before proceeding further',
-    parents: 'Do the childrens\' parents or anyone significant to the children live outside of England or Wales?',
-    jurisdiction: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
+    parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+    jurisdiction:
+      'Could another person in the application apply for a similar order in a country outside England or Wales?',
     request: 'Has another country asked (or been asked) for information or help for the children?',
   },
-  errors: {
-    
-  },
+  errors: {},
 };
 
 const en = (content: CommonContent) => {
@@ -29,9 +30,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [
-      summaryList(enContent, userCase, urls),
-    ],
+    sections: [summaryList(enContent, userCase, urls)],
   };
 };
 
@@ -43,20 +42,19 @@ const cyContent: typeof enContent = {
   },
   keys: {
     start: 'Please select one of the options before proceeding further',
-    parents: 'Do the childrens\' parents or anyone significant to the children live outside of England or Wales?',
-    jurisdiction: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
+    parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+    jurisdiction:
+      'Could another person in the application apply for a similar order in a country outside England or Wales?',
     request: 'Has another country asked (or been asked) for information or help for the children?',
   },
-  errors: {
-
-  },
+  errors: {},
 };
 
 const urls = {
   start: INTERNATIONAL_FACTORS_START,
   parents: INTERNATIONAL_FACTORS_PARENTS,
   jurisdiction: INTERNATIONAL_FACTORS_JURISDICTION,
-  request: INTERNATIONAL_FACTORS_REQUEST
+  request: INTERNATIONAL_FACTORS_REQUEST,
 };
 
 const cy: typeof en = (content: CommonContent) => {
@@ -64,16 +62,12 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [
-      summaryList(cyContent, userCase, urls, 'respondentAdditionalInformation'),
-    ],
+    sections: [summaryList(cyContent, userCase, urls, 'respondentAdditionalInformation')],
   };
 };
 
 export const form: FormContent = {
-  fields: {
-  
-  },
+  fields: {},
   submit: {
     text: l => l.continue,
   },
@@ -91,4 +85,3 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
-

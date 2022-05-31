@@ -1,7 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import {
-  SectionStatus, YesOrNo,
-} from '../../../app/case/definition';
+import { SectionStatus, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {
@@ -34,14 +32,17 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
 };
 
 export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStatus => {
-  
-  if (((userCase?.start == YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start == YesOrNo.NO) 
-  && ((userCase?.parents == YesOrNo.YES && userCase?.iFactorsParentsProvideDetails) || userCase?.parents == YesOrNo.NO)  
-  && ((userCase?.jurisdiction == YesOrNo.YES && userCase?.iFactorsJurisdictionProvideDetails) || userCase?.jurisdiction == YesOrNo.NO)
-  && ((userCase?.request == YesOrNo.YES && userCase?.iFactorsRequestProvideDetails) || userCase?.request == YesOrNo.NO)) {
+  if (
+    ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
+    ((userCase?.parents === YesOrNo.YES && userCase?.iFactorsParentsProvideDetails) ||
+      userCase?.parents === YesOrNo.NO) &&
+    ((userCase?.jurisdiction === YesOrNo.YES && userCase?.iFactorsJurisdictionProvideDetails) ||
+      userCase?.jurisdiction === YesOrNo.NO) &&
+    ((userCase?.request === YesOrNo.YES && userCase?.iFactorsRequestProvideDetails) || userCase?.request === YesOrNo.NO)
+  ) {
     return SectionStatus.COMPLETED;
   }
-  
+
   if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
     return SectionStatus.IN_PROGRESS;
   }

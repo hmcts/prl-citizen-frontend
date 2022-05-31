@@ -1,4 +1,4 @@
-import { YesOrNo } from 'app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -8,7 +8,8 @@ const en = {
   title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, because a court in another country has the power to make decisions or judgements (jurisdiction).',
+  twoHint:
+    'For example, because a court in another country has the power to make decisions or judgements (jurisdiction).',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -17,7 +18,7 @@ const en = {
     },
     iFactorsJurisdictionProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-    }
+    },
   },
 };
 
@@ -26,7 +27,8 @@ const cy: typeof en = {
   title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, because a court in another country has the power to make decisions or judgements (jurisdiction).',
+  twoHint:
+    'For example, because a court in another country has the power to make decisions or judgements (jurisdiction).',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -35,7 +37,7 @@ const cy: typeof en = {
     },
     iFactorsJurisdictionProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-    }
+    },
   },
 };
 
@@ -68,7 +70,7 @@ export const form: FormContent = {
         {
           label: l => l.two,
           value: YesOrNo.NO,
-        }
+        },
       ],
       validator: isFieldFilledIn,
     },

@@ -15,7 +15,8 @@ export const miam_cost_exemption_content = `<div>
 <h3 class="govuk-heading-s">Exemptions</h3>
 <p>You don't need to attend a MIAM if you have a valid reason. For example, you or the children are at risk of harm.</p>
 <p>Find out more about <a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" rel="external" target="_blank">the reasons for a MIAM exemption</a>.</p>
-</div>`
+</div>`;
 
-export const miam_how_to_arrange_mediation_link = "https://www.familymediationcouncil.org.uk/i-want-to-try-mediation-what-do-i-do"
-export const miam_how_to_arrange_mediation_label = "How to arrange a mediation?"
+export const miam_how_to_arrange_mediation_link =
+  'https://www.familymediationcouncil.org.uk/i-want-to-try-mediation-what-do-i-do';
+export const miam_how_to_arrange_mediation_label = 'How to arrange a mediation?';

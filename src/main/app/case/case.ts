@@ -31,23 +31,23 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
-  detailsKnown?:string
-  startAlternative?:string
-  contactDetailsPrivate?:any
-  miamStart?:string
-  miamWillingness?:string
-  miamNotWillingExplnation?:string
-  start?:YesOrNo
-  parents?:YesOrNo
-  jurisdiction?:YesOrNo
-  request?:YesOrNo
-  iFactorsJurisdictionProvideDetails?:string
-  iFactorsStartProvideDetails?:string
-  iFactorsRequestProvideDetails?:string
-  iFactorsParentsProvideDetails?:string
-  confirmcontactdetails?:string
-  respondentFirstName?:string
-  respondentLastName?:string
+  detailsKnown?: string;
+  startAlternative?: string;
+  contactDetailsPrivate?: any;
+  miamStart?: string;
+  miamWillingness?: string;
+  miamNotWillingExplnation?: string;
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
+  confirmcontactdetails?: string;
+  respondentFirstName?: string;
+  respondentLastName?: string;
 }
 
 export interface CaseWithId extends Case {

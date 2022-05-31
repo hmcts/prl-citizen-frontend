@@ -1,13 +1,12 @@
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-import {YesOrNo } from '../../../../app/case/definition';
-
 
 const en = {
   section: ' ',
-  title: 'Do the childrens\' parents or anyone significant to the children live outside of England or Wales?',
-  hint: "Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.",
+  title: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+  hint: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
@@ -18,14 +17,14 @@ const en = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-    }
+    },
   },
 };
 
 const cy: typeof en = {
   section: ' ',
-  title: 'Do the childrens\' parents or anyone significant to the children live outside of England or Wales?',
-  hint: "Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.",
+  title: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+  hint: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
@@ -36,7 +35,7 @@ const cy: typeof en = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-    }
+    },
   },
 };
 const languages = {

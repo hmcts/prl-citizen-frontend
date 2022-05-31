@@ -16,4 +16,4 @@ export const miam_collapse_content = `<div>
               <li>help with moving on to the next stage of your lives</li>
             </ul><p></p>
             <p>The MIAM process works, with agreement reached in over 70% of cases.</p>
-          </div>`
+          </div>`;

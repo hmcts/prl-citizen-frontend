@@ -1,4 +1,4 @@
-import { YesOrNo } from 'app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -8,7 +8,8 @@ const en = {
   title: 'Has another country asked (or been asked) for information or help for the children?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
+  twoHint:
+    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -17,7 +18,7 @@ const en = {
     },
     iFactorsRequestProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-    }
+    },
   },
 };
 
@@ -26,7 +27,8 @@ const cy: typeof en = {
   title: 'Has another country asked (or been asked) for information or help for the children?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
+  twoHint:
+    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -35,7 +37,7 @@ const cy: typeof en = {
     },
     iFactorsRequestProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-    }
+    },
   },
 };
 
@@ -68,7 +70,7 @@ export const form: FormContent = {
         {
           label: l => l.two,
           value: YesOrNo.NO,
-        }
+        },
       ],
       validator: isFieldFilledIn,
     },

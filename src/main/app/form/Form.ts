@@ -135,7 +135,7 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
-  
+
   fields: FormFields | FormFieldsFn;
 }
 
@@ -182,7 +182,7 @@ export interface FormInput {
   open?: boolean;
   options?: DropdownOptionsLookup;
   disabled?: boolean;
-  detailsHtml?: any;
+  detailsHtml?: Label;
   link?: string;
 }
 

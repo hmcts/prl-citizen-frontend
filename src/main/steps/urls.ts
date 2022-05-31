@@ -22,22 +22,22 @@ export const CONTACT_US: PageLink = '/contact-us';
 
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
-/* keep-details-private */ 
+/* keep-details-private */
 export const RESPONDENT: PageLink = '/respondent';
-export const KEEP_DETAILS_PRIVATE: PageLink =  `${RESPONDENT}/keep-details-private`;
+export const KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}/keep-details-private`;
 export const DETAILS_KNOWN: PageLink = `${KEEP_DETAILS_PRIVATE}/details_known`;
 export const START_ALTERNATIVE: PageLink = `${KEEP_DETAILS_PRIVATE}/start_alternative`;
 export const PRIVATE_DETAILS_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_confirmed`;
 export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_not_confirmed`;
 /* keep-details-private-end */
 
-/* MIAM */ 
+/* MIAM */
 export const MIAM: PageLink = `${RESPONDENT}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
 
-/* international-factors */ 
-export const INTERNATIONAL_FACTORS: PageLink =  `${RESPONDENT}/international-factors`;
+/* international-factors */
+export const INTERNATIONAL_FACTORS: PageLink = `${RESPONDENT}/international-factors`;
 export const INTERNATIONAL_FACTORS_START: PageLink = `${INTERNATIONAL_FACTORS}/start`;
 export const INTERNATIONAL_FACTORS_PARENTS: PageLink = `${INTERNATIONAL_FACTORS}/parents`;
 export const INTERNATIONAL_FACTORS_JURISDICTION: PageLink = `${INTERNATIONAL_FACTORS}/jurisdiction`;
@@ -47,9 +47,9 @@ export const INTERNATIONAL_FACTORS_SUMMARY: PageLink = `${INTERNATIONAL_FACTORS}
 /* international-factors */
 
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
-/* MIAM */ 
+/* MIAM */
 
 /* confirm-contact-details-start */
-export const CONFIRM_CONTACT_DETAILS: PageLink =  `${RESPONDENT}/confirmcontactdetails`;
+export const CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}/confirmcontactdetails`;
 export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
 /* confirm-contact-details-end */

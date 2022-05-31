@@ -3,14 +3,16 @@ import { FormContent } from '../../../../app/form/Form';
 
 const en = {
   title: 'The court will not keep your contact details private',
-  line1: 'You have told us you do not want to keep your contact details private from the other people in this application.',
-  continue: 'Continue'
+  line1:
+    'You have told us you do not want to keep your contact details private from the other people in this application.',
+  continue: 'Continue',
 };
 
 const cy: typeof en = {
   title: 'The court will not keep your contact details private',
-  line1: 'You have told us you do not want to keep your contact details private from the other people in this application.',
-  continue: 'Continue'
+  line1:
+    'You have told us you do not want to keep your contact details private from the other people in this application.',
+  continue: 'Continue',
 };
 
 const languages = {
@@ -19,8 +21,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-  },
+  fields: {},
   submit: {
     text: l => l.continue,
   },
@@ -33,4 +34,3 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
-

@@ -1,4 +1,4 @@
-import { YesOrNo } from 'app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -17,7 +17,7 @@ const en = {
     },
     iFactorsStartProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-    }
+    },
   },
 };
 
@@ -35,7 +35,7 @@ const cy: typeof en = {
     },
     iFactorsStartProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-    }
+    },
   },
 };
 
@@ -73,7 +73,7 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  
+
   submit: {
     text: l => l.continue,
   },
