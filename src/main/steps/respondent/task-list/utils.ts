@@ -11,15 +11,15 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
   return SectionStatus.NOT_STARTED;
 };
 
-export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.confirmcontactdetails) {
-    return SectionStatus.COMPLETED;
-  }
-  if (userCase?.confirmcontactdetails) {
-    return SectionStatus.IN_PROGRESS;
-  }
-  return SectionStatus.NOT_STARTED;
-};
+// export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {
+//   if (userCase?.confirmcontactdetails) {
+//     return SectionStatus.COMPLETED;
+//   }
+//   if (userCase?.confirmcontactdetails) {
+//     return SectionStatus.IN_PROGRESS;
+//   }
+//   return SectionStatus.NOT_STARTED;
+// };
 
 export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.miamStart && userCase?.miamWillingness) {
