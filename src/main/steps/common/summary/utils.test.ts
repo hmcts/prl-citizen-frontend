@@ -12,6 +12,7 @@ const enContent = {
   keys: {
     miamStart: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
     applicationReceivedDate: 'When did you receive the application?',
+    invalidApplicationReceivedDate: 'When did you receive the application?',
   },
   errors: {},
 };
@@ -19,11 +20,13 @@ const enContent = {
 const urls = {
   miamStart: MIAM_START,
   applicationReceivedDate: CONSENT,
+  invalidApplicationReceivedDate: CONSENT,
 };
 
 const fieldType = {
   miamStart: 'String',
   applicationReceivedDate: 'Date',
+  invalidApplicationReceivedDate: 'Date',
 };
 
 describe('common > summary > utils', () => {
@@ -58,6 +61,19 @@ describe('common > summary > utils', () => {
               },
               key: { text: 'When did you receive the application?' },
               value: { text: '11 March 2022' },
+            },
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/respondent/consent-to-application',
+                    text: 'edit',
+                    visuallyHiddenText: 'When did you receive the application?',
+                  },
+                ],
+              },
+              key: { text: 'When did you receive the application?' },
+              value: {},
             },
           ],
           title: 'applicationDetails',
