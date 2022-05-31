@@ -1,6 +1,6 @@
 import { AnyObject } from '../controller/PostController';
+import { CaseData, State, YesOrNo, ContactDetails, OtherName} from './definition';
 
-import { CaseData, State } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -8,6 +8,24 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseCode: 'caseCode',
   respondentFirstName: 'respondentFirstName',
   respondentLastName: 'respondentLastName',
+  
+  // applicant1FirstNames: 'applicant1FirstName',
+  // applicant1LastNames: 'applicant1LastName',
+  applicant1HasOtherNames: 'applicant1HasOtherNames',
+  applicant1AdditionalNames: 'applicant1AdditionalNames',
+  applicant1DateOfBirth: 'applicant1DateOfBirth',
+  applicant1Occupation: 'applicant1Occupation',
+  applicant1EmailAddress: 'applicant1EmailAddress',
+  applicant1PhoneNumber: 'applicant1PhoneNumber',
+  applicant1Address1: 'applicant1Address1',
+  applicant1Address2: 'applicant1Address2',
+  applicant1AddressTown: 'applicant1AddressTown',
+  // applicant1AddressCounty: 'applicant1AddressCountry',
+  // applicant1AddressPostcode: 'applicant1AddressPostCode',
+  applicant1ContactDetails: 'applicant1ContactDetails',
+  applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
+  //applicant1LanguagePreference: 'applicant1LanguagePreference',
+
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -39,6 +57,27 @@ export interface Case {
   confirmcontactdetails?:string
   respondentFirstName?:string
   respondentLastName?:string
+
+    /***** Applicant1 *****/
+    applicant1FirstNames?: string;
+    applicant1LastNames?: string;
+    applicant1HasOtherNames?: YesOrNo;
+    applicant1AdditionalName?: string;
+    applicant1AdditionalNames?: OtherName[];
+    applicant1EmailAddress?: string;
+    applicant1PhoneNumber?: string;
+    applicant1DateOfBirth?: CaseDate;
+    applicant1Occupation?: string;
+    applicant1SelectAddress?: string;
+    applicant1Address1?: string;
+    applicant1Address2?: string;
+    applicant1AddressTown?: string;
+    applicant1AddressCounty?: string;
+    applicant1AddressPostcode?: string;
+    applicant1ContactDetails?: ContactDetails[];
+    applicant1ContactDetailsConsent?: YesOrNo;
+
+  //applicant1LanguagePreference?: LanguagePreference;
 }
 
 export interface CaseWithId extends Case {

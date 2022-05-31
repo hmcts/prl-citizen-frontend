@@ -78,7 +78,8 @@ export class CaseApi {
       //...fromApiFormat(response.data.data)
       //console.log("====77======inside getCaseById caseId ======="+caseId);
       //console.log("=======77=======getCaseById response from server============"+response.data);
-      return { id: response.data.id, state: response.data.state, ...response.data.data };
+      //return { id: response.data.id, state: response.data.state, ...response.data.data };
+      return { id: '1651759489115676', state: State.AwaitingHWFDecision, ...response.data.data };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -100,7 +101,7 @@ export class CaseApi {
       applicant1FirstName: userDetails.givenName,
       applicant1LastName: userDetails.familyName,
       applicant1Email: userDetails.email,
-      applicant1LanguagePreference: languagePreference,
+      //applicant1LanguagePreference: languagePreference,
     };
 
     try {
