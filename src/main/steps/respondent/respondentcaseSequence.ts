@@ -1,7 +1,6 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  CHECK_ANSWERS,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   DETAILS_KNOWN,

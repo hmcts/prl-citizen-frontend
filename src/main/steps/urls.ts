@@ -45,5 +45,4 @@ export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
 /* confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}/confirmcontactdetails`;
-export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
 /* confirm-contact-details-end */
