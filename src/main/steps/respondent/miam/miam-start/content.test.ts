@@ -4,7 +4,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
-import { miam_collapse_content } from './miam-details-content';
+import { miam_collapse_content_cy, miam_collapse_content_en } from './miam-details-content';
 
 const enContent = {
   title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
@@ -12,7 +12,7 @@ const enContent = {
   two: 'No',
   three: "I don't know",
   miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
-  miamSubFields: miam_collapse_content,
+  miamSubFields: miam_collapse_content_en,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   continue: 'Continue',
@@ -29,7 +29,7 @@ const cyContent = {
   two: 'No',
   three: "I don't know",
   miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
-  miamSubFields: miam_collapse_content,
+  miamSubFields: miam_collapse_content_cy,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   continue: 'Continue',
