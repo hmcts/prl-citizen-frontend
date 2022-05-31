@@ -313,6 +313,7 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
+  contactDetailsPrivate: string;
 
   /***** Applicant1 *****/
   applicant1FirstNames?: string;

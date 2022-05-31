@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isEmailValid,isPhoneNoValid } from '../../../../app/form/validation';
+import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 
 const en = {
   title: 'Your contact details',
@@ -22,7 +22,7 @@ const en = {
 const cy: typeof en = {
   title: 'Eich manylion cyswllt',
   phoneNumber: 'Rhif ffôn y DU',
-  email: 'Cyfeiriad ebost',  
+  email: 'Cyfeiriad ebost',
   continue: 'Continue',
   errors: {
     phoneNumber: {

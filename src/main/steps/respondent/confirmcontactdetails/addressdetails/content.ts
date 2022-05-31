@@ -6,8 +6,7 @@ const en = {
   address: 'address',
   continue: 'Save and continue',
   editAddress: 'Edit Address',
-  errors: {
-  },
+  errors: {},
 };
 
 const cy: typeof en = {
@@ -15,8 +14,7 @@ const cy: typeof en = {
   address: 'cyfeiriad',
   continue: 'Arbed a pharhau',
   editAddress: 'Golygu Cyfeiriad',
-  errors: {
-  },
+  errors: {},
 };
 
 const languages = {

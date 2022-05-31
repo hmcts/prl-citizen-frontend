@@ -1,23 +1,23 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  ADDRESS_BLANK,
+  ADDRESS_CONFIRMATION,
+  ADDRESS_DETAILS,
+  ADDRESS_HISTORY,
+  ADDRESS_LOOKUP,
+  ADDRESS_LOOKUP_CONT,
+  CONTACT_DETAILS,
   DETAILS_KNOWN,
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
+  PERSONAL_DETAILS,
   PRIVATE_DETAILS_CONFIRMED,
   PRIVATE_DETAILS_NOT_CONFIRMED,
+  RESPONDENT_FIND_ADDRESS,
   RESPONDENT_TASK_LIST_URL,
   START_ALTERNATIVE,
-  PERSONAL_DETAILS,
-  CONTACT_DETAILS,
-  ADDRESS_DETAILS,
-  ADDRESS_LOOKUP,
-  ADDRESS_LOOKUP_CONT,
-  ADDRESS_CONFIRMATION,
-  RESPONDENT_FIND_ADDRESS,
-  ADDRESS_BLANK,
-  ADDRESS_HISTORY,
 } from '../urls';
 
 export const repondentCaseSequence: Step[] = [
@@ -107,5 +107,4 @@ export const repondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
-
 ];

@@ -14,7 +14,7 @@ import {
   CITIZEN_CREATE,
   CaseData,
   JURISDICTION,
-  LanguagePreference,
+  //LanguagePreference,
   //ListValue,
   //Payment,
   State,
@@ -31,11 +31,11 @@ export class CaseApi {
 
   public async getOrCreateCase(
     serviceType: Adoption,
-    userDetails: UserDetails,
-    languagePreference = LanguagePreference.ENGLISH
+    userDetails: UserDetails
+    //languagePreference = LanguagePreference.ENGLISH
   ): Promise<CaseWithId> {
     const userCase = await this.getCase();
-    return userCase || this.createCase(serviceType, userDetails, languagePreference);
+    return userCase || this.createCase(serviceType, userDetails);
   }
 
   private async getCase(): Promise<CaseWithId | false> {
@@ -61,7 +61,7 @@ export class CaseApi {
       const response = await this.axios.get<CcdV1Response[]>(
         `http://ccd-data-store-api-aat.service.core-compute-aat.internal/caseworkers/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases/1652796857708749`
       );
-//http://localhost:4452/citizens/beb18a7e-8419-40e4-80dd-ca1636618a3f/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases/1653538384893431
+      //http://localhost:4452/citizens/beb18a7e-8419-40e4-80dd-ca1636618a3f/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases/1653538384893431
       //console.log("========64======getCaseById response from server============"+JSON.stringify(response.data));
       //  /citizens/{uid}/jurisdiction/{jid}/case-types/{ctid}/cases/{cid}:
       return response.data;
@@ -74,7 +74,9 @@ export class CaseApi {
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
       ///cases/case-details/1651759489115676
-      const response = await this.axios.get<CcdV2Response>('http://ccd-data-store-api-aat.service.core-compute-aat.internal/cases/1651752418644999');
+      const response = await this.axios.get<CcdV2Response>(
+        'http://ccd-data-store-api-aat.service.core-compute-aat.internal/cases/' + caseId
+      );
       //...fromApiFormat(response.data.data)
       //console.log("====77======inside getCaseById caseId ======="+caseId);
       //console.log("=======77=======getCaseById response from server============"+response.data);
@@ -86,14 +88,11 @@ export class CaseApi {
     }
   }
 
-  private async createCase(
-    serviceType: Adoption,
-    userDetails: UserDetails,
-    languagePreference: LanguagePreference
-  ): Promise<CaseWithId> {
+  private async createCase(serviceType: Adoption, userDetails: UserDetails): Promise<CaseWithId> {
     const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.axios.get(
       `/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`
     );
+
     const token = tokenResponse.data.token;
     const event = { id: CITIZEN_CREATE };
     const data = {
@@ -151,7 +150,7 @@ export class CaseApi {
     //const data = toApiFormat(userData);
     //const data = userData;
     // return this.sendEvent(caseId, data, eventName);
-    console.log(eventName);
+    console.log('eventName = ' + eventName);
     return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
   }
 

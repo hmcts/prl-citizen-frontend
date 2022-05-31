@@ -1,40 +1,39 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
-import { RESPONDENT_FIND_ADDRESS } from '../../../urls';
 import {
   form as selectAddressForm,
   generateContent as selectAddressGenerateContent,
 } from '../../../common/components/common/address-select';
+import { RESPONDENT_FIND_ADDRESS } from '../../../urls';
 
-
-const en = ({ selectAddressContent, userCase }) => {
+const en = ({ selectAddressContent }) => {
   return {
-  title: 'Your address',
-  currentPostcodeLabel: 'Current postcode',
-  currentPostcode: 'MK9 3DX',
-  changePostCodeUrlLink: 'Change postcode',
-  selectAddress: 'Select an address',
-  errors: {
-    applicant1SelectAddress: selectAddressContent.errors.selectAddress,
-  },
-  changePostCodeUrl: RESPONDENT_FIND_ADDRESS,
-  continue: 'Continue',
-}
+    title: 'Your address',
+    currentPostcodeLabel: 'Current postcode',
+    currentPostcode: 'MK9 3DX',
+    changePostCodeUrlLink: 'Change postcode',
+    selectAddress: 'Select an address',
+    errors: {
+      applicant1SelectAddress: selectAddressContent.errors.selectAddress,
+    },
+    changePostCodeUrl: RESPONDENT_FIND_ADDRESS,
+    continue: 'Continue',
+  };
 };
 
-const cy: typeof en = ({ selectAddressContent, userCase }) => {
+const cy: typeof en = ({ selectAddressContent }) => {
   return {
-  title: 'Your address',
-  currentPostcodeLabel: 'Current postcode',
-  currentPostcode: 'MK9 3DX',
-  changePostCodeUrlLink: 'Change postcode',
-  selectAddress: 'Select an address',
-  errors: {
-    applicant1SelectAddress: selectAddressContent.errors.selectAddress,
-  },
-  changePostCodeUrl: RESPONDENT_FIND_ADDRESS,
-  continue: 'Continue',
-  }
+    title: 'Your address',
+    currentPostcodeLabel: 'Current postcode',
+    currentPostcode: 'MK9 3DX',
+    changePostCodeUrlLink: 'Change postcode',
+    selectAddress: 'Select an address',
+    errors: {
+      applicant1SelectAddress: selectAddressContent.errors.selectAddress,
+    },
+    changePostCodeUrl: RESPONDENT_FIND_ADDRESS,
+    continue: 'Continue',
+  };
 };
 
 const languages = {
@@ -83,7 +82,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const selectAddressContent = selectAddressGenerateContent(content);
-  const translations = languages[content.language]({ selectAddressContent, userCase: content.userCase });
+  const translations = languages[content.language]({ selectAddressContent });
 
   return {
     ...selectAddressContent,
@@ -91,4 +90,3 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
-

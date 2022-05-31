@@ -1,15 +1,15 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+
 import { getCaseApi } from '../../../../app/case/CaseApi';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
 //import { LanguagePreference } from '../../../../app/case/definition';
 @autobind
 export default class ConfirmContactDetailsGetController extends GetController {
-
   public async get(req: AppRequest, res: Response): Promise<void> {
-    let redirect = false;
-    
+    const redirect = false;
+
     if (req.session?.user) {
       res.locals.isLoggedIn = true;
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
@@ -26,7 +26,6 @@ export default class ConfirmContactDetailsGetController extends GetController {
       //return next();
     }
 
-
     //console.log("BEFORE call to getCaseById method====1111====>>");
     //res.locals.isLoggedIn = true;
     //req.locals.api = getCaseApi(req.session.user, req.locals.logger);
@@ -37,8 +36,6 @@ export default class ConfirmContactDetailsGetController extends GetController {
 
     //console.log("BEFORE call to getCaseById method====1111====>>");
 
-    
-    
     const callback = redirect ? undefined : () => super.get(req, res);
     super.saveSessionAndRedirect(req, res, callback);
   }

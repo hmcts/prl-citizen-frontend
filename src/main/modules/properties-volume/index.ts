@@ -30,10 +30,10 @@ export class PropertiesVolume {
   /**
    * Load a secret from the AAT vault using azure cli
    */
-   private setLocalSecret(secret: string, toPath: string): void {
+  private setLocalSecret(secret: string, toPath: string): void {
     const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
-     set(config, toPath, result.toString().replace('\n', ''));
-   }
+    set(config, toPath, result.toString().replace('\n', ''));
+  }
 
   private setLocalEndpoints(): void {
     const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');

@@ -1,11 +1,8 @@
-import {PERSONAL_DETAILS,CONTACT_DETAILS,ADDRESS_DETAILS,ADDRESS_HISTORY } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
-
-import {
-  summaryList,
-} from '../../../common/summary/utils';
+import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../../steps/urls';
+import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -22,9 +19,7 @@ export const enContent = {
     phoneNumber: 'Phone number',
     email: 'Email',
   },
-  errors: {
-    
-  },
+  errors: {},
 };
 
 const en = (content: CommonContent) => {
@@ -32,9 +27,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [
-      summaryList(enContent, userCase, urls),
-    ],
+    sections: [summaryList(enContent, userCase, urls)],
   };
 };
 
@@ -53,9 +46,7 @@ const cyContent: typeof enContent = {
     phoneNumber: 'Phone number (in Welsh)',
     email: 'Email (in Welsh)',
   },
-  errors: {
-
-  },
+  errors: {},
 };
 
 const urls = {
@@ -63,7 +54,7 @@ const urls = {
   dateOfBirth: PERSONAL_DETAILS,
   placeOfBirth: PERSONAL_DETAILS,
   address: ADDRESS_DETAILS,
-  addressHistory: ADDRESS_HISTORY,  
+  addressHistory: ADDRESS_HISTORY,
   phoneNumber: CONTACT_DETAILS,
   email: CONTACT_DETAILS,
 };
@@ -73,16 +64,12 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [
-      summaryList(cyContent, userCase, urls),
-    ],
+    sections: [summaryList(cyContent, userCase, urls)],
   };
 };
 
 export const form: FormContent = {
-  fields: {
-  
-  },
+  fields: {},
   submit: {
     text: l => l.continue,
   },

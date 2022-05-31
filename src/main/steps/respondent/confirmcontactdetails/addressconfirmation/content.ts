@@ -5,9 +5,9 @@ import {
   generateContent as manualAddressGenerateContent,
 } from '../../../common/components/common/address-manual';
 
-const en = ({ manualAddressContent, userCase }) => {
+const en = ({ manualAddressContent }) => {
   return {
-    title: "Your Address",
+    title: 'Your Address',
     errors: {
       applicant1Address1: manualAddressContent.errors.address1,
       applicant1AddressTown: manualAddressContent.errors.addressTown,
@@ -16,8 +16,8 @@ const en = ({ manualAddressContent, userCase }) => {
   };
 };
 
-const cy: typeof en = ({ manualAddressContent, userCase }) => {
-return {
+const cy: typeof en = ({ manualAddressContent }) => {
+  return {
     title: 'Beth yw eich cyfeiriad?',
     errors: {
       applicant1Address1: manualAddressContent.errors.address1,
@@ -47,7 +47,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const manualAddressContent = manualAddressGenerateContent(content);
-  const translations = languages[content.language]({ manualAddressContent, userCase: content.userCase });
+  const translations = languages[content.language]({ manualAddressContent });
 
   return {
     ...manualAddressContent,

@@ -1,9 +1,13 @@
+import { CaseDate } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
 import { covertToDateObject } from '../../../../app/form/parser';
-import { CaseDate } from '../../../../app/case/case';
-import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
+import {
+  areDateFieldsFilledIn,
+  isDateInputInvalid,
+  isFieldFilledIn,
+  isFutureDate,
+} from '../../../../app/form/validation';
 
 const en = {
   title: 'Your name and date of birth',
@@ -38,7 +42,7 @@ const en = {
 const cy: typeof en = {
   title: 'Eich enw a dyddiad geni',
   firstName: 'Eich enw cyntaf',
-  lastName: 'Eich enw olaf',  
+  lastName: 'Eich enw olaf',
   previousName: 'Enw(au) blaenorol, os o gwbl (dewisol)',
   placeOfBirth: 'Man geni',
   dateOfBirth: 'Eich dyddiad geni',
@@ -119,9 +123,9 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
       validator: value =>
-          areDateFieldsFilledIn(value as CaseDate) ||
-          isDateInputInvalid(value as CaseDate) ||
-          isFutureDate(value as CaseDate),
+        areDateFieldsFilledIn(value as CaseDate) ||
+        isDateInputInvalid(value as CaseDate) ||
+        isFutureDate(value as CaseDate),
     },
     placeOfBirth: {
       type: 'text',

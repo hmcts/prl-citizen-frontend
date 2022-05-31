@@ -1,21 +1,23 @@
+//import { Case } from '../../../../app/case/case';
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { CommonContent } from 'steps/common/common.content';
-import { Case } from 'app/case/case';
+import { CommonContent } from '../../../../steps/common/common.content';
 
 const en = {
   title: 'Have you lived at this address for more than 5 years?',
   one: 'Yes',
   two: 'No',
-  explainNoLabel: 'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+  explainNoLabel:
+    'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
   continue: 'Continue',
   errors: {
     addressHistory: {
       required: 'Enter your details known',
     },
     provideDetailsOfPreviousAddresses: {
-      required: 'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+      required:
+        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
     },
   },
 };
@@ -24,14 +26,16 @@ const cy: typeof en = {
   title: 'Have you lived at this address for more than 5 years?',
   one: 'Yes',
   two: 'No',
-  explainNoLabel: 'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+  explainNoLabel:
+    'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
   continue: 'Continue',
   errors: {
     addressHistory: {
       required: 'Enter your details known',
     },
     provideDetailsOfPreviousAddresses: {
-      required: 'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+      required:
+        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
     },
   },
 };
@@ -42,21 +46,18 @@ const languages = {
 };
 
 export const form: FormContent = {
-    fields: {
-    },
-    submit: {
-      text: l => l.continue,
-    },
-  };
-
+  fields: {},
+  submit: {
+    text: l => l.continue,
+  },
+};
 
 export const generateContent = (content: CommonContent): PageContent => ({
   ...languages[content.language],
-  form: { ...form, fields: addressHistoryFields(content.userCase!) },
+  form: { ...form, fields: addressHistoryFields() },
 });
 
-
-export const addressHistoryFields = (userCase: Partial<Case>): FormFields => ({
+export const addressHistoryFields = (): FormFields => ({
   addressHistory: {
     type: 'radios',
     classes: 'govuk-radios',
@@ -70,14 +71,14 @@ export const addressHistoryFields = (userCase: Partial<Case>): FormFields => ({
       {
         label: l => l.two,
         value: 'No',
-        subFields:{
+        subFields: {
           provideDetailsOfPreviousAddresses: {
             type: 'textarea',
             label: l => l.explainNoLabel,
             id: 'provideDetailsOfPreviousAddresses',
             validator: value => isFieldFilledIn(value),
           },
-        }
+        },
       },
     ],
     validator: isFieldFilledIn,

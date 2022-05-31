@@ -1,6 +1,6 @@
 import { AnyObject } from '../controller/PostController';
-import { CaseData, State, YesOrNo, ContactDetails, OtherName} from './definition';
 
+import { CaseData, ContactDetails, OtherName, State, YesOrNo } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -8,7 +8,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseCode: 'caseCode',
   respondentFirstName: 'respondentFirstName',
   respondentLastName: 'respondentLastName',
-  
+  contactDetailsPrivate: 'contactDetailsPrivate',
+
   // applicant1FirstNames: 'applicant1FirstName',
   // applicant1LastNames: 'applicant1LastName',
   applicant1HasOtherNames: 'applicant1HasOtherNames',
@@ -25,7 +26,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetails: 'applicant1ContactDetails',
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
-
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -49,15 +49,15 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
-  detailsKnown?: string
-  startAlternative?: string
-  miamStart?: string
-  miamWillingness?: string
-  miamNotWillingExplnation?: string
-  confirmcontactdetails?: string
-  respondentFirstName?: string
-  respondentLastName?: string
-
+  detailsKnown?: string;
+  startAlternative?: string;
+  miamStart?: string;
+  miamWillingness?: string;
+  miamNotWillingExplnation?: string;
+  confirmcontactdetails?: string;
+  respondentFirstName?: string;
+  respondentLastName?: string;
+  contactDetailsPrivate?: string;
 
   /***** Applicant1 *****/
   applicant1FirstNames?: string;
@@ -79,7 +79,6 @@ export interface Case {
   applicant1ContactDetailsConsent?: YesOrNo;
 
   //applicant1LanguagePreference?: LanguagePreference;
-
 }
 
 export interface CaseWithId extends Case {

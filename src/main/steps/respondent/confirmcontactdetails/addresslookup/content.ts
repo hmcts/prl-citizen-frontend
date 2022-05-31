@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isInvalidPostcode} from '../../../../app/form/validation';
+import { isInvalidPostcode } from '../../../../app/form/validation';
 
 const en = {
   title: 'Your address',
@@ -21,7 +21,6 @@ const cy: typeof en = {
     addressPostcode: {
       required: 'Enter UK Post Code',
     },
-
   },
 };
 
