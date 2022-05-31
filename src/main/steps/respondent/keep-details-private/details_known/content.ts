@@ -19,8 +19,8 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Application details',
-  title: 'Enter your access details',
+  section: 'Keeping your contact details private',
+  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
   one: 'Yes',
   two: 'No',
   three: "I don't know",

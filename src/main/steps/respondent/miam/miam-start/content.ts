@@ -22,12 +22,12 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Enter your access details',
+  title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
   miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
-  miamSubFields: 'Testing subfields',
+  miamSubFields: miam_collapse_content,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   continue: 'Continue',
@@ -53,8 +53,6 @@ export const form: FormContent = {
     miamStart: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
-      section: l => l.section,
       values: [
         {
           label: l => l.one,

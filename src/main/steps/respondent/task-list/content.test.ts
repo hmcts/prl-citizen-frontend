@@ -40,9 +40,11 @@ const cyContent = {
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
+  // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
   });
+  // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
@@ -58,12 +60,6 @@ describe('task-list > content', () => {
               status: 'NOT_STARTED',
               text: 'Keep your details private',
             },
-            {
-              href: '/respondent/confirmcontactdetails/checkanswers',
-              id: 'confirm-or-edit-your-contact-details',
-              status: 'NOT_STARTED',
-              text: 'Confirm or edit your contact details',
-            },
           ],
           title: 'Your details',
         },
@@ -72,7 +68,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/miam/miam-start',
               id: 'medation-miam',
-              status: 'NOT_STARTED',
+              status: 'IN_PROGRESS',
               text: 'Mediation(MIAM)',
             },
           ],

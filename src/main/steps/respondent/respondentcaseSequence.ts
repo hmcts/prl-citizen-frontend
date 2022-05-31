@@ -66,9 +66,4 @@ export const repondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
-  {
-    url: CHECK_ANSWERS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
 ];
