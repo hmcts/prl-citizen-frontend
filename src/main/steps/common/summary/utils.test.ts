@@ -19,6 +19,10 @@ const urls = {
   miamStart: MIAM_START,
 };
 
+const fieldType = {
+  miamStart: 'String',
+};
+
 describe('common > summary > utils', () => {
   describe('SummaryList', () => {
     test.each([
@@ -44,7 +48,7 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(summaryList(enContent, userCase, urls, 'applicationDetails')).toStrictEqual(expected);
+      expect(summaryList(enContent, userCase, urls, 'applicationDetails', fieldType, 'en')).toStrictEqual(expected);
     });
   });
 });
