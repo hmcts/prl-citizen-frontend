@@ -1,4 +1,4 @@
-import {PERSONAL_DETAILS,CONTACT_DETAILS,ADDRESS_DETAILS } from '../../../../steps/urls';
+import {PERSONAL_DETAILS,CONTACT_DETAILS,ADDRESS_DETAILS,ADDRESS_HISTORY } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
@@ -63,7 +63,7 @@ const urls = {
   dateOfBirth: PERSONAL_DETAILS,
   placeOfBirth: PERSONAL_DETAILS,
   address: ADDRESS_DETAILS,
-  addressHistory: 'Address history URL',  
+  addressHistory: ADDRESS_HISTORY,  
   phoneNumber: CONTACT_DETAILS,
   email: CONTACT_DETAILS,
 };
