@@ -1,10 +1,7 @@
-import {
-  getConfirmOrEditYourContactDetails,
-    getKeepYourDetailsPrivateStatus, getMiamStatus, getYourSafetyStatus,
-  } from './utils';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { getKeepYourDetailsPrivateStatus, getMiamStatus } from './utils';
+import { getKeepYourDetailsPrivateStatus, getMiamStatus, getYourSafetyStatus } from './utils';
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
@@ -30,8 +27,6 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         },
       ],
     },
-  ];
-};
     {
       title: sectionTitles.respondentSafetyConcerns,
       items: [
@@ -43,4 +38,5 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         },
       ]
     }
-  ];
+  ]
+};
