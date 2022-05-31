@@ -7,6 +7,8 @@ import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
+import { getCaseApi } from '../case/CaseApi';
+import { getSystemUser } from '../auth/user/oidc';
 
 import { AppRequest } from './AppRequest';
 import { State } from 'app/case/definition';
@@ -147,10 +149,27 @@ export class PostController<T extends AnyObject> {
     //   const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
     //   req.session.userCase = initData;
     // }
+    console.log('checking access code');
+    const caseworkerUser = await getSystemUser();
+    console.log('retrieved caseworker');
+    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+    console.log('api retrieved');
     req.session.errors = form.getErrors(formData);
+    try{
+      const caseData = await req.locals.api.getCaseById(formData.caseCode as string);
+
+      if(caseData.accessCode !== formData.accessCode){
+        req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+      }
+    }
+    catch(err){
+      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference'});
+    }
+
     if (req.session.errors.length) {
       req.session.accessCodeLoginIn = false;
     } else {
+      //formData.accessCode =
       //make an api call to check if the caseId exists? and if it exists then set the case code
       const initData = { id: formData.caseCode || '', state: State.successAuthentication, serviceType: '', ...formData };
       req.session.userCase = initData;

@@ -9,11 +9,15 @@ services:
     secret: 'NEED TO INSERT SECRET'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
-    tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
+    tokenURL: 'http://localhost:5000'
     clientID: 'prl-citizen-frontend'
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
+  case:
+    url: 'http://localhost:4452'
+    #url: 'http://ccd-data-store-api-nfdiv-case-api-pr-1653.service.core-compute-preview.internal'
+    checkDivCases: true
 health:
   timeout: 5000
   deadline: 15000
@@ -25,4 +29,4 @@ session:
 e2e:
   userTestPassword: ''
 appInsights:
-  instrumentationKey:
+  instrumentationKey: false
