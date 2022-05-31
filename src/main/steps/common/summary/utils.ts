@@ -88,7 +88,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: fieldTypes[key].includes('Date') ? getFormattedDate(userCase[key], language) : userCase[key],
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
 

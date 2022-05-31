@@ -116,6 +116,7 @@ export default {
   otherParentAddressCountry: 'MOCK_ADDRESS_COUNTRY',
   otherParentAddressKnown: YesOrNo.YES,
   miamStart: 'Yes',
+  applicationReceivedDate: { day: 11, month: 3, year: 2022 },
 
   hasSiblings: YesNoNotsure.YES,
   hasPoForSiblings: YesNoNotsure.YES,
