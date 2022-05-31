@@ -11,7 +11,8 @@ const en = {
   line5: 'emotional abuse',
   line6: 'physical abuse',
   line7: 'sexual abuse',
-  line8: 'Based on your answer, we will not ask you any more questions about domestic violence or abuse. You can continue your response.',
+  line8:
+    'Based on your answer, we will not ask you any more questions about domestic violence or abuse. You can continue your response.',
   line9: 'Are you unsure about the answer you gave?',
   line10: 'Have a look at the following information if you are unsure about your answer.',
   line11: '*These links are a placeholder and will changes',
@@ -22,7 +23,7 @@ const en = {
   line16: 'If you want to change your answer, go back to the previous screen.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
-  goBack: 'Go back'
+  goBack: 'Go back',
 };
 
 const cy: typeof en = {
@@ -35,7 +36,8 @@ const cy: typeof en = {
   line5: 'emotional abuse',
   line6: 'physical abuse',
   line7: 'sexual abuse',
-  line8: 'Based on your answer, we will not ask you any more questions about domestic violence or abuse. You can continue your response.',
+  line8:
+    'Based on your answer, we will not ask you any more questions about domestic violence or abuse. You can continue your response.',
   line9: 'Are you unsure about the answer you gave?',
   line10: 'Have a look at the following information if you are unsure about your answer.',
   line11: 'These links are a placeholder and will changes',
@@ -46,7 +48,7 @@ const cy: typeof en = {
   line16: 'If you want to change your answer, go back to the previous screen.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
-  goBack: 'Go back'
+  goBack: 'Go back',
 };
 
 const languages = {
@@ -55,8 +57,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-  },
+  fields: {},
   submit: {
     text: l => l.continue,
   },

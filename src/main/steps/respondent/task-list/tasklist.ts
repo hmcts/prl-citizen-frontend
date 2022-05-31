@@ -36,7 +36,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           status: getYourSafetyStatus(userCase),
           href: URL.SAFETY_MAIN_PAGE,
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ];
 };

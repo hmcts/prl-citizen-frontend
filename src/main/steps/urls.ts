@@ -38,7 +38,6 @@ export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 /* MIAM */
 
-
 /* safety concerns */
 export const SAFETY_CONCERNS: PageLink = `${RESPONDENT}/safety_concerns`;
 export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;

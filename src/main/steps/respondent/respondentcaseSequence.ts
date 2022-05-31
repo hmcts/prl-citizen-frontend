@@ -1,4 +1,4 @@
-import { YesOrNo } from 'app/case/definition';
+import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
   DETAILS_KNOWN,

@@ -21,9 +21,8 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   return SectionStatus.NOT_STARTED;
 };
 
-
 export const getYourSafetyStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.safetyConcerns ) {
+  if (userCase?.safetyConcerns) {
     return SectionStatus.COMPLETED;
   }
   // if (userCase?.detailsKnown ) {

@@ -14,11 +14,13 @@ const enContent = {
   sectionTitles: {
     respondentYourDetails: 'Your details',
     applicationDetails: 'Application detail',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
+    your_safety: 'Your safety',
   },
 };
 const cyContent = {
@@ -31,11 +33,13 @@ const cyContent = {
   sectionTitles: {
     respondentYourDetails: 'Your details',
     applicationDetails: 'Application detail',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
+    your_safety: 'Your safety',
   },
 };
 describe('task-list > content', () => {
@@ -74,6 +78,17 @@ describe('task-list > content', () => {
           ],
           title: 'Application detail',
         },
+        {
+          items: [
+            {
+              href: '/respondent/safety_concerns/main_page',
+              id: 'your-safety',
+              status: 'NOT_STARTED',
+              text: 'Your safety',
+            },
+          ],
+          title: 'Safety concerns',
+        }
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {
