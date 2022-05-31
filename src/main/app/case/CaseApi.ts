@@ -77,6 +77,7 @@ export class CaseApi {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
     }
+    
   }
 
   private async createCase(

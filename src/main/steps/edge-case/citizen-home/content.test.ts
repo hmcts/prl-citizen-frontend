@@ -21,10 +21,14 @@ const enContent = {
       required: 'Enter your case code',
       invalid: 'The case code must be made up of 16 characters',
       notNumeric: 'Case code must be numeric',
+      invalidReference:
+      'You have entered the wrong reference number. Check your email and enter it again before continuing.'
     },
     accessCode: {
       required: 'Enter your access code',
       invalid: 'The access code must be made up of 8 characters',
+      invalidAccessCode:
+      'You have entered the wrong access code. Check your email and enter it again before continuing.',
     },
   },
 };
@@ -44,10 +48,14 @@ const cyContent = {
       required: 'Enter your case code',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com',
       notNumeric: 'Case code must be numeric',
+      invalidReference:
+      'You have entered the wrong reference number. Check your email and enter it again before continuing.'
     },
     accessCode: {
       required: 'Enter your access code',
       invalid: 'Rhowch rif ffôn dilys yn y DU',
+      invalidAccessCode:
+      'You have entered the wrong access code. Check your email and enter it again before continuing.',
     },
   },
 };
