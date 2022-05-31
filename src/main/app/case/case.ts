@@ -34,6 +34,7 @@ export interface Case {
   accessCode?: string;
   detailsKnown?:string;
   startAlternative?:string;
+  contactDetailsPrivate?: string;
   miamStart?:string;
   miamWillingness?:string;
   miamNotWillingExplnation?:string;
