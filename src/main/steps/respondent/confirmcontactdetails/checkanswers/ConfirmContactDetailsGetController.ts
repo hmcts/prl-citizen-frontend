@@ -17,8 +17,7 @@ export default class ConfirmContactDetailsGetController extends GetController {
         //This language preference will be used while creating a case
         //  const languagePreference =
         //    req.session['lang'] === 'cy' ? LanguagePreference.WELSH : LanguagePreference.ENGLISH;
-        req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
-
+        //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
         //setting the applicant's preferred language in session
         // req.session['lang'] =
         //   req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';

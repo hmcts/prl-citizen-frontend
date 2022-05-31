@@ -60,6 +60,12 @@ describe('task-list > content', () => {
               status: 'NOT_STARTED',
               text: 'Keep your details private',
             },
+            {
+              href: '/respondent/confirmcontactdetails/checkanswers',
+              id: 'confirm-or-edit-your-contact-details',
+              status: 'NOT_STARTED',
+              text: 'Confirm or edit your contact details',
+            },
           ],
           title: 'Your details',
         },

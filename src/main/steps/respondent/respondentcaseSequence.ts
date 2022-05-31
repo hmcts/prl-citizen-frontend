@@ -7,6 +7,7 @@ import {
   ADDRESS_HISTORY,
   ADDRESS_LOOKUP,
   ADDRESS_LOOKUP_CONT,
+  CHECK_ANSWERS,
   CONTACT_DETAILS,
   DETAILS_KNOWN,
   MIAM_ATTEND_WILLINGNESS,
@@ -59,6 +60,11 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: MIAM_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
