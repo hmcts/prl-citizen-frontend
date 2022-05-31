@@ -88,7 +88,7 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Safety concerns',
-        }
+        },
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {

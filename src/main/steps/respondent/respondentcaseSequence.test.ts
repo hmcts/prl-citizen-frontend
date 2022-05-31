@@ -1,5 +1,4 @@
 import { repondentCaseSequence } from './respondentcaseSequence';
-
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
     expect(repondentCaseSequence).toHaveLength(12);
@@ -50,6 +49,5 @@ describe('applicant1Sequence', () => {
     expect(repondentCaseSequence[11].url).toBe('/respondent/safety_concerns/domestic_abuse_risk_no');
     expect(repondentCaseSequence[11].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[11].getNextStep({})).toBe('/respondent/task-list');
-
   });
 });
