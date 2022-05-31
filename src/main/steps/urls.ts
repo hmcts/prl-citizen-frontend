@@ -38,11 +38,6 @@ export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 /* MIAM */
 
-/* confirm-contact-details-start */
-export const CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}/confirmcontactdetails`;
-export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
-/* confirm-contact-details-end */
-
 
 /* safety concerns */
 export const SAFETY_CONCERNS: PageLink = `${RESPONDENT}/safety_concerns`;

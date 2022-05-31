@@ -23,7 +23,7 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
 
 
 export const getYourSafetyStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.detailsKnown ) {
+  if (userCase?.safetyConcerns ) {
     return SectionStatus.COMPLETED;
   }
   // if (userCase?.detailsKnown ) {
