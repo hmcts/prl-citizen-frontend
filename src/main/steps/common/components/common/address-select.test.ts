@@ -1,11 +1,10 @@
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { isAddressSelected } from '../../../../app/form/validation';
-import { CommonContent} from '../../../common/common.content';
+import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './address-select';
 
 jest.mock('../../../../app/form/validation');
-
 
 const enContent = {
   line1:
