@@ -9,7 +9,7 @@ const enContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.NOT_STARTED]: 'Not Started',
+    [SectionStatus.NOT_STARTED]: 'TO DO',
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
@@ -61,7 +61,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/keep-details-private/details_known',
               id: 'keep-your-details-private',
-              status: 'NOT_STARTED',
+              status: 'TO DO',
               text: 'Keep your details private',
             },
           ],
@@ -83,7 +83,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/international-factors/start',
               id: 'international-factors',
-              status: 'NOT_STARTED',
+              status: 'TO DO',
               text: 'International factors',
             },
           ],
