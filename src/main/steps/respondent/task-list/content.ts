@@ -10,7 +10,7 @@ const en = () => ({
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.NOT_STARTED]: 'Not Started',
+    [SectionStatus.NOT_STARTED]: 'TO DO',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
