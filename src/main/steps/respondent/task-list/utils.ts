@@ -22,10 +22,10 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
 };
 
 export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.proceedingsStart && userCase?.courtProceedingsInvolved) {
+  if (userCase?.proceedingsStart && userCase?.proceedingsStartOrder) {
     return SectionStatus.COMPLETED;
   }
-  if (userCase?.proceedingsStart || userCase?.courtProceedingsInvolved) {
+  if (userCase?.proceedingsStart || userCase?.proceedingsStartOrder) {
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.NOT_STARTED;

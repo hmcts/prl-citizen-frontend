@@ -40,7 +40,10 @@ export interface Case {
   confirmcontactdetails?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
+  proceedingsCourtCase?: string;
   proceedingsStart?: string;
+  proceedingsCourtOrder?: string; 
+  proceedingsStartOrder?: string;
   courtProceedingsInvolved?: string;
 }
 

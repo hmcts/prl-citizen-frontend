@@ -7,6 +7,8 @@ import {
   MIAM_SUMMARY,
   PRIVATE_DETAILS_CONFIRMED,
   PRIVATE_DETAILS_NOT_CONFIRMED,
+  PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_START,
   RESPONDENT_TASK_LIST_URL,
   START_ALTERNATIVE,
 } from '../urls';
@@ -50,6 +52,16 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: MIAM_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PROCEEDINGS_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PROCEEDINGS_COURT_PROCEEDINGS,
+  },
+  {
+    url: PROCEEDINGS_COURT_PROCEEDINGS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

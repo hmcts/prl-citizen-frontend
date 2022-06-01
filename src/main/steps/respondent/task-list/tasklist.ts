@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { getConfirmOrEditYourContactDetails,
+import { 
  getKeepYourDetailsPrivateStatus,
  getMiamStatus,
  getCurrentOrOtherProceedingsStatus} from './utils';
