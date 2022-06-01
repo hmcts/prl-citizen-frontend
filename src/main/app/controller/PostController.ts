@@ -3,21 +3,19 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { getSystemUser } from '../auth/user/oidc';
+import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
-import { getCaseApi } from '../case/CaseApi';
-import { getSystemUser } from '../auth/user/oidc';
 
 import { AppRequest } from './AppRequest';
 
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
-
   constructor(protected readonly fields: FormFields | FormFieldsFn) {}
-
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
@@ -154,15 +152,14 @@ export class PostController<T extends AnyObject> {
     req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
     console.log('api retrieved');
     req.session.errors = form.getErrors(formData);
-    try{
+    try {
       const caseData = await req.locals.api.getCaseById(formData.caseCode as string);
 
-      if(caseData.accessCode !== formData.accessCode){
+      if (caseData.accessCode !== formData.accessCode) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
       }
-    }
-    catch(err){
-      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference'});
+    } catch (err) {
+      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
     }
 
     if (req.session.errors.length) {

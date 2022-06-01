@@ -2,24 +2,19 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
-//import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-// import { ApplicationType, CITIZEN_UPDATE /*, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE*/ } from '../case/definition';
-import { isPhoneNoValid } from '../form/validation';
-
-import { PostController } from './PostController';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
 import { ApplicationType } from '../case/definition';
+import { isPhoneNoValid } from '../form/validation';
 
-// import Mock = jest.Mock;
+import { PostController } from './PostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
 
-
 describe('PostController', () => {
-  beforeEach(() =>{
+  beforeEach(() => {
     getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
       id: '1234',
@@ -29,18 +24,16 @@ describe('PostController', () => {
     });
   });
 
-
   afterEach(() => {
     getNextStepUrlMock.mockClear();
   });
 
   const mockFormContent = {
-    fields:{
+    fields: {
       accessCode: {},
       caseReference: {},
     },
-  } as unknown as FormContent
-
+  } as unknown as FormContent;
 
   test('Should have no errors and redirect to the next page in joint application journey', async () => {
     const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234', accessCodeCheck: true };
@@ -76,7 +69,7 @@ describe('PostController', () => {
   });
 
   test('Should have no errors and redirect to the next page in AOS journey', async () => {
-    const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234',  accessCodeCheck: true};
+    const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234', accessCodeCheck: true };
     const controller = new PostController(mockFormContent.fields);
 
     const caseData = {
@@ -108,7 +101,7 @@ describe('PostController', () => {
   });
 
   test('Should return error when access code does not match and should redirect to the same page', async () => {
-    const body = { accessCode: 'QWERTY67', caseReference: '1234123412341234',  accessCodeCheck: true };
+    const body = { accessCode: 'QWERTY67', caseReference: '1234123412341234', accessCodeCheck: true };
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
@@ -135,7 +128,7 @@ describe('PostController', () => {
   });
 
   test('Should return error when case reference is invalid and should redirect to the same page', async () => {
-    const body = { accessCode: 'QWERTY67', caseReference: 'INVALID' ,  accessCodeCheck: true,};
+    const body = { accessCode: 'QWERTY67', caseReference: 'INVALID', accessCodeCheck: true };
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
@@ -156,8 +149,6 @@ describe('PostController', () => {
       },
     ]);
   });
-
- 
 
   test('Should redirect back to the current page with the form data on errors', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];

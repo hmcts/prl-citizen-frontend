@@ -31,9 +31,9 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
-  accessCode?: string;
-  detailsKnown?:string;
-  startAlternative?:string;
+  accessCode?: string
+  detailsKnown?: string;
+  startAlternative?: string;
   contactDetailsPrivate?: string;
   miamStart?:string;
   miamWillingness?:string;
