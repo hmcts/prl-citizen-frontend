@@ -10,14 +10,16 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentLastName: 'respondentLastName',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
-  // applicant1FirstNames: 'applicant1FirstName',
+  //applicant1FirstNames: 'applicant1FirstName',
   // applicant1LastNames: 'applicant1LastName',
+  //applicant1FullName: 'applicant1FullName',
   applicant1HasOtherNames: 'applicant1HasOtherNames',
   applicant1AdditionalNames: 'applicant1AdditionalNames',
   applicant1DateOfBirth: 'applicant1DateOfBirth',
   applicant1Occupation: 'applicant1Occupation',
   applicant1EmailAddress: 'applicant1EmailAddress',
   applicant1PhoneNumber: 'applicant1PhoneNumber',
+  applicant1PlaceOfBirth: 'applicant1PlaceOfBirth',
   applicant1Address1: 'applicant1Address1',
   applicant1Address2: 'applicant1Address2',
   applicant1AddressTown: 'applicant1AddressTown',
@@ -60,6 +62,7 @@ export interface Case {
   contactDetailsPrivate?: string;
 
   /***** Applicant1 *****/
+  applicant1FullName?: string;
   applicant1FirstNames?: string;
   applicant1LastNames?: string;
   applicant1HasOtherNames?: YesOrNo;
@@ -70,6 +73,7 @@ export interface Case {
   applicant1DateOfBirth?: CaseDate;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
+  applicant1PlaceOfBirth?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;

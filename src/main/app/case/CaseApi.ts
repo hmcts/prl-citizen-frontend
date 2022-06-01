@@ -81,7 +81,10 @@ export class CaseApi {
       //console.log("====77======inside getCaseById caseId ======="+caseId);
       //console.log("=======77=======getCaseById response from server============"+response.data);
       //return { id: response.data.id, state: response.data.state, ...response.data.data };
+      //const resp =
+      //'{"caseTypeOfApplication":"FL401","respondentsFL401":{"email":null,"gender":null,"address":{"County":null,"Country":null,"PostCode":null,"PostTown":null,"AddressLine1":null,"AddressLine2":null,"AddressLine3":null},"dxNumber":null,"landline":null,"lastName":"kjhlhl","firstName":"hkljhkjh","dateOfBirth":null,"otherGender":null,"phoneNumber":null,"placeOfBirth":null,"previousName":"jk",},"id":"1652796857708749","caseStatus":{"state":"Draft"},"respondentTable":[{"id":"96415943-b965-485a-b94a-8e2cfff2207f","value":{"email":null,"gender":null,"address":{},"dxNumber":null,"lastName":null,"firstName":null,"dateOfBirth":null,"otherGender":null,"phoneNumber":null,"placeOfBirth":null,"previousName":null,}}]}';
       return { id: '1651759489115676', state: State.AwaitingHWFDecision, ...response.data.data };
+      //return { id: '1651759489115676', state: State.AwaitingHWFDecision, responsedummy };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');

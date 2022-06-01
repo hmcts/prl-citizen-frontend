@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
 import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../../steps/urls';
-import { summaryList } from '../../../common/summary/utils';
+import { summaryList,getFormattedDate } from '../../../common/summary/utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -11,23 +11,25 @@ export const enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    name: 'Name',
-    dateOfBirth: 'Date of birth',
-    placeOfBirth: 'Place of birth',
+    applicant1FullName: 'Name',
+    applicant1DateOfBirth: 'Date of birth',
+    applicant1PlaceOfBirth: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
-    phoneNumber: 'Phone number',
-    email: 'Email',
+    applicant1PhoneNumber: 'Phone number',
+    applicant1EmailAddress: 'Email',
   },
   errors: {},
 };
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
+  let dob = userCase.applicant1DateOfBirth;
+  getFormattedDate(dob);
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls)],
+    sections: [summaryList(cyContent, userCase, urls,'', fieldType, content.language),],
   };
 };
 
@@ -38,35 +40,48 @@ const cyContent: typeof enContent = {
     applicationDetails: 'Manylion y cais',
   },
   keys: {
-    name: 'Name (in Welsh)',
-    dateOfBirth: 'Date of birth (in Welsh)',
-    placeOfBirth: 'Place of birth (in Welsh)',
-    address: 'Address (in Welsh)',
-    addressHistory: 'Address history (in Welsh)',
-    phoneNumber: 'Phone number (in Welsh)',
-    email: 'Email (in Welsh)',
+    applicant1FullName: 'Name',
+    applicant1DateOfBirth: 'Date of birth',
+    applicant1PlaceOfBirth: 'Place of birth',
+    address: 'Address',
+    addressHistory: 'Address history',
+    applicant1PhoneNumber: 'Phone number',
+    applicant1EmailAddress: 'Email',
   },
   errors: {},
 };
 
 const urls = {
-  name: PERSONAL_DETAILS,
-  dateOfBirth: PERSONAL_DETAILS,
-  placeOfBirth: PERSONAL_DETAILS,
+  applicant1FullName: PERSONAL_DETAILS,
+  applicant1DateOfBirth: PERSONAL_DETAILS,
+  applicant1PlaceOfBirth: PERSONAL_DETAILS,
   address: ADDRESS_DETAILS,
   addressHistory: ADDRESS_HISTORY,
-  phoneNumber: CONTACT_DETAILS,
-  email: CONTACT_DETAILS,
+  applicant1PhoneNumber: CONTACT_DETAILS,
+  applicant1EmailAddress: CONTACT_DETAILS,
 };
+const fieldType = {
+  applicant1FullName: 'String',
+  applicant1DateOfBirth: 'Date',
+  applicant1PlaceOfBirth: 'String',
+  address: 'String',
+  addressHistory: 'String',
+  applicant1PhoneNumber: 'String',
+  applicant1EmailAddress: 'String',
+
+};
+
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls)],
+    sections: [summaryList(cyContent, userCase, urls,'', fieldType, content.language),],
   };
 };
+
+
 
 export const form: FormContent = {
   fields: {},

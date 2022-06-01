@@ -316,6 +316,7 @@ export interface CaseData {
   contactDetailsPrivate: string;
 
   /***** Applicant1 *****/
+  applicant1FullName?: string;
   applicant1FirstNames?: string;
   applicant1LastNames?: string;
   applicant1HasOtherNames?: YesOrNo;
@@ -326,6 +327,7 @@ export interface CaseData {
   applicant1DateOfBirth?: CaseDate;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
+  applicant1PlaceOfBirth?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;

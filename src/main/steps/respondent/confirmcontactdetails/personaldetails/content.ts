@@ -11,24 +11,24 @@ import {
 
 const en = {
   title: 'Your name and date of birth',
-  firstName: 'Your first name',
-  lastName: 'Your last name',
+  applicant1FirstNames: 'Your first name',
+  applicant1LastNames: 'Your last name',
   previousName: 'Previous name(s), if any (optional)',
-  placeOfBirth: 'Place of birth',
-  dateOfBirth: 'Your date of birth',
+  applicant1PlaceOfBirth: 'Place of birth',
+  applicant1DateOfBirth: 'Your date of birth',
   hintDateOfBirth: 'For example - 31 3 1980',
   continue: 'Continue',
   errors: {
-    firstName: {
+    applicant1FirstNames: {
       required: 'Enter Your first name',
     },
-    lastName: {
+    applicant1LastNames: {
       required: 'Enter Your last name',
     },
-    placeOfBirth: {
+    applicant1PlaceOfBirth: {
       required: 'Enter Your Place of birth',
     },
-    dateOfBirth: {
+    applicant1DateOfBirth: {
       required: 'Enter your date of birth',
       invalidDate: 'Date of birth must be a real date',
       incompleteDay: 'Your date of birth must include a day',
@@ -41,24 +41,24 @@ const en = {
 
 const cy: typeof en = {
   title: 'Eich enw a dyddiad geni',
-  firstName: 'Eich enw cyntaf',
-  lastName: 'Eich enw olaf',
+  applicant1FirstNames: 'Eich enw cyntaf',
+  applicant1LastNames: 'Eich enw olaf',
   previousName: 'Enw(au) blaenorol, os o gwbl (dewisol)',
-  placeOfBirth: 'Man geni',
-  dateOfBirth: 'Eich dyddiad geni',
+  applicant1PlaceOfBirth: 'Man geni',
+  applicant1DateOfBirth: 'Eich dyddiad geni',
   hintDateOfBirth: 'Er enghraifft - 31 3 1980',
   continue: 'Continue',
   errors: {
-    firstName: {
+    applicant1FirstNames: {
       required: 'Rhowch Eich enw cyntaf',
     },
-    lastName: {
+    applicant1LastNames: {
       required: 'Rhowch Eich Enw Diwethaf',
     },
-    placeOfBirth: {
+    applicant1PlaceOfBirth: {
       required: 'Rhowch Eich Man Geni',
     },
-    dateOfBirth: {
+    applicant1DateOfBirth: {
       required: 'Enter your date of birth',
       invalidDate: 'Date of birth must be a real date',
       incompleteDay: 'Your date of birth must include a day',
@@ -76,17 +76,17 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    firstName: {
+    applicant1FirstNames: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.firstName,
+      label: l => l.applicant1FirstNames,
       labelSize: null,
       validator: value => isFieldFilledIn(value),
     },
-    lastName: {
+    applicant1LastNames: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.lastName,
+      label: l => l.applicant1LastNames,
       labelSize: null,
       validator: value => isFieldFilledIn(value),
     },
@@ -96,10 +96,10 @@ export const form: FormContent = {
       label: l => l.previousName,
       labelSize: null,
     },
-    dateOfBirth: {
+    applicant1DateOfBirth: {
       type: 'date',
       classes: 'govuk-date-input',
-      label: l => l.dateOfBirth,
+      label: l => l.applicant1DateOfBirth,
       hint: l => l.hintDateOfBirth,
       values: [
         {
@@ -121,16 +121,16 @@ export const form: FormContent = {
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
         },
       ],
-      parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
+      parser: body => covertToDateObject('applicant1DateOfBirth', body as Record<string, unknown>),
       validator: value =>
         areDateFieldsFilledIn(value as CaseDate) ||
         isDateInputInvalid(value as CaseDate) ||
         isFutureDate(value as CaseDate),
     },
-    placeOfBirth: {
+    applicant1PlaceOfBirth: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.placeOfBirth,
+      label: l => l.applicant1PlaceOfBirth,
       labelSize: null,
       validator: value => isFieldFilledIn(value),
     },
