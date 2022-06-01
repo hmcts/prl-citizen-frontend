@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
 import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../../steps/urls';
-import { summaryList,getFormattedDate } from '../../../common/summary/utils';
+import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -24,12 +24,12 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  let dob = userCase.applicant1DateOfBirth;
+  const dob = userCase.applicant1DateOfBirth;
   getFormattedDate(dob);
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls,'', fieldType, content.language),],
+    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
   };
 };
 
@@ -68,20 +68,16 @@ const fieldType = {
   addressHistory: 'String',
   applicant1PhoneNumber: 'String',
   applicant1EmailAddress: 'String',
-
 };
-
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls,'', fieldType, content.language),],
+    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
   };
 };
-
-
 
 export const form: FormContent = {
   fields: {},
