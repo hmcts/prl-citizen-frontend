@@ -31,7 +31,7 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
-  accessCode?: string
+  accessCode?: string;
   detailsKnown?: string;
   startAlternative?: string;
   contactDetailsPrivate?: string;
