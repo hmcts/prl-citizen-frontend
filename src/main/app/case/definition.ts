@@ -1328,3 +1328,12 @@ export const SYSTEM_NOTIFY_APPLICANT1_CONDITIONAL_ORDER = 'system-notify-applica
 export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+
+
+// citizen frontend
+export interface orderInterface {
+  caseNoDetails: string;
+  orderTimeDetails: string;
+  currentOrderDetails: YesOrNo;
+  issueOrderDetails: string;
+}

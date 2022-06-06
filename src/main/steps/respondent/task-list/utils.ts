@@ -30,4 +30,3 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): Sectio
   }
   return SectionStatus.NOT_STARTED;
 };
-

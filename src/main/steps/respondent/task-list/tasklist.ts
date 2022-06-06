@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { 
- getKeepYourDetailsPrivateStatus,
- getMiamStatus,
- getCurrentOrOtherProceedingsStatus} from './utils';
+import { getCurrentOrOtherProceedingsStatus, getKeepYourDetailsPrivateStatus, getMiamStatus } from './utils';
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
@@ -32,8 +29,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'current-or-previous-proceedings',
           text: taskListItems.current_or_previous_proceedings,
           status: getCurrentOrOtherProceedingsStatus(userCase),
-          href: URL.PROCEEDINGS_START
-        }
+          href: URL.PROCEEDINGS_START,
+        },
       ],
     },
   ];
