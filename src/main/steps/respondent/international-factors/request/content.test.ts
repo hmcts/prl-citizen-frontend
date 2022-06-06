@@ -57,7 +57,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual(
-      "Has another country asked (or been asked) for information or help for the children?"
+      'Has another country asked (or been asked) for information or help for the children?'
     );
     expect(generatedContent.section).toEqual(' ');
     expect(generatedContent.summaryText).toEqual('Contacts for help');

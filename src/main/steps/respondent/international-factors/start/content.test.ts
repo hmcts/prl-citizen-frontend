@@ -54,9 +54,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual(
-      "Do the children live outside of England or Wales?"
-    );
+    expect(generatedContent.title).toEqual('Do the children live outside of England or Wales?');
     expect(generatedContent.section).toEqual(' ');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
