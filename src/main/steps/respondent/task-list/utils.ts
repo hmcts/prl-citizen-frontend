@@ -36,5 +36,5 @@ export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStat
   if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.NOT_STARTED;
+  return SectionStatus.TO_DO;
 };

@@ -83,7 +83,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/international-factors/start',
               id: 'international-factors',
-              status: 'TO DO',
+              status: 'TO_DO',
               text: 'International factors',
             },
           ],
