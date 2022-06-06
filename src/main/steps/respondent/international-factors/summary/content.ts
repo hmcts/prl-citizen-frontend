@@ -10,17 +10,22 @@ import {
 import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
-  section: 'Check your details',
-  title: 'Read the information to make sure it is correct, and add any missing details',
+  section: ' ',
+  title: 'Check your answers',
+  line1: 'International element',
   sectionTitles: {
     respondentAdditionalInformation: 'Additional information',
   },
   keys: {
-    start: 'Please select one of the options before proceeding further',
+    start: 'Do the children live outside of England or Wales?',
+    iFactorsStartProvideDetails: 'Provide details',
     parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+    iFactorsParentsProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
+    iFactorsJurisdictionProvideDetails: 'Provide details',
     request: 'Has another country asked (or been asked) for information or help for the children?',
+    iFactorsRequestProvideDetails: 'Provide details',
   },
   errors: {},
 };
@@ -35,17 +40,22 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your details (Welsh)',
-  title: 'Read the information to make sure it is correct, and add any missing details (Welsh)',
+  section: '',
+  title: 'Check your answers',
+  line1: 'International element',
   sectionTitles: {
     respondentAdditionalInformation: 'Additional information',
   },
   keys: {
-    start: 'Please select one of the options before proceeding further',
+    start: 'Do the children live outside of England or Wales?',
+    iFactorsStartProvideDetails: 'Provide details',
     parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+    iFactorsParentsProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
+    iFactorsJurisdictionProvideDetails: 'Provide details',
     request: 'Has another country asked (or been asked) for information or help for the children?',
+    iFactorsRequestProvideDetails: 'Provide details',
   },
   errors: {},
 };
