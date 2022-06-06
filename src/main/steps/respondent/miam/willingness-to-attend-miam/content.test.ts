@@ -6,7 +6,6 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const enContent = {
-  section: 'Keeping your contact details private',
   title: 'Would you be willing to attend a MIAM?',
   one: 'Yes',
   two: 'No',
@@ -26,7 +25,6 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Keeping your contact details private',
   title: 'Would you be willing to attend a MIAM?',
   one: 'Yes',
   two: 'No',

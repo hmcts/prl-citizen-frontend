@@ -10,7 +10,7 @@ const en = () => ({
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.NOT_STARTED]: 'TO DO',
+    [SectionStatus.TO_DO]: 'To Do',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
@@ -21,7 +21,7 @@ const cy = () => ({
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
-    [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
+    [SectionStatus.TO_DO]: 'Heb Ddechrau',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
