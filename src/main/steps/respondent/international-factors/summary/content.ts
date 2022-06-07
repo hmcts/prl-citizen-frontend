@@ -12,7 +12,7 @@ import { summaryList } from '../../../common/summary/utils';
 export const enContent = {
   section: ' ',
   title: 'Check your answers',
-  line1: 'International element',
+  title2: 'International element',
   sectionTitles: {
     respondentAdditionalInformation: 'Additional information',
   },
@@ -26,6 +26,28 @@ export const enContent = {
     iFactorsJurisdictionProvideDetails: 'Provide details',
     request: 'Has another country asked (or been asked) for information or help for the children?',
     iFactorsRequestProvideDetails: 'Provide details',
+  },
+  dependencies: {
+    iFactorsStartProvideDetails:{
+      dependantOn: 'start',
+      value: 'Yes',
+      display: true,
+    },
+    iFactorsParentsProvideDetails:{
+      dependantOn: 'parents',
+      value: 'Yes',
+      display: true,
+    },
+    iFactorsJurisdictionProvideDetails:{
+      dependantOn: 'jurisdiction',
+      value: 'Yes',
+      display: true,
+    },
+    iFactorsRequestProvideDetails:{
+      dependantOn: 'request',
+      value: 'Yes',
+      display: true,
+    }
   },
   errors: {},
 };
@@ -40,9 +62,9 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: '',
+  section: ' ',
   title: 'Check your answers',
-  line1: 'International element',
+  title2: 'International element',
   sectionTitles: {
     respondentAdditionalInformation: 'Additional information',
   },
@@ -56,6 +78,28 @@ const cyContent: typeof enContent = {
     iFactorsJurisdictionProvideDetails: 'Provide details',
     request: 'Has another country asked (or been asked) for information or help for the children?',
     iFactorsRequestProvideDetails: 'Provide details',
+  },
+  dependencies: {
+    iFactorsStartProvideDetails:{
+      dependantOn: 'start',
+      value: 'Yes',
+      display: true,
+    },
+    iFactorsParentsProvideDetails:{
+      dependantOn: 'parents',
+      value: 'Yes',
+      display: true,
+    },
+    iFactorsJurisdictionProvideDetails:{
+      dependantOn: 'jurisdiction',
+      value: 'Yes',
+      display: true,
+    },
+    iFactorsRequestProvideDetails:{
+      dependantOn: 'request',
+      value: 'Yes',
+      display: true,
+    }
   },
   errors: {},
 };
