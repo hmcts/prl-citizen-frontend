@@ -2,7 +2,7 @@
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { CommonContent } from '../../../../steps/common/common.content';
+import { CommonContent } from '../../../common/common.content';
 
 const en = {
   title: 'Have you lived at this address for more than 5 years?',
