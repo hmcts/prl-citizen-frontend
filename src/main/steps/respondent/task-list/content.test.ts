@@ -83,7 +83,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/safety_concerns/main_page',
               id: 'your-safety',
-              status: 'NOT_STARTED',
+              status: 'TO_DO',
               text: 'Your safety',
             },
           ],
