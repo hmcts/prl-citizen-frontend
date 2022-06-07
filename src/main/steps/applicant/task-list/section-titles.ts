@@ -1,4 +1,4 @@
 export const applicant_en = {
-  applicantYourDetails: 'Your details',
+  applicantYourDetails: 'About you',
   applicationDetails: 'Application detail',
 };
