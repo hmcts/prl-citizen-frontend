@@ -154,7 +154,21 @@ export class PostController<T extends AnyObject> {
     req.session.errors = form.getErrors(formData);
     try {
       const caseData = await req.locals.api.getCaseById(formData.caseCode as string);
-      if (caseData.accessCode !== formData.accessCode) {
+      console.log(caseData.respondentCaseInvites);
+      let accessCodeMatched = false;
+      caseData.respondentCaseInvites?.forEach(obj => {
+        Object.entries(obj).forEach(([key, value]) => {
+          console.log(`${key} ${value}`);
+          Object.entries(value).forEach(([key1, value1]) => {
+            if(key1=='accessCode' && value1 == formData.accessCode){
+            accessCodeMatched = true;
+            console.log(`${key1} ${value1}`);
+            }
+          });
+        });
+        console.log('-------------------');
+      });
+      if (!accessCodeMatched) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
       }
     } catch (err) {
