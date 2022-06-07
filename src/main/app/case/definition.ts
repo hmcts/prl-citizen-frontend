@@ -314,6 +314,7 @@ export interface CaseData {
   respondentFirstName: string;
   respondentLastName: string;
   accessCode: string;
+  respondentCaseInvites: CaseInvite[]
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -352,9 +353,11 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
-  applicant2InviteEmailAddress: string;
+  partyId: string;
+  caseInviteEmail: string
   accessCode: string;
-  applicant2UserId: string;
+  invitedUserId: string;
+  expiryDate: string;
 }
 
 export interface ConditionalOrder {
