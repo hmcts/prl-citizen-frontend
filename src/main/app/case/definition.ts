@@ -1333,6 +1333,7 @@ export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-dat
 // citizen frontend
 export interface orderInterface {
   caseNoDetails: string;
+  orderDateDetails: CaseDate;
   orderTimeDetails: string;
   currentOrderDetails: YesOrNo;
   issueOrderDetails: string;

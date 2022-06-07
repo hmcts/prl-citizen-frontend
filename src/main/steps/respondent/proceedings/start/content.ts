@@ -47,16 +47,10 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    proceedingsCourtCase: {
-      type: 'label',
-      classes: 'govuk-label',
-      label: l => l.courtCase,
-      labelSize: null,
-    },
     proceedingsStart: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.courtCase,
       section: l => l.section,
       values: [
         {
@@ -74,16 +68,10 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-    proceedingsCourtOrder: {
-      type: 'label',
-      classes: 'govuk-label',
-      label: l => l.courtOrder,
-      labelSize: null,
-    },
     proceedingsStartOrder: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.courtOrder,
       section: l => l.section,
       values: [
         {

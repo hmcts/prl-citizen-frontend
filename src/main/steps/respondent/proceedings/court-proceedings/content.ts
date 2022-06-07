@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { areDateFieldsFilledIn, isDateInputInvalid, isFieldFilledIn, isFutureDate } from '../../../../app/form/validation';
+import { CaseDate } from '../../../../app/case/case';
+import { covertToDateObject } from '../../../../app/form/parser';
 
 const en = {
   section: 'Current or previous proceedings',
@@ -9,6 +11,7 @@ const en = {
   caseno: 'Case number',
   casenohint: 'For example, BS19F99999',
   orderdate: 'What date was it made?',
+  orderDateHint: 'For example, 31 3 2015',
   ordertime: 'How long was the order for?',
   currentorder: 'Is this a current order?',
   currentOrderYes: 'Yes',
@@ -45,6 +48,7 @@ const cy: typeof en = {
   caseno: 'Case number',
   casenohint: 'For example, BS19F99999',
   orderdate: 'What date was it made?',
+  orderDateHint: 'For example, 31 3 2015',
   ordertime: 'How long was the order for?',
   currentorder: 'Is this a current order?',
   currentOrderYes: 'Yes',
@@ -81,16 +85,10 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    emergencyOrderLabel: {
-      type: 'label',
-      classes: 'govuk-label',
-      label: l => l.emergencyOrder,
-      labelSize: null,
-    },
     emergencyOrderOptions: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.emergencyOrder,
       section: l => l.section,
       values: [
         {
@@ -105,13 +103,38 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            // orderDateDetails: {
-            //     type: 'date',
-            //     classes: 'govuk-label',
-            //     label: l => l.orderdate,
-            //     labelSize: null,
-            //     validator: isFieldFilledIn,
-            // },
+            'emergencyOrder.orderDateDetails': {
+                type: 'date',
+                classes: 'govuk-date-input',
+                label: l => l.orderdate,
+                labelSize: 'm',
+                hint: l => l.orderDateHint,
+                values: [
+                  {
+                    label: l => l.dateFormat['day'],
+                    name: 'day',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['month'],
+                    name: 'month',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['year'],
+                    name: 'year',
+                    classes: 'govuk-input--width-4',
+                    attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                ],
+                parser: body => covertToDateObject('emergencyOrder.orderDateDetails', body as Record<string, unknown>),
+                validator: value =>
+                  areDateFieldsFilledIn(value as CaseDate) ||
+                  isDateInputInvalid(value as CaseDate) ||
+                  isFutureDate(value as CaseDate),
+              },
             'emergencyOrder.orderTimeDetails': {
               type: 'text',
               classes: 'govuk-label',
@@ -119,16 +142,10 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            currentOrderLabel: {
-              type: 'label',
-              classes: 'govuk-label',
-              label: l => l.currentorder,
-              labelSize: null,
-            },
             'emergencyOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
-              label: l => l.label,
+              label: l => l.currentorder,
               section: l => l.section,
               values: [
                 {
@@ -162,16 +179,10 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-    supervisionOrderLabel: {
-      type: 'label',
-      classes: 'govuk-label',
-      label: l => l.supervisionOrder,
-      labelSize: null,
-    },
     supervisionOrderOption: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.supervisionOrder,
       section: l => l.section,
       values: [
         {
@@ -186,13 +197,38 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            // orderDateDetails: {
-            //     type: 'date',
-            //     classes: 'govuk-label',
-            //     label: l => l.orderdate,
-            //     labelSize: null,
-            //     validator: isFieldFilledIn,
-            // },
+            'supervisionOrder.orderDateDetails': {
+                type: 'date',
+                classes: 'govuk-date-input',
+                label: l => l.orderdate,
+                labelSize: 'm',
+                hint: l => l.orderDateHint,
+                values: [
+                  {
+                    label: l => l.dateFormat['day'],
+                    name: 'day',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['month'],
+                    name: 'month',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['year'],
+                    name: 'year',
+                    classes: 'govuk-input--width-4',
+                    attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                ],
+                parser: body => covertToDateObject('supervisionOrder.orderDateDetails', body as Record<string, unknown>),
+                validator: value =>
+                  areDateFieldsFilledIn(value as CaseDate) ||
+                  isDateInputInvalid(value as CaseDate) ||
+                  isFutureDate(value as CaseDate),
+              },
             'supervisionOrder.orderTimeDetails': {
               type: 'text',
               classes: 'govuk-label',
@@ -200,16 +236,10 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            currentOrderLabel: {
-              type: 'label',
-              classes: 'govuk-label',
-              label: l => l.currentorder,
-              labelSize: null,
-            },
             'supervisionOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
-              label: l => l.label,
+              label: l => l.currentorder,
               section: l => l.section,
               values: [
                 {
@@ -243,16 +273,10 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-    careOrderLabel: {
-      type: 'label',
-      classes: 'govuk-label',
-      label: l => l.careOrder,
-      labelSize: null,
-    },
     careOrderOptions: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.careOrder,
       section: l => l.section,
       values: [
         {
@@ -267,13 +291,38 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            // orderDateDetails: {
-            //     type: 'date',
-            //     classes: 'govuk-label',
-            //     label: l => l.orderdate,
-            //     labelSize: null,
-            //     validator: isFieldFilledIn,
-            // },
+            'careOrder.orderDateDetails': {
+                type: 'date',
+                classes: 'govuk-date-input',
+                label: l => l.orderdate,
+                labelSize: 'm',
+                hint: l => l.orderDateHint,
+                values: [
+                  {
+                    label: l => l.dateFormat['day'],
+                    name: 'day',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['month'],
+                    name: 'month',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['year'],
+                    name: 'year',
+                    classes: 'govuk-input--width-4',
+                    attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                ],
+                parser: body => covertToDateObject('careOrder.orderDateDetails', body as Record<string, unknown>),
+                validator: value =>
+                  areDateFieldsFilledIn(value as CaseDate) ||
+                  isDateInputInvalid(value as CaseDate) ||
+                  isFutureDate(value as CaseDate),
+              },
             'careOrder.orderTimeDetails': {
               type: 'text',
               classes: 'govuk-label',
@@ -281,16 +330,10 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            currentOrderLabel: {
-              type: 'label',
-              classes: 'govuk-label',
-              label: l => l.currentorder,
-              labelSize: null,
-            },
             'careOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
-              label: l => l.label,
+              label: l => l.currentorder,
               section: l => l.section,
               values: [
                 {
@@ -333,7 +376,7 @@ export const form: FormContent = {
     childAbductionOrderOption: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.childAbduction,
       section: l => l.section,
       values: [
         {
@@ -348,13 +391,38 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            // orderDateDetails: {
-            //     type: 'date',
-            //     classes: 'govuk-label',
-            //     label: l => l.orderdate,
-            //     labelSize: null,
-            //     validator: isFieldFilledIn,
-            // },
+            'childAbductionOrder.orderDateDetails': {
+                type: 'date',
+                classes: 'govuk-date-input',
+                label: l => l.dateReceived,
+                labelSize: 'm',
+                hint: l => l.hint,
+                values: [
+                  {
+                    label: l => l.dateFormat['day'],
+                    name: 'day',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['month'],
+                    name: 'month',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['year'],
+                    name: 'year',
+                    classes: 'govuk-input--width-4',
+                    attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                ],
+                parser: body => covertToDateObject('childAbductionOrder.orderDateDetails', body as Record<string, unknown>),
+                validator: value =>
+                  areDateFieldsFilledIn(value as CaseDate) ||
+                  isDateInputInvalid(value as CaseDate) ||
+                  isFutureDate(value as CaseDate),
+              },
             'childAbductionOrder.orderTimeDetails': {
               type: 'text',
               classes: 'govuk-label',
@@ -429,13 +497,38 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            // orderDateDetails: {
-            //     type: 'date',
-            //     classes: 'govuk-label',
-            //     label: l => l.orderdate,
-            //     labelSize: null,
-            //     validator: isFieldFilledIn,
-            // },
+            'casOrder.orderDateDetails': {
+                type: 'date',
+                classes: 'govuk-date-input',
+                label: l => l.dateReceived,
+                labelSize: 'm',
+                hint: l => l.hint,
+                values: [
+                  {
+                    label: l => l.dateFormat['day'],
+                    name: 'day',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['month'],
+                    name: 'month',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['year'],
+                    name: 'year',
+                    classes: 'govuk-input--width-4',
+                    attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                ],
+                parser: body => covertToDateObject('casOrder.orderDateDetails', body as Record<string, unknown>),
+                validator: value =>
+                  areDateFieldsFilledIn(value as CaseDate) ||
+                  isDateInputInvalid(value as CaseDate) ||
+                  isFutureDate(value as CaseDate),
+              },
             'casOrder.orderTimeDetails': {
               type: 'text',
               classes: 'govuk-label',
@@ -510,13 +603,38 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            // orderDateDetails: {
-            //     type: 'date',
-            //     classes: 'govuk-label',
-            //     label: l => l.orderdate,
-            //     labelSize: null,
-            //     validator: isFieldFilledIn,
-            // },
+            'financialOrder.orderDateDetails': {
+                type: 'date',
+                classes: 'govuk-date-input',
+                label: l => l.dateReceived,
+                labelSize: 'm',
+                hint: l => l.hint,
+                values: [
+                  {
+                    label: l => l.dateFormat['day'],
+                    name: 'day',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['month'],
+                    name: 'month',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['year'],
+                    name: 'year',
+                    classes: 'govuk-input--width-4',
+                    attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                ],
+                parser: body => covertToDateObject('financialOrder.orderDateDetails', body as Record<string, unknown>),
+                validator: value =>
+                  areDateFieldsFilledIn(value as CaseDate) ||
+                  isDateInputInvalid(value as CaseDate) ||
+                  isFutureDate(value as CaseDate),
+              },
             'financialOrder.orderTimeDetails': {
               type: 'text',
               classes: 'govuk-label',
@@ -591,13 +709,38 @@ export const form: FormContent = {
               labelSize: null,
               validator: isFieldFilledIn,
             },
-            // orderDateDetails: {
-            //     type: 'date',
-            //     classes: 'govuk-label',
-            //     label: l => l.orderdate,
-            //     labelSize: null,
-            //     validator: isFieldFilledIn,
-            // },
+            'nonmolestationOrder.orderDateDetails': {
+                type: 'date',
+                classes: 'govuk-date-input',
+                label: l => l.dateReceived,
+                labelSize: 'm',
+                hint: l => l.hint,
+                values: [
+                  {
+                    label: l => l.dateFormat['day'],
+                    name: 'day',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['month'],
+                    name: 'month',
+                    classes: 'govuk-input--width-2',
+                    attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                  {
+                    label: l => l.dateFormat['year'],
+                    name: 'year',
+                    classes: 'govuk-input--width-4',
+                    attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+                  },
+                ],
+                parser: body => covertToDateObject('nonmolestationOrder.orderDateDetails', body as Record<string, unknown>),
+                validator: value =>
+                  areDateFieldsFilledIn(value as CaseDate) ||
+                  isDateInputInvalid(value as CaseDate) ||
+                  isFutureDate(value as CaseDate),
+              },
             'nonmolestationOrder.orderTimeDetails': {
               type: 'text',
               classes: 'govuk-label',
