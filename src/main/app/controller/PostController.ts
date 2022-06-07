@@ -154,7 +154,6 @@ export class PostController<T extends AnyObject> {
     req.session.errors = form.getErrors(formData);
     try {
       const caseData = await req.locals.api.getCaseById(formData.caseCode as string);
-
       if (caseData.accessCode !== formData.accessCode) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
       }
