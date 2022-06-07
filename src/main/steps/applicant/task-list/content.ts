@@ -1,9 +1,9 @@
 import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 
-import { respondent_en } from './section-titles';
-import { generateRespondentTaskList } from './tasklist';
-import { respondent_tasklist_items_en } from './tasklist-items';
+import { applicant_en } from './section-titles';
+import { generateApplicantTaskList } from './tasklist';
+import { applicant_tasklist_items_en } from './tasklist-items';
 
 const en = () => ({
   title: 'Respond to the application',
@@ -12,8 +12,8 @@ const en = () => ({
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.NOT_STARTED]: 'Not Started',
   },
-  sectionTitles: respondent_en,
-  taskListItems: respondent_tasklist_items_en,
+  sectionTitles: applicant_en,
+  taskListItems: applicant_tasklist_items_en,
 });
 
 const cy = () => ({
@@ -23,8 +23,8 @@ const cy = () => ({
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
   },
-  sectionTitles: respondent_en,
-  taskListItems: respondent_tasklist_items_en,
+  sectionTitles: applicant_en,
+  taskListItems: applicant_tasklist_items_en,
 });
 
 const languages = {
@@ -36,6 +36,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
-    sections: generateRespondentTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
+    sections: generateApplicantTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
   };
 };

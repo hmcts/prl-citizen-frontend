@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus, getMiamStatus } from './utils';
+import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus} from './utils';
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
     {
-      title: sectionTitles.respondentYourDetails,
+      title: sectionTitles.applicantYourDetails,
       items: [
         {
           id: 'keep-your-details-private',
@@ -18,18 +18,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'confirm-or-edit-your-contact-details',
           text: taskListItems.confirm_or_edit_your_contact_details,
           status: getConfirmOrEditYourContactDetails(userCase),
-          href: URL.CHECK_ANSWERS,
-        },
-      ],
-    },
-    {
-      title: sectionTitles.applicationDetails,
-      items: [
-        {
-          id: 'medation-miam',
-          text: taskListItems.mediation_miam,
-          status: getMiamStatus(userCase),
-          href: URL.MIAM_START,
+          href: URL.APPLICANT_CHECK_ANSWERS,
         },
       ],
     },

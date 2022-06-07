@@ -1,4 +1,4 @@
-export const respondent_en = {
-  respondentYourDetails: 'Your details',
+export const applicant_en = {
+  applicantYourDetails: 'Your details',
   applicationDetails: 'Application detail',
 };

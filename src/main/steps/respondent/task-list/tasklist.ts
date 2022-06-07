@@ -18,7 +18,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'confirm-or-edit-your-contact-details',
           text: taskListItems.confirm_or_edit_your_contact_details,
           status: getConfirmOrEditYourContactDetails(userCase),
-          href: URL.CHECK_ANSWERS,
+          href: URL.RESPONDENT_CHECK_ANSWERS,
         },
       ],
     },

@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
-import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../urls';
+import { APPLICANT_ADDRESS_DETAILS, APPLICANT_ADDRESS_HISTORY, APPLICANT_CONTACT_DETAILS, APPLICANT_PERSONAL_DETAILS } from '../../../urls';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
@@ -52,13 +52,13 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  applicant1FullName: PERSONAL_DETAILS,
-  applicant1DateOfBirth: PERSONAL_DETAILS,
-  applicant1PlaceOfBirth: PERSONAL_DETAILS,
-  address: ADDRESS_DETAILS,
-  addressHistory: ADDRESS_HISTORY,
-  applicant1PhoneNumber: CONTACT_DETAILS,
-  applicant1EmailAddress: CONTACT_DETAILS,
+  applicant1FullName: APPLICANT_PERSONAL_DETAILS,
+  applicant1DateOfBirth: APPLICANT_PERSONAL_DETAILS,
+  applicant1PlaceOfBirth: APPLICANT_PERSONAL_DETAILS,
+  address: APPLICANT_ADDRESS_DETAILS,
+  addressHistory: APPLICANT_ADDRESS_HISTORY,
+  applicant1PhoneNumber: APPLICANT_CONTACT_DETAILS,
+  applicant1EmailAddress: APPLICANT_CONTACT_DETAILS,
 };
 const fieldType = {
   applicant1FullName: 'String',

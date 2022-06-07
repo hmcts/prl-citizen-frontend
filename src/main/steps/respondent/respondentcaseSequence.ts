@@ -1,19 +1,19 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  ADDRESS_BLANK,
-  ADDRESS_CONFIRMATION,
-  ADDRESS_DETAILS,
-  ADDRESS_HISTORY,
-  ADDRESS_LOOKUP,
-  ADDRESS_LOOKUP_CONT,
-  CHECK_ANSWERS,
-  CONTACT_DETAILS,
+  RESPONDENT_ADDRESS_BLANK,
+  RESPONDENT_ADDRESS_CONFIRMATION,
+  RESPONDENT_ADDRESS_DETAILS,
+  RESPONDENT_ADDRESS_HISTORY,
+  RESPONDENT_ADDRESS_LOOKUP,
+  RESPONDENT_ADDRESS_LOOKUP_CONT,
+  RESPONDENT_CHECK_ANSWERS,
+  RESPONDENT_CONTACT_DETAILS,
   DETAILS_KNOWN,
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
-  PERSONAL_DETAILS,
+  RESPONDENT_PERSONAL_DETAILS,
   PRIVATE_DETAILS_CONFIRMED,
   PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_FIND_ADDRESS,
@@ -21,7 +21,7 @@ import {
   START_ALTERNATIVE,
 } from '../urls';
 
-export const repondentCaseSequence: Step[] = [
+export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_TASK_LIST_URL,
     showInSection: Sections.AboutRespondentCase,
@@ -64,52 +64,52 @@ export const repondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: CHECK_ANSWERS,
+    url: RESPONDENT_CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: PERSONAL_DETAILS,
+    url: RESPONDENT_PERSONAL_DETAILS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: CONTACT_DETAILS,
+    url: RESPONDENT_CONTACT_DETAILS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: ADDRESS_DETAILS,
+    url: RESPONDENT_ADDRESS_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => ADDRESS_LOOKUP,
+    getNextStep: () => RESPONDENT_ADDRESS_LOOKUP,
   },
   {
-    url: ADDRESS_LOOKUP,
+    url: RESPONDENT_ADDRESS_LOOKUP,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => ADDRESS_LOOKUP_CONT,
+    getNextStep: () => RESPONDENT_ADDRESS_LOOKUP_CONT,
   },
   {
-    url: ADDRESS_LOOKUP_CONT,
+    url: RESPONDENT_ADDRESS_LOOKUP_CONT,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => ADDRESS_CONFIRMATION,
+    getNextStep: () => RESPONDENT_ADDRESS_CONFIRMATION,
   },
   {
     url: RESPONDENT_FIND_ADDRESS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => ADDRESS_CONFIRMATION,
+    getNextStep: () => RESPONDENT_ADDRESS_CONFIRMATION,
   },
   {
-    url: ADDRESS_CONFIRMATION,
+    url: RESPONDENT_ADDRESS_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: ADDRESS_BLANK,
+    url: RESPONDENT_ADDRESS_BLANK,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: ADDRESS_HISTORY,
+    url: RESPONDENT_ADDRESS_HISTORY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
