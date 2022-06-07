@@ -42,11 +42,11 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
 
-  const systemUsername: string = config.get('services.idam.systemUsername');
-  const systemPassword: string = config.get('services.idam.systemPassword');
+  //const systemUsername: string = config.get('services.idam.systemUsername');
+  //const systemPassword: string = config.get('services.idam.systemPassword');
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}
+  const data = `grant_type=password&username=prl_local_sysupdate@mailinator.com&password=Password12&client_id=${id}
                 &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });

@@ -313,7 +313,7 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  
+  accessCode: string;
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
