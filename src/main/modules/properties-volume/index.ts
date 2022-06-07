@@ -16,7 +16,7 @@ export class PropertiesVolume {
     } else {
       // this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
       // this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
-      set(config, 'services.idam.clientSecret', 'W7supXKMJgcEWKBS');
+      set(config, 'services.idam.clientSecret', 'GBFSEUMBUXTTDSSR');
       set(config, 'services.authProvider.secret', 'GT2V6PLQ34XGPTPM');
       //this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
       this.setLocalEndpoints();
