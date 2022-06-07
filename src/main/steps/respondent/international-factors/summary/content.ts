@@ -28,26 +28,26 @@ export const enContent = {
     iFactorsRequestProvideDetails: 'Provide details',
   },
   dependencies: {
-    iFactorsStartProvideDetails:{
+    iFactorsStartProvideDetails: {
       dependantOn: 'start',
       value: 'Yes',
       display: true,
     },
-    iFactorsParentsProvideDetails:{
+    iFactorsParentsProvideDetails: {
       dependantOn: 'parents',
       value: 'Yes',
       display: true,
     },
-    iFactorsJurisdictionProvideDetails:{
+    iFactorsJurisdictionProvideDetails: {
       dependantOn: 'jurisdiction',
       value: 'Yes',
       display: true,
     },
-    iFactorsRequestProvideDetails:{
+    iFactorsRequestProvideDetails: {
       dependantOn: 'request',
       value: 'Yes',
       display: true,
-    }
+    },
   },
   errors: {},
 };
@@ -80,26 +80,26 @@ const cyContent: typeof enContent = {
     iFactorsRequestProvideDetails: 'Provide details',
   },
   dependencies: {
-    iFactorsStartProvideDetails:{
+    iFactorsStartProvideDetails: {
       dependantOn: 'start',
       value: 'Yes',
       display: true,
     },
-    iFactorsParentsProvideDetails:{
+    iFactorsParentsProvideDetails: {
       dependantOn: 'parents',
       value: 'Yes',
       display: true,
     },
-    iFactorsJurisdictionProvideDetails:{
+    iFactorsJurisdictionProvideDetails: {
       dependantOn: 'jurisdiction',
       value: 'Yes',
       display: true,
     },
-    iFactorsRequestProvideDetails:{
+    iFactorsRequestProvideDetails: {
       dependantOn: 'request',
       value: 'Yes',
       display: true,
-    }
+    },
   },
   errors: {},
 };
