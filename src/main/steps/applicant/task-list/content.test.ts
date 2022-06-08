@@ -28,13 +28,12 @@ const cyContent = {
     [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
   },
   sectionTitles: {
-    respondentYourDetails: 'Your details',
+    applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    mediation_miam: 'Mediation(MIAM)',
   },
 };
 describe('task-list > content', () => {
@@ -54,19 +53,19 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/keep-details-private/details_known',
+              href: '/applicant/keep-details-private/details_known',
               id: 'keep-your-details-private',
               status: 'NOT_STARTED',
               text: 'Keep your details private',
             },
             {
-              href: '/respondent/confirm-contact-details/checkanswers',
+              href: '/applicant/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
               status: 'NOT_STARTED',
               text: 'Confirm or edit your contact details',
             },
           ],
-          title: 'Your details',
+          title: 'About you',
         },
       ],
     },

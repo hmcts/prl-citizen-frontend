@@ -10,13 +10,12 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
-      this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.clientSecret');
-      this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
-      set(config, 'services.case.url', 'https://manage-case.aat.platform.hmcts.net/cases');
+      this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
+      this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
     } else {
-      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
-      this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
-      //this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
       this.setLocalEndpoints();
     }
   }

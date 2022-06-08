@@ -9,16 +9,16 @@ import {
   RESPONDENT_ADDRESS_LOOKUP_CONT,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
-  DETAILS_KNOWN,
+  RESPONDENT_DETAILS_KNOWN,
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
   RESPONDENT_PERSONAL_DETAILS,
-  PRIVATE_DETAILS_CONFIRMED,
-  PRIVATE_DETAILS_NOT_CONFIRMED,
+  RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
+  RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_TASK_LIST_URL,
-  START_ALTERNATIVE,
+  RESPONDENT_START_ALTERNATIVE,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -28,23 +28,23 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: DETAILS_KNOWN,
+    url: RESPONDENT_DETAILS_KNOWN,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => START_ALTERNATIVE,
+    getNextStep: () => RESPONDENT_START_ALTERNATIVE,
   },
   {
-    url: START_ALTERNATIVE,
+    url: RESPONDENT_START_ALTERNATIVE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: data =>
-      data.startAlternative === YesOrNo.YES ? PRIVATE_DETAILS_CONFIRMED : PRIVATE_DETAILS_NOT_CONFIRMED,
+      data.startAlternative === YesOrNo.YES ? RESPONDENT_PRIVATE_DETAILS_CONFIRMED : RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   },
   {
-    url: PRIVATE_DETAILS_CONFIRMED,
+    url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: PRIVATE_DETAILS_NOT_CONFIRMED,
+    url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

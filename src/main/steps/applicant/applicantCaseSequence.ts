@@ -9,13 +9,13 @@ import {
   APPLICANT_ADDRESS_LOOKUP_CONT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
-  // DETAILS_KNOWN,
+  // APPLICANT_DETAILS_KNOWN,
   APPLICANT_PERSONAL_DETAILS,
-  PRIVATE_DETAILS_CONFIRMED,
-  // PRIVATE_DETAILS_NOT_CONFIRMED,
+  APPLICANT_PRIVATE_DETAILS_CONFIRMED,
+  APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_FIND_ADDRESS,
   APPLICANT_TASK_LIST_URL,
-  // START_ALTERNATIVE,
+  // APPLICANT_START_ALTERNATIVE,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -26,15 +26,15 @@ export const applicantCaseSequence: Step[] = [
   },
 
   {
-    url: PRIVATE_DETAILS_CONFIRMED,
+    url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
-  // {
-  //   url: PRIVATE_DETAILS_NOT_CONFIRMED,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  // },
+  {
+    url: APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
   {
     url: APPLICANT_CHECK_ANSWERS,
     showInSection: Sections.AboutApplicantCase,
