@@ -10,16 +10,13 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
-      this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.clientSecret');
-      this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
-      set(config, 'services.case.url', 'https://manage-case.aat.platform.hmcts.net/cases');
+      this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
+      this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
     } else {
-      //this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
-      //this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
-      //this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
-      set(config, 'services.idam.clientSecret', 'W7supXKMJgcEWKBS');
-      set(config, 'services.authProvider.secret', 'GT2V6PLQ34XGPTPM');
-      this.setLocalEndpoints();
+      this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      // this.setLocalEndpoints();
     }
   }
 
@@ -29,24 +26,24 @@ export class PropertiesVolume {
     }
   }
 
-  // /**
-  //  * Load a secret from the AAT vault using azure cli
-  //  */
-  // private setLocalSecret(secret: string, toPath: string): void {
-  //   const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
-  //   set(config, toPath, result.toString().replace('\n', ''));
-  // }
-
-  private setLocalEndpoints(): void {
-    const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
-    const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
-
-    const endpoints = JSON.parse(decoded.toString());
-
-    set(config, 'services.idam.clientID', 'prl-cos-api');
-    set(config, 'services.authProvider.url', endpoints.s2s);
-    set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
-    set(config, 'services.idam.tokenURL', 'http://localhost:5000/o/token');
-    set(config, 'services.case.url', 'http://localhost:4452');
+  /**
+   * Load a secret from the AAT vault using azure cli
+   */
+  private setLocalSecret(secret: string, toPath: string): void {
+    const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
+    set(config, toPath, result.toString().replace('\n', ''));
   }
+
+//   private setLocalEndpoints(): void {
+//     const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
+//     const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
+//
+//     const endpoints = JSON.parse(decoded.toString());
+//
+//     set(config, 'services.idam.clientID', 'prl-cos-api');
+//     set(config, 'services.authProvider.url', endpoints.s2s);
+//     set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
+//     set(config, 'services.idam.tokenURL', 'http://localhost:5000/o/token');
+//     set(config, 'services.case.url', 'http://localhost:4452');
+//   }
 }
