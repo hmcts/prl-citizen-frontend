@@ -146,27 +146,24 @@ export class PostController<T extends AnyObject> {
     //   const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
     //   req.session.userCase = initData;
     // }
-    console.log('checking access code');
     const caseworkerUser = await getSystemUser();
-    console.log('retrieved caseworker');
     req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
-    console.log('api retrieved');
     req.session.errors = form.getErrors(formData);
+    const caseReference = formData.caseCode?.replace(/-/g, '');
     try {
-      const caseData = await req.locals.api.getCaseById(formData.caseCode as string);
-      console.log(caseData.respondentCaseInvites);
+      const caseData = await req.locals.api.getCaseById(caseReference as string);
       let accessCodeMatched = false;
+
       caseData.respondentCaseInvites?.forEach(obj => {
         Object.entries(obj).forEach(([key, value]) => {
-          console.log(`${key} ${value}`);
           Object.entries(value).forEach(([key1, value1]) => {
-            if (key1 === 'accessCode' && value1 === formData.accessCode) {
-              accessCodeMatched = true;
-              console.log(`${key1} ${value1}`);
+            if(key1==='accessCode' && value1 === formData.accessCode){
+            accessCodeMatched = true;
             }
           });
         });
       });
+
       if (!accessCodeMatched) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
       }
@@ -177,8 +174,6 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       req.session.accessCodeLoginIn = false;
     } else {
-      //formData.accessCode =
-      //make an api call to check if the caseId exists? and if it exists then set the case code
       const initData = {
         id: formData.caseCode || '',
         state: State.successAuthentication,
