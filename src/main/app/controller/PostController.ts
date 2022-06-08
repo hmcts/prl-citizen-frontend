@@ -155,7 +155,7 @@ export class PostController<T extends AnyObject> {
       let accessCodeMatched = false;
 
       caseData.respondentCaseInvites?.forEach(obj => {
-        Object.entries(obj).forEach(([key,value]) => {
+        Object.entries(obj).forEach(([key, value]) => {
           console.log(key);
           Object.entries(value).forEach(([key1, value1]) => {
             if (key1 === 'accessCode' && value1 === formData.accessCode) {

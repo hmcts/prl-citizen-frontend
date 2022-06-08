@@ -35,7 +35,6 @@ describe('PostController', () => {
     },
   } as unknown as FormContent;
 
-  
   // test('Should have no errors and redirect to the next page in joint application journey', async () => {
   //   const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234', accessCodeCheck: true };
   //   const controller = new PostController(mockFormContent.fields);
