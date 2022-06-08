@@ -160,13 +160,12 @@ export class PostController<T extends AnyObject> {
         Object.entries(obj).forEach(([key, value]) => {
           console.log(`${key} ${value}`);
           Object.entries(value).forEach(([key1, value1]) => {
-            if(key1=='accessCode' && value1 == formData.accessCode){
-            accessCodeMatched = true;
-            console.log(`${key1} ${value1}`);
+            if (key1 === 'accessCode' && value1 === formData.accessCode) {
+              accessCodeMatched = true;
+              console.log(`${key1} ${value1}`);
             }
           });
         });
-        console.log('-------------------');
       });
       if (!accessCodeMatched) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });

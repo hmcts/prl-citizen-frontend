@@ -1,4 +1,3 @@
-
 import { AnyObject } from '../controller/PostController';
 
 import { CaseData, CaseInvite, State, YesOrNo } from './definition';
