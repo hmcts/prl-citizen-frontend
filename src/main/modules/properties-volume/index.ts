@@ -34,16 +34,16 @@ export class PropertiesVolume {
     set(config, toPath, result.toString().replace('\n', ''));
   }
 
-//   private setLocalEndpoints(): void {
-//     const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
-//     const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
-//
-//     const endpoints = JSON.parse(decoded.toString());
-//
-//     set(config, 'services.idam.clientID', 'prl-cos-api');
-//     set(config, 'services.authProvider.url', endpoints.s2s);
-//     set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
-//     set(config, 'services.idam.tokenURL', 'http://localhost:5000/o/token');
-//     set(config, 'services.case.url', 'http://localhost:4452');
-//   }
+  //   private setLocalEndpoints(): void {
+  //     const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
+  //     const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
+  //
+  //     const endpoints = JSON.parse(decoded.toString());
+  //
+  //     set(config, 'services.idam.clientID', 'prl-cos-api');
+  //     set(config, 'services.authProvider.url', endpoints.s2s);
+  //     set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
+  //     set(config, 'services.idam.tokenURL', 'http://localhost:5000/o/token');
+  //     set(config, 'services.case.url', 'http://localhost:4452');
+  //   }
 }
