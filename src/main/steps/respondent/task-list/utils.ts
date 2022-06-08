@@ -18,7 +18,7 @@ export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStat
   if (userCase?.doYouConsent || userCase?.applicationReceivedDate || userCase?.courtPermission) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.NOT_STARTED;
+  return SectionStatus.TO_DO;
 };
 
 export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
