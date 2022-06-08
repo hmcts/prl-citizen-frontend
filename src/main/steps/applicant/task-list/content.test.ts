@@ -12,13 +12,12 @@ const enContent = {
     [SectionStatus.NOT_STARTED]: 'Not Started',
   },
   sectionTitles: {
-    respondentYourDetails: 'Your details',
+    applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    mediation_miam: 'Mediation(MIAM)',
+    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details'
   },
 };
 const cyContent = {
@@ -68,17 +67,6 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Your details',
-        },
-        {
-          items: [
-            {
-              href: '/respondent/miam/miam-start',
-              id: 'medation-miam',
-              status: 'IN_PROGRESS',
-              text: 'Mediation(MIAM)',
-            },
-          ],
-          title: 'Application detail',
         },
       ],
     },
