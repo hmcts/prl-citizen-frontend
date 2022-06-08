@@ -8,7 +8,7 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
   if (userCase?.detailsKnown || userCase?.startAlternative) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.NOT_STARTED;
+  return SectionStatus.TO_DO;
 };
 
 export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
@@ -28,5 +28,5 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.miamStart || userCase?.miamWillingness) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.NOT_STARTED;
+  return SectionStatus.TO_DO;
 };
