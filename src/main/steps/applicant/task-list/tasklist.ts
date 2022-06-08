@@ -12,7 +12,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           id: 'keep-your-details-private',
           text: taskListItems.keep_your_details_private,
           status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.APPLICANT_KEEP_DETAILS_PRIVATE,
+          href: URL.APPLICANT_DETAILS_KNOWN,
         },
         {
           id: 'confirm-or-edit-your-contact-details',
