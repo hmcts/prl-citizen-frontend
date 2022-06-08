@@ -11,7 +11,7 @@ services:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'  
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
-    tokenURL: 'http://localhost:5000/o/token'
+    tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
