@@ -39,11 +39,16 @@ export default class ConfirmContactDetailsGetController extends GetController {
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
     req.session.userCase.applicant1AddressTown = 'London';
     req.session.userCase.applicant1PhoneNumber = '';
-    req.session.userCase.applicant1PhoneNumber = req.session.userCase.applicant1PhoneNumber !== '' ? req.session.userCase.applicant1PhoneNumber : '<span class="govuk-error-message">Complete this section</span>';
+    req.session.userCase.applicant1PhoneNumber =
+      req.session.userCase.applicant1PhoneNumber !== ''
+        ? req.session.userCase.applicant1PhoneNumber
+        : '<span class="govuk-error-message">Complete this section</span>';
     req.session.userCase.applicant1EmailAddress = '';
-    req.session.userCase.applicant1EmailAddress = req.session.userCase.applicant1EmailAddress !== '' ? req.session.userCase.applicant1EmailAddress : '<span class="govuk-error-message">Complete this section</span>';
+    req.session.userCase.applicant1EmailAddress =
+      req.session.userCase.applicant1EmailAddress !== ''
+        ? req.session.userCase.applicant1EmailAddress
+        : '<span class="govuk-error-message">Complete this section</span>';
     req.session.userCase.applicant1DateOfBirth = { day: '20', month: '1', year: '2000' };
-
 
     const callback = redirect ? undefined : () => super.get(req, res);
     super.saveSessionAndRedirect(req, res, callback);

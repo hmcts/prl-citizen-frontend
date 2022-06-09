@@ -1,6 +1,9 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  MIAM_ATTEND_WILLINGNESS,
+  MIAM_START,
+  MIAM_SUMMARY,
   RESPONDENT_ADDRESS_BLANK,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
@@ -10,15 +13,12 @@ import {
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_DETAILS_KNOWN,
-  MIAM_ATTEND_WILLINGNESS,
-  MIAM_START,
-  MIAM_SUMMARY,
+  RESPONDENT_FIND_ADDRESS,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
-  RESPONDENT_FIND_ADDRESS,
-  RESPONDENT_TASK_LIST_URL,
   RESPONDENT_START_ALTERNATIVE,
+  RESPONDENT_TASK_LIST_URL,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -36,7 +36,9 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_START_ALTERNATIVE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: data =>
-      data.startAlternative === YesOrNo.YES ? RESPONDENT_PRIVATE_DETAILS_CONFIRMED : RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
+      data.startAlternative === YesOrNo.YES
+        ? RESPONDENT_PRIVATE_DETAILS_CONFIRMED
+        : RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
@@ -71,7 +73,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_PERSONAL_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPONDENT_CONTACT_DETAILS,
   },
   {
     url: RESPONDENT_CONTACT_DETAILS,

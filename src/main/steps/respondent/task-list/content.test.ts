@@ -55,7 +55,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/keep-details-private/details_known',
+              href: '/keep-details-private/details_known',
               id: 'keep-your-details-private',
               status: 'NOT_STARTED',
               text: 'Keep your details private',
@@ -63,7 +63,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
-              status: 'NOT_STARTED',
+              status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
           ],

@@ -17,7 +17,7 @@ const enContent = {
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details'
+    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
   },
 };
 const cyContent = {
@@ -53,7 +53,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/keep-details-private/details_known',
+              href: '/applicant/keep-details-private',
               id: 'keep-your-details-private',
               status: 'NOT_STARTED',
               text: 'Keep your details private',
@@ -61,7 +61,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
-              status: 'NOT_STARTED',
+              status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
           ],

@@ -53,7 +53,7 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
     const changeUrl = item.changeUrl;
     return {
       key: { ...(item.key ? { text: item.key } : {}) },
-      value: { ...(item.value ? { text: item.value } : {html: item.valueHtml}) },
+      value: { ...(item.value ? { text: item.value } : { html: item.valueHtml }) },
       ...(changeUrl
         ? {
             actions: {
