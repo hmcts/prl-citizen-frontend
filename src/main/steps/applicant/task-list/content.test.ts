@@ -5,7 +5,7 @@ import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
 const enContent = {
-  title: 'Respond to the application',
+  title: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -17,7 +17,7 @@ const enContent = {
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details'
+    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
   },
 };
 const cyContent = {
