@@ -21,7 +21,7 @@ nodejs:
       resourceGroup: prl
       secrets:
         - AppInsightsInstrumentationKey
-        - prl-cos-idam-client-secret
-        - microservicekey-prl-cos-api
+        - prl-citizen-frontend-idam-client-secret
+        - microservicekey-prl-citizen-frontend
 idam-pr:
   enabled: false
