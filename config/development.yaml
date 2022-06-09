@@ -12,8 +12,8 @@ services:
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
     clientSecret: 'NEED TO INSERT SECRET'
-    systemUsername: dummy_user
-    systemPassword: dummy_password
+    systemUsername: 'dummy_user'
+    systemPassword: 'dummy_password'
   case:
     #url: 'http://localhost:4452'
     url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-427.service.core-compute-preview.internal'
