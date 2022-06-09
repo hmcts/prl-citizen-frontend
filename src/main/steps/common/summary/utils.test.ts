@@ -40,7 +40,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'What is a Mediation Information and Assessment Meeting (MIAM)?' },
-              value: { text: 'Yes' },
+              value: { html: 'Yes' },
             },
           ],
           title: 'applicationDetails',
