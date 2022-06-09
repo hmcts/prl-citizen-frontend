@@ -5,15 +5,15 @@ timeout: 30000
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'prl_cos_api'
+    microservice: 'prl-citizen-frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
     clientSecret: 'NEED TO INSERT SECRET'
-    systemUsername: 'dummy_user'
-    systemPassword: 'dummy_password'
+    systemUsername: dummy_user
+    systemPassword: dummy_password
   case:
     #url: 'http://localhost:4452'
     url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-427.service.core-compute-preview.internal'
