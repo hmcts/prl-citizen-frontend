@@ -41,6 +41,6 @@ describe('applicant1Sequence', () => {
 
     expect(respondentCaseSequence[9].url).toBe('/respondent/confirm-contact-details/personaldetails');
     expect(respondentCaseSequence[9].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/confirm-contact-details/checkanswers');
   });
 });

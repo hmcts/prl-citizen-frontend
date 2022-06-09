@@ -9,7 +9,7 @@ const enContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.NOT_STARTED]: 'Not Started',
+    [SectionStatus.TO_DO]: 'Not Started',
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
@@ -26,7 +26,7 @@ const cyContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
-    [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
+    [SectionStatus.TO_DO]: 'Heb Ddechrau',
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
@@ -57,7 +57,7 @@ describe('task-list > content', () => {
             {
               href: '/keep-details-private/details_known',
               id: 'keep-your-details-private',
-              status: 'NOT_STARTED',
+              status: 'TO_DO',
               text: 'Keep your details private',
             },
             {
