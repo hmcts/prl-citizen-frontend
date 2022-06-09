@@ -18,7 +18,6 @@ services:
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: dummy_user
     systemPassword: dummy_password
-
 health:
   timeout: 5000
   deadline: 15000
