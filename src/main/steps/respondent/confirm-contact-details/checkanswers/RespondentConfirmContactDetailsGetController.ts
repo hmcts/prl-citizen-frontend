@@ -31,19 +31,46 @@ export default class RespondentConfirmContactDetailsGetController extends GetCon
     //await req.locals.api.getCases();
     //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
 
-    req.session.userCase.applicant1FirstNames = 'John';
-    req.session.userCase.applicant1LastNames = 'Smith';
-    req.session.userCase.applicant1FullName = 'John Smith';
-    req.session.userCase.applicant1PlaceOfBirth = 'London';
+    //req.session.userCase.applicant1FirstNames = 'John';
+    //req.session.userCase.applicant1LastNames = 'Smith';
+    //req.session.userCase.applicant1PlaceOfBirth = 'London';
+
+    if(!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames){
+      req.session.userCase.applicant1FullName = '<span class="govuk-error-message">Complete this section</span>';
+    } else {
+      req.session.userCase.applicant1FullName = req.session.userCase.applicant1FirstNames +" "+req.session.userCase.applicant1LastNames;
+    }
+    
+    if(!req.session.userCase.applicant1PlaceOfBirth){
+      req.session.userCase.applicant1PlaceOfBirthText = '<span class="govuk-error-message">Complete this section</span>';
+    } else {
+      req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth;
+    }
+    req.session.userCase.applicant1DateOfBirthText = req.session.userCase.applicant1DateOfBirth;
+    if(req.session.userCase.applicant1DateOfBirthText.day === '' || req.session.userCase.applicant1DateOfBirthText.month === '' || req.session.userCase.applicant1DateOfBirthText.year === ''){
+      req.session.userCase.applicant1DateOfBirthText = '<span class="govuk-error-message">Complete this section</span><div id="more-detail-hint-1" class="govuk-hint">Do not include personal or financial information, like your National Insurance number or credit card details.</div>';
+    }
+
+    // if(!req.session.userCase.applicant1DateOfBirth || req.session.userCase.applicant1DateOfBirth.day === '' || req.session.userCase.applicant1DateOfBirth.month === '' || req.session.userCase.applicant1DateOfBirth.year === ''){
+    //   req.session.userCase.applicant1PlaceOfBirthText = '<span class="govuk-error-message">Complete this section</span>';
+    // } else {
+    //   req.session.userCase.applicant1DateOfBirthText = JSON.stringify(req.session.userCase.applicant1DateOfBirth);
+    // }
+
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
     req.session.userCase.applicant1AddressTown = 'London';
     req.session.userCase.applicant1PhoneNumber = '';
-    req.session.userCase.applicant1PhoneNumber = req.session.userCase.applicant1PhoneNumber !== '' ? req.session.userCase.applicant1PhoneNumber : '<span class="govuk-error-message">Complete this section</span>';
+    req.session.userCase.applicant1PhoneNumber =
+      req.session.userCase.applicant1PhoneNumber !== ''
+        ? req.session.userCase.applicant1PhoneNumber
+        : '<span class="govuk-error-message">Complete this section</span>';
     req.session.userCase.applicant1EmailAddress = '';
-    req.session.userCase.applicant1EmailAddress = req.session.userCase.applicant1EmailAddress !== '' ? req.session.userCase.applicant1EmailAddress : '<span class="govuk-error-message">Complete this section</span>';
-    req.session.userCase.applicant1DateOfBirth = { day: '20', month: '1', year: '2000' };
-
+    req.session.userCase.applicant1EmailAddress =
+      req.session.userCase.applicant1EmailAddress !== ''
+        ? req.session.userCase.applicant1EmailAddress
+        : '<span class="govuk-error-message">Complete this section</span><span class="govuk-hint">Do not include personal or financial information.</span>';
+    //req.session.userCase.applicant1DateOfBirth = { day: '20', month: '1', year: '2000' };
 
     const callback = redirect ? undefined : () => super.get(req, res);
     super.saveSessionAndRedirect(req, res, callback);

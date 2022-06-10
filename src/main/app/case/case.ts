@@ -71,9 +71,11 @@ export interface Case {
   applicant1EmailAddress?: string;
   applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: any;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfBirthText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;

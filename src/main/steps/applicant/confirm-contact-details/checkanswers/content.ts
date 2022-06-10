@@ -17,8 +17,8 @@ export const enContent = {
   },
   keys: {
     applicant1FullName: 'Name',
-    applicant1DateOfBirth: 'Date of birth',
-    applicant1PlaceOfBirth: 'Place of birth',
+    applicant1DateOfBirthText: 'Date of birth',
+    applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
@@ -46,8 +46,8 @@ const cyContent: typeof enContent = {
   },
   keys: {
     applicant1FullName: 'Name',
-    applicant1DateOfBirth: 'Date of birth',
-    applicant1PlaceOfBirth: 'Place of birth',
+    applicant1DateOfBirthText: 'Date of birth',
+    applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
@@ -58,8 +58,8 @@ const cyContent: typeof enContent = {
 
 const urls = {
   applicant1FullName: APPLICANT_PERSONAL_DETAILS,
-  applicant1DateOfBirth: APPLICANT_PERSONAL_DETAILS,
-  applicant1PlaceOfBirth: APPLICANT_PERSONAL_DETAILS,
+  applicant1DateOfBirthText: APPLICANT_PERSONAL_DETAILS,
+  applicant1PlaceOfBirthText: APPLICANT_PERSONAL_DETAILS,
   address: APPLICANT_ADDRESS_DETAILS,
   addressHistory: APPLICANT_ADDRESS_HISTORY,
   applicant1PhoneNumber: APPLICANT_CONTACT_DETAILS,
@@ -67,8 +67,8 @@ const urls = {
 };
 const fieldType = {
   applicant1FullName: 'String',
-  applicant1DateOfBirth: 'Date',
-  applicant1PlaceOfBirth: 'String',
+  applicant1DateOfBirthText: 'Date',
+  applicant1PlaceOfBirthText: 'String',
   address: 'String',
   addressHistory: 'String',
   applicant1PhoneNumber: 'String',
