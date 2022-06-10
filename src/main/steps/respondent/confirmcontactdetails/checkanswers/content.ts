@@ -4,6 +4,7 @@ import { CommonContent } from '../../../../steps/common/common.content';
 import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../../steps/urls';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 
+
 export const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
@@ -13,7 +14,7 @@ export const enContent = {
   keys: {
     applicant1FullName: 'Name',
     applicant1DateOfBirth: 'Date of birth',
-    applicant1PlaceOfBirth: 'Place of birth',
+    applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
@@ -42,7 +43,7 @@ const cyContent: typeof enContent = {
   keys: {
     applicant1FullName: 'Name',
     applicant1DateOfBirth: 'Date of birth',
-    applicant1PlaceOfBirth: 'Place of birth',
+    applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
@@ -54,7 +55,7 @@ const cyContent: typeof enContent = {
 const urls = {
   applicant1FullName: PERSONAL_DETAILS,
   applicant1DateOfBirth: PERSONAL_DETAILS,
-  applicant1PlaceOfBirth: PERSONAL_DETAILS,
+  applicant1PlaceOfBirthText: PERSONAL_DETAILS,
   address: ADDRESS_DETAILS,
   addressHistory: ADDRESS_HISTORY,
   applicant1PhoneNumber: CONTACT_DETAILS,
@@ -63,7 +64,7 @@ const urls = {
 const fieldType = {
   applicant1FullName: 'String',
   applicant1DateOfBirth: 'Date',
-  applicant1PlaceOfBirth: 'String',
+  applicant1PlaceOfBirthText: 'String',
   address: 'String',
   addressHistory: 'String',
   applicant1PhoneNumber: 'String',
