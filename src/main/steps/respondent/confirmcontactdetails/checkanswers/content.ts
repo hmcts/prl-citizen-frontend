@@ -4,7 +4,6 @@ import { CommonContent } from '../../../../steps/common/common.content';
 import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../../steps/urls';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 
-
 export const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
