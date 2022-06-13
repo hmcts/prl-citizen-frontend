@@ -1,61 +1,77 @@
-import { SectionStatus } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent } from '../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../app/form/validation';
 
-import { document_en } from './section-titles';
-import { applicant_document_list_en } from './section-list';
-import { getKeepYourDetailsPrivateStatus } from './utils';
-import * as URL from '../../../urls';
-
-const en = () => ({
-  title: 'DA Applicant',
-  statuses: {
-    [SectionStatus.COMPLETED]: 'Completed',
-    [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.TO_DO]: 'TO DO',
-    [SectionStatus.DOWNLOAD]: 'DOWNLOAD'
+const en = {
+  section: 'Keeping your contact details private',
+  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  one: 'Yes',
+  two: 'No',
+  three: "I don't know",
+  threeHint: 'This is a 8 character code',
+  summaryText: 'Contacts for help',
+  continue: 'Continue',
+  errors: {
+    detailsKnown: {
+      required: 'Enter your details known',
+    },
   },
-  sectionTitles: document_en,
-  sectionListItems: applicant_document_list_en,
-});
+};
 
-const cy = () => ({
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
-  statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
-    [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
-    [SectionStatus.TO_DO]: 'I WNEUD',
-    [SectionStatus.DOWNLOAD]: 'LLWYTHO'
+const cy: typeof en = {
+  section: 'Keeping your contact details private',
+  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  one: 'Yes',
+  two: 'No',
+  three: "I don't know",
+  threeHint: 'This is a 8 character code',
+  summaryText: 'Contacts for help',
+  continue: 'Continue',
+  errors: {
+    detailsKnown: {
+      required: 'Enter your details known',
+    },
   },
-  sectionTitles: document_en,
-  sectionListItems: applicant_document_list_en,
-});
+};
 
 const languages = {
   en,
   cy,
 };
 
-export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    sections: generateDocumentSectionList(translations.sectionTitles, translations.sectionListItems, content.userCase),
-  };
-};
-
-export const generateDocumentSectionList = (sectionTitles, sectionListItems, userCase) => {
-  return [
-    {
-      title: sectionTitles.aboutYou,
-      items: [
+export const form: FormContent = {
+  fields: {
+    detailsKnown: {
+      type: 'radios',
+      classes: 'govuk-radios',
+      label: l => l.label,
+      section: l => l.section,
+      values: [
         {
-          id: 'fl401-application',
-          text: sectionListItems.fl401_application,
-          status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.APPLICANT_ALL_DOCUEMNTS,
+          label: l => l.one,
+          value: 'Yes',
+        },
+        {
+          label: l => l.two,
+          value: 'No',
+        },
+        {
+          label: l => l.three,
+          value: 'I',
         },
       ],
+      validator: isFieldFilledIn,
     },
-  ];
+  },
+  submit: {
+    text: l => l.continue,
+  },
 };
 
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language];
+  return {
+    ...translations,
+    form,
+  };
+};
