@@ -9,7 +9,7 @@ const enContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.NOT_STARTED]: 'Not Started',
+    [SectionStatus.TO_DO]: 'Not Started',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',
@@ -25,7 +25,7 @@ const cyContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
-    [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
+    [SectionStatus.TO_DO]: 'Heb Ddechrau',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',

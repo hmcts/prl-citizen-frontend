@@ -18,7 +18,9 @@
   {% set statusClass = "" %}
   {%if item.status == 'IN_PROGRESS' %}
     {% set statusClass = "govuk-tag--blue" %}
-  {% elif item.status == 'NOT_STARTED' or item.status == 'CAN_NOT_START_YET' %}
+    {% elif item.status == 'COMPLETED' or item.status == 'DOWNLOAD' %}
+    {% set statusClass = "govuk-tag--green"%}
+  {% elif item.status == 'TO_DO' or item.status == 'CAN_NOT_START_YET' %}
     {% set statusClass = "govuk-tag--grey"%}
   {% endif %}
   <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
@@ -56,6 +58,9 @@
       <h1 class="govuk-heading-xl">
         {{title}}
       </h1>
+
+      {% block progressBar %}{% endblock %}
+      {% block notificationBanner %}{% endblock %}
 
       <ol class="app-task-list">
         {% for section in sections %}
