@@ -13,6 +13,11 @@ nodejs:
          - AppInsightsInstrumentationKey
          - prl-citizen-frontend-idam-client-secret
          - microservicekey-prl-citizen-frontend
+         - system-update-user-username
+         - system-update-user-password
+         - idam-solicitor-username
+         - idam-solicitor-password
+
 idam-pr:
   enabled: true
   redirect_uris:
