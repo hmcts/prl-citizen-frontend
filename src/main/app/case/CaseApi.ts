@@ -8,15 +8,15 @@ import { UserDetails } from '../controller/AppRequest';
 import { Case, CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
 import {
-  PrivateLaw,
-  CaseData,
   CASE_TYPE,
   //CITIZEN_ADD_PAYMENT,
   CITIZEN_CREATE,
+  CaseData,
   JURISDICTION,
   LanguagePreference,
   //ListValue,
   //Payment,
+  PrivateLaw,
   State,
 } from './definition';
 //import { fromApiFormat } from './from-api-format';
