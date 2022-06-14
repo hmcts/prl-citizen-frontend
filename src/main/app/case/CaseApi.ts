@@ -8,7 +8,6 @@ import { UserDetails } from '../controller/AppRequest';
 import { Case, CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
 import {
-  Adoption,
   CASE_TYPE,
   //CITIZEN_ADD_PAYMENT,
   CITIZEN_CREATE,
@@ -17,6 +16,7 @@ import {
   LanguagePreference,
   //ListValue,
   //Payment,
+  PrivateLaw,
   State,
 } from './definition';
 //import { fromApiFormat } from './from-api-format';
@@ -30,7 +30,7 @@ export class CaseApi {
   ) {}
 
   public async getOrCreateCase(
-    serviceType: Adoption,
+    serviceType: PrivateLaw,
     userDetails: UserDetails,
     languagePreference = LanguagePreference.ENGLISH
   ): Promise<CaseWithId> {
@@ -80,7 +80,7 @@ export class CaseApi {
   }
 
   private async createCase(
-    serviceType: Adoption,
+    serviceType: PrivateLaw,
     userDetails: UserDetails,
     languagePreference: LanguagePreference
   ): Promise<CaseWithId> {
