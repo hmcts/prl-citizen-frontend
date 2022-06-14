@@ -8,7 +8,6 @@ import { UserDetails } from '../controller/AppRequest';
 import { Case, CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
 import {
-  PrivateLaw,
   CASE_TYPE,
   //CITIZEN_ADD_PAYMENT,
   CITIZEN_CREATE,
@@ -17,6 +16,7 @@ import {
   LanguagePreference,
   //ListValue,
   //Payment,
+  PrivateLaw,
   State,
 } from './definition';
 //import { fromApiFormat } from './from-api-format';
