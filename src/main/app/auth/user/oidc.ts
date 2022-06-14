@@ -45,14 +45,15 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const systemUsername: string = config.get('services.idam.systemUsername');
   const systemPassword: string = config.get('services.idam.systemPassword');
 
-  console.log('token URL ' + tokenUrl);
-
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
 
-  const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
-  const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
+  console.log('token URL ' + tokenUrl + ' ' + data + ' ' + systemUsername + ' ' + systemPassword);
 
+  const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
+  console.log('access token created');
+  const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
+  console.log('decoded token');
   return {
     accessToken: response.data.access_token,
     id: jwt.uid,
