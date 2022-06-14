@@ -5,7 +5,7 @@ import { PageLink } from './urls';
 export enum Sections {
   AboutEdgeCase = 'aboutEdgeCase',
   AboutRespondentCase = 'aboutRespondentCase',
-  AboutApplicantCase = 'aboutApplicantCase'
+  AboutApplicantCase = 'aboutApplicantCase',
 }
 
 export interface Step {

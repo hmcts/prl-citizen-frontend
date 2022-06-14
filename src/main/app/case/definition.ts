@@ -270,7 +270,6 @@ export const enum ContactDetails {
   EMAIL = 'email',
   PHONE = 'phone',
 }
-
 export interface Children {
   FirstName: string;
   LastName: string;
@@ -336,6 +335,7 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
+  documentsUploaded: ListValue<PRLDocument>[];
   
 }
 

@@ -6,10 +6,10 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
+import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { Step } from './constants';
 import { edgecaseSequence } from './edge-case/edgecaseSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
-import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { CITIZEN_HOME_URL, EDGE_CASE_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
@@ -118,4 +118,8 @@ export const stepsWithContentEdgecase = getStepsWithContent(edgecaseSequence, ED
 export const stepsWithContentRespondent = getStepsWithContent(respondentCaseSequence);
 export const stepsWithContentApplicant = getStepsWithContent(applicantCaseSequence);
 
-export const stepsWithContent = [...stepsWithContentEdgecase, ...stepsWithContentRespondent, ...stepsWithContentApplicant];
+export const stepsWithContent = [
+  ...stepsWithContentEdgecase,
+  ...stepsWithContentRespondent,
+  ...stepsWithContentApplicant,
+];

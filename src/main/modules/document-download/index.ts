@@ -2,7 +2,7 @@ import config from 'config';
 import { Application } from 'express';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import { DocumentType, /* YesOrNo */ } from '../../app/case/definition';
+//import { DocumentType, /* YesOrNo */ } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 
 const proxy = require('express-http-proxy');
@@ -20,9 +20,10 @@ export class DocumentDownloadMiddleware {
     const dmStoreProxyForApplicationPdf = {
       endpoints: ['/downloads/prl-citizen-frontend/application'],
       path: (req: AppRequest) => {
-        return req.session.userCase?.documentsUploaded
-        .find(doc => doc.value.documentType === DocumentType.APPLICATION)
-          ?.value.documentLink.document_binary_url;
+        console.log('hit url : ' + req.url);
+        // return req.session.userCase?.documentsUploaded
+        // .find(doc => doc.value.documentType === DocumentType.APPLICATION)
+        //   ?.value.documentLink.document_binary_url
       },
     };
 
@@ -51,7 +52,6 @@ export class DocumentDownloadMiddleware {
       dmStoreProxyForApplicationPdf,
       //dmStoreProxyForRespondentAnswersPdf,
       //dmStoreProxyForCertificateOfServicePdf,
-
     ];
 
     for (const dmStoreProxy of dmStoreProxies) {

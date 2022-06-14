@@ -154,7 +154,7 @@ export class CaseApi {
     //const data = userData;
     // return this.sendEvent(caseId, data, eventName);
     console.log('eventName = ' + eventName);
-    return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
+    return { id: caseId, state: State.successAuthentication, serviceType: 'PRL', ...userData };
   }
 
   // public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {

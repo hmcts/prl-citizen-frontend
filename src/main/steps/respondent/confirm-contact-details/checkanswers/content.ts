@@ -1,8 +1,13 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
-import { RESPONDENT_ADDRESS_DETAILS, RESPONDENT_ADDRESS_HISTORY, RESPONDENT_CONTACT_DETAILS, RESPONDENT_PERSONAL_DETAILS } from '../../../urls';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
+import {
+  RESPONDENT_ADDRESS_DETAILS,
+  RESPONDENT_ADDRESS_HISTORY,
+  RESPONDENT_CONTACT_DETAILS,
+  RESPONDENT_PERSONAL_DETAILS,
+} from '../../../urls';
 
 export const enContent = {
   section: 'Check your details',
