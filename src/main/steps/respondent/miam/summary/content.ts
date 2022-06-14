@@ -24,7 +24,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls)],
+    sections: [summaryList(cyContent, userCase, urls, 'applicationDetails', fieldType, content.language)],
   };
 };
 
@@ -48,13 +48,19 @@ const urls = {
   miamNotWillingExplnation: MIAM_ATTEND_WILLINGNESS,
 };
 
+const fieldType = {
+  miamStart: 'String',
+  miamWillingness: 'String',
+  miamNotWillingExplnation: 'String',
+};
+
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, 'applicationDetails')],
+    sections: [summaryList(cyContent, userCase, urls, 'applicationDetails', fieldType, content.language)],
   };
 };
 

@@ -12,6 +12,9 @@ const enContent = {
   keys: {
     miamStart: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
   },
+  fieldType: {
+    miamStart: 'string',
+  },
   errors: {},
 };
 
@@ -31,20 +34,22 @@ describe('common > summary > utils', () => {
                 items: [
                   {
                     href: '/respondent/miam/miam-start',
-                    text: 'edit',
+                    text: 'Edit',
                     visuallyHiddenText: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
                   },
                 ],
               },
               key: { text: 'What is a Mediation Information and Assessment Meeting (MIAM)?' },
-              value: { text: 'Yes' },
+              value: { html: 'Yes' },
             },
           ],
           title: 'applicationDetails',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(summaryList(enContent, userCase, urls, 'applicationDetails')).toStrictEqual(expected);
+      expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
+        expected
+      );
     });
   });
 });
