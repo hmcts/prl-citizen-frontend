@@ -13,7 +13,7 @@ import {
   CITIZEN_CREATE,
   CaseData,
   JURISDICTION,
-  LanguagePreference,
+  //LanguagePreference,
   //ListValue,
   //Payment,
   PrivateLaw,
@@ -31,11 +31,11 @@ export class CaseApi {
 
   public async getOrCreateCase(
     serviceType: PrivateLaw,
-    userDetails: UserDetails,
-    languagePreference = LanguagePreference.ENGLISH,
+    userDetails: UserDetails
+    //languagePreference = LanguagePreference.ENGLISH
   ): Promise<CaseWithId> {
     const userCase = await this.getCase();
-    return userCase || this.createCase(serviceType, userDetails, languagePreference);
+    return userCase || this.createCase(serviceType, userDetails);
   }
 
   private async getCase(): Promise<CaseWithId | false> {
@@ -93,8 +93,8 @@ export class CaseApi {
 
   private async createCase(
     serviceType: PrivateLaw,
-    userDetails: UserDetails,
-    languagePreference: LanguagePreference
+    userDetails: UserDetails
+    //languagePreference: LanguagePreference
   ): Promise<CaseWithId> {
     const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.axios.get(
       `/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`

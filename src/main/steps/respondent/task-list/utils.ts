@@ -18,7 +18,7 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   if (userCase?.confirmcontactdetails) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.NOT_STARTED;
+  return SectionStatus.TO_DO;
 };
 
 export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
