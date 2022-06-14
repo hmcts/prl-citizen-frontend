@@ -729,7 +729,7 @@ export const enum YesNoNotsure {
 }
 
 export const enum SectionStatus {
-  NOT_STARTED = 'NOT_STARTED',
+  TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED',
 }
@@ -793,8 +793,8 @@ export const enum Court {
   BURY_ST_EDMUNDS = 'buryStEdmunds',
 }
 
-export const enum Adoption {
-  ADOPTION = 'adoption',
+export const enum PrivateLaw {
+  PRIVATELAW = 'prlapps',
 }
 
 export const enum DivorceOrDissolution {
