@@ -30,3 +30,10 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   }
   return SectionStatus.NOT_STARTED;
 };
+
+export const getWitnessStatementStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.witnessStatementDownloaded) {
+    return SectionStatus.VIEW;
+  }
+  return SectionStatus.DOWNLOAD;
+};
