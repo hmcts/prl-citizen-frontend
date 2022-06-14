@@ -13,7 +13,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
       this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
-      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
+      this.setSecret('secrets.prl.system-update-user-password', 'services.idam.systemPassword');
     } else {
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
       this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
