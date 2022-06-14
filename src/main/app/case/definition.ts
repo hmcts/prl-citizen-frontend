@@ -271,6 +271,13 @@ export const enum ContactDetails {
   PHONE = 'phone',
 }
 
+export interface Document{
+  document_url: string;
+  document_binary_url: string;
+  document_filename: string;
+  document
+}
+
 export interface Children {
   FirstName: string;
   LastName: string;

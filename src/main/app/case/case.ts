@@ -82,6 +82,8 @@ export interface Case {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
 
+
+  witnessStatements?: Document[];
   witnessStatementDownloaded?: boolean;
 
   //applicant1LanguagePreference?: LanguagePreference;
