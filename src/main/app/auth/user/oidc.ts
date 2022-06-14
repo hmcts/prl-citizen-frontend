@@ -44,8 +44,8 @@ export const getSystemUser = async (): Promise<UserDetails> => {
 
   const systemUsername: string = config.get('services.idam.systemUsername');
   const systemPassword: string = config.get('services.idam.systemPassword');
-  
-  console.log('token URL ' +tokenUrl);
+
+  console.log('token URL ' + tokenUrl);
 
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
