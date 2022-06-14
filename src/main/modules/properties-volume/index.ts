@@ -42,9 +42,7 @@ export class PropertiesVolume {
   private setLocalEndpoints(): void {
     // const result = execSync('az keyvault secret show --vault-name prl-aat -o tsv --query value --name endpoints');
     // const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
-
     // const endpoints = JSON.parse(decoded.toString());
-
     // set(config, 'services.authProvider.url', endpoints.s2s);
     // set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
     // set(config, 'services.idam.tokenURL', endpoints.idamToken);
