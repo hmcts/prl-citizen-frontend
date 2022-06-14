@@ -795,8 +795,8 @@ export const enum Court {
   BURY_ST_EDMUNDS = 'buryStEdmunds',
 }
 
-export const enum Adoption {
-  ADOPTION = 'adoption',
+export const enum PrivateLaw {
+  PRIVATELAW = 'prlapps',
 }
 
 export const enum DivorceOrDissolution {
