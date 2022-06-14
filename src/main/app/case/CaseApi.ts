@@ -103,7 +103,7 @@ export class CaseApi {
     const token = tokenResponse.data.token;
     const event = { id: CITIZEN_CREATE };
     const data = {
-      serviceType: serviceType,
+      serviceType,
       applicant1FirstName: userDetails.givenName,
       applicant1LastName: userDetails.familyName,
       applicant1Email: userDetails.email,
@@ -178,9 +178,9 @@ export class CaseApi {
 }
 
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
-  //console.log("s2stoken=====================>"+getServiceAuthToken());
-  //console.log("baseURL=====================>"+config.get('services.case.url'));
-  //console.log("userDetails===============>"+JSON.stringify(userDetails));
+  //console.log('s2stoken=====================>' + getServiceAuthToken());
+  //console.log('baseURL=====================>' + config.get('services.case.url'));
+  //console.log('userDetails===============>' + JSON.stringify(userDetails));
   return new CaseApi(
     Axios.create({
       baseURL: config.get('services.case.url'),
