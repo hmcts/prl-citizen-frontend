@@ -3,6 +3,8 @@ import {
   generateContent as personalDetailsGenerateContent
 } from '../../../common/confirm-contact-details/personaldetails/content'
 
+export {form} from '../../../common/confirm-contact-details/personaldetails/content';
+
 export const generateContent: TranslationFn = content => {
   const personalDetailsContent = personalDetailsGenerateContent(content);
   return {
