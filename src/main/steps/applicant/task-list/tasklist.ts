@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus} from './utils';
+import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus } from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
