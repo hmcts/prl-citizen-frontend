@@ -5,15 +5,15 @@ import { MIAM_ATTEND_WILLINGNESS, MIAM_START } from '../../../../steps/urls';
 import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
-  section: 'Check your details',
-  title: 'Read the information to make sure it is correct, and add any missing details',
+  section: 'Check your answers',
+  title: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
     applicationDetails: 'Application details',
   },
   keys: {
-    miamStart: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+    miamStart: 'Have you attended a MIAM?',
     miamWillingness: 'Would you be willing to attend a MIAM?',
-    miamNotWillingExplnation: 'Explain why',
+    miamNotWillingExplnation: 'Explain why you are not willing to attend a MIAM',
   },
   errors: {},
 };
@@ -29,15 +29,15 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your details',
-  title: 'Read the information to make sure it is correct, and add any missing details',
+  section: 'Check your answers',
+  title: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
     applicationDetails: 'Application details',
   },
   keys: {
-    miamStart: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+    miamStart: 'Have you attended a MIAM?',
     miamWillingness: 'Would you be willing to attend a MIAM?',
-    miamNotWillingExplnation: 'Explain why',
+    miamNotWillingExplnation: 'Explain why you are not willing to attend a MIAM',
   },
   errors: {},
 };

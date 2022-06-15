@@ -5,8 +5,10 @@ timeout: 30000
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'prl_cos_api'
+    microservice: 'prl_citizen_frontend'
     secret: 'NEED TO INSERT SECRET'
+  case:
+    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
   documentManagement:
     url: http://dm-store-aat.service.core-compute-aat.internal
   idam:
