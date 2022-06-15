@@ -13,7 +13,7 @@ const enContent = {
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
-    applicationDetails: 'Application detail',
+    applicationDetails: 'Application details',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -30,7 +30,7 @@ const cyContent = {
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
-    applicationDetails: 'Application detail',
+    applicationDetails: 'Application details',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',

@@ -59,7 +59,9 @@ export const repondentCaseSequence: Step[] = [
     url: PROCEEDINGS_START,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: data =>
-      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder ===  YesOrNo.YES ? PROCEEDINGS_COURT_PROCEEDINGS : RESPONDENT_TASK_LIST_URL,
+      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
+        ? PROCEEDINGS_COURT_PROCEEDINGS
+        : RESPONDENT_TASK_LIST_URL,
   },
   {
     url: PROCEEDINGS_COURT_PROCEEDINGS,

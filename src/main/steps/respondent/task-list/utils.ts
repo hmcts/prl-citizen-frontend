@@ -28,5 +28,5 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): Sectio
   if (userCase?.proceedingsStart || userCase?.proceedingsStartOrder) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.NOT_STARTED;
+  return SectionStatus.TO_DO;
 };
