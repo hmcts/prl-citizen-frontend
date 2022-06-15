@@ -30,3 +30,10 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   }
   return SectionStatus.NOT_STARTED;
 };
+
+export const getYourApplicationSubmittedFL401 = (userCase: CaseWithId): SectionStatus => {
+  if (userCase) {
+    return SectionStatus.DOWNLOAD;
+  }
+  return SectionStatus.DOWNLOAD;
+};

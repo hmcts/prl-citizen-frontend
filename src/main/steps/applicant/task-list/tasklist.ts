@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus } from './utils';
+import {
+  getConfirmOrEditYourContactDetails,
+  getKeepYourDetailsPrivateStatus,
+  getYourApplicationSubmittedFL401,
+} from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
@@ -19,6 +23,17 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           text: taskListItems.confirm_or_edit_your_contact_details,
           status: getConfirmOrEditYourContactDetails(userCase),
           href: URL.APPLICANT_CHECK_ANSWERS,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.yourApplication,
+      items: [
+        {
+          id: 'application-submitted-fl401',
+          text: taskListItems.application_submitted_fl401,
+          status: getYourApplicationSubmittedFL401(userCase),
+          href: URL.APPLICATION_SUBMITTED_FL401,
         },
       ],
     },

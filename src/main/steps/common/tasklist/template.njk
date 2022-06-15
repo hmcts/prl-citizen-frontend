@@ -21,6 +21,9 @@
   {% elif item.status == 'NOT_STARTED' or item.status == 'CAN_NOT_START_YET' %}
     {% set statusClass = "govuk-tag--grey"%}
   {% endif %}
+  {% elif item.status == 'DOWNLOAD'%}
+    {% set statusClass = "govuk-tag--green"%}
+  {% endif %}
   <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
 {% endmacro %}
 
