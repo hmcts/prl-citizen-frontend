@@ -1,8 +1,13 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
-import { APPLICANT_ADDRESS_DETAILS, APPLICANT_ADDRESS_HISTORY, APPLICANT_CONTACT_DETAILS, APPLICANT_PERSONAL_DETAILS } from '../../../urls';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
+import {
+  APPLICANT_ADDRESS_DETAILS,
+  APPLICANT_ADDRESS_HISTORY,
+  APPLICANT_CONTACT_DETAILS,
+  APPLICANT_PERSONAL_DETAILS,
+} from '../../../urls';
 
 export const enContent = {
   section: 'Check your details',
