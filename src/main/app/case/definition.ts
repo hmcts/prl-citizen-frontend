@@ -731,6 +731,7 @@ export const enum YesNoNotsure {
 export const enum SectionStatus {
   TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
+  NOT_STARTED = 'NOT_STARTED',
   COMPLETED = 'COMPLETED',
 }
 
