@@ -19,12 +19,14 @@ const en = {
       required: 'Enter your case code',
       invalid: 'The case code must be made up of 16 characters',
       notNumeric: 'Case code must be numeric',
-      invalidReference: 'You have entered the wrong reference number. Check your email and enter it again before continuing.',
-    }, 
+      invalidReference:
+        'You have entered the wrong reference number. Check your email and enter it again before continuing.',
+    },
     accessCode: {
       required: 'Enter your access code',
       invalid: 'The access code must be made up of 8 characters',
-      invalidAccessCode: 'You have entered the wrong access code. Check your email and enter it again before continuing.',
+      invalidAccessCode:
+        'You have entered the wrong access code. Check your email and enter it again before continuing.',
     },
   },
 };

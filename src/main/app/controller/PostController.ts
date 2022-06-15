@@ -6,7 +6,7 @@ import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, SYSTEM_LINK_APPLICANT_2, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -169,7 +169,20 @@ export class PostController<T extends AnyObject> {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
       }
     } catch (err) {
-      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
+      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
+    }
+
+    if (req.session.errors.length === 0) {
+      try {
+        req.session.userCase = await req.locals.api.triggerEvent(
+          caseReference as string,
+          formData,
+          SYSTEM_LINK_APPLICANT_2
+        );
+      } catch (err) {
+        req.locals.logger.error('Error linking applicant 2/respondent to  application', err);
+        req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+      }
     }
 
     if (req.session.errors.length) {
