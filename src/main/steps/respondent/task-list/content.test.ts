@@ -19,6 +19,7 @@ const enContent = {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
+    current_or_previous_proceedings: 'Current or previous proceedings',
   },
 };
 const cyContent = {
@@ -36,6 +37,7 @@ const cyContent = {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
+    current_or_previous_proceedings: 'Current or previous proceedings',
   },
 };
 describe('task-list > content', () => {
@@ -71,8 +73,14 @@ describe('task-list > content', () => {
               status: 'IN_PROGRESS',
               text: 'Mediation(MIAM)',
             },
+            {
+              href: '/respondent/proceedings/start',
+              id: 'current-or-previous-proceedings',
+              status: 'TO_DO',
+              text: 'Current or previous proceedings',
+            },
           ],
-          title: 'Application detail',
+          title: 'Application details',
         },
       ],
     },
