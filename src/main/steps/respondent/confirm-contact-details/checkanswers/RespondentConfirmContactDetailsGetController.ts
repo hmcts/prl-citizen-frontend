@@ -2,9 +2,9 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getCaseApi } from '../../../../app/case/CaseApi';
+import { CONFIDENTIAL_DETAILS } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
-import { CONFIDENTIAL_DETAILS } from '../../../../app/case/definition';
 @autobind
 export default class RespondentConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -35,14 +35,16 @@ export default class RespondentConfirmContactDetailsGetController extends GetCon
     //req.session.userCase.applicant1LastNames = 'Smith';
     //req.session.userCase.applicant1PlaceOfBirth = 'London';
 
-    if(!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames){
+    if (!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames) {
       req.session.userCase.applicant1FullName = '<span class="govuk-error-message">Complete this section</span>';
     } else {
-      req.session.userCase.applicant1FullName = req.session.userCase.applicant1FirstNames +" "+req.session.userCase.applicant1LastNames;
+      req.session.userCase.applicant1FullName =
+        req.session.userCase.applicant1FirstNames + ' ' + req.session.userCase.applicant1LastNames;
     }
-    
-    if(!req.session.userCase.applicant1PlaceOfBirth){
-      req.session.userCase.applicant1PlaceOfBirthText = '<span class="govuk-error-message">Complete this section</span>';
+
+    if (!req.session.userCase.applicant1PlaceOfBirth) {
+      req.session.userCase.applicant1PlaceOfBirthText =
+        '<span class="govuk-error-message">Complete this section</span>';
     } else {
       req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth;
     }
@@ -79,7 +81,6 @@ export default class RespondentConfirmContactDetailsGetController extends GetCon
     super.saveSessionAndRedirect(req, res, callback);
   }
 
-  
   private confidentialDetails(req: AppRequest) {
     if (req.session.userCase?.detailsKnown && req.session.userCase?.startAlternative) {
       if (req.session.userCase.contactDetailsPrivate?.length !== 0) {
@@ -119,4 +120,3 @@ export default class RespondentConfirmContactDetailsGetController extends GetCon
     }
   }
 }
-
