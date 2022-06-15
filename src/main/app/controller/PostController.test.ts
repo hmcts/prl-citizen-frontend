@@ -300,7 +300,7 @@ describe('PostController', () => {
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'invalidReference',
-        propertyName: 'caseReference',
+        propertyName: 'caseCode',
       },
     ]);
   });
