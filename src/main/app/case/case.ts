@@ -47,18 +47,28 @@ export interface Case {
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
   supervisionOrder?: orderInterface;
-  emergencyOrderOption?: YesOrNo;
+  emergencyOrderOptions?: YesOrNo;
   emergencyOrder?: orderInterface;
   careOrderOptions?: YesOrNo;
   careOrder?: orderInterface;
   childAbductionOrderOption?: YesOrNo;
   childAbductionOrder?: orderInterface;
-  casOrderOption?: YesOrNo;
-  casOrder?: orderInterface;
+  caOrderOption?: YesOrNo;
+  caOrder?: orderInterface;
   financialOrderOption?: YesOrNo;
   financialOrder?: orderInterface;
   nonmolestationOrderOption?: YesOrNo;
   nonmolestationOrder?: orderInterface;
+  occupationalOrderOptions?: YesOrNo;
+  occupationOrder?: orderInterface;
+  marraigeOrderOptions?: YesOrNo;
+  marraigeOrder?: orderInterface;
+  restrainingOrderOptions?: YesOrNo;
+  restrainingOrder?: orderInterface;
+  injuctiveOrderOptions?: YesOrNo;
+  injuctiveOrder?: orderInterface;
+  underTakingOrderOptions?: YesOrNo;
+  underTakingOrder?: orderInterface;
 }
 
 export interface CaseWithId extends Case {
