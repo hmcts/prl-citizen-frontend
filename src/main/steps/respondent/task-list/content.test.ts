@@ -9,7 +9,7 @@ const enContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.TO_DO]: 'Not Started',
+    [SectionStatus.TO_DO]: 'To Do',
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',

@@ -1,4 +1,3 @@
-// import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT_ADDRESS_BLANK,
@@ -32,7 +31,7 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
@@ -57,8 +56,8 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_ADDRESS_LOOKUP,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => APPLICANT_ADDRESS_LOOKUP,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_ADDRESS_LOOKUP_CONT,
   },
   {
     url: APPLICANT_ADDRESS_LOOKUP_CONT,
