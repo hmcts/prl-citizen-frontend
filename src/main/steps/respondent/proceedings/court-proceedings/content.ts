@@ -40,9 +40,51 @@ const en = {
   summaryText: 'Contacts for help',
   saveAndContinue: 'Save and continue',
   errors: {
-    proceedingsStart: {
-      required: 'Please select an answer',
+    emergencyOrderOptions: {
+      required: 'Please choose an option for emergency order',
     },
+    supervisionOrderOption: {
+      required: 'Please choose an option for supervising order',
+    },
+    careOrderOptions: {
+      required: 'Please choose an option for care order',
+    },
+    childAbductionOrderOption: {
+      required: 'Please choose an option for child abduction order',
+    },
+    caOrderOption: {
+      required: 'Please choose an option for child arrangement order',
+    },
+    financialOrderOption: {
+      required: 'Please choose an option for financial order',
+    },
+    nonmolestationOrderOption: {
+      required: 'Please choose an option for non molestation order',
+    },
+    occupationalOrderOptions: {
+      required: 'Please choose an option for occupational order',
+    },
+    marraigeOrderOptions: {
+      required: 'Please choose an option for non marraige order',
+    },
+    restrainingOrderOptions: {
+      required: 'Please choose an option for restraining order',
+    },
+    injuctiveOrderOptions: {
+      required: 'Please choose an option for injuctive order',
+    },
+    underTakingOrderOptions: {
+      required: 'Please choose an option for undertaking order',
+    },
+    'emergencyOrder.caseNoDetails': {
+      required: 'Please enter case number',
+    },
+    'emergencyOrder.orderDateDetails': {
+      required: 'Please enter order date',
+    },
+    'emergencyOrder.orderTimeDetails': {
+      required: 'Please enter order time details',
+    }
   },
 };
 
@@ -77,10 +119,53 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   saveAndContinue: 'Save and continue',
   errors: {
-    proceedingsStart: {
-      required: 'Please select an answer',
+    emergencyOrderOptions: {
+      required: 'Please choose an option for emergency order',
     },
+    supervisionOrderOption: {
+      required: 'Please choose an option for supervising order',
+    },
+    careOrderOptions: {
+      required: 'Please choose an option for care order',
+    },
+    childAbductionOrderOption: {
+      required: 'Please choose an option for child abduction order',
+    },
+    caOrderOption: {
+      required: 'Please choose an option for child arrangement order',
+    },
+    financialOrderOption: {
+      required: 'Please choose an option for financial order',
+    },
+    nonmolestationOrderOption: {
+      required: 'Please choose an option for non molestation order',
+    },
+    occupationalOrderOptions: {
+      required: 'Please choose an option for occupational order',
+    },
+    marraigeOrderOptions: {
+      required: 'Please choose an option for non marraige order',
+    },
+    restrainingOrderOptions: {
+      required: 'Please choose an option for restraining order',
+    },
+    injuctiveOrderOptions: {
+      required: 'Please choose an option for injuctive order',
+    },
+    underTakingOrderOptions: {
+      required: 'Please choose an option for undertaking order',
+    },
+    'emergencyOrder.caseNoDetails': {
+      required: 'Please enter case number',
+    },
+    'emergencyOrder.orderDateDetails': {
+      required: 'Please enter order date',
+    },
+    'emergencyOrder.orderTimeDetails': {
+      required: 'Please enter order time details',
+    }
   },
+   
 };
 
 const languages = {
@@ -95,6 +180,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.emergencyOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -105,7 +191,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'emergencyOrder.orderDateDetails': {
@@ -144,7 +230,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'emergencyOrder.currentOrderDetails': {
@@ -152,6 +238,7 @@ export const form: FormContent = {
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -168,7 +255,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -189,6 +276,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.supervisionOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -199,7 +287,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'supervisionOrder.orderDateDetails': {
@@ -238,7 +326,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'supervisionOrder.currentOrderDetails': {
@@ -246,6 +334,7 @@ export const form: FormContent = {
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -262,7 +351,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -283,6 +372,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.careOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -293,7 +383,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'careOrder.orderDateDetails': {
@@ -332,7 +422,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'careOrder.currentOrderDetails': {
@@ -340,6 +430,7 @@ export const form: FormContent = {
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -356,7 +447,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -377,6 +468,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.childAbductionOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -387,7 +479,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'childAbductionOrder.orderDateDetails': {
@@ -427,20 +519,21 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             currentOrderLabel: {
               type: 'label',
               classes: 'govuk-label',
               label: l => l.currentorder,
-              labelSize: null,
+              labelSize: 'm',
             },
             'childAbductionOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
               label: l => l.label,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -457,7 +550,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -478,6 +571,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.caOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -488,7 +582,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'caOrder.orderDateDetails': {
@@ -527,7 +621,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'caOrder.currentOrderDetails': {
@@ -535,6 +629,7 @@ export const form: FormContent = {
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -551,7 +646,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -572,6 +667,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.financialOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -582,7 +678,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'financialOrder.orderDateDetails': {
@@ -621,20 +717,21 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'financialOrder.currentOrderLabel': {
               type: 'label',
               classes: 'govuk-label',
               label: l => l.currentorder,
-              labelSize: null,
+              labelSize: 'm',
             },
             'financialOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
               label: l => l.label,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -651,7 +748,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -672,6 +769,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.nonmolestationOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -682,7 +780,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'nonmolestationOrder.orderDateDetails': {
@@ -722,7 +820,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'nonmolestationOrder.currentOrderDetails': {
@@ -730,6 +828,7 @@ export const form: FormContent = {
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -746,7 +845,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -767,6 +866,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.occupationOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -777,7 +877,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'occupationOrder.orderDateDetails': {
@@ -816,20 +916,21 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'occupationOrder.currentOrderLabel': {
               type: 'label',
               classes: 'govuk-label',
               label: l => l.currentorder,
-              labelSize: null,
+              labelSize: 'm',
             },
             'occupationOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -846,7 +947,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -867,6 +968,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.marraigeOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -877,7 +979,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'marraigeOrder.orderDateDetails': {
@@ -916,20 +1018,21 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'marraigeOrder.currentOrderLabel': {
               type: 'label',
               classes: 'govuk-label',
               label: l => l.currentorder,
-              labelSize: null,
+              labelSize: 'm',
             },
             'marraigeOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -946,7 +1049,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -968,6 +1071,7 @@ export const form: FormContent = {
       label: l => l.restrainingOrder,
       hint: h => h.restrainingOrderhint,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -978,7 +1082,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'restrainingOrder.orderDateDetails': {
@@ -1017,20 +1121,21 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'restrainingOrder.currentOrderLabel': {
               type: 'label',
               classes: 'govuk-label',
               label: l => l.currentorder,
-              labelSize: null,
+              labelSize: 'm',
             },
             'restrainingOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -1047,7 +1152,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -1068,6 +1173,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.injuctiveOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -1078,7 +1184,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'injuctiveOrder.orderDateDetails': {
@@ -1117,20 +1223,21 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'injuctiveOrder.currentOrderLabel': {
               type: 'label',
               classes: 'govuk-label',
               label: l => l.currentorder,
-              labelSize: null,
+              labelSize: 'm',
             },
             'injuctiveOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -1147,7 +1254,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },
@@ -1168,6 +1275,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.underTakingOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
@@ -1178,7 +1286,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'underTakingOrder.orderDateDetails': {
@@ -1217,20 +1325,21 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.ordertime,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
             'underTakingOrder.currentOrderLabel': {
               type: 'label',
               classes: 'govuk-label',
               label: l => l.currentorder,
-              labelSize: null,
+              labelSize: 'm',
             },
             'underTakingOrder.currentOrderDetails': {
               type: 'radios',
               classes: 'govuk-radios',
               label: l => l.currentorder,
               section: l => l.section,
+              labelSize: 'm',
               values: [
                 {
                   label: l => l.currentOrderYes,
@@ -1247,7 +1356,7 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.issueorder,
-              labelSize: null,
+              labelSize: 'm',
               validator: isFieldFilledIn,
             },
           },

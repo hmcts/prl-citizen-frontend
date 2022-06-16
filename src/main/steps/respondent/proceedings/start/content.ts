@@ -16,7 +16,10 @@ const en = {
   saveAndContinue: 'Save and continue',
   errors: {
     proceedingsStart: {
-      required: 'Please select an answer',
+      required: 'Please choose an option for court proceedings',
+    },
+    proceedingsStartOrder: {
+      required: 'Please choose an option for court order',
     },
   },
 };
@@ -37,6 +40,9 @@ const cy: typeof en = {
     proceedingsStart: {
       required: 'Please select an answer',
     },
+    proceedingsStartOrder: {
+      required: 'Please select an answer',
+    },
   },
 };
 
@@ -52,6 +58,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.courtCase,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtCaseYes,
@@ -73,6 +80,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.courtOrder,
       section: l => l.section,
+      labelSize: 'm',
       values: [
         {
           label: l => l.courtOrderYes,
