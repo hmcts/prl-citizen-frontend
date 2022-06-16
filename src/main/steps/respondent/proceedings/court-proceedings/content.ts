@@ -84,7 +84,7 @@ const en = {
     },
     'emergencyOrder.orderTimeDetails': {
       required: 'Please enter order time details',
-    }
+    },
   },
 };
 
@@ -163,9 +163,8 @@ const cy: typeof en = {
     },
     'emergencyOrder.orderTimeDetails': {
       required: 'Please enter order time details',
-    }
+    },
   },
-   
 };
 
 const languages = {

@@ -22,18 +22,40 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
 };
 
 export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.proceedingsStart && userCase?.proceedingsStartOrder && userCase?.emergencyOrderOptions 
-        && userCase?.supervisionOrderOption && userCase?.careOrderOptions 
-        && userCase?.childAbductionOrderOption && userCase?.caOrderOption && userCase?.financialOrderOption
-        && userCase?.nonmolestationOrderOption && userCase?.occupationalOrderOptions && userCase?.marraigeOrderOptions
-        && userCase?.restrainingOrderOptions && userCase?.injuctiveOrderOptions && userCase?.underTakingOrderOptions) {
+  if (
+    userCase?.proceedingsStart &&
+    userCase?.proceedingsStartOrder &&
+    userCase?.emergencyOrderOptions &&
+    userCase?.supervisionOrderOption &&
+    userCase?.careOrderOptions &&
+    userCase?.childAbductionOrderOption &&
+    userCase?.caOrderOption &&
+    userCase?.financialOrderOption &&
+    userCase?.nonmolestationOrderOption &&
+    userCase?.occupationalOrderOptions &&
+    userCase?.marraigeOrderOptions &&
+    userCase?.restrainingOrderOptions &&
+    userCase?.injuctiveOrderOptions &&
+    userCase?.underTakingOrderOptions
+  ) {
     return SectionStatus.COMPLETED;
   }
-  if (userCase?.proceedingsStart || userCase?.proceedingsStartOrder || userCase?.supervisionOrderOption 
-    || userCase?.supervisionOrderOption || userCase?.careOrderOptions 
-    || userCase?.childAbductionOrderOption || userCase?.caOrderOption || userCase?.financialOrderOption
-    || userCase?.nonmolestationOrderOption || userCase?.occupationalOrderOptions || userCase?.marraigeOrderOptions
-    || userCase?.restrainingOrderOptions || userCase?.injuctiveOrderOptions || userCase?.underTakingOrderOptions) {
+  if (
+    userCase?.proceedingsStart ||
+    userCase?.proceedingsStartOrder ||
+    userCase?.supervisionOrderOption ||
+    userCase?.supervisionOrderOption ||
+    userCase?.careOrderOptions ||
+    userCase?.childAbductionOrderOption ||
+    userCase?.caOrderOption ||
+    userCase?.financialOrderOption ||
+    userCase?.nonmolestationOrderOption ||
+    userCase?.occupationalOrderOptions ||
+    userCase?.marraigeOrderOptions ||
+    userCase?.restrainingOrderOptions ||
+    userCase?.injuctiveOrderOptions ||
+    userCase?.underTakingOrderOptions
+  ) {
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
