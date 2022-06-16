@@ -20,13 +20,3 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   }
   return SectionStatus.TO_DO;
 };
-
-export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.miamStart && userCase?.miamWillingness) {
-    return SectionStatus.COMPLETED;
-  }
-  if (userCase?.miamStart || userCase?.miamWillingness) {
-    return SectionStatus.IN_PROGRESS;
-  }
-  return SectionStatus.TO_DO;
-};
