@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT_ADDRESS_BLANK,
@@ -8,13 +9,16 @@ import {
   APPLICANT_ADDRESS_LOOKUP_CONT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
-  // APPLICANT_DETAILS_KNOWN,
+  APPLICANT_DETAILS_KNOWN,
   APPLICANT_FIND_ADDRESS,
   APPLICANT_PERSONAL_DETAILS,
   APPLICANT_PRIVATE_DETAILS_CONFIRMED,
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
+  APPLICANT_START_ALTERNATIVE,
   APPLICANT_TASK_LIST_URL,
-  // APPLICANT_START_ALTERNATIVE,
+  // MIAM_ATTEND_WILLINGNESS,
+  // MIAM_START,
+  // MIAM_SUMMARY,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -23,7 +27,19 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
-
+  {
+    url: APPLICANT_DETAILS_KNOWN,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_START_ALTERNATIVE,
+  },
+  {
+    url: APPLICANT_START_ALTERNATIVE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: data =>
+      data.startAlternative === YesOrNo.YES
+        ? APPLICANT_PRIVATE_DETAILS_CONFIRMED
+        : APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
+  },
   {
     url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
@@ -34,6 +50,21 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
+  // {
+  //   url: MIAM_START,
+  //   showInSection: Sections.AboutApplicantCase,
+  //   getNextStep: data => (data.miamStart === YesOrNo.NO ? MIAM_ATTEND_WILLINGNESS : MIAM_SUMMARY),
+  // },
+  // {
+  //   url: MIAM_ATTEND_WILLINGNESS,
+  //   showInSection: Sections.AboutApplicantCase,
+  //   getNextStep: () => MIAM_SUMMARY,
+  // },
+  // {
+  //   url: MIAM_SUMMARY,
+  //   showInSection: Sections.AboutApplicantCase,
+  //   getNextStep: () => APPLICANT_TASK_LIST_URL,
+  // },
   {
     url: APPLICANT_CHECK_ANSWERS,
     showInSection: Sections.AboutApplicantCase,
