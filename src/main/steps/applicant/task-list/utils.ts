@@ -20,3 +20,10 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   }
   return SectionStatus.NOT_STARTED;
 };
+
+export const getYourApplication = (userCase: CaseWithId): SectionStatus => {
+  if (userCase) {
+    return SectionStatus.DOWNLOAD;
+  }
+  return SectionStatus.DOWNLOAD;
+};

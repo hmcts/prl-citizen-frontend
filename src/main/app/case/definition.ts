@@ -733,6 +733,7 @@ export const enum SectionStatus {
   IN_PROGRESS = 'IN_PROGRESS',
   NOT_STARTED = 'NOT_STARTED',
   COMPLETED = 'COMPLETED',
+  DOWNLOAD = 'DOWNLOAD',
 }
 
 export const enum AlternativeServiceMediumType {

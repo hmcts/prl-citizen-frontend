@@ -10,14 +10,17 @@ const enContent = {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.NOT_STARTED]: 'Not Started',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
+    yourApplication: 'Your application',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+    your_application: 'Application submitted (FL401)',
   },
 };
 const cyContent = {
@@ -26,14 +29,17 @@ const cyContent = {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
+    yourApplication: 'Your application',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+    your_application: 'Application submitted (FL401)',
   },
 };
 describe('task-list > content', () => {
@@ -66,6 +72,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'About you',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/public/docs/fl401.pdf',
+              id: 'your-application',
+              status: 'DOWNLOAD',
+              text: 'Application submitted (FL401)',
+            },
+          ],
+          title: 'Your application',
         },
       ],
     },
