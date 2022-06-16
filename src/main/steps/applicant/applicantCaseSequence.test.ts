@@ -21,7 +21,7 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[4].url).toBe('/applicant/confirm-contact-details/personaldetails');
     expect(applicantCaseSequence[4].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[4].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[4].getNextStep({})).toBe('/applicant/confirm-contact-details/checkanswers');
 
     expect(applicantCaseSequence[5].url).toBe('/applicant/confirm-contact-details/contactdetails');
     expect(applicantCaseSequence[5].showInSection).toBe('aboutApplicantCase');

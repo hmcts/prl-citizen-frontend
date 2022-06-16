@@ -42,7 +42,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_PERSONAL_DETAILS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => APPLICANT_CHECK_ANSWERS,
   },
   {
     url: APPLICANT_CONTACT_DETAILS,
