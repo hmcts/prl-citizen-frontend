@@ -16,8 +16,9 @@ services:
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
     clientSecret: 'NEED TO INSERT SECRET'
-    systemUsername: dummy_user
-    systemPassword: dummy_password
+    systemUsername: 'dummy_user'
+    systemPassword: 'dummy_password'
+
 health:
   timeout: 5000
   deadline: 15000
