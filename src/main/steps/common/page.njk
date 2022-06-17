@@ -51,6 +51,7 @@
         {% if title %}
           <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ title }}</h1>
         {% endif %}
+       
       {% endblock %}
       
       {% if form %}
@@ -61,6 +62,11 @@
 
       {% block page_content_under_form %}
       {% endblock %}
+    </div>
+    <div class="govuk-grid-column-one-third">
+        {% block page_contact_us %}
+             {% include "./contact-us.njk" %}
+        {% endblock %}
     </div>
   </div>
 {% endblock %}

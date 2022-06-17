@@ -12,10 +12,15 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
       this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
+      set(config, 'services.case.url', 'https://manage-case.aat.platform.hmcts.net/cases');
     } else {
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
       this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
-      // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      //this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
       // this.setLocalEndpoints();
     }
   }
@@ -33,16 +38,4 @@ export class PropertiesVolume {
     const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
     set(config, toPath, result.toString().replace('\n', ''));
   }
-
-  // private setLocalEndpoints(): void {
-  //   const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
-  //   const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
-
-  //   const endpoints = JSON.parse(decoded.toString());
-
-  //   set(config, 'services.authProvider.url', endpoints.s2s);
-  //   set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
-  //   set(config, 'services.idam.tokenURL', endpoints.idamToken);
-  //   set(config, 'services.case.url', endpoints.ccd);
-  // }
 }

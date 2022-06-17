@@ -1,0 +1,8 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{{ govukDetails({
+  id: field.id if field.id else fieldName,
+  summaryText: getContent(field.label),
+  html: getContent(field.detailsHtml),
+  open: field.open
+}) }}

@@ -311,6 +311,8 @@ export interface CaseData {
   serviceType: string;
   claimNumber: string;
   caseCode: string;
+  respondentFirstName: string;
+  respondentLastName: string;
   
 }
 
@@ -704,7 +706,7 @@ export const enum YesNoNotsure {
 }
 
 export const enum SectionStatus {
-  NOT_STARTED = 'NOT_STARTED',
+  TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED',
 }
@@ -768,8 +770,8 @@ export const enum Court {
   BURY_ST_EDMUNDS = 'buryStEdmunds',
 }
 
-export const enum Adoption {
-  ADOPTION = 'adoption',
+export const enum PrivateLaw {
+  PRIVATELAW = 'prlapps',
 }
 
 export const enum DivorceOrDissolution {
@@ -956,6 +958,15 @@ export const enum ServicePaymentMethod {
 export const enum SolicitorPaymentMethod {
   FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
   FEES_HELP_WITH = 'feesHelpWith',
+}
+
+export interface PRLDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
 }
 
 export const enum State {

@@ -11,6 +11,7 @@ import { CookiesGetController } from './steps/cookies/get';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
+// import { RespondentTaskListGetController } from './steps/respondent/task-list/get';
 import {
   // CSRF_TOKEN_ERROR_URL,
   ACCESSIBILITY_STATEMENT,
@@ -21,8 +22,8 @@ import {
   PRIVACY_POLICY,
   TERMS_AND_CONDITIONS,
   // SAVE_AND_SIGN_OUT,
-  // TASK_LIST_URL,
   // TIMED_OUT_URL,
+  // RESPONDENT_TASK_LIST_URL
 } from './steps/urls';
 
 export class Routes {
@@ -31,6 +32,7 @@ export class Routes {
 
     // app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
+    // app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
