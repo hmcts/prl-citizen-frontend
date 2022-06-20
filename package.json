@@ -115,7 +115,7 @@
     "babel-loader": "^8.2.2",
     "chai": "^4.3.5",
     "chai-as-promised": "^7.1.1",
-    "codeceptjs": "^2.6.11",
+    "codeceptjs": "^3.2.3",
     "concurrently": "^7.0.0",
     "copy-webpack-plugin": "^10.2.1",
     "css-loader": "^6.5.1",
