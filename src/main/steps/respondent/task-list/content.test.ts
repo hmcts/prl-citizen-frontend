@@ -63,7 +63,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
-              status: 'TO_DO',
+              status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
           ],
