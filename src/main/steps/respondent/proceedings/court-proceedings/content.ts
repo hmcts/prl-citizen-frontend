@@ -43,47 +43,218 @@ const en = {
     emergencyOrderOptions: {
       required: 'Please choose an option for emergency order',
     },
+    'emergencyOrder.caseNoDetails': {
+      required: 'please enter emergency order case number',
+    },
+    'emergencyOrder.orderDateDetails': {
+      required: 'please enter emergency order date details',
+    },
+    'emergencyOrder.orderTimeDetails': {
+      required: 'please enter emergency order time details',
+    },
+    'emergencyOrder.currentOrderDetails': {
+      required: 'please enter emergency current order details',
+    },
+    'emergencyOrder.issueOrderDetails': {
+      required: 'please enter emergency issue order details',
+    },
     supervisionOrderOption: {
       required: 'Please choose an option for supervising order',
+    },
+    'supervisionOrder.caseNoDetails': {
+      required: 'please enter supervision order case number',
+    },
+    'supervisionOrder.orderDateDetails': {
+      required: 'please enter supervision order date details',
+    },
+    'supervisionOrder.orderTimeDetails': {
+      required: 'please enter supervision order time details',
+    },
+    'supervisionOrder.currentOrderDetails': {
+      required: 'please enter supervision current order details',
+    },
+    'supervisionOrder.issueOrderDetails': {
+      required: 'please enter supervision issue order details',
     },
     careOrderOptions: {
       required: 'Please choose an option for care order',
     },
+    'careOrder.caseNoDetails': {
+      required: 'please enter care order case number',
+    },
+    'careOrder.orderDateDetails': {
+      required: 'please enter care order date details',
+    },
+    'careOrder.orderTimeDetails': {
+      required: 'please enter care order time details',
+    },
+    'careOrder.currentOrderDetails': {
+      required: 'please enter care current order details',
+    },
+    'careOrder.issueOrderDetails': {
+      required: 'please enter care issue order details',
+    },
     childAbductionOrderOption: {
       required: 'Please choose an option for child abduction order',
+    },
+    'childAbductionOrder.caseNoDetails': {
+      required: 'please enter child abduction order case number',
+    },
+    'childAbductionOrder.orderDateDetails': {
+      required: 'please enter child abduction order date details',
+    },
+    'childAbductionOrder.orderTimeDetails': {
+      required: 'please enter child abduction order time details',
+    },
+    'childAbductionOrder.currentOrderDetails': {
+      required: 'please enter child abduction current order details',
+    },
+    'childAbductionOrder.issueOrderDetails': {
+      required: 'please enter child abduction issue order details',
     },
     caOrderOption: {
       required: 'Please choose an option for child arrangement order',
     },
+    'caOrder.caseNoDetails': {
+      required: 'please enter child arrangements order case number',
+    },
+    'caOrder.orderDateDetails': {
+      required: 'please enter child arrangements order date details',
+    },
+    'caOrder.orderTimeDetails': {
+      required: 'please enter child arrangements order time details',
+    },
+    'caOrder.currentOrderDetails': {
+      required: 'please enter child arrangements current order details',
+    },
+    'caOrder.issueOrderDetails': {
+      required: 'please enter child arrangements issue order details',
+    },
     financialOrderOption: {
       required: 'Please choose an option for financial order',
+    },
+    'financialOrder.caseNoDetails': {
+      required: 'please enter financial order case number',
+    },
+    'financialOrder.orderDateDetails': {
+      required: 'please enter financial order date details',
+    },
+    'financialOrder.orderTimeDetails': {
+      required: 'please enter financial order time details',
+    },
+    'financialOrder.currentOrderDetails': {
+      required: 'please enter financial current order details',
+    },
+    'financialOrder.issueOrderDetails': {
+      required: 'please enter financial issue order details',
     },
     nonmolestationOrderOption: {
       required: 'Please choose an option for non molestation order',
     },
+    'nonmolestationOrder.caseNoDetails': {
+      required: 'please enter nonmolestation order case number',
+    },
+    'nonmolestationOrder.orderDateDetails': {
+      required: 'please enter nonmolestation order date details',
+    },
+    'nonmolestationOrder.orderTimeDetails': {
+      required: 'please enter nonmolestation order time details',
+    },
+    'nonmolestationOrder.currentOrderDetails': {
+      required: 'please enter nonmolestation current order details',
+    },
+    'nonmolestationOrder.issueOrderDetails': {
+      required: 'please enter nonmolestation issue order details',
+    },
     occupationalOrderOptions: {
       required: 'Please choose an option for occupational order',
+    },
+    'occupationOrder.caseNoDetails': {
+      required: 'please enter occupational order case number',
+    },
+    'occupationOrder.orderDateDetails': {
+      required: 'please enter occupational order date details',
+    },
+    'occupationOrder.orderTimeDetails': {
+      required: 'please enter occupational order time details',
+    },
+    'occupationOrder.currentOrderDetails': {
+      required: 'please enter occupational current order details',
+    },
+    'occupationOrder.issueOrderDetails': {
+      required: 'please enter occupational issue order details',
     },
     marraigeOrderOptions: {
       required: 'Please choose an option for non marraige order',
     },
+    'marraigeOrder.caseNoDetails': {
+      required: 'please enter marraige order case number',
+    },
+    'marraigeOrder.orderDateDetails': {
+      required: 'please enter marraige order date details',
+    },
+    'marraigeOrder.orderTimeDetails': {
+      required: 'please enter marraige order time details',
+    },
+    'marraigeOrder.currentOrderDetails': {
+      required: 'please enter marraige current order details',
+    },
+    'marraigeOrder.issueOrderDetails': {
+      required: 'please enter marraige issue order details',
+    },
     restrainingOrderOptions: {
       required: 'Please choose an option for restraining order',
+    },
+    'restrainingOrder.caseNoDetails': {
+      required: 'please enter restraining order case number',
+    },
+    'restrainingOrder.orderDateDetails': {
+      required: 'please enter restraining order date details',
+    },
+    'restrainingOrder.orderTimeDetails': {
+      required: 'please enter restraining order time details',
+    },
+    'restrainingOrder.currentOrderDetails': {
+      required: 'please enter restraining current order details',
+    },
+    'restrainingOrder.issueOrderDetails': {
+      required: 'please enter restraining issue order details',
     },
     injuctiveOrderOptions: {
       required: 'Please choose an option for injuctive order',
     },
+    'injuctiveOrder.caseNoDetails': {
+      required: 'please enter injuctive order case number',
+    },
+    'injuctiveOrder.orderDateDetails': {
+      required: 'please enter injuctive order date details',
+    },
+    'injuctiveOrder.orderTimeDetails': {
+      required: 'please enter injuctive order time details',
+    },
+    'injuctiveOrder.currentOrderDetails': {
+      required: 'please enter injuctive current order details',
+    },
+    'injuctiveOrder.issueOrderDetails': {
+      required: 'please enter injuctive issue order details',
+    },
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
     },
-    'emergencyOrder.caseNoDetails': {
-      required: 'Please enter case number',
+    'underTakingOrder.caseNoDetails': {
+      required: 'please enter undertaking order case number',
     },
-    'emergencyOrder.orderDateDetails': {
-      required: 'Please enter order date',
+    'underTakingOrder.orderDateDetails': {
+      required: 'please enter undertaking order date details',
     },
-    'emergencyOrder.orderTimeDetails': {
-      required: 'Please enter order time details',
+    'underTakingOrder.orderTimeDetails': {
+      required: 'please enter undertaking order time details',
+    },
+    'underTakingOrder.currentOrderDetails': {
+      required: 'please enter undertaking current order details',
+    },
+    'underTakingOrder.issueOrderDetails': {
+      required: 'please enter undertaking issue order details',
     },
   },
 };
@@ -122,47 +293,218 @@ const cy: typeof en = {
     emergencyOrderOptions: {
       required: 'Please choose an option for emergency order',
     },
+    'emergencyOrder.caseNoDetails': {
+      required: 'please enter emergency order case number',
+    },
+    'emergencyOrder.orderDateDetails': {
+      required: 'please enter emergency order date details',
+    },
+    'emergencyOrder.orderTimeDetails': {
+      required: 'please enter emergency order time details',
+    },
+    'emergencyOrder.currentOrderDetails': {
+      required: 'please enter emergency current order details',
+    },
+    'emergencyOrder.issueOrderDetails': {
+      required: 'please enter emergency issue order details',
+    },
     supervisionOrderOption: {
       required: 'Please choose an option for supervising order',
+    },
+    'supervisionOrder.caseNoDetails': {
+      required: 'please enter supervision order case number',
+    },
+    'supervisionOrder.orderDateDetails': {
+      required: 'please enter supervision order date details',
+    },
+    'supervisionOrder.orderTimeDetails': {
+      required: 'please enter supervision order time details',
+    },
+    'supervisionOrder.currentOrderDetails': {
+      required: 'please enter supervision current order details',
+    },
+    'supervisionOrder.issueOrderDetails': {
+      required: 'please enter supervision issue order details',
     },
     careOrderOptions: {
       required: 'Please choose an option for care order',
     },
+    'careOrder.caseNoDetails': {
+      required: 'please enter care order case number',
+    },
+    'careOrder.orderDateDetails': {
+      required: 'please enter care order date details',
+    },
+    'careOrder.orderTimeDetails': {
+      required: 'please enter care order time details',
+    },
+    'careOrder.currentOrderDetails': {
+      required: 'please enter care current order details',
+    },
+    'careOrder.issueOrderDetails': {
+      required: 'please enter care issue order details',
+    },
     childAbductionOrderOption: {
       required: 'Please choose an option for child abduction order',
+    },
+    'childAbductionOrder.caseNoDetails': {
+      required: 'please enter child abduction order case number',
+    },
+    'childAbductionOrder.orderDateDetails': {
+      required: 'please enter child abduction order date details',
+    },
+    'childAbductionOrder.orderTimeDetails': {
+      required: 'please enter child abduction order time details',
+    },
+    'childAbductionOrder.currentOrderDetails': {
+      required: 'please enter child abduction current order details',
+    },
+    'childAbductionOrder.issueOrderDetails': {
+      required: 'please enter child abduction issue order details',
     },
     caOrderOption: {
       required: 'Please choose an option for child arrangement order',
     },
+    'caOrder.caseNoDetails': {
+      required: 'please enter child arrangements order case number',
+    },
+    'caOrder.orderDateDetails': {
+      required: 'please enter child arrangements order date details',
+    },
+    'caOrder.orderTimeDetails': {
+      required: 'please enter child arrangements order time details',
+    },
+    'caOrder.currentOrderDetails': {
+      required: 'please enter child arrangements current order details',
+    },
+    'caOrder.issueOrderDetails': {
+      required: 'please enter child arrangements issue order details',
+    },
     financialOrderOption: {
       required: 'Please choose an option for financial order',
+    },
+    'financialOrder.caseNoDetails': {
+      required: 'please enter financial order case number',
+    },
+    'financialOrder.orderDateDetails': {
+      required: 'please enter financial order date details',
+    },
+    'financialOrder.orderTimeDetails': {
+      required: 'please enter financial order time details',
+    },
+    'financialOrder.currentOrderDetails': {
+      required: 'please enter financial current order details',
+    },
+    'financialOrder.issueOrderDetails': {
+      required: 'please enter financial issue order details',
     },
     nonmolestationOrderOption: {
       required: 'Please choose an option for non molestation order',
     },
+    'nonmolestationOrder.caseNoDetails': {
+      required: 'please enter nonmolestation order case number',
+    },
+    'nonmolestationOrder.orderDateDetails': {
+      required: 'please enter nonmolestation order date details',
+    },
+    'nonmolestationOrder.orderTimeDetails': {
+      required: 'please enter nonmolestation order time details',
+    },
+    'nonmolestationOrder.currentOrderDetails': {
+      required: 'please enter nonmolestation current order details',
+    },
+    'nonmolestationOrder.issueOrderDetails': {
+      required: 'please enter nonmolestation issue order details',
+    },
     occupationalOrderOptions: {
       required: 'Please choose an option for occupational order',
+    },
+    'occupationOrder.caseNoDetails': {
+      required: 'please enter occupational order case number',
+    },
+    'occupationOrder.orderDateDetails': {
+      required: 'please enter occupational order date details',
+    },
+    'occupationOrder.orderTimeDetails': {
+      required: 'please enter occupational order time details',
+    },
+    'occupationOrder.currentOrderDetails': {
+      required: 'please enter occupational current order details',
+    },
+    'occupationOrder.issueOrderDetails': {
+      required: 'please enter occupational issue order details',
     },
     marraigeOrderOptions: {
       required: 'Please choose an option for non marraige order',
     },
+    'marraigeOrder.caseNoDetails': {
+      required: 'please enter marraige order case number',
+    },
+    'marraigeOrder.orderDateDetails': {
+      required: 'please enter marraige order date details',
+    },
+    'marraigeOrder.orderTimeDetails': {
+      required: 'please enter marraige order time details',
+    },
+    'marraigeOrder.currentOrderDetails': {
+      required: 'please enter marraige current order details',
+    },
+    'marraigeOrder.issueOrderDetails': {
+      required: 'please enter marraige issue order details',
+    },
     restrainingOrderOptions: {
       required: 'Please choose an option for restraining order',
+    },
+    'restrainingOrder.caseNoDetails': {
+      required: 'please enter restraining order case number',
+    },
+    'restrainingOrder.orderDateDetails': {
+      required: 'please enter restraining order date details',
+    },
+    'restrainingOrder.orderTimeDetails': {
+      required: 'please enter restraining order time details',
+    },
+    'restrainingOrder.currentOrderDetails': {
+      required: 'please enter restraining current order details',
+    },
+    'restrainingOrder.issueOrderDetails': {
+      required: 'please enter restraining issue order details',
     },
     injuctiveOrderOptions: {
       required: 'Please choose an option for injuctive order',
     },
+    'injuctiveOrder.caseNoDetails': {
+      required: 'please enter injuctive order case number',
+    },
+    'injuctiveOrder.orderDateDetails': {
+      required: 'please enter injuctive order date details',
+    },
+    'injuctiveOrder.orderTimeDetails': {
+      required: 'please enter injuctive order time details',
+    },
+    'injuctiveOrder.currentOrderDetails': {
+      required: 'please enter injuctive current order details',
+    },
+    'injuctiveOrder.issueOrderDetails': {
+      required: 'please enter injuctive issue order details',
+    },
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
     },
-    'emergencyOrder.caseNoDetails': {
-      required: 'Please enter case number',
+    'underTakingOrder.caseNoDetails': {
+      required: 'please enter undertaking order case number',
     },
-    'emergencyOrder.orderDateDetails': {
-      required: 'Please enter order date',
+    'underTakingOrder.orderDateDetails': {
+      required: 'please enter undertaking order date details',
     },
-    'emergencyOrder.orderTimeDetails': {
-      required: 'Please enter order time details',
+    'underTakingOrder.orderTimeDetails': {
+      required: 'please enter undertaking order time details',
+    },
+    'underTakingOrder.currentOrderDetails': {
+      required: 'please enter undertaking current order details',
+    },
+    'underTakingOrder.issueOrderDetails': {
+      required: 'please enter undertaking issue order details',
     },
   },
 };
@@ -185,13 +527,13 @@ export const form: FormContent = {
           label: l => l.courtOrderYes,
           value: 'Yes',
           subFields: {
-            'emergencyOrder.caseNoDetails': {
+           'emergencyOrder.caseNoDetails': {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              validator: value => isFieldFilledIn(value),
             },
             'emergencyOrder.orderDateDetails': {
               type: 'date',
@@ -1371,6 +1713,7 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
+
   },
   submit: {
     text: l => l.saveAndContinue,
