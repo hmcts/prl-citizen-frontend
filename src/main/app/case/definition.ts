@@ -329,7 +329,7 @@ export interface CaseData {
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
-  applicant1PlaceOfText?: string;
+  applicant1PlaceOfBirthText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
@@ -337,7 +337,7 @@ export interface CaseData {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
-  //applicant1LanguagePreference?: LanguagePreference;
+ //applicant1LanguagePreference?: LanguagePreference;
   
 }
 
