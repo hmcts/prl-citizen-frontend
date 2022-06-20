@@ -527,7 +527,7 @@ export const form: FormContent = {
           label: l => l.courtOrderYes,
           value: 'Yes',
           subFields: {
-           'emergencyOrder.caseNoDetails': {
+            'emergencyOrder.caseNoDetails': {
               type: 'text',
               classes: 'govuk-label',
               label: l => l.caseno,
@@ -1713,7 +1713,6 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-
   },
   submit: {
     text: l => l.saveAndContinue,

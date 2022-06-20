@@ -2,7 +2,7 @@ import { repondentCaseSequence } from './respondentcaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(repondentCaseSequence).toHaveLength(13);
+    expect(repondentCaseSequence).toHaveLength(15);
     expect(repondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(repondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -54,5 +54,13 @@ describe('applicant1Sequence', () => {
     expect(repondentCaseSequence[12].url).toBe('/respondent/international-factors/summary');
     expect(repondentCaseSequence[12].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[12].getNextStep({})).toBe('/respondent/task-list');
+
+    expect(repondentCaseSequence[13].url).toBe('/respondent/proceedings/start');
+    expect(repondentCaseSequence[13].showInSection).toBe('aboutRespondentCase');
+    //expect(repondentCaseSequence[13].getNextStep({})).toBe('/respondent/proceedings/court-proceedings');
+
+    expect(repondentCaseSequence[14].url).toBe('/respondent/proceedings/court-proceedings');
+    expect(repondentCaseSequence[14].showInSection).toBe('aboutRespondentCase');
+    expect(repondentCaseSequence[14].getNextStep({})).toBe('/respondent/task-list');
   });
 });
