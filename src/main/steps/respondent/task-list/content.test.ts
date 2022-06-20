@@ -14,11 +14,13 @@ const enContent = {
   sectionTitles: {
     respondentYourDetails: 'Your details',
     applicationDetails: 'Application details',
+    respondentAdditionalInformation: 'Additional information',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
+    international_factors: 'International element',
     current_or_previous_proceedings: 'Current or previous proceedings',
   },
 };
@@ -32,11 +34,13 @@ const cyContent = {
   sectionTitles: {
     respondentYourDetails: 'Your details',
     applicationDetails: 'Application details',
+    respondentAdditionalInformation: 'Additional information',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
+    international_factors: 'International element',
     current_or_previous_proceedings: 'Current or previous proceedings',
   },
 };
@@ -81,6 +85,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Application details',
+        },
+        {
+          items: [
+            {
+              href: '/respondent/international-factors/start',
+              id: 'international-factors',
+              status: 'TO_DO',
+              text: 'International element',
+            },
+          ],
+          title: 'Additional information',
         },
       ],
     },

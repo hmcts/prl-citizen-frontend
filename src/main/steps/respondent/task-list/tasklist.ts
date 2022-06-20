@@ -2,6 +2,8 @@
 import * as URL from '../../urls';
 
 import { getCurrentOrOtherProceedingsStatus, getKeepYourDetailsPrivateStatus, getMiamStatus } from './utils';
+import { getInternationalFactorsStatus, getKeepYourDetailsPrivateStatus, getMiamStatus } from './utils';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
@@ -30,6 +32,17 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.current_or_previous_proceedings,
           status: getCurrentOrOtherProceedingsStatus(userCase),
           href: URL.PROCEEDINGS_START,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.respondentAdditionalInformation,
+      items: [
+        {
+          id: 'international-factors',
+          text: taskListItems.international_factors,
+          status: getInternationalFactorsStatus(userCase),
+          href: URL.INTERNATIONAL_FACTORS_START,
         },
       ],
     },
