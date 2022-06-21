@@ -10,7 +10,7 @@ const enContent = {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'TO DO',
-    [SectionStatus.DOWNLOAD]: 'DOWNLOAD'
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
   },
   sectionTitles: {
     aboutYou: 'About you',
@@ -40,7 +40,7 @@ const cyContent = {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'I WNEUD',
-    [SectionStatus.DOWNLOAD]: 'LLWYTHO'
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
   },
   sectionTitles: {
     aboutYou: 'About you',
@@ -113,10 +113,10 @@ describe('task-list > content', () => {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'witness-statement',
               text: 'Witness statement',
-              status: 'TO_DO'
+              status: 'TO_DO',
             },
           ],
-          title: 'Your application'
+          title: 'Your application',
         },
         {
           items: [
@@ -127,7 +127,7 @@ describe('task-list > content', () => {
               status: 'TO_DO',
             },
           ],
-          title: 'Your court hearings'
+          title: 'Your court hearings',
         },
         {
           items: [
@@ -138,7 +138,7 @@ describe('task-list > content', () => {
               status: 'TO_DO',
             },
           ],
-          title: 'Orders from the court'
+          title: 'Orders from the court',
         },
         {
           items: [
@@ -161,7 +161,7 @@ describe('task-list > content', () => {
               status: 'TO_DO',
             },
           ],
-          title: 'Your documents'
+          title: 'Your documents',
         },
         {
           items: [
@@ -172,8 +172,8 @@ describe('task-list > content', () => {
               status: 'TO_DO',
             },
           ],
-          title: 'Final decision from the court'
-        }
+          title: 'Final decision from the court',
+        },
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {
