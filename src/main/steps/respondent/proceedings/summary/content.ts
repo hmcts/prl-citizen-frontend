@@ -5,8 +5,9 @@ import { PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../../../st
 import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
-  section: 'Check your details',
-  title: 'Current or previous court cases',
+  section: ' ',
+  title: 'Check your answers',
+  title2: 'Current or previous court cases',
   sectionTitles: {
     applicationDetails: 'Application details',
   },
@@ -14,12 +15,43 @@ export const enContent = {
     proceedingsStart: 'Have the children been involved in a court case?',
     proceedingsStartOrder: 'Have you had a court order made for your protection?',
     emergencyOrderOptions: 'Emergency Protection Order',
+    'emergencyOrder.caseNoDetails': 'Case number',
+    'emergencyOrder.orderDateDetails': 'What date was it made',
+    'emergencyOrder.orderTimeDetails': 'How long was the order for?',
+    'emergencyOrder.currentOrderDetails': 'Is this a current order?',
+    'emergencyOrder.issueOrderDetails': 'Which court issued this order?',
+  },
+  dependencies: {
+    'emergencyOrder.caseNoDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
+    'emergencyOrder.orderDateDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
+    'emergencyOrder.orderTimeDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
+    'emergencyOrder.currentOrderDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
+    'emergencyOrder.issueOrderDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
   },
   errors: {},
 };
 
 const en = (content: CommonContent) => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
   return {
     ...enContent,
@@ -29,8 +61,9 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your details',
-  title: 'Current or previous court cases',
+  section: ' ',
+  title: 'Check your answers',
+  title2: 'Current or previous court cases',
   sectionTitles: {
     applicationDetails: 'Application details',
   },
@@ -38,6 +71,38 @@ const cyContent: typeof enContent = {
     proceedingsStart: 'Have the children been involved in a court case?',
     proceedingsStartOrder: 'Have you had a court order made for your protection?',
     emergencyOrderOptions: 'Emergency Protection Order',
+    'emergencyOrder.caseNoDetails': 'Case number',
+    'emergencyOrder.orderDateDetails': 'What date was it made',
+    'emergencyOrder.orderTimeDetails': 'How long was the order for?',
+    'emergencyOrder.currentOrderDetails': 'Is this a current order?',
+    'emergencyOrder.issueOrderDetails': 'Which court issued this order?',
+  },
+  dependencies: {
+    'emergencyOrder.caseNoDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
+    'emergencyOrder.orderDateDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
+    'emergencyOrder.orderTimeDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
+    'emergencyOrder.currentOrderDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
+    'emergencyOrder.issueOrderDetails': {
+      dependantOn: 'emergencyOrderOptions',
+      value: 'Yes',
+      display: true,
+    },
   },
   errors: {},
 };
@@ -49,7 +114,6 @@ const urls = {
 };
 
 const cy: typeof en = (content: CommonContent) => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
   return {
     ...cyContent,
