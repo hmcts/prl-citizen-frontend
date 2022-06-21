@@ -5,8 +5,9 @@ import { getNextStepUrl } from '../../steps';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
+import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, SYSTEM_LINK_APPLICANT_2, State } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -152,37 +153,52 @@ export class PostController<T extends AnyObject> {
     const caseReference = formData.caseCode?.replace(/-/g, '');
     try {
       const caseData = await req.locals.api.getCaseById(caseReference as string);
-      let accessCodeMatched = false;
-
-      caseData.respondentCaseInvites?.forEach(obj => {
-        Object.entries(obj).forEach(([key, value]) => {
-          console.log(key);
-          Object.entries(value).forEach(([key1, value1]) => {
-            if (key1 === 'accessCode' && value1 === formData.accessCode) {
-              accessCodeMatched = true;
-            }
+      let accessCodeMatched = true;
+      let accessCodeLinked = false;
+      const costest = new CosApiClient(req.session, 'test');
+      costest.get();
+      if (caseData.respondentCaseInvites !== null) {
+        caseData.respondentCaseInvites?.forEach(obj => {
+          Object.entries(obj).forEach(([key, value]) => {
+            console.log(key);
+            Object.entries(value).forEach(([key1, value1]) => {
+              if (key1 === 'hasLinked' && value1 === 'Yes') {
+                accessCodeLinked = true;
+              } else {
+                accessCodeLinked = false;
+              }
+              if (key1 === 'accessCode' && value1 === formData.accessCode) {
+                accessCodeMatched = true;
+              }
+            });
           });
         });
-      });
-
+      }
+      if (caseData.applicantCaseInvites !== null) {
+        caseData.applicantCaseInvites?.forEach(obj => {
+          Object.entries(obj).forEach(([key, value]) => {
+            console.log(key);
+            Object.entries(value).forEach(([key1, value1]) => {
+              if (key1 === 'hasLinked' && value1 === 'Yes') {
+                accessCodeLinked = true;
+              } else {
+                accessCodeLinked = false;
+              }
+              if (key1 === 'accessCode' && value1 === formData.accessCode) {
+                accessCodeMatched = true;
+              }
+            });
+          });
+        });
+      }
       if (!accessCodeMatched) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
       }
+      if (accessCodeLinked) {
+        req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
+      }
     } catch (err) {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
-    }
-
-    if (req.session.errors.length === 0) {
-      try {
-        req.session.userCase = await req.locals.api.triggerEvent(
-          caseReference as string,
-          formData,
-          SYSTEM_LINK_APPLICANT_2
-        );
-      } catch (err) {
-        req.locals.logger.error('Error linking applicant 2/respondent to  application', err);
-        req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
-      }
     }
 
     if (req.session.errors.length) {

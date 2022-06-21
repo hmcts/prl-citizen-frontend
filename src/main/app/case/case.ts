@@ -52,6 +52,7 @@ export interface Case {
   respondentFirstName?: string;
   respondentLastName?: string;
   respondentCaseInvites?: CaseInvite[];
+  applicantCaseInvites?: CaseInvite[];
 }
 
 export interface CaseWithId extends Case {

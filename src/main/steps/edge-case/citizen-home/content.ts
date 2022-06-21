@@ -27,6 +27,7 @@ const en = {
       invalid: 'The access code must be made up of 8 characters',
       invalidAccessCode:
         'You have entered the wrong access code. Check your email and enter it again before continuing.',
+      accesscodeAlreadyLinked: 'Provided access code is already linked to the case.',
     },
   },
 };
@@ -54,6 +55,7 @@ const cy: typeof en = {
       invalid: 'Rhowch rif ffôn dilys yn y DU',
       invalidAccessCode:
         'You have entered the wrong access code. Check your email and enter it again before continuing.',
+      accesscodeAlreadyLinked: 'Provided access code is already linked to the case.',
     },
   },
 };

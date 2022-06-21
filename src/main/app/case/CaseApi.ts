@@ -120,31 +120,31 @@ export class CaseApi {
     }
   }
 
-  // private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
-  //   try {
-  //     const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
-  //     const token = tokenResponse.data.token;
-  //     const event = { id: eventName };
+  private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
+    try {
+      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
+      const token = tokenResponse.data.token;
+      const event = { id: eventName };
 
-  //     const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
-  //       event,
-  //       data,
-  //       event_token: token,
-  //     });
-  //     //...fromApiFormat(response.data.data)
-  //     return { id: response.data.id, state: response.data.state, ...response.data.data };
-  //   } catch (err) {
-  //     this.logError(err);
-  //     throw new Error('Case could not be updated.');
-  //   }
-  // }
+      const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
+        event,
+        data,
+        event_token: token,
+      });
+      //...fromApiFormat(response.data.data)
+      return { id: response.data.id, state: response.data.state, ...response.data.data };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
+  }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     //const data = toApiFormat(userData);
     //const data = userData;
     // return this.sendEvent(caseId, data, eventName);
     console.log(eventName);
-    return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
+    return this.sendEvent(caseId, userData, eventName);
   }
 
   // public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {

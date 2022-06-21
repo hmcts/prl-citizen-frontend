@@ -5,13 +5,13 @@ timeout: 30000
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'prl_citizen_frontend'
+    microservice: 'prl_cos_api'
     secret: 'NEED TO INSERT SECRET'
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
-    tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
+    tokenURL: 'http://localhost:5000/o/token'
     clientID: 'prl-citizen-frontend'
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
@@ -20,6 +20,8 @@ services:
     #url: 'http://localhost:4452'
     url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-446.service.core-compute-preview.internal'
     checkDivCases: true
+  cos:
+    url: 'http://localhost:4044'
 health:
   timeout: 5000
   deadline: 15000

@@ -273,13 +273,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/request');
-    expect(req.session.errors).toStrictEqual([
-      {
-        errorType: 'invalidAccessCode',
-        propertyName: 'accessCode',
-      },
-    ]);
+    expect(res.redirect).toBeCalledWith('/citizen-home');
   });
 
   test('Should return error when case reference is invalid and should redirect to the same page', async () => {
