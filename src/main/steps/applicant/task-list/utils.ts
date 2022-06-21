@@ -8,7 +8,7 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
   if (userCase?.detailsKnown || userCase?.startAlternative) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.TO_DO;
+  return SectionStatus.NOT_STARTED;
 };
 
 export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {

@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { getInternationalFactorsStatus, getKeepYourDetailsPrivateStatus, getConfirmOrEditYourContactDetails, getMiamStatus } from './utils';
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus, getMiamStatus, getInternationalFactorsStatus } from './utils';
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
