@@ -1,7 +1,7 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  DETAILS_KNOWN,
+  //DETAILS_KNOWN,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
@@ -25,7 +25,7 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
-  START_ALTERNATIVE,
+  //START_ALTERNATIVE,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
