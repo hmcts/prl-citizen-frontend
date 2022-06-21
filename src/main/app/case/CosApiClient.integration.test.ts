@@ -11,7 +11,6 @@ jest.mock('../auth/service/get-service-auth-token');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('CosApiClient', () => {
-
   it('connect cos api', async () => {
     const mockGet = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data' } });
     mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
