@@ -153,7 +153,7 @@ export class PostController<T extends AnyObject> {
     const caseReference = formData.caseCode?.replace(/-/g, '');
     try {
       const caseData = await req.locals.api.getCaseById(caseReference as string);
-      let accessCodeMatched = true;
+      let accessCodeMatched = false;
       let accessCodeLinked = false;
       const costest = new CosApiClient(req.session, 'test');
       costest.get();
