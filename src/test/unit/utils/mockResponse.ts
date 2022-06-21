@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-export const mockResponse = ({ locals = {} } = {}): Response => {
+export const mockResponse:any = ({ locals = {} } = {}): Response => {
   const res: Partial<Response> = { locals };
 
   res.redirect = jest.fn().mockReturnValue(res);

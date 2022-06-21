@@ -1,6 +1,6 @@
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = ({
+export const mockRequest:any = ({
   headers = {},
   body = {},
   session = {},

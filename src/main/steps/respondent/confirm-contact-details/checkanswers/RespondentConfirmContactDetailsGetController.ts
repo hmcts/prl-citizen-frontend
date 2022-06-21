@@ -1,14 +1,23 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-
+import { Case } from '../../../../app/case/Case';
 import { getCaseApi } from '../../../../app/case/CaseApi';
 import { CONFIDENTIAL_DETAILS } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
+import { CommonContent } from '../../../../steps/common/common.content';
+import { generateContent } from './content';
+
+export type PageContent = Record<string, unknown>;
+export type TranslationFn = (content: CommonContent) => PageContent;
 @autobind
 export default class RespondentConfirmContactDetailsGetController extends GetController {
+
+  constructor() {
+    super(__dirname + '/template', generateContent);
+  }
+
   public async get(req: AppRequest, res: Response): Promise<void> {
-    //console.log('==============RespondentConfirmContactDetailsGetController===============');
     const redirect = false;
 
     if (req.session?.user) {
@@ -20,73 +29,72 @@ export default class RespondentConfirmContactDetailsGetController extends GetCon
     //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
 
     if (!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames) {
-      req.session.userCase.applicant1FullName = '<span class="govuk-error-message">Complete this section</span>';
+      req.session.userCase.applicant1FullName = '';
     } else {
       req.session.userCase.applicant1FullName =
         req.session.userCase.applicant1FirstNames + ' ' + req.session.userCase.applicant1LastNames;
     }
 
     if (!req.session.userCase.applicant1PlaceOfBirth) {
-      req.session.userCase.applicant1PlaceOfBirthText =
-        '<span class="govuk-error-message">Complete this section</span>';
+      req.session.userCase.applicant1PlaceOfBirthText = '';
     } else {
-      req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth;
+      req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth
     }
 
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
     req.session.userCase.applicant1AddressTown = 'London';
     req.session.userCase.applicant1PhoneNumber = '';
-    req.session.userCase.applicant1PhoneNumber =
-      req.session.userCase.applicant1PhoneNumber !== null &&
-      req.session.userCase.applicant1PhoneNumber !== undefined &&
-      req.session.userCase.applicant1PhoneNumber !== ''
-        ? req.session.userCase.applicant1PhoneNumber
-        : '<span class="govuk-error-message">Complete this section</span>';
     req.session.userCase.applicant1EmailAddress = '';
-    req.session.userCase.applicant1EmailAddress =
-      req.session.userCase.applicant1EmailAddress !== ''
-        ? req.session.userCase.applicant1EmailAddress
-        : '<span class="govuk-error-message">Complete this section</span>';
 
-    //keep your details private // done
-    this.confidentialDetails(req);
-
+    validateDataCompletion(req);
+    
+    getConfidentialData(req);
+    
     const callback = redirect ? undefined : () => super.get(req, res);
     super.saveSessionAndRedirect(req, res, callback);
   }
+}
 
-  private confidentialDetails(req: AppRequest) {
+const fieldsArray: string[] = ['applicant1FullName', 'applicant1PlaceOfBirthText', 'applicant1Address1', 'applicant1Address2', 'applicant1AddressTown', 'applicant1PhoneNumber', 'applicant1EmailAddress', 'applicant1DateOfBirth'];
+
+function validateDataCompletion(req: AppRequest<Partial<Case>>) {
+  for (let key in req.session.userCase) {
+    if (fieldsArray.includes(key)) {
+      var value = req.session.userCase[`${key}`];
+      if (typeof value === "string" && (value === null || value === undefined || value.trim() === '')) {
+          req.session.userCase[`${key}`] = 
+          '<span class="govuk-error-message">Complete this section</span>'
+        } 
+     }
+  }
+}
+
+let privateFieldsMap = new Map<string, string>([
+  ["email", "applicant1EmailAddress"],
+  ["phone", "applicant1PhoneNumber"]
+]);
+
+function getConfidentialData(req: AppRequest<Partial<Case>>){
+
+  for (let [key, value] of privateFieldsMap) {
     if (req.session.userCase?.detailsKnown && req.session.userCase?.startAlternative) {
       if (req.session.userCase.contactDetailsPrivate?.length !== 0) {
-        // public // address, email, phone
-        if (req.session.userCase?.contactDetailsPrivate?.includes('phone')) {
-          req.session.userCase.applicant1PhoneNumber = req.session.userCase.applicant1PhoneNumber?.concat(
+        if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
+          req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
             '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PRIVATE + '</span>'
           );
         } else {
-          req.session.userCase.applicant1PhoneNumber = req.session.userCase.applicant1PhoneNumber?.concat(
+          req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
             '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
           );
         }
-
-        if (req.session.userCase?.contactDetailsPrivate?.includes('email')) {
-          req.session.userCase.applicant1EmailAddress = req.session.userCase.applicant1EmailAddress?.concat(
-            '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PRIVATE + '</span>'
-          );
-        } else {
-          req.session.userCase.applicant1EmailAddress = req.session.userCase.applicant1EmailAddress?.concat(
-            '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
-          );
-        }
-      } else {
-        req.session.userCase.applicant1PhoneNumber = req.session.userCase.applicant1PhoneNumber?.concat(
-          '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
-        );
-        req.session.userCase.applicant1EmailAddress = req.session.userCase.applicant1EmailAddress?.concat(
-          '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
-        );
       }
+    } else {
+      req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
+        '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
+      );
     }
   }
+  
 }
