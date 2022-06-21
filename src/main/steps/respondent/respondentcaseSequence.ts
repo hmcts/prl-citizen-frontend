@@ -144,5 +144,5 @@ export const respondentCaseSequence: Step[] = [
     url: INTERNATIONAL_FACTORS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  }
+  },
 ];
