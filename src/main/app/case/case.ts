@@ -70,6 +70,7 @@ export interface Case {
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
   applicant1PhoneNumber?: string;
+  applicant1SafeToCall?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
@@ -81,6 +82,12 @@ export interface Case {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  applicant1PostalAddress1?: string;
+  applicant1PostalAddress2?: string;
+  applicant1PostalAddress3?: string;
+  applicant1PostalAddressTown?: string;
+  applicant1PostalAddressCounty?: string;
+  applicant1PostalAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
 }

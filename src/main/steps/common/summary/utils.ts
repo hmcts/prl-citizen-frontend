@@ -88,8 +88,8 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
-      changeUrl: url,
+      value: checkIfDataPresent(fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key]),
+      changeUrl: url
     };
 
     summaryData.push(row);
@@ -100,6 +100,14 @@ export const summaryList = (
     rows: getSectionSummaryList(summaryData, content),
   };
 };
+
+export const checkIfDataPresent = (field) => {
+  if (field) {
+    return field;
+  } else {
+    return 'Complete this section'
+  }
+}
 
 export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>
   date && !isDateInputInvalid(date)

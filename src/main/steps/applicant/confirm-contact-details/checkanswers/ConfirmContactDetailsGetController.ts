@@ -41,6 +41,7 @@ export default class ConfirmContactDetailsGetController extends GetController {
     req.session.userCase.applicant1PhoneNumber = '1234567890';
     req.session.userCase.applicant1EmailAddress = 'test@gmail.com';
     req.session.userCase.applicant1DateOfBirth = { day: '20', month: '1', year: '2000' };
+    req.session.userCase.applicant1SafeToCall = '9 - 10 am on Monday';
 
     const callback = redirect ? undefined : () => super.get(req, res);
     super.saveSessionAndRedirect(req, res, callback);
