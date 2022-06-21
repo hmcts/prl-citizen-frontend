@@ -1,6 +1,7 @@
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest:any = ({
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const mockRequest: any = ({
   headers = {},
   body = {},
   session = {},
