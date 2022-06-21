@@ -8,15 +8,15 @@ import { UserDetails } from '../controller/AppRequest';
 import { Case, CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
 import {
-  Adoption,
   CASE_TYPE,
   //CITIZEN_ADD_PAYMENT,
   CITIZEN_CREATE,
   CaseData,
   JURISDICTION,
-  //LanguagePreference,
+  LanguagePreference,
   //ListValue,
   //Payment,
+  PrivateLaw,
   State,
 } from './definition';
 //import { fromApiFormat } from './from-api-format';
@@ -30,12 +30,12 @@ export class CaseApi {
   ) {}
 
   public async getOrCreateCase(
-    serviceType: Adoption,
-    userDetails: UserDetails
-    //languagePreference = LanguagePreference.ENGLISH
+    serviceType: PrivateLaw,
+    userDetails: UserDetails,
+    languagePreference = LanguagePreference.ENGLISH
   ): Promise<CaseWithId> {
     const userCase = await this.getCase();
-    return userCase || this.createCase(serviceType, userDetails);
+    return userCase || this.createCase(serviceType, userDetails, languagePreference);
   }
 
   private async getCase(): Promise<CaseWithId | false> {
@@ -59,11 +59,8 @@ export class CaseApi {
   public async getCases(): Promise<CcdV1Response[]> {
     try {
       const response = await this.axios.get<CcdV1Response[]>(
-        `http://ccd-data-store-api-aat.service.core-compute-aat.internal/caseworkers/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases/1652796857708749`
+        `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases`
       );
-      //http://localhost:4452/citizens/beb18a7e-8419-40e4-80dd-ca1636618a3f/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases/1653538384893431
-      //console.log("========64======getCaseById response from server============"+JSON.stringify(response.data));
-      //  /citizens/{uid}/jurisdiction/{jid}/case-types/{ctid}/cases/{cid}:
       return response.data;
     } catch (err) {
       this.logError(err);
@@ -73,29 +70,23 @@ export class CaseApi {
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
-      ///cases/case-details/1651759489115676
-      const response = await this.axios.get<CcdV2Response>(
-        'http://ccd-data-store-api-aat.service.core-compute-aat.internal/cases/' + caseId
-      );
+      const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
       //...fromApiFormat(response.data.data)
-      //console.log("====77======inside getCaseById caseId ======="+caseId);
-      //console.log("=======77=======getCaseById response from server============"+response.data);
-      //return { id: response.data.id, state: response.data.state, ...response.data.data };
-      //const resp =
-      //'{"caseTypeOfApplication":"FL401","respondentsFL401":{"email":null,"gender":null,"address":{"County":null,"Country":null,"PostCode":null,"PostTown":null,"AddressLine1":null,"AddressLine2":null,"AddressLine3":null},"dxNumber":null,"landline":null,"lastName":"kjhlhl","firstName":"hkljhkjh","dateOfBirth":null,"otherGender":null,"phoneNumber":null,"placeOfBirth":null,"previousName":"jk",},"id":"1652796857708749","caseStatus":{"state":"Draft"},"respondentTable":[{"id":"96415943-b965-485a-b94a-8e2cfff2207f","value":{"email":null,"gender":null,"address":{},"dxNumber":null,"lastName":null,"firstName":null,"dateOfBirth":null,"otherGender":null,"phoneNumber":null,"placeOfBirth":null,"previousName":null,}}]}';
-      return { id: '1651759489115676', state: State.AwaitingHWFDecision, ...response.data.data };
-      //return { id: '1651759489115676', state: State.AwaitingHWFDecision, responsedummy };
+      return { id: response.data.id, state: response.data.state, ...response.data.data };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
     }
   }
 
-  private async createCase(serviceType: Adoption, userDetails: UserDetails): Promise<CaseWithId> {
+  private async createCase(
+    serviceType: PrivateLaw,
+    userDetails: UserDetails,
+    languagePreference: LanguagePreference
+  ): Promise<CaseWithId> {
     const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.axios.get(
       `/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`
     );
-
     const token = tokenResponse.data.token;
     const event = { id: CITIZEN_CREATE };
     const data = {
@@ -103,7 +94,7 @@ export class CaseApi {
       applicant1FirstName: userDetails.givenName,
       applicant1LastName: userDetails.familyName,
       applicant1Email: userDetails.email,
-      //applicant1LanguagePreference: languagePreference,
+      applicant1LanguagePreference: languagePreference,
     };
 
     try {
@@ -153,7 +144,7 @@ export class CaseApi {
     //const data = toApiFormat(userData);
     //const data = userData;
     // return this.sendEvent(caseId, data, eventName);
-    console.log('eventName = ' + eventName);
+    console.log(eventName);
     return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
   }
 
@@ -174,9 +165,6 @@ export class CaseApi {
 }
 
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
-  //console.log("s2stoken=====================>"+getServiceAuthToken());
-  //console.log("baseURL=====================>"+config.get('services.case.url'));
-  //console.log("userDetails===============>"+JSON.stringify(userDetails));
   return new CaseApi(
     Axios.create({
       baseURL: config.get('services.case.url'),

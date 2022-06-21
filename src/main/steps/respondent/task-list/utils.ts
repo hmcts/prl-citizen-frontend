@@ -29,4 +29,23 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
+  return SectionStatus.TO_DO;
+};
+
+export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStatus => {
+  if (
+    ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
+    ((userCase?.parents === YesOrNo.YES && userCase?.iFactorsParentsProvideDetails) ||
+      userCase?.parents === YesOrNo.NO) &&
+    ((userCase?.jurisdiction === YesOrNo.YES && userCase?.iFactorsJurisdictionProvideDetails) ||
+      userCase?.jurisdiction === YesOrNo.NO) &&
+    ((userCase?.request === YesOrNo.YES && userCase?.iFactorsRequestProvideDetails) || userCase?.request === YesOrNo.NO)
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+
+  if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
 };

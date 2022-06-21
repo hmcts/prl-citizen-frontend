@@ -9,16 +9,18 @@ const enContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.TO_DO]: 'Not Started',
+    [SectionStatus.TO_DO]: 'To Do',
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
     applicationDetails: 'Application detail',
+    respondentAdditionalInformation: 'Additional information',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
+    international_factors: 'International element',
   },
 };
 const cyContent = {
@@ -31,11 +33,13 @@ const cyContent = {
   sectionTitles: {
     respondentYourDetails: 'Your details',
     applicationDetails: 'Application detail',
+    respondentAdditionalInformation: 'Additional information',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
+    international_factors: 'International element',
   },
 };
 describe('task-list > content', () => {
@@ -79,6 +83,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Application detail',
+        },
+        {
+          items: [
+            {
+              href: '/respondent/international-factors/start',
+              id: 'international-factors',
+              status: 'TO_DO',
+              text: 'International element',
+            },
+          ],
+          title: 'Additional information',
         },
       ],
     },

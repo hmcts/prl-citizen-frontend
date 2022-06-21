@@ -579,6 +579,15 @@ export interface DivorceDocument {
   documentLink: Document;
 }
 
+export interface AdoptionDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
+}
+
 export interface DocAssemblyRequest {
   templateId: string;
   outputType: string;
@@ -795,8 +804,8 @@ export const enum Court {
   BURY_ST_EDMUNDS = 'buryStEdmunds',
 }
 
-export const enum Adoption {
-  ADOPTION = 'adoption',
+export const enum PrivateLaw {
+  PRIVATELAW = 'prlapps',
 }
 
 export const enum DivorceOrDissolution {
