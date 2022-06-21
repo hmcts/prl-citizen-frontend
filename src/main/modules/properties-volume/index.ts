@@ -10,13 +10,13 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
-      this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
-      this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.clientSecret');
+      this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
       this.setSecret('secrets.prl.idam-solicitor-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.idam-solicitor-password', 'services.idam.systemPassword');
     } else {
-      this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
-      this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
       this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
       this.setLocalSecret('idam-solicitor-password', 'services.idam.systemPassword');
       // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
