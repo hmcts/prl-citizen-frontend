@@ -1,6 +1,11 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  INTERNATIONAL_FACTORS_JURISDICTION,
+  INTERNATIONAL_FACTORS_PARENTS,
+  INTERNATIONAL_FACTORS_REQUEST,
+  INTERNATIONAL_FACTORS_START,
+  INTERNATIONAL_FACTORS_SUMMARY,
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
@@ -73,7 +78,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_PERSONAL_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_CHECK_ANSWERS,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
     url: RESPONDENT_CONTACT_DETAILS,
@@ -112,6 +117,31 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_ADDRESS_HISTORY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => INTERNATIONAL_FACTORS_PARENTS,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_PARENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => INTERNATIONAL_FACTORS_JURISDICTION,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_JURISDICTION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => INTERNATIONAL_FACTORS_REQUEST,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_REQUEST,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => INTERNATIONAL_FACTORS_SUMMARY,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

@@ -101,6 +101,14 @@ export const summaryList = (
   };
 };
 
+export const checkIfDataPresent = field => {
+  if (field) {
+    return field;
+  } else {
+    return 'Complete this section';
+  }
+};
+
 export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>
   date && !isDateInputInvalid(date)
     ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')

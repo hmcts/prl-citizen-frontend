@@ -3,7 +3,8 @@ import * as URL from '../../urls';
 
 import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus } from './utils';
 
-export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const generateApplicantTaskList = (sectionTitles: any, taskListItems: any, userCase: any) => {
   return [
     {
       title: sectionTitles.applicantYourDetails,

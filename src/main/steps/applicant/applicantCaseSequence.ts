@@ -11,6 +11,7 @@ import {
   // APPLICANT_DETAILS_KNOWN,
   APPLICANT_FIND_ADDRESS,
   APPLICANT_PERSONAL_DETAILS,
+  APPLICANT_POSTAL_ADDRESS_DETAILS,
   APPLICANT_PRIVATE_DETAILS_CONFIRMED,
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_TASK_LIST_URL,
@@ -72,16 +73,21 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_ADDRESS_CONFIRMATION,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => APPLICANT_CHECK_ANSWERS,
   },
   {
     url: APPLICANT_ADDRESS_BLANK,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => APPLICANT_CHECK_ANSWERS,
   },
   {
     url: APPLICANT_ADDRESS_HISTORY,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => APPLICANT_CHECK_ANSWERS,
+  },
+  {
+    url: APPLICANT_POSTAL_ADDRESS_DETAILS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_CHECK_ANSWERS,
   },
 ];

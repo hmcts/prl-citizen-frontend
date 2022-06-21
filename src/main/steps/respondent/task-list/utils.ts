@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
-import { SectionStatus } from '../../../app/case/definition';
+import { SectionStatus, YesOrNo } from '../../../app/case/definition';
 
-export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionStatus => {
+export const getKeepYourDetailsPrivateStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {
     return SectionStatus.COMPLETED;
   }
@@ -11,7 +11,7 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
   return SectionStatus.TO_DO;
 };
 
-export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {
+export const getConfirmOrEditYourContactDetails = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.applicant1FullName && userCase?.applicant1DateOfBirth && userCase?.applicant1PlaceOfBirth) {
     return SectionStatus.COMPLETED;
   }
@@ -21,11 +21,29 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   return SectionStatus.TO_DO;
 };
 
-export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
+export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.miamStart && userCase?.miamWillingness) {
     return SectionStatus.COMPLETED;
   }
   if (userCase?.miamStart || userCase?.miamWillingness) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
+
+export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
+  if (
+    ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
+    ((userCase?.parents === YesOrNo.YES && userCase?.iFactorsParentsProvideDetails) ||
+      userCase?.parents === YesOrNo.NO) &&
+    ((userCase?.jurisdiction === YesOrNo.YES && userCase?.iFactorsJurisdictionProvideDetails) ||
+      userCase?.jurisdiction === YesOrNo.NO) &&
+    ((userCase?.request === YesOrNo.YES && userCase?.iFactorsRequestProvideDetails) || userCase?.request === YesOrNo.NO)
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+
+  if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
