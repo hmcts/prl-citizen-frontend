@@ -6,6 +6,8 @@ properties([
 
 @Library("Infrastructure")
 
+import uk.gov.hmcts.contino.AppPipelineConfig
+
 def type = "nodejs"
 def product = "prl"
 def component = "citizen-frontend"
