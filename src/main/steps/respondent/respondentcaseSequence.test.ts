@@ -2,7 +2,7 @@ import { respondentCaseSequence } from './respondentcaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(18);
+    expect(respondentCaseSequence).toHaveLength(13);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -35,35 +35,24 @@ describe('applicant1Sequence', () => {
     expect(respondentCaseSequence[7].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[7].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[8].url).toBe('/respondent/confirm-contact-details/checkanswers');
+    expect(respondentCaseSequence[8].url).toBe('/respondent/international-factors/start');
     expect(respondentCaseSequence[8].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[8].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[8].getNextStep({})).toBe('/respondent/international-factors/parents');
 
-    expect(respondentCaseSequence[9].url).toBe('/respondent/confirm-contact-details/personaldetails');
+    expect(respondentCaseSequence[9].url).toBe('/respondent/international-factors/parents');
     expect(respondentCaseSequence[9].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/task-list');
-    expect(repondentCaseSequence[7].url).toBe('/respondent/miam/summary');
-    expect(repondentCaseSequence[7].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[7].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/international-factors/jurisdiction');
 
-    expect(repondentCaseSequence[8].url).toBe('/respondent/international-factors/start');
-    expect(repondentCaseSequence[8].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[8].getNextStep({})).toBe('/respondent/international-factors/parents');
+    expect(respondentCaseSequence[10].url).toBe('/respondent/international-factors/jurisdiction');
+    expect(respondentCaseSequence[10].showInSection).toBe('aboutRespondentCase');
+    expect(respondentCaseSequence[10].getNextStep({})).toBe('/respondent/international-factors/request');
 
-    expect(repondentCaseSequence[9].url).toBe('/respondent/international-factors/parents');
-    expect(repondentCaseSequence[9].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[9].getNextStep({})).toBe('/respondent/international-factors/jurisdiction');
+    expect(respondentCaseSequence[11].url).toBe('/respondent/international-factors/request');
+    expect(respondentCaseSequence[11].showInSection).toBe('aboutRespondentCase');
+    expect(respondentCaseSequence[11].getNextStep({})).toBe('/respondent/international-factors/summary');
 
-    expect(repondentCaseSequence[10].url).toBe('/respondent/international-factors/jurisdiction');
-    expect(repondentCaseSequence[10].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[10].getNextStep({})).toBe('/respondent/international-factors/request');
-
-    expect(repondentCaseSequence[11].url).toBe('/respondent/international-factors/request');
-    expect(repondentCaseSequence[11].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[11].getNextStep({})).toBe('/respondent/international-factors/summary');
-
-    expect(repondentCaseSequence[12].url).toBe('/respondent/international-factors/summary');
-    expect(repondentCaseSequence[12].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[12].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[12].url).toBe('/respondent/international-factors/summary');
+    expect(respondentCaseSequence[12].showInSection).toBe('aboutRespondentCase');
+    expect(respondentCaseSequence[12].getNextStep({})).toBe('/respondent/task-list');
   });
 });

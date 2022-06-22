@@ -1,6 +1,6 @@
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, State } from './definition';
+import { CaseData, ContactDetails, OtherName, State, YesOrNo } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -53,7 +53,6 @@ export interface Case {
   caseCode?: string;
   detailsKnown?: string;
   startAlternative?: string;
-  contactDetailsPrivate?: string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
