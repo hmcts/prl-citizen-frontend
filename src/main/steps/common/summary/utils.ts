@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-//import * as Urls from '../../../../steps/urls';
 
 interface GovUkNunjucksSummary {
   key: {
@@ -60,7 +60,7 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
               items: [
                 {
                   href: changeUrl,
-                  text: 'Edit',
+                  text: 'edit',
                   visuallyHiddenText: `${item.key}`,
                 },
               ],
