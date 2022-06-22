@@ -48,6 +48,11 @@ const en = {
     },
     'emergencyOrder.orderDateDetails': {
       required: 'please enter emergency order date details',
+      invalidDate: 'Emergency order date must be a real date',
+      incompleteDay: 'Emergency order date must include a day',
+      incompleteMonth: 'Emergency order date must include a month',
+      incompleteYear: 'Emergency order date must include a year',
+      invalidDateInFuture: 'Emergency order date must be in the past',
     },
     'emergencyOrder.orderTimeDetails': {
       required: 'please enter emergency order time details',
@@ -298,6 +303,11 @@ const cy: typeof en = {
     },
     'emergencyOrder.orderDateDetails': {
       required: 'please enter emergency order date details',
+      invalidDate: 'Emergency order date must be a real date',
+      incompleteDay: 'Emergency order date must include a day',
+      incompleteMonth: 'Emergency order date must include a month',
+      incompleteYear: 'Emergency order date must include a year',
+      invalidDateInFuture: 'Emergency order date must be in the past',
     },
     'emergencyOrder.orderTimeDetails': {
       required: 'please enter emergency order time details',

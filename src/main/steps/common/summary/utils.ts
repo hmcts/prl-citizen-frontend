@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CaseWithId } from '../../../app/case/case';
+import { isDateInputInvalid } from 'app/form/validation';
+import dayjs from 'dayjs';
+import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 //import * as Urls from '../../../../steps/urls';
 
@@ -75,7 +77,9 @@ export const summaryList = (
   userCase: Partial<CaseWithId>,
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   urls: any,
-  sectionTitle?: string
+  sectionTitle?: string,
+  fieldTypes?: any,
+  language?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
@@ -83,7 +87,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: userCase[key],
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
 
@@ -95,3 +99,8 @@ export const summaryList = (
     rows: getSectionSummaryList(summaryData, content),
   };
 };
+
+export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>
+  date && !isDateInputInvalid(date)
+    ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
+    : '';

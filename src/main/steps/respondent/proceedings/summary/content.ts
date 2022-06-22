@@ -4,6 +4,17 @@ import { CommonContent } from '../../../../steps/common/common.content';
 import { PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../../../steps/urls';
 import { summaryList } from '../../../common/summary/utils';
 
+const fieldType = {
+  proceedingsStart: 'String',
+  proceedingsStartOrder: 'String',
+  emergencyOrderOptions: 'YesOrNo',
+  'emergencyOrder.caseNoDetails': 'String',
+  'emergencyOrder.orderDateDetails': 'Date',
+  'emergencyOrder.orderTimeDetails': 'String',
+  'emergencyOrder.currentOrderDetails': 'YesOrNo',
+  'emergencyOrder.issueOrderDetails': 'String',
+};
+
 export const enContent = {
   section: ' ',
   title: 'Check your answers',
@@ -56,7 +67,9 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls)],
+    sections: [
+      summaryList(enContent, userCase, urls, enContent.sectionTitles.applicationDetails, fieldType, content.language),
+    ],
   };
 };
 
@@ -118,7 +131,16 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, 'applicationDetails')],
+    sections: [
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.applicationDetails,
+        fieldType,
+        content.language
+      ),
+    ],
   };
 };
 
