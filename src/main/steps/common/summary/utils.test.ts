@@ -1,5 +1,5 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { MIAM_START } from '../../urls';
+import { MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
 import { summaryList } from './utils';
 
@@ -17,6 +17,20 @@ const enContent = {
 
 const urls = {
   miamStart: MIAM_START,
+  proceedingsStart: PROCEEDINGS_START,
+  proceedingsStartOrder: PROCEEDINGS_START,
+  emergencyOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS,
+};
+
+const fieldType = {
+  proceedingsStart: 'String',
+  proceedingsStartOrder: 'String',
+  emergencyOrderOptions: 'YesOrNo',
+  'emergencyOrder.caseNoDetails': 'String',
+  'emergencyOrder.orderDateDetails': 'Date',
+  'emergencyOrder.orderTimeDetails': 'String',
+  'emergencyOrder.currentOrderDetails': 'YesOrNo',
+  'emergencyOrder.issueOrderDetails': 'String',
 };
 
 describe('common > summary > utils', () => {
@@ -44,7 +58,7 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(summaryList(enContent, userCase, urls, 'applicationDetails')).toStrictEqual(expected);
+      expect(summaryList(enContent, userCase, urls, 'applicationDetails', fieldType, 'en')).toStrictEqual(expected);
     });
   });
 });

@@ -132,14 +132,7 @@ const cy: typeof en = (content: CommonContent) => {
     ...cyContent,
     language: content.language,
     sections: [
-      summaryList(
-        enContent,
-        userCase,
-        urls,
-        enContent.sectionTitles.applicationDetails,
-        fieldType,
-        content.language
-      ),
+      summaryList(enContent, userCase, urls, enContent.sectionTitles.applicationDetails, fieldType, content.language),
     ],
   };
 };
