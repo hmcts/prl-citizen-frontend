@@ -151,53 +151,51 @@ export class PostController<T extends AnyObject> {
     req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseCode?.replace(/-/g, '');
     try {
-      if (!req.session.errors.length)
-      {
-      const caseData = await req.locals.api.getCaseById(caseReference as string);
-      let accessCodeMatched = false;
-      let accessCodeLinked = false;
-      if (caseData.respondentCaseInvites !== null) {
-        caseData.respondentCaseInvites?.forEach(obj => {
-          Object.entries(obj).forEach(([key, value]) => {
-            console.log(key);
-            Object.entries(value).forEach(([key1, value1]) => {
-              if (key1 === 'hasLinked' && value1 === 'Yes') {
-                accessCodeLinked = true;
-              } else {
-                accessCodeLinked = false;
-              }
-              if (key1 === 'accessCode' && value1 === formData.accessCode) {
-                accessCodeMatched = true;
-              }
+      if (!req.session.errors.length) {
+        const caseData = await req.locals.api.getCaseById(caseReference as string);
+        let accessCodeMatched = false;
+        let accessCodeLinked = false;
+        if (caseData.respondentCaseInvites !== null) {
+          caseData.respondentCaseInvites?.forEach(obj => {
+            Object.entries(obj).forEach(([key, value]) => {
+              console.log(key);
+              Object.entries(value).forEach(([key1, value1]) => {
+                if (key1 === 'hasLinked' && value1 === 'Yes') {
+                  accessCodeLinked = true;
+                } else {
+                  accessCodeLinked = false;
+                }
+                if (key1 === 'accessCode' && value1 === formData.accessCode) {
+                  accessCodeMatched = true;
+                }
+              });
             });
           });
-        });
-      }
-      if (caseData.applicantCaseInvites !== null) {
-        caseData.applicantCaseInvites?.forEach(obj => {
-          Object.entries(obj).forEach(([key, value]) => {
-            console.log(key);
-            Object.entries(value).forEach(([key1, value1]) => {
-              if (key1 === 'hasLinked' && value1 === 'Yes') {
-                accessCodeLinked = true;
-              } else {
-                accessCodeLinked = false;
-              }
-              if (key1 === 'accessCode' && value1 === formData.accessCode) {
-                accessCodeMatched = true;
-              }
+        }
+        if (caseData.applicantCaseInvites !== null) {
+          caseData.applicantCaseInvites?.forEach(obj => {
+            Object.entries(obj).forEach(([key, value]) => {
+              console.log(key);
+              Object.entries(value).forEach(([key1, value1]) => {
+                if (key1 === 'hasLinked' && value1 === 'Yes') {
+                  accessCodeLinked = true;
+                } else {
+                  accessCodeLinked = false;
+                }
+                if (key1 === 'accessCode' && value1 === formData.accessCode) {
+                  accessCodeMatched = true;
+                }
+              });
             });
           });
-        });
-      
+        }
+        if (!accessCodeMatched) {
+          req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        }
+        if (accessCodeLinked) {
+          req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
+        }
       }
-      if (!accessCodeMatched) {
-        req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
-      }
-      if (accessCodeLinked) {
-        req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
-      }
-    }
     } catch (err) {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
