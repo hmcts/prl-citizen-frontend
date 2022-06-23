@@ -1,8 +1,9 @@
+import { FieldPrefix } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
-import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../urls';
+//import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../urls';
 
 export const enContent = {
   section: 'Check your details',
@@ -12,7 +13,7 @@ export const enContent = {
   },
   keys: {
     applicant1FullName: 'Name',
-    applicant1DateOfBirthText: 'Date of birth',
+    applicant1DateOfBirth: 'Date of birth',
     applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
@@ -29,7 +30,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language, FieldPrefix.RESPONDENT)],
   };
 };
 
@@ -41,7 +42,7 @@ const cyContent: typeof enContent = {
   },
   keys: {
     applicant1FullName: 'Name',
-    applicant1DateOfBirthText: 'Date of birth',
+    applicant1DateOfBirth: 'Date of birth',
     applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
@@ -52,17 +53,17 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  applicant1FullName: PERSONAL_DETAILS,
-  applicant1DateOfBirthText: PERSONAL_DETAILS,
-  applicant1PlaceOfBirthText: PERSONAL_DETAILS,
-  address: ADDRESS_DETAILS,
-  addressHistory: ADDRESS_HISTORY,
-  applicant1PhoneNumber: CONTACT_DETAILS,
-  applicant1EmailAddress: CONTACT_DETAILS,
+  applicant1FullName: '_PERSONAL_DETAILS',
+  applicant1DateOfBirth: '_PERSONAL_DETAILS',
+  applicant1PlaceOfBirthText: '_PERSONAL_DETAILS',
+  address: '_ADDRESS_DETAILS',
+  addressHistory: '_ADDRESS_HISTORY',
+  applicant1PhoneNumber: '_CONTACT_DETAILS',
+  applicant1EmailAddress: '_CONTACT_DETAILS',
 };
 const fieldType = {
   applicant1FullName: 'String',
-  applicant1DateOfBirthText: 'Date',
+  applicant1DateOfBirth: 'Date',
   applicant1PlaceOfBirthText: 'String',
   address: 'String',
   addressHistory: 'String',
@@ -75,7 +76,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language, FieldPrefix.RESPONDENT)],
   };
 };
 

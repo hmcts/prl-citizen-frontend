@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import dayjs from 'dayjs';
 
-import { CaseDate, CaseWithId } from '../../../app/case/case';
+import { CaseDate, CaseWithId, FieldPrefix } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-
+import * as Urls from '../../../steps/urls';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -37,7 +37,7 @@ interface SummaryListRow {
   classes?: string;
 }
 
-interface SummaryList {
+export interface SummaryList {
   title: string;
   rows: GovUkNunjucksSummary[];
 }
@@ -80,16 +80,27 @@ export const summaryList = (
   urls: any,
   sectionTitle?: string,
   fieldTypes?: any,
-  language?: string
+  language?: string,
+  prefix?: FieldPrefix
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
     const keyLabel = keys[key];
     const url = urls[key];
+    console.log('key = ' + key);
+    console.log('keyLabel = ' + keyLabel);
+    console.log('url = ' + url);
+    let curl = '';
+    if (!prefix) {
+      curl = url;
+    } else {
+      curl = Urls[`${prefix}${url}`];
+    }
+    console.log('completeurl = ' + curl);
     const row = {
       key: keyLabel,
       valueHtml: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
-      changeUrl: url,
+      changeUrl: !prefix ? url : Urls[`${prefix}${url}`],
     };
 
     summaryData.push(row);

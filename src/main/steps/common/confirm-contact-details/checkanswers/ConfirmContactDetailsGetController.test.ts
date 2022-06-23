@@ -1,15 +1,15 @@
 import { defaultViewArgs } from '../../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { generatePageContent } from '../../../common/common.content';
-import RespondentConfirmContactDetailsGetController from '../checkanswers/RespondentConfirmContactDetailsGetController';
+import { generatePageContent } from '../../common.content';
 
+import ConfirmContactDetailsGetController from './ConfirmContactDetailsGetController';
 import { generateContent } from './content';
 
-describe('RespondentConfirmContactDetailsGetController', () => {
-  const controller = new RespondentConfirmContactDetailsGetController();
+describe('ConfirmContactDetailsGetController', () => {
+  const controller = new ConfirmContactDetailsGetController();
 
-  test('Should render the Respondent Confirm Contact Details page', async () => {
+  test('Should render the  Confirm Contact Details page', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
@@ -29,7 +29,7 @@ describe('RespondentConfirmContactDetailsGetController', () => {
     );
   });
 
-  test('Should render the Respondent Confirm Contact Details page with confidential data case1', async () => {
+  test('Should render the  Confirm Contact Details page with confidential data case1', async () => {
     const req = mockRequest();
     const res = mockResponse();
 
@@ -56,7 +56,7 @@ describe('RespondentConfirmContactDetailsGetController', () => {
 
   ///
 
-  test('Should render the Respondent Confirm Contact Details page with confidential data case2', async () => {
+  test('Should render the  Confirm Contact Details page with confidential data case2', async () => {
     const req = mockRequest();
     const res = mockResponse();
 
@@ -83,7 +83,7 @@ describe('RespondentConfirmContactDetailsGetController', () => {
 
   //////
 
-  test('Should render the Respondent Confirm Contact Details page with confidential data case3', async () => {
+  test('Should render the  Confirm Contact Details page with confidential data case3', async () => {
     const req = mockRequest();
     const res = mockResponse();
 
@@ -109,7 +109,7 @@ describe('RespondentConfirmContactDetailsGetController', () => {
   });
   ////
 
-  test('Should render the Respondent Confirm Contact Details page with confidential data case4', async () => {
+  test('Should render the  Confirm Contact Details page with confidential data case4', async () => {
     const req = mockRequest();
     const res = mockResponse();
 
