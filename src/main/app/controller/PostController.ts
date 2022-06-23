@@ -5,7 +5,6 @@ import { getNextStepUrl } from '../../steps';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
-import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -155,8 +154,6 @@ export class PostController<T extends AnyObject> {
       const caseData = await req.locals.api.getCaseById(caseReference as string);
       let accessCodeMatched = false;
       let accessCodeLinked = false;
-      const costest = new CosApiClient(req.session, 'test');
-      costest.get();
       if (caseData.respondentCaseInvites !== null) {
         caseData.respondentCaseInvites?.forEach(obj => {
           Object.entries(obj).forEach(([key, value]) => {
