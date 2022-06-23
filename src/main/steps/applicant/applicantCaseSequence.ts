@@ -1,4 +1,3 @@
-// import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT_ADDRESS_BLANK,
