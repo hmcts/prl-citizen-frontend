@@ -27,6 +27,9 @@ export class OidcMiddleware {
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
+          req.locals.api = getCaseApi(req.session.user, req.locals.logger);
+          await req.locals.api.triggerEvent(req.session.userCase.caseCode,req.session.user,'link-citizen-case');
+          req.session.userCase = await req.locals.api.getCase();
           req.session.save(() => res.redirect('/dashboard'));
         } else {
           if (!req.session?.accessCodeLoginIn) {

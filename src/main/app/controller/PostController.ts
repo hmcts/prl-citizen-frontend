@@ -153,7 +153,7 @@ export class PostController<T extends AnyObject> {
     const caseReference = formData.caseCode?.replace(/-/g, '');
     try {
       const caseData = await req.locals.api.getCaseById(caseReference as string);
-      let accessCodeMatched = true;
+      let accessCodeMatched = false;
       let accessCodeLinked = false;
       const costest = new CosApiClient(req.session, 'test');
       costest.get();
@@ -192,13 +192,13 @@ export class PostController<T extends AnyObject> {
         });
       }
       if (!accessCodeMatched) {
-        req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        //req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
       }
       if (accessCodeLinked) {
         req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
       }
     } catch (err) {
-      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
+      //req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 
     if (req.session.errors.length) {
