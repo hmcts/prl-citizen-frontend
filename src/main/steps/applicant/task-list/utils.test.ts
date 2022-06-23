@@ -3,10 +3,7 @@ import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 // import { CaseWithId } from '../../../app/case/case';
 // import { SectionStatus } from '../../../app/case/definition';
 
-import {
-  getConfirmOrEditYourContactDetails,
-  getMiamStatus
-} from './utils';
+import { getConfirmOrEditYourContactDetails, getMiamStatus } from './utils';
 
 describe('utils', () => {
   describe('getConfirmOrEditYourContactDetails', () => {
@@ -26,7 +23,7 @@ describe('utils', () => {
           applicant1FullName: 'Firstname lastname',
           applicant1PlaceOfBirth: 'LONDON',
           applicant1DateOfBirth: { day: '11', month: '11', year: '2011' },
-      },
+        },
         expected: 'COMPLETED',
       },
       {
@@ -34,17 +31,14 @@ describe('utils', () => {
           ...mockUserCase,
           applicant1FullName: undefined,
           applicant1PlaceOfBirth: undefined,
-          applicant1DateOfBirth: undefined
-          
-      },
+          applicant1DateOfBirth: undefined,
+        },
         expected: 'TO_DO',
       },
-
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getConfirmOrEditYourContactDetails(data)).toBe(expected);
     });
   });
-
 
   describe('getMiamStatus', () => {
     test.each([
@@ -52,7 +46,7 @@ describe('utils', () => {
         data: {
           ...mockUserCase,
           miamStart: 'Yes',
-          miamWillingness: 'Yes'
+          miamWillingness: 'Yes',
         },
         expected: 'COMPLETED',
       },
@@ -60,7 +54,7 @@ describe('utils', () => {
         data: {
           ...mockUserCase,
           miamStart: '',
-          miamWillingness: ''
+          miamWillingness: '',
         },
         expected: 'TO_DO',
       },
@@ -68,14 +62,12 @@ describe('utils', () => {
         data: {
           ...mockUserCase,
           miamStart: undefined,
-          miamWillingness: undefined
+          miamWillingness: undefined,
         },
         expected: 'TO_DO',
       },
-
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getMiamStatus(data)).toBe(expected);
     });
   });
-
 });
