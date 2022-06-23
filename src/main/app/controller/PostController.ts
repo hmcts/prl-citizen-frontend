@@ -151,6 +151,8 @@ export class PostController<T extends AnyObject> {
     req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseCode?.replace(/-/g, '');
     try {
+      if (!req.session.errors.length)
+      {
       const caseData = await req.locals.api.getCaseById(caseReference as string);
       let accessCodeMatched = false;
       let accessCodeLinked = false;
@@ -187,6 +189,7 @@ export class PostController<T extends AnyObject> {
             });
           });
         });
+      
       }
       if (!accessCodeMatched) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
@@ -194,6 +197,7 @@ export class PostController<T extends AnyObject> {
       if (accessCodeLinked) {
         req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
       }
+    }
     } catch (err) {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
