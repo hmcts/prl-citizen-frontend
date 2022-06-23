@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
 import {
@@ -7,6 +6,7 @@ import {
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
 } from './utils';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
