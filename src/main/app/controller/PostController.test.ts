@@ -273,7 +273,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/citizen-home');
+    expect(res.redirect).toBeCalledWith('/request');
   });
 
   test('Should return error when case reference is invalid and should redirect to the same page', async () => {
