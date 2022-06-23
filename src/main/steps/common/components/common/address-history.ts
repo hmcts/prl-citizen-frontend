@@ -18,7 +18,25 @@ const en = {
   addAnotherAddress: 'Add another address',
   errors: {
     addressHistory: {
-      required: 'Enter your details known',
+      required: 'Enter your address History',
+    },
+    buildingAndStreet: {
+      required: 'Enter your building and street',
+    },
+    buildingAndStreet1: {
+      required: 'Enter your building and street line2',
+    },
+    buildingAndStreet2: {
+      required: 'Enter your building and street line3',
+    },
+    townOrCity: {
+      required: 'Enter your town or city',
+    },
+    country: {
+      required: 'Enter your country',
+    },
+    postcode: {
+      required: 'Enter your postcode',
     },
   },
 };
@@ -39,7 +57,25 @@ const cy: typeof en = {
   addAnotherAddress: 'Add another address',
   errors: {
     addressHistory: {
-      required: 'Enter your details known',
+      required: 'Enter your address History',
+    },
+    buildingAndStreet: {
+      required: 'Enter your building and street',
+    },
+    buildingAndStreet1: {
+      required: 'Enter your building and street line2',
+    },
+    buildingAndStreet2: {
+      required: 'Enter your building and street line3',
+    },
+    townOrCity: {
+      required: 'Enter your town or city',
+    },
+    country: {
+      required: 'Enter your country',
+    },
+    postcode: {
+      required: 'Enter your postcode',
     },
   },
 };
@@ -121,9 +157,6 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.continue,
-  },
-  saveAsDraft: {
-    text: l => l.addAnotherAddress,
   },
 };
 
