@@ -4,12 +4,12 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State, RESPONDENTS_DETAILS,APPLICANTS_DETAILS } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
-
 import { AppRequest } from './AppRequest';
-
+import { toApiFormat } from '../case/to-api-format';
+import { CaseData } from '../case/definition';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
@@ -63,9 +63,12 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-
-    req.session.userCase = await this.save(req, formData, this.getEventName(req));
-
+    const data = toApiFormat(formData);
+    
+    if (Object.keys(data).length != 0) {
+      console.log('Object is empty'); 
+      req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
+    } 
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);
   }
@@ -85,8 +88,21 @@ export class PostController<T extends AnyObject> {
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     try {
       console.log(eventName);
-      Object.assign(req.session.userCase, formData);
-      // req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+      //Object.assign(req.session.userCase, formData);
+      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+    } catch (err) {
+      req.locals.logger.error('Error saving', err);
+      req.session.errors = req.session.errors || [];
+      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+    }
+    return req.session.userCase;
+  }
+
+  protected async saveData(req: AppRequest<T>, formData: Partial<Case>, eventName: string, data:Partial<CaseData>): Promise<CaseWithId> {
+    try {
+      console.log(eventName);
+      //Object.assign(req.session.userCase, formData);
+      req.session.userCase = await req.locals.api.triggerEventWithData(req.session.userCase.id, formData, eventName, data);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
       req.session.errors = req.session.errors || [];
@@ -131,6 +147,16 @@ export class PostController<T extends AnyObject> {
 
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
+    console.log("req.url => "+req.url);
+    console.log("req.baseUrl => "+req.baseUrl);
+    console.log("req.originalUrl => "+req.originalUrl);
+    
+    if(req.url.indexOf('/respondent/keep-details-private') != -1 ){
+      return RESPONDENTS_DETAILS;
+    }
+    else if(req.url.indexOf('/applicant/keep-details-private') != -1){
+      return APPLICANTS_DETAILS;
+    }
     return CITIZEN_UPDATE;
   }
 

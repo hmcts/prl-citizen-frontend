@@ -313,7 +313,8 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  contactDetailsPrivate: string;
+  //contactDetailsPrivate: string;
+  contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
@@ -1324,6 +1325,8 @@ export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const RESPONDENTS_DETAILS = 'respondentsDetails';
+export const APPLICANTS_DETAILS = 'applicantsDetails';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';

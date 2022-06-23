@@ -1,28 +1,28 @@
-// import dayjs from 'dayjs';
-// import advancedFormat from 'dayjs/plugin/advancedFormat';
-// import { invert } from 'lodash';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import { invert } from 'lodash';
 
-// import { Case, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
-// import { CaseData, ListValue, PlacementOrder, YesOrNo } from './definition';
+import { Case, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData, /*ListValue, PlacementOrder, */ YesOrNo } from './definition';
 // import {
 //   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
 //   fromApiApplicant2 as uploadedFilesFromApiApplicant2,
 // } from './formatter/uploaded-files';
 
-// dayjs.extend(advancedFormat);
+dayjs.extend(advancedFormat);
 
-// type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
+type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
-// const checkboxConverter = (value: string | undefined) => {
-//   if (!value) {
-//     return undefined;
-//   }
+const checkboxConverter = (value: string | undefined) => {
+  if (!value) {
+    return undefined;
+  }
+  console.log("checkboxConverter => "+checkboxConverter);
+  return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
+};
 
-//   return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
-// };
-
-// const fields: FromApiConverters = {
-//   ...invert(formFieldsToCaseMapping),
+const fields: FromApiConverters = {
+  ...invert(formFieldsToCaseMapping),
 //   applicant1AdditionalNames: data => ({
 //     applicant1AdditionalNames: data.applicant1AdditionalNames?.map(item => ({ id: item.id, ...item.value })),
 //   }),
@@ -87,15 +87,15 @@
 //   dueDate: data => ({
 //     dueDate: dayjs(data.dueDate).format('D MMMM YYYY'),
 //   }),
-// };
+};
 
-// const fromApiDate = date => {
-//   if (!date) {
-//     return;
-//   }
+const fromApiDate = date => {
+  if (!date) {
+    return;
+  }
+console.log("fromApiDate=======>"+fromApiDate);
+  const [y, m, d] = date.split('-');
+  return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
+};
 
-//   const [y, m, d] = date.split('-');
-//   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
-// };
-
-// export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
+export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);

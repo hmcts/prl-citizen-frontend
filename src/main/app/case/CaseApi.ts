@@ -19,8 +19,8 @@ import {
   PrivateLaw,
   State,
 } from './definition';
-//import { fromApiFormat } from './from-api-format';
-//import { toApiFormat } from './to-api-format';
+import { fromApiFormat } from './from-api-format';
+import { toApiFormat } from './to-api-format';
 
 export class CaseApi {
   constructor(
@@ -121,31 +121,59 @@ export class CaseApi {
     }
   }
 
-  // private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
-  //   try {
-  //     const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
-  //     const token = tokenResponse.data.token;
-  //     const event = { id: eventName };
+  private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
+    try {
+      this.axios.interceptors.request.use(function (config) {
+        console.log("config.url=>"+JSON.stringify(config.url));
+        console.log("config.baseURL=>"+JSON.stringify(config.baseURL));
+        console.log("config.headers=>"+JSON.stringify(config.headers));
+        console.log("config.data=>"+JSON.stringify(config.data));
+        console.log("config =========>"+JSON.stringify(config));
+        return config;
+      }, function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+      });
+      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
+      const token = tokenResponse.data.token;
+      const event = { id: eventName };
 
-  //     const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
-  //       event,
-  //       data,
-  //       event_token: token,
-  //     });
-  //     //...fromApiFormat(response.data.data)
-  //     return { id: response.data.id, state: response.data.state, ...response.data.data };
-  //   } catch (err) {
-  //     this.logError(err);
-  //     throw new Error('Case could not be updated.');
-  //   }
-  // }
+      const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
+        event,
+        data,
+        event_token: token,
+      });
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
+  }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    //const data = toApiFormat(userData);
-    //const data = userData;
+    // const data = toApiFormat(userData);
+    // const data = userData;
     // return this.sendEvent(caseId, data, eventName);
-    console.log(eventName);
-    return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
+    // console.log(eventName);
+    // return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
+    ////
+  
+    const data = toApiFormat(userData);
+    return this.sendEvent(caseId, data, eventName);
+    
+  }
+
+  public async triggerEventWithData(caseId: string, userData: Partial<Case>, eventName: string, data: Partial<CaseData>): Promise<CaseWithId> {
+    // const data = toApiFormat(userData);
+    // const data = userData;
+    // return this.sendEvent(caseId, data, eventName);
+    // console.log(eventName);
+    // return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
+    ////
+  
+    //const data = toApiFormat(userData);
+    return this.sendEvent(caseId, data, eventName);
+    
   }
 
   // public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {

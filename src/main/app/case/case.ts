@@ -59,7 +59,8 @@ export interface Case {
   confirmcontactdetails?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
-  contactDetailsPrivate?: string;
+  contactDetailsPrivate?: ContactDetails[];
+  //contactDetailsPrivate?: string;
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
