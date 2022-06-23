@@ -24,4 +24,14 @@ describe('CosApiClient', () => {
 
     expect(actual).toEqual({ mockPayment: 'data' });
   });
+
+  it('logs errors if it fails to fetch data', async () => {
+    const mockGet = jest.fn().mockRejectedValueOnce({ data: { some: 'error' } });
+    mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
+    const req = mockRequest();
+
+    const client = new CosApiClient(req.session, 'http://return-url');
+
+    await client.get();
+  });
 });
