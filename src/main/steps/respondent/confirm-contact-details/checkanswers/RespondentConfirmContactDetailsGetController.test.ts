@@ -28,4 +28,26 @@ describe('RespondentConfirmContactDetailsGetController', () => {
       })
     );
   });
+
+  test('Should render the Respondent Confirm Contact Details page with confidential data', async () => {
+    const req = mockRequest();
+    const res = mockResponse();
+    await controller.get(req, res);
+    const language = 'en';
+    req.session.userCase.detailsKnown = 'Yes';
+    req.session.userCase.startAlternative = 'Yes';
+    req.session.userCase.contactDetailsPrivate = ['address', 'email'];
+    expect(res.render).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...generatePageContent({
+          language,
+          pageContent: generateContent,
+          userEmail: 'test@example.com',
+          userCase: req.session.userCase,
+        }),
+        ...defaultViewArgs,
+      })
+    );
+  });
 });

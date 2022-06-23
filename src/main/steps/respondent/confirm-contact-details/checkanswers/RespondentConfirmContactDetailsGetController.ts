@@ -24,10 +24,7 @@ export default class RespondentConfirmContactDetailsGetController extends GetCon
     if (req.session?.user) {
       res.locals.isLoggedIn = true;
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-      //return next();
     }
-
-    //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
 
     if (!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames) {
       req.session.userCase.applicant1FullName = '';
