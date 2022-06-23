@@ -42,7 +42,6 @@ export const PRIVATE_DETAILS_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/priv
 export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_not_confirmed`;
 /* keep-details-private-end */
 
-
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
 /* respondent-keep-details-private */
@@ -112,7 +111,6 @@ export const APPLICANT_START_ALTERNATIVE: PageLink = `${APPLICANT}${START_ALTERN
 export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_CONFIRMED}`;
 export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
 /* applicant-keep-details-private-end */
-
 
 /* fl401 applicant document list */
 export const APPLICANT_ALL_DOCUEMNTS: PageLink = `${APPLICANT}/alldocuments`;

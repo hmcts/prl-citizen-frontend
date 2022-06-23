@@ -14,7 +14,6 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[2].url).toBe('/respondent/keep-details-private/start_alternative');
     expect(respondentCaseSequence[2].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[2].getNextStep({})).toBe(
-
       '/respondent/keep-details-private/private_details_not_confirmed'
     );
 
@@ -68,7 +67,6 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[18].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[18].getNextStep({})).toBe('/respondent/international-factors/parents');
 
-
     expect(respondentCaseSequence[19].url).toBe('/respondent/international-factors/parents');
     expect(respondentCaseSequence[19].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[19].getNextStep({})).toBe('/respondent/international-factors/jurisdiction');
@@ -84,6 +82,5 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[22].url).toBe('/respondent/international-factors/summary');
     expect(respondentCaseSequence[22].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[22].getNextStep({})).toBe('/respondent/task-list');
-
   });
 });

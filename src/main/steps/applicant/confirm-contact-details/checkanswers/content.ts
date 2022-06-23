@@ -7,7 +7,7 @@ import {
   APPLICANT_ADDRESS_HISTORY,
   APPLICANT_CONTACT_DETAILS,
   APPLICANT_PERSONAL_DETAILS,
-  APPLICANT_POSTAL_ADDRESS_DETAILS
+  APPLICANT_POSTAL_ADDRESS_DETAILS,
 } from '../../../urls';
 
 export const enContent = {
@@ -25,7 +25,7 @@ export const enContent = {
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
     applicant1EmailAddress: 'Email',
-    applicant1SafeToCall: 'When it is safe to call you'
+    applicant1SafeToCall: 'When it is safe to call you',
   },
   errors: {},
 };
@@ -56,7 +56,7 @@ const cyContent: typeof enContent = {
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
     applicant1EmailAddress: 'Email',
-    applicant1SafeToCall: 'When it is safe to call you'
+    applicant1SafeToCall: 'When it is safe to call you',
   },
   errors: {},
 };
@@ -70,7 +70,7 @@ const urls = {
   postalAddress: APPLICANT_POSTAL_ADDRESS_DETAILS,
   applicant1PhoneNumber: APPLICANT_CONTACT_DETAILS,
   applicant1EmailAddress: APPLICANT_CONTACT_DETAILS,
-  applicant1SafeToCall: APPLICANT_CONTACT_DETAILS
+  applicant1SafeToCall: APPLICANT_CONTACT_DETAILS,
 };
 const fieldType = {
   applicant1FullName: 'String',
@@ -81,7 +81,7 @@ const fieldType = {
   addressHistory: 'String',
   applicant1PhoneNumber: 'String',
   applicant1EmailAddress: 'String',
-  applicant1SafeToCall: 'String'
+  applicant1SafeToCall: 'String',
 };
 
 const cy: typeof en = (content: CommonContent) => {

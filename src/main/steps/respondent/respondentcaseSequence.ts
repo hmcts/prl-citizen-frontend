@@ -142,8 +142,7 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
->>>>>>>>> Temporary merge branch 2
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  }
+  },
 ];

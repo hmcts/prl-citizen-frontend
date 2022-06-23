@@ -66,7 +66,7 @@ export const form: FormContent = {
       classes: 'govuk-input--width-20',
       hint: l => l.safeToCallHint,
       label: l => l.safeToCall,
-      labelSize: null
+      labelSize: null,
     },
   },
   submit: {
