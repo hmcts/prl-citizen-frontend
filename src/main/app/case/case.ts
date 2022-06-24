@@ -28,6 +28,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetails: 'applicant1ContactDetails',
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
+  citizenRole: 'citizenRole',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -100,6 +101,7 @@ export interface Case {
   applicant1PostalAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
+  citizenRole?: FieldPrefix;
 }
 
 export interface CaseWithId extends Case {

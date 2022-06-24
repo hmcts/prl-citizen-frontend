@@ -1,3 +1,4 @@
+import { FieldPrefix } from '../../../../app/case/case';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
@@ -14,7 +15,7 @@ export default class RespondentConfirmContactDetailsGetController extends Confir
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    Object.assign(req.session.userCase.serviceType, 'respondent');
+    req.session.userCase.citizenRole = FieldPrefix.RESPONDENT;
     super.get(req, res);
   }
 }

@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 
-import { CaseDate } from './case';
+import { CaseDate, FieldPrefix } from './case';
 
 export interface Address {
   AddressLine1: string;
@@ -338,6 +338,7 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
  //applicant1LanguagePreference?: LanguagePreference;
+ citizenRole?: FieldPrefix;
   
 }
 

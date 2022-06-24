@@ -2,13 +2,6 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
-import {
-  APPLICANT_ADDRESS_DETAILS,
-  APPLICANT_ADDRESS_HISTORY,
-  APPLICANT_CONTACT_DETAILS,
-  APPLICANT_PERSONAL_DETAILS,
-  APPLICANT_POSTAL_ADDRESS_DETAILS,
-} from '../../../urls';
 
 export const enContent = {
   section: 'Check your details',
@@ -34,10 +27,11 @@ const en = (content: CommonContent) => {
   const userCase = content.userCase!;
   const dob = userCase.applicant1DateOfBirth;
   getFormattedDate(dob);
+  const citizenRole = userCase?.citizenRole;
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
+    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language,citizenRole)],
   };
 };
 
@@ -62,15 +56,15 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  applicant1FullName: APPLICANT_PERSONAL_DETAILS,
-  applicant1DateOfBirth: APPLICANT_PERSONAL_DETAILS,
-  applicant1PlaceOfBirthText: APPLICANT_PERSONAL_DETAILS,
-  address: APPLICANT_ADDRESS_DETAILS,
-  addressHistory: APPLICANT_ADDRESS_HISTORY,
-  postalAddress: APPLICANT_POSTAL_ADDRESS_DETAILS,
-  applicant1PhoneNumber: APPLICANT_CONTACT_DETAILS,
-  applicant1EmailAddress: APPLICANT_CONTACT_DETAILS,
-  applicant1SafeToCall: APPLICANT_CONTACT_DETAILS,
+  applicant1FullName: '_PERSONAL_DETAILS',
+  applicant1DateOfBirth: '_PERSONAL_DETAILS',
+  applicant1PlaceOfBirthText: '_PERSONAL_DETAILS',
+  address: '_ADDRESS_DETAILS',
+  addressHistory: '_ADDRESS_HISTORY',
+  postalAddress: '_POSTAL_ADDRESS_DETAILS',
+  applicant1PhoneNumber: '_CONTACT_DETAILS',
+  applicant1EmailAddress: '_CONTACT_DETAILS',
+  applicant1SafeToCall: '_CONTACT_DETAILS',
 };
 const fieldType = {
   applicant1FullName: 'String',
@@ -86,10 +80,13 @@ const fieldType = {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
+  const dob = userCase.applicant1DateOfBirth;
+  getFormattedDate(dob);
+  const citizenRole = userCase?.citizenRole;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language,citizenRole)],
   };
 };
 
