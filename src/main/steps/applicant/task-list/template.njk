@@ -1,0 +1,53 @@
+{% extends "common/tasklist/template.njk" %}
+
+{% block progressBar %}
+
+     <div class="hmcts-progress-bar-vertical" role="progressbar">
+        <ol class="hmcts-progress-bar__list">
+        
+          <li class="hmcts-progress-bar__list-item">
+            <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete progress-bar-line"></span>
+            <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Current Step 1: </span>Application submitted</span>
+          </li>
+          
+          <li class="hmcts-progress-bar__list-item">
+            <span class="hmcts-progress-bar__icon"></span>
+            <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 2: </span>Hearings</span>
+          </li>
+          
+          <li class="hmcts-progress-bar__list-item">
+            <span class="hmcts-progress-bar__icon"></span>
+            <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 3: </span>Orders &amp; hearings outcome</span>
+          </li>
+
+          <li class="hmcts-progress-bar__list-item">
+            <span class="hmcts-progress-bar__icon"></span>
+            <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 4: </span>Case closed</span>
+          </li>
+
+        </ol>
+      </div>
+{% endblock %}
+
+{% block notificationBanner %}
+
+<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Important
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <p class="govuk-notification-banner__heading">We are reviewing your application.</p>
+          <p class="govuk-body">We will email you to tell you what you need to do next. </p>
+          <p class="govuk-body">You should check the <strong><span style="color:#1d70b8">About you section</span></strong> and make sure the information is up to date.</p>
+          <p class="govuk-body">
+            <a href="/public/docs/fl401.pdf" target="_blank" aria-describedby="">Application submitted (FL401)</a><br>
+            <a href="aboutyou/confidentiality/detailsknown" target="_blank" aria-describedby="">Keep your details private</a><br>
+            <a href="/public/docs/witness.pdf" target="_blank" aria-describedby="">Witness statement</a>
+          </p>
+        </div>
+      </div>
+
+{% endblock %}
+
