@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { CommonContent } from '../../../../steps/common/common.content';

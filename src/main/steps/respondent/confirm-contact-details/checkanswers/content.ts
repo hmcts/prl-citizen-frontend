@@ -72,15 +72,15 @@ const fieldType = {
 };
 
 const cy: typeof en = (content: CommonContent) => {
-    const userCase = content.userCase!;
-    const dob = userCase.applicant1DateOfBirth;
-    getFormattedDate(dob);
-    const citizenRole = userCase.citizenRole;
-    return {
-      ...cyContent,
-      language: content.language,
-      sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language, citizenRole)],
-    };
+  const userCase = content.userCase!;
+  const dob = userCase.applicant1DateOfBirth;
+  getFormattedDate(dob);
+  const citizenRole = userCase.citizenRole;
+  return {
+    ...cyContent,
+    language: content.language,
+    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language, citizenRole)],
+  };
 };
 
 export const form: FormContent = {
