@@ -87,16 +87,6 @@ export const summaryList = (
   for (const key in keys) {
     const keyLabel = keys[key];
     const url = urls[key];
-    console.log('key = ' + key);
-    console.log('keyLabel = ' + keyLabel);
-    console.log('url = ' + url);
-    let curl = '';
-    if (!prefix) {
-      curl = url;
-    } else {
-      curl = Urls[`${prefix}${url}`];
-    }
-    console.log('completeurl = ' + curl);
     const row = {
       key: keyLabel,
       valueHtml: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
