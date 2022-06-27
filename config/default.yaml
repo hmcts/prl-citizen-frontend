@@ -3,6 +3,9 @@ security:
 port: 3001
 timeout: 30000
 services:
+  postcodeLookup:
+    url: 'https://api.os.uk/search/places/v1'
+    token: '9oh2HJoAgzZK6CeeypJkIbHjwgzkxN2p'
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'prl_citizen_frontend'

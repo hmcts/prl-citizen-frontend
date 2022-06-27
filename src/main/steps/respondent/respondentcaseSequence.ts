@@ -8,8 +8,6 @@ import {
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
   RESPONDENT_ADDRESS_HISTORY,
-  RESPONDENT_ADDRESS_LOOKUP,
-  RESPONDENT_ADDRESS_LOOKUP_CONT,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_DETAILS_KNOWN,
@@ -17,6 +15,7 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
+  RESPONDENT_SELECT_ADDRESS,
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
 } from '../urls';
@@ -82,22 +81,22 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_ADDRESS_DETAILS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ADDRESS_LOOKUP,
-  },
-  {
-    url: RESPONDENT_ADDRESS_LOOKUP,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ADDRESS_LOOKUP_CONT,
-  },
-  {
-    url: RESPONDENT_ADDRESS_LOOKUP_CONT,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ADDRESS_CONFIRMATION,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => RESPONDENT_FIND_ADDRESS,
   },
   {
     url: RESPONDENT_FIND_ADDRESS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => RESPONDENT_SELECT_ADDRESS,
+  },
+  {
+    url: RESPONDENT_FIND_ADDRESS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => RESPONDENT_SELECT_ADDRESS,
+  },
+  {
+    url: RESPONDENT_SELECT_ADDRESS,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => RESPONDENT_ADDRESS_CONFIRMATION,
   },
   {

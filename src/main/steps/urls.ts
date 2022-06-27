@@ -14,6 +14,11 @@ export const DASHBOARD_URL: PageLink = '/dashboard';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
 export const EDGE_CASE_URL: PageLink = '/edge-case';
 
+export const FIND_ADDRESS: PageLink = '/address/lookup';
+export const SELECT_ADDRESS: PageLink = '/address/select';
+export const EMAIL_ADDRESS: PageLink = '/email-address';
+export const MANUAL_ADDRESS: PageLink = '/address/manual';
+
 export const COOKIES_PAGE: PageLink = '/cookies';
 export const PRIVACY_POLICY: PageLink = '/privacy-policy';
 export const ACCESSIBILITY_STATEMENT: PageLink = '/accessibility-statement';
@@ -28,7 +33,6 @@ export const CONTACT_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/contactdeta
 export const ADDRESS_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressdetails`;
 export const ADDRESS_LOOKUP: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresslookup`;
 export const ADDRESS_LOOKUP_CONT: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresslookupcont`;
-export const FIND_ADDRESS: PageLink = `${ADDRESS_LOOKUP}`;
 export const ADDRESS_CONFIRMATION: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressconfirmation`;
 export const ADDRESS_BLANK: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressblank`;
 export const ADDRESS_HISTORY: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresshistory`;
@@ -66,12 +70,16 @@ export const RESPONDENT_CHECK_ANSWERS: PageLink = `${RESPONDENT}${CHECK_ANSWERS}
 export const RESPONDENT_PERSONAL_DETAILS: PageLink = `${RESPONDENT}${PERSONAL_DETAILS}`;
 export const RESPONDENT_CONTACT_DETAILS: PageLink = `${RESPONDENT}${CONTACT_DETAILS}`;
 export const RESPONDENT_ADDRESS_DETAILS: PageLink = `${RESPONDENT}${ADDRESS_DETAILS}`;
-export const RESPONDENT_ADDRESS_LOOKUP: PageLink = `${RESPONDENT}${ADDRESS_LOOKUP}`;
-export const RESPONDENT_ADDRESS_LOOKUP_CONT: PageLink = `${RESPONDENT}${ADDRESS_LOOKUP_CONT}`;
-export const RESPONDENT_FIND_ADDRESS: PageLink = `${RESPONDENT_ADDRESS_LOOKUP}`;
+
 export const RESPONDENT_ADDRESS_CONFIRMATION: PageLink = `${RESPONDENT}${ADDRESS_CONFIRMATION}`;
 export const RESPONDENT_ADDRESS_BLANK: PageLink = `${RESPONDENT}${ADDRESS_BLANK}`;
 export const RESPONDENT_ADDRESS_HISTORY: PageLink = `${RESPONDENT}${ADDRESS_HISTORY}`;
+
+export const RESPONDENT_FIND_ADDRESS: PageLink = `${RESPONDENT_CONFIRM_CONTACT_DETAILS}/address/lookup`;
+export const RESPONDENT_SELECT_ADDRESS: PageLink = `${RESPONDENT_CONFIRM_CONTACT_DETAILS}/address/select`;
+export const RESPONDENT_MANUAL_ADDRESS: PageLink = `${RESPONDENT_CONFIRM_CONTACT_DETAILS}/address/manual`;
+
+
 /* respondent-confirm-contact-details-end */
 
 /* Applicant-start */
@@ -86,10 +94,18 @@ export const APPLICANT_CONTACT_DETAILS: PageLink = `${APPLICANT}${CONTACT_DETAIL
 export const APPLICANT_ADDRESS_DETAILS: PageLink = `${APPLICANT}${ADDRESS_DETAILS}`;
 export const APPLICANT_ADDRESS_LOOKUP: PageLink = `${APPLICANT}${ADDRESS_LOOKUP}`;
 export const APPLICANT_ADDRESS_LOOKUP_CONT: PageLink = `${APPLICANT}${ADDRESS_LOOKUP_CONT}`;
-export const APPLICANT_FIND_ADDRESS: PageLink = `${APPLICANT_ADDRESS_LOOKUP}`;
+
 export const APPLICANT_ADDRESS_CONFIRMATION: PageLink = `${APPLICANT}${ADDRESS_CONFIRMATION}`;
 export const APPLICANT_ADDRESS_BLANK: PageLink = `${APPLICANT}${ADDRESS_BLANK}`;
 export const APPLICANT_ADDRESS_HISTORY: PageLink = `${APPLICANT}${ADDRESS_HISTORY}`;
+
+
+
+export const APPLICANT_FIND_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/lookup`;
+export const APPLICANT_SELECT_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/select`;
+export const APPLICANT_MANUAL_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/manual`;
+
+
 /* respondent-confirm-contact-details-end */
 
 /* applicant-respondent-keep-details-private */
