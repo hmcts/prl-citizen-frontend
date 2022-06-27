@@ -8,6 +8,7 @@ import {
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
 } from './utils';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const generateRespondentTaskList = (
