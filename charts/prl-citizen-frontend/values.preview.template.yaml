@@ -17,6 +17,8 @@ nodejs:
         - AppInsightsInstrumentationKey
         - prl-citizen-frontend-idam-client-secret
         - microservicekey-prl-citizen-frontend
+        - prl-cos-idam-client-secret
+        - microservicekey-prl-cos-api
         - system-update-user-username
         - system-update-user-password
         - idam-solicitor-username

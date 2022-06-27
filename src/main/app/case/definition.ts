@@ -313,7 +313,8 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  
+  accessCode: string;
+  respondentCaseInvites: CaseInvite[]
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -352,9 +353,11 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
-  applicant2InviteEmailAddress: string;
+  partyId: string;
+  caseInviteEmail: string
   accessCode: string;
-  applicant2UserId: string;
+  invitedUserId: string;
+  expiryDate: string;
 }
 
 export interface ConditionalOrder {
@@ -1323,7 +1326,7 @@ export const SUBMIT_AOS = 'submit-aos';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
-export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_LINK_APPLICANT_2 = 'citizen-update-application';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
