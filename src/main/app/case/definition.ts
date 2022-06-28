@@ -597,6 +597,15 @@ export interface DocumentInfo {
   binaryUrl: string;
 }
 
+export interface PRLDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
+}
+
 export interface Letter {
   divorceDocument: DivorceDocument;
   count: number;
@@ -1129,6 +1138,7 @@ export const enum DocumentType {
   RESPONDENT_INVITATION = 'aos',
   SOLICITOR_SERVICE = 'solicitorService',
   WELSH_TRANSLATION = 'welshTranslation',
+  YOUR_APPLICATION_FL401 = 'yourApplicationFL401'
 }
 
 export const enum PaymentStatus {
