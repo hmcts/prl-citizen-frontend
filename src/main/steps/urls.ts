@@ -113,3 +113,11 @@ export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${
 
 /* fl401 applicant document list */
 export const APPLICANT_ALL_DOCUEMNTS: PageLink = `${APPLICANT}/alldocuments`;
+
+/* your needs when you go to court */
+export const YOUR_NEEDS_WHEN_GO_TO_COURT: PageLink = `${APPLICANT}/your-needs-when-go-to-court`;
+export const LANGUAGE_REQUIREMENTS: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/language-requirements`;
+export const REASONABLE_ADJUSTMENTS: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/reasonable-adjustments`;
+export const DOCUMENTS_SUPPORT: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/documents-support`;
+export const COMMUNICATION_HELP: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/communication-help`;
+export const COURT_HEARING_SUPPORT: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/court-hearing-support`;

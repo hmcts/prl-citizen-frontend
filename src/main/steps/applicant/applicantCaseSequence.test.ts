@@ -2,7 +2,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(13);
+    expect(applicantCaseSequence).toHaveLength(19);
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/task-list');
@@ -54,5 +54,35 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[12].url).toBe('/applicant/confirm-contact-details/addresshistory');
     expect(applicantCaseSequence[12].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[12].getNextStep({})).toBe('/applicant/task-list');
+
+    expect(applicantCaseSequence[13].url).toBe('/applicant/your-needs-when-go-to-court');
+    expect(applicantCaseSequence[13].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[13].getNextStep({})).toBe(
+      '/applicant/your-needs-when-go-to-court/language-requirements'
+    );
+
+    expect(applicantCaseSequence[14].url).toBe('/applicant/your-needs-when-go-to-court/language-requirements');
+    expect(applicantCaseSequence[14].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[14].getNextStep({})).toBe(
+      '/applicant/your-needs-when-go-to-court/reasonable-adjustments'
+    );
+
+    expect(applicantCaseSequence[15].url).toBe('/applicant/your-needs-when-go-to-court/reasonable-adjustments');
+    expect(applicantCaseSequence[15].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[15].getNextStep({})).toBe('/applicant/your-needs-when-go-to-court/documents-support');
+
+    expect(applicantCaseSequence[16].url).toBe('/applicant/your-needs-when-go-to-court/documents-support');
+    expect(applicantCaseSequence[16].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[16].getNextStep({})).toBe('/applicant/your-needs-when-go-to-court/communication-help');
+
+    expect(applicantCaseSequence[17].url).toBe('/applicant/your-needs-when-go-to-court/communication-help');
+    expect(applicantCaseSequence[17].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[17].getNextStep({})).toBe(
+      '/applicant/your-needs-when-go-to-court/court-hearing-support'
+    );
+
+    expect(applicantCaseSequence[18].url).toBe('/applicant/your-needs-when-go-to-court/court-hearing-support');
+    expect(applicantCaseSequence[18].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[18].getNextStep({})).toBe('/applicant/task-list');
   });
 });

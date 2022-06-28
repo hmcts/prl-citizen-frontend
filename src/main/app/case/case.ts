@@ -89,6 +89,8 @@ export interface Case {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  languageRequirements?: string;
+  reasonableAdjustments?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
 }

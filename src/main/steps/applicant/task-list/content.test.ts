@@ -93,7 +93,7 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '/applicant/confirm-contact-details/checkanswers',
+              href: '/applicant/your-needs-when-go-to-court/language-requirements',
               id: 'your-needs-when-go-to-court',
               text: 'Your needs when you go to court',
               status: 'TO_DO',
