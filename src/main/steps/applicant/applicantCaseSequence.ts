@@ -63,31 +63,31 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_ADDRESS_LOOKUP_CONT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_ADDRESS_CONFIRMATION,
+    getNextStep: () => APPLICANT_ADDRESS_LOOKUP_CONT,
   },
   {
     url: APPLICANT_FIND_ADDRESS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_ADDRESS_CONFIRMATION,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_ADDRESS_CONFIRMATION,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_CHECK_ANSWERS,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_ADDRESS_BLANK,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_CHECK_ANSWERS,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_ADDRESS_HISTORY,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_CHECK_ANSWERS,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_POSTAL_ADDRESS_DETAILS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_CHECK_ANSWERS,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
 ];
