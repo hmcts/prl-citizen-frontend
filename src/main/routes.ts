@@ -43,7 +43,7 @@ export class Routes {
     // app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
 
     const documentManagerController = new DocumentManagerController();
-    //console.log("<TEST> documentManagerController "+documentManagerController);
+
     app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
 
     for (const step of stepsWithContent) {

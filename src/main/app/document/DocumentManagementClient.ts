@@ -7,9 +7,6 @@ export class DocumentManagementClient {
   client: AxiosInstance;
 
   constructor(baseURL: string, authToken: string, private readonly user: UserDetails) {
-    // console.log('DocumentManagementClient baseURL====>'+baseURL);
-    // console.log('DocumentManagementClient service Token====>'+authToken);
-    // console.log('DocumentManagementClient Bearer authToken====>'+`Bearer ${user.accessToken}`);
     this.client = Axios.create({
       baseURL,
       headers: {
@@ -20,8 +17,6 @@ export class DocumentManagementClient {
   }
 
   async get({ url }: { url: string }): Promise<AxiosResponse> {
-    //console.log('get DocumentManagementClient url====>'+url);
-
     return this.client.get(url, {
       responseType: 'arraybuffer',
       headers: { 'user-id': this.user.id, 'user-roles': UserRole.CITIZEN },
