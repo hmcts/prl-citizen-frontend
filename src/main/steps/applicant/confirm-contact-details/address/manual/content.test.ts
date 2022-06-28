@@ -1,10 +1,10 @@
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { ResourceReader } from '../../../../modules/resourcereader/ResourceReader';
-import { CommonContent } from '../../../common/common.content';
+import { FormContent, FormFields, FormOptions } from '../../../../../app/form/Form';
+import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
+import { CommonContent } from '../../../../common/common.content';
 import {
   generateContent as generateManualAddressContent,
   form as manualAddressForm,
-} from '../../../common/components/address-manual';
+} from '../../../../common/components/address-manual';
 
 import { generateContent } from './content';
 

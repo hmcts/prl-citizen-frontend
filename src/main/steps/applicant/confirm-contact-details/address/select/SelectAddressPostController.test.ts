@@ -1,5 +1,5 @@
-import SelectAddressPostControllerBase from '../../../../app/address/SelectAddressPostControllerBase';
-import { FieldPrefix } from '../../../../app/case/case';
+import SelectAddressPostControllerBase from '../../../../../app/address/SelectAddressPostControllerBase';
+import { FieldPrefix } from '../../../../../app/case/case';
 
 import SelectAddressPostController from './SelectAddressPostController';
 
@@ -15,6 +15,6 @@ describe('applicant1 > address > select > SelectAddressPostController', () => {
   });
 
   test('should call super constructor with correct params', async () => {
-    expect(controller.fieldPrefix).toBe(FieldPrefix.APPLICANT);
+    expect(controller.fieldPrefix).toBe(FieldPrefix.APPLICANT1);
   });
 });

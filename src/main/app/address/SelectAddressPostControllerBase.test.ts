@@ -42,7 +42,7 @@ describe('SelectAddressPostController', () => {
       },
     });
     res = mockResponse();
-    controller = new SelectAddressPostController({}, FieldPrefix.APPLICANT);
+    controller = new SelectAddressPostController({}, FieldPrefix.APPLICANT1);
   });
 
   describe('when there are no form errors', () => {
@@ -69,7 +69,7 @@ describe('SelectAddressPostController', () => {
         req.body.applicantSelectAddress = 0;
         mockGetParsedBody.mockReturnValue({ applicantSelectAddress: 0 });
         mockGetErrors.mockReturnValue([]);
-        controller = new SelectAddressPostController({}, FieldPrefix.APPLICANT);
+        controller = new SelectAddressPostController({}, FieldPrefix.APPLICANT1);
         req.locals.api.triggerEvent.mockResolvedValue(formData);
       });
 
@@ -93,7 +93,7 @@ describe('SelectAddressPostController', () => {
       beforeEach(() => {
         mockGetParsedBody.mockReturnValue({ applicantSelectAddress: -1 });
         mockGetErrors.mockReturnValue([]);
-        controller = new SelectAddressPostController({}, FieldPrefix.APPLICANT);
+        controller = new SelectAddressPostController({}, FieldPrefix.APPLICANT1);
       });
 
       test('should not set the address fields in userCase session data', async () => {

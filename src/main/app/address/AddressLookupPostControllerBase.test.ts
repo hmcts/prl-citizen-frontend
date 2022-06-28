@@ -32,7 +32,7 @@ describe('AddressLookupPostControllerBase', () => {
   beforeEach(() => {
     req = mockRequest({ session: { userCase: { email: 'test@example.com' } } });
     res = mockResponse();
-    controller = new AddressLookupPostControllerBase({}, FieldPrefix.APPLICANT);
+    controller = new AddressLookupPostControllerBase({}, FieldPrefix.APPLICANT1);
   });
 
   describe('when there are no form errors', () => {

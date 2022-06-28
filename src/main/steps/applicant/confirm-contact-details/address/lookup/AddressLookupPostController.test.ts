@@ -1,4 +1,4 @@
-import AddressLookupPostControllerBase from '../../../../app/address/AddressLookupPostControllerBase';
+import AddressLookupPostControllerBase from '../../../../../app/address/AddressLookupPostControllerBase';
 
 import AddressLookupPostController from './AddressLookupPostController';
 

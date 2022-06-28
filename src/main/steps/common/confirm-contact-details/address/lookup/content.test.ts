@@ -1,11 +1,11 @@
-import { FormContent, FormFields } from '../../../../app/form/Form';
-import { ResourceReader } from '../../../../modules/resourcereader/ResourceReader';
-import { CommonContent } from '../../../common/common.content';
+import { FormFields } from '../../../../../app/form/Form';
+import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
+import { CommonContent } from '../../../../common/common.content';
 import {
   form as addressLookupForm,
   generateContent as generateAddressLookupContent,
-} from '../../../common/components/address-lookup';
-import { MANUAL_ADDRESS } from '../../../urls';
+} from '../../../../common/components/address-lookup';
+import { APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
 
 import { generateContent } from './content';
 
@@ -37,7 +37,7 @@ describe('applicant1 > address > lookup > content', () => {
     expect(generatedContent.errors).toEqual({
       applicantAddressPostcode: (addressLookupContent.errors as any).addressPostcode,
     });
-    expect(generatedContent.manualAddressUrl).toEqual(MANUAL_ADDRESS);
+    expect(generatedContent.manualAddressUrl).toEqual(APPLICANT_MANUAL_ADDRESS);
   });
 
   test('should return correct welsh content', () => {
@@ -48,7 +48,7 @@ describe('applicant1 > address > lookup > content', () => {
     expect(generatedContent.errors).toEqual({
       applicantAddressPostcode: (addressLookupContent.errors as any).addressPostcode,
     });
-    expect(generatedContent.manualAddressUrl).toEqual(MANUAL_ADDRESS);
+    expect(generatedContent.manualAddressUrl).toEqual(APPLICANT_MANUAL_ADDRESS);
   });
 
   it('should have applicantAddressPostcode label when language: en and  applyingWith: alone', () => {
@@ -69,11 +69,6 @@ describe('applicant1 > address > lookup > content', () => {
     const addressLookupFormFields = addressLookupForm.fields as FormFields;
     const fields = generatedContent.form.fields as FormFields;
     expect(fields.applicantAddressPostcode).toEqual(addressLookupFormFields.addressPostcode);
-  });
-
-  test('should contain find address button', () => {
-    const form = generatedContent.form as FormContent;
-    expect((form.submit.text as Function)(generatedContent)).toBe('Find address');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */

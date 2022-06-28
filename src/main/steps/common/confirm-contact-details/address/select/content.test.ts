@@ -1,10 +1,10 @@
-import { FormFields } from '../../../../app/form/Form';
-import { ResourceReader } from '../../../../modules/resourcereader/ResourceReader';
-import { CommonContent } from '../../../common/common.content';
+import { FormFields } from '../../../../../app/form/Form';
+import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
+import { CommonContent } from '../../../../common/common.content';
 import {
   generateContent as generateSelectAddressContent,
   form as selectAddressForm,
-} from '../../../common/components/address-select';
+} from '../../../../common/components/address-select';
 
 import { generateContent } from './content';
 

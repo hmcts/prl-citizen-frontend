@@ -36,8 +36,6 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
       req.session.addresses = addresses;
     }
 
-    console.log(addresses);``
-
     this.redirect(req, res);
   }
 

@@ -1,10 +1,10 @@
-import { FormFields } from '../../../../app/form/Form';
-import { ResourceReader } from '../../../../modules/resourcereader/ResourceReader';
-import { CommonContent } from '../../../common/common.content';
+import { FormFields } from '../../../../../app/form/Form';
+import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
+import { CommonContent } from '../../../../common/common.content';
 import {
   generateContent as generateSelectAddressContent,
   form as selectAddressForm,
-} from '../../../common/components/address-select';
+} from '../../../../common/components/address-select';
 
 import { generateContent } from './content';
 
@@ -39,8 +39,8 @@ describe('applicant > address > select > content', () => {
     expect(generatedContent.errors).toEqual({
       applicantSelectAddress: (selectAddressContent.errors as any).selectAddress,
     });
-    expect(generatedContent.changePostCodeUrl).toEqual('/address/lookup');
-    expect(generatedContent.cantFindAddressUrl).toEqual('/address/manual');
+    expect(generatedContent.changePostCodeUrl).toEqual('/applicant/confirm-contact-details/address/lookup');
+    expect(generatedContent.cantFindAddressUrl).toEqual('/applicant/confirm-contact-details/address/manual');
   });
 
   test('should return correct welsh content', () => {
@@ -51,8 +51,8 @@ describe('applicant > address > select > content', () => {
     expect(generatedContent.errors).toEqual({
       applicantSelectAddress: (selectAddressContent.errors as any).selectAddress,
     });
-    expect(generatedContent.changePostCodeUrl).toEqual('/address/lookup');
-    expect(generatedContent.cantFindAddressUrl).toEqual('/address/manual');
+    expect(generatedContent.changePostCodeUrl).toEqual('/applicant/confirm-contact-details/address/lookup');
+    expect(generatedContent.cantFindAddressUrl).toEqual('/applicant/confirm-contact-details/address/manual');
   });
 
   test('should contain applicantSelectAddress field', () => {

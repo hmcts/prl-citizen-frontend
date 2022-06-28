@@ -74,10 +74,5 @@ describe('common > components > address-lookup > content', () => {
     expect(addressPostcodeField.attributes!.maxLength).toBe(14);
     expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
   });
-
-  test('should contain find address button', () => {
-    const form = generatedContent.form as FormContent;
-    expect((form.submit.text as Function)(generatedContent)).toBe('Find address');
-  });
 });
 /* eslint-enable @typescript-eslint/ban-types */

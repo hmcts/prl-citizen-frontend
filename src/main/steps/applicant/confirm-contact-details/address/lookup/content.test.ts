@@ -1,4 +1,4 @@
-import { FormContent, FormFields } from '../../../../../app/form/Form';
+import { FormFields } from '../../../../../app/form/Form';
 import { ResourceReader } from '../.././../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../../../common/common.content';
 import {
@@ -71,9 +71,5 @@ describe('applicant1 > address > lookup > content', () => {
     expect(fields.applicantAddressPostcode).toEqual(addressLookupFormFields.addressPostcode);
   });
 
-  test('should contain find address button', () => {
-    const form = generatedContent.form as FormContent;
-    expect((form.submit.text as Function)(generatedContent)).toBe('Find address');
-  });
 });
 /* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
