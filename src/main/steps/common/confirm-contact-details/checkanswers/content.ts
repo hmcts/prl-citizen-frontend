@@ -11,7 +11,7 @@ export const enContent = {
   },
   keys: {
     applicant1FullName: 'Name',
-    applicant1DateOfBirth: 'Date of birth',
+    applicant1DateOfBirthText: 'Date of birth',
     applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
@@ -24,7 +24,9 @@ export const enContent = {
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
   const dob = userCase.applicant1DateOfBirth;
-  getFormattedDate(dob);
+  if (typeof dob !== 'string') {
+    getFormattedDate(dob);
+  }
   const citizenRole = userCase.citizenRole;
   return {
     ...enContent,
@@ -41,7 +43,7 @@ const cyContent: typeof enContent = {
   },
   keys: {
     applicant1FullName: 'Name',
-    applicant1DateOfBirth: 'Date of birth',
+    applicant1DateOfBirthText: 'Date of birth',
     applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
@@ -53,7 +55,7 @@ const cyContent: typeof enContent = {
 
 const urls = {
   applicant1FullName: '_PERSONAL_DETAILS',
-  applicant1DateOfBirth: '_PERSONAL_DETAILS',
+  applicant1DateOfBirthText: '_PERSONAL_DETAILS',
   applicant1PlaceOfBirthText: '_PERSONAL_DETAILS',
   address: '_ADDRESS_DETAILS',
   addressHistory: '_ADDRESS_HISTORY',
@@ -62,7 +64,7 @@ const urls = {
 };
 const fieldType = {
   applicant1FullName: 'String',
-  applicant1DateOfBirth: 'Date',
+  applicant1DateOfBirthText: 'String',
   applicant1PlaceOfBirthText: 'String',
   address: 'String',
   addressHistory: 'String',
@@ -73,7 +75,11 @@ const fieldType = {
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   const dob = userCase.applicant1DateOfBirth;
-  getFormattedDate(dob);
+  if (dob !== null && dob !== undefined && typeof dob !== 'string') {
+    getFormattedDate(dob);
+  }
+  //userCase.applicant1DateOfBirthText = getFormattedDate(userCase.applicant1DateOfBirth);
+  //console.log("userCase.applicant1DateOfBirthText====>"+userCase.applicant1DateOfBirthText);
   const citizenRole = userCase.citizenRole;
   return {
     ...cyContent,

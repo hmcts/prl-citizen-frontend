@@ -6,6 +6,7 @@ import { Case } from '../../../../app/case/case';
 import { CONFIDENTIAL_DETAILS } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
+import { getFormattedDate } from '../../../common/summary/utils';
 import { CommonContent } from '../../common.content';
 
 import { generateContent } from './content';
@@ -39,6 +40,14 @@ export default class ConfirmContactDetailsGetController extends GetController {
       req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth;
     }
 
+    if (!req.session.userCase.applicant1DateOfBirthText) {
+      req.session.userCase.applicant1DateOfBirthText = '';
+    } else {
+      req.session.userCase.applicant1DateOfBirthText = getFormattedDate(req.session.userCase.applicant1DateOfBirth);
+    }
+
+    //console.log("48 applicant1DateOfBirthText: "+ req.session.userCase.applicant1DateOfBirthText);
+
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
     req.session.userCase.applicant1AddressTown = 'London';
@@ -62,13 +71,14 @@ const fieldsArray: string[] = [
   'applicant1AddressTown',
   'applicant1PhoneNumber',
   'applicant1EmailAddress',
-  'applicant1DateOfBirth',
+  'applicant1DateOfBirthText',
 ];
 
 function validateDataCompletion(req: AppRequest<Partial<Case>>) {
   for (const key in req.session.userCase) {
     if (fieldsArray.includes(key)) {
       const value = req.session.userCase[`${key}`];
+      // console.log("key is: "+key+", value is : "+value+", type of value is: "+typeof(value));
       if (typeof value === 'string' && (value === null || value === undefined || value.trim() === '')) {
         req.session.userCase[`${key}`] = '<span class="govuk-error-message">Complete this section</span>';
       }
