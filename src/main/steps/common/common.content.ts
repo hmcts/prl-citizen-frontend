@@ -191,9 +191,8 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
- addresses = [],
-}:
-// eligibility,
+  addresses = [],
+}: // eligibility,
 // fee,
 {
   language: Language;

@@ -1,11 +1,11 @@
 import { FormFields } from '../../../../../app/form/Form';
-import { ResourceReader } from '../.././../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../../../common/common.content';
 import {
   form as addressLookupForm,
   generateContent as generateAddressLookupContent,
 } from '../../../../common/components/address-lookup';
 import { APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
+import { ResourceReader } from '../.././../../../modules/resourcereader/ResourceReader';
 
 import { generateContent } from './content';
 
@@ -70,6 +70,5 @@ describe('applicant1 > address > lookup > content', () => {
     const fields = generatedContent.form.fields as FormFields;
     expect(fields.applicantAddressPostcode).toEqual(addressLookupFormFields.addressPostcode);
   });
-
 });
 /* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */

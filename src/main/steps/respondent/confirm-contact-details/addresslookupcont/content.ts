@@ -3,7 +3,7 @@ import { FormContent, FormFields } from '../../../../app/form/Form';
 import {
   form as selectAddressForm,
   generateContent as selectAddressGenerateContent,
-} from '../../../common/components/address-select'
+} from '../../../common/components/address-select';
 import { RESPONDENT_FIND_ADDRESS } from '../../../urls';
 
 const en = ({ selectAddressContent }) => {

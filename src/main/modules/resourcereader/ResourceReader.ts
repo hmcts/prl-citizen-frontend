@@ -6,6 +6,7 @@
 export class ResourceReader {
   private ContentTranslation = {};
 
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   getFileContents(): any {
     return this.ContentTranslation;
   }

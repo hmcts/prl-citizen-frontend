@@ -134,6 +134,5 @@ describe('common > components > address-select', () => {
     expect(selectAddressField.labelSize).toBe('m');
     expect(selectAddressField.validator).toBe(isAddressSelected);
   });
-
 });
 /* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
