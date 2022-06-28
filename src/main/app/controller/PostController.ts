@@ -3,13 +3,22 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { getSystemUser } from '../auth/user/oidc';
+import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State, RESPONDENTS_DETAILS,APPLICANTS_DETAILS } from '../case/definition';
+import {
+  APPLICANTS_DETAILS,
+  CITIZEN_SAVE_AND_CLOSE,
+  CITIZEN_UPDATE,
+  //CaseData,
+  RESPONDENTS_DETAILS,
+  State,
+} from '../case/definition';
+//import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
+
 import { AppRequest } from './AppRequest';
-import { toApiFormat } from '../case/to-api-format';
-import { CaseData } from '../case/definition';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
@@ -56,6 +65,9 @@ export class PostController<T extends AnyObject> {
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
+
+   
+
     req.session.errors = form.getErrors(formData);
 
     this.filterErrorsForSaveAsDraft(req);
@@ -63,12 +75,9 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-    const data = toApiFormat(formData);
     
-    if (Object.keys(data).length != 0) {
-      console.log('Object is empty'); 
-      req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
-    } 
+    req.session.userCase = await this.save(req, formData, this.getEventName(req));
+
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);
   }
@@ -88,21 +97,16 @@ export class PostController<T extends AnyObject> {
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     try {
       console.log(eventName);
-      //Object.assign(req.session.userCase, formData);
-      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
-    } catch (err) {
-      req.locals.logger.error('Error saving', err);
-      req.session.errors = req.session.errors || [];
-      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
-    }
-    return req.session.userCase;
-  }
+      Object.assign(req.session.userCase, formData);
+      // call here to get the case details //
+      const caseworkerUser = await getSystemUser();
+      req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+      const caseReference = req.session.userCase.caseCode;
+      const caseData = await req.locals.api.getCaseById(caseReference as string);
+      console.log("case details ====> " + JSON.stringify(caseData));
+      //////
 
-  protected async saveData(req: AppRequest<T>, formData: Partial<Case>, eventName: string, data:Partial<CaseData>): Promise<CaseWithId> {
-    try {
-      console.log(eventName);
-      //Object.assign(req.session.userCase, formData);
-      req.session.userCase = await req.locals.api.triggerEventWithData(req.session.userCase.id, formData, eventName, data);
+      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
       req.session.errors = req.session.errors || [];
@@ -147,14 +151,9 @@ export class PostController<T extends AnyObject> {
 
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
-    console.log("req.url => "+req.url);
-    console.log("req.baseUrl => "+req.baseUrl);
-    console.log("req.originalUrl => "+req.originalUrl);
-    
-    if(req.url.indexOf('/respondent/keep-details-private') != -1 ){
+    if (req.url.indexOf('/respondent/keep-details-private') !== -1) {
       return RESPONDENTS_DETAILS;
-    }
-    else if(req.url.indexOf('/applicant/keep-details-private') != -1){
+    } else if (req.url.indexOf('/applicant/keep-details-private') !== -1) {
       return APPLICANTS_DETAILS;
     }
     return CITIZEN_UPDATE;
@@ -172,7 +171,60 @@ export class PostController<T extends AnyObject> {
     //   const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
     //   req.session.userCase = initData;
     // }
+    const caseworkerUser = await getSystemUser();
+    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
     req.session.errors = form.getErrors(formData);
+    const caseReference = formData.caseCode?.replace(/-/g, '');
+    try {
+      if (!req.session.errors.length) {
+        const caseData = await req.locals.api.getCaseById(caseReference as string);
+        let accessCodeMatched = true; //false
+        let accessCodeLinked = false;
+        if (caseData.respondentCaseInvites !== null) {
+          caseData.respondentCaseInvites?.forEach(obj => {
+            Object.entries(obj).forEach(([key, value]) => {
+              console.log(key);
+              Object.entries(value).forEach(([key1, value1]) => {
+                if (key1 === 'hasLinked' && value1 === 'Yes') {
+                  accessCodeLinked = true;
+                } else {
+                  accessCodeLinked = false;
+                }
+                if (key1 === 'accessCode' && value1 === formData.accessCode) {
+                  accessCodeMatched = true;
+                }
+              });
+            });
+          });
+        }
+        if (caseData.applicantCaseInvites !== null) {
+          caseData.applicantCaseInvites?.forEach(obj => {
+            Object.entries(obj).forEach(([key, value]) => {
+              console.log(key);
+              Object.entries(value).forEach(([key1, value1]) => {
+                if (key1 === 'hasLinked' && value1 === 'Yes') {
+                  accessCodeLinked = true;
+                } else {
+                  accessCodeLinked = false;
+                }
+                if (key1 === 'accessCode' && value1 === formData.accessCode) {
+                  accessCodeMatched = true;
+                }
+              });
+            });
+          });
+        }
+        if (!accessCodeMatched) {
+          req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        }
+        if (accessCodeLinked) {
+          req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
+        }
+      }
+    } catch (err) {
+      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
+    }
+
     if (req.session.errors.length) {
       req.session.accessCodeLoginIn = false;
     } else {

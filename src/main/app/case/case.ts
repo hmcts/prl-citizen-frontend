@@ -1,6 +1,6 @@
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, ContactDetails, OtherName, State, YesOrNo } from './definition';
+import { CaseData, CaseInvite, ContactDetails, OtherName, State, YesOrNo, ContactDetailsPrivate } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -8,6 +8,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseCode: 'caseCode',
   respondentFirstName: 'respondentFirstName',
   respondentLastName: 'respondentLastName',
+  accessCode: 'accessCode',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
   //applicant1FirstNames: 'applicant1FirstName',
@@ -28,6 +29,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetails: 'applicant1ContactDetails',
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
+  respondentCaseInvites: 'respondentCaseInvites',
+  detailsKnown: 'detailsKnown',
+  startAlternative: 'startAlternative'
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -51,16 +55,25 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
+  accessCode?: string;
   detailsKnown?: string;
-  startAlternative?: string;
+  startAlternative?: Checkbox;//?: string;
+  contactDetailsPrivate?: ContactDetailsPrivate[];//string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
   confirmcontactdetails?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
-  contactDetailsPrivate?: ContactDetails[];
-  //contactDetailsPrivate?: string;
+  //contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
@@ -84,6 +97,8 @@ export interface Case {
   applicant1ContactDetailsConsent?: YesOrNo;
 
   //applicant1LanguagePreference?: LanguagePreference;
+  respondentCaseInvites?: CaseInvite[];
+  applicantCaseInvites?: CaseInvite[];
 }
 
 export interface CaseWithId extends Case {

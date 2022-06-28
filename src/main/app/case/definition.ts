@@ -271,6 +271,12 @@ export const enum ContactDetails {
   PHONE = 'phone',
 }
 
+export const enum ContactDetailsPrivate {
+  EMAIL = 'email',
+  PHONE = 'phone',
+  ADDRESS = 'address'
+}
+
 export interface Children {
   FirstName: string;
   LastName: string;
@@ -337,6 +343,10 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
+   accessCode: string;
+  respondentCaseInvites: CaseInvite[]
+  detailsKnown?: string;
+  startAlternative?: string;
   
 }
 
@@ -376,10 +386,15 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
+  partyId: string;
   applicant2InviteEmailAddress: string;
   accessCode: string;
+  caseInviteEmail: string
   applicant2UserId: string;
+  invitedUserId: string;
+  expiryDate: string;
 }
+
 
 export interface ConditionalOrder {
   DateSubmitted: DateAsString;
@@ -572,6 +587,15 @@ export interface ConfidentialDivorceDocument {
 }
 
 export interface DivorceDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
+}
+
+export interface AdoptionDocument {
   documentDateAdded: DateAsString;
   documentComment: string;
   documentFileName: string;
@@ -1341,7 +1365,7 @@ export const SUBMIT_AOS = 'submit-aos';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
-export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_LINK_APPLICANT_2 = 'citizen-update-application';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';

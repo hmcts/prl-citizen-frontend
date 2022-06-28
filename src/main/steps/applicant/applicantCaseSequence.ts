@@ -1,4 +1,5 @@
-import { YesOrNo } from '../../app/case/definition';
+//import { YesOrNo } from '../../app/case/definition';
+import { Checkbox } from '../../app/case/case';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT_ADDRESS_BLANK,
@@ -36,7 +37,7 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_START_ALTERNATIVE,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: data =>
-      data.startAlternative === YesOrNo.YES
+      data.startAlternative === Checkbox.Checked
         ? APPLICANT_PRIVATE_DETAILS_CONFIRMED
         : APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   },

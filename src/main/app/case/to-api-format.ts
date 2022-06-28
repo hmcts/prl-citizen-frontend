@@ -13,122 +13,128 @@ const checkboxConverter = (value: string | undefined) => {
   if (value === null) {
     return null;
   }
-console.log("checkboxConverter==>"+checkboxConverter);
   return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
 };
+console.log(checkboxConverter);
 
 const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
-//   dateChildMovedIn: data => ({
-//     dateChildMovedIn: toApiDate(data.dateChildMovedIn),
-//   }),
-//   applicant1DateOfBirth: data => ({
-//     applicant1DateOfBirth: toApiDate(data.applicant1DateOfBirth),
-//   }),
-//   applicant2DateOfBirth: data => ({
-//     applicant2DateOfBirth: toApiDate(data.applicant2DateOfBirth),
-//   }),
-//   childrenDateOfBirth: data => ({
-//     childrenDateOfBirth: toApiDate(data.childrenDateOfBirth),
-//   }),
-//   applicant1AdditionalNames: data => ({
-//     applicant1AdditionalNames:
-//       data.applicant1HasOtherNames === YesOrNo.YES
-//         ? (data.applicant1AdditionalNames || []).map(item => ({
-//             id: generateUuid(),
-//             value: { firstNames: `${item.firstNames}`, lastNames: `${item.lastNames}` },
-//           }))
-//         : [],
-//   }),
-//   applicant2AdditionalNames: data => ({
-//     applicant2AdditionalNames:
-//       data.applicant2HasOtherNames === YesOrNo.YES
-//         ? (data.applicant2AdditionalNames || []).map(item => ({
-//             id: generateUuid(),
-//             value: { firstNames: `${item.firstNames}`, lastNames: `${item.lastNames}` },
-//           }))
-//         : [],
-//   }),
-//   birthMotherAdditionalNationalities: data => ({
-//     birthMotherOtherNationalities: (data.birthMotherAdditionalNationalities || []).map(item => ({
-//       id: generateUuid(),
-//       value: { country: `${item}` },
-//     })),
-//   }),
-//   birthFatherAdditionalNationalities: data => ({
-//     birthFatherOtherNationalities: (data.birthFatherAdditionalNationalities || []).map(item => ({
-//       id: generateUuid(),
-//       value: { country: `${item}` },
-//     })),
-//   }),
-//   childrenAdditionalNationalities: data => ({
-//     childrenAdditionalNationalities: (data.childrenAdditionalNationalities || []).map(item => ({
-//       id: generateUuid(),
-//       value: { country: `${item}` },
-//     })),
-//   }),
-//   placementOrders: data => ({
-//     placementOrders: (data.placementOrders || []).map(item => ({
-//       id: generateUuid(),
-//       value: {
-//         ...item,
-//         placementOrderDate: toApiDate(item.placementOrderDate as CaseDate),
-//       },
-//     })),
-//   }),
-//   siblings: data => ({
-//     siblings: (data.siblings || []).map(item => ({
-//       id: generateUuid(),
-//       value: {
-//         ...item,
-//         siblingPlacementOrders: ((item.siblingPlacementOrders || []) as PlacementOrder[]).map(
-//           (item2: PlacementOrder) => ({
-//             id: generateUuid(),
-//             value: {
-//               ...item2,
-//             },
-//           })
-//         ),
-//       },
-//     })),
-//   }),
-//   adopAgencyOrLAs: data => ({
-//     adopAgencyOrLAs: (data.adopAgencyOrLAs || []).map(item => ({
-//       id: generateUuid(),
-//       value: {
-//         ...item,
-//       },
-//     })),
-//   }),
-//   applicant1IBelieveApplicationIsTrue: data => ({
-//     applicant1StatementOfTruth: checkboxConverter(data.applicant1IBelieveApplicationIsTrue),
-//   }),
-//   applicant2IBelieveApplicationIsTrue: data => ({
-//     applicant2StatementOfTruth: checkboxConverter(data.applicant2IBelieveApplicationIsTrue),
-//   }),
-//   applicant1HelpWithFeesRefNo: data => ({
-//     applicant1HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
-//       ? data.applicant1HelpWithFeesRefNo
-//       : '',
-//   }),
-//   applicant1UploadedFiles: () => ({}),
-//   applicant2UploadedFiles: () => ({}),
-//   applicant1CannotUploadDocuments: data => ({
-//     applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments
-//       ? formatApplicant1CannotUploadDocuments(data)
-//       : [],
-//   }),
-//   applicant1HelpPayingNeeded: data => ({
-//     applicant1HWFNeedHelp: data.applicant1HelpPayingNeeded,
-//     ...(data.applicant1HelpPayingNeeded === YesOrNo.NO
-//       ? setUnreachableAnswersToNull(['applicant1HWFAppliedForFees', 'applicant1HWFReferenceNumber'])
-//       : {}),
-//   }),
-//   applicant1CannotUpload: data => {
-//     return {
-//       applicant1CannotUpload: checkboxConverter(data.applicant1CannotUpload),
-//     };
-//   },
+  startAlternative: data => {
+    return {
+      startAlternative: checkboxConverter(data.startAlternative),
+    };
+  },
+
+  //   dateChildMovedIn: data => ({
+  //     dateChildMovedIn: toApiDate(data.dateChildMovedIn),
+  //   }),
+  //   applicant1DateOfBirth: data => ({
+  //     applicant1DateOfBirth: toApiDate(data.applicant1DateOfBirth),
+  //   }),
+  //   applicant2DateOfBirth: data => ({
+  //     applicant2DateOfBirth: toApiDate(data.applicant2DateOfBirth),
+  //   }),
+  //   childrenDateOfBirth: data => ({
+  //     childrenDateOfBirth: toApiDate(data.childrenDateOfBirth),
+  //   }),
+  //   applicant1AdditionalNames: data => ({
+  //     applicant1AdditionalNames:
+  //       data.applicant1HasOtherNames === YesOrNo.YES
+  //         ? (data.applicant1AdditionalNames || []).map(item => ({
+  //             id: generateUuid(),
+  //             value: { firstNames: `${item.firstNames}`, lastNames: `${item.lastNames}` },
+  //           }))
+  //         : [],
+  //   }),
+  //   applicant2AdditionalNames: data => ({
+  //     applicant2AdditionalNames:
+  //       data.applicant2HasOtherNames === YesOrNo.YES
+  //         ? (data.applicant2AdditionalNames || []).map(item => ({
+  //             id: generateUuid(),
+  //             value: { firstNames: `${item.firstNames}`, lastNames: `${item.lastNames}` },
+  //           }))
+  //         : [],
+  //   }),
+  //   birthMotherAdditionalNationalities: data => ({
+  //     birthMotherOtherNationalities: (data.birthMotherAdditionalNationalities || []).map(item => ({
+  //       id: generateUuid(),
+  //       value: { country: `${item}` },
+  //     })),
+  //   }),
+  //   birthFatherAdditionalNationalities: data => ({
+  //     birthFatherOtherNationalities: (data.birthFatherAdditionalNationalities || []).map(item => ({
+  //       id: generateUuid(),
+  //       value: { country: `${item}` },
+  //     })),
+  //   }),
+  //   childrenAdditionalNationalities: data => ({
+  //     childrenAdditionalNationalities: (data.childrenAdditionalNationalities || []).map(item => ({
+  //       id: generateUuid(),
+  //       value: { country: `${item}` },
+  //     })),
+  //   }),
+  //   placementOrders: data => ({
+  //     placementOrders: (data.placementOrders || []).map(item => ({
+  //       id: generateUuid(),
+  //       value: {
+  //         ...item,
+  //         placementOrderDate: toApiDate(item.placementOrderDate as CaseDate),
+  //       },
+  //     })),
+  //   }),
+  //   siblings: data => ({
+  //     siblings: (data.siblings || []).map(item => ({
+  //       id: generateUuid(),
+  //       value: {
+  //         ...item,
+  //         siblingPlacementOrders: ((item.siblingPlacementOrders || []) as PlacementOrder[]).map(
+  //           (item2: PlacementOrder) => ({
+  //             id: generateUuid(),
+  //             value: {
+  //               ...item2,
+  //             },
+  //           })
+  //         ),
+  //       },
+  //     })),
+  //   }),
+  //   adopAgencyOrLAs: data => ({
+  //     adopAgencyOrLAs: (data.adopAgencyOrLAs || []).map(item => ({
+  //       id: generateUuid(),
+  //       value: {
+  //         ...item,
+  //       },
+  //     })),
+  //   }),
+  //   applicant1IBelieveApplicationIsTrue: data => ({
+  //     applicant1StatementOfTruth: checkboxConverter(data.applicant1IBelieveApplicationIsTrue),
+  //   }),
+  //   applicant2IBelieveApplicationIsTrue: data => ({
+  //     applicant2StatementOfTruth: checkboxConverter(data.applicant2IBelieveApplicationIsTrue),
+  //   }),
+  //   applicant1HelpWithFeesRefNo: data => ({
+  //     applicant1HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
+  //       ? data.applicant1HelpWithFeesRefNo
+  //       : '',
+  //   }),
+  //   applicant1UploadedFiles: () => ({}),
+  //   applicant2UploadedFiles: () => ({}),
+  //   applicant1CannotUploadDocuments: data => ({
+  //     applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments
+  //       ? formatApplicant1CannotUploadDocuments(data)
+  //       : [],
+  //   }),
+  //   applicant1HelpPayingNeeded: data => ({
+  //     applicant1HWFNeedHelp: data.applicant1HelpPayingNeeded,
+  //     ...(data.applicant1HelpPayingNeeded === YesOrNo.NO
+  //       ? setUnreachableAnswersToNull(['applicant1HWFAppliedForFees', 'applicant1HWFReferenceNumber'])
+  //       : {}),
+  //   }),
+  //   applicant1CannotUpload: data => {
+  //     return {
+  //       applicant1CannotUpload: checkboxConverter(data.applicant1CannotUpload),
+  //     };
+  //   },
 };
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any

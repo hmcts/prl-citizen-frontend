@@ -47,8 +47,7 @@ export class CaseApi {
       }
       case 1: {
         const { id, state, case_data: caseData } = cases[0];
-        //...fromApiFormat(caseData)
-        return { ...caseData, id: id.toString(), state };
+        return { ...fromApiFormat(caseData), id: id.toString(), state };
       }
       default: {
         throw new Error('Too many cases assigned to user.');
@@ -71,8 +70,8 @@ export class CaseApi {
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
       const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
-      //...fromApiFormat(response.data.data)
-      return { id: response.data.id, state: response.data.state, ...response.data.data };
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -90,7 +89,7 @@ export class CaseApi {
     const token = tokenResponse.data.token;
     const event = { id: CITIZEN_CREATE };
     const data = {
-      //adoption: serviceType,
+      serviceType,
       applicant1FirstName: userDetails.givenName,
       applicant1LastName: userDetails.familyName,
       applicant1Email: userDetails.email,
@@ -103,8 +102,7 @@ export class CaseApi {
         event,
         event_token: token,
       });
-      //...fromApiFormat(response.data.data)
-      return { id: response.data.id, state: response.data.state, ...response.data.data };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -123,27 +121,64 @@ export class CaseApi {
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     try {
-      this.axios.interceptors.request.use(function (config) {
-        console.log("config.url=>"+JSON.stringify(config.url));
-        console.log("config.baseURL=>"+JSON.stringify(config.baseURL));
-        console.log("config.headers=>"+JSON.stringify(config.headers));
-        console.log("config.data=>"+JSON.stringify(config.data));
-        console.log("config =========>"+JSON.stringify(config));
-        return config;
-      }, function (error) {
-        // Do something with request error
-        return Promise.reject(error);
-      });
-      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
+      this.axios.interceptors.request.use(
+        function (config12) {
+          console.log('126 GET Request data =>' + JSON.stringify(config12));
+          return config12;
+        },
+        function (error) {
+          // Do something with request error
+          return Promise.reject(error);
+        }
+      );
+     
+      const tokenResponse = await this.axios.get<CcdTokenResponse>(
+        `/cases/${caseId}/event-triggers/${eventName}`,
+        {
+          headers: {
+            Accept: 'application/json',
+          },
+        },
+      );
+      this.axios.interceptors.response.use(
+        function (configResponse) {
+          console.log('139 GET response statusText=>' + JSON.stringify(configResponse));
+          return configResponse;
+        },
+        function (error) {
+          // Do something with request error
+          return Promise.reject(error);
+        });
       const token = tokenResponse.data.token;
       const event = { id: eventName };
 
+      this.axios.interceptors.request.use(
+        function (config12) {
+          console.log('153 POST Request data =>' + JSON.stringify(config12));
+          return config12;
+        },
+        function (error) {
+          // Do something with request error
+          return Promise.reject(error);
+        }
+      );
       const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
         event,
         data,
         event_token: token,
       });
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+
+      this.axios.interceptors.response.use(
+        function (configResponse) {
+          console.log('171 POST response data=>' + JSON.stringify(configResponse));
+          return configResponse;
+        },
+        function (error) {
+          // Do something with request error
+          return Promise.reject(error);
+        });
+        
+        return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');
@@ -151,29 +186,8 @@ export class CaseApi {
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    // const data = toApiFormat(userData);
-    // const data = userData;
-    // return this.sendEvent(caseId, data, eventName);
-    // console.log(eventName);
-    // return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
-    ////
-  
     const data = toApiFormat(userData);
     return this.sendEvent(caseId, data, eventName);
-    
-  }
-
-  public async triggerEventWithData(caseId: string, userData: Partial<Case>, eventName: string, data: Partial<CaseData>): Promise<CaseWithId> {
-    // const data = toApiFormat(userData);
-    // const data = userData;
-    // return this.sendEvent(caseId, data, eventName);
-    // console.log(eventName);
-    // return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
-    ////
-  
-    //const data = toApiFormat(userData);
-    return this.sendEvent(caseId, data, eventName);
-    
   }
 
   // public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
