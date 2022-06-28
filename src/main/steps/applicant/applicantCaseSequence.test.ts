@@ -2,7 +2,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(13);
+    expect(applicantCaseSequence).toHaveLength(14);
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/task-list');
@@ -21,7 +21,7 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[4].url).toBe('/applicant/confirm-contact-details/personaldetails');
     expect(applicantCaseSequence[4].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[4].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[4].getNextStep({})).toBe('/applicant/confirm-contact-details/checkanswers');
 
     expect(applicantCaseSequence[5].url).toBe('/applicant/confirm-contact-details/contactdetails');
     expect(applicantCaseSequence[5].showInSection).toBe('aboutApplicantCase');
@@ -37,11 +37,11 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[8].url).toBe('/applicant/confirm-contact-details/addresslookupcont');
     expect(applicantCaseSequence[8].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[8].getNextStep({})).toBe('/applicant/confirm-contact-details/addressconfirmation');
+    expect(applicantCaseSequence[8].getNextStep({})).toBe('/applicant/confirm-contact-details/addresslookupcont');
 
     expect(applicantCaseSequence[9].url).toBe('/applicant/confirm-contact-details/addresslookup');
     expect(applicantCaseSequence[9].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[9].getNextStep({})).toBe('/applicant/confirm-contact-details/addressconfirmation');
+    expect(applicantCaseSequence[9].getNextStep({})).toBe('/applicant/task-list');
 
     expect(applicantCaseSequence[10].url).toBe('/applicant/confirm-contact-details/addressconfirmation');
     expect(applicantCaseSequence[10].showInSection).toBe('aboutApplicantCase');
