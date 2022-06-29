@@ -21,6 +21,7 @@ export class PropertiesVolume {
       //this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
+      this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
       // this.setLocalEndpoints();
     }
   }

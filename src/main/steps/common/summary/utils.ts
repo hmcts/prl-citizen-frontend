@@ -105,7 +105,7 @@ export const checkIfDataPresent = field => {
   if (field) {
     return field;
   } else {
-    return 'Complete this section';
+    return '';
   }
 };
 

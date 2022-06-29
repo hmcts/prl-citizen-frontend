@@ -6,7 +6,7 @@ import { generateApplicantTaskList } from './tasklist';
 import { applicant_tasklist_items_en } from './tasklist-items';
 
 const en = () => ({
-  title: 'Respond to the application',
+  title: 'Your application',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
