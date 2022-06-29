@@ -13,7 +13,7 @@ const enContent = {
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
-    applicationDetails: 'Application detail',
+    applicationDetails: 'Application details',
     respondentAdditionalInformation: 'Additional information',
   },
   taskListItems: {
@@ -21,6 +21,7 @@ const enContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    current_or_previous_proceedings: 'Current or previous proceedings',
   },
 };
 const cyContent = {
@@ -32,7 +33,7 @@ const cyContent = {
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
-    applicationDetails: 'Application detail',
+    applicationDetails: 'Application details',
     respondentAdditionalInformation: 'Additional information',
   },
   taskListItems: {
@@ -40,6 +41,7 @@ const cyContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    current_or_previous_proceedings: 'Current or previous proceedings',
   },
 };
 describe('task-list > content', () => {
@@ -75,8 +77,14 @@ describe('task-list > content', () => {
               status: 'IN_PROGRESS',
               text: 'Mediation(MIAM)',
             },
+            {
+              href: '/respondent/proceedings/start',
+              id: 'current-or-previous-proceedings',
+              status: 'TO_DO',
+              text: 'Current or previous proceedings',
+            },
           ],
-          title: 'Application detail',
+          title: 'Application details',
         },
         {
           items: [

@@ -1,6 +1,7 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  COURT_PROCEEDINGS_SUMMARY,
   DETAILS_KNOWN,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
@@ -12,6 +13,8 @@ import {
   MIAM_SUMMARY,
   PRIVATE_DETAILS_CONFIRMED,
   PRIVATE_DETAILS_NOT_CONFIRMED,
+  PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_START,
   RESPONDENT_TASK_LIST_URL,
   START_ALTERNATIVE,
 } from '../urls';
@@ -80,6 +83,24 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PROCEEDINGS_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: data =>
+      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
+        ? PROCEEDINGS_COURT_PROCEEDINGS
+        : COURT_PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: PROCEEDINGS_COURT_PROCEEDINGS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => COURT_PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
