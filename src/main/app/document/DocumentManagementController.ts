@@ -18,22 +18,22 @@ export class DocumentManagerController {
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const baseUrl = config.get('services.documentManagement.url');
     const documents = `${baseUrl}/documents`;
-    const document_url = `${documents}/4d2af5ad-a8a3-4263-9bbb-b12eb4ad62fe`;
-    const document_binary_url = `${document_url}/binary`;
-    const document_filename = 'dummyDoc.pdf';
-
+    const url = `${documents}/4d2af5ad-a8a3-4263-9bbb-b12eb4ad62fe`;
+    const binary_url = `${url}/binary`;
+    const filename = 'dummyDoc.pdf';
+    
     const documentsGenerated = [
       {
         value: {
           documentEmailContent: null,
           documentLink: {
-            document_url,
-            document_filename,
-            document_binary_url,
+            document_url: url,
+            document_filename: binary_url,
+            document_binary_url: filename,
           },
           documentDateAdded: null,
           documentComment: 'Uploaded by applicant',
-          documentFileName: document_filename,
+          documentFileName: filename,
           documentType: null,
           documentFileId: null,
         },
@@ -51,7 +51,7 @@ export class DocumentManagerController {
         throw err;
       } else if (generatedDocument) {
         res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=' + document_filename);
+        res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
         return res.end(generatedDocument.data);
       }
       return res.redirect(APPLICANT_TASK_LIST_URL);
