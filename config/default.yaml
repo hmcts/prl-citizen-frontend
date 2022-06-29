@@ -5,7 +5,7 @@ timeout: 30000
 services:
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
-    token: 'NEED TO INSERT SECRET'
+    token: 'POSTCODE_TOKEN'
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'prl_citizen_frontend'
