@@ -17,7 +17,8 @@ services:
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   documentManagement:
-    url: http://dm-store-aat.service.core-compute-aat.internal
+    url: "http://ccd-case-document-am-api-aat.service.core-compute-aat.internal"
+            
 health:
   timeout: 5000
   deadline: 15000

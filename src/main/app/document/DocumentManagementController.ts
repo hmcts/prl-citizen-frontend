@@ -17,19 +17,19 @@ export class DocumentManagerController {
 
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const baseUrl = config.get('services.documentManagement.url');
-    const documents = `${baseUrl}/documents`;
-    const url = `${documents}/4d2af5ad-a8a3-4263-9bbb-b12eb4ad62fe`;
+    const documents = `${baseUrl}/cases/documents`;
+    const url = `${documents}/5d33c497-5014-4ea1-8422-8453d008a121`;
     const binary_url = `${url}/binary`;
     const filename = 'dummyDoc.pdf';
-    
+
     const documentsGenerated = [
       {
         value: {
           documentEmailContent: null,
           documentLink: {
             document_url: url,
-            document_filename: binary_url,
-            document_binary_url: filename,
+            document_filename: filename,
+            document_binary_url: binary_url,
           },
           documentDateAdded: null,
           documentComment: 'Uploaded by applicant',
@@ -41,7 +41,7 @@ export class DocumentManagerController {
       },
     ];
 
-    const documentToGet = documentsGenerated[0]?.value.documentLink?.document_url;
+    const documentToGet = documentsGenerated[0]?.value.documentLink?.document_binary_url;
     console.log(documentToGet);
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: documentToGet });
