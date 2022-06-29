@@ -1,7 +1,7 @@
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getRedirectUrl, getSystemUser, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -27,9 +27,10 @@ export class OidcMiddleware {
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
-          req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-          await req.locals.api.triggerEvent(req.session.userCase.caseCode,req.session.user,'link-citizen-case');
-          req.session.userCase = await req.locals.api.getCase();
+          const caseworkerUser = await getSystemUser();
+          req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+          await req.locals.api.triggerEvent(req.session.userCase.caseCode,req.session.user,'applicantsDetails');
+          req.session.userCase = await req.locals.api.getCases();
           req.session.save(() => res.redirect('/dashboard'));
         } else {
           if (!req.session?.accessCodeLoginIn) {

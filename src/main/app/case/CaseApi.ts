@@ -19,6 +19,7 @@ import {
   PrivateLaw,
   State,
 } from './definition';
+import { toApiFormat } from './to-api-format';
 //import { fromApiFormat } from './from-api-format';
 //import { toApiFormat } from './to-api-format';
 
@@ -125,7 +126,10 @@ export class CaseApi {
       const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
       const token = tokenResponse.data.token;
       const event = { id: eventName };
-
+      data  = {'data':{'user': {
+        'idamId': 'e3ceb507-0137-43a9-8bd3-85dd23720648',
+        'email': 'aloknath.datta@hmcts.net'
+      }}};
       const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
         event,
         data,
@@ -140,11 +144,11 @@ export class CaseApi {
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    //const data = toApiFormat(userData);
+    const data = toApiFormat(userData);
     //const data = userData;
     // return this.sendEvent(caseId, data, eventName);
     console.log(eventName);
-    return this.sendEvent(caseId, userData, eventName);
+    return this.sendEvent(caseId, data, eventName);
   }
 
   // public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {

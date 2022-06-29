@@ -1,13 +1,9 @@
-// import { v4 as generateUuid } from 'uuid';
+import { Case, CaseDate, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData } from './definition';
 
-// import { isInvalidHelpWithFeesRef } from '../form/validation';
+export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
-// import { Case, CaseDate, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
-// import { CaseData, PlacementOrder, YesOrNo } from './definition';
-
-// export type OrNull<T> = { [K in keyof T]: T[K] | null };
-
-// type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => OrNull<Partial<CaseData>>)>>;
+type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => OrNull<Partial<CaseData>>)>>;
 
 // const checkboxConverter = (value: string | undefined) => {
 //   if (value === null) {
@@ -17,8 +13,8 @@
 //   return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
 // };
 
-// const fields: ToApiConverters = {
-//   ...formFieldsToCaseMapping,
+const fields: ToApiConverters = {
+  ...formFieldsToCaseMapping,
 //   dateChildMovedIn: data => ({
 //     dateChildMovedIn: toApiDate(data.dateChildMovedIn),
 //   }),
@@ -129,23 +125,23 @@
 //       applicant1CannotUpload: checkboxConverter(data.applicant1CannotUpload),
 //     };
 //   },
-// };
+};
 
-// //eslint-disable-next-line @typescript-eslint/no-explicit-any
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 // export const formatApplicant1CannotUploadDocuments = (data: Partial<Case>): any[] => {
 //   return !Array.isArray(data.applicant1CannotUploadDocuments)
 //     ? [data.applicant1CannotUploadDocuments]
 //     : data.applicant1CannotUploadDocuments;
 // };
 
-// export const toApiDate = (date: CaseDate | undefined): string => {
-//   if (!date?.year || !date?.month || !date?.day) {
-//     return '';
-//   }
-//   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
-// };
+export const toApiDate = (date: CaseDate | undefined): string => {
+  if (!date?.year || !date?.month || !date?.day) {
+    return '';
+  }
+  return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
+};
 
 // const setUnreachableAnswersToNull = (properties: string[]): Record<string, null> =>
 //   properties.reduce((arr: Record<string, null>, property: string) => ({ ...arr, [property]: null }), {});
 
-// export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
+export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);

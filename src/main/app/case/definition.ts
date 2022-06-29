@@ -313,8 +313,18 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
+  data: Data;
   accessCode: string;
   respondentCaseInvites: CaseInvite[]
+}
+
+export interface Data {
+  user: User;
+}
+
+export interface User {
+  idamId: string;
+  email: string
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
