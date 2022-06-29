@@ -91,6 +91,9 @@ export interface Case {
   applicant1ContactDetailsConsent?: YesOrNo;
   languageRequirements?: string;
   reasonableAdjustments?: string;
+  helpcommunication?: string;
+  courthearing?: string;
+  docsSupport?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
 }

@@ -31,9 +31,6 @@ const en = {
     helpcommunication: {
       required: 'Please select an answer',
     },
-    describeOtherNeed: {
-      required: 'Provide details of other need',
-    },
   },
 };
 
@@ -63,9 +60,6 @@ const cy: typeof en = {
   errors: {
     helpcommunication: {
       required: 'Please select an answer',
-    },
-    describeOtherNeed: {
-      required: 'Provide details of other need',
     },
   },
 };
