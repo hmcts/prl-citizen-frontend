@@ -55,20 +55,20 @@ describe('applicant1Sequence', () => {
     expect(repondentCaseSequence[12].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[12].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(repondentCaseSequence[8].url).toBe('/respondent/safety_concerns/main_page');
-    expect(repondentCaseSequence[8].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[8].getNextStep({})).toBe('/respondent/safety_concerns/your_safety');
+    expect(repondentCaseSequence[13].url).toBe('/respondent/safety_concerns/main_page');
+    expect(repondentCaseSequence[13].showInSection).toBe('aboutRespondentCase');
+    expect(repondentCaseSequence[13].getNextStep({})).toBe('/respondent/safety_concerns/your_safety');
 
-    expect(repondentCaseSequence[9].url).toBe('/respondent/safety_concerns/your_safety');
-    expect(repondentCaseSequence[9].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[9].getNextStep({})).toBe('/respondent/safety_concerns/domestic_abuse_risk');
+    expect(repondentCaseSequence[14].url).toBe('/respondent/safety_concerns/your_safety');
+    expect(repondentCaseSequence[14].showInSection).toBe('aboutRespondentCase');
+    expect(repondentCaseSequence[14].getNextStep({})).toBe('/respondent/safety_concerns/domestic_abuse_risk');
 
-    expect(repondentCaseSequence[10].url).toBe('/respondent/safety_concerns/domestic_abuse_risk');
-    expect(repondentCaseSequence[10].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[10].getNextStep({})).toBe('/respondent/safety_concerns/domestic_abuse_risk_no');
+    expect(repondentCaseSequence[15].url).toBe('/respondent/safety_concerns/domestic_abuse_risk');
+    expect(repondentCaseSequence[15].showInSection).toBe('aboutRespondentCase');
+    expect(repondentCaseSequence[15].getNextStep({})).toBe('/respondent/safety_concerns/domestic_abuse_risk_no');
 
-    expect(repondentCaseSequence[11].url).toBe('/respondent/safety_concerns/domestic_abuse_risk_no');
-    expect(repondentCaseSequence[11].showInSection).toBe('aboutRespondentCase');
-    expect(repondentCaseSequence[11].getNextStep({})).toBe('/respondent/task-list');
+    expect(repondentCaseSequence[16].url).toBe('/respondent/safety_concerns/domestic_abuse_risk_no');
+    expect(repondentCaseSequence[16].showInSection).toBe('aboutRespondentCase');
+    expect(repondentCaseSequence[16].getNextStep({})).toBe('/respondent/task-list');
   });
 });
