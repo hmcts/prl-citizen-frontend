@@ -19,11 +19,11 @@ console.log(checkboxConverter);
 
 const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
-  startAlternative: data => {
-    return {
-      startAlternative: checkboxConverter(data.startAlternative),
-    };
-  },
+  // startAlternative: data => {
+  //   return {
+  //     startAlternative: checkboxConverter(data.startAlternative),
+  //   };
+  // },
 
   //   dateChildMovedIn: data => ({
   //     dateChildMovedIn: toApiDate(data.dateChildMovedIn),

@@ -121,64 +121,22 @@ export class CaseApi {
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     try {
-      this.axios.interceptors.request.use(
-        function (config12) {
-          console.log('126 GET Request data =>' + JSON.stringify(config12));
-          return config12;
+      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`, {
+        headers: {
+          Accept: 'application/json',
         },
-        function (error) {
-          // Do something with request error
-          return Promise.reject(error);
-        }
-      );
-     
-      const tokenResponse = await this.axios.get<CcdTokenResponse>(
-        `/cases/${caseId}/event-triggers/${eventName}`,
-        {
-          headers: {
-            Accept: 'application/json',
-          },
-        },
-      );
-      this.axios.interceptors.response.use(
-        function (configResponse) {
-          console.log('139 GET response statusText=>' + JSON.stringify(configResponse));
-          return configResponse;
-        },
-        function (error) {
-          // Do something with request error
-          return Promise.reject(error);
-        });
+      });
+
       const token = tokenResponse.data.token;
       const event = { id: eventName };
 
-      this.axios.interceptors.request.use(
-        function (config12) {
-          console.log('153 POST Request data =>' + JSON.stringify(config12));
-          return config12;
-        },
-        function (error) {
-          // Do something with request error
-          return Promise.reject(error);
-        }
-      );
       const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
         event,
         data,
         event_token: token,
       });
 
-      this.axios.interceptors.response.use(
-        function (configResponse) {
-          console.log('171 POST response data=>' + JSON.stringify(configResponse));
-          return configResponse;
-        },
-        function (error) {
-          // Do something with request error
-          return Promise.reject(error);
-        });
-        
-        return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');

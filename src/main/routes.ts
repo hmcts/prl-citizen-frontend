@@ -56,7 +56,7 @@ export class Routes {
         const postController = postControllerFileName
           ? require(`${step.stepDir}/${postControllerFileName}`).default
           : PostController;
-        //console.log("59 step url is=================>>"+step.url);
+
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }

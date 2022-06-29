@@ -18,8 +18,8 @@ export const getUserDetails = async (
   rawCode: string,
   callbackUrlPageLink: PageLink
 ): Promise<UserDetails> => {
-  const id: string = 'prl-citizen-frontend';//'prl-cos-api'; //config.get('services.idam.clientID');
-  const secret: string = 'GBFSEUMBUXTTDSSR';//config.get('services.idam.clientSecret');
+  const id = 'prl-citizen-frontend'; //'prl-cos-api'; //config.get('services.idam.clientID');
+  const secret = 'GBFSEUMBUXTTDSSR'; //config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
   const code = encodeURIComponent(rawCode);
@@ -27,19 +27,6 @@ export const getUserDetails = async (
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
-
-  console.log("*****************************************************");
-  console.log("29===GET USER DETAILS METHOD ===============");
-  console.log("29===OIDC==id=====>"+id);
-  console.log("29===OIDC==secret=====>"+secret);
-  console.log("29===OIDC==tokenUrl=====>"+tokenUrl);
-  console.log("29===OIDC==callbackUrl=====>"+callbackUrl);
-  console.log("29===OIDC==data=====>"+data);
-  console.log("29===OIDC==code=====>"+code);
-  console.log("29===OIDC==headers=====>"+headers);
-  console.log("29===OIDC==jwt=====>"+jwt);
-  console.log("29===RESPONSE FROM SERVER getUserDetails =====>"+JSON.stringify(response.data));
-  console.log("*****************************************************");
 
   return {
     accessToken: response.data.access_token,
@@ -51,7 +38,7 @@ export const getUserDetails = async (
 };
 
 export const getSystemUser = async (): Promise<UserDetails> => {
-  const id: string = 'prl-cos-api'//config.get('services.idam.clientID');
+  const id = 'prl-cos-api'; //config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const systemUsername: string = config.get('services.idam.systemUsername');
@@ -60,19 +47,6 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
-
-  console.log("##########################################################");
-  console.log("9999===GET SYSTEM USER METHOD===============");
-  console.log("9999===OIDC==id=====>"+id);
-  console.log("9999===OIDC==secret=====>"+secret);
-  console.log("9999===OIDC==tokenUrl=====>"+tokenUrl);
-  console.log("9999===OIDC==systemUsername=====>"+systemUsername);
-  console.log("9999===OIDC==systemPassword=====>"+systemPassword);
-  console.log("9999===OIDC==headers=====>"+headers);
-  console.log("9999===OIDC==data=====>"+data);
-  console.log("9999===OIDC==jwt=====>"+jwt);
-  console.log("9999===OIDC==responsedata=====>"+JSON.stringify(response.data));
-  console.log("##########################################################");
 
   return {
     accessToken: response.data.access_token,
