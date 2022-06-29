@@ -24,6 +24,7 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
+  RESPONDENT_ADDRESS_HISTORY
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -112,6 +113,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_ADDRESS_BLANK,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_ADDRESS_HISTORY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

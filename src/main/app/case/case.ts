@@ -1,5 +1,6 @@
 import { AnyObject } from '../controller/PostController';
-import { CaseData, CaseInvite, ContactDetails, OtherName, State, YesOrNo, ContactDetailsPrivate } from './definition';
+
+import { CaseData, ContactDetails, OtherName, State, YesOrNo } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -7,7 +8,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseCode: 'caseCode',
   respondentFirstName: 'respondentFirstName',
   respondentLastName: 'respondentLastName',
-  accessCode: 'accessCode',
+  //accessCode: 'accessCode',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
   //applicant1FirstNames: 'applicant1FirstName',
@@ -28,9 +29,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetails: 'applicant1ContactDetails',
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
-  respondentCaseInvites: 'respondentCaseInvites',
-  detailsKnown: 'detailsKnown',
-  startAlternative: 'startAlternative'
+  //respondentCaseInvites: 'respondentCaseInvites',
+  //detailsKnown: 'detailsKnown',
+  //startAlternative: 'startAlternative'
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -56,8 +57,8 @@ export interface Case {
   caseCode?: string;
   accessCode?: string;
   detailsKnown?: string;
-  startAlternative?: Checkbox;//?: string;
-  contactDetailsPrivate?: ContactDetailsPrivate[];//string;
+  startAlternative?: string;
+  contactDetailsPrivate?: string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
@@ -83,6 +84,7 @@ export interface Case {
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
   applicant1PhoneNumber?: string;
+  applicant1SafeToCall?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
@@ -94,10 +96,16 @@ export interface Case {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  applicant1PostalAddress1?: string;
+  applicant1PostalAddress2?: string;
+  applicant1PostalAddress3?: string;
+  applicant1PostalAddressTown?: string;
+  applicant1PostalAddressCounty?: string;
+  applicant1PostalAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
-  respondentCaseInvites?: CaseInvite[];
-  applicantCaseInvites?: CaseInvite[];
+  //respondentCaseInvites?: CaseInvite[];
+  //applicantCaseInvites?: CaseInvite[];
 }
 
 export interface CaseWithId extends Case {

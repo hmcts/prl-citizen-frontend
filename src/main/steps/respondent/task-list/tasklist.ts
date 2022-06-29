@@ -1,6 +1,11 @@
 import * as URL from '../../urls';
 
-import { getConfirmOrEditYourContactDetails, getInternationalFactorsStatus, getKeepYourDetailsPrivateStatus, getMiamStatus } from './utils';
+import {
+  getConfirmOrEditYourContactDetails,
+  getInternationalFactorsStatus,
+  getKeepYourDetailsPrivateStatus,
+  getMiamStatus,
+} from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {

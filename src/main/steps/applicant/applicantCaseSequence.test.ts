@@ -2,7 +2,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(15);
+    expect(applicantCaseSequence).toHaveLength(16);
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/task-list');
@@ -47,11 +47,11 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[10].url).toBe('/applicant/confirm-contact-details/addresslookupcont');
     expect(applicantCaseSequence[10].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[10].getNextStep({})).toBe('/applicant/confirm-contact-details/addressconfirmation');
+    expect(applicantCaseSequence[10].getNextStep({})).toBe('/applicant/confirm-contact-details/addresslookupcont');
 
     expect(applicantCaseSequence[11].url).toBe('/applicant/confirm-contact-details/addresslookup');
     expect(applicantCaseSequence[11].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[11].getNextStep({})).toBe('/applicant/confirm-contact-details/addressconfirmation');
+    expect(applicantCaseSequence[11].getNextStep({})).toBe('/applicant/task-list');
 
     expect(applicantCaseSequence[12].url).toBe('/applicant/confirm-contact-details/addressconfirmation');
     expect(applicantCaseSequence[12].showInSection).toBe('aboutApplicantCase');
