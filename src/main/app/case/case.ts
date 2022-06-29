@@ -1,5 +1,4 @@
 import { AnyObject } from '../controller/PostController';
-
 import { CaseData, CaseInvite, ContactDetails, OtherName, State, YesOrNo, ContactDetailsPrivate } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
