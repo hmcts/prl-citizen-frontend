@@ -8,17 +8,17 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/task-list');
 
     expect(applicantCaseSequence[1].url).toBe('/applicant/keep-details-private/details_known');
-    expect(applicantCaseSequence[1].showInSection).toBe('aboutRespondentCase');
+    expect(applicantCaseSequence[1].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[1].getNextStep({})).toBe('/applicant/keep-details-private/start_alternative');
 
     expect(applicantCaseSequence[2].url).toBe('/applicant/keep-details-private/start_alternative');
-    expect(applicantCaseSequence[2].showInSection).toBe('aboutRespondentCase');
+    expect(applicantCaseSequence[2].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[2].getNextStep({})).toBe(
       '/applicant/keep-details-private/private_details_not_confirmed'
     );
 
     expect(applicantCaseSequence[3].url).toBe('/applicant/keep-details-private/private_details_confirmed');
-    expect(applicantCaseSequence[3].showInSection).toBe('aboutRespondentCase');
+    expect(applicantCaseSequence[3].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[3].getNextStep({})).toBe('/applicant/task-list');
 
     expect(applicantCaseSequence[4].url).toBe('/applicant/keep-details-private/private_details_not_confirmed');

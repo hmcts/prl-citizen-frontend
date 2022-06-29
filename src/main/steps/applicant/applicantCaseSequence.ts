@@ -27,12 +27,12 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_DETAILS_KNOWN,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_START_ALTERNATIVE,
   },
   {
     url: APPLICANT_START_ALTERNATIVE,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: data =>
       data.startAlternative === YesOrNo.YES
         ? APPLICANT_PRIVATE_DETAILS_CONFIRMED
@@ -40,7 +40,7 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
