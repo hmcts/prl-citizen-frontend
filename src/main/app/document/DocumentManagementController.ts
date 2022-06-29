@@ -16,20 +16,24 @@ export class DocumentManagerController {
   }
 
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+    const baseUrl = config.get('services.documentManagement.url');
+    const documents = `${baseUrl}/documents`;
+    const document_url = `${documents}/4d2af5ad-a8a3-4263-9bbb-b12eb4ad62fe`;
+    const document_binary_url = `${document_url}/binary`;
+    const document_filename = 'dummyDoc.pdf';
+
     const documentsGenerated = [
       {
         value: {
           documentEmailContent: null,
           documentLink: {
-            document_url:
-              'http://dm-store-aat.service.core-compute-aat.internal/documents/4d2af5ad-a8a3-4263-9bbb-b12eb4ad62fe',
-            document_filename: 'dummyDoc.pdf',
-            document_binary_url:
-              'http://dm-store-aat.service.core-compute-aat.internal/documents/4d2af5ad-a8a3-4263-9bbb-b12eb4ad62fe/binary',
+            document_url,
+            document_filename,
+            document_binary_url,
           },
           documentDateAdded: null,
           documentComment: 'Uploaded by applicant',
-          documentFileName: 'dummyDoc.pdf',
+          documentFileName: document_filename,
           documentType: null,
           documentFileId: null,
         },
@@ -47,7 +51,7 @@ export class DocumentManagerController {
         throw err;
       } else if (generatedDocument) {
         res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=FL401.pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=' + document_filename);
         return res.end(generatedDocument.data);
       }
       return res.redirect(APPLICANT_TASK_LIST_URL);
