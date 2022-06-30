@@ -31,7 +31,7 @@ describe('Postcode Lookup', () => {
     expect(mockedAxios.get).toHaveBeenCalledWith('postcode', {
       baseURL: 'https://api.os.uk/search/places/v1',
       headers: { accept: 'application/json' },
-      params: { key: 'NEED TO INSERT SECRET', lr: 'EN', postcode: 'AB1 2CD' },
+      params: { key: 'POSTCODE_TOKEN', lr: 'EN', postcode: 'AB1 2CD' },
     });
 
     expect(actual).toEqual([

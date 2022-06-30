@@ -5,7 +5,7 @@ import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
 const enContent = {
-  title: 'Respond to the application',
+  title: 'Your application',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',

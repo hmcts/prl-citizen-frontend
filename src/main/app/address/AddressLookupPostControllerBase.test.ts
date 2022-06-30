@@ -89,47 +89,4 @@ describe('AddressLookupPostControllerBase', () => {
     });
   });
 
-  describe('when postcode is one of the stubbed postcode', () => {
-    beforeEach(() => {
-      mockGetParsedBody.mockReturnValue({});
-      mockGetErrors.mockReturnValue([]);
-    });
-
-    test.each([
-      {
-        postcode: 'SW1A 1AA',
-        expected: [
-          {
-            fullAddress: 'BUCKINGHAM PALACE, LONDON, SW1A 1AA',
-            street1: 'BUCKINGHAM PALACE',
-            street2: '',
-            town: 'LONDON',
-            county: 'CITY OF WESTMINSTER',
-            postcode: 'SW1A 1AA',
-          },
-        ],
-      },
-      {
-        postcode: 'SW1H 9AJ',
-        expected: [
-          {
-            fullAddress: 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ',
-            street1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
-            street2: '',
-            town: 'LONDON',
-            county: 'CITY OF WESTMINSTER',
-            postcode: 'SW1H 9AJ',
-          },
-        ],
-      },
-      {
-        postcode: 'ZZ00 0ZZ',
-        expected: [],
-      },
-    ])('should save stubbed addresses in session', async ({ postcode, expected }) => {
-      req.body.applicantAddressPostcode = postcode;
-      await controller.post(req, res);
-      expect(req.session.addresses).toEqual(expected);
-    });
-  });
 });
