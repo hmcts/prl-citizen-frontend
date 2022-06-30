@@ -41,37 +41,6 @@ const languages = {
   cy,
 };
 
-// export const form: FormContent = {
-//   fields: {
-//     currentPostcodeLabel: {
-//       type: 'label',
-//       label: l => l.currentPostcodeLabel,
-//       labelSize: null,
-//     },
-//     currentPostcode: {
-//       type: 'label',
-//       label: l => l.currentPostcode,
-//       labelSize: null,
-//     },
-//     changePostCodeUchangePostCodeUrlLinkrl: {
-//       type: 'label',
-//       label: l => l.changePostCodeUrlLink,
-//       labelSize: null,
-//     },
-//     selectAddress: {
-//       type: 'select',
-//       label: l => l.selectAddress,
-//       labelSize: 'm',
-//       validator: isAddressSelected,
-//       options: l => l.options,
-//     },
-
-//   },
-//   submit: {
-//     text: l => l.continue,
-//   },
-// };
-
 const selectAddressFormFields = selectAddressForm.fields as FormFields;
 export const form: FormContent = {
   ...selectAddressForm,
