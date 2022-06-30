@@ -88,5 +88,4 @@ describe('AddressLookupPostControllerBase', () => {
       expect(res.redirect).toHaveBeenCalledWith('/request');
     });
   });
-
 });
