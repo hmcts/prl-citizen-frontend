@@ -336,6 +336,7 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
+  documentsGenerated?: ListValue<PRLDocument>[] | undefined;
   
 }
 
@@ -1147,7 +1148,7 @@ export const enum DocumentType {
   RESPONDENT_INVITATION = 'aos',
   SOLICITOR_SERVICE = 'solicitorService',
   WELSH_TRANSLATION = 'welshTranslation',
-  YOUR_APPLICATION_FL401 = 'yourApplicationFL401'
+  YOUR_APPLICATION_FL401 = 'finalDocument'
 }
 
 export const enum PaymentStatus {
