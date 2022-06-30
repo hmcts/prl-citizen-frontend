@@ -126,11 +126,6 @@ export class CaseApi {
       this.axios.interceptors.request.use(
         //eslint-disable-next-line @typescript-eslint/no-shadow
         function (config) {
-          console.log('config.url=>' + JSON.stringify(config.url));
-          console.log('config.baseURL=>' + JSON.stringify(config.baseURL));
-          console.log('config.headers=>' + JSON.stringify(config.headers));
-          console.log('config.data=>' + JSON.stringify(config.data));
-          console.log('config =========>' + JSON.stringify(config));
           return config;
         },
         function (error) {

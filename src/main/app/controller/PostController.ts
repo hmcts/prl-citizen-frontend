@@ -73,7 +73,6 @@ export class PostController<T extends AnyObject> {
     const data = toApiFormat(formData);
 
     if (Object.keys(data).length !== 0) {
-      console.log('Object is empty');
       req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
     }
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);

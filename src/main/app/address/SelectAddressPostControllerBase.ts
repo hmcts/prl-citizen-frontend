@@ -43,8 +43,6 @@ export default class SelectAddressPostControllerBase extends PostController<AnyO
       }
     }
 
-    this.filterErrorsForSaveAsDraft(req);
-
     this.redirect(req, res);
   }
 }
