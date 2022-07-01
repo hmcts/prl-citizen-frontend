@@ -49,7 +49,11 @@ export const INTERNATIONAL_FACTORS_SUMMARY: PageLink = `${INTERNATIONAL_FACTORS}
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 /* MIAM */
 
+/* consent-to-the-application */
+export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
+export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
+export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
+
 /* confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}/confirmcontactdetails`;
-export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
 /* confirm-contact-details-end */
