@@ -2,8 +2,10 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { APPLICANT_TASK_LIST_URL } from '../../steps/urls';
 import { DocumentType, State } from '../case/definition';
-
+import { getCaseApi } from '../case/CaseApi';
+import { CaseWithId } from '../case/case';
 import { DocumentManagerController } from './DocumentManagementController';
+import requireDirectory from 'require-directory';
 
 const { mockCreate, mockDelete, mockGet } = require('./DocumentManagementClient');
 
@@ -21,7 +23,7 @@ describe('DocumentManagerController', () => {
   describe('fetch file', () => {
     it.each([
       {
-        state: State.Submitted,
+        state: State.successAuthentication,
         documentsGenerated: {
           field1: 'documentsGenerated',
         },
@@ -47,7 +49,7 @@ describe('DocumentManagerController', () => {
 
       req.headers.accept = 'application/pdf';
       const res = mockResponse();
-
+  
       await documentManagerController.get(req, res);
 
       expect(mockGet).toHaveBeenCalledWith({

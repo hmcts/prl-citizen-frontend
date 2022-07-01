@@ -76,7 +76,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/public/docs/fl401.pdf',
+              href: '/applicant/public/docs/FL401FinalDocument.pdf',
               id: 'your-application',
               status: 'DOWNLOAD',
               text: 'Application submitted (FL401)',

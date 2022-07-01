@@ -2,20 +2,22 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
-import { APPLICANT_TASK_LIST_URL } from '../../steps/urls';
+import { APPLICANT, APPLICANT_TASK_LIST_URL, RESPONDENT, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import { getSystemUser } from '../auth/user/oidc';
+import { getCaseApi } from '../case/CaseApi';
 import { CaseWithId } from '../case/case';
-import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import {
+  ListValue,
   PRLDocument,
   //CITIZEN_UPDATE,
   //DocumentType,
   //LanguagePreference,
-  ListValue,
   //State,
 } from '../case/definition';
-import { DocumentManagementClient } from './DocumentManagementClient';
+import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
+import { DocumentManagementClient } from './DocumentManagementClient';
 @autobind
 export class DocumentManagerController {
   private getDocumentManagementClient(user: UserDetails) {
@@ -31,6 +33,32 @@ export class DocumentManagerController {
       filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
     }
 
+    // step: get the case details using caseid
+    // once the mapping of the user is done with accesscode and caseid
+    // this code needs to be removed as the details will be available in
+    // request user session
+    try {
+      const caseworkerUser = await getSystemUser();
+      req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+      const caseReference = req.session.userCase.caseCode?.replace(/-/g, '');
+
+      const caseData = await req.locals.api.getCaseById(caseReference as string);
+      //console.log('caseData => '+caseData)
+
+      //store the case data - generated document into request session
+      if (
+        caseData.documentsGenerated !== null &&
+        caseData.documentsGenerated !== undefined &&
+        caseData.documentsGenerated.length > 0
+      ) {
+        req.session.userCase[documentsGeneratedKey] = caseData.documentsGenerated;
+        //Object.assign(req.session.userCase[documentsGeneratedKey], caseData.documentsGenerated);
+      }
+    } catch (err) {
+      //throw err;
+      throw new Error('case data not found for caseid ' + req.session.userCase.caseCode);
+    }
+
     // const languagePreference =
     //   req.session.userCase['applicant1LanguagePreference'] === LanguagePreference.WELSH ? 'Cy' : 'En';
     const documentsGenerated =
@@ -42,6 +70,7 @@ export class DocumentManagerController {
 
     let documentToGet;
 
+    // iterate through all the documents generated and get the required file to download as pdf
     if (!!documentsGenerated && documentsGenerated.length > 0) {
       const applicationSummaryDocuments = documentsGenerated
         .map(item => item.value)
@@ -54,16 +83,24 @@ export class DocumentManagerController {
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: documentToGet });
 
-    
     req.session.save(err => {
       if (err) {
         throw err;
       } else if (generatedDocument) {
         res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename='+filename);
+        res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
         return res.end(generatedDocument.data);
       }
-      return res.redirect(APPLICANT_TASK_LIST_URL);
+
+      let redirectUrl = '';
+      if (req.originalUrl.includes(APPLICANT)) {
+        console.log('redirect to APPLICANT_TASK_LIST_URL');
+        redirectUrl = APPLICANT_TASK_LIST_URL;
+      } else if (req.originalUrl.includes(RESPONDENT)) {
+        console.log('redirect to RESPONDENT_TASK_LIST_URL');
+        redirectUrl = RESPONDENT_TASK_LIST_URL;
+      }
+      return res.redirect(redirectUrl);
     });
   }
 }
