@@ -43,6 +43,14 @@ export interface Case {
   courtPermission?: YesOrNo;
   reasonForNotConsenting?: string;
   courtOrderDetails?: string;
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
   confirmcontactdetails?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
