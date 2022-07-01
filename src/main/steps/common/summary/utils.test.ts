@@ -26,12 +26,6 @@ const urls = {
   invalidApplicationReceivedDate: CONSENT,
 };
 
-const fieldType = {
-  miamStart: 'String',
-  applicationReceivedDate: 'Date',
-  invalidApplicationReceivedDate: 'Date',
-};
-
 describe('common > summary > utils', () => {
   describe('SummaryList', () => {
     test.each([
