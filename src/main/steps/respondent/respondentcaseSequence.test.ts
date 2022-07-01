@@ -2,7 +2,7 @@ import { repondentCaseSequence } from './respondentcaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(repondentCaseSequence).toHaveLength(10);
+    expect(repondentCaseSequence).toHaveLength(14);
     expect(repondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(repondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
