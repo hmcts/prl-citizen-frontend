@@ -35,7 +35,7 @@ describe('applicant1Sequence', () => {
     expect(repondentCaseSequence[7].url).toBe('/respondent/miam/miam-start');
     expect(repondentCaseSequence[7].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[7].getNextStep({})).toBe('/respondent/task-list');
-    
+
     expect(repondentCaseSequence[8].url).toBe('/respondent/miam/willingness-to-attend-miam');
     expect(repondentCaseSequence[8].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[8].getNextStep({})).toBe('/respondent/miam/summary');
