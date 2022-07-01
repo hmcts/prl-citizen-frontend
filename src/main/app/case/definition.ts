@@ -315,6 +315,30 @@ export interface CaseData {
   respondentLastName: string;
   accessCode: string;
   respondentCaseInvites: CaseInvite[]
+  contactDetailsPrivate: string;
+
+  /***** Applicant1 *****/
+  applicant1FullName?: string;
+  applicant1FirstNames?: string;
+  applicant1LastNames?: string;
+  applicant1HasOtherNames?: YesOrNo;
+  applicant1AdditionalName?: string;
+  applicant1AdditionalNames?: OtherName[];
+  applicant1EmailAddress?: string;
+  applicant1PhoneNumber?: string;
+  applicant1DateOfBirth?: CaseDate;
+  applicant1Occupation?: string;
+  applicant1SelectAddress?: string;
+  applicant1PlaceOfBirth?: string;
+  applicant1Address1?: string;
+  applicant1Address2?: string;
+  applicant1AddressTown?: string;
+  applicant1AddressCounty?: string;
+  applicant1AddressPostcode?: string;
+  applicant1ContactDetails?: ContactDetails[];
+  applicant1ContactDetailsConsent?: YesOrNo;
+  //applicant1LanguagePreference?: LanguagePreference;
+
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -720,6 +744,7 @@ export const enum YesNoNotsure {
 export const enum SectionStatus {
   TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
+  NOT_STARTED = 'NOT_STARTED',
   COMPLETED = 'COMPLETED',
 }
 
@@ -1016,7 +1041,7 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication'
-  
+
 }
 
 export const enum UserRole {
@@ -1301,8 +1326,8 @@ export const enum HttpStatus {
   NOT_EXTENDED = 'NOT_EXTENDED',
   NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
 }
-export const CASE_TYPE = 'A58';
-export const JURISDICTION = 'ADOPTION';
+export const CASE_TYPE = 'PRLAPPS';
+export const JURISDICTION = 'PRIVATELAW';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
