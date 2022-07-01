@@ -54,7 +54,7 @@ describe('common > summary > utils', () => {
                 items: [
                   {
                     href: '/respondent/consent-to-application',
-                    text: 'edit',
+                    text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
                   },
                 ],
@@ -67,7 +67,7 @@ describe('common > summary > utils', () => {
                 items: [
                   {
                     href: '/respondent/consent-to-application',
-                    text: 'edit',
+                    text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
                   },
                 ],
