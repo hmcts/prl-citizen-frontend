@@ -1,3 +1,4 @@
+import { APPLICANT_CHECK_ANSWERS } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
@@ -85,6 +86,10 @@ const languages = {
   cy,
 };
 
+const urls = {
+  checkAnswers: APPLICANT_CHECK_ANSWERS,
+};
+
 export const form: FormContent = {
   fields: {
     addressHistory: {
@@ -148,6 +153,12 @@ export const form: FormContent = {
               label: l => l.postcodeLabel,
               labelSize: null,
               validator: isFieldFilledIn,
+            },
+            addButton: {
+              type: 'button',
+              label: l => l.addAnotherAddress,
+              classes: 'govuk-button--secondary',
+              value: urls.checkAnswers,
             },
           },
         },
