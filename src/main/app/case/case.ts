@@ -4,6 +4,7 @@ import { AnyObject } from '../controller/PostController';
 import { CaseData, CaseInvite, ContactDetails, OtherName, State, YesOrNo } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
+  applicantCaseName: 'applicantCaseName',
   serviceType: 'serviceType',
   claimNumber: 'claimNumber',
   caseCode: 'caseCode',
@@ -50,6 +51,10 @@ export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data
 export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
+  /** addition for PRL */
+  applicantCaseName: string;
+  /** new addition ends here - everything else should be removed if works */
+
   /***** case code authorization fields *****/
   serviceType: string;
   claimNumber?: string;

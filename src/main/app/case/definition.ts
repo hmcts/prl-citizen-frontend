@@ -1,7 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
-// Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
-
 import { CaseDate } from './case';
 
 export interface Address {
@@ -308,6 +304,7 @@ export interface PlacementOrder {
 }
 
 export interface CaseData {
+  applicantCaseName: string;
   serviceType: string;
   claimNumber: string;
   caseCode: string;

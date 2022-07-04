@@ -1,16 +1,16 @@
-// import dayjs from 'dayjs';
-// import advancedFormat from 'dayjs/plugin/advancedFormat';
-// import { invert } from 'lodash';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import { invert } from 'lodash';
 
-// import { Case, formFieldsToCaseMapping, formatCase } from './case';
-// import { CaseData } from './definition';
+import { Case, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData } from './definition';
 
-// dayjs.extend(advancedFormat);
+dayjs.extend(advancedFormat);
 
-// type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
+type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
-// const fields: FromApiConverters = {
-//   ...invert(formFieldsToCaseMapping),
-// };
+const fields: FromApiConverters = {
+  ...invert(formFieldsToCaseMapping),
+};
 
-// export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
+export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);

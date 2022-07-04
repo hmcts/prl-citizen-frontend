@@ -19,8 +19,8 @@ import {
   PrivateLaw,
   State,
 } from './definition';
-//import { fromApiFormat } from './from-api-format';
-//import { toApiFormat } from './to-api-format';
+import { fromApiFormat } from './from-api-format';
+// import { toApiFormat } from './to-api-format';
 
 export class CaseApi {
   constructor(
@@ -41,19 +41,8 @@ export class CaseApi {
   private async getCase(): Promise<CaseWithId | false> {
     const cases = await this.getCases();
 
-    switch (cases.length) {
-      case 0: {
-        return false;
-      }
-      case 1: {
-        const { id, state, case_data: caseData } = cases[0];
-        //...fromApiFormat(caseData)
-        return { ...caseData, id: id.toString(), state };
-      }
-      default: {
-        throw new Error('Too many cases assigned to user.');
-      }
-    }
+    const { id, state, case_data: caseData } = cases[0];
+    return { ...fromApiFormat(caseData), id: id.toString(), state };
   }
 
   public async getCases(): Promise<CcdV1Response[]> {
@@ -71,8 +60,8 @@ export class CaseApi {
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
       const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
-      //...fromApiFormat(response.data.data)
-      return { id: response.data.id, state: response.data.state, ...response.data.data };
+      
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -102,7 +91,7 @@ export class CaseApi {
         event,
         event_token: token,
       });
-      //...fromApiFormat(response.data.data)
+      // ...fromApiFormat(response.data.data)
       return { id: response.data.id, state: response.data.state, ...response.data.data };
     } catch (err) {
       this.logError(err);
@@ -131,7 +120,7 @@ export class CaseApi {
         data,
         event_token: token,
       });
-      //...fromApiFormat(response.data.data)
+      // ...fromApiFormat(response.data.data)
       return { id: response.data.id, state: response.data.state, ...response.data.data };
     } catch (err) {
       this.logError(err);
