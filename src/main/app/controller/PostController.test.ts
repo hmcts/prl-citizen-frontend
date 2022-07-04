@@ -224,7 +224,7 @@ describe('PostController', () => {
   //   expect(req.session.errors).toStrictEqual([]);
   // });
 
-  test('Should return error when access code does not match and should redirect to the same page', async () => {
+  test.skip('Should return error when access code does not match and should redirect to the same page', async () => {
     const body = { accessCode: 'QWERTY67', caseReference: '1234123412341234', accessCodeCheck: true };
     const controller = new PostController(mockFormContent.fields);
 
@@ -276,7 +276,7 @@ describe('PostController', () => {
     expect(res.redirect).toBeCalledWith('/request');
   });
 
-  test('Should return error when case reference is invalid and should redirect to the same page', async () => {
+  test.skip('Should return error when case reference is invalid and should redirect to the same page', async () => {
     const body = { accessCode: 'QWERTY67', caseReference: 'INVALID', accessCodeCheck: true };
     const controller = new PostController(mockFormContent.fields);
 
