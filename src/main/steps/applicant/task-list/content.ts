@@ -10,18 +10,18 @@ const en = () => ({
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.NOT_STARTED]: 'Not Started',
+    [SectionStatus.TO_DO]: 'Not Started',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
 });
 
 const cy = () => ({
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
-    [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
+    [SectionStatus.TO_DO]: 'Heb Ddechrau',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
