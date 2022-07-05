@@ -337,7 +337,7 @@ export interface CaseData {
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
   documentsGenerated?: ListValue<PRLDocument>[] | undefined;
-  
+  fl401SubmittedApplication?: Document | undefined;
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -1148,7 +1148,8 @@ export const enum DocumentType {
   RESPONDENT_INVITATION = 'aos',
   SOLICITOR_SERVICE = 'solicitorService',
   WELSH_TRANSLATION = 'welshTranslation',
-  YOUR_APPLICATION_FL401 = 'finalDocument'
+  YOUR_APPLICATION_FL401 = 'finalDocument',
+  FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf'
 }
 
 export const enum PaymentStatus {

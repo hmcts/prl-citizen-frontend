@@ -1,6 +1,6 @@
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, ContactDetails, ListValue, OtherName, PRLDocument, State, YesOrNo } from './definition';
+import { CaseData, ContactDetails, Document, ListValue, OtherName, PRLDocument, State, YesOrNo } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -29,6 +29,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   documentsGenerated: 'documentsGenerated',
+  fl401SubmittedApplication: 'fl401SubmittedApplication',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -98,6 +99,7 @@ export interface Case {
   applicant1PostalAddressCounty?: string;
   applicant1PostalAddressPostcode?: string;
   documentsGenerated?: ListValue<PRLDocument>[] | undefined;
+  fl401SubmittedApplication?: Document | undefined;
   //applicant1LanguagePreference?: LanguagePreference;
 }
 

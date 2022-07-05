@@ -112,5 +112,5 @@ export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIV
 export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
 /* applicant-keep-details-private-end */
 
-export const APPLICATION_FL401: PageLink = '/public/docs/FL401FinalDocument.pdf';
+export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
