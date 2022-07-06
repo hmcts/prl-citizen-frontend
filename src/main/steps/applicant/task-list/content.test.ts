@@ -30,7 +30,7 @@ const cyContent = {
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
-    },
+  },
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
