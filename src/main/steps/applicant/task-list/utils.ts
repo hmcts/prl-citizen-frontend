@@ -22,8 +22,6 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
 };
 
 export const getYourApplication = (userCase: CaseWithId): SectionStatus => {
-  if (userCase) {
-    return SectionStatus.DOWNLOAD;
-  }
+  console.log(userCase);
   return SectionStatus.DOWNLOAD;
 };

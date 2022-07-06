@@ -98,8 +98,8 @@ export interface Case {
   applicant1PostalAddressTown?: string;
   applicant1PostalAddressCounty?: string;
   applicant1PostalAddressPostcode?: string;
-  documentsGenerated?: ListValue<PRLDocument>[] | undefined;
-  fl401SubmittedApplication?: Document | undefined;
+  documentsGenerated?: ListValue<PRLDocument>[];
+  fl401SubmittedApplication?: Document;
   //applicant1LanguagePreference?: LanguagePreference;
 }
 
