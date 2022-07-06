@@ -1,13 +1,9 @@
-//import { when } from 'jest-when';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
-//import { DocumentType, State } from '../case/definition';
 import { DocumentManagerController } from './DocumentManagementController';
 
-//import { APPLICANT_TASK_LIST_URL } from '../../steps/urls';
 const { mockCreate, mockDelete, mockGet } = require('./DocumentManagementClient');
-//import { getSystemUser  } from '../../app/auth/user/oidc';
 
 jest.mock('../document/DocumentManagementClient');
 
