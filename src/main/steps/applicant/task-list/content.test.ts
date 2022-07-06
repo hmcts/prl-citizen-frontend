@@ -5,7 +5,7 @@ import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
 const enContent = {
-  title: 'Respond to the application',
+  title: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -24,13 +24,13 @@ const enContent = {
   },
 };
 const cyContent = {
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.NOT_STARTED]: 'Heb Ddechrau',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
-  },
+    },
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
@@ -61,13 +61,13 @@ describe('task-list > content', () => {
             {
               href: '/applicant/keep-details-private/details_known',
               id: 'keep-your-details-private',
-              status: 'NOT_STARTED',
+              status: 'TO_DO',
               text: 'Keep your details private',
             },
             {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
-              status: 'NOT_STARTED',
+              status: 'TO_DO',
               text: 'Confirm or edit your contact details',
             },
           ],

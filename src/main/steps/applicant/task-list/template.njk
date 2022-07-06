@@ -1,1 +1,102 @@
-{% extends "common/tasklist/template.njk" %}
+{% extends "common/page.njk" %}
+
+{% macro taskName(item) %}
+  <span class="app-task-list__task-name">
+    {% if item.href %}
+      <a id="{{item.id}}" class="govuk-link" href="{{item.href}}" aria-describedby="{{item.id}}-status">
+        {{item.text}}
+      </a>
+    {% else %}
+      <p id="{{item.id}}" class="govuk-body govuk-!-margin-bottom-0" aria-describedby="{{item.id}}-status">
+        {{item.text}}
+      </p>
+    {% endif %}
+  </span>
+{% endmacro %}
+
+{% macro taskStatus(item) %}
+  {% set statusClass = "" %}
+  {%if item.status == 'IN_PROGRESS' %}
+    {% set statusClass = "govuk-tag--blue" %}
+  {% elif item.status == 'TO_DO' or item.status == 'CAN_NOT_START_YET' %}
+    {% set statusClass = "govuk-tag--grey"%}
+  {% endif %}
+  <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
+{% endmacro %}
+
+{% macro taskListItem(item) %}
+  {% if item.id %}
+    <li class="app-task-list__item">
+      {{ taskName(item) }}
+      {{ taskStatus(item) }}
+    </li>
+  {% else %}
+    <p class="govuk-!-font-weight-bold govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{item.text}}</p>
+  {% endif %}
+{% endmacro %}
+
+{% macro taskListSection(section, index) %}
+  <li>
+    <h2 class="app-task-list__section">
+      <span class="app-task-list__section-number">{{index}}. </span>{{section.title}}
+    </h2>
+    <ul class="app-task-list__items">
+      {% for item in section.items %}
+        {{ taskListItem(item) }}
+      {% endfor %}
+    </ul>
+  </li>
+{% endmacro %}
+
+{% block content %}
+  <div class="govuk-grid-column-full"></div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    </div>
+    <div class="govuk-grid-column-one-third">
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!">
+        <h2 class="govuk-heading-m">
+        I want to...
+        </h2>
+        <ul class="govuk-list">
+        <li>
+            <a class="govuk-link" href="https://www.gov.uk/find-court-tribunal" target="_blank">Find my local court</a>
+            <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+            <a class="govuk-link" href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help#get-help-and-support" target="_blank">Find legal advice</a>
+            <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+            <a class="govuk-link" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/717671/fl700-eng.pdf" target="_blank">Know more about domestic abuse</a>
+            <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+            <a class="govuk-link" href="https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal" target="_blank">Know more about attending court</a>
+            <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+            <a class="govuk-link" href="https://www.justice.gov.uk/courts/procedure-rules/family/parts/part_29#IDABPVKC" target="_blank">Withdraw my application</a>
+            <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        </ul>
+        {% include "../../common/contact-us.njk" %}
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        {{title}}
+      </h1>
+
+      <ol class="app-task-list">
+        {% for section in sections %}
+          {{ taskListSection(section, loop.index) }}
+        {% endfor %}
+      </ol>
+    </div>
+    <div class="govuk-grid-column-one-third">
+    </div>
+  </div>
+{% endblock %}
