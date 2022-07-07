@@ -26,11 +26,14 @@ export class DocumentManagerController {
 
     try {
       let documentToGet;
-
       if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
+        if (!req.session.userCase.fl401SubmittedApplication?.document_binary_url) {
+          throw new Error('Document binary url is not found');
+        }
+      }
+      if (!req.session.userCase.fl401SubmittedApplication?.document_binary_url) {
         documentToGet = req.session.userCase.fl401SubmittedApplication?.document_binary_url;
       }
-
       const documentManagementClient = this.getDocumentManagementClient(req.session.user);
       const generatedDocument = await documentManagementClient.get({ url: documentToGet });
 
