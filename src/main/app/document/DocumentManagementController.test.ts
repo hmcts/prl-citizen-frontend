@@ -59,7 +59,7 @@ describe('DocumentManagerController', () => {
     });
   });
 
-  describe('fetch file FL401-Final-Document for respondent when file properties are empty', () => {
+  describe('fetch file FL401-Final-Document for respondent when file name is invalid', () => {
     test('fetch an existing file - %o', async () => {
       const { req, res } = getMockRequestResponse();
       req.originalUrl = 'http://localhost:8080/respondent/public/docs/FL401-Final-Document.pdf';
@@ -70,13 +70,33 @@ describe('DocumentManagerController', () => {
         document_binary_url: '',
       };
 
-      let errorFlag = false;
+      let flag = false;
       try {
         await documentManagerController.get(req, res);
       } catch (err) {
-        errorFlag = true;
+        flag = true;
       }
-      expect(errorFlag).toBe(true);
+      expect(flag).toBe(true);
+    });
+  });
+  describe('fetch file FL401-Final-Document for respondent when file properties are empty', () => {
+    test('fetch an existing file - %o', async () => {
+      const { req, res } = getMockRequestResponse();
+      req.originalUrl = 'http://localhost:8080/respondent/public/docs/FL401-Final-Document-NOT-VALID.pdf';
+      req.headers.accept = 'application/pdf';
+      req.session.userCase.fl401SubmittedApplication = {
+        document_url: '',
+        document_filename: '',
+        document_binary_url: '',
+      };
+
+      let flag = false;
+      try {
+        await documentManagerController.get(req, res);
+      } catch (err) {
+        flag = true;
+      }
+      expect(flag).toBe(true);
     });
   });
 });

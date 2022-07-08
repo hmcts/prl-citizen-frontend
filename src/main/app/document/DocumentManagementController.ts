@@ -24,40 +24,37 @@ export class DocumentManagerController {
       filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
     }
 
-    try {
-      let documentToGet;
-      if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
-        if (!req.session.userCase.fl401SubmittedApplication?.document_binary_url) {
-          throw new Error('Document binary url is not found');
-        }
-      }
+    let documentToGet;
+    if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
       if (!req.session.userCase.fl401SubmittedApplication?.document_binary_url) {
-        documentToGet = req.session.userCase.fl401SubmittedApplication?.document_binary_url;
+        throw new Error('Document binary url is not found');
       }
-      const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-      const generatedDocument = await documentManagementClient.get({ url: documentToGet });
-
-      req.session.save(err => {
-        if (err) {
-          throw err;
-        } else if (generatedDocument) {
-          res.setHeader('Content-Type', 'application/pdf');
-          res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
-          return res.end(generatedDocument.data);
-        }
-
-        let redirectUrl = '';
-        if (req.originalUrl.includes(APPLICANT)) {
-          console.log('redirect to APPLICANT_TASK_LIST_URL');
-          redirectUrl = APPLICANT_TASK_LIST_URL;
-        } else if (req.originalUrl.includes(RESPONDENT)) {
-          console.log('redirect to RESPONDENT_TASK_LIST_URL');
-          redirectUrl = RESPONDENT_TASK_LIST_URL;
-        }
-        return res.redirect(redirectUrl);
-      });
-    } catch (err) {
-      throw new Error('Error Occured in DocumentManagerController get method');
+      documentToGet = req.session.userCase.fl401SubmittedApplication?.document_binary_url;
+    } else {
+      throw new Error('Document File Name is not valid');
     }
+
+    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
+    const generatedDocument = await documentManagementClient.get({ url: documentToGet });
+
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      } else if (generatedDocument) {
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
+        return res.end(generatedDocument.data);
+      }
+
+      let redirectUrl = '';
+      if (req.originalUrl.includes(APPLICANT)) {
+        console.log('redirect to APPLICANT_TASK_LIST_URL');
+        redirectUrl = APPLICANT_TASK_LIST_URL;
+      } else if (req.originalUrl.includes(RESPONDENT)) {
+        console.log('redirect to RESPONDENT_TASK_LIST_URL');
+        redirectUrl = RESPONDENT_TASK_LIST_URL;
+      }
+      return res.redirect(redirectUrl);
+    });
   }
 }
