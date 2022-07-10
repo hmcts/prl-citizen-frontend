@@ -15,11 +15,15 @@ import {
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_TASK_LIST_URL,
   COMMUNICATION_HELP,
+  COURT_HEARING_COMFORT,
   COURT_HEARING_SUPPORT,
   DOCUMENTS_SUPPORT,
   // APPLICANT_START_ALTERNATIVE,
   LANGUAGE_REQUIREMENTS,
   REASONABLE_ADJUSTMENTS,
+  SAFETY_ARRANGEMENTS,
+  TRAVELLING_TO_COURT,
+  UNABLE_TO_TAKE_COURT_PROCEEDINGS,
   YOUR_NEEDS_WHEN_GO_TO_COURT,
 } from '../urls';
 
@@ -117,6 +121,26 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: COURT_HEARING_SUPPORT,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => COURT_HEARING_COMFORT,
+  },
+  {
+    url: COURT_HEARING_COMFORT,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => TRAVELLING_TO_COURT,
+  },
+  {
+    url: TRAVELLING_TO_COURT,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => UNABLE_TO_TAKE_COURT_PROCEEDINGS,
+  },
+  {
+    url: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => SAFETY_ARRANGEMENTS,
+  },
+  {
+    url: SAFETY_ARRANGEMENTS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },

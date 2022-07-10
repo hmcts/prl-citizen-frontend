@@ -21,8 +21,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           href: URL.APPLICANT_CHECK_ANSWERS,
         },
         {
-          id: 'your-needs-when-go-to-court',
-          text: taskListItems.your_needs_when_go_to_court,
+          id: 'support-you-need-during-your-case',
+          text: taskListItems.support_you_need_during_your_case,
           status: getConfirmOrEditYourContactDetails(userCase),
           href: URL.LANGUAGE_REQUIREMENTS,
         },

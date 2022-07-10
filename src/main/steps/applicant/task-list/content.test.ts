@@ -23,7 +23,7 @@ const enContent = {
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    your_needs_when_go_to_court: 'Your needs when you go to court',
+    support_you_need_during_your_case: 'Support you need during your case',
     application_submitted: 'Application submitted (FL401)',
     witness_statement: 'Witness statement',
     details_of_court_hearings: 'Check details of your court hearings',
@@ -53,7 +53,7 @@ const cyContent = {
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    your_needs_when_go_to_court: 'Your needs when you go to court',
+    support_you_need_during_your_case: 'Support you need during your case',
     application_submitted: 'Application submitted (FL401)',
     witness_statement: 'Witness statement',
     details_of_court_hearings: 'Check details of your court hearings',
@@ -93,9 +93,9 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '/applicant/your-needs-when-go-to-court/language-requirements',
-              id: 'your-needs-when-go-to-court',
-              text: 'Your needs when you go to court',
+              href: '/applicant/support-you-need-during-case/language-requirements',
+              id: 'support-you-need-during-your-case',
+              text: 'Support you need during your case',
               status: 'TO_DO',
             },
           ],

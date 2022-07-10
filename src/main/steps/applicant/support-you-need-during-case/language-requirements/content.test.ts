@@ -5,49 +5,45 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const en = {
-  section: 'Reasonable adjustments',
-  title: 'I need documents in an alternative format',
+  section: 'Language requirements',
+  title: 'Do you have any language requirements?',
   courtcommunication:
     'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  docsprint: 'I need documents printed in a particular colour or font',
-  docsreadformat: 'Documents in an easy read format',
-  brailledocs: 'Braille documents',
-  largeprintdocs: 'Documents in large print',
-  docsaudio: 'Audio translation of documents',
-  readoutdocs: 'Documents read out to me',
-  emailInfo: 'Information emailed to me',
-  other: 'Other',
-  nosupport: 'I do not need any of this support at this time',
+  speakwelsh: 'I need to speak in Welsh',
+  readandwritewelsh: 'I need to read and write in Welsh',
+  languageinterpreter: 'I need an interpreter in a certain language',
+  nointerpreter: 'No, I do not have any language requirements at this time',
   continue: 'Save and continue',
   errors: {
-    docsSupport: {
+    languageRequirements: {
       required: 'Please select an answer',
+    },
+    languageDetails: {
+      required: 'Please provide language details',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need documents in an alternative format',
+  section: 'Language requirements',
+  title: 'Do you have any language requirements?',
   courtcommunication:
     'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  docsprint: 'I need documents printed in a particular colour or font',
-  docsreadformat: 'Documents in an easy read format',
-  brailledocs: 'Braille documents',
-  largeprintdocs: 'Documents in large print',
-  docsaudio: 'Audio translation of documents',
-  readoutdocs: 'Documents read out to me',
-  emailInfo: 'Information emailed to me',
-  other: 'Other',
-  nosupport: 'I do not need any of this support at this time',
+  speakwelsh: 'I need to speak in Welsh',
+  readandwritewelsh: 'I need to read and write in Welsh',
+  languageinterpreter: 'I need an interpreter in a certain language',
+  nointerpreter: 'No, I do not have any language requirements at this time',
   continue: 'Save and continue',
   errors: {
-    docsSupport: {
+    languageRequirements: {
       required: 'Please select an answer',
+    },
+    languageDetails: {
+      required: 'Please provide language details',
     },
   },
 };
@@ -66,22 +62,17 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('I need documents in an alternative format');
-    expect(generatedContent.section).toEqual('Reasonable adjustments');
+    expect(generatedContent.title).toEqual('Do you have any language requirements?');
+    expect(generatedContent.section).toEqual('Language requirements');
     expect(generatedContent.courtcommunication).toEqual(
       'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
-    expect(generatedContent.docsprint).toEqual('I need documents printed in a particular colour or font');
-    expect(generatedContent.docsreadformat).toEqual('Documents in an easy read format');
-    expect(generatedContent.brailledocs).toEqual('Braille documents');
-    expect(generatedContent.largeprintdocs).toEqual('Documents in large print');
-    expect(generatedContent.docsaudio).toEqual('Audio translation of documents');
-    expect(generatedContent.readoutdocs).toEqual('Documents read out to me');
-    expect(generatedContent.emailInfo).toEqual('Information emailed to me');
-    expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.nosupport).toEqual('I do not need any of this support at this time');
+    expect(generatedContent.speakwelsh).toEqual('I need to speak in Welsh');
+    expect(generatedContent.readandwritewelsh).toEqual('I need to read and write in Welsh');
+    expect(generatedContent.languageinterpreter).toEqual('I need an interpreter in a certain language');
+    expect(generatedContent.nointerpreter).toEqual('No, I do not have any language requirements at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -94,10 +85,10 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain docsSupport field', () => {
-    const docsSupportField = fields.docsSupport as FormOptions;
-    expect(docsSupportField.type).toBe('checkboxes');
-    expect((docsSupportField.section as Function)(generatedContent)).toBe(en.section);
+  test('should contain languageRequirementsField field', () => {
+    const languageRequirementsField = fields.languageRequirements as FormOptions;
+    expect(languageRequirementsField.type).toBe('checkboxes');
+    expect((languageRequirementsField.section as Function)(generatedContent)).toBe(en.section);
   });
 
   test('should contain Save and continue button', () => {

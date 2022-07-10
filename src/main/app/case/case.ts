@@ -90,10 +90,22 @@ export interface Case {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   languageRequirements?: string;
+  languageDetails?: string;
   reasonableAdjustments?: string;
   helpcommunication?: string;
+  describeOtherNeed?: string;
   courthearing?: string;
+  communicationSupportOther?: string;
   docsSupport?: string;
+  otherDetails?: string;
+  courtcomfort?: string;
+  otherProvideDetails?: string;
+  safetyArrangements?: string;
+  safetyArrangementsDetails?: string;
+  travellingtoCourt?: string;
+  travellingOtherDetails?: string;
+  unableforcourtproceedings?: string;
+  courtProceedingProvideDetails?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
 }

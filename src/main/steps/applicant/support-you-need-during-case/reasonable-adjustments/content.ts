@@ -101,13 +101,13 @@ export const form: FormContent = {
           value: 'travel help',
         },
         {
-          divider: 'or',
+          divider: true,
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.nosupport,
           value: 'no need of support',
-          behaviour: 'exclusive',
+          exclusive: true,
         },
       ],
     },
