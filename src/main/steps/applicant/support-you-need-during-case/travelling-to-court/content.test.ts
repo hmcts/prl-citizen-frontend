@@ -27,7 +27,7 @@ const en = {
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
-  },  
+  },
 };
 
 const cy: typeof en = {
@@ -53,7 +53,7 @@ const cy: typeof en = {
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
-  },  
+  },
 };
 
 jest.mock('../../../../app/form/validation');

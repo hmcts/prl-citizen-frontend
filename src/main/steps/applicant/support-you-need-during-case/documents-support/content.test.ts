@@ -107,7 +107,7 @@ describe('citizen-home content', () => {
     expect(docsSupportField.type).toBe('checkboxes');
     expect((docsSupportField.section as Function)(generatedContent)).toBe(en.section);
   });
-  
+
   test('should contain Save and continue button', () => {
     expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });

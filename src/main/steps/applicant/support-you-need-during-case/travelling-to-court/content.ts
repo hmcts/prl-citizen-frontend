@@ -51,7 +51,7 @@ const cy: typeof en = {
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
-  },  
+  },
 };
 
 const languages = {

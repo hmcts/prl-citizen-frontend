@@ -25,7 +25,7 @@ const en = {
     communicationSupportOther: {
       required: 'Please provide the details',
     },
-  }
+  },
 };
 
 const cy: typeof en = {

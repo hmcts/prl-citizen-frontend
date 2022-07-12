@@ -7,7 +7,8 @@ import { generateContent } from './content';
 const en = {
   section: 'Safety requirements',
   title: 'Do you or the children need special safety arrangements at court?',
-  courtcommunication: 'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
+  courtcommunication:
+    'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   waitingroom: 'Separate waiting room',
@@ -35,7 +36,8 @@ const en = {
 const cy: typeof en = {
   section: 'Safety requirements',
   title: 'Do you or the children need special safety arrangements at court?',
-  courtcommunication: 'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
+  courtcommunication:
+    'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   waitingroom: 'Separate waiting room',
@@ -77,8 +79,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual('Do you or the children need special safety arrangements at court?');
     expect(generatedContent.section).toEqual('Safety requirements');
     expect(generatedContent.courtcommunication).toEqual(
-      'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
-
+      'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
