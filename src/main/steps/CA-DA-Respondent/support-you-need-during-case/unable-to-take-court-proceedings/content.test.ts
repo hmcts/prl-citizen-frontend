@@ -6,23 +6,18 @@ import { generateContent } from './content';
 
 const en = {
   section: 'Reasonable adjustments',
-  title: 'I would need to bring support with me to a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'Is there a reason you are unable to take part in the court proceedings?',
+  courtcommunication: 'For example, do you have a disability that would prevent you from attending court in person?',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  supportworker: 'A support worker or carer',
-  familymember: 'A friend or family member',
-  assistance: 'Assistance / guide dog',
-  animal: 'Therapy animal',
-  other: 'Other',
-  otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  one: 'Yes',
+  two: 'No',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    respondentUnableCourtProceedings: {
       required: 'Please select an answer',
     },
-    communicationSupportOther: {
+    respondentCourtProceedingDetails: {
       required: 'Please provide the details',
     },
   },
@@ -30,23 +25,18 @@ const en = {
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
-  title: 'I would need to bring support with me to a court hearing',
+  title: 'I need something to make me feel comfortable during a court hearing',
   courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  supportworker: 'A support worker or carer',
-  familymember: 'A friend or family member',
-  assistance: 'Assistance / guide dog',
-  animal: 'Therapy animal',
-  other: 'Other',
-  otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  one: 'Yes',
+  two: 'No',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    respondentUnableCourtProceedings: {
       required: 'Please select an answer',
     },
-    communicationSupportOther: {
+    respondentCourtProceedingDetails: {
       required: 'Please provide the details',
     },
   },
@@ -66,19 +56,12 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('I would need to bring support with me to a court hearing');
+    expect(generatedContent.title).toEqual('Is there a reason you are unable to take part in the court proceedings?');
     expect(generatedContent.section).toEqual('Reasonable adjustments');
     expect(generatedContent.courtcommunication).toEqual(
-      'Think about what you would need if the hearing was in person, by phone or video.'
-    );
-    expect(generatedContent.optionHint).toEqual('Select all that apply to you');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
-    expect(generatedContent.supportworker).toEqual('A support worker or carer');
-    expect(generatedContent.familymember).toEqual('A friend or family member');
-    expect(generatedContent.assistance).toEqual('Assistance / guide dog');
-    expect(generatedContent.animal).toEqual('Therapy animal');
-    expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.nosupport).toEqual('No, I do not need any extra support at this time');
+      'For example, do you have a disability that would prevent you from attending court in person?'
+    ),
+      expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -91,15 +74,15 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain courthearing field', () => {
-    const courthearingField = fields.courthearing as FormOptions;
-    expect(courthearingField.type).toBe('checkboxes');
-    expect((courthearingField.section as Function)(generatedContent)).toBe(en.section);
+  test('should contain  field', () => {
+    const unableforcourtproceedingsField = fields.respondentUnableCourtProceedings as FormOptions;
+    expect(unableforcourtproceedingsField.type).toBe('radios');
+    expect(unableforcourtproceedingsField.classes).toBe('govuk-radios');
+    expect((unableforcourtproceedingsField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
+  test('should contain continue button', () => {
     expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
-
 /* eslint-enable @typescript-eslint/ban-types */

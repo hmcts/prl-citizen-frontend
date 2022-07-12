@@ -24,10 +24,10 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    safetyArrangements: {
+    respondentSafetyArrangements: {
       required: 'Please select an answer',
     },
-    safetyArrangementsDetails: {
+    respondentSafetyArrangementsDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -53,10 +53,10 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    safetyArrangements: {
+    respondentSafetyArrangements: {
       required: 'Please select an answer',
     },
-    safetyArrangementsDetails: {
+    respondentSafetyArrangementsDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -104,7 +104,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const safetyArrangementsField = fields.safetyArrangements as FormOptions;
+    const safetyArrangementsField = fields.respondentSafetyArrangements as FormOptions;
     expect(safetyArrangementsField.type).toBe('checkboxes');
     expect((safetyArrangementsField.section as Function)(generatedContent)).toBe(en.section);
   });

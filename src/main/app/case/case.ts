@@ -89,6 +89,7 @@ export interface Case {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  //support you need during the case
   languageRequirements?: string;
   languageDetails?: string;
   reasonableAdjustments?: string;
@@ -107,7 +108,24 @@ export interface Case {
   unableforcourtproceedings?: string;
   courtProceedingProvideDetails?: string;
 
-  //applicant1LanguagePreference?: LanguagePreference;
+  //CA-DA-Respondent
+  respondentHelpCommunication?: string;
+  respondentDescribeOtherNeed?: string;
+  respondentCourtComfort?: string;
+  respondentOtherProvideDetails?: string;
+  respondentCourtHearing?: string;
+  respondentCommSupportOther?: string;
+  respondentDocsSupport?: string;
+  respondentOtherDetails?: string;
+  respondentLangRequirements?: string;
+  respondentLangDetails?: string;
+  respondentReasonableAdjustments?: string;
+  respondentSafetyArrangements?: string;
+  respondentSafetyArrangementsDetails?: string;
+  respondentTravellingToCourt?: string;
+  respondentTravellingOtherDetails?: string;
+  respondentUnableCourtProceedings?: string;
+  respondentCourtProceedingDetails?: string;
 }
 
 export interface CaseWithId extends Case {

@@ -42,7 +42,6 @@ const cy: typeof en = {
   },
 };
 
-
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
@@ -57,12 +56,12 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual(
-      'Is there a reason you are unable to take part in the court proceedings?'
-    );
+    expect(generatedContent.title).toEqual('Is there a reason you are unable to take part in the court proceedings?');
     expect(generatedContent.section).toEqual('Reasonable adjustments');
-    expect(generatedContent.courtcommunication).toEqual('For example, do you have a disability that would prevent you from attending court in person?'),
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
+    expect(generatedContent.courtcommunication).toEqual(
+      'For example, do you have a disability that would prevent you from attending court in person?'
+    ),
+      expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
 
   // eslint-disable-next-line jest/expect-expect

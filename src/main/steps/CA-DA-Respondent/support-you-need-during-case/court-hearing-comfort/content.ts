@@ -1,28 +1,26 @@
+import { Checkbox } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
-  title: 'I need help travelling to, or moving around court buildings',
+  title: 'I need something to make me feel comfortable during a court hearing',
+  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  parkingspace: 'Parking space close to the venue',
-  stepfree: 'Step free / wheelchair access',
-  wheelchair: 'Use of venue wheelchair',
-  toilet: 'Accessible toilet',
-  lift: 'Help using a lift',
-  differentchair: 'A different type of chair',
-  building: 'Guiding in the building',
+  appropriatelighting: 'Appropriate lighting',
+  break: 'Regular breaks',
+  space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    travellingtoCourt: {
+    respondentCourtComfort: {
       required: 'Please select an answer',
     },
-    travellingOtherDetails: {
+    respondentOtherProvideDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -30,25 +28,22 @@ const en = {
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
-  title: 'I need help travelling to, or moving around court buildings',
+  title: 'I need something to make me feel comfortable during a court hearing',
+  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  parkingspace: 'Parking space close to the venue',
-  stepfree: 'Step free / wheelchair access',
-  wheelchair: 'Use of venue wheelchair',
-  toilet: 'Accessible toilet',
-  lift: 'Help using a lift',
-  differentchair: 'A different type of chair',
-  building: 'Guiding in the building',
+  appropriatelighting: 'Appropriate lighting',
+  break: 'Regular breaks',
+  space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    travellingtoCourt: {
+    respondentCourtComfort: {
       required: 'Please select an answer',
     },
-    travellingOtherDetails: {
+    respondentOtherProvideDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -61,53 +56,33 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    travellingtoCourt: {
+    respondentCourtComfort: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'travellingtoCourt',
-          label: l => l.parkingspace,
-          value: 'parking space close to the venue',
+          name: 'courtcomfort',
+          label: l => l.appropriatelighting,
+          value: 'appropriate lighting',
         },
         {
-          name: 'travellingtoCourt',
-          label: l => l.stepfree,
-          value: 'step free / wheelchair access',
+          name: 'courtcomfort',
+          label: l => l.break,
+          value: 'Regular breaks',
         },
         {
-          name: 'travellingtoCourt',
-          label: l => l.wheelchair,
-          value: 'use of venue wheelchair',
+          name: 'courtcomfort',
+          label: l => l.space,
+          value: 'space to move around',
         },
         {
-          name: 'travellingtoCourt',
-          label: l => l.toilet,
-          value: 'accessible toilet',
-        },
-        {
-          name: 'travellingtoCourt',
-          label: l => l.lift,
-          value: 'help using a lift',
-        },
-        {
-          name: 'travellingtoCourt',
-          label: l => l.differentchair,
-          value: 'a different type of chair',
-        },
-        {
-          name: 'travellingtoCourt',
-          label: l => l.building,
-          value: 'guiding in the building',
-        },
-        {
-          name: 'travellingtoCourt',
+          name: 'courtcomfort',
           label: l => l.other,
-          value: 'other',
+          value: Checkbox.Checked,
           subFields: {
-            travellingOtherDetails: {
+            respondentOtherProvideDetails: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
@@ -115,12 +90,11 @@ export const form: FormContent = {
             },
           },
         },
-
         {
           divider: true,
         },
         {
-          name: 'travellingtoCourt',
+          name: 'courtcomfort',
           label: l => l.nosupport,
           value: 'no need of support',
           exclusive: true,

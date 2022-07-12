@@ -6,25 +6,21 @@ import { generateContent } from './content';
 
 const en = {
   section: 'Reasonable adjustments',
-  title: 'I need help travelling to, or moving around court buildings',
+  title: 'I need something to make me feel comfortable during a court hearing',
+  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  parkingspace: 'Parking space close to the venue',
-  stepfree: 'Step free / wheelchair access',
-  wheelchair: 'Use of venue wheelchair',
-  toilet: 'Accessible toilet',
-  lift: 'Help using a lift',
-  differentchair: 'A different type of chair',
-  building: 'Guiding in the building',
+  appropriatelighting: 'Appropriate lighting',
+  break: 'Regular breaks',
+  space: 'Space to be able to get up and move around',
   other: 'Other',
-  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    travellingtoCourt: {
+    respondentCourtComfort: {
       required: 'Please select an answer',
     },
-    travellingOtherDetails: {
+    respondentOtherProvideDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -32,25 +28,21 @@ const en = {
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
-  title: 'I need help travelling to, or moving around court buildings',
+  title: 'I need something to make me feel comfortable during a court hearing',
+  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  parkingspace: 'Parking space close to the venue',
-  stepfree: 'Step free / wheelchair access',
-  wheelchair: 'Use of venue wheelchair',
-  toilet: 'Accessible toilet',
-  lift: 'Help using a lift',
-  differentchair: 'A different type of chair',
-  building: 'Guiding in the building',
+  appropriatelighting: 'Appropriate lighting',
+  break: 'Regular breaks',
+  space: 'Space to be able to get up and move around',
   other: 'Other',
-  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    travellingtoCourt: {
+    respondentCourtComfort: {
       required: 'Please select an answer',
     },
-    travellingOtherDetails: {
+    respondentOtherProvideDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -70,17 +62,16 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('I need help travelling to, or moving around court buildings');
+    expect(generatedContent.title).toEqual('I need something to make me feel comfortable during a court hearing');
     expect(generatedContent.section).toEqual('Reasonable adjustments');
+    expect(generatedContent.courtcommunication).toEqual(
+      'Think about what you would need if the hearing was in person, by phone or video.'
+    );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
-    expect(generatedContent.parkingspace).toEqual('Parking space close to the venue');
-    expect(generatedContent.stepfree).toEqual('Step free / wheelchair access');
-    expect(generatedContent.wheelchair).toEqual('Use of venue wheelchair');
-    expect(generatedContent.toilet).toEqual('Accessible toilet');
-    expect(generatedContent.lift).toEqual('Help using a lift');
-    expect(generatedContent.differentchair).toEqual('A different type of chair');
-    expect(generatedContent.building).toEqual('Guiding in the building');
+    expect(generatedContent.appropriatelighting).toEqual('Appropriate lighting');
+    expect(generatedContent.break).toEqual('Regular breaks');
+    expect(generatedContent.space).toEqual('Space to be able to get up and move around');
     expect(generatedContent.other).toEqual('Other');
     expect(generatedContent.nosupport).toEqual('No, I do not need any extra support at this time');
   });
@@ -96,9 +87,9 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const travellingtoCourtField = fields.travellingtoCourt as FormOptions;
-    expect(travellingtoCourtField.type).toBe('checkboxes');
-    expect((travellingtoCourtField.section as Function)(generatedContent)).toBe(en.section);
+    const courtcomfortField = fields.respondentCourtComfort as FormOptions;
+    expect(courtcomfortField.type).toBe('checkboxes');
+    expect((courtcomfortField.section as Function)(generatedContent)).toBe(en.section);
   });
 
   test('should contain Save and continue button', () => {

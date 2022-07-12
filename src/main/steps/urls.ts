@@ -125,3 +125,19 @@ export const COURT_HEARING_COMFORT: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/c
 export const TRAVELLING_TO_COURT: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/travelling-to-court`;
 export const UNABLE_TO_TAKE_COURT_PROCEEDINGS: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/unable-to-take-court-proceedings`;
 export const SAFETY_ARRANGEMENTS: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/safety-arrangements`;
+
+/* Applicant-start */
+export const CA_DA_RESPONDENT: PageLink = '/ca-da-respondent';
+export const CA_DA_RESPONDENT_TASK_LIST_URL: PageLink = '/ca-da-respondent/task-list';
+
+/* your needs when you go to court */
+export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${CA_DA_RESPONDENT}/support-you-need-during-case`;
+export const CA_DA_LANGUAGE_REQUIREMENTS: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/language-requirements`;
+export const CA_DA_REASONABLE_ADJUSTMENTS: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/reasonable-adjustments`;
+export const CA_DA_DOCUMENTS_SUPPORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/documents-support`;
+export const CA_DA_COMMUNICATION_HELP: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/communication-help`;
+export const CA_DA_COURT_HEARING_SUPPORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-support`;
+export const CA_DA_COURT_HEARING_COMFORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-comfort`;
+export const CA_DA_TRAVELLING_TO_COURT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/travelling-to-court`;
+export const CA_DA_UNABLE_TO_TAKE_COURT_PROCEEDINGS: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/unable-to-take-court-proceedings`;
+export const CA_DA_SAFETY_ARRANGEMENTS: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/safety-arrangements`;

@@ -22,10 +22,10 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    safetyArrangements: {
+    respondentSafetyArrangements: {
       required: 'Please select an answer',
     },
-    safetyArrangementsDetails: {
+    respondentSafetyArrangementsDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -51,10 +51,10 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    safetyArrangements: {
+    respondentSafetyArrangements: {
       required: 'Please select an answer',
     },
-    safetyArrangementsDetails: {
+    respondentSafetyArrangementsDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -67,7 +67,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    safetyArrangements: {
+    respondentSafetyArrangements: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
@@ -110,7 +110,7 @@ export const form: FormContent = {
           label: l => l.other,
           value: 'other',
           subFields: {
-            safetyArrangementsDetails: {
+            respondentSafetyArrangementsDetails: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,

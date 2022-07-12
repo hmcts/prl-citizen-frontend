@@ -13,10 +13,10 @@ const en = {
   two: 'No',
   continue: 'Save and continue',
   errors: {
-    unableforcourtproceedings: {
+    respondentUnableCourtProceedings: {
       required: 'Please select an answer',
     },
-    courtProceedingProvideDetails: {
+    respondentCourtProceedingDetails: {
       required: 'Please provide the details',
     },
   },
@@ -32,10 +32,10 @@ const cy: typeof en = {
   two: 'No',
   continue: 'Save and continue',
   errors: {
-    unableforcourtproceedings: {
+    respondentUnableCourtProceedings: {
       required: 'Please select an answer',
     },
-    courtProceedingProvideDetails: {
+    respondentCourtProceedingDetails: {
       required: 'Please provide the details',
     },
   },
@@ -48,7 +48,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    unableforcourtproceedings: {
+    respondentUnableCourtProceedings: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.label,
@@ -59,7 +59,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            courtProceedingProvideDetails: {
+            respondentCourtProceedingDetails: {
               type: 'textarea',
               label: 'Provide details',
               labelSize: null,

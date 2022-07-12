@@ -23,10 +23,10 @@ const en = {
   nosupport: 'I do not need any of this support at this time',
   continue: 'Save and continue',
   errors: {
-    docsSupport: {
+    respondentDocsSupport: {
       required: 'Please select an answer',
     },
-    otherDetails: {
+    respondentOtherDetails: {
       required: 'Please provide the details',
     },
   },
@@ -51,10 +51,10 @@ const cy: typeof en = {
   nosupport: 'I do not need any of this support at this time',
   continue: 'Save and continue',
   errors: {
-    docsSupport: {
+    respondentDocsSupport: {
       required: 'Please select an answer',
     },
-    otherDetails: {
+    respondentOtherDetails: {
       required: 'Please provide the details',
     },
   },
@@ -103,7 +103,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain docsSupport field', () => {
-    const docsSupportField = fields.docsSupport as FormOptions;
+    const docsSupportField = fields.respondentDocsSupport as FormOptions;
     expect(docsSupportField.type).toBe('checkboxes');
     expect((docsSupportField.section as Function)(generatedContent)).toBe(en.section);
   });
