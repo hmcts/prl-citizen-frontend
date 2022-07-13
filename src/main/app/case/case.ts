@@ -89,22 +89,23 @@ export interface Case {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  //support you need during the case
   languageRequirements?: string;
   languageDetails?: string;
   reasonableAdjustments?: string;
-  helpcommunication?: string;
+  helpCommunication?: string;
   describeOtherNeed?: string;
-  courthearing?: string;
+  courtHearing?: string;
   communicationSupportOther?: string;
   docsSupport?: string;
   otherDetails?: string;
-  courtcomfort?: string;
+  courtComfort?: string;
   otherProvideDetails?: string;
   safetyArrangements?: string;
   safetyArrangementsDetails?: string;
-  travellingtoCourt?: string;
+  travellingToCourt?: string;
   travellingOtherDetails?: string;
-  unableforcourtproceedings?: string;
+  unableForCourtProceedings?: string;
   courtProceedingProvideDetails?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;

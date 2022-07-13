@@ -19,7 +19,7 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    courtHearing: {
       required: 'Please select an answer',
     },
     communicationSupportOther: {
@@ -43,7 +43,7 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    courtHearing: {
       required: 'Please select an answer',
     },
     communicationSupportOther: {
@@ -92,7 +92,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const courthearingField = fields.courthearing as FormOptions;
+    const courthearingField = fields.courtHearing as FormOptions;
     expect(courthearingField.type).toBe('checkboxes');
     expect((courthearingField.section as Function)(generatedContent)).toBe(en.section);
   });

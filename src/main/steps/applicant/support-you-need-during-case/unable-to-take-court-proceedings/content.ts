@@ -13,7 +13,7 @@ const en = {
   two: 'No',
   continue: 'Save and continue',
   errors: {
-    unableforcourtproceedings: {
+    unableForCourtProceedings: {
       required: 'Please select an answer',
     },
     courtProceedingProvideDetails: {
@@ -32,7 +32,7 @@ const cy: typeof en = {
   two: 'No',
   continue: 'Save and continue',
   errors: {
-    unableforcourtproceedings: {
+    unableForCourtProceedings: {
       required: 'Please select an answer',
     },
     courtProceedingProvideDetails: {
@@ -48,7 +48,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    unableforcourtproceedings: {
+    unableForCourtProceedings: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.label,

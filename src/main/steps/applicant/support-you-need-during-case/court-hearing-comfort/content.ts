@@ -17,7 +17,7 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courtcomfort: {
+    courtComfort: {
       required: 'Please select an answer',
     },
     otherProvideDetails: {
@@ -40,7 +40,7 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courtcomfort: {
+    courtComfort: {
       required: 'Please select an answer',
     },
     otherProvideDetails: {
@@ -56,7 +56,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    courtcomfort: {
+    courtComfort: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,

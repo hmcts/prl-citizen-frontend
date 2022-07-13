@@ -19,7 +19,7 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    travellingtoCourt: {
+    travellingToCourt: {
       required: 'Please select an answer',
     },
     travellingOtherDetails: {
@@ -45,7 +45,7 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    travellingtoCourt: {
+    travellingToCourt: {
       required: 'Please select an answer',
     },
     travellingOtherDetails: {
@@ -61,7 +61,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    travellingtoCourt: {
+    travellingToCourt: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,

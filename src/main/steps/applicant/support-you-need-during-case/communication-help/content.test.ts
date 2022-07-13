@@ -29,7 +29,7 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    helpcommunication: {
+    helpCommunication: {
       required: 'Please select an answer',
     },
     describeOtherNeed: {
@@ -63,7 +63,7 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    helpcommunication: {
+    helpCommunication: {
       required: 'Please select an answer',
     },
     describeOtherNeed: {
@@ -124,7 +124,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain helpcommunication field', () => {
-    const helpcommunicationField = fields.helpcommunication as FormOptions;
+    const helpcommunicationField = fields.helpCommunication as FormOptions;
     expect(helpcommunicationField.type).toBe('checkboxes');
     expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
   });

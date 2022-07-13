@@ -27,7 +27,7 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    helpcommunication: {
+    helpCommunication: {
       required: 'Please select an answer',
     },
     describeOtherNeed: {
@@ -61,7 +61,7 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    helpcommunication: {
+    helpCommunication: {
       required: 'Please select an answer',
     },
     describeOtherNeed: {
@@ -77,7 +77,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    helpcommunication: {
+    helpCommunication: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
