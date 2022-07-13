@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -17,11 +17,15 @@ const en = {
   readoutdocs: 'Documents read out to me',
   emailInfo: 'Information emailed to me',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'I do not need any of this support at this time',
   continue: 'Save and continue',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
+    },
+    otherDetails: {
+      required: 'Please provide the details',
     },
   },
 };
@@ -41,11 +45,15 @@ const cy: typeof en = {
   readoutdocs: 'Documents read out to me',
   emailInfo: 'Information emailed to me',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'I do not need any of this support at this time',
   continue: 'Save and continue',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
+    },
+    otherDetails: {
+      required: 'Please provide the details',
     },
   },
 };
@@ -102,15 +110,23 @@ export const form: FormContent = {
           name: 'docsSupport',
           label: l => l.other,
           value: 'other',
+          subFields: {
+            otherDetails: {
+              type: 'textarea',
+              label: l => l.otherDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
-          divider: 'or',
+          divider: true,
         },
         {
           name: 'docsSupport',
           label: l => l.nosupport,
           value: 'no need of support',
-          behaviour: 'exclusive',
+          exclusive: true,
         },
       ],
       validator: atLeastOneFieldIsChecked,

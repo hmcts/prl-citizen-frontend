@@ -182,13 +182,13 @@ export interface FormInput {
   warning?: Warning;
   conditionalText?: Label;
   subFields?: Record<string, FormField>;
-  divider?: Label; //Required for divider between checkbox options
   open?: boolean;
   options?: DropdownOptionsLookup;
   disabled?: boolean;
   detailsHtml?: Label;
   link?: string;
-  behaviour?: string;
+  divider?: boolean;
+  exclusive?: boolean;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {

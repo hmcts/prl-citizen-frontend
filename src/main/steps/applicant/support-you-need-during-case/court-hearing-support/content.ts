@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -13,11 +13,15 @@ const en = {
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    courtHearing: {
       required: 'Please select an answer',
+    },
+    communicationSupportOther: {
+      required: 'Please provide the details',
     },
   },
 };
@@ -33,11 +37,15 @@ const cy: typeof en = {
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    courtHearing: {
       required: 'Please select an answer',
+    },
+    communicationSupportOther: {
+      required: 'Please provide the details',
     },
   },
 };
@@ -49,7 +57,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    courthearing: {
+    courtHearing: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
@@ -79,15 +87,23 @@ export const form: FormContent = {
           name: 'courthearing',
           label: l => l.other,
           value: 'other',
+          subFields: {
+            communicationSupportOther: {
+              type: 'textarea',
+              label: l => l.otherDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
-          divider: 'or',
+          divider: true,
         },
         {
           name: 'courthearing',
           label: l => l.nosupport,
           value: 'no need of support',
-          behaviour: 'exclusive',
+          exclusive: true,
         },
       ],
       validator: atLeastOneFieldIsChecked,

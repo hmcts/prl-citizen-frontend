@@ -15,11 +15,15 @@ const en = {
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    courtHearing: {
       required: 'Please select an answer',
+    },
+    communicationSupportOther: {
+      required: 'Please provide the details',
     },
   },
 };
@@ -35,11 +39,15 @@ const cy: typeof en = {
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    courtHearing: {
       required: 'Please select an answer',
+    },
+    communicationSupportOther: {
+      required: 'Please provide the details',
     },
   },
 };
@@ -84,7 +92,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const courthearingField = fields.courthearing as FormOptions;
+    const courthearingField = fields.courtHearing as FormOptions;
     expect(courthearingField.type).toBe('checkboxes');
     expect((courthearingField.section as Function)(generatedContent)).toBe(en.section);
   });

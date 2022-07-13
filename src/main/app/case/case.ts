@@ -89,13 +89,16 @@ export interface Case {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  //support you need during the case
   languageRequirements?: string;
+  languageDetails?: string;
   reasonableAdjustments?: string;
-  helpcommunication?: string;
-  courthearing?: string;
+  helpCommunication?: string;
+  describeOtherNeed?: string;
+  courtHearing?: string;
+  communicationSupportOther?: string;
   docsSupport?: string;
-
-  //applicant1LanguagePreference?: LanguagePreference;
+  otherDetails?: string;
 }
 
 export interface CaseWithId extends Case {

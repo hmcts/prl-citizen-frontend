@@ -25,11 +25,15 @@ const en = {
   intermediaryhint:
     'a person to act as a link and assist you in the hearing - a judge may allow this to help you understand and communicate better',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    helpcommunication: {
+    helpCommunication: {
       required: 'Please select an answer',
+    },
+    describeOtherNeed: {
+      required: 'Please provide the details',
     },
   },
 };
@@ -55,11 +59,15 @@ const cy: typeof en = {
   intermediaryhint:
     'a person to act as a link and assist you in the hearing - a judge may allow this to help you understand and communicate better',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    helpcommunication: {
+    helpCommunication: {
       required: 'Please select an answer',
+    },
+    describeOtherNeed: {
+      required: 'Please provide the details',
     },
   },
 };
@@ -116,7 +124,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain helpcommunication field', () => {
-    const helpcommunicationField = fields.helpcommunication as FormOptions;
+    const helpcommunicationField = fields.helpCommunication as FormOptions;
     expect(helpcommunicationField.type).toBe('checkboxes');
     expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
   });
