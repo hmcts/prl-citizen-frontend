@@ -182,7 +182,6 @@ export interface FormInput {
   warning?: Warning;
   conditionalText?: Label;
   subFields?: Record<string, FormField>;
-  //divider?: Label; //Required for divider between checkbox options
   open?: boolean;
   options?: DropdownOptionsLookup;
   disabled?: boolean;
