@@ -336,7 +336,8 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
-  
+  documentsGenerated?: ListValue<PRLDocument>[] | undefined;
+  fl401SubmittedApplication?: Document | undefined;
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -606,6 +607,15 @@ export interface DocumentInfo {
   binaryUrl: string;
 }
 
+export interface PRLDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
+}
+
 export interface Letter {
   divorceDocument: DivorceDocument;
   count: number;
@@ -742,6 +752,7 @@ export const enum SectionStatus {
   IN_PROGRESS = 'IN_PROGRESS',
   NOT_STARTED = 'NOT_STARTED',
   COMPLETED = 'COMPLETED',
+  DOWNLOAD = 'DOWNLOAD',
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1137,6 +1148,8 @@ export const enum DocumentType {
   RESPONDENT_INVITATION = 'aos',
   SOLICITOR_SERVICE = 'solicitorService',
   WELSH_TRANSLATION = 'welshTranslation',
+  YOUR_APPLICATION_FL401 = 'finalDocument',
+FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf'
 }
 
 export const enum PaymentStatus {
