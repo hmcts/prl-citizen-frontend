@@ -73,7 +73,6 @@ export class CaseApi {
       const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
 
       //...fromApiFormat(response.data.data)
-      //console.log("response.data.data=======>>>"+response.data.data);
       return { id: response.data.id, state: response.data.state, ...response.data.data };
     } catch (err) {
       this.logError(err);
