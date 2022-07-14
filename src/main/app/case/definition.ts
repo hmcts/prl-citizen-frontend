@@ -1149,7 +1149,7 @@ export const enum DocumentType {
   SOLICITOR_SERVICE = 'solicitorService',
   WELSH_TRANSLATION = 'welshTranslation',
   YOUR_APPLICATION_FL401 = 'finalDocument',
-  FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf'
+FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf'
 }
 
 export const enum PaymentStatus {
