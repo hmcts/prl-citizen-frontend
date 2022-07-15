@@ -1,7 +1,6 @@
 import Axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import jwt_decode from 'jwt-decode';
-
 import { PageLink } from '../../../steps/urls';
 import { UserDetails } from '../../controller/AppRequest';
 
@@ -38,6 +37,7 @@ export const getUserDetails = async (
 };
 
 export const getSystemUser = async (): Promise<UserDetails> => {
+  try {
   //const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
@@ -48,7 +48,12 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=prl-citizen-frontend&client_secret=${secret}&scope=openid%20profile%20roles`;
 
+ 
+
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
+
+  
+
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
   return {
     accessToken: response.data.access_token,
@@ -57,6 +62,9 @@ export const getSystemUser = async (): Promise<UserDetails> => {
     givenName: jwt.given_name,
     familyName: jwt.family_name,
   };
+} catch (err) {
+  throw new Error('Error Occured in getSystemUser.');
+}
 };
 
 interface IdTokenJwtPayload {
