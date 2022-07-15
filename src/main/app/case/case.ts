@@ -79,7 +79,7 @@ export interface Case {
   applicant1AdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
-  applicant1SafeToCall?: string
+  applicant1SafeToCall?: string;
   applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1DateOfBirthText?: string;
