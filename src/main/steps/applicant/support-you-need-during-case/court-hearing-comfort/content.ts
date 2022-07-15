@@ -63,22 +63,22 @@ export const form: FormContent = {
       section: l => l.section,
       values: [
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.appropriatelighting,
           value: 'appropriate lighting',
         },
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.break,
           value: 'Regular breaks',
         },
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.space,
           value: 'space to move around',
         },
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.other,
           value: Checkbox.Checked,
           subFields: {
@@ -94,7 +94,7 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.nosupport,
           value: 'no need of support',
           exclusive: true,
