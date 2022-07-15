@@ -58,3 +58,13 @@ export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStat
   }
   return SectionStatus.TO_DO;
 };
+
+export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.confirmcontactdetails) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.confirmcontactdetails) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
