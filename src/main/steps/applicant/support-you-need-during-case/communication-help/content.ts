@@ -85,59 +85,59 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.hearingloop,
           value: 'hearing loop',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.infraredreceiver,
           value: 'infrared receiver',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.needspeakinghelp,
           value: 'speaking help',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.lipspeaker,
           hint: l => l.lipspeakerhint,
           value: 'lip speaker',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.signlanguage,
           value: 'sign language interpreter',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.speechreporter,
           value: 'speech to text reporter',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.extratime,
           value: 'extra time to think and explain myself',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.courtvisit,
           value: 'vist to court before hearing',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.courthearing,
           value: 'court hearing',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.intermediary,
           hint: l => l.intermediaryhint,
           value: 'intermediary',
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.other,
           value: 'Other',
           subFields: {
@@ -153,7 +153,7 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'helpcommunication',
+          name: 'helpCommunication',
           label: l => l.nosupport,
           value: 'no need of support',
           exclusive: true,
