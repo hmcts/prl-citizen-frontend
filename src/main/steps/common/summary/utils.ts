@@ -92,10 +92,10 @@ export const summaryList = (
       value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
-    if(prefix === 'APPLICANT') {
-     summaryData.push(row);
-    }else if(prefix === 'RESPONDENT' && key !== 'applicant1SafeToCall'){
-        summaryData.push(row);
+    if (prefix === 'APPLICANT') {
+      summaryData.push(row);
+    } else if (prefix === 'RESPONDENT' && key !== 'applicant1SafeToCall') {
+      summaryData.push(row);
     }
   }
 
