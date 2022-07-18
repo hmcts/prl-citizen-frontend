@@ -5,27 +5,35 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../.
 const en = {
   section: 'Reasonable adjustments',
   title: 'I need documents in an alternative format',
-  courtcommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+  courtCommunication: 'Think about all communications with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  docsprint: 'I need documents printed in a particular colour or font',
-  docsreadformat: 'Documents in an easy read format',
-  brailledocs: 'Braille documents',
-  largeprintdocs: 'Documents in large print',
-  docsaudio: 'Audio translation of documents',
-  readoutdocs: 'Documents read out to me',
+  docsColour: 'Documents in a specified colour',
+  docsColourDetails: 'Describe what you need',
+  docsReadFormat: 'Documents in an easy read format',
+  docsReadFormatHint: 'information written in simple language with pictures',
+  brailleDocs: 'Braille documents',
+  largePrintDocs: 'Documents in large print',
+  largePrintDocsDetails: 'Describe what you need',
+  audioTranslation: 'Audio translation of documents',
+  docsReadOut: 'Documents read out to me',
   emailInfo: 'Information emailed to me',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'I do not need any of this support at this time',
+  noSupport: 'I do not need any of this support at this time',
   continue: 'Save and continue',
   errors: {
     respondentDocsSupport: {
       required: 'Please select an answer',
     },
+    respondentDocsDetails: {
+      required: 'Please provide the docs details',
+    },
+    respondentLargePrintDetails: {
+      required: 'Please provide the large print details',
+    },
     respondentOtherDetails: {
-      required: 'Please provide the details',
+      required: 'Please provide the other details',
     },
   },
 };
@@ -33,27 +41,35 @@ const en = {
 const cy: typeof en = {
   section: 'Reasonable adjustments',
   title: 'I need documents in an alternative format',
-  courtcommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+  courtCommunication: 'Think about all communications with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  docsprint: 'I need documents printed in a particular colour or font',
-  docsreadformat: 'Documents in an easy read format',
-  brailledocs: 'Braille documents',
-  largeprintdocs: 'Documents in large print',
-  docsaudio: 'Audio translation of documents',
-  readoutdocs: 'Documents read out to me',
+  docsColour: 'Documents in a specified colour',
+  docsColourDetails: 'Describe what you need',
+  docsReadFormat: 'Documents in an easy read format',
+  docsReadFormatHint: 'information written in simple language with pictures',
+  brailleDocs: 'Braille documents',
+  largePrintDocs: 'Documents in large print',
+  largePrintDocsDetails: 'Describe what you need',
+  audioTranslation: 'Audio translation of documents',
+  docsReadOut: 'Documents read out to me',
   emailInfo: 'Information emailed to me',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'I do not need any of this support at this time',
+  noSupport: 'I do not need any of this support at this time',
   continue: 'Save and continue',
   errors: {
     respondentDocsSupport: {
       required: 'Please select an answer',
     },
+    respondentDocsDetails: {
+      required: 'Please provide the docs details',
+    },
+    respondentLargePrintDetails: {
+      required: 'Please provide the large print details',
+    },
     respondentOtherDetails: {
-      required: 'Please provide the details',
+      required: 'Please provide the other details',
     },
   },
 };
@@ -72,42 +88,59 @@ export const form: FormContent = {
       section: l => l.section,
       values: [
         {
-          name: 'docsSupport',
-          label: l => l.docsprint,
+          name: 'respondentDocsSupport',
+          label: l => l.docsColour,
           value: 'Documents in colour print',
+          subFields: {
+            respondentDocsDetails: {
+              type: 'textarea',
+              label: l => l.docsColourDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
-          name: 'docsSupport',
-          label: l => l.docsreadformat,
+          name: 'respondentDocsSupport',
+          label: l => l.docsReadFormat,
+          hint: l => l.docsReadFormatHint,
           value: 'documents in read format',
         },
         {
-          name: 'docsSupport',
-          label: l => l.brailledocs,
+          name: 'respondentDocsSupport',
+          label: l => l.brailleDocs,
           value: 'Braille documents',
         },
         {
-          name: 'docsSupport',
-          label: l => l.largeprintdocs,
+          name: 'respondentDocsSupport',
+          label: l => l.largePrintDocs,
           value: 'Large print documents',
+          subFields: {
+            respondentLargePrintDetails: {
+              type: 'textarea',
+              label: l => l.largePrintDocsDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
-          name: 'docsSupport',
-          label: l => l.docsaudio,
+          name: 'respondentDocsSupport',
+          label: l => l.audioTranslation,
           value: 'Audio translation of documents',
         },
         {
-          name: 'docsSupport',
-          label: l => l.readoutdocs,
+          name: 'respondentDocsSupport',
+          label: l => l.docsReadOut,
           value: 'Documents read out to me',
         },
         {
-          name: 'docsSupport',
+          name: 'respondentDocsSupport',
           label: l => l.emailInfo,
           value: 'email information',
         },
         {
-          name: 'docsSupport',
+          name: 'respondentDocsSupport',
           label: l => l.other,
           value: 'other',
           subFields: {
@@ -123,7 +156,7 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'docsSupport',
+          name: 'respondentDocsSupport',
           label: l => l.nosupport,
           value: 'no need of support',
           exclusive: true,

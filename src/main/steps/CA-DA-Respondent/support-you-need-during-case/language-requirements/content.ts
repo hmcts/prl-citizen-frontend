@@ -63,17 +63,17 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'languageRequirements',
+          name: 'respondentLangRequirements',
           label: l => l.speakwelsh,
           value: 'I need to speak in Welsh',
         },
         {
-          name: 'languageRequirements',
+          name: 'respondentLangRequirements',
           label: l => l.readandwritewelsh,
           value: 'I need to read and write in Welsh',
         },
         {
-          name: 'languageRequirements',
+          name: 'respondentLangRequirements',
           label: l => l.languageinterpreter,
           value: 'I need an interpreter in a certain language',
           subFields: {

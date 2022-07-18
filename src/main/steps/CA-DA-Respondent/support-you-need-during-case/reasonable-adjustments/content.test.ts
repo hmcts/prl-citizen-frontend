@@ -12,17 +12,17 @@ const en = {
     'We know some people need support to access information and use our services. We often call this a reasonable adjustment. Some reasonable adjustments need to be agreed by the judge or HMCTS. You can discuss with the court if your needs change.',
   optionHint: 'Select all that apply to you - specific requirements can be given next',
   summaryText: 'Contacts for help',
-  docsformat: 'I need documents in an alternative format',
-  docsformathint: 'for example, braille or different colours and sizes',
-  commhelp: 'I need to read and write in Welsh',
-  commhelphint: 'for example, sight, hearing, speaking or interpretation',
-  hearingsupport: 'I need to bring support with me to a hearing',
-  hearingsupporthint: 'for example, someone you know or an assistance animal',
-  hearingcomfort: 'I need something to feel comfortable during a hearing',
-  hearingcomforthint: 'for example, breaks or extra space',
-  travellinghelp: 'I need help travelling to, or moving around court buildings',
-  travellinghelphint: 'access and mobility support if a hearing takes place in person',
-  nosupport: 'No, I do not need any extra support at this time',
+  docsFormat: 'I need documents in an alternative format',
+  docsFormatHint: 'for example, braille or different colours and text sizes',
+  commHelp: 'I need to read and write in Welsh',
+  commHelpHint: 'for example, sight, hearing, speaking or interpretation',
+  hearingSupport: 'I need to bring support with me to a hearing',
+  hearingSupportHint: 'for example, someone you know or an assistance animal',
+  hearingComfort: 'I need something to feel comfortable during a hearing',
+  hearingComfortHint: 'for example, breaks or extra space',
+  travellingHelp: 'I need help travelling to, or moving around court buildings',
+  travellingHelpHint: 'for example, access and mobility support if a hearing takes place in person',
+  noSupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
     respondentReasonableAdjustments: {
@@ -39,17 +39,17 @@ const cy: typeof en = {
     'We know some people need support to access information and use our services. We often call this a reasonable adjustment. Some reasonable adjustments need to be agreed by the judge or HMCTS. You can discuss with the court if your needs change.',
   optionHint: 'Select all that apply to you - specific requirements can be given next',
   summaryText: 'Contacts for help',
-  docsformat: 'I need documents in an alternative format',
-  docsformathint: 'for example, braille or different colours and sizes',
-  commhelp: 'I need to read and write in Welsh',
-  commhelphint: 'for example, sight, hearing, speaking or interpretation',
-  hearingsupport: 'I need to bring support with me to a hearing',
-  hearingsupporthint: 'for example, someone you know or an assistance animal',
-  hearingcomfort: 'I need something to feel comfortable during a hearing',
-  hearingcomforthint: 'for example, breaks or extra space',
-  travellinghelp: 'I need help travelling to, or moving around court buildings',
-  travellinghelphint: 'access and mobility support if a hearing takes place in person',
-  nosupport: 'No, I do not need any extra support at this time',
+  docsFormat: 'I need documents in an alternative format',
+  docsFormatHint: 'for example, braille or different colours and text sizes',
+  commHelp: 'I need to read and write in Welsh',
+  commHelpHint: 'for example, sight, hearing, speaking or interpretation',
+  hearingSupport: 'I need to bring support with me to a hearing',
+  hearingSupportHint: 'for example, someone you know or an assistance animal',
+  hearingComfort: 'I need something to feel comfortable during a hearing',
+  hearingComfortHint: 'for example, breaks or extra space',
+  travellingHelp: 'I need help travelling to, or moving around court buildings',
+  travellingHelpHint: 'for example, access and mobility support if a hearing takes place in person',
+  noSupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
     respondentReasonableAdjustments: {
@@ -83,19 +83,19 @@ describe('citizen-home content', () => {
       'Select all that apply to you - specific requirements can be given next'
     );
     expect(generatedContent.summaryText).toEqual('Contacts for help');
-    expect(generatedContent.docsformat).toEqual('I need documents in an alternative format');
-    expect(generatedContent.docsformathint).toEqual('for example, braille or different colours and sizes');
-    expect(generatedContent.commhelp).toEqual('I need to read and write in Welsh');
-    expect(generatedContent.commhelphint).toEqual('for example, sight, hearing, speaking or interpretation');
-    expect(generatedContent.hearingsupport).toEqual('I need to bring support with me to a hearing');
-    expect(generatedContent.hearingsupporthint).toEqual('for example, someone you know or an assistance animal');
-    expect(generatedContent.hearingcomfort).toEqual('I need something to feel comfortable during a hearing');
-    expect(generatedContent.hearingcomforthint).toEqual('for example, breaks or extra space');
-    expect(generatedContent.travellinghelp).toEqual('I need help travelling to, or moving around court buildings');
-    expect(generatedContent.travellinghelphint).toEqual(
-      'access and mobility support if a hearing takes place in person'
+    expect(generatedContent.docsFormat).toEqual('I need documents in an alternative format');
+    expect(generatedContent.docsFormatHint).toEqual('for example, braille or different colours and sizes');
+    expect(generatedContent.commHelp).toEqual('I need to read and write in Welsh');
+    expect(generatedContent.commHelpHint).toEqual('for example, sight, hearing, speaking or interpretation');
+    expect(generatedContent.hearingSupport).toEqual('I need to bring support with me to a hearing');
+    expect(generatedContent.hearingSupportHint).toEqual('for example, someone you know or an assistance animal');
+    expect(generatedContent.hearingComfort).toEqual('I need something to feel comfortable during a hearing');
+    expect(generatedContent.hearingComfortHint).toEqual('for example, breaks or extra space');
+    expect(generatedContent.travellingHelp).toEqual('I need help travelling to, or moving around court buildings');
+    expect(generatedContent.travellingHelpHint).toEqual(
+      'for example, access and mobility support if a hearing takes place in person'
     );
-    expect(generatedContent.nosupport).toEqual('No, I do not need any extra support at this time');
+    expect(generatedContent.noSupport).toEqual('No, I do not need any extra support at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect

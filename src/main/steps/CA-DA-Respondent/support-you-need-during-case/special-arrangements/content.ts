@@ -3,59 +3,59 @@ import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
-  section: 'Safety requirements',
+  section: 'Special arrangements',
   title: 'Do you or the children need special safety arrangements at court?',
   courtcommunication:
-    'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
+    'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  waitingroom: 'Separate waiting room',
-  separateexitentry: 'Separate exits and entrances',
+  waitingRoom: 'Separate waiting room',
+  separateExitEntry: 'Separate exits and entrances',
   screens: 'Screens so you and the other people in the case cannot see each other',
-  screenshint: 'This needs to be approved by a judge',
+  screensHint: 'This needs to be approved by a judge',
   toilet: 'Separate toilets',
-  advancedview: 'Advanced viewing of the court',
-  videolinks: 'Video links',
-  videolinkshint: 'This needs to be approved by a judge',
+  visitToCourt: 'Visit to court before the hearing',
+  videoLinks: 'Video links',
+  videoLinksHint: 'This needs to be approved by a judge',
   other: 'Other',
-  otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  otherDetails: 'Provide details of what you or the children need',
+  noSupport: 'No, I do not have any safety requirements at this time',
   continue: 'Save and continue',
   errors: {
-    respondentSafetyArrangements: {
+    respondentSpecialArrangements: {
       required: 'Please select an answer',
     },
-    respondentSafetyArrangementsDetails: {
+    respondentSpecialArrangementsDetails: {
       required: 'Please describe your need in detail',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Safety requirements',
+  section: 'Special arrangements',
   title: 'Do you or the children need special safety arrangements at court?',
   courtcommunication:
-    'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
+    'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  waitingroom: 'Separate waiting room',
-  separateexitentry: 'Separate exits and entrances',
+  waitingRoom: 'Separate waiting room',
+  separateExitEntry: 'Separate exits and entrances',
   screens: 'Screens so you and the other people in the case cannot see each other',
-  screenshint: 'This needs to be approved by a judge',
+  screensHint: 'This needs to be approved by a judge',
   toilet: 'Separate toilets',
-  advancedview: 'Advanced viewing of the court',
-  videolinks: 'Video links',
-  videolinkshint: 'This needs to be approved by a judge',
+  visitToCourt: 'Visit to court before the hearing',
+  videoLinks: 'Video links',
+  videoLinksHint: 'This needs to be approved by a judge',
   other: 'Other',
-  otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  otherDetails: 'Provide details of what you or the children need',
+  noSupport: 'No, I do not have any safety requirements at this time',
   continue: 'Save and continue',
   errors: {
-    respondentSafetyArrangements: {
+    respondentSpecialArrangements: {
       required: 'Please select an answer',
     },
-    respondentSafetyArrangementsDetails: {
-      required: 'Please describe your need in detail',
+    respondentSpecialArrangementsDetails: {
+      required: 'Please describe your need in details',
     },
   },
 };
@@ -67,50 +67,50 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentSafetyArrangements: {
+    respondentSpecialArrangements: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'safetyArrangements',
-          label: l => l.waitingroom,
+          name: 'respondentSpecialArrangements',
+          label: l => l.waitingRoom,
           value: 'separate waiting room',
         },
         {
-          name: 'safetyArrangements',
-          label: l => l.separateexitentry,
+          name: 'respondentSpecialArrangements',
+          label: l => l.separateExitEntry,
           value: 'separate exits and entrances',
         },
         {
-          name: 'safetyArrangements',
+          name: 'respondentSpecialArrangements',
           label: l => l.screens,
-          hint: l => l.screenshint,
+          hint: l => l.screensHint,
           value: 'screens to separate',
         },
         {
-          name: 'safetyArrangements',
+          name: 'respondentSpecialArrangements',
           label: l => l.toilet,
           value: 'separate toilets',
         },
         {
-          name: 'safetyArrangements',
-          label: l => l.advancedview,
-          value: 'other',
+          name: 'respondentSpecialArrangements',
+          label: l => l.visitToCourt,
+          value: 'visit to court',
         },
         {
-          name: 'safetyArrangements',
-          label: l => l.videolinks,
-          hint: l => l.videolinkshint,
-          value: 'other',
+          name: 'respondentSpecialArrangements',
+          label: l => l.videoLinks,
+          hint: l => l.videoLinksHint,
+          value: 'video links',
         },
         {
-          name: 'safetyArrangements',
+          name: 'respondentSpecialArrangements',
           label: l => l.other,
           value: 'other',
           subFields: {
-            respondentSafetyArrangementsDetails: {
+            respondentSpecialArrangementsDetails: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
@@ -118,13 +118,12 @@ export const form: FormContent = {
             },
           },
         },
-
         {
           divider: true,
         },
         {
-          name: 'courtcomfort',
-          label: l => l.nosupport,
+          name: 'respondentSpecialArrangements',
+          label: l => l.noSupport,
           value: 'no need of support',
           exclusive: true,
         },

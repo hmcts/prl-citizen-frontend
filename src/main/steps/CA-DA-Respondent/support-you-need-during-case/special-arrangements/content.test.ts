@@ -5,59 +5,59 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const en = {
-  section: 'Safety requirements',
+  section: 'Special arrangements',
   title: 'Do you or the children need special safety arrangements at court?',
   courtcommunication:
-    'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
+    'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  waitingroom: 'Separate waiting room',
-  separateexitentry: 'Separate exits and entrances',
+  waitingRoom: 'Separate waiting room',
+  separateExitEntry: 'Separate exits and entrances',
   screens: 'Screens so you and the other people in the case cannot see each other',
-  screenshint: 'This needs to be approved by a judge',
+  screensHint: 'This needs to be approved by a judge',
   toilet: 'Separate toilets',
-  advancedview: 'Advanced viewing of the court',
-  videolinks: 'Video links',
-  videolinkshint: 'This needs to be approved by a judge',
+  visitToCourt: 'Visit to court before the hearing',
+  videoLinks: 'Video links',
+  videoLinksHint: 'This needs to be approved by a judge',
   other: 'Other',
-  otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  otherDetails: 'Provide details of what you or the children need',
+  noSupport: 'No, I do not have any safety requirements at this time',
   continue: 'Save and continue',
   errors: {
-    respondentSafetyArrangements: {
+    respondentSpecialArrangements: {
       required: 'Please select an answer',
     },
-    respondentSafetyArrangementsDetails: {
+    respondentSpecialArrangementsDetails: {
       required: 'Please describe your need in detail',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Safety requirements',
+  section: 'Special arrangements',
   title: 'Do you or the children need special safety arrangements at court?',
   courtcommunication:
-    'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
+    'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
-  waitingroom: 'Separate waiting room',
-  separateexitentry: 'Separate exits and entrances',
+  waitingRoom: 'Separate waiting room',
+  separateExitEntry: 'Separate exits and entrances',
   screens: 'Screens so you and the other people in the case cannot see each other',
-  screenshint: 'This needs to be approved by a judge',
+  screensHint: 'This needs to be approved by a judge',
   toilet: 'Separate toilets',
-  advancedview: 'Advanced viewing of the court',
-  videolinks: 'Video links',
-  videolinkshint: 'This needs to be approved by a judge',
+  visitToCourt: 'Visit to court before the hearing',
+  videoLinks: 'Video links',
+  videoLinksHint: 'This needs to be approved by a judge',
   other: 'Other',
-  otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  otherDetails: 'Provide details of what you or the children need',
+  noSupport: 'No, I do not have any safety requirements at this time',
   continue: 'Save and continue',
   errors: {
-    respondentSafetyArrangements: {
+    respondentSpecialArrangements: {
       required: 'Please select an answer',
     },
-    respondentSafetyArrangementsDetails: {
-      required: 'Please describe your need in detail',
+    respondentSpecialArrangementsDetails: {
+      required: 'Please describe your need in details',
     },
   },
 };
@@ -104,9 +104,9 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const safetyArrangementsField = fields.respondentSafetyArrangements as FormOptions;
-    expect(safetyArrangementsField.type).toBe('checkboxes');
-    expect((safetyArrangementsField.section as Function)(generatedContent)).toBe(en.section);
+    const specialArrangementsField = fields.respondentSpecialArrangements as FormOptions;
+    expect(specialArrangementsField.type).toBe('checkboxes');
+    expect((specialArrangementsField.section as Function)(generatedContent)).toBe(en.section);
   });
 
   test('should contain Save and continue button', () => {
