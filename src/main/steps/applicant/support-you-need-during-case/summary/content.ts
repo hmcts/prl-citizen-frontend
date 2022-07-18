@@ -1,7 +1,7 @@
-import { TranslationFn } from '../../../../../../../../PRLAPPS/prl-citizen-frontend/src/main/app/controller/GetController';
-import { FormContent } from '../../../../../../../../PRLAPPS/prl-citizen-frontend/src/main/app/form/Form';
-import { CommonContent } from '../../../../../../../../PRLAPPS/prl-citizen-frontend/src/main/steps/common/common.content';
-import { summaryList } from '../../../../../../../../PRLAPPS/prl-citizen-frontend/src/main/steps/common/summary/utils';
+import { TranslationFn } from '../../../../../main/app/controller/GetController';
+import { FormContent } from '../../../../../main/app/form/Form';
+import { CommonContent } from '../../../../../main/steps/common/common.content';
+import { summaryList } from '../../../../../main/steps/common/summary/utils';
 import {
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
