@@ -14,7 +14,7 @@ import {
   CA_DA_UNABLE_TO_TAKE_COURT_PROCEEDINGS,
 } from '../urls';
 
-export const respondentCaseSequence: Step[] = [
+export const cAdARespondentCaseSequence: Step[] = [
   {
     url: CA_DA_RESPONDENT_TASK_LIST_URL,
     showInSection: Sections.AboutCaAndDaRespondentCase,
@@ -69,5 +69,10 @@ export const respondentCaseSequence: Step[] = [
     url: CA_DA_TRAVELLING_TO_COURT,
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_UNABLE_TO_TAKE_COURT_PROCEEDINGS,
+  },
+  {
+    url: CA_DA_ATTENDING_THE_COURT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => CA_DA_RESPONDENT_TASK_LIST_URL,
   },
 ];
