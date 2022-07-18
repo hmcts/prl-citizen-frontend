@@ -23,6 +23,7 @@ import {
   REASONABLE_ADJUSTMENTS,
   SAFETY_ARRANGEMENTS,
   SUPPORT_YOU_NEED_DURING_CASE,
+  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   TRAVELLING_TO_COURT,
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
 } from '../urls';
@@ -141,6 +142,11 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: SAFETY_ARRANGEMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  },
+  {
+    url: SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },

@@ -1,4 +1,3 @@
-import { Checkbox } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -80,7 +79,7 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.other,
-          value: Checkbox.Checked,
+          value: 'other',
           subFields: {
             otherProvideDetails: {
               type: 'textarea',
