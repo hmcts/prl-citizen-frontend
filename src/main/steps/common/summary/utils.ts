@@ -94,7 +94,7 @@ export const summaryList = (
     };
     if (prefix === 'APPLICANT') {
       summaryData.push(row);
-    } else if (prefix === 'RESPONDENT' && key !== 'applicant1SafeToCall') {
+    } else if (key !== 'applicant1SafeToCall') {
       summaryData.push(row);
     }
   }

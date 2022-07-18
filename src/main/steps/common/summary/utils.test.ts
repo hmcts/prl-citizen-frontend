@@ -1,5 +1,6 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
+import { FieldPrefix } from '../../../app/case/case';
 
 import { summaryList } from './utils';
 
