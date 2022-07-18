@@ -69,7 +69,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'view-all-orders-from-the-court',
           text: taskListItems.view_all_orders_from_the_court,
           status: getViewAllOrdersFromTheCourt(userCase),
-          href: URL.APPLICANT_DETAILS_KNOWN,
+          href: URL.RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT,
         },
       ],
     },

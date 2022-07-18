@@ -16,6 +16,7 @@ const enContent = {
     consentToTheApplication: 'Consent to the application',
     applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
+    ordersFromTheCourt: 'Orders from the court',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -23,6 +24,7 @@ const enContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    view_all_orders_from_the_court: 'View all orders from the court',
   },
 };
 const cyContent = {
@@ -37,6 +39,7 @@ const cyContent = {
     consentToTheApplication: 'Consent to the application',
     applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
+    ordersFromTheCourt: 'Orders from the court',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -44,6 +47,7 @@ const cyContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    view_all_orders_from_the_court: 'View all orders from the court',
   },
 };
 describe('task-list > content', () => {
@@ -109,6 +113,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Additional information',
+        },
+        {
+          items: [
+            {
+              href: '/respondent/yourdocuments/alldocuments/orders',
+              id: 'view-all-orders-from-the-court',
+              status: 'TO_DO',
+              text: 'View all orders from the court',
+            },
+          ],
+          title: 'Orders from the court',
         },
       ],
     },
