@@ -1,11 +1,15 @@
 {% extends "common/template.njk" %}
 
 {% block page_content %}
+  {% if section %}
+    <span class="govuk-caption-l">{{ section }}</span>
+  {% endif %}
+
     <fieldset class="govuk-fieldset">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
                        {{title}} 
-                      </h1>
+                    </h1>
         </legend>
         <div class="govuk-!-padding-bottom-4"></div>
         <p class="govuk-body-m">{{line1}}</p>

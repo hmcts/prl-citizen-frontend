@@ -2,24 +2,26 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
 const en = {
+  section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
   line1: 'You have told us you want to keep these contact details private',
   address: 'Address',
   email: 'Email',
   line2: 'What the court will do',
   line3:
-    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
+    'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
   continue: 'Continue',
 };
 
 const cy: typeof en = {
+  section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
   line1: 'You have told us you want to keep these contact details private',
   address: 'Address',
   email: 'Email',
   line2: 'What the court will do',
   line3:
-    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
+    'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
   continue: 'Continue',
 };
 
