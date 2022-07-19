@@ -6,7 +6,9 @@ import { generateContent } from './content';
 
 const enContent = {
   section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  title: 'Does the other person named in your application (the respondent) know any of your contact details?',
+  line2:
+    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
@@ -22,7 +24,9 @@ const enContent = {
 
 const cyContent = {
   section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  title: 'Does the other person named in your application (the respondent) know any of your contact details?',
+  line2:
+    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
@@ -51,7 +55,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual(
-      'Do the other people named in this application (the applicants) know any of your contact details?'
+      'Does the other person named in your application (the respondent) know any of your contact details?'
     );
     expect(generatedContent.section).toEqual('Keeping your contact details private');
     expect(generatedContent.summaryText).toEqual('Contacts for help');

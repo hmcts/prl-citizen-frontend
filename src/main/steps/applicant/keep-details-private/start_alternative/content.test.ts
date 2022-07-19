@@ -7,23 +7,21 @@ import { generateContent } from './content';
 const enContent = {
   section: 'Keeping your contact details private',
   title:
-    'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
-  line1:
-    'The answers you give in your response will be shared with the other people named in this application (the applicants). This will include your contact details.',
+    'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
+
   line2:
-    'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private.',
+    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  address: 'Address',
-  Phone_number: 'Phone number',
-  contact_details_private_hint:
-    "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
+  address: 'Home address',
+  postalAddress: 'Postal address',
+  Phone_number: 'Telephone number',
+  contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
   Email: 'Email',
-  contact_details_private:
-    'Which contact details do you want to keep private from the other people in this application?',
+  contact_details_private: 'Specify which contact details you want to keep private.',
   continue: 'Continue',
   errors: {
     startAlternative: {
@@ -38,23 +36,21 @@ const enContent = {
 const cyContent = {
   section: 'Keeping your contact details private',
   title:
-    'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
-  line1:
-    'The answers you give in your response will be shared with the other people named in this application (the applicants). This will include your contact details.',
+    'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
+
   line2:
-    'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private.',
+    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  address: 'Address',
-  Phone_number: 'Phone number',
-  contact_details_private_hint:
-    "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
+  address: 'Home address',
+  postalAddress: 'Postal address',
+  Phone_number: 'Telephone number',
   Email: 'Email',
-  contact_details_private:
-    'Which contact details do you want to keep private from the other people in this application?',
+  contact_details_private: 'Specify which contact details you want to keep private.',
+  contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
   continue: 'Continue',
   errors: {
     startAlternative: {
@@ -81,23 +77,20 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual(
-      'Do you want to keep your contact details private from the other people named in the application (the applicants)?'
+      'Do you want to keep your contact details private from the other person named in the application (the respondent)?'
     );
     expect(generatedContent.section).toEqual('Keeping your contact details private');
-    expect(generatedContent.line1).toEqual(
-      'The answers you give in your response will be shared with the other people named in this application (the applicants). This will include your contact details.'
-    );
     expect(generatedContent.line2).toEqual(
-      'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private.'
+      'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.'
     );
-    expect(generatedContent.contact_details_private).toEqual(
-      'Which contact details do you want to keep private from the other people in this application?'
-    );
+
+    expect(generatedContent.contact_details_private).toEqual('Specify which contact details you want to keep private.');
     expect(generatedContent.contact_details_private_hint).toEqual(
-      "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know."
+      'Make sure you only select details the respondent does not already know.'
     );
-    expect(generatedContent.Phone_number).toEqual('Phone number');
-    expect(generatedContent.address).toEqual('Address');
+    expect(generatedContent.Phone_number).toEqual('Telephone number');
+    expect(generatedContent.address).toEqual('Home address');
+    expect(generatedContent.postalAddress).toEqual('Postal address');
     expect(generatedContent.one).toEqual('Yes');
     expect(generatedContent.two).toEqual('No');
   });

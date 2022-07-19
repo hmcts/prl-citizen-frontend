@@ -5,6 +5,7 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const enContent = {
+  section: 'Keeping your contact details private',
   title: 'The court will not keep your contact details private',
   line1:
     'You have told us you do not want to keep your contact details private from the other people in this application.',
@@ -12,6 +13,7 @@ const enContent = {
 };
 
 const cyContent = {
+  section: 'Keeping your contact details private',
   title: 'The court will not keep your contact details private',
   line1:
     'You have told us you do not want to keep your contact details private from the other people in this application.',
@@ -30,6 +32,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
+    expect(generatedContent.section).toEqual('Keeping your contact details private');
     expect(generatedContent.title).toEqual('The court will not keep your contact details private');
     expect(generatedContent.line1).toEqual(
       'You have told us you do not want to keep your contact details private from the other people in this application.'
