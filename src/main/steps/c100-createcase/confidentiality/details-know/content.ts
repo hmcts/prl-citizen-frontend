@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   caption: 'Keeping your contact details private',
   headingTitle: 'Do the other people named in this application (the respondents) know any of your contact details?    ',
