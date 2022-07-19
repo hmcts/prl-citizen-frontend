@@ -1,10 +1,10 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, LanguageLookup } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-jest.mock('../../../app/form/validation');
+jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Keeping your contact details private',
@@ -38,32 +38,19 @@ describe('applicant personal details > applying-with > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.applyingWith as FormOptions;
+    const applyingWithField = fields.detailsKnown as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
     expect((applyingWithField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.three);
-
-  });
-  });
-
-
-  test('should contain submit button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent | undefined;
-    expect((form.submit.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)).toBe(
-      'Save and continue'
-    );
   });
 
   test('should contain saveAsDraft button', () => {
     const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent;
+    const form = generatedContent.form as FormContent | undefined;
     expect(
-      (form.saveAsDraft?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save as draft');
+      (form?.saveAsDraft?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
-
-
 });
