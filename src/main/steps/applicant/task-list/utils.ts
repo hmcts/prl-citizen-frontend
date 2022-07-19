@@ -24,22 +24,14 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
 export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus => {
   if (
     userCase?.languageRequirements &&
-    userCase?.languageDetails &&
     userCase?.reasonableAdjustments &&
     userCase?.helpCommunication &&
-    userCase?.describeOtherNeed &&
     userCase?.courtHearing &&
-    userCase?.communicationSupportOther &&
     userCase?.docsSupport &&
-    userCase?.otherDetails &&
     userCase?.courtComfort &&
-    userCase?.otherProvideDetails &&
     userCase?.safetyArrangements &&
-    userCase?.safetyArrangementsDetails &&
     userCase?.travellingToCourt &&
-    userCase?.travellingOtherDetails &&
-    userCase?.unableForCourtProceedings &&
-    userCase?.courtProceedingProvideDetails
+    userCase?.unableForCourtProceedings
   ) {
     return SectionStatus.COMPLETED;
   }

@@ -14,6 +14,26 @@ import {
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
 } from '../../../../steps/urls';
 
+const fieldType = {
+  languageRequirements: 'String',
+  languageDetails: 'String',
+  reasonableAdjustments: 'String',
+  docsSupport: 'String',
+  otherDetails: 'String',
+  helpCommunication: 'String',
+  describeOtherNeed: 'String',
+  courtHearing: 'String',
+  communicationSupportOther: 'String',
+  courtComfort: 'String',
+  otherProvideDetails: 'String',
+  travellingToCourt: 'String',
+  travellingOtherDetails: 'String',
+  unableForCourtProceedings: 'String',
+  courtProceedingProvideDetails: 'String',
+  safetyArrangements: 'String',
+  safetyArrangementsDetails: 'String',
+};
+
 export const enContent = {
   section: ' ',
   title: 'Check your answers',
@@ -82,11 +102,13 @@ export const enContent = {
 };
 
 const en = (content: CommonContent) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
+
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls)],
+    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou, fieldType, content.language)],
   };
 };
 
@@ -178,11 +200,12 @@ const urls = {
 };
 
 const cy: typeof en = (content: CommonContent) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, 'aboutYou')],
+    sections: [summaryList(cyContent, userCase, urls, cyContent.sectionTitles.aboutYou, fieldType, content.language)],
   };
 };
 

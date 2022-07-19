@@ -75,7 +75,7 @@ export const form: FormContent = {
         {
           name: 'languageRequirements',
           label: l => l.languageinterpreter,
-          value: 'I need an interpreter in a certain language',
+          value: 'need an interpreter',
           subFields: {
             languageDetails: {
               type: 'textarea',
