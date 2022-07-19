@@ -1,6 +1,8 @@
 // import s from 'connect-redis';
 import * as fs from 'fs';
 
+// eslint-disable-next-line import/no-unresolved
+import { C100Sequence } from '../../main/steps/c100-createcase/c100sequence';
 import { Case } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
@@ -9,7 +11,8 @@ import { Form, FormContent } from '../app/form/Form';
 import { Step } from './constants';
 import { edgecaseSequence } from './edge-case/edgecaseSequence';
 import { repondentCaseSequence } from './respondent/respondentcaseSequence';
-import { CITIZEN_HOME_URL, EDGE_CASE_URL } from './urls';
+// eslint-disable-next-line import/no-unresolved
+import { C100_URL, CITIZEN_HOME_URL, EDGE_CASE_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
@@ -115,5 +118,6 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
 
 export const stepsWithContentEdgecase = getStepsWithContent(edgecaseSequence, EDGE_CASE_URL);
 export const stepsWithContentRespondent = getStepsWithContent(repondentCaseSequence);
+export const c100CaseSequence = getStepsWithContent(C100Sequence, C100_URL);
 
-export const stepsWithContent = [...stepsWithContentEdgecase, ...stepsWithContentRespondent];
+export const stepsWithContent = [...stepsWithContentEdgecase, ...stepsWithContentRespondent, ...c100CaseSequence];

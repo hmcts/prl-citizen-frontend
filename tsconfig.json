@@ -17,7 +17,8 @@
     "baseUrl": "src/main",
     "paths": {
       "router/*": ["router/*"],
-      "routes/*": ["routes/*"]
+      "routes/*": ["routes/*"],
+      "@c100/*": ["steps/c100-createcase/*"]
     },
     "typeRoots": ["./node_modules/@types"]
   },

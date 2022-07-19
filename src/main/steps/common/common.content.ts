@@ -29,7 +29,7 @@ const en = {
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
   errorSummaryHeading: 'There is a problem',
   saveAndSignOut: 'Save and sign out',
-  saveAsDraft: 'Save as draft',
+  saveAsDraft: 'Save and come back later',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
