@@ -37,25 +37,15 @@
     },
     html: feedback + languageToggle
   }) }}
-  <div class=" govuk-!-margin-top-4 govuk-grid-row">
-   <div class="govuk-grid-column-two-thirds">
-        <a href="#" class="govuk-back-link">{{ back }} </a>
-  </div>
 
-
-   <div class="govuk-grid-column-one-third">
-   {{ govukDetails({
-  summaryText: "Contacts for help",
-  text: ""
-}) }}
-
-  </div>
- </div>
 {% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+        <a href="#" class="govuk-back-link govuk-!-margin-bottom-9">{{ back }} </a>
+
+
       {% block error_summary %}
         {% include "common/error/summary.njk" %}
       {% endblock %}
@@ -77,7 +67,17 @@
       {% endblock %}
     </div>
     <div class="govuk-grid-column-one-third">
- 
+    {{ govukDetails({
+  summaryText: "Contacts for help",
+  text: "
+   			 Ask a question or get any help in any language
+   			 <p class='govuk-body govuk-!-font-weight-bold'>Telephone</p>
+   			 <p class='govuk-body govuk-!-font-weight-regular'>0300 303 0742</p>
+   			 <p class='govuk-body govuk-!-font-weight-regular'>Monday to Friday, 8am to 8pm</p>
+   			 <a href='#' class='govuk-link'>Find out about call charges</a>
+   			 <p class='govuk-body govuk-!-font-weight-regular'>(opens in a new window)</p>
+			  " | safe
+}) }}
     </div>
   </div>
 {% endblock %}
