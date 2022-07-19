@@ -5,10 +5,13 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const enContent = {
+  section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
-  line1: 'You have told us you want to keep these contact details private',
-  address: 'Address',
+  line1: 'You have told us you want to keep these contact details private:',
+  address: 'Home address',
   email: 'Email',
+  postalAddress: 'Postal address',
+  phone: 'Telephone number',
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
@@ -16,10 +19,13 @@ const enContent = {
 };
 
 const cyContent = {
+  section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
-  line1: 'You have told us you want to keep these contact details private',
-  address: 'Address',
+  line1: 'You have told us you want to keep these contact details private:',
+  address: 'Home address',
   email: 'Email',
+  postalAddress: 'Postal address',
+  phone: 'Telephone number',
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
@@ -39,7 +45,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('The court will keep your contact details private');
-    expect(generatedContent.line1).toEqual('You have told us you want to keep these contact details private');
+    expect(generatedContent.line1).toEqual('You have told us you want to keep these contact details private:');
     expect(generatedContent.line2).toEqual('What the court will do');
     expect(generatedContent.line3).toEqual(
       'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.'

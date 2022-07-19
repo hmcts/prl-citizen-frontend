@@ -4,9 +4,11 @@ import { FormContent } from '../../../../app/form/Form';
 const en = {
   section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
-  line1: 'You have told us you want to keep these contact details private',
-  address: 'Address',
+  line1: 'You have told us you want to keep these contact details private:',
+  address: 'Home address',
   email: 'Email',
+  postalAddress: 'Postal address',
+  phone: 'Telephone number',
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
@@ -16,9 +18,11 @@ const en = {
 const cy: typeof en = {
   section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
-  line1: 'You have told us you want to keep these contact details private',
-  address: 'Address',
+  line1: 'You have told us you want to keep these contact details private:',
+  address: 'Home address',
   email: 'Email',
+  postalAddress: 'Postal address',
+  phone: 'Telephone number',
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
