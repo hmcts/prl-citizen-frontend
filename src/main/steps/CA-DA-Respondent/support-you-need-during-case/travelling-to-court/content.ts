@@ -68,42 +68,42 @@ export const form: FormContent = {
       section: l => l.section,
       values: [
         {
-          name: 'travellingtoCourt',
+          name: 'respondentTravellingToCourt',
           label: l => l.parkingspace,
           value: 'parking space close to the venue',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'respondentTravellingToCourt',
           label: l => l.stepfree,
           value: 'step free / wheelchair access',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'respondentTravellingToCourt',
           label: l => l.wheelchair,
           value: 'use of venue wheelchair',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'respondentTravellingToCourt',
           label: l => l.toilet,
           value: 'accessible toilet',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'respondentTravellingToCourt',
           label: l => l.lift,
           value: 'help using a lift',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'respondentTravellingToCourt',
           label: l => l.differentchair,
           value: 'a different type of chair',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'respondentTravellingToCourt',
           label: l => l.building,
           value: 'guiding in the building',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'respondentTravellingToCourt',
           label: l => l.other,
           value: 'other',
           subFields: {
@@ -120,7 +120,7 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'travellingtoCourt',
+          name: 'respondentTravellingToCourt',
           label: l => l.nosupport,
           value: 'no need of support',
           exclusive: true,

@@ -109,6 +109,8 @@ export interface Case {
   courtProceedingProvideDetails?: string;
 
   //CA-DA-Respondent
+  respondentAttendingToCourt?: string;
+  noHearingDetails?: string;
   respondentHelpCommunication?: string;
   respondentDescribeOtherNeed?: string;
   respondentCourtComfort?: string;
