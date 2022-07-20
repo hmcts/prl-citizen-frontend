@@ -1,33 +1,33 @@
 import { TranslationFn } from "app/controller/GetController";
 import { FormContent } from "app/form/Form";
 import { CommonContent } from "steps/common/common.content";
-import { summaryList } from "steps/common/summary/utils";
-
-
-
+import { summaryList } from '../../../common/summary/utils';
+import { CA_DA_ATTENDING_THE_COURT, CA_DA_COMMUNICATION_HELP, CA_DA_COURT_HEARING_COMFORT, 
+    CA_DA_COURT_HEARING_SUPPORT, CA_DA_DOCUMENTS_SUPPORT, CA_DA_LANGUAGE_REQUIREMENTS, 
+    CA_DA_REASONABLE_ADJUSTMENTS, CA_DA_SPECIAL_ARRANGEMENTS, CA_DA_TRAVELLING_TO_COURT } from '../../../../steps/urls';
 
 
 const fieldType = {
-    respondentAttendingToCourt : 'String',
-    noHearingDetails : 'String',
-    respondentLangRequirements : 'String',
-    respondentLangDetails : 'String',
-    respondentSpecialArrangements : 'String',
-    respondentSpecialArrangementsDetails : 'String',
-    respondentReasonableAdjustments : 'String',
-    respondentDocsSupport : 'String',
-    respondentDocsDetails : 'String',
-    respondentLargePrintDetails : 'String',
-    respondentOtherDetails : 'String',
-    respondentHelpCommunication : 'String',
-    respondentSignLanguageDetails : 'String',
-    respondentDescribeOtherNeed : 'String',
-    respondentCourtHearing : 'String',
-    respondentCommSupportOther : 'String',
-    respondentCourtComfort : 'String',
-    respondentOtherProvideDetails : 'String',
-    respondentTravellingToCourt : 'String',
-    respondentTravellingOtherDetails : 'String',
+    respondentAttendingToCourt: 'String',
+    noHearingDetails: 'String',
+    respondentLangRequirements: 'String',
+    respondentLangDetails: 'String',
+    respondentSpecialArrangements: 'String',
+    respondentSpecialArrangementsDetails: 'String',
+    respondentReasonableAdjustments: 'String',
+    respondentDocsSupport: 'String',
+    respondentDocsDetails: 'String',
+    respondentLargePrintDetails: 'String',
+    respondentOtherDetails: 'String',
+    respondentHelpCommunication: 'String',
+    respondentSignLanguageDetails: 'String',
+    respondentDescribeOtherNeed: 'String',
+    respondentCourtHearing: 'String',
+    respondentCommSupportOther: 'String',
+    respondentCourtComfort: 'String',
+    respondentOtherProvideDetails: 'String',
+    respondentTravellingToCourt: 'String',
+    respondentTravellingOtherDetails: 'String',
 };
 
 export const enContent = {
@@ -223,26 +223,26 @@ const cyContent : typeof enContent = {
 };
 
 const urls = {
-    respondentAttendingToCourt : 'attending-the-court',
-    noHearingDetails : 'attending-the-court',
-    respondentLangRequirements : 'language-requirements',
-    respondentLangDetails : 'language-requirements',
-    respondentSpecialArrangements : 'special-arrangements',
-    respondentSpecialArrangementsDetails : 'special-arrangements',
-    respondentReasonableAdjustments : 'reasonable-adjustments',
-    respondentDocsSupport : 'documents-support',
-    respondentDocsDetails : 'documents-support',
-    respondentLargePrintDetails : 'documents-support',
-    respondentOtherDetails : 'documents-support',
-    respondentHelpCommunication : 'communication-help',
-    respondentSignLanguageDetails : 'communication-help',
-    respondentDescribeOtherNeed : 'communication-help',
-    respondentCourtHearing : 'court-hearing-support',
-    respondentCommSupportOther : 'court-hearing-support',
-    respondentCourtComfort : 'court-hearing-comfort',
-    respondentOtherProvideDetails : 'court-hearing-comfort',
-    respondentTravellingToCourt : 'travelling-to-court',
-    respondentTravellingOtherDetails : 'travelling-to-court',
+    respondentAttendingToCourt: CA_DA_ATTENDING_THE_COURT,
+    noHearingDetails: CA_DA_ATTENDING_THE_COURT,
+    respondentLangRequirements: CA_DA_LANGUAGE_REQUIREMENTS,
+    respondentLangDetails: CA_DA_LANGUAGE_REQUIREMENTS,
+    respondentSpecialArrangements: CA_DA_SPECIAL_ARRANGEMENTS,
+    respondentSpecialArrangementsDetails: CA_DA_SPECIAL_ARRANGEMENTS,
+    respondentReasonableAdjustments: CA_DA_REASONABLE_ADJUSTMENTS,
+    respondentDocsSupport: CA_DA_DOCUMENTS_SUPPORT,
+    respondentDocsDetails: CA_DA_DOCUMENTS_SUPPORT,
+    respondentLargePrintDetails: CA_DA_DOCUMENTS_SUPPORT,
+    respondentOtherDetails: CA_DA_DOCUMENTS_SUPPORT,
+    respondentHelpCommunication: CA_DA_COMMUNICATION_HELP,
+    respondentSignLanguageDetails: CA_DA_COMMUNICATION_HELP,
+    respondentDescribeOtherNeed: CA_DA_COMMUNICATION_HELP,
+    respondentCourtHearing: CA_DA_COURT_HEARING_SUPPORT,
+    respondentCommSupportOther: CA_DA_COURT_HEARING_SUPPORT,
+    respondentCourtComfort: CA_DA_COURT_HEARING_COMFORT,
+    respondentOtherProvideDetails: CA_DA_COURT_HEARING_COMFORT,
+    respondentTravellingToCourt: CA_DA_TRAVELLING_TO_COURT,
+    respondentTravellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
 };
 
 const cy: typeof en = ( content: CommonContent) => {
