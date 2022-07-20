@@ -56,6 +56,20 @@
           }) if getContent(form.saveAsDraft.text)
         }}
 
+         {{
+          govukButton({
+            text: getContent(form.SaveAndComeLater.text),
+            classes: "govuk-button--secondary",
+            preventDoubleClick: true,
+            type: "submit",
+            name: "SaveAndComeLater",
+            value: true,
+            attributes: {
+              id: 'main-form-save-as-draft'
+            }
+          }) if getContent(form.SaveAndComeLater.text)
+        }}
+
         {{
           govukButton({
             text: getContent(form.cancel.text),
