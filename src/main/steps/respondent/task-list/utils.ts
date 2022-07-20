@@ -11,6 +11,16 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
   return SectionStatus.TO_DO;
 };
 
+export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.confirmcontactdetails) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.confirmcontactdetails) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
+
 export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.doYouConsent && userCase?.applicationReceivedDate && userCase?.courtPermission) {
     return SectionStatus.COMPLETED;

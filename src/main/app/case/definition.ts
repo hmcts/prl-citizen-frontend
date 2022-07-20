@@ -313,7 +313,32 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  
+  accessCode: string;
+  respondentCaseInvites: CaseInvite[]
+  contactDetailsPrivate: string;
+
+  /***** Applicant1 *****/
+  applicant1FullName?: string;
+  applicant1FirstNames?: string;
+  applicant1LastNames?: string;
+  applicant1HasOtherNames?: YesOrNo;
+  applicant1AdditionalName?: string;
+  applicant1AdditionalNames?: OtherName[];
+  applicant1EmailAddress?: string;
+  applicant1PhoneNumber?: string;
+  applicant1DateOfBirth?: CaseDate;
+  applicant1Occupation?: string;
+  applicant1SelectAddress?: string;
+  applicant1PlaceOfBirth?: string;
+  applicant1Address1?: string;
+  applicant1Address2?: string;
+  applicant1AddressTown?: string;
+  applicant1AddressCounty?: string;
+  applicant1AddressPostcode?: string;
+  applicant1ContactDetails?: ContactDetails[];
+  applicant1ContactDetailsConsent?: YesOrNo;
+  //applicant1LanguagePreference?: LanguagePreference;
+
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -352,9 +377,11 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
-  applicant2InviteEmailAddress: string;
+  partyId: string;
+  caseInviteEmail: string
   accessCode: string;
-  applicant2UserId: string;
+  invitedUserId: string;
+  expiryDate: string;
 }
 
 export interface ConditionalOrder {
@@ -717,6 +744,7 @@ export const enum YesNoNotsure {
 export const enum SectionStatus {
   TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
+  NOT_STARTED = 'NOT_STARTED',
   COMPLETED = 'COMPLETED',
 }
 
@@ -1013,7 +1041,7 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication'
-  
+
 }
 
 export const enum UserRole {
@@ -1298,8 +1326,8 @@ export const enum HttpStatus {
   NOT_EXTENDED = 'NOT_EXTENDED',
   NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
 }
-export const CASE_TYPE = 'A58';
-export const JURISDICTION = 'ADOPTION';
+export const CASE_TYPE = 'PRLAPPS';
+export const JURISDICTION = 'PRIVATELAW';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
@@ -1323,7 +1351,7 @@ export const SUBMIT_AOS = 'submit-aos';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
-export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_LINK_APPLICANT_2 = 'citizen-update-application';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
