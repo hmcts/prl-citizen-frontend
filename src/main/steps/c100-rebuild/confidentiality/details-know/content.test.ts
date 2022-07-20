@@ -46,11 +46,11 @@ describe('applicant personal details > applying-with > content', () => {
     expect((applyingWithField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.three);
   });
 
-  test('should contain SaveAndComeLater button', () => {
+  test('should contain saveAndComeLater button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
-      (form?.SaveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
   });
 });

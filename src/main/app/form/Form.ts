@@ -131,7 +131,7 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
-  SaveAndComeLater?: {
+  saveAndComeLater?: {
     text: Label;
     classes?: string;
   };
