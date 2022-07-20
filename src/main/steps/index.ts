@@ -2,12 +2,12 @@
 import * as fs from 'fs';
 
 // eslint-disable-next-line import/no-unresolved
-import { C100Sequence } from '../../main/steps/c100-createcase/c100sequence';
 import { Case } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
+import { C100Sequence } from './c100-rebuild/c100sequence';
 import { Step } from './constants';
 import { edgecaseSequence } from './edge-case/edgecaseSequence';
 import { repondentCaseSequence } from './respondent/respondentcaseSequence';
