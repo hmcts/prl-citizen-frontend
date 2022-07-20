@@ -18,7 +18,7 @@
     "paths": {
       "router/*": ["router/*"],
       "routes/*": ["routes/*"],
-      "@c100/*": ["steps/c100-createcase/*"]
+      "@c100/*": ["steps/c100-rebuild/*"]
     },
     "typeRoots": ["./node_modules/@types"]
   },
