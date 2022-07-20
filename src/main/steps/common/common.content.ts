@@ -137,7 +137,6 @@ const cy: typeof en = {
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAndComeLater: 'Save and come back later - welsh',
   saveAsDraft: 'Save as draft (in welsh)',
-  SaveAndComeLater: 'Save and come back later - welsh',
   signOut: 'Sign out (in welsh)',
   signIn: 'Sign in (in welsh)',
   accessibility: 'Accessibility statement(in welsh)',

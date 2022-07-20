@@ -32,8 +32,8 @@ export const form: FormContent = {
   onlycontinue: {
     text: l => l.onlycontinue,
   },
-  SaveAndComeLater: {
-    text: l => l.SaveAndComeLater,
+  saveAndComeLater: {
+    text: l => l.saveAndComeLater,
   },
 };
 
