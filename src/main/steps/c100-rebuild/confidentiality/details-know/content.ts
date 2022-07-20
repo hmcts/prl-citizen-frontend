@@ -53,8 +53,8 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
-  SaveAndComeLater: {
-    text: l => l.SaveAndComeLater,
+  saveAndComeLater: {
+    text: l => l.saveAndComeLater,
   },
 };
 
