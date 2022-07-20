@@ -1,6 +1,7 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
+
 import { generateContent } from './content';
 
 const enContent = {
@@ -35,9 +36,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual(
-      'Orders from the court'
-    );
+    expect(generatedContent.title).toEqual('Orders from the court');
     expect(generatedContent.section).toEqual('All documents');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
   });

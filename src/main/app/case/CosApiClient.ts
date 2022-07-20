@@ -47,6 +47,7 @@ export class CosApiClient {
         'Content-Type': 'application/json',
       },
     });
+
     console.log(response.data);
 
     return {

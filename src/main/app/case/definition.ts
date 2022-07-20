@@ -626,6 +626,9 @@ export interface CaseData {
   languageRequirementApplicationNeedWelsh: string;
   previousOrOngoingProceedingsForChildren: string;
   welshLanguageRequirementApplicationNeedEnglish: string;
+  orderCollection: ListValue<PRLDocument>[];
+  documentsGenerated: ListValue<PRLDocument>[];
+  respondentName: string;
 }
 
 export const enum State {
@@ -759,4 +762,33 @@ export const enum SectionStatus {
   IN_PROGRESS = 'IN_PROGRESS',
   NOT_STARTED = 'NOT_STARTED',
   COMPLETED = 'COMPLETED',
+}
+
+export type DateAsString = string;
+export interface PRLDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
+}
+
+export interface ListValue<T> {
+  id: string;
+  value: T;
+}
+
+export const enum DocumentType {
+  BIRTH_OR_ADOPTION_CERTIFICATE = 'birthOrAdoptionCertificate',
+  DEATH_CERTIFICATE = 'deathCertificate',
+  APPLICATION = 'application',
+  EMAIL = 'email',
+  APPLICATION_SUMMARY = 'applicationSummary',
+}
+
+export interface Document {
+  document_url: string;
+  document_filename: string;
+  document_binary_url: string;
 }

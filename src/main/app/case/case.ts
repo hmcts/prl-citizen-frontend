@@ -22,6 +22,7 @@ import {
   HearingUrgencyTable,
   InternationalElementTable,
   InterpreterNeed,
+  ListValue,
   LitigationCapacityTable,
   MiamExemptionsTable,
   MiamTable,
@@ -31,6 +32,7 @@ import {
   OtherProceedingsForSummaryTab,
   OtherProceedingsTable,
   OthersToNotify,
+  PRLDocument,
   Respondent,
   SpecialArrangement,
   State,
@@ -40,6 +42,7 @@ import {
   WelshLanguageRequirementsTable,
   WelshNeed,
   YesOrNo,
+  //DocumentType,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -132,6 +135,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   languageRequirementApplicationNeedWelsh: 'languageRequirementApplicationNeedWelsh',
   previousOrOngoingProceedingsForChildren: 'previousOrOngoingProceedingsForChildren',
   welshLanguageRequirementApplicationNeedEnglish: 'welshLanguageRequirementApplicationNeedEnglish',
+  orderCollection: 'orderCollection',
+  respondentName: 'respondentName',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -266,11 +271,15 @@ export interface Case {
   iFactorsRequestProvideDetails?: string;
   iFactorsParentsProvideDetails?: string;
   confirmcontactdetails?: string;
-  respondentFirstName?: string;
+  respondentName: string;
   respondentLastName?: string;
   respondentCaseInvites?: CaseInvite[];
   applicantCaseInvites?: CaseInvite[];
   contactDetailsPrivate?: string;
+  orderCollection: ListValue<PRLDocument>[];
+  documentsGenerated: ListValue<PRLDocument>[];
+  //applicant1CannotUploadDocuments?: DocumentType[];
+  applicant1UploadedFiles?: UploadedFile[];
 }
 
 export interface CaseWithId extends Case {
@@ -291,4 +300,9 @@ export enum FieldPrefix {
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
+}
+
+export interface UploadedFile {
+  id: string;
+  name: string;
 }

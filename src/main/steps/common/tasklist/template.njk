@@ -57,6 +57,15 @@
         {{title}}
       </h1>
 
+  <div class="govuk-form-group">
+  
+    <fieldset class="govuk-fieldset">
+      <p class="govuk-body">{{userCase.respondentName}}</p>
+      <p class="govuk-body">Case number #{{userCase.id}}</p>
+    </fieldset>
+    
+  </div>
+
       <ol class="app-task-list">
         {% for section in sections %}
           {{ taskListSection(section, loop.index) }}
