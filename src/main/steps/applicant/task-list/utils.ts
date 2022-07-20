@@ -20,3 +20,13 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   }
   return SectionStatus.TO_DO;
 };
+
+export const getOrderDetailsStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.confirmcontactdetails) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.confirmcontactdetails) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};

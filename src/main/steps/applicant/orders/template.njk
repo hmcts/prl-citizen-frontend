@@ -1,0 +1,15 @@
+
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+<h1 class="govuk-heading-xl">
+           <span class="govuk-caption-l">{{section}}</span>
+           {{title}}
+</h1>
+ <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+<p class="govuk-body">Case number #{{userCase.caseCode}}</p>
+  </fieldset>
+    </div>
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+{% endblock %}
