@@ -19,6 +19,7 @@ nodejs:
          - system-update-user-password
          - idam-solicitor-username
          - idam-solicitor-password
+         - postcode-lookup-token
 idam-pr:
   enabled: true
   redirect_uris:

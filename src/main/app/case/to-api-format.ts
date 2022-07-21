@@ -13,6 +13,8 @@ const checkboxConverter = (value: string | undefined) => {
   if (value === null) {
     return null;
   }
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  console.log('checkboxConverter==>' + checkboxConverter);
   return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
 };
 console.log(checkboxConverter);
@@ -24,7 +26,6 @@ const fields: ToApiConverters = {
   //     startAlternative: checkboxConverter(data.startAlternative),
   //   };
   // },
-
   //   dateChildMovedIn: data => ({
   //     dateChildMovedIn: toApiDate(data.dateChildMovedIn),
   //   }),

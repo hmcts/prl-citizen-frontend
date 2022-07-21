@@ -7,14 +7,13 @@ import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
 import {
-  //APPLICANTS_DETAILS,
+  APPLICANTS_DETAILS,
   CITIZEN_SAVE_AND_CLOSE,
   CITIZEN_UPDATE,
-  //CaseData,
-  //RESPONDENTS_DETAILS,
-  //State,
+  CaseData,
+  RESPONDENTS_DETAILS,
 } from '../case/definition';
-//import { toApiFormat } from '../case/to-api-format';
+import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -75,7 +74,11 @@ export class PostController<T extends AnyObject> {
       return this.redirect(req, res);
     }
 
-    req.session.userCase = await this.save(req, formData, this.getEventName(req));
+    const data = toApiFormat(formData);
+
+    if (Object.keys(data).length !== 0) {
+      req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
+    }
 
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);
@@ -103,8 +106,30 @@ export class PostController<T extends AnyObject> {
       const caseReference = req.session.userCase.caseCode;
       const caseData = await req.locals.api.getCaseById(caseReference as string);
       console.log('case details ====> ' + JSON.stringify(caseData));
-
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+    } catch (err) {
+      req.locals.logger.error('Error saving', err);
+      req.session.errors = req.session.errors || [];
+      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+    }
+    return req.session.userCase;
+  }
+
+  protected async saveData(
+    req: AppRequest<T>,
+    formData: Partial<Case>,
+    eventName: string,
+    data: Partial<CaseData>
+  ): Promise<CaseWithId> {
+    try {
+      console.log(eventName);
+      //Object.assign(req.session.userCase, formData);
+      req.session.userCase = await req.locals.api.triggerEventWithData(
+        req.session.userCase.id,
+        formData,
+        eventName,
+        data
+      );
     } catch (err) {
       req.locals.logger.error('Error saving', err);
       req.session.errors = req.session.errors || [];
@@ -149,11 +174,15 @@ export class PostController<T extends AnyObject> {
 
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
-    // if (req.url.indexOf('/respondent/keep-details-private') !== -1) {
-    //   return RESPONDENTS_DETAILS;
-    // } else if (req.url.indexOf('/applicant/keep-details-private') !== -1) {
-    //   return APPLICANTS_DETAILS;
-    // }
+    console.log('req.url => ' + req.url);
+    console.log('req.baseUrl => ' + req.baseUrl);
+    console.log('req.originalUrl => ' + req.originalUrl);
+
+    if (req.url.indexOf('/respondent/keep-details-private') !== -1) {
+      return RESPONDENTS_DETAILS;
+    } else if (req.url.indexOf('/applicant/keep-details-private') !== -1) {
+      return APPLICANTS_DETAILS;
+    }
     return CITIZEN_UPDATE;
   }
 

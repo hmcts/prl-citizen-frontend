@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
+import { TranslationFn } from '../../../app/controller/GetController';
+import { FormContent } from '../../../app/form/Form';
+import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
 
 const en = () => ({
   addressLine1: 'Building and street',
@@ -16,28 +16,28 @@ const en = () => ({
       required: 'Enter the town or city',
     },
     addressPostcode: {
-      required: 'Enter the postcode',
+      required: 'Enter a real postcode',
       invalid: 'Enter a real postcode',
     },
   },
 });
 
 const cy = () => ({
-  addressLine1: 'Adeilad a stryd',
-  town: 'Tref neu ddinas',
-  county: 'Sir',
-  postcode: 'Cod post',
-  enterInternationalAddress: 'Nac ydwdwch gyfeiriad rhyngwladol',
+  addressLine1: 'Building and street (in welsh)',
+  town: 'Town or city (in welsh)',
+  county: 'County (in welsh)',
+  postcode: 'Postcode (in welsh)',
+  enterInternationalAddress: 'Enter an international address (in welsh)',
   errors: {
     address1: {
-      required: 'Nac ydwdwch linell gyntaf y cyfeiriad',
+      required: 'Enter the first line of the address (in welsh)',
     },
     addressTown: {
-      required: 'Nac ydwdwch y dref neu ddinas',
+      required: 'Enter the town or city (in welsh)',
     },
     addressPostcode: {
-      required: 'Nac ydwdwch y cod post',
-      invalid: 'Nac ydwdwch god post dilys',
+      required: 'Enter a real postcode (in welsh)',
+      invalid: 'Enter a real postcode (in welsh)',
     },
   },
 });
@@ -54,11 +54,7 @@ export const form: FormContent = {
     address2: {
       type: 'text',
       classes: 'govuk-label',
-      labelSize: null,
-    },
-    address3: {
-      type: 'text',
-      classes: 'govuk-label',
+      label: l => l.addressLine2,
       labelSize: null,
     },
     addressTown: {

@@ -17,6 +17,7 @@ const checkboxConverter = (value: string | undefined) => {
   if (!value) {
     return undefined;
   }
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
 };
 console.log(checkboxConverter);
@@ -92,6 +93,7 @@ const fromApiDate = date => {
   if (!date) {
     return;
   }
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [y, m, d] = date.split('-');
   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };

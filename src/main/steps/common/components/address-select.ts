@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { isAddressSelected } from '../../../../app/form/validation';
+import { TranslationFn } from '../../../app/controller/GetController';
+import { FormContent } from '../../../app/form/Form';
+import { isAddressSelected } from '../../../app/form/validation';
 
 const getAddressItems = addresses => addresses.map((item, index) => ({ text: item.fullAddress, value: index }));
 
@@ -18,9 +18,13 @@ const en = content => {
   options.push(...getAddressItems(addresses));
 
   return {
+    line1:
+      "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
     postcode: 'Postcode',
     selectAddress: 'Select an address',
-    cannotFindAddress: 'Or enter address manually',
+    cannotFindAddress: 'I cannot find the address in the list',
+    defaultPostcode: 'E14RRR',
+    enterAddressManually: 'Or enter address manually',
     errors: {
       selectAddress: {
         notSelected: 'Select an address',
@@ -38,7 +42,7 @@ const cy = content => {
     {
       attributes: { id: 'totalAddressesFound' },
       value: -1,
-      text: `${addresses.length} cyfeiriad${addresses?.length !== 1 ? 'au' : ''} wedi’i ddarganfod`,
+      text: `${addresses.length} address${addresses?.length !== 1 ? 'es' : ''} found (in welsh)`,
       selected: true,
     },
   ];
@@ -46,12 +50,14 @@ const cy = content => {
   options.push(...getAddressItems(addresses));
 
   return {
-    postcode: 'Cod post',
-    selectAddress: 'Dewiswch gyfeiriad',
-    cannotFindAddress: 'Neu nodwch y cyfeiriad â llaw',
+    line1:
+      "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
+    postcode: 'Postcode (in welsh)',
+    selectAddress: 'Select an address (in welsh)',
+    cannotFindAddress: 'I cannot find the address in the list (in welsh)',
     errors: {
       selectAddress: {
-        notSelected: 'Dewiswch gyfeiriad',
+        notSelected: 'Select an address (in welsh)',
       },
     },
     options,

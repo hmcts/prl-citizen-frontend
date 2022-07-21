@@ -145,7 +145,7 @@ export interface UploadedFile {
 }
 
 export enum FieldPrefix {
-  APPLICANT1 = 'applicant1',
+  APPLICANT1 = 'applicant',
   APPLICANT2 = 'applicant2',
   CHILDREN = 'children',
   BIRTH_FATHER = 'birthFather',

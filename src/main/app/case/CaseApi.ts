@@ -19,7 +19,9 @@ import {
   PrivateLaw,
   State,
 } from './definition';
+// eslint-disable-next-line import/namespace
 import { fromApiFormat } from './from-api-format';
+// eslint-disable-next-line import/namespace
 import { toApiFormat } from './to-api-format';
 
 export class CaseApi {
@@ -121,6 +123,16 @@ export class CaseApi {
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     try {
+      this.axios.interceptors.request.use(
+        //eslint-disable-next-line @typescript-eslint/no-shadow
+        function (config) {
+          return config;
+        },
+        function (error) {
+          // Do something with request error
+          return Promise.reject(error);
+        }
+      );
       const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`, {
         headers: {
           Accept: 'application/json',
@@ -144,7 +156,31 @@ export class CaseApi {
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+    // const data = toApiFormat(userData);
+    // const data = userData;
+    // return this.sendEvent(caseId, data, eventName);
+    // console.log(eventName);
+    // return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
+    ////
+
     const data = toApiFormat(userData);
+    return this.sendEvent(caseId, data, eventName);
+  }
+
+  public async triggerEventWithData(
+    caseId: string,
+    userData: Partial<Case>,
+    eventName: string,
+    data: Partial<CaseData>
+  ): Promise<CaseWithId> {
+    // const data = toApiFormat(userData);
+    // const data = userData;
+    // return this.sendEvent(caseId, data, eventName);
+    // console.log(eventName);
+    // return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
+    ////
+
+    //const data = toApiFormat(userData);
     return this.sendEvent(caseId, data, eventName);
   }
 
