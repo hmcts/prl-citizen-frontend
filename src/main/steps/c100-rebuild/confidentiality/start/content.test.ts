@@ -8,35 +8,37 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Keeping your contact details private',
-  headingTitle: 'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
+  headingTitle: `Do you want to keep your contact details private from 
+  the other people named in the application (the applicants)?`,
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
-  paragraph2: 'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private.',
+  paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
+  you can ask the court to keep your contact details private.`,
   one: 'Yes',
   two: 'No',
-  contact_details_private: "Specify which contact details you want to keep private.",
+  contact_details_private: 'Specify which contact details you want to keep private.',
   address: 'Address',
   homePhoneNumber: 'Home phone number',
   mobilePhoneNumber: 'Mobile phone number',
-  Email: 'Email'
+  Email: 'Email',
 };
 
 const cy = {
   caption: 'Keeping your contact details private  - welsh',
-  headingTitle:
-    'Do you want to keep your contact details private from the other people named in the application (the applicants)? - welsh  ',
-  paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details. - welsh',
-  paragraph2: 'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private. - welsh',
+  headingTitle: `Do you want to keep your contact details private from 
+  the other people named in the application (the applicants)? - welsh`,
+  paragraph1: `The information you give us will be shared with the respondents. 
+  This includes your contact details. - welsh`,
+  paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
+  you can ask the court to keep your contact details private. - welsh`,
   one: 'Yes - Welsh',
   two: 'No - Welsh',
-  contact_details_private: "Specify which contact details you want to keep private. - Welsh",
+  contact_details_private: 'Specify which contact details you want to keep private. - Welsh',
   address: 'Address - Welsh',
   homePhoneNumber: 'Home phone number - Welsh',
   mobilePhoneNumber: 'Mobile phone number - Welsh',
-  Email: 'Email - Welsh'
+  Email: 'Email - Welsh',
 };
-
 describe('applicant personal details > applying-with > content', () => {
-
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   let form;
@@ -68,10 +70,10 @@ describe('applicant personal details > applying-with > content', () => {
     expect((subFields.values[1].label as LanguageLookup)(generatedContent)).toBe(en.homePhoneNumber);
     expect((subFields.values[2].label as LanguageLookup)(generatedContent)).toBe(en.mobilePhoneNumber);
     expect((subFields.values[3].label as LanguageLookup)(generatedContent)).toBe(en.Email);
-
   });
   test('should contain Save and continue button', () => {
-    expect((form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    expect(
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and continue');
   });
 

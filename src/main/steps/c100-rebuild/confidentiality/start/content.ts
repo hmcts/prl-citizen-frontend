@@ -1,37 +1,41 @@
-import { YesOrNo } from '../../../../app/case/definition';
 import { Case } from '../../../../app/case/case';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   caption: 'Keeping your contact details private',
-  headingTitle: 'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
+  headingTitle: `Do you want to keep your contact details private from 
+  the other people named in the application (the applicants)?`,
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
-  paragraph2: 'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private.',
+  paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children,
+  you can ask the court to keep your contact details private.`,
   one: 'Yes',
   two: 'No',
-  contact_details_private: "Specify which contact details you want to keep private.",
+  contact_details_private: 'Specify which contact details you want to keep private.',
   address: 'Address',
   homePhoneNumber: 'Home phone number',
   mobilePhoneNumber: 'Mobile phone number',
-  Email: 'Email'
+  Email: 'Email',
 });
 
 const cy = () => ({
   caption: 'Keeping your contact details private  - welsh',
-  headingTitle:
-    'Do you want to keep your contact details private from the other people named in the application (the applicants)? - welsh  ',
-  paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details. - welsh',
-  paragraph2: 'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private. - welsh',
+  headingTitle: `Do you want to keep your contact details private from 
+  the other people named in the application (the applicants)? - welsh`,
+  paragraph1: `The information you give us will be shared with the respondents. 
+  This includes your contact details. - welsh`,
+  paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
+  you can ask the court to keep your contact details private. - welsh`,
   one: 'Yes - Welsh',
   two: 'No - Welsh',
-  contact_details_private: "Specify which contact details you want to keep private. - Welsh",
+  contact_details_private: 'Specify which contact details you want to keep private. - Welsh',
   address: 'Address - Welsh',
   homePhoneNumber: 'Home phone number - Welsh',
   mobilePhoneNumber: 'Mobile phone number - Welsh',
-  Email: 'Email - Welsh'
+  Email: 'Email - Welsh',
 });
 
 const languages = {
@@ -77,12 +81,12 @@ export const form: FormContent = {
                   name: 'contactDetailsPrivate',
                   label: l => l.mobilePhoneNumber,
                   value: 'mobilephone',
-                }, 
+                },
                 {
                   name: 'contactDetailsPrivate',
                   label: l => l.Email,
                   value: 'email',
-                }
+                },
               ],
             },
           },
@@ -90,7 +94,7 @@ export const form: FormContent = {
         {
           label: l => l.two,
           value: YesOrNo.NO,
-        }
+        },
       ],
       validator: isFieldFilledIn,
     },
