@@ -20,7 +20,7 @@ services:
     #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     checkDivCases: true
   cos:
-    url: 'http://prl-cos-pr-465.service.core-compute-preview.internal/'
+    url: 'http://prl-cos-pr-469.service.core-compute-preview.internal/'
 health:
   timeout: 5000
   deadline: 15000
