@@ -10,17 +10,6 @@ def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
-
-
-def secrets = [
-  'prl-${env}': [
-    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
-    secret('prl-cos-idam-client-secret', 'IDAM_SECRET'),
-    secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET')
-  ]
-]
-
-
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   [$class     : 'AzureKeyVaultSecret',
    secretType : 'Secret',
@@ -29,6 +18,14 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
    envVariable: envVar
   ]
 }
+
+def secrets = [
+  'prl-${env}': [
+    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
+    secret('prl-citizen-frontend-idam-client-secret', 'IDAM_SECRET'),
+    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET')
+  ]
+]
 
 def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets

@@ -1,4 +1,4 @@
-//import { SummaryListContent } from '../../steps/common/models/summaryListContent';
+import { SummaryListContent } from '../../steps/common/models/summaryListContent';
 import { Case, CaseDate, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
@@ -119,7 +119,11 @@ export type FormFields = Record<string, FormField>;
 export type FormFieldsFn = (userCase: Partial<Case>) => FormFields;
 
 export interface FormContent {
-  submit: {
+  accessCodeCheck?: {
+    text: Label;
+    classes?: string;
+  };
+  submit?: {
     text: Label;
     classes?: string;
   };
@@ -131,6 +135,7 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+
   fields: FormFields | FormFieldsFn;
 }
 
@@ -151,8 +156,7 @@ export interface FormOptions {
   validator?: ValidationCheck;
   parser?: Parser;
   disabled?: boolean;
-
-  // rows?: SummaryListContent;
+  rows?: SummaryListContent;
 }
 
 export interface FormInput {
@@ -178,6 +182,8 @@ export interface FormInput {
   open?: boolean;
   options?: DropdownOptionsLookup;
   disabled?: boolean;
+  detailsHtml?: Label;
+  link?: string;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
@@ -196,6 +202,7 @@ export type FormError = {
 interface CaseWithFormData extends CaseWithId {
   _csrf: string;
   saveAndSignOut?: string;
+  accessCodeCheck?: string;
   saveBeforeSessionTimeout?: string;
   sendToApplicant2ForReview?: string;
   addAnotherName?: string;

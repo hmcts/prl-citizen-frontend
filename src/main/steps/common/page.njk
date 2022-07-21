@@ -5,7 +5,6 @@
 
 {% block head %}
   {% include "./webpack/css.njk" %}
-  <!-- {{ userCase.id }} -->
 {% endblock %}
 
 {% block header %}
@@ -17,7 +16,7 @@
     navigation: [
       {
         href: "/logout" if isLoggedIn else "/",
-        text: signOut if isLoggedIn else signIn
+        text: signOut if isLoggedIn
       }
     ]
   
@@ -44,14 +43,15 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      {# {% block error_summary %}
+      {% block error_summary %}
         {% include "common/error/summary.njk" %}
-      {% endblock %} #}
+      {% endblock %}
 
       {% block page_content %}
         {% if title %}
-          <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ title }}</h1>
+          <h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ title }}</h1>
         {% endif %}
+       
       {% endblock %}
       
       {% if form %}
@@ -59,6 +59,14 @@
           {% include "common/form/form.njk"%}
         {% endblock %}
       {% endif %}
+
+      {% block page_content_under_form %}
+      {% endblock %}
+    </div>
+    <div class="govuk-grid-column-one-third">
+        {% block page_contact_us %}
+             {% include "./contact-us.njk" %}
+        {% endblock %}
     </div>
   </div>
 {% endblock %}
