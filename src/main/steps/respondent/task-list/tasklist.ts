@@ -6,6 +6,7 @@ import {
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
+  getViewAllOrdersFromTheCourt,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -58,6 +59,20 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.international_factors,
           status: getInternationalFactorsStatus(userCase),
           href: URL.INTERNATIONAL_FACTORS_START,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.ordersFromTheCourt,
+      items: [
+        {
+          id: 'view-all-orders-from-the-court',
+          text: taskListItems.view_all_orders_from_the_court,
+          status: getViewAllOrdersFromTheCourt(userCase),
+          href:
+            getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW'
+              ? URL.RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT
+              : '#',
         },
       ],
     },

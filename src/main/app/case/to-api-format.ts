@@ -15,6 +15,7 @@ type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => OrNu
 
 const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
+  applicant1UploadedFiles: () => ({}),
 };
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);

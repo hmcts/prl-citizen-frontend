@@ -10,12 +10,15 @@ const enContent = {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'To Do',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
     consentToTheApplication: 'Consent to the application',
     applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
+    ordersFromTheCourt: 'Orders from the court',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -23,6 +26,7 @@ const enContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    view_all_orders_from_the_court: 'View all orders from the court',
   },
 };
 const cyContent = {
@@ -31,12 +35,15 @@ const cyContent = {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
     consentToTheApplication: 'Consent to the application',
     applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
+    ordersFromTheCourt: 'Orders from the court',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -44,6 +51,7 @@ const cyContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    view_all_orders_from_the_court: 'View all orders from the court',
   },
 };
 describe('task-list > content', () => {
@@ -109,6 +117,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Additional information',
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'view-all-orders-from-the-court',
+              status: 'NOT_AVAILABLE_YET',
+              text: 'View all orders from the court',
+            },
+          ],
+          title: 'Orders from the court',
         },
       ],
     },

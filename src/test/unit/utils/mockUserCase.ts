@@ -138,4 +138,5 @@ export default {
   familyCourtName: 'MOCK_FAMILY_COURT',
   applicant1UploadedFiles: [{ id: 'MOCK_DOCUMENT_ID', name: 'MOCK_DOCUMENT_FILE_NAME' }],
   applicant1DocumentsUploaded: [{ id: 'MOCK_DOCUMENT_ID', value: { documentFileName: 'MOCK_DOCUMENT_FILE_NAME' } }],
+  orderCollection: [],
 } as unknown as CaseWithId;
