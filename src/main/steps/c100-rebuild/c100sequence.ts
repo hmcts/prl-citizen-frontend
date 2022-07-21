@@ -3,6 +3,7 @@ import {
   C100_CONFIDENTIALITY_DETAILS_KNOW,
   C100_CONFIDENTIALITY_FEEDBACK,
   C100_CONFIDENTIALITY_FEEDBACK_NO,
+  C100_CONFIDENTIALITY_START,
 } from '../urls';
 
 export const C100Sequence: Step[] = [
@@ -20,5 +21,10 @@ export const C100Sequence: Step[] = [
     url: C100_CONFIDENTIALITY_FEEDBACK_NO,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_CONFIDENTIALITY_START,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_START,
   },
 ];
