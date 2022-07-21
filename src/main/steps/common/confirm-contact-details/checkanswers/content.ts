@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
-import { getFormattedDate, summaryList } from '../../../common/summary/utils';
+import { summaryList } from '../../../common/summary/utils';
 import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../urls';
 
 export const enContent = {
@@ -23,9 +24,10 @@ export const enContent = {
 };
 
 const en = (content: CommonContent) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
-  const dob = userCase.applicant1DateOfBirth;
-  getFormattedDate(dob);
+  // const dob = userCase.applicant1DateOfBirth;
+  //getFormattedDate(dob);
   return {
     ...enContent,
     language: content.language,
