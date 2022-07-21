@@ -70,7 +70,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     return CITIZEN_HOME_URL;
   }
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...edgecaseSequence, ...respondentCaseSequence].find(s => s.url === path);
+  const nextStep = [...edgecaseSequence, ...respondentCaseSequence, ...applicantCaseSequence].find(s => s.url === path);
 
   const url = nextStep ? nextStep.getNextStep(data) : CITIZEN_HOME_URL;
 
