@@ -131,6 +131,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  saveAndComeLater?: {
+    text: Label;
+    classes?: string;
+  };
   cancel?: {
     text: Label;
     classes?: string;
