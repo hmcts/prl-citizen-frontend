@@ -45,8 +45,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    startAlternative: {
-      id: 'startAlternative',
+    start: {
+      id: 'start',
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.label,
@@ -61,7 +61,7 @@ export const form: FormContent = {
               label: l => l.contact_details_private,
               // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
               validator: (value, formData: Partial<Case>) => {
-                if (formData.startAlternative === 'Yes') {
+                if (formData.start === 'Yes') {
                   return atLeastOneFieldIsChecked(formData?.contactDetailsPrivate);
                 }
                 return '';
