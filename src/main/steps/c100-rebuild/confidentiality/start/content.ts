@@ -19,6 +19,14 @@ const en = () => ({
   homePhoneNumber: 'Home phone number',
   mobilePhoneNumber: 'Mobile phone number',
   Email: 'Email',
+  errors: {
+    start: {
+      required: 'Select yes if you want to keep your details private',
+    },
+    contactDetailsPrivate: {
+      required: 'Select which contact details you want to keep private',
+    },
+  },
 });
 
 const cy = () => ({
@@ -36,6 +44,14 @@ const cy = () => ({
   homePhoneNumber: 'Home phone number - Welsh',
   mobilePhoneNumber: 'Mobile phone number - Welsh',
   Email: 'Email - Welsh',
+  errors: {
+    start: {
+      required: 'Select yes if you want to keep your details private - Welsh',
+    },
+    contactDetailsPrivate: {
+      required: 'Select which contact details you want to keep private - Welsh',
+    },
+  },
 });
 
 const languages = {
