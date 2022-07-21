@@ -1,5 +1,9 @@
 import { Sections, Step } from '../constants';
-import { C100_CONFIDENTIALITY_DETAILS_KNOW, C100_CONFIDENTIALITY_START, C100_CONFIDENTIALITY_START_ALTERNATIVE} from '../urls';
+import {
+  C100_CONFIDENTIALITY_DETAILS_KNOW,
+  C100_CONFIDENTIALITY_START,
+  C100_CONFIDENTIALITY_START_ALTERNATIVE,
+} from '../urls';
 
 export const C100Sequence: Step[] = [
   {

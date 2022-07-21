@@ -27,7 +27,6 @@ export const C100_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/confiden
 export const C100_CONFIDENTIALITY_START: PageLink = `${C100_URL}/confidentiality/start`;
 export const C100_CONFIDENTIALITY_START_ALTERNATIVE: PageLink = `${C100_URL}/confidentiality/start-alternative`;
 
-
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
 /* keep-details-private */
