@@ -13,23 +13,7 @@ export default class ConfirmContactDetailsGetController extends GetController {
     if (req.session?.user) {
       res.locals.isLoggedIn = true;
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-      if (!req.session.userCase) {
-        //This language preference will be used while creating a case
-        //  const languagePreference =
-        //    req.session['lang'] === 'cy' ? LanguagePreference.WELSH : LanguagePreference.ENGLISH;
-        //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
-        //setting the applicant's preferred language in session
-        // req.session['lang'] =
-        //   req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
-      }
-      //return next();
     }
-
-    //console.log("BEFORE call to getCaseById method====1111====>>");
-    //res.locals.isLoggedIn = true;
-    //req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-    //await req.locals.api.getCases();
-    //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
 
     req.session.userCase.applicant1FirstNames = 'John';
     req.session.userCase.applicant1LastNames = 'Smith';

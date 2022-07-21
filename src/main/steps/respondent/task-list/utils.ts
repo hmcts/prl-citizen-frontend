@@ -20,6 +20,16 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   }
   return SectionStatus.TO_DO;
 };
+  
+export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.doYouConsent && userCase?.applicationReceivedDate && userCase?.courtPermission) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.doYouConsent || userCase?.applicationReceivedDate || userCase?.courtPermission) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
 
 export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.miamStart && userCase?.miamWillingness) {
