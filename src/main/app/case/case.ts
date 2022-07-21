@@ -30,6 +30,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetails: 'applicant1ContactDetails',
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
+  citizenRole: 'citizenRole',
   //respondentCaseInvites: 'respondentCaseInvites',
   //detailsKnown: 'detailsKnown',
   //startAlternative: 'startAlternative'
@@ -92,9 +93,11 @@ export interface Case {
   applicant1PhoneNumber?: string;
   applicant1SafeToCall?: string;
   applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfBirthText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
@@ -112,6 +115,7 @@ export interface Case {
   //applicant1LanguagePreference?: LanguagePreference;
   //respondentCaseInvites?: CaseInvite[];
   //applicantCaseInvites?: CaseInvite[];
+  citizenRole?: FieldPrefix;
 }
 
 export interface CaseWithId extends Case {
@@ -147,4 +151,6 @@ export enum FieldPrefix {
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
+  APPLICANT = 'APPLICANT',
+  RESPONDENT = 'RESPONDENT',
 }

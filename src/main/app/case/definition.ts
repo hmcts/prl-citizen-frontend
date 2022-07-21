@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 
-import { CaseDate } from './case';
+import { CaseDate, FieldPrefix } from './case';
 
 export interface Address {
   AddressLine1: string;
@@ -332,9 +332,11 @@ export interface CaseData {
   applicant1EmailAddress?: string;
   applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfBirthText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
@@ -347,7 +349,9 @@ export interface CaseData {
   respondentCaseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
-  
+ //applicant1LanguagePreference?: LanguagePreference;
+ citizenRole?: FieldPrefix;
+
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -1054,7 +1058,7 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication'
-  
+
 }
 
 export const enum UserRole {
@@ -1379,3 +1383,9 @@ export const SYSTEM_NOTIFY_APPLICANT1_CONDITIONAL_ORDER = 'system-notify-applica
 export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+
+
+export const enum CONFIDENTIAL_DETAILS {
+  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
+  PRIVATE = 'This information will be kept confidential',
+}
