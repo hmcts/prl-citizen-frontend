@@ -4,6 +4,7 @@ import * as URL from '../../urls';
 
 import {
   getConfirmOrEditYourContactDetails,
+  getConsentToApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
@@ -18,6 +19,17 @@ export const generateRespondentTaskList = (
   userCase: Partial<CaseWithId> | undefined
 ): { title: any; items: { id: string; text: any; status: SectionStatus; href: `/${string}` }[] }[] => {
   return [
+    {
+      title: sectionTitles.consentToTheApplication,
+      items: [
+        {
+          id: 'consent-to-the-application',
+          text: taskListItems.do_you_consent_to_the_application,
+          status: getConsentToApplicationStatus(userCase),
+          href: URL.CONSENT_TO_APPLICATION,
+        },
+      ],
+    },
     {
       title: sectionTitles.respondentYourDetails,
       items: [
