@@ -1,6 +1,9 @@
+import { CaseWithId } from '../../../app/case/case';
+import { SectionStatus } from '../../../app/case/definition';
 import * as URL from '../../urls';
 
 import {
+  getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
@@ -8,7 +11,13 @@ import {
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const generateRespondentTaskList = (
+  sectionTitles: Record<string, string>,
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  taskListItems: Record<string, string>,
+  userCase: Partial<CaseWithId> | undefined
+): { title: any; items: { id: string; text: any; status: SectionStatus; href: `/${string}` }[] }[] => {
   return [
     {
       title: sectionTitles.consentToTheApplication,
@@ -28,7 +37,13 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'keep-your-details-private',
           text: taskListItems.keep_your_details_private,
           status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.DETAILS_KNOWN,
+          href: URL.RESPONDENT_DETAILS_KNOWN,
+        },
+        {
+          id: 'confirm-or-edit-your-contact-details',
+          text: taskListItems.confirm_or_edit_your_contact_details,
+          status: getConfirmOrEditYourContactDetails(userCase),
+          href: URL.RESPONDENT_CHECK_ANSWERS,
         },
       ],
     },

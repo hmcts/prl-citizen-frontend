@@ -58,6 +58,20 @@
 
         {{
           govukButton({
+            text: getContent(form.editAddress.text),
+            classes: "govuk-button--secondary",
+            preventDoubleClick: true,
+            type: "submit",
+            name: "editAddress",
+            value: true,
+            attributes: {
+              id: 'main-form-edit-address'
+            }
+          }) if getContent(form.editAddress.text)
+        }}
+
+        {{
+          govukButton({
             text: getContent(form.cancel.text),
             classes: "govuk-button--secondary",
             preventDoubleClick: true,
