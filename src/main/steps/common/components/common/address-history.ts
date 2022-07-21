@@ -171,8 +171,6 @@ export const form: FormContent = {
   },
 };
 
-export { form } from '../../../common/confirm-contact-details/addresshistory/content';
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {

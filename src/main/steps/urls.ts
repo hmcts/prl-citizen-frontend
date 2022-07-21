@@ -112,6 +112,9 @@ export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIV
 export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
 /* applicant-keep-details-private-end */
 
+/* fl401 applicant document list */
+export const APPLICANT_ALL_DOCUEMNTS: PageLink = `${APPLICANT}/alldocuments`;
+
 /* consent-to-the-application */
 export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;

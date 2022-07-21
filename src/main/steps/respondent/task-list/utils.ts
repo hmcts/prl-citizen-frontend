@@ -39,6 +39,7 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
+  return SectionStatus.TO_DO;
 };
 
 export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
