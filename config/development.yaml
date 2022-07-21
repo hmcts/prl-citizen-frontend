@@ -16,11 +16,11 @@ services:
     systemPassword: 'dummy_password'
   case:
     #url: 'http://localhost:4452'
-    url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-505.service.core-compute-preview.internal'
+    url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-495.service.core-compute-preview.internal'
     #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     checkDivCases: true
   cos:
-    url: 'http://prl-cos-pr-477.service.core-compute-preview.internal/'
+    url: 'http://prl-cos-pr-465.service.core-compute-preview.internal/'
 health:
   timeout: 5000
   deadline: 15000
