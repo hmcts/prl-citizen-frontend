@@ -89,6 +89,7 @@ export const summaryList = (
     const row = {
       key: keyLabel,
       value: checkIfDataPresent(fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key]),
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
 

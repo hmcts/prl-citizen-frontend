@@ -18,7 +18,17 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   if (userCase?.confirmcontactdetails) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.NOT_STARTED;
+  return SectionStatus.TO_DO;
+};
+  
+export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.doYouConsent && userCase?.applicationReceivedDate && userCase?.courtPermission) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.doYouConsent || userCase?.applicationReceivedDate || userCase?.courtPermission) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
 };
 
 export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
