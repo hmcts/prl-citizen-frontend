@@ -35,9 +35,8 @@ const fieldType = {
 };
 
 export const enContent = {
-  section: ' ',
-  title: 'Check your answers',
-  title2: 'Your hearing needs and requirements',
+  section: 'Check your answers',
+  title: 'Your hearing needs and requirements',
   sectionTitles: {
     aboutYou: 'About you',
   },
@@ -108,14 +107,13 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou, fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, 'aboutYou', fieldType, content.language)],
   };
 };
 
 const cyContent: typeof enContent = {
-  section: ' ',
-  title: 'Check your answers',
-  title2: 'Your hearing needs and requirements',
+  section: 'Check your answers',
+  title: 'Your hearing needs and requirements',
   sectionTitles: {
     aboutYou: 'About you',
   },
@@ -205,7 +203,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, cyContent.sectionTitles.aboutYou, fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, 'aboutYou', fieldType, content.language)],
   };
 };
 
