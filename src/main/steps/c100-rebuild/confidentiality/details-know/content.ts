@@ -10,6 +10,11 @@ const en = () => ({
   one: 'Yes',
   two: 'No',
   three: "I don't know",
+  errors: {
+    detailsKnown: {
+      required: 'Select yes if the other people in the application know your contact details',
+    },
+  },
 });
 
 const cy = () => ({
@@ -19,6 +24,11 @@ const cy = () => ({
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   three: "I don't know - Welsh",
+  errors: {
+    detailsKnown: {
+      required: 'Select yes if the other people in the application know your contact details - welsh',
+    },
+  },
 });
 
 const languages = {
