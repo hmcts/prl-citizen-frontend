@@ -9,7 +9,7 @@ const enContent = {
   title: 'The court will not keep your contact details private',
   line1:
     'You have told us you do not want to keep your contact details private from the other people in this application.',
-  continue: 'Continue',
+  continue: 'Save and continue',
 };
 
 const cyContent = {
@@ -17,7 +17,7 @@ const cyContent = {
   title: 'The court will not keep your contact details private',
   line1:
     'You have told us you do not want to keep your contact details private from the other people in this application.',
-  continue: 'Continue',
+  continue: 'Save and continue',
 };
 
 jest.mock('../../../../app/form/validation');
@@ -49,8 +49,8 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+  test('should contain Save and continue button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

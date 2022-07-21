@@ -22,7 +22,7 @@ const enContent = {
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
   Email: 'Email',
   contact_details_private: 'Specify which contact details you want to keep private.',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
@@ -51,7 +51,7 @@ const cyContent = {
   Email: 'Email',
   contact_details_private: 'Specify which contact details you want to keep private.',
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
@@ -112,8 +112,8 @@ describe('citizen-home content', () => {
     expect((startAlternativeField.section as Function)(generatedContent)).toBe(enContent.section);
   });
 
-  test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+  test('should contain Save and continue button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 

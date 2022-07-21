@@ -12,7 +12,7 @@ const en = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
@@ -30,7 +30,7 @@ const cy: typeof en = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',

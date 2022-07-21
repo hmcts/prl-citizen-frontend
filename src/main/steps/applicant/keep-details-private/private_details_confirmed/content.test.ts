@@ -15,7 +15,7 @@ const enContent = {
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
-  continue: 'Continue',
+  continue: 'Save and continue',
 };
 
 const cyContent = {
@@ -29,7 +29,7 @@ const cyContent = {
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
-  continue: 'Continue',
+  continue: 'Save and continue',
 };
 
 jest.mock('../../../../app/form/validation');
@@ -62,8 +62,8 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+  test('should contain Save and continue button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

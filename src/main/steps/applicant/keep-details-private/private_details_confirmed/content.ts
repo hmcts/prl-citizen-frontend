@@ -12,7 +12,7 @@ const en = {
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
-  continue: 'Continue',
+  continue: 'Save and continue',
 };
 
 const cy: typeof en = {
@@ -26,7 +26,7 @@ const cy: typeof en = {
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
-  continue: 'Continue',
+  continue: 'Save and continue',
 };
 
 const languages = {

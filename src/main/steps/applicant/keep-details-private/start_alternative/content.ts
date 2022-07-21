@@ -21,7 +21,7 @@ const en = {
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
   Email: 'Email',
   contact_details_private: 'Specify which contact details you want to keep private.',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
@@ -50,7 +50,7 @@ const cy: typeof en = {
   Email: 'Email',
   contact_details_private: 'Specify which contact details you want to keep private.',
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
