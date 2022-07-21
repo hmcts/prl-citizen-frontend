@@ -56,17 +56,16 @@ export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStat
   if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
     return SectionStatus.IN_PROGRESS;
   }
-  
+
   return SectionStatus.TO_DO;
 };
 
 export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
   //const documents: string[] = [];
- 
+
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
   } else {
     return SectionStatus.NOT_AVAILABLE_YET;
   }
-
 };

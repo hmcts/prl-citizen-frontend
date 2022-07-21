@@ -121,9 +121,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/yourdocuments/alldocuments/orders',
+              href: '#',
               id: 'view-all-orders-from-the-court',
-              status: 'Not available yet',
+              status: 'NOT_AVAILABLE_YET',
               text: 'View all orders from the court',
             },
           ],
