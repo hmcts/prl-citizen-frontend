@@ -58,7 +58,7 @@ describe('applicant personal details > applying-with > content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
   test('should contain applyingWith field', () => {
-    const applyingWithField = fields.startAlternative as FormOptions;
+    const applyingWithField = fields.start as FormOptions;
     const subFields = applyingWithField.values[0].subFields?.contactDetailsPrivate as FormOptions;
 
     expect(applyingWithField.type).toBe('radios');
