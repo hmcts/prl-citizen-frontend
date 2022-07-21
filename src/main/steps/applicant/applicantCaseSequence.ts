@@ -1,4 +1,6 @@
 import { YesOrNo } from '../../app/case/definition';
+//import { YesOrNo } from '../../app/case/definition';
+import { Checkbox } from '../../app/case/case';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT_ADDRESS_BLANK,
@@ -17,6 +19,9 @@ import {
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_START_ALTERNATIVE,
   APPLICANT_TASK_LIST_URL,
+  // MIAM_ATTEND_WILLINGNESS,
+  // MIAM_START,
+  // MIAM_SUMMARY,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -34,7 +39,7 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_START_ALTERNATIVE,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: data =>
-      data.startAlternative === YesOrNo.YES
+      data.startAlternative === Checkbox.Checked
         ? APPLICANT_PRIVATE_DETAILS_CONFIRMED
         : APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   },
@@ -48,6 +53,21 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
+  // {
+  //   url: MIAM_START,
+  //   showInSection: Sections.AboutApplicantCase,
+  //   getNextStep: data => (data.miamStart === YesOrNo.NO ? MIAM_ATTEND_WILLINGNESS : MIAM_SUMMARY),
+  // },
+  // {
+  //   url: MIAM_ATTEND_WILLINGNESS,
+  //   showInSection: Sections.AboutApplicantCase,
+  //   getNextStep: () => MIAM_SUMMARY,
+  // },
+  // {
+  //   url: MIAM_SUMMARY,
+  //   showInSection: Sections.AboutApplicantCase,
+  //   getNextStep: () => APPLICANT_TASK_LIST_URL,
+  // },
   {
     url: APPLICANT_CHECK_ANSWERS,
     showInSection: Sections.AboutApplicantCase,

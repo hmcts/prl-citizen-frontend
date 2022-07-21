@@ -56,5 +56,13 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[12].url).toBe('/applicant/confirm-contact-details/addressconfirmation');
     expect(applicantCaseSequence[12].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[12].getNextStep({})).toBe('/applicant/task-list');
+
+    expect(applicantCaseSequence[13].url).toBe('/applicant/confirm-contact-details/addressblank');
+    expect(applicantCaseSequence[13].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[13].getNextStep({})).toBe('/applicant/task-list');
+
+    expect(applicantCaseSequence[14].url).toBe('/applicant/confirm-contact-details/addresshistory');
+    expect(applicantCaseSequence[14].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[14].getNextStep({})).toBe('/applicant/task-list');
   });
 });

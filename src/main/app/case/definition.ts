@@ -271,6 +271,12 @@ export const enum ContactDetails {
   PHONE = 'phone',
 }
 
+export const enum ContactDetailsPrivate {
+  EMAIL = 'email',
+  PHONE = 'phone',
+  ADDRESS = 'address'
+}
+
 export interface Children {
   FirstName: string;
   LastName: string;
@@ -313,7 +319,8 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  contactDetailsPrivate: string;
+  //contactDetailsPrivate: string;
+  contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
@@ -337,9 +344,14 @@ export interface CaseData {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  //applicant1LanguagePreference?: LanguagePreference;
+   accessCode: string;
+  respondentCaseInvites: CaseInvite[]
+  detailsKnown?: string;
+  startAlternative?: string;
  //applicant1LanguagePreference?: LanguagePreference;
  citizenRole?: FieldPrefix;
-  
+
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -378,10 +390,15 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
+  partyId: string;
   applicant2InviteEmailAddress: string;
   accessCode: string;
+  caseInviteEmail: string
   applicant2UserId: string;
+  invitedUserId: string;
+  expiryDate: string;
 }
+
 
 export interface ConditionalOrder {
   DateSubmitted: DateAsString;
@@ -1040,7 +1057,7 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication'
-  
+
 }
 
 export const enum UserRole {
@@ -1336,6 +1353,8 @@ export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const RESPONDENTS_DETAILS = 'respondentsDetails';
+export const APPLICANTS_DETAILS = 'applicantsDetails';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
@@ -1350,7 +1369,7 @@ export const SUBMIT_AOS = 'submit-aos';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
-export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_LINK_APPLICANT_2 = 'citizen-update-application';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
