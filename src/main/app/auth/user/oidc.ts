@@ -60,7 +60,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
       familyName: jwt.family_name,
     };
   } catch (err) {
-    throw new Error('Error Occured in getSystemUser.');
+    throw new Error('Error Occured in oidc getSystemUser.');
   }
 };
 

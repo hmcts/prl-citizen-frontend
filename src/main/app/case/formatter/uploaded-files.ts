@@ -6,21 +6,8 @@ export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => {
     applicant1UploadedFiles:
       data.orderCollection?.map(file => ({
         id: `${file.id}`,
-        name: `${file.value.documentFileName}`,
+        name: `${file.value}`,
       })) || [],
     orderCollection: data.orderCollection,
-    // applicant1CannotUpload: data.applicant1CannotUpload === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked,
-    // applicant1CannotUploadDocuments: data.applicant1CannotUploadSupportingDocument,
   };
 };
-
-// export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
-//   applicant2UploadedFiles:
-//     data.applicant2DocumentsUploaded?.map(file => ({
-//       id: `${file.id}`,
-//       name: `${file.value.documentFileName}`,
-//     })) || [],
-//   applicant2DocumentsUploaded: data.applicant2DocumentsUploaded,
-//   applicant2CannotUpload: data.applicant2CannotUploadSupportingDocument?.length ? Checkbox.Checked : Checkbox.Unchecked,
-//   applicant2CannotUploadDocuments: data.applicant2CannotUploadSupportingDocument,
-// });

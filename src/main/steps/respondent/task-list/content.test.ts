@@ -10,6 +10,8 @@ const enContent = {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'To Do',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
@@ -33,6 +35,8 @@ const cyContent = {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
@@ -119,7 +123,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/yourdocuments/alldocuments/orders',
               id: 'view-all-orders-from-the-court',
-              status: 'TO_DO',
+              status: 'Not available yet',
               text: 'View all orders from the court',
             },
           ],

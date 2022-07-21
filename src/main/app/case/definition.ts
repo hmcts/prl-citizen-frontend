@@ -762,16 +762,23 @@ export const enum SectionStatus {
   IN_PROGRESS = 'IN_PROGRESS',
   NOT_STARTED = 'NOT_STARTED',
   COMPLETED = 'COMPLETED',
+  NOT_AVAILABLE_YET = 'NOT_AVAILABLE_YET',
+  READY_TO_VIEW = 'READY_TO_VIEW',
 }
 
 export type DateAsString = string;
 export interface PRLDocument {
-  documentDateAdded: DateAsString;
-  documentComment: string;
-  documentFileName: string;
-  documentType: DocumentType;
-  documentEmailContent: string;
-  documentLink: Document;
+  dateCreated: DateAsString;
+  orderType: string;
+  orderDocument: Document;
+  otherDetails: OtherDetails;
+}
+
+export interface OtherDetails {
+  createdBy: string;
+  orderCreatedDate: string;
+  orderMadeDate: string;
+  orderRecipients: string;
 }
 
 export interface ListValue<T> {
@@ -791,4 +798,5 @@ export interface Document {
   document_url: string;
   document_filename: string;
   document_binary_url: string;
+  document_hash?: string | undefined | null;
 }
