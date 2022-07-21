@@ -127,6 +127,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  onlycontinue?: {
+    text: Label;
+    classes?: string;
+  };
   saveAsDraft?: {
     text: Label;
     classes?: string;
