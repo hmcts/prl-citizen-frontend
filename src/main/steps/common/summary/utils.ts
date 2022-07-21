@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import dayjs from 'dayjs';
 
-import { CaseDate, CaseWithId } from '../../../app/case/case';
+import { CaseDate, CaseWithId, FieldPrefix } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-
+import * as Urls from '../../../steps/urls';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -37,7 +37,7 @@ interface SummaryListRow {
   classes?: string;
 }
 
-interface SummaryList {
+export interface SummaryList {
   title: string;
   rows: GovUkNunjucksSummary[];
 }
@@ -53,7 +53,7 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
     const changeUrl = item.changeUrl;
     return {
       key: { ...(item.key ? { text: item.key } : {}) },
-      value: { ...(item.value ? { text: item.value } : {}) },
+      value: { ...(item.value ? { text: item.value } : { html: item.valueHtml }) },
       ...(changeUrl
         ? {
             actions: {
@@ -80,7 +80,8 @@ export const summaryList = (
   urls: any,
   sectionTitle?: string,
   fieldTypes?: any,
-  language?: string
+  language?: string,
+  prefix?: FieldPrefix
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
@@ -89,7 +90,6 @@ export const summaryList = (
     const row = {
       key: keyLabel,
       value: checkIfDataPresent(fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key]),
-      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
 

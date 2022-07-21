@@ -1,3 +1,5 @@
+import { CaseWithId } from '../../../app/case/case';
+import { SectionStatus } from '../../../app/case/definition';
 import * as URL from '../../urls';
 
 import {
@@ -9,7 +11,13 @@ import {
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const generateRespondentTaskList = (
+  sectionTitles: Record<string, string>,
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  taskListItems: Record<string, string>,
+  userCase: Partial<CaseWithId> | undefined
+): { title: any; items: { id: string; text: any; status: SectionStatus; href: `/${string}` }[] }[] => {
   return [
     {
       title: sectionTitles.consentToTheApplication,
