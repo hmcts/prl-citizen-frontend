@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnyObject } from '../controller/PostController';
 
 import { CaseData, ContactDetails, OtherName, State, YesOrNo } from './definition';
@@ -8,6 +9,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseCode: 'caseCode',
   respondentFirstName: 'respondentFirstName',
   respondentLastName: 'respondentLastName',
+  //accessCode: 'accessCode',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
   //applicant1FirstNames: 'applicant1FirstName',
@@ -28,6 +30,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetails: 'applicant1ContactDetails',
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
+  citizenRole: 'citizenRole',
+  //respondentCaseInvites: 'respondentCaseInvites',
+  //detailsKnown: 'detailsKnown',
+  //startAlternative: 'startAlternative'
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -51,11 +57,18 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
+  accessCode?: string;
   detailsKnown?: string;
   startAlternative?: string;
+  contactDetailsPrivate?: string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
   start?: YesOrNo;
   parents?: YesOrNo;
   jurisdiction?: YesOrNo;
@@ -67,8 +80,7 @@ export interface Case {
   confirmcontactdetails?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
-  contactDetailsPrivate?: ContactDetails[];
-  //contactDetailsPrivate?: string;
+  //contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
@@ -81,9 +93,11 @@ export interface Case {
   applicant1PhoneNumber?: string;
   applicant1SafeToCall?: string;
   applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfBirthText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
@@ -99,6 +113,9 @@ export interface Case {
   applicant1PostalAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
+  //respondentCaseInvites?: CaseInvite[];
+  //applicantCaseInvites?: CaseInvite[];
+  citizenRole?: FieldPrefix;
 }
 
 export interface CaseWithId extends Case {
@@ -134,4 +151,6 @@ export enum FieldPrefix {
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
+  APPLICANT = 'APPLICANT',
+  RESPONDENT = 'RESPONDENT',
 }

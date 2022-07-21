@@ -1,4 +1,4 @@
-import { Case } from '../../../../app/case/case';
+import { Case, Checkbox } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
@@ -88,7 +88,7 @@ export const form: FormContent = {
               hint: l => l.contact_details_private_hint,
               // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
               validator: (value, formData: Partial<Case>) => {
-                if (formData.startAlternative === 'Yes') {
+                if (formData.startAlternative === Checkbox.Checked) {
                   return atLeastOneFieldIsChecked(formData?.contactDetailsPrivate);
                 }
                 return '';

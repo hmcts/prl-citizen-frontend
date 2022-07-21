@@ -19,7 +19,9 @@ import {
   PrivateLaw,
   State,
 } from './definition';
+// eslint-disable-next-line import/namespace
 import { fromApiFormat } from './from-api-format';
+// eslint-disable-next-line import/namespace
 import { toApiFormat } from './to-api-format';
 
 export class CaseApi {
@@ -47,8 +49,7 @@ export class CaseApi {
       }
       case 1: {
         const { id, state, case_data: caseData } = cases[0];
-        //...fromApiFormat(caseData)
-        return { ...caseData, id: id.toString(), state };
+        return { ...fromApiFormat(caseData), id: id.toString(), state };
       }
       default: {
         throw new Error('Too many cases assigned to user.');
@@ -71,8 +72,8 @@ export class CaseApi {
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
       const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
-      //...fromApiFormat(response.data.data)
-      return { id: response.data.id, state: response.data.state, ...response.data.data };
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -90,7 +91,7 @@ export class CaseApi {
     const token = tokenResponse.data.token;
     const event = { id: CITIZEN_CREATE };
     const data = {
-      //adoption: serviceType,
+      serviceType,
       applicant1FirstName: userDetails.givenName,
       applicant1LastName: userDetails.familyName,
       applicant1Email: userDetails.email,
@@ -103,8 +104,7 @@ export class CaseApi {
         event,
         event_token: token,
       });
-      //...fromApiFormat(response.data.data)
-      return { id: response.data.id, state: response.data.state, ...response.data.data };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -133,7 +133,12 @@ export class CaseApi {
           return Promise.reject(error);
         }
       );
-      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
+      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`, {
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
       const token = tokenResponse.data.token;
       const event = { id: eventName };
 
@@ -142,6 +147,7 @@ export class CaseApi {
         data,
         event_token: token,
       });
+
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);

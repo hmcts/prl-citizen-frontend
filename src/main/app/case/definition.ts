@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 
-import { CaseDate } from './case';
+import { CaseDate, FieldPrefix } from './case';
 
 export interface Address {
   AddressLine1: string;
@@ -271,6 +271,12 @@ export const enum ContactDetails {
   PHONE = 'phone',
 }
 
+export const enum ContactDetailsPrivate {
+  EMAIL = 'email',
+  PHONE = 'phone',
+  ADDRESS = 'address'
+}
+
 export interface Children {
   FirstName: string;
   LastName: string;
@@ -326,9 +332,11 @@ export interface CaseData {
   applicant1EmailAddress?: string;
   applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfBirthText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
@@ -337,7 +345,13 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
-  
+   accessCode: string;
+  respondentCaseInvites: CaseInvite[]
+  detailsKnown?: string;
+  startAlternative?: string;
+ //applicant1LanguagePreference?: LanguagePreference;
+ citizenRole?: FieldPrefix;
+
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -376,10 +390,15 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
+  partyId: string;
   applicant2InviteEmailAddress: string;
   accessCode: string;
+  caseInviteEmail: string
   applicant2UserId: string;
+  invitedUserId: string;
+  expiryDate: string;
 }
+
 
 export interface ConditionalOrder {
   DateSubmitted: DateAsString;
@@ -741,8 +760,9 @@ export const enum YesNoNotsure {
 export const enum SectionStatus {
   TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
-  NOT_STARTED = 'NOT_STARTED',
   COMPLETED = 'COMPLETED',
+  DOWNLOAD = 'DOWNLOAD',
+  VIEW = 'VIEW'
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1038,7 +1058,7 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication'
-  
+
 }
 
 export const enum UserRole {
@@ -1350,7 +1370,7 @@ export const SUBMIT_AOS = 'submit-aos';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
-export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_LINK_APPLICANT_2 = 'citizen-update-application';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
@@ -1363,3 +1383,9 @@ export const SYSTEM_NOTIFY_APPLICANT1_CONDITIONAL_ORDER = 'system-notify-applica
 export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+
+
+export const enum CONFIDENTIAL_DETAILS {
+  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
+  PRIVATE = 'This information will be kept confidential',
+}

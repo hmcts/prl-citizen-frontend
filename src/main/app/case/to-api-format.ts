@@ -17,9 +17,15 @@ const checkboxConverter = (value: string | undefined) => {
   console.log('checkboxConverter==>' + checkboxConverter);
   return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
 };
+console.log(checkboxConverter);
 
 const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
+  // startAlternative: data => {
+  //   return {
+  //     startAlternative: checkboxConverter(data.startAlternative),
+  //   };
+  // },
   //   dateChildMovedIn: data => ({
   //     dateChildMovedIn: toApiDate(data.dateChildMovedIn),
   //   }),

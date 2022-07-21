@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
-
+export { form as contactdetailscontent } from '../../../common/confirm-contact-details/contactdetails/content';
 const en = {
   title: 'Your contact details',
   phoneNumber: 'UK telephone number',

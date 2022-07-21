@@ -1,15 +1,35 @@
+import { CaseWithId } from '../../../app/case/case';
+import { SectionStatus } from '../../../app/case/definition';
 import * as URL from '../../urls';
 
 import {
   getConfirmOrEditYourContactDetails,
+  getConsentToApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const generateRespondentTaskList = (
+  sectionTitles: Record<string, string>,
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  taskListItems: Record<string, string>,
+  userCase: Partial<CaseWithId> | undefined
+): { title: any; items: { id: string; text: any; status: SectionStatus; href: `/${string}` }[] }[] => {
   return [
+    {
+      title: sectionTitles.consentToTheApplication,
+      items: [
+        {
+          id: 'consent-to-the-application',
+          text: taskListItems.do_you_consent_to_the_application,
+          status: getConsentToApplicationStatus(userCase),
+          href: URL.CONSENT_TO_APPLICATION,
+        },
+      ],
+    },
     {
       title: sectionTitles.respondentYourDetails,
       items: [

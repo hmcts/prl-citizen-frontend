@@ -12,10 +12,20 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
 };
 
 export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.confirmcontactdetails) {
+  if (userCase?.applicant1FullName && userCase?.applicant1DateOfBirth && userCase?.applicant1PlaceOfBirth) {
     return SectionStatus.COMPLETED;
   }
-  if (userCase?.confirmcontactdetails) {
+  if (userCase?.applicant1FullName || userCase?.applicant1DateOfBirth || userCase?.applicant1PlaceOfBirth) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
+
+export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.miamStart && userCase?.miamWillingness) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.miamStart || userCase?.miamWillingness) {
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
