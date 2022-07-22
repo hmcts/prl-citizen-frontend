@@ -60,6 +60,10 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[13].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[13].getNextStep({})).toBe('/applicant/task-list');
 
+    expect(applicantCaseSequence[14].url).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[14].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[14].getNextStep({})).toBe('/applicant/orders');
+
     expect(applicantCaseSequence[15].url).toBe('/applicant/orders');
     expect(applicantCaseSequence[15].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[15].getNextStep({})).toBe('/applicant/task-list');
