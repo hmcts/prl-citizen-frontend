@@ -29,7 +29,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           id: 'view_all_orders_from_the_court',
           text: taskListItems.view_all_orders_from_the_court,
           status: getOrderDetailsStatus(userCase),
-          href: URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT,
+          href:
+            getOrderDetailsStatus(userCase) === 'READY_TO_VIEW' ? URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT : '#',
         },
       ],
     },

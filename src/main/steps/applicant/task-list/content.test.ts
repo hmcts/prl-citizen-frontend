@@ -11,6 +11,7 @@ const enContent = {
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'Not Started',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',
@@ -30,6 +31,7 @@ const cyContent = {
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',
@@ -76,7 +78,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/orders',
+              href: '#',
               id: 'view_all_orders_from_the_court',
               status: 'NOT_AVAILABLE_YET',
               text: 'View all orders from the court',
