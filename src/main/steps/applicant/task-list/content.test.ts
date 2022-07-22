@@ -3,37 +3,67 @@ import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
+// eslint-disable-next-line import/namespace
 import { generateContent } from './content';
+
 const enContent = {
-  title: 'Respond to the application',
+  title: 'DA Applicant',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.TO_DO]: 'Not Started',
+    [SectionStatus.TO_DO]: 'TO DO',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
   },
   sectionTitles: {
-    applicantYourDetails: 'About you',
-    applicationDetails: 'Application detail',
+    aboutYou: 'About you',
+    yourApplication: 'Your application',
+    courtHearings: 'Your court hearings',
+    ordersFromCourt: 'Orders from the court',
+    yourDocuments: 'Your documents',
+    finalDecision: 'Final decision from the court',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+    your_needs_when_go_to_court: 'Your needs when you go to court',
+    application_submitted: 'Application submitted (FL401)',
+    witness_statement: 'Witness statement',
+    details_of_court_hearings: 'Check details of your court hearings',
+    orders: 'Orders',
+    upload_document: 'Upload a document',
+    see_all_documents: 'See all documents',
+    see_all_documents_alternative_view: 'See all documents ( alternate view )',
+    view_all_final_order: 'View your final order',
   },
 };
 const cyContent = {
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
-    [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.TO_DO]: 'I WNEUD',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
   },
   sectionTitles: {
-    applicantYourDetails: 'About you',
-    applicationDetails: 'Application detail',
+    aboutYou: 'About you',
+    yourApplication: 'Your application',
+    courtHearings: 'Your court hearings',
+    ordersFromCourt: 'Orders from the court',
+    yourDocuments: 'Your documents',
+    finalDecision: 'Final decision from the court',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+    your_needs_when_go_to_court: 'Your needs when you go to court',
+    application_submitted: 'Application submitted (FL401)',
+    witness_statement: 'Witness statement',
+    details_of_court_hearings: 'Check details of your court hearings',
+    orders: 'Orders',
+    upload_document: 'Upload a document',
+    see_all_documents: 'See all documents',
+    see_all_documents_alternative_view: 'See all documents ( alternate view )',
+    view_all_final_order: 'View your final order',
   },
 };
 describe('task-list > content', () => {
@@ -64,8 +94,87 @@ describe('task-list > content', () => {
               status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
+            {
+              href: '/applicant/confirm-contact-details/checkanswers',
+              id: 'your-needs-when-go-to-court',
+              text: 'Your needs when you go to court',
+              status: 'TO_DO',
+            },
           ],
           title: 'About you',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'application-submitted',
+              text: 'Application submitted (FL401)',
+              status: 'TO_DO',
+            },
+            {
+              href: '/applicant/confirm-contact-details/checkanswers',
+              id: 'witness-statement',
+              text: 'Witness statement',
+              status: 'TO_DO',
+            },
+          ],
+          title: 'Your application',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'check-details-of-your-court-hearings',
+              text: 'Check details of your court hearings',
+              status: 'TO_DO',
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'orders',
+              text: 'Orders',
+              status: 'TO_DO',
+            },
+          ],
+          title: 'Orders from the court',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'upload-document',
+              text: 'Upload a document',
+              status: 'TO_DO',
+            },
+            {
+              href: '/applicant/confirm-contact-details/checkanswers',
+              id: 'see-all-documents',
+              text: 'See all documents',
+              status: 'TO_DO',
+            },
+            {
+              href: '/applicant/confirm-contact-details/checkanswers',
+              id: 'see-all-documents-alternative-view',
+              text: 'See all documents ( alternate view )',
+              status: 'TO_DO',
+            },
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'view-all-final-order',
+              text: 'View your final order',
+              status: 'TO_DO',
+            },
+          ],
+          title: 'Final decision from the court',
         },
       ],
     },

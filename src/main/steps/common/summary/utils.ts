@@ -89,8 +89,8 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      valueHtml: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
-      changeUrl: !prefix ? url : Urls[`${prefix}${url}`],
+      value: checkIfDataPresent(fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key]),
+      changeUrl: url,
     };
     if (prefix === 'APPLICANT') {
       summaryData.push(row);
