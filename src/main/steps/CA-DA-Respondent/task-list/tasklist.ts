@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import {getSupportYourNeedsDetails } from './utils';
+import { getSupportYourNeedsDetails } from './utils';
 
 export const generateCADARespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [

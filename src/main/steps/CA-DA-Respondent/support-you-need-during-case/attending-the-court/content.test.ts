@@ -71,7 +71,9 @@ describe('citizen-home content', () => {
     expect(generatedContent.videoHearings).toEqual('Yes, I can take part in video hearings');
     expect(generatedContent.phoneHearings).toEqual('Yes, I can take part in phone hearings');
     expect(generatedContent.noHearings).toEqual('No, I cannot take part in either video or phone hearings');
-    expect(generatedContent.noHearingsHint).toEqual('If you choose this option please tell us why in case we can assist you');
+    expect(generatedContent.noHearingsHint).toEqual(
+      'If you choose this option please tell us why in case we can assist you'
+    );
   });
 
   // eslint-disable-next-line jest/expect-expect

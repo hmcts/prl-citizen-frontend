@@ -11,17 +11,22 @@ const en = {
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
+  lightingDetails: 'Describe what you need',
   break: 'Regular breaks',
   space: 'Space to be able to get up and move around',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
     respondentCourtComfort: {
       required: 'Please select an answer',
     },
+    respondentLightingDetails: {
+      required: 'Please describe lighting detail',
+    },
     respondentOtherProvideDetails: {
-      required: 'Please describe your need in detail',
+      required: 'Please describe your need in details',
     },
   },
 };
@@ -33,17 +38,22 @@ const cy: typeof en = {
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
+  lightingDetails: 'Describe what you need',
   break: 'Regular breaks',
   space: 'Space to be able to get up and move around',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
     respondentCourtComfort: {
       required: 'Please select an answer',
     },
+    respondentLightingDetails: {
+      required: 'Please describe lighting detail',
+    },
     respondentOtherProvideDetails: {
-      required: 'Please describe your need in detail',
+      required: 'Please describe your need in details',
     },
   },
 };

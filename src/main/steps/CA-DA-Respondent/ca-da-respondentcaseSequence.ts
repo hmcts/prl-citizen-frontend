@@ -12,7 +12,6 @@ import {
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   CA_DA_TRAVELLING_TO_COURT,
-  CA_DA_UNABLE_TO_TAKE_COURT_PROCEEDINGS,
 } from '../urls';
 
 export const cAdARespondentCaseSequence: Step[] = [
@@ -69,11 +68,6 @@ export const cAdARespondentCaseSequence: Step[] = [
   {
     url: CA_DA_TRAVELLING_TO_COURT,
     showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_UNABLE_TO_TAKE_COURT_PROCEEDINGS,
-  },
-  {
-    url: CA_DA_UNABLE_TO_TAKE_COURT_PROCEEDINGS,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   },
   {
@@ -81,7 +75,7 @@ export const cAdARespondentCaseSequence: Step[] = [
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_RESPONDENT_TASK_LIST_URL,
   },
- /* {
+  /* {
     url: CA_DA_ATTENDING_THE_COURT,
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_RESPONDENT_TASK_LIST_URL,

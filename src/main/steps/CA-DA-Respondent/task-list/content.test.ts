@@ -53,13 +53,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/keep-details-private/details_known',
-              id: 'keep-your-details-private',
-              status: 'TO_DO',
-              text: 'Keep your details private',
-            },
-            {
-              href: '/applicant/support-you-need-during-case/language-requirements',
+              href: '/ca-da-respondent/support-you-need-during-case/attending-the-court',
               id: 'support-you-need-during-your-case',
               text: 'Support you need during your case',
               status: 'TO_DO',

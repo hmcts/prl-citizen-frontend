@@ -9,9 +9,12 @@ const en = {
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
+  supportWorkerDetails: 'Tell us who you will bring',
   familymember: 'A friend or family member',
+  familyMemberDetails: 'Tell us who you will bring',
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
+  animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
@@ -19,6 +22,15 @@ const en = {
   errors: {
     respondentCourtHearing: {
       required: 'Please select an answer',
+    },
+    respondentSupportWorkerDetails: {
+      required: 'Please provide support worker details',
+    },
+    respondentFamilyDetails: {
+      required: 'Please provide family member details',
+    },
+    respondentTherapyDetails: {
+      required: 'Please provide therapy animal details',
     },
     respondentCommSupportOther: {
       required: 'Please provide the details',
@@ -33,9 +45,12 @@ const cy: typeof en = {
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
+  supportWorkerDetails: 'Tell us who you will bring',
   familymember: 'A friend or family member',
+  familyMemberDetails: 'Tell us who you will bring',
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
+  animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
@@ -43,6 +58,15 @@ const cy: typeof en = {
   errors: {
     respondentCourtHearing: {
       required: 'Please select an answer',
+    },
+    respondentSupportWorkerDetails: {
+      required: 'Please provide support worker details',
+    },
+    respondentFamilyDetails: {
+      required: 'Please provide family member details',
+    },
+    respondentTherapyDetails: {
+      required: 'Please provide therapy animal details',
     },
     respondentCommSupportOther: {
       required: 'Please provide the details',
@@ -67,11 +91,27 @@ export const form: FormContent = {
           name: 'respondentCourtHearing',
           label: l => l.supportworker,
           value: 'support worker or carer',
+          subFields: {
+            respondentSupportWorkerDetails: {
+              type: 'textarea',
+              label: l => l.supportWorkerDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'respondentCourtHearing',
           label: l => l.familymember,
           value: 'friend or family member',
+          subFields: {
+            respondentFamilyDetails: {
+              type: 'textarea',
+              label: l => l.familyMemberDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'respondentCourtHearing',
@@ -82,6 +122,14 @@ export const form: FormContent = {
           name: 'respondentCourtHearing',
           label: l => l.animal,
           value: 'animal',
+          subFields: {
+            respondentTherapyDetails: {
+              type: 'textarea',
+              label: l => l.animalDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'respondentCourtHearing',

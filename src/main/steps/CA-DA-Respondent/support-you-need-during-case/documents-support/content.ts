@@ -5,7 +5,8 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../.
 const en = {
   section: 'Reasonable adjustments',
   title: 'I need documents in an alternative format',
-  courtCommunication: 'Think about all communications with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+  courtCommunication:
+    'Think about all communications with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   docsColour: 'Documents in a specified colour',
@@ -41,7 +42,8 @@ const en = {
 const cy: typeof en = {
   section: 'Reasonable adjustments',
   title: 'I need documents in an alternative format',
-  courtCommunication: 'Think about all communications with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+  courtCommunication:
+    'Think about all communications with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   docsColour: 'Documents in a specified colour',
@@ -157,7 +159,7 @@ export const form: FormContent = {
         },
         {
           name: 'respondentDocsSupport',
-          label: l => l.nosupport,
+          label: l => l.noSupport,
           value: 'no need of support',
           exclusive: true,
         },

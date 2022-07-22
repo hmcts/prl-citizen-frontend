@@ -71,7 +71,7 @@ export const form: FormContent = {
           name: 'respondentAttendingToCourt',
           label: l => l.phoneHearings,
           value: 'phone hearings',
-        },       
+        },
         {
           divider: true,
         },

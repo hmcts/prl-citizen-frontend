@@ -89,7 +89,7 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'languageRequirements',
+          name: 'respondentLangRequirements',
           label: l => l.nointerpreter,
           value: 'No, I do not have any language requirements at this time',
           exclusive: true,

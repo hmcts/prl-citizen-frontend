@@ -1,4 +1,3 @@
-import { Checkbox } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -10,6 +9,7 @@ const en = {
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
+  lightingDetails: 'Describe what you need',
   break: 'Regular breaks',
   space: 'Space to be able to get up and move around',
   other: 'Other',
@@ -20,8 +20,11 @@ const en = {
     respondentCourtComfort: {
       required: 'Please select an answer',
     },
+    respondentLightingDetails: {
+      required: 'Please describe lighting detail',
+    },
     respondentOtherProvideDetails: {
-      required: 'Please describe your need in detail',
+      required: 'Please describe your need in details',
     },
   },
 };
@@ -33,6 +36,7 @@ const cy: typeof en = {
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
+  lightingDetails: 'Describe what you need',
   break: 'Regular breaks',
   space: 'Space to be able to get up and move around',
   other: 'Other',
@@ -43,8 +47,11 @@ const cy: typeof en = {
     respondentCourtComfort: {
       required: 'Please select an answer',
     },
+    respondentLightingDetails: {
+      required: 'Please describe lighting detail',
+    },
     respondentOtherProvideDetails: {
-      required: 'Please describe your need in detail',
+      required: 'Please describe your need in details',
     },
   },
 };
@@ -66,6 +73,14 @@ export const form: FormContent = {
           name: 'respondentCourtComfort',
           label: l => l.appropriatelighting,
           value: 'appropriate lighting',
+          subFields: {
+            respondentLightingDetails: {
+              type: 'text',
+              label: l => l.lightingDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'respondentCourtComfort',
@@ -80,7 +95,7 @@ export const form: FormContent = {
         {
           name: 'respondentCourtComfort',
           label: l => l.other,
-          value: Checkbox.Checked,
+          value: 'Other',
           subFields: {
             respondentOtherProvideDetails: {
               type: 'textarea',

@@ -111,23 +111,30 @@ export interface Case {
   //CA-DA-Respondent
   respondentAttendingToCourt?: string;
   noHearingDetails?: string;
-  respondentHelpCommunication?: string;
-  respondentDescribeOtherNeed?: string;
-  respondentCourtComfort?: string;
-  respondentOtherProvideDetails?: string;
-  respondentCourtHearing?: string;
-  respondentCommSupportOther?: string;
-  respondentDocsSupport?: string;
-  respondentOtherDetails?: string;
   respondentLangRequirements?: string;
   respondentLangDetails?: string;
+  respondentSpecialArrangements?: string;
+  respondentSpecialArrangementsDetails?: string;
   respondentReasonableAdjustments?: string;
-  respondentSafetyArrangements?: string;
-  respondentSafetyArrangementsDetails?: string;
+  respondentDocsSupport?: string;
+  respondentDocsDetails?: string;
+  respondentLargePrintDetails?: string;
+  respondentOtherDetails?: string;
+  respondentHelpCommunication?: string;
+  respondentSignLanguageDetails?: string;
+  respondentDescribeOtherNeed?: string;
+  respondentCourtHearing?: string;
+  respondentSupportWorkerDetails?: string;
+  respondentFamilyDetails?: string;
+  respondentTherapyDetails?: string;
+  respondentCommSupportOther?: string;
+  respondentCourtComfort?: string;
+  respondentLightingDetails?: string;
+  respondentOtherProvideDetails?: string;
   respondentTravellingToCourt?: string;
+  respondentParkingDetails?: string;
+  respondentDifferentChairDetails?: string;
   respondentTravellingOtherDetails?: string;
-  respondentUnableCourtProceedings?: string;
-  respondentCourtProceedingDetails?: string;
 }
 
 export interface CaseWithId extends Case {

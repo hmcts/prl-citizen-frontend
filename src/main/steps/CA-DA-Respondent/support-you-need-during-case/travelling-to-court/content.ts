@@ -8,11 +8,14 @@ const en = {
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   parkingspace: 'Parking space close to the venue',
+  parkingSpaceDetails: 'Describe why you need this',
   stepfree: 'Step free / wheelchair access',
   wheelchair: 'Use of venue wheelchair',
   toilet: 'Accessible toilet',
   lift: 'Help using a lift',
   differentchair: 'A different type of chair',
+  differentChairDetails: 'Describe what you need',
+  differentChairDetailsHint: 'For example, a chair with back support',
   building: 'Guiding in the building',
   other: 'Other',
   otherDetails: 'Describe what you need',
@@ -21,6 +24,12 @@ const en = {
   errors: {
     respondentTravellingToCourt: {
       required: 'Please select an answer',
+    },
+    respondentParkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    respondentDifferentChairDetails: {
+      required: 'Please describe different chair details',
     },
     respondentTravellingOtherDetails: {
       required: 'Please describe your need in detail',
@@ -34,11 +43,14 @@ const cy: typeof en = {
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   parkingspace: 'Parking space close to the venue',
+  parkingSpaceDetails: 'Describe why you need this',
   stepfree: 'Step free / wheelchair access',
   wheelchair: 'Use of venue wheelchair',
   toilet: 'Accessible toilet',
   lift: 'Help using a lift',
   differentchair: 'A different type of chair',
+  differentChairDetails: 'Describe what you need',
+  differentChairDetailsHint: 'For example, a chair with back support',
   building: 'Guiding in the building',
   other: 'Other',
   otherDetails: 'Describe what you need',
@@ -47,6 +59,12 @@ const cy: typeof en = {
   errors: {
     respondentTravellingToCourt: {
       required: 'Please select an answer',
+    },
+    respondentParkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    respondentDifferentChairDetails: {
+      required: 'Please describe different chair details',
     },
     respondentTravellingOtherDetails: {
       required: 'Please describe your need in detail',
@@ -71,6 +89,14 @@ export const form: FormContent = {
           name: 'respondentTravellingToCourt',
           label: l => l.parkingspace,
           value: 'parking space close to the venue',
+          subFields: {
+            respondentParkingDetails: {
+              type: 'textarea',
+              label: l => l.parkingSpaceDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'respondentTravellingToCourt',
@@ -96,6 +122,15 @@ export const form: FormContent = {
           name: 'respondentTravellingToCourt',
           label: l => l.differentchair,
           value: 'a different type of chair',
+          subFields: {
+            respondentDifferentChairDetails: {
+              type: 'textarea',
+              label: l => l.differentChairDetails,
+              hint: l => l.differentChairDetailsHint,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'respondentTravellingToCourt',

@@ -12,22 +12,64 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
 };
 
 export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.respondentHelpCommunication && userCase?.respondentDescribeOtherNeed && userCase?.respondentCourtComfort 
-    && userCase?.respondentOtherProvideDetails && userCase?.respondentCourtHearing && userCase?.respondentCommSupportOther 
-    && userCase?.respondentDocsSupport && userCase?.respondentOtherDetails && userCase?.respondentLangRequirements 
-    && userCase?.respondentLangDetails && userCase?.respondentReasonableAdjustments && userCase?.respondentSafetyArrangements
-    && userCase?.respondentSafetyArrangementsDetails && userCase?.respondentTravellingToCourt && userCase?.respondentTravellingOtherDetails 
-    && userCase?.respondentUnableCourtProceedings && userCase?.respondentCourtProceedingDetails && userCase?.startAlternative 
-    && userCase?.detailsKnown && userCase?.startAlternative) {
+  if (
+    userCase?.respondentAttendingToCourt &&
+    userCase?.noHearingDetails &&
+    userCase?.respondentLangRequirements &&
+    userCase?.respondentLangDetails &&
+    userCase?.respondentSpecialArrangements &&
+    userCase?.respondentSpecialArrangementsDetails &&
+    userCase?.respondentReasonableAdjustments &&
+    userCase?.respondentDocsSupport &&
+    userCase?.respondentDocsDetails &&
+    userCase?.respondentLargePrintDetails &&
+    userCase?.respondentOtherDetails &&
+    userCase?.respondentHelpCommunication &&
+    userCase?.respondentSignLanguageDetails &&
+    userCase?.respondentDescribeOtherNeed &&
+    userCase?.respondentCourtHearing &&
+    userCase?.respondentSupportWorkerDetails &&
+    userCase?.respondentFamilyDetails &&
+    userCase?.respondentTherapyDetails &&
+    userCase?.respondentCommSupportOther &&
+    userCase?.respondentCourtComfort &&
+    userCase?.respondentLightingDetails &&
+    userCase?.respondentOtherProvideDetails &&
+    userCase?.respondentTravellingToCourt &&
+    userCase?.respondentParkingDetails &&
+    userCase?.respondentDifferentChairDetails &&
+    userCase?.respondentTravellingOtherDetails
+  ) {
     return SectionStatus.COMPLETED;
   }
-  if (userCase?.respondentHelpCommunication || userCase?.respondentDescribeOtherNeed || userCase?.respondentCourtComfort 
-    || userCase?.respondentOtherProvideDetails || userCase?.respondentCourtHearing || userCase?.respondentCommSupportOther 
-    || userCase?.respondentDocsSupport || userCase?.respondentOtherDetails || userCase?.respondentLangRequirements 
-    || userCase?.respondentLangDetails || userCase?.respondentReasonableAdjustments || userCase?.respondentSafetyArrangements
-    || userCase?.respondentSafetyArrangementsDetails || userCase?.respondentTravellingToCourt || userCase?.respondentTravellingOtherDetails 
-    || userCase?.respondentUnableCourtProceedings || userCase?.respondentCourtProceedingDetails || userCase?.startAlternative 
-    || userCase?.detailsKnown || userCase?.startAlternative) {
+  if (
+    userCase?.respondentAttendingToCourt ||
+    userCase?.noHearingDetails ||
+    userCase?.respondentLangRequirements ||
+    userCase?.respondentLangDetails ||
+    userCase?.respondentSpecialArrangements ||
+    userCase?.respondentSpecialArrangementsDetails ||
+    userCase?.respondentReasonableAdjustments ||
+    userCase?.respondentDocsSupport ||
+    userCase?.respondentDocsDetails ||
+    userCase?.respondentLargePrintDetails ||
+    userCase?.respondentOtherDetails ||
+    userCase?.respondentHelpCommunication ||
+    userCase?.respondentSignLanguageDetails ||
+    userCase?.respondentDescribeOtherNeed ||
+    userCase?.respondentCourtHearing ||
+    userCase?.respondentSupportWorkerDetails ||
+    userCase?.respondentFamilyDetails ||
+    userCase?.respondentTherapyDetails ||
+    userCase?.respondentCommSupportOther ||
+    userCase?.respondentCourtComfort ||
+    userCase?.respondentLightingDetails ||
+    userCase?.respondentOtherProvideDetails ||
+    userCase?.respondentTravellingToCourt ||
+    userCase?.respondentParkingDetails ||
+    userCase?.respondentDifferentChairDetails ||
+    userCase?.respondentTravellingOtherDetails
+  ) {
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;

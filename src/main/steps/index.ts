@@ -7,10 +7,10 @@ import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
+import { cAdARespondentCaseSequence } from './ca-da-respondent/ca-da-respondentcaseSequence';
 import { Step } from './constants';
 import { edgecaseSequence } from './edge-case/edgecaseSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
-import { cAdARespondentCaseSequence } from './ca-da-respondent/ca-da-respondentcaseSequence';
 import { CITIZEN_HOME_URL, EDGE_CASE_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
@@ -71,7 +71,12 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     return CITIZEN_HOME_URL;
   }
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...edgecaseSequence, ...respondentCaseSequence, ...applicantCaseSequence, ...cAdARespondentCaseSequence].find(s => s.url === path);
+  const nextStep = [
+    ...edgecaseSequence,
+    ...respondentCaseSequence,
+    ...applicantCaseSequence,
+    ...cAdARespondentCaseSequence,
+  ].find(s => s.url === path);
 
   const url = nextStep ? nextStep.getNextStep(data) : CITIZEN_HOME_URL;
 
