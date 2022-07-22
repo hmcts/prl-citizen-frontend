@@ -1,22 +1,24 @@
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn,isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  caption: 'Do the children live outside of England or Wales? ',
-  headingTitle: 'For example, does their main family life take place outside of England and Wales?    ',
+  title: 'Do the children live outside of England or Wales? ',
+  line1: 'For example, does their main family life take place outside of England and Wales?    ',
   one: 'Yes',
   two: 'No',
+  provideDetails: 'Provide details',
 });
 
 const cy = () => ({
-  caption: 'Do the children live outside of England or Wales?  - welsh',
-  headingTitle:
+  title: 'Do the children live outside of England or Wales?  - welsh',
+  line1:
     'For example, does their main family life take place outside of England and Wales? - welsh  ',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
+  provideDetails: 'Provide details - Welsh',
 });
 
 const languages = {
@@ -35,7 +37,16 @@ export const form: FormContent = {
         {
           label: l => l.one,
           value: YesOrNo.YES,
+          subFields: {
+            provideDetails: {
+              type: 'textarea',
+              label: l => l.provideDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
+        
         {
           label: l => l.two,
           value: YesOrNo.NO,
