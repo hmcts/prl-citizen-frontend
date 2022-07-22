@@ -15,6 +15,7 @@ import {
   APPLICANT_PRIVATE_DETAILS_CONFIRMED,
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_TASK_LIST_URL,
+  APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT,
   // APPLICANT_START_ALTERNATIVE,
 } from '../urls';
 
@@ -87,6 +88,16 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_POSTAL_ADDRESS_DETAILS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
