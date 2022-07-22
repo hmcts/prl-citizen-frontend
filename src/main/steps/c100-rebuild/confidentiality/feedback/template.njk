@@ -6,8 +6,18 @@
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{headingTitle}}</h1>
 <p class="govuk-body-m">{{p1}}</p>
 <ul class="govuk-list govuk-list--bullet">
-  <li>{{li1}}</li>
-  <li>{{li2}}</li>
+  {% for details in userCase['contactDetailsPrivate'] %}
+  {% if details === "address" %}
+   <li>Address</li>
+  {% elif details === "homephone" %}
+   <li>Home phone</li>
+  {% elif details === "mobilephone" %}
+   <li>Mobile phone</li>
+ {% elif details === "email" %}
+   <li>Email</li>
+  {% else %}
+{% endif %}
+   {% endfor %}
 </ul>
 <h2 class="govuk-heading-m">{{heading3}}</h2>
 <p class="govuk-body-m govuk-!-margin-bottom-9">{{p2}}</p>
