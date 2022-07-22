@@ -156,7 +156,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "resolutions": {
-    "moment": "2.29.3",
+    "moment": "2.29.4",
     "validator": "13.7.0",
     "axios": ">=0.21.2",
     "got": "11.8.5",
