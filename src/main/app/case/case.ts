@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnyObject } from '../controller/PostController';
 
 import { CaseData, ContactDetails, ListValue, OtherName, PRLDocument, State, YesOrNo } from './definition';
@@ -8,6 +9,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseCode: 'caseCode',
   respondentFirstName: 'respondentFirstName',
   respondentLastName: 'respondentLastName',
+  //accessCode: 'accessCode',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
   //applicant1FirstNames: 'applicant1FirstName',
@@ -29,6 +31,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   documentsUploaded: 'documentsUploaded',
+  citizenRole: 'citizenRole',
+  //respondentCaseInvites: 'respondentCaseInvites',
+  //detailsKnown: 'detailsKnown',
+  //startAlternative: 'startAlternative'
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -52,15 +58,30 @@ export interface Case {
   serviceType: string;
   claimNumber?: string;
   caseCode?: string;
+  accessCode?: string;
   detailsKnown?: string;
   startAlternative?: string;
+  contactDetailsPrivate?: string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
   confirmcontactdetails?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
-  contactDetailsPrivate?: string;
+  //contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
@@ -71,10 +92,13 @@ export interface Case {
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
   applicant1PhoneNumber?: string;
+  applicant1SafeToCall?: string;
   applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfBirthText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
@@ -82,9 +106,18 @@ export interface Case {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  applicant1PostalAddress1?: string;
+  applicant1PostalAddress2?: string;
+  applicant1PostalAddress3?: string;
+  applicant1PostalAddressTown?: string;
+  applicant1PostalAddressCounty?: string;
+  applicant1PostalAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
   documentsUploaded?: ListValue<PRLDocument>[];
+  //respondentCaseInvites?: CaseInvite[];
+  //applicantCaseInvites?: CaseInvite[];
+  citizenRole?: FieldPrefix;
 }
 
 export interface CaseWithId extends Case {
@@ -114,10 +147,12 @@ export interface UploadedFile {
 }
 
 export enum FieldPrefix {
-  APPLICANT1 = 'applicant1',
+  APPLICANT1 = 'applicant',
   APPLICANT2 = 'applicant2',
   CHILDREN = 'children',
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
+  APPLICANT = 'APPLICANT',
+  RESPONDENT = 'RESPONDENT',
 }

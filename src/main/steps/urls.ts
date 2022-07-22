@@ -14,6 +14,11 @@ export const DASHBOARD_URL: PageLink = '/dashboard';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
 export const EDGE_CASE_URL: PageLink = '/edge-case';
 
+export const FIND_ADDRESS: PageLink = '/address/lookup';
+export const SELECT_ADDRESS: PageLink = '/address/select';
+export const EMAIL_ADDRESS: PageLink = '/email-address';
+export const MANUAL_ADDRESS: PageLink = '/address/manual';
+
 export const COOKIES_PAGE: PageLink = '/cookies';
 export const PRIVACY_POLICY: PageLink = '/privacy-policy';
 export const ACCESSIBILITY_STATEMENT: PageLink = '/accessibility-statement';
@@ -28,7 +33,6 @@ export const CONTACT_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/contactdeta
 export const ADDRESS_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressdetails`;
 export const ADDRESS_LOOKUP: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresslookup`;
 export const ADDRESS_LOOKUP_CONT: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresslookupcont`;
-export const FIND_ADDRESS: PageLink = `${ADDRESS_LOOKUP}`;
 export const ADDRESS_CONFIRMATION: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressconfirmation`;
 export const ADDRESS_BLANK: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressblank`;
 export const ADDRESS_HISTORY: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresshistory`;
@@ -57,40 +61,56 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 export const MIAM: PageLink = `${RESPONDENT}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
+
+/* international-factors */
+export const INTERNATIONAL_FACTORS: PageLink = `${RESPONDENT}/international-factors`;
+export const INTERNATIONAL_FACTORS_START: PageLink = `${INTERNATIONAL_FACTORS}/start`;
+export const INTERNATIONAL_FACTORS_PARENTS: PageLink = `${INTERNATIONAL_FACTORS}/parents`;
+export const INTERNATIONAL_FACTORS_JURISDICTION: PageLink = `${INTERNATIONAL_FACTORS}/jurisdiction`;
+export const INTERNATIONAL_FACTORS_REQUEST: PageLink = `${INTERNATIONAL_FACTORS}/request`;
+export const INTERNATIONAL_FACTORS_SUMMARY: PageLink = `${INTERNATIONAL_FACTORS}/summary`;
+
+/* international-factors */
+
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 /* MIAM */
 
 /* respondent-confirm-contact-details-start */
-export const RESPONDENT_CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}${CONFIRM_CONTACT_DETAILS}`;
+export const CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}${CONFIRM_CONTACT_DETAILS}`;
 export const RESPONDENT_CHECK_ANSWERS: PageLink = `${RESPONDENT}${CHECK_ANSWERS}`;
 export const RESPONDENT_PERSONAL_DETAILS: PageLink = `${RESPONDENT}${PERSONAL_DETAILS}`;
 export const RESPONDENT_CONTACT_DETAILS: PageLink = `${RESPONDENT}${CONTACT_DETAILS}`;
 export const RESPONDENT_ADDRESS_DETAILS: PageLink = `${RESPONDENT}${ADDRESS_DETAILS}`;
-export const RESPONDENT_ADDRESS_LOOKUP: PageLink = `${RESPONDENT}${ADDRESS_LOOKUP}`;
-export const RESPONDENT_ADDRESS_LOOKUP_CONT: PageLink = `${RESPONDENT}${ADDRESS_LOOKUP_CONT}`;
-export const RESPONDENT_FIND_ADDRESS: PageLink = `${RESPONDENT_ADDRESS_LOOKUP}`;
+
 export const RESPONDENT_ADDRESS_CONFIRMATION: PageLink = `${RESPONDENT}${ADDRESS_CONFIRMATION}`;
 export const RESPONDENT_ADDRESS_BLANK: PageLink = `${RESPONDENT}${ADDRESS_BLANK}`;
 export const RESPONDENT_ADDRESS_HISTORY: PageLink = `${RESPONDENT}${ADDRESS_HISTORY}`;
+
+export const RESPONDENT_ADDRESS_LOOKUP: PageLink = `${RESPONDENT}${ADDRESS_LOOKUP}`;
+export const RESPONDENT_ADDRESS_LOOKUP_CONT: PageLink = `${RESPONDENT}${ADDRESS_LOOKUP_CONT}`;
+export const RESPONDENT_FIND_ADDRESS: PageLink = `${RESPONDENT_ADDRESS_LOOKUP}`;
 /* respondent-confirm-contact-details-end */
 
 /* Applicant-start */
 export const APPLICANT: PageLink = '/applicant';
 export const APPLICANT_TASK_LIST_URL: PageLink = '/applicant/task-list';
 
-/* respondent-confirm-contact-details-start */
+/* applicant-confirm-contact-details-start */
 export const APPLICANT_CONFIRM_CONTACT_DETAILS: PageLink = `${APPLICANT}${CONFIRM_CONTACT_DETAILS}`;
 export const APPLICANT_CHECK_ANSWERS: PageLink = `${APPLICANT}${CHECK_ANSWERS}`;
 export const APPLICANT_PERSONAL_DETAILS: PageLink = `${APPLICANT}${PERSONAL_DETAILS}`;
 export const APPLICANT_CONTACT_DETAILS: PageLink = `${APPLICANT}${CONTACT_DETAILS}`;
 export const APPLICANT_ADDRESS_DETAILS: PageLink = `${APPLICANT}${ADDRESS_DETAILS}`;
+export const APPLICANT_POSTAL_ADDRESS_DETAILS: PageLink = `${APPLICANT}${CONFIRM_CONTACT_DETAILS}/postaladdress`;
 export const APPLICANT_ADDRESS_LOOKUP: PageLink = `${APPLICANT}${ADDRESS_LOOKUP}`;
 export const APPLICANT_ADDRESS_LOOKUP_CONT: PageLink = `${APPLICANT}${ADDRESS_LOOKUP_CONT}`;
-export const APPLICANT_FIND_ADDRESS: PageLink = `${APPLICANT_ADDRESS_LOOKUP}`;
 export const APPLICANT_ADDRESS_CONFIRMATION: PageLink = `${APPLICANT}${ADDRESS_CONFIRMATION}`;
 export const APPLICANT_ADDRESS_BLANK: PageLink = `${APPLICANT}${ADDRESS_BLANK}`;
 export const APPLICANT_ADDRESS_HISTORY: PageLink = `${APPLICANT}${ADDRESS_HISTORY}`;
-/* respondent-confirm-contact-details-end */
+export const APPLICANT_FIND_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/lookup`;
+export const APPLICANT_SELECT_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/select`;
+export const APPLICANT_MANUAL_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/manual`;
+/* applicant-confirm-contact-details-end */
 
 /* applicant-respondent-keep-details-private */
 export const APPLICANT_KEEP_DETAILS_PRIVATE: PageLink = `${APPLICANT}${KEEP_DETAILS_PRIVATE}`;
@@ -102,3 +122,10 @@ export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${
 
 export const PUBLIC_DOCS_FL401: PageLink = '/public/docs/fl401.pdf';
 export const APPLICATION_SUBMITTED_FL401: PageLink = `${APPLICANT}${PUBLIC_DOCS_FL401}`;
+/* fl401 applicant document list */
+export const APPLICANT_ALL_DOCUEMNTS: PageLink = `${APPLICANT}/alldocuments`;
+
+/* consent-to-the-application */
+export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
+export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
+export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;

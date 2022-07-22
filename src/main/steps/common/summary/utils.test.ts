@@ -1,7 +1,7 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { MIAM_START } from '../../urls';
+import { CONSENT, MIAM_START } from '../../urls';
 
-import { summaryList } from './utils';
+import { SummaryList, summaryList } from './utils';
 
 const enContent = {
   section: 'Check your details',
@@ -11,6 +11,8 @@ const enContent = {
   },
   keys: {
     miamStart: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+    applicationReceivedDate: 'When did you receive the application?',
+    invalidApplicationReceivedDate: 'When did you receive the application?',
   },
   fieldType: {
     miamStart: 'string',
@@ -20,6 +22,14 @@ const enContent = {
 
 const urls = {
   miamStart: MIAM_START,
+  applicationReceivedDate: CONSENT,
+  invalidApplicationReceivedDate: CONSENT,
+};
+
+const fieldType = {
+  miamStart: 'String',
+  applicationReceivedDate: 'Date',
+  invalidApplicationReceivedDate: 'Date',
 };
 
 describe('common > summary > utils', () => {
@@ -28,8 +38,15 @@ describe('common > summary > utils', () => {
       {
         userCase: mockUserCase,
         expected: {
+          title: 'applicationDetails',
           rows: [
             {
+              key: {
+                text: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+              },
+              value: {
+                html: 'Yes',
+              },
               actions: {
                 items: [
                   {
@@ -39,17 +56,50 @@ describe('common > summary > utils', () => {
                   },
                 ],
               },
-              key: { text: 'What is a Mediation Information and Assessment Meeting (MIAM)?' },
-              value: { text: 'Yes' },
+            },
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/respondent/consent-to-application',
+                    text: 'Edit',
+                    visuallyHiddenText: 'When did you receive the application?',
+                  },
+                ],
+              },
+              key: { text: 'When did you receive the application?' },
+              value: { text: '11 March 2022' },
+            },
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/respondent/consent-to-application',
+                    text: 'Edit',
+                    visuallyHiddenText: 'When did you receive the application?',
+                  },
+                ],
+              },
+              key: { text: 'When did you receive the application?' },
+              value: {},
             },
           ],
-          title: 'applicationDetails',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
-        expected
+      const result: SummaryList | undefined = summaryList(
+        enContent,
+        userCase,
+        urls,
+        'applicationDetails',
+        enContent.fieldType,
+        'en',
+        undefined
       );
+      console.log('======>' + JSON.stringify(result));
+      expect(
+        summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en', undefined)
+      ).toStrictEqual(expected);
     });
   });
 });

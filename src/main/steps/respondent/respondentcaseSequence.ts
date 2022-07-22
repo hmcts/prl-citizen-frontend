@@ -1,6 +1,15 @@
+import { Checkbox } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  CONSENT_SUMMARY,
+  CONSENT_TO_APPLICATION,
+  DETAILS_KNOWN,
+  INTERNATIONAL_FACTORS_JURISDICTION,
+  INTERNATIONAL_FACTORS_PARENTS,
+  INTERNATIONAL_FACTORS_REQUEST,
+  INTERNATIONAL_FACTORS_START,
+  INTERNATIONAL_FACTORS_SUMMARY,
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
@@ -28,7 +37,17 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: RESPONDENT_DETAILS_KNOWN,
+    url: CONSENT_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => CONSENT_SUMMARY,
+  },
+  {
+    url: CONSENT_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: DETAILS_KNOWN,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_START_ALTERNATIVE,
   },
@@ -36,7 +55,7 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_START_ALTERNATIVE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: data =>
-      data.startAlternative === YesOrNo.YES
+      data.startAlternative === Checkbox.Checked
         ? RESPONDENT_PRIVATE_DETAILS_CONFIRMED
         : RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   },
@@ -112,6 +131,31 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_ADDRESS_HISTORY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => INTERNATIONAL_FACTORS_PARENTS,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_PARENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => INTERNATIONAL_FACTORS_JURISDICTION,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_JURISDICTION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => INTERNATIONAL_FACTORS_REQUEST,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_REQUEST,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => INTERNATIONAL_FACTORS_SUMMARY,
+  },
+  {
+    url: INTERNATIONAL_FACTORS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
