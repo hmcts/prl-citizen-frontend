@@ -22,11 +22,9 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
 };
 
 export const getOrderDetailsStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.confirmcontactdetails) {
-    return SectionStatus.COMPLETED;
+  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+    return SectionStatus.READY_TO_VIEW;
+  } else {
+    return SectionStatus.NOT_AVAILABLE_YET;
   }
-  if (userCase?.confirmcontactdetails) {
-    return SectionStatus.IN_PROGRESS;
-  }
-  return SectionStatus.NOT_AVAILABLE_YET;
 };
