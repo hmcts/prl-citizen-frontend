@@ -1,67 +1,34 @@
-
 {% extends "common/template.njk" %}
 
 {% block page_content %}
-<h1 class="govuk-heading-xl">
-           <span class="govuk-caption-l">{{section}}</span>
-           {{title}}
-</h1>
- <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset">
-<p class="govuk-body">Case number #{{userCase.caseCode}}</p>
-  </fieldset>
-    </div>
-<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-<ol class="app-task-list">
+  <h1 class="govuk-heading-xl">
+    <span class="govuk-caption-l">{{section}}</span>
+    {{title}}
+  </h1>
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <p class="govuk-body">Case number #{{userCase.id}}</p>
+    </fieldset>
+    <hr class="govuk-section-break govuk-section-break govuk-section-break--visible">
+  </div>
 
-        <li>
+  <ol class="app-task-list">
 
-          <dl class="govuk-summary-list govuk-summary-list--no-border">
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                24 June 2021
-              </dt>
-              <dd class="govuk-summary-list__value">
-                <a href="#">Final_Order__Child2__24062021.pdf</a>
-              </dd>
-            </div>
+    <li>
 
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                23 June 2021
-              </dt>
-              <dd class="govuk-summary-list__value">
-                <a href="#">Final_Order__Child1__23062021.pdf</a>
-              </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                21 June 2021
-              </dt>
-              <dd class="govuk-summary-list__value">
-                <a href="#">Non-molestationOrder.pdf</a>
-              </dd>
-            </div>
+      <dl class="govuk-summary-list govuk-summary-list--no-border">
+        {% for file in userCase.orderCollection %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{file.value.otherDetails.orderCreatedDate}}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <a href="#">{{ file.value.orderDocument.document_filename }}</a>
+            </dd>
+          </div>
+        {% endfor %}
 
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                27 May 2021
-              </dt>
-              <dd class="govuk-summary-list__value">
-                <a href="#">OccupationOrder.pdf</a>
-              </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                18 May 2021
-              </dt>
-              <dd class="govuk-summary-list__value">
-                <a href="#">NoticeOfProceedings.pdf</a>
-              </dd>
-            </div>
-
-          </dl>
-        </li>
-      </ol>
+      </dl>
+    </li>
+  </ol>
 {% endblock %}

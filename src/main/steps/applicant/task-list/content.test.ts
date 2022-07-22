@@ -10,14 +10,17 @@ const enContent = {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'Not Started',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
+    applicantOrderDetails: 'Orders from the court',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+    view_all_orders_from_the_court: 'View all orders from the court',
   },
 };
 const cyContent = {
@@ -26,14 +29,17 @@ const cyContent = {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
+    applicantOrderDetails: 'Orders from the court',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+    view_all_orders_from_the_court: 'View all orders from the court',
   },
 };
 describe('task-list > content', () => {
@@ -66,6 +72,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'About you',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/orders',
+              id: 'view_all_orders_from_the_court',
+              status: 'NOT_AVAILABLE_YET',
+              text: 'View all orders from the court',
+            },
+          ],
+          title: 'Orders from the court',
         },
       ],
     },

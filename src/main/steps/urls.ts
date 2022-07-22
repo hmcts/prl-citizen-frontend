@@ -121,4 +121,3 @@ export const RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT
 
 /* order-details-of-the-applicant */
 export const APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/orders`;
-
