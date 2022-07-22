@@ -28,5 +28,5 @@ export const getOrderDetailsStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.confirmcontactdetails) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.TO_DO;
+  return SectionStatus.NOT_AVAILABLE_YET;
 };
