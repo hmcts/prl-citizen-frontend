@@ -1,6 +1,6 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
+import { FieldPrefix } from '../../../app/case/case';
 import { CONSENT, MIAM_START } from '../../urls';
-
 import { SummaryList, summaryList } from './utils';
 
 const enContent = {
@@ -47,15 +47,6 @@ describe('common > summary > utils', () => {
               value: {
                 html: 'Yes',
               },
-              actions: {
-                items: [
-                  {
-                    href: '/respondent/miam/miam-start',
-                    text: 'Edit',
-                    visuallyHiddenText: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
-                  },
-                ],
-              },
             },
             {
               actions: {
@@ -87,6 +78,7 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      const role = 'APPLICANT' as FieldPrefix;
       const result: SummaryList | undefined = summaryList(
         enContent,
         userCase,
@@ -94,11 +86,11 @@ describe('common > summary > utils', () => {
         'applicationDetails',
         enContent.fieldType,
         'en',
-        undefined
+        role
       );
-      console.log('======>' + JSON.stringify(result));
+      console.log(' result ======>' + JSON.stringify(result));
       expect(
-        summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en', undefined)
+        summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en', role)
       ).toStrictEqual(expected);
     });
   });

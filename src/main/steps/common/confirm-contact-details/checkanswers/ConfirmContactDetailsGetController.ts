@@ -71,6 +71,7 @@ const fieldsArray: string[] = [
   'applicant1AddressTown',
   'applicant1PhoneNumber',
   'applicant1EmailAddress',
+  'applicant1SafeToCall',
   'applicant1DateOfBirthText',
 ];
 
