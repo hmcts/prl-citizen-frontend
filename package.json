@@ -30,7 +30,7 @@
     "test:local": "codeceptjs run-multiple parallel"
   },
   "dependencies": {
-    "@hmcts/cookie-manager": "^0.0.4",
+    "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/frontend": "^0.0.50-alpha",
     "@hmcts/nodejs-healthcheck": "^1.7.0",
     "@hmcts/nodejs-logging": "^4.0.2",
