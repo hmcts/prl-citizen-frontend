@@ -1,0 +1,24 @@
+{% extends "common/page.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+    {% if statusCode === StatusCodes.NOT_FOUND %}
+      <p class="govuk-body">
+          {{line1}}
+          </p>
+          <p class="govuk-body">
+          {{line2}}
+          </p>
+          <p class="govuk-body">
+          {{line3}}
+          </p>
+          <p class="govuk-body">
+          {{line4}}
+          </p>
+    {% endif %}
+    {% if statusCode === StatusCodes.INTERNAL_SERVER_ERROR %}
+      <p class="govuk-body">
+          {{info}}
+          </p>
+    {% endif %}
+{% endblock %}

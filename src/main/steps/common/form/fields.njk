@@ -1,0 +1,4 @@
+{% for fieldName, field in form.fields %}
+  {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
+  {% include "./fields/" + field.type + ".njk" %}
+{% endfor %}

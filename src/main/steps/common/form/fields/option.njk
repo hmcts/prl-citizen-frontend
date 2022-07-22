@@ -1,0 +1,14 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{{ govukSelect({
+  id: field.id if field.id else fieldName,
+  name: fieldName,
+  label: {
+    text: getContent(field.label)
+  },
+  items: formItems(field.values, userCase[fieldName]),
+  errorMessage: getError(fieldName),
+  formGroup: {
+    classes: "hidden " + field.id if field.hidden else field.id
+  }
+}) }}

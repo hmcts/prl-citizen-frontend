@@ -2,14 +2,28 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  ingressIP: ${INGRESS_IP}
+  consulIP: ${CONSUL_LB_IP}
+  devmemoryLimits: 2Gi
+  devmemoryRequests: 512Mi
+  devcpuLimits: 1000m
+  devcpuRequests: 500m
+  autoscaling:
+    enabled: false
   keyVaults:
     prl:
       resourceGroup: prl
       secrets:
         - AppInsightsInstrumentationKey
+        - prl-citizen-frontend-idam-client-secret
+        - microservicekey-prl-citizen-frontend
+        - system-update-user-username
+        - system-update-user-password
+        - idam-solicitor-username
+        - idam-solicitor-password
         - launchDarkly-sdk-key
 idam-pr:
   enabled: true
   redirect_uris:
-    adoption-web:
+    prl-citizen-frontend:
       - https://${SERVICE_FQDN}/receiver

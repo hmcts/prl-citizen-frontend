@@ -10,11 +10,18 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
-      this.setSecret('secret.prl.launchDarkly-sdk-key', 'launchDarkly.sdk-key');
+      this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
+      this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
+      set(config, 'services.case.url', 'https://manage-case.aat.platform.hmcts.net/cases');
     } else {
-      this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
-      this.setLocalSecret('s2s-secret', 'services.authProvider.secret');
-      this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
+      this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      //this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
+      // this.setLocalEndpoints();
     }
   }
 
@@ -28,7 +35,7 @@ export class PropertiesVolume {
    * Load a secret from the AAT vault using azure cli
    */
   private setLocalSecret(secret: string, toPath: string): void {
-    const result = execSync(`az keyvault secret show --vault-name adoption-aat -o tsv --query value --name ${secret}`);
+    const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
     set(config, toPath, result.toString().replace('\n', ''));
   }
 }

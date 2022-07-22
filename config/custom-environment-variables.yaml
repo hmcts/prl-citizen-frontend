@@ -1,0 +1,29 @@
+services:
+  authProvider:
+    url: SERVICE_AUTH_PROVIDER_URL
+    secret: SERVICE_AUTH_SECRET
+  idam:
+    authorizationURL: IDAM_WEB_URL
+    tokenURL: IDAM_API_URL
+    clientID: IDAM_CLIENT_ID
+    clientSecret: IDAM_SECRET
+  case:
+    url: CCD_URL
+  payments:
+    url: PAYMENTS_API_URL
+  feeLookup:
+    url: FEE_LOOKUP_URL
+  documentManagement:
+    url: DOCUMENT_MANAGEMENT_URL
+  equalityAndDiversity:
+    url: EQUALITY_URL
+    tokenKey: PCQ_TOKEN
+    pcqEnabled: PCQ_ENABLED
+port: PORT
+session:
+  redis:
+    host: REDIS_HOST
+e2e:
+  userTestPassword: TEST_PASSWORD
+appInsights:
+  instrumentationKey: APPINSIGHTS_KEY

@@ -1,0 +1,18 @@
+{% extends "common/page.njk" %}
+
+{% block header %}
+  {{ govukHeader({
+    containerClasses: "govuk-width-container",
+    serviceName: serviceName,
+    serviceUrl: (globals.basePath if globals.basePath) + "/"
+  }) }}
+{% endblock %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
+  <p class="govuk-body"><a class="govuk-link" href="/login">{{ signBackInAndContinue }}</a></p>
+{% endblock %}

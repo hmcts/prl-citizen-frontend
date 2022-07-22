@@ -3,6 +3,9 @@
   "security": {
     "referrerPolicy": "origin"
   },
+  "appInsights": {
+    "instrumentationKey": false
+  },
   "featureToggles": {
     "testFlag": false
   },

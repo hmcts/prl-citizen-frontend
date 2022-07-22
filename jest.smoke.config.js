@@ -3,6 +3,7 @@ module.exports = {
     testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
     testEnvironment: 'node',
     testRunner: 'jest-circus/runner',
+    preset: "jest-puppeteer",
     transform: {
       '^.+\\.ts$': 'ts-jest',
     },

@@ -1,0 +1,236 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <div class="cookie-preference-success">
+    <div class="success-message" aria-labelledby="success-title" role="alert" tabindex="-1">
+      <h2 class="govuk-heading-m">
+        {{ cookiesSaved }}
+      </h2>
+      <div>
+        <p class="govuk-body-m">{{ additionalCookies }}</p>
+      </div>
+      <a class="govuk-link" href="/">{{ goToHomepage }}</a>
+    </div>
+  </div>
+  <section>
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    <p class="govuk-body">{{ paragraph1 | safe }}</p>
+    <p class="govuk-body">{{ howAreCookiesUsedParagraph1 }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{ howAreCookiesUsedItem1 }}</li>
+      <li>{{ howAreCookiesUsedItem2 | safe }}</li>
+      <li>{{ howAreCookiesUsedItem3 }}</li>
+    </ul>
+    <p class="govuk-body">{{ howAreCookiesUsedParagraph2 | safe }}</p>
+  </section>
+  <section>
+    <h2 class="govuk-heading-m">{{ howAreCookiesUsedHeading2 }}</h2>
+    <section>
+      <h3 class="govuk-heading-s">{{ websiteUsageCookiesHeading3 }}</h3>
+      <p class="govuk-body">{{ websiteUsageCookiesParagraph1 }}</p>
+      <p class="govuk-body">{{ websiteUsageCookiesParagraph2 }}</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>{{ websiteUsageCookiesItem1 }}</li>
+        <li>{{ websiteUsageCookiesItem2 }}</li>
+        <li>{{ websiteUsageCookiesItem3 }}</li>
+        <li>{{ websiteUsageCookiesItem4 | safe }}</li>
+      </ul>
+      <p class="govuk-body">{{ websiteUsageCookiesParagraph3 | safe }}</p>
+      <p class="govuk-body">{{ websiteUsageCookiesParagraph4 | safe }}</p>
+      <p class="govuk-body">{{ websiteUsageCookiesParagraph5 }}</p>
+      <table class="govuk-table" aria-describedby="{{ websiteUsageCookiesAriaDescribedby }}">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">{{ cookieNameHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookiePurposeHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookieExpiryHeader }}</th>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ googleAnalyticsCookieName1 }}</td>
+          <td class="govuk-table__cell">{{ googleAnalyticsCookiePurpose1 | safe }}</td>
+          <td class="govuk-table__cell">{{ googleAnalyticsCookieExpiry1 }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ googleAnalyticsCookieName2 }}</td>
+          <td class="govuk-table__cell">{{ googleAnalyticsCookiePurpose2 }}</td>
+          <td class="govuk-table__cell">{{ googleAnalyticsCookieExpiry2 }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ googleAnalyticsCookieName3 }}</td>
+          <td class="govuk-table__cell">{{ googleAnalyticsCookiePurpose3 }}</td>
+          <td class="govuk-table__cell">{{ googleAnalyticsCookieExpiry3 }}</td>
+        </tr>
+      </table>
+    </section>
+    <section>
+      <h3 class="govuk-heading-s">{{ introMessageCookiesHeading1 }}</h3>
+      <p class="govuk-body">{{ introMessageCookiesParagraph1 }}</p>
+      <table class="govuk-table" aria-describedby="{{ introMessageCookiesAriaDescribedby }}">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">{{ cookieNameHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookiePurposeHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookieExpiryHeader }}</th>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ introMessageCookieName1 }}</td>
+          <td class="govuk-table__cell">{{ introMessageCookiePurpose1 | safe }}</td>
+          <td class="govuk-table__cell">{{ introMessageCookieExpiry1 }}</td>
+        </tr>
+      </table>
+    </section>
+    <section>
+      <h3 class="govuk-heading-s">{{ sessionCookiesHeading1 | safe }}</h3>
+      <p class="govuk-body">{{ sessionCookiesParagraph1 | safe }}</p>
+      <table class="govuk-table" aria-describedby="{{ sessionCookiesAriaDescribedby }}">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">{{ cookieNameHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookiePurposeHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookieExpiryHeader }}</th>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ sessionCookieName1 }}</td>
+          <td class="govuk-table__cell">{{ sessionCookiePurpose1 }}</td>
+          <td class="govuk-table__cell">{{ whenYouCloseYourBrowser }}</td>
+        </tr>
+      </table>
+    </section>
+    <section>
+      <h3 class="govuk-heading-s">{{ identityCookiesHeading1 }}</h3>
+      <p class="govuk-body">{{ identityCookiesParagraph1 }}</p>
+      <table class="govuk-table" aria-describedby="{{ identityCookiesAriaDescribedby }}">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">{{ cookieNameHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookiePurposeHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookieExpiryHeader }}</th>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ identityCookieName1 }}</td>
+          <td class="govuk-table__cell">{{ identityCookiePurpose1 }}</td>
+          <td class="govuk-table__cell">{{ whenYouCloseYourBrowser }}</td>
+        </tr>
+      </table>
+    </section>
+    <section>
+      <h3 class="govuk-heading-s">{{ securityCookiesHeading1 }}</h3>
+      <p class="govuk-body">{{ securityCookiesParagraph1 }}</p>
+      <table class="govuk-table" aria-describedby="{{ securityCookiesAriaDescribedby }}">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">{{ cookieNameHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookiePurposeHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookieExpiryHeader }}</th>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ securityCookieName1 }}</td>
+          <td class="govuk-table__cell">{{ securityCookiePurpose1 }}</td>
+          <td class="govuk-table__cell">{{ whenYouCloseYourBrowser }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ securityCookieName2 }}</td>
+          <td class="govuk-table__cell">{{ securityCookiePurpose2 }}</td>
+          <td class="govuk-table__cell">{{ whenYouCloseYourBrowser }}</td>
+        </tr>
+      </table>
+    </section>
+    <section>
+      <h3 class="govuk-heading-s">{{ dynatraceCookiesHeading1 }}</h3>
+      <p class="govuk-body">{{ dynatraceCookiesParagraph1 }}</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>{{ dynatraceCookiesItem1 }}</li>
+        <li>{{ dynatraceCookiesItem2 }}</li>
+        <li>{{ dynatraceCookiesItem3 }}</li>
+      </ul>
+      <p class="govuk-body">{{ dynatraceCookiesParagraph2 }}</p>
+      <table class="govuk-table" aria-describedby="{{ dynatraceCookiesAriaDescribedby }}">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">{{ cookieNameHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookiePurposeHeader }}</th>
+          <th class="govuk-table__header" scope="col">{{ cookieExpiryHeader }}</th>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName1 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose1 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName2 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose2 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName3 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose3 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName4 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose4 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName5 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose5 }}</td>
+          <td class="govuk-table__cell">{{ oneYear }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ dynatraceCookieName6 }}</td>
+          <td class="govuk-table__cell">{{ dynatraceCookiesPurpose6 }}</td>
+          <td class="govuk-table__cell">{{ sessionEnd }}</td>
+        </tr>
+      </table>
+    </section>
+  </section>
+  <section>
+    <h2 class="govuk-heading-m">{{ changeCookiesHeading }}</h2>
+    <form id="cm-preference-form" class="js-show">
+      {{ govukRadios({
+        classes: 'govuk-radios',
+        idPrefix: 'analytics',
+        name: 'analytics',
+        fieldset: {
+          legend: {
+            text: allowAnalyticsCookies,
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: 'on',
+            text: useAnalyticsCookies
+          },
+          {
+            value: 'off',
+            text: doNotUseAnalyticsCookies,
+            checked: true
+          }
+        ]
+      }) }}
+      {{ govukRadios({
+        classes: 'govuk-radios',
+        idPrefix: 'apm',
+        name: 'apm',
+        fieldset: {
+          legend: {
+            text: apmCookiesHeadings,
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: 'on',
+            text: useApmCookies
+          },
+          {
+            value: 'off',
+            text: doNotUseApmCookies,
+            checked: true
+          }
+        ]
+      }) }}
+      {{ govukButton({
+        text: save
+      }) }}
+    </form>
+  </section>
+{% endblock %}

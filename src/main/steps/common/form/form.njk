@@ -1,0 +1,83 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+<form class="form" id="main-form" method="post" action="" novalidate="novalidate">
+  <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+
+  {% block before_fields %}{% endblock %}
+
+  {% block form_content %}
+    {% include "./fields.njk" %}
+  {% endblock %}
+
+  {% block after_fields %}{% endblock %}
+
+  <div class="govuk-form-group">
+    {% block form_actions %}
+      <div class="govuk-button-group">
+      {{
+          govukButton({
+            text: getContent(form.accessCodeCheck.text),
+            classes: form.submit.classes,
+            type: "submit",
+            name: "accessCodeCheck",
+            value: true,
+            preventDoubleClick: true,
+            attributes: {
+              id: 'main-form-submit'
+            }
+          }) if getContent(form.accessCodeCheck.text)
+        }}
+
+        {{
+          govukButton({
+            text: getContent(form.submit.text),
+            classes: form.submit.classes,
+            type: "submit",
+            name: "saveAndContinue",
+            value: true,
+            preventDoubleClick: true,
+            attributes: {
+              id: 'main-form-submit'
+            }
+          }) if getContent(form.submit.text)
+        }}
+
+        {{
+          govukButton({
+            text: getContent(form.saveAsDraft.text),
+            classes: "govuk-button--secondary",
+            preventDoubleClick: true,
+            type: "submit",
+            name: "saveAsDraft",
+            value: true,
+            attributes: {
+              id: 'main-form-save-as-draft'
+            }
+          }) if getContent(form.saveAsDraft.text)
+        }}
+
+        {{
+          govukButton({
+            text: getContent(form.cancel.text),
+            classes: "govuk-button--secondary",
+            preventDoubleClick: true,
+            type: "submit",
+            name: "cancel",
+            value: true,
+            attributes: {
+              id: 'main-form-cancel'
+            }
+          }) if getContent(form.cancel.text)
+        }}
+      </div>
+    {% endblock %}
+    {% block after_form %}{% endblock %}
+
+    {# TODO uncomment this once we have save as draft fuctionality #}
+    {# <p class="govuk-body">
+      <button class="hmcts-button-link" type="submit" name="saveandsignout" value="true" data-prevent-double-click="true" data-module="govuk-button"/>
+      {{ saveAsDraft }}
+      </button>
+    </p>#}
+  </div>
+</form>

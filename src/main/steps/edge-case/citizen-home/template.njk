@@ -1,0 +1,13 @@
+
+{% extends "common/template.njk" %}
+
+{% block backLink %}{% endblock %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% block page_content_under_form %}
+{{ govukDetails({
+  summaryText: summaryText,
+  html: contactDetails
+}) }}
+{% endblock %}
+{% block page_contact_us %}
+{% endblock %}

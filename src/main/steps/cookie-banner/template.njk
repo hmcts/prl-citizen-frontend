@@ -1,0 +1,51 @@
+{% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
+
+{% set cookieMessageHTML %}
+  <p>{{ cookiesLine1 }}</p>
+  <p>{{ cookiesLine2 }}</p>
+{% endset %}
+
+<div class="global-cookie-message" id="cm-cookie-banner" >
+  {{ govukCookieBanner({
+    ariaLabel: cookiesHeading + " " + serviceName,
+    messages: [
+      {
+        headingText: cookiesHeading + " " + serviceName,
+        html: cookieMessageHTML,
+        classes: "govuk-cookie-banner__decision",
+        actions: [
+          {
+            text: acceptAnalyticsCookies,
+            attributes: {
+              'data-cm-action': 'accept'
+            }
+          },
+          {
+            text: rejectAnalyticsCookies,
+            attributes: {
+              'data-cm-action': 'reject'
+            }
+          },
+          {
+            text: viewCookies,
+            href: "/cookies"
+          }
+        ]
+      },
+      {
+        html: cookiesConfirmationMessage,
+        role: "alert",
+        classes: "govuk-cookie-banner__confirmation",
+        hidden: true,
+        actions: [
+        {
+          text: hideMessage,
+          attributes: {
+            'data-cm-action': 'hide'
+          }
+        }
+      ]
+      }
+    ]
+  }) }}
+</div>
