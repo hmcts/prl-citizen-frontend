@@ -55,3 +55,12 @@ export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
 export const YOUR_SAFETY: PageLink = `${SAFETY_CONCERNS}/your_safety`;
 export const DOMESTIC_ABUSE_RISK: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk`;
 export const DOMESTIC_ABUSE_RISK_NO: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk_no`;
+
+/* consent-to-the-application */
+export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
+export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
+export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
+
+/* confirm-contact-details-start */
+export const CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}/confirmcontactdetails`;
+/* confirm-contact-details-end */
