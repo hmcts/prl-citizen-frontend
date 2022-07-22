@@ -96,7 +96,9 @@
     "tsconfig-paths": "^3.11.0",
     "typescript": "^4.5.4",
     "uuid": "^8.3.2",
-    "yarn": "^1.22.18"
+    "yarn": "^1.22.18",
+    "launchdarkly-node-server-sdk": "^6.3.0",
+    "ldclient-node": "^5.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
@@ -121,6 +123,7 @@
     "css-loader": "^6.5.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.5",
     "eslint-plugin-prettier": "^4.0.0",

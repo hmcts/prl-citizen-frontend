@@ -3,6 +3,11 @@ module.exports = {
   env: { browser: true, es6: true, node: true },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier', 'import', 'jest'],
+  settings: {
+    'import/resolver': {
+        typescript: {}
+     },
+    },
   extends: [
     'eslint:recommended',
     'plugin:import/errors',
@@ -21,7 +26,7 @@ module.exports = {
   globals: { Atomics: 'readonly', SharedArrayBuffer: 'readonly' },
   rules: {
     '@typescript-eslint/array-type': 'error',
-    '@typescript-eslint/explicit-module-boundary-types': 'error',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': [
