@@ -6,8 +6,6 @@ const en = () => ({
   caption: 'Keeping your contact details private',
   headingTitle: 'The court will keep your contact details private',
   p1: 'You have told us you want to keep these contact details private',
-  li1: 'Address',
-  li2: 'Email',
   heading3: 'What the court will do',
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
 });
@@ -16,8 +14,6 @@ const cy = () => ({
   caption: 'Keeping your contact details private  - welsh',
   headingTitle: 'The court will keep your contact details private- welsh ',
   p1: 'You have told us you want to keep these contact details private - welsh',
-  li1: 'Address',
-  li2: 'Email',
   heading3: 'What the court will do - welsh',
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court. - welsh',
 });
