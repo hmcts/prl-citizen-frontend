@@ -5,9 +5,7 @@ import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../steps/u
 import { DocumentManagerController } from './DocumentManagementController';
 
 const { mockCreate, mockDelete, mockGet } = require('./DocumentManagementClient');
-
 jest.mock('../document/DocumentManagementClient');
-//jest.mock('/Users/m_2133152/work/newconfirm/prl-citizen-frontend/src/main/app/auth/user/oidc');
 jest.mock('../../app/auth/user/oidc');
 
 describe('DocumentManagerController', () => {
