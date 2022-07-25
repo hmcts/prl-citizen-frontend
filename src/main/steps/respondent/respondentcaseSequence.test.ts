@@ -2,7 +2,7 @@ import { repondentCaseSequence } from './respondentcaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(repondentCaseSequence).toHaveLength(15);
+    expect(repondentCaseSequence).toHaveLength(19);
     expect(repondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(repondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -63,5 +63,21 @@ describe('applicant1Sequence', () => {
     expect(repondentCaseSequence[14].url).toBe('/respondent/international-factors/summary');
     expect(repondentCaseSequence[14].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[14].getNextStep({})).toBe('/respondent/task-list');
+
+    expect(repondentCaseSequence[15].url).toBe('/respondent/safety_concerns/main_page');
+    expect(repondentCaseSequence[15].showInSection).toBe('aboutRespondentCase');
+    expect(repondentCaseSequence[15].getNextStep({})).toBe('/respondent/safety_concerns/your_safety');
+
+    expect(repondentCaseSequence[16].url).toBe('/respondent/safety_concerns/your_safety');
+    expect(repondentCaseSequence[16].showInSection).toBe('aboutRespondentCase');
+    expect(repondentCaseSequence[16].getNextStep({})).toBe('/respondent/safety_concerns/domestic_abuse_risk');
+
+    expect(repondentCaseSequence[17].url).toBe('/respondent/safety_concerns/domestic_abuse_risk');
+    expect(repondentCaseSequence[17].showInSection).toBe('aboutRespondentCase');
+    expect(repondentCaseSequence[17].getNextStep({})).toBe('/respondent/safety_concerns/domestic_abuse_risk_no');
+
+    expect(repondentCaseSequence[18].url).toBe('/respondent/safety_concerns/domestic_abuse_risk_no');
+    expect(repondentCaseSequence[18].showInSection).toBe('aboutRespondentCase');
+    expect(repondentCaseSequence[18].getNextStep({})).toBe('/respondent/task-list');
   });
 });
