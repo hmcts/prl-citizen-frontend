@@ -16,6 +16,8 @@ const enContent = {
   },
   fieldType: {
     miamStart: 'string',
+    applicationReceivedDate: 'Date',
+    invalidApplicationReceivedDate: 'Date',
   },
   errors: {},
 };
@@ -24,12 +26,6 @@ const urls = {
   miamStart: MIAM_START,
   applicationReceivedDate: CONSENT,
   invalidApplicationReceivedDate: CONSENT,
-};
-
-const fieldType = {
-  miamStart: 'String',
-  applicationReceivedDate: 'Date',
-  invalidApplicationReceivedDate: 'Date',
 };
 
 describe('common > summary > utils', () => {
