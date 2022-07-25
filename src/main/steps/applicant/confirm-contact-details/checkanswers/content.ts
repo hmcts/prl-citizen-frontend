@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
-import { getFormattedDate, summaryList } from '../../../common/summary/utils';
+import { /* getFormattedDate, */ summaryList } from '../../../common/summary/utils';
 import {
   APPLICANT_ADDRESS_DETAILS,
   APPLICANT_ADDRESS_HISTORY,
@@ -32,8 +32,8 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const dob = userCase.applicant1DateOfBirth;
-  getFormattedDate(dob);
+  //const dob = userCase.applicant1DateOfBirth;
+  //getFormattedDate(dob);
   return {
     ...enContent,
     language: content.language,

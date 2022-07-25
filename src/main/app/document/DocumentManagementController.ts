@@ -1,13 +1,13 @@
 import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
-
+import { CosApiClient } from '../case/CosApiClient';
 import { APPLICANT, APPLICANT_TASK_LIST_URL, RESPONDENT, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CaseWithId } from '../case/case';
 import { DocumentType } from '../case/definition';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
-
+import { getSystemUser } from '../auth/user/oidc';
 import { DocumentManagementClient } from './DocumentManagementClient';
 
 @autobind
@@ -24,12 +24,29 @@ export class DocumentManagerController {
       filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
     }
 
+    const caseworkerUser = await getSystemUser();
+    req.session.user = caseworkerUser;
+    const caseReference = req.session.userCase.id;
+    
+    try {
+      
+        const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
+        const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
+        req.session.userCase = caseDataFromCos;
+        //console.log('======DocumentManagerController=======caseDataFromCos====================' + caseDataFromCos);
+          //console.log('*********DocumentManagerController**********************');
+  
+    
+    } catch (err) {
+      console.log(err);
+    }
+
     let documentToGet;
     if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
-      if (!req.session.userCase.fl401SubmittedApplication?.document_binary_url) {
+      if (!req.session.userCase.finalDocument?.document_binary_url) {
         throw new Error('Document binary url is not found');
       }
-      documentToGet = req.session.userCase.fl401SubmittedApplication?.document_binary_url;
+      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
     } else {
       throw new Error('Document File Name is not valid');
     }

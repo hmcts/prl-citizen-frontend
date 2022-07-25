@@ -16,9 +16,20 @@ export const getTokenFromApi = async (): Promise<string> => {
   const body = { microservice, oneTimePassword };
 
   try {
+    // Axios.interceptors.request.use(
+    //   function (request) {
+    //     console.log('21 [getTokenFromApi] Request to server ====>' + JSON.stringify(request));
+    //     return request;
+    //   },
+    //   function (error) {
+    //     // Do something with request error
+    //     return Promise.reject(error);
+    //   }
+    // );
     const response = await Axios.post(url, body);
     logger.info('Service auth token refreshed');
     token = response.data;
+    //console.log('21 [getTokenFromApi] Response from server ====Token======>' + token);
   } catch (err) {
     logger.error('Error in refreshing service auth token ', err.message, err.response?.status, err.response?.data);
   }
