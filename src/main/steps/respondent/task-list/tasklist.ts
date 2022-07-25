@@ -2,6 +2,7 @@
 import * as URL from '../../urls';
 
 import {
+  getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
@@ -31,6 +32,12 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.keep_your_details_private,
           status: getKeepYourDetailsPrivateStatus(userCase),
           href: URL.DETAILS_KNOWN,
+        },
+        {
+          id: 'confirm-or-edit-your-contact-details',
+          text: taskListItems.confirm_or_edit_your_contact_details,
+          status: getConfirmOrEditYourContactDetails(userCase),
+          href: URL.CHECK_ANSWERS,
         },
       ],
     },
