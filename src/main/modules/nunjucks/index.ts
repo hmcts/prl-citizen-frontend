@@ -118,6 +118,10 @@ export class Nunjucks {
       return new nunjucks.runtime.SafeString(jsonString);
     });
 
+    env.addFilter('uniqueConfidentials', array => {
+      return [...new Map(array.map(item => [item['name'], item])).values()];
+    });
+
     app.use((req, res, next) => {
       res.locals.host = req.headers['x-forwarded-host'] || req.hostname;
       res.locals.pagePath = req.path;
