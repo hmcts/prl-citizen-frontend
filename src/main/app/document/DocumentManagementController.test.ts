@@ -7,6 +7,8 @@ import { DocumentManagerController } from './DocumentManagementController';
 const { mockCreate, mockDelete, mockGet } = require('./DocumentManagementClient');
 
 jest.mock('../document/DocumentManagementClient');
+//jest.mock('/Users/m_2133152/work/newconfirm/prl-citizen-frontend/src/main/app/auth/user/oidc');
+jest.mock('../../app/auth/user/oidc');
 
 describe('DocumentManagerController', () => {
   const documentManagerController = new DocumentManagerController();
@@ -15,6 +17,8 @@ describe('DocumentManagerController', () => {
     mockCreate.mockClear();
     mockDelete.mockClear();
     mockGet.mockClear();
+
+    //jest.mock('getSystemUser', () => jest.fn());
   });
 
   describe('fetch file FL401-Final-Document for applicant', () => {
@@ -22,9 +26,9 @@ describe('DocumentManagerController', () => {
       const { req, res } = getMockRequestResponse();
       req.originalUrl = 'http://localhost:8080/applicant/public/docs/FL401-Final-Document.pdf';
       req.headers.accept = 'application/pdf';
-      req.session.userCase.fl401SubmittedApplication = {
+      req.session.userCase.finalDocument = {
         document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
-        document_filename: 'FL401-Final-Document.pdf',
+        document_filename: 'FL401FinalDocument.pdf',
         document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
       };
 
@@ -43,9 +47,9 @@ describe('DocumentManagerController', () => {
       const { req, res } = getMockRequestResponse();
       req.originalUrl = 'http://localhost:8080/respondent/public/docs/FL401-Final-Document.pdf';
       req.headers.accept = 'application/pdf';
-      req.session.userCase.fl401SubmittedApplication = {
+      req.session.userCase.finalDocument = {
         document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
-        document_filename: 'FL401-Final-Document.pdf',
+        document_filename: 'FL401FinalDocument.pdf',
         document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
       };
 
@@ -64,7 +68,7 @@ describe('DocumentManagerController', () => {
       const { req, res } = getMockRequestResponse();
       req.originalUrl = 'http://localhost:8080/respondent/public/docs/FL401-Final-Document.pdf';
       req.headers.accept = 'application/pdf';
-      req.session.userCase.fl401SubmittedApplication = {
+      req.session.userCase.finalDocument = {
         document_url: '',
         document_filename: '',
         document_binary_url: '',
@@ -84,7 +88,7 @@ describe('DocumentManagerController', () => {
       const { req, res } = getMockRequestResponse();
       req.originalUrl = 'http://localhost:8080/respondent/public/docs/FL401-Final-Document-NOT-VALID.pdf';
       req.headers.accept = 'application/pdf';
-      req.session.userCase.fl401SubmittedApplication = {
+      req.session.userCase.finalDocument = {
         document_url: '',
         document_filename: '',
         document_binary_url: '',

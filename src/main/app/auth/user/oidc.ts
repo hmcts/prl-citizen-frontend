@@ -25,8 +25,7 @@ export const getUserDetails = async (
   const code = encodeURIComponent(rawCode);
   const data = `client_id=prl-citizen-frontend&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  
-  
+
   // Axios.interceptors.request.use(
   //   function (request) {
   //     console.log('32 [getUserDetails] Request to server ========>' + JSON.stringify(request));
@@ -39,7 +38,7 @@ export const getUserDetails = async (
   // );
 
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
-  
+
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
 
   return {
@@ -88,7 +87,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   }
 };
 
-interface IdTokenJwtPayload { 
+interface IdTokenJwtPayload {
   uid: string;
   sub: string;
   given_name: string;
