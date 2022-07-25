@@ -24,14 +24,14 @@
 
 
   {%if userCase['contactDetailsPrivateAlternative'] and userCase['contactDetailsPrivate'] === undefined  %}
-      {% for Privatedetails in userCase['contactDetailsPrivateAlternative'] %}
-                {% if  Privatedetails === "address" %}
+      {% for privateDetails in userCase['contactDetailsPrivateAlternative'] %}
+                {% if  privateDetails === "address" %}
                 <li>Address</li>
-                {% elif Privatedetails === "homephone" %}
+                {% elif privateDetails === "homephone" %}
                 <li>Home phone</li>
-                {% elif  Privatedetails === "mobilephone" %}
+                {% elif  privateDetails === "mobilephone" %}
                 <li>Mobile phone</li>
-              {% elif Privatedetails === "email"%}
+              {% elif privateDetails === "email"%}
                 <li>Email</li>
                 {% else %}
               {% endif %}
