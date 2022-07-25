@@ -75,9 +75,4 @@ export const cAdARespondentCaseSequence: Step[] = [
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_RESPONDENT_TASK_LIST_URL,
   },
-  /* {
-    url: CA_DA_ATTENDING_THE_COURT,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_RESPONDENT_TASK_LIST_URL,
-  },*/
 ];
