@@ -76,7 +76,6 @@ export interface Case {
   respondentFirstName?: string;
   respondentLastName?: string;
 
-  contactDetailsPrivate?: string;
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
