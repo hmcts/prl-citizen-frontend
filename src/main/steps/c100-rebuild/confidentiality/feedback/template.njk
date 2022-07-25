@@ -38,29 +38,7 @@
       {% endfor %}
   {%endif%}
 
- {%if userCase['contactDetailsPrivateAlternative'] and userCase['contactDetailsPrivateAlternative'] %}
-  {% set uniqueItemStorage = [] %}
 
-  {% for details in userCase['contactDetailsPrivate'] %}
-  {% for Privatedetails in userCase['contactDetailsPrivateAlternative'] %}
-            {% if details === "address" or Privatedetails === "address" %}
-               {% set uniqueItemStorage = (uniqueItemStorage.push({name: "Address"}), uniqueItemStorage) %}
-            {% elif details === "homephone" or Privatedetails === "homephone" %}
-               {% set uniqueItemStorage = (uniqueItemStorage.push({name: "Home phone"}), uniqueItemStorage) %}
-            {% elif details === "mobilephone" or Privatedetails === "mobilephone" %}
-               {% set uniqueItemStorage = (uniqueItemStorage.push({name: "Mobile phone"}), uniqueItemStorage) %}
-          {% elif details === "email" or Privatedetails === "email"%}
-             {% set uniqueItemStorage = (uniqueItemStorage.push({name: "Email"}), uniqueItemStorage) %}
-            {% else %}
-{% endif %}
- {% endfor %}
-   {% endfor %}
-  {% for selection in uniqueItemStorage | uniqueConfidentials %}
-    <li>
-     {{selection.name}}
-    </li>
-  {% endfor %}
-  {%endif%}
 </ul>
 <h2 class="govuk-heading-m">{{heading3}}</h2>
 <p class="govuk-body-m govuk-!-margin-bottom-9">{{p2}}</p>
