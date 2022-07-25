@@ -4,6 +4,8 @@ import {
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   DETAILS_KNOWN,
+  DOMESTIC_ABUSE_RISK,
+  DOMESTIC_ABUSE_RISK_NO,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
@@ -15,7 +17,9 @@ import {
   PRIVATE_DETAILS_CONFIRMED,
   PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_TASK_LIST_URL,
+  SAFETY_MAIN_PAGE,
   START_ALTERNATIVE,
+  YOUR_SAFETY,
 } from '../urls';
 
 export const repondentCaseSequence: Step[] = [
@@ -92,6 +96,26 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: SAFETY_MAIN_PAGE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => YOUR_SAFETY,
+  },
+  {
+    url: YOUR_SAFETY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK_NO,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK_NO,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
