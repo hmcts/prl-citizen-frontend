@@ -54,8 +54,6 @@ export interface Case {
   caseCode?: string;
   detailsKnown?: string;
   startAlternative?: string;
-  contactDetailsPrivate?: string;
-  contactDetailsPrivateAlternative?: string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
@@ -76,6 +74,8 @@ export interface Case {
   respondentFirstName?: string;
   respondentLastName?: string;
 
+  contactDetailsPrivate?: string;
+  contactDetailsPrivateAlternative?: string;
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
