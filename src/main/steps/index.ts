@@ -5,7 +5,6 @@ import { Case } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
-
 import { cAdARespondentCaseSequence } from './CA-DA-Respondent/ca-da-respondentcaseSequence';
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { Step } from './constants';
