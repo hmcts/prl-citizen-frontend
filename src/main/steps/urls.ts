@@ -20,38 +20,16 @@ export const ACCESSIBILITY_STATEMENT: PageLink = '/accessibility-statement';
 export const TERMS_AND_CONDITIONS: PageLink = '/terms-and-conditions';
 export const CONTACT_US: PageLink = '/contact-us';
 
-/*confirm-contact-details-start */
-export const CONFIRM_CONTACT_DETAILS: PageLink = '/confirm-contact-details';
-export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
-export const PERSONAL_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/personaldetails`;
-export const CONTACT_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/contactdetails`;
-export const ADDRESS_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressdetails`;
-export const ADDRESS_LOOKUP: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresslookup`;
-export const ADDRESS_LOOKUP_CONT: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresslookupcont`;
-export const FIND_ADDRESS: PageLink = `${ADDRESS_LOOKUP}`;
-export const ADDRESS_CONFIRMATION: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressconfirmation`;
-export const ADDRESS_BLANK: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressblank`;
-export const ADDRESS_HISTORY: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresshistory`;
-/*confirm-contact-details-end */
-
+/* Respondent-start */
+export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
 /* keep-details-private */
-export const KEEP_DETAILS_PRIVATE: PageLink = '/keep-details-private';
+export const RESPONDENT: PageLink = '/respondent';
+export const KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}/keep-details-private`;
 export const DETAILS_KNOWN: PageLink = `${KEEP_DETAILS_PRIVATE}/details_known`;
 export const START_ALTERNATIVE: PageLink = `${KEEP_DETAILS_PRIVATE}/start_alternative`;
 export const PRIVATE_DETAILS_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_confirmed`;
 export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_not_confirmed`;
 /* keep-details-private-end */
-
-/* Respondent-start */
-export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
-/* respondent-keep-details-private */
-export const RESPONDENT: PageLink = '/respondent';
-export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;
-export const RESPONDENT_DETAILS_KNOWN: PageLink = `${RESPONDENT}${DETAILS_KNOWN}`;
-export const RESPONDENT_START_ALTERNATIVE: PageLink = `${RESPONDENT}${START_ALTERNATIVE}`;
-export const RESPONDENT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${RESPONDENT}${PRIVATE_DETAILS_CONFIRMED}`;
-export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
-/* respondent-keep-details-private-end */
 
 /* MIAM */
 export const MIAM: PageLink = `${RESPONDENT}/miam`;
@@ -71,6 +49,32 @@ export const INTERNATIONAL_FACTORS_SUMMARY: PageLink = `${INTERNATIONAL_FACTORS}
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 /* MIAM */
 
+/* safety concerns */
+export const SAFETY_CONCERNS: PageLink = `${RESPONDENT}/safety_concerns`;
+export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
+export const YOUR_SAFETY: PageLink = `${SAFETY_CONCERNS}/your_safety`;
+export const DOMESTIC_ABUSE_RISK: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk`;
+export const DOMESTIC_ABUSE_RISK_NO: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk_no`;
+
+/* consent-to-the-application */
+export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
+export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
+export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
+
+/* confirm-contact-details-start */
+export const CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}/confirmcontactdetails`;
+export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
+export const PERSONAL_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/personaldetails`;
+export const CONTACT_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/contactdetails`;
+export const ADDRESS_DETAILS: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressdetails`;
+export const ADDRESS_LOOKUP: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresslookup`;
+export const ADDRESS_LOOKUP_CONT: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresslookupcont`;
+export const RESPONDENT_FIND_ADDRESS: PageLink = `${ADDRESS_LOOKUP}`;
+export const ADDRESS_CONFIRMATION: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressconfirmation`;
+export const ADDRESS_BLANK: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressblank`;
+export const ADDRESS_HISTORY: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresshistory`;
+
+/* confirm-contact-details-end */
 /* respondent-confirm-contact-details-start */
 export const RESPONDENT_CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}${CONFIRM_CONTACT_DETAILS}`;
 export const RESPONDENT_CHECK_ANSWERS: PageLink = `${RESPONDENT}${CHECK_ANSWERS}`;
