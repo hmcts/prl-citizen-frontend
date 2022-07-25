@@ -12,7 +12,7 @@ import {
   CA_DA_REASONABLE_ADJUSTMENTS,
   CA_DA_SPECIAL_ARRANGEMENTS,
   CA_DA_TRAVELLING_TO_COURT,
-} from '../../../urls';
+} from '../../../../steps/urls';
 
 const fieldType = {
   respondentAttendingToCourt: 'String',
@@ -325,6 +325,11 @@ const urls = {
   respondentTherapyDetails: CA_DA_COURT_HEARING_SUPPORT,
   respondentCommSupportOther: CA_DA_COURT_HEARING_SUPPORT,
   respondentCourtComfort: CA_DA_COURT_HEARING_COMFORT,
+  respondentLightingDetails: CA_DA_COURT_HEARING_COMFORT,
+  respondentOtherProvideDetails: CA_DA_COURT_HEARING_COMFORT,
+  respondentTravellingToCourt: CA_DA_TRAVELLING_TO_COURT,
+  respondentParkingDetails: CA_DA_TRAVELLING_TO_COURT,
+  respondentDifferentChairDetails: CA_DA_TRAVELLING_TO_COURT,
   respondentTravellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
 };
 
