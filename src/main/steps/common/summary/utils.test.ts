@@ -59,7 +59,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: { text: '11 March 2022' },
+              value: { html: '11 March 2022' },
             },
             {
               actions: {
@@ -72,7 +72,9 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: {},
+              value: {
+                html: '',
+              },
             },
           ],
           title: 'applicationDetails',
