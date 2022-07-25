@@ -1,8 +1,16 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  ADDRESS_BLANK,
+  ADDRESS_CONFIRMATION,
+  ADDRESS_DETAILS,
+  ADDRESS_HISTORY,
+  ADDRESS_LOOKUP,
+  ADDRESS_LOOKUP_CONT,
+  CHECK_ANSWERS,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
+  CONTACT_DETAILS,
   DETAILS_KNOWN,
   DOMESTIC_ABUSE_RISK,
   DOMESTIC_ABUSE_RISK_NO,
@@ -14,8 +22,10 @@ import {
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
+  PERSONAL_DETAILS,
   PRIVATE_DETAILS_CONFIRMED,
   PRIVATE_DETAILS_NOT_CONFIRMED,
+  RESPONDENT_FIND_ADDRESS,
   RESPONDENT_TASK_LIST_URL,
   SAFETY_MAIN_PAGE,
   START_ALTERNATIVE,
@@ -71,6 +81,56 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: MIAM_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: CHECK_ANSWERS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PERSONAL_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: CONTACT_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: ADDRESS_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => ADDRESS_LOOKUP,
+  },
+  {
+    url: ADDRESS_LOOKUP,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => ADDRESS_LOOKUP_CONT,
+  },
+  {
+    url: ADDRESS_LOOKUP_CONT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => ADDRESS_CONFIRMATION,
+  },
+  {
+    url: RESPONDENT_FIND_ADDRESS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => ADDRESS_CONFIRMATION,
+  },
+  {
+    url: ADDRESS_CONFIRMATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: ADDRESS_BLANK,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: ADDRESS_HISTORY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

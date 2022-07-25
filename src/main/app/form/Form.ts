@@ -143,6 +143,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  editAddress?: {
+    text: Label;
+    classes?: string;
+  };
 
   fields: FormFields | FormFieldsFn;
 }
@@ -211,6 +215,7 @@ interface CaseWithFormData extends CaseWithId {
   _csrf: string;
   saveAndSignOut?: string;
   accessCodeCheck?: string;
+  editAddress?: string;
   saveBeforeSessionTimeout?: string;
   sendToApplicant2ForReview?: string;
   addAnotherName?: string;
