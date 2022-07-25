@@ -24,7 +24,7 @@ const en = () => ({
     startAlternative: {
       required: 'Select yes if you want to keep your details private',
     },
-    contactDetailsPrivate: {
+    contactDetailsPrivateAlternative: {
       required: `Select which contact details you want to keep private.
       Make sure you only select details the applicants do not already know.`,
     },
@@ -51,7 +51,7 @@ const cy = () => ({
     startAlternative: {
       required: 'Select yes if you want to keep your details private',
     },
-    contactDetailsPrivate: {
+    contactDetailsPrivateAlternative: {
       required: `Select which contact details you want to keep private.
       Make sure you only select details the applicants do not already know. - welsh`,
     },
@@ -76,34 +76,34 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            contactDetailsPrivate: {
+            contactDetailsPrivateAlternative: {
               type: 'checkboxes',
               label: l => l.contact_details_private,
               // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
               validator: (value, formData: Partial<Case>) => {
                 if (formData.startAlternative === 'Yes') {
-                  return atLeastOneFieldIsChecked(formData?.contactDetailsPrivate);
+                  return atLeastOneFieldIsChecked(formData?.contactDetailsPrivateAlternative);
                 }
                 return '';
               },
               values: [
                 {
-                  name: 'contactDetailsPrivate',
+                  name: 'contactDetailsPrivateAlternative',
                   label: l => l.address,
                   value: 'address',
                 },
                 {
-                  name: 'contactDetailsPrivate',
+                  name: 'contactDetailsPrivateAlternative',
                   label: l => l.homePhoneNumber,
                   value: 'homephone',
                 },
                 {
-                  name: 'contactDetailsPrivate',
+                  name: 'contactDetailsPrivateAlternative',
                   label: l => l.mobilePhoneNumber,
                   value: 'mobilephone',
                 },
                 {
-                  name: 'contactDetailsPrivate',
+                  name: 'contactDetailsPrivateAlternative',
                   label: l => l.Email,
                   value: 'email',
                 },

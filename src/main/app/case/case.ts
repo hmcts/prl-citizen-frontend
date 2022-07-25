@@ -35,6 +35,7 @@ export interface Case {
   detailsKnown?: string;
   startAlternative?: string;
   contactDetailsPrivate?: string;
+  contactDetailsPrivateAlternative?: string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;

@@ -6,18 +6,39 @@
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{headingTitle}}</h1>
 <p class="govuk-body-m">{{p1}}</p>
 <ul class="govuk-list govuk-list--bullet">
-  {% for details in userCase['contactDetailsPrivate'] %}
-  {% if details === "address" %}
-   <li>Address</li>
-  {% elif details === "homephone" %}
-   <li>Home phone</li>
-  {% elif details === "mobilephone" %}
-   <li>Mobile phone</li>
- {% elif details === "email" %}
-   <li>Email</li>
-  {% else %}
-{% endif %}
-   {% endfor %}
+
+  {%if userCase['contactDetailsPrivate'] and userCase['contactDetailsPrivateAlternative']  === undefined %}
+      {% for details in userCase['contactDetailsPrivate'] %}
+                {% if details === "address" %}
+                <li>Address</li>
+                {% elif details === "homephone"  %}
+                <li>Home phone</li>
+                {% elif details === "mobilephone"  %}
+                <li>Mobile phone</li>
+                {% elif details === "email"%}
+                <li>Email</li>
+                {% else %}
+              {% endif %}
+        {% endfor %}
+  {%endif%}
+
+
+  {%if userCase['contactDetailsPrivateAlternative'] and userCase['contactDetailsPrivate'] === undefined  %}
+      {% for privateDetails in userCase['contactDetailsPrivateAlternative'] %}
+                {% if  privateDetails === "address" %}
+                <li>Address</li>
+                {% elif privateDetails === "homephone" %}
+                <li>Home phone</li>
+                {% elif  privateDetails === "mobilephone" %}
+                <li>Mobile phone</li>
+              {% elif privateDetails === "email"%}
+                <li>Email</li>
+                {% else %}
+              {% endif %}
+      {% endfor %}
+  {%endif%}
+
+
 </ul>
 <h2 class="govuk-heading-m">{{heading3}}</h2>
 <p class="govuk-body-m govuk-!-margin-bottom-9">{{p2}}</p>

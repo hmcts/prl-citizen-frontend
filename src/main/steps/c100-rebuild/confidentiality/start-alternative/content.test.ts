@@ -61,7 +61,7 @@ describe('applicant personal details > applying-with > content', () => {
   });
   test('should contain applyingWith field', () => {
     const applyingWithField = fields.startAlternative as FormOptions;
-    const subFields = applyingWithField.values[0].subFields?.contactDetailsPrivate as FormOptions;
+    const subFields = applyingWithField.values[0].subFields?.contactDetailsPrivateAlternative as FormOptions;
 
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
