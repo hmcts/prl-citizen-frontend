@@ -7,7 +7,7 @@ import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
-import { cAdARespondentCaseSequence } from './ca-da-respondent/ca-da-respondentcaseSequence';
+import { cAdARespondentCaseSequence } from './CA-DA-Respondent/ca-da-respondentcaseSequence';
 import { Step } from './constants';
 import { edgecaseSequence } from './edge-case/edgecaseSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
