@@ -1,7 +1,7 @@
-import { TranslationFn } from '../../../../../main/app/controller/GetController';
-import { FormContent } from '../../../../../main/app/form/Form';
-import { CommonContent } from '../../../../../main/steps/common/common.content';
-import { summaryList } from '../../../../../main/steps/common/summary/utils';
+import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent } from '../../../../app/form/Form';
+import { CommonContent } from '../../../common/common.content';
+import { summaryList } from '../../../common/summary/utils';
 import {
   CA_DA_ATTENDING_THE_COURT,
   CA_DA_COMMUNICATION_HELP,
@@ -12,7 +12,7 @@ import {
   CA_DA_REASONABLE_ADJUSTMENTS,
   CA_DA_SPECIAL_ARRANGEMENTS,
   CA_DA_TRAVELLING_TO_COURT,
-} from '../../../../steps/urls';
+} from '../../../urls';
 
 const fieldType = {
   respondentAttendingToCourt: 'String',

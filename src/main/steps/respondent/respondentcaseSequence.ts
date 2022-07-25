@@ -32,7 +32,7 @@ import {
   YOUR_SAFETY,
 } from '../urls';
 
-export const repondentCaseSequence: Step[] = [
+export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_TASK_LIST_URL,
     showInSection: Sections.AboutRespondentCase,
