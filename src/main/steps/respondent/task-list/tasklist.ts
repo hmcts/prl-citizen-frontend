@@ -2,7 +2,7 @@
 import * as URL from '../../urls';
 
 import {
-  getConfirmOrEditYourContactDetails
+  getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,

@@ -16,7 +16,7 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
     return SectionStatus.COMPLETED;
   }
   if (userCase?.applicant1FullName || userCase?.applicant1DateOfBirth || userCase?.applicant1PlaceOfBirth) {
-  return SectionStatus.IN_PROGRESS;
+    return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
 };
