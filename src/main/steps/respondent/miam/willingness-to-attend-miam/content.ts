@@ -21,7 +21,7 @@ const en = {
   miamLabel: miam_how_to_arrange_mediation_label_en,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     miamWillingness: {
       required: 'Enter your details known',
@@ -42,7 +42,7 @@ const cy: typeof en = {
   miamLabel: miam_how_to_arrange_mediation_label_cy,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     miamWillingness: {
       required: 'Enter your details known',

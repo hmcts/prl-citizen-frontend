@@ -35,8 +35,31 @@ export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/
 export const MIAM: PageLink = `${RESPONDENT}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
+
+/* international-factors */
+export const INTERNATIONAL_FACTORS: PageLink = `${RESPONDENT}/international-factors`;
+export const INTERNATIONAL_FACTORS_START: PageLink = `${INTERNATIONAL_FACTORS}/start`;
+export const INTERNATIONAL_FACTORS_PARENTS: PageLink = `${INTERNATIONAL_FACTORS}/parents`;
+export const INTERNATIONAL_FACTORS_JURISDICTION: PageLink = `${INTERNATIONAL_FACTORS}/jurisdiction`;
+export const INTERNATIONAL_FACTORS_REQUEST: PageLink = `${INTERNATIONAL_FACTORS}/request`;
+export const INTERNATIONAL_FACTORS_SUMMARY: PageLink = `${INTERNATIONAL_FACTORS}/summary`;
+
+/* international-factors */
+
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 /* MIAM */
+
+/* safety concerns */
+export const SAFETY_CONCERNS: PageLink = `${RESPONDENT}/safety_concerns`;
+export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
+export const YOUR_SAFETY: PageLink = `${SAFETY_CONCERNS}/your_safety`;
+export const DOMESTIC_ABUSE_RISK: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk`;
+export const DOMESTIC_ABUSE_RISK_NO: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk_no`;
+
+/* consent-to-the-application */
+export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
+export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
+export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
 /* confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}/confirmcontactdetails`;
@@ -50,4 +73,5 @@ export const RESPONDENT_FIND_ADDRESS: PageLink = `${ADDRESS_LOOKUP}`;
 export const ADDRESS_CONFIRMATION: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressconfirmation`;
 export const ADDRESS_BLANK: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressblank`;
 export const ADDRESS_HISTORY: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresshistory`;
+
 /* confirm-contact-details-end */
