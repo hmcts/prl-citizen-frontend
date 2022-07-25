@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
-import { FormContent /*, FormFields,  FormOptions*/ } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
