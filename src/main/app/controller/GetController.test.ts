@@ -47,6 +47,7 @@ describe('GetController', () => {
     req.originalUrl = Urls.C100_CONFIDENTIALITY_START;
     controller.clearConfidentialitySessionSaveData(req);
     expect(req.session['contactDetailsPrivateAlternative']).toBe(undefined);
+    expect(1).toBe(1);
 
     req.originalUrl = Urls.C100_CONFIDENTIALITY_START_ALTERNATIVE;
     controller.clearConfidentialitySessionSaveData(req);
