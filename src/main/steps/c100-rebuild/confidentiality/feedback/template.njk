@@ -55,7 +55,7 @@
 {% endif %}
  {% endfor %}
    {% endfor %}
-  {% for selection in (uniqueItemStorage | uniqueConfidentials) %}
+  {% for selection in uniqueItemStorage | uniqueConfidentials %}
     <li>
      {{selection.name}}
     </li>
