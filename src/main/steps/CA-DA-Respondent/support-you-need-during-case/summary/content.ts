@@ -169,15 +169,15 @@ export const enContent = {
 };
 
 const en = (content: CommonContent) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const userCase = content.userCase!;
-  
-    return {
-      ...enContent,
-      language: content.language,
-      sections: [summaryList(cyContent, userCase, urls, 'aboutYou', fieldType, content.language)],
-    };
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const userCase = content.userCase!;
+
+  return {
+    ...enContent,
+    language: content.language,
+    sections: [summaryList(cyContent, userCase, urls, 'aboutYou', fieldType, content.language)],
   };
+};
 
 const cyContent: typeof enContent = {
   section: 'Check your answers ',
@@ -325,23 +325,18 @@ const urls = {
   respondentTherapyDetails: CA_DA_COURT_HEARING_SUPPORT,
   respondentCommSupportOther: CA_DA_COURT_HEARING_SUPPORT,
   respondentCourtComfort: CA_DA_COURT_HEARING_COMFORT,
-  respondentLightingDetails: CA_DA_COURT_HEARING_COMFORT,
-  respondentOtherProvideDetails: CA_DA_COURT_HEARING_COMFORT,
-  respondentTravellingToCourt: CA_DA_TRAVELLING_TO_COURT,
-  respondentParkingDetails: CA_DA_TRAVELLING_TO_COURT,
-  respondentDifferentChairDetails: CA_DA_TRAVELLING_TO_COURT,
   respondentTravellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
 };
 
 const cy: typeof en = (content: CommonContent) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const userCase = content.userCase!;
-    return {
-      ...cyContent,
-      language: content.language,
-      sections: [summaryList(cyContent, userCase, urls, 'aboutYou', fieldType, content.language)],
-    };
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const userCase = content.userCase!;
+  return {
+    ...cyContent,
+    language: content.language,
+    sections: [summaryList(cyContent, userCase, urls, 'aboutYou', fieldType, content.language)],
   };
+};
 
 export const form: FormContent = {
   fields: {},

@@ -86,10 +86,10 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain helpcommunication field', () => {
-    const helpcommunicationField = fields.respondentHelpCommunication as FormOptions;
-    expect(helpcommunicationField.type).toBe('checkboxes');
-    expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
+  test('should contain Attending the court field', () => {
+    const attendingToCourtField = fields.respondentAttendingToCourt as FormOptions;
+    expect(attendingToCourtField.type).toBe('checkboxes');
+    expect((attendingToCourtField.section as Function)(generatedContent)).toBe(en.section);
   });
 
   test('should contain Save and continue button', () => {

@@ -14,31 +14,14 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
 export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus => {
   if (
     userCase?.respondentAttendingToCourt &&
-    userCase?.noHearingDetails &&
     userCase?.respondentLangRequirements &&
-    userCase?.respondentLangDetails &&
     userCase?.respondentSpecialArrangements &&
-    userCase?.respondentSpecialArrangementsDetails &&
     userCase?.respondentReasonableAdjustments &&
     userCase?.respondentDocsSupport &&
-    userCase?.respondentDocsDetails &&
-    userCase?.respondentLargePrintDetails &&
-    userCase?.respondentOtherDetails &&
     userCase?.respondentHelpCommunication &&
-    userCase?.respondentSignLanguageDetails &&
-    userCase?.respondentDescribeOtherNeed &&
     userCase?.respondentCourtHearing &&
-    userCase?.respondentSupportWorkerDetails &&
-    userCase?.respondentFamilyDetails &&
-    userCase?.respondentTherapyDetails &&
-    userCase?.respondentCommSupportOther &&
     userCase?.respondentCourtComfort &&
-    userCase?.respondentLightingDetails &&
-    userCase?.respondentOtherProvideDetails &&
-    userCase?.respondentTravellingToCourt &&
-    userCase?.respondentParkingDetails &&
-    userCase?.respondentDifferentChairDetails &&
-    userCase?.respondentTravellingOtherDetails
+    userCase?.respondentTravellingToCourt
   ) {
     return SectionStatus.COMPLETED;
   }

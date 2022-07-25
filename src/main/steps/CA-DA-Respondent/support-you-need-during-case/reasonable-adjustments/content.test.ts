@@ -14,7 +14,7 @@ const en = {
   summaryText: 'Contacts for help',
   docsFormat: 'I need documents in an alternative format',
   docsFormatHint: 'for example, braille or different colours and text sizes',
-  commHelp: 'I need to read and write in Welsh',
+  commHelp: 'I need help communicating and understanding',
   commHelpHint: 'for example, sight, hearing, speaking or interpretation',
   hearingSupport: 'I need to bring support with me to a hearing',
   hearingSupportHint: 'for example, someone you know or an assistance animal',
@@ -41,7 +41,7 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   docsFormat: 'I need documents in an alternative format',
   docsFormatHint: 'for example, braille or different colours and text sizes',
-  commHelp: 'I need to read and write in Welsh',
+  commHelp: 'I need help communicating and understanding',
   commHelpHint: 'for example, sight, hearing, speaking or interpretation',
   hearingSupport: 'I need to bring support with me to a hearing',
   hearingSupportHint: 'for example, someone you know or an assistance animal',
@@ -84,8 +84,8 @@ describe('citizen-home content', () => {
     );
     expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.docsFormat).toEqual('I need documents in an alternative format');
-    expect(generatedContent.docsFormatHint).toEqual('for example, braille or different colours and sizes');
-    expect(generatedContent.commHelp).toEqual('I need to read and write in Welsh');
+    expect(generatedContent.docsFormatHint).toEqual('for example, braille or different colours and text sizes');
+    expect(generatedContent.commHelp).toEqual('I need help communicating and understanding');
     expect(generatedContent.commHelpHint).toEqual('for example, sight, hearing, speaking or interpretation');
     expect(generatedContent.hearingSupport).toEqual('I need to bring support with me to a hearing');
     expect(generatedContent.hearingSupportHint).toEqual('for example, someone you know or an assistance animal');

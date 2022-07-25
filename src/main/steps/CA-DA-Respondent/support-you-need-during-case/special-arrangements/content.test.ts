@@ -77,20 +77,20 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Do you or the children need special safety arrangements at court?');
-    expect(generatedContent.section).toEqual('Safety requirements');
+    expect(generatedContent.section).toEqual('Special arrangements');
     expect(generatedContent.courtcommunication).toEqual(
-      'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.'
+      'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
-    expect(generatedContent.waitingroom).toEqual('Separate waiting room');
-    expect(generatedContent.separateexitentry).toEqual('Separate exits and entrances');
+    expect(generatedContent.waitingRoom).toEqual('Separate waiting room');
+    expect(generatedContent.separateExitEntry).toEqual('Separate exits and entrances');
     expect(generatedContent.screens).toEqual('Screens so you and the other people in the case cannot see each other');
     expect(generatedContent.toilet).toEqual('Separate toilets');
-    expect(generatedContent.advancedview).toEqual('Advanced viewing of the court');
-    expect(generatedContent.videolinks).toEqual('Video links');
+    expect(generatedContent.visitToCourt).toEqual('Visit to court before the hearing');
+    expect(generatedContent.videoLinks).toEqual('Video links');
     expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.nosupport).toEqual('No, I do not need any extra support at this time');
+    expect(generatedContent.noSupport).toEqual('No, I do not have any safety requirements at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect
