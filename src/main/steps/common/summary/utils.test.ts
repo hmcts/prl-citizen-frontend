@@ -14,6 +14,11 @@ const enContent = {
     applicationReceivedDate: 'When did you receive the application?',
     invalidApplicationReceivedDate: 'When did you receive the application?',
   },
+  fieldType: {
+    miamStart: 'string',
+    applicationReceivedDate: 'Date',
+    invalidApplicationReceivedDate: 'Date',
+  },
   errors: {},
 };
 
@@ -21,12 +26,6 @@ const urls = {
   miamStart: MIAM_START,
   applicationReceivedDate: CONSENT,
   invalidApplicationReceivedDate: CONSENT,
-};
-
-const fieldType = {
-  miamStart: 'String',
-  applicationReceivedDate: 'Date',
-  invalidApplicationReceivedDate: 'Date',
 };
 
 describe('common > summary > utils', () => {
@@ -47,7 +46,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'What is a Mediation Information and Assessment Meeting (MIAM)?' },
-              value: { text: 'Yes' },
+              value: { html: 'Yes' },
             },
             {
               actions: {
@@ -60,7 +59,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: { text: '11 March 2022' },
+              value: { html: '11 March 2022' },
             },
             {
               actions: {
@@ -73,14 +72,18 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: {},
+              value: {
+                html: '',
+              },
             },
           ],
           title: 'applicationDetails',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(summaryList(enContent, userCase, urls, 'applicationDetails', fieldType, 'en')).toStrictEqual(expected);
+      expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
+        expected
+      );
     });
   });
 });

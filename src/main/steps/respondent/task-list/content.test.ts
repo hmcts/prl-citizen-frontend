@@ -16,6 +16,7 @@ const enContent = {
     consentToTheApplication: 'Consent to the application',
     applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -23,6 +24,7 @@ const enContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    your_safety: 'Your safety',
   },
 };
 const cyContent = {
@@ -37,6 +39,7 @@ const cyContent = {
     consentToTheApplication: 'Consent to the application',
     applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -44,6 +47,7 @@ const cyContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    your_safety: 'Your safety',
   },
 };
 describe('task-list > content', () => {
@@ -79,6 +83,12 @@ describe('task-list > content', () => {
               status: 'TO_DO',
               text: 'Keep your details private',
             },
+            {
+              href: '/respondent/confirmcontactdetails/checkanswers',
+              id: 'confirm-or-edit-your-contact-details',
+              status: 'IN_PROGRESS',
+              text: 'Confirm or edit your contact details',
+            },
           ],
           title: 'Your details',
         },
@@ -103,6 +113,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Additional information',
+        },
+        {
+          items: [
+            {
+              href: '/respondent/safety_concerns/main_page',
+              id: 'your-safety',
+              status: 'TO_DO',
+              text: 'Your safety',
+            },
+          ],
+          title: 'Safety concerns',
         },
       ],
     },
