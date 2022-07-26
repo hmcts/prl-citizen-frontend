@@ -119,7 +119,7 @@ describe('applicant1Sequence', () => {
     expect(repondentCaseSequence[28].url).toBe('/respondent/safety_concerns/domestic_abuse_risk_no');
     expect(repondentCaseSequence[28].showInSection).toBe('aboutRespondentCase');
     expect(repondentCaseSequence[28].getNextStep({})).toBe('/respondent/task-list');
-    
+
     expect(repondentCaseSequence[29].url).toBe('/respondent/proceedings/start');
     expect(repondentCaseSequence[29].showInSection).toBe('aboutRespondentCase');
     //expect(repondentCaseSequence[29].getNextStep({})).toBe('/respondent/proceedings/court-proceedings');

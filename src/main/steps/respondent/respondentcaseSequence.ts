@@ -1,7 +1,6 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  COURT_PROCEEDINGS_SUMMARY,
   ADDRESS_BLANK,
   ADDRESS_CONFIRMATION,
   ADDRESS_DETAILS,
@@ -12,6 +11,7 @@ import {
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   CONTACT_DETAILS,
+  COURT_PROCEEDINGS_SUMMARY,
   DETAILS_KNOWN,
   DOMESTIC_ABUSE_RISK,
   DOMESTIC_ABUSE_RISK_NO,

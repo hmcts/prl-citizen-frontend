@@ -2,9 +2,9 @@
 import * as URL from '../../urls';
 
 import {
-  getCurrentOrOtherProceedingsStatus,
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
+  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
