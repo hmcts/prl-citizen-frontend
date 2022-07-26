@@ -75,3 +75,8 @@ export const ADDRESS_BLANK: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressblank`
 export const ADDRESS_HISTORY: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresshistory`;
 
 /* confirm-contact-details-end */
+
+export const PROCEEDINGS: PageLink = `${RESPONDENT}/proceedings`;
+export const PROCEEDINGS_START: PageLink = `${PROCEEDINGS}/start`;
+export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/court-proceedings`;
+export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
