@@ -53,7 +53,7 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
     const changeUrl = item.changeUrl;
     return {
       key: { ...(item.key ? { text: item.key } : {}) },
-      value: { ...(item.value ? { text: item.value } : { html: item.valueHtml }) },
+      value: { ...(item.value ? { text: item.value } : {}) },
       ...(changeUrl
         ? {
             actions: {
@@ -88,7 +88,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      valueHtml: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
 
