@@ -28,7 +28,7 @@ const logger = Logger.getLogger('app');
 
 new PropertiesVolume().enableFor(app);
 new AppInsights().enable();
-new Nunjucks(developmentMode).enableFor(app);
+new Nunjucks().enableFor(app);
 logger.info('Creating LaunchDarkly Client');
 const launchDarklyClient = new LaunchDarklyClient();
 const featureToggles = new FeatureToggles(launchDarklyClient);

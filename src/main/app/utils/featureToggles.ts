@@ -1,7 +1,8 @@
+/* eslint-disable import/namespace */
+import { LaunchDarklyClient } from 'shared/clients/launchDarklyClient';
 import config = require('config');
 import toBoolean = require('to-boolean');
 
-import { LaunchDarklyClient } from 'shared/clients/launchDarklyClient';
 export class FeatureToggles {
   readonly launchDarklyClient: LaunchDarklyClient;
 
