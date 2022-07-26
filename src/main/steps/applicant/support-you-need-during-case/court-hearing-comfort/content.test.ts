@@ -17,7 +17,7 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courtcomfort: {
+    courtComfort: {
       required: 'Please select an answer',
     },
     otherProvideDetails: {
@@ -39,7 +39,7 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courtcomfort: {
+    courtComfort: {
       required: 'Please select an answer',
     },
     otherProvideDetails: {
@@ -87,7 +87,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const courtcomfortField = fields.courtcomfort as FormOptions;
+    const courtcomfortField = fields.courtComfort as FormOptions;
     expect(courtcomfortField.type).toBe('checkboxes');
     expect((courtcomfortField.section as Function)(generatedContent)).toBe(en.section);
   });

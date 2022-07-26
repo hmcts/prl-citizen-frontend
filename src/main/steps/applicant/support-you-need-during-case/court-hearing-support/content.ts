@@ -17,7 +17,7 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    courtHearing: {
       required: 'Please select an answer',
     },
     communicationSupportOther: {
@@ -41,7 +41,7 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courthearing: {
+    courtHearing: {
       required: 'Please select an answer',
     },
     communicationSupportOther: {
@@ -57,34 +57,34 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    courthearing: {
+    courtHearing: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'courthearing',
+          name: 'courtHearing',
           label: l => l.supportworker,
           value: 'support worker or carer',
         },
         {
-          name: 'courthearing',
+          name: 'courtHearing',
           label: l => l.familymember,
           value: 'friend or family member',
         },
         {
-          name: 'courthearing',
+          name: 'courtHearing',
           label: l => l.assistance,
           value: 'assistance',
         },
         {
-          name: 'courthearing',
+          name: 'courtHearing',
           label: l => l.animal,
           value: 'animal',
         },
         {
-          name: 'courthearing',
+          name: 'courtHearing',
           label: l => l.other,
           value: 'other',
           subFields: {
@@ -100,7 +100,7 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'courthearing',
+          name: 'courtHearing',
           label: l => l.nosupport,
           value: 'no need of support',
           exclusive: true,

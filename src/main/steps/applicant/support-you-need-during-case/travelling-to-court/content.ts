@@ -19,7 +19,7 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    travellingtoCourt: {
+    travellingToCourt: {
       required: 'Please select an answer',
     },
     travellingOtherDetails: {
@@ -45,7 +45,7 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    travellingtoCourt: {
+    travellingToCourt: {
       required: 'Please select an answer',
     },
     travellingOtherDetails: {
@@ -61,49 +61,49 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    travellingtoCourt: {
+    travellingToCourt: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'travellingtoCourt',
+          name: 'travellingToCourt',
           label: l => l.parkingspace,
           value: 'parking space close to the venue',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'travellingToCourt',
           label: l => l.stepfree,
           value: 'step free / wheelchair access',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'travellingToCourt',
           label: l => l.wheelchair,
           value: 'use of venue wheelchair',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'travellingToCourt',
           label: l => l.toilet,
           value: 'accessible toilet',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'travellingToCourt',
           label: l => l.lift,
           value: 'help using a lift',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'travellingToCourt',
           label: l => l.differentchair,
           value: 'a different type of chair',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'travellingToCourt',
           label: l => l.building,
           value: 'guiding in the building',
         },
         {
-          name: 'travellingtoCourt',
+          name: 'travellingToCourt',
           label: l => l.other,
           value: 'other',
           subFields: {
@@ -120,7 +120,7 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'travellingtoCourt',
+          name: 'travellingToCourt',
           label: l => l.nosupport,
           value: 'no need of support',
           exclusive: true,

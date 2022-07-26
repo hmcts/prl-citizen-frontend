@@ -118,12 +118,11 @@ export const form: FormContent = {
             },
           },
         },
-
         {
           divider: true,
         },
         {
-          name: 'courtcomfort',
+          name: 'safetyArrangements',
           label: l => l.nosupport,
           value: 'no need of support',
           exclusive: true,

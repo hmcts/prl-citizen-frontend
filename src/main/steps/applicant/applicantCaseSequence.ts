@@ -22,9 +22,10 @@ import {
   LANGUAGE_REQUIREMENTS,
   REASONABLE_ADJUSTMENTS,
   SAFETY_ARRANGEMENTS,
+  SUPPORT_YOU_NEED_DURING_CASE,
+  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   TRAVELLING_TO_COURT,
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
-  YOUR_NEEDS_WHEN_GO_TO_COURT,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -95,7 +96,7 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
-    url: YOUR_NEEDS_WHEN_GO_TO_COURT,
+    url: SUPPORT_YOU_NEED_DURING_CASE,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => LANGUAGE_REQUIREMENTS,
   },
@@ -141,6 +142,11 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: SAFETY_ARRANGEMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  },
+  {
+    url: SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },

@@ -1,4 +1,3 @@
-import { Checkbox } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -17,7 +16,7 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courtcomfort: {
+    courtComfort: {
       required: 'Please select an answer',
     },
     otherProvideDetails: {
@@ -40,7 +39,7 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Save and continue',
   errors: {
-    courtcomfort: {
+    courtComfort: {
       required: 'Please select an answer',
     },
     otherProvideDetails: {
@@ -56,31 +55,31 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    courtcomfort: {
+    courtComfort: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.appropriatelighting,
           value: 'appropriate lighting',
         },
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.break,
           value: 'Regular breaks',
         },
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.space,
           value: 'space to move around',
         },
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.other,
-          value: Checkbox.Checked,
+          value: 'other',
           subFields: {
             otherProvideDetails: {
               type: 'textarea',
@@ -94,7 +93,7 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'courtcomfort',
+          name: 'courtComfort',
           label: l => l.nosupport,
           value: 'no need of support',
           exclusive: true,

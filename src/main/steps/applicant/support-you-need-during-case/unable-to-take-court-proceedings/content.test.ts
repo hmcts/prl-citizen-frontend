@@ -14,7 +14,7 @@ const en = {
   two: 'No',
   continue: 'Save and continue',
   errors: {
-    unableforcourtproceedings: {
+    unableForCourtProceedings: {
       required: 'Please select an answer',
     },
     courtProceedingProvideDetails: {
@@ -33,7 +33,7 @@ const cy: typeof en = {
   two: 'No',
   continue: 'Save and continue',
   errors: {
-    unableforcourtproceedings: {
+    unableForCourtProceedings: {
       required: 'Please select an answer',
     },
     courtProceedingProvideDetails: {
@@ -75,7 +75,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain  field', () => {
-    const unableforcourtproceedingsField = fields.unableforcourtproceedings as FormOptions;
+    const unableforcourtproceedingsField = fields.unableForCourtProceedings as FormOptions;
     expect(unableforcourtproceedingsField.type).toBe('radios');
     expect(unableforcourtproceedingsField.classes).toBe('govuk-radios');
     expect((unableforcourtproceedingsField.section as Function)(generatedContent)).toBe(en.section);
