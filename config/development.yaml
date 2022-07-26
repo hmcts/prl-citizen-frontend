@@ -17,13 +17,13 @@ services:
   case:
     #url: 'http://localhost:4452'
     #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-421.service.core-compute-preview.internal'
+    url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-495.service.core-compute-preview.internal'
 
     checkDivCases: true
   documentManagement:
     url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'  
   cos:
-    url: 'http://localhost:4044'
+    url: 'http://prl-cos-pr-469.service.core-compute-preview.internal/'
 health:
   timeout: 5000
   deadline: 15000
