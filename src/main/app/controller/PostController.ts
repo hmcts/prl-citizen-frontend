@@ -159,7 +159,7 @@ export class PostController<T extends AnyObject> {
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
         const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
         req.session.userCase = caseDataFromCos;
-        console.log('=============caseDataFromCos====================' + caseDataFromCos);
+        //console.log('=============caseDataFromCos====================' + caseDataFromCos);
         // const updatedCaseDataFromCos = await client.updateCase(
         //   caseworkerUser,
         //   caseReference as string,
@@ -167,7 +167,7 @@ export class PostController<T extends AnyObject> {
         //   'internal-update-application-tab'
         // );
 
-        console.log('*******************************');
+        //console.log('*******************************');
         //console.log(updatedCaseDataFromCos);
         // let accessCodeMatched = false;
         // let accessCodeLinked = false;
