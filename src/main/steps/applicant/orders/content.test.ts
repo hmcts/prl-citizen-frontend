@@ -7,7 +7,6 @@ import { generateContent } from './content';
 const enContent = {
   section: 'All documents',
   title: 'Orders from the court',
-  threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   caseNumber: 'Case number',
   continue: 'Go back',
@@ -16,7 +15,6 @@ const enContent = {
 const cyContent = {
   section: 'All documents',
   title: 'Orders from the court',
-  threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   caseNumber: 'Case number',
   continue: 'Go back',
