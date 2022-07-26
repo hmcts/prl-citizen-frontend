@@ -22,7 +22,7 @@
     "sonar-scan": "sonar-scanner",
     "test:smoke": "echo 'smoke tests disabled temporarily for setup' && exit 0",
     "test:functional": "echo 'functional tests disabled temporarily for setup' && exit 0",
-    "test:fullfunctional": "echo 'fullfuntional tests disabled temporarily for setup' && exit 0",
+    "test:fullfunctional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js",
     "cichecks": "yarn && run-p build lint test",
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",
     "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
@@ -135,7 +135,7 @@
     "mocha-junit-reporter": "^2.0.0",
     "mocha-multi": "^1.1.6",
     "mochawesome": "^7.1.3",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "node-sass": "^7.0.0",
     "nodemon": "^2.0.16",
     "npm-run-all": "^4.1.5",
@@ -156,7 +156,11 @@
     "webpack-node-externals": "^3.0.0"
   },
   "resolutions": {
+    "moment": "2.29.4",
+    "validator": "13.7.0",
+    "axios": ">=0.21.2",
     "got": "11.8.5",
-    "serialize-javascript": ">=3.1.0"
+    "serialize-javascript": ">=3.1.0",
+    "glob-parent": ">=6.0.1"
   }
 }

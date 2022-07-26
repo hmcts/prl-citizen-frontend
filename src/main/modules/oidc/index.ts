@@ -61,9 +61,6 @@ export class OidcMiddleware {
             // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
           }
           return next();
-        }
-        if (!req.session?.accessCodeLoginIn) {
-          res.redirect(CITIZEN_HOME_URL);
         } else {
           res.redirect(SIGN_IN_URL);
         }

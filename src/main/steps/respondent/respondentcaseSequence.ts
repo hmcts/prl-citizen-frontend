@@ -2,7 +2,19 @@ import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
   COURT_PROCEEDINGS_SUMMARY,
+  ADDRESS_BLANK,
+  ADDRESS_CONFIRMATION,
+  ADDRESS_DETAILS,
+  ADDRESS_HISTORY,
+  ADDRESS_LOOKUP,
+  ADDRESS_LOOKUP_CONT,
+  CHECK_ANSWERS,
+  CONSENT_SUMMARY,
+  CONSENT_TO_APPLICATION,
+  CONTACT_DETAILS,
   DETAILS_KNOWN,
+  DOMESTIC_ABUSE_RISK,
+  DOMESTIC_ABUSE_RISK_NO,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
@@ -11,17 +23,31 @@ import {
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
+  PERSONAL_DETAILS,
   PRIVATE_DETAILS_CONFIRMED,
   PRIVATE_DETAILS_NOT_CONFIRMED,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
+  RESPONDENT_FIND_ADDRESS,
   RESPONDENT_TASK_LIST_URL,
+  SAFETY_MAIN_PAGE,
   START_ALTERNATIVE,
+  YOUR_SAFETY,
 } from '../urls';
 
 export const repondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_TASK_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: CONSENT_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => CONSENT_SUMMARY,
+  },
+  {
+    url: CONSENT_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
@@ -62,6 +88,56 @@ export const repondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
+    url: CHECK_ANSWERS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PERSONAL_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: CONTACT_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: ADDRESS_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => ADDRESS_LOOKUP,
+  },
+  {
+    url: ADDRESS_LOOKUP,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => ADDRESS_LOOKUP_CONT,
+  },
+  {
+    url: ADDRESS_LOOKUP_CONT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => ADDRESS_CONFIRMATION,
+  },
+  {
+    url: RESPONDENT_FIND_ADDRESS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => ADDRESS_CONFIRMATION,
+  },
+  {
+    url: ADDRESS_CONFIRMATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: ADDRESS_BLANK,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: ADDRESS_HISTORY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
     url: INTERNATIONAL_FACTORS_START,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => INTERNATIONAL_FACTORS_PARENTS,
@@ -83,6 +159,26 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: SAFETY_MAIN_PAGE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => YOUR_SAFETY,
+  },
+  {
+    url: YOUR_SAFETY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK_NO,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK_NO,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
