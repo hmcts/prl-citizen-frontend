@@ -118,16 +118,17 @@ export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT_KE
 export const APPLICANT_ALL_DOCUEMNTS: PageLink = `${APPLICANT}/alldocuments`;
 
 /* your needs when you go to court */
-export const YOUR_NEEDS_WHEN_GO_TO_COURT: PageLink = `${APPLICANT}/support-you-need-during-case`;
-export const LANGUAGE_REQUIREMENTS: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/language-requirements`;
-export const REASONABLE_ADJUSTMENTS: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/reasonable-adjustments`;
-export const DOCUMENTS_SUPPORT: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/documents-support`;
-export const COMMUNICATION_HELP: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/communication-help`;
-export const COURT_HEARING_SUPPORT: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/court-hearing-support`;
-export const COURT_HEARING_COMFORT: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/court-hearing-comfort`;
-export const TRAVELLING_TO_COURT: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/travelling-to-court`;
-export const UNABLE_TO_TAKE_COURT_PROCEEDINGS: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/unable-to-take-court-proceedings`;
-export const SAFETY_ARRANGEMENTS: PageLink = `${YOUR_NEEDS_WHEN_GO_TO_COURT}/safety-arrangements`;
+export const SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${APPLICANT}/support-you-need-during-case`;
+export const LANGUAGE_REQUIREMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/language-requirements`;
+export const REASONABLE_ADJUSTMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/reasonable-adjustments`;
+export const DOCUMENTS_SUPPORT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/documents-support`;
+export const COMMUNICATION_HELP: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/communication-help`;
+export const COURT_HEARING_SUPPORT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-support`;
+export const COURT_HEARING_COMFORT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-comfort`;
+export const TRAVELLING_TO_COURT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/travelling-to-court`;
+export const UNABLE_TO_TAKE_COURT_PROCEEDINGS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/unable-to-take-court-proceedings`;
+export const SAFETY_ARRANGEMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/safety-arrangements`;
+export const SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/summary`;
 
 /* CA DA Respondent-start */
 export const CA_DA_RESPONDENT: PageLink = '/ca-da-respondent';
@@ -145,4 +146,3 @@ export const CA_DA_COURT_HEARING_SUPPORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_D
 export const CA_DA_COURT_HEARING_COMFORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-comfort`;
 export const CA_DA_TRAVELLING_TO_COURT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/travelling-to-court`;
 export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/summary`;
-

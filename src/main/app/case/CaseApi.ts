@@ -20,7 +20,6 @@ import {
   State,
 } from './definition';
 
-
 export class CaseApi {
   constructor(
     private readonly axios: AxiosInstance,
@@ -60,7 +59,7 @@ export class CaseApi {
       const response = await this.axios.get<CcdV1Response[]>(
         `http://ccd-data-store-api-aat.service.core-compute-aat.internal/caseworkers/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases/1652796857708749`
       );
-   
+
       return response.data;
     } catch (err) {
       this.logError(err);
@@ -74,7 +73,7 @@ export class CaseApi {
       const response = await this.axios.get<CcdV2Response>(
         'http://ccd-data-store-api-aat.service.core-compute-aat.internal/cases/' + caseId
       );
-     return { id: '1651759489115676', state: State.AwaitingHWFDecision, ...response.data.data };
+      return { id: '1651759489115676', state: State.AwaitingHWFDecision, ...response.data.data };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -143,11 +142,9 @@ export class CaseApi {
   // }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-  
     console.log('eventName = ' + eventName);
     return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
   }
-
 
   private logError(error: AxiosError) {
     if (error.response) {
@@ -162,7 +159,6 @@ export class CaseApi {
 }
 
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
- 
   return new CaseApi(
     Axios.create({
       baseURL: config.get('services.case.url'),

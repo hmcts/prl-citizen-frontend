@@ -13,9 +13,7 @@ export default class ConfirmContactDetailsGetController extends GetController {
     if (req.session?.user) {
       res.locals.isLoggedIn = true;
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-    
     }
-
 
     if (!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames) {
       req.session.userCase.applicant1FullName = '<span class="govuk-error-message">Complete this section</span>';
@@ -30,7 +28,6 @@ export default class ConfirmContactDetailsGetController extends GetController {
     } else {
       req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth;
     }
-  
 
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
