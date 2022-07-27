@@ -14,7 +14,7 @@ const en = {
   summaryText: 'Contacts for help',
   docsformat: 'I need documents in an alternative format',
   docsformathint: 'for example, braille or different colours and sizes',
-  commhelp: 'I need to read and write in Welsh',
+  commhelp: 'I need help communicating and understanding',
   commhelphint: 'for example, sight, hearing, speaking or interpretation',
   hearingsupport: 'I need to bring support with me to a hearing',
   hearingsupporthint: 'for example, someone you know or an assistance animal',
@@ -41,7 +41,7 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   docsformat: 'I need documents in an alternative format',
   docsformathint: 'for example, braille or different colours and sizes',
-  commhelp: 'I need to read and write in Welsh',
+  commhelp: 'I need help communicating and understanding',
   commhelphint: 'for example, sight, hearing, speaking or interpretation',
   hearingsupport: 'I need to bring support with me to a hearing',
   hearingsupporthint: 'for example, someone you know or an assistance animal',
@@ -85,7 +85,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.docsformat).toEqual('I need documents in an alternative format');
     expect(generatedContent.docsformathint).toEqual('for example, braille or different colours and sizes');
-    expect(generatedContent.commhelp).toEqual('I need to read and write in Welsh');
+    expect(generatedContent.commhelp).toEqual('I need help communicating and understanding');
     expect(generatedContent.commhelphint).toEqual('for example, sight, hearing, speaking or interpretation');
     expect(generatedContent.hearingsupport).toEqual('I need to bring support with me to a hearing');
     expect(generatedContent.hearingsupporthint).toEqual('for example, someone you know or an assistance animal');

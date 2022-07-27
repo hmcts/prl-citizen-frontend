@@ -27,7 +27,11 @@ export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus 
     userCase?.reasonableAdjustments &&
     userCase?.helpCommunication &&
     userCase?.courtHearing &&
-    userCase?.docsSupport
+    userCase?.docsSupport &&
+    userCase?.courtComfort &&
+    userCase?.safetyArrangements &&
+    userCase?.travellingToCourt &&
+    userCase?.unableForCourtProceedings
   ) {
     return SectionStatus.COMPLETED;
   }
@@ -40,7 +44,15 @@ export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus 
     userCase?.courtHearing ||
     userCase?.communicationSupportOther ||
     userCase?.docsSupport ||
-    userCase?.otherDetails
+    userCase?.otherDetails ||
+    userCase?.courtComfort ||
+    userCase?.otherProvideDetails ||
+    userCase?.safetyArrangements ||
+    userCase?.safetyArrangementsDetails ||
+    userCase?.travellingToCourt ||
+    userCase?.travellingOtherDetails ||
+    userCase?.unableForCourtProceedings ||
+    userCase?.courtProceedingProvideDetails
   ) {
     return SectionStatus.IN_PROGRESS;
   }

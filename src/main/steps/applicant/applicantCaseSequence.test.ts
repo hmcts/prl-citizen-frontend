@@ -2,7 +2,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(19);
+    expect(applicantCaseSequence).toHaveLength(24);
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/task-list');
@@ -85,6 +85,36 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[18].url).toBe('/applicant/support-you-need-during-case/court-hearing-support');
     expect(applicantCaseSequence[18].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[18].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[18].getNextStep({})).toBe(
+      '/applicant/support-you-need-during-case/court-hearing-comfort'
+    );
+
+    expect(applicantCaseSequence[19].url).toBe('/applicant/support-you-need-during-case/court-hearing-comfort');
+    expect(applicantCaseSequence[19].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[19].getNextStep({})).toBe(
+      '/applicant/support-you-need-during-case/travelling-to-court'
+    );
+
+    expect(applicantCaseSequence[20].url).toBe('/applicant/support-you-need-during-case/travelling-to-court');
+    expect(applicantCaseSequence[20].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[20].getNextStep({})).toBe(
+      '/applicant/support-you-need-during-case/unable-to-take-court-proceedings'
+    );
+
+    expect(applicantCaseSequence[21].url).toBe(
+      '/applicant/support-you-need-during-case/unable-to-take-court-proceedings'
+    );
+    expect(applicantCaseSequence[21].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[21].getNextStep({})).toBe(
+      '/applicant/support-you-need-during-case/safety-arrangements'
+    );
+
+    expect(applicantCaseSequence[22].url).toBe('/applicant/support-you-need-during-case/safety-arrangements');
+    expect(applicantCaseSequence[22].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[22].getNextStep({})).toBe('/applicant/support-you-need-during-case/summary');
+
+    expect(applicantCaseSequence[23].url).toBe('/applicant/support-you-need-during-case/summary');
+    expect(applicantCaseSequence[23].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[23].getNextStep({})).toBe('/applicant/task-list');
   });
 });

@@ -99,6 +99,16 @@ export interface Case {
   communicationSupportOther?: string;
   docsSupport?: string;
   otherDetails?: string;
+  courtComfort?: string;
+  otherProvideDetails?: string;
+  safetyArrangements?: string;
+  safetyArrangementsDetails?: string;
+  travellingToCourt?: string;
+  travellingOtherDetails?: string;
+  unableForCourtProceedings?: string;
+  courtProceedingProvideDetails?: string;
+
+  //applicant1LanguagePreference?: LanguagePreference;
 }
 
 export interface CaseWithId extends Case {
