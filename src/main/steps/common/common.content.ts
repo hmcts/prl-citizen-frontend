@@ -79,7 +79,7 @@ const en = {
   sendUsAMessage: 'Telephone',
   sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
   telephone: 'Telephone',
-  telephoneNumber: '0300 303 0642',
+  telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
   findOutCharges: 'Find out about call charges',
   openNewWindow: 'opens in a new window',
@@ -186,7 +186,7 @@ const cy: typeof en = {
   findOutCharges: 'Find out about call charges',
   openNewWindow: 'opens in a new window',
   telephone: 'Ffoniwch',
-  telephoneNumber: '0300 303 5171',
+  telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
 };
 

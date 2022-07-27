@@ -71,10 +71,10 @@ describe('applicant personal details > applying-with > content', () => {
     expect((subFields.values[2].label as LanguageLookup)(generatedContent)).toBe(en.mobilePhoneNumber);
     expect((subFields.values[3].label as LanguageLookup)(generatedContent)).toBe(en.Email);
   });
-  test('should contain Save and continue button', () => {
+  test('should contain Continue button', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and continue');
+    ).toBe('Continue');
   });
 
   test('should contain SaveAndComeLater button', () => {
