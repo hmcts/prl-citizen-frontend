@@ -4,6 +4,7 @@ import { Application } from 'express';
 
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
+import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -26,7 +27,6 @@ import {
   // TIMED_OUT_URL,
   // RESPONDENT_TASK_LIST_URL
 } from './steps/urls';
-import { DocumentManagerController } from 'app/document/DocumentManagementController';
 
 export class Routes {
   public enableFor(app: Application): void {

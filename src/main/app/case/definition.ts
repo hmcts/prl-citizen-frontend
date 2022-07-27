@@ -629,6 +629,7 @@ export interface CaseData {
   orderCollection: ListValue<PRLDocument>[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
+  finalDocument: Document;
 }
 
 export const enum State {
@@ -793,6 +794,7 @@ export const enum DocumentType {
   APPLICATION = 'application',
   EMAIL = 'email',
   APPLICATION_SUMMARY = 'applicationSummary',
+  FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
 }
 
 export interface Document {

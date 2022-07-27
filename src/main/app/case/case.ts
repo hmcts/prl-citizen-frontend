@@ -18,6 +18,7 @@ import {
   ChildDetailsTable,
   ConfidentialDetails,
   DateOfSubmission,
+  Document,
   DraftConsentOrderFile,
   HearingUrgencyTable,
   InternationalElementTable,
@@ -137,6 +138,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   welshLanguageRequirementApplicationNeedEnglish: 'welshLanguageRequirementApplicationNeedEnglish',
   orderCollection: 'orderCollection',
   respondentName: 'respondentName',
+  finalDocument: 'finalDocument',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -280,6 +282,7 @@ export interface Case {
   documentsGenerated: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
   applicant1UploadedFiles?: UploadedFile[];
+  finalDocument: Document;
 }
 
 export interface CaseWithId extends Case {

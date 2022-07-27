@@ -45,7 +45,8 @@ export class DocumentManagerController {
       if (!req.session.userCase.finalDocument?.document_binary_url) {
         throw new Error('Document binary url is not found');
       }
-      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
+      //documentToGet = req.session.userCase.finalDocument?.document_binary_url;
+      documentToGet = 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal/cases/documents/53ce4c16-e061-4027-8fd3-4efb80dcc0e8/binary';
     } else {
       throw new Error('Document File Name is not valid');
     }

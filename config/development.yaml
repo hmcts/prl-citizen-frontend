@@ -21,6 +21,9 @@ services:
     checkDivCases: true
   cos:
     url: 'http://prl-cos-pr-469.service.core-compute-preview.internal/'
+  documentManagement:
+    url: 'http://ccd-case-document-am-api-pr-495.service.core-compute-aat.internal'  
+    checkDivCases: true
 health:
   timeout: 5000
   deadline: 15000
