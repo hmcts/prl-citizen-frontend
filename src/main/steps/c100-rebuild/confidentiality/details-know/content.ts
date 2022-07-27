@@ -61,7 +61,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.onlycontinue,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
