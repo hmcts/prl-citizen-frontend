@@ -11,6 +11,7 @@ import {
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   CONTACT_DETAILS,
+  COURT_PROCEEDINGS_SUMMARY,
   DETAILS_KNOWN,
   DOMESTIC_ABUSE_RISK,
   DOMESTIC_ABUSE_RISK_NO,
@@ -25,6 +26,8 @@ import {
   PERSONAL_DETAILS,
   PRIVATE_DETAILS_CONFIRMED,
   PRIVATE_DETAILS_NOT_CONFIRMED,
+  PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_START,
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_TASK_LIST_URL,
   SAFETY_MAIN_PAGE,
@@ -176,6 +179,24 @@ export const repondentCaseSequence: Step[] = [
   },
   {
     url: DOMESTIC_ABUSE_RISK_NO,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PROCEEDINGS_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: data =>
+      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
+        ? PROCEEDINGS_COURT_PROCEEDINGS
+        : COURT_PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: PROCEEDINGS_COURT_PROCEEDINGS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => COURT_PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

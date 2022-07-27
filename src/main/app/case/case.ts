@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, ContactDetails, OtherName, State, YesOrNo } from './definition';
+import { CaseData, ContactDetails, OtherName, State, YesOrNo, orderInterface } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -73,6 +73,35 @@ export interface Case {
   confirmcontactdetails?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
+  proceedingsCourtCase?: string;
+  proceedingsStart?: string;
+  proceedingsCourtOrder?: string;
+  proceedingsStartOrder?: string;
+  courtProceedingsInvolved?: string;
+  supervisionOrderOption?: YesOrNo;
+  supervisionOrder?: orderInterface;
+  emergencyOrderOptions?: YesOrNo;
+  emergencyOrder?: orderInterface;
+  careOrderOptions?: YesOrNo;
+  careOrder?: orderInterface;
+  childAbductionOrderOption?: YesOrNo;
+  childAbductionOrder?: orderInterface;
+  caOrderOption?: YesOrNo;
+  caOrder?: orderInterface;
+  financialOrderOption?: YesOrNo;
+  financialOrder?: orderInterface;
+  nonmolestationOrderOption?: YesOrNo;
+  nonmolestationOrder?: orderInterface;
+  occupationalOrderOptions?: YesOrNo;
+  occupationOrder?: orderInterface;
+  marraigeOrderOptions?: YesOrNo;
+  marraigeOrder?: orderInterface;
+  restrainingOrderOptions?: YesOrNo;
+  restrainingOrder?: orderInterface;
+  injuctiveOrderOptions?: YesOrNo;
+  injuctiveOrder?: orderInterface;
+  underTakingOrderOptions?: YesOrNo;
+  underTakingOrder?: orderInterface;
 
   contactDetailsPrivate?: string;
   contactDetailsPrivateAlternative?: string;
