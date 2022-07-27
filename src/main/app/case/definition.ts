@@ -762,7 +762,7 @@ export const enum SectionStatus {
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED',
   DOWNLOAD = 'DOWNLOAD',
-  VIEW = 'VIEW'
+  VIEW = 'VIEW',
   CAN_NOT_START_YET = 'CAN_NOT_START_YET'
 }
 

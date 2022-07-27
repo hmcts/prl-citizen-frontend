@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { CaseDate, CaseWithId, FieldPrefix } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-import * as Urls from '../../../steps/urls';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;

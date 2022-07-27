@@ -1,5 +1,3 @@
-import { YesOrNo } from '../../app/case/definition';
-//import { YesOrNo } from '../../app/case/definition';
 import { Checkbox } from '../../app/case/case';
 import { Sections, Step } from '../constants';
 import {
