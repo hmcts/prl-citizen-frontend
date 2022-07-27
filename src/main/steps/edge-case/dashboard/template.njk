@@ -6,5 +6,30 @@
 <br/>
 <h1 class="govuk-heading-l">Create C100 Application</h1>
 <a href="/c100-rebuild/confidentiality/details-know" class="govuk-button">Start Now</a>
+<br/>
+
+<table class="govuk-table govuk-!-margin-top-5">
+  <caption class="govuk-table__caption govuk-table__caption--l">Draft Application</caption>
+  <thead class="govuk-table__head ">
+    <tr class="govuk-table__row govuk-!-padding-bottom-9">
+      <th scope="col" class="govuk-table__header">Application</th>
+      <th scope="col" class="govuk-table__header">Complete</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% for case in cases %}
+    <tr class="govuk-table__row">
+      <th  class="govuk-table__cell"><p class="govuk-body-s govuk-!-padding-top-3">Application Id : {{case.caseData.id}}</p></th>
+      <td class="govuk-table__cell"><a href='/api/v1/session/{{case.caseData.id}}' class="govuk-button govuk-button--secondary">Continue </a></td>
+    </tr>
+
+
+ 
+{% endfor %}
+
+  </tbody>
+</table>
+
+
 
 {% endblock %}

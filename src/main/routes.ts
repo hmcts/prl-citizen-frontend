@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from 'fs';
 
-import { Application } from 'express';
+import { Application, Request, Response } from 'express';
 
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
+import { sessionDataStorage } from './server';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -41,6 +44,8 @@ export class Routes {
     // app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     // app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
 
@@ -63,5 +68,13 @@ export class Routes {
     // app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
 
     // app.use(errorController.notFound as unknown as RequestHandler);
+
+    app.get('/api/v1/session/:caseId', (req: Request, res: Response): void => {
+      const caseId = req.params.caseId;
+      const findFromArray = sessionDataStorage.filter(i => i['caseData'].id === caseId);
+      const caseData = findFromArray[0];
+      req.session['userCase'] = caseData['caseData'];
+      res.redirect(caseData['boundingURL']);
+    });
   }
 }

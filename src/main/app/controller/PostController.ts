@@ -1,8 +1,9 @@
 import autobind from 'autobind-decorator';
+import axios from 'axios';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -27,6 +28,8 @@ export class PostController<T extends AnyObject> {
 
     if (req.body.saveAndSignOut) {
       await this.saveAndSignOut(req, res, formData);
+    } else if (req.body['saveAndComeLater']) {
+      await this.saveAndComeBackLater(req, res);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.accessCodeCheck) {
@@ -52,6 +55,21 @@ export class PostController<T extends AnyObject> {
       // ignore
     }
     res.end();
+  }
+
+  /**
+   * It redirects the user to the next page in the journey
+   * @param req - AppRequest<T> - This is the request object that is passed to the controller. It is a
+   * wrapper around the Express Request object.
+   * @param {Response} res - Response - the response object from the express framework
+   */
+  private async saveAndComeBackLater(req: AppRequest<T>, res: Response): Promise<void> {
+    const boucingURL = req.originalUrl;
+    await axios.post('http://localhost:3001/api/v1/session', {
+      userCase: req.session.userCase,
+      boucingURL,
+    });
+    this.redirect(req, res, DASHBOARD_URL);
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
