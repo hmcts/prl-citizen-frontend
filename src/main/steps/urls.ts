@@ -118,3 +118,5 @@ export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
 /* consent-to-the-application */
 export const RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
+export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
+export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;

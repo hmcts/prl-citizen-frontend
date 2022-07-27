@@ -20,3 +20,8 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   }
   return SectionStatus.TO_DO;
 };
+
+export const getYourApplication = (userCase: CaseWithId): SectionStatus => {
+  console.log(userCase);
+  return SectionStatus.DOWNLOAD;
+};

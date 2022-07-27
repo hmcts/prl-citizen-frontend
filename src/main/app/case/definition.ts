@@ -764,6 +764,7 @@ export const enum SectionStatus {
   COMPLETED = 'COMPLETED',
   NOT_AVAILABLE_YET = 'NOT_AVAILABLE_YET',
   READY_TO_VIEW = 'READY_TO_VIEW',
+  DOWNLOAD = 'DOWNLOAD',
 }
 
 export type DateAsString = string;

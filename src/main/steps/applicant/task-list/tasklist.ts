@@ -22,5 +22,16 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         },
       ],
     },
+    {
+      title: sectionTitles.yourApplication,
+      items: [
+        {
+          id: 'your-application',
+          text: taskListItems.your_application,
+          status: getYourApplication(userCase),
+          href: URL.YOUR_APPLICATION_FL401,
+        },
+      ],
+    },
   ];
 };
