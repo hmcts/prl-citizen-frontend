@@ -1,12 +1,13 @@
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 
+{% set legendClasses %}govuk-fieldset__legend--{% if field.labelSize %}{{ field.labelSize }}{% else %}l{% endif %}{% endset %}
 {{ govukDateInput({
   id: field.id if field.id else fieldName,
   namePrefix: fieldName,
   fieldset: {
     legend: {
       text: getContent(field.label),
-      classes: "hidden" if field.labelHidden else "govuk-fieldset__legend--m",
+      classes: "hidden" if field.labelHidden else legendClasses,
       isPageHeading: true if not title
     }
   },

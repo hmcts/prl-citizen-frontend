@@ -2,9 +2,20 @@ import { Checkbox } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  ADDRESS_BLANK,
+  ADDRESS_CONFIRMATION,
+  ADDRESS_DETAILS,
+  ADDRESS_HISTORY,
+  ADDRESS_LOOKUP,
+  ADDRESS_LOOKUP_CONT,
+  CHECK_ANSWERS,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
+  CONTACT_DETAILS,
+  COURT_PROCEEDINGS_SUMMARY,
   DETAILS_KNOWN,
+  DOMESTIC_ABUSE_RISK,
+  DOMESTIC_ABUSE_RISK_NO,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
@@ -28,6 +39,16 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
+  PERSONAL_DETAILS,
+  PRIVATE_DETAILS_CONFIRMED,
+  PRIVATE_DETAILS_NOT_CONFIRMED,
+  PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_START,
+  RESPONDENT_FIND_ADDRESS,
+  RESPONDENT_TASK_LIST_URL,
+  SAFETY_MAIN_PAGE,
+  START_ALTERNATIVE,
+  YOUR_SAFETY,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -86,6 +107,7 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_CHECK_ANSWERS,
+    url: CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
@@ -156,6 +178,44 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: SAFETY_MAIN_PAGE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => YOUR_SAFETY,
+  },
+  {
+    url: YOUR_SAFETY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK_NO,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK_NO,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PROCEEDINGS_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: data =>
+      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
+        ? PROCEEDINGS_COURT_PROCEEDINGS
+        : COURT_PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: PROCEEDINGS_COURT_PROCEEDINGS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => COURT_PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

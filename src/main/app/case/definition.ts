@@ -338,6 +338,7 @@ export interface CaseData {
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
   applicant1PlaceOfBirthText?: string;
+  applicant1PlaceOfText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
@@ -346,13 +347,12 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
-   accessCode: string;
+  accessCode: string;
   respondentCaseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
  //applicant1LanguagePreference?: LanguagePreference;
  citizenRole?: FieldPrefix;
-
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -764,6 +764,7 @@ export const enum SectionStatus {
   COMPLETED = 'COMPLETED',
   DOWNLOAD = 'DOWNLOAD',
   VIEW = 'VIEW'
+  CAN_NOT_START_YET = 'CAN_NOT_START_YET'
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1385,6 +1386,15 @@ export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed'
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 
+
+// citizen frontend
+export interface orderInterface {
+  caseNoDetails: string;
+  orderDateDetails: CaseDate;
+  orderTimeDetails: string;
+  currentOrderDetails: YesOrNo;
+  issueOrderDetails: string;
+}
 
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
