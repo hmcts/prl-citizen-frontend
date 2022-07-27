@@ -1,6 +1,8 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { isFieldFilledIn } from '../../../../app/form/validation';
+
 
 import { generateContent } from './content';
 
@@ -12,6 +14,14 @@ const en = {
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
+  errors: {
+    detailsKnown: {
+      required: 'Select yes if the children live outside of England or Wales',
+    },
+    provideDetails: {
+      required: 'Provide details about the children living outside of England or Wales',
+    },
+  },
 };
 
 const cy = {
@@ -20,6 +30,14 @@ const cy = {
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
+  errors: {
+    detailsKnown: {
+      required: 'Select yes if the children live outside of England or Wales - Welsh',
+    },
+    provideDetails: {
+      required: 'Provide details about the children living outside of England or Wales - Welsh',
+    },
+  },
 };
 
 describe('applicant personal details > international elements > start', () => {
@@ -43,6 +61,13 @@ describe('applicant personal details > international elements > start', () => {
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    const field2 = applyingWithField.values[0].subFields!.provideDetails;
+    expect((field2?.label as Function)(generatedContent)).toBe(en.provideDetails);
+    expect((field2.type)).toBe('textarea');
+    (field2.validator as Function)('Yes');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
+  
+
   });
 
   test('should contain Continue button', () => {
@@ -50,7 +75,7 @@ describe('applicant personal details > international elements > start', () => {
     const form = generatedContent.form as FormContent | undefined;
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and continue');
+    ).toBe('Continue');
   });
   test('should contain SaveAndComeLater button', () => {
     const generatedContent = generateContent(commonContent);

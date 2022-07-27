@@ -5,33 +5,33 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Do the children live outside of England or Wales? ',
-  line1: 'For example, does their main family life take place outside of England and Wales?    ',
+  title: "Has another country asked (or been asked) for information or help for the children?",
+  line1: 'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
     detailsKnown: {
-      required: 'Select yes if the children live outside of England or Wales',
+      required: "Select yes if the children's parents or anyone significant to the children live outside of England or Wales",
     },
     provideDetails: {
-      required: 'Provide details about the children living outside of England or Wales',
+      required: "Provide details about the children's parents or anyone significant to the children live outside of England or Wales",
     },
   },
 });
 
 const cy = () => ({
-  title: 'Do the children live outside of England or Wales?  - welsh',
-  line1: 'For example, does their main family life take place outside of England and Wales? - welsh  ',
+  title: "Has another country asked (or been asked) for information or help for the children? - welsh ",
+  line1: 'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case. - welsh  ',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
     detailsKnown: {
-      required: 'Select yes if the children live outside of England or Wales - Welsh',
+      required: "Select yes if the children's parents or anyone significant to the children live outside of England or Wales - Welsh",
     },
     provideDetails: {
-      required: 'Provide details about the children living outside of England or Wales - Welsh',
+      required: "Provide details about the children's parents or anyone significant to the children live outside of England or Wales - Welsh ",
     },
   },
 });
@@ -69,7 +69,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.onlycontinue,
+    text: l => l.continue,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
