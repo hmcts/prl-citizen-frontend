@@ -90,7 +90,7 @@ export class CaseApi {
     const token = tokenResponse.data.token;
     const event = { id: CITIZEN_CREATE };
     const data = {
-      //adoption: serviceType,
+      serviceType,
       applicant1FirstName: userDetails.givenName,
       applicant1LastName: userDetails.familyName,
       applicant1Email: userDetails.email,
@@ -144,7 +144,7 @@ export class CaseApi {
     //const data = toApiFormat(userData);
     //const data = userData;
     // return this.sendEvent(caseId, data, eventName);
-    console.log(eventName);
+    console.log('eventName = ' + eventName);
     return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
   }
 

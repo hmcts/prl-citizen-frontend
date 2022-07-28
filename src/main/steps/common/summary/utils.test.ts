@@ -1,5 +1,5 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { MIAM_START } from '../../urls';
+import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
 import { summaryList } from './utils';
 
@@ -11,15 +11,32 @@ const enContent = {
   },
   keys: {
     miamStart: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+    applicationReceivedDate: 'When did you receive the application?',
+    invalidApplicationReceivedDate: 'When did you receive the application?',
   },
   fieldType: {
     miamStart: 'string',
+    applicationReceivedDate: 'Date',
+    invalidApplicationReceivedDate: 'Date',
+    proceedingsStart: 'String',
+    proceedingsStartOrder: 'String',
+    emergencyOrderOptions: 'YesOrNo',
+    'emergencyOrder.caseNoDetails': 'String',
+    'emergencyOrder.orderDateDetails': 'Date',
+    'emergencyOrder.orderTimeDetails': 'String',
+    'emergencyOrder.currentOrderDetails': 'YesOrNo',
+    'emergencyOrder.issueOrderDetails': 'String',
   },
   errors: {},
 };
 
 const urls = {
   miamStart: MIAM_START,
+  proceedingsStart: PROCEEDINGS_START,
+  proceedingsStartOrder: PROCEEDINGS_START,
+  emergencyOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS,
+  applicationReceivedDate: CONSENT,
+  invalidApplicationReceivedDate: CONSENT,
 };
 
 describe('common > summary > utils', () => {
@@ -40,7 +57,35 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'What is a Mediation Information and Assessment Meeting (MIAM)?' },
-              value: { text: 'Yes' },
+              value: { html: 'Yes' },
+            },
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/respondent/consent-to-application',
+                    text: 'Edit',
+                    visuallyHiddenText: 'When did you receive the application?',
+                  },
+                ],
+              },
+              key: { text: 'When did you receive the application?' },
+              value: { html: '11 March 2022' },
+            },
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/respondent/consent-to-application',
+                    text: 'Edit',
+                    visuallyHiddenText: 'When did you receive the application?',
+                  },
+                ],
+              },
+              key: { text: 'When did you receive the application?' },
+              value: {
+                html: '',
+              },
             },
           ],
           title: 'applicationDetails',

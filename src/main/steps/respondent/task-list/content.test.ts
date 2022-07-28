@@ -13,14 +13,19 @@ const enContent = {
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
-    applicationDetails: 'Application detail',
+    applicationDetails: 'Application details',
+    consentToTheApplication: 'Consent to the application',
     respondentAdditionalInformation: 'Additional information',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
+    do_you_consent_to_the_application: 'Do you consent to the application?',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    current_or_previous_proceedings: 'Current or previous proceedings',
+    your_safety: 'Your safety',
   },
 };
 const cyContent = {
@@ -32,14 +37,19 @@ const cyContent = {
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
-    applicationDetails: 'Application detail',
+    applicationDetails: 'Application details',
+    consentToTheApplication: 'Consent to the application',
     respondentAdditionalInformation: 'Additional information',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
+    do_you_consent_to_the_application: 'Do you consent to the application?',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
+    current_or_previous_proceedings: 'Current or previous proceedings',
+    your_safety: 'Your safety',
   },
 };
 describe('task-list > content', () => {
@@ -57,6 +67,17 @@ describe('task-list > content', () => {
       userCase: mockUserCase,
       expected: [
         {
+          title: 'Consent to the application',
+          items: [
+            {
+              id: 'consent-to-the-application',
+              text: 'Do you consent to the application?',
+              status: 'IN_PROGRESS',
+              href: '/respondent/consent-to-application/consent',
+            },
+          ],
+        },
+        {
           items: [
             {
               href: '/respondent/keep-details-private/details_known',
@@ -67,7 +88,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
-              status: 'TO_DO',
+              status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
           ],
@@ -81,8 +102,14 @@ describe('task-list > content', () => {
               status: 'IN_PROGRESS',
               text: 'Mediation(MIAM)',
             },
+            {
+              href: '/respondent/proceedings/start',
+              id: 'current-or-previous-proceedings',
+              status: 'TO_DO',
+              text: 'Current or previous proceedings',
+            },
           ],
-          title: 'Application detail',
+          title: 'Application details',
         },
         {
           items: [
@@ -94,6 +121,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Additional information',
+        },
+        {
+          items: [
+            {
+              href: '/respondent/safety_concerns/main_page',
+              id: 'your-safety',
+              status: 'TO_DO',
+              text: 'Your safety',
+            },
+          ],
+          title: 'Safety concerns',
         },
       ],
     },

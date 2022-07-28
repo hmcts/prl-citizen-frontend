@@ -325,9 +325,11 @@ export interface CaseData {
   applicant1EmailAddress?: string;
   applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
@@ -336,7 +338,6 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
-  
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -741,8 +742,10 @@ export const enum SectionStatus {
   TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED',
+  CAN_NOT_START_YET = 'CAN_NOT_START_YET',
   DOWNLOAD = 'DOWNLOAD',
-  VIEW = 'VIEW'
+  VIEW = 'VIEW',
+  NOT_STARTED = 'NOT_STARTED'
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1038,7 +1041,7 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication'
-  
+
 }
 
 export const enum UserRole {
@@ -1361,3 +1364,18 @@ export const SYSTEM_NOTIFY_APPLICANT1_CONDITIONAL_ORDER = 'system-notify-applica
 export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+
+
+// citizen frontend
+export interface orderInterface {
+  caseNoDetails: string;
+  orderDateDetails: CaseDate;
+  orderTimeDetails: string;
+  currentOrderDetails: YesOrNo;
+  issueOrderDetails: string;
+}
+
+export const enum CONFIDENTIAL_DETAILS {
+  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
+  PRIVATE = 'This information will be kept confidential',
+}

@@ -9,14 +9,23 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
-  return SectionStatus.TO_DO;
 };
 
 export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.confirmcontactdetails) {
+  if (userCase?.applicant1FullName && userCase?.applicant1DateOfBirth && userCase?.applicant1PlaceOfBirth) {
     return SectionStatus.COMPLETED;
   }
-  if (userCase?.confirmcontactdetails) {
+  if (userCase?.applicant1FullName || userCase?.applicant1DateOfBirth || userCase?.applicant1PlaceOfBirth) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.NOT_STARTED;
+};
+
+export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.doYouConsent && userCase?.applicationReceivedDate && userCase?.courtPermission) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.doYouConsent || userCase?.applicationReceivedDate || userCase?.courtPermission) {
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
@@ -47,5 +56,54 @@ export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStat
   if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
     return SectionStatus.IN_PROGRESS;
   }
+  return SectionStatus.TO_DO;
+};
+
+export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): SectionStatus => {
+  if (
+    userCase?.proceedingsStart &&
+    userCase?.proceedingsStartOrder &&
+    userCase?.emergencyOrderOptions &&
+    userCase?.supervisionOrderOption &&
+    userCase?.careOrderOptions &&
+    userCase?.childAbductionOrderOption &&
+    userCase?.caOrderOption &&
+    userCase?.financialOrderOption &&
+    userCase?.nonmolestationOrderOption &&
+    userCase?.occupationalOrderOptions &&
+    userCase?.marraigeOrderOptions &&
+    userCase?.restrainingOrderOptions &&
+    userCase?.injuctiveOrderOptions &&
+    userCase?.underTakingOrderOptions
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+  if (
+    userCase?.proceedingsStart ||
+    userCase?.proceedingsStartOrder ||
+    userCase?.supervisionOrderOption ||
+    userCase?.supervisionOrderOption ||
+    userCase?.careOrderOptions ||
+    userCase?.childAbductionOrderOption ||
+    userCase?.caOrderOption ||
+    userCase?.financialOrderOption ||
+    userCase?.nonmolestationOrderOption ||
+    userCase?.occupationalOrderOptions ||
+    userCase?.marraigeOrderOptions ||
+    userCase?.restrainingOrderOptions ||
+    userCase?.injuctiveOrderOptions ||
+    userCase?.underTakingOrderOptions
+  ) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
+export const getYourSafetyStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.safetyConcerns) {
+    return SectionStatus.COMPLETED;
+  }
+  // if (userCase?.detailsKnown ) {
+  //   return SectionStatus.IN_PROGRESS;
+  // }
   return SectionStatus.TO_DO;
 };

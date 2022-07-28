@@ -83,6 +83,19 @@
             }
           }) if getContent(form.cancel.text)
         }}
+        {{
+          govukButton({
+            text: getContent(form.goBack.text),
+            classes: "govuk-button--secondary",
+            preventDoubleClick: true,
+            type: "submit",
+            name: "Go back",
+            value: true,
+            attributes: {
+              id: 'main-form-cancel'
+            }
+          }) if getContent(form.cancel.text)
+        }}
       </div>
     {% endblock %}
     {% block after_form %}{% endblock %}
