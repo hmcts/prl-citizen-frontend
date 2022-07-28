@@ -1,11 +1,12 @@
 import autobind from 'autobind-decorator';
-import axios from 'axios';
 import { Response } from 'express';
 import Negotiator from 'negotiator';
 
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import * as Urls from '../../steps/urls';
+import { getSystemUser } from '../auth/user/oidc';
+import { CosApiClient } from '../case/CosApiClient';
 // import { Case, CaseWithId } from '../case/case';
 //import { CosApiClient } from '../case/CosApiClient';
 import { CITIZEN_UPDATE } from '../case/definition';
@@ -43,7 +44,13 @@ export class GetController {
       req.session.errors = undefined;
     }
 
-   // await this.getUpdatedCaseData(req);
+    /**
+     *     const caseData = await req.locals.api.getCaseById(caseReference as string);
+    console.log(caseData);
+     */
+
+    await this.getUpdatedCaseData(req);
+    this.mapApiDataToCaseData(req);
 
     res.render(this.view, {
       ...content,
@@ -99,24 +106,39 @@ export class GetController {
    * contains the session object, which is where the userCase object is stored.
    */
   public async getUpdatedCaseData(req: AppRequest): Promise<void> {
-    const { id } = req.session.userCase;
-    console.log(id);
-    /** 
-     * @CosApiWay
-     * const client = new CosApiClient(req.session.user.accessToken, 'http://return-url');
-    const caseDataById = await client.retrieveByCaseId(id as string, req.session.user);
-    console.log(caseDataById);
-     */
-    const client = axios.create({
-      baseURL: 'http://localhost:3001/api/v1/respondent',
-    });
-    console.log({ msg: 'this gets triggered' });
-    req.session.userCase = (await client.get('')).data;
-    console.log({ data: (await client.get('')).data });
+    try {
+      if (req.originalUrl === Urls.RESPONDENT_TASK_LIST_URL) {
+        const caseworkerUser = await getSystemUser();
+        const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
+        const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase['id'] as string, caseworkerUser);
+        const getCaseData = caseDataFromCos;
+        getCaseData.respondents = this.mapRespondendAccordingtoIDAM(req);
+        req.session.apiCaseData = getCaseData;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public mapRespondendAccordingtoIDAM(req: AppRequest) {
+    if (req.session.apiCaseData?.hasOwnProperty('respondents')) {
+      // const systemUserId = '4aaca0b1-a100-43d7-bfdd-c0cdfe2fd413';
+      return [req.session.apiCaseData?.['respondents'][0]];
+    } else {
+      return [];
+    }
+  }
+
+  public mapApiDataToCaseData(req: AppRequest): void {
+    if (req.session['apiCaseData']?.hasOwnProperty('respondents')) {
+      const respondentDetails = req.session.apiCaseData?.['respondents'][0]['value'];
+      console.log(respondentDetails);
+    }
   }
 }

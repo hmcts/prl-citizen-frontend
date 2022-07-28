@@ -48,8 +48,6 @@ export class CosApiClient {
       },
     });
 
-    //console.log(response.data);
-
     return {
       id: response.data.id,
       state: response.data.state,

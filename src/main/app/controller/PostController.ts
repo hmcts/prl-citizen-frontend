@@ -161,10 +161,12 @@ export class PostController<T extends AnyObject> {
     const caseReference = formData.caseCode?.replace(/-/g, '');
     try {
       if (!req.session.errors.length) {
-        //const caseData = await req.locals.api.getCaseById(caseReference as string);
-        //console.log(caseData);
+      //  const caseData = await req.locals.api.getCaseById(caseReference as string);
+      //  console.log(caseData);
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
         const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
+        console.log(caseDataFromCos);
+        req.session.apiCaseData = caseDataFromCos;
         req.session.userCase = caseDataFromCos;
         //console.log('=============caseDataFromCos====================' + caseDataFromCos);
         // const updatedCaseDataFromCos = await client.updateCase(
@@ -220,6 +222,7 @@ export class PostController<T extends AnyObject> {
         // }
       }
     } catch (err) {
+      console.log(err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 

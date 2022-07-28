@@ -61,7 +61,7 @@ export class Routes {
     }
 
     app.get('/api/v1/session', (req, res) => {
-      res.json(req.session['userCase']);
+      res.json(req.session);
     });
 
     // app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));

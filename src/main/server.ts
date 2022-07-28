@@ -46,9 +46,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/v1/respondent', (req, res)=> {
-  res.json(require('./dummy/respondent.json'));
-});
 new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
