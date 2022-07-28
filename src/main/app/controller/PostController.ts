@@ -56,6 +56,15 @@ export class PostController<T extends AnyObject> {
     res.end();
   }
 
+  /**
+   * It saves the form data to the session, and then saves the session to the database
+   * @param req - AppRequest<T> - this is the request object that is passed to the controller. It
+   * contains the session, the body, the query, the params, etc.
+   * @param {Response} res - Response - this is the response object that will be returned to the user
+   * @param {Form} form - Form - the form object that is used to validate the form data
+   * @param formData - This is the data that the user has entered into the form.
+   * @returns a promise.
+   */
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
@@ -65,8 +74,6 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-
-    req.session.userCase = await this.save(req, formData, this.getEventName(req));
 
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);

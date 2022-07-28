@@ -45,6 +45,10 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
+
+app.get('/api/v1/respondent', (req, res)=> {
+  res.json(require('./dummy/respondent.json'));
+});
 new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
