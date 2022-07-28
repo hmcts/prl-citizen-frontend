@@ -152,7 +152,7 @@ export class PostController<T extends AnyObject> {
       req.session.accessCodeLoginIn = false;
     } else {
       //make an api call to check if the caseId exists? and if it exists then set the case code
-      //TODO: DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
+      //DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
       if (req.session.userCase === undefined) {
       const initData = {
         id: '1234567890123456',//formData.caseCode || '',
@@ -164,7 +164,7 @@ export class PostController<T extends AnyObject> {
       req.session.accessCodeLoginIn = true;
     }
 
-    //TODO: DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
+    //DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
     //this.redirect(req, res);
   }
   }
