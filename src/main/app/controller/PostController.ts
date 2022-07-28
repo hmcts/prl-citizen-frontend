@@ -150,23 +150,21 @@ export class PostController<T extends AnyObject> {
     req.session.errors = form.getErrors(formData);
     if (req.session.errors.length) {
       req.session.accessCodeLoginIn = false;
-    } else {
-      //make an api call to check if the caseId exists? and if it exists then set the case code
-      //DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
-      if (req.session.userCase === undefined) {
-      const initData = {
-        id: '1234567890123456',//formData.caseCode || '',
-        state: State.successAuthentication,
-        serviceType: '',
-        ...formData,
-      };
-      req.session.userCase = initData;
-      req.session.accessCodeLoginIn = true;
+      } else {
+        //make an api call to check if the caseId exists? and if it exists then set the case code
+        //DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
+        if (req.session.userCase === undefined) {
+        const initData = {
+          //DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
+          id: '1234567890123456',
+          state: State.successAuthentication,
+          serviceType: '',
+          ...formData,
+        };
+        req.session.userCase = initData;
+        req.session.accessCodeLoginIn = true;
+      }
     }
-
-    //DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
-    //this.redirect(req, res);
-  }
   }
 }
 
