@@ -86,11 +86,15 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-
-    /**
-     * @InvokeApiCall_and_dispatch_data
-     */
-    //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
+    const caseworkerUser = await getSystemUser();
+    const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
+    const requestMappedCaseData = {
+      applicantCaseName: 'XYZ',
+      natureOfOrder: 'test',
+      isCaseUrgent: 'Yes',
+    };
+    const caseId = req.session?.caseId;
+    await client.updateRespondentCase(req.session.user, caseId, req, requestMappedCaseData);
     this.redirect(req, res);
   }
 
@@ -240,6 +244,7 @@ export class PostController<T extends AnyObject> {
         const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
         req.session.apiCaseData = caseDataFromCos;
         req.session.userCase = caseDataFromCos;
+        req.session['caseId'] = caseReference;
         //console.log('=============caseDataFromCos====================' + caseDataFromCos);
         // const updatedCaseDataFromCos = await client.updateCase(
         //   caseworkerUser,

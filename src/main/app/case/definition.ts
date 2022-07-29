@@ -800,3 +800,6 @@ export interface Document {
   document_binary_url: string;
   document_hash?: string | undefined | null;
 }
+
+export type RespondentCaseId = string | number | undefined;
+export type RespondentCaseData = object | [] | undefined;

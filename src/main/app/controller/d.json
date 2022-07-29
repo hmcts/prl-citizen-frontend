@@ -1,0 +1,479 @@
+[
+  {
+    "id": "c5c92df0-ac52-4584-a483-7cfd1d787476",
+    "value": {
+      "email": "aloknath.datta@cognizant.com",
+      "gender": "female",
+      "user": { "idamId": "e3ceb507-0137-43a9-8bd3-85dd23720648", "emailAddress": "aloknath.datta@hmcts.net" },
+      "response": {
+        "legalrepresentation": "Yes",
+        "consent": {
+          "consentToTheApplication": "Yes/No",
+          "noConsentReason": "TextBox(if No to above)",
+          "applicationReceivedDate": "21-03-2022",
+          "permissionFromCourt": "Yes/No",
+          "courtOrderDetails": "TextBox(if Yes to above)"
+        },
+        "keepDetailsPrivate": {
+          "otherPeopleKnowYourContactDetails": "Yes/No/dontKnow",
+          "confidentialty": "Yes/No",
+          "confidentialityList": { "phone": "checkbox", "email": "checkbox", "address": "checkbox" }
+        },
+        "partyDetails": {
+          "firstName": "Text",
+          "lastName": "Text",
+          "previousName": "Text",
+          "dateOfBirth": "date",
+          "placeOfBirth": "Text",
+          "address": {
+            "County": "Text",
+            "Country": "Text",
+            "PostCode": "Text",
+            "PostTown": "Text",
+            "AddressLine1": "Text",
+            "AddressLine2": "Text",
+            "AddressLine3": "Text"
+          },
+          "addressHistory": { "haveYouLivedMoreThan5Years": "Yes/No", "previousHistory": "Textbox (if no to above)" },
+          "contact": { "phoneNumber": "Text", "email": "Text" }
+        },
+        "hearingNeeds": {
+          "languageRequirements": {
+            "speakWelsh": "checkbox",
+            "readWriteWelsh": "checkbox",
+            "needInterpreter": "checkbox",
+            "otherLanguageInterpreter": "Textbox",
+            "notNeeded": "checkbox"
+          },
+          "disabilitySupport": {
+            "documentsInAlternateFormat": "checkbox",
+            "helpInCommuncating": "checkbox",
+            "needToBringSupport": "checkbox",
+            "needSomethingComfortable": "checkbox",
+            "needHelpInTravelling": "checkbox",
+            "notNeeded": "checkbox"
+          },
+          "documentsInAlternateFormat": {
+            "printed": "checkbox",
+            "describePrintNeed": "Text",
+            "easyReadFormat": "checkbox",
+            "braille": "checkbox",
+            "largePrint": "checkbox",
+            "describeLargePrintNeed": "Text",
+            "audioTranslation": "checkbox",
+            "ReadOut": "checkbox",
+            "informationEmailed": "checkbox",
+            "other": "checkbox",
+            "describeOtherNeed": "Text",
+            "notNeeded": "checkbox"
+          },
+          "helpInCommuncating": {
+            "hearingLoop": "checkbox",
+            "infraredReceiver": "checkbox",
+            "needToBeClose": "checkbox",
+            "lipSpeaker": "checkbox",
+            "britishSignLangInterpreter": "checkbox",
+            "speechToTextReporter": "checkbox",
+            "extraTimeToThink": "checkbox",
+            "visitToCourt": "checkbox",
+            "explanationOfCourtHearing": "checkbox",
+            "intermediary": "checkbox",
+            "other": "checkbox",
+            "otherNeed": "Text",
+            "notNeeded": "checkbox"
+          },
+          "needToBringSupport": {
+            "supportWorker": "checkbox",
+            "supportWorkerNeed": "Text",
+            "friendOrFamily": "checkbox",
+            "friendOrFamilyNeed": "Text",
+            "assitanceOrGuideDog": "checkbox",
+            "therapyAnimal": "checkbox",
+            "other": "checkbox",
+            "otherNeed": "Text",
+            "notNeeded": "checkbox"
+          },
+          "needSomethingComfortable": {
+            "appropriateLighting": "checkbox",
+            "appropriateLightingNeed": "Text",
+            "regularBreaks": "checkbox",
+            "regularBreaksNeed": "Text",
+            "physicalSpace": "checkbox",
+            "other": "checkbox",
+            "otherNeed": "Text",
+            "notNeeded": "checkbox"
+          },
+          "needHelpInTravelling": {
+            "parkingSpace": "checkbox",
+            "parkingSpaceNeed": "Text",
+            "wheelchairAccess": "checkbox",
+            "venueWheelchair": "checkbox",
+            "accessibleToilet": "checkbox",
+            "usingALift": "checkbox",
+            "differentTypeOfchair": "checkbox",
+            "differentTypeOfchairNeed": "Text",
+            "guidingInBuilding": "checkbox",
+            "other": "checkbox",
+            "otherNeed": "Text",
+            "notNeeded": "checkbox"
+          },
+          "unableToAttendCourt": { "isThereReason": "Yes/No", "unableToAttendProceedingsReason": "Text" },
+          "specialSafetyArrangements": {
+            "seperateWaitingRoom": "checkbox",
+            "seperateExitsEntrance": "checkbox",
+            "screensNeeded": "checkbox",
+            "seperateToilets": "checkbox",
+            "advanceViewingOfCourt": "checkbox",
+            "needVideoLinks": "checkbox",
+            "other": "checkbox",
+            "otherNeed": "TextBox",
+            "notNeeded": "checkbox"
+          }
+        },
+        "miam": {
+          "attendedMiam": "Yes/No",
+          "willingToAttendMiam": "Yes/No",
+          "reasonNotAttendingMiam": "TextBox(OnselecctionofNo)"
+        },
+        "currentPreviousProceedings": {
+          "isChildrenInvolvedInCourtCase": "Yes/No/DontKnow",
+          "emergencyProtectionOrder": {
+            "isemergencyProtectionOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "superVisionOrder": {
+            "isSuperVisionOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "careOrder": {
+            "isCareOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "childAbduction": {
+            "isChildAbduction": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "childArrangementOrder": {
+            "isChildArrangementOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "financialOrder": {
+            "isFinancialOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "nonMolestationOrder": {
+            "isNonMolestationOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "occupationOrder": {
+            "isOccupationOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "forcedMarrigeOrder": {
+            "isForcedMarrigeOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "restrainingOrder": {
+            "isRestrainingOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "otherInjuctiveOrder": {
+            "isOtherInjuctiveOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "undertakingOrder": {
+            "isUndertakingOrder": "Yes/No/DontKnow",
+            "caseNumber": "Text",
+            "orderDate": "Date",
+            "howLongWasTheOrder": "Text",
+            "isCurrentOrder": "Yes/No",
+            "issuedCourt": "Text"
+          },
+          "courtOrderMadeForProtection": "Yes/No"
+        },
+        "respondentSafetyConcerns": {
+          "domesticViolanceAbuse": "Yes/No",
+          "sexuallyAbused": "Yes/No",
+          "sexuallyAbusedDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          },
+          "physicallyAbused": "Yes/No",
+          "physicallyAbuseDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          },
+          "financiallyAbused": "Yes/No",
+          "financialAbuseDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          },
+          "pshycologicallyAbused": "Yes/No",
+          "psycologicalAbuseDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          },
+          "emotionallyAbused": "Yes/No",
+          "emotionalAbuseDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          }
+        },
+        "childrenSafetyConcerns": {
+          "domesticViolanceAbuse": "Yes/No",
+          "sexuallyAbused": "Yes/No",
+          "sexuallyAbusedDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          },
+          "physicallyAbused": "Yes/No",
+          "physicallyAbuseDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          },
+          "financiallyAbused": "Yes/No",
+          "financialAbuseDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          },
+          "pshycologicallyAbused": "Yes/No",
+          "psycologicalAbuseDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          },
+          "emotionallyAbused": "Yes/No",
+          "emotionalAbuseDetails": {
+            "explainWhoWasInvolved": "TextBox",
+            "whenDidBehaviourStart": "Text",
+            "isBehaviourStillGoingOn": "Yes/No",
+            "haveYouEverAskedForHelp": "Yes/No",
+            "helpDetails": { "whoDidYouAsk": "Text", "didTheyHelpYou": "Yes/No", "whatDidTheyDo": "Text" }
+          }
+        },
+        "abductionConcerns": {
+          "childrenRiskOfAbduction": "Yes/No",
+          "haveThePolicebeenNotified": "Yes/No",
+          "anyOfTheChildrenHasPassport": "Yes/No",
+          "childrenPassportDetails": {
+            "childHasMoreThanOnePassport": "Yes/No",
+            "whoIsPocessingChildPassport": {
+              "Mother": "checkbox",
+              "Father": "checkobox",
+              "Other": "Checkbox",
+              "OtherDetails": "TextBox"
+            }
+          },
+          "passportOfficeNotified": "Yes/No",
+          "childrenKeptOutsideUK": "Yes/No",
+          "whyChildrenkeptPutsideUK": { "brieflyExplainConcerns": "TextBox", "whereAreTheChildrenNow": "TextBox" },
+          "previousAbductionDetails": {
+            "shortDescription": "TextBox",
+            "policePrivateInvestigatorsInvolved": "Yes/No",
+            "provideMoreDetails": "ddddd"
+          }
+        },
+        "otherSafetyConcerns": {
+          "drugAlocoholSubstanceAbuse": "Yes/No",
+          "shortDescriptionOfDrug": "TextBox",
+          "childSafetyWellbeingCOncerns": "Yes/No",
+          "childSafetyWellbeingCOncernsDetails": "textBox"
+        },
+        "courtToDoToKeepChildSafe": {
+          "courtToDoToKeepChildSafeDescribe": "TextBox",
+          "agreeToChildrenToSpendTimeWithOtherPeople": "Yes/Yes(supervised)/No",
+          "agreeToChildrenBeingInTouchWithOtherPeople": "Yes/No"
+        },
+        "internationalElements": {
+          "childrenLiveOutsideOfEnWl": "Yes/No",
+          "childrenLiveOutsideOfEnWlDetails": "TextBox",
+          "parentsAnyOneLiveOutsideEnWl": "Yes/No",
+          "parentsAnyOneLiveOutsideEnWlDetails": "TextBox",
+          "anotherPersonOrderOutsideEnWl": "Yes/No",
+          "anotherPersonOrderOutsideEnWlDetails": "TextBox",
+          "anotherCountryAskedInformation": "Yes/No",
+          "anotherCountryAskedInformationDetaails": "TextBox"
+        }
+      },
+      "address": {
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 1ND",
+        "PostTown": "Hounslow",
+        "AddressLine1": "Flat 415",
+        "AddressLine2": "The Blenheim Centre",
+        "AddressLine3": "Prince Regent Road"
+      },
+      "dxNumber": null,
+      "landline": null,
+      "lastName": "Respondent",
+      "firstName": "James",
+      "dateOfBirth": null,
+      "otherGender": null,
+      "phoneNumber": "1234567890",
+      "placeOfBirth": "abcd",
+      "previousName": null,
+      "solicitorOrg": { "OrganisationID": null, "OrganisationName": null },
+      "sendSignUpLink": null,
+      "solicitorEmail": null,
+      "isAddressUnknown": null,
+      "solicitorAddress": {
+        "County": null,
+        "Country": null,
+        "PostCode": null,
+        "PostTown": null,
+        "AddressLine1": null,
+        "AddressLine2": null,
+        "AddressLine3": null
+      },
+      "isDateOfBirthKnown": "No",
+      "solicitorReference": null,
+      "solicitorTelephone": null,
+      "isPlaceOfBirthKnown": "Yes",
+      "isDateOfBirthUnknown": null,
+      "isAddressConfidential": null,
+      "isCurrentAddressKnown": "Yes",
+      "relationshipToChildren": null,
+      "representativeLastName": null,
+      "representativeFirstName": null,
+      "canYouProvidePhoneNumber": "Yes",
+      "canYouProvideEmailAddress": "Yes",
+      "isAtAddressLessThan5Years": null,
+      "isPhoneNumberConfidential": null,
+      "isEmailAddressConfidential": null,
+      "respondentLivedWithApplicant": null,
+      "doTheyHaveLegalRepresentation": "no",
+      "addressLivedLessThan5YearsDetails": null,
+      "otherPersonRelationshipToChildren": [],
+      "isAtAddressLessThan5YearsWithDontKnow": "no"
+    }
+  },
+  {
+    "id": "c5c92df0-ac52-4584-a483-7cfd1d787476",
+    "value": {
+      "email": "aloknath.datta@cognizant.com",
+      "gender": "female",
+      "address": {
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 1ND",
+        "PostTown": "Hounslow",
+        "AddressLine1": "Flat 415",
+        "AddressLine2": "The Blenheim Centre",
+        "AddressLine3": "Prince Regent Road"
+      },
+      "dxNumber": null,
+      "landline": null,
+      "lastName": "Respondent",
+      "firstName": "James",
+      "dateOfBirth": null,
+      "otherGender": null,
+      "phoneNumber": "1234567890",
+      "placeOfBirth": "abcd",
+      "previousName": null,
+      "solicitorOrg": { "OrganisationID": null, "OrganisationName": null },
+      "sendSignUpLink": null,
+      "solicitorEmail": null,
+      "isAddressUnknown": null,
+      "solicitorAddress": {
+        "County": null,
+        "Country": null,
+        "PostCode": null,
+        "PostTown": null,
+        "AddressLine1": null,
+        "AddressLine2": null,
+        "AddressLine3": null
+      },
+      "isDateOfBirthKnown": "No",
+      "solicitorReference": null,
+      "solicitorTelephone": null,
+      "isPlaceOfBirthKnown": "Yes",
+      "isDateOfBirthUnknown": null,
+      "isAddressConfidential": null,
+      "isCurrentAddressKnown": "Yes",
+      "relationshipToChildren": null,
+      "representativeLastName": null,
+      "representativeFirstName": null,
+      "canYouProvidePhoneNumber": "Yes",
+      "canYouProvideEmailAddress": "Yes",
+      "isAtAddressLessThan5Years": null,
+      "isPhoneNumberConfidential": null,
+      "isEmailAddressConfidential": null,
+      "respondentLivedWithApplicant": null,
+      "doTheyHaveLegalRepresentation": "no",
+      "addressLivedLessThan5YearsDetails": null,
+      "otherPersonRelationshipToChildren": [],
+      "isAtAddressLessThan5YearsWithDontKnow": "no"
+    }
+  }
+]
