@@ -49,7 +49,9 @@ export class Routes {
         ? require(`${step.stepDir}/${getControllerFileName}`).default
         : GetController;
 
-      app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+      if (step && getController) {
+        app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+      }
 
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
