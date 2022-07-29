@@ -5,33 +5,39 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: "Could another person in the application apply for a similar order in a country outside England or Wales? ",
+  title: 'Could another person in the application apply for a similar order in a country outside England or Wales? ',
   line1: 'For example, because a court in another country has the power to make decisions or judgments (jurisdiction).',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    detailsKnown: {
-      required: "Select yes if another person in the application apply for a similar order in a country outside England or Wales?",
+    internationalJurisdiction: {
+      required:
+        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales?',
     },
-    provideDetails: {
-      required: "Provide details about the another person in the application apply for a similar order in a country outside England or Wales?",
+    provideDetailsJurisdiction: {
+      required:
+        'Provide details about another person in the application applying for a similar order in a country outside England or Wales?',
     },
   },
 });
 
 const cy = () => ({
-  title: "Could another person in the application apply for a similar order in a country outside England or Wales?  - welsh ",
-  line1: 'For example, because a court in another country has the power to make decisions or judgments (jurisdiction). - welsh  ',
+  title:
+    'Could another person in the application apply for a similar order in a country outside England or Wales?  - welsh ',
+  line1:
+    'For example, because a court in another country has the power to make decisions or judgments (jurisdiction). - welsh  ',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
-    detailsKnown: {
-      required: "Select yes if another person in the application apply for a similar order in a country outside England or Wales? - Welsh",
+    internationalJurisdiction: {
+      required:
+        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales? - Welsh',
     },
-    provideDetails: {
-      required: "Provide details about the another person in the application apply for a similar order in a country outside England or Wales? - Welsh ",
+    provideDetailsJurisdiction: {
+      required:
+        'Provide details about another person in the application applying for a similar order in a country outside England or Wales? - Welsh ',
     },
   },
 });
@@ -43,7 +49,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    detailsKnown: {
+    internationalJurisdiction: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -51,7 +57,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            provideDetails: {
+            provideDetailsJurisdiction: {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,
@@ -69,7 +75,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.onlycontinue,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,

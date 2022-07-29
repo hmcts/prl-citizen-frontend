@@ -8,39 +8,44 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Do the children live outside of England or Wales? ',
-  line1: 'For example, does their main family life take place outside of England and Wales?    ',
+  title: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
+  line1:
+    'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    internationalStart: {
-      required: 'Select yes if the children live outside of England or Wales',
+    internationalParents: {
+      required:
+        "Select yes if the children's parents or anyone significant to the children living outside of England or Wales",
     },
-    provideDetailsStart: {
-      required: 'Provide details about the children living outside of England or Wales',
+    provideDetailsParents: {
+      required:
+        "Provide details about the children's parents or anyone significant to the children living outside of England or Wales",
     },
   },
 };
 
 const cy = {
-  title: 'Do the children live outside of England or Wales?  - welsh',
-  line1: 'For example, does their main family life take place outside of England and Wales? - welsh  ',
+  title: "Do the children's parents or anyone significant to the children live outside of England or Wales? - welsh ",
+  line1:
+    'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales. - welsh  ',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
-    internationalStart: {
-      required: 'Select yes if the children live outside of England or Wales - Welsh',
+    internationalParents: {
+      required:
+        "Select yes if the children's parents or anyone significant to the children living outside of England or Wales - Welsh",
     },
-    provideDetailsStart: {
-      required: 'Provide details about the children living outside of England or Wales - Welsh',
+    provideDetailsParents: {
+      required:
+        "Provide details about the children's parents or anyone significant to the children living outside of England or Wales - Welsh ",
     },
   },
 };
-
 /* eslint-disable @typescript-eslint/ban-types */
-describe('applicant personal details > international elements > start', () => {
+describe('applicant personal details > international elements > parents', () => {
   const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
@@ -56,12 +61,12 @@ describe('applicant personal details > international elements > start', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.internationalStart as FormOptions;
+    const applyingWithField = fields.internationalParents as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    const field2 = applyingWithField.values[0].subFields!.provideDetailsStart;
+    const field2 = applyingWithField.values[0].subFields!.provideDetailsParents;
     expect((field2?.label as Function)(generatedContent)).toBe(en.provideDetails);
     expect(field2.type).toBe('textarea');
     (field2.validator as Function)('Yes');

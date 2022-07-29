@@ -8,39 +8,45 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Do the children live outside of England or Wales? ',
-  line1: 'For example, does their main family life take place outside of England and Wales?    ',
+  title: 'Could another person in the application apply for a similar order in a country outside England or Wales? ',
+  line1: 'For example, because a court in another country has the power to make decisions or judgments (jurisdiction).',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    internationalStart: {
-      required: 'Select yes if the children live outside of England or Wales',
+    internationalJurisdiction: {
+      required:
+        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales?',
     },
-    provideDetailsStart: {
-      required: 'Provide details about the children living outside of England or Wales',
+    provideDetailsJurisdiction: {
+      required:
+        'Provide details about another person in the application applying for a similar order in a country outside England or Wales?',
     },
   },
 };
 
 const cy = {
-  title: 'Do the children live outside of England or Wales?  - welsh',
-  line1: 'For example, does their main family life take place outside of England and Wales? - welsh  ',
+  title:
+    'Could another person in the application apply for a similar order in a country outside England or Wales?  - welsh ',
+  line1:
+    'For example, because a court in another country has the power to make decisions or judgments (jurisdiction). - welsh  ',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
-    internationalStart: {
-      required: 'Select yes if the children live outside of England or Wales - Welsh',
+    internationalJurisdiction: {
+      required:
+        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales? - Welsh',
     },
-    provideDetailsStart: {
-      required: 'Provide details about the children living outside of England or Wales - Welsh',
+    provideDetailsJurisdiction: {
+      required:
+        'Provide details about another person in the application applying for a similar order in a country outside England or Wales? - Welsh ',
     },
   },
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
-describe('applicant personal details > international elements > start', () => {
+describe('applicant personal details > international elements > jurisdiction', () => {
   const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
@@ -56,12 +62,12 @@ describe('applicant personal details > international elements > start', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.internationalStart as FormOptions;
+    const applyingWithField = fields.internationalJurisdiction as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    const field2 = applyingWithField.values[0].subFields!.provideDetailsStart;
+    const field2 = applyingWithField.values[0].subFields!.provideDetailsJurisdiction;
     expect((field2?.label as Function)(generatedContent)).toBe(en.provideDetails);
     expect(field2.type).toBe('textarea');
     (field2.validator as Function)('Yes');

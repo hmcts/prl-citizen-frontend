@@ -5,33 +5,38 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: "Has another country asked (or been asked) for information or help for the children?",
-  line1: 'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
+  title: 'Has another country asked (or been asked) for information or help for the children?',
+  line1:
+    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    detailsKnown: {
-      required: "Select yes if the children's parents or anyone significant to the children live outside of England or Wales",
+    internationalRequest: {
+      required: 'Select yes if another country has asked (or been asked) for information or help for the children',
     },
-    provideDetails: {
-      required: "Provide details about the children's parents or anyone significant to the children live outside of England or Wales",
+    provideDetailsRequest: {
+      required:
+        'Provide details about another country asking (or being asked) for information or help for the children',
     },
   },
 });
 
 const cy = () => ({
-  title: "Has another country asked (or been asked) for information or help for the children? - welsh ",
-  line1: 'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case. - welsh  ',
+  title: 'Has another country asked (or been asked) for information or help for the children? - welsh ',
+  line1:
+    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case. - welsh  ',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
-    detailsKnown: {
-      required: "Select yes if the children's parents or anyone significant to the children live outside of England or Wales - Welsh",
+    internationalRequest: {
+      required:
+        'Select yes if another country has asked (or been asked) for information or help for the children - Welsh',
     },
-    provideDetails: {
-      required: "Provide details about the children's parents or anyone significant to the children live outside of England or Wales - Welsh ",
+    provideDetailsRequest: {
+      required:
+        'Provide details about another country asking (or being asked) for information or help for the children - Welsh ',
     },
   },
 });
@@ -43,7 +48,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    detailsKnown: {
+    internationalRequest: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -51,7 +56,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            provideDetails: {
+            provideDetailsRequest: {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,
@@ -69,7 +74,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.onlycontinue,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,

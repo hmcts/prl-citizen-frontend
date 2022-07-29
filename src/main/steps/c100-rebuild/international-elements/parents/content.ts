@@ -6,32 +6,38 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
-  line1: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
+  line1:
+    'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    detailsKnown: {
-      required: "Select yes if the children's parents or anyone significant to the children live outside of England or Wales",
+    internationalParents: {
+      required:
+        "Select yes if the children's parents or anyone significant to the children living outside of England or Wales",
     },
-    provideDetails: {
-      required: "Provide details about the children's parents or anyone significant to the children live outside of England or Wales",
+    provideDetailsParents: {
+      required:
+        "Provide details about the children's parents or anyone significant to the children living outside of England or Wales",
     },
   },
 });
 
 const cy = () => ({
   title: "Do the children's parents or anyone significant to the children live outside of England or Wales? - welsh ",
-  line1: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales. - welsh  ',
+  line1:
+    'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales. - welsh  ',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
-    detailsKnown: {
-      required: "Select yes if the children's parents or anyone significant to the children live outside of England or Wales - Welsh",
+    internationalParents: {
+      required:
+        "Select yes if the children's parents or anyone significant to the children living outside of England or Wales - Welsh",
     },
-    provideDetails: {
-      required: "Provide details about the children's parents or anyone significant to the children live outside of England or Wales - Welsh ",
+    provideDetailsParents: {
+      required:
+        "Provide details about the children's parents or anyone significant to the children living outside of England or Wales - Welsh ",
     },
   },
 });
@@ -43,7 +49,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    detailsKnown: {
+    internationalParents: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -51,7 +57,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            provideDetails: {
+            provideDetailsParents: {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,
@@ -69,7 +75,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.onlycontinue,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
