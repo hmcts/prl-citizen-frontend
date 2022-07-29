@@ -6,6 +6,10 @@ import {
   C100_CONFIDENTIALITY_FEEDBACK_NO,
   C100_CONFIDENTIALITY_START,
   C100_CONFIDENTIALITY_START_ALTERNATIVE,
+  C100_INTERNATIONAL_ELEMENTS_JURISDICTION,
+  C100_INTERNATIONAL_ELEMENTS_PARENTS,
+  C100_INTERNATIONAL_ELEMENTS_REQUEST,
+  C100_INTERNATIONAL_ELEMENTS_START,
 } from '../urls';
 
 export const C100Sequence: Step[] = [
@@ -18,12 +22,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CONFIDENTIALITY_FEEDBACK,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_INTERNATIONAL_ELEMENTS_START,
   },
   {
     url: C100_CONFIDENTIALITY_FEEDBACK_NO,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_INTERNATIONAL_ELEMENTS_START,
   },
   {
     url: C100_CONFIDENTIALITY_START,
@@ -36,5 +40,25 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: data =>
       data.startAlternative === YesOrNo.YES ? C100_CONFIDENTIALITY_FEEDBACK : C100_CONFIDENTIALITY_FEEDBACK_NO,
+  },
+  {
+    url: C100_INTERNATIONAL_ELEMENTS_START,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_INTERNATIONAL_ELEMENTS_PARENTS,
+  },
+  {
+    url: C100_INTERNATIONAL_ELEMENTS_PARENTS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_INTERNATIONAL_ELEMENTS_JURISDICTION,
+  },
+  {
+    url: C100_INTERNATIONAL_ELEMENTS_JURISDICTION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_INTERNATIONAL_ELEMENTS_REQUEST,
+  },
+  {
+    url: C100_INTERNATIONAL_ELEMENTS_REQUEST,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
