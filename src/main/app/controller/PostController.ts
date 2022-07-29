@@ -32,6 +32,7 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
     } else {
+      await this.checkCaseAccessCode(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -151,17 +152,19 @@ export class PostController<T extends AnyObject> {
       req.session.accessCodeLoginIn = false;
     } else {
       //make an api call to check if the caseId exists? and if it exists then set the case code
-      const initData = {
-        id: formData.caseCode || '',
-        state: State.successAuthentication,
-        serviceType: '',
-        ...formData,
-      };
-      req.session.userCase = initData;
-      req.session.accessCodeLoginIn = true;
+      //DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
+      if (req.session.userCase === undefined) {
+        const initData = {
+          //DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
+          id: '1234567890123456',
+          state: State.successAuthentication,
+          serviceType: '',
+          ...formData,
+        };
+        req.session.userCase = initData;
+        req.session.accessCodeLoginIn = true;
+      }
     }
-
-    this.redirect(req, res);
   }
 }
 
