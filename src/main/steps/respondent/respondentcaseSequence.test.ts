@@ -44,43 +44,43 @@ describe('applicant1Sequence', () => {
     expect(respondentCaseSequence[9].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[10].url).toBe('/respondent/confirmcontactdetails/checkanswers');
+    expect(respondentCaseSequence[10].url).toBe('/respondent/confirm-contact-details/checkanswers');
     expect(respondentCaseSequence[10].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[10].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[11].url).toBe('/respondent/confirmcontactdetails/personaldetails');
+    expect(respondentCaseSequence[11].url).toBe('/respondent/confirm-contact-details/personaldetails');
     expect(respondentCaseSequence[11].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[11].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[12].url).toBe('/respondent/confirmcontactdetails/contactdetails');
+    expect(respondentCaseSequence[12].url).toBe('/respondent/confirm-contact-details/contactdetails');
     expect(respondentCaseSequence[12].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[12].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[13].url).toBe('/respondent/confirmcontactdetails/addressdetails');
+    expect(respondentCaseSequence[13].url).toBe('/respondent/confirm-contact-details/addressdetails');
     expect(respondentCaseSequence[13].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[13].getNextStep({})).toBe('/respondent/confirmcontactdetails/addresslookup');
+    expect(respondentCaseSequence[13].getNextStep({})).toBe('/respondent/confirm-contact-details/addresslookup');
 
-    expect(respondentCaseSequence[14].url).toBe('/respondent/confirmcontactdetails/addresslookup');
+    expect(respondentCaseSequence[14].url).toBe('/respondent/confirm-contact-details/addresslookup');
     expect(respondentCaseSequence[14].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[14].getNextStep({})).toBe('/respondent/confirmcontactdetails/addresslookupcont');
+    expect(respondentCaseSequence[14].getNextStep({})).toBe('/respondent/confirm-contact-details/addresslookupcont');
 
-    expect(respondentCaseSequence[15].url).toBe('/respondent/confirmcontactdetails/addresslookupcont');
+    expect(respondentCaseSequence[15].url).toBe('/respondent/confirm-contact-details/addresslookupcont');
     expect(respondentCaseSequence[15].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[15].getNextStep({})).toBe('/respondent/confirmcontactdetails/addressconfirmation');
+    expect(respondentCaseSequence[15].getNextStep({})).toBe('/respondent/confirm-contact-details/addressconfirmation');
 
-    expect(respondentCaseSequence[16].url).toBe('/respondent/confirmcontactdetails/addresslookup');
+    expect(respondentCaseSequence[16].url).toBe('/respondent/confirm-contact-details/addresslookup');
     expect(respondentCaseSequence[16].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[16].getNextStep({})).toBe('/respondent/confirmcontactdetails/addressconfirmation');
+    expect(respondentCaseSequence[16].getNextStep({})).toBe('/respondent/confirm-contact-details/addressconfirmation');
 
-    expect(respondentCaseSequence[17].url).toBe('/respondent/confirmcontactdetails/addressconfirmation');
+    expect(respondentCaseSequence[17].url).toBe('/respondent/confirm-contact-details/addressconfirmation');
     expect(respondentCaseSequence[17].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[17].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[18].url).toBe('/respondent/confirmcontactdetails/addressblank');
+    expect(respondentCaseSequence[18].url).toBe('/respondent/confirm-contact-details/addressblank');
     expect(respondentCaseSequence[18].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[18].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[19].url).toBe('/respondent/confirmcontactdetails/addresshistory');
+    expect(respondentCaseSequence[19].url).toBe('/respondent/confirm-contact-details/addresshistory');
     expect(respondentCaseSequence[19].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[19].getNextStep({})).toBe('/respondent/task-list');
 
