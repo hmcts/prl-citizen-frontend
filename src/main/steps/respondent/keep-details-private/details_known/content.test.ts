@@ -72,8 +72,8 @@ describe('citizen-home content', () => {
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Save and Continue button', () => {
+    expect((form.onlyContinue.text as Function)(generatedContent)).not.toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

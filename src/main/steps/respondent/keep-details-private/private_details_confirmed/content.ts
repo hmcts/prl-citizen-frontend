@@ -22,12 +22,12 @@ const cy: typeof en = {
     'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
   continue: 'Save and continue',
 };
-const contactList= {
+const contactList = {
   cmap: {
     address: 'Address',
     phone: 'Phone number',
     email: 'Email',
-  }
+  },
 };
 
 const languages = {
