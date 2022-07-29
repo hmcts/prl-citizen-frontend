@@ -60,7 +60,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_INTERNATIONAL_ELEMENTS_REQUEST,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT,

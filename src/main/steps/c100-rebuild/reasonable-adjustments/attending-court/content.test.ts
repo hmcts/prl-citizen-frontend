@@ -92,8 +92,8 @@ describe('applicant personal details > applying-with > content', () => {
 
   test('should contain Save and continue button', () => {
     expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and continue');
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
   });
 
   test('should contain saveAndComeLater button', () => {
