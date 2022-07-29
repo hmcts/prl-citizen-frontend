@@ -10,7 +10,6 @@ const en = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
@@ -26,7 +25,6 @@ const cy: typeof en = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
@@ -63,8 +61,8 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  submit: {
-    text: l => l.continue,
+  onlyContinue: {
+    text: l => l.onlyContinue,
   },
 };
 

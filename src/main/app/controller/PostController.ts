@@ -26,18 +26,25 @@ export class PostController<T extends AnyObject> {
     const form = new Form(fields);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-
     if (req.body.saveAndSignOut) {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
+    } else if (req.body.onlyContinue) {
+      await this.onlyContinue(req, res, form, formData);
     } else {
       await this.saveAndContinue(req, res, form, formData);
     }
   }
 
+  /**
+   * It saves the form data and then redirects to the sign out page
+   * @param req - AppRequest<T>
+   * @param {Response} res - Response - the response object
+   * @param formData - Partial<Case> - this is the data that is being saved
+   */
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     try {
       await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
@@ -47,6 +54,13 @@ export class PostController<T extends AnyObject> {
     res.redirect(SAVE_AND_SIGN_OUT);
   }
 
+  /**
+   * It saves the form data to the case, and then ends the response
+   * @param req - AppRequest<T> - this is the request object that is passed to the controller. It
+   * contains the session and the form data.
+   * @param {Response} res - Response - the response object
+   * @param formData - The data that is being saved
+   */
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     try {
       await this.save(req, formData, this.getEventName(req));
@@ -68,17 +82,45 @@ export class PostController<T extends AnyObject> {
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
-
     this.filterErrorsForSaveAsDraft(req);
-
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
 
+    /**
+     * @InvokeApiCall_and_dispatch_data
+     */
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);
   }
 
+  /**
+   * It takes a request, response, form and form data, and then assigns the form data to the user case
+   * in the session, and then sets the errors in the session to the errors from the form, and then
+   * filters the errors for save as draft, and then if there are errors in the session, it redirects to
+   * the same page, otherwise it redirects to the same page
+   * @param req - AppRequest<T> - this is the request object that is passed to the controller. It
+   * contains the session, the body, the query and the params.
+   * @param {Response} res - Response - the response object
+   * @param {Form} form - Form - the form object that is being used to render the page
+   * @param formData - The data that was submitted by the user
+   * @returns a promise.
+   */
+  private async onlyContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
+    Object.assign(req.session.userCase, formData);
+    req.session.errors = form.getErrors(formData);
+    this.filterErrorsForSaveAsDraft(req);
+    if (req.session.errors.length) {
+      return this.redirect(req, res);
+    }
+    this.redirect(req, res);
+  }
+
+  /**
+   * If the user has clicked the save as draft button, then remove any errors that are related to empty
+   * fields
+   * @param req - AppRequest<T>
+   */
   protected filterErrorsForSaveAsDraft(req: AppRequest<T>): void {
     if (req.body.saveAsDraft) {
       // skip empty field errors in case of save as draft
@@ -91,6 +133,14 @@ export class PostController<T extends AnyObject> {
     }
   }
 
+  /**
+   * It saves the form data to the session and then triggers the event
+   * @param req - AppRequest<T> - this is the request object that is passed to the controller. It
+   * contains the session, the locals, and the body.
+   * @param formData - The data that is being sent to the API
+   * @param {string} eventName - The name of the event to trigger.
+   * @returns The userCase is being returned.
+   */
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     try {
       console.log(eventName);
@@ -104,6 +154,14 @@ export class PostController<T extends AnyObject> {
     return req.session.userCase;
   }
 
+  /**
+   * It redirects to the next step in the journey, or to the task list page if the user has clicked the
+   * save as draft button
+   * @param req - AppRequest<T>
+   * @param {Response} res - Response - this is the response object that is passed to the controller
+   * method
+   * @param {string} [nextUrl] - The URL to redirect to.
+   */
   protected redirect(req: AppRequest<T>, res: Response, nextUrl?: string): void {
     let target;
     if (req.body['saveAsDraft']) {
@@ -117,7 +175,6 @@ export class PostController<T extends AnyObject> {
       //redirects to input nextUrl if present otherwise calls getNextStepUrl to get the next step url
       target = nextUrl || getNextStepUrl(req, req.session.userCase);
     }
-
     req.session.save(err => {
       if (err) {
         throw err;
@@ -128,6 +185,14 @@ export class PostController<T extends AnyObject> {
 
   // method to check if there is a returnUrl in session and
   // it is one of the allowed redirects from current page
+  /**
+   * If the returnUrl is in the allowedReturnUrls array, then redirect to that URL, otherwise redirect to
+   * the default URL
+   * @param req - AppRequest<T> - this is the request object that is passed to the controller. It is an
+   * extension of the Express Request object.
+   * @param {Response} res - Response - the response object
+   * @param {string[]} allowedReturnUrls - An array of URLs that the user is allowed to be redirected to.
+   */
   protected checkReturnUrlAndRedirect(req: AppRequest<T>, res: Response, allowedReturnUrls: string[]): void {
     const returnUrl = req.session.returnUrl;
     if (returnUrl && allowedReturnUrls.includes(returnUrl)) {
@@ -143,6 +208,14 @@ export class PostController<T extends AnyObject> {
     return CITIZEN_UPDATE;
   }
 
+  /**
+   * It checks if the access code is valid and if it is, it sets the session variable `accessCodeLoginIn`
+   * to true
+   * @param req - AppRequest<T>
+   * @param {Response} res - Response
+   * @param {Form} form - Form - the form object that contains the form definition
+   * @param formData - The data that was submitted by the user.
+   */
   private async checkCaseAccessCode(
     req: AppRequest<T>,
     res: Response,
@@ -161,11 +234,10 @@ export class PostController<T extends AnyObject> {
     const caseReference = formData.caseCode?.replace(/-/g, '');
     try {
       if (!req.session.errors.length) {
-      //  const caseData = await req.locals.api.getCaseById(caseReference as string);
-      //  console.log(caseData);
+        //  const caseData = await req.locals.api.getCaseById(caseReference as string);
+        //  console.log(caseData);
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
         const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
-        console.log(caseDataFromCos);
         req.session.apiCaseData = caseDataFromCos;
         req.session.userCase = caseDataFromCos;
         //console.log('=============caseDataFromCos====================' + caseDataFromCos);
@@ -222,7 +294,6 @@ export class PostController<T extends AnyObject> {
         // }
       }
     } catch (err) {
-      console.log(err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 

@@ -111,12 +111,6 @@ export class GetController {
         const caseworkerUser = await getSystemUser();
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
         const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase['id'] as string, caseworkerUser);
-        // const updatedCaseDataFromCos = await client.updateCase(caseworkerUser , 
-        //   req.session.userCase['id'] as string,
-        //   caseDataFromCos,
-        //   'citizen-case-update'
-        //   );
-        //   console.log(updatedCaseDataFromCos);
         const getCaseData = caseDataFromCos;
         getCaseData.respondents = this.mapRespondendAccordingtoIDAM(req);
         req.session.apiCaseData = getCaseData;
@@ -147,6 +141,14 @@ export class GetController {
     }
   }
 
+  /**
+   * It takes a request object, checks if the session contains a property called 'apiCaseData' and if it
+   * does, it checks if that property contains a property called 'respondents'. If it does, it then
+   * checks if the 'respondents' property contains a property called 'value'. If it does, it then logs
+   * the value of the 'value' property to the console
+   * @param {AppRequest} req - AppRequest - this is the request object that is passed into the
+   * middleware.
+   */
   public mapApiDataToCaseData(req: AppRequest): void {
     if (req.session['apiCaseData']?.hasOwnProperty('respondents')) {
       const respondentDetails = req.session.apiCaseData?.['respondents'][0]['value'];

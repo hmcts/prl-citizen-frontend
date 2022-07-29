@@ -12,7 +12,6 @@ const enContent = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
@@ -28,7 +27,6 @@ const cyContent = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
