@@ -5,14 +5,14 @@ const en = {
   title: 'The court will not keep your contact details private',
   line1:
     'You have told us you do not want to keep your contact details private from the other people in this application.',
-  continue: 'Continue',
+  continue: 'Save and continue',
 };
 
 const cy: typeof en = {
   title: 'The court will not keep your contact details private',
   line1:
     'You have told us you do not want to keep your contact details private from the other people in this application.',
-  continue: 'Continue',
+  continue: 'Save and continue',
 };
 
 const languages = {

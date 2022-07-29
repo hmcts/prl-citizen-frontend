@@ -9,7 +9,7 @@ const en = {
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
-  continue: 'Continue',
+  continue: 'Save and continue',
 };
 
 const cy: typeof en = {
@@ -20,7 +20,14 @@ const cy: typeof en = {
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
-  continue: 'Continue',
+  continue: 'Save and continue',
+};
+const contactList= {
+  cmap: {
+    address: 'Address',
+    phone: 'Phone number',
+    email: 'Email',
+  }
 };
 
 const languages = {
@@ -39,6 +46,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
+    ...contactList,
     form,
   };
 };

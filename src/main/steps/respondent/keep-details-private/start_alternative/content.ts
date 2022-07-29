@@ -23,7 +23,7 @@ const en = {
   Email: 'Email',
   contact_details_private:
     'Which contact details do you want to keep private from the other people in this application?',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
@@ -54,7 +54,7 @@ const cy: typeof en = {
     'Which contact details do you want to keep private from the other people in this application?',
   contact_details_private_hint:
     "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',

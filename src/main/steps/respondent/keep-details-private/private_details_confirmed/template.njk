@@ -12,8 +12,11 @@
             <p class="govuk-body-m">{{line1}}:</p>
 
             <ul class="govuk-list govuk-list--bullet">
-                <li>{{address}}</li>
-                <li>{{email}}</li>
+                {%if userCase['contactDetailsPrivate'] %}
+                    {% for details in userCase['contactDetailsPrivate'] %}
+                        <li>{{cmap[details]}}</li>
+                    {% endfor %}
+                {%endif%}
             </ul>
 
             <h2 class="govuk-heading-m">{{line2}}</h2>

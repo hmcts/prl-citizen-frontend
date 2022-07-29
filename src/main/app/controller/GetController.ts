@@ -111,6 +111,12 @@ export class GetController {
         const caseworkerUser = await getSystemUser();
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
         const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase['id'] as string, caseworkerUser);
+        // const updatedCaseDataFromCos = await client.updateCase(caseworkerUser , 
+        //   req.session.userCase['id'] as string,
+        //   caseDataFromCos,
+        //   'citizen-case-update'
+        //   );
+        //   console.log(updatedCaseDataFromCos);
         const getCaseData = caseDataFromCos;
         getCaseData.respondents = this.mapRespondendAccordingtoIDAM(req);
         req.session.apiCaseData = getCaseData;
