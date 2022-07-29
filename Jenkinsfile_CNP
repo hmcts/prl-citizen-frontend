@@ -34,7 +34,6 @@ env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
-  enableFortifyScan()
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
@@ -53,5 +52,19 @@ withPipeline(type, product, component) {
 
   after('fortify-scan') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/**/*'
+  }
+
+
+  onMaster() {
+    env.ENV = 'aat'
+    enableFortifyScan()
+   // enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
+  }
+  onPR() {
+    env.ENV = 'preview'
+    enableFortifyScan()
+    // enableCleanupOfHelmReleaseOnSuccess()
+   // enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
   }
 }
