@@ -196,6 +196,7 @@ export interface FormInput {
   disabled?: boolean;
   detailsHtml?: Label;
   link?: string;
+  behaviour?: string;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
