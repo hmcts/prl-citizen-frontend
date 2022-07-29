@@ -75,6 +75,7 @@ export class Nunjucks {
         hint: i.hint && {
           html: this.env.globals.getContent.call(this, i.hint),
         },
+        behaviour: this.env.globals.getContent.call(this, i.behaviour),
         divider: this.env.globals.getContent.call(this, i.divider),
         open: i.open,
         conditional: (() => {

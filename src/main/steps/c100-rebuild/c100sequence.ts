@@ -10,6 +10,7 @@ import {
   C100_INTERNATIONAL_ELEMENTS_PARENTS,
   C100_INTERNATIONAL_ELEMENTS_REQUEST,
   C100_INTERNATIONAL_ELEMENTS_START,
+  C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
 } from '../urls';
 
 export const C100Sequence: Step[] = [
@@ -58,6 +59,11 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_INTERNATIONAL_ELEMENTS_REQUEST,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
+  },
+  {
+    url: C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
