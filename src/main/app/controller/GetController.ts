@@ -131,6 +131,12 @@ export class GetController {
     return CITIZEN_UPDATE;
   }
 
+  /**
+   * It returns an array of respondents from the API case data, or an empty array if there are no
+   * respondents
+   * @param {AppRequest} req - AppRequest - this is the request object that is passed to the controller.
+   * @returns An array of respondents
+   */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public mapRespondendAccordingtoIDAM(req: AppRequest) {
     if (req.session.apiCaseData?.hasOwnProperty('respondents')) {
