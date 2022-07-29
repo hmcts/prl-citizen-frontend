@@ -40,6 +40,5 @@ describe('C100Sequence', () => {
     expect(C100Sequence[7].url).toBe('/c100-rebuild/international-elements/jurisdiction');
     expect(C100Sequence[7].showInSection).toBe('c100');
     expect(C100Sequence[7].getNextStep({})).toBe('/c100-rebuild/international-elements/request');
-
-  });
+ });
 });
