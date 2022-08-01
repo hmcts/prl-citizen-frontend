@@ -27,7 +27,7 @@ export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus 
   }
   if (
     userCase?.respondentAttendingToCourt ||
-    userCase?.noHearingDetails ||
+    userCase?.respondentHearingDetails ||
     userCase?.respondentLangRequirements ||
     userCase?.respondentLangDetails ||
     userCase?.respondentSpecialArrangements ||

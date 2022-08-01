@@ -51,7 +51,7 @@ export const enContent = {
   },
   keys: {
     respondentAttendingToCourt: 'Would you be able to take part in hearings by video and phone?',
-    noHearingDetails: 'Please provide the details',
+    respondentHearingDetails: 'Please provide the details',
     respondentLangRequirements: 'Do you have any language requirements?',
     respondentLangDetails: 'Please provide language details',
     respondentSpecialArrangements: 'Do you or the children need special safety arrangements at court?',
@@ -79,7 +79,7 @@ export const enContent = {
     respondentTravellingOtherDetails: 'Please describe your need in detail',
   },
   dependencies: {
-    noHearingDetails: {
+    respondentHearingDetails: {
       dependentOn: 'respondentAttendingToCourt',
       value: 'no hearings',
       display: true,
@@ -187,7 +187,7 @@ const cyContent: typeof enContent = {
   },
   keys: {
     respondentAttendingToCourt: 'Would you be able to take part in hearings by video and phone?',
-    noHearingDetails: 'Please provide the details',
+    respondentHearingDetails: 'Please provide the details',
     respondentLangRequirements: 'Do you have any language requirements?',
     respondentLangDetails: 'Please provide language details',
     respondentSpecialArrangements: 'Do you or the children need special safety arrangements at court?',
@@ -215,7 +215,7 @@ const cyContent: typeof enContent = {
     respondentTravellingOtherDetails: 'Please describe your need in detail',
   },
   dependencies: {
-    noHearingDetails: {
+    respondentHearingDetails: {
       dependentOn: 'respondentAttendingToCourt',
       value: 'no hearings',
       display: true,
@@ -306,7 +306,7 @@ const cyContent: typeof enContent = {
 
 const urls = {
   respondentAttendingToCourt: CA_DA_ATTENDING_THE_COURT,
-  noHearingDetails: CA_DA_ATTENDING_THE_COURT,
+  respondentHearingDetails: CA_DA_ATTENDING_THE_COURT,
   respondentLangRequirements: CA_DA_LANGUAGE_REQUIREMENTS,
   respondentLangDetails: CA_DA_LANGUAGE_REQUIREMENTS,
   respondentSpecialArrangements: CA_DA_SPECIAL_ARRANGEMENTS,

@@ -150,7 +150,7 @@ export interface Case {
 
   //CA-DA-Respondent
   respondentAttendingToCourt?: string;
-  noHearingDetails?: string;
+  respondentHearingDetails?: string;
   respondentLangRequirements?: string;
   respondentLangDetails?: string;
   respondentSpecialArrangements?: string;

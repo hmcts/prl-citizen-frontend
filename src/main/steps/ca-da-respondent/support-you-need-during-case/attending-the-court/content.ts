@@ -19,7 +19,7 @@ const en = {
     respondentAttendingToCourt: {
       required: 'Please select an answer',
     },
-    noHearingDetails: {
+    respondentHearingDetails: {
       required: 'Please provide the details',
     },
   },
@@ -42,7 +42,7 @@ const cy: typeof en = {
     respondentAttendingToCourt: {
       required: 'Please select an answer',
     },
-    noHearingDetails: {
+    respondentHearingDetails: {
       required: 'Please provide the details',
     },
   },
