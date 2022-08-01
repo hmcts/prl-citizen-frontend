@@ -135,6 +135,7 @@ export class GetController {
   public mapRespondendAccordingtoIDAM(req: AppRequest) {
     if (req.session.apiCaseData?.hasOwnProperty('respondents')) {
       // const systemUserId = '4aaca0b1-a100-43d7-bfdd-c0cdfe2fd413';
+      // return [req.session.apiCaseData?.['respondents'] == systemUserId];
       return [req.session.apiCaseData?.['respondents'][0]];
     } else {
       return [];
