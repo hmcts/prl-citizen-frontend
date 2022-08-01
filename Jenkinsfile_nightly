@@ -39,9 +39,10 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-
+  env.TEST_URL = "https://prl-citizen-frontend-staging.service.core-compute-aat.internal/"
   loadVaultSecrets(secrets)
   enableFullFunctionalTest(120)
+  enableSecurityScan()
 
   after('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
