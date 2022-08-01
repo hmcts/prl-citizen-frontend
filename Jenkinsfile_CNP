@@ -50,21 +50,4 @@ withPipeline(type, product, component) {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
-  after('fortify-scan') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/**/*'
-  }
-
-
-  onMaster() {
-    env.ENV = 'aat'
-    enableFortifyScan()
-   // enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
-  }
-  onPR() {
-    env.ENV = 'preview'
-    enableFortifyScan()
-    // enableCleanupOfHelmReleaseOnSuccess()
-   // enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
-  }
 }
