@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, ContactDetails, OtherName, State, YesOrNo } from './definition';
+import { CaseData, ContactDetails, OtherName, State, YesOrNo, orderInterface } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -11,9 +11,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentLastName: 'respondentLastName',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
-  //applicant1FirstNames: 'applicant1FirstName',
-  // applicant1LastNames: 'applicant1LastName',
-  //applicant1FullName: 'applicant1FullName',
+  applicant1FirstNames: 'applicant1FirstNames',
+  applicant1LastNames: 'applicant1LastNames',
+  applicant1FullName: 'applicant1FullName',
   applicant1HasOtherNames: 'applicant1HasOtherNames',
   applicant1AdditionalNames: 'applicant1AdditionalNames',
   applicant1DateOfBirth: 'applicant1DateOfBirth',
@@ -73,6 +73,36 @@ export interface Case {
   confirmcontactdetails?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
+  proceedingsCourtCase?: string;
+  proceedingsStart?: string;
+  proceedingsCourtOrder?: string;
+  proceedingsStartOrder?: string;
+  courtProceedingsInvolved?: string;
+  supervisionOrderOption?: YesOrNo;
+  supervisionOrder?: orderInterface;
+  emergencyOrderOptions?: YesOrNo;
+  emergencyOrder?: orderInterface;
+  careOrderOptions?: YesOrNo;
+  careOrder?: orderInterface;
+  childAbductionOrderOption?: YesOrNo;
+  childAbductionOrder?: orderInterface;
+  caOrderOption?: YesOrNo;
+  caOrder?: orderInterface;
+  financialOrderOption?: YesOrNo;
+  financialOrder?: orderInterface;
+  nonmolestationOrderOption?: YesOrNo;
+  nonmolestationOrder?: orderInterface;
+  occupationalOrderOptions?: YesOrNo;
+  occupationOrder?: orderInterface;
+  marraigeOrderOptions?: YesOrNo;
+  marraigeOrder?: orderInterface;
+  restrainingOrderOptions?: YesOrNo;
+  restrainingOrder?: orderInterface;
+  injuctiveOrderOptions?: YesOrNo;
+  injuctiveOrder?: orderInterface;
+  underTakingOrderOptions?: YesOrNo;
+  underTakingOrder?: orderInterface;
+
   contactDetailsPrivate?: string;
 
   /***** Applicant1 *****/
@@ -97,6 +127,8 @@ export interface Case {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+
+  //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case
   languageRequirements?: string;
   languageDetails?: string;

@@ -3,6 +3,7 @@ import * as URL from '../../urls';
 import {
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
+  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
@@ -48,6 +49,12 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.mediation_miam,
           status: getMiamStatus(userCase),
           href: URL.MIAM_START,
+        },
+        {
+          id: 'current-or-previous-proceedings',
+          text: taskListItems.current_or_previous_proceedings,
+          status: getCurrentOrOtherProceedingsStatus(userCase),
+          href: URL.PROCEEDINGS_START,
         },
       ],
     },

@@ -19,6 +19,8 @@ import {
   PrivateLaw,
   State,
 } from './definition';
+//import { fromApiFormat } from './from-api-format';
+//import { toApiFormat } from './to-api-format';
 
 export class CaseApi {
   constructor(
@@ -57,9 +59,8 @@ export class CaseApi {
   public async getCases(): Promise<CcdV1Response[]> {
     try {
       const response = await this.axios.get<CcdV1Response[]>(
-        `http://ccd-data-store-api-aat.service.core-compute-aat.internal/caseworkers/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases/1652796857708749`
+        `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases`
       );
-
       return response.data;
     } catch (err) {
       this.logError(err);
@@ -69,11 +70,9 @@ export class CaseApi {
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
-      ///cases/case-details/1651759489115676
-      const response = await this.axios.get<CcdV2Response>(
-        'http://ccd-data-store-api-aat.service.core-compute-aat.internal/cases/' + caseId
-      );
-      return { id: '1651759489115676', state: State.AwaitingHWFDecision, ...response.data.data };
+      const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
+      //...fromApiFormat(response.data.data)
+      return { id: response.data.id, state: response.data.state, ...response.data.data };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -145,6 +144,10 @@ export class CaseApi {
     console.log('eventName = ' + eventName);
     return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
   }
+
+  // public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
+  //   return this.sendEvent(caseId, { applicationPayments: payments }, CITIZEN_ADD_PAYMENT);
+  // }
 
   private logError(error: AxiosError) {
     if (error.response) {
