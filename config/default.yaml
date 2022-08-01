@@ -20,9 +20,9 @@ services:
     #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     checkDivCases: true
   cos:
-    url: 'http://prl-cos-pr-469.service.core-compute-preview.internal/'
+    url: 'http://prl-cos-pr-469.service.core-compute-preview.internal'
   documentManagement:
-    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'  
+    url: 'http://dm-store-aat.service.core-compute-aat.internal'  
     checkDivCases: true
 health:
   timeout: 5000
