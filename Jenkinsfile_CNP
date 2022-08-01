@@ -49,5 +49,4 @@ withPipeline(type, product, component) {
   after('smoketest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
-
 }
