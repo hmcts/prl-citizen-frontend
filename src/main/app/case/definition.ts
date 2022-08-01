@@ -742,7 +742,10 @@ export const enum SectionStatus {
   TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED',
-  CAN_NOT_START_YET = 'CAN_NOT_START_YET'
+  CAN_NOT_START_YET = 'CAN_NOT_START_YET',
+  DOWNLOAD = 'DOWNLOAD',
+  VIEW = 'VIEW',
+  NOT_STARTED = 'NOT_STARTED'
 }
 
 export const enum AlternativeServiceMediumType {

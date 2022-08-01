@@ -11,9 +11,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentLastName: 'respondentLastName',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
-  //applicant1FirstNames: 'applicant1FirstName',
-  // applicant1LastNames: 'applicant1LastName',
-  //applicant1FullName: 'applicant1FullName',
+  applicant1FirstNames: 'applicant1FirstNames',
+  applicant1LastNames: 'applicant1LastNames',
+  applicant1FullName: 'applicant1FullName',
   applicant1HasOtherNames: 'applicant1HasOtherNames',
   applicant1AdditionalNames: 'applicant1AdditionalNames',
   applicant1DateOfBirth: 'applicant1DateOfBirth',
@@ -129,7 +129,24 @@ export interface Case {
   applicant1ContactDetailsConsent?: YesOrNo;
 
   //applicant1LanguagePreference?: LanguagePreference;
-
+  //support you need during the case
+  languageRequirements?: string;
+  languageDetails?: string;
+  reasonableAdjustments?: string;
+  helpCommunication?: string;
+  describeOtherNeed?: string;
+  courtHearing?: string;
+  communicationSupportOther?: string;
+  docsSupport?: string;
+  otherDetails?: string;
+  courtComfort?: string;
+  otherProvideDetails?: string;
+  safetyArrangements?: string;
+  safetyArrangementsDetails?: string;
+  travellingToCourt?: string;
+  travellingOtherDetails?: string;
+  unableForCourtProceedings?: string;
+  courtProceedingProvideDetails?: string;
   safetyConcerns?: string;
 }
 
