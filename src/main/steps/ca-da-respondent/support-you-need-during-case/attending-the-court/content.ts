@@ -72,7 +72,7 @@ export const form: FormContent = {
           label: l => l.phoneHearings,
           value: 'phone hearings',
         },
-        {
+         {
           divider: true,
         },
         {
@@ -80,6 +80,7 @@ export const form: FormContent = {
           label: l => l.noHearings,
           hint: l => l.noHearingsHint,
           value: 'no hearings',
+          exclusive: true,
           subFields: {
             respondentHearingDetails: {
               type: 'textarea',

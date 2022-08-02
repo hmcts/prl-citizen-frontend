@@ -4,7 +4,7 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../.
 
 const en = {
   section: 'Special arrangements',
-  title: 'Do you or the children need special safety arrangements at court?',
+  title: 'Do you or the children need special arrangements at court?',
   courtcommunication:
     'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
   optionHint: 'Select all that apply to you',
@@ -33,7 +33,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Special arrangements',
-  title: 'Do you or the children need special safety arrangements at court?',
+  title: 'Do you or the children need special arrangements at court?',
   courtcommunication:
     'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
   optionHint: 'Select all that apply to you',

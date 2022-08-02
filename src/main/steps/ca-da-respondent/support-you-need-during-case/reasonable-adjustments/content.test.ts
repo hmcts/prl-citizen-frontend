@@ -15,7 +15,7 @@ const en = {
   docsFormat: 'I need documents in an alternative format',
   docsFormatHint: 'for example, braille or different colours and text sizes',
   commHelp: 'I need help communicating and understanding',
-  commHelpHint: 'for example, sight, hearing, speaking or interpretation',
+  commHelpHint: 'for example, hearing, speaking or interpretation',
   hearingSupport: 'I need to bring support with me to a hearing',
   hearingSupportHint: 'for example, someone you know or an assistance animal',
   hearingComfort: 'I need something to feel comfortable during a hearing',
@@ -42,7 +42,7 @@ const cy: typeof en = {
   docsFormat: 'I need documents in an alternative format',
   docsFormatHint: 'for example, braille or different colours and text sizes',
   commHelp: 'I need help communicating and understanding',
-  commHelpHint: 'for example, sight, hearing, speaking or interpretation',
+  commHelpHint: 'for example, hearing, speaking or interpretation',
   hearingSupport: 'I need to bring support with me to a hearing',
   hearingSupportHint: 'for example, someone you know or an assistance animal',
   hearingComfort: 'I need something to feel comfortable during a hearing',
@@ -86,7 +86,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.docsFormat).toEqual('I need documents in an alternative format');
     expect(generatedContent.docsFormatHint).toEqual('for example, braille or different colours and text sizes');
     expect(generatedContent.commHelp).toEqual('I need help communicating and understanding');
-    expect(generatedContent.commHelpHint).toEqual('for example, sight, hearing, speaking or interpretation');
+    expect(generatedContent.commHelpHint).toEqual('for example, hearing, speaking or interpretation');
     expect(generatedContent.hearingSupport).toEqual('I need to bring support with me to a hearing');
     expect(generatedContent.hearingSupportHint).toEqual('for example, someone you know or an assistance animal');
     expect(generatedContent.hearingComfort).toEqual('I need something to feel comfortable during a hearing');
