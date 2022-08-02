@@ -22,7 +22,7 @@ services:
   cos:
     url: 'http://prl-cos-pr-469.service.core-compute-preview.internal'
   documentManagement:
-    url: 'http://dm-store-aat.service.core-compute-aat.internal'  
+    url: 'http://ccd-case-document-am-api-prl-ccd-definitions-pr-495.service.core-compute-preview.internal'
     checkDivCases: true
 health:
   timeout: 5000

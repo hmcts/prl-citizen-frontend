@@ -41,18 +41,20 @@ export class DocumentManagerController {
     }
 
     let documentToGet;
+    let uid;
     if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
       if (!req.session.userCase.finalDocument?.document_binary_url) {
         throw new Error('Document binary url is not found');
       }
       documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-      //documentToGet = 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal/cases/documents/53ce4c16-e061-4027-8fd3-4efb80dcc0e8/binary';
+      const refinedUrl = documentToGet.replace('/binary', '');
+      uid = refinedUrl.substring(refinedUrl.length - 36);
     } else {
       throw new Error('Document File Name is not valid');
     }
-
+    const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid;
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-    const generatedDocument = await documentManagementClient.get({ url: documentToGet });
+    const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
 
     req.session.save(err => {
       if (err) {
