@@ -86,7 +86,7 @@ describe('task-list > content', () => {
               text: 'Keep your details private',
             },
             {
-              href: '/respondent/confirmcontactdetails/checkanswers',
+              href: '/respondent/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
               status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
