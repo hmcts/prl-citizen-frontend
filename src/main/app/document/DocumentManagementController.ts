@@ -31,11 +31,9 @@ export class DocumentManagerController {
     const caseReference = req.session.userCase.id;
 
     try {
-      const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
+      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
+      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       req.session.userCase = caseDataFromCos;
-      //console.log('======DocumentManagerController=======caseDataFromCos====================' + caseDataFromCos);
-      //console.log('*********DocumentManagerController**********************');
     } catch (err) {
       console.log(err);
     }
