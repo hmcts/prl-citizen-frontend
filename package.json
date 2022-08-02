@@ -19,7 +19,7 @@
     "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'nope' && exit 0",
-    "sonar-scan": "sonar-scanner",
+    "test:pa11y": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.a11y.config.js --maxWorkers 1",
     "test:smoke": "echo 'smoke tests disabled temporarily for setup' && exit 0",
     "test:functional": "echo 'functional tests disabled temporarily for setup' && exit 0",
     "test:fullfunctional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js",
