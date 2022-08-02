@@ -195,7 +195,7 @@ export interface FormInput {
   disabled?: boolean;
   detailsHtml?: Label;
   link?: string;
-  divider?: boolean;
+  divider?: boolean | string;
   exclusive?: boolean;
   behaviour?: string;
 }
