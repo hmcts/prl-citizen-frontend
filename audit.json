@@ -1,0 +1,7 @@
+{
+    "693_Content Security Policy (CSP) Header Not Set_https://idam-web-public.aat.platform.hmcts.net/login?client_id=prl-citizen-frontend&response_type=code&redirect_uri=https://prl-citizen-frontend-pr-183.service.core-compute-preview.internal/receiver": "ignore",
+    "538_Hidden File Found_https://prl-citizen-frontend-pr-183.service.core-compute-preview.internal/.hg": "ignore",
+    "538_Hidden File Found_https://prl-citizen-frontend-pr-183.service.core-compute-preview.internal/.bzr": "ignore",
+    "538_Hidden File Found_https://prl-citizen-frontend-pr-183.service.core-compute-preview.internal/._darcs": "ignore",
+    "538_Hidden File Found_https://prl-citizen-frontend-pr-183.service.core-compute-preview.internal/BitKeeper": "ignore"
+  }
