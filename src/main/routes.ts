@@ -67,9 +67,5 @@ export class Routes {
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }
-
-    // app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
-
-    // app.use(errorController.notFound as unknown as RequestHandler);
   }
 }
