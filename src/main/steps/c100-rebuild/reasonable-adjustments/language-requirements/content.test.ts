@@ -102,10 +102,10 @@ describe('Language requirements content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });
 
-  test('should contain Save and continue button', () => {
+  test('should contain continue button', () => {
     expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and continue');
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
   });
 
   test('should contain saveAndComeLater button', () => {
