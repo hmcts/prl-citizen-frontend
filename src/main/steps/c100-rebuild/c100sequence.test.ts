@@ -53,8 +53,8 @@ describe('C100Sequence', () => {
     expect(C100Sequence[10].showInSection).toBe('c100');
     expect(C100Sequence[10].getNextStep({})).toBe('/c100-rebuild/reasonable-adjustments/special-arrangements');
 
-    expect(C100Sequence[10].url).toBe('/c100-rebuild/reasonable-adjustments/special-arrangements');
-    expect(C100Sequence[10].showInSection).toBe('c100');
-    expect(C100Sequence[10].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[11].url).toBe('/c100-rebuild/reasonable-adjustments/special-arrangements');
+    expect(C100Sequence[11].showInSection).toBe('c100');
+    expect(C100Sequence[11].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
   });
 });
