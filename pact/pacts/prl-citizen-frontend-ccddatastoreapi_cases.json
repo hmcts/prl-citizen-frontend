@@ -1,0 +1,39 @@
+{
+  "consumer": {
+    "name": "prl-citizen-frontend"
+  },
+  "provider": {
+    "name": "ccdDataStoreAPI_Cases"
+  },
+  "interactions": [
+    {
+      "description": "a request to get citizen-create-application event token",
+      "providerState": "prl-citizen-frontend makes request to get citizen-create-application event token",
+      "request": {
+        "method": "GET",
+        "path": "/case-types/PRLAPPS/event-triggers/citizen-create-application",
+        "headers": {
+          "Authorization": "Bearer mock-user-access-token",
+          "ServiceAuthorization": "mock-service-auth-token",
+          "experimental": "true",
+          "Accept": "*/*",
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "token": "create-case-event-token"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

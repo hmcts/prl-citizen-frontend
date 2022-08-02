@@ -1,0 +1,38 @@
+{
+  "consumer": {
+    "name": "prl-citizen-frontend"
+  },
+  "provider": {
+    "name": "s2s_auth"
+  },
+  "interactions": [
+    {
+      "description": "a request for service auth token",
+      "providerState": "i request a service auth token",
+      "request": {
+        "method": "POST",
+        "path": "/lease",
+        "headers": {
+          "Accept": "application/json, text/plain, */*",
+          "content-type": "application/json"
+        },
+        "body": {
+          "microservice": "prl-citizen-frontend",
+          "oneTimePassword": "123456"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "content-type": "application/json"
+        },
+        "body": "MOCK_TOKEN"
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
