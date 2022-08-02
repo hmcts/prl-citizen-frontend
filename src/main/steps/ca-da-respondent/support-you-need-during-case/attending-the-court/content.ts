@@ -72,7 +72,7 @@ export const form: FormContent = {
           label: l => l.phoneHearings,
           value: 'phone hearings',
         },
-         {
+        {
           divider: true,
         },
         {
