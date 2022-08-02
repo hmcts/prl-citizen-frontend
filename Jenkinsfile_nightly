@@ -39,7 +39,7 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-  env.TEST_URL = "https://prl-citizen-frontend-staging.service.core-compute-aat.internal/"
+  env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
   loadVaultSecrets(secrets)
   enableFullFunctionalTest(120)
   enableSecurityScan()
