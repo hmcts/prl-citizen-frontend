@@ -26,10 +26,10 @@ const en = {
   specialArrangementsOtherSubField: 'Provide details of what you or the children need',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time',
   errors: {
-    noSafetyRequirementsExplanation: {
+    specialArrangementsOtherSubField: {
       required: 'Give details of the special arrangements you or the children need',
     },
-    typeOfSpecialarrangements: {
+    specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court',
     },
   },
@@ -54,10 +54,10 @@ const cy = {
   specialArrangementsOtherSubField: 'Provide details of what you or the children need - welsh',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time - welsh',
   errors: {
-    noSafetyRequirementsExplanation: {
+    specialArrangementsOtherSubField: {
       required: 'Give details of the special arrangements you or the children need - welsh',
     },
-    typeOfSpecialarrangements: {
+    specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court - welsh',
     },
   },
