@@ -50,7 +50,7 @@ export class DocumentManagerController {
     } else {
       throw new Error('Document File Name is not valid');
     }
-    const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid;
+    const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
 
