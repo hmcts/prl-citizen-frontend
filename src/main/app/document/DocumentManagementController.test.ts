@@ -33,7 +33,7 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+        url: 'http://ccd-case-document-am-api-prl-ccd-definitions-pr-495.service.core-compute-preview.internal/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
       });
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICANT_TASK_LIST_URL);
@@ -54,7 +54,7 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+        url: 'http://ccd-case-document-am-api-prl-ccd-definitions-pr-495.service.core-compute-preview.internal/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
       });
 
       expect(res.redirect).toHaveBeenCalledWith(RESPONDENT_TASK_LIST_URL);
