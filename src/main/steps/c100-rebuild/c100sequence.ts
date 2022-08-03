@@ -17,9 +17,6 @@ import {
 
   /** @C100_child */
   C100_CHILDERN_DETAILS_ADD,
-  C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
-  C100_CHILDERN_DETAILS_CHILD_MATTERS,
-  C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY
 } from '../urls';
 
 export const C100Sequence: Step[] = [
@@ -90,20 +87,5 @@ export const C100Sequence: Step[] = [
     url: C100_CHILDERN_DETAILS_ADD,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
-  },
-  {
-    url: C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
-  },
-  {
-    url: C100_CHILDERN_DETAILS_CHILD_MATTERS,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
-  },
-  {
-    url: C100_CHILDERN_DETAILS_CHILD_MATTERS,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
   },
 ];
