@@ -2,10 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import dayjs from 'dayjs';
 
-import { CaseDate, CaseWithId, FieldPrefix } from '../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-import * as Urls from '../../../steps/urls';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -80,8 +79,7 @@ export const summaryList = (
   urls: any,
   sectionTitle?: string,
   fieldTypes?: any,
-  language?: string,
-  prefix?: FieldPrefix
+  language?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {

@@ -18,7 +18,7 @@ export const getConfirmOrEditYourContactDetails = (userCase: Partial<CaseWithId>
   if (userCase?.applicant1FullName || userCase?.applicant1DateOfBirth || userCase?.applicant1PlaceOfBirth) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.TO_DO;
+  return SectionStatus.NOT_STARTED;
 };
 
 export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
@@ -39,7 +39,6 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
-  return SectionStatus.TO_DO;
 };
 
 export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
@@ -57,5 +56,54 @@ export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | un
   if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
     return SectionStatus.IN_PROGRESS;
   }
+  return SectionStatus.TO_DO;
+};
+
+export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): SectionStatus => {
+  if (
+    userCase?.proceedingsStart &&
+    userCase?.proceedingsStartOrder &&
+    userCase?.emergencyOrderOptions &&
+    userCase?.supervisionOrderOption &&
+    userCase?.careOrderOptions &&
+    userCase?.childAbductionOrderOption &&
+    userCase?.caOrderOption &&
+    userCase?.financialOrderOption &&
+    userCase?.nonmolestationOrderOption &&
+    userCase?.occupationalOrderOptions &&
+    userCase?.marraigeOrderOptions &&
+    userCase?.restrainingOrderOptions &&
+    userCase?.injuctiveOrderOptions &&
+    userCase?.underTakingOrderOptions
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+  if (
+    userCase?.proceedingsStart ||
+    userCase?.proceedingsStartOrder ||
+    userCase?.supervisionOrderOption ||
+    userCase?.supervisionOrderOption ||
+    userCase?.careOrderOptions ||
+    userCase?.childAbductionOrderOption ||
+    userCase?.caOrderOption ||
+    userCase?.financialOrderOption ||
+    userCase?.nonmolestationOrderOption ||
+    userCase?.occupationalOrderOptions ||
+    userCase?.marraigeOrderOptions ||
+    userCase?.restrainingOrderOptions ||
+    userCase?.injuctiveOrderOptions ||
+    userCase?.underTakingOrderOptions
+  ) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
+export const getYourSafetyStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase?.safetyConcerns) {
+    return SectionStatus.COMPLETED;
+  }
+  // if (userCase?.detailsKnown ) {
+  //   return SectionStatus.IN_PROGRESS;
+  // }
   return SectionStatus.TO_DO;
 };

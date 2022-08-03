@@ -89,16 +89,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
-    const fieldName = 'buildingAndStreet';
-    const validator = isFieldFilledIn;
-
-    const subFields = renderSubFields([{ fieldName, validator } as InputValues]);
-
-    expect(subFields).toStrictEqual({});
-  });
-
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields buildingAndStreet1 if component type is not provided', () => {
     const fieldName = 'buildingAndStreet1';
     const validator = isFieldFilledIn;
 
@@ -107,7 +98,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields buildingAndStreet2 if component type is not provided', () => {
     const fieldName = 'buildingAndStreet2';
     const validator = isFieldFilledIn;
 
@@ -116,7 +107,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields townOrCity if component type is not provided', () => {
     const fieldName = 'townOrCity';
     const validator = isFieldFilledIn;
 
@@ -125,7 +116,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields country if component type is not provided', () => {
     const fieldName = 'country';
     const validator = isFieldFilledIn;
 
@@ -134,7 +125,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields postcode if component type is not provided', () => {
     const fieldName = 'postcode';
     const validator = isFieldFilledIn;
 

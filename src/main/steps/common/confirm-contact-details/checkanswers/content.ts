@@ -27,11 +27,10 @@ const en = (content: CommonContent) => {
   if (typeof dob !== 'string') {
     getFormattedDate(dob);
   }
-  const citizenRole = userCase.citizenRole;
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language, citizenRole)],
+    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language)],
   };
 };
 
@@ -80,11 +79,10 @@ const cy: typeof en = (content: CommonContent) => {
   }
   //userCase.applicant1DateOfBirthText = getFormattedDate(userCase.applicant1DateOfBirth);
   //console.log("userCase.applicant1DateOfBirthText====>"+userCase.applicant1DateOfBirthText);
-  const citizenRole = userCase.citizenRole;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language, citizenRole)],
+    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
   };
 };
 

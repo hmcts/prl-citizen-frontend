@@ -1,7 +1,7 @@
-import { APPLICANT_CHECK_ANSWERS } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
+import { APPLICANT_CHECK_ANSWERS } from '../../../../steps/urls';
 
 const en = {
   section: '',

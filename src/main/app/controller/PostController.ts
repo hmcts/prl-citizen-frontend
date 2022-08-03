@@ -65,7 +65,7 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    Object.assign(req.session.userCase, formData);
+    //Object.assign(req.session.userCase, formData);
 
     req.session.errors = form.getErrors(formData);
 

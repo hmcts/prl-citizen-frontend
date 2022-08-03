@@ -1,7 +1,7 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { CONSENT, MIAM_START } from '../../urls';
+import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
-import { SummaryList, summaryList } from './utils';
+import { summaryList } from './utils';
 
 const enContent = {
   section: 'Check your details',
@@ -16,20 +16,27 @@ const enContent = {
   },
   fieldType: {
     miamStart: 'string',
+    applicationReceivedDate: 'Date',
+    invalidApplicationReceivedDate: 'Date',
+    proceedingsStart: 'String',
+    proceedingsStartOrder: 'String',
+    emergencyOrderOptions: 'YesOrNo',
+    'emergencyOrder.caseNoDetails': 'String',
+    'emergencyOrder.orderDateDetails': 'Date',
+    'emergencyOrder.orderTimeDetails': 'String',
+    'emergencyOrder.currentOrderDetails': 'YesOrNo',
+    'emergencyOrder.issueOrderDetails': 'String',
   },
   errors: {},
 };
 
 const urls = {
   miamStart: MIAM_START,
+  proceedingsStart: PROCEEDINGS_START,
+  proceedingsStartOrder: PROCEEDINGS_START,
+  emergencyOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS,
   applicationReceivedDate: CONSENT,
   invalidApplicationReceivedDate: CONSENT,
-};
-
-const fieldType = {
-  miamStart: 'String',
-  applicationReceivedDate: 'Date',
-  invalidApplicationReceivedDate: 'Date',
 };
 
 describe('common > summary > utils', () => {
@@ -41,12 +48,6 @@ describe('common > summary > utils', () => {
           title: 'applicationDetails',
           rows: [
             {
-              key: {
-                text: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
-              },
-              value: {
-                html: 'Yes',
-              },
               actions: {
                 items: [
                   {
@@ -56,6 +57,8 @@ describe('common > summary > utils', () => {
                   },
                 ],
               },
+              key: { text: 'What is a Mediation Information and Assessment Meeting (MIAM)?' },
+              value: { text: 'Yes' },
             },
             {
               actions: {
@@ -81,25 +84,17 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: {},
+              value: {
+                text: 'Complete this section',
+              },
             },
           ],
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      const result: SummaryList | undefined = summaryList(
-        enContent,
-        userCase,
-        urls,
-        'applicationDetails',
-        enContent.fieldType,
-        'en',
-        undefined
+      expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
+        expected
       );
-      console.log('======>' + JSON.stringify(result));
-      expect(
-        summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en', undefined)
-      ).toStrictEqual(expected);
     });
   });
 });

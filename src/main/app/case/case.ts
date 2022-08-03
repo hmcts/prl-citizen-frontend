@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, ContactDetails, OtherName, State, YesOrNo } from './definition';
+import { CaseData, ContactDetails, OtherName, State, YesOrNo, orderInterface } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -9,12 +9,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseCode: 'caseCode',
   respondentFirstName: 'respondentFirstName',
   respondentLastName: 'respondentLastName',
-  //accessCode: 'accessCode',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
-  //applicant1FirstNames: 'applicant1FirstName',
-  // applicant1LastNames: 'applicant1LastName',
-  //applicant1FullName: 'applicant1FullName',
+  applicant1FirstNames: 'applicant1FirstNames',
+  applicant1LastNames: 'applicant1LastNames',
+  applicant1FullName: 'applicant1FullName',
   applicant1HasOtherNames: 'applicant1HasOtherNames',
   applicant1AdditionalNames: 'applicant1AdditionalNames',
   applicant1DateOfBirth: 'applicant1DateOfBirth',
@@ -80,7 +79,35 @@ export interface Case {
   confirmcontactdetails?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
-  //contactDetailsPrivate?: ContactDetails[];
+  proceedingsCourtCase?: string;
+  proceedingsStart?: string;
+  proceedingsCourtOrder?: string;
+  proceedingsStartOrder?: string;
+  courtProceedingsInvolved?: string;
+  supervisionOrderOption?: YesOrNo;
+  supervisionOrder?: orderInterface;
+  emergencyOrderOptions?: YesOrNo;
+  emergencyOrder?: orderInterface;
+  careOrderOptions?: YesOrNo;
+  careOrder?: orderInterface;
+  childAbductionOrderOption?: YesOrNo;
+  childAbductionOrder?: orderInterface;
+  caOrderOption?: YesOrNo;
+  caOrder?: orderInterface;
+  financialOrderOption?: YesOrNo;
+  financialOrder?: orderInterface;
+  nonmolestationOrderOption?: YesOrNo;
+  nonmolestationOrder?: orderInterface;
+  occupationalOrderOptions?: YesOrNo;
+  occupationOrder?: orderInterface;
+  marraigeOrderOptions?: YesOrNo;
+  marraigeOrder?: orderInterface;
+  restrainingOrderOptions?: YesOrNo;
+  restrainingOrder?: orderInterface;
+  injuctiveOrderOptions?: YesOrNo;
+  injuctiveOrder?: orderInterface;
+  underTakingOrderOptions?: YesOrNo;
+  underTakingOrder?: orderInterface;
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
@@ -113,8 +140,26 @@ export interface Case {
   applicant1PostalAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
-  //respondentCaseInvites?: CaseInvite[];
-  //applicantCaseInvites?: CaseInvite[];
+  //support you need during the case
+  languageRequirements?: string;
+  languageDetails?: string;
+  reasonableAdjustments?: string;
+  helpCommunication?: string;
+  describeOtherNeed?: string;
+  courtHearing?: string;
+  communicationSupportOther?: string;
+  docsSupport?: string;
+  otherDetails?: string;
+  courtComfort?: string;
+  otherProvideDetails?: string;
+  safetyArrangements?: string;
+  safetyArrangementsDetails?: string;
+  travellingToCourt?: string;
+  travellingOtherDetails?: string;
+  unableForCourtProceedings?: string;
+  courtProceedingProvideDetails?: string;
+  safetyConcerns?: string;
+
   citizenRole?: FieldPrefix;
 }
 
