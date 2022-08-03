@@ -21,9 +21,17 @@ export default class SameAddressPostController extends PostController<AnyObject>
           // eslint-disable-next-line no-case-declarations
           const { firstname, lastname } = req['body'];
           // eslint-disable-next-line no-case-declarations
-          const childInformation = { id: uuidv4().toString(), firstname, lastname };
-          req.session.settings.ListOfChild.push(childInformation);
-          super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+          if (firstname === '' || lastname === '') {
+            req.session.errors?.push({
+              propertyName: 'string',
+              errorType: 'string',
+            });
+            super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+          } else {
+            const childInformation = { id: uuidv4().toString(), firstname, lastname };
+            req.session.settings.ListOfChild.push(childInformation);
+            super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+          }
           break;
 
         case 'removeChild':
@@ -39,7 +47,8 @@ export default class SameAddressPostController extends PostController<AnyObject>
     } else {
       // eslint-disable-next-line no-self-assign
       req.session.settings.ListOfChild = req.session.settings.ListOfChild;
-      super.redirect(req, res);
+      const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;
+      super.redirect(req, res, redirectURI);
     }
   }
 }

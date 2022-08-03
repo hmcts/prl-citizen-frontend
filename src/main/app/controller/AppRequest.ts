@@ -30,7 +30,7 @@ export interface AppSession extends Session {
 }
 
 export type childernDetails = {
-  id: string;
+  id: undefined | string;
   firstname: string | unknown;
   lastname: string | unknown;
 };
