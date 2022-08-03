@@ -102,8 +102,5 @@ export const getYourSafetyStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.safetyConcerns) {
     return SectionStatus.COMPLETED;
   }
-  // if (userCase?.detailsKnown ) {
-  //   return SectionStatus.IN_PROGRESS;
-  // }
   return SectionStatus.TO_DO;
 };
