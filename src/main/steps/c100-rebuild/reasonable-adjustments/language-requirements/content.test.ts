@@ -15,7 +15,7 @@ const en = {
   line1: `Think about all communication with the court, as well as what you might 
   need at a hearing. Consider remote and in-person hearings, in case your preferred 
   hearing type is not possible.`,
-  select_all_apply: 'Select all that apply',
+  select_all_apply: 'Select all that apply to you',
   speakInWelsh: 'I need to speak in Welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
@@ -40,7 +40,7 @@ const cy = {
   line1: `Think about all communication with the court, as well as what you might 
   need at a hearing. Consider remote and in-person hearings, in case your preferred 
   hearing type is not possible. - welsh`,
-  select_all_apply: 'Select all that apply - welsh',
+  select_all_apply: 'Select all that apply to you - welsh',
   speakInWelsh: 'I need to speak in Welsh - welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh - welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language - welsh',
@@ -102,10 +102,10 @@ describe('Language requirements content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });
 
-  test('should contain Save and continue button', () => {
+  test('should contain continue button', () => {
     expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and continue');
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
   });
 
   test('should contain saveAndComeLater button', () => {
