@@ -160,7 +160,7 @@ export class PostController<T extends AnyObject> {
         const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
         const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
         req.session.userCase = caseDataFromCos;
-        console.log('caseDataFromCos=======>' + JSON.stringify(caseDataFromCos));
+        //console.log('caseDataFromCos=======>' + JSON.stringify(caseDataFromCos));
 
         // const updatedCaseDataFromCos = await client.updateCase(
         //   caseworkerUser,

@@ -12,6 +12,7 @@ import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { DocumentManagementClient } from './DocumentManagementClient';
 
+const UID_LENGTH = 36;
 @autobind
 export class DocumentManagerController {
   private getDocumentManagementClient(user: UserDetails) {
@@ -83,7 +84,7 @@ export class DocumentManagerController {
 
   private getUID(documentToGet: string, uid: string) {
     const refinedUrl = documentToGet.replace('/binary', '');
-    uid = refinedUrl.substring(refinedUrl.length - 36);
+    uid = refinedUrl.substring(refinedUrl.length - UID_LENGTH);
     return uid;
   }
 }
