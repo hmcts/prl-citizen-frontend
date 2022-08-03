@@ -20,6 +20,7 @@ const enContent = {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     your_application: 'Application submitted (FL401)',
+    your_application_witness_statement: 'Witness statement (PDF)',
   },
 };
 const cyContent = {
@@ -38,6 +39,7 @@ const cyContent = {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     your_application: 'Application submitted (FL401)',
+    your_application_witness_statement: 'Witness statement (PDF)',
   },
 };
 describe('task-list > content', () => {
@@ -78,6 +80,12 @@ describe('task-list > content', () => {
               id: 'your-application',
               status: 'DOWNLOAD',
               text: 'Application submitted (FL401)',
+            },
+            {
+              href: '/applicant/public/docs/witness-statement-Final-Document.pdf',
+              id: 'your-application-witness-statment',
+              status: 'DOWNLOAD',
+              text: 'Witness statement (PDF)',
             },
           ],
           title: undefined,

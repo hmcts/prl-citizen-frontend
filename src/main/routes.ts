@@ -23,6 +23,7 @@ import {
   PRIVACY_POLICY,
   TERMS_AND_CONDITIONS,
   YOUR_APPLICATION_FL401,
+  YOUR_APPLICATION_WITNESS_STATEMENT,
   // SAVE_AND_SIGN_OUT,
   // TIMED_OUT_URL,
   // RESPONDENT_TASK_LIST_URL
@@ -44,6 +45,7 @@ export class Routes {
     // app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     const documentManagerController = new DocumentManagerController();
     app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
+    app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

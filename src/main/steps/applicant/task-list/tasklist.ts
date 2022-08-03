@@ -31,6 +31,12 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           status: getYourApplication(userCase),
           href: URL.YOUR_APPLICATION_FL401,
         },
+        {
+          id: 'your-application-witness-statment',
+          text: taskListItems.your_application_witness_statement,
+          status: getYourApplication(userCase),
+          href: URL.YOUR_APPLICATION_WITNESS_STATEMENT,
+        },
       ],
     },
   ];

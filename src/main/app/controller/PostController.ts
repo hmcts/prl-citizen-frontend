@@ -148,6 +148,7 @@ export class PostController<T extends AnyObject> {
     //   const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
     //   req.session.userCase = initData;
     // }
+
     const caseworkerUser = await getSystemUser();
     req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
     req.session.errors = form.getErrors(formData);
@@ -156,9 +157,10 @@ export class PostController<T extends AnyObject> {
       if (!req.session.errors.length) {
         //const caseData = await req.locals.api.getCaseById(caseReference as string);
 
-        const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
+        const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
         const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
         req.session.userCase = caseDataFromCos;
+        console.log('caseDataFromCos=======>' + JSON.stringify(caseDataFromCos));
 
         // const updatedCaseDataFromCos = await client.updateCase(
         //   caseworkerUser,

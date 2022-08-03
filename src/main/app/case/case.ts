@@ -20,6 +20,7 @@ import {
   DateOfSubmission,
   Document,
   DraftConsentOrderFile,
+  Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
   InternationalElementTable,
   InterpreterNeed,
@@ -139,6 +140,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   orderCollection: 'orderCollection',
   respondentName: 'respondentName',
   finalDocument: 'finalDocument',
+  fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -283,6 +285,7 @@ export interface Case {
   //applicant1CannotUploadDocuments?: DocumentType[];
   applicant1UploadedFiles?: UploadedFile[];
   finalDocument: Document;
+  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
 }
 
 export interface CaseWithId extends Case {

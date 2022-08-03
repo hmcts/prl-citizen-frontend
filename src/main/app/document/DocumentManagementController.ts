@@ -42,14 +42,20 @@ export class DocumentManagerController {
     let uid;
     if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
       if (!req.session.userCase.finalDocument?.document_binary_url) {
-        throw new Error('Document binary url is not found');
+        throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
       }
       documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-      const refinedUrl = documentToGet.replace('/binary', '');
-      uid = refinedUrl.substring(refinedUrl.length - 36);
-    } else {
-      throw new Error('Document File Name is not valid');
+      uid = this.getUID(documentToGet, uid);
     }
+
+    if (filename === DocumentType.WITNESS_STATEMENT) {
+      if (!req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url) {
+        throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+      }
+      documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
+      uid = this.getUID(documentToGet, uid);
+    }
+
     const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
@@ -73,5 +79,11 @@ export class DocumentManagerController {
       }
       return res.redirect(redirectUrl);
     });
+  }
+
+  private getUID(documentToGet: string, uid: string) {
+    const refinedUrl = documentToGet.replace('/binary', '');
+    uid = refinedUrl.substring(refinedUrl.length - 36);
+    return uid;
   }
 }

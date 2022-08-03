@@ -630,6 +630,7 @@ export interface CaseData {
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument: Document;
+  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
 }
 
 export const enum State {
@@ -795,6 +796,8 @@ export const enum DocumentType {
   EMAIL = 'email',
   APPLICATION_SUMMARY = 'applicationSummary',
   FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
+  WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
+  //APPLICATION_WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
 }
 
 export interface Document {
@@ -802,4 +805,8 @@ export interface Document {
   document_filename: string;
   document_binary_url: string;
   document_hash?: string | undefined | null;
+}
+export interface Fl401UploadWitnessDocuments {
+  id: string;
+  value: Document;
 }
