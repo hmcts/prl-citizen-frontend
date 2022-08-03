@@ -13,6 +13,10 @@ import {
   C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
   C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS,
   C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
+
+  /*** @Child_details */
+  // eslint-disable-next-line sort-imports
+  C100_CHILDERN_DETAILS_ADD,
 } from '../urls';
 
 export const C100Sequence: Step[] = [
@@ -76,6 +80,11 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_ADD,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
