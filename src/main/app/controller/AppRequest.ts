@@ -26,18 +26,6 @@ export interface AppSession extends Session {
   addresses: [];
   returnUrl?: string;
   accessCodeLoginIn: boolean;
-  settings: ApplicationSettings;
-}
-
-export type childernDetails = {
-  id: string;
-  firstname: string | unknown;
-  lastname: string | unknown;
-};
-
-interface ApplicationSettings {
-  toggleChild: number;
-  ListOfChild: childernDetails[];
 }
 
 export interface UserDetails {

@@ -60,7 +60,6 @@ export class Routes {
       }
     }
 
-    app.get('/api/v1/session', (req, res) => res.json(req.session));
     // app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
 
     // app.use(errorController.notFound as unknown as RequestHandler);
