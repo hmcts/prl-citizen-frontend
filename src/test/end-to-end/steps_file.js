@@ -1,11 +1,11 @@
 const EnterPinPage = require('./pages/EnterPinPage');
 const Login = require('./pages/LoginPage');
-const HomePage = require('./pages/HomePage');
 const InternationalElement = require('./pages/InternationalElement');
 const generalHelper = require('./helpers/generalHelper');
 const CurrentOrPreviousProceedings = require('./pages/CurrentOrPreviousProceedings');
 const ConsentToApplication = require('./pages/ConsentToApplication');
-const SupportYouNeed = require('./pages/SupportYouNeedDuringYourCase');
+const SupportYouNeed = require('./pages/SupportYouNeedDuringYourCase-Applicant');
+const SupportYouNeedRespondent = require('./pages/SupportYouNeedDuringYourCase-RespondentCADA');
 
 module.exports = () => {
   return actor({
@@ -27,6 +27,9 @@ module.exports = () => {
     },
     supportYouNeedDuringYourCase() {
       return SupportYouNeed.supportYouNeedHappyPath();
+    },
+    supportYouNeedDuringYourCaseRespondent() {
+      return SupportYouNeedRespondent.supportYouNeedHappyPath();
     },
     amOnHistoryPageWithSuccessNotification() {
       return generalHelper.amOnHistoryPageWithSuccessNotification();
