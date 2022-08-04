@@ -72,6 +72,7 @@ export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatu
 
 export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
   //const documents: string[] = [];
+  console.log('userCase => ' + userCase);
   return SectionStatus.READY_TO_VIEW;
   // if (userCase.orderCollection && userCase.orderCollection.length > 0) {
   //   return SectionStatus.READY_TO_VIEW;

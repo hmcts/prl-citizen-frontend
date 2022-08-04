@@ -15,7 +15,6 @@ const enContent = {
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
-    yourDocuments: 'Your documents',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -35,7 +34,6 @@ const cyContent = {
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
-    yourDocuments: 'Your documents',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
