@@ -107,7 +107,7 @@ describe('common > components > address-history > content', () => {
     expect(generatedContent.two).toEqual('No, I have not lived at this address for more than 5 years');
     expect(generatedContent.previousHistory).toEqual(
       'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address'
-          );
+    );
     expect(generatedContent.buildStreet).toEqual('Building and street');
     expect(generatedContent.towncity).toEqual('Town or city');
     expect(generatedContent.countryLabel).toEqual('Country');
@@ -188,8 +188,8 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-   // eslint-disable-next-line jest/expect-expect
-   test('should return correct english content Data', () => {
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct english content Data', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
   });
 
