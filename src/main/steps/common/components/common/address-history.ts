@@ -3,7 +3,8 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { APPLICANT_CHECK_ANSWERS } from '../../../../steps/urls';
 
-const en = {
+
+const en = () => ({
   section: '',
   title: 'Have you lived at this address for more than 5 years?',
   one: 'Yes, I have lived at this address for more than 5 years',
@@ -40,9 +41,9 @@ const en = {
       required: 'Enter your postcode',
     },
   },
-};
+});
 
-const cy: typeof en = {
+const cy = () => ({
   section: '',
   title: 'Ydych chi wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
   one: 'Ydw, rydw i wedi byw yn y cyfeiriad hwn ers mwy na 5 mlynedd',
@@ -79,7 +80,7 @@ const cy: typeof en = {
       required: 'Rhowch eich cod post',
     },
   },
-};
+});
 
 const languages = {
   en,
@@ -95,8 +96,7 @@ export const form: FormContent = {
     addressHistory: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
-      section: l => l.section,
+      section: s => s.section,
       values: [
         {
           label: l => l.one,
@@ -122,14 +122,12 @@ export const form: FormContent = {
             buildingAndStreet1: {
               type: 'text',
               classes: 'govuk-label',
-              label: l => l.label,
               labelSize: null,
               validator: isFieldFilledIn,
             },
             buildingAndStreet2: {
               type: 'text',
               classes: 'govuk-label',
-              label: l => l.label,
               labelSize: null,
               validator: isFieldFilledIn,
             },
