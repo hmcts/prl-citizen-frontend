@@ -1,6 +1,7 @@
 node_modules/
 .nyc_output
 .sass-cache
+.vscode
 *.css
 
 .idea/
@@ -15,6 +16,7 @@ src/main/public/img/lib/*
 src/main/public/js/lib/**/*.js
 src/main/public/stylesheets/lib/*
 src/main/resources/localhost-ssl
+src/test/end-to-end/output/*
 
 node-rpm-packaging/
 mochawesome-report/

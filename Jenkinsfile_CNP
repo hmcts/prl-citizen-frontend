@@ -41,6 +41,13 @@ withPipeline(type, product, component) {
   after('build') {
     yarnBuilder.yarn('build')
   }
+  before('functionalTest:preview') {
+    env.PRL_CITIZEN_WEB_URLL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
+  }
+
+  after('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
 
   before('smoketest:preview') {
     env.PRL_CITIZEN_WEB_URLL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
