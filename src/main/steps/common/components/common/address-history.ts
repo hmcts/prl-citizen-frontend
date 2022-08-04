@@ -44,39 +44,39 @@ const en = {
 
 const cy: typeof en = {
   section: '',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
-  one: 'Yes, I have lived at this address for more than 5 years',
-  two: 'No, I have not lived at this address for more than 5 years',
+  title: 'Ydych chi wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
+  one: 'Ydw, rydw i wedi byw yn y cyfeiriad hwn ers mwy na 5 mlynedd',
+  two: 'Na, nid wyf wedi byw yn y cyfeiriad hwn ers mwy na 5 mlynedd',
   previousHistory:
-    'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
-  buildStreet: 'Building and street',
-  towncity: 'Town or city',
-  countryLabel: 'Country',
-  postcodeLabel: 'Postcode',
-  summaryText: 'Contacts for help',
-  continue: 'Save and continue',
-  addAnotherAddress: 'Add another address',
+    'Rhowch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf, gan ddechrau gyda ch cyfeiriad diweddaraf',
+  buildStreet: 'Adeilad a stryd',
+  towncity: 'Tref neu ddinas',
+  countryLabel: 'Gwlad',
+  postcodeLabel: 'Côd post',
+  summaryText: 'Cysylltiadau am help',
+  continue: 'Cadw a pharhau',
+  addAnotherAddress: 'Ychwanegu cyfeiriad arall',
   errors: {
     addressHistory: {
-      required: 'Enter your address History',
+      required: 'Rhowch eich Hanes cyfeiriad',
     },
     buildingAndStreet: {
-      required: 'Enter your building and street',
+      required: 'Ewch i mewn i ch adeilad a ch stryd',
     },
     buildingAndStreet1: {
-      required: 'Enter your building and street line2',
+      required: 'Ewch i mewn i ch adeilad a ch llinell stryd2',
     },
     buildingAndStreet2: {
-      required: 'Enter your building and street line3',
+      required: 'Ewch i mewn i ch adeilad a ch llinell stryd3',
     },
     townOrCity: {
-      required: 'Enter your town or city',
+      required: 'Ewch i mewn i ch tref neu ddinas',
     },
     country: {
-      required: 'Enter your country',
+      required: 'Ewch i mewn i ch gwlad',
     },
     postcode: {
-      required: 'Enter your postcode',
+      required: 'Rhowch eich cod post',
     },
   },
 };
