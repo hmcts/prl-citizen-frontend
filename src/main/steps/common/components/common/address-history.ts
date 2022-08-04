@@ -3,7 +3,6 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { APPLICANT_CHECK_ANSWERS } from '../../../../steps/urls';
 
-
 const en = () => ({
   section: '',
   title: 'Have you lived at this address for more than 5 years?',
