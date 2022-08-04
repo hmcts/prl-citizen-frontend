@@ -69,3 +69,13 @@ export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatu
     return SectionStatus.NOT_AVAILABLE_YET;
   }
 };
+
+export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
+  //const documents: string[] = [];
+  return SectionStatus.READY_TO_VIEW;
+  // if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+  //   return SectionStatus.READY_TO_VIEW;
+  // } else {
+  //   return SectionStatus.NOT_AVAILABLE_YET;
+  // }
+};
