@@ -13,6 +13,7 @@ export default class ParentResponsibility extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    console.log(req.body);
     if (req.query.hasOwnProperty('childId')) {
       const { childId } = req.query;
       const checkIfChildIdMatches = req.session.settings.ListOfChild.filter(child => child.id === childId).length > 0;
@@ -20,7 +21,7 @@ export default class ParentResponsibility extends PostController<AnyObject> {
         const currentChild = req.session.settings.ListOfChild.findIndex(childWithId => childWithId.id === childId);
 
         if (currentChild + 1 >= req.session.settings.ListOfChild.length) {
-         super.redirect(req, res, DASHBOARD_URL);
+          super.redirect(req, res, DASHBOARD_URL);
         } else {
           const nextChildId = req.session.settings['ListOfChild'][currentChild + 1];
           const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${nextChildId.id}`;

@@ -51,6 +51,7 @@ export default class AddPersonaldetails extends GetController {
         formaction: req.originalUrl,
         listedChildern: req.session.settings.ListOfChild,
         childDetails,
+        childId,
       });
     }
   }

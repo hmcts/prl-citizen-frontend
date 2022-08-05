@@ -10,7 +10,10 @@
 {% block page_content %}
 <h1 class="govuk-heading-xl">{{pageTitle}} {{childDetails.firstname}}  {{childDetails.lastname}}  </h1>
 
+<form method="post" action="/child-details/parental-responsibility?childId={{childId}}">
+ <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
 <div class="govuk-form-group"><label for="steps-children-parental-responsibility-form-parental-responsibility-field" class="govuk-label">State everyone who has parental responsibility for  and how they have parental responsibility.</label><span class="govuk-hint" id="steps-children-parental-responsibility-form-parental-responsibility-hint"><p class="govuk-hint">For example 'child's mother', or 'child's father who was married to the mother when the child was born.'</p> <p class="govuk-body"><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p></span><input id="steps-children-parental-responsibility-form-parental-responsibility-field" class="govuk-input" aria-describedby="steps-children-parental-responsibility-form-parental-responsibility-hint" type="text" name="steps_children_parental_responsibility_form[parental_responsibility]"></div>
-
+<button type='submit'>Add</button>
+</form>
 </form/>
 {% endblock %}

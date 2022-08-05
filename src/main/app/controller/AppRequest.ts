@@ -33,6 +33,16 @@ export type childernDetails = {
   id: undefined | string;
   firstname: string | unknown;
   lastname: string | unknown;
+  personalDetails?: {
+    DateoBirth: string;
+    Sex: string;
+  };
+  childMatter?: {
+    entry: string;
+  }[];
+  parentialResponsibility?: {
+    statement: string;
+  };
 };
 
 interface ApplicationSettings {

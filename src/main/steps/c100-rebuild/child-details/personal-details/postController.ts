@@ -13,6 +13,7 @@ export default class AddPersonaldetails extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    console.log(req.body);
     if (req.query.hasOwnProperty('childId')) {
       const { childId } = req.query;
       const checkIfChildIdMatches = req.session.settings.ListOfChild.filter(child => child.id === childId).length > 0;
