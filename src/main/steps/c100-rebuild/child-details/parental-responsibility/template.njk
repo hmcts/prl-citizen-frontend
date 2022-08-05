@@ -1,0 +1,26 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block page_content %}
+<h1 class="govuk-heading-xl">{{pageTitle}} {{childDetails.firstname}}  {{childDetails.lastname}}  </h1>
+
+
+<label for="steps-children-parental-responsibility-form-parental-responsibility-field" class="govuk-label">{{pageHeadline}}
+</label>
+<p class="govuk-hint">{{pageHint}}</p>
+
+<a target="_blank" href="{{urlHref}}">{{linkText}}</a>
+
+<br/>
+{{ govukInput({
+  label: {
+    text: "",
+    classes: "govuk-label--l",
+    isPageHeading: true
+  },
+  id: "event-name",
+  name: "event-name"
+}) }}
+
+</form/>
+{% endblock %}

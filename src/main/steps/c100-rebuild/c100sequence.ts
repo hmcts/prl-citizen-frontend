@@ -91,4 +91,14 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
+  {
+    url: C100_CHILDERN_DETAILS_CHILD_MATTERS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
+  },
 ];
