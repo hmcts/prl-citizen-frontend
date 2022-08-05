@@ -18,6 +18,9 @@ const checkboxConverter = (value: string | undefined) => {
 console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
+  // applicant1DateOfBirth: data => ({
+  //   applicant1DateOfBirth: fromApiDate(data.applicant1DateOfBirth),
+  // }),
   // applicant1AdditionalNames: data => ({
   //   applicant1AdditionalNames: data.applicant1AdditionalNames?.map(item => ({ id: item.id, ...item.value })),
   // }),

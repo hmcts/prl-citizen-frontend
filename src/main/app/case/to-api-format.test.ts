@@ -35,6 +35,12 @@ describe('to-api-format', () => {
     expect(apiFormat).toBe(expected);
   });
 
+  test('convert date to proper format - toApiDate with invalid values', async () => {
+    const expected = '';
+    const apiFormat = toApiDate({ day: '', month: '', year: '' });
+    expect(apiFormat).toBe(expected);
+  });
+
   test('should convert results from adoption-web to CCD api format', async () => {
     const apiFormat = toApiFormat(results as Partial<Case>);
     expect(apiFormat).toStrictEqual({
