@@ -1,5 +1,5 @@
-import { Case, CaseDate, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, YesOrNo } from './definition';
+import { Case, CaseDate, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData } from './definition';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 

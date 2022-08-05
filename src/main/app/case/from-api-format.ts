@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
-import { Case, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData, YesOrNo } from './definition';
+import { Case, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData } from './definition';
 
 dayjs.extend(advancedFormat);
 
