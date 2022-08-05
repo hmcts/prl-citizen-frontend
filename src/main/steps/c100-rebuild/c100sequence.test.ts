@@ -63,6 +63,11 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[13].url).toBe('/c100-rebuild/reasonable-adjustments/document-information');
     expect(C100Sequence[13].showInSection).toBe('c100');
+    expect(C100Sequence[13].getNextStep({})).toBe('/c100-rebuild/reasonable-adjustments/feel-comfortable');
+
+    expect(C100Sequence[14].url).toBe('/c100-rebuild/reasonable-adjustments/feel-comfortable');
+    expect(C100Sequence[14].showInSection).toBe('c100');
+    expect(C100Sequence[14].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[13].getNextStep({})).toBe('/c100-rebuild/reasonable-adjustments/support-court');
 
     expect(C100Sequence[14].url).toBe('/c100-rebuild/reasonable-adjustments/support-court');
