@@ -7,7 +7,7 @@ import { GetController, TranslationFn } from '../../../../app/controller/GetCont
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
 
 @autobind
-export default class AddChildernGetController extends GetController {
+export default class AddPersonaldetails extends GetController {
   constructor(
     protected readonly view: string,
     protected readonly content: TranslationFn,

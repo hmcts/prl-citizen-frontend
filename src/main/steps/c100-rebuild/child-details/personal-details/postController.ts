@@ -7,7 +7,7 @@ import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { C100_CHILDERN_DETAILS_CHILD_MATTERS } from '../../../urls';
 
 @autobind
-export default class SameAddressPostController extends PostController<AnyObject> {
+export default class AddPersonaldetails extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
