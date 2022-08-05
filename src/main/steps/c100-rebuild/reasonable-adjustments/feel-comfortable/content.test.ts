@@ -24,7 +24,7 @@ const en = {
     appropriateLightingSubField: {
       required: 'Describe the appropriate lighting you need',
     },
-    feelComportableSubField: {
+    feelComportableOtherSubField: {
       required: 'Describe what you need to feel comfortable during a court hearing',
     },
     feelComportable: {
