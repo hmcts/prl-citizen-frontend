@@ -3,11 +3,11 @@ import { FormContent } from '../../../../app/form/Form';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  pageTitle: 'Which of the decisions you’re asking the court to resolve relate to',
+  pageTitle: 'Provide details for',
 });
 
 const cy = () => ({
-  pageTitle: 'Which of the decisions you’re asking the court to resolve relate to - welsh',
+  pageTitle: 'Enter the names of the children - welsh',
 });
 
 const languages = {

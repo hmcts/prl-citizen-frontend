@@ -158,5 +158,10 @@ export const C100_INTERNATIONAL_ELEMENTS_REQUEST: PageLink = `${C100_URL}/intern
 export const C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT: PageLink = `${C100_URL}/reasonable-adjustments/attending-court`;
 export const C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS: PageLink = `${C100_URL}/reasonable-adjustments/language-requirements`;
 export const C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS: PageLink = `${C100_URL}/reasonable-adjustments/special-arrangements`;
-export const C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements`;
-export const C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT: PageLink = `${C100_URL}/reasonable-adjustments/support-court`;
+
+/** @C100 Childern Details */
+export const C100_CHILDERN_DETAILS: PageLink = `${C100_URL}/child-details`;
+export const C100_CHILDERN_DETAILS_ADD: PageLink = `${C100_CHILDERN_DETAILS}/add-childern`;
+export const C100_CHILDERN_DETAILS_PERSONAL_DETAILS: PageLink = `${C100_CHILDERN_DETAILS}/personal-details`;
+export const C100_CHILDERN_DETAILS_CHILD_MATTERS: PageLink = `${C100_CHILDERN_DETAILS}/child-matters`;
+export const C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: PageLink = `${C100_CHILDERN_DETAILS}/parental-responsibility`;

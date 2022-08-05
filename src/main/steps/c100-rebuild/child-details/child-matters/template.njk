@@ -10,7 +10,7 @@
 {% block page_content %}
 <h1 class="govuk-heading-xl">{{pageTitle}} {{childDetails.firstname}}  {{childDetails.lastname}}  </h1>
 
-
+<form method="post">
 {{ govukCheckboxes({
   idPrefix: "waste",
   name: "waste",
