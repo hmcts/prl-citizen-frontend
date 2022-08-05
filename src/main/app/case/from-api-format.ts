@@ -9,13 +9,13 @@ dayjs.extend(advancedFormat);
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
-const checkboxConverter = (value: string | undefined) => {
-  if (!value) {
-    return undefined;
-  }
-  return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
-};
-console.log(checkboxConverter);
+// const checkboxConverter = (value: string | undefined) => {
+//   if (!value) {
+//     return undefined;
+//   }
+//   return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
+// };
+// console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   // applicant1DateOfBirth: data => ({
@@ -87,14 +87,14 @@ const fields: FromApiConverters = {
   // }),
 };
 
-const fromApiDate = date => {
-  if (!date) {
-    return;
-  }
+// const fromApiDate = date => {
+//   if (!date) {
+//     return;
+//   }
 
-  const [y, m, d] = date.split('-');
-  return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
-};
-console.log(fromApiDate);
+//   const [y, m, d] = date.split('-');
+//   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
+// };
+// console.log(fromApiDate);
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
