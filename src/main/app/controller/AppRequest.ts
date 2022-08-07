@@ -5,6 +5,7 @@ import type { LoggerInstance } from 'winston';
 import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
 import { FormError } from '../form/Form';
+import { YesOrNo } from 'app/case/definition';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
   session: AppSession;
@@ -35,7 +36,9 @@ export type childernDetails = {
   lastname: string | unknown;
   personalDetails?: {
     DateoBirth: string;
-    Sex: string;
+    isDateOfBirthKnown: YesOrNo;
+    ApproximateDateOfBirth: string;
+    Sex: string | unknown;
   };
   childMatter?: {
     entry: string;

@@ -100,10 +100,10 @@ export class GetController {
    * @param {AppRequest} req - AppRequest - this is the request object that is passed to the controller.
    */
   public clearConfidentialitySessionSaveData(req: AppRequest): void {
-    if (req.originalUrl === Urls.C100_CONFIDENTIALITY_START) {
+    if (req.originalUrl === Urls.C100_CONFIDENTIALITY_START && req.session.userCase) {
       req.session.userCase['contactDetailsPrivateAlternative'] = undefined;
     }
-    if (req.originalUrl === Urls.C100_CONFIDENTIALITY_START_ALTERNATIVE) {
+    if (req.originalUrl === Urls.C100_CONFIDENTIALITY_START_ALTERNATIVE && req.session.userCase) {
       req.session.userCase['contactDetailsPrivate'] = undefined;
     }
   }

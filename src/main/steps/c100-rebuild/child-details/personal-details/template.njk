@@ -9,48 +9,4 @@
 
 {% block page_content %}
 <h1 class="govuk-heading-xl">{{pageTitle}} {{childDetails.firstname}}  {{childDetails.lastname}}  </h1>
-
-
-{{ govukDateInput({
-  id: "passport-issued",
-  namePrefix: "passport-issued",
-  fieldset: {
-    legend: {
-      text: "Date of birth",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--s"
-    }
-  },
-  hint: {
-    text: "For example, 31 3 2016"
-  }
-}) }}
-
-{{ govukRadios({
-  idPrefix: "child-sex",
-  name: "child-sex",
-  fieldset: {
-    legend: {
-      text: "Sex",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--m"
-    }
-  },
-  items: [
-    {
-      value: "Male",
-      text: "Male"
-    },
-    {
-      value: "Female",
-      text: "Female"
-    },
-    {
-      value: "Unspecified",
-      text: "Unspecified"
-    }
-  ]
-}) }}
-
-</form/>
 {% endblock %}

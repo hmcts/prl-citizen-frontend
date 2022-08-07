@@ -7,7 +7,7 @@ import { GetController, TranslationFn } from '../../../../app/controller/GetCont
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
 
 @autobind
-export default class AddPersonaldetails extends GetController {
+export default class Personaldetails extends GetController {
   constructor(
     protected readonly view: string,
     protected readonly content: TranslationFn,
@@ -51,7 +51,6 @@ export default class AddPersonaldetails extends GetController {
         formaction: req.originalUrl,
         listedChildern: req.session.settings.ListOfChild,
         childDetails,
-        childId,
       });
     }
   }
