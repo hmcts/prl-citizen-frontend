@@ -1,7 +1,7 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
-import { SummaryList, summaryList } from './utils';
+import { summaryList } from './utils';
 
 const enContent = {
   section: 'Check your details',
@@ -48,12 +48,6 @@ describe('common > summary > utils', () => {
           title: 'applicationDetails',
           rows: [
             {
-              key: {
-                text: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
-              },
-              value: {
-                html: 'Yes',
-              },
               actions: {
                 items: [
                   {
@@ -64,7 +58,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'What is a Mediation Information and Assessment Meeting (MIAM)?' },
-              value: { html: 'Yes' },
+              value: { text: 'Yes' },
             },
             {
               actions: {
@@ -77,7 +71,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: { html: '11 March 2022' },
+              value: { text: '11 March 2022' },
             },
             {
               actions: {
@@ -91,26 +85,16 @@ describe('common > summary > utils', () => {
               },
               key: { text: 'When did you receive the application?' },
               value: {
-                html: '',
+                text: 'Complete this section',
               },
             },
           ],
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      const result: SummaryList | undefined = summaryList(
-        enContent,
-        userCase,
-        urls,
-        'applicationDetails',
-        enContent.fieldType,
-        'en',
-        undefined
+      expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
+        expected
       );
-      console.log('======>' + JSON.stringify(result));
-      expect(
-        summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en', undefined)
-      ).toStrictEqual(expected);
     });
   });
 });

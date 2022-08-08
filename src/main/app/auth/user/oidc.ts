@@ -19,7 +19,7 @@ export const getUserDetails = async (
   callbackUrlPageLink: PageLink
 ): Promise<UserDetails> => {
   const id = 'prl-citizen-frontend'; //'prl-cos-api'; //config.get('services.idam.clientID');
-  const secret = 'GBFSEUMBUXTTDSSR'; //config.get('services.idam.clientSecret');
+  const secret = 'GBFSEUMBUXTTDSSR';
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
   const code = encodeURIComponent(rawCode);
@@ -38,7 +38,7 @@ export const getUserDetails = async (
 };
 
 export const getSystemUser = async (): Promise<UserDetails> => {
-  const id = 'prl-cos-api'; //config.get('services.idam.clientID');
+  const id = 'prl-cos-api';
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const systemUsername: string = config.get('services.idam.systemUsername');

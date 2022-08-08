@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus } from './utils';
+import {
+  getConfirmOrEditYourContactDetails,
+  getKeepYourDetailsPrivateStatus,
+  getSupportYourNeedsDetails,
+} from './utils';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const generateApplicantTaskList = (sectionTitles: any, taskListItems: any, userCase: any) => {
+export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
     {
       title: sectionTitles.aboutYou,
@@ -22,10 +25,10 @@ export const generateApplicantTaskList = (sectionTitles: any, taskListItems: any
           href: URL.APPLICANT_CHECK_ANSWERS,
         },
         {
-          id: 'your-needs-when-go-to-court',
-          text: taskListItems.your_needs_when_go_to_court,
-          status: getConfirmOrEditYourContactDetails(userCase),
-          href: URL.APPLICANT_CHECK_ANSWERS,
+          id: 'support-you-need-during-your-case',
+          text: taskListItems.support_you_need_during_your_case,
+          status: getSupportYourNeedsDetails(userCase),
+          href: URL.LANGUAGE_REQUIREMENTS,
         },
       ],
     },

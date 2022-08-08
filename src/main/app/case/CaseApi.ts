@@ -19,9 +19,7 @@ import {
   PrivateLaw,
   State,
 } from './definition';
-// eslint-disable-next-line import/namespace
 import { fromApiFormat } from './from-api-format';
-// eslint-disable-next-line import/namespace
 import { toApiFormat } from './to-api-format';
 
 export class CaseApi {
@@ -60,11 +58,8 @@ export class CaseApi {
   public async getCases(): Promise<CcdV1Response[]> {
     try {
       const response = await this.axios.get<CcdV1Response[]>(
-        `http://ccd-data-store-api-aat.service.core-compute-aat.internal/caseworkers/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases/1652796857708749`
+        `/citizens/${this.userDetails.id}/jurisdictions/${JURISDICTION}/case-types/${CASE_TYPE}/cases`
       );
-      //http://localhost:4452/citizens/beb18a7e-8419-40e4-80dd-ca1636618a3f/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases/1653538384893431
-      //console.log("========64======getCaseById response from server============"+JSON.stringify(response.data));
-      //  /citizens/{uid}/jurisdiction/{jid}/case-types/{ctid}/cases/{cid}:
       return response.data;
     } catch (err) {
       this.logError(err);
@@ -91,7 +86,6 @@ export class CaseApi {
     const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.axios.get(
       `/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`
     );
-
     const token = tokenResponse.data.token;
     const event = { id: CITIZEN_CREATE };
     const data = {
@@ -160,13 +154,6 @@ export class CaseApi {
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    // const data = toApiFormat(userData);
-    // const data = userData;
-    // return this.sendEvent(caseId, data, eventName);
-    // console.log(eventName);
-    // return { id: caseId, state: State.successAuthentication, serviceType: '', ...userData };
-    ////
-
     const data = toApiFormat(userData);
     return this.sendEvent(caseId, data, eventName);
   }
@@ -200,9 +187,6 @@ export class CaseApi {
 }
 
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
-  //console.log('s2stoken=====================>' + getServiceAuthToken());
-  //console.log('baseURL=====================>' + config.get('services.case.url'));
-  //console.log('userDetails===============>' + JSON.stringify(userDetails));
   return new CaseApi(
     Axios.create({
       baseURL: config.get('services.case.url'),

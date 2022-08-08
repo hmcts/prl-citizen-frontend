@@ -1,4 +1,3 @@
-//import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../common.content';
@@ -48,6 +47,45 @@ jest.mock('../../../../app/form/validation');
 //   },
 // };
 
+// const cy = {
+//   section: '',
+//   title: 'Ydych chi wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
+//   one: 'Ydw, rydw i wedi byw yn y cyfeiriad hwn ers mwy na 5 mlynedd',
+//   two: 'Na, nid wyf wedi byw yn y cyfeiriad hwn ers mwy na 5 mlynedd',
+//   previousHistory:
+//     'Rhowch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf, gan ddechrau gyda ch cyfeiriad diweddaraf',
+//   buildStreet: 'Adeilad a stryd',
+//   towncity: 'Tref neu ddinas',
+//   countryLabel: 'Gwlad',
+//   postcodeLabel: 'Côd post',
+//   summaryText: 'Cysylltiadau am help',
+//   continue: 'Cadw a pharhau',
+//   addAnotherAddress: 'Ychwanegu cyfeiriad arall',
+//   errors: {
+//     addressHistory: {
+//       required: 'Rhowch eich Hanes cyfeiriad',
+//     },
+//     buildingAndStreet: {
+//       required: 'Ewch i mewn i ch adeilad a ch stryd',
+//     },
+//     buildingAndStreet1: {
+//       required: 'Ewch i mewn i ch adeilad a ch llinell stryd2',
+//     },
+//     buildingAndStreet2: {
+//       required: 'Ewch i mewn i ch adeilad a ch llinell stryd3',
+//     },
+//     townOrCity: {
+//       required: 'Ewch i mewn i ch tref neu ddinas',
+//     },
+//     country: {
+//       required: 'Ewch i mewn i ch gwlad',
+//     },
+//     postcode: {
+//       required: 'Rhowch eich cod post',
+//     },
+//   },
+// };
+
 /* eslint-disable @typescript-eslint/ban-types */
 describe('common > components > address-history > content', () => {
   const commonContent = { language: 'en', userCase: {} } as CommonContent;
@@ -89,16 +127,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
-    const fieldName = 'buildingAndStreet';
-    const validator = isFieldFilledIn;
-
-    const subFields = renderSubFields([{ fieldName, validator } as InputValues]);
-
-    expect(subFields).toStrictEqual({});
-  });
-
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields buildingAndStreet1 if component type is not provided', () => {
     const fieldName = 'buildingAndStreet1';
     const validator = isFieldFilledIn;
 
@@ -107,7 +136,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields buildingAndStreet2 if component type is not provided', () => {
     const fieldName = 'buildingAndStreet2';
     const validator = isFieldFilledIn;
 
@@ -116,7 +145,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields townOrCity if component type is not provided', () => {
     const fieldName = 'townOrCity';
     const validator = isFieldFilledIn;
 
@@ -125,7 +154,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields country if component type is not provided', () => {
     const fieldName = 'country';
     const validator = isFieldFilledIn;
 
@@ -134,7 +163,7 @@ describe('common > components > address-history > content', () => {
     expect(subFields).toStrictEqual({});
   });
 
-  it('should not render fields if component type is not provided', () => {
+  it('should not render fields postcode if component type is not provided', () => {
     const fieldName = 'postcode';
     const validator = isFieldFilledIn;
 

@@ -18,7 +18,7 @@ export const getConfirmOrEditYourContactDetails = (userCase: Partial<CaseWithId>
   if (userCase?.applicant1FullName || userCase?.applicant1DateOfBirth || userCase?.applicant1PlaceOfBirth) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.TO_DO;
+  return SectionStatus.NOT_STARTED;
 };
 
 export const getConsentToApplicationStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
@@ -38,7 +38,6 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
   if (userCase?.miamStart || userCase?.miamWillingness) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.TO_DO;
   return SectionStatus.TO_DO;
 };
 
