@@ -25,3 +25,11 @@ export const getYourApplication = (userCase: CaseWithId): SectionStatus => {
   console.log(userCase);
   return SectionStatus.DOWNLOAD;
 };
+
+export const getApplicantViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): boolean => {
+  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
