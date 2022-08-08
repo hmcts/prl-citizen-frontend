@@ -138,7 +138,6 @@ export class PostController<T extends AnyObject> {
     if (req?.session?.userCase) {
       Object.assign(req?.session?.userCase, formData);
     } else {
-
       //make an api call to check if the caseId exists? and if it exists then set the case code
       //DO NOT MERGE TO MASTER - ADDED FOR C100 REBUILD
       if (req.session.userCase === undefined) {
@@ -152,8 +151,6 @@ export class PostController<T extends AnyObject> {
         req.session.userCase = initData;
         req.session.accessCodeLoginIn = true;
       }
-    }
-
       const initData = {
         id: ' ',
         state: State.AwaitingService,
@@ -168,8 +165,6 @@ export class PostController<T extends AnyObject> {
     } else {
       req.session.accessCodeLoginIn = true;
     }
-    this.redirect(req, res);
-
   }
 }
 
