@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
@@ -13,9 +14,7 @@ import { AppRequest } from './AppRequest';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
-
   constructor(protected readonly fields: FormFields | FormFieldsFn) {}
-
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
@@ -134,33 +133,24 @@ export class PostController<T extends AnyObject> {
     return CITIZEN_UPDATE;
   }
 
-  private async checkCaseAccessCode(
-    req: AppRequest<T>,
-    res: Response,
-    form: Form,
-    formData: Partial<Case>
-  ): Promise<void> {
-    // if (req?.session?.userCase) {
-    //   Object.assign(req?.session?.userCase, formData);
-    // } else {
-    //   const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
-    //   req.session.userCase = initData;
-    // }
-    req.session.errors = form.getErrors(formData);
-    if (req.session.errors.length) {
-      req.session.accessCodeLoginIn = false;
+  private async checkCaseAccessCode(req: AppRequest<T>, res: Response, form: Form, formData: Partial<CaseWithId>) {
+    if (req?.session?.userCase) {
+      Object.assign(req?.session?.userCase, formData);
     } else {
-      //make an api call to check if the caseId exists? and if it exists then set the case code
       const initData = {
-        id: formData.caseCode || '',
-        state: State.successAuthentication,
+        id: ' ',
+        state: State.AwaitingService,
         serviceType: '',
         ...formData,
       };
       req.session.userCase = initData;
+    }
+    req.session.errors = form.getErrors(formData);
+    if (req.session.errors.length) {
+      req.session.accessCodeLoginIn = false;
+    } else {
       req.session.accessCodeLoginIn = true;
     }
-
     this.redirect(req, res);
   }
 }
