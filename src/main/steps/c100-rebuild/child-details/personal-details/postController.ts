@@ -38,7 +38,7 @@ export default class Personaldetails extends PostController<AnyObject> {
     const isDateOfBirthKnown = req.body['isDopKnown'].length === 2 ? YesOrNo.YES : YesOrNo.NO;
     const DateoBirth = isDateOfBirthKnown === 'No' ? `${req.body['childDateOfBirth-day']}/${req.body['childDateOfBirth-month']}/${req.body['childDateOfBirth-year']}`: '';
     const Sex = req.body['childSex'];
-    const ApproximateDateOfBirth = isDateOfBirthKnown === 'Yes' ? `${req.body['apDateOfBirth-day']}/${req.body['apDateOfBirth-month']}/${req.body['apDateOfBirth-year']}` : 's';
+    const ApproximateDateOfBirth = isDateOfBirthKnown === 'Yes' ? `${req.body['apDateOfBirth-day']}/${req.body['apDateOfBirth-month']}/${req.body['apDateOfBirth-year']}` : '';
 
     return { DateoBirth, ApproximateDateOfBirth, Sex, isDateOfBirthKnown };
   }
