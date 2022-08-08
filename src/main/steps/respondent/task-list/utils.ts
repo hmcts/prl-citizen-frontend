@@ -70,6 +70,14 @@ export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatu
   }
 };
 
+export const getViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): boolean => {
+  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
   //const documents: string[] = [];
   console.log('userCase => ' + userCase);
