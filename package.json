@@ -110,7 +110,7 @@
     "@types/webpack-dev-middleware": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.31.0",
-    "@wdio/sauce-service": "^7.16.13",
+    "@wdio/sauce-service": "^7.20.9",
     "allure-commandline": "^2.13.8",
     "axios-debug-log": "^0.8.4",
     "babel-eslint": "^10.1.0",

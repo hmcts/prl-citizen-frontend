@@ -2077,12 +2077,7 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@^18.0.0":
-  version "18.6.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.6.2.tgz#ffc5f0f099d27887c8d9067b54e55090fcd54126"
-  integrity sha512-KcfkBq9H4PI6Vpu5B/KoPeuVDAbmi+2mDBqGPGUgoL7yXQtcWGu2vJWmmRkneWK3Rh0nIAX192Aa87AqKHYChQ==
-
-"@types/node@^18.6.1":
+"@types/node@*", "@types/node@^18.0.0", "@types/node@^18.6.1":
   version "18.6.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.6.3.tgz#4e4a95b6fe44014563ceb514b2598b3e623d1c98"
   integrity sha512-6qKpDtoaYLM+5+AFChLhHermMQxc3TOEFIDzrZLPRGHPrLEwqFkkT5Kx3ju05g6X7uDPazz3jHbKPX0KzCjntg==
@@ -2441,17 +2436,17 @@
   dependencies:
     "@wdio/utils" "7.20.7"
 
-"@wdio/sauce-service@^7.16.13":
-  version "7.20.8"
-  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.20.8.tgz#0165bf751cf7e3d12ef67d645399d5b0b2306f6e"
-  integrity sha512-HwWa/1q0KAaWbf8eG5AY9WN9KERH4GLBd4DdbjdcIgNxnAgOjrKUqRlpLCUoJct50huegrayaPRt3FIzTkveLw==
+"@wdio/sauce-service@^7.20.9":
+  version "7.20.9"
+  resolved "https://registry.yarnpkg.com/@wdio/sauce-service/-/sauce-service-7.20.9.tgz#e13d18190dbf0d415f58811f9f3918a32a6690df"
+  integrity sha512-QZn04JwMmLzF49ttTvl8jyNvOFElr5ScxBzEDXBhqsd5OYuT4rVqOFdCpdu0JfA1AR1CUw9MUG9QKZj4cTHS+w==
   dependencies:
     "@types/node" "^18.0.0"
     "@wdio/logger" "7.19.0"
     "@wdio/types" "7.20.7"
     "@wdio/utils" "7.20.7"
     saucelabs "^7.1.3"
-    webdriverio "7.20.8"
+    webdriverio "7.20.9"
 
 "@wdio/types@7.20.7":
   version "7.20.7"
@@ -4552,10 +4547,10 @@ devtools-protocol@0.0.981744:
   resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.981744.tgz#9960da0370284577d46c28979a0b32651022bacf"
   integrity sha512-0cuGS8+jhR67Fy7qG3i3Pc7Aw494sb9yG9QgpG97SFVWwolgYjlhJg7n+UaHxOQT30d1TYu/EYe9k01ivLErIg==
 
-devtools-protocol@^0.0.1027518:
-  version "0.0.1027518"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.1027518.tgz#5434d0cdcc89b085041ebded1287c3332998f5cd"
-  integrity sha512-qujzopk6PjSKlce9G12oAyLvCs2K2Qgp7DMBxkAhR2rmr3Q+m1ltWHRa0lDPO0I38/J0hC6fZhTJm2el87mIdA==
+devtools-protocol@^0.0.1029085:
+  version "0.0.1029085"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.1029085.tgz#e3485ccbb56b6db2a645b17990220f76460a40c6"
+  integrity sha512-48FoiceZWyYdE1LXAptQeWG1Hz4VfHpTlAdh9kvZ+0WCglbShPeKzKgg+rvsJvlUbpAXyjmi/bvCamPFI5jkZw==
 
 devtools@7.20.8:
   version "7.20.8"
@@ -11679,10 +11674,10 @@ webdriver@7.20.8:
     ky "0.30.0"
     lodash.merge "^4.6.1"
 
-webdriverio@7.20.8, webdriverio@^7.19.7:
-  version "7.20.8"
-  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.20.8.tgz#96f24371b40b5a12feb7031516e166ae864d16e9"
-  integrity sha512-1FN1LzMmB2HAtLr817MeQ4XF31r539CiYU+/l78eK+IwQq0rGfj6lY2yqk1oGtEwvH3W39mvLjMirz0VdY+Ilg==
+webdriverio@7.20.9, webdriverio@^7.19.7:
+  version "7.20.9"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-7.20.9.tgz#11fe6614f2164cb098b6427ec560fc30a54218a5"
+  integrity sha512-p/XNuIL1fSeF4oR9sKYDHKijDFZyay/J+EW5G8rTwKvAnve/psskLcS+59gGTcUrWRSrqZ/Rfhn3ybrccEGAuw==
   dependencies:
     "@types/aria-query" "^5.0.0"
     "@types/node" "^18.0.0"
@@ -11697,7 +11692,7 @@ webdriverio@7.20.8, webdriverio@^7.19.7:
     css-shorthand-properties "^1.1.1"
     css-value "^0.0.1"
     devtools "7.20.8"
-    devtools-protocol "^0.0.1027518"
+    devtools-protocol "^0.0.1029085"
     fs-extra "^10.0.0"
     grapheme-splitter "^1.0.2"
     lodash.clonedeep "^4.5.0"
