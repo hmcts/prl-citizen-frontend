@@ -35,7 +35,7 @@ const enContent = {
   },
 };
 const cyContent = {
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -89,7 +89,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
-              status: 'TO_DO',
+              status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
             {
@@ -113,7 +113,7 @@ describe('task-list > content', () => {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'witness-statement',
               text: 'Witness statement',
-              status: 'TO_DO',
+              status: 'IN_PROGRESS',
             },
           ],
           title: 'Your application',
@@ -152,13 +152,13 @@ describe('task-list > content', () => {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'see-all-documents',
               text: 'See all documents',
-              status: 'TO_DO',
+              status: 'IN_PROGRESS',
             },
             {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'see-all-documents-alternative-view',
               text: 'See all documents ( alternate view )',
-              status: 'TO_DO',
+              status: 'IN_PROGRESS',
             },
           ],
           title: 'Your documents',
