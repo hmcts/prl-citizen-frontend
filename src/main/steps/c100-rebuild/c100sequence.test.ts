@@ -4,7 +4,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(16);
+    expect(C100Sequence).toHaveLength(17);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -71,6 +71,10 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[15].url).toBe('/c100-rebuild/reasonable-adjustments/feel-comfortable');
     expect(C100Sequence[15].showInSection).toBe('c100');
-    expect(C100Sequence[15].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[15].getNextStep({})).toBe('/c100-rebuild/reasonable-adjustments/travelling-court');
+
+    expect(C100Sequence[16].url).toBe('/c100-rebuild/reasonable-adjustments/travelling-court');
+    expect(C100Sequence[16].showInSection).toBe('c100');
+    expect(C100Sequence[16].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
   });
 });
