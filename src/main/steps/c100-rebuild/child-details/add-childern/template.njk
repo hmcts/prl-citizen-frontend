@@ -11,9 +11,8 @@
   text: subTitle
 }) }}
 
-
+<form method="post" action="?action={{formaction}}">
 {% for child in listedChildern %}
-<form method="post" action="{{formaction}}?action=removeChild&childId={{child.id}}">
  <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
          {% call govukFieldset({
   legend: {
@@ -46,52 +45,41 @@
   }) }}
   {{ govukButton({
   text: "Remove child "+ loop.index,
-  classes: "govuk-button--warning"
+  classes: "govuk-button--warning",
+  formaction: "removeChild"
 }) }}
 
-{% endcall %}
-  
-</form>
 
+{% endcall %}
 
 {% endfor %}
 
-<form method="post" action="{{formaction}}?action=addChild">
-     <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
-    {% call govukFieldset({
-  legend: {
-    text: "Enter your new name",
-    classes: "govuk-fieldset__legend--m",
-    isPageHeading: true
-  }
-}) %}
-
-  {{ govukInput({
-    label: {
-      text: 'First name(s)'
-    },
-    hint: {
-    text: "Include all middle names here"
-  },
-    id: "address-line-1",
-    name: "firstname",
-    autocomplete: "address-line1",
-    classes: "govuk-input govuk-!-width-one-half"
-  }) }}
-
-  {{ govukInput({
-    label: {
-      text: 'Last name(s)'
-    },
-    id: "address-line-1",
-    name: "lastname",
-    autocomplete: "address-line1",
-    classes: "govuk-input govuk-!-width-one-half"
-  }) }}
-  {{ govukButton({
+{{ govukButton({
   text: "Add another child",
-  classes: "govuk-button--secondary"
+  classes: "govuk-button--secondary",
+  attributes: {
+            formaction: "addChild"
+        }
 }) }}
-{% endcall %}
-</form/>
+
+<br></br>
+
+ {{ govukButton({
+  text: "Continue",
+  classes: "govuk-button--warning",
+   attributes: {
+            formaction: "continue"
+        }
+}) }}
+
+ {{ govukButton({
+  text: "Save and Continue",
+  classes: "govuk-button--warning",
+  attributes: {
+            formaction: "continue"
+        }
+}) }}
+  
+</form>
+
 {% endblock %}

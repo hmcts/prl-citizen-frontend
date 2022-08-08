@@ -14,6 +14,7 @@ export default class AddChilderns extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    console.log(req); // /c100-rebuild/child-details/addChild
     if (req.query.hasOwnProperty('action')) {
       const { action } = req.query;
       switch (action) {
@@ -46,6 +47,7 @@ export default class AddChilderns extends PostController<AnyObject> {
       }
     } else {
       // eslint-disable-next-line no-self-assign
+      console.log("inside else");
       req.session.settings.ListOfChild = req.session.settings.ListOfChild;
       const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;
       super.redirect(req, res, redirectURI);

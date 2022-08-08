@@ -1,6 +1,8 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
@@ -44,7 +46,7 @@ export default class AddChilderns extends GetController {
       htmlLang: language,
       childernForms: req.session.settings?.['toggleChild'],
       formaction: req.originalUrl,
-      listedChildern: req.session.settings.ListOfChild,
+      listedChildern: [{ id: uuidv4().toString(), firstname: '', lastname: '' }],
     });
   }
 
