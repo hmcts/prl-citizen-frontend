@@ -210,7 +210,6 @@ export const generatePageContent = ({
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
   // const contactEmail = 'todo@test.com';
-
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
@@ -223,7 +222,7 @@ export const generatePageContent = ({
     // fee,
   };
 
-  if (pageContent) {
+  if (pageContent !== null && pageContent !== undefined) {
     Object.assign(content, pageContent(content));
   }
 
