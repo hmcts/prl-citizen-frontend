@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus, getYourApplication } from './utils';
+import {
+  getConfirmOrEditYourContactDetails,
+  getKeepYourDetailsPrivateStatus,
+  getViewAllDocuments,
+  getYourApplication,
+} from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
@@ -36,6 +41,17 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           text: taskListItems.your_application_witness_statement,
           status: getYourApplication(userCase),
           href: URL.YOUR_APPLICATION_WITNESS_STATEMENT,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.viewAllDocuments,
+      items: [
+        {
+          id: 'view-all-documents',
+          text: taskListItems.view_all_documents,
+          status: getViewAllDocuments(userCase),
+          href: getViewAllDocuments(userCase) === 'READY_TO_VIEW' ? URL.APPLICANT_VIEW_ALL_DOCUMENTS : '#',
         },
       ],
     },

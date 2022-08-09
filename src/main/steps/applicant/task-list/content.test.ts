@@ -11,16 +11,19 @@ const enContent = {
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'Not Started',
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
+    viewAllDocuments: 'Your documents',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     your_application: 'Application submitted (PDF)',
     your_application_witness_statement: 'Witness statement (PDF)',
+    view_all_documents: 'View all documents',
   },
 };
 const cyContent = {
@@ -30,16 +33,19 @@ const cyContent = {
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
   },
   sectionTitles: {
     applicantYourDetails: 'About you',
     applicationDetails: 'Application detail',
+    viewAllDocuments: 'Your documents',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     your_application: 'Application submitted (PDF)',
     your_application_witness_statement: 'Witness statement (PDF)',
+    view_all_documents: 'View all documents',
   },
 };
 describe('task-list > content', () => {
@@ -89,6 +95,17 @@ describe('task-list > content', () => {
             },
           ],
           title: undefined,
+        },
+        {
+          items: [
+            {
+              href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'view-all-documents',
+              status: 'READY_TO_VIEW',
+              text: 'View all documents',
+            },
+          ],
+          title: 'Your documents',
         },
       ],
     },

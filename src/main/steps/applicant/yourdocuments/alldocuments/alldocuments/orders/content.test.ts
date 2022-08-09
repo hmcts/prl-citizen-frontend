@@ -1,6 +1,6 @@
-import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
+import languageAssertions from '../../../../../../../test/unit/utils/languageAssertions';
+import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../../app/form/Form';
+import { CommonContent } from '../../../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -22,7 +22,7 @@ const cyContent = {
   continue: 'Go back',
 };
 
-jest.mock('../../../../../app/form/validation');
+jest.mock('../../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;

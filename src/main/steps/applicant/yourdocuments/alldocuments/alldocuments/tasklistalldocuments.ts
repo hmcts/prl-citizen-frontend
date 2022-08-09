@@ -1,4 +1,5 @@
-import * as URL from '../../../../../steps/urls';
+import { CommonContent } from '../../../../../steps/common/common.content';
+import * as URL from '../../../../urls';
 import {
   getApplicantAllegationsOfHarmAndViolence,
   getApplicantResponseToRequestForChildArrangements,
@@ -26,7 +27,7 @@ export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListIte
       items: [
         {
           id: 'applicant-response-to-request-for-child-arrangements',
-          text: taskListItems.applicant_response_to_request_for_child_arrangements,
+          text: getText(taskListItems.applicant_response_to_request_for_child_arrangements, userCase),
           href:
             getApplicantResponseToRequestForChildArrangements(userCase) === true
               ? URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT
@@ -34,7 +35,7 @@ export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListIte
         },
         {
           id: 'applicant-allegations-of-harm-and-violence',
-          text: taskListItems.applicant_allegations_of_harm_and_violence,
+          text: getText(taskListItems.applicant_allegations_of_harm_and_violence, userCase),
           href:
             getApplicantAllegationsOfHarmAndViolence(userCase) === true
               ? URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT
@@ -44,3 +45,8 @@ export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListIte
     },
   ];
 };
+
+function getText(inputStr: string, userCase: CommonContent) {
+  console.log(userCase);
+  return inputStr.replace('<nameapplicantxxxxx>', 'Applicant_FNAME_LNAME');
+}

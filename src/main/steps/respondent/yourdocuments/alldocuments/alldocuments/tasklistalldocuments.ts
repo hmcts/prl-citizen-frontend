@@ -1,3 +1,4 @@
+import { CommonContent } from '../../../../../steps/common/common.content';
 import * as URL from '../../../../../steps/urls';
 import {
   getRespondentAllegationsOfHarmAndViolence,
@@ -26,7 +27,7 @@ export const generateRespondentTaskListAllDocuments = (sectionTitles, taskListIt
       items: [
         {
           id: 'respondent-response-to-request-for-child-arrangements',
-          text: taskListItems.respondent_response_to_request_for_child_arrangements,
+          text: getText(taskListItems.respondent_response_to_request_for_child_arrangements, userCase),
           href:
             getRespondentResponseToRequestForChildArrangements(userCase) === true
               ? URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT
@@ -34,7 +35,7 @@ export const generateRespondentTaskListAllDocuments = (sectionTitles, taskListIt
         },
         {
           id: 'respondent-allegations-of-harm-and-violence',
-          text: taskListItems.respondent_allegations_of_harm_and_violence,
+          text: getText(taskListItems.respondent_allegations_of_harm_and_violence, userCase),
           href:
             getRespondentAllegationsOfHarmAndViolence(userCase) === true
               ? URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT
@@ -44,3 +45,7 @@ export const generateRespondentTaskListAllDocuments = (sectionTitles, taskListIt
     },
   ];
 };
+function getText(inputStr: string, userCase: CommonContent) {
+  console.log(userCase);
+  return inputStr.replace('<namerespondentxxxxx>', 'RESPONDENT_FNAME_LNAME');
+}

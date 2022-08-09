@@ -3,4 +3,5 @@ export const applicant_tasklist_items_en = {
   confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
   your_application: 'Application submitted (PDF)',
   your_application_witness_statement: 'Witness statement (PDF)',
+  view_all_documents: 'View all documents',
 };

@@ -20,18 +20,18 @@ export class DocumentManagerController {
   }
 
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-    const originalUrl = req.originalUrl;
     let filename = '';
-
-    if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
-      filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
-    }
-
-    const caseworkerUser = await getSystemUser();
-    req.session.user = caseworkerUser;
-    const caseReference = req.session.userCase.id;
-
     try {
+      const originalUrl = req.originalUrl;
+
+      if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
+        filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
+      }
+
+      const caseworkerUser = await getSystemUser();
+      req.session.user = caseworkerUser;
+      const caseReference = req.session.userCase.id;
+
       const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       req.session.userCase = caseDataFromCos;

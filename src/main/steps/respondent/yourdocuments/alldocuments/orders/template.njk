@@ -17,6 +17,7 @@
     <li>
 
       <dl class="govuk-summary-list govuk-summary-list--no-border">
+        {% if userCase && userCase.orderCollection && userCase.orderCollection.length > 0 %}
         {% for file in userCase.orderCollection %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -27,7 +28,7 @@
             </dd>
           </div>
         {% endfor %}
-
+        {% endif %}
       </dl>
     </li>
   </ol>

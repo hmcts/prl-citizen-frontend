@@ -127,3 +127,4 @@ export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-sta
 export const YOUR_APPLICATION_WITNESS_STATEMENT: PageLink = `${APPLICANT}${APPLICATION_WITNESS_STATEMENT}`;
 
 export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/alldocuments`;
+export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}/yourdocuments/alldocuments/alldocuments`;

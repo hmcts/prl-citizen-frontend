@@ -57,12 +57,12 @@ describe('task-list > content', () => {
           items: [
             {
               id: 'applicant-response-to-request-for-child-arrangements',
-              text: "<nameapplicantxxxxx>'s response to the request for child arrangements",
+              text: "Applicant_FNAME_LNAME's response to the request for child arrangements",
               href: '#',
             },
             {
               id: 'applicant-allegations-of-harm-and-violence',
-              text: "<nameapplicantxxxxx>'s allegations of harm and violence",
+              text: "Applicant_FNAME_LNAME's allegations of harm and violence",
               href: '#',
             },
           ],

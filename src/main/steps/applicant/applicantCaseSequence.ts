@@ -16,6 +16,7 @@ import {
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_TASK_LIST_URL,
   // APPLICANT_START_ALTERNATIVE,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -87,6 +88,11 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_POSTAL_ADDRESS_DETAILS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
