@@ -39,7 +39,7 @@ describe('AddressLookupPostControllerBase', () => {
     beforeEach(() => {
       mockGetParsedBody.mockReturnValue({});
       mockGetErrors.mockReturnValue([]);
-      req.body.applicantAddressPostcode = 'MOCK_POSTCODE';
+      req.body.applicant1AddressPostcode = 'MOCK_POSTCODE';
       mockGetAddressesFromPostcode.mockResolvedValue([{ MOCK_KEY: 'MOCK_VALUE' }]);
     });
 
