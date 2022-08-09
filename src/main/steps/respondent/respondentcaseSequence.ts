@@ -27,6 +27,9 @@ import {
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT,
+  UPLOAD_DOCUMENT_LIST_URL,
+  UPLOAD_DOCUMENT_LIST_START_URL,
+  UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -160,6 +163,21 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_LIST_START_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_START_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
