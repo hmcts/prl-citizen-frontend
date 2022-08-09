@@ -63,17 +63,6 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
       ],
     },
     {
-      title: sectionTitles.yourDocuments,
-      items: [
-        {
-          id: 'upload-document',
-          text: taskListItems.upload_document,
-          status: getInternationalFactorsStatus(userCase),
-          href: URL.UPLOAD_DOCUMENT_LIST_URL,
-        },
-      ],
-    },
-    {
       title: sectionTitles.ordersFromTheCourt,
       items: [
         {

@@ -191,8 +191,6 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
-  caption,
-  document_type
 }: // addresses = [],
 // eligibility,
 // fee,
@@ -201,8 +199,6 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
-  caption?: string;
-  document_type?: string
   // addresses?: [];
   // eligibility?: Eligibility;
   // fee?: Fee;
@@ -247,6 +243,5 @@ export type CommonContent = typeof en & {
   // eligibility?: Eligibility;
   // fee?: Fee;
 };
-
 
 export type Language = 'en' | 'cy';

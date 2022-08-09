@@ -57,7 +57,7 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-   // Object.assign(req.session.userCase, formData);
+    Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
 
     this.filterErrorsForSaveAsDraft(req);
@@ -66,8 +66,8 @@ export class PostController<T extends AnyObject> {
       return this.redirect(req, res);
     }
 
-   // req.session.userCase = await this.save(req, formData, this.getEventName(req));
-    console.log(req.session.returnUrl);
+    req.session.userCase = await this.save(req, formData, this.getEventName(req));
+
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);
   }
