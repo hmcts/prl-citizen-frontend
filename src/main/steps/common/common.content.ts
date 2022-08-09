@@ -191,15 +191,15 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
-}: // addresses = [],
-// eligibility,
+  addresses = [],
+}: // eligibility,
 // fee,
 {
   language: Language;
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
-  // addresses?: [];
+  addresses?: [];
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -213,7 +213,7 @@ export const generatePageContent = ({
     userCase,
     userEmail,
     // contactEmail,
-    // addresses,
+    addresses,
     // eligibility,
     // fee,
   };
@@ -238,7 +238,7 @@ export type CommonContent = typeof en & {
   // contactEmail?: string;
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // addresses?: any[];
+  addresses?: any[];
   // eligibility?: Eligibility;
   // fee?: Fee;
 };
