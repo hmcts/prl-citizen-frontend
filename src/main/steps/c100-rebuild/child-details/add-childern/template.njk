@@ -13,7 +13,7 @@
 
 <form method="post" action="{{ formaction }}" type="submit">
 {% for child in listedChildern %}
- <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+ 
          {% call govukFieldset({
   legend: {
     text: "Child "+ loop.index,
@@ -27,7 +27,7 @@
       text: 'First name(s)'
     },
     id: "address-line-1",
-    name: "firstname",
+    name: "firstname-" + loop.index,
     value: child['firstname'],
     autocomplete: "address-line1",
     classes: "govuk-input govuk-!-width-one-half"
@@ -38,7 +38,7 @@
       text: 'Last name(s)'
     },
     id: "address-line-1",
-    name: "lastname",
+    name: "lastname-" + loop.index,
     value: child['lastname'],
     autocomplete: "address-line1",
     classes: "govuk-input govuk-!-width-one-half"
