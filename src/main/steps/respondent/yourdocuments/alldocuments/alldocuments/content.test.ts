@@ -7,18 +7,26 @@ const enContent = {
   title: 'All documents',
   sectionTitles: {
     ordersFromTheCourt: 'Orders from the court',
+    respondentsDocuments: "Respondent's documents",
   },
   taskListItems: {
     view_all_orders_from_the_court_all_docs: 'View all orders from the court',
+    respondent_response_to_request_for_child_arrangements:
+      "<namerespondentxxxxx>'s response to the request for child arrangements",
+    respondent_allegations_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",
   },
 };
 const cyContent = {
   title: 'All documents',
   sectionTitles: {
     ordersFromTheCourt: 'Orders from the court',
+    respondentsDocuments: "Respondent's documents",
   },
   taskListItems: {
     view_all_orders_from_the_court_all_docs: 'View all orders from the court',
+    respondent_response_to_request_for_child_arrangements:
+      "<namerespondentxxxxx>'s response to the request for child arrangements",
+    respondent_allegations_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",
   },
 };
 describe('task-list > content', () => {
@@ -38,13 +46,27 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              //href: '/respondent/yourdocuments/alldocuments/orders',
               href: '#',
               id: 'orders-from-the-court-all-docs',
               text: 'View all orders from the court',
             },
           ],
           title: 'Orders from the court',
+        },
+        {
+          items: [
+            {
+              id: 'respondent-response-to-request-for-child-arrangements',
+              text: "<namerespondentxxxxx>'s response to the request for child arrangements",
+              href: '#',
+            },
+            {
+              id: 'respondent-allegations-of-harm-and-violence',
+              text: "<namerespondentxxxxx>'s allegations of harm and violence",
+              href: '#',
+            },
+          ],
+          title: "Respondent's documents",
         },
       ],
     },

@@ -7,18 +7,26 @@ const enContent = {
   title: 'All documents',
   sectionTitles: {
     ordersFromTheCourt: 'Orders from the court',
+    applicantsDocuments: "Applicant's documents",
   },
   taskListItems: {
     view_all_orders_from_the_court_all_docs: 'View all orders from the court',
+    applicant_response_to_request_for_child_arrangements:
+      "<nameapplicantxxxxx>'s response to the request for child arrangements",
+    applicant_allegations_of_harm_and_violence: "<nameapplicantxxxxx>'s allegations of harm and violence",
   },
 };
 const cyContent = {
   title: 'All documents',
   sectionTitles: {
     ordersFromTheCourt: 'Orders from the court',
+    applicantsDocuments: "Applicant's documents",
   },
   taskListItems: {
     view_all_orders_from_the_court_all_docs: 'View all orders from the court',
+    applicant_response_to_request_for_child_arrangements:
+      "<nameapplicantxxxxx>'s response to the request for child arrangements",
+    applicant_allegations_of_harm_and_violence: "<nameapplicantxxxxx>'s allegations of harm and violence",
   },
 };
 describe('task-list > content', () => {
@@ -44,6 +52,21 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Orders from the court',
+        },
+        {
+          items: [
+            {
+              id: 'applicant-response-to-request-for-child-arrangements',
+              text: "<nameapplicantxxxxx>'s response to the request for child arrangements",
+              href: '#',
+            },
+            {
+              id: 'applicant-allegations-of-harm-and-violence',
+              text: "<nameapplicantxxxxx>'s allegations of harm and violence",
+              href: '#',
+            },
+          ],
+          title: "Applicant's documents",
         },
       ],
     },

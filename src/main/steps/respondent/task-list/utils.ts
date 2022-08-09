@@ -62,20 +62,34 @@ export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStat
 
 export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
   //const documents: string[] = [];
-
-  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
-  } else {
-    return SectionStatus.NOT_AVAILABLE_YET;
   }
+  return SectionStatus.NOT_AVAILABLE_YET;
 };
 
 export const getViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): boolean => {
-  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
-    return true;
-  } else {
-    return false;
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
   }
+  return flag;
+};
+
+export const getRespondentResponseToRequestForChildArrangements = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
+  }
+  return flag;
+};
+
+export const getRespondentAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
+  }
+  return flag;
 };
 
 export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {

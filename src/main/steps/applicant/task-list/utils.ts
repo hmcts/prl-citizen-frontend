@@ -27,9 +27,23 @@ export const getYourApplication = (userCase: CaseWithId): SectionStatus => {
 };
 
 export const getApplicantViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): boolean => {
-  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
-    return true;
-  } else {
-    return false;
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
   }
+  return flag;
+};
+export const getApplicantResponseToRequestForChildArrangements = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
+  }
+  return flag;
+};
+export const getApplicantAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
+  }
+  return flag;
 };

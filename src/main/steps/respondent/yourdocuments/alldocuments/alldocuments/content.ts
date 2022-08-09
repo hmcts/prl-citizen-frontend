@@ -45,27 +45,3 @@ export const generateContent: TranslationFn = content => {
     ),
   };
 };
-
-// export const form: FormContent = {
-//   fields: userCase => {
-//     return {
-//       caseNumber: {
-//         label: l => l.caseNumber + '' + userCase.caseCode,
-//         type: 'hidden',
-//         labelHidden: true,
-//       },
-//     };
-//   },
-//   submit: {
-//     text: l => l.continue,
-//     classes: 'govuk-button--secondary',
-//   },
-// };
-
-// export const generateContent: TranslationFn = content => {
-//   const translations = languages[content.language]();
-//   return {
-//     ...translations,
-//     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
-//   };
-// };
