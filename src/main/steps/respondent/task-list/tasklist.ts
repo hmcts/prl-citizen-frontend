@@ -1,15 +1,30 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
 import {
   getConfirmOrEditYourContactDetails,
+  getConsentToApplicationStatus,
+  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
+  getYourSafetyStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
+    {
+      title: sectionTitles.consentToTheApplication,
+      items: [
+        {
+          id: 'consent-to-the-application',
+          text: taskListItems.do_you_consent_to_the_application,
+          status: getConsentToApplicationStatus(userCase),
+          href: URL.CONSENT_TO_APPLICATION,
+        },
+      ],
+    },
     {
       title: sectionTitles.respondentYourDetails,
       items: [
@@ -36,6 +51,12 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           status: getMiamStatus(userCase),
           href: URL.MIAM_START,
         },
+        {
+          id: 'current-or-previous-proceedings',
+          text: taskListItems.current_or_previous_proceedings,
+          status: getCurrentOrOtherProceedingsStatus(userCase),
+          href: URL.PROCEEDINGS_START,
+        },
       ],
     },
     {
@@ -46,6 +67,17 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.international_factors,
           status: getInternationalFactorsStatus(userCase),
           href: URL.INTERNATIONAL_FACTORS_START,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.respondentSafetyConcerns,
+      items: [
+        {
+          id: 'your-safety',
+          text: taskListItems.your_safety,
+          status: getYourSafetyStatus(userCase),
+          href: URL.SAFETY_MAIN_PAGE,
         },
       ],
     },

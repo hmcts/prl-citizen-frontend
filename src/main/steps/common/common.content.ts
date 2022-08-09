@@ -77,7 +77,7 @@ const en = {
   sendUsAMessage: 'Telephone',
   sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
   telephone: 'Telephone',
-  telephoneNumber: '0300 303 0642',
+  telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
   findOutCharges: 'Find out about call charges',
   openNewWindow: 'opens in a new window',
@@ -191,22 +191,21 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
-}: // addresses = [],
-// eligibility,
+  addresses = [],
+}: // eligibility,
 // fee,
 {
   language: Language;
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
-  // addresses?: [];
+  addresses?: [];
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
   // const contactEmail = 'todo@test.com';
-
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
@@ -214,12 +213,12 @@ export const generatePageContent = ({
     userCase,
     userEmail,
     // contactEmail,
-    // addresses,
+    addresses,
     // eligibility,
     // fee,
   };
 
-  if (pageContent) {
+  if (pageContent !== null && pageContent !== undefined) {
     Object.assign(content, pageContent(content));
   }
 
@@ -239,7 +238,7 @@ export type CommonContent = typeof en & {
   // contactEmail?: string;
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // addresses?: any[];
+  addresses?: any[];
   // eligibility?: Eligibility;
   // fee?: Fee;
 };
