@@ -33,6 +33,8 @@ export default class AddChilderns extends GetController {
     });
 
     const sessionErrors = req.session?.errors || [];
+    const listOfChild = req.session.settings.ListOfChild.length ? req.session.settings.ListOfChild : 
+    [{ id: uuidv4().toString(), firstname: '', lastname: '' }];
 
     if (req.session?.errors) {
       req.session.errors = undefined;
@@ -46,7 +48,7 @@ export default class AddChilderns extends GetController {
       htmlLang: language,
       childernForms: req.session.settings?.['toggleChild'],
       formaction: req.originalUrl,
-      listedChildern: [{ id: uuidv4().toString(), firstname: '', lastname: '' }],
+      listedChildern: listOfChild
     });
   }
 
