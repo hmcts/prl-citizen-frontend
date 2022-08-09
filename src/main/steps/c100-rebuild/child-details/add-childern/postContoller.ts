@@ -14,11 +14,14 @@ export default class AddChilderns extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log(req); // /c100-rebuild/child-details/addChild
+    console.log('post method called');
+    console.log(JSON.stringify(req.body));
+     // /c100-rebuild/child-details/addChild
     if (req.query.hasOwnProperty('action')) {
       const { action } = req.query;
       switch (action) {
         case 'addChild':
+          console.log('inside addchild');
           // eslint-disable-next-line no-case-declarations
           const { firstname, lastname } = req['body'];
           // eslint-disable-next-line no-case-declarations
@@ -37,6 +40,7 @@ export default class AddChilderns extends PostController<AnyObject> {
 
         case 'removeChild':
           // eslint-disable-next-line no-case-declarations
+          console.log('inside remove child');
           const { childId } = req.query;
           req.session.settings.ListOfChild = req.session.settings.ListOfChild.filter(child => child.id !== childId);
           super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);

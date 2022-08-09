@@ -11,7 +11,7 @@
   text: subTitle
 }) }}
 
-<form method="post" action="?action={{formaction}}">
+<form method="post" action="{{ formaction }}" type="submit">
 {% for child in listedChildern %}
  <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
          {% call govukFieldset({
@@ -57,8 +57,8 @@
 {{ govukButton({
   text: "Add another child",
   classes: "govuk-button--secondary",
-  attributes: {
-            formaction: "addChild"
+   attributes: {
+            formaction: "?action=addChild"
         }
 }) }}
 
