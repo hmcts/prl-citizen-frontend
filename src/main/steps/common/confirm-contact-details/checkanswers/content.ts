@@ -53,13 +53,13 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  applicant1FullName: '_PERSONAL_DETAILS',
-  applicant1DateOfBirthText: '_PERSONAL_DETAILS',
-  applicant1PlaceOfBirthText: '_PERSONAL_DETAILS',
-  address: '_ADDRESS_DETAILS',
-  addressHistory: '_ADDRESS_HISTORY',
-  applicant1PhoneNumber: '_CONTACT_DETAILS',
-  applicant1EmailAddress: '_CONTACT_DETAILS',
+  applicant1FullName: 'personaldetails',
+  applicant1DateOfBirthText: 'personaldetails',
+  applicant1PlaceOfBirthText: 'personaldetails',
+  address: 'addressdetails',
+  addressHistory: 'addresshistory',
+  applicant1PhoneNumber: 'contactdetails',
+  applicant1EmailAddress: 'contactdetails',
 };
 const fieldType = {
   applicant1FullName: 'String',

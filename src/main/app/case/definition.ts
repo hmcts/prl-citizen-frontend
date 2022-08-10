@@ -337,6 +337,7 @@ export interface CaseData {
   applicant1SelectAddress?: string;
   applicant1PlaceOfBirth?: string;
   applicant1PlaceOfBirthText?: string;
+  applicant1PlaceOfText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
