@@ -15,6 +15,10 @@ export default class ConfirmContactDetailsGetController extends GetController {
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
     }
 
+    //req.session.userCase.applicant1FirstNames = 'John';
+    //req.session.userCase.applicant1LastNames = 'Smith';
+    //req.session.userCase.applicant1PlaceOfBirth = 'London';
+
     if (!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames) {
       req.session.userCase.applicant1FullName = '<span class="govuk-error-message">Complete this section</span>';
     } else {
@@ -32,6 +36,10 @@ export default class ConfirmContactDetailsGetController extends GetController {
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
     req.session.userCase.applicant1AddressTown = 'London';
+    req.session.userCase.applicant1PhoneNumber = '1234567890';
+    req.session.userCase.applicant1EmailAddress = 'test@gmail.com';
+    req.session.userCase.applicant1DateOfBirth = { day: '20', month: '1', year: '2000' };
+    req.session.userCase.applicant1SafeToCall = '9 - 10 am on Monday';
     req.session.userCase.applicant1PhoneNumber = '';
     req.session.userCase.applicant1PhoneNumber =
       req.session.userCase.applicant1PhoneNumber !== ''

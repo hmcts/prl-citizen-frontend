@@ -45,6 +45,7 @@ describe('common > summary > utils', () => {
       {
         userCase: mockUserCase,
         expected: {
+          title: 'applicationDetails',
           rows: [
             {
               actions: {
@@ -84,11 +85,10 @@ describe('common > summary > utils', () => {
               },
               key: { text: 'When did you receive the application?' },
               value: {
-                //html: '',
+                text: 'Complete this section',
               },
             },
           ],
-          title: 'applicationDetails',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
