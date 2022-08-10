@@ -11,10 +11,10 @@
   text: subTitle
 }) }}
 
-
+<form method="post" action="{{ formaction }}" type="submit">
+<input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
 {% for child in listedChildern %}
-<form method="post" action="{{formaction}}?action=removeChild&childId={{child.id}}">
- <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+ 
          {% call govukFieldset({
   legend: {
     text: "Child "+ loop.index,
@@ -28,7 +28,7 @@
       text: 'First name(s)'
     },
     id: "address-line-1",
-    name: "firstname",
+    name: "firstname-" + loop.index,
     value: child['firstname'],
     autocomplete: "address-line1",
     classes: "govuk-input govuk-!-width-one-half"
@@ -39,25 +39,27 @@
       text: 'Last name(s)'
     },
     id: "address-line-1",
-    name: "lastname",
+    name: "lastname-" + loop.index,
     value: child['lastname'],
     autocomplete: "address-line1",
     classes: "govuk-input govuk-!-width-one-half"
   }) }}
+
+  <input type="hidden" name="_cid-{{loop.index}}" id="cid-{{loop.index}}" value="{{ child.id }}">
+
   {{ govukButton({
   text: "Remove child "+ loop.index,
-  classes: "govuk-button--warning"
+  classes: "govuk-button--warning",
+   attributes: {
+            formaction: "?action=removeChild&childId=" +child.id
+        }
 }) }}
 
-{% endcall %}
-  
-</form>
 
+{% endcall %}
 
 {% endfor %}
 
-<form method="post" action="{{formaction}}?action=addChild">
-     <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
     {% call govukFieldset({
   legend: {
     text: "Enter your new name",
@@ -74,7 +76,7 @@
     text: "Include all middle names here"
   },
     id: "address-line-1",
-    name: "firstname",
+    name: "firstname-"+(listedChildern.length+1),
     autocomplete: "address-line1",
     classes: "govuk-input govuk-!-width-one-half"
   }) }}
@@ -84,14 +86,34 @@
       text: 'Last name(s)'
     },
     id: "address-line-1",
-    name: "lastname",
+    name: "lastname-"+(listedChildern.length+1) ,
     autocomplete: "address-line1",
     classes: "govuk-input govuk-!-width-one-half"
   }) }}
   {{ govukButton({
   text: "Add another child",
-  classes: "govuk-button--secondary"
+  classes: "govuk-button--secondary",
+     attributes: {
+            formaction: "?action=addChild"
+        }
 }) }}
 {% endcall %}
-</form/>
+
+ {{ govukButton({
+  text: "Continue",
+  classes: "govuk-buttons",
+   attributes: {
+            formaction: "?action=continue"
+        }
+}) }}
+ {{ govukButton({
+  text: "Save and Continue",
+  classes: "govuk-button--secondary govuk-!-margin-left-2",
+  attributes: {
+            formaction: "?action=continue"
+        }
+}) }}
+  
+</form>
+
 {% endblock %}
