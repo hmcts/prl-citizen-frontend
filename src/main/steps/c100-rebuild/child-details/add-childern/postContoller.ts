@@ -15,11 +15,10 @@ export default class AddChilderns extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log('post method called');
-    console.log(req.body, req.body['child']);
     // /c100-rebuild/child-details/addChild
     if (req.query.hasOwnProperty('action')) {
       const { action } = req.query;
+      console.log("action invoked: ", action);
       switch (action) {
         case 'addChild':
           // console.log('inside addchild', req);
@@ -61,11 +60,36 @@ export default class AddChilderns extends PostController<AnyObject> {
 
         case 'removeChild':
           // eslint-disable-next-line no-case-declarations
-          console.log('inside remove child');
-          const { childId } = req.query;
+          console.log('inside remove child: ', req.body);
+          console.log('query query: ', req.query);
+          const childId = req.body?._cid;
+          console.log("childId: ", childId);
           req.session.settings.ListOfChild = req.session.settings.ListOfChild.filter(child => child.id !== childId);
           super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
           break;
+
+        case 'continue':
+
+          for (const [key, value] of Object.entries(req['body'])) {
+            if (key.includes('firstname') || key.includes('lastname')) {
+              let [childKey, childIndex] = key.split('-'); // ['firstname','0']
+              if (childKey === `firstname`) {
+                req.session.settings.ListOfChild[Number(childIndex) - 1] = {
+                  ...req.session.settings.ListOfChild[Number(childIndex) - 1],
+                  firstname: value,
+                };
+              } else {
+                req.session.settings.ListOfChild[Number(childIndex) - 1] = {
+                  ...req.session.settings.ListOfChild[Number(childIndex) - 1],
+                  lastname: value,
+                };
+              }
+            }
+          }
+
+          req.session.settings.ListOfChild = req.session.settings.ListOfChild;
+          const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;
+          super.redirect(req, res, redirectURI);
 
         default:
           res.render('error');

@@ -43,10 +43,15 @@
     autocomplete: "address-line1",
     classes: "govuk-input govuk-!-width-one-half"
   }) }}
+
+  <input type="hidden" name="_cid" id="cid" value="{{ child.id }}">
+
   {{ govukButton({
   text: "Remove child "+ loop.index,
   classes: "govuk-button--warning",
-  formaction: "removeChild"
+   attributes: {
+            formaction: "?action=removeChild&childId=" + child.id
+        }
 }) }}
 
 
@@ -68,7 +73,7 @@
   text: "Continue",
   classes: "govuk-button--warning",
    attributes: {
-            formaction: "continue"
+            formaction: "?action=continue"
         }
 }) }}
 
@@ -76,7 +81,7 @@
   text: "Save and Continue",
   classes: "govuk-button--warning",
   attributes: {
-            formaction: "continue"
+            formaction: "?action=continue"
         }
 }) }}
   
