@@ -17,8 +17,7 @@ exports.config = {
       },
       windowSize: '1280x960'
     },
-    PuppeteerHelpers: { require: './helpers/puppeterHelper.js' },
-    GeneralHelper: { require: './helpers/generalHelper.js' }
+    PuppeteerHelpers: { require: './helpers/puppeterHelper.js' }
   },
   plugins: {
     retryFailedStep: {
