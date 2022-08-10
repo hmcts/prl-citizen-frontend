@@ -1,4 +1,3 @@
-console. log("Current directory:", __dirname);
 exports.config = {
   tests: './tests/*.js',
   output: './output',
