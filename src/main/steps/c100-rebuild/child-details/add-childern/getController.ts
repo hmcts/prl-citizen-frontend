@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
@@ -31,7 +30,7 @@ export default class AddChilderns extends GetController {
     });
 
     const sessionErrors = req.session?.errors || [];
-
+    const listOfChild = req.session.settings.ListOfChild;
     if (req.session?.errors) {
       req.session.errors = undefined;
     }
@@ -44,7 +43,7 @@ export default class AddChilderns extends GetController {
       htmlLang: language,
       childernForms: req.session.settings?.['toggleChild'],
       formaction: req.originalUrl,
-      listedChildern: req.session.settings.ListOfChild,
+      listedChildern: listOfChild,
     });
   }
 
