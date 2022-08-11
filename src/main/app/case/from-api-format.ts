@@ -13,6 +13,7 @@ type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   orderCollection: uploadedFilesFromApiApplicant1,
+  applicantDocumentsUploaded: uploadedFilesFromApiApplicant1,
 };
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);

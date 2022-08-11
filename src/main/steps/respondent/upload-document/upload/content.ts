@@ -1,23 +1,19 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
-
-
 const en = {
   section: 'Provide the document',
   title: 'Provide the documents',
   continue: 'Save and continue',
-  add: 'Submit'
+  add: 'Submit',
 };
 
 const cy: typeof en = {
   section: 'Provide the document',
   title: 'Provide the documents',
   continue: 'Save and continue',
-  add: 'Submit'
+  add: 'Submit',
 };
-
-
 
 const languages = {
   en,
@@ -32,9 +28,7 @@ export const form: FormContent = {
       label: l => l.label,
       section: l => l.section,
       hint: l => l.hint,
-      values: [
-
-      ],
+      values: [],
     },
   },
 
@@ -47,6 +41,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
-  form,
+    form,
   };
 };

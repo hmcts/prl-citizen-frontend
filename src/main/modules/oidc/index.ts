@@ -29,9 +29,7 @@ export class OidcMiddleware {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
           req.session.save(() => res.redirect('/dashboard'));
         } else {
-         
-            res.redirect(SIGN_IN_URL);
-   
+          res.redirect(SIGN_IN_URL);
         }
       })
     );
@@ -60,9 +58,8 @@ export class OidcMiddleware {
           }
           return next();
         }
-       
-          res.redirect(SIGN_IN_URL);
-  
+
+        res.redirect(SIGN_IN_URL);
       })
     );
   }

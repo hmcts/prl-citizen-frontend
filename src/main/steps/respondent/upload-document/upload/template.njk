@@ -21,14 +21,25 @@
 
           </ul>
       </label>
-      <textarea class="govuk-textarea" id="more-detail" name="more-detail" rows="8"></textarea>
-      <form action="uploadmoredocument" method="post" novalidate="">
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
-      <button class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">
+  {{ govukTextarea({
+  name: "more-detail",
+  id: "more-detail",
+  label: {
+    text: "",
+    classes: "govuk-label--l",
+    isPageHeading: true
+  },
+  hint: {
+    text: ""
+  }
+  }) }}
+
+      <button class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button" id='upload-file-text'>
         Submit
       </button>
 
-    </form>
 
 </div>
 <p class="govuk-body">If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.</p>
@@ -54,27 +65,38 @@
           <div class=" govuk-!-margin-bottom-3">
 
             <div class="govuk-form-group govuk-inset-text">
-              <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
-                Upload a file
-              </label>
-              <input class="govuk-file-upload govuk-!-margin-bottom-4" id="file-upload-1" name="file-upload-1" type="file">
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 
-              <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-
-
-
-
-                </div>
-
-                <form action="uploadmoredocument" method="post" novalidate="">
+{{ govukFileUpload({
+  id: "file-upload-1",
+  name: "file-upload-1",
+  label: {
+    text: "Upload a file"
+  }
+}) }}
 
                 <button class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">
                   Upload file
                 </button>
 
-              </form>
-
             </div>
+            <div class="uploadedfilessummary">
+
+                  <h2 class="app-task-list__section">
+                     Your documents
+                  </h2>
+
+                  <dl class="govuk-summary-list">
+
+                      <div class="govuk-summary-list__row">
+                        {% for item in "csvsddsf" | list%}
+                          {{item}}
+                        {%endfor %}
+                      </div>
+
+                    </dl>
+
+              </div>
 
             </div>
 

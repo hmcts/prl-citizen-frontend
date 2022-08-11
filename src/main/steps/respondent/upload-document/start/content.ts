@@ -7,13 +7,14 @@ const en = {
   title: 'Has the court asked for this document?',
   one: 'Yes',
   two: 'No',
-  line1: 'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
+  line1:
+    'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',
-    }
+    },
   },
 };
 
@@ -22,7 +23,8 @@ const cy: typeof en = {
   title: 'Has the court asked for this document?',
   one: 'Yes',
   two: 'No',
-  line1: 'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
+  line1:
+    'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
