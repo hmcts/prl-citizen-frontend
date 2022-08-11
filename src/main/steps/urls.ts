@@ -172,4 +172,4 @@ export const C100_CHILDERN_DETAILS_ADD: PageLink = `${C100_CHILDERN_DETAILS}/add
 export const C100_CHILDERN_DETAILS_PERSONAL_DETAILS: PageLink = `${C100_CHILDERN_DETAILS}/personal-details`;
 export const C100_CHILDERN_DETAILS_CHILD_MATTERS: PageLink = `${C100_CHILDERN_DETAILS}/child-matters`;
 export const C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: PageLink = `${C100_CHILDERN_DETAILS}/parental-responsibility`;
-
+export const C100_CHILDERN_FURTHER_INFORMATION: PageLink = `${C100_CHILDERN_DETAILS}/further-information`;
