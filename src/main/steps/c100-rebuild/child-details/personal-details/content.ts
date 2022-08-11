@@ -43,7 +43,7 @@ const cy = () => ({
   approximateDobLabel: 'Approximate date of birth - welsh',
   errors: {
     childDateOfBirth: {
-      invalid: 'Enter the date of birth  - welsh',
+      required: 'Enter the date of birth  - welsh',
     },
     childSex: {
       required: 'Select the sex  - welsh',
@@ -84,11 +84,7 @@ export const form: FormContent = {
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
         },
       ],
-      parser: body => covertToDateObject('childDateOfBirth', body as Record<string, unknown>),
-      validator: value =>
-        areDateFieldsFilledIn(value as CaseDate) ||
-        isDateInputInvalid(value as CaseDate) ||
-        isFutureDate(value as CaseDate),
+      validator: isFieldFilledIn,
     },
     apDateOfBirth: {
       type: 'checkboxes',

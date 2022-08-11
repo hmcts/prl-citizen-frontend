@@ -4,7 +4,7 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { C100_CHILDERN_DETAILS_CHILD_MATTERS,  } from '../../../urls';
 
 @autobind
@@ -14,7 +14,13 @@ export default class Personaldetails extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log(req.body)
+   
+    const form = new Form(<FormFields> this.fields);
+
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    console.log(saveAndSignOut, saveBeforeSessionTimeout, _csrf, formData)
+
+    req.session.errors = form.getErrors(formData);
 
     if (req.query.hasOwnProperty('childId')) {
       const { childId } = req.query;
@@ -28,7 +34,6 @@ export default class Personaldetails extends PostController<AnyObject> {
         res.render('error');
       }
     } else {
-      console.log('kumar2');
       // eslint-disable-next-line no-self-assign
       req.session.settings.ListOfChild = req.session.settings.ListOfChild;
       const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;

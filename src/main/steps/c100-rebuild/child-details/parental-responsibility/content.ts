@@ -10,7 +10,7 @@ const en = () => ({
  <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p>`,
  errors: {
   parentalResponsibility: {
-    required: 'Enter an answer  - welsh',
+    required: 'Enter an answer',
   },
 },
 });

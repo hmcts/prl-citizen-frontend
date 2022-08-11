@@ -78,10 +78,8 @@
     id: "address-line-1",
     name: "firstname-"+(listedChildern.length+1),
     autocomplete: "address-line1",
-    classes: "govuk-input govuk-!-width-one-half",
-    errorMessage: {
-      text: "Enter the first name"
-    }
+    classes: "govuk-input govuk-!-width-one-half"
+
   }) }}
 
   {{ govukInput({
@@ -91,10 +89,7 @@
     id: "address-line-1",
     name: "lastname-"+(listedChildern.length+1) ,
     autocomplete: "address-line1",
-    classes: "govuk-input govuk-!-width-one-half",
-     errorMessage: {
-    text: "Enter the last name"
-  }
+    classes: "govuk-input govuk-!-width-one-half"
   }) }}
   {{ govukButton({
   text: "Add another child",
