@@ -1,7 +1,7 @@
 import { respondentCaseSequence } from './respondentcaseSequence';
 
-describe('applicant1Sequence', () => {
-  test('should contain 1 entries in applicant 1 screen sequence', () => {
+describe('respondent1Sequence', () => {
+  test('should contain 1 entries in respondent 1 screen sequence', () => {
     expect(respondentCaseSequence).toHaveLength(32);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
