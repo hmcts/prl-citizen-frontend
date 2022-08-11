@@ -16,5 +16,16 @@ export const generateCADARespondentTaskList = (sectionTitles, taskListItems, use
         },
       ],
     },
+    {
+      title: sectionTitles.yourResponse,
+      items: [
+        {
+          id: 'support-you-need-during-your-case',
+          text: taskListItems.respond_to_application,
+          status: getSupportYourNeedsDetails(userCase),
+          href: URL.RESPONDENT_TASK_LIST_URL,
+        },
+      ],
+    },
   ];
 };
