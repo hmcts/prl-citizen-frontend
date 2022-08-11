@@ -14,6 +14,8 @@ export default class Personaldetails extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    console.log(req.body)
+
     if (req.query.hasOwnProperty('childId')) {
       const { childId } = req.query;
       const checkIfChildIdMatches = req.session.settings.ListOfChild.filter(child => child.id === childId).length > 0;
@@ -36,9 +38,11 @@ export default class Personaldetails extends PostController<AnyObject> {
 
   public personalDetailsMapper(req: AppRequest): any {
     const isDateOfBirthKnown = req.body['isDopKnown'].length === 2 ? YesOrNo.YES : YesOrNo.NO;
-    const DateoBirth = isDateOfBirthKnown === 'No' ? `${req.body['childDateOfBirth-day']}/${req.body['childDateOfBirth-month']}/${req.body['childDateOfBirth-year']}`: '';
+    const dob = `${req.body['childDateOfBirth-day']}/${req.body['childDateOfBirth-month']}/${req.body['childDateOfBirth-year']}`;
+    const adob = `${req.body['apDateOfBirth-day']}/${req.body['apDateOfBirth-month']}/${req.body['apDateOfBirth-year']}`;
+    const DateoBirth = isDateOfBirthKnown === 'No' ? dob : '';
     const Sex = req.body['childSex'];
-    const ApproximateDateOfBirth = isDateOfBirthKnown === 'Yes' ? `${req.body['apDateOfBirth-day']}/${req.body['apDateOfBirth-month']}/${req.body['apDateOfBirth-year']}` : '';
+    const ApproximateDateOfBirth = isDateOfBirthKnown === 'Yes' ?  adob: '';
 
     return { DateoBirth, ApproximateDateOfBirth, Sex, isDateOfBirthKnown };
   }

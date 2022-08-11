@@ -9,32 +9,4 @@
 
 {% block page_content %}
 <h1 class="govuk-heading-xl">{{pageTitle}} {{childDetails.firstname}}  {{childDetails.lastname}}  </h1>
-
-<form method="post">
-{{ govukCheckboxes({
-  idPrefix: "waste",
-  name: "waste",
-  fieldset: {
-    legend: {
-      text: "",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--l"
-    }
-  },
-  hint: {
-    text: "Select all that apply."
-  },
-  items: [
-    {
-      value: "carcasses",
-      text: "A specific holiday or arrangement"
-    },
-    {
-      value: "mines",
-      text: "A religious issue"
-    }
-  ]
-}) }}
-
-</form/>
 {% endblock %}

@@ -20,6 +20,14 @@ const en = () => ({
   unspecified: 'Unspecified',
   approximateCheckboxLabel: 'I don’t know their date of birth',
   approximateDobLabel: 'Approximate date of birth',
+  errors: {
+    childDateOfBirth: {
+      required: 'Enter the date of birth',
+    },
+    childSex: {
+      required: 'Select the sex',
+    },
+  },
   
 });
 
@@ -32,7 +40,15 @@ const cy = () => ({
   female: 'Female - welsh',
   unspecified: 'Unspecified - welsh',
   approximateCheckboxLabel: 'I don’t know their date of birth- welsh',
-  approximateDobLabel: 'Approximate date of birth- welsh',
+  approximateDobLabel: 'Approximate date of birth - welsh',
+  errors: {
+    childDateOfBirth: {
+      invalid: 'Enter the date of birth  - welsh',
+    },
+    childSex: {
+      required: 'Select the sex  - welsh',
+    },
+  },
 });
 
 const languages = {

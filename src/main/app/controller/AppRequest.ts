@@ -41,10 +41,10 @@ export type childernDetails = {
     Sex: string | unknown;
   };
   childMatter?: {
-    entry: string;
-  }[];
+    isDecisionTaken: string | unknown;
+  };
   parentialResponsibility?: {
-    statement: string;
+    statement: string | unknown;
   };
 };
 

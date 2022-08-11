@@ -19,12 +19,6 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
 };
 
 export const generateContent: TranslationFn = content => {
