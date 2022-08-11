@@ -14,10 +14,12 @@ const enContent = {
   },
   sectionTitles: {
     aboutYou: 'About you',
+    yourResponse: 'Your response',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     support_you_need_during_your_case: 'Support you need during your case',
+    respond_to_application: 'Respond to the application',
   },
 };
 const cyContent = {
@@ -30,10 +32,12 @@ const cyContent = {
   },
   sectionTitles: {
     aboutYou: 'About you',
+    yourResponse: 'Your response',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     support_you_need_during_your_case: 'Support you need during your case',
+    respond_to_application: 'Respond to the application',
   },
 };
 describe('task-list > content', () => {
@@ -60,6 +64,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'About you',
+        },
+        {
+          items: [
+            {
+              href: '/respondent/task-list',
+              id: 'support-you-need-during-your-case',
+              text: 'Respond to the application',
+              status: 'TO_DO',
+            },
+          ],
+          title: 'Your response',
         },
       ],
     },
