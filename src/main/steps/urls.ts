@@ -49,6 +49,8 @@ export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
 export const UPLOAD_DOCUMENT_LIST_URL: PageLink = '/respondent/upload-document';
 export const UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${UPLOAD_DOCUMENT_LIST_URL}/start`;
 export const UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink=`${UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details`;
+export const UPLOAD_DOCUMENT_LIST_UPLOAD_URL: PageLink=`${UPLOAD_DOCUMENT_LIST_URL}/document-upload-confirmation`;
+
 /* Upload document end */
 /* respondent-keep-details-private */
 export const RESPONDENT: PageLink = '/respondent';

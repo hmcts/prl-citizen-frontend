@@ -30,6 +30,7 @@ import {
   UPLOAD_DOCUMENT_LIST_URL,
   UPLOAD_DOCUMENT_LIST_START_URL,
   UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  UPLOAD_DOCUMENT_LIST_UPLOAD_URL,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -178,6 +179,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_LIST_UPLOAD_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_UPLOAD_URL,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

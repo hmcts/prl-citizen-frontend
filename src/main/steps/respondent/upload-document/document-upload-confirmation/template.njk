@@ -1,0 +1,77 @@
+
+{% extends "common/template.njk" %}
+
+
+{% block page_content %}
+    <div class="govuk-form-group">
+
+       <div class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-29" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+          <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Success
+          </h2>
+         </div>
+         <div class="govuk-notification-banner__content">
+          <h2 class="govuk-notification-banner__heading">
+            Your documents have been uploaded
+          </h2>
+         </div>
+      </div>
+ <div class="uploadedfiles govuk-!-margin-bottom-3" style=" display: inline-block">
+
+
+
+          <h2 class="app-task-list__section govuk-!-margin-bottom-4">Your documents for witness statement and evidence</h2>
+
+
+            <dl class="govuk-summary-list">
+
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__value">
+                    sam_richards__first_witness_statement__date_submitted.pdf
+                  </dt>
+
+
+                </div>
+
+                <div class="govuk-summary-list__row">
+
+                  <dt class="govuk-summary-list__value">
+                    sam_richards__second_witness_statement__date_submitted.pdf
+                  </dt>
+
+
+                </div>
+
+              </dl>
+      </div>
+
+
+     </div>
+     <div class="govuk-button-group">
+
+            <form action="/respondenttasklist/startreply" method="GET" novalidate="">
+
+             <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+              <button class="govuk-button" data-module="govuk-button">
+                Continue
+              </button>
+
+            </form>
+
+            <form action="/respondent/upload-document" method="GET" novalidate="">
+
+              <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+              <button class="govuk-button govuk-button--secondary" data-module="govuk-button" value="Save and come back later">Upload another document</button>
+
+            </form>
+
+            </div>
+     
+{% endblock %}
+
+
+
+
