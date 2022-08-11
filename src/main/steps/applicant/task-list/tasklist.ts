@@ -61,17 +61,6 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
       ],
     },
     {
-      title: sectionTitles.ordersFromCourt,
-      items: [
-        {
-          id: 'orders',
-          text: taskListItems.orders,
-          status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.APPLICANT_DETAILS_KNOWN,
-        },
-      ],
-    },
-    {
       title: sectionTitles.yourDocuments,
       items: [
         {
@@ -81,25 +70,19 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           href: URL.APPLICANT_DETAILS_KNOWN,
         },
         {
-          id: 'see-all-documents',
-          text: taskListItems.see_all_documents,
-          status: getConfirmOrEditYourContactDetails(userCase),
-          href: URL.APPLICANT_CHECK_ANSWERS,
-        },
-        {
-          id: 'see-all-documents-alternative-view',
-          text: taskListItems.see_all_documents_alternative_view,
+          id: 'view-all-documents',
+          text: taskListItems.view_all_documents,
           status: getConfirmOrEditYourContactDetails(userCase),
           href: URL.APPLICANT_CHECK_ANSWERS,
         },
       ],
     },
     {
-      title: sectionTitles.finalDecision,
+      title: sectionTitles.ordersFromCourt,
       items: [
         {
-          id: 'view-all-final-order',
-          text: taskListItems.view_all_final_order,
+          id: 'orders',
+          text: taskListItems.orders,
           status: getKeepYourDetailsPrivateStatus(userCase),
           href: URL.APPLICANT_DETAILS_KNOWN,
         },
