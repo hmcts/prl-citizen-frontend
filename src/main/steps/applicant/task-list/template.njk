@@ -38,7 +38,7 @@
 {% macro taskListSection(section, index) %}
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number"></span>{{section.title}}
+      {{section.title}}
     </h2>
     <ul class="app-task-list__items">
       {% for item in section.items %}

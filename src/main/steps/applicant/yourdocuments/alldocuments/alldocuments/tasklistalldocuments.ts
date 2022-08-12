@@ -60,10 +60,7 @@ export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListIte
         {
           id: 'applicant_witness_statements',
           text: getText(taskListItems.applicant_witness_statements, userCase),
-          href:
-            getApplicantResponseToRequestForChildArrangements(userCase) === true
-              ? URL.APPLICANT + URL.APPLICANT_WITNESS_STATEMENTS
-              : '#',
+          href: URL.APPLICANT + URL.APPLICANT_WITNESS_STATEMENTS,
         },
         {
           id: 'other_people_witness_statements',

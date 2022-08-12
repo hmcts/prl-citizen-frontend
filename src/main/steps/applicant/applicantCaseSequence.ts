@@ -1,5 +1,6 @@
 import { Sections, Step } from '../constants';
 import {
+  APPLICANT,
   APPLICANT_ADDRESS_BLANK,
   APPLICANT_ADDRESS_CONFIRMATION,
   APPLICANT_ADDRESS_DETAILS,
@@ -17,6 +18,7 @@ import {
   APPLICANT_TASK_LIST_URL,
   // APPLICANT_START_ALTERNATIVE,
   APPLICANT_VIEW_ALL_DOCUMENTS,
+  APPLICANT_WITNESS_STATEMENTS,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -95,5 +97,15 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${APPLICANT_WITNESS_STATEMENTS}`,
+  },
+  {
+    url: `${APPLICANT}${APPLICANT_WITNESS_STATEMENTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
 ];
