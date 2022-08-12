@@ -20,3 +20,11 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   }
   return SectionStatus.TO_DO;
 };
+
+export const getOrderDetailsStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+    return SectionStatus.READY_TO_VIEW;
+  } else {
+    return SectionStatus.NOT_AVAILABLE_YET;
+  }
+};
