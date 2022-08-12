@@ -4,4 +4,4 @@ Scenario('Current Or Previous Proceedings - basic journey @cross-browser', async
   await I.enterPinPageHappyPath();
   await I.loginAsCitizen();
   await I.currentOrPreviousProceedings();
-}).retry({ retries: 3, minTimeout: 30000 });
+  }).retry({ retries: 3, minTimeout: 30000 });
