@@ -56,13 +56,32 @@ export class CosApiClient {
     };
   }
 
+  public async validateAccessCode(caseId: string, accessCode: string, user: UserDetails): Promise<string> {
+    if (!caseId || !user || !accessCode) {
+      return Promise.reject(new Error('Case id must be set and user must be set'));
+    }
+    const response = await Axios.get(config.get('services.cos.url') + `/validate-access-code`, {
+      headers: {
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
+        caseId: caseId,
+        accessCode: accessCode,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(response.data);
+
+    return response.data;
+  }
+
   public async updateCase(
     user: UserDetails,
     caseId: string,
     data: Partial<CaseData>,
     eventId: string
   ): Promise<CaseWithId> {
-    data.applicantCaseName = 'Legend';
+    data.applicantCaseName = 'Tom Jerry - updated';
     try {
       const headers = {
         Accept: 'application/json',

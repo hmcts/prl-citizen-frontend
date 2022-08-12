@@ -17,8 +17,8 @@ export class PropertiesVolume {
     } else {
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.clientSecret');
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
-      this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
-      this.setLocalSecret('idam-solicitor-password', 'services.idam.systemPassword');
+      this.setLocalSecret('system-update-user-username', 'services.idam.systemUsername');
+      this.setLocalSecret('system-update-user-password', 'services.idam.systemPassword');
       // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
       // this.setLocalEndpoints();
     }
