@@ -12,6 +12,7 @@ const enContent = {
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
+  continue: 'Continue',
 };
 
 const cyContent = {
@@ -22,6 +23,7 @@ const cyContent = {
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
+  continue: 'Continue',
 };
 
 jest.mock('../../../../app/form/validation');
@@ -55,7 +57,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.submit.text as Function)(generatedContent)).toBe('Save and continue');
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
