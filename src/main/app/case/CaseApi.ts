@@ -19,8 +19,8 @@ import {
   PrivateLaw,
   State,
 } from './definition';
-//import { fromApiFormat } from './from-api-format';
-//import { toApiFormat } from './to-api-format';
+import { fromApiFormat } from './from-api-format';
+import { toApiFormat } from './to-api-format';
 
 export class CaseApi {
   constructor(
@@ -47,8 +47,7 @@ export class CaseApi {
       }
       case 1: {
         const { id, state, case_data: caseData } = cases[0];
-        //...fromApiFormat(caseData)
-        return { ...caseData, id: id.toString(), state };
+        return { ...fromApiFormat(caseData), id: id.toString(), state };
       }
       default: {
         throw new Error('Too many cases assigned to user.');
@@ -71,8 +70,8 @@ export class CaseApi {
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
       const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
-      //...fromApiFormat(response.data.data)
-      return { id: response.data.id, state: response.data.state, ...response.data.data };
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
@@ -89,7 +88,7 @@ export class CaseApi {
     const token = tokenResponse.data.token;
     const event = { id: CITIZEN_CREATE };
     const data = {
-      //adoption: serviceType,
+      serviceType,
       applicant1FirstName: userDetails.givenName,
       applicant1LastName: userDetails.familyName,
       applicant1Email: userDetails.email,
@@ -102,8 +101,7 @@ export class CaseApi {
         event,
         event_token: token,
       });
-      //...fromApiFormat(response.data.data)
-      return { id: response.data.id, state: response.data.state, ...response.data.data };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -122,7 +120,22 @@ export class CaseApi {
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     try {
-      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
+      this.axios.interceptors.request.use(
+        //eslint-disable-next-line @typescript-eslint/no-shadow
+        function (config) {
+          return config;
+        },
+        function (error) {
+          // Do something with request error
+          return Promise.reject(error);
+        }
+      );
+      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`, {
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
       const token = tokenResponse.data.token;
       const event = { id: eventName };
 
@@ -131,8 +144,7 @@ export class CaseApi {
         data,
         event_token: token,
       });
-      //...fromApiFormat(response.data.data)
-      return { id: response.data.id, state: response.data.state, ...response.data.data };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');
@@ -140,11 +152,20 @@ export class CaseApi {
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    //const data = toApiFormat(userData);
-    //const data = userData;
+    const data = toApiFormat(userData);
+    return this.sendEvent(caseId, data, eventName);
+  }
+
+  public async triggerEventWithData(
+    caseId: string,
+    userData: Partial<Case>,
+    eventName: string,
+    data: Partial<CaseData>
+  ): Promise<CaseWithId> {
+    // const data = toApiFormat(userData);
+    // const data = userData;
     // return this.sendEvent(caseId, data, eventName);
-    console.log(eventName);
-    return this.sendEvent(caseId, userData, eventName);
+    return this.sendEvent(caseId, data, eventName);
   }
 
   // public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {

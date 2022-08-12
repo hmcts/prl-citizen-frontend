@@ -18,7 +18,7 @@ export const getUserDetails = async (
   rawCode: string,
   callbackUrlPageLink: PageLink
 ): Promise<UserDetails> => {
-  //const id: string = config.get('services.idam.clientID');
+  const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
@@ -38,16 +38,13 @@ export const getUserDetails = async (
 };
 
 export const getSystemUser = async (): Promise<UserDetails> => {
-  //const id: string = config.get('services.idam.clientID');
+  const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
-
   const systemUsername: string = config.get('services.idam.systemUsername');
   const systemPassword: string = config.get('services.idam.systemPassword');
-
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=prl-citizen-frontend&client_secret=${secret}&scope=openid%20profile%20roles`;
-
+  const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
   return {

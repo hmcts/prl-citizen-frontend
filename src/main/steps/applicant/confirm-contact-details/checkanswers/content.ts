@@ -3,9 +3,9 @@ import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 import {
-  APPLICANT_ADDRESS_DETAILS,
   APPLICANT_ADDRESS_HISTORY,
   APPLICANT_CONTACT_DETAILS,
+  APPLICANT_FIND_ADDRESS,
   APPLICANT_PERSONAL_DETAILS,
   APPLICANT_POSTAL_ADDRESS_DETAILS,
 } from '../../../urls';
@@ -65,7 +65,7 @@ const urls = {
   applicant1FullName: APPLICANT_PERSONAL_DETAILS,
   applicant1DateOfBirth: APPLICANT_PERSONAL_DETAILS,
   applicant1PlaceOfBirth: APPLICANT_PERSONAL_DETAILS,
-  address: APPLICANT_ADDRESS_DETAILS,
+  address: APPLICANT_FIND_ADDRESS,
   addressHistory: APPLICANT_ADDRESS_HISTORY,
   postalAddress: APPLICANT_POSTAL_ADDRESS_DETAILS,
   applicant1PhoneNumber: APPLICANT_CONTACT_DETAILS,

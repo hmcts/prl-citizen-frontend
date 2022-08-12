@@ -2,7 +2,10 @@ const I = actor();
 const retryCount = 3;
 
 module.exports = {
-
+  async clickRespondentLink() {
+    await I.retry(retryCount).click('#main-content > div > div.govuk-grid-column-two-thirds > a');
+    I.wait('2');
+  },
   async clickInternationalElement() {
     await I.retry(retryCount).click('#international-factors');
     I.wait('2');
@@ -34,7 +37,10 @@ module.exports = {
     I.wait('3');
     await I.retry(retryCount).waitForText('Check your answers');
     await I.retry(retryCount).click('Save and continue');
-  }
+  },
 
-
+  async clickInternationalElementHappyPath() {
+    await this.clickRespondentLink();
+    await this.clickInternationalElement();
+  },
 };
