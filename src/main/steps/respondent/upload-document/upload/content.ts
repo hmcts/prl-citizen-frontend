@@ -1,15 +1,18 @@
-import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
 const en = {
-  section: 'How your documents will be shared',
-  continue: 'Continue',
+  section: 'Provide the document',
+  title: 'Provide the documents',
+  continue: 'Save and continue',
+  add: 'Submit',
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared',
-  continue: 'Continue',
+  section: 'Provide the document',
+  title: 'Provide the documents',
+  continue: 'Save and continue',
+  add: 'Submit',
 };
 
 const languages = {
@@ -21,20 +24,11 @@ export const form: FormContent = {
   fields: {
     start: {
       type: 'radios',
-      classes: 'govuk-radios',
+      classes: 'radios',
       label: l => l.label,
       section: l => l.section,
       hint: l => l.hint,
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
+      values: [],
     },
   },
 

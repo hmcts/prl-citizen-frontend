@@ -1,7 +1,7 @@
 export const documents_list_items_en = {
   your_position_statements: 'Your position statements',
   your_witness_statements: 'Your witness statements',
-  other_witness_statements: 'Other people\'s witness statements',
+  other_witness_statements: "Other people's witness statements",
   mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
   medical_records: 'Medical records',
   letters_from_school: 'Letters from school',

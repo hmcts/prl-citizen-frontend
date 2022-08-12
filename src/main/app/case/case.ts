@@ -40,6 +40,7 @@ import {
   State,
   SummaryTabForOrderAppliedFor,
   TypeOfApplicationTable,
+  UploadDocumentList,
   UrgencyDetails,
   WelshLanguageRequirementsTable,
   WelshNeed,
@@ -141,6 +142,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentName: 'respondentName',
   finalDocument: 'finalDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
+  applicantDocumentsUploaded: 'applicantDocumentsUploaded',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -286,6 +288,8 @@ export interface Case {
   applicant1UploadedFiles?: UploadedFile[];
   finalDocument: Document;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  /*** Document upload */
+  applicantDocumentsUploaded: ListValue<UploadDocumentList>[];
 }
 
 export interface CaseWithId extends Case {

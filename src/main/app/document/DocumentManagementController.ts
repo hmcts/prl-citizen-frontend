@@ -11,6 +11,7 @@ import { DocumentType } from '../case/definition';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { DocumentManagementClient } from './DocumentManagementClient';
+//import { DgsApiClient } from 'app/case/DgsApiClient';
 
 const UID_LENGTH = 36;
 @autobind
@@ -19,6 +20,14 @@ export class DocumentManagerController {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
   }
 
+  // private getDgsApiClient(user: UserDetails) {
+  //   return new DgsApiClient(config.get('services.dgs.url'), getServiceAuthToken());
+  // }
+
+
+  public async generatePdf(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+   // const dgsClient = this.getDgsApiClient(req.session.user);
+  }
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const originalUrl = req.originalUrl;
     let filename = '';
