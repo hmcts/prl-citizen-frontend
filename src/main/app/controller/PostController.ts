@@ -8,7 +8,7 @@ import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
@@ -276,17 +276,10 @@ export class PostController<T extends AnyObject> {
     form: Form,
     formData: Partial<CaseWithId>
   ): Promise<void> {
-    if (req?.session?.userCase) {
-      Object.assign(req?.session?.userCase, formData);
-    } else {
-      const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
-      req.session.userCase = initData;
-    }
     const caseworkerUser = await getSystemUser();
     const caseReference = formData.caseCode?.replace(/-/g, '');
     const accessCode = formData.accessCode?.replace(/-/g, '');
-    let accessCodeMatched = false;
-    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+    // req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
     req.session.errors = form.getErrors(formData);
 
     try {
@@ -294,36 +287,16 @@ export class PostController<T extends AnyObject> {
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
         const accessCodeValidated = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
         console.log(accessCodeValidated);
-        if (accessCodeValidated === 'valid') {
-          accessCodeMatched = true;
-        } else if (accessCodeValidated === 'linked') {
+         if (accessCodeValidated === 'linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
-        } else {
+        } else if (accessCodeValidated !== 'valid') {
           req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
-        }
-
-        if (!accessCodeMatched) {
-          req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
-        }
-        if (accessCodeLinked) {
-          req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         }
       }
     } catch (err) {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 
-    if (req.session.errors.length) {
-      req.session.accessCodeLoginIn = false;
-    } else {
-      const initData = {
-        id: formData.id || '',
-        state: State.successAuthentication,
-        serviceType: '',
-        ...formData,
-      };
-      req.session.userCase = initData;
-    }
     req.session.errors = form.getErrors(formData);
     if (req.session.errors.length) {
       req.session.accessCodeLoginIn = false;

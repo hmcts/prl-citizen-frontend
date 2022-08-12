@@ -1,11 +1,11 @@
-import Axios, { AxiosError, AxiosInstance } from 'axios';
+import Axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-import { CaseWithId } from './case';
+import { Case, CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
 import {
   CASE_TYPE,
@@ -211,4 +211,8 @@ interface CcdV2Response {
   id: string;
   state: State;
   data: CaseData;
+}
+
+interface CcdTokenResponse {
+  token: string;
 }
