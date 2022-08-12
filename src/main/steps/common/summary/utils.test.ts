@@ -1,5 +1,5 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { CONSENT, MIAM_START } from '../../urls';
+import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
 import { summaryList } from './utils';
 
@@ -16,12 +16,25 @@ const enContent = {
   },
   fieldType: {
     miamStart: 'string',
+    applicationReceivedDate: 'Date',
+    invalidApplicationReceivedDate: 'Date',
+    proceedingsStart: 'String',
+    proceedingsStartOrder: 'String',
+    emergencyOrderOptions: 'YesOrNo',
+    'emergencyOrder.caseNoDetails': 'String',
+    'emergencyOrder.orderDateDetails': 'Date',
+    'emergencyOrder.orderTimeDetails': 'String',
+    'emergencyOrder.currentOrderDetails': 'YesOrNo',
+    'emergencyOrder.issueOrderDetails': 'String',
   },
   errors: {},
 };
 
 const urls = {
   miamStart: MIAM_START,
+  proceedingsStart: PROCEEDINGS_START,
+  proceedingsStartOrder: PROCEEDINGS_START,
+  emergencyOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS,
   applicationReceivedDate: CONSENT,
   invalidApplicationReceivedDate: CONSENT,
 };
@@ -32,6 +45,7 @@ describe('common > summary > utils', () => {
       {
         userCase: mockUserCase,
         expected: {
+          title: 'applicationDetails',
           rows: [
             {
               actions: {
@@ -70,10 +84,11 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: {},
+              value: {
+                text: 'Complete this section',
+              },
             },
           ],
-          title: 'applicationDetails',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {

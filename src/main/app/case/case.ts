@@ -1,142 +1,36 @@
 import { AnyObject } from '../controller/PostController';
 
-import {
-  AllegationOfHarm,
-  AllegationsOfHarmChildAbductionTable,
-  AllegationsOfHarmDomesticAbuseTable,
-  AllegationsOfHarmOtherConcernsTable,
-  AllegationsOfHarmOverviewTable,
-  AllocatedJudgeDetails,
-  Applicant,
-  ApplicantTable,
-  AttendingTheHearingTable,
-  CaseData,
-  CaseInvite,
-  CaseStatus,
-  Child,
-  ChildDetailsExtraTable,
-  ChildDetailsTable,
-  ConfidentialDetails,
-  DateOfSubmission,
-  DraftConsentOrderFile,
-  HearingUrgencyTable,
-  InternationalElementTable,
-  InterpreterNeed,
-  ListValue,
-  LitigationCapacityTable,
-  MiamExemptionsTable,
-  MiamTable,
-  OtherPeopleInTheCaseTable,
-  OtherProceedingEmptyTable,
-  OtherProceedingsDetailsTable,
-  OtherProceedingsForSummaryTab,
-  OtherProceedingsTable,
-  OthersToNotify,
-  PRLDocument,
-  Respondent,
-  SpecialArrangement,
-  State,
-  SummaryTabForOrderAppliedFor,
-  TypeOfApplicationTable,
-  UrgencyDetails,
-  WelshLanguageRequirementsTable,
-  WelshNeed,
-  YesOrNo,
-  //DocumentType,
-} from './definition';
+import { CaseData, CaseInvite, ContactDetails, OtherName, State, YesOrNo, orderInterface } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
-  children: 'children',
-  miamTable: 'miamTable',
-  caseStatus: 'caseStatus',
-  welshNeeds: 'welshNeeds',
-  respondents: 'respondents',
-  consentOrder: 'consentOrder',
-  isCaseUrgent: 'isCaseUrgent',
-  isWelshNeeded: 'isWelshNeeded',
-  natureOfOrder: 'natureOfOrder',
-  applicantTable: 'applicantTable',
-  othersToNotify: 'othersToNotify',
-  urgencyDetails: 'urgencyDetails',
-  //respondentTable: 'RespondentTable[]',
-  allegationOfHarm: 'allegationOfHarm',
-  dateOfSubmission: 'dateOfSubmission',
-  //declarationTable: 'DeclarationTable',
-  interpreterNeeds: 'interpreterNeeds',
-  applicantCaseName: 'applicantCaseName',
-  childDetailsTable: 'childDetailsTable',
-  jurisdictionIssue: 'jurisdictionIssue',
-  ordersApplyingFor: 'ordersApplyingFor',
-  applicationDetails: 'applicationDetails',
-  familyMediatorMiam: 'familyMediatorMiam',
-  setOutReasonsBelow: 'setOutReasonsBelow',
-  specialArrangement: 'specialArrangement',
-  adjustmentsRequired: 'adjustmentsRequired',
-  confidentialDetails: 'confidentialDetails',
-  existingProceedings: 'existingProceedings',
-  hearingUrgencyTable: 'hearingUrgencyTable',
-  isDisabilityPresent: 'isDisabilityPresent',
-  isInterpreterNeeded: 'isInterpreterNeeded',
-  miamExemptionsTable: 'miamExemptionsTable',
-  isIntermediaryNeeded: 'isIntermediaryNeeded',
-  allocatedJudgeDetails: 'allocatedJudgeDetails',
-  applicantAttendedMiam: 'applicantAttendedMiam',
-  caseTypeOfApplication: 'caseTypeOfApplication',
-  claimingExemptionMiam: 'claimingExemptionMiam',
-  draftConsentOrderFile: 'draftConsentOrderFile',
-  otherProceedingsTable: 'otherProceedingsTable',
-  allegationsOfHarmYesNo: 'allegationsOfHarmYesNo',
-  childDetailsExtraTable: 'childDetailsExtraTable',
-  reasonsForIntermediary: 'reasonsForIntermediary',
-  typeOfApplicationTable: 'typeOfApplicationTable',
-  litigationCapacityTable: 'litigationCapacityTable',
-  miamExemptionsChecklist: 'miamExemptionsChecklist',
-  attendingTheHearingTable: 'attendingTheHearingTable',
-  caseUrgencyTimeAndReason: 'caseUrgencyTimeAndReason',
-  welshLanguageRequirement: 'welshLanguageRequirement',
-  internationalElementTable: 'internationalElementTable',
-  litigationCapacityFactors: 'litigationCapacityFactors',
-  miamOtherGroundsChecklist: 'miamOtherGroundsChecklist',
-  //otherPeopleInTheCaseTable: 'otherPeopleInTheCaseTable[]',
-  otherProceedingEmptyTable: 'otherProceedingEmptyTable',
-  requestToForeignAuthority: 'requestToForeignAuthority',
-  effortsMadeWithRespondents: 'effortsMadeWithRespondents',
-  jurisdictionIssueGiveReason: 'jurisdictionIssueGiveReason',
-  litigationCapacityReferrals: 'litigationCapacityReferrals',
-  specialArrangementsRequired: 'specialArrangementsRequired',
-  //allegationsOfHarmOrdersTable: 'allegationsOfHarmOrdersTable',
-  habitualResidentInOtherState: 'habitualResidentInOtherState',
-  //otherProceedingsDetailsTable: 'otherProceedingsDetailsTable[]',
-  summaryTabForOrderAppliedFor: 'summaryTabForOrderAppliedFor',
-  typeOfChildArrangementsOrder: 'typeOfChildArrangementsOrder',
-  applicationPermissionRequired: 'applicationPermissionRequired',
-  childrenKnownToLocalAuthority: 'childrenKnownToLocalAuthority',
-  isSpecialArrangementsRequired: 'isSpecialArrangementsRequired',
-  otherProceedingsForSummaryTab: 'otherProceedingsForSummaryTab',
-  allegationsOfHarmOverviewTable: 'allegationsOfHarmOverviewTable',
-  doYouNeedAWithoutNoticeHearing: 'doYouNeedAWithoutNoticeHearing',
-  litigationCapacityOtherFactors: 'litigationCapacityOtherFactors',
-  //welshLanguageRequirementsTable: 'WelshLanguageRequirementsTable',
-  miamPreviousAttendanceChecklist: 'miamPreviousAttendanceChecklist',
-  areRespondentsAwareOfProceedings: 'areRespondentsAwareOfProceedings',
-  reasonsForApplicationWithoutNotice: 'reasonsForApplicationWithoutNotice',
-  allegationsOfHarmDomesticAbuseTable: 'allegationsOfHarmDomesticAbuseTable',
-  allegationsOfHarmOtherConcernsTable: 'allegationsOfHarmOtherConcernsTable',
-  applicationPermissionRequiredReason: 'applicationPermissionRequiredReason',
-  requestToForeignAuthorityGiveReason: 'requestToForeignAuthorityGiveReason',
-  welshLanguageRequirementApplication: 'welshLanguageRequirementApplication',
-  allegationsOfHarmChildAbductionTable: 'allegationsOfHarmChildAbductionTable',
-  childrenSubjectOfChildProtectionPlan: 'childrenSubjectOfChildProtectionPlan',
-  childrenKnownToLocalAuthorityTextArea: 'childrenKnownToLocalAuthorityTextArea',
-  doYouRequireAHearingWithReducedNotice: 'doYouRequireAHearingWithReducedNotice',
-  litigationCapacityOtherFactorsDetails: 'litigationCapacityOtherFactorsDetails',
-  c100ConfidentialityStatementDisclaimer: 'c100ConfidentialityStatementDisclaimer',
-  habitualResidentInOtherStateGiveReason: 'habitualResidentInOtherStateGiveReason',
-  languageRequirementApplicationNeedWelsh: 'languageRequirementApplicationNeedWelsh',
-  previousOrOngoingProceedingsForChildren: 'previousOrOngoingProceedingsForChildren',
-  welshLanguageRequirementApplicationNeedEnglish: 'welshLanguageRequirementApplicationNeedEnglish',
-  orderCollection: 'orderCollection',
-  respondentName: 'respondentName',
+  serviceType: 'serviceType',
+  claimNumber: 'claimNumber',
+  caseCode: 'caseCode',
+  respondentFirstName: 'respondentFirstName',
+  respondentLastName: 'respondentLastName',
+  accessCode: 'accessCode',
+  respondentCaseInvites: 'respondentCaseInvites',
+  contactDetailsPrivate: 'contactDetailsPrivate',
+
+  applicant1FirstNames: 'applicant1FirstNames',
+  applicant1LastNames: 'applicant1LastNames',
+  applicant1FullName: 'applicant1FullName',
+  applicant1HasOtherNames: 'applicant1HasOtherNames',
+  applicant1AdditionalNames: 'applicant1AdditionalNames',
+  applicant1DateOfBirth: 'applicant1DateOfBirth',
+  applicant1Occupation: 'applicant1Occupation',
+  applicant1EmailAddress: 'applicant1EmailAddress',
+  applicant1PhoneNumber: 'applicant1PhoneNumber',
+  applicant1PlaceOfBirth: 'applicant1PlaceOfBirth',
+  applicant1Address1: 'applicant1Address1',
+  applicant1Address2: 'applicant1Address2',
+  applicant1AddressTown: 'applicant1AddressTown',
+  // applicant1AddressCounty: 'applicant1AddressCountry',
+  // applicant1AddressPostcode: 'applicant1AddressPostCode',
+  applicant1ContactDetails: 'applicant1ContactDetails',
+  applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
+  //applicant1LanguagePreference: 'applicant1LanguagePreference',
+  citizenRole: 'citizenRole',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -254,6 +148,7 @@ export interface Case {
   accessCode?: string;
   detailsKnown?: string;
   startAlternative?: string;
+  contactDetailsPrivate?: string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
@@ -276,10 +171,88 @@ export interface Case {
   respondentCaseInvites?: CaseInvite[];
   applicantCaseInvites?: CaseInvite[];
   contactDetailsPrivate?: string;
-  orderCollection: ListValue<PRLDocument>[];
-  documentsGenerated: ListValue<PRLDocument>[];
-  //applicant1CannotUploadDocuments?: DocumentType[];
-  applicant1UploadedFiles?: UploadedFile[];
+  proceedingsCourtCase?: string;
+  proceedingsStart?: string;
+  proceedingsCourtOrder?: string;
+  proceedingsStartOrder?: string;
+  courtProceedingsInvolved?: string;
+  supervisionOrderOption?: YesOrNo;
+  supervisionOrder?: orderInterface;
+  emergencyOrderOptions?: YesOrNo;
+  emergencyOrder?: orderInterface;
+  careOrderOptions?: YesOrNo;
+  careOrder?: orderInterface;
+  childAbductionOrderOption?: YesOrNo;
+  childAbductionOrder?: orderInterface;
+  caOrderOption?: YesOrNo;
+  caOrder?: orderInterface;
+  financialOrderOption?: YesOrNo;
+  financialOrder?: orderInterface;
+  nonmolestationOrderOption?: YesOrNo;
+  nonmolestationOrder?: orderInterface;
+  occupationalOrderOptions?: YesOrNo;
+  occupationOrder?: orderInterface;
+  marraigeOrderOptions?: YesOrNo;
+  marraigeOrder?: orderInterface;
+  restrainingOrderOptions?: YesOrNo;
+  restrainingOrder?: orderInterface;
+  injuctiveOrderOptions?: YesOrNo;
+  injuctiveOrder?: orderInterface;
+  underTakingOrderOptions?: YesOrNo;
+  underTakingOrder?: orderInterface;
+
+  /***** Applicant1 *****/
+  applicant1FullName?: string;
+  applicant1FirstNames?: string;
+  applicant1LastNames?: string;
+  applicant1HasOtherNames?: YesOrNo;
+  applicant1AdditionalName?: string;
+  applicant1AdditionalNames?: OtherName[];
+  applicant1EmailAddress?: string;
+  applicant1PhoneNumber?: string;
+  applicant1SafeToCall?: string;
+  applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: string;
+  applicant1Occupation?: string;
+  applicant1SelectAddress?: string;
+  applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfBirthText?: string;
+  applicant1Address1?: string;
+  applicant1Address2?: string;
+  applicant1AddressTown?: string;
+  applicant1AddressCounty?: string;
+  applicant1AddressPostcode?: string;
+  applicant1ContactDetails?: ContactDetails[];
+  applicant1ContactDetailsConsent?: YesOrNo;
+  applicant1PostalAddress1?: string;
+  applicant1PostalAddress2?: string;
+  applicant1PostalAddress3?: string;
+  applicant1PostalAddressTown?: string;
+  applicant1PostalAddressCounty?: string;
+  applicant1PostalAddressPostcode?: string;
+
+  //applicant1LanguagePreference?: LanguagePreference;
+  //support you need during the case
+  languageRequirements?: string;
+  languageDetails?: string;
+  reasonableAdjustments?: string;
+  helpCommunication?: string;
+  describeOtherNeed?: string;
+  courtHearing?: string;
+  communicationSupportOther?: string;
+  docsSupport?: string;
+  otherDetails?: string;
+  courtComfort?: string;
+  otherProvideDetails?: string;
+  safetyArrangements?: string;
+  safetyArrangementsDetails?: string;
+  travellingToCourt?: string;
+  travellingOtherDetails?: string;
+  unableForCourtProceedings?: string;
+  courtProceedingProvideDetails?: string;
+  safetyConcerns?: string;
+
+  citizenRole?: FieldPrefix;
 }
 
 export interface CaseWithId extends Case {
@@ -300,6 +273,8 @@ export enum FieldPrefix {
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
+  APPLICANT = 'APPLICANT',
+  RESPONDENT = 'RESPONDENT',
 }
 
 export interface UploadedFile {

@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as URL from '../../urls';
 
-import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus, getOrderDetailsStatus } from './utils';
+import {
+  getConfirmOrEditYourContactDetails,
+  getKeepYourDetailsPrivateStatus,
+  getSupportYourNeedsDetails,
+} from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
     {
-      title: sectionTitles.applicantYourDetails,
+      title: sectionTitles.aboutYou,
       items: [
         {
           id: 'keep-your-details-private',
@@ -20,17 +24,84 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           status: getConfirmOrEditYourContactDetails(userCase),
           href: URL.APPLICANT_CHECK_ANSWERS,
         },
+        {
+          id: 'support-you-need-during-your-case',
+          text: taskListItems.support_you_need_during_your_case,
+          status: getSupportYourNeedsDetails(userCase),
+          href: URL.LANGUAGE_REQUIREMENTS,
+        },
       ],
     },
     {
-      title: sectionTitles.applicantOrderDetails,
+      title: sectionTitles.yourApplication,
       items: [
         {
-          id: 'view_all_orders_from_the_court',
-          text: taskListItems.view_all_orders_from_the_court,
-          status: getOrderDetailsStatus(userCase),
-          href:
-            getOrderDetailsStatus(userCase) === 'READY_TO_VIEW' ? URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT : '#',
+          id: 'application-submitted',
+          text: taskListItems.application_submitted,
+          status: getKeepYourDetailsPrivateStatus(userCase),
+          href: URL.APPLICANT_DETAILS_KNOWN,
+        },
+        {
+          id: 'witness-statement',
+          text: taskListItems.witness_statement,
+          status: getConfirmOrEditYourContactDetails(userCase),
+          href: URL.APPLICANT_CHECK_ANSWERS,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.courtHearings,
+      items: [
+        {
+          id: 'check-details-of-your-court-hearings',
+          text: taskListItems.details_of_court_hearings,
+          status: getKeepYourDetailsPrivateStatus(userCase),
+          href: URL.APPLICANT_DETAILS_KNOWN,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.ordersFromCourt,
+      items: [
+        {
+          id: 'orders',
+          text: taskListItems.orders,
+          status: getKeepYourDetailsPrivateStatus(userCase),
+          href: URL.APPLICANT_DETAILS_KNOWN,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.yourDocuments,
+      items: [
+        {
+          id: 'upload-document',
+          text: taskListItems.upload_document,
+          status: getKeepYourDetailsPrivateStatus(userCase),
+          href: URL.APPLICANT_DETAILS_KNOWN,
+        },
+        {
+          id: 'see-all-documents',
+          text: taskListItems.see_all_documents,
+          status: getConfirmOrEditYourContactDetails(userCase),
+          href: URL.APPLICANT_CHECK_ANSWERS,
+        },
+        {
+          id: 'see-all-documents-alternative-view',
+          text: taskListItems.see_all_documents_alternative_view,
+          status: getConfirmOrEditYourContactDetails(userCase),
+          href: URL.APPLICANT_CHECK_ANSWERS,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.finalDecision,
+      items: [
+        {
+          id: 'view-all-final-order',
+          text: taskListItems.view_all_final_order,
+          status: getKeepYourDetailsPrivateStatus(userCase),
+          href: URL.APPLICANT_DETAILS_KNOWN,
         },
       ],
     },
