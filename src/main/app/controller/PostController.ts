@@ -154,20 +154,21 @@ export class PostController<T extends AnyObject> {
     const caseReference = formData.caseCode?.replace(/-/g, '');
     try {
       if (!req.session.errors.length) {
-        const caseData = await req.locals.api.getCaseById(caseReference as string);
-        console.log(caseData);
+        //const caseData = await req.locals.api.getCaseById(caseReference as string);
+        //console.log(caseData);
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://return-url');
         const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
-        console.log(caseDataFromCos);
-        const updatedCaseDataFromCos = await client.updateCase(
-          caseworkerUser,
-          'INSERT UR CASE ID HERE',
-          caseDataFromCos,
-          'internal-update-application-tab'
-        );
+        req.session.userCase = caseDataFromCos;
+        //console.log('=============caseDataFromCos====================' + caseDataFromCos);
+        // const updatedCaseDataFromCos = await client.updateCase(
+        //   caseworkerUser,
+        //   caseReference as string,
+        //   caseDataFromCos,
+        //   'internal-update-application-tab'
+        // );
 
-        console.log('*******************************');
-        console.log(updatedCaseDataFromCos);
+        //console.log('*******************************');
+        //console.log(updatedCaseDataFromCos);
         // let accessCodeMatched = false;
         // let accessCodeLinked = false;
         // if (caseData.respondentCaseInvites !== null) {
