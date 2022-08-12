@@ -27,7 +27,7 @@
     label: {
       text: 'First name(s)'
     },
-    id: "address-line-1",
+    id: "firstname-" + loop.index,
     name: "firstname-" + loop.index,
     value: child['firstname'],
     autocomplete: "address-line1",
@@ -38,7 +38,7 @@
     label: {
       text: 'Last name(s)'
     },
-    id: "address-line-1",
+    id: "lastname-" + loop.index,
     name: "lastname-" + loop.index,
     value: child['lastname'],
     autocomplete: "address-line1",
@@ -75,9 +75,9 @@
     hint: {
     text: "Include all middle names here"
   },
-    id: "address-line-1",
+    id: "firstname-"+(listedChildern.length+1),
     name: "firstname-"+(listedChildern.length+1),
-    autocomplete: "address-line1",
+    autocomplete: "firstname-"+(listedChildern.length+1),
     classes: "govuk-input govuk-!-width-one-half",
     errorMessage: {
     text: "Please enter firstName"
@@ -89,8 +89,8 @@
     label: {
       text: 'Last name(s)'
     },
-    id: "address-line-1",
-    name: "lastname-"+(listedChildern.length+1) ,
+    id: "lastname-"+(listedChildern.length+1),
+    name: "lastname-"+(listedChildern.length+1),
     autocomplete: "address-line1",
     classes: "govuk-input govuk-!-width-one-half"
   }) }}
