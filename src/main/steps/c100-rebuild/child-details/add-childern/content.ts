@@ -5,6 +5,14 @@ import { FormContent } from '../../../../app/form/Form';
 const en = () => ({
   pageTitle: 'Enter the names of the children',
   subTitle: 'Only include the children you’re making this application about',
+  errors: {
+    'firstname-1': {
+      required: 'Select first name',
+    },
+    'lastname-1': {
+      required: 'Select last name',
+    },
+  },
 });
 
 const cy = () => ({

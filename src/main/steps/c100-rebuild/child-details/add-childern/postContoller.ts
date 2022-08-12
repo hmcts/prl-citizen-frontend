@@ -20,6 +20,32 @@ export default class AddChilderns extends PostController<AnyObject> {
       const { action } = req.query;
       switch (action) {
         case 'addChild':
+           console.log("body:", req.body) ;
+         //  const { firstname, lastname } = req['body'];
+          // eslint-disable-next-line no-case-declarations
+          if (req.session.settings.ListOfChild.length === 0) {
+            if (req['body']['firstname-1'] === '' && req['body']['lastname-1'] === '') {
+              console.log("Inside If");
+              req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required'}];
+              req.session.errors.push({
+               propertyName: 'lastname-1',
+               errorType: 'required',
+             });
+           } else if (req['body']['firstname-1'] === '') {
+            req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required'}];
+ 
+           } else {
+            console.log("Inside else");
+            req.session.errors = [{ propertyName: 'lastname-1', errorType: 'required'}];
+
+           }
+
+          console.log("errors:", req.session.errors)
+ 
+          super.redirect(req, res, req.url);
+             
+
+          }
           for (const [key, value] of Object.entries(req['body'])) {
             if ((key.includes('firstname') || key.includes('lastname')) && key.includes('_cid')) {
               this.addChildCommonLogic(req, key, value, 'update');
