@@ -84,7 +84,11 @@ export const form: FormContent = {
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
         },
       ],
-      validator: isFieldFilledIn,
+      parser: body => covertToDateObject('childDateOfBirth', body as Record<string, unknown>),
+      validator: value =>
+        areDateFieldsFilledIn(value as CaseDate) ||
+        isDateInputInvalid(value as CaseDate) ||
+        isFutureDate(value as CaseDate),
     },
     apDateOfBirth: {
       type: 'checkboxes',
@@ -129,7 +133,6 @@ export const form: FormContent = {
           },
         },
       ],
-      validator: isFieldFilledIn,
     },
     childSex: {
       type: 'radios',

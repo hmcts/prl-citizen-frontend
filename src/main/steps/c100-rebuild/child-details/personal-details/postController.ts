@@ -16,10 +16,7 @@ export default class Personaldetails extends PostController<AnyObject> {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
    
     const form = new Form(<FormFields> this.fields);
-
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-    console.log(saveAndSignOut, saveBeforeSessionTimeout, _csrf, formData)
-
     req.session.errors = form.getErrors(formData);
 
     if (req.query.hasOwnProperty('childId')) {
