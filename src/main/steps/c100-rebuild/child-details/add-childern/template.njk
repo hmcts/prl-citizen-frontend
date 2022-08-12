@@ -30,7 +30,7 @@
     id: "firstname-" + loop.index,
     name: "firstname-" + loop.index,
     value: child['firstname'],
-    autocomplete: "address-line1",
+    autocomplete: "firstname-" + loop.index,
     classes: "govuk-input govuk-!-width-one-half"
   }) }}
 
@@ -41,7 +41,7 @@
     id: "lastname-" + loop.index,
     name: "lastname-" + loop.index,
     value: child['lastname'],
-    autocomplete: "address-line1",
+    autocomplete:"lastname-" + loop.index,
     classes: "govuk-input govuk-!-width-one-half"
   }) }}
 
@@ -78,10 +78,7 @@
     id: "firstname-"+(listedChildern.length+1),
     name: "firstname-"+(listedChildern.length+1),
     autocomplete: "firstname-"+(listedChildern.length+1),
-    classes: "govuk-input govuk-!-width-one-half",
-    errorMessage: {
-    text: "Please enter firstName"
-  }
+    classes: "govuk-input govuk-!-width-one-half"
 
   }) }}
 
@@ -91,7 +88,7 @@
     },
     id: "lastname-"+(listedChildern.length+1),
     name: "lastname-"+(listedChildern.length+1),
-    autocomplete: "address-line1",
+    autocomplete: "lastname-"+(listedChildern.length+1),
     classes: "govuk-input govuk-!-width-one-half"
   }) }}
   {{ govukButton({
