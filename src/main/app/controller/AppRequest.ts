@@ -26,6 +26,8 @@ export interface AppSession extends Session {
   addresses: [];
   returnUrl?: string;
   accessCodeLoginIn: boolean;
+  apiCaseData?: object | [] | undefined;
+  caseId?: number | string;
 }
 
 export interface UserDetails {

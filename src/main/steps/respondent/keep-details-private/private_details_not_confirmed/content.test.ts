@@ -8,14 +8,12 @@ const enContent = {
   title: 'The court will not keep your contact details private',
   line1:
     'You have told us you do not want to keep your contact details private from the other people in this application.',
-  continue: 'Continue',
 };
 
 const cyContent = {
   title: 'The court will not keep your contact details private',
   line1:
     'You have told us you do not want to keep your contact details private from the other people in this application.',
-  continue: 'Continue',
 };
 
 jest.mock('../../../../app/form/validation');
@@ -47,7 +45,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.submit.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
