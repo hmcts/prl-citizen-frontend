@@ -4,8 +4,8 @@ import type { LoggerInstance } from 'winston';
 
 import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
+import { YesOrNo } from '../case/definition';
 import { FormError } from '../form/Form';
-import { YesOrNo } from 'app/case/definition';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
   session: AppSession;

@@ -13,7 +13,7 @@ export default class ParentResponsibility extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const form = new Form(<FormFields> this.fields);
+    const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
 
@@ -23,7 +23,7 @@ export default class ParentResponsibility extends PostController<AnyObject> {
 
       if (currentChild > -1) {
         req.session.settings.ListOfChild[currentChild].parentialResponsibility = {
-          statement:  req.body.parentalResponsibility,
+          statement: req.body.parentalResponsibility,
         };
         if (currentChild + 1 >= req.session.settings.ListOfChild.length) {
           super.redirect(req, res, DASHBOARD_URL);

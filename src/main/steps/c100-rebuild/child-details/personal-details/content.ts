@@ -1,13 +1,13 @@
-import { CaseDate } from 'app/case/case';
-import { FormContent } from 'app/form/Form';
+import { CaseDate } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent } from '../../../../app/form/Form';
+import { covertToDateObject } from '../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
 } from '../../../../app/form/validation';
-import { covertToDateObject } from '../../../../app/form/parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -29,9 +29,8 @@ const en = () => ({
     },
     apDateOfBirth: {
       required: 'Select approximate date of birth',
-    }
+    },
   },
-  
 });
 
 const cy = () => ({
@@ -53,7 +52,7 @@ const cy = () => ({
     },
     apDateOfBirth: {
       required: 'Select approximate date of birth - welsh',
-    }
+    },
   },
 });
 
@@ -98,7 +97,7 @@ export const form: FormContent = {
     },
     apDateOfBirth: {
       type: 'checkboxes',
-      classes: "govuk-checkboxes--small",
+      classes: 'govuk-checkboxes--small',
       values: [
         {
           name: 'isDopKnown',

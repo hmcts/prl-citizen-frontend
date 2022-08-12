@@ -8,11 +8,11 @@ const en = () => ({
   labelText: 'State everyone who has parental responsibility for  and how they have parental responsibility.',
   hintText: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
  <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p>`,
- errors: {
-  parentalResponsibility: {
-    required: 'Enter an answer',
+  errors: {
+    parentalResponsibility: {
+      required: 'Enter an answer',
+    },
   },
-},
 });
 
 const cy = () => ({
@@ -24,7 +24,7 @@ const cy = () => ({
     parentalResponsibility: {
       required: 'Enter an answer  - welsh',
     },
-},
+  },
 });
 
 const languages = {
@@ -33,16 +33,16 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {   
+  fields: {
     parentalResponsibility: {
       type: 'text',
       classes: 'govuk-input--width-20',
       label: l => l.labelText,
-      hint:  l => l.hintText,
+      hint: l => l.hintText,
       labelSize: null,
-      validator: value => isFieldFilledIn(value)
-    }, 
-},
+      validator: value => isFieldFilledIn(value),
+    },
+  },
   submit: {
     text: l => l.onlycontinue,
   },

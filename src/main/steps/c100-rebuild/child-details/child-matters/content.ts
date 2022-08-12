@@ -1,6 +1,6 @@
-import { isFieldFilledIn } from '../../../../app/form/validation';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -11,7 +11,7 @@ const en = () => ({
     isDecisionTaken: {
       required: 'Select at least a decision',
     },
-},
+  },
 });
 
 const cy = () => ({
@@ -22,7 +22,7 @@ const cy = () => ({
     isDecisionTaken: {
       required: 'Select at least a decision  - welsh',
     },
-},
+  },
 });
 
 const languages = {
@@ -31,19 +31,20 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {    
+  fields: {
     isDecisionTaken: {
-    type: 'checkboxes',
-    hint: l => l.hintText,
-    values: [
-      {
-        name: 'isDecisionTaken',
-        label: l => l.labelText,
-        value: 'Yes',
-      },
-    ],
-    validator: isFieldFilledIn,
-  }},
+      type: 'checkboxes',
+      hint: l => l.hintText,
+      values: [
+        {
+          name: 'isDecisionTaken',
+          label: l => l.labelText,
+          value: 'Yes',
+        },
+      ],
+      validator: isFieldFilledIn,
+    },
+  },
   submit: {
     text: l => l.onlycontinue,
   },

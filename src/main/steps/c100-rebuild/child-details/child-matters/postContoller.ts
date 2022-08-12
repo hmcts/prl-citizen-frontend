@@ -1,7 +1,7 @@
-import { YesOrNo } from 'app/case/definition';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -14,19 +14,19 @@ export default class AddChildernMatter extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const form = new Form(<FormFields> this.fields);
+    const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     req.session.errors = form.getErrors(formData);
-    
+
     if (req.query.hasOwnProperty('childId')) {
       const { childId } = req.query;
-      console.log(req.body)
+      console.log(req.body);
       const matchChildIndex = req.session.settings.ListOfChild.findIndex(child => child.id === childId);
       if (matchChildIndex > -1) {
         const isDecisionTaken = req.body.isDecisionTaken !== '' ? YesOrNo.YES : YesOrNo.NO;
         req.session.settings.ListOfChild[matchChildIndex].childMatter = {
-          isDecisionTaken:  isDecisionTaken,
+          isDecisionTaken,
         };
         const redirectUrl = C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
         super.redirect(req, res, redirectUrl);

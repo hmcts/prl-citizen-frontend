@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
+
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -26,6 +28,7 @@ export default class AddChilderns extends PostController<AnyObject> {
             }
           }
           super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+          break;
 
         case 'removeChild':
           // eslint-disable-next-line no-case-declarations
@@ -43,9 +46,12 @@ export default class AddChilderns extends PostController<AnyObject> {
             }
           }
 
+          // eslint-disable-next-line no-self-assign
           req.session.settings.ListOfChild = req.session.settings.ListOfChild;
+          // eslint-disable-next-line no-case-declarations
           const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;
           super.redirect(req, res, redirectURI);
+          break;
 
         default:
           res.render('error');
@@ -57,13 +63,15 @@ export default class AddChilderns extends PostController<AnyObject> {
       super.redirect(req, res, redirectURI);
     }
   }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public addChildCommonLogic(req, key, value, type): any {
-    let [childKey, childIndex] = key.split('-'); // ['firstname','0'
+    const [childKey, childIndex] = key.split('-'); // ['firstname','0'
 
     const newChild = {
       ...req.session.settings.ListOfChild[Number(childIndex) - 1],
       firstname: value,
-      id:uuidv4().toString()
+      id: uuidv4().toString(),
     };
     const updateChild = {
       ...req.session.settings.ListOfChild[Number(childIndex) - 1],
