@@ -47,7 +47,8 @@ export class CosApiClient {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data);
+
+    //console.log(response.data);
 
     return {
       id: response.data.id,
@@ -95,7 +96,7 @@ export class CosApiClient {
         { headers }
       );
 
-      console.log(response.data);
+      //console.log(response.data);
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
       throw new Error('Case could not be updated.');

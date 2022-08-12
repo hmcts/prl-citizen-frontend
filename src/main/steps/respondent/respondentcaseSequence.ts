@@ -26,6 +26,7 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
+  RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -154,6 +155,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

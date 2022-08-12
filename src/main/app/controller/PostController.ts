@@ -160,7 +160,7 @@ export class PostController<T extends AnyObject> {
           const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
           const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
           const caseDataFromCos = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
-          
+
           console.log(caseDataFromCos);
           const updatedCaseDataFromCos = await client.updateCase(
             caseworkerUser,
@@ -168,7 +168,7 @@ export class PostController<T extends AnyObject> {
             caseDataFromCos,
             'citizen-case-update'
           );
-  
+
           console.log('*******************************');
           console.log(updatedCaseDataFromCos);
           let accessCodeMatched = false;
@@ -217,7 +217,7 @@ export class PostController<T extends AnyObject> {
       } catch (err) {
         req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
       }
-  
+
       if (req.session.errors.length) {
         req.session.accessCodeLoginIn = false;
       } else {
@@ -230,7 +230,7 @@ export class PostController<T extends AnyObject> {
         req.session.userCase = initData;
         req.session.accessCodeLoginIn = true;
       }
-  
+
       this.redirect(req, res);
     }
   }*/
@@ -254,7 +254,7 @@ export class PostController<T extends AnyObject> {
     let accessCodeMatched = false;
     req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
     req.session.errors = form.getErrors(formData);
-      
+
     try {
       if (!req.session.errors.length) {
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
@@ -267,7 +267,7 @@ export class PostController<T extends AnyObject> {
         } else {
           req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         }
-        
+
         if (!accessCodeMatched) {
           req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         }
