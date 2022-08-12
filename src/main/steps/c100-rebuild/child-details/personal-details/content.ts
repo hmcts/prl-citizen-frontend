@@ -27,6 +27,9 @@ const en = () => ({
     childSex: {
       required: 'Select the sex',
     },
+    apDateOfBirth: {
+      required: 'Select approximate date of birth',
+    }
   },
   
 });
@@ -48,6 +51,9 @@ const cy = () => ({
     childSex: {
       required: 'Select the sex  - welsh',
     },
+    apDateOfBirth: {
+      required: 'Select approximate date of birth - welsh',
+    }
   },
 });
 
