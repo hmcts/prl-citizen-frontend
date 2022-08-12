@@ -17,19 +17,7 @@ export interface ChildDetails {
   otherRespondentsRelationshipToChild: string;
 }
 
-export interface Child {
-  id: string;
-  value: ChildDetails;
-}
-
-export interface MiamTable {
-  soleTraderName: string;
-  familyMediatorMiam: string;
-  applicantAttendedMiam: string;
-  claimingExemptionMiam: string;
-  familyMediatorServiceName: string;
-  mediatorRegistrationNumber: string;
-}
+import { CaseDate, FieldPrefix } from './case';
 
 export interface Address {
   County: string;
@@ -161,19 +149,266 @@ export interface SolicitorOrg3 {
   OrganisationName: string;
 }
 
-export interface Value5 {
-  email: string;
-  gender: string;
-  address: Address3;
-  dxNumber: string;
-  lastName: string;
-  firstName: string;
-  dateOfBirth: string;
-  otherGender: string;
-  phoneNumber: string;
-  placeOfBirth: string;
-  previousName: string;
-  solicitorOrg: SolicitorOrg3;
+export interface Applicant {
+  FirstName: string;
+  LastName: string;
+  Email: string;
+  FullName: string;
+  HasOtherNames: YesOrNo;
+  AdditionalNames: ListValue<OtherName>[];
+  DateOfBirth: DateAsString;
+  Occupation: string;
+  EmailAddress: string;
+  PhoneNumber: string;
+  Nationality: Nationality[];
+  AdditionalNationality: ListValue<OtherName>[];
+  Address1: string;
+  Address2: string;
+  AddressTown: string;
+  AddressCountry: string;
+  AddressPostCode: string;
+  AddressSameAsApplicant1: string;
+  contactDetails: ContactDetails[];
+
+  AgreedToReceiveEmails: YesOrNo;
+  ConfirmReceipt: YesOrNo;
+  LanguagePreferenceWelsh: YesOrNo;
+  LastNameChangedWhenMarried: YesOrNo;
+  NameDifferentToMarriageCertificate: YesOrNo;
+  NameChangedHowOtherDetails: string;
+  HomeAddress: AddressGlobalUK;
+  KeepContactDetailsConfidential: YesOrNo;
+  Gender: Gender;
+  CorrespondenceAddress: AddressGlobalUK;
+  SolicitorRepresented: YesOrNo;
+  SolicitorName: string;
+  SolicitorReference: string;
+  SolicitorPhone: string;
+  SolicitorEmail: string;
+  SolicitorAddress: string;
+  SolicitorAgreeToReceiveEmails: YesOrNo;
+  SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
+  FinancialOrder: YesOrNo;
+  FinancialOrderFor: FinancialOrderFor[];
+  LegalProceedings: YesOrNo;
+  LegalProceedingsDetails: string;
+}
+
+export interface Application {
+  applicant1ScreenHasMarriageBroken: YesOrNo;
+  applicant2ScreenHasMarriageBroken: YesOrNo;
+  screenHasMarriageCert: YesOrNo;
+  marriageApplicant1Name: string;
+  marriageApplicant2Name: string;
+  marriageMarriedInUk: YesOrNo;
+  marriageCertificateInEnglish: YesOrNo;
+  marriageCertifiedTranslation: YesOrNo;
+  marriageCountryOfMarriage: string;
+  marriagePlaceOfMarriage: string;
+  marriageDate: DateAsString;
+  marriageIsSameSexCouple: YesOrNo;
+  marriageCertifyMarriageCertificateIsCorrect: YesOrNo;
+  marriageMarriageCertificateIsIncorrectDetails: string;
+  marriageIssueApplicationWithoutMarriageCertificate: YesOrNo;
+  jurisdictionApplicant1Residence: YesOrNo;
+  jurisdictionApplicant2Residence: YesOrNo;
+  jurisdictionApplicant1Domicile: YesOrNo;
+  jurisdictionApplicant2Domicile: YesOrNo;
+  jurisdictionApp1HabituallyResLastTwelveMonths: YesOrNo;
+  jurisdictionApp1HabituallyResLastSixMonths: YesOrNo;
+  jurisdictionResidualEligible: YesOrNo;
+  jurisdictionBothLastHabituallyResident: YesOrNo;
+  jurisdictionConnections: JurisdictionConnections[];
+  solServiceDateOfService: DateAsString;
+  solServiceDocumentsServed: string;
+  solServiceOnWhomServed: string;
+  solServiceHowServed: DocumentsServedHow;
+  solServiceServiceDetails: string;
+  solServiceAddressServed: string;
+  solServiceBeingThe: DocumentsServedBeingThe;
+  solServiceLocationServed: DocumentsServedWhere;
+  solServiceSpecifyLocationServed: string;
+  solServiceServiceSotName: string;
+  solServiceServiceSotFirm: string;
+  solServiceTruthStatement: string;
+  applicant1HWFReferenceNumber: string;
+  applicant1HWFNeedHelp: YesOrNo;
+  applicant1HWFAppliedForFees: YesOrNo;
+  applicant2HWFReferenceNumber: string;
+  applicant2HWFNeedHelp: YesOrNo;
+  applicant2HWFAppliedForFees: YesOrNo;
+  divorceWho: WhoDivorcing;
+  solUrgentCase: YesOrNo;
+  solUrgentCaseSupportingInformation: string;
+  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
+  solServiceMethod: ServiceMethod;
+  solStatementOfReconciliationCertify: YesOrNo;
+  solStatementOfReconciliationDiscussed: YesOrNo;
+  applicant1PrayerHasBeenGivenCheckbox: ThePrayer[];
+  applicant2PrayerHasBeenGiven: YesOrNo;
+  applicant1StatementOfTruth: YesOrNo;
+  applicant2StatementOfTruth: YesOrNo;
+  solSignStatementOfTruth: YesOrNo;
+  solStatementOfReconciliationName: string;
+  solStatementOfReconciliationFirm: string;
+  statementOfReconciliationComments: string;
+  solApplicationFeeInPounds: string;
+  solPaymentHowToPay: SolicitorPaymentMethod;
+  pbaNumbers: DynamicList;
+  feeAccountReference: string;
+  applicationFeeOrderSummary: OrderSummary;
+  applicant1KnowsApplicant2EmailAddress: YesOrNo;
+  app2ContactMethodIsDigital: YesOrNo;
+  applicant1CannotUploadSupportingDocument: DocumentType[];
+  applicant2CannotUploadSupportingDocument: DocumentType[];
+  documentUploadComplete: YesOrNo;
+  miniApplicationLink: Document;
+  dateSubmitted: DateAsString;
+  applicant2ConfirmApplicant1Information: YesOrNo;
+  applicant2ExplainsApplicant1IncorrectInformation: string;
+  reissueDate: DateAsString;
+  createdDate: DateAsString;
+  rejectReason: RejectReason;
+  previousState: State;
+  applicationPayments: ListValue<Payment>[];
+  overdueNotificationSent: YesOrNo;
+  applicant1ReminderSent: YesOrNo;
+  applicant2ReminderSent: YesOrNo;
+  applicant1NotifiedCanApplyForConditionalOrder: YesOrNo;
+  reissueOption: ReissueOption;
+}
+
+export interface Bailiff {
+  localCourtName: string;
+  localCourtEmail: string;
+  certificateOfServiceDocument: DivorceDocument;
+  certificateOfServiceDate: DateAsString;
+  successfulServedByBailiff: YesOrNo;
+  reasonFailureToServeByBailiff: string;
+}
+
+export const enum Nationality {
+  BRITHISH = 'British',
+  IRISH = 'Irish',
+  OTHER = 'Other',
+  NOT_SURE = 'Not sure',
+}
+
+export const enum ContactDetails {
+  EMAIL = 'email',
+  PHONE = 'phone',
+}
+
+export const enum ContactDetailsPrivate {
+  EMAIL = 'email',
+  PHONE = 'phone',
+  ADDRESS = 'address'
+}
+
+export interface Children {
+  FirstName: string;
+  LastName: string;
+  DateOfBirth: DateAsString;
+  Nationality: Nationality[];
+  AdditionalNationality: ListValue<OtherName>[];
+  FirstNameAfterAdoption: string;
+  LastNameAfterAdoption: string;
+  SexAtBirth: Gender;
+}
+
+export interface OtherName {
+  id?: string;
+  firstNames: string;
+  lastNames: string;
+}
+
+export interface AdditionalNationality {
+  country: string;
+}
+
+export const enum Gender {
+  MALE = 'male',
+  FEMALE = 'female',
+  NOT_GIVEN = 'notGiven',
+  INTERSEX = 'intersex',
+}
+
+export interface PlacementOrder {
+  placementOrderId: string;
+  placementOrderType?: string;
+  placementOrderNumber?: string;
+  placementOrderCourt?: string;
+  placementOrderDate?: CaseDate | string;
+}
+
+export interface CaseData {
+  serviceType: string;
+  claimNumber: string;
+  caseCode: string;
+  respondentFirstName: string;
+  respondentLastName: string;
+  accessCode: string;
+  respondentCaseInvites: CaseInvite[]
+  contactDetailsPrivate?: ContactDetails[];
+
+  /***** Applicant1 *****/
+  applicant1FullName?: string;
+  applicant1FirstNames?: string;
+  applicant1LastNames?: string;
+  applicant1HasOtherNames?: YesOrNo;
+  applicant1AdditionalName?: string;
+  applicant1AdditionalNames?: OtherName[];
+  applicant1EmailAddress?: string;
+  applicant1PhoneNumber?: string;
+  applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: string;
+  applicant1Occupation?: string;
+  applicant1SelectAddress?: string;
+  applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfBirthText?: string;
+  applicant1PlaceOfText?: string;
+  applicant1Address1?: string;
+  applicant1Address2?: string;
+  applicant1AddressTown?: string;
+  applicant1AddressCounty?: string;
+  applicant1AddressPostcode?: string;
+  applicant1ContactDetails?: ContactDetails[];
+  applicant1ContactDetailsConsent?: YesOrNo;
+  //applicant1LanguagePreference?: LanguagePreference;
+   accessCode: string;
+  respondentCaseInvites: CaseInvite[]
+  detailsKnown?: string;
+  startAlternative?: string;
+ //applicant1LanguagePreference?: LanguagePreference;
+ citizenRole?: FieldPrefix;
+}
+
+export interface AdoptionAgencyOrLocalAuthority {
+  adopAgencyOrLaId: string;
+  adopAgencyOrLaName?: string;
+  adopAgencyOrLaPhoneNumber?: string;
+  adopAgencyOrLaContactName?: string;
+  adopAgencyOrLaContactEmail?: string;
+}
+
+export interface Sibling {
+  siblingId: string;
+  siblingFirstName?: string;
+  siblingLastNames?: string;
+  siblingPlacementOrders?: (PlacementOrder | ListValue<PlacementOrder>)[];
+}
+
+export interface SocialWorker {
+  socialWorkerName: string;
+  socialWorkerPhoneNumber: string;
+  socialWorkerEmail: string;
+  socialWorkerTeamEmail: string;
+}
+
+export interface Solicitor {
+  solicitorFirm: string;
+  solicitorName: string;
+  solicitorPhoneNumber: string;
   solicitorEmail: string;
   solicitorReference: string;
   isAddressConfidential: string;
@@ -224,14 +459,48 @@ export interface OtherPersonRelationshipToChildren {
   id: string;
   value: Value7;
 }
-
-export interface OthersToNotify {
-  id: string;
-  value: PartyDetails;
+export interface CaseInvite {
+  partyId: string;
+  applicant2InviteEmailAddress: string;
+  accessCode: string;
+  caseInviteEmail: string
+  applicant2UserId: string;
+  invitedUserId: string;
+  expiryDate: string;
 }
 
-export interface UrgencyDetails {
-  urgencyStatus: string;
+
+export interface ConditionalOrder {
+  DateSubmitted: DateAsString;
+  RespondentAnswersLink: Document;
+  ApplyForConditionalOrder: YesOrNo;
+  OnlinePetitionLink: Document;
+  ChangeOrAddToApplication: YesOrNo;
+  IsEverythingInApplicationTrue: YesOrNo;
+  SolicitorName: string;
+  SolicitorFirm: string;
+  SolicitorAdditionalComments: string;
+  Granted: YesOrNo;
+  ClaimsGranted: YesOrNo;
+  ClaimsCostsOrderInformation: string;
+  DecisionDate: DateAsString;
+  GrantedDate: DateAsString;
+  RefusalDecision: RefusalOption;
+  RefusalAdminErrorInfo: string;
+  RefusalRejectionReason: RejectionReason;
+  RefusalRejectionAdditionalInfo: string;
+  RefusalClarificationReason: ClarificationReason;
+  RefusalClarificationAdditionalInfo: string;
+  ClarificationResponse: string;
+  ClarificationUploadDocuments: ListValue<DivorceDocument>[];
+  OutcomeCase: YesOrNo;
+  Court: ConditionalOrderCourt;
+  DateAndTimeOfHearing: DateAsString;
+  PronouncementJudge: string;
+  JudgeCostsClaimGranted: JudgeCostsClaimGranted;
+  JudgeCostsOrderAdditionalInfo: string;
+  CertificateOfEntitlementDocument: DivorceDocument;
+  ApplicantStatementOfTruth: YesOrNo;
 }
 
 export interface Address5 {
@@ -413,7 +682,114 @@ export interface Value11 {
 
 export interface OtherPeopleInTheCaseTable {
   id: string;
-  value: Value11;
+  status: string;
+}
+
+/**
+ * The response from retrieving a fee from fees and payments service
+ */
+export interface FeeResponse {
+  version: number;
+  description: string;
+  code: string;
+  fee_amount: number;
+}
+
+export interface Payment {
+  created: DateAsString;
+  updated: DateAsString;
+  feeCode: string;
+  amount: number;
+  status: PaymentStatus;
+  channel: string;
+  reference: string;
+  transactionId: string;
+}
+
+export interface PaymentItem {
+  reference: string;
+  volume: string;
+  ccd_case_number: string;
+  memo_line: string;
+  natural_account_code: string;
+  code: string;
+  calculated_amount: string;
+  version: string;
+}
+
+export interface PbaResponse {
+  httpStatus: HttpStatus;
+  errorMessage: string;
+  paymentReference: string;
+}
+
+export interface StatusHistoriesItem {
+  date_updated: string;
+  date_created: string;
+  external_status: string;
+  status: string;
+  error_code: string;
+  error_message: string;
+}
+
+export type DateAsString = string;
+
+export const enum FieldType {
+  Unspecified = 'Unspecified',
+  Email = 'Email',
+  PhoneUK = 'PhoneUK',
+  Date = 'Date',
+  Document = 'Document',
+  Schedule = 'Schedule',
+  TextArea = 'TextArea',
+  FixedList = 'FixedList',
+  FixedRadioList = 'FixedRadioList',
+  YesOrNo = 'YesOrNo',
+  Address = 'Address',
+  CaseLink = 'CaseLink',
+  OrderSummary = 'OrderSummary',
+  MultiSelectList = 'MultiSelectList',
+  Collection = 'Collection',
+  Label = 'Label',
+}
+
+export const enum YesOrNo {
+  YES = 'Yes',
+  NO = 'No',
+}
+
+export const enum YesNoNotsure {
+  YES = 'Yes',
+  NO = 'No',
+  NOT_SURE = 'NotSure',
+}
+
+export const enum SectionStatus {
+  TO_DO = 'TO_DO',
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  CAN_NOT_START_YET = 'CAN_NOT_START_YET',
+  DOWNLOAD = 'DOWNLOAD',
+  VIEW = 'VIEW',
+  NOT_STARTED = 'NOT_STARTED'
+}
+
+export const enum AlternativeServiceMediumType {
+  TEXT = 'text',
+  EMAIL = 'email',
+  SOCIAL_MEDIA = 'socialMedia',
+  OTHER = 'other',
+}
+
+export const enum AlternativeServiceType {
+  DEEMED = 'deemed',
+  DISPENSED = 'dispensed',
+  BAILIFF = 'bailiff',
+}
+
+export const enum ApplicationType {
+  SOLE_APPLICATION = 'soleApplication',
+  JOINT_APPLICATION = 'jointApplication',
 }
 
 export interface OtherProceedingEmptyTable {
@@ -691,6 +1067,8 @@ export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const RESPONDENTS_DETAILS = 'respondentsDetails';
+export const APPLICANTS_DETAILS = 'applicantsDetails';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
@@ -719,86 +1097,19 @@ export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed'
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 
-export const enum YesOrNo {
-  YES = 'Yes',
-  NO = 'No',
-}
-export const enum YesNoNotsure {
-  YES = 'Yes',
-  NO = 'No',
-  NOT_SURE = 'NotSure',
+
+// citizen frontend
+export interface orderInterface {
+  caseNoDetails: string;
+  orderDateDetails: CaseDate;
+  orderTimeDetails: string;
+  currentOrderDetails: YesOrNo;
+  issueOrderDetails: string;
 }
 
-export interface CaseInvite {
-  partyId: string;
-  caseInviteEmail: string;
-  accessCode: string;
-  invitedUserId: string;
-  expiryDate: string;
-}
-
-export const enum UserRole {
-  CASE_WORKER = 'caseworker-divorce-courtadmin_beta',
-  LEGAL_ADVISOR = 'caseworker-divorce-courtadmin-la',
-  SUPER_USER = 'caseworker-divorce-superuser',
-  SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
-  SOLICITOR = 'caseworker-divorce-solicitor',
-  APPLICANT_1_SOLICITOR = '[APPONESOLICITOR]',
-  APPLICANT_2_SOLICITOR = '[APPTWOSOLICITOR]',
-  ORGANISATION_CASE_ACCESS_ADMINISTRATOR = 'caseworker-caa',
-  CITIZEN = 'citizen',
-  CREATOR = '[CREATOR]',
-  APPLICANT_2 = '[APPLICANTTWO]',
-}
-
-export const enum Gender {
-  MALE = 'Male',
-  FEMALE = 'Female',
-  OTHER = 'Other',
-}
-
-export const enum SectionStatus {
-  TO_DO = 'TO_DO',
-  IN_PROGRESS = 'IN_PROGRESS',
-  NOT_STARTED = 'NOT_STARTED',
-  COMPLETED = 'COMPLETED',
-  NOT_AVAILABLE_YET = 'NOT_AVAILABLE_YET',
-  READY_TO_VIEW = 'READY_TO_VIEW',
-}
-
-export type DateAsString = string;
-export interface PRLDocument {
-  dateCreated: DateAsString;
-  orderType: string;
-  orderDocument: Document;
-  otherDetails: OtherDetails;
-}
-
-export interface OtherDetails {
-  createdBy: string;
-  orderCreatedDate: string;
-  orderMadeDate: string;
-  orderRecipients: string;
-}
-
-export interface ListValue<T> {
-  id: string;
-  value: T;
-}
-
-export const enum DocumentType {
-  BIRTH_OR_ADOPTION_CERTIFICATE = 'birthOrAdoptionCertificate',
-  DEATH_CERTIFICATE = 'deathCertificate',
-  APPLICATION = 'application',
-  EMAIL = 'email',
-  APPLICATION_SUMMARY = 'applicationSummary',
-}
-
-export interface Document {
-  document_url: string;
-  document_filename: string;
-  document_binary_url: string;
-  document_hash?: string | undefined | null;
+export const enum CONFIDENTIAL_DETAILS {
+  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
+  PRIVATE = 'This information will be kept confidential',
 }
 
 export type RespondentCaseId = string | number | undefined;

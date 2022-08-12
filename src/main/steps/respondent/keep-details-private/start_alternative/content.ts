@@ -1,4 +1,3 @@
-import { Case } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
@@ -124,10 +123,10 @@ export const form: FormContent = {
   },
 };
 
+export { form } from '../../../common/keep-details-private/start_alternative/content';
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const startAlternativeContent = startAlternativeGenerateContent(content);
   return {
-    ...translations,
-    form,
+    ...startAlternativeContent,
   };
 };

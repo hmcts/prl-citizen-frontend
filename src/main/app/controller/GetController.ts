@@ -29,13 +29,13 @@ export class GetController {
 
     const language = this.getPreferredLanguage(req) as Language;
 
-    // const addresses = req.session?.addresses;
+    const addresses = req.session?.addresses;
     const content = generatePageContent({
       language,
       pageContent: this.content,
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
-      // addresses,
+      addresses,
     });
 
     const sessionErrors = req.session?.errors || [];

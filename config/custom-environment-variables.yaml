@@ -1,4 +1,7 @@
 services:
+  postcodeLookup:
+    url: 'https://api.os.uk/search/places/v1'
+    token: POSTCODE_TOKEN
   authProvider:
     url: SERVICE_AUTH_PROVIDER_URL
     secret: SERVICE_AUTH_SECRET

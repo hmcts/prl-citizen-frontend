@@ -42,8 +42,9 @@ export const form: FormContent = {
   },
 };
 
+export { form } from '../../../common/keep-details-private/private_details_confirmed/content';
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const privateDetailsConfirmedContent = privateDetailsConfirmedGenerateContent(content);
   return {
     ...translations,
     ...contactList,

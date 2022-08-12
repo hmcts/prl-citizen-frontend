@@ -3,6 +3,9 @@ security:
 port: 3001
 timeout: 30000
 services:
+  postcodeLookup:
+    url: 'https://api.os.uk/search/places/v1'
+    token: POSTCODE_TOKEN
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'prl_cos_api'
@@ -16,11 +19,11 @@ services:
     systemPassword: 'dummy_password'
   case:
     #url: 'http://localhost:4452'
-    url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-514.service.core-compute-preview.internal'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-514.service.core-compute-preview.internal'
     #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    checkDivCases: true
+    #checkDivCases: true
   cos:
-    url: 'http://prl-cos-pr-486.service.core-compute-preview.internal'
+    url: 'https://prl-cos-pr-486.service.core-compute-preview.internal'
 health:
   timeout: 5000
   deadline: 15000

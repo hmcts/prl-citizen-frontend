@@ -66,10 +66,10 @@ export const form: FormContent = {
   },
 };
 
+export { form } from '../../../common/keep-details-private/details_known/content';
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const detailsKnownContent = detailsKnownGenerateContent(content);
   return {
-    ...translations,
-    form,
+    ...detailsKnownContent,
   };
 };

@@ -19,7 +19,7 @@ import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
-// import { StateRedirectMiddleware } from './modules/state-redirect';
+//import { StateRedirectMiddleware } from './modules/state-redirect';
 import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { TooBusy } from './modules/too-busy';
@@ -30,6 +30,7 @@ const { Logger } = require('@hmcts/nodejs-logging');
 
 const { setupDev } = require('./development');
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
 const logger: LoggerInstance = Logger.getLogger('server');

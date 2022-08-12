@@ -27,10 +27,10 @@ export const form: FormContent = {
   },
 };
 
+export { form } from '../../../common/keep-details-private/private_details_not_confirmed/content';
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const privateDetailsNotConfirmedContent = privateDetailsNotConfirmedGenerateContent(content);
   return {
-    ...translations,
-    form,
+    ...privateDetailsNotConfirmedContent,
   };
 };
