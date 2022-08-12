@@ -1,0 +1,38 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-xl">
+    <span class="govuk-caption-l">{{section}}</span>
+    {{title}}
+  </h1>
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <p class="govuk-body">Case number #{{userCase.id}}</p>
+    </fieldset>
+    <hr class="govuk-section-break govuk-section-break govuk-section-break--visible">
+  </div>
+
+  <ol class="app-task-list">
+
+    <li>
+      <dl class="govuk-summary-list govuk-summary-list--no-border">
+        {% if userCase && userCase.orderCollection && userCase.orderCollection.length > 0 %}
+        {% for file in userCase.orderCollection %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{file.value.otherDetails.orderCreatedDate}}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <a href="#">{{ file.value.orderDocument.document_filename }}</a>
+            </dd>
+          </div>
+        {% endfor %}
+        {% endif %}
+
+      </dl>
+    </li>
+  </ol>
+
+ 
+
+{% endblock %}
