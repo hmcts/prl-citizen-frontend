@@ -24,6 +24,7 @@ const enContent = {
   Email: 'Email',
   contact_details_private:
     'Which contact details do you want to keep private from the other people in this application?',
+  continue: 'Save and continue',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
@@ -54,6 +55,7 @@ const cyContent = {
   Email: 'Email',
   contact_details_private:
     'Which contact details do you want to keep private from the other people in this application?',
+  continue: 'Save and continue',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
@@ -118,7 +120,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain Save and continue button', () => {
-    expect((form.saveAndContinue?.text as Function)(generatedContent)).not.toBe('Continue');
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 

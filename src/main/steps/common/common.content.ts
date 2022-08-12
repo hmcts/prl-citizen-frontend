@@ -30,7 +30,6 @@ const en = {
   errorSummaryHeading: 'There is a problem',
   saveAndSignOut: 'Save and sign out',
   saveAsDraft: 'Save as draft',
-  onlyContinue: 'Continue',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
