@@ -18,8 +18,8 @@ export const getUserDetails = async (
   rawCode: string,
   callbackUrlPageLink: PageLink
 ): Promise<UserDetails> => {
-  const id = 'prl-citizen-frontend'; //'prl-cos-api'; //config.get('services.idam.clientID');
-  const secret = 'GBFSEUMBUXTTDSSR';
+  const id: string = config.get('services.idam.clientID');
+  const secret: string = config.get('services.idam.clientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
   const code = encodeURIComponent(rawCode);
