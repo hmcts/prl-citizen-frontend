@@ -2,21 +2,15 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
-
-
 const en = {
   section: 'How your documents will be shared',
-  title: 'Has the court asked for this document testre?',
   continue: 'Continue',
 };
 
 const cy: typeof en = {
   section: 'How your documents will be shared',
-  title: 'Has the court asked for this document?',
   continue: 'Continue',
 };
-
-
 
 const languages = {
   en,
@@ -53,6 +47,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
-  form,
+    form,
   };
 };

@@ -24,6 +24,8 @@ services:
   documentManagement:
     url: 'http://ccd-case-document-am-api-prl-ccd-definitions-pr-514.service.core-compute-preview.internal'
     checkDivCases: true
+  dgs:
+    url: 'http://localhost:4007'
 health:
   timeout: 5000
   deadline: 15000

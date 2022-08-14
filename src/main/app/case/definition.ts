@@ -631,7 +631,9 @@ export interface CaseData {
   respondentName: string;
   finalDocument: Document;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
-  applicant1DocumentsUploaded: ListValue<CitizenUpoladDocument>[];
+  /** upload document fields */
+  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
+  /**  */
 }
 
 export const enum State {
@@ -785,21 +787,6 @@ export interface OtherDetails {
   orderRecipients: string;
 }
 
-export interface CaseDocuments {
-  applicant1DocumentsUploaded: ListValue<CitizenUpoladDocument>[];
-  documentsUploaded: ListValue<PRLDocument>[];
-  documentsGenerated: ListValue<PRLDocument>[];
-}
-
-export interface CitizenUpoladDocument {
-  documentEmailContent: string;
-  documentLink: Document;
-  documentDateAdded: DateAsString;
-  documentComment: string;
-  documentFileName: string;
-  documentType: DocumentType;
-}
-
 export interface ListValue<T> {
   id: string;
   value: T;
@@ -827,3 +814,26 @@ export interface Fl401UploadWitnessDocuments {
   value: Document;
 }
 
+/** Document upload interfaces */
+export interface CitizenDocument {
+  document_url: string;
+  document_filename: string;
+  document_binary_url: string;
+}
+
+export interface Value {
+  parentDocumentType: string;
+  DocumentType: string;
+  partyName: string;
+  isApplicant: string;
+  uploadedBy: string;
+  dateCreated: Date;
+  documentUploadedDate: string;
+  citizenDocument: CitizenDocument;
+}
+
+export interface UploadDocumentList {
+  id: string;
+  value: Value;
+}
+/***  */

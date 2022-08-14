@@ -40,11 +40,11 @@ import {
   State,
   SummaryTabForOrderAppliedFor,
   TypeOfApplicationTable,
+  UploadDocumentList,
   UrgencyDetails,
   WelshLanguageRequirementsTable,
   WelshNeed,
   YesOrNo,
-  CitizenUpoladDocument
   //DocumentType,
 } from './definition';
 
@@ -142,7 +142,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentName: 'respondentName',
   finalDocument: 'finalDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
-  applicant1DocumentsUploaded: 'applicant1DocumentsUploaded',
+  applicantDocumentsUploaded: 'applicantDocumentsUploaded',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -288,8 +288,8 @@ export interface Case {
   applicant1UploadedFiles?: UploadedFile[];
   finalDocument: Document;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
-  documentsUploaded: ListValue<CitizenUpoladDocument>[];
-  applicant1DocumentsUploaded?: ListValue<Partial<CitizenUpoladDocument> | null>[];
+  /*** Document upload */
+  applicantDocumentsUploaded: ListValue<UploadDocumentList>[];
 }
 
 export interface CaseWithId extends Case {

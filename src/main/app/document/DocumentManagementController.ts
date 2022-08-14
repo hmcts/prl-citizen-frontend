@@ -11,6 +11,7 @@ import { DocumentType, ListValue, CITIZEN_UPDATE, CitizenUpoladDocument } from '
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { DocumentManagementClient } from './DocumentManagementClient';
+//import { DgsApiClient } from 'app/case/DgsApiClient';
 
 import { getFilename } from '../case/formatter/uploaded-files';
 import { v4 as generateUuid } from 'uuid';
@@ -22,6 +23,14 @@ export class DocumentManagerController {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
   }
 
+  // private getDgsApiClient(user: UserDetails) {
+  //   return new DgsApiClient(config.get('services.dgs.url'), getServiceAuthToken());
+  // }
+
+
+  public async generatePdf(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+   // const dgsClient = this.getDgsApiClient(req.session.user);
+  }
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const originalUrl = req.originalUrl;
     let filename = '';

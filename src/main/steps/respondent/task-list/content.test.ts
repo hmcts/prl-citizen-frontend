@@ -18,7 +18,7 @@ const enContent = {
     consentToTheApplication: 'Consent to the application',
     applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
-    yourDocuments: 'Your documents'
+    yourDocuments: 'Your documents',
     ordersFromTheCourt: 'Orders from the court',
   },
   taskListItems: {
@@ -44,7 +44,7 @@ const cyContent = {
     consentToTheApplication: 'Consent to the application',
     applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
-    yourDocuments: 'Your documents'
+    yourDocuments: 'Your documents',
     ordersFromTheCourt: 'Orders from the court',
   },
   taskListItems: {

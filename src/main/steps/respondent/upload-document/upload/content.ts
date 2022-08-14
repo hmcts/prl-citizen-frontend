@@ -5,8 +5,6 @@ import { isObject } from 'lodash';
 
 
 
-
-
 const en = {
   section: 'Provide the document',
   title: 'Provide the documents',
@@ -25,8 +23,6 @@ const cy: typeof en = {
   remove: 'Remove',
 };
 
-
-
 const languages = {
   en,
   cy,
@@ -36,12 +32,12 @@ export const form: FormContent = {
   fields: userCase => {
     const checkboxes: { id: string; value: string }[] = [];
 
-   
+
       checkboxes.push({
         id: 'sot',
         value: 'StatementOfTruth',
       });
-    
+
 
     return {
       applicant1UploadedFiles: {
@@ -91,5 +87,4 @@ export const generateContent: TranslationFn = content => {
   form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     uploadedDocsFilenames,
   };
-
 };
