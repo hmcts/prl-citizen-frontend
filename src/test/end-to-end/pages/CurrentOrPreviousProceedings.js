@@ -3,16 +3,19 @@ const retryCount = 3;
 
 module.exports = {
   async clickRespondentLink() {
+    I.wait('2');
     await I.retry(retryCount).click('#main-content > div > div.govuk-grid-column-two-thirds > a');
     I.wait('2');
   },
 
   async clickCurrentOrPreviousProceedings() {
+    I.wait('2');
     await I.retry(retryCount).click('#current-or-previous-proceedings');
     I.wait('2');
    },
 
   async courtProceedings() {
+    I.wait('2');
     await I.retry(retryCount).waitForText('Have you or the children ever been involved in court proceedings?');
     await I.retry(retryCount).click('#proceedingsStart');
     await I.retry(retryCount).click('#proceedingsStartOrder');
@@ -21,6 +24,7 @@ module.exports = {
   },
 
   async courtCases() {
+    I.wait('2');
     await I.retry(retryCount).waitForText('Provide details of court cases you or the children have been involved in');
     await I.retry(retryCount).click('#emergencyOrderOptions');
     await I.retry(retryCount).fillField('#emergencyOrder\\.caseNoDetails', '12345678');

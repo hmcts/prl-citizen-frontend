@@ -2,7 +2,6 @@ const EnterPinPage = require('./pages/EnterPinPage');
 const Login = require('./pages/LoginPage');
 const HomePage = require('./pages/HomePage');
 const InternationalElement = require('./pages/InternationalElement');
-const generalHelper = require('./helpers/generalHelper');
 const CurrentOrPreviousProceedings = require('./pages/CurrentOrPreviousProceedings');
 const ConsentToApplication = require('./pages/ConsentToApplication');
 const SupportYouNeed = require('./pages/SupportYouNeedDuringYourCase');
@@ -27,9 +26,6 @@ module.exports = () => {
     },
     supportYouNeedDuringYourCase() {
       return SupportYouNeed.supportYouNeedHappyPath();
-    },
-    amOnHistoryPageWithSuccessNotification() {
-      return generalHelper.amOnHistoryPageWithSuccessNotification();
     }
   });
 };
