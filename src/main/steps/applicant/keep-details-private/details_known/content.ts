@@ -4,13 +4,15 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  title: 'Does the other person named in your application (the respondent) know any of your contact details?',
+  line2:
+    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
@@ -20,13 +22,15 @@ const en = {
 
 const cy: typeof en = {
   section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  title: 'Does the other person named in your application (the respondent) know any of your contact details?',
+  line2:
+    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',

@@ -15,11 +15,12 @@ const enContent = {
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
+    applicationDetails: 'Application details',
     consentToTheApplication: 'Consent to the application',
-    applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
     yourDocuments: 'Your documents',
     ordersFromTheCourt: 'Orders from the court',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -27,7 +28,8 @@ const enContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
-    view_all_orders_from_the_court: 'View all orders from the court',
+    current_or_previous_proceedings: 'Current or previous proceedings',
+    your_safety: 'Your safety',
   },
 };
 const cyContent = {
@@ -41,11 +43,12 @@ const cyContent = {
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
+    applicationDetails: 'Application details',
     consentToTheApplication: 'Consent to the application',
-    applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
     yourDocuments: 'Your documents',
     ordersFromTheCourt: 'Orders from the court',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -53,7 +56,8 @@ const cyContent = {
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
     mediation_miam: 'Mediation(MIAM)',
     international_factors: 'International element',
-    view_all_orders_from_the_court: 'View all orders from the court',
+    current_or_previous_proceedings: 'Current or previous proceedings',
+    your_safety: 'Your safety',
   },
 };
 describe('task-list > content', () => {
@@ -92,7 +96,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
-              status: 'TO_DO',
+              status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
           ],
@@ -106,8 +110,14 @@ describe('task-list > content', () => {
               status: 'IN_PROGRESS',
               text: 'Mediation(MIAM)',
             },
+            {
+              href: '/respondent/proceedings/start',
+              id: 'current-or-previous-proceedings',
+              status: 'TO_DO',
+              text: 'Current or previous proceedings',
+            },
           ],
-          title: 'Application detail',
+          title: 'Application details',
         },
         {
           items: [
@@ -123,13 +133,13 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '#',
-              id: 'view-all-orders-from-the-court',
-              status: 'NOT_AVAILABLE_YET',
-              text: 'View all orders from the court',
+              href: '/respondent/safety_concerns/main_page',
+              id: 'your-safety',
+              status: 'TO_DO',
+              text: 'Your safety',
             },
           ],
-          title: 'Orders from the court',
+          title: 'Safety concerns',
         },
       ],
     },

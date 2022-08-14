@@ -29,7 +29,7 @@ export class GetController {
     const document_type = this.getDocumentType(req) as string;
     console.log(document_type);
     console.log(captionValue);
-    // const addresses = req.session?.addresses;
+    const addresses = req.session?.addresses;
     const content = generatePageContent({
       language,
       pageContent: this.content,
@@ -37,7 +37,7 @@ export class GetController {
       userEmail: req.session?.user?.email,
       caption: captionValue,
       document_type,
-      // addresses,
+      addresses,
     });
 
     const sessionErrors = req.session?.errors || [];

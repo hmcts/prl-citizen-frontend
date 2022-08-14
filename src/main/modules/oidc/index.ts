@@ -57,9 +57,9 @@ export class OidcMiddleware {
             // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
           }
           return next();
+        } else {
+          res.redirect(SIGN_IN_URL);
         }
-
-        res.redirect(SIGN_IN_URL);
       })
     );
   }
