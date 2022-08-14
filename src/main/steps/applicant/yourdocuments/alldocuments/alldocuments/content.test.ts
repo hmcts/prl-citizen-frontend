@@ -27,7 +27,7 @@ const enContent = {
     applications_made_in_these_proceedings: 'Applications made in these proceedings',
     previous_orders_submitted: 'Previous orders submitted with application',
     letters_from_school: 'Letters from school',
-    digital_downloads: 'Digital downloads',
+    digital_downloads: 'Emails, screenshots, images and other media files',
     photographic_evidence: 'Photographic evidence',
     mobile_phone_screenshots: 'Mobile phone screenshots',
     medical_records: 'Medical records',
@@ -46,7 +46,7 @@ const enContent = {
     respondent_position_statements: "<namerespondentxxxxx>'s position statements",
     respondent_witness_statements: "<namerespondentxxxxx>'s witness statements",
     other_people_witness_statements_respondent: "Other people's witness statements",
-    digital_downloads_respondent: 'Digital downloads',
+    digital_downloads_respondent: 'Emails, screenshots, images and other media files',
     photographic_evidence_respondent: 'Photographic evidence',
     mobile_phone_screenshots_respondent: 'Mobile phone screenshots',
     medical_records_respondent: 'Medical records',
@@ -91,7 +91,7 @@ const cyContent = {
     applications_made_in_these_proceedings: 'Applications made in these proceedings',
     previous_orders_submitted: 'Previous orders submitted with application',
     letters_from_school: 'Letters from school',
-    digital_downloads: 'Digital downloads',
+    digital_downloads: 'Emails, screenshots, images and other media files',
     photographic_evidence: 'Photographic evidence',
     mobile_phone_screenshots: 'Mobile phone screenshots',
     medical_records: 'Medical records',
@@ -110,7 +110,7 @@ const cyContent = {
     respondent_position_statements: "<namerespondentxxxxx>'s position statements",
     respondent_witness_statements: "<namerespondentxxxxx>'s witness statements",
     other_people_witness_statements_respondent: "Other people's witness statements",
-    digital_downloads_respondent: 'Digital downloads',
+    digital_downloads_respondent: 'Emails, screenshots, images and other media files',
     photographic_evidence_respondent: 'Photographic evidence',
     mobile_phone_screenshots_respondent: 'Mobile phone screenshots',
     medical_records_respondent: 'Medical records',
@@ -214,7 +214,7 @@ describe('task-list > content', () => {
             },
             {
               id: 'digital_downloads',
-              text: 'Digital downloads',
+              text: 'Emails, screenshots, images and other media files',
               href: '#',
             },
             {
@@ -305,7 +305,7 @@ describe('task-list > content', () => {
             {
               href: '#',
               id: 'digital_downloads_respondent',
-              text: 'Digital downloads',
+              text: 'Emails, screenshots, images and other media files',
             },
             {
               href: '#',
