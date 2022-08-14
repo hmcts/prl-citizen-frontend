@@ -5,6 +5,7 @@ import {
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
   getSupportYourNeedsDetails,
+  getYourApplication,
 } from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {

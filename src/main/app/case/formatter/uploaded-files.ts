@@ -1,5 +1,5 @@
 import { Case /*, Checkbox */ } from '../case';
-import { CaseData, CitizenUpoladDocument/*, YesOrNo */ } from '../definition';
+import { CaseData, UploadDocumentList, /*, YesOrNo */ } from '../definition';
 
 export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => {
   return {
@@ -13,9 +13,9 @@ export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => {
 };
 
 export const documentUploadApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
-  applicant1DocumentsUploaded: data.applicant1DocumentsUploaded
+  applicantDocumentsUploaded: data.applicantDocumentsUploaded
 });
 
-export const getFilename = (document: Partial<CitizenUpoladDocument> | undefined | null): string | undefined => {
-  return document?.documentLink?.document_filename;
+export const getFilename = (document: Partial<UploadDocumentList> | undefined | null): string | undefined => {
+  return document?.value?.citizenDocument.document_filename;
 };

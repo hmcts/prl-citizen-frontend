@@ -80,7 +80,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const uploadedDocsFilenames = content.userCase?.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
+  const uploadedDocsFilenames = content.userCase?.applicantDocumentsUploaded?.map(item => getFilename(item.value));
 
   return {
     ...translations,

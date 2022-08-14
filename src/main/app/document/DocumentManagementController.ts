@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import config from 'config';
+import config, { util } from 'config';
 import type { Response } from 'express';
 
 import { APPLICANT, APPLICANT_TASK_LIST_URL, RESPONDENT, RESPONDENT_TASK_LIST_URL, UPLOAD_DOCUMENT } from '../../steps/urls';
@@ -7,7 +7,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { DocumentType, ListValue, CITIZEN_UPDATE, CitizenUpoladDocument } from '../case/definition';
+import { DocumentType, ListValue, CITIZEN_UPDATE, UploadDocumentList, YesOrNo } from '../case/definition';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { DocumentManagementClient } from './DocumentManagementClient';
@@ -100,18 +100,18 @@ export class DocumentManagerController {
   }
 
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-    const documentsUploadedKey = 'applicant1DocumentsUploaded';
+    const documentsUploadedKey = 'applicantDocumentsUploaded';
     const documentsUploaded =
-      (req.session.userCase[documentsUploadedKey] as ListValue<Partial<CitizenUpoladDocument> | null>[]) ?? [];
+      (req.session.userCase[documentsUploadedKey] as ListValue<UploadDocumentList>[]) ?? [];
 
     const documentIndexToDelete = parseInt(req.params.index, 10);
     const documentToDelete = documentsUploaded[documentIndexToDelete];
-    if (!documentToDelete?.value?.documentLink?.document_url) { 
+    if (!documentToDelete?.value?.value?.citizenDocument.document_url) { 
       return res.redirect(UPLOAD_DOCUMENT);
     }
-    const documentUrlToDelete = documentToDelete.value.documentLink?.document_url;
+    const documentUrlToDelete = documentToDelete?.value?.value?.citizenDocument.document_url;
 
-    documentsUploaded[documentIndexToDelete].value = null;
+    // documentsUploaded[documentIndexToDelete].value = null;
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
@@ -155,12 +155,17 @@ export class DocumentManagerController {
 
 
     console.log('3');
-    const newUploads: ListValue<Partial<CitizenUpoladDocument> | null>[] = filesCreated.map(file => ({
+    const newUploads: ListValue<Partial<UploadDocumentList> | null>[] = filesCreated.map(file => ({
       id: generateUuid(),
       value: {
-        documentComment: 'Uploaded by ***',
-        documentFileName: file.originalDocumentName,
-        documentLink: {
+        parentDocumentType: 'Witness Statement',
+        DocumentType: 'Witness Statement',
+        partyName: 'Sonal Saha',
+        isApplicant: 'Yes',
+        uploadedBy: 'Uploaded by Sonali Saha',
+        dateCreated: '12/07/2022',
+        documentUploadedDate: '12/07/2022',
+        citizenDocument: {
           document_url: 'abcd',
           document_filename: file.originalDocumentName,
           document_binary_url: 'abcd',

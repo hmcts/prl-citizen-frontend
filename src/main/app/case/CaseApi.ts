@@ -137,11 +137,6 @@ export class CaseApi {
      }
    }
 
-  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    const data = toApiFormat(userData);
-    return this.sendEvent(caseId, data, eventName);
-  }
-
   public async triggerEventWithData(
     caseId: string,
     userData: Partial<Case>,

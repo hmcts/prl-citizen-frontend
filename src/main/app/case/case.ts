@@ -18,6 +18,7 @@ import {
   ChildDetailsExtraTable,
   ChildDetailsTable,
   ConfidentialDetails,
+  ContactDetails,
   DateOfSubmission,
   Document,
   DraftConsentOrderFile,
@@ -29,6 +30,8 @@ import {
   LitigationCapacityTable,
   MiamExemptionsTable,
   MiamTable,
+  orderInterface,
+  OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
   OtherProceedingsDetailsTable,
@@ -140,7 +143,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   previousOrOngoingProceedingsForChildren: 'previousOrOngoingProceedingsForChildren',
   welshLanguageRequirementApplicationNeedEnglish: 'welshLanguageRequirementApplicationNeedEnglish',
   orderCollection: 'orderCollection',
-  respondentName: 'respondentName',
+  respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
   applicantDocumentsUploaded: 'applicantDocumentsUploaded',
@@ -163,6 +166,98 @@ export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data
 export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
+  children: Child[];
+  miamTable: MiamTable;
+  applicants: Applicant[];
+  caseStatus: CaseStatus;
+  welshNeeds: WelshNeed[];
+  respondents: Respondent[];
+  consentOrder: string;
+  isCaseUrgent: string;
+  isWelshNeeded: string;
+  natureOfOrder: string;
+  applicantTable: ApplicantTable[];
+  othersToNotify: OthersToNotify[];
+  urgencyDetails: UrgencyDetails;
+  //respondentTable: RespondentTable[];
+  allegationOfHarm: AllegationOfHarm;
+  dateOfSubmission: DateOfSubmission;
+  //declarationTable: DeclarationTable;
+  interpreterNeeds: InterpreterNeed[];
+  applicantCaseName: string;
+  childDetailsTable: ChildDetailsTable[];
+  jurisdictionIssue: string;
+  ordersApplyingFor: string[];
+  applicationDetails: string;
+  familyMediatorMiam: string;
+  setOutReasonsBelow: string;
+  specialArrangement: SpecialArrangement;
+  adjustmentsRequired: string;
+  confidentialDetails: ConfidentialDetails;
+  existingProceedings: string[];
+  hearingUrgencyTable: HearingUrgencyTable;
+  isDisabilityPresent: string;
+  isInterpreterNeeded: string;
+  miamExemptionsTable: MiamExemptionsTable;
+  isIntermediaryNeeded: string;
+  allocatedJudgeDetails: AllocatedJudgeDetails;
+  applicantAttendedMiam: string;
+  caseTypeOfApplication: string;
+  claimingExemptionMiam: string;
+  draftConsentOrderFile: DraftConsentOrderFile;
+  otherProceedingsTable: OtherProceedingsTable;
+  allegationsOfHarmYesNo: string;
+  childDetailsExtraTable: ChildDetailsExtraTable;
+  reasonsForIntermediary: string;
+  typeOfApplicationTable: TypeOfApplicationTable;
+  litigationCapacityTable: LitigationCapacityTable;
+  miamExemptionsChecklist: string[];
+  attendingTheHearingTable: AttendingTheHearingTable;
+  caseUrgencyTimeAndReason: string;
+  welshLanguageRequirement: string;
+  internationalElementTable: InternationalElementTable;
+  litigationCapacityFactors: string;
+  miamOtherGroundsChecklist: string;
+  otherPeopleInTheCaseTable: OtherPeopleInTheCaseTable[];
+  otherProceedingEmptyTable: OtherProceedingEmptyTable;
+  requestToForeignAuthority: string;
+  effortsMadeWithRespondents: string;
+  jurisdictionIssueGiveReason: string;
+  litigationCapacityReferrals: string;
+  specialArrangementsRequired: string;
+  //allegationsOfHarmOrdersTable: AllegationsOfHarmOrdersTable;
+  habitualResidentInOtherState: string;
+  otherProceedingsDetailsTable: OtherProceedingsDetailsTable[];
+  summaryTabForOrderAppliedFor: SummaryTabForOrderAppliedFor;
+  typeOfChildArrangementsOrder: string;
+  applicationPermissionRequired: string;
+  childrenKnownToLocalAuthority: string;
+  isSpecialArrangementsRequired: string;
+  otherProceedingsForSummaryTab: OtherProceedingsForSummaryTab[];
+  allegationsOfHarmOverviewTable: AllegationsOfHarmOverviewTable;
+  doYouNeedAWithoutNoticeHearing: string;
+  litigationCapacityOtherFactors: string;
+  welshLanguageRequirementsTable: WelshLanguageRequirementsTable;
+  miamPreviousAttendanceChecklist: string;
+  areRespondentsAwareOfProceedings: string;
+  reasonsForApplicationWithoutNotice: string;
+  allegationsOfHarmDomesticAbuseTable: AllegationsOfHarmDomesticAbuseTable;
+  allegationsOfHarmOtherConcernsTable: AllegationsOfHarmOtherConcernsTable;
+  applicationPermissionRequiredReason: string;
+  requestToForeignAuthorityGiveReason: string;
+  welshLanguageRequirementApplication: string;
+  allegationsOfHarmChildAbductionTable: AllegationsOfHarmChildAbductionTable;
+  childrenSubjectOfChildProtectionPlan: string;
+  childrenKnownToLocalAuthorityTextArea: string;
+  doYouRequireAHearingWithReducedNotice: string;
+  litigationCapacityOtherFactorsDetails: string;
+  c100ConfidentialityStatementDisclaimer: string[];
+  habitualResidentInOtherStateGiveReason: string;
+  languageRequirementApplicationNeedWelsh: string;
+  previousOrOngoingProceedingsForChildren: string;
+  welshLanguageRequirementApplicationNeedEnglish: string;
+
+  //TODO: Below fields should be with in respondent object.
   /***** case code authorization fields *****/
   serviceType: string;
   claimNumber?: string;
@@ -192,7 +287,6 @@ export interface Case {
   respondentLastName?: string;
   respondentCaseInvites?: CaseInvite[];
   applicantCaseInvites?: CaseInvite[];
-  contactDetailsPrivate?: string;
   orderCollection: ListValue<PRLDocument>[];
   documentsGenerated: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
