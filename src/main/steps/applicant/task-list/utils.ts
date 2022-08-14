@@ -40,14 +40,14 @@ export const getApplicantViewAllOrdersFromTheCourtAllDocuments = (userCase: Case
 };
 export const getApplicantResponseToRequestForChildArrangements = (userCase: CaseWithId): boolean => {
   let flag = false;
-  if (userCase && userCase.children) {
+  if (userCase && userCase.childrenKnownToLocalAuthority) {
     flag = true;
   }
   return flag;
 };
 export const getApplicantAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
   let flag = false;
-  if (userCase && userCase.allegationOfHarm) {
+  if (userCase && userCase.allegationsOfHarmYesNo) {
     flag = true;
   }
   return flag;
