@@ -191,8 +191,8 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
-}: // addresses = [],
-// eligibility,
+  addresses = [],
+}: // eligibility,
 // fee,
 {
   language: Language;
@@ -201,14 +201,13 @@ export const generatePageContent = ({
   userEmail?: string;
   caption?: string;
   document_type?: string;
-  // addresses?: [];
+  addresses?: [];
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
   // const contactEmail = 'todo@test.com';
-
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
@@ -216,12 +215,12 @@ export const generatePageContent = ({
     userCase,
     userEmail,
     // contactEmail,
-    // addresses,
+    addresses,
     // eligibility,
     // fee,
   };
 
-  if (pageContent) {
+  if (pageContent !== null && pageContent !== undefined) {
     Object.assign(content, pageContent(content));
   }
 
@@ -241,7 +240,7 @@ export type CommonContent = typeof en & {
   // contactEmail?: string;
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // addresses?: any[];
+  addresses?: any[];
   // eligibility?: Eligibility;
   // fee?: Fee;
 };

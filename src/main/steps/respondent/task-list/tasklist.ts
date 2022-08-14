@@ -3,10 +3,11 @@ import * as URL from '../../urls';
 import {
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
+  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
-  getViewAllOrdersFromTheCourt,
+  getYourSafetyStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -49,6 +50,12 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           status: getMiamStatus(userCase),
           href: URL.MIAM_START,
         },
+        {
+          id: 'current-or-previous-proceedings',
+          text: taskListItems.current_or_previous_proceedings,
+          status: getCurrentOrOtherProceedingsStatus(userCase),
+          href: URL.PROCEEDINGS_START,
+        },
       ],
     },
     {
@@ -74,16 +81,13 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
       ],
     },
     {
-      title: sectionTitles.ordersFromTheCourt,
+      title: sectionTitles.respondentSafetyConcerns,
       items: [
         {
-          id: 'view-all-orders-from-the-court',
-          text: taskListItems.view_all_orders_from_the_court,
-          status: getViewAllOrdersFromTheCourt(userCase),
-          href:
-            getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW'
-              ? URL.RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT
-              : '#',
+          id: 'your-safety',
+          text: taskListItems.your_safety,
+          status: getYourSafetyStatus(userCase),
+          href: URL.SAFETY_MAIN_PAGE,
         },
       ],
     },

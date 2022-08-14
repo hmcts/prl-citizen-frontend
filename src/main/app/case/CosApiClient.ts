@@ -2,10 +2,10 @@ import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import type { UserDetails } from '../controller/AppRequest';
+import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData } from './definition';
+import { CaseData, RespondentCaseData, RespondentCaseId } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -22,6 +22,10 @@ export class CosApiClient {
     });
   }
 
+  /**
+   * It returns a string or undefined.
+   * @returns The response.data is being returned.
+   */
   public async get(): Promise<string | undefined> {
     try {
       const response = await this.client.get<string>('/');
@@ -35,6 +39,13 @@ export class CosApiClient {
     }
   }
 
+  /**
+   * It retrieves a case from the COS service, and returns it in a format that the frontend can use
+   * @param {string} caseId - The id of the case you want to retrieve
+   * @param {UserDetails} user - UserDetails - this is the user object that is passed in from the front
+   * end.
+   * @returns The response from the API is being returned.
+   */
   public async retrieveByCaseId(caseId: string, user: UserDetails): Promise<CaseWithId> {
     if (!caseId || !user) {
       return Promise.reject(new Error('Case id must be set and user must be set'));
@@ -47,12 +58,30 @@ export class CosApiClient {
         'Content-Type': 'application/json',
       },
     });
-
     return {
       id: response.data.id,
       state: response.data.state,
       ...fromApiFormat(response.data),
     };
+  }
+
+  public async validateAccessCode(caseId: string, accessCode: string, user: UserDetails): Promise<string> {
+    if (!caseId || !user || !accessCode) {
+      return Promise.reject(new Error('Case id must be set and user must be set'));
+    }
+    const response = await Axios.get(config.get('services.cos.url') + `/validate-access-code`, {
+      headers: {
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
+        caseId: caseId,
+        accessCode: accessCode,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(response.data);
+
+    return response.data;
   }
 
   public async updateCase(
@@ -61,8 +90,9 @@ export class CosApiClient {
     data: Partial<CaseData>,
     eventId: string
   ): Promise<CaseWithId> {
-    data.applicantCaseName = 'Legend';
+    data.applicantCaseName = 'Tom Jerry - updated';
     try {
+      const eventId = 'citizen-case-update';
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',

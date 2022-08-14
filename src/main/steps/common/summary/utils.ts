@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -37,7 +36,7 @@ interface SummaryListRow {
   classes?: string;
 }
 
-interface SummaryList {
+export interface SummaryList {
   title: string;
   rows: GovUkNunjucksSummary[];
 }
