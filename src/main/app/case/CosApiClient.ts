@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance, AxiosResponse } from 'axios';
+import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
@@ -69,7 +69,7 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      const response: AxiosResponse<CaseWithId> = await Axios.post(
+      const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`,
         data,
         { headers }

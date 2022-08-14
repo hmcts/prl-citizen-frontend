@@ -631,6 +631,7 @@ export interface CaseData {
   respondentName: string;
   finalDocument: Document;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  applicant1DocumentsUploaded: ListValue<CitizenUpoladDocument>[];
 }
 
 export const enum State {
@@ -784,6 +785,21 @@ export interface OtherDetails {
   orderRecipients: string;
 }
 
+export interface CaseDocuments {
+  applicant1DocumentsUploaded: ListValue<CitizenUpoladDocument>[];
+  documentsUploaded: ListValue<PRLDocument>[];
+  documentsGenerated: ListValue<PRLDocument>[];
+}
+
+export interface CitizenUpoladDocument {
+  documentEmailContent: string;
+  documentLink: Document;
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+}
+
 export interface ListValue<T> {
   id: string;
   value: T;
@@ -810,3 +826,4 @@ export interface Fl401UploadWitnessDocuments {
   id: string;
   value: Document;
 }
+

@@ -129,3 +129,5 @@ export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pd
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
 export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';
 export const YOUR_APPLICATION_WITNESS_STATEMENT: PageLink = `${APPLICANT}${APPLICATION_WITNESS_STATEMENT}`;
+
+export const DOCUMENT_MANAGER: PageLink = '/document-manager';

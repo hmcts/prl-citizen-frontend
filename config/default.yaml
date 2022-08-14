@@ -36,3 +36,4 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey: false
+uploadTimeout: 60000
