@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { applicant_tasklist_items_all_docs_en as respondent_tasklist_items_all_docs_en } from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
 
 import { respondent_all_docs_en } from './section-titles-all-documents';
-import { respondent_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
 import { generateRespondentTaskListAllDocuments } from './tasklistalldocuments';
 //import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 
