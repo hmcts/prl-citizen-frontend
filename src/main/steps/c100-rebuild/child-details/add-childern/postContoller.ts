@@ -22,7 +22,7 @@ export default class AddChilderns extends PostController<AnyObject> {
         case 'addChild':
           //  const { firstname, lastname } = req['body'];
           // eslint-disable-next-line no-case-declarations
-          if (req.session.settings.ListOfChild.length === 0) {
+          if (!req.session.settings.ListOfChild || req.session.settings.ListOfChild.length === 0) {
             if (req['body']['firstname-1'] === '' && req['body']['lastname-1'] === '') {
               console.log('Inside If');
               req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
