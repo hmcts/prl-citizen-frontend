@@ -18,6 +18,14 @@ const en = () => ({
 const cy = () => ({
   pageTitle: 'Enter the names of the children - welsh',
   subTitle: 'Only include the children you’re making this application about - welsh',
+  errors: {
+    'firstname-1': {
+      required: 'Select first name - welsh',
+    },
+    'lastname-1': {
+      required: 'Select last name - welsh',
+    },
+  },
 });
 
 const languages = {

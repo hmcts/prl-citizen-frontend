@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { C100_CHILDERN_DETAILS_PERSONAL_DETAILS, DASHBOARD_URL } from '../../../urls';
+import { C100_CHILDERN_DETAILS_PERSONAL_DETAILS, C100_CHILDERN_FURTHER_INFORMATION } from '../../../urls';
 
 @autobind
 export default class ParentResponsibility extends PostController<AnyObject> {
@@ -26,7 +26,7 @@ export default class ParentResponsibility extends PostController<AnyObject> {
           statement: req.body.parentalResponsibility,
         };
         if (currentChild + 1 >= req.session.settings.ListOfChild.length) {
-          super.redirect(req, res, DASHBOARD_URL);
+          super.redirect(req, res, C100_CHILDERN_FURTHER_INFORMATION);
         } else {
           const nextChildId = req.session.settings['ListOfChild'][currentChild + 1];
           const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${nextChildId.id}`;

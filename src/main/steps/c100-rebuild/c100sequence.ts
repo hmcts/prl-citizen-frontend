@@ -131,7 +131,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CHILDERN_FURTHER_INFORMATION,
+    getNextStep: () => C100_CHILDERN_DETAILS_ADD,
   },
   {
     url: C100_CHILDERN_FURTHER_INFORMATION,
