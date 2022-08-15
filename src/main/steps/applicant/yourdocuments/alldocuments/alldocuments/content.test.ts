@@ -15,7 +15,7 @@ const enContent = {
   },
   taskListItems: {
     view_all_orders_from_the_court_all_docs: 'View all orders from the court',
-    applicant_response_to_request_for_child_arrangements: "<nameapplicantxxxxx>'s request for child arrangements",
+    applicant_request_for_child_arrangements: "<nameapplicantxxxxx>'s request for child arrangements",
     applicant_allegations_of_harm_and_violence: "<nameapplicantxxxxx>'s allegations of harm and violence",
     applicant_response_to_other_side_allegation_of_harm:
       "<nameapplicantxxxxx>'s response to the other side's allegations of harm or violence",
@@ -79,7 +79,7 @@ const cyContent = {
   },
   taskListItems: {
     view_all_orders_from_the_court_all_docs: 'View all orders from the court',
-    applicant_response_to_request_for_child_arrangements: "<nameapplicantxxxxx>'s request for child arrangements",
+    applicant_request_for_child_arrangements: "<nameapplicantxxxxx>'s request for child arrangements",
     applicant_allegations_of_harm_and_violence: "<nameapplicantxxxxx>'s allegations of harm and violence",
     applicant_response_to_other_side_allegation_of_harm:
       "<nameapplicantxxxxx>'s response to the other side's allegations of harm or violence",
@@ -162,7 +162,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              id: 'applicant-response-to-request-for-child-arrangements',
+              id: 'applicant_request_for_child_arrangements',
               text: "Applicant_FNAME_LNAME's request for child arrangements",
               href: '/applicant/yourdocuments/alldocuments/carequest',
             },
@@ -437,7 +437,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              id: 'applicant-response-to-request-for-child-arrangements',
+              id: 'applicant_request_for_child_arrangements',
               text: "Applicant_FNAME_LNAME's request for child arrangements",
               href: '#',
             },

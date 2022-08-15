@@ -1,10 +1,10 @@
+import { Applicant, Respondent } from '../../../../../app/case/definition';
 import { CommonContent } from '../../../../../steps/common/common.content';
 import * as URL from '../../../../urls';
 import {
   getApplicantAllegationsOfHarmAndViolence,
   getApplicantViewAllOrdersFromTheCourtAllDocuments,
 } from '../../../task-list/utils';
-
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [
@@ -39,37 +39,26 @@ export const getOrdersFromCourt = (sectionTitles, taskListItems, userCase) => {
 };
 
 export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) => {
+  const applicantItems: object[] = [];
+  userCase.applicant.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantRequestToCA(applicant, taskListItems, userCase));
+  });
+  userCase.applicant.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
+  });
+  userCase.applicant.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems, userCase));
+  });
+  userCase.applicant.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, userCase));
+  });
+  userCase.applicant.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems));
+  });
   return {
     title: sectionTitles.applicantsDocuments,
     items: [
-      {
-        id: 'applicant-response-to-request-for-child-arrangements',
-        text: getText(taskListItems.applicant_response_to_request_for_child_arrangements, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_CA_REQUEST : '#',
-      },
-      {
-        id: 'applicant-allegations-of-harm-and-violence',
-        text: getText(taskListItems.applicant_allegations_of_harm_and_violence, userCase),
-        href:
-          getApplicantAllegationsOfHarmAndViolence(userCase) === true
-            ? URL.APPLICANT + URL.APPLICANT_ALLEGATION_OF_HARM_VOILENCE
-            : '#',
-      },
-      {
-        id: 'applicant_response_to_other_side_allegation_of_harm',
-        text: getText(taskListItems.applicant_response_to_other_side_allegation_of_harm, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_RESPONSE_TO_AOH_VIOLENCE : '#',
-      },
-      {
-        id: 'applicant_position_statements',
-        text: getText(taskListItems.applicant_position_statements, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_POSITION_STATEMENT : '#',
-      },
-      {
-        id: 'applicant_witness_statements',
-        text: getText(taskListItems.applicant_witness_statements, userCase),
-        href: URL.APPLICANT + URL.APPLICANT_WITNESS_STATEMENTS,
-      },
+      ...applicantItems,
       {
         id: 'other_people_witness_statements',
         text: getText(taskListItems.other_people_witness_statements, userCase),
@@ -145,27 +134,27 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) =>
 };
 
 export const getRespondentDocuments = (sectionTitles, taskListItems, userCase) => {
+  const respondentItems: object[] = [];
+  userCase.respondents.forEach((respondent: Respondent) => {
+    respondentItems.push(getResponseToCA(respondent, taskListItems, userCase));
+  });
+  userCase.respondents.forEach((respondent: Respondent) => {
+    respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
+  });
+  userCase.respondents.forEach((respondent: Respondent) => {
+    respondentItems.push(getAohAndViolence(respondent, taskListItems, userCase));
+  });
+  const respondentItems2: object[] = [];
+  userCase.respondents.forEach((respondent: Respondent) => {
+    respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, userCase));
+  });
+  userCase.respondents.forEach((respondent: Respondent) => {
+    respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase));
+  });
   return {
     title: sectionTitles.respondentsDocuments,
     items: [
-      {
-        id: 'respondent_response_to_request_for_child_arrangements',
-        text: getText(taskListItems.respondent_response_to_request_for_child_arrangements, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE : '#',
-      },
-      {
-        id: 'respondent_response_to_allegations_of_harm_and_violence',
-        text: getText(taskListItems.respondent_response_to_allegations_of_harm_and_violence, userCase),
-        href:
-          getApplicantAllegationsOfHarmAndViolence(userCase) === true
-            ? URL.APPLICANT + URL.RESPONDENT_RESPONSE_TO_AOH_VIOLENCE
-            : '#',
-      },
-      {
-        id: 'respondent_allegation_of_harm_and_violence',
-        text: getText(taskListItems.respondent_allegation_of_harm_and_violence, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_ALLEGATION_OF_HARM_VOILENCE : '#',
-      },
+      ...respondentItems,
       {
         id: 'applications_made_in_these_proceedings_respondent',
         text: getText(taskListItems.applications_made_in_these_proceedings_respondent, userCase),
@@ -181,16 +170,7 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase) =
         text: getText(taskListItems.letters_from_school_respondent, userCase),
         href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_LETTER_FROM_SCHOOL : '#',
       },
-      {
-        id: 'respondent_position_statements',
-        text: getText(taskListItems.respondent_position_statements, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_POSITION_STATEMENT : '#',
-      },
-      {
-        id: 'respondent_witness_statements',
-        text: getText(taskListItems.respondent_witness_statements, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_WITNESS_STATEMENTS : '#',
-      },
+      ...respondentItems2,
       {
         id: 'other_people_witness_statements_respondent',
         text: getText(taskListItems.other_people_witness_statements_respondent, userCase),
@@ -316,5 +296,113 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, userCas
         href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_SUPPORT_NEEDED : '#',
       },
     ],
+  };
+};
+
+const getResponseToCA = (respondent: Respondent, taskListItems, userCase) => {
+  return {
+    id: 'respondent_response_to_request_for_child_arrangements',
+    text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
+      '<namerespondentxxxxx>',
+      respondent.value.firstName + ' ' + respondent.value.lastName
+    ),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE : '#',
+  };
+};
+
+const getAohAndViolence = (respondent: Respondent, taskListItems, userCase) => {
+  return {
+    id: 'respondent_allegation_of_harm_and_violence',
+    text: taskListItems.respondent_allegation_of_harm_and_violence.replace(
+      '<namerespondentxxxxx>',
+      respondent.value.firstName + ' ' + respondent.value.lastName
+    ),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_ALLEGATION_OF_HARM_VOILENCE : '#',
+  };
+};
+
+const getResponseToAohAndViolence = (respondent: Respondent, taskListItems, userCase) => {
+  return {
+    id: 'respondent_response_to_allegations_of_harm_and_violence',
+    text: taskListItems.respondent_response_to_allegations_of_harm_and_violence.replace(
+      '<namerespondentxxxxx>',
+      respondent.value.firstName + ' ' + respondent.value.lastName
+    ),
+    href:
+      getApplicantAllegationsOfHarmAndViolence(userCase) === true
+        ? URL.APPLICANT + URL.RESPONDENT_RESPONSE_TO_AOH_VIOLENCE
+        : '#',
+  };
+};
+
+const getRespondentPositionStatements = (respondent: Respondent, taskListItems, userCase) => {
+  return {
+    id: 'respondent_position_statements',
+    text: taskListItems.respondent_position_statements.replace(
+      '<namerespondentxxxxx>',
+      respondent.value.firstName + ' ' + respondent.value.lastName
+    ),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_POSITION_STATEMENT : '#',
+  };
+};
+
+const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, userCase) => {
+  return {
+    id: 'respondent_witness_statements',
+    text: taskListItems.respondent_witness_statements.replace(
+      '<namerespondentxxxxx>',
+      respondent.value.firstName + ' ' + respondent.value.lastName
+    ),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_WITNESS_STATEMENTS : '#',
+  };
+};
+
+const getApplicantRequestToCA = (applicant: Applicant, taskListItems, userCase) => {
+  return {
+    id: 'applicant_request_for_child_arrangements',
+    text: taskListItems.applicant_request_for_child_arrangements.replace(
+      applicant.value.firstName + ' ' + applicant.value.lastName
+    ),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_CA_REQUEST : '#',
+  };
+};
+
+const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCase) => {
+  return {
+    id: 'applicant-allegations-of-harm-and-violence',
+    text: taskListItems.applicant_allegations_of_harm_and_violence.replace(
+      applicant.value.firstName + ' ' + applicant.value.lastName
+    ),
+    href:
+      getApplicantAllegationsOfHarmAndViolence(userCase) === true
+        ? URL.APPLICANT + URL.APPLICANT_ALLEGATION_OF_HARM_VOILENCE
+        : '#',
+  };
+};
+const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems, userCase) => {
+  return {
+    id: 'applicant_response_to_other_side_allegation_of_harm',
+    text: taskListItems.applicant_response_to_other_side_allegation_of_harm.replace(
+      applicant.value.firstName + ' ' + applicant.value.lastName
+    ),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_RESPONSE_TO_AOH_VIOLENCE : '#',
+  };
+};
+const getApplicantPositionStatements = (applicant: Applicant, taskListItems, userCase) => {
+  return {
+    id: 'applicant_position_statements',
+    text: taskListItems.applicant_position_statements.replace(
+      applicant.value.firstName + ' ' + applicant.value.lastName
+    ),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_POSITION_STATEMENT : '#',
+  };
+};
+const getApplicantWitnessStatements = (applicant: Applicant, taskListItems) => {
+  return {
+    id: 'applicant_witness_statements',
+    text: taskListItems.applicant_witness_statements.replace(
+      applicant.value.firstName + ' ' + applicant.value.lastName
+    ),
+    href: URL.APPLICANT + URL.APPLICANT_WITNESS_STATEMENTS,
   };
 };
