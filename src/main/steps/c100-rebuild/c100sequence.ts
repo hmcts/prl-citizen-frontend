@@ -99,11 +99,6 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
   },
   {
-    url: C100_CHILDERN_DETAILS_ADD,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
-  },
-  {
     url: C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
     showInSection: Sections.C100,
     getNextStep: () => C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
@@ -119,6 +114,21 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
   },
   {
+    url: C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
+  },
+  {
+    url: C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_ADD,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
+  },
+  {
     url: C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
     showInSection: Sections.C100,
     getNextStep: () => C100_CHILDERN_DETAILS_CHILD_MATTERS,
@@ -131,20 +141,10 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CHILDERN_DETAILS_ADD,
+    getNextStep: () => C100_CHILDERN_FURTHER_INFORMATION,
   },
   {
     url: C100_CHILDERN_FURTHER_INFORMATION,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
-  },
-  {
-    url: C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
-  },
-  {
-    url: C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },

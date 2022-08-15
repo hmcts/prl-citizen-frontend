@@ -81,7 +81,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[17].showInSection).toBe('c100');
     expect(C100Sequence[17].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
 
-    expect(C100Sequence[18].url).toBe('/c100-rebuild/child-details/add-children');
+    expect(C100Sequence[18].url).toBe('/c100-rebuild/child-details/add-childern');
     expect(C100Sequence[18].showInSection).toBe('c100');
     expect(C100Sequence[18].getNextStep({})).toBe('/c100-rebuild/child-details/personal-details');
 
@@ -95,6 +95,6 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[21].url).toBe('/c100-rebuild/child-details/parental-responsibility');
     expect(C100Sequence[21].showInSection).toBe('c100');
-    expect(C100Sequence[21].getNextStep({})).toBe('/c100-rebuild/child-details/parental-responsibility');
+    expect(C100Sequence[21].getNextStep({})).toBe('/c100-rebuild/child-details/further-information');
   });
 });
