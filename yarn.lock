@@ -9654,10 +9654,10 @@ pathval@^1.1.1:
   resolved "https://registry.yarnpkg.com/pathval/-/pathval-1.1.1.tgz#8534e77a77ce7ac5a2512ea21e0fdb8fcf6c3d8d"
   integrity sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
 
-pcf-start@^1.15.3:
-  version "1.16.6"
-  resolved "https://registry.yarnpkg.com/pcf-start/-/pcf-start-1.16.6.tgz#2b4151ffc8dad7567cb75ec0e80f428b419f0993"
-  integrity sha512-FwfRkJWP4TdETb6RMWb/mGRxEckSisjgPykjsmQCq3/Q6Kkk+uN+fm7IF07ptpDlKHXAFg9T3OIY3PFwTUYFMg==
+pcf-start@^1.17.5:
+  version "1.17.5"
+  resolved "https://registry.yarnpkg.com/pcf-start/-/pcf-start-1.17.5.tgz#bbe23007c7ba4671b52a45889f425ea77dc55157"
+  integrity sha512-HlQt2xwbE5pJW4QJVYXMOY6a/QuqsG3AdldCc3lvqGMmAbGR17iyKpP3i9hEpUE9HiiH4yShMIFSSwSNlRvMYg==
   dependencies:
     applicationinsights "^1.8.10"
     bluebird "^3.5.4"
