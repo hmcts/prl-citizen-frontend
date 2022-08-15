@@ -16,6 +16,8 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import {
   // CSRF_TOKEN_ERROR_URL,
   ACCESSIBILITY_STATEMENT,
+  APPLICANT,
+  APPLICANT_MIAM_CERTIFICATE,
   CONTACT_US,
   COOKIES_PAGE,
   HOME_URL,
@@ -46,6 +48,8 @@ export class Routes {
     const documentManagerController = new DocumentManagerController();
     app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
     app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
+
+    app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

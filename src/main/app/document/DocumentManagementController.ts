@@ -23,6 +23,7 @@ export class DocumentManagerController {
     let filename = '';
     try {
       const originalUrl = req.originalUrl;
+      console.log('**Original URL ** ' + originalUrl);
 
       if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
         filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
@@ -74,6 +75,14 @@ export class DocumentManagerController {
     }
 
     if (filename === DocumentType.WITNESS_STATEMENT) {
+      if (!req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url) {
+        throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+      }
+      documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
+
+    if (filename === 'miamcertificate') {
       if (!req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url) {
         throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
       }
