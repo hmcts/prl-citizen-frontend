@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import config, { util } from 'config';
+import config from 'config';
 import type { Response } from 'express';
 
 import { APPLICANT, APPLICANT_TASK_LIST_URL, RESPONDENT, RESPONDENT_TASK_LIST_URL, UPLOAD_DOCUMENT } from '../../steps/urls';
@@ -7,7 +7,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { DocumentType, ListValue, CITIZEN_UPDATE, UploadDocumentList, YesOrNo } from '../case/definition';
+import { DocumentType, ListValue, CITIZEN_UPDATE, UploadDocumentList } from '../case/definition';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { DocumentManagementClient } from './DocumentManagementClient';
@@ -158,18 +158,21 @@ export class DocumentManagerController {
     const newUploads: ListValue<Partial<UploadDocumentList> | null>[] = filesCreated.map(file => ({
       id: generateUuid(),
       value: {
-        parentDocumentType: 'Witness Statement',
-        DocumentType: 'Witness Statement',
-        partyName: 'Sonal Saha',
-        isApplicant: 'Yes',
-        uploadedBy: 'Uploaded by Sonali Saha',
-        dateCreated: '12/07/2022',
-        documentUploadedDate: '12/07/2022',
-        citizenDocument: {
-          document_url: 'abcd',
-          document_filename: file.originalDocumentName,
-          document_binary_url: 'abcd',
-        },
+        id: "aaaaaaa",
+        value: {
+                parentDocumentType: 'Witness Statement',
+                DocumentType: 'Witness Statement',
+                partyName: 'Sonal Saha',
+                isApplicant: 'Yes',
+                uploadedBy: 'Uploaded by Sonali Saha',
+                dateCreated: '12/07/2022',
+                documentUploadedDate: '12/07/2022',
+                citizenDocument: {
+                  document_url: 'abcd',
+                  document_filename: file.originalDocumentName,
+                  document_binary_url: 'abcd',
+                },
+              },
       },
     }));
     console.log('ccc');

@@ -630,7 +630,7 @@ export interface CaseData {
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
   documentsGenerated: ListValue<PRLDocument>[];
-  respondentFirstName: string;
+  respondentFirstName?: string;
   finalDocument: Document;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   /** upload document fields */
