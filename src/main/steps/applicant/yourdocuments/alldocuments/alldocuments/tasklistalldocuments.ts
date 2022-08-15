@@ -361,6 +361,7 @@ const getApplicantRequestToCA = (applicant: Applicant, taskListItems, userCase) 
   return {
     id: 'applicant_request_for_child_arrangements',
     text: taskListItems.applicant_request_for_child_arrangements.replace(
+      '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_CA_REQUEST : '#',
@@ -371,6 +372,7 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
   return {
     id: 'applicant-allegations-of-harm-and-violence',
     text: taskListItems.applicant_allegations_of_harm_and_violence.replace(
+      '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href:
@@ -383,6 +385,7 @@ const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItem
   return {
     id: 'applicant_response_to_other_side_allegation_of_harm',
     text: taskListItems.applicant_response_to_other_side_allegation_of_harm.replace(
+      '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_RESPONSE_TO_AOH_VIOLENCE : '#',
@@ -392,6 +395,7 @@ const getApplicantPositionStatements = (applicant: Applicant, taskListItems, use
   return {
     id: 'applicant_position_statements',
     text: taskListItems.applicant_position_statements.replace(
+      '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_POSITION_STATEMENT : '#',
@@ -401,6 +405,7 @@ const getApplicantWitnessStatements = (applicant: Applicant, taskListItems) => {
   return {
     id: 'applicant_witness_statements',
     text: taskListItems.applicant_witness_statements.replace(
+      '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: URL.APPLICANT + URL.APPLICANT_WITNESS_STATEMENTS,
