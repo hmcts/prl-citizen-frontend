@@ -48,6 +48,7 @@ export default class AddChilderns extends GetController {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public addChildQueryInSession = (req: AppRequest, res: Response) => {
     if (req.query.hasOwnProperty('addChild')) {
       const { addChild } = req.query;
