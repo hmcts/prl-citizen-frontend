@@ -113,7 +113,7 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  onlycontinue: {
+  submit: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {
