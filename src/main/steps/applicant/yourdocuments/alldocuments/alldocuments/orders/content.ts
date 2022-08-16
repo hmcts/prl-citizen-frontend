@@ -57,7 +57,7 @@ export const generateContent: TranslationFn = content => {
     //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     orders.push({
       href: `${APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT}/${uid}`,
-      createdDate: doc.value.dateCreated,
+      createdDate: doc.value.otherDetails.orderCreatedDate,
       fileName: doc.value.orderDocument.document_filename,
     });
   }

@@ -388,12 +388,12 @@ const getResponseToDA = (respondent: PartyDetails, taskListItems, userCase) => {
   };
 };
 
-const getAohAndViolenceDA = (respondent: Respondent, taskListItems, userCase) => {
+const getAohAndViolenceDA = (respondent: PartyDetails, taskListItems, userCase) => {
   return {
     id: 'respondent_allegation_of_harm_and_violence',
     text: taskListItems.respondent_allegation_of_harm_and_violence.replace(
       '<namerespondentxxxxx>',
-      respondent.value.firstName + ' ' + respondent.value.lastName
+      respondent.firstName + ' ' + respondent.lastName
     ),
     href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_ALLEGATION_OF_HARM_VOILENCE : '#',
   };
