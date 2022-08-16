@@ -58,7 +58,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'What is a Mediation Information and Assessment Meeting (MIAM)?' },
-              value: { text: 'Yes' },
+              value: { html: 'Yes' },
             },
             {
               actions: {
@@ -71,7 +71,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: { text: '11 March 2022' },
+              value: { html: '11 March 2022' },
             },
             {
               actions: {
@@ -84,9 +84,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: {
-                text: 'Complete this section',
-              },
+              value: {},
             },
           ],
         },
