@@ -4,6 +4,7 @@ const retryCount = 3;
 module.exports = {
   async clickDAApplicant() {
     I.wait('2');
+    await I.retry(retryCount).waitForText('DA Applicant');
     await I.retry(retryCount).click('#main-content > div > div.govuk-grid-column-two-thirds > a:nth-child(2)');
     },
 
