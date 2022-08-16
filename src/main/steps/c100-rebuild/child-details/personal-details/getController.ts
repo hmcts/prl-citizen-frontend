@@ -18,12 +18,6 @@ export default class Personaldetails extends GetController {
     super(view, content);
   }
 
-  /**
-   * It renders the page
-   * @param {AppRequest} req - AppRequest - this is the request object that contains the session data.
-   * @param {Response} res - Response - The response object that will be used to render the page.
-   * @returns a promise.
-   */
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
       return;
