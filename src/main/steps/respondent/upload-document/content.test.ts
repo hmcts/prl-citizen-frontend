@@ -5,7 +5,7 @@ import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
 const enContent = {
-  title: 'Respond to the application',
+  title: 'Select the type of document',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -14,24 +14,29 @@ const enContent = {
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
   sectionTitles: {
-    respondentYourDetails: 'Your details',
-    consentToTheApplication: 'Consent to the application',
-    applicationDetails: 'Application detail',
-    respondentAdditionalInformation: 'Additional information',
-    yourDocuments: 'Your documents',
-    ordersFromTheCourt: 'Orders from the court',
+    witness_statements_and_evidence: 'Witness statements and evidence',
+    applications: 'Applications',
+    expert_reports: 'Expert reports',
+    other_documents: 'Other documents',
   },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    do_you_consent_to_the_application: 'Do you consent to the application?',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    mediation_miam: 'Mediation(MIAM)',
-    international_factors: 'International element',
-    view_all_orders_from_the_court: 'View all orders from the court',
+  uploadDocsList: {
+    your_position_statements: 'Your position statements',
+    your_witness_statements: 'Your witness statements',
+    other_witness_statements: "Other people's witness statements",
+    mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
+    medical_records: 'Medical records',
+    letters_from_school: 'Letters from school',
+    tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
+    previous_orders_submitted: 'Previous orders submitted with application',
+    medical_reports: 'Medical reports',
+    paternity_test_reports: 'Paternity test reports',
+    drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
+    police_reports: 'Police reports',
+    other_documents: 'Other documents',
   },
 };
 const cyContent = {
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: 'Select the type of document',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -40,20 +45,25 @@ const cyContent = {
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
   },
   sectionTitles: {
-    respondentYourDetails: 'Your details',
-    consentToTheApplication: 'Consent to the application',
-    applicationDetails: 'Application detail',
-    respondentAdditionalInformation: 'Additional information',
-    yourDocuments: 'Your documents',
-    ordersFromTheCourt: 'Orders from the court',
+    witness_statements_and_evidence: 'Witness statements and evidence',
+    applications: 'Applications',
+    expert_reports: 'Expert reports',
+    other_documents: 'Other documents',
   },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    do_you_consent_to_the_application: 'Do you consent to the application?',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    mediation_miam: 'Mediation(MIAM)',
-    international_factors: 'International element',
-    view_all_orders_from_the_court: 'View all orders from the court',
+  uploadDocsList: {
+    your_position_statements: 'Your position statements',
+    your_witness_statements: 'Your witness statements',
+    other_witness_statements: "Other people's witness statements",
+    mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
+    medical_records: 'Medical records',
+    letters_from_school: 'Letters from school',
+    tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
+    previous_orders_submitted: 'Previous orders submitted with application',
+    medical_reports: 'Medical reports',
+    paternity_test_reports: 'Paternity test reports',
+    drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
+    police_reports: 'Police reports',
+    other_documents: 'Other documents',
   },
 };
 describe('task-list > content', () => {
@@ -71,70 +81,95 @@ describe('task-list > content', () => {
       userCase: mockUserCase,
       expected: [
         {
-          title: 'Consent to the application',
           items: [
             {
-              id: 'consent-to-the-application',
-              text: 'Do you consent to the application?',
-              status: 'IN_PROGRESS',
-              href: '/respondent/consent-to-application/consent',
+              href: '/respondent/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements',
+              id: 'your-position-statements',
+              text: 'Your position statements',
+            },
+            {
+              href: '/respondent/upload-document/start?caption=Witness statements and evidence&document_type=Your witness statements',
+              id: 'your-witness-statements',
+              text: 'Your witness statements',
+            },
+            {
+              href: "/respondent/upload-document/start?caption=Witness statements and evidence&document_type=Other people's witness statements",
+              id: 'other-witness-statements',
+              text: "Other people's witness statements",
+            },
+
+            {
+              href: '/respondent/upload-document/start?caption=Witness statements and evidence&document_type=Emails, screenshots, images and other media files',
+              id: 'mail-screenshots-media-files',
+              text: 'Emails, screenshots, images and other media files',
+            },
+            {
+              href: '/respondent/upload-document/start?caption=Witness statements and evidence&document_type=Medical records',
+              id: 'medical-records',
+              text: 'Medical records',
+            },
+            {
+              href: '/respondent/upload-document/start?caption=Witness statements and evidence&document_type=Letters from school',
+              id: 'letters-from-school',
+              text: 'Letters from school',
+            },
+            {
+              href: '/respondent/upload-document/start?caption=Witness statements and evidence&document_type=Tenancy and mortgage agreements',
+              id: 'tenancy-mortgage-agreements',
+              text: 'Tenancy and mortgage agreements',
             },
           ],
+          title: 'Witness statements and evidence',
         },
         {
           items: [
             {
-              href: '/respondent/keep-details-private/details_known',
-              id: 'keep-your-details-private',
-              status: 'TO_DO',
-              text: 'Keep your details private',
-            },
-            {
-              href: '/respondent/confirm-contact-details/checkanswers',
-              id: 'confirm-or-edit-your-contact-details',
-              status: 'TO_DO',
-              text: 'Confirm or edit your contact details',
+              href: '/respondent/upload-document/start?caption=Applications&document_type=Previous orders submitted with application',
+              id: 'previous-orders-submitted',
+              text: 'Previous orders submitted with application',
             },
           ],
-          title: 'Your details',
+          title: 'Applications',
         },
         {
           items: [
             {
-              href: '/respondent/miam/miam-start',
-              id: 'medation-miam',
-              status: 'IN_PROGRESS',
-              text: 'Mediation(MIAM)',
+              href: '/respondent/upload-document/start?caption=Expert reports&document_type=Medical records',
+              id: 'medical-records',
+              text: 'Medical records',
+            },
+            {
+              href: '/respondent/upload-document/start?caption=Expert reports&document_type=Paternity test reports',
+              id: 'paternity-test-reports',
+              text: 'Paternity test reports',
+            },
+            {
+              href: '/respondent/upload-document/start?caption=Expert reports&document_type=Drug and alcohol tests (toxicology)',
+              id: 'drug-and-alcohol-tests',
+              text: 'Drug and alcohol tests (toxicology)',
+            },
+            {
+              href: '/respondent/upload-document/start?caption=Expert reports&document_type=Police reports',
+              id: 'police-reports',
+              text: 'Police reports',
             },
           ],
-          title: 'Application detail',
+          title: 'Expert reports',
         },
         {
           items: [
             {
-              href: '/respondent/international-factors/start',
-              id: 'international-factors',
-              status: 'TO_DO',
-              text: 'International element',
+              href: '/respondent/upload-document/start?caption=Other documents&document_type=Other documents',
+              id: 'other-documents',
+              text: 'Other documents',
             },
           ],
-          title: 'Additional information',
-        },
-        {
-          items: [
-            {
-              href: '#',
-              id: 'view-all-orders-from-the-court',
-              status: 'NOT_AVAILABLE_YET',
-              text: 'View all orders from the court',
-            },
-          ],
-          title: 'Orders from the court',
+          title: 'Other documents',
         },
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {
-    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
-    expect(taskListItems).toEqual(expected);
+    const { sections: uploadDocsList } = generateContent({ ...commonContent, userCase });
+    expect(uploadDocsList).toEqual(expected);
   });
 });

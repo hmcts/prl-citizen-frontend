@@ -4,38 +4,34 @@ import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-const enContent = {
+const en = {
   section: ' ',
-  title: 'Do the children live outside of England or Wales?',
+  title: 'Has the court asked for this document?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  line1:
+    'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',
-    },
-    iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
     },
   },
 };
 
-const cyContent = {
+const cy: typeof en = {
   section: ' ',
-  title: 'Do the children live outside of England or Wales?',
+  title: 'Has the court asked for this document?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  line1:
+    'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',
-    },
-    iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
     },
   },
 };
@@ -54,30 +50,33 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('Do the children live outside of England or Wales?');
+    expect(generatedContent.title).toEqual('Has the court asked for this document?');
     expect(generatedContent.section).toEqual(' ');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
+    expect(generatedContent.line1).toEqual(
+      'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
+    );
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content Data', () => {
-    languageAssertions('en', enContent, () => generateContent(commonContent));
+    languageAssertions('en', en, () => generateContent(commonContent));
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
   test('should contain detailsKnown field', () => {
     const detailsKnownField = fields.start as FormOptions;
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
-    expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((detailsKnownField.section as Function)(generatedContent)).toBe(en.section);
   });
 
   test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
