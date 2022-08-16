@@ -14,7 +14,6 @@ export default class AddChildernMatter extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log(req.body);
     const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
@@ -24,7 +23,7 @@ export default class AddChildernMatter extends PostController<AnyObject> {
       const { childId } = req.query;
       const matchChildIndex = req.session.settings.ListOfChild.findIndex(child => child.id === childId);
       if (matchChildIndex > -1) {
-
+        console.log(req.body);
         const isDecisionTaken = req.body.isDecisionTaken !== '' ? YesOrNo.YES : YesOrNo.NO;
         req.session.settings.ListOfChild[matchChildIndex].childMatter = {
           isDecisionTaken,

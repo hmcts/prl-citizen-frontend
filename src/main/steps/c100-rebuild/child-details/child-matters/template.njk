@@ -9,7 +9,7 @@
 
 {% block page_content %}
 <h1 class="govuk-heading-xl">{{pageTitle}} {{childDetails.firstname}}  {{childDetails.lastname}}  </h1>
-<form class="form" id="main-form" method="post" action="{{postURL}}">
+<form class="form" id="main-form" method="post" action="{{postURL}}" novalidate="novalidate">
     {{ govukInput({
         type: "hidden",
         id: "csrfToken",
@@ -17,6 +17,19 @@
         value: csrfToken 
     }) }}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% set listOfItem = [ {
+      value: "Yes",
+      text: "Decide who theylive with"
+    }]
+ %}
+ {% if checkIfDecisionMade == 'Yes'%}
+{% set listOfItem = [ {
+      value: "Yes",
+      text: "Decide who theylive with",
+      checked: "true"
+    }]
+ %}
+ {%endif%}
 
 {{ govukCheckboxes({
   name: "isDecisionTaken",
@@ -30,7 +43,7 @@
   hint: {
     text: "Select all that apply."
   },
-  items: listOfItems
+  items: listOfItem
 }) }}
 </form>
 {% endblock %}

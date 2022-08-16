@@ -15,7 +15,6 @@ export default class Personaldetails extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log(req.body);
     const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
@@ -39,22 +38,15 @@ export default class Personaldetails extends PostController<AnyObject> {
     }
   }
 
-  /**
-   * It takes a request object and returns an object with the same properties as the request object,
-   * but with the values mapped to the correct property names
-   * @param {AppRequest} req - AppRequest - this is the request object that is passed to the mapper
-   * function.
-   */
   public personalDetailsMapper(req: AppRequest): any {
+    const isDateOfBirthKnown = req.body['isDopKnown'].length === 2 ? YesOrNo.YES : YesOrNo.NO;
     console.log(req.body);
-    const DateoBirth = `${req.body['child-dateOfBirth-day']}/${req.body['child-dateOfBirth-month']}/${req.body['child-dateOfBirth-year']}`;
-    const ApproximateDateOfBirth = `${req.body['child-approx-dateOfBirth-day']}/${req.body['child-approx-dateOfBirth-month']}/${req.body['child-approx-dateOfBirth-year']}`;
-    const Sex = req.body['Sex'];
-    const isDateOfBirthKnown = req.body['steps_children_personal_details'] !== undefined ? YesOrNo.YES : YesOrNo.NO;
-    if (isDateOfBirthKnown === YesOrNo.NO) {
-      return { DateoBirth, Sex, isDateOfBirthKnown, ApproximateDateOfBirth: undefined };
-    } else {
-      return { DateoBirth, ApproximateDateOfBirth, Sex, isDateOfBirthKnown };
-    }
+    const dob = `${req.body['day']}/${req.body['month']}/${req.body['year']}`;
+    const adob = `${req.body['apDateOfBirth-day']}/${req.body['apDateOfBirth-month']}/${req.body['apDateOfBirth-year']}`;
+    const DateoBirth = isDateOfBirthKnown === 'No' ? dob : '';
+    const Sex = req.body['childSex'];
+    const ApproximateDateOfBirth = isDateOfBirthKnown === 'Yes' ? adob : '';
+
+    return { DateoBirth, ApproximateDateOfBirth, Sex, isDateOfBirthKnown };
   }
 }
