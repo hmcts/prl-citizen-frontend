@@ -14,8 +14,13 @@ export default class Personaldetails extends PostController<AnyObject> {
     super(fields);
   }
 
+  /**
+   * It takes the form data from the request body, validates it, and then saves it to the session
+   * @param req - AppRequest<AnyObject>
+   * @param {Response} res - Response - this is the response object that will be used to send the
+   * response back to the user.
+   */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log(req.body);
     const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
@@ -46,7 +51,6 @@ export default class Personaldetails extends PostController<AnyObject> {
    * function.
    */
   public personalDetailsMapper(req: AppRequest): any {
-    console.log(req.body);
     const DateoBirth = `${req.body['child-dateOfBirth-day']}/${req.body['child-dateOfBirth-month']}/${req.body['child-dateOfBirth-year']}`;
     const ApproximateDateOfBirth = `${req.body['child-approx-dateOfBirth-day']}/${req.body['child-approx-dateOfBirth-month']}/${req.body['child-approx-dateOfBirth-year']}`;
     const Sex = req.body['Sex'];
