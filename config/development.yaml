@@ -18,6 +18,8 @@ services:
     cosApiClientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
+  citizen:
+    uploadDocsEmail: 'example@test.com'
   case:
     #url: 'http://localhost:4452'
     url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-514.service.core-compute-preview.internal'
