@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+//import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -33,22 +33,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    parentalResponsibility: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      label: l => l.labelText,
-      hint: l => l.hintText,
-      labelSize: null,
-      validator: value => isFieldFilledIn(value),
-    },
-  },
-  submit: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
+  fields: {},
 };
 
 export const generateContent: TranslationFn = content => {

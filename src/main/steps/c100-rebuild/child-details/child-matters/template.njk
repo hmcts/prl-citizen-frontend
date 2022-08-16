@@ -9,4 +9,41 @@
 
 {% block page_content %}
 <h1 class="govuk-heading-xl">{{pageTitle}} {{childDetails.firstname}}  {{childDetails.lastname}}  </h1>
+<form class="form" id="main-form" method="post" action="{{postURL}}" novalidate="novalidate">
+    {{ govukInput({
+        type: "hidden",
+        id: "csrfToken",
+        name: "_csrf",
+        value: csrfToken 
+    }) }}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% set listOfItem = [ {
+      value: "Yes",
+      text: "Decide who theylive with"
+    }]
+ %}
+ {% if checkIfDecisionMade == 'Yes'%}
+{% set listOfItem = [ {
+      value: "Yes",
+      text: "Decide who theylive with",
+      checked: "true"
+    }]
+ %}
+ {%endif%}
+
+{{ govukCheckboxes({
+  name: "isDecisionTaken",
+  fieldset: {
+    legend: {
+      text: "",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  hint: {
+    text: "Select all that apply."
+  },
+  items: listOfItem
+}) }}
+</form>
 {% endblock %}

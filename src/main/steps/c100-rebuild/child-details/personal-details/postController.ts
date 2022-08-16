@@ -40,7 +40,8 @@ export default class Personaldetails extends PostController<AnyObject> {
 
   public personalDetailsMapper(req: AppRequest): any {
     const isDateOfBirthKnown = req.body['isDopKnown'].length === 2 ? YesOrNo.YES : YesOrNo.NO;
-    const dob = `${req.body['childDateOfBirth-day']}/${req.body['childDateOfBirth-month']}/${req.body['childDateOfBirth-year']}`;
+    console.log(req.body);
+    const dob = `${req.body['day']}/${req.body['month']}/${req.body['year']}`;
     const adob = `${req.body['apDateOfBirth-day']}/${req.body['apDateOfBirth-month']}/${req.body['apDateOfBirth-year']}`;
     const DateoBirth = isDateOfBirthKnown === 'No' ? dob : '';
     const Sex = req.body['childSex'];
