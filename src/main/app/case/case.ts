@@ -155,6 +155,36 @@ export interface Case {
   travellingOtherDetails?: string;
   unableForCourtProceedings?: string;
   courtProceedingProvideDetails?: string;
+
+  //CA-DA-Respondent
+  respondentAttendingToCourt?: string;
+  respondentHearingDetails?: string;
+  respondentLangRequirements?: string;
+  respondentLangDetails?: string;
+  respondentSpecialArrangements?: string;
+  respondentSpecialArrangementsDetails?: string;
+  respondentReasonableAdjustments?: string;
+  respondentDocsSupport?: string;
+  respondentDocsDetails?: string;
+  respondentLargePrintDetails?: string;
+  respondentOtherDetails?: string;
+  respondentHelpCommunication?: string;
+  respondentSignLanguageDetails?: string;
+  respondentDescribeOtherNeed?: string;
+  respondentCourtHearing?: string;
+  respondentSupportWorkerDetails?: string;
+  respondentFamilyDetails?: string;
+  respondentTherapyDetails?: string;
+  respondentCommSupportOther?: string;
+  respondentCourtComfort?: string;
+  respondentLightingDetails?: string;
+  respondentOtherProvideDetails?: string;
+  respondentTravellingToCourt?: string;
+  respondentParkingDetails?: string;
+  respondentDifferentChairDetails?: string;
+  respondentTravellingOtherDetails?: string;
+  //applicant1LanguagePreference?: LanguagePreference;
+
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
