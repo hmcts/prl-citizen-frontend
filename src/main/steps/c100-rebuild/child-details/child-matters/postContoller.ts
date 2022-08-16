@@ -5,7 +5,7 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
+import { C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY, C100_CHILDERN_DETAILS_CHILD_MATTERS } from '../../../urls';
 
 @autobind
 export default class AddChildernMatter extends PostController<AnyObject> {
@@ -24,14 +24,21 @@ export default class AddChildernMatter extends PostController<AnyObject> {
       const { childId } = req.query;
       const matchChildIndex = req.session.settings.ListOfChild.findIndex(child => child.id === childId);
       if (matchChildIndex > -1) {
-
-        const isDecisionTaken = req.body.isDecisionTaken !== '' ? YesOrNo.YES : YesOrNo.NO;
-        req.session.settings.ListOfChild[matchChildIndex].childMatter = {
-          isDecisionTaken,
-        };
-
-        const redirectUrl = C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
-        super.redirect(req, res, redirectUrl);
+        if (req.body['isDecisionTaken'] === undefined) {
+          req.session.errors.push({
+            propertyName: 'isDecisionTaken',
+            errorType: 'required',
+          });
+          const redirectUrl = C100_CHILDERN_DETAILS_CHILD_MATTERS + `?childId=${childId}`;
+          super.redirect(req, res, redirectUrl);
+        } else {
+          const isDecisionTaken = req.body.isDecisionTaken !== '' ? YesOrNo.YES : YesOrNo.NO;
+          req.session.settings.ListOfChild[matchChildIndex].childMatter = {
+            isDecisionTaken,
+          };
+          const redirectUrl = C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
+          super.redirect(req, res, redirectUrl);
+        }
       } else {
         res.render('error');
       }

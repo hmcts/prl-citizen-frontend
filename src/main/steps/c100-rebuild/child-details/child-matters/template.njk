@@ -8,6 +8,7 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {% block page_content %}
+<div class=" {%- if sessionErrors.length > 0 %} govuk-form-group--error  {% endif %}">
 <h1 class="govuk-heading-xl">{{pageTitle}} {{childDetails.firstname}}  {{childDetails.lastname}}  </h1>
 <form class="form" id="main-form" method="post" action="{{postURL}}">
     {{ govukInput({
@@ -16,21 +17,31 @@
         name: "_csrf",
         value: csrfToken 
     }) }}
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
-
-{{ govukCheckboxes({
-  name: "isDecisionTaken",
-  fieldset: {
-    legend: {
-      text: "",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--l"
-    }
-  },
-  hint: {
-    text: "Select all that apply."
-  },
-  items: listOfItems
-}) }}
+              <div id="isDecisionTaken-hint" class="govuk-hint">{{hintText}} </div>
+               {%- if sessionErrors.length > 0 %}  <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
+    <span class="govuk-visually-hidden">Error: </span>{{errors['isDecisionTaken'].required}}</span>{% endif %}
+                {{ govukCheckboxes({
+                  name: "isDecisionTaken",
+                  fieldset: {
+                    legend: {
+                      text: "",
+                      isPageHeading: true,
+                      classes: "govuk-fieldset__legend--l"
+                    }
+                  },
+                  items: listOfItems
+                }) }}
+                        <div class="govuk-form-group">
+                            <div class="govuk-button-group">
+                                {{ govukButton({
+                                    text: "Contiue"
+                                    }) }}
+                                {{ govukButton({
+                                    text: "Save and come back later",
+                                    classes: "govuk-button--secondary"
+                                    }) }}   
+                            </div>
+                            </div>
 </form>
+</div>
 {% endblock %}
