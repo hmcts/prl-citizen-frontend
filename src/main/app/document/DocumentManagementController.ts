@@ -21,12 +21,14 @@ export class DocumentManagerController {
 
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     let filename = '';
+    let endPoint = '';
     try {
       const originalUrl = req.originalUrl;
-      console.log('**Original URL ** ' + originalUrl);
 
       if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
         filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
+        const itemlist = originalUrl.toString().split('/');
+        endPoint = itemlist[itemlist.length - 2];
       }
 
       const caseworkerUser = await getSystemUser();
@@ -87,6 +89,22 @@ export class DocumentManagerController {
         throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
       }
       documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
+
+    if (endPoint === 'orders') {
+      for (const doc of req.session.userCase.orderCollection) {
+        if (
+          doc.value.orderDocument.document_url.substring(doc.value.orderDocument.document_url.lastIndexOf('/') + 1) ===
+          filename
+        ) {
+          if (!doc.value.orderDocument.document_binary_url) {
+            throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+          }
+          documentToGet = doc.value.orderDocument.document_binary_url;
+          filename = doc.value.orderDocument.document_filename;
+        }
+      }
       uid = this.getUID(documentToGet);
     }
 

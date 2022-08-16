@@ -13,23 +13,18 @@
   </div>
 
   <ol class="app-task-list">
-
     <li>
-
       <dl class="govuk-summary-list govuk-summary-list--no-border">
-        {% if userCase && userCase.orderCollection && userCase.orderCollection.length > 0 %}
-        {% for file in userCase.orderCollection %}
+        {% for doc in orders %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{file.value.otherDetails.orderCreatedDate}}
+              {{doc.createdDate}}
             </dt>
             <dd class="govuk-summary-list__value">
-              <a href="#">{{ file.value.orderDocument.document_filename }}</a>
+              <a href={{doc.href}}>{{ doc.fileName }}</a>
             </dd>
           </div>
         {% endfor %}
-        {% endif %}
-
       </dl>
     </li>
   </ol>

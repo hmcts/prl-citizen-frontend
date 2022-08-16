@@ -40,21 +40,31 @@ export const getOrdersFromCourt = (sectionTitles, taskListItems, userCase) => {
 
 export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) => {
   const applicantItems: object[] = [];
-  userCase.applicant.forEach((applicant: Applicant) => {
-    applicantItems.push(getApplicantRequestToCA(applicant, taskListItems, userCase));
-  });
-  userCase.applicant.forEach((applicant: Applicant) => {
-    applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
-  });
-  userCase.applicant.forEach((applicant: Applicant) => {
-    applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems, userCase));
-  });
-  userCase.applicant.forEach((applicant: Applicant) => {
-    applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, userCase));
-  });
-  userCase.applicant.forEach((applicant: Applicant) => {
-    applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems));
-  });
+  if (userCase.caseTypeOfApplication === 'C100') {
+    userCase.applicants.forEach((applicant: Applicant) => {
+      applicantItems.push(getApplicantRequestToCA(applicant, taskListItems, userCase));
+    });
+    userCase.applicants.forEach((applicant: Applicant) => {
+      applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
+    });
+    userCase.applicants.forEach((applicant: Applicant) => {
+      applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems, userCase));
+    });
+    userCase.applicants.forEach((applicant: Applicant) => {
+      applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, userCase));
+    });
+    userCase.applicants.forEach((applicant: Applicant) => {
+      applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems));
+    });
+  } else {
+    //console.log('**** Applicants Fl401 **** ' + JSON.stringify(userCase.applicantsFL401));
+
+    applicantItems.push(getApplicantRequestToCA(userCase.applicantsFL401, taskListItems, userCase));
+    applicantItems.push(getApplicantAohAndViolence(userCase.applicantsFL401, taskListItems, userCase));
+    applicantItems.push(getApplicantResponseToAohAndViolence(userCase.applicantsFL401, taskListItems, userCase));
+    applicantItems.push(getApplicantPositionStatements(userCase.applicantsFL401, taskListItems, userCase));
+    applicantItems.push(getApplicantWitnessStatements(userCase.applicantsFL401, taskListItems));
+  }
   return {
     title: sectionTitles.applicantsDocuments,
     items: [
@@ -135,22 +145,31 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) =>
 
 export const getRespondentDocuments = (sectionTitles, taskListItems, userCase) => {
   const respondentItems: object[] = [];
-  userCase.respondents.forEach((respondent: Respondent) => {
-    respondentItems.push(getResponseToCA(respondent, taskListItems, userCase));
-  });
-  userCase.respondents.forEach((respondent: Respondent) => {
-    respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
-  });
-  userCase.respondents.forEach((respondent: Respondent) => {
-    respondentItems.push(getAohAndViolence(respondent, taskListItems, userCase));
-  });
   const respondentItems2: object[] = [];
-  userCase.respondents.forEach((respondent: Respondent) => {
-    respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, userCase));
-  });
-  userCase.respondents.forEach((respondent: Respondent) => {
-    respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase));
-  });
+  if (userCase.caseTypeOfApplication === 'C100') {
+    userCase.respondents.forEach((respondent: Respondent) => {
+      respondentItems.push(getResponseToCA(respondent, taskListItems, userCase));
+    });
+    userCase.respondents.forEach((respondent: Respondent) => {
+      respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
+    });
+    userCase.respondents.forEach((respondent: Respondent) => {
+      respondentItems.push(getAohAndViolence(respondent, taskListItems, userCase));
+    });
+    userCase.respondents.forEach((respondent: Respondent) => {
+      respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, userCase));
+    });
+    userCase.respondents.forEach((respondent: Respondent) => {
+      respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase));
+    });
+  } else {
+    respondentItems.push(getResponseToCA(userCase.respondentsFL401, taskListItems, userCase));
+    respondentItems.push(getResponseToAohAndViolence(userCase.respondentsFL401, taskListItems, userCase));
+    respondentItems.push(getAohAndViolence(userCase.respondentsFL401, taskListItems, userCase));
+    respondentItems2.push(getRespondentPositionStatements(userCase.respondentsFL401, taskListItems, userCase));
+    respondentItems2.push(getRespondentWitnessStatements(userCase.respondentsFL401, taskListItems, userCase));
+  }
+
   return {
     title: sectionTitles.respondentsDocuments,
     items: [

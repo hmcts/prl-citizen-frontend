@@ -112,7 +112,7 @@ export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIV
 export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
 /* applicant-keep-details-private-end */
 
-export const APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/orders`;
+export const APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/alldocuments/orders`;
 
 /* consent-to-the-application */
 export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
@@ -183,3 +183,5 @@ export const RESPONDENT_SPECIAL_MEASURES: PageLink = `${VIEW_ALL_DOCUMENTS}/spec
 /** Attending the hearing */
 export const RESPONDENT_NOTICE_OF_HEARING: PageLink = `${VIEW_ALL_DOCUMENTS}/notice_of_hearing`;
 export const RESPONDENT_SUPPORT_NEEDED: PageLink = `${VIEW_ALL_DOCUMENTS}/support_needed`;
+
+/** Document Urls */

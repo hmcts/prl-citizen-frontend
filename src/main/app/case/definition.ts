@@ -539,6 +539,8 @@ export interface CaseData {
   children: Child[];
   miamTable: MiamTable;
   applicants: Applicant[];
+  applicantsFL401: Applicant;
+  respondentsFL401: Respondent;
   caseStatus: CaseStatus;
   welshNeeds: WelshNeed[];
   respondents: Respondent[];

@@ -53,6 +53,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseStatus: 'caseStatus',
   welshNeeds: 'welshNeeds',
   respondents: 'respondents',
+  applicants: 'applicants',
+  applicantsFL401: 'applicantsFL401',
+  respondentsFL401: 'respondentsFL401',
   consentOrder: 'consentOrder',
   isCaseUrgent: 'isCaseUrgent',
   isWelshNeeded: 'isWelshNeeded',
@@ -163,6 +166,8 @@ export interface Case {
   children: Child[];
   miamTable: MiamTable;
   applicants: Applicant[];
+  applicantsFL401: Applicant;
+  respondentsFL401: Respondent;
   caseStatus: CaseStatus;
   welshNeeds: WelshNeed[];
   respondents: Respondent[];
