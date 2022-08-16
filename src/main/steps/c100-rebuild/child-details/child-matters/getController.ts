@@ -2,10 +2,16 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { FieldPrefix } from '../../../../app/case/case';
+import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
 import { C100_CHILDERN_DETAILS_CHILD_MATTERS } from '../../../urls';
+
+type listOfCheckedBoxItems = {
+  text: string;
+  checked?: string;
+}[];
 
 @autobind
 export default class AddChildernMatter extends GetController {
@@ -47,6 +53,21 @@ export default class AddChildernMatter extends GetController {
       const checkIfDecisionMade = childDetails?.childMatter?.isDecisionTaken;
       const postURL = `${C100_CHILDERN_DETAILS_CHILD_MATTERS}?childId=${childId}`;
 
+      let listOfItems: listOfCheckedBoxItems = [
+        {
+          text: 'Decide who theylive with',
+        },
+      ];
+
+      if (checkIfDecisionMade === YesOrNo.YES) {
+        listOfItems = [
+          {
+            text: 'Decide who theylive with',
+            checked: 'true',
+          },
+        ];
+      }
+
       res.render(this.view, {
         ...content,
         sessionErrors,
@@ -58,6 +79,7 @@ export default class AddChildernMatter extends GetController {
         checkIfDecisionMade,
         childId,
         postURL,
+        listOfItems,
       });
     }
   }

@@ -1,13 +1,5 @@
-import { CaseDate } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { covertToDateObject } from '../../../../app/form/parser';
-import {
-  areDateFieldsFilledIn,
-  isDateInputInvalid,
-  isFieldFilledIn,
-  isFutureDate,
-} from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -62,112 +54,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    childDateOfBirth: {
-      type: 'date',
-      classes: 'govuk-date-input',
-      label: l => l.label,
-      hint: l => l.hint,
-      labelSize: 's',
-      values: [
-        {
-          label: l => l.dateFormat['day'],
-          name: 'day',
-          classes: 'govuk-input--width-2',
-          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-        {
-          label: l => l.dateFormat['month'],
-          name: 'month',
-          classes: 'govuk-input--width-2',
-          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-        {
-          label: l => l.dateFormat['year'],
-          name: 'year',
-          classes: 'govuk-input--width-4',
-          attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-      ],
-      parser: body => covertToDateObject('childDateOfBirth', body as Record<string, unknown>),
-      validator: value =>
-        areDateFieldsFilledIn(value as CaseDate) ||
-        isDateInputInvalid(value as CaseDate) ||
-        isFutureDate(value as CaseDate),
-    },
-    apDateOfBirth: {
-      type: 'checkboxes',
-      classes: 'govuk-checkboxes--small',
-      values: [
-        {
-          name: 'isDopKnown',
-          label: l => l.approximateCheckboxLabel,
-          value: 'Yes',
-          subFields: {
-            apDateOfBirth: {
-              type: 'date',
-              classes: 'govuk-date-input',
-              label: 'Approximate date of birth',
-              labelSize: 's',
-              values: [
-                {
-                  label: l => l.dateFormat['day'],
-                  name: 'day',
-                  classes: 'govuk-input--width-2',
-                  attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-                },
-                {
-                  label: l => l.dateFormat['month'],
-                  name: 'month',
-                  classes: 'govuk-input--width-2',
-                  attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-                },
-                {
-                  label: l => l.dateFormat['year'],
-                  name: 'year',
-                  classes: 'govuk-input--width-4',
-                  attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-                },
-              ],
-              parser: body => covertToDateObject('apDateOfBirth', body as Record<string, unknown>),
-              validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
-            },
-          },
-        },
-      ],
-    },
-    childSex: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.childSexLabel,
-      labelSize: 'm',
-      values: [
-        {
-          label: l => l.male,
-          value: 'Male',
-          selected: true,
-        },
-        {
-          label: l => l.female,
-          value: 'Female  ',
-        },
-        {
-          label: l => l.unspecified,
-          value: 'Unspecified',
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-  },
-  submit: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
+  fields: {},
 };
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();

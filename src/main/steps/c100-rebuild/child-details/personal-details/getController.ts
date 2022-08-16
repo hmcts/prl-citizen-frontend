@@ -2,9 +2,11 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { FieldPrefix } from '../../../../app/case/case';
+import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
+import { C100_CHILDERN_DETAILS_PERSONAL_DETAILS } from '../../../urls';
 
 @autobind
 export default class Personaldetails extends GetController {
@@ -43,13 +45,51 @@ export default class Personaldetails extends GetController {
       }
       super.clearConfidentialitySessionSaveData(req);
 
-      const sexOfChild = childDetails?.personalDetails?.Sex;
+      /**  @Child DOB Information */
       const dobOfchild = childDetails?.personalDetails?.DateoBirth?.split('/');
       const dob = {
         year: dobOfchild?.[2],
         month: dobOfchild?.[1],
         day: dobOfchild?.[0],
       };
+
+      /**  @Child Approx Information */
+      const approxDobOfchild = childDetails?.personalDetails?.ApproximateDateOfBirth?.split('/');
+      const approxDOB = {
+        year: approxDobOfchild?.[2],
+        month: approxDobOfchild?.[1],
+        day: approxDobOfchild?.[0],
+      };
+
+      const postURL = `${C100_CHILDERN_DETAILS_PERSONAL_DETAILS}?childId=${childId}`;
+
+      let childSex: { value: string; text: string; checked?: string }[] = [
+        {
+          value: 'female',
+          text: 'Female',
+        },
+        {
+          value: 'male',
+          text: 'Male',
+        },
+        {
+          value: 'unspecified',
+          text: 'Unspecified',
+        },
+      ];
+      if (childDetails?.personalDetails?.Sex) {
+        childSex = childSex.map(allSexes => {
+          if (allSexes.value === childDetails?.personalDetails?.Sex) {
+            return { ...allSexes, checked: 'true' };
+          }
+          return allSexes;
+        });
+      }
+
+      let isDateOfBirthKnown = YesOrNo.NO;
+      if (childDetails?.['personalDetails']?.['isDateOfBirthKnown']) {
+        isDateOfBirthKnown = childDetails?.['personalDetails']?.['isDateOfBirthKnown'];
+      }
 
       res.render(this.view, {
         ...content,
@@ -59,8 +99,11 @@ export default class Personaldetails extends GetController {
         formaction: req.originalUrl,
         listedChildern: req.session.settings.ListOfChild,
         childDetails,
-        sexOfChild,
+        childSex,
         dob,
+        postURL,
+        approxDOB,
+        isDateOfBirthKnown,
       });
     }
   }
