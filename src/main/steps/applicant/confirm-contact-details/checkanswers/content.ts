@@ -3,6 +3,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 import { summaryList } from '../../../common/summary/utils';
+import { generateContent as checkAnswersGenerateContent } from '../../../common/confirm-contact-details/checkanswers/content';
+
 import {
   APPLICANT_ADDRESS_HISTORY,
   APPLICANT_CONTACT_DETAILS,
@@ -108,10 +110,10 @@ const languages = {
   cy,
 };
 
+export { form } from '../../../common/confirm-contact-details/checkanswers/content';
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const checkAnswersContent = checkAnswersGenerateContent(content);
   return {
-    ...translations,
-    form,
+    ...checkAnswersContent,
   };
 };

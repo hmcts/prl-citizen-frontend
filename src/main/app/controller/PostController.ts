@@ -91,7 +91,6 @@ export class PostController<T extends AnyObject> {
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     try {
-      console.log(eventName);
       Object.assign(req.session.userCase, formData);
       // call here to get the case details //
       const caseworkerUser = await getSystemUser();
