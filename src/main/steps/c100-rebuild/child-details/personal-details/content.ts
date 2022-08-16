@@ -148,7 +148,6 @@ export const form: FormContent = {
         {
           label: l => l.male,
           value: 'Male',
-          selected: true,
         },
         {
           label: l => l.female,

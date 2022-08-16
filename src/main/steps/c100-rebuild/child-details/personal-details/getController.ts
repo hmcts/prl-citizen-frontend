@@ -25,6 +25,7 @@ export default class Personaldetails extends GetController {
       res.render('error');
     } else {
       const { childId } = req.query;
+      console.log(req.session.settings.ListOfChild);
       const childDetails = req.session.settings.ListOfChild.filter(child => child.id === childId)[0];
 
       const language = super.getPreferredLanguage(req) as Language;
@@ -43,14 +44,6 @@ export default class Personaldetails extends GetController {
       }
       super.clearConfidentialitySessionSaveData(req);
 
-      const sexOfChild = childDetails?.personalDetails?.Sex;
-      const dobOfchild = childDetails?.personalDetails?.DateoBirth?.split('/');
-      const dob = {
-        year: dobOfchild?.[2],
-        month: dobOfchild?.[1],
-        day: dobOfchild?.[0],
-      };
-
       res.render(this.view, {
         ...content,
         sessionErrors,
@@ -59,8 +52,6 @@ export default class Personaldetails extends GetController {
         formaction: req.originalUrl,
         listedChildern: req.session.settings.ListOfChild,
         childDetails,
-        sexOfChild,
-        dob,
       });
     }
   }

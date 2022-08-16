@@ -48,7 +48,7 @@ export type childernDetails = {
   };
 };
 
-export interface ApplicationSettings {
+interface ApplicationSettings {
   toggleChild: number;
   ListOfChild: childernDetails[];
 }

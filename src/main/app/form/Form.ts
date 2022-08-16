@@ -1,4 +1,3 @@
-import { ApplicationSettings } from '../../app/controller/AppRequest';
 import { SummaryListContent } from '../../steps/common/models/summaryListContent';
 import { Case, CaseDate, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
@@ -118,7 +117,6 @@ export type ValidationCheck = (
 ) => void | string;
 export type FormFields = Record<string, FormField>;
 export type FormFieldsFn = (userCase: Partial<Case>) => FormFields;
-export type FormSettingFieldsFn = (childDetails: Partial<ApplicationSettings>) => FormFields;
 
 export interface FormContent {
   accessCodeCheck?: {
@@ -150,7 +148,7 @@ export interface FormContent {
     classes?: string;
   };
 
-  fields: FormFields | FormFieldsFn | FormSettingFieldsFn;
+  fields: FormFields | FormFieldsFn;
 }
 
 export type FormField = FormInput | FormOptions;

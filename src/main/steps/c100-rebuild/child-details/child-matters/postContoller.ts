@@ -21,14 +21,13 @@ export default class AddChildernMatter extends PostController<AnyObject> {
 
     if (req.query.hasOwnProperty('childId')) {
       const { childId } = req.query;
+      console.log(req.body);
       const matchChildIndex = req.session.settings.ListOfChild.findIndex(child => child.id === childId);
       if (matchChildIndex > -1) {
-        console.log(req.body);
         const isDecisionTaken = req.body.isDecisionTaken !== '' ? YesOrNo.YES : YesOrNo.NO;
         req.session.settings.ListOfChild[matchChildIndex].childMatter = {
           isDecisionTaken,
         };
-
         const redirectUrl = C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
         super.redirect(req, res, redirectUrl);
       } else {

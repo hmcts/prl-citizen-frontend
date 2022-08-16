@@ -5,7 +5,6 @@ import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
-import { C100_CHILDERN_DETAILS_CHILD_MATTERS } from '../../../urls';
 
 @autobind
 export default class AddChildernMatter extends GetController {
@@ -44,9 +43,6 @@ export default class AddChildernMatter extends GetController {
       }
       super.clearConfidentialitySessionSaveData(req);
 
-      const checkIfDecisionMade = childDetails?.childMatter?.isDecisionTaken;
-      const postURL = `${C100_CHILDERN_DETAILS_CHILD_MATTERS}?childId=${childId}`;
-
       res.render(this.view, {
         ...content,
         sessionErrors,
@@ -55,9 +51,6 @@ export default class AddChildernMatter extends GetController {
         formaction: req.originalUrl,
         listedChildern: req.session.settings.ListOfChild,
         childDetails,
-        checkIfDecisionMade,
-        childId,
-        postURL,
       });
     }
   }
