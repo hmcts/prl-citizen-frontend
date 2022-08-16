@@ -16,9 +16,10 @@ module.exports = {
 
   async loginAsCitizen() {
     try {
+      I.wait('4');
+     /* await I.retry(retryCount).amOnPage(`${process.env.PRL_CITIZEN_URL}`);
       await I.retry(retryCount).click('Accept additional cookies');
-      I.wait('1');
-      await I.retry(retryCount).click('#cookie-accept-all-success-banner-hide');
+      await I.retry(retryCount).click('#cookie-accept-all-success-banner-hide'); */
       await I.runAccessibilityTest();
       await I.retry(retryCount).fillField(this.fields.email, config.citizenFrontEnd.email);
       await I.retry(retryCount).fillField(this.fields.password, config.citizenFrontEnd.password);
