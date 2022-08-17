@@ -11,15 +11,18 @@ const enContent = {
   },
   keys: {
     languageRequirements: 'Do you have any language requirements?',
+    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
   },
   fieldType: {
     languageRequirements: 'String',
+    languageDetails: 'String',
   },
   errors: {},
 };
 
 const urls = {
   languageRequirements: CA_DA_LANGUAGE_REQUIREMENTS,
+  languageDetails: CA_DA_LANGUAGE_REQUIREMENTS,
 };
 
 describe('common > summary > utils', () => {
@@ -41,6 +44,19 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'Do you have any language requirements?' },
+              value: {},
+            },
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/ca-da-respondent/support-you-need-during-case/language-requirements',
+                    text: 'Edit',
+                    visuallyHiddenText: 'Give details of the language you require (including dialect, if applicable)',
+                  },
+                ],
+              },
+              key: { text: 'Give details of the language you require (including dialect, if applicable)' },
               value: {},
             },
           ],
