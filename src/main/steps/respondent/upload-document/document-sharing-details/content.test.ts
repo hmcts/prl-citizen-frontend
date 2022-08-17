@@ -1,44 +1,24 @@
+import config from 'config';
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-const enContent = {
-  section: ' ',
-  title: 'Do the children live outside of England or Wales?',
-  one: 'Yes',
-  two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
-  summaryText: 'Contacts for help',
+const docsEmail: string = config.get('services.citizen.uploadDocsEmail');
+
+const en = {
+  section: 'How your documents will be shared',
+  email: docsEmail,
   continue: 'Continue',
-  errors: {
-    start: {
-      required: 'Please select one of the options before proceeding further',
-    },
-    iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
-    },
-  },
 };
 
-const cyContent = {
-  section: ' ',
-  title: 'Do the children live outside of England or Wales?',
-  one: 'Yes',
-  two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
-  summaryText: 'Contacts for help',
+const cy: typeof en = {
+  section: 'How your documents will be shared',
+  email: docsEmail,
   continue: 'Continue',
-  errors: {
-    start: {
-      required: 'Please select one of the options before proceeding further',
-    },
-    iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
-    },
-  },
 };
+
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
@@ -54,26 +34,26 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('Do the children live outside of England or Wales?');
-    expect(generatedContent.section).toEqual(' ');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
+    expect(generatedContent.title).toEqual('');
+    expect(generatedContent.email).toEqual(config.get('services.citizen.uploadDocsEmail'));
+    expect(generatedContent.section).toEqual('How your documents will be shared');
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content Data', () => {
-    languageAssertions('en', enContent, () => generateContent(commonContent));
+    languageAssertions('en', en, () => generateContent(commonContent));
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
+    languageAssertions('cy', en, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
   test('should contain detailsKnown field', () => {
     const detailsKnownField = fields.start as FormOptions;
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
-    expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((detailsKnownField.section as Function)(generatedContent)).toBe(en.section);
   });
 
   test('should contain continue button', () => {

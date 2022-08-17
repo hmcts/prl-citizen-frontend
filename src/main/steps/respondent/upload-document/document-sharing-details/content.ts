@@ -2,13 +2,16 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
+
 const en = {
   section: 'How your documents will be shared',
+  email: 'docsEmail',
   continue: 'Continue',
 };
 
 const cy: typeof en = {
   section: 'How your documents will be shared',
+  email: 'docsEmail',
   continue: 'Continue',
 };
 

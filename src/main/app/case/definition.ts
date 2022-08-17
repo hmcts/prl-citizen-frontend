@@ -1,4 +1,4 @@
-import { CaseDate } from "./case";
+import { CaseDate, FieldPrefix } from "./case";
 
 export interface ChildDetails {
   gender: string;
@@ -636,6 +636,24 @@ export interface CaseData {
   /** upload document fields */
   applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
   /**  */
+
+  applicant1Address1?: string;
+  applicant1Address2?: string;
+  applicant1AddressTown?: string;
+  applicant1ContactDetailsConsent?: YesOrNo;
+  applicant1EmailAddress?: string;
+  applicant1PhoneNumber?: string;  
+  applicant1FullName?: string;
+  applicant1FirstNames?: string;
+  applicant1LastNames?: string;
+  applicant1HasOtherNames?: YesOrNo;
+  applicant1Occupation?: string;
+  applicant1PlaceOfBirth?: string; 
+  serviceType: string; 
+  claimNumber?: string;
+  caseCode?: string;
+  citizenRole?: FieldPrefix;
+  respondentLastName?: string;
 }
 
 export const enum State {

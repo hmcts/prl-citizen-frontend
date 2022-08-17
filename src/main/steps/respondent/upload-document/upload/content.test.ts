@@ -1,43 +1,26 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-const enContent = {
-  section: ' ',
-  title: 'Do the children live outside of England or Wales?',
-  one: 'Yes',
-  two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
-  summaryText: 'Contacts for help',
-  continue: 'Continue',
-  errors: {
-    start: {
-      required: 'Please select one of the options before proceeding further',
-    },
-    iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
-    },
-  },
+
+const en = {
+  section: 'Provide the document',
+  title: 'Provide the documents',
+  continue: 'Save and continue',
+  add: 'Submit',
+  uploadFiles: 'Uploaded documents',
+  remove: 'Remove',
 };
 
-const cyContent = {
-  section: ' ',
-  title: 'Do the children live outside of England or Wales?',
-  one: 'Yes',
-  two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
-  summaryText: 'Contacts for help',
-  continue: 'Continue',
-  errors: {
-    start: {
-      required: 'Please select one of the options before proceeding further',
-    },
-    iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
-    },
-  },
+const cy: typeof en = {
+  section: 'Provide the document',
+  title: 'Provide the documents',
+  continue: 'Save and continue',
+  add: 'Submit',
+  uploadFiles: 'Uploaded documents',
+  remove: 'Remove',
 };
 
 jest.mock('../../../../app/form/validation');
@@ -46,38 +29,31 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   let form;
-  let fields;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
-    fields = form.fields as FormFields;
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('Do the children live outside of England or Wales?');
-    expect(generatedContent.section).toEqual(' ');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
+    expect(generatedContent.title).toEqual('Provide the documents');
+    expect(generatedContent.section).toEqual('Provide the document');
+    expect(generatedContent.add).toEqual('Submit');
+    expect(generatedContent.uploadFiles).toEqual('uploadFiles');
+    expect(generatedContent.remove).toEqual('Remove');
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content Data', () => {
-    languageAssertions('en', enContent, () => generateContent(commonContent));
+    languageAssertions('en', en, () => generateContent(commonContent));
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
-  });
-
-  test('should contain detailsKnown field', () => {
-    const detailsKnownField = fields.start as FormOptions;
-    expect(detailsKnownField.type).toBe('radios');
-    expect(detailsKnownField.classes).toBe('govuk-radios');
-    expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
   test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
