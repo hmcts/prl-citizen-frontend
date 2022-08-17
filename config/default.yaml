@@ -24,7 +24,7 @@ services:
     #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     #checkDivCases: true
   cos:
-    url: 'http://prl-cos-pr-476-java'
+    url: 'https://prl-cos-pr-476.service.core-compute-preview.internal'
   documentManagement:
     url: 'http://ccd-case-document-am-api-prl-ccd-definitions-pr-502.service.core-compute-preview.internal'
     checkDivCases: true
