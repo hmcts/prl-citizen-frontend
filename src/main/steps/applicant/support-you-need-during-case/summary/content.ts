@@ -14,26 +14,6 @@ import {
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
 } from '../../../../steps/urls';
 
-const fieldType = {
-  languageRequirements: 'String',
-  languageDetails: 'String',
-  reasonableAdjustments: 'String',
-  docsSupport: 'String',
-  otherDetails: 'String',
-  helpCommunication: 'String',
-  describeOtherNeed: 'String',
-  courtHearing: 'String',
-  communicationSupportOther: 'String',
-  courtComfort: 'String',
-  otherProvideDetails: 'String',
-  travellingToCourt: 'String',
-  travellingOtherDetails: 'String',
-  unableForCourtProceedings: 'String',
-  courtProceedingProvideDetails: 'String',
-  safetyArrangements: 'String',
-  safetyArrangementsDetails: 'String',
-};
-
 export const enContent = {
   section: 'Check your answers',
   title: 'Your hearing needs and requirements',
@@ -107,7 +87,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou, fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
   };
 };
 
@@ -203,7 +183,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou, fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
   };
 };
 

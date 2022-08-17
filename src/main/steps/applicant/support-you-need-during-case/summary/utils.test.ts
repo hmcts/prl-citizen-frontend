@@ -47,7 +47,7 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(summaryList(enContent, userCase, urls, 'About you', enContent.fieldType, 'en')).toStrictEqual(expected);
+      expect(summaryList(enContent, userCase, urls, 'About you')).toStrictEqual(expected);
     });
   });
 });
