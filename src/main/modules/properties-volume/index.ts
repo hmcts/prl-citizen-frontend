@@ -33,7 +33,7 @@ export class PropertiesVolume {
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
       this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
       this.setLocalSecret('idam-solicitor-password', 'services.idam.systemPassword');
-      this.setLocalSecret('citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
+      this.setSecret('citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
       // this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
       // this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
       // this.setLocalEndpoints();
