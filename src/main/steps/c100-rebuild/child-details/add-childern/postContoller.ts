@@ -57,6 +57,15 @@ export default class AddChilderns extends PostController<AnyObject> {
           break;
 
         case 'continue':
+          if (req['body']['firstname-1'] === '') {
+            req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
+            super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            break;
+          } else if (req['body']['lastname-1'] === '') {
+            req.session.errors = [{ propertyName: 'lastname-1', errorType: 'required' }];
+            super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            break;
+          }
           for (const [key, value] of Object.entries(req['body'])) {
             if ((key.includes('firstname') || key.includes('lastname')) && key.includes('_cid')) {
               this.addChildCommonLogic(req, key, value, 'update');
