@@ -1,4 +1,4 @@
-import { DOCUMENT_MANAGER } from '../../../steps/urls';
+//import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById, hidden } from '../selectors';
 
 import type { UploadedFiles } from './UploadedFiles';
@@ -6,6 +6,19 @@ import type { UploadedFiles } from './UploadedFiles';
 const noFilesUploadedEl = getById('noFilesUploaded');
 const filesUploadedEl = getById('filesUploaded');
 //const content = JSON.parse(getById('uploadContent')?.textContent || '{}');
+
+export class RemoveUploadFileLinkEvent{
+  constructor(uploadedFiles: UploadedFiles, index : Number) {
+    const removeUploadfileButtonEl : HTMLAnchorElement | null = document.querySelector(`.remove-link${index}`);
+    if (removeUploadfileButtonEl) {
+      removeUploadfileButtonEl.onclick = function (e) {
+        uploadedFiles.documents.splice(Number(removeUploadfileButtonEl.id),1);
+        updateFileList(uploadedFiles);
+      };
+    }
+  }
+}
+
 
 export const updateFileList = (uploadedFiles: UploadedFiles): void => {
   if (noFilesUploadedEl) {
@@ -18,7 +31,7 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
 
   if (filesUploadedEl) {
     filesUploadedEl.innerHTML = '';
-    let i = 1;
+    let i = 0;
 
     for (const file of uploadedFiles) {
       const fileEl = document.createElement('dl');
@@ -38,9 +51,9 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
         const fileRemoveEl = document.createElement('dd');
         fileRemoveEl.classList.add('govuk-summary-list__actions');
         const deleteEl = document.createElement('a');
-        deleteEl.classList.add('govuk-link--no-visited-state');
-        deleteEl.id = `Delete${i}`;
-        deleteEl.href = `${DOCUMENT_MANAGER}/delete/${i - 1}`;
+        deleteEl.classList.add('govuk-link--no-visited-state',`remove-link${i}`);
+        deleteEl.id = `${i}`;
+        deleteEl.href = `#`;
         deleteEl.textContent = 'Remove';
         deleteEl.setAttribute('aria-labelledby', `Delete${i} Document${i}`);
         fileRemoveEl.appendChild(deleteEl);
@@ -53,7 +66,10 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
       //}
 
       filesUploadedEl.appendChild(fileEl);
+
+      new RemoveUploadFileLinkEvent(uploadedFiles, i);
       i++;
     }
   }
+  
 };
