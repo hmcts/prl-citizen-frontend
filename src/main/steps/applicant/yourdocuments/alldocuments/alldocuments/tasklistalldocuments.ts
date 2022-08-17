@@ -61,81 +61,81 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) =>
     applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, userCase));
     applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems));
   }
+  applicantItems.push({
+    id: 'other_people_witness_statements',
+    text: getText(taskListItems.other_people_witness_statements, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.OTHER_PEOPLE_WITNESS_STATEMENTS : '#',
+  });
+  applicantItems.push({
+    id: 'medical_reports',
+    text: getText(taskListItems.medical_reports, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MEDICAL_REPORTS : '#',
+  });
+  if (userCase.miamCertificationDocumentUpload) {
+    applicantItems.push({
+      id: 'miam_certificate',
+      text: getText(taskListItems.miam_certificate, userCase),
+      href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MIAM_CERTIFICATE : '#',
+    });
+  }
+  applicantItems.push({
+    id: 'applications_made_in_these_proceedings',
+    text: getText(taskListItems.applications_made_in_these_proceedings, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_APP_MADE_IN_PRCEEDINGS : '#',
+  });
+  applicantItems.push({
+    id: 'previous_orders_submitted',
+    text: getText(taskListItems.previous_orders_submitted, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_PREVIOUS_ORDERS_SUBMITTED : '#',
+  });
+  applicantItems.push({
+    id: 'letters_from_school',
+    text: getText(taskListItems.letters_from_school, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_LETTER_FROM_SCHOOL : '#',
+  });
+  applicantItems.push({
+    id: 'digital_downloads',
+    text: getText(taskListItems.digital_downloads, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_DIGITAL_DOWNLOADS : '#',
+  });
+  applicantItems.push({
+    id: 'photographic_evidence',
+    text: getText(taskListItems.photographic_evidence, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_PHOTOGRAPHIC_EVIDENCE : '#',
+  });
+  applicantItems.push({
+    id: 'mobile_phone_screenshots',
+    text: getText(taskListItems.mobile_phone_screenshots, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MOBILE_SCREENSHOTS : '#',
+  });
+  applicantItems.push({
+    id: 'medical_records',
+    text: getText(taskListItems.medical_records, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MEDICAL_RECORDS : '#',
+  });
+  applicantItems.push({
+    id: 'paternity_test_reports',
+    text: getText(taskListItems.paternity_test_reports, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_PATERNITY_TEST_REPORTS : '#',
+  });
+  applicantItems.push({
+    id: 'drug_alcohol_tests',
+    text: getText(taskListItems.drug_alcohol_tests, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_DRUG_ALCOHOL_TESTS : '#',
+  });
+  applicantItems.push({
+    id: 'police_disclosures',
+    text: getText(taskListItems.police_disclosures, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_POLICE_DISCLOSURE : '#',
+  });
+  applicantItems.push({
+    id: 'witness_availability',
+    text: getText(taskListItems.witness_availability, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_WITNESS_AVAILABILITY : '#',
+  });
   return {
     title: sectionTitles.applicantsDocuments,
-    items: [
-      ...applicantItems,
-      {
-        id: 'other_people_witness_statements',
-        text: getText(taskListItems.other_people_witness_statements, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.OTHER_PEOPLE_WITNESS_STATEMENTS : '#',
-      },
-      {
-        id: 'medical_reports',
-        text: getText(taskListItems.medical_reports, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MEDICAL_REPORTS : '#',
-      },
-      {
-        id: 'miam_certificate',
-        text: getText(taskListItems.miam_certificate, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MIAM_CERTIFICATE : '#',
-      },
-      {
-        id: 'applications_made_in_these_proceedings',
-        text: getText(taskListItems.applications_made_in_these_proceedings, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_APP_MADE_IN_PRCEEDINGS : '#',
-      },
-      {
-        id: 'previous_orders_submitted',
-        text: getText(taskListItems.previous_orders_submitted, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_PREVIOUS_ORDERS_SUBMITTED : '#',
-      },
-      {
-        id: 'letters_from_school',
-        text: getText(taskListItems.letters_from_school, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_LETTER_FROM_SCHOOL : '#',
-      },
-      {
-        id: 'digital_downloads',
-        text: getText(taskListItems.digital_downloads, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_DIGITAL_DOWNLOADS : '#',
-      },
-      {
-        id: 'photographic_evidence',
-        text: getText(taskListItems.photographic_evidence, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_PHOTOGRAPHIC_EVIDENCE : '#',
-      },
-      {
-        id: 'mobile_phone_screenshots',
-        text: getText(taskListItems.mobile_phone_screenshots, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MOBILE_SCREENSHOTS : '#',
-      },
-      {
-        id: 'medical_records',
-        text: getText(taskListItems.medical_records, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MEDICAL_RECORDS : '#',
-      },
-      {
-        id: 'paternity_test_reports',
-        text: getText(taskListItems.paternity_test_reports, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_PATERNITY_TEST_REPORTS : '#',
-      },
-      {
-        id: 'drug_alcohol_tests',
-        text: getText(taskListItems.drug_alcohol_tests, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_DRUG_ALCOHOL_TESTS : '#',
-      },
-      {
-        id: 'police_disclosures',
-        text: getText(taskListItems.police_disclosures, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_POLICE_DISCLOSURE : '#',
-      },
-      {
-        id: 'witness_availability',
-        text: getText(taskListItems.witness_availability, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_WITNESS_AVAILABILITY : '#',
-      },
-    ],
+    items: applicantItems,
   };
 };
 
@@ -166,77 +166,77 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase) =
     respondentItems2.push(getRespondentWitnessStatementsDA(userCase.respondentsFL401, taskListItems, userCase));
   }
 
+  respondentItems.push({
+    id: 'applications_made_in_these_proceedings_respondent',
+    text: getText(taskListItems.applications_made_in_these_proceedings_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_APP_MADE_IN_PRCEEDINGS : '#',
+  });
+  respondentItems.push({
+    id: 'previous_orders_submitted_respondent',
+    text: getText(taskListItems.previous_orders_submitted_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_PREVIOUS_ORDERS_SUBMITTED : '#',
+  });
+  respondentItems.push({
+    id: 'letters_from_school_respondent',
+    text: getText(taskListItems.letters_from_school_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_LETTER_FROM_SCHOOL : '#',
+  });
+
+
+  respondentItems2.push({
+    id: 'other_people_witness_statements_respondent',
+    text: getText(taskListItems.other_people_witness_statements_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_OTHER_PEOPLE_WITNESS_STATEMENTS : '#',
+  });
+  respondentItems2.push({
+    id: 'digital_downloads_respondent',
+    text: getText(taskListItems.digital_downloads_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_DIGITAL_DOWNLOADS : '#',
+  });
+  respondentItems2.push({
+    id: 'photographic_evidence_respondent',
+    text: getText(taskListItems.photographic_evidence_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_PHOTOGRAPHIC_EVIDENCE : '#',
+  });
+  respondentItems2.push({
+    id: 'mobile_phone_screenshots_respondent',
+    text: getText(taskListItems.mobile_phone_screenshots_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_MOBILE_SCREENSHOTS : '#',
+  });
+  respondentItems2.push({
+    id: 'medical_records_respondent',
+    text: getText(taskListItems.medical_records_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_MEDICAL_RECORDS : '#',
+  });
+  respondentItems2.push({
+    id: 'medical_reports_respondent',
+    text: getText(taskListItems.medical_reports_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_MEDICAL_REPORTS : '#',
+  });
+  respondentItems2.push({
+    id: 'paternity_test_reports_respondent',
+    text: getText(taskListItems.paternity_test_reports_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_PATERNITY_TEST_REPORTS : '#',
+  });
+  respondentItems2.push({
+    id: 'drug_alcohol_tests_respondent',
+    text: getText(taskListItems.drug_alcohol_tests_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_DRUG_ALCOHOL_TESTS : '#',
+  });
+  respondentItems2.push({
+    id: 'police_disclosures_respondent',
+    text: getText(taskListItems.police_disclosures_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_POLICE_DISCLOSURE : '#',
+  });
+  respondentItems2.push({
+    id: 'witness_availability_respondent',
+    text: getText(taskListItems.witness_availability_respondent, userCase),
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_WITNESS_AVAILABILITY : '#',
+  });
+
   return {
     title: sectionTitles.respondentsDocuments,
-    items: [
-      ...respondentItems,
-      {
-        id: 'applications_made_in_these_proceedings_respondent',
-        text: getText(taskListItems.applications_made_in_these_proceedings_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_APP_MADE_IN_PRCEEDINGS : '#',
-      },
-      {
-        id: 'previous_orders_submitted_respondent',
-        text: getText(taskListItems.previous_orders_submitted_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_PREVIOUS_ORDERS_SUBMITTED : '#',
-      },
-      {
-        id: 'letters_from_school_respondent',
-        text: getText(taskListItems.letters_from_school_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_LETTER_FROM_SCHOOL : '#',
-      },
-      ...respondentItems2,
-      {
-        id: 'other_people_witness_statements_respondent',
-        text: getText(taskListItems.other_people_witness_statements_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_OTHER_PEOPLE_WITNESS_STATEMENTS : '#',
-      },
-      {
-        id: 'digital_downloads_respondent',
-        text: getText(taskListItems.digital_downloads_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_DIGITAL_DOWNLOADS : '#',
-      },
-      {
-        id: 'photographic_evidence_respondent',
-        text: getText(taskListItems.photographic_evidence_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_PHOTOGRAPHIC_EVIDENCE : '#',
-      },
-      {
-        id: 'mobile_phone_screenshots_respondent',
-        text: getText(taskListItems.mobile_phone_screenshots_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_MOBILE_SCREENSHOTS : '#',
-      },
-      {
-        id: 'medical_records_respondent',
-        text: getText(taskListItems.medical_records_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_MEDICAL_RECORDS : '#',
-      },
-      {
-        id: 'medical_reports_respondent',
-        text: getText(taskListItems.medical_reports_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_MEDICAL_REPORTS : '#',
-      },
-      {
-        id: 'paternity_test_reports_respondent',
-        text: getText(taskListItems.paternity_test_reports_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_PATERNITY_TEST_REPORTS : '#',
-      },
-      {
-        id: 'drug_alcohol_tests_respondent',
-        text: getText(taskListItems.drug_alcohol_tests_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_DRUG_ALCOHOL_TESTS : '#',
-      },
-      {
-        id: 'police_disclosures_respondent',
-        text: getText(taskListItems.police_disclosures_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_POLICE_DISCLOSURE : '#',
-      },
-      {
-        id: 'witness_availability_respondent',
-        text: getText(taskListItems.witness_availability_respondent, userCase),
-        href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_WITNESS_AVAILABILITY : '#',
-      },
-    ],
+    items: [...respondentItems, ...respondentItems2],
   };
 };
 
