@@ -12,11 +12,6 @@ const en = {
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
-  errors: {
-    applicant1UploadedFiles: {
-      require: 'Please upload files and provide declaration before continue',
-    },
-  },
 };
 
 const cy: typeof en = {
@@ -26,11 +21,6 @@ const cy: typeof en = {
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
-  errors: {
-    applicant1UploadedFiles: {
-      require: 'Please upload files and provide declaration before continue',
-    },
-  },
 };
 
 const languages = {
