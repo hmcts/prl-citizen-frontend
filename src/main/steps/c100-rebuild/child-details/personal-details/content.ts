@@ -16,6 +16,12 @@ const en = () => ({
     childDateOfBirth: {
       required: 'Enter the date of birth',
     },
+    childDateOfBirthNotValid: {
+      required: 'Date of birth is not valid',
+    },
+    childDateOfBirthNotValidSubField: {
+      required: 'Date of birth is not valid',
+    },
     childSex: {
       required: 'Select the sex',
     },
@@ -38,6 +44,12 @@ const cy = () => ({
   errors: {
     childDateOfBirth: {
       required: 'Enter the date of birth  - welsh',
+    },
+    childDateOfBirthNotValid: {
+      required: 'Date of birth is not valid - welsh',
+    },
+    childDateOfBirthNotValidSubField: {
+      required: 'Date of birth is not valid - welsh',
     },
     childSex: {
       required: 'Select the sex  - welsh',

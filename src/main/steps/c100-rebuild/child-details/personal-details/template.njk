@@ -20,7 +20,7 @@
                             }) }}
 
                         {% for error in sessionErrors %}
-                        <div class=" {%- if error.propertyName == 'childDateOfBirth' %} govuk-form-group--error  {% endif %}">
+                        <div class=" {%- if error.propertyName === 'childDateOfBirth' or  error.propertyName === 'childDateOfBirthNotValid'   %}  govuk-form-group--error  {% endif %}">
                         {% endfor %}
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m"><span class="govuk-fieldset__heading">{{label}}</span></legend>
                         <div id="child-dateOfBirth-hint" class="govuk-hint">{{hint}}</div>
@@ -30,6 +30,11 @@
                                     {%- if error.propertyName == 'childDateOfBirth' %}
                                     <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error"><span class="govuk-visually-hidden">Error: </span>{{errors.childDateOfBirth.required}}</span>
                                      {%set errorTypeClassInput = " govuk-input--error"%}
+                                    {% endif %}
+
+                                     {%- if error.propertyName == 'childDateOfBirthNotValid' %}
+                                    <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error"><span class="govuk-visually-hidden">Error: </span>{{errors.childDateOfBirthNotValid.required}}</span>
+                                    {%set errorTypeClassInput = " govuk-input--error"%}
                                     {% endif %}
                                     {% endfor %}
 
@@ -145,7 +150,7 @@
                                 </fieldset>
                                 
                         {% for error in sessionErrors %}
-                        {%- if error.propertyName == 'childDateOfBirth' %}</div>  {% endif %}
+                        {%- if error.propertyName == 'childDateOfBirth' or  error.propertyName == 'childDateOfBirthNotValid' %}</div>  {% endif %}
                         {% endfor %}
                                 </div>
                                 
