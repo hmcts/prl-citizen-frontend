@@ -132,7 +132,7 @@ export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DO
 
 /* view all documents */
 /* Applicant Documents */
-export const APPLICANT_CA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/carequest`;
+export const APPLICANT_CA_DA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/cadafinaldocumentrequest`;
 export const APPLICANT_ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence`;
 export const APPLICANT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolenceresponse`;
 export const APPLICANT_POSITION_STATEMENT: PageLink = `${VIEW_ALL_DOCUMENTS}/positionstatement`;

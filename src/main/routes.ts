@@ -16,6 +16,8 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import {
   // CSRF_TOKEN_ERROR_URL,
   ACCESSIBILITY_STATEMENT,
+  APPLICANT,
+  APPLICANT_CA_DA_REQUEST,
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT,
   CONTACT_US,
@@ -48,6 +50,7 @@ export class Routes {
     const documentManagerController = new DocumentManagerController();
     app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
     app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
+    app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
 
     app.get(`${APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
     app.get(APPLICANT_MIAM_CERTIFICATE, errorHandler(documentManagerController.get));

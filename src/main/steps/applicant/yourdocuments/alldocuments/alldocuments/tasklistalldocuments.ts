@@ -42,7 +42,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) =>
   const applicantItems: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
     userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantRequestToCA(applicant, taskListItems, userCase));
+      applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
     });
     userCase.applicants.forEach((applicant: Applicant) => {
       applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
@@ -59,7 +59,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) =>
   } else {
     console.log('**** Applicants Fl401 **** ' + JSON.stringify(userCase.applicantsFL401));
 
-    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems, userCase));
+    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
     applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
     applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
     applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, userCase));
@@ -435,14 +435,14 @@ const getRespondentWitnessStatementsDA = (respondent: PartyDetails, taskListItem
   };
 };
 
-const getApplicantRequestToCA = (applicant: Applicant, taskListItems, userCase) => {
+const getApplicantRequestToCA = (applicant: Applicant, taskListItems) => {
   return {
     id: 'applicant_request_for_child_arrangements',
     text: taskListItems.applicant_request_for_child_arrangements.replace(
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_CA_REQUEST : '#',
+    href: URL.APPLICANT + URL.APPLICANT_CA_DA_REQUEST,
   };
 };
 
@@ -490,14 +490,14 @@ const getApplicantWitnessStatements = (applicant: Applicant, taskListItems) => {
   };
 };
 
-const getApplicantRequestToDA = (applicant: PartyDetails, taskListItems, userCase) => {
+const getApplicantRequestToDA = (applicant: PartyDetails, taskListItems) => {
   return {
     id: 'applicant_request_for_child_arrangements',
-    text: taskListItems.applicant_request_for_child_arrangements.replace(
+    text: taskListItems.applicant_request_for_domestic_abuse.replace(
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_CA_REQUEST : '#',
+    href: URL.APPLICANT + URL.APPLICANT_CA_DA_REQUEST,
   };
 };
 
