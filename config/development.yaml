@@ -14,7 +14,7 @@ services:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
-    citizenClientSecret: 'NEED TO INSERT SECRET'
+    citizenClientSecret: CITIZEN_IDAM_SECRET
     cosApiClientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'

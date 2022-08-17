@@ -1,3 +1,4 @@
+import { isFieldFilledIn } from '../../../../app/form/validation';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
@@ -56,6 +57,7 @@ export const form: FormContent = {
           value: 'No',
         },
       ],
+      validator: isFieldFilledIn,
     },
   },
 
