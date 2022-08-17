@@ -57,9 +57,5 @@ describe('citizen-home content', () => {
   //   expect(detailsKnownField.classes).toBe('govuk-radios');
   //   expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
   // });
-
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Go back');
-  });
 });
 /* eslint-enable @typescript-eslint/ban-types */

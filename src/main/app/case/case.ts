@@ -86,6 +86,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   miamExemptionsTable: 'miamExemptionsTable',
   isIntermediaryNeeded: 'isIntermediaryNeeded',
   allocatedJudgeDetails: 'allocatedJudgeDetails',
+  miamCertificationDocumentUpload: 'miamCertificationDocumentUpload',
   applicantAttendedMiam: 'applicantAttendedMiam',
   caseTypeOfApplication: 'caseTypeOfApplication',
   claimingExemptionMiam: 'claimingExemptionMiam',
@@ -204,6 +205,7 @@ export interface Case {
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;
+  miamCertificationDocumentUpload: PRLDocument;
   draftConsentOrderFile: DraftConsentOrderFile;
   otherProceedingsTable: OtherProceedingsTable;
   allegationsOfHarmYesNo: string;
