@@ -5,7 +5,7 @@ import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-const docsEmail: string = config.get('services.citizen.uploadDocsEmail');
+const docsEmail: string = 'test';
 
 const en = {
   section: 'How your documents will be shared',
@@ -35,7 +35,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('');
-    expect(generatedContent.email).toEqual(config.get('services.citizen.uploadDocsEmail'));
+    expect(generatedContent.email).toEqual('test);
     expect(generatedContent.section).toEqual('How your documents will be shared');
   });
 

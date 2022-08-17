@@ -11,8 +11,6 @@ services:
     clientID: IDAM_CLIENT_ID
     citizenClientSecret: CITIZEN_IDAM_SECRET
     cosApiClientSecret: COS_API_IDAM_SECRET
-  citizen:
-    uploadDocsEmail: UPLOAD_EMAIL
   case:
     url: CCD_URL
   payments:

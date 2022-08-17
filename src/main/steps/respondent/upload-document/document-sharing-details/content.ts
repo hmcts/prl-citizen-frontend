@@ -1,9 +1,8 @@
-import config from 'config';
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
-const email: string = config.get('services.citizen.uploadDocsEmail');
+const email: string = 'test';
 const en = {
   section: 'How your documents will be shared',
   email: email,
