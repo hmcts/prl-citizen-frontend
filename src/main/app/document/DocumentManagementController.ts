@@ -13,35 +13,45 @@ import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 //import { DgsApiClient } from 'app/case/DgsApiClient';
 
-import { Form } from 'app/form/Form';
+import { Form, FormFields, FormFieldsFn  } from '../form/Form';
 import { v4 as generateUuid } from 'uuid';
 import { getFilename } from '../case/formatter/uploaded-files';
+
 
 const UID_LENGTH = 36;
 @autobind
 export class DocumentManagerController {
+   
+  constructor(protected readonly fields: FormFields | FormFieldsFn) { }
+
   private getDocumentManagementClient(user: UserDetails) {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
   }
 
   public async generatePdf(req: AppRequest<Partial<CaseWithId>>,
-    res: Response,
-    form: Form,
-    formData: Partial<CaseWithId>): Promise<void> {
+    res: Response): Promise<void> {
+
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+  
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
     const caseworkerUser = await getSystemUser();
     req.session.errors = form.getErrors(formData);
-
+    console.log("inside generatePdf");  
     try {
-      if (!req.session.errors.length) {
+      //if (!req.session.errors.length) {
+        console.log("calling cosApi");
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
         const updatedCaseDataFromCos = await client.generateUserUploadedStatementDocument(
           caseworkerUser,
         );
+        console.log(updatedCaseDataFromCos);
         if (updatedCaseDataFromCos !== 'Success') {
           req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'accessCode' });
         }
-      }
+     // }
     } catch (err) {
+      console.log(err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 
