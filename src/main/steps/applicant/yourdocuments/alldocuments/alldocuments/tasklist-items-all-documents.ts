@@ -1,6 +1,7 @@
 export const applicant_tasklist_items_all_docs_en = {
   view_all_orders_from_the_court_all_docs: 'View all orders from the court',
   applicant_request_for_child_arrangements: "<nameapplicantxxxxx>'s request for child arrangements",
+  applicant_request_for_domestic_abuse: "<nameapplicantxxxxx>'s request for domestic abuse",
   applicant_allegations_of_harm_and_violence: "<nameapplicantxxxxx>'s allegations of harm and violence",
   applicant_response_to_other_side_allegation_of_harm:
     "<nameapplicantxxxxx>'s response to the other side's allegations of harm or violence",
@@ -22,6 +23,7 @@ export const applicant_tasklist_items_all_docs_en = {
   witness_availability: 'Witness availability',
   respondent_response_to_request_for_child_arrangements:
     "<namerespondentxxxxx>'s response to the request for child arrangements",
+  respondent_response_for_domestic_abuse: "<namerespondentxxxxx>'s response to the request for domestic abuse",
   respondent_response_to_allegations_of_harm_and_violence:
     "<namerespondentxxxxx>'s response to the allegations of harm and violence",
   respondent_allegation_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",

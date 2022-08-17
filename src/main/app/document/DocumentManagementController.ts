@@ -68,6 +68,16 @@ export class DocumentManagerController {
 
     let documentToGet;
     let uid;
+
+    if (filename === 'cadafinaldocumentrequest') {
+      if (!req.session.userCase.finalDocument?.document_binary_url) {
+        throw new Error('APPLICANT_CA_REQUEST binary url is not found');
+      }
+      filename = req.session.userCase.finalDocument.document_filename;
+      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
+
     if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
       if (!req.session.userCase.finalDocument?.document_binary_url) {
         throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
