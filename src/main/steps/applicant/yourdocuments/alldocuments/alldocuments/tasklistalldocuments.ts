@@ -376,7 +376,6 @@ const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, u
   };
 };
 
-
 const getResponseToDA = (respondent: PartyDetails, taskListItems, userCase) => {
   return {
     id: 'respondent_response_to_request_for_child_arrangements',
