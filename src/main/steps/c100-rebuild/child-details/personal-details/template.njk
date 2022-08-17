@@ -19,36 +19,62 @@
                             value: csrfToken
                             }) }}
 
+                        {% for error in sessionErrors %}
+                        <div class=" {%- if error.propertyName == 'childDateOfBirth' %} govuk-form-group--error  {% endif %}">
+                        {% endfor %}
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m"><span class="govuk-fieldset__heading">{{label}}</span></legend>
+                        <div id="child-dateOfBirth-hint" class="govuk-hint">{{hint}}</div>
+
+                                    {%set errorTypeClassInput = ""%}
+                                    {% for error in sessionErrors %}
+                                    {%- if error.propertyName == 'childDateOfBirth' %}
+                                    <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error"><span class="govuk-visually-hidden">Error: </span>{{errors.childDateOfBirth.required}}</span>
+                                     {%set errorTypeClassInput = " govuk-input--error"%}
+                                    {% endif %}
+                                    {% endfor %}
 
                            {{ govukDateInput({
                                 id: "child-dateOfBirth",
                                 namePrefix: "child-dateOfBirth",
                                 fieldset: {
                                     legend: {
-                                    text: "Date of birth",
+                                    text: "",
                                     isPageHeading: true,
                                     classes: "govuk-fieldset__legend--s"
                                     }
                                 },
-                                hint: {
-                                    text: hint
-                                },
                                 items: [
                                         {
                                         name: "day",
-                                        classes: "govuk-input--width-2",
+                                        classes: "govuk-input--width-2" + errorTypeClassInput,
                                         autocomplete: "bday-day",
+                                        attributes: {
+                                                maxLength: 2, 
+                                                pattern: '[0-9]*', 
+                                                inputMode: 'numeric'
+                                        },
                                         value: dob['day']
+                                        
                                         },
                                         {
                                         name: "month",
-                                        classes: "govuk-input--width-2",
+                                        classes: "govuk-input--width-2" + errorTypeClassInput,
                                         autocomplete: "bday-month",
+                                        attributes: {
+                                                maxLength: 2, 
+                                                pattern: '[0-9]*', 
+                                                inputMode: 'numeric'
+                                        },
                                         value: dob['month']
                                         },
                                         {
                                         name: "year",
-                                        classes: "govuk-input--width-4",
+                                        classes: "govuk-input--width-4" + errorTypeClassInput,
+                                        attributes: {
+                                                maxLength: 4, 
+                                                pattern: '[0-9]*', 
+                                                inputMode: 'numeric'
+                                        },
                                         autocomplete: "bday-year",
                                         value: dob['year']
                                         }
@@ -75,7 +101,7 @@
                                                         legend: {
                                                         text: "Approximate date of birth",
                                                         isPageHeading: true,
-                                                        classes: "govuk-fieldset__legend--s"
+                                                        classes: "govuk-fieldset__legend--s govuk-!-padding-top-4"
                                                         }
                                                     },
                                                     items: [
@@ -83,18 +109,33 @@
                                                             name: "day",
                                                             classes: "govuk-input--width-2",
                                                             autocomplete: "bday-day",
+                                                             attributes: {
+                                                                    maxLength: 2, 
+                                                                    pattern: '[0-9]*', 
+                                                                    inputMode: 'numeric'
+                                                            },
                                                             value: approxDOB['day']
                                                             },
                                                             {
                                                             name: "month",
                                                             classes: "govuk-input--width-2",
                                                             autocomplete: "bday-month",
+                                                               attributes: {
+                                                                    maxLength: 2, 
+                                                                    pattern: '[0-9]*', 
+                                                                    inputMode: 'numeric'
+                                                            },
                                                             value: approxDOB['month']
                                                             },
                                                             {
                                                             name: "year",
                                                             classes: "govuk-input--width-4",
                                                             autocomplete: "bday-year",
+                                                               attributes: {
+                                                                    maxLength: 4, 
+                                                                    pattern: '[0-9]*', 
+                                                                    inputMode: 'numeric'
+                                                            },
                                                             value: approxDOB['year']
                                                             }
                                                         ]
@@ -102,22 +143,39 @@
                                         </div>
                                     </div>
                                 </fieldset>
+                                
+                        {% for error in sessionErrors %}
+                        {%- if error.propertyName == 'childDateOfBirth' %}</div>  {% endif %}
+                        {% endfor %}
                                 </div>
+                                
+                                   {% for error in sessionErrors %}
+                                    <div class=" {%- if error.propertyName == 'childSex' %} govuk-form-group--error  {% endif %}">
+                                    {% endfor %}
+                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m"><span class="govuk-fieldset__heading">{{childSexLabel}}</span></legend>
+                                  {% for error in sessionErrors %}
+                                    {%- if error.propertyName == 'childSex' %}
+                                    <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error"><span class="govuk-visually-hidden">Error: </span>{{errors.childSex.required}}</span>
+                                    {% endif %}
+                                      {% endfor %}
 
+                               
                                 {{ govukRadios({
-                                    idPrefix: "child-sex",
+                                    idPrefix: "childSex",
                                     name: "Sex",
                                     fieldset: {
                                         legend: {
-                                        text: childSexLabel,
+                                        text: '',
                                         isPageHeading: true,
                                         classes: "govuk-fieldset__legend--m"
                                         }
                                     },
                                     items: childSex
                                     }) }}
-
-
+                                  {% for error in sessionErrors %}
+                                    {%- if error.propertyName == 'childSex' %}</div></div>  {% endif %}
+                                    {% endfor %}  
+                            
                             <div class="govuk-form-group">
                             <div class="govuk-button-group">
                                 {{ govukButton({
@@ -129,5 +187,6 @@
                                     }) }}   
                             </div>
                             </div>
+                           
                 </form>
 {% endblock %}
