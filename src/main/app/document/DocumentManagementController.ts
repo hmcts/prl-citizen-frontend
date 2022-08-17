@@ -5,16 +5,17 @@ import type { Response } from 'express';
 import { APPLICANT, APPLICANT_TASK_LIST_URL, RESPONDENT, RESPONDENT_TASK_LIST_URL, UPLOAD_DOCUMENT } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
-import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { DocumentType, ListValue, CITIZEN_UPDATE, UploadDocumentList } from '../case/definition';
+import { CosApiClient } from '../case/CosApiClient';
+import { CITIZEN_UPDATE, DocumentType, ListValue, UploadDocumentList } from '../case/definition';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { DocumentManagementClient } from './DocumentManagementClient';
 //import { DgsApiClient } from 'app/case/DgsApiClient';
 
-import { getFilename } from '../case/formatter/uploaded-files';
+import { Form } from 'app/form/Form';
 import { v4 as generateUuid } from 'uuid';
+import { getFilename } from '../case/formatter/uploaded-files';
 
 const UID_LENGTH = 36;
 @autobind
@@ -23,14 +24,30 @@ export class DocumentManagerController {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
   }
 
-  // private getDgsApiClient(user: UserDetails) {
-  //   return new DgsApiClient(config.get('services.dgs.url'), getServiceAuthToken());
-  // }
+  public async generatePdf(req: AppRequest<Partial<CaseWithId>>,
+    res: Response,
+    form: Form,
+    formData: Partial<CaseWithId>): Promise<void> {
+    const caseworkerUser = await getSystemUser();
+    req.session.errors = form.getErrors(formData);
 
+    try {
+      if (!req.session.errors.length) {
+        const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+        const updatedCaseDataFromCos = await client.generateUserUploadedStatementDocument(
+          caseworkerUser,
+        );
+        if (updatedCaseDataFromCos !== 'Success') {
+          req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'accessCode' });
+        }
+      }
+    } catch (err) {
+      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
+    }
 
-  public async generatePdf(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-   // const dgsClient = this.getDgsApiClient(req.session.user);
+    req.session.errors = form.getErrors(formData);
   }
+
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const originalUrl = req.originalUrl;
     let filename = '';
@@ -106,7 +123,7 @@ export class DocumentManagerController {
 
     const documentIndexToDelete = parseInt(req.params.index, 10);
     const documentToDelete = documentsUploaded[documentIndexToDelete];
-    if (!documentToDelete?.value?.value?.citizenDocument.document_url) { 
+    if (!documentToDelete?.value?.value?.citizenDocument.document_url) {
       return res.redirect(UPLOAD_DOCUMENT);
     }
     const documentUrlToDelete = documentToDelete?.value?.value?.citizenDocument.document_url;
@@ -115,7 +132,7 @@ export class DocumentManagerController {
 
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
-      { [documentsUploadedKey]: documentsUploaded},
+      { [documentsUploadedKey]: documentsUploaded },
       CITIZEN_UPDATE
     );
 
@@ -140,7 +157,7 @@ export class DocumentManagerController {
         return res.redirect(UPLOAD_DOCUMENT);
       }
     }
-    
+
     //const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     console.log('2');
     //const filesCreated = await documentManagementClient.create({
@@ -148,8 +165,9 @@ export class DocumentManagerController {
     //  classification: Classification.Public,
     //});
 
-    const filesCreated= (req.files as Express.Multer.File[]).map(file=>{
-      return {originalDocumentName: file.originalname,
+    const filesCreated = (req.files as Express.Multer.File[]).map(file => {
+      return {
+        originalDocumentName: file.originalname,
       };
     });
 
@@ -160,19 +178,19 @@ export class DocumentManagerController {
       value: {
         id: "aaaaaaa",
         value: {
-                parentDocumentType: 'Witness Statement',
-                DocumentType: 'Witness Statement',
-                partyName: 'Sonal Saha',
-                isApplicant: 'Yes',
-                uploadedBy: 'Uploaded by Sonali Saha',
-                dateCreated: '12/07/2022',
-                documentUploadedDate: '12/07/2022',
-                citizenDocument: {
-                  document_url: 'abcd',
-                  document_filename: file.originalDocumentName,
-                  document_binary_url: 'abcd',
-                },
-              },
+          parentDocumentType: 'Witness Statement',
+          DocumentType: 'Witness Statement',
+          partyName: 'Sonal Saha',
+          isApplicant: 'Yes',
+          uploadedBy: 'Uploaded by Sonali Saha',
+          dateCreated: '12/07/2022',
+          documentUploadedDate: '12/07/2022',
+          citizenDocument: {
+            document_url: 'abcd',
+            document_filename: file.originalDocumentName,
+            document_binary_url: 'abcd',
+          },
+        },
       },
     }));
     console.log('ccc');
@@ -187,10 +205,10 @@ export class DocumentManagerController {
     req.session.save(() => {
       if (req.headers.accept?.includes('application/json')) {
         res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
-      } else  {
+      } else {
         res.redirect(UPLOAD_DOCUMENT);
       }
     });
   }
-  
+
 }

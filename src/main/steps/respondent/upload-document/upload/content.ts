@@ -10,7 +10,7 @@ const en = {
   title: 'Provide the documents',
   continue: 'Save and continue',
   add: 'Submit',
-  uploadFiles: 'Uploaded documents',
+  uploadFiles: 'Your documents',
   remove: 'Remove',
 };
 
@@ -19,7 +19,7 @@ const cy: typeof en = {
   title: 'Provide the documents',
   continue: 'Save and continue',
   add: 'Submit',
-  uploadFiles: 'Uploaded documents',
+  uploadFiles: 'Your documents',
   remove: 'Remove',
 };
 

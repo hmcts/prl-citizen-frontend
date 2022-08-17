@@ -110,4 +110,34 @@ export class CosApiClient {
       throw new Error('Case could not be updated.');
     }
   }
+
+  public async generateUserUploadedStatementDocument(
+    user: UserDetails,
+  ): Promise<String> {
+    var data = {
+      fileName: 'Sonali_saha.pdf',
+      caseId: '1660589382629898',
+      freeTextStatements: 'Test information',
+    };
+    try {
+      // const eventId = 'citizen-case-update';
+      const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + user.accessToken
+      };
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/generate-citizen-statement-document`,
+        data,
+        { headers }
+      );
+      console.log(response);
+
+
+      return 'Success';
+    } catch (err) {
+      throw new Error('Case could not be updated.');
+    }
+  }
 }
+

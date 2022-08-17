@@ -52,58 +52,27 @@
             </div>
 </details>
 <div class="uploadcomponent">
-
           <div class=" govuk-!-margin-bottom-3">
-
             <div class="govuk-form-group govuk-inset-text">
               <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
                 Upload a file
               </label>
-
               <div class="govuk-form-group">
-              <div class="govuk-panel upload hidden">
-                <span class="upload-arrow-icon govuk-!-margin-bottom-5"></span>
-                <div class="govuk-form-group">
-                  <p class="govuk-body govuk-!-margin-bottom-0">
-                    <span id="upload"></span>
-                    <strong>{{ orStr }}</strong><br>
-                    {{ dragDropHere }}
-                  </p>
-                  <div id="uploadProgressBar"></div>
-                </div>
+                  <div class="upload hidden">
+                      <div class="govuk-form-group">
+                          <p class="govuk-body govuk-!-margin-bottom-0">
+                            <span id="upload"></span>
+                            <button class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">Upload file</button>
+                          </p>
+                          <div id="uploadProgressBar"></div>
+                      </div>
+                  </div>
               </div>
-
-  <noscript>
-                <form action="/document-manager?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
-
-                {{ govukFileUpload({
-                      name: "files[]",
-                      attributes: {
-                        multiple: true,
-                        accept: "image/jpeg,image/tiff,image/png,application/pdf"
-                      },
-                      label: {
-                        text: chooseFilePhoto
-                      },
-                      classes: "govuk-!-margin-bottom-4"
-                    }) }}
-                    {{ govukButton({
-                      text: upload,
-                      type: "submit",
-                      classes: "govuk-button--secondary govuk-!-margin-bottom-0"
-                    }) }}
-
-              </form>
-    </noscript>
-
             </div>
-
-            </div>
-
-
+          </div>
  </div>
 
-<div id="uploadGroup" tabindex="0" class="uploadGroup {% if uploadedDocsFilenames|length %} hidden{% endif %}">
+<div id="uploadGroup" tabindex="0" class="uploadGroup hidden">
   <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
   <ul id="filesUploaded" class="govuk-list">
     {% for filename in uploadedDocsFilenames %}
@@ -146,4 +115,4 @@
 
 {% endblock %}
 
- </div>
+ </div>  

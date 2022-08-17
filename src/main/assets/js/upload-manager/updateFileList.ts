@@ -21,28 +21,35 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
     let i = 1;
 
     for (const file of uploadedFiles) {
-      const fileEl = document.createElement('li');
+      const fileEl = document.createElement('dl');
       fileEl.classList.add(
-        'uploadedFile',
-        'govuk-!-padding-top-2',
-        'govuk-!-padding-bottom-3',
-        'govuk-section-break',
-        'govuk-section-break--visible'
+        'uploadedFile'
       );
-      const filenameEl = document.createElement('p');
-      filenameEl.classList.add('govuk-body');
+      const fileSummaryList = document.createElement('div');
+      fileSummaryList.classList.add('govuk-summary-list__row');
+      
+      const filenameEl = document.createElement('dt');
+      filenameEl.classList.add('govuk-summary-list__value');
       filenameEl.id = `Document${i}`;
       filenameEl.textContent = file.name;
-      fileEl.appendChild(filenameEl);
+      fileSummaryList.appendChild(filenameEl);
 
       //if (content.isAmendableStates || content.isClarificationAmendableState) {
+        const fileRemoveEl = document.createElement('dd');
+        fileRemoveEl.classList.add('govuk-summary-list__actions');
         const deleteEl = document.createElement('a');
         deleteEl.classList.add('govuk-link--no-visited-state');
         deleteEl.id = `Delete${i}`;
         deleteEl.href = `${DOCUMENT_MANAGER}/delete/${i - 1}`;
         deleteEl.textContent = 'Remove';
         deleteEl.setAttribute('aria-labelledby', `Delete${i} Document${i}`);
-        fileEl.appendChild(deleteEl);
+        fileRemoveEl.appendChild(deleteEl);
+        fileSummaryList.appendChild(fileRemoveEl);
+        fileEl.appendChild(fileSummaryList);
+
+        const uploadGroupEL = document.getElementById('uploadGroup');
+        uploadGroupEL?.classList.remove('hidden');
+
       //}
 
       filesUploadedEl.appendChild(fileEl);
