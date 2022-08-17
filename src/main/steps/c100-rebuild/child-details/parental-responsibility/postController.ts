@@ -30,6 +30,9 @@ export default class ParentResponsibility extends PostController<AnyObject> {
             propertyName: 'parentalResponsibility',
             errorType: 'required',
           });
+          req.session.settings.ListOfChild[currentChild].parentialResponsibility = {
+            statement: '',
+          };
           const redirectUrl = C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
           super.redirect(req, res, redirectUrl);
         } else {

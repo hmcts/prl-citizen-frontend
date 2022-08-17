@@ -19,7 +19,7 @@
     }) }}
               <div id="isDecisionTaken-hint" class="govuk-hint">{{hintText}} </div>
                {%- if sessionErrors.length > 0 %}  <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
-    <span class="govuk-visually-hidden">Error: </span>{{errors['isDecisionTaken'].required}}</span>{% endif %}
+                <span class="govuk-visually-hidden">Error: </span>{{errors['isDecisionTaken'].required}}</span>{% endif %}
                 {{ govukCheckboxes({
                   name: "isDecisionTaken",
                   fieldset: {
@@ -31,6 +31,7 @@
                   },
                   items: listOfItems
                 }) }}
+                </div>
                         <div class="govuk-form-group">
                             <div class="govuk-button-group">
                                 {{ govukButton({
@@ -40,7 +41,7 @@
                                     text: "Save and come back later",
                                     classes: "govuk-button--secondary"
                                     }) }}   
-                            </div>
+                            
                             </div>
 </form>
 </div>

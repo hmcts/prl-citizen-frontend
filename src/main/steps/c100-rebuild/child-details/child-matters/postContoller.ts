@@ -32,7 +32,7 @@ export default class AddChildernMatter extends PostController<AnyObject> {
           const redirectUrl = C100_CHILDERN_DETAILS_CHILD_MATTERS + `?childId=${childId}`;
           super.redirect(req, res, redirectUrl);
         } else {
-          const isDecisionTaken = req.body.isDecisionTaken !== '' ? YesOrNo.YES : YesOrNo.NO;
+          const isDecisionTaken = req.body.isDecisionTaken !== '' ? YesOrNo.NO : YesOrNo.YES;
           req.session.settings.ListOfChild[matchChildIndex].childMatter = {
             isDecisionTaken,
           };
