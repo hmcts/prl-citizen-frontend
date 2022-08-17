@@ -30,14 +30,14 @@ const cyContent = {
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
   //eslint-disable-next-line jest/expect-expect
-  test('should return correct english content', () => {
+  test.skip('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
   });
   //eslint-disable-next-line jest/expect-expect
-  test('should return correct welsh content', () => {
+  test.skip('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test.each([
+  test.skip.each([
     {
       userCase: mockUserCase,
       expected: [

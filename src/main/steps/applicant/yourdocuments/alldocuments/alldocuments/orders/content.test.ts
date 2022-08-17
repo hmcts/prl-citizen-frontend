@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../../../test/unit/utils/languageAssertions';
-import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../../app/form/Form';
+//import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../../app/form/Form';
 import { CommonContent } from '../../../../../common/common.content';
 
 import { generateContent } from './content';
@@ -27,11 +27,11 @@ jest.mock('../../../../../../app/form/validation');
 describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
-  let form;
+  //let form;
   //let fields;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
-    form = generatedContent.form as FormContent;
+    //form = generatedContent.form as FormContent;
     //fields = form.fields as FormFields;
   });
 
