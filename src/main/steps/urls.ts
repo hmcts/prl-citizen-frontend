@@ -113,6 +113,7 @@ export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${
 /* applicant-keep-details-private-end */
 
 export const APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/alldocuments/orders`;
+export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/alldocuments/orders`;
 
 /* consent-to-the-application */
 export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
@@ -120,7 +121,9 @@ export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
 /* consent-to-the-application */
-export const RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
+export const RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/alldocuments/orders`;
+export const RESPONDENT_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
+
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
 export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';

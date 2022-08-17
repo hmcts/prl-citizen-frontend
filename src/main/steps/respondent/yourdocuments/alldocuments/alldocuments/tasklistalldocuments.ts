@@ -6,11 +6,12 @@ import {
   getOtherDocuments,
   getRespondentDocuments,
 } from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklistalldocuments';
+import * as URL from '../../../../urls';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const generateRespondentTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [
-    getOrdersFromCourt(sectionTitles, taskListItems, userCase),
+    ...getOrdersFromCourt(sectionTitles, taskListItems, URL.RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT),
     getRespondentDocuments(sectionTitles, taskListItems, userCase),
     getApplicantDocuments(sectionTitles, taskListItems, userCase),
     getCafcassDocuments(sectionTitles, taskListItems, userCase),

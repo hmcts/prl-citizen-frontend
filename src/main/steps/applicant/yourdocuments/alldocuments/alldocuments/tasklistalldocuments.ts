@@ -1,14 +1,11 @@
 import { Applicant, PartyDetails, Respondent } from '../../../../../app/case/definition';
 import { CommonContent } from '../../../../../steps/common/common.content';
 import * as URL from '../../../../urls';
-import {
-  getApplicantAllegationsOfHarmAndViolence,
-  getApplicantViewAllOrdersFromTheCourtAllDocuments,
-} from '../../../task-list/utils';
+import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [
-    getOrdersFromCourt(sectionTitles, taskListItems, userCase),
+    ...getOrdersFromCourt(sectionTitles, taskListItems, URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT),
     getApplicantDocuments(sectionTitles, taskListItems, userCase),
     getRespondentDocuments(sectionTitles, taskListItems, userCase),
     getCafcassDocuments(sectionTitles, taskListItems, userCase),
@@ -22,20 +19,19 @@ function getText(inputStr: string, userCase: CommonContent) {
   return inputStr.replace('<nameapplicantxxxxx>', 'Applicant_FNAME_LNAME');
 }
 
-export const getOrdersFromCourt = (sectionTitles, taskListItems, userCase) => {
-  return {
-    title: sectionTitles.ordersFromTheCourt,
-    items: [
-      {
-        id: 'orders-from-the-court-all-docs',
-        text: taskListItems.view_all_orders_from_the_court_all_docs,
-        href:
-          getApplicantViewAllOrdersFromTheCourtAllDocuments(userCase) === true
-            ? URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT
-            : '#',
-      },
-    ],
-  };
+export const getOrdersFromCourt = (sectionTitles, taskListItems, url) => {
+  return [
+    {
+      title: sectionTitles.ordersFromTheCourt,
+      items: [
+        {
+          id: 'orders-from-the-court-all-docs',
+          text: taskListItems.view_all_orders_from_the_court_all_docs,
+          href: url,
+        },
+      ],
+    },
+  ];
 };
 
 export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) => {
