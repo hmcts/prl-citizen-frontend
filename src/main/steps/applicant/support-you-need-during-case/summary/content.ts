@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../../main/app/controller/GetController';
 import { FormContent } from '../../../../../main/app/form/Form';
+import { summaryList } from '../../../../../main/steps/applicant/support-you-need-during-case/summary/utils';
 import { CommonContent } from '../../../../../main/steps/common/common.content';
-import { summaryList } from '../../../../../main/steps/common/summary/utils';
 import {
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
@@ -13,26 +13,6 @@ import {
   TRAVELLING_TO_COURT,
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
 } from '../../../../steps/urls';
-
-const fieldType = {
-  languageRequirements: 'String',
-  languageDetails: 'String',
-  reasonableAdjustments: 'String',
-  docsSupport: 'String',
-  otherDetails: 'String',
-  helpCommunication: 'String',
-  describeOtherNeed: 'String',
-  courtHearing: 'String',
-  communicationSupportOther: 'String',
-  courtComfort: 'String',
-  otherProvideDetails: 'String',
-  travellingToCourt: 'String',
-  travellingOtherDetails: 'String',
-  unableForCourtProceedings: 'String',
-  courtProceedingProvideDetails: 'String',
-  safetyArrangements: 'String',
-  safetyArrangementsDetails: 'String',
-};
 
 export const enContent = {
   section: 'Check your answers',
@@ -107,7 +87,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou, fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
   };
 };
 
@@ -203,7 +183,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou, fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
   };
 };
 
