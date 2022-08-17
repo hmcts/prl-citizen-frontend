@@ -1,17 +1,22 @@
+import { execSync } from 'child_process';
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
 
+const email = 'citizen-upload-docs-email';
+const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${email}`);
+
+
 const en = {
   section: 'How your documents will be shared',
-  email: 'docsEmail',
+  email: result.toString().replace('\n', ''),
   continue: 'Continue',
 };
 
 const cy: typeof en = {
   section: 'How your documents will be shared',
-  email: 'docsEmail',
+  email: result.toString().replace('\n', ''),
   continue: 'Continue',
 };
 
