@@ -4,6 +4,8 @@ import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
+import { applicant_en } from './section-titles';
+import { applicant_tasklist_items_en } from './tasklist-items';
 const enContent = {
   title: ' ',
   statuses: {
@@ -13,18 +15,8 @@ const enContent = {
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
   },
-  sectionTitles: {
-    applicantYourDetails: 'About you',
-    applicationDetails: 'Application detail',
-    viewAllDocuments: 'Your documents',
-  },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    your_application: 'Application submitted (PDF)',
-    your_application_witness_statement: 'Witness statement (PDF)',
-    view_all_documents: 'View all documents',
-  },
+  sectionTitles: applicant_en,
+  taskListItems: applicant_tasklist_items_en,
 };
 const cyContent = {
   title: ' ',
@@ -35,30 +27,20 @@ const cyContent = {
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
   },
-  sectionTitles: {
-    applicantYourDetails: 'About you',
-    applicationDetails: 'Application detail',
-    viewAllDocuments: 'Your documents',
-  },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    your_application: 'Application submitted (PDF)',
-    your_application_witness_statement: 'Witness statement (PDF)',
-    view_all_documents: 'View all documents',
-  },
+  sectionTitles: applicant_en,
+  taskListItems: applicant_tasklist_items_en,
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
   // eslint-disable-next-line jest/expect-expect
-  test.skip('should return correct english content', () => {
+  test('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
   });
   // eslint-disable-next-line jest/expect-expect
-  test.skip('should return correct welsh content', () => {
+  test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test.skip.each([
+  test.each([
     {
       userCase: mockUserCase,
       expected: [
@@ -94,7 +76,7 @@ describe('task-list > content', () => {
               text: 'Witness statement (PDF)',
             },
           ],
-          title: undefined,
+          title: applicant_en.yourApplication,
         },
         {
           items: [
@@ -106,6 +88,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'view-all-orders-from-the-court',
+              status: SectionStatus.NOT_AVAILABLE_YET,
+              text: applicant_tasklist_items_en.view_all_orders_from_the_court,
+            },
+          ],
+          title: applicant_en.ordersFromTheCourt,
         },
       ],
     },
