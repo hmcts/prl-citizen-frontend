@@ -9,6 +9,7 @@ import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
+import { cAdARespondentCaseSequence } from './ca-da-respondent/ca-da-respondentcaseSequence';
 import { Step } from './constants';
 import { edgecaseSequence } from './edge-case/edgecaseSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
@@ -73,9 +74,13 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     return CITIZEN_HOME_URL;
   }
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...edgecaseSequence, ...respondentCaseSequence, ...applicantCaseSequence, ...C100Sequence].find(
-    s => s.url === path
-  );
+  const nextStep = [
+    ...edgecaseSequence,
+    ...respondentCaseSequence,
+    ...applicantCaseSequence,
+    ...cAdARespondentCaseSequence,
+    ...C100Sequence,
+  ].find(s => s.url === path);
 
   const url = nextStep ? nextStep.getNextStep(data) : CITIZEN_HOME_URL;
 
@@ -122,11 +127,13 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
 export const stepsWithContentEdgecase = getStepsWithContent(edgecaseSequence, EDGE_CASE_URL);
 export const stepsWithContentRespondent = getStepsWithContent(respondentCaseSequence);
 export const stepsWithContentApplicant = getStepsWithContent(applicantCaseSequence);
+export const stepsWithContentCaDaRespondent = getStepsWithContent(cAdARespondentCaseSequence);
 export const c100CaseSequence = getStepsWithContent(C100Sequence, C100_URL);
 
 export const stepsWithContent = [
   ...stepsWithContentEdgecase,
   ...stepsWithContentRespondent,
   ...stepsWithContentApplicant,
+  ...stepsWithContentCaDaRespondent,
   ...c100CaseSequence,
 ];
