@@ -2,6 +2,11 @@
 
 
 {% block page_content %}
-<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
-<div class="govuk-hint">{{ line1 }}</div>
+<span class="govuk-caption-xl">{{caption}}</span>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{headingTitle}}</h1>
+<p class="govuk-body-m">{{paragraph1}}</p>
+<ul class="govuk-list govuk-list--bullet govuk-!-margin-left-7">
+    <li>{{line1}}</li>
+    <li>{{line2}}</li>
+</ul>
 {% endblock %}
