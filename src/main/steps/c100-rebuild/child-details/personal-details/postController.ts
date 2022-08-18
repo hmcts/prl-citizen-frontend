@@ -228,7 +228,7 @@ export default class Personaldetails extends PostController<AnyObject> {
     if (isDateOfBirthKnown === YesOrNo.NO) {
       return { DateoBirth, Sex, isDateOfBirthKnown, ApproximateDateOfBirth: undefined };
     } else {
-      return { DateoBirth, ApproximateDateOfBirth, Sex, isDateOfBirthKnown };
+      return { DateoBirth: undefined, ApproximateDateOfBirth, Sex, isDateOfBirthKnown };
     }
   }
 }

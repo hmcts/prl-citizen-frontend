@@ -19,6 +19,9 @@ const en = () => ({
     childDateOfBirthNotValid: {
       required: 'Date of birth is not valid',
     },
+    cannotHaveBothApproxAndExact: {
+      required: 'Cannot have a date of birth and also "I dont know their date of birth"',
+    },
     childDateOfBirthNotValidSubField: {
       required: 'Date of birth is not valid',
     },
@@ -47,6 +50,9 @@ const cy = () => ({
     },
     childDateOfBirthNotValid: {
       required: 'Date of birth is not valid - welsh',
+    },
+    cannotHaveBothApproxAndExact: {
+      required: 'Cannot have a date of birth and also "I dont know their date of birth - Welsh"',
     },
     childDateOfBirthNotValidSubField: {
       required: 'Date of birth is not valid - welsh',
