@@ -5,7 +5,7 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY, C100_CHILDERN_DETAILS_CHILD_MATTERS } from '../../../urls';
+import { C100_CHILDERN_DETAILS_CHILD_MATTERS, C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
 
 @autobind
 export default class AddChildernMatter extends PostController<AnyObject> {
