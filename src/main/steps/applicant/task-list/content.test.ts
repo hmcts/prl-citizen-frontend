@@ -3,7 +3,9 @@ import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
+// eslint-disable-next-line import/namespace
 import { generateContent } from './content';
+
 const enContent = {
   title: 'DA Applicant',
   statuses: {
