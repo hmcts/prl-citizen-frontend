@@ -20,12 +20,13 @@
                             }) }}
 
                         {% for error in sessionErrors %}
-                        <div class=" {%- if error.propertyName === 'childDateOfBirth' or  error.propertyName === 'childDateOfBirthNotValid'   %}  govuk-form-group--error  {% endif %}">
+                        <div class=" {%- if error.propertyName === 'childDateOfBirth' or  error.propertyName === 'childDateOfBirthNotValid'  or  error.propertyName === 'childDateOfBirthNotValidSubField'   %}  govuk-form-group--error  {% endif %}">
                         {% endfor %}
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m"><span class="govuk-fieldset__heading">{{label}}</span></legend>
                         <div id="child-dateOfBirth-hint" class="govuk-hint">{{hint}}</div>
 
                                     {%set errorTypeClassInput = ""%}
+                                    {%set errorTypeClassInputSub = ""%}
                                     {% for error in sessionErrors %}
                                     {%- if error.propertyName == 'childDateOfBirth' %}
                                     <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error"><span class="govuk-visually-hidden">Error: </span>{{errors.childDateOfBirth.required}}</span>
@@ -36,6 +37,8 @@
                                     <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error"><span class="govuk-visually-hidden">Error: </span>{{errors.childDateOfBirthNotValid.required}}</span>
                                     {%set errorTypeClassInput = " govuk-input--error"%}
                                     {% endif %}
+
+
                                     {% endfor %}
 
                            {{ govukDateInput({
@@ -99,20 +102,30 @@
                                         <label for="steps-children-personal-details-form-dob-unknown-true-field" class="govuk-label govuk-checkboxes__label">{{approximateCheckboxLabel}}</label>
                                         </div>
                                         <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="steps-children-personal-details-form-dob-unknown-true-conditional">
+                                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">   <h1 class="govuk-fieldset__heading">{{approximateDobLabel}}</h1></legend>
+                                         
+                                             {% for error in sessionErrors %}
+                                            {%- if error.propertyName == 'childDateOfBirthNotValidSubField' %}
+                                            <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error"><span class="govuk-visually-hidden">Error: </span>{{errors.childDateOfBirthNotValidSubField.required}}</span>
+                                            {%set errorTypeClassInputSub = " govuk-input--error"%}
+                                            {% endif %}
+
+                                            {% endfor %}
+
                                              {{ govukDateInput({
                                                     id: "child-approx-dateOfBirth",
                                                     namePrefix: "child-approx-dateOfBirth",
                                                     fieldset: {
                                                         legend: {
-                                                        text: "Approximate date of birth",
+                                                        text: "",
                                                         isPageHeading: true,
-                                                        classes: "govuk-fieldset__legend--s govuk-!-padding-top-4"
+                                                        classes: "govuk-fieldset__legend--s"
                                                         }
                                                     },
                                                     items: [
                                                             {
                                                             name: "day",
-                                                            classes: "govuk-input--width-2",
+                                                            classes: "govuk-input--width-2 "+ errorTypeClassInputSub,
                                                             autocomplete: "bday-day",
                                                              attributes: {
                                                                     maxLength: 2, 
@@ -123,7 +136,7 @@
                                                             },
                                                             {
                                                             name: "month",
-                                                            classes: "govuk-input--width-2",
+                                                            classes: "govuk-input--width-2 " + errorTypeClassInputSub,
                                                             autocomplete: "bday-month",
                                                                attributes: {
                                                                     maxLength: 2, 
@@ -134,7 +147,7 @@
                                                             },
                                                             {
                                                             name: "year",
-                                                            classes: "govuk-input--width-4",
+                                                            classes: "govuk-input--width-4 " + errorTypeClassInputSub,
                                                             autocomplete: "bday-year",
                                                                attributes: {
                                                                     maxLength: 4, 
@@ -150,7 +163,7 @@
                                 </fieldset>
                                 
                         {% for error in sessionErrors %}
-                        {%- if error.propertyName == 'childDateOfBirth' or  error.propertyName == 'childDateOfBirthNotValid' %}</div>  {% endif %}
+                        {%- if error.propertyName == 'childDateOfBirth' or  error.propertyName == 'childDateOfBirthNotValid' or  error.propertyName == 'childDateOfBirthNotValidSubField'  %}</div>  {% endif %}
                         {% endfor %}
                                 </div>
                                 

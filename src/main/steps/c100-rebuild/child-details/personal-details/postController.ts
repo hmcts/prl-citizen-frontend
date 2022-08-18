@@ -19,24 +19,6 @@ export default class Personaldetails extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
-
-  /**
-   * It takes the form data from the request body, validates it, and then saves it to the session
-   * @param req - AppRequest<AnyObject>
-   * @param {Response} res - Response - this is the response object that will be used to send the
-   * response back to the user.
-   */
-
-  /***
-   * 
-   * 'child-dateOfBirth-day': '',
-[0]   'child-dateOfBirth-month': '',
-[0]   'child-dateOfBirth-year': '',
-[0]   'child-approx-dateOfBirth-day': '',
-[0]   'child-approx-dateOfBirth-month': '',
-[0]   'child-approx-dateOfBirth-year': ''
-   */
-
   /**
    * The function checks if the child sex is valid, if the child date of birth is valid and if the child
    * date of birth is valid. If any of the above is not valid, it redirects to the same page with the
@@ -50,11 +32,12 @@ export default class Personaldetails extends PostController<AnyObject> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
     const { childId } = req.query;
+    console.log({ check: this.childDateValidDateValidations(req) });
     if (
       !this.childSexValidation(req) ||
       this.childDateValidations(req) ||
       this.childDateValidDateValidations(req) ||
-      this.childApproximatelyDateValidator(req)
+      !this.childApproximatelyDateValidator(req)
     ) {
       if (!this.childSexValidation(req)) {
         req.session.errors.push({
@@ -62,25 +45,39 @@ export default class Personaldetails extends PostController<AnyObject> {
           errorType: 'required',
         });
       }
-      if (this.childDateValidations(req)) {
-        req.session.errors.push({
-          propertyName: 'childDateOfBirth',
-          errorType: 'required',
-        });
-      } else if (this.childDateValidDateValidations(req)) {
-        req.session.errors.push({
-          propertyName: 'childDateOfBirthNotValid',
-          errorType: 'required',
-        });
-      } else if (this.childApproximatelyDateValidator(req)) {
-        req.session.errors.push({
-          propertyName: 'childDateOfBirthNotValidSubField',
-          errorType: 'required',
-        });
-      } else {
-        return;
-      }
 
+      const childApproxDateEnabled =
+        req.body['steps_children_personal_details'] !== undefined &&
+        req.body['steps_children_personal_details'] === 'true';
+
+      if (childApproxDateEnabled) {
+        if (!this.childApproximatelyDateValidator(req)) {
+          req.session.errors.push({
+            propertyName: 'childDateOfBirthNotValidSubField',
+            errorType: 'required',
+          });
+          console.log({ msg: 'if is triggered' });
+          console.log({ check: !this.childApproximatelyDateValidator(req) });
+        } else {
+          console.log({ msg: 'else is triggered' });
+          this.proceedWithoutError(req, res);
+        }
+      } else {
+        if (this.childDateValidations(req)) {
+          req.session.errors.push({
+            propertyName: 'childDateOfBirth',
+            errorType: 'required',
+          });
+        } else if (this.childDateValidDateValidations(req)) {
+          req.session.errors.push({
+            propertyName: 'childDateOfBirthNotValid',
+            errorType: 'required',
+          });
+        } else {
+          return;
+        }
+      }
+      console.log(req.session.errors);
       const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
       super.redirect(req, res, redirectUrl);
     } else {
@@ -166,16 +163,18 @@ export default class Personaldetails extends PostController<AnyObject> {
     const checkForValidYear =
       Number(req.body['child-dateOfBirth-year']) > DateValidations.YEAR.MIN &&
       Number(req.body['child-dateOfBirth-year']) <= DateValidations.YEAR.MAX &&
-      req.body['child-dateOfBirth-year'].length === 4;
+      req.body['child-dateOfBirth-year'].length === 4 &&
+      req.body['child-dateOfBirth-year'] !== '';
 
     const childApproxDateEnabled =
       req.body['steps_children_personal_details'] !== undefined &&
       req.body['steps_children_personal_details'] === 'true';
+
     if (!childApproxDateEnabled) {
-      if (checkForValidDate || checkForValidMonth || checkForValidYear) {
-        return true;
-      } else {
+      if (checkForValidDate && checkForValidMonth && checkForValidYear) {
         return false;
+      } else {
+        return true;
       }
     } else {
       return false;
@@ -207,9 +206,10 @@ export default class Personaldetails extends PostController<AnyObject> {
       const checkForValidYear =
         Number(req.body['child-approx-dateOfBirth-year']) > DateValidations.YEAR.MIN &&
         Number(req.body['child-approx-dateOfBirth-year']) <= DateValidations.YEAR.MAX &&
-        req.body['child-dateOfBirth-year'].length === 4;
+        req.body['child-dateOfBirth-year'].length === 4 &&
+        req.body['child-dateOfBirth-year'] !== '';
 
-      if (checkForValidDate || checkForValidMonth || checkForValidYear) {
+      if (checkForValidDate && checkForValidMonth && checkForValidYear) {
         return true;
       } else {
         return false;
