@@ -1,1 +1,16 @@
-{% extends "common/keep-details-private/details_known/template.njk" %}
+{% extends "common/template.njk" %}
+{% block page_content %}
+
+    <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <span class="govuk-caption-l">{{section}}</span>
+                <h1 class="govuk-fieldset__heading">
+                    {{title}}
+                </h1>
+            </legend>
+            <div class="govuk-!-padding-bottom-6"></div>
+            <p class="govuk-body-m">{{line2}}</p>
+        </fieldset>
+    </div>
+{% endblock %}

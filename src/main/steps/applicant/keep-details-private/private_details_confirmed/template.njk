@@ -1,1 +1,44 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+    {% if section %}
+        <span class="govuk-caption-l">{{ section }}</span>
+    {% endif %}
+    <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+                    {{title}}
+                </h1>
+            </legend>
+            <div class="govuk-!-padding-bottom-4"></div>
+            <p class="govuk-body-m">{{line1}}</p>
+            <ul class="govuk-list govuk-list--bullet">
+                {% if userCase
+                    .contactDetailsPrivate
+                    .includes('address') %}
+                    <li>{{address}}</li>
+                {% endif %}
+                {% if userCase
+                    .contactDetailsPrivate
+                    .includes('postalAddress') %}
+                    <li>{{postalAddress}}</li>
+                {% endif %}
+                {% if userCase
+                    .contactDetailsPrivate
+                    .includes('phone') %}
+                    <li>{{phone}}</li>
+                {% endif %}
+                {% if userCase
+                    .contactDetailsPrivate
+                    .includes('email') %}
+                    <li>{{email}}</li>
+                {% endif %}
+            </ul>
+            <h2 class="govuk-heading-m">{{line2}}</h2>
+            <p class="govuk-body-m">{{line3}}</p>
+        </fieldset>
+    </div>
+{% endblock %}
+
 {% extends "common/keep-details-private/private_details_confirmed/template.njk" %}
