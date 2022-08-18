@@ -11,7 +11,7 @@ import { C100_CHILDERN_DETAILS_CHILD_MATTERS, C100_CHILDERN_DETAILS_PERSONAL_DET
 const DateValidations = {
   MONTH: { MIN: 0, MAX: 12 },
   DATE: { MIN: 0, MAX: 31 },
-  YEAR: { MIN: 1990, MAX: new Date().getFullYear() },
+  YEAR: { MIN: 1900, MAX: new Date().getFullYear() },
 };
 
 @autobind
@@ -27,12 +27,10 @@ export default class Personaldetails extends PostController<AnyObject> {
    * @param {Response} res - Response - the response object
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log(req.body);
     const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
     const { childId } = req.query;
-    console.log({ check: this.childDateValidDateValidations(req) });
     if (
       !this.childSexValidation(req) ||
       this.childDateValidations(req) ||
@@ -56,10 +54,9 @@ export default class Personaldetails extends PostController<AnyObject> {
             propertyName: 'childDateOfBirthNotValidSubField',
             errorType: 'required',
           });
-          console.log({ msg: 'if is triggered' });
-          console.log({ check: !this.childApproximatelyDateValidator(req) });
+          const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+          super.redirect(req, res, redirectUrl);
         } else {
-          console.log({ msg: 'else is triggered' });
           this.proceedWithoutError(req, res);
         }
       } else {
@@ -76,10 +73,9 @@ export default class Personaldetails extends PostController<AnyObject> {
         } else {
           return;
         }
+        const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+        super.redirect(req, res, redirectUrl);
       }
-      console.log(req.session.errors);
-      const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
-      super.redirect(req, res, redirectUrl);
     } else {
       this.proceedWithoutError(req, res);
     }
@@ -196,19 +192,18 @@ export default class Personaldetails extends PostController<AnyObject> {
       /* Checking if the day is a valid number and if it is between 0 and 31 */
       const checkForValidDate =
         Number(req.body['child-approx-dateOfBirth-day']) > DateValidations.DATE.MIN &&
-        Number(req.body['child-dateOfBirth-day']) <= DateValidations.DATE.MAX;
+        Number(req.body['child-approx-dateOfBirth-day']) <= DateValidations.DATE.MAX;
       /* Checking if the month is a valid number and if it is between 0 and 12 */
       const checkForValidMonth =
         Number(req.body['child-approx-dateOfBirth-month']) > DateValidations.MONTH.MIN &&
-        Number(req.body['child-dateOfBirth-month']) <= DateValidations.MONTH.MAX;
+        Number(req.body['child-approx-dateOfBirth-month']) <= DateValidations.MONTH.MAX;
       /* Checking if the year is a valid number and if it is between 1900 and the
      current year. */
       const checkForValidYear =
         Number(req.body['child-approx-dateOfBirth-year']) > DateValidations.YEAR.MIN &&
         Number(req.body['child-approx-dateOfBirth-year']) <= DateValidations.YEAR.MAX &&
-        req.body['child-dateOfBirth-year'].length === 4 &&
-        req.body['child-dateOfBirth-year'] !== '';
-
+        req.body['child-approx-dateOfBirth-year'].length === 4 &&
+        req.body['child-approx-dateOfBirth-year'] !== '';
       if (checkForValidDate && checkForValidMonth && checkForValidYear) {
         return true;
       } else {
