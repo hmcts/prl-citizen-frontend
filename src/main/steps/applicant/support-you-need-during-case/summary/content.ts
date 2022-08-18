@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../../main/app/controller/GetController';
 import { FormContent } from '../../../../../main/app/form/Form';
-import { summaryList } from '../../../../../main/steps/applicant/support-you-need-during-case/summary/utils';
 import { CommonContent } from '../../../../../main/steps/common/common.content';
+import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
 
 export const enContent = {
   section: 'Check your answers',

@@ -1,4 +1,4 @@
-import { summaryList } from '../../../../../main/steps/ca-da-respondent/support-you-need-during-case/summary/utils';
+import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import {
