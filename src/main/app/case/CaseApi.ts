@@ -121,6 +121,16 @@ export class CaseApi {
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     try {
+      this.axios.interceptors.request.use(
+        //eslint-disable-next-line @typescript-eslint/no-shadow
+        function (config) {
+          return config;
+        },
+        function (error) {
+          // Do something with request error
+          return Promise.reject(error);
+        }
+      );
       const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`, {
         headers: {
           Accept: 'application/json',
@@ -145,6 +155,18 @@ export class CaseApi {
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     const data = toApiFormat(userData);
+    return this.sendEvent(caseId, data, eventName);
+  }
+
+  public async triggerEventWithData(
+    caseId: string,
+    userData: Partial<Case>,
+    eventName: string,
+    data: Partial<CaseData>
+  ): Promise<CaseWithId> {
+    // const data = toApiFormat(userData);
+    // const data = userData;
+    // return this.sendEvent(caseId, data, eventName);
     return this.sendEvent(caseId, data, eventName);
   }
 
