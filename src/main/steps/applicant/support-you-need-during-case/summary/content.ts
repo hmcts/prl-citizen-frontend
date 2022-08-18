@@ -1,18 +1,7 @@
 import { TranslationFn } from '../../../../../main/app/controller/GetController';
 import { FormContent } from '../../../../../main/app/form/Form';
-import { summaryList } from '../../../../../main/steps/applicant/support-you-need-during-case/summary/utils';
 import { CommonContent } from '../../../../../main/steps/common/common.content';
-import {
-  COMMUNICATION_HELP,
-  COURT_HEARING_COMFORT,
-  COURT_HEARING_SUPPORT,
-  DOCUMENTS_SUPPORT,
-  LANGUAGE_REQUIREMENTS,
-  REASONABLE_ADJUSTMENTS,
-  SAFETY_ARRANGEMENTS,
-  TRAVELLING_TO_COURT,
-  UNABLE_TO_TAKE_COURT_PROCEEDINGS,
-} from '../../../../steps/urls';
+import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
 
 export const enContent = {
   section: 'Check your answers',
@@ -158,23 +147,23 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  languageRequirements: LANGUAGE_REQUIREMENTS,
-  languageDetails: LANGUAGE_REQUIREMENTS,
-  reasonableAdjustments: REASONABLE_ADJUSTMENTS,
-  docsSupport: DOCUMENTS_SUPPORT,
-  otherDetails: DOCUMENTS_SUPPORT,
-  helpCommunication: COMMUNICATION_HELP,
-  describeOtherNeed: COMMUNICATION_HELP,
-  courtHearing: COURT_HEARING_SUPPORT,
-  communicationSupportOther: COURT_HEARING_SUPPORT,
-  courtComfort: COURT_HEARING_COMFORT,
-  otherProvideDetails: COURT_HEARING_COMFORT,
-  travellingToCourt: TRAVELLING_TO_COURT,
-  travellingOtherDetails: TRAVELLING_TO_COURT,
-  unableForCourtProceedings: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
-  courtProceedingProvideDetails: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
-  safetyArrangements: SAFETY_ARRANGEMENTS,
-  safetyArrangementsDetails: SAFETY_ARRANGEMENTS,
+  languageRequirements: 'language-requirements',
+  languageDetails: 'language-requirements',
+  reasonableAdjustments: 'reasonable-adjustments',
+  docsSupport: 'documents-support',
+  otherDetails: 'documents-support',
+  helpCommunication: 'communication-help',
+  describeOtherNeed: 'communication-help',
+  courtHearing: 'court-hearing-support',
+  communicationSupportOther: 'court-hearing-support',
+  courtComfort: 'court-hearing-comfort',
+  otherProvideDetails: 'court-hearing-comfort',
+  travellingToCourt: 'travelling-to-court',
+  travellingOtherDetails: 'travelling-to-court',
+  unableForCourtProceedings: 'unable-to-take-court-proceedings',
+  courtProceedingProvideDetails: 'unable-to-take-court-proceedings',
+  safetyArrangements: 'safety-arrangements',
+  safetyArrangementsDetails: 'safety-arrangements',
 };
 
 const cy: typeof en = (content: CommonContent) => {
