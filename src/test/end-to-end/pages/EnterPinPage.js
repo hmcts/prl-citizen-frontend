@@ -13,7 +13,7 @@ module.exports = {
   },
 
   async enterPin() {
-    await I.retry(retryCount).amOnPage(`${process.env.XUI_WEB_URL}`);
+    await I.retry(retryCount).amOnPage(baseUrl);
     try {
       await I.retry(retryCount).click('Accept analytics cookies');
       await I.retry(retryCount).click('Hide this message');

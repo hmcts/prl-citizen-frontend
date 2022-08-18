@@ -122,7 +122,6 @@ describe('respondent1Sequence', () => {
 
     expect(respondentCaseSequence[29].url).toBe('/respondent/proceedings/start');
     expect(respondentCaseSequence[29].showInSection).toBe('aboutRespondentCase');
-    //expect(repondentCaseSequence[29].getNextStep({})).toBe('/respondent/proceedings/court-proceedings');
 
     expect(respondentCaseSequence[30].url).toBe('/respondent/proceedings/court-proceedings');
     expect(respondentCaseSequence[30].showInSection).toBe('aboutRespondentCase');
