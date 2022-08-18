@@ -182,7 +182,6 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase) =
     href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_LETTER_FROM_SCHOOL : '#',
   });
 
-
   respondentItems2.push({
     id: 'other_people_witness_statements_respondent',
     text: getText(taskListItems.other_people_witness_statements_respondent, userCase),
