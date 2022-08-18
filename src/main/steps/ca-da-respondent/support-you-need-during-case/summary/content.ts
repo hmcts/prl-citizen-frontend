@@ -1,3 +1,4 @@
+import { summaryList } from '../../../../../main/steps/ca-da-respondent/support-you-need-during-case/summary/utils';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import {
@@ -12,36 +13,6 @@ import {
   CA_DA_TRAVELLING_TO_COURT,
 } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
-import { summaryList } from '../../../common/summary/utils';
-
-const fieldType = {
-  respondentAttendingToCourt: 'String',
-  noHearingDetails: 'String',
-  respondentLangRequirements: 'String',
-  respondentLangDetails: 'String',
-  respondentSpecialArrangements: 'String',
-  respondentSpecialArrangementsDetails: 'String',
-  respondentReasonableAdjustments: 'String',
-  respondentDocsSupport: 'String',
-  respondentDocsDetails: 'String',
-  respondentLargePrintDetails: 'String',
-  respondentOtherDetails: 'String',
-  respondentHelpCommunication: 'String',
-  respondentSignLanguageDetails: 'String',
-  respondentDescribeOtherNeed: 'String',
-  respondentCourtHearing: 'String',
-  respondentSupportWorkerDetails: 'String',
-  respondentFamilyDetails: 'String',
-  respondentTherapyDetails: 'String',
-  respondentCommSupportOther: 'String',
-  respondentCourtComfort: 'String',
-  respondentLightingDetails: 'String',
-  respondentOtherProvideDetails: 'String',
-  respondentTravellingToCourt: 'String',
-  respondentParkingDetails: 'String',
-  respondentDifferentChairDetails: 'String',
-  respondentTravellingOtherDetails: 'String',
-};
 
 export const enContent = {
   section: 'Check your answers ',
@@ -175,7 +146,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou, fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
   };
 };
 
@@ -339,7 +310,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou, fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
   };
 };
 
