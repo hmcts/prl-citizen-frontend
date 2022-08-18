@@ -20,7 +20,7 @@ services:
     #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     checkDivCases: true
   cos:
-    url: 'https://prl-cos-pr-505.service.core-compute-preview.internal'
+    url: 'http://prl-cos-pr-505.service.core-compute-preview.internal'
   documentManagement:
     url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
     checkDivCases: true
