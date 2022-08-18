@@ -1,12 +1,12 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../app/form/Form';
+//import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
 const enContent = {
   section: 'All documents',
-  title: "<respondentnamexx>'s witness statements",
+  title: 'Orders from the court',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   caseNumber: 'Case number',
@@ -15,7 +15,7 @@ const enContent = {
 
 const cyContent = {
   section: 'All documents',
-  title: "<respondentnamexx>'s witness statements",
+  title: 'Orders from the court',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   caseNumber: 'Case number',
@@ -27,16 +27,16 @@ jest.mock('../../../../../app/form/validation');
 describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
-  let form;
+  //let form;
   //let fields;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
-    form = generatedContent.form as FormContent;
+    //form = generatedContent.form as FormContent;
     //fields = form.fields as FormFields;
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual("<respondentnamexx>'s witness statements");
+    expect(generatedContent.title).toEqual('Orders from the court');
     expect(generatedContent.section).toEqual('All documents');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
@@ -57,9 +57,5 @@ describe('citizen-home content', () => {
   //   expect(detailsKnownField.classes).toBe('govuk-radios');
   //   expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
   // });
-
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Go back');
-  });
 });
 /* eslint-enable @typescript-eslint/ban-types */

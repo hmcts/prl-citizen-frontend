@@ -2,7 +2,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(19);
+    expect(applicantCaseSequence).toHaveLength(21);
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/task-list');
@@ -66,10 +66,12 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[15].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
     expect(applicantCaseSequence[15].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[15].getNextStep({})).toBe(
-      '/applicant/yourdocuments/alldocuments/applicantwitnessstatements'
+      '/applicant/yourdocuments/alldocuments/alldocuments/applicantwitnessstatements'
     );
 
-    expect(applicantCaseSequence[16].url).toBe('/applicant/yourdocuments/alldocuments/applicantwitnessstatements');
+    expect(applicantCaseSequence[16].url).toBe(
+      '/applicant/yourdocuments/alldocuments/alldocuments/applicantwitnessstatements'
+    );
     expect(applicantCaseSequence[16].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[16].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
   });

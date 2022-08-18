@@ -129,9 +129,9 @@ export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401
 export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';
 export const YOUR_APPLICATION_WITNESS_STATEMENT: PageLink = `${APPLICANT}${APPLICATION_WITNESS_STATEMENT}`;
 
-export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments';
-export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
-export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
+export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments/alldocuments';
+export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}`;
+export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}`;
 
 /* view all documents */
 /* Applicant Documents */
@@ -172,7 +172,7 @@ export const RESPONDENT_MEDICAL_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respo
 export const RESPONDENT_PATERNITY_TEST_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondent_paternity_test_reports`;
 export const RESPONDENT_DRUG_ALCOHOL_TESTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondent_drug_alcohol_tests`;
 export const RESPONDENT_POLICE_DISCLOSURE: PageLink = `${VIEW_ALL_DOCUMENTS}/respondent_police_disclosure`;
-export const RESPONDENT_WITNESS_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/respondent_drug_alcohol_tests`;
+export const RESPONDENT_WITNESS_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/respondent_witness_availability`;
 /** CAFCASS and local authority document */
 export const RESPONDENT_SAFEGUARDING_LETTER: PageLink = `${VIEW_ALL_DOCUMENTS}/safeguarding_letter`;
 export const RESPONDENT_SECTION7_REPORT: PageLink = `${VIEW_ALL_DOCUMENTS}/section7_report`;
