@@ -8,6 +8,7 @@ import { AnyObject, PostController } from '../../../../app/controller/PostContro
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { C100_CHILDERN_DETAILS_CHILD_MATTERS, C100_CHILDERN_DETAILS_PERSONAL_DETAILS } from '../../../urls';
 
+/* Defining the minimum and maximum values for the day, month and year. */
 const DateValidations = {
   MONTH: { MIN: 0, MAX: 12 },
   DATE: { MIN: 0, MAX: 31 },
