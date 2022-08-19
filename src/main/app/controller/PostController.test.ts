@@ -18,6 +18,7 @@ describe('PostController', () => {
       email: 'user@caseworker.com',
       givenName: 'case',
       familyName: 'worker',
+      role: 'caseworker',
     });
   });
 
