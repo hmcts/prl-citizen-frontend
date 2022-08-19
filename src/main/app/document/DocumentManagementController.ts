@@ -16,6 +16,7 @@ import { DocumentManagementClient } from './DocumentManagementClient';
 import { Form, FormFields, FormFieldsFn  } from '../form/Form';
 import { v4 as generateUuid } from 'uuid';
 import { getFilename } from '../case/formatter/uploaded-files';
+import {GenerateAndUploadDocumentRequest} from './GenerateAndUploadDocumentRequest';
 
 
 const UID_LENGTH = 36;
@@ -41,9 +42,26 @@ export class DocumentManagerController {
     try {
       //if (!req.session.errors.length) {
         console.log("calling cosApi");
+        let uploadDocumentDetails = 
+        {
+           filename: 'Sonali_saha.pdf',
+           caseId: '1660589382629898',
+           freeTextStatements: 'aaaaaa'
+         };
+        // uploadDocumentDetails.set("fileName", "Sonali_saha.pdf");
+        // uploadDocumentDetails.set("caseId", "1660589382629898");
+
+         
+
+        // uploadDocumentDetails.set("freeTextStatements", "Test information");
+        console.log("uploadDocumentDetails in generatePdf :::::" + uploadDocumentDetails);
+        console.log("uploadDocumentDetails1 in generatePdf :::::" + JSON.stringify(uploadDocumentDetails));
+        let generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
+
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
         const updatedCaseDataFromCos = await client.generateUserUploadedStatementDocument(
           caseworkerUser,
+          generateAndUploadDocumentRequest,
         );
         console.log(updatedCaseDataFromCos);
         if (updatedCaseDataFromCos !== 'Success') {
