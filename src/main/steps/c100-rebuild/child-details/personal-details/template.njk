@@ -95,6 +95,9 @@
                                         }
                                     ]
                                 }) }}
+                                  {% for error in sessionErrors %}
+                         {%- if  error.propertyName === 'cannotHaveBothApproxAndExact'  %}</div>  {% endif %}
+                            {% endfor %}
 
                               <div class="govuk-form-group">
                                 <fieldset class="govuk-fieldset">
@@ -170,7 +173,7 @@
                                 </fieldset>
                                 
                         {% for error in sessionErrors %}
-                        {%- if error.propertyName == 'childDateOfBirth' or  error.propertyName == 'childDateOfBirthNotValid' or  error.propertyName == 'childDateOfBirthNotValidSubField' or  error.propertyName === 'cannotHaveBothApproxAndExact'  %}</div>  {% endif %}
+                        {%- if error.propertyName == 'childDateOfBirth' or  error.propertyName == 'childDateOfBirthNotValid' or  error.propertyName == 'childDateOfBirthNotValidSubField' %}</div>  {% endif %}
                         {% endfor %}
                                 </div>
                                 
