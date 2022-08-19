@@ -16,13 +16,13 @@ services:
     systemPassword: 'dummy_password'
   case:
     #url: 'http://localhost:4452'
-    url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
     #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     checkDivCases: true
   cos:
-    url: 'http://prl-cos-pr-505.service.core-compute-preview.internal'
+    url: 'https://prl-cos-pr-505.service.core-compute-preview.internal'
   documentManagement:
-    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
+    url: 'https://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
     checkDivCases: true
 health:
   timeout: 5000
