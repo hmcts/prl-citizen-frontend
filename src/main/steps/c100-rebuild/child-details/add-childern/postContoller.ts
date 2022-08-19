@@ -37,7 +37,7 @@ export default class AddChilderns extends PostController<AnyObject> {
 
               const fillLastName: any = req['body']['lastname-' + nextChildId];
               req.session.settings.childTemporaryFormData.TempFirstName = '';
-               req.session.settings.childTemporaryFormData.TempLastName = fillLastName;
+              req.session.settings.childTemporaryFormData.TempLastName = fillLastName;
               console.log({ fillLastName });
               super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
             } else if (req['body']['lastname-' + nextChildId] === '') {
