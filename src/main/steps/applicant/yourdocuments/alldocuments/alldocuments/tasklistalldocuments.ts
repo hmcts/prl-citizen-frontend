@@ -425,7 +425,7 @@ const getRespondentWitnessStatementsDA = (respondent: PartyDetails, taskListItem
       '<namerespondentxxxxx>',
       respondent.firstName + ' ' + respondent.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_WITNESS_STATEMENTS : '#',
+    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_WITNESS_STATEMENTS + '?name=Sairam ' : '#',
   };
 };
 
@@ -480,7 +480,7 @@ const getApplicantWitnessStatements = (applicant: Applicant, taskListItems) => {
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href: URL.APPLICANT + URL.APPLICANT_WITNESS_STATEMENTS,
+    href: URL.APPLICANT + URL.APPLICANT_WITNESS_STATEMENTS + '?name=Sairam',
   };
 };
 
