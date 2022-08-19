@@ -6,6 +6,7 @@ export enum Sections {
   AboutEdgeCase = 'aboutEdgeCase',
   AboutRespondentCase = 'aboutRespondentCase',
   AboutApplicantCase = 'aboutApplicantCase',
+  AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
   C100 = 'c100',
 }
 
