@@ -39,7 +39,6 @@ export default class Personaldetails extends PostController<AnyObject> {
     if (this.childSexValidation(req)) {
       const amendChildData: AnyType = { ...childDetails, Sex: req['body']['Sex'] };
       req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendChildData;
-      console.log({ pointer: 'super if  block', amendChildData });
     }
 
     if (
@@ -61,7 +60,8 @@ export default class Personaldetails extends PostController<AnyObject> {
       if (childApproxDateEnabled) {
         const amendedChildData: AnyType = { ...childDetails, isDateOfBirthKnown: YesOrNo.YES, Sex: req['body']['Sex'] };
         req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildData;
-        console.log({ pointer: 'if block', amendedChildData });
+
+        /* Checking if the date is valid and if it is not valid it is redirecting to the same page. */
 
         if (!this.childApproximatelyDateValidator(req)) {
           req.session.errors.push({
@@ -75,7 +75,6 @@ export default class Personaldetails extends PostController<AnyObject> {
         }
       } else {
         const amendedChildData: AnyType = { ...childDetails, isDateOfBirthKnown: YesOrNo.NO, Sex: req['body']['Sex'] };
-        console.log({ pointer: 'else block', amendedChildData });
         req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildData;
         if (this.childDateValidations(req)) {
           req.session.errors.push({
@@ -94,7 +93,24 @@ export default class Personaldetails extends PostController<AnyObject> {
         super.redirect(req, res, redirectUrl);
       }
     } else {
-      this.proceedWithoutError(req, res);
+      const childApproxDateEnabled =
+        req.body['steps_children_personal_details'] !== undefined &&
+        req.body['steps_children_personal_details'] === 'true';
+      const childOrignalDateField = 'child-dateOfBirth-';
+      if (
+        (req['body'][`${childOrignalDateField}day`] !== '' && childApproxDateEnabled) ||
+        (req['body'][`${childOrignalDateField}month`] !== '' && childApproxDateEnabled) ||
+        (req['body'][`${childOrignalDateField}year`] !== '' && childApproxDateEnabled)
+      ) {
+        req.session.errors.push({
+          propertyName: 'cannotHaveBothApproxAndExact',
+          errorType: 'required',
+        });
+        const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+        super.redirect(req, res, redirectUrl);
+      } else {
+        this.proceedWithoutError(req, res);
+      }
     }
   }
 
@@ -253,9 +269,9 @@ export default class Personaldetails extends PostController<AnyObject> {
     const Sex = req.body['Sex'];
     const isDateOfBirthKnown = req.body['steps_children_personal_details'] !== undefined ? YesOrNo.YES : YesOrNo.NO;
     if (isDateOfBirthKnown === YesOrNo.NO) {
-      return { DateoBirth, Sex, isDateOfBirthKnown, ApproximateDateOfBirth: undefined };
+      return { DateoBirth, Sex, isDateOfBirthKnown, ApproximateDateOfBirth };
     } else {
-      return { DateoBirth: undefined, ApproximateDateOfBirth, Sex, isDateOfBirthKnown };
+      return { DateoBirth, ApproximateDateOfBirth, Sex, isDateOfBirthKnown };
     }
   }
 }
