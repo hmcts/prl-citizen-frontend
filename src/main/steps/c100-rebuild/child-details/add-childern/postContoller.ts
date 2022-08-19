@@ -22,31 +22,36 @@ export default class AddChilderns extends PostController<AnyObject> {
         case 'addChild':
           //  const { firstname, lastname } = req['body'];
           // eslint-disable-next-line no-case-declarations
-          if (!req.session.settings.ListOfChild || req.session.settings.ListOfChild.length === 0) {
-            if (req['body']['firstname-1'] === '' && req['body']['lastname-1'] === '') {
+          const nextChildId = req.session.settings['ListOfChild'].length + 1;
+          console.log({ nextChildId });
+          console.log(req.body);
+          console.log({ B: req['body'][`firstname-${nextChildId}`] });
+          if (req['body']['firstname-' + nextChildId] === '' || req['body']['lastname-' + nextChildId] === '') {
+            if (req['body']['firstname-' + nextChildId] === '' && req['body']['lastname-' + nextChildId] === '') {
               console.log('Inside If');
               req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
               req.session.errors.push({
                 propertyName: 'lastname-1',
                 errorType: 'required',
               });
-              super.redirect(req, res, req.url);
-            } else if (req['body']['firstname-1'] === '') {
+              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            } else if (req['body']['firstname-' + nextChildId] === '') {
               req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
-              super.redirect(req, res, req.url);
-            } else if (req['body']['lastname-1'] === '') {
+              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            } else if (req['body']['lastname-' + nextChildId] === '') {
               req.session.errors = [{ propertyName: 'lastname-1', errorType: 'required' }];
-              super.redirect(req, res, req.url);
+              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
             }
-          }
-          for (const [key, value] of Object.entries(req['body'])) {
-            if ((key.includes('firstname') || key.includes('lastname')) && key.includes('_cid')) {
-              this.addChildCommonLogic(req, key, value, 'update');
-            } else {
-              this.addChildCommonLogic(req, key, value, 'add');
+          } else {
+            for (const [key, value] of Object.entries(req['body'])) {
+              if ((key.includes('firstname') || key.includes('lastname')) && key.includes('_cid')) {
+                this.addChildCommonLogic(req, key, value, 'update');
+              } else {
+                this.addChildCommonLogic(req, key, value, 'add');
+              }
             }
+            super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
           }
-          super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
           break;
 
         case 'removeChild':
