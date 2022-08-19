@@ -23,9 +23,6 @@ export default class AddChilderns extends PostController<AnyObject> {
           //  const { firstname, lastname } = req['body'];
           // eslint-disable-next-line no-case-declarations
           const nextChildId = req.session.settings['ListOfChild'].length + 1;
-          console.log({ nextChildId });
-          console.log(req.body);
-          console.log({ B: req['body'][`firstname-${nextChildId}`] });
           if (req['body']['firstname-' + nextChildId] === '' || req['body']['lastname-' + nextChildId] === '') {
             if (req['body']['firstname-' + nextChildId] === '' && req['body']['lastname-' + nextChildId] === '') {
               console.log('Inside If');
@@ -62,22 +59,36 @@ export default class AddChilderns extends PostController<AnyObject> {
           break;
 
         case 'continue':
-          for (const [key, value] of Object.entries(req['body'])) {
-            if ((key.includes('firstname') || key.includes('lastname')) && key.includes('_cid')) {
-              this.addChildCommonLogic(req, key, value, 'update');
+          // eslint-disable-next-line no-case-declarations
+          const nextChildIdInContinue = req.session.settings['ListOfChild'].length + 1;
+          if (
+            req['body']['firstname-' + nextChildIdInContinue] !== '' ||
+            req['body']['lastname-' + nextChildIdInContinue] !== ''
+          ) {
+            if (
+              req['body']['firstname-' + nextChildIdInContinue] === '' &&
+              req['body']['lastname-' + nextChildIdInContinue] === ''
+            ) {
+              console.log('Inside If');
+              req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
+              req.session.errors.push({
+                propertyName: 'lastname-1',
+                errorType: 'required',
+              });
+              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            } else if (req['body']['firstname-' + nextChildIdInContinue] === '') {
+              req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
+              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            } else if (req['body']['lastname-' + nextChildIdInContinue] === '') {
+              req.session.errors = [{ propertyName: 'lastname-1', errorType: 'required' }];
+              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
             } else {
-              const index = key.split('-')[1];
-              if (req['body']['firstname-' + index] !== '' && req['body']['lastname-' + index] !== '') {
-                this.addChildCommonLogic(req, key, value, 'add');
-              }
+              this.updateInformationUsingContinueButton(req, res);
             }
+          } else {
+            this.updateInformationUsingContinueButton(req, res);
           }
 
-          // eslint-disable-next-line no-self-assign
-          req.session.settings.ListOfChild = req.session.settings.ListOfChild;
-          // eslint-disable-next-line no-case-declarations
-          const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;
-          super.redirect(req, res, redirectURI);
           break;
 
         default:
@@ -89,6 +100,25 @@ export default class AddChilderns extends PostController<AnyObject> {
       const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;
       super.redirect(req, res, redirectURI);
     }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public updateInformationUsingContinueButton(req: AppRequest, res: Response) {
+    for (const [key, value] of Object.entries(req['body'])) {
+      if ((key.includes('firstname') || key.includes('lastname')) && key.includes('_cid')) {
+        this.addChildCommonLogic(req, key, value, 'update');
+      } else {
+        const index = key.split('-')[1];
+        if (req['body']['firstname-' + index] !== '' && req['body']['lastname-' + index] !== '') {
+          this.addChildCommonLogic(req, key, value, 'add');
+        }
+      }
+    }
+    // eslint-disable-next-line no-self-assign
+    req.session.settings.ListOfChild = req.session.settings.ListOfChild;
+    // eslint-disable-next-line no-case-declarations
+    const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;
+    super.redirect(req, res, redirectURI);
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
