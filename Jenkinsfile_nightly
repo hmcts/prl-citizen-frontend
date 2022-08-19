@@ -14,7 +14,10 @@ def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
-
+// SAUCELABS config - configured on Jenkins
+env.SAUCE_USERNAME = 'username'
+env.SAUCE_ACCESS_KEY = 'privatekey'
+env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
 
 def secrets = [
   'prl-${env}': [
@@ -23,8 +26,6 @@ def secrets = [
     secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET')
   ]
 ]
-
-
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   [$class     : 'AzureKeyVaultSecret',
@@ -42,13 +43,15 @@ withNightlyPipeline(type, product, component) {
 
   loadVaultSecrets(secrets)
   enableFullFunctionalTest(120)
+  enableCrossBrowserTest(['chrome', 'firefox','microsoft'])
+  enableFortifyScan()
+  enableSecurityScan()
 
   after('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
   }
 
   before('crossBrowserTest') {
-
   }
 
   after('crossBrowserTest') {
@@ -67,4 +70,3 @@ withNightlyPipeline(type, product, component) {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
   }
 }
-
