@@ -1,11 +1,11 @@
-import Axios, { AxiosInstance, AxiosResponse } from 'axios';
+import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import type { AppRequest, UserDetails } from '../controller/AppRequest';
+import type { UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData, RespondentCaseData, RespondentCaseId } from './definition';
+import { CaseData } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -69,7 +69,7 @@ export class CosApiClient {
     if (!caseId || !user || !accessCode) {
       return Promise.reject(new Error('Case id must be set and user must be set'));
     }
-    const response = await Axios.get(config.get('services.cos.url') + `/validate-access-code`, {
+    const response = await Axios.get(config.get('services.cos.url') + '/validate-access-code', {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
@@ -107,5 +107,22 @@ export class CosApiClient {
     } catch (err) {
       throw new Error('Case could not be updated.');
     }
+  }
+  /**
+   * It retrieves all cases from the COS service for a user and returns it in a format that the frontend can use
+   * @param {UserDetails} user - UserDetails - this is the user object that is passed in from the front
+   * end.
+   * @returns The response from the API is being returned.
+   */
+  public async retrieveCasesByUserId(user: UserDetails): Promise<string | undefined> {
+    const response = await Axios.get(config.get('services.cos.url') + '/citizen/role/retrieve-cases/userid', {
+      headers: {
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
   }
 }

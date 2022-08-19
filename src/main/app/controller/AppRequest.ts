@@ -34,6 +34,7 @@ export interface UserDetails {
   email: string;
   givenName: string;
   familyName: string;
+  role: string;
 }
 
 export interface Eligibility {
