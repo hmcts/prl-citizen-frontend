@@ -14,6 +14,7 @@ const DateValidations = {
   DATE: { MIN: 0, MAX: 31 },
   YEAR: { MIN: 1900, MAX: new Date().getFullYear() },
 };
+type AnyType = any;
 
 @autobind
 export default class Personaldetails extends PostController<AnyObject> {
@@ -32,6 +33,15 @@ export default class Personaldetails extends PostController<AnyObject> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
     const { childId } = req.query;
+    const matchChildIndex = req.session.settings.ListOfChild.findIndex(child => child.id === childId);
+    const childDetails = req.session.settings.ListOfChild[matchChildIndex].personalDetails;
+
+    if (this.childSexValidation(req)) {
+      const amendChildData: AnyType = { ...childDetails, Sex: req['body']['Sex'] };
+      req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendChildData;
+      console.log({ pointer: 'super if  block', amendChildData });
+    }
+
     if (
       !this.childSexValidation(req) ||
       this.childDateValidations(req) ||
@@ -44,12 +54,15 @@ export default class Personaldetails extends PostController<AnyObject> {
           errorType: 'required',
         });
       }
-
       const childApproxDateEnabled =
         req.body['steps_children_personal_details'] !== undefined &&
         req.body['steps_children_personal_details'] === 'true';
 
       if (childApproxDateEnabled) {
+        const amendedChildData: AnyType = { ...childDetails, isDateOfBirthKnown: YesOrNo.YES, Sex: req['body']['Sex'] };
+        req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildData;
+        console.log({ pointer: 'if block', amendedChildData });
+
         if (!this.childApproximatelyDateValidator(req)) {
           req.session.errors.push({
             propertyName: 'childDateOfBirthNotValidSubField',
@@ -61,6 +74,9 @@ export default class Personaldetails extends PostController<AnyObject> {
           this.proceedWithoutError(req, res);
         }
       } else {
+        const amendedChildData: AnyType = { ...childDetails, isDateOfBirthKnown: YesOrNo.NO };
+        console.log({ pointer: 'else block', amendedChildData });
+        req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildData;
         if (this.childDateValidations(req)) {
           req.session.errors.push({
             propertyName: 'childDateOfBirth',
@@ -122,6 +138,16 @@ export default class Personaldetails extends PostController<AnyObject> {
     } else {
       return true;
     }
+  }
+
+  public saveSessionAndRedirect(req: AppRequest, res: Response, redirectURI: string): void {
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      } else {
+        res.redirect(redirectURI);
+      }
+    });
   }
 
   /**
