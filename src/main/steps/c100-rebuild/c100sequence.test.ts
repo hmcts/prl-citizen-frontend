@@ -4,7 +4,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(23);
+    expect(C100Sequence).toHaveLength(24);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -96,5 +96,13 @@ describe('C100Sequence', () => {
     expect(C100Sequence[21].url).toBe('/c100-rebuild/child-details/parental-responsibility');
     expect(C100Sequence[21].showInSection).toBe('c100');
     expect(C100Sequence[21].getNextStep({})).toBe('/c100-rebuild/child-details/further-information');
+
+    expect(C100Sequence[22].url).toBe('/c100-rebuild/child-details/further-information');
+    expect(C100Sequence[22].showInSection).toBe('c100');
+    expect(C100Sequence[22].getNextStep({})).toBe('/c100-rebuild/hearing-without-notice/hearing-part2');
+
+    expect(C100Sequence[23].url).toBe('/c100-rebuild/hearing-without-notice/hearing-part2');
+    expect(C100Sequence[23].showInSection).toBe('c100');
+    expect(C100Sequence[23].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
   });
 });
