@@ -74,7 +74,7 @@ export default class Personaldetails extends PostController<AnyObject> {
           this.proceedWithoutError(req, res);
         }
       } else {
-        const amendedChildData: AnyType = { ...childDetails, isDateOfBirthKnown: YesOrNo.NO };
+        const amendedChildData: AnyType = { ...childDetails, isDateOfBirthKnown: YesOrNo.NO, Sex: req['body']['Sex'] };
         console.log({ pointer: 'else block', amendedChildData });
         req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildData;
         if (this.childDateValidations(req)) {
