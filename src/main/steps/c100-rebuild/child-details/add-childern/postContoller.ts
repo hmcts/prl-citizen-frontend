@@ -34,20 +34,25 @@ export default class AddChilderns extends PostController<AnyObject> {
               super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
             } else if (req['body']['firstname-' + nextChildId] === '') {
               req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
+
+              const fillLastName: any = req['body']['lastname-' + nextChildId];
+              req.session.settings.childTemporaryFormData.TempFirstName = '';
+               req.session.settings.childTemporaryFormData.TempLastName = fillLastName;
+              console.log({ fillLastName });
               super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
             } else if (req['body']['lastname-' + nextChildId] === '') {
               req.session.errors = [{ propertyName: 'lastname-1', errorType: 'required' }];
+
+              const fillFirstName: any = req['body']['firstname-' + nextChildId];
+              req.session.settings.childTemporaryFormData.TempLastName = '';
+              req.session.settings.childTemporaryFormData.TempFirstName = fillFirstName;
+
               super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
             }
           } else {
-            for (const [key, value] of Object.entries(req['body'])) {
-              if ((key.includes('firstname') || key.includes('lastname')) && key.includes('_cid')) {
-                this.addChildCommonLogic(req, key, value, 'update');
-              } else {
-                this.addChildCommonLogic(req, key, value, 'add');
-              }
-            }
-            super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            req.session.settings.childTemporaryFormData.TempLastName = '';
+            req.session.settings.childTemporaryFormData.TempFirstName = '';
+            this.addInformationUsingContinueButton(req, res);
           }
           break;
 
@@ -118,6 +123,25 @@ export default class AddChilderns extends PostController<AnyObject> {
     req.session.settings.ListOfChild = req.session.settings.ListOfChild;
     // eslint-disable-next-line no-case-declarations
     const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;
+    super.redirect(req, res, redirectURI);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public addInformationUsingContinueButton(req: AppRequest, res: Response) {
+    for (const [key, value] of Object.entries(req['body'])) {
+      if ((key.includes('firstname') || key.includes('lastname')) && key.includes('_cid')) {
+        this.addChildCommonLogic(req, key, value, 'update');
+      } else {
+        const index = key.split('-')[1];
+        if (req['body']['firstname-' + index] !== '' && req['body']['lastname-' + index] !== '') {
+          this.addChildCommonLogic(req, key, value, 'add');
+        }
+      }
+    }
+    // eslint-disable-next-line no-self-assign
+    req.session.settings.ListOfChild = req.session.settings.ListOfChild;
+    // eslint-disable-next-line no-case-declarations
+    const redirectURI = C100_CHILDERN_DETAILS_ADD;
     super.redirect(req, res, redirectURI);
   }
 

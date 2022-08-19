@@ -92,7 +92,8 @@
     id: "firstname-1",
     name: "firstname-"+(listedChildern.length+1),
     autocomplete: "firstname-"+(listedChildern.length+1),
-    classes: "govuk-input govuk-!-width-one-half"
+    classes: "govuk-input govuk-!-width-one-half",
+    value: tempFormData['TempFirstName']
   }) }}
 
     {% for error in sessionErrors %}
@@ -116,7 +117,8 @@
     id: "lastname-1",
     name: "lastname-"+(listedChildern.length+1),
     autocomplete: "lastname-"+(listedChildern.length+1),
-    classes: "govuk-input govuk-!-width-one-half"
+    classes: "govuk-input govuk-!-width-one-half",
+    value: tempFormData['TempLastName']
   }) }}
       {% for error in sessionErrors %}
     {%- if  error.propertyName === 'lastname-1'  %}</div>  {% endif %}

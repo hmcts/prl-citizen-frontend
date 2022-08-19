@@ -64,6 +64,10 @@ export class OidcMiddleware {
             req.session.settings = {
               toggleChild: 0,
               ListOfChild: [],
+              childTemporaryFormData: {
+                TempFirstName: '',
+                TempLastName: '',
+              },
             };
           }
           return next();
