@@ -111,17 +111,7 @@ describe('task-list > content', () => {
     {
       userCase: {
         ...mockUserCase,
-        orderCollection: [
-          {
-            id: '1',
-            value: {
-              dateCreated: 'DateAsString',
-              orderType: 'string',
-              orderDocument: null,
-              otherDetails: null,
-            },
-          },
-        ],
+        orderCollection: [],
       },
       expected: [
         {
