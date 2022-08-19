@@ -106,4 +106,84 @@ describe('task-list > content', () => {
     const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
     expect(taskListItems).toEqual(expected);
   });
+
+  test.each([
+    {
+      userCase: {
+        ...mockUserCase,
+        orderCollection: [
+          {
+            id: '1',
+            value: {
+              dateCreated: 'DateAsString',
+              orderType: 'string',
+              orderDocument: null,
+              otherDetails: null,
+            },
+          },
+        ],
+      },
+      expected: [
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'keep-your-details-private',
+              status: 'TO_DO',
+              text: 'Keep your details private',
+            },
+            {
+              href: '/applicant/confirm-contact-details/checkanswers',
+              id: 'confirm-or-edit-your-contact-details',
+              status: 'TO_DO',
+              text: 'Confirm or edit your contact details',
+            },
+          ],
+          title: 'About you',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/public/docs/FL401-Final-Document.pdf',
+              id: 'your-application',
+              status: 'DOWNLOAD',
+              text: 'Application submitted (PDF)',
+            },
+            {
+              href: '/applicant/public/docs/witness-statement-Final-Document.pdf',
+              id: 'your-application-witness-statment',
+              status: 'DOWNLOAD',
+              text: 'Witness statement (PDF)',
+            },
+          ],
+          title: applicant_en.yourApplication,
+        },
+        {
+          items: [
+            {
+              href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'view-all-documents',
+              status: 'READY_TO_VIEW',
+              text: 'View all documents',
+            },
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'view-all-orders-from-the-court',
+              status: SectionStatus.NOT_AVAILABLE_YET,
+              text: applicant_tasklist_items_en.view_all_orders_from_the_court,
+            },
+          ],
+          title: applicant_en.ordersFromTheCourt,
+        },
+      ],
+    },
+  ])('should generate correct task list %#', ({ userCase, expected }) => {
+    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
+    expect(taskListItems).toEqual(expected);
+  });
 });
