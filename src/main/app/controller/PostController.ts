@@ -18,7 +18,7 @@ import { AppRequest } from './AppRequest';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
-  constructor(protected readonly fields: FormFields | FormFieldsFn) { }
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
@@ -290,7 +290,6 @@ export class PostController<T extends AnyObject> {
     }
   }*/
 
-
   private async checkCaseAccessCode(
     req: AppRequest<T>,
     res: Response,
@@ -306,9 +305,12 @@ export class PostController<T extends AnyObject> {
     try {
       if (!req.session.errors.length) {
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-        const accessCodeValidated = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
-        console.log(accessCodeValidated);
-         if (accessCodeValidated === 'linked') {
+        const accessCodeValidated = await client.validateAccessCode(
+          caseReference as string,
+          accessCode as string,
+          caseworkerUser
+        );
+        if (accessCodeValidated === 'linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         } else if (accessCodeValidated !== 'valid') {
           req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });

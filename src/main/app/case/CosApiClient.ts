@@ -73,8 +73,8 @@ export class CosApiClient {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
-        caseId: caseId,
-        accessCode: accessCode,
+        caseId,
+        accessCode,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -84,13 +84,8 @@ export class CosApiClient {
     return response.data;
   }
 
-  public async updateCase(
-    user: UserDetails,
-    caseId: string,
-    data: Partial<CaseData>,
-    eventId: string
-  ): Promise<CaseWithId> {
-    data.applicantCaseName = 'Tom Jerry - updated';
+  public async updateCase(user: UserDetails, caseId: string, data: Partial<CaseData>): Promise<CaseWithId> {
+    data.applicant1LastNames = 'Tom Jerry - updated';
     try {
       const eventId = 'citizen-case-update';
       const headers = {
