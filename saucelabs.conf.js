@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
-const testConfig = require('./test/end-to-end/config.js');
-const supportedBrowsers = require('./test/end-to-end/crossbrowser/supportedBrowsers.js');
-//const testUserConfig = require('./test/end-to-end/config.js').config;
+const testConfig = require('./src/test/end-to-end/config.js');
+const supportedBrowsers = require('./src/test/end-to-end/crossbrowser/supportedBrowsers.js');
+//const testUserConfig = require('./src/test/end-to-end/config.js').config;
 // eslint-disable-next-line no-magic-numbers
 const waitForTimeout = parseInt(process.env.WAIT_FOR_TIMEOUT) || 50000;
 // eslint-disable-next-line no-magic-numbers
@@ -39,12 +39,12 @@ function getBrowserConfig(browserGroup) {
 }
 
 const setupConfig = {
-  tests: './test/end-to-end/tests/*.js',
+  tests: './src/test/end-to-end/tests/*.js',
   //teardown: testUserConfig.teardown,
   output: `${process.cwd()}/${testConfig.TestOutputDir}`,
   helpers: {
     WebDriver: {
-      url: process.env.TEST_URL,
+      url: process.env.PRL_CITIZEN_URL,
       keepCookies: true,
       browser,
       smartWait,
@@ -56,12 +56,12 @@ const setupConfig = {
       capabilities: {},
     },
     SauceLabsReportingHelper: {
-      require: './test/end-to-end/helpers/SauceLabsReportingHelper.js',
+      require: './src/test/end-to-end/helpers/SauceLabsReportingHelper.js',
     },
     Mochawesome: {
       uniqueScreenshotNames: true,
     },
-    GeneralHelper: { require: './test/end-to-end/helpers/generalHelper.js' }
+    GeneralHelper: { require: './src/test/end-to-end/helpers/generalHelper.js' }
   },
   plugins: {
     //autoLogin: testUserConfig.AutoLogin,
@@ -79,9 +79,9 @@ const setupConfig = {
     },
   },
   include: {
-    I: './test/end-to-end/steps_file.js',
-    config: './test/end-to-end/config.js',
-    loginPage: './test/end-to-end/pages/Login.js',
+    I: './src/test/end-to-end/steps_file.js',
+    config: './src/test/end-to-end/config.js',
+    loginPage: './src/test/end-to-end/pages/Login.js',
   },
   mocha: {
     reporterOptions: {
