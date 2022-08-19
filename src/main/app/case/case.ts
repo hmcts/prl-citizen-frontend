@@ -162,6 +162,9 @@ export interface Case {
   courtProceedingProvideDetails?: string;
   safetyConcerns?: string;
 
+  //C100 Rebuild
+  disabilityRequirements?: string[];
+
   citizenRole?: FieldPrefix;
 }
 
