@@ -61,7 +61,6 @@ export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStat
 };
 
 export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
-  //const documents: string[] = [];
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
   }
