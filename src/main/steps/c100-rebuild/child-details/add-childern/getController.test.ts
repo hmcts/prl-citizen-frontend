@@ -3,10 +3,8 @@ import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { FieldPrefix } from '../../../../app/case/case';
 import { State } from '../../../../app/case/definition';
-//import { generatePageContent } from '../../../../steps/common/common.content';
-import * as Urls from '../../../../steps/urls';
 
-import AddChildernMatterGetController from './getController';
+import AddChilderns from './getController';
 
 const dummySessionData = {
   ListOfChild: [
@@ -47,31 +45,27 @@ const dummySessionData = {
   ],
 };
 
-describe('AddChildernMatterGetController', () => {
+describe('Add Childern Controller', () => {
   test('Should render the page', async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
-
+    const controller = new AddChilderns('page', () => ({}), FieldPrefix.APPLICANT);
+    const language = 'cy';
     const req = mockRequest();
     const res = mockResponse();
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
     await controller.get(req, res);
+
     expect(1).toEqual(1);
-  });
-
-  test('Testing controller native methods to ensure right validation', async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
-
-    const req = mockRequest({ userCase: { state: State.AwaitingPayment } });
-    const res = mockResponse();
-    await controller.get(req, res);
-    req.originalUrl = Urls.C100_CHILDERN_DETAILS_CHILD_MATTERS;
-    controller.clearConfidentialitySessionSaveData(req);
-    expect(req.session['contactDetailsPrivateAlternative']).toBe(undefined);
-    expect(req.originalUrl).toBe(req.originalUrl);
   });
 
   describe('Getting the users preferred language', () => {
     test('Language whelsh via session', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddChilderns('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'cy';
       const req = mockRequest();
@@ -85,10 +79,7 @@ describe('AddChildernMatterGetController', () => {
       req.session.settings = settings;
       await controller.get(req, res);
 
-      const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
-      const checkIfDecisionMade = 'Yes';
-      const postURL = '';
-      const listOfItems = [];
+      // const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
 
       expect(res.render).not.toBeCalledWith('page', {
         ...defaultViewArgs,
@@ -96,17 +87,13 @@ describe('AddChildernMatterGetController', () => {
         htmlLang: language,
         childernForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
-        childDetails: req.session.settings.ListOfChild.filter(child => child.id === childId)[0],
-        checkIfDecisionMade,
-        childId,
-        postURL,
-        listOfItems,
+        listedChildern: dummySessionData.ListOfChild,
+        tempFormData: req.session.settings.childTemporaryFormData,
       });
     });
 
     test('Language english via session', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddChilderns('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'en';
       const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
@@ -122,83 +109,114 @@ describe('AddChildernMatterGetController', () => {
       req.query.childId = childId;
       await controller.get(req, res);
 
-      const checkIfDecisionMade = 'Yes';
-      const postURL = '';
-      const listOfItems = [];
-
       expect(res.render).not.toBeCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
         childernForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
-        childDetails: req.session.settings.ListOfChild.filter(child => child.id === childId)[0],
-        checkIfDecisionMade,
-        childId,
-        postURL,
-        listOfItems,
+        listedChildern: dummySessionData.ListOfChild,
+        tempFormData: req.session.settings.childTemporaryFormData,
       });
     });
 
     test('Language via browser settings - welsh', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddChilderns('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'cy';
       const req = mockRequest({ headers: { 'accept-language': 'cy' } });
       const res = mockResponse();
+      const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
+      req.session.lang = language;
+      const settings = {
+        toggleChild: 0,
+        ListOfChild: dummySessionData.ListOfChild,
+        childTemporaryFormData: {},
+      };
+      req.session.settings = settings;
+      req.query.childId = childId;
       req.query.lng = language;
       await controller.get(req, res);
-      expect(req.query).toEqual({ lng: 'cy' });
+      expect(req.query).toEqual({ lng: 'cy', childId });
     });
 
     test('Language via browser settings - English', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddChilderns('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'en';
       const req = mockRequest({ headers: { 'accept-language': 'en' } });
       const res = mockResponse();
+      const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
+      req.session.lang = language;
+      const settings = {
+        toggleChild: 0,
+        ListOfChild: dummySessionData.ListOfChild,
+        childTemporaryFormData: {},
+      };
+      req.session.settings = settings;
+      req.query.childId = childId;
       req.query.lng = language;
       await controller.get(req, res);
-      expect(req.query).toEqual({ lng: 'en' });
+      expect(req.query).toEqual({ lng: 'en', childId });
     });
   });
 
   test("Doesn't call render if an error page has already been rendered upstream", async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new AddChilderns('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
+    const language = 'en';
+    const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    req.query.childId = childId;
     res.locals.isError = true;
     await controller.get(req, res);
     expect(res.render).not.toHaveBeenCalled();
   });
 
   test("Doesn't call render if headers have already been sent already upstream", async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new AddChilderns('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
+    const language = 'en';
+    const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    req.query.childId = childId;
     res.headersSent = true;
     await controller.get(req, res);
     expect(res.render).not.toHaveBeenCalled();
   });
 
-  test('sends the current page form session state to the view', async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
-
-    const req = mockRequest();
-    const res = mockResponse();
-    await controller.get(req, res);
-    expect(res.session).not.toBe(req.session);
-  });
-
   describe('generatePageContent()', () => {
     test('calls generatePageContent with correct arguments for new sessions', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddChilderns('page', () => ({}), FieldPrefix.APPLICANT);
 
       const req = mockRequest({ userCase: { state: State.Draft }, session: { errors: [] } });
       const res = mockResponse();
+      const language = 'en';
+      const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
+      req.session.lang = language;
+      const settings = {
+        toggleChild: 0,
+        ListOfChild: dummySessionData.ListOfChild,
+        childTemporaryFormData: {},
+      };
+      req.session.settings = settings;
+      req.query.childId = childId;
       await controller.get(req, res);
       expect(req).not.toBe(res.render());
     });
