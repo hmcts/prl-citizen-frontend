@@ -11,6 +11,7 @@ import {
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
+  RESPONDENT,
   RESPONDENT_ADDRESS_BLANK,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
@@ -28,6 +29,7 @@ import {
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
+  YOUR_WITNESS_STATEMENTS,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -178,5 +180,15 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_VIEW_ALL_DOCUMENTS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${RESPONDENT}${YOUR_WITNESS_STATEMENTS}`,
+  },
+  {
+    url: `${RESPONDENT}${YOUR_WITNESS_STATEMENTS}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
 ];

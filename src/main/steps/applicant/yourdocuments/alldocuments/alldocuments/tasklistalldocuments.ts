@@ -6,8 +6,8 @@ import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/uti
 export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [
     ...getOrdersFromCourt(sectionTitles, taskListItems, URL.APPLICANT_ORDERS_FROM_THE_COURT),
-    getApplicantDocuments(sectionTitles, taskListItems, userCase),
-    getRespondentDocuments(sectionTitles, taskListItems, userCase),
+    getApplicantDocuments(sectionTitles, taskListItems, userCase, true),
+    getRespondentDocuments(sectionTitles, taskListItems, userCase, true),
     getCafcassDocuments(sectionTitles, taskListItems, userCase),
     getOtherDocuments(sectionTitles, taskListItems, userCase),
     getAttendingTheHearingDocs(sectionTitles, taskListItems, userCase),
@@ -34,7 +34,11 @@ export const getOrdersFromCourt = (sectionTitles, taskListItems, url) => {
   ];
 };
 
-export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) => {
+export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, isApplicant) => {
+  let url = `${URL.APPLICANT}${URL.YOUR_WITNESS_STATEMENTS}`;
+  if (!isApplicant) {
+    url = `${URL.RESPONDENT}${URL.YOUR_WITNESS_STATEMENTS}`;
+  }
   const applicantItems: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
     userCase.applicants.forEach((applicant: Applicant) => {
@@ -50,7 +54,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) =>
       applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, userCase));
     });
     userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems));
+      applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
     });
   } else {
     console.log('**** Applicants Fl401 **** ' + JSON.stringify(userCase.applicantsFL401));
@@ -59,7 +63,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) =>
     applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
     applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
     applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, userCase));
-    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
   }
   applicantItems.push({
     id: 'other_people_witness_statements',
@@ -139,7 +143,11 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase) =>
   };
 };
 
-export const getRespondentDocuments = (sectionTitles, taskListItems, userCase) => {
+export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, isApplicant) => {
+  let url = `${URL.APPLICANT}${URL.YOUR_WITNESS_STATEMENTS}`;
+  if (!isApplicant) {
+    url = `${URL.RESPONDENT}${URL.YOUR_WITNESS_STATEMENTS}`;
+  }
   const respondentItems: object[] = [];
   const respondentItems2: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
@@ -156,14 +164,14 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase) =
       respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, userCase));
     });
     userCase.respondents.forEach((respondent: Respondent) => {
-      respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase));
+      respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase, url));
     });
   } else {
     respondentItems.push(getResponseToDA(userCase.respondentsFL401, taskListItems, userCase));
     respondentItems.push(getResponseToAohAndViolenceDA(userCase.respondentsFL401, taskListItems, userCase));
     respondentItems.push(getAohAndViolenceDA(userCase.respondentsFL401, taskListItems, userCase));
     respondentItems2.push(getRespondentPositionStatementsDA(userCase.respondentsFL401, taskListItems, userCase));
-    respondentItems2.push(getRespondentWitnessStatementsDA(userCase.respondentsFL401, taskListItems, userCase));
+    respondentItems2.push(getRespondentWitnessStatementsDA(userCase.respondentsFL401, taskListItems, userCase, url));
   }
 
   respondentItems.push({
@@ -360,7 +368,7 @@ const getRespondentPositionStatements = (respondent: Respondent, taskListItems, 
   };
 };
 
-const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, userCase) => {
+const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, userCase, url) => {
   return {
     id: 'respondent_witness_statements',
     text: taskListItems.respondent_witness_statements.replace(
@@ -368,12 +376,7 @@ const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, u
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
     href: userCase.allegationsOfHarmYesNo
-      ? URL.APPLICANT +
-        URL.YOUR_WITNESS_STATEMENTS +
-        '?name=' +
-        respondent.value.firstName +
-        ' ' +
-        respondent.value.lastName
+      ? url + '?name=' + respondent.value.firstName + ' ' + respondent.value.lastName
       : '#',
   };
 };
@@ -425,16 +428,14 @@ const getRespondentPositionStatementsDA = (respondent: PartyDetails, taskListIte
   };
 };
 
-const getRespondentWitnessStatementsDA = (respondent: PartyDetails, taskListItems, userCase) => {
+const getRespondentWitnessStatementsDA = (respondent: PartyDetails, taskListItems, userCase, url) => {
   return {
     id: 'respondent_witness_statements',
     text: taskListItems.respondent_witness_statements.replace(
       '<namerespondentxxxxx>',
       respondent.firstName + ' ' + respondent.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo
-      ? URL.APPLICANT + URL.YOUR_WITNESS_STATEMENTS + '?name=' + respondent.firstName + ' ' + respondent.lastName
-      : '#',
+    href: userCase.allegationsOfHarmYesNo ? url + '?name=' + respondent.firstName + ' ' + respondent.lastName : '#',
   };
 };
 
@@ -482,20 +483,14 @@ const getApplicantPositionStatements = (applicant: Applicant, taskListItems, use
     href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_POSITION_STATEMENT : '#',
   };
 };
-const getApplicantWitnessStatements = (applicant: Applicant, taskListItems) => {
+const getApplicantWitnessStatements = (applicant: Applicant, taskListItems, url) => {
   return {
     id: 'applicant_witness_statements',
     text: taskListItems.applicant_witness_statements.replace(
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href:
-      URL.APPLICANT +
-      URL.YOUR_WITNESS_STATEMENTS +
-      '?name=' +
-      applicant.value.firstName +
-      ' ' +
-      applicant.value.lastName,
+    href: url + '?name=' + applicant.value.firstName + ' ' + applicant.value.lastName,
   };
 };
 
@@ -543,13 +538,13 @@ const getApplicantPositionStatementsDA = (applicant: PartyDetails, taskListItems
     href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_POSITION_STATEMENT : '#',
   };
 };
-const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems) => {
+const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems, url) => {
   return {
     id: 'applicant_witness_statements',
     text: taskListItems.applicant_witness_statements.replace(
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: URL.APPLICANT + URL.YOUR_WITNESS_STATEMENTS + '?name=' + applicant.firstName + ' ' + applicant.lastName,
+    href: url + '?name=' + applicant.firstName + ' ' + applicant.lastName,
   };
 };

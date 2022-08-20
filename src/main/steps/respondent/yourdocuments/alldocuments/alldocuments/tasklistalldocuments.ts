@@ -12,8 +12,8 @@ import * as URL from '../../../../urls';
 export const generateRespondentTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [
     ...getOrdersFromCourt(sectionTitles, taskListItems, URL.RESPONDENT_ORDERS_FROM_THE_COURT),
-    getRespondentDocuments(sectionTitles, taskListItems, userCase),
-    getApplicantDocuments(sectionTitles, taskListItems, userCase),
+    getRespondentDocuments(sectionTitles, taskListItems, userCase, false),
+    getApplicantDocuments(sectionTitles, taskListItems, userCase, false),
     getCafcassDocuments(sectionTitles, taskListItems, userCase),
     getOtherDocuments(sectionTitles, taskListItems, userCase),
     getAttendingTheHearingDocs(sectionTitles, taskListItems, userCase),
