@@ -7,7 +7,7 @@ import { State } from '../../../../app/case/definition';
 import * as Urls from '../../../../steps/urls';
 import { C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
 
-import ParentResponsibility from './getController';
+import Personaldetails from './getController';
 
 const dummySessionData = {
   ListOfChild: [
@@ -50,7 +50,7 @@ const dummySessionData = {
 
 describe('AddChildernMatterGetController', () => {
   test('Should render the page', async () => {
-    const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -59,7 +59,7 @@ describe('AddChildernMatterGetController', () => {
   });
 
   test('Testing controller native methods to ensure right validation', async () => {
-    const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest({ userCase: { state: State.AwaitingPayment } });
     const res = mockResponse();
@@ -72,7 +72,7 @@ describe('AddChildernMatterGetController', () => {
 
   describe('Getting the users preferred language', () => {
     test('Language whelsh via session', async () => {
-      const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'cy';
       const req = mockRequest();
@@ -106,7 +106,7 @@ describe('AddChildernMatterGetController', () => {
     });
 
     test('Language english via session', async () => {
-      const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'en';
       const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
@@ -142,7 +142,7 @@ describe('AddChildernMatterGetController', () => {
     });
 
     test('Language via browser settings - welsh', async () => {
-      const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'cy';
       const req = mockRequest({ headers: { 'accept-language': 'cy' } });
@@ -153,7 +153,7 @@ describe('AddChildernMatterGetController', () => {
     });
 
     test('Language via browser settings - English', async () => {
-      const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'en';
       const req = mockRequest({ headers: { 'accept-language': 'en' } });
@@ -165,7 +165,7 @@ describe('AddChildernMatterGetController', () => {
   });
 
   test("Doesn't call render if an error page has already been rendered upstream", async () => {
-    const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -175,7 +175,7 @@ describe('AddChildernMatterGetController', () => {
   });
 
   test("Doesn't call render if headers have already been sent already upstream", async () => {
-    const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -185,7 +185,7 @@ describe('AddChildernMatterGetController', () => {
   });
 
   test('sends the current page form session state to the view', async () => {
-    const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -195,7 +195,7 @@ describe('AddChildernMatterGetController', () => {
 
   describe('generatePageContent()', () => {
     test('calls generatePageContent with correct arguments for new sessions', async () => {
-      const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new Personaldetails('page', () => ({}), FieldPrefix.APPLICANT);
 
       const req = mockRequest({ userCase: { state: State.Draft }, session: { errors: [] } });
       const res = mockResponse();
