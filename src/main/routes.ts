@@ -47,12 +47,11 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     // app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     // app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
-    const documentManagerController = new DocumentManagerController();
+    
     // app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
     // app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
 
-    app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
-    app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
+   
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -71,6 +70,10 @@ export class Routes {
           : PostController;
 
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
+        const documentManagerController = new DocumentManagerController(step.form.fields);
+        app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
+        app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
+        app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
       }
     }
 

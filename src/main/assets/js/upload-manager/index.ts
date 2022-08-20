@@ -77,15 +77,6 @@ if (upload) {
 
 
 
-export class FileUploadButtonEvent{
-  constructor() {
-    const fileUploadButtonEl = qs('.fileUpload-btn');
-    fileUploadButtonEl?.addEventListener("click", (e:Event) => alert('clicked'));
-  }
-  getTrainingName(n:number){
-     // button click handler
-  }
-}
-// start the app
-new FileUploadButtonEvent();
+
+
 
