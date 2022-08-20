@@ -290,7 +290,8 @@ export interface Case {
   orderCollection: ListValue<PRLDocument>[];
   documentsGenerated: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
-  applicant1UploadedFiles?: UploadedFile[];
+  applicantUploadFiles?: UploadedFile[];
+  declarationCheck?: string;
   finalDocument: Document;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   /*** Document upload */

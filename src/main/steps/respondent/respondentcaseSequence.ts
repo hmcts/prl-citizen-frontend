@@ -37,6 +37,7 @@ import {
   UPLOAD_DOCUMENT_LIST_URL,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
+  UPLOAD_DOCUMENT_SUCCESS,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -223,6 +224,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: UPLOAD_DOCUMENT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_SUCCESS,
+  },
+  {
+    url: UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
