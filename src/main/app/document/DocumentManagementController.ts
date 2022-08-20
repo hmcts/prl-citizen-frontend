@@ -13,35 +13,63 @@ import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 //import { DgsApiClient } from 'app/case/DgsApiClient';
 
-import { Form } from 'app/form/Form';
+import { Form, FormFields, FormFieldsFn  } from '../form/Form';
 import { v4 as generateUuid } from 'uuid';
 import { getFilename } from '../case/formatter/uploaded-files';
+import {GenerateAndUploadDocumentRequest} from './GenerateAndUploadDocumentRequest';
+
 
 const UID_LENGTH = 36;
 @autobind
 export class DocumentManagerController {
+   
+  constructor(protected readonly fields: FormFields | FormFieldsFn) { }
+
   private getDocumentManagementClient(user: UserDetails) {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
   }
 
   public async generatePdf(req: AppRequest<Partial<CaseWithId>>,
-    res: Response,
-    form: Form,
-    formData: Partial<CaseWithId>): Promise<void> {
+    res: Response): Promise<void> {
+
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+  
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
     const caseworkerUser = await getSystemUser();
     req.session.errors = form.getErrors(formData);
-
+    console.log("inside generatePdf");  
     try {
-      if (!req.session.errors.length) {
+      //if (!req.session.errors.length) {
+        console.log("calling cosApi");
+        let uploadDocumentDetails = 
+        {
+           filename: 'Sonali_saha.pdf',
+           caseId: '1660589382629898',
+           freeTextStatements: 'aaaaaa'
+         };
+        // uploadDocumentDetails.set("fileName", "Sonali_saha.pdf");
+        // uploadDocumentDetails.set("caseId", "1660589382629898");
+
+         
+
+        // uploadDocumentDetails.set("freeTextStatements", "Test information");
+        console.log("uploadDocumentDetails in generatePdf :::::" + uploadDocumentDetails);
+        console.log("uploadDocumentDetails1 in generatePdf :::::" + JSON.stringify(uploadDocumentDetails));
+        let generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
+
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
         const updatedCaseDataFromCos = await client.generateUserUploadedStatementDocument(
           caseworkerUser,
+          generateAndUploadDocumentRequest,
         );
+        console.log(updatedCaseDataFromCos);
         if (updatedCaseDataFromCos !== 'Success') {
           req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'accessCode' });
         }
-      }
+     // }
     } catch (err) {
+      console.log(err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 

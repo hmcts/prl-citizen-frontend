@@ -7,6 +7,7 @@ import type { UserDetails } from '../controller/AppRequest';
 import { CaseWithId } from './case';
 import { CaseData } from './definition';
 import { fromApiFormat } from './from-api-format';
+import {GenerateAndUploadDocumentRequest} from '../../app/document/GenerateAndUploadDocumentRequest';
 
 export class CosApiClient {
   client: AxiosInstance;
@@ -113,12 +114,11 @@ export class CosApiClient {
 
   public async generateUserUploadedStatementDocument(
     user: UserDetails,
+    generateAndUploadDocumentRequest : GenerateAndUploadDocumentRequest
   ): Promise<String> {
-    var data = {
-      fileName: 'Sonali_saha.pdf',
-      caseId: '1660589382629898',
-      freeTextStatements: 'Test information',
-    };
+
+    //let myObject = {"key1":"value1","key2":"value2"};
+
     try {
       // const eventId = 'citizen-case-update';
       const headers = {
@@ -126,9 +126,14 @@ export class CosApiClient {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken
       };
+      console.log("Inside CosApiClient");
+      console.log("headers::::"+JSON.stringify(headers));
+      console.log("generateAndUploadDocumentRequest:::::" + JSON.stringify(generateAndUploadDocumentRequest));
+
+
       const response = await Axios.post(
         config.get('services.cos.url') + `/generate-citizen-statement-document`,
-        data,
+        generateAndUploadDocumentRequest,
         { headers }
       );
       console.log(response);
@@ -140,4 +145,5 @@ export class CosApiClient {
     }
   }
 }
+
 

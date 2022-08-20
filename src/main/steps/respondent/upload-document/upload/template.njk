@@ -29,7 +29,7 @@
         </ul>
       </label>
       <textarea class="govuk-textarea" id="more-detail" name="more-detail" rows="8"></textarea>
-      <form action="uploadmoredocument" method="post" novalidate="">
+      <form action="/document-manager/generatePdf?_csrf={{ csrfToken }}" method="post" novalidate="">
 
         <button class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">
         Submit
