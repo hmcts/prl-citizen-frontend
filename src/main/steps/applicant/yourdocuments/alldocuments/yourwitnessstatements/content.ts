@@ -1,13 +1,13 @@
 //import config from 'config';
 //import { getSystemUser } from 'app/auth/user/oidc';
-import { APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT } from '../../../../../../../main/steps/urls';
-import { TranslationFn } from '../../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../../app/form/Form';
+import { APPLICANT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { FormContent } from '../../../../../app/form/Form';
 
 const en = () => {
   return {
     section: 'All documents',
-    title: 'Orders from the court',
+    title: "'s witness statements",
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -18,7 +18,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'All documents',
-    title: 'Orders from the court',
+    title: "'s witness statements",
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -54,9 +54,8 @@ export const generateContent: TranslationFn = content => {
     const uid = doc.value.orderDocument.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     orders.push({
-      href: `${APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT}/${uid}`,
+      href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
       createdDate: doc.value.otherDetails.orderCreatedDate,
       fileName: doc.value.orderDocument.document_filename,
     });

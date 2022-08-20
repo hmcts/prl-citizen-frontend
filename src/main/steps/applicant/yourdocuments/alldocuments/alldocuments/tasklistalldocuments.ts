@@ -5,7 +5,7 @@ import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/uti
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [
-    ...getOrdersFromCourt(sectionTitles, taskListItems, URL.APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT),
+    ...getOrdersFromCourt(sectionTitles, taskListItems, URL.APPLICANT_ORDERS_FROM_THE_COURT),
     getApplicantDocuments(sectionTitles, taskListItems, userCase),
     getRespondentDocuments(sectionTitles, taskListItems, userCase),
     getCafcassDocuments(sectionTitles, taskListItems, userCase),
@@ -367,7 +367,14 @@ const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, u
       '<namerespondentxxxxx>',
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_WITNESS_STATEMENTS : '#',
+    href: userCase.allegationsOfHarmYesNo
+      ? URL.APPLICANT +
+        URL.YOUR_WITNESS_STATEMENTS +
+        '?name=' +
+        respondent.value.firstName +
+        ' ' +
+        respondent.value.lastName
+      : '#',
   };
 };
 
@@ -425,7 +432,9 @@ const getRespondentWitnessStatementsDA = (respondent: PartyDetails, taskListItem
       '<namerespondentxxxxx>',
       respondent.firstName + ' ' + respondent.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_WITNESS_STATEMENTS + '?name=Sairam ' : '#',
+    href: userCase.allegationsOfHarmYesNo
+      ? URL.APPLICANT + URL.YOUR_WITNESS_STATEMENTS + '?name=' + respondent.firstName + ' ' + respondent.lastName
+      : '#',
   };
 };
 
@@ -480,7 +489,13 @@ const getApplicantWitnessStatements = (applicant: Applicant, taskListItems) => {
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href: URL.APPLICANT + URL.APPLICANT_WITNESS_STATEMENTS + '?name=Sairam',
+    href:
+      URL.APPLICANT +
+      URL.YOUR_WITNESS_STATEMENTS +
+      '?name=' +
+      applicant.value.firstName +
+      ' ' +
+      applicant.value.lastName,
   };
 };
 
@@ -535,6 +550,6 @@ const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems)
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: URL.APPLICANT + URL.APPLICANT_WITNESS_STATEMENTS,
+    href: URL.APPLICANT + URL.YOUR_WITNESS_STATEMENTS + '?name=' + applicant.firstName + ' ' + applicant.lastName,
   };
 };

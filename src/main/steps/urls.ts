@@ -112,8 +112,7 @@ export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIV
 export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
 /* applicant-keep-details-private-end */
 
-export const APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/alldocuments/orders`;
-export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/alldocuments/orders`;
+export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/orders`;
 
 /* consent-to-the-application */
 export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
@@ -121,7 +120,6 @@ export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
 /* consent-to-the-application */
-export const RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/alldocuments/orders`;
 export const RESPONDENT_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
 
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
@@ -129,9 +127,9 @@ export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401
 export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';
 export const YOUR_APPLICATION_WITNESS_STATEMENT: PageLink = `${APPLICANT}${APPLICATION_WITNESS_STATEMENT}`;
 
-export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments/alldocuments';
-export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}`;
-export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}`;
+export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments';
+export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
+export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 
 /* view all documents */
 /* Applicant Documents */
@@ -139,7 +137,7 @@ export const APPLICANT_CA_DA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/cadafina
 export const APPLICANT_ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence`;
 export const APPLICANT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolenceresponse`;
 export const APPLICANT_POSITION_STATEMENT: PageLink = `${VIEW_ALL_DOCUMENTS}/positionstatement`;
-export const APPLICANT_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/applicantwitnessstatements`;
+export const YOUR_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/yourwitnessstatements`;
 export const OTHER_PEOPLE_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/otherpeoplewitnessstatement`;
 export const APPLICANT_MEDICAL_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/medicalreports`;
 export const APPLICANT_MIAM_CERTIFICATE: PageLink = `${VIEW_ALL_DOCUMENTS}/miamcertificate`;
@@ -162,7 +160,6 @@ export const RESPONDENT_APP_MADE_IN_PRCEEDINGS: PageLink = `${VIEW_ALL_DOCUMENTS
 export const RESPONDENT_PREVIOUS_ORDERS_SUBMITTED: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentpreviousorders`;
 export const RESPONDENT_LETTER_FROM_SCHOOL: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentletterfromschool`;
 export const RESPONDENT_POSITION_STATEMENT: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentpositionstatement`;
-export const RESPONDENT_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentwitnessstatement`;
 export const RESPONDENT_OTHER_PEOPLE_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentOtherPeopleWitnessStatement`;
 export const RESPONDENT_DIGITAL_DOWNLOADS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentdigitaldownloads`;
 export const RESPONDENT_PHOTOGRAPHIC_EVIDENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentphotographicevidence`;

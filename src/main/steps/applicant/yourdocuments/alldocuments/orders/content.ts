@@ -1,6 +1,6 @@
 //import config from 'config';
 //import { getSystemUser } from 'app/auth/user/oidc';
-import { APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
+import { APPLICANT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
@@ -56,7 +56,7 @@ export const generateContent: TranslationFn = content => {
     );
     //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     orders.push({
-      href: `${APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT}/${uid}`,
+      href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
       createdDate: doc.value.otherDetails.orderCreatedDate,
       fileName: doc.value.orderDocument.document_filename,
     });

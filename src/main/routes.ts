@@ -19,12 +19,13 @@ import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_MIAM_CERTIFICATE,
-  APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT,
+  APPLICANT_ORDERS_FROM_THE_COURT,
   CONTACT_US,
   COOKIES_PAGE,
   HOME_URL,
   // KEEP_ALIVE_URL,
   PRIVACY_POLICY,
+  RESPONDENT_ORDERS_FROM_THE_COURT,
   TERMS_AND_CONDITIONS,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
@@ -52,7 +53,9 @@ export class Routes {
     app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
     app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
 
-    app.get(`${APPLICANT_VIEW_ALL_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
+    app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
+    app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
+
     app.get(APPLICANT_MIAM_CERTIFICATE, errorHandler(documentManagerController.get));
 
     for (const step of stepsWithContent) {

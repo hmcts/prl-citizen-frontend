@@ -1,12 +1,12 @@
-import languageAssertions from '../../../../../../../test/unit/utils/languageAssertions';
-//import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../../app/form/Form';
-import { CommonContent } from '../../../../../common/common.content';
+import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+//import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../app/form/Form';
+import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
 const enContent = {
   section: 'All documents',
-  title: 'Orders from the court',
+  title: "'s witness statements",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   caseNumber: 'Case number',
@@ -15,14 +15,14 @@ const enContent = {
 
 const cyContent = {
   section: 'All documents',
-  title: 'Orders from the court',
+  title: "'s witness statements",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   caseNumber: 'Case number',
   continue: 'Go back',
 };
 
-jest.mock('../../../../../../app/form/validation');
+jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
@@ -36,7 +36,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('Orders from the court');
+    expect(generatedContent.title).toEqual("'s witness statements");
     expect(generatedContent.section).toEqual('All documents');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
@@ -50,12 +50,5 @@ describe('citizen-home content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-
-  // test('should contain detailsKnown field', () => {
-  //   const detailsKnownField = fields.detailsKnown as FormOptions;
-  //   expect(detailsKnownField.type).toBe('radios');
-  //   expect(detailsKnownField.classes).toBe('govuk-radios');
-  //   expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
-  // });
 });
 /* eslint-enable @typescript-eslint/ban-types */

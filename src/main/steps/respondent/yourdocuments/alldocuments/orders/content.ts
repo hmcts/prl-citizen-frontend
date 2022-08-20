@@ -1,5 +1,6 @@
+import { RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+import { FormContent } from '../../../../../app/form/Form';
 
 const en = () => {
   return {
@@ -46,8 +47,21 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const orders: object[] = [];
+  for (const doc of content.userCase?.orderCollection || []) {
+    const uid = doc.value.orderDocument.document_url.substring(
+      doc.value.orderDocument.document_url.lastIndexOf('/') + 1
+    );
+    //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
+    orders.push({
+      href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
+      createdDate: doc.value.otherDetails.orderCreatedDate,
+      fileName: doc.value.orderDocument.document_filename,
+    });
+  }
+
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    orders,
   };
 };
