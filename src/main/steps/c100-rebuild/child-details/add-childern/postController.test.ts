@@ -171,7 +171,6 @@ describe('PostController', () => {
     const res = mockResponse();
     const language = 'en';
     req.session.lang = language;
-    req.query.action = 'continue';
     req.body = {
       'firstname-1': dummySessionData.ListOfChild[0].firstname,
       'lastname-1': dummySessionData.ListOfChild[0].lastname,
