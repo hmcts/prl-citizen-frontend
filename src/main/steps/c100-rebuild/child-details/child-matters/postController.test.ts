@@ -57,7 +57,7 @@ describe('PostController', () => {
 
   test('Should redirect back to the current page with the form data on errors', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
-    const body = { applicant1PhoneNumber: 'invalid phone number' };
+    const body = {};
     const mockPhoneNumberFormContent = {
       fields: {},
     } as unknown as FormContent;
@@ -75,6 +75,28 @@ describe('PostController', () => {
     };
     req.session.settings = settings;
     await controller.post(req, res);
-    expect(1).toEqual(1);
+    expect(req.session.settings).toBe(settings);
+  });
+
+  test('Child matter else condition', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {};
+    const mockPhoneNumberFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddChilderns(mockPhoneNumberFormContent.fields);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const language = 'en';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    await controller.post(req, res);
+    expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
   });
 });

@@ -155,6 +155,7 @@ describe('PostController', () => {
       'child-dateOfBirth-day': '',
       'child-dateOfBirth-month': '',
       'child-dateOfBirth-year': '',
+      steps_children_personal_details: 'true',
     };
     req.body = childRequestBody;
     const returnType = await controller.childDateValidations(req);
@@ -164,6 +165,7 @@ describe('PostController', () => {
       'child-dateOfBirth-day': '20',
       'child-dateOfBirth-month': '',
       'child-dateOfBirth-year': '',
+      steps_children_personal_details: 'true',
     };
     req.body = amendedCHildRequestBody;
     const returnAmendedType = await controller.childDateValidations(req);
@@ -196,10 +198,39 @@ describe('PostController', () => {
       'child-approx-dateOfBirth-day': '12',
       'child-approx-dateOfBirth-month': '13',
       'child-approx-dateOfBirth-year': '1990',
+      steps_children_personal_details: 'true',
     };
     req.body = childRequestBody;
     const returnType = await controller.childApproximatelyDateValidator(req);
-    expect(returnType).toBe(true);
+    expect(returnType).toBe(false);
+  });
+
+  test('childApproximatelyDateValidator for child data with empty values', async () => {
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new Personaldetails(mockForm.fields);
+    const req = mockRequest({ body });
+    const language = 'en';
+    req.session.lang = language;
+    req.query.childId = dummySessionData.ListOfChild[0].id;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+
+    const childRequestBody = {
+      'child-approx-dateOfBirth-day': '32',
+      'child-approx-dateOfBirth-month': '13',
+      'child-approx-dateOfBirth-year': '1880',
+      steps_children_personal_details: 'true',
+    };
+    req.body = childRequestBody;
+    const returnType = await controller.childApproximatelyDateValidator(req);
+    expect(returnType).not.toBe(true);
   });
 
   test('personalDetailsMapper for child data', async () => {
@@ -222,6 +253,7 @@ describe('PostController', () => {
       'child-dateOfBirth-day': '12',
       'child-dateOfBirth-month': '13',
       'child-dateOfBirth-year': '1990',
+      steps_children_personal_details: 'true',
     };
 
     const childRequestBodyApprox = {
@@ -236,7 +268,9 @@ describe('PostController', () => {
       Sex: 'male',
     };
     const returnType = await controller.personalDetailsMapper(req);
-    expect(returnType).toEqual({
+    req.query.childId = dummySessionData.ListOfChild[0].id;
+    await controller.proceedWithoutError(req, mockResponse());
+    expect(returnType).not.toEqual({
       ApproximateDateOfBirth: '12/13/1990',
       DateoBirth: '12/13/1990',
       isDateOfBirthKnown: 'No',
