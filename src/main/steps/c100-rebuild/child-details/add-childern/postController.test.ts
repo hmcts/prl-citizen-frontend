@@ -131,6 +131,114 @@ describe('PostController', () => {
     expect(req.session.settings.ListOfChild[0]).toEqual(dummySessionData.ListOfChild[0]);
   });
 
+  test('contiuing with non empty child)', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddChilderns(mockForm.fields);
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const language = 'en';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    req.session.settings.listOfChild = dummySessionData;
+    req.query.action = 'continue';
+    req.body = {
+      'firstname-2': 'abc',
+      'lastname-2': 'cde',
+    };
+    await controller.post(req, res);
+    expect(req.session.settings.ListOfChild[0]).toEqual(dummySessionData.ListOfChild[0]);
+  });
+
+  test('continuing with only firstname)', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddChilderns(mockForm.fields);
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const language = 'en';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    req.session.settings.listOfChild = dummySessionData;
+    req.query.action = 'continue';
+    req.body = {
+      'firstname-1': 'abc',
+      'lastname-1': '',
+    };
+    await controller.post(req, res);
+    expect(req.session.settings.ListOfChild[0]).toEqual(dummySessionData.ListOfChild[0]);
+  });
+
+  test('continuing with only lastname)', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddChilderns(mockForm.fields);
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const language = 'en';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    req.session.settings.listOfChild = dummySessionData;
+    req.query.action = 'continue';
+    req.body = {
+      'firstname-1': '',
+      'lastname-1': 'abc',
+    };
+    await controller.post(req, res);
+    expect(req.session.settings.ListOfChild[0]).toEqual(dummySessionData.ListOfChild[0]);
+  });
+
+  test('continuing with no first and lastname)', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddChilderns(mockForm.fields);
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const language = 'en';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    req.session.settings.listOfChild = dummySessionData;
+    req.query.action = 'continue';
+    req.body = {
+      'firstname-1': '',
+      'lastname-1': '',
+    };
+    await controller.post(req, res);
+    expect(req.session.settings.ListOfChild[0]).toEqual(dummySessionData.ListOfChild[0]);
+  });
+
   test('removing a child from session', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
     const body = {};
