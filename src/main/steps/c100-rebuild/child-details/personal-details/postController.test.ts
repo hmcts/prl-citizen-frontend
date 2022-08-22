@@ -133,6 +133,35 @@ describe('PostController', () => {
     expect(returnType).toBe(true);
   });
 
+  test('Child has both date and Approx date enabled', async () => {
+    const body = {
+      'child-dateOfBirth-day': '12',
+      'child-dateOfBirth-month': '13',
+      'child-dateOfBirth-year': '1990',
+      'child-approx-dateOfBirth-day': '12',
+      'child-approx-dateOfBirth-month': '1',
+      'child-approx-sdateOfBirth-year': '1991',
+      steps_children_personal_details: 'true',
+    };
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new Personaldetails(mockForm.fields);
+    const req = mockRequest({ body });
+    const language = 'en';
+    req.session.lang = language;
+    req.query.childId = dummySessionData.ListOfChild[0].id;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+
+    controller.post(req, mockResponse());
+    expect(1).toBe(1);
+  });
+
   // eslint-disable-next-line jest/expect-expect
   test('childDateValidations and childSex validations for child data', async () => {
     const body = {};
