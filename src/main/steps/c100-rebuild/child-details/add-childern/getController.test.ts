@@ -218,7 +218,21 @@ describe('Add Childern Controller', () => {
       req.session.settings = settings;
       req.query.childId = childId;
       await controller.get(req, res);
-      expect(req).not.toBe(res.render());
+      expect(res.render).toHaveBeenCalled();
+    });
+  });
+
+  //addChildQueryInSession
+
+  describe('addChildQueryInSession()', () => {
+    test('addChildQueryInSession checking if childern is not added', async () => {
+      const controller = new AddChilderns('page', () => ({}), FieldPrefix.APPLICANT);
+
+      const req = mockRequest({ userCase: { state: State.Draft }, session: { errors: [] } });
+      const res = mockResponse();
+      req.query.addChild = 'true';
+      const callChildMethod = controller.addChildQueryInSession(req, res);
+      expect(callChildMethod).toBe(undefined);
     });
   });
 });
