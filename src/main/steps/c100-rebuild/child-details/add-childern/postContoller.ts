@@ -26,11 +26,15 @@ export default class AddChilderns extends PostController<AnyObject> {
           if (req['body']['firstname-' + nextChildId] === '' || req['body']['lastname-' + nextChildId] === '') {
             if (req['body']['firstname-' + nextChildId] === '' && req['body']['lastname-' + nextChildId] === '') {
               console.log('Inside If');
-              req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
-              req.session.errors.push({
-                propertyName: 'lastname-1',
-                errorType: 'required',
-              });
+              req.session.errors = [
+                { propertyName: 'firstname-1', errorType: 'required' },
+                {
+                  propertyName: 'lastname-1',
+                  errorType: 'required',
+                },
+              ];
+              req.session.settings.childTemporaryFormData.TempLastName = '';
+              req.session.settings.childTemporaryFormData.TempFirstName = '';
               super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
             } else if (req['body']['firstname-' + nextChildId] === '') {
               req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
@@ -66,32 +70,69 @@ export default class AddChilderns extends PostController<AnyObject> {
         case 'continue':
           // eslint-disable-next-line no-case-declarations
           const nextChildIdInContinue = req.session.settings['ListOfChild'].length + 1;
-          if (
-            req['body']['firstname-' + nextChildIdInContinue] !== '' ||
-            req['body']['lastname-' + nextChildIdInContinue] !== ''
-          ) {
+          if (req.session.settings.ListOfChild.length > 0) {
             if (
-              req['body']['firstname-' + nextChildIdInContinue] === '' &&
-              req['body']['lastname-' + nextChildIdInContinue] === ''
+              req['body']['firstname-' + nextChildIdInContinue] !== '' ||
+              req['body']['lastname-' + nextChildIdInContinue] !== ''
             ) {
-              console.log('Inside If');
-              req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
-              req.session.errors.push({
-                propertyName: 'lastname-1',
-                errorType: 'required',
-              });
-              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
-            } else if (req['body']['firstname-' + nextChildIdInContinue] === '') {
-              req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
-              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
-            } else if (req['body']['lastname-' + nextChildIdInContinue] === '') {
-              req.session.errors = [{ propertyName: 'lastname-1', errorType: 'required' }];
-              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+              if (
+                req['body']['firstname-' + nextChildIdInContinue] === '' &&
+                req['body']['lastname-' + nextChildIdInContinue] === ''
+              ) {
+                req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
+                req.session.errors.push({
+                  propertyName: 'lastname-1',
+                  errorType: 'required',
+                });
+                super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+              } else if (req['body']['firstname-' + nextChildIdInContinue] === '') {
+                req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
+                const fillLastName: any = req['body']['lastname-' + nextChildIdInContinue];
+                req.session.settings.childTemporaryFormData.TempFirstName = '';
+                req.session.settings.childTemporaryFormData.TempLastName = fillLastName;
+                super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+              } else if (req['body']['lastname-' + nextChildIdInContinue] === '') {
+                req.session.errors = [{ propertyName: 'lastname-1', errorType: 'required' }];
+                const fillFirstName: any = req['body']['firstname-' + nextChildIdInContinue];
+                req.session.settings.childTemporaryFormData.TempLastName = '';
+                req.session.settings.childTemporaryFormData.TempFirstName = fillFirstName;
+                super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+              } else {
+                this.updateInformationUsingContinueButton(req, res);
+              }
             } else {
               this.updateInformationUsingContinueButton(req, res);
             }
           } else {
-            this.updateInformationUsingContinueButton(req, res);
+            if (req['body']['firstname-1'] === '' && req['body']['lastname-1'] === '') {
+              req.session.settings.childTemporaryFormData.TempFirstName = '';
+              req.session.settings.childTemporaryFormData.TempLastName = '';
+              req.session.errors = [
+                { propertyName: 'firstname-1', errorType: 'required' },
+                { propertyName: 'lastname-1', errorType: 'required' },
+              ];
+              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            } else if (req['body']['firstname-1'] === '') {
+              const childInformation: any = {
+                TempLastName: req.body['lastname-1'],
+                TempFirstName: '',
+              };
+              req.session.settings.childTemporaryFormData = childInformation;
+              req.session.errors = [{ propertyName: 'firstname-1', errorType: 'required' }];
+              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            } else if (req['body']['lastname-1'] === '') {
+              const childInformation: any = {
+                TempLastName: '',
+                TempFirstName: req.body['firstname-1'],
+              };
+              req.session.settings.childTemporaryFormData = childInformation;
+              req.session.errors = [{ propertyName: 'lastname-1', errorType: 'required' }];
+              super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+            } else {
+              req.session.settings.childTemporaryFormData.TempLastName = '';
+              req.session.settings.childTemporaryFormData.TempFirstName = '';
+              this.addInformationUsingContinueButton(req, res);
+            }
           }
 
           break;

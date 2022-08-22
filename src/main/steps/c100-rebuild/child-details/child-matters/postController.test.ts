@@ -123,5 +123,6 @@ describe('PostController', () => {
     req.session.settings = settings;
     await controller.post(req, res);
     expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
+    expect(res.render()).not.toBeCalled();
   });
 });
