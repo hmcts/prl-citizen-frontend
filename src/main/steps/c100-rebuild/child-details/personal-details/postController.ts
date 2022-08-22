@@ -67,20 +67,40 @@ export default class Personaldetails extends PostController<AnyObject> {
           req.body['child-dateOfBirth-year'] !== '';
 
         if (childApproxDateEnabled && checkIfDateEnabledAndApproxToggled) {
+          console.log({ msg: 'this blocked is trigger' });
           req.session.errors.push({
             propertyName: 'cannotHaveBothApproxAndExact',
             errorType: 'required',
           });
+          const amendedChildDataAfterToggledEnabled: AnyType = {
+            ...childDetails,
+            isDateOfBirthKnown: YesOrNo.YES,
+            ApproximateDateOfBirth: '//',
+          };
+          req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
           const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
           super.redirect(req, res, redirectUrl);
         } else {
           /* Checking if the date is valid and if it is not valid it is redirecting to the same page. */
 
           if (!this.childApproximatelyDateValidator(req)) {
-            req.session.errors.push({
-              propertyName: 'childDateOfBirthNotValidSubField',
-              errorType: 'required',
-            });
+            if (Number(req.body['child-approx-dateOfBirth-year']) > DateValidations.YEAR.MAX) {
+              req.session.errors.push({
+                propertyName: 'childDateApproxFutureNotValid',
+                errorType: 'required',
+              });
+              const amendedChildDataAfterToggledEnabled: AnyType = {
+                ...childDetails,
+                isDateOfBirthKnown: YesOrNo.YES,
+                ApproximateDateOfBirth: '//',
+              };
+              req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
+            } else {
+              req.session.errors.push({
+                propertyName: 'childDateOfBirthNotValidSubField',
+                errorType: 'required',
+              });
+            }
             const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
             super.redirect(req, res, redirectUrl);
           } else {

@@ -22,6 +22,9 @@ const en = () => ({
     childDateFutureNotValid: {
       required: 'Date of birth must be in the past',
     },
+    childDateApproxFutureNotValid: {
+      required: 'Date of birth must be in the past - welsh',
+    },
     cannotHaveBothApproxAndExact: {
       required: 'Cannot have a date of birth and also "I dont know their date of birth"',
     },
@@ -57,9 +60,13 @@ const cy = () => ({
     childDateFutureNotValid: {
       required: 'Date of birth must be in the past - welsh',
     },
+    childDateApproxFutureNotValid: {
+      required: 'Date of birth must be in the past - welsh',
+    },
     cannotHaveBothApproxAndExact: {
       required: 'Cannot have a date of birth and also "I dont know their date of birth - Welsh"',
     },
+
     childDateOfBirthNotValidSubField: {
       required: 'Date of birth is not valid - welsh',
     },
