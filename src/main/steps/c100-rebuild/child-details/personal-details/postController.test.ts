@@ -347,7 +347,7 @@ describe('PostController', () => {
     expect(returnType).toBe(false);
   });
 
-  test('childApproximatelyDateValidator for child data with empty values', async () => {
+  test('childApproximatelyDateValidator for child data with empty values with isDateOfBirthKnown', async () => {
     const body = {};
     const mockForm = {
       fields: {},
