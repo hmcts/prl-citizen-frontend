@@ -99,4 +99,29 @@ describe('PostController', () => {
     await controller.post(req, res);
     expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
   });
+
+  test('isDecisionTaken - set as empty', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {
+      isDecisionTaken: '',
+    };
+    const mockPhoneNumberFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddChilderns(mockPhoneNumberFormContent.fields);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const language = 'en';
+    req.session.lang = language;
+    req.query.childId = dummySessionData.ListOfChild[0].id;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    await controller.post(req, res);
+    expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
+  });
 });
