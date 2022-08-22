@@ -108,6 +108,13 @@ export default class Personaldetails extends PostController<AnyObject> {
           }
         }
       } else {
+        const amendedChildDataAfterToggledEnabled: AnyType = {
+          ...childDetails,
+          isDateOfBirthKnown: YesOrNo.YES,
+          ApproximateDateOfBirth: '//',
+        };
+        req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
+
         const amendedChildData: AnyType = { ...childDetails, isDateOfBirthKnown: YesOrNo.NO, Sex: req['body']['Sex'] };
         req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildData;
         if (this.childDateValidations(req)) {
