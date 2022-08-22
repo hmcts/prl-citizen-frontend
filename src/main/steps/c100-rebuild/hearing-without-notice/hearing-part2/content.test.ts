@@ -90,6 +90,7 @@ describe('Hearing without notice part2', () => {
     const fields = form.fields as FormFields;
     const reasonsForApplicationWithoutNoticeField = fields.reasonsForApplicationWithoutNotice as FormOptions;
     expect(reasonsForApplicationWithoutNoticeField.type).toBe('textarea');
+    expect((reasonsForApplicationWithoutNoticeField.hint as LanguageLookup)(generatedContent)).toBe(en.hint);
     (reasonsForApplicationWithoutNoticeField.validator as Function)('Test');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
 

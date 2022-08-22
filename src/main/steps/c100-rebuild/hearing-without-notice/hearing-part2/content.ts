@@ -77,6 +77,7 @@ export const form: FormContent = {
   fields: {
     reasonsForApplicationWithoutNotice: {
       type: 'textarea',
+      hint: l => l.hint,
       validator: value => isFieldFilledIn(value),
     },
     doYouNeedAWithoutNoticeHearing: {
