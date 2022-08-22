@@ -105,6 +105,31 @@ describe('PostController', () => {
     expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
   });
 
+  test('proceed saving child error', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new Personaldetails(mockForm.fields);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const language = 'en';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    await controller.proceedWithoutError(req, res);
+
+    const redirectUrl = C100_CHILDERN_DETAILS_CHILD_MATTERS + `?childId=${dummySessionData.ListOfChild[0].id}`;
+    expect(req.originalUrl).not.toBe(redirectUrl);
+    expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
+  });
+
   // eslint-disable-next-line jest/expect-expect
   test('childDateValidDateValidations for child data', async () => {
     const body = {};
@@ -206,6 +231,37 @@ describe('PostController', () => {
   });
 
   // eslint-disable-next-line jest/expect-expect
+  test('Enabling child date and checking the checbox for approx date', async () => {
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new Personaldetails(mockForm.fields);
+    const req = mockRequest({ body });
+    const language = 'en';
+    req.session.lang = language;
+    req.query.childId = dummySessionData.ListOfChild[0].id;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+
+    const childRequestBody = {
+      'child-dateOfBirth-day': '',
+      'child-dateOfBirth-month': '',
+      'child-dateOfBirth-year': '',
+      steps_children_personal_details: 'true',
+    };
+    req.body = childRequestBody;
+    controller.post(req, mockResponse());
+    expect(req.session.errors.filter(error => error['propertyName'] === 'cannotHaveBothApproxAndExact')[0]).toBe(
+      undefined
+    );
+  });
+
+  // eslint-disable-next-line jest/expect-expect
   test('childApproximatelyDateValidator for child data', async () => {
     const body = {};
     const mockForm = {
@@ -224,9 +280,66 @@ describe('PostController', () => {
     req.session.settings = settings;
 
     const childRequestBody = {
-      'child-approx-dateOfBirth-day': '12',
+      'child-dateOfBirth-day': '*',
+      'child-dateOfBirth-month': '*',
+      'child-dateOfBirth-year': '*',
+      steps_children_personal_details: 'true',
+    };
+    req.body = childRequestBody;
+    await controller.post(req, mockResponse());
+    expect(true).toBe(true);
+  });
+
+  test('Child details and toggle enabled', async () => {
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new Personaldetails(mockForm.fields);
+    const req = mockRequest({ body });
+    const language = 'en';
+    req.session.lang = language;
+    req.query.childId = dummySessionData.ListOfChild[0].id;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+
+    const childRequestBody = {
+      'child-approx-dateOfBirth-day': '',
+      'child-approx-dateOfBirth-month': '',
+      'child-approx-dateOfBirth-year': '',
+      steps_children_personal_details: 'true',
+    };
+    req.body = childRequestBody;
+    req.query.chidlId = dummySessionData.ListOfChild[0].id;
+    await controller.post(req, mockResponse());
+    expect(true).toBe(true);
+  });
+
+  test('childApproximatelyDateValidator for child data with empty values', async () => {
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new Personaldetails(mockForm.fields);
+    const req = mockRequest({ body });
+    const language = 'en';
+    req.session.lang = language;
+    req.query.childId = dummySessionData.ListOfChild[0].id;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+
+    const childRequestBody = {
+      'child-approx-dateOfBirth-day': '32',
       'child-approx-dateOfBirth-month': '13',
-      'child-approx-dateOfBirth-year': '1990',
+      'child-approx-dateOfBirth-year': '1880',
       steps_children_personal_details: 'true',
     };
     req.body = childRequestBody;
@@ -255,11 +368,11 @@ describe('PostController', () => {
       'child-approx-dateOfBirth-day': '32',
       'child-approx-dateOfBirth-month': '13',
       'child-approx-dateOfBirth-year': '1880',
-      steps_children_personal_details: 'true',
+      isDateOfBirthKnown: 'No',
     };
     req.body = childRequestBody;
-    const returnType = await controller.childApproximatelyDateValidator(req);
-    expect(returnType).not.toBe(true);
+    const returnType = controller.childApproximatelyDateValidator(req);
+    expect(returnType).toBe(true);
   });
 
   test('personalDetailsMapper for child data', async () => {

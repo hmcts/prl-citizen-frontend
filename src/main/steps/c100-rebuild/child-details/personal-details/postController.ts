@@ -204,16 +204,6 @@ export default class Personaldetails extends PostController<AnyObject> {
     }
   }
 
-  public saveSessionAndRedirect(req: AppRequest, res: Response, redirectURI: string): void {
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      } else {
-        res.redirect(redirectURI);
-      }
-    });
-  }
-
   /**
    * If any of the child date of birth fields are empty, return true
    * @param {AppRequest} req - AppRequest - this is the request object that is passed into the function.
