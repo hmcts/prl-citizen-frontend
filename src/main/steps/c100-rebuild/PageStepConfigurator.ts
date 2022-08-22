@@ -14,58 +14,61 @@ interface FlattenedPageSteps {
 class PageStepConfigurator {
   private pageConfig
   private pageSteps
-  constructor(pageConfig: PageSteps[]=[]){
+  constructor(pageConfig: PageSteps[]){
     this.pageConfig = pageConfig
     this.pageSteps = {}
   }
-  private clearSteps (pageId){
-    this.pageSteps[pageId] = {}
+
+  
+  clearSteps (mainPageId){
+    delete this.pageSteps[mainPageId]
   }
 
+  deriveSteps(mainPageId: string, selectedPageSteps:string[]=[]): FlattenedPageSteps|null {
+    this.clearSteps(mainPageId)
+    const filteredPage = this.pageConfig.find(_page=>_page.id === mainPageId)
+    if(!filteredPage){
+      return null
+    }
+    const steps =  selectedPageSteps.reduce((_pages, pId:string, pageIndex:number, currentArray:string[])=>{
+      const page = filteredPage?.steps.find(_page=>_page.id === pId)
 
-deriveSteps(pageId: string, pageSteps:string[] = []): FlattenedPageSteps {
+      if(page){
+          const prevPageId = currentArray[pageIndex-1] || ''
+          const prevPage = prevPageId && filteredPage?.steps.find(_page=>_page.id === prevPageId) || {}
+          const nextPageId = currentArray[pageIndex+1] || ''
+          const nextPage = nextPageId && filteredPage?.steps.find(_page=>_page.id === nextPageId) || {}
 
-  // pageSteps = ['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION', 'C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT']
-  this.clearSteps(pageId)
-  const filteredPage = this.pageConfig.find(_page=>_page.id === pageId) || {}
-  const filteredPageSteps = filteredPage.steps || []
-  const steps =  pageSteps.reduce((_pages, pId:string, pageIndex:number, currentArray:string[])=>{
-    const page = filteredPageSteps.find(_page=>_page.id === pId)
+          _pages[page.url] = {
+          ...page,
+          prev: prevPageId ? {...prevPage} : null,
+          next: nextPageId ? {...nextPage} : null
+          }
+      }
 
-    if(page){
-        const prevPageId = currentArray[pageIndex-1] || ''
-        const prevPage = prevPageId && filteredPageSteps.find(_page=>_page.id === prevPageId) || {}
-        const nextPageId = currentArray[pageIndex+1] || ''
-        const nextPage = nextPageId && filteredPageSteps.find(_page=>_page.id === nextPageId) || {}
+      return _pages
+    }, {})
+    const hasSteps = Object.values(steps).length
 
-        _pages[page.url] = {
-        ...page,
-        prev: prevPageId ? {...prevPage} : null,
-        next: nextPageId ? {...nextPage} : null
-        }
+    if(hasSteps) {
+      this.pageSteps[mainPageId] = steps
     }
 
-    return _pages
-  }, {})
-
-  if(Object.values(steps).length) {
-    this.pageSteps[pageId] = steps
+    return hasSteps ? steps : null
   }
 
-  return steps
-}
-
-  getSteps(pageId: string, selectedPageSteps?: string[]){
-    const pageSteps = this.pageSteps[pageId]
+  getSteps(mainPageId: string, selectedPageSteps?: string[]){
+    const pageSteps = this.pageSteps[mainPageId]
     if(!pageSteps && (selectedPageSteps && selectedPageSteps.length)) {
-      this.deriveSteps(pageId, selectedPageSteps)
+      this.deriveSteps(mainPageId, selectedPageSteps)
     }
-    return this.pageSteps[pageId] || null
+    return this.pageSteps[mainPageId] || null
   }
 
-  getNextPage(parentPageId: string, stepPageId?: string, selectedPageSteps?: string[]) {
-    const pageSteps = this.getSteps(parentPageId, selectedPageSteps)
-    return pageSteps ? ((parentPageId && stepPageId) ? pageSteps[stepPageId].next : Object.values(pageSteps)[0]) : null
+  getNextPage(mainPageId: string, stepPageId?: string, selectedPageSteps?: string[]) {
+    const pageSteps = this.getSteps(mainPageId, selectedPageSteps)
+    return pageSteps ? (mainPageId && stepPageId ? (pageSteps[stepPageId] ? pageSteps[stepPageId].next : null)
+     : Object.values(pageSteps)[0]) : null
   }
 }
 

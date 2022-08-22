@@ -2,7 +2,9 @@ import { YesOrNo } from '../../app/case/definition';
 
 import { C100Sequence } from './c100sequence';
 
-describe.only('C100Sequence', () => {
+import PageStepConfigurator from './PageStepConfigurator'
+
+describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
     expect(C100Sequence).toHaveLength(18);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
@@ -24,6 +26,10 @@ describe.only('C100Sequence', () => {
     expect(C100Sequence[3].showInSection).toBe('c100');
     expect(C100Sequence[3].getNextStep({ start: YesOrNo.YES })).toBe('/c100-rebuild/confidentiality/feedback');
     expect(C100Sequence[3].getNextStep({ start: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/feedbackno');
+
+    expect(C100Sequence[4].url).toBe('/c100-rebuild/confidentiality/start-alternative');
+    expect(C100Sequence[4].showInSection).toBe('c100');
+    expect(C100Sequence[4].getNextStep({ startAlternative: YesOrNo.YES })).toBe('/c100-rebuild/confidentiality/feedback');
 
     expect(C100Sequence[4].url).toBe('/c100-rebuild/confidentiality/start-alternative');
     expect(C100Sequence[4].showInSection).toBe('c100');
@@ -59,32 +65,56 @@ describe.only('C100Sequence', () => {
 
     expect(C100Sequence[12].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[12].showInSection).toBe('c100');
-    expect(C100Sequence[12].getNextStep({ disabilityRequirements :['feelComfortableSupport', 'helpTravellingMovingBuildingSupport'] })).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable');
-
-
-    /*expect(C100Sequence[16].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable');
-    expect(C100Sequence[16].showInSection).toBe('c100');
-    expect(C100Sequence[16].getNextStep({ disabilityRequirements :['feelComfortableSupport', 'helpTravellingMovingBuildingSupport'] })).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/travelling-court');
-
-
-    /*expect(C100Sequence[13].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/document-information');
+    expect(C100Sequence[12].getNextStep({ disabilityRequirements :['documentsHelp', 'communicationHelp', 'extraSupport', 'feelComfortableSupport', 'helpTravellingMovingBuildingSupport'] })).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/document-information');
+    
+    expect(C100Sequence[13].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/document-information');
     expect(C100Sequence[13].showInSection).toBe('c100');
-    expect(C100Sequence[13].getNextStep({})).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help');
-
+    expect(C100Sequence[13].getNextStep({ disabilityRequirements :['documentsHelp', 'communicationHelp', 'extraSupport', 'feelComfortableSupport', 'helpTravellingMovingBuildingSupport'] })).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help');
+    
     expect(C100Sequence[14].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help');
     expect(C100Sequence[14].showInSection).toBe('c100');
-    expect(C100Sequence[14].getNextStep({})).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/support-court');
-
+    expect(C100Sequence[14].getNextStep({ disabilityRequirements :['documentsHelp', 'communicationHelp', 'extraSupport', 'feelComfortableSupport', 'helpTravellingMovingBuildingSupport'] })).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/support-court');
+    
     expect(C100Sequence[15].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/support-court');
     expect(C100Sequence[15].showInSection).toBe('c100');
-    expect(C100Sequence[15].getNextStep({})).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable');
+    expect(C100Sequence[15].getNextStep({ disabilityRequirements :['documentsHelp', 'communicationHelp', 'extraSupport', 'feelComfortableSupport', 'helpTravellingMovingBuildingSupport'] })).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable');
 
     expect(C100Sequence[16].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable');
     expect(C100Sequence[16].showInSection).toBe('c100');
-    expect(C100Sequence[16].getNextStep({})).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/travelling-court');
+    expect(C100Sequence[16].getNextStep({ disabilityRequirements :['documentsHelp', 'communicationHelp', 'extraSupport', 'feelComfortableSupport', 'helpTravellingMovingBuildingSupport'] })).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/travelling-court');
 
     expect(C100Sequence[17].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/travelling-court');
     expect(C100Sequence[17].showInSection).toBe('c100');
-    expect(C100Sequence[17].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');*/
+    expect(C100Sequence[17].getNextStep({ disabilityRequirements :['documentsHelp', 'communicationHelp', 'extraSupport', 'feelComfortableSupport', 'helpTravellingMovingBuildingSupport'] })).toBe('/c100-rebuild/confidentiality/details-know');
+  
+    PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
+    expect(C100Sequence[12].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements');
+    expect(C100Sequence[12].showInSection).toBe('c100');
+    expect(C100Sequence[12].getNextStep({ disabilityRequirements :['dummyPage'] })).toBe('/c100-rebuild/confidentiality/details-know');
+    
+    PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
+    expect(C100Sequence[13].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/document-information');
+    expect(C100Sequence[13].showInSection).toBe('c100');
+    expect(C100Sequence[13].getNextStep({ disabilityRequirements :['documentsHelp'] })).toBe('/c100-rebuild/confidentiality/details-know');
+    
+    PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
+    expect(C100Sequence[14].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help');
+    expect(C100Sequence[14].showInSection).toBe('c100');
+    expect(C100Sequence[14].getNextStep({ disabilityRequirements :[ 'communicationHelp'] })).toBe('/c100-rebuild/confidentiality/details-know');
+
+    PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
+    expect(C100Sequence[15].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/support-court');
+    expect(C100Sequence[15].showInSection).toBe('c100');
+    expect(C100Sequence[15].getNextStep({ disabilityRequirements :[ 'extraSupport'] })).toBe('/c100-rebuild/confidentiality/details-know');
+    
+    PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
+    expect(C100Sequence[16].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable');
+    expect(C100Sequence[16].showInSection).toBe('c100');
+    expect(C100Sequence[16].getNextStep({ disabilityRequirements :[ 'feelComfortableSupport'] })).toBe('/c100-rebuild/confidentiality/details-know');
+    
+    PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
+    expect(C100Sequence[17].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/travelling-court');
+    expect(C100Sequence[17].showInSection).toBe('c100');
+    expect(C100Sequence[17].getNextStep({ disabilityRequirements :[ 'helpTravellingMovingBuildingSupport', 'communicationHelp'] })).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help');
   });
 });
