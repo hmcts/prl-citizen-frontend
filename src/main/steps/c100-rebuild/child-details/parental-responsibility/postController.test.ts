@@ -79,6 +79,33 @@ describe('PostController', () => {
     expect(req.originalUrl).not.toBe(req.redirectURI);
   });
 
+  test('Parental responsibility controller with childId and parentalResponsibility', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {
+      parentalResponsibility: '',
+    };
+    const mockPhoneNumberFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ParentResponsibility(mockPhoneNumberFormContent.fields);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const language = 'en';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.query.childId = dummySessionData.ListOfChild[0].id;
+    req.session.settings = settings;
+    await controller.post(req, res);
+    expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
+    expect(req.originalUrl).not.toBe(req.redirectURI);
+    expect(req.session.errors).not.toBe(0);
+  });
+
   test('Parental responsibility controller without childId', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
     const body = { applicant1PhoneNumber: 'invalid phone number' };
