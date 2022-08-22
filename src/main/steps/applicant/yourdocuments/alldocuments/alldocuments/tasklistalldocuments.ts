@@ -79,7 +79,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     applicantItems.push({
       id: 'miam_certificate',
       text: getText(taskListItems.miam_certificate, userCase),
-      href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MIAM_CERTIFICATE : '#',
+      href: URL.APPLICANT + URL.APPLICANT_MIAM_CERTIFICATE,
     });
   }
   applicantItems.push({
