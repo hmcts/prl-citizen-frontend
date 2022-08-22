@@ -174,4 +174,5 @@ export const C100_CHILDERN_DETAILS_CHILD_MATTERS: PageLink = `${C100_CHILDERN_DE
 export const C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: PageLink = `${C100_CHILDERN_DETAILS}/parental-responsibility`;
 export const C100_CHILDERN_FURTHER_INFORMATION: PageLink = `${C100_CHILDERN_DETAILS}/further-information`;
 
+export const C100_HEARING_WITHOUT_NOTICE_PART1: PageLink = `${C100_URL}/hearing-without-notice/hearing-part1`;
 export const C100_HEARING_WITHOUT_NOTICE_PART2: PageLink = `${C100_URL}/hearing-without-notice/hearing-part2`;
