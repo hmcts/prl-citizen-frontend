@@ -88,11 +88,6 @@ describe('PostController', () => {
     const res = mockResponse();
     const language = 'en';
     req.session.lang = language;
-    req.query.action = 'addChild';
-    req.body = {
-      'firstname-1': dummySessionData.ListOfChild[0].firstname,
-      'lastname-1': dummySessionData.ListOfChild[0].lastname,
-    };
     const settings = {
       toggleChild: 0,
       ListOfChild: dummySessionData.ListOfChild,
@@ -100,6 +95,38 @@ describe('PostController', () => {
     };
     req.session.settings = settings;
     req.session.settings.listOfChild = dummySessionData;
+    req.query.action = 'addChild';
+    req.body = {
+      'firstname-2': dummySessionData.ListOfChild[0].firstname,
+      'lastname-2': dummySessionData.ListOfChild[0].lastname,
+    };
+    await controller.post(req, res);
+    expect(req.session.settings.ListOfChild[0]).toEqual(dummySessionData.ListOfChild[0]);
+  });
+
+  test('adding a child with unexpected values', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {};
+    const mockForm = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddChilderns(mockForm.fields);
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const language = 'en';
+    req.session.lang = language;
+    const settings = {
+      toggleChild: 0,
+      ListOfChild: dummySessionData.ListOfChild,
+      childTemporaryFormData: {},
+    };
+    req.session.settings = settings;
+    req.session.settings.listOfChild = dummySessionData;
+    req.query.action = 'addChild';
+    req.body = {
+      'firstname-2': '',
+      'lastname-2': '',
+    };
     await controller.post(req, res);
     expect(req.session.settings.ListOfChild[0]).toEqual(dummySessionData.ListOfChild[0]);
   });
@@ -143,10 +170,6 @@ describe('PostController', () => {
     const language = 'en';
     req.session.lang = language;
     req.query.action = 'continue';
-    req.body = {
-      'firstname-1': dummySessionData.ListOfChild[0].firstname,
-      'lastname-1': dummySessionData.ListOfChild[0].lastname,
-    };
     const settings = {
       toggleChild: 0,
       ListOfChild: dummySessionData.ListOfChild,
@@ -154,9 +177,15 @@ describe('PostController', () => {
     };
     req.session.settings = settings;
     req.session.settings.listOfChild = dummySessionData;
+    req.body = {
+      'firstname-2': dummySessionData.ListOfChild[0].firstname,
+      'lastname-2': dummySessionData.ListOfChild[0].lastname,
+    };
+
     await controller.post(req, res);
     await controller.addInformationUsingContinueButton(req, res);
-    await controller.addInformationUsingContinueButton(req, res);
+    req.body = dummySessionData.ListOfChild;
+    await controller.updateInformationUsingContinueButton(req, res);
     expect(req.session.settings.ListOfChild[0]).toEqual(dummySessionData.ListOfChild[0]);
   });
 
