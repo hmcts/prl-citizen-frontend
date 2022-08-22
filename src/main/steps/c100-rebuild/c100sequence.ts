@@ -21,7 +21,7 @@ import {
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
 } from '../urls';
 
-import PageStepConfigurator from './pageStepConfigurator';
+import PageStepConfigurator from './PageStepConfigurator';
 
 export const C100Sequence: Step[] = [
   {
