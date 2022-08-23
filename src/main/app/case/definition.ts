@@ -574,6 +574,7 @@ export interface CaseData {
   isIntermediaryNeeded: string;
   allocatedJudgeDetails: AllocatedJudgeDetails;
   miamCertificationDocumentUpload: Document;
+  c1ADocument: Document;
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;
