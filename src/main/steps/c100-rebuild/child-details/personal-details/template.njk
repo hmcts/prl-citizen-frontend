@@ -220,7 +220,7 @@
                                     {%- if error.propertyName == 'childSex' %}</div></div>  {% endif %}
                                      {%- if error.propertyName == 'childDateOfBirth' %}</div>  {% endif %}
                                       {%- if error.propertyName == 'childDateOfBirthNotValid' %}</div>  {% endif %}
-
+                                       {%- if error.propertyName == 'cannotHaveBothApproxAndExact' %}</div>  {% endif %}
                                       {%- if error.propertyName == 'childDateApproxFutureNotValid' %}</div>  {% endif %}
                                       {%- if error.propertyName == 'childDateFutureNotValid' %}</div>  {% endif %}
                                        {%- if error.propertyName == 'childDateOfBirthNotValidSubField' %}</div>  {% endif %}
@@ -229,7 +229,7 @@
                             <div class="govuk-form-group">
                             <div class="govuk-button-group">
                                 {{ govukButton({
-                                    text: "Continue"
+                                    text: "Contiue"
                                     }) }}
                                 {{ govukButton({
                                     text: "Save and come back later",
