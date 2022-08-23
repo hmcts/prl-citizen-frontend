@@ -573,7 +573,7 @@ export interface CaseData {
   miamExemptionsTable: MiamExemptionsTable;
   isIntermediaryNeeded: string;
   allocatedJudgeDetails: AllocatedJudgeDetails;
-  miamCertificationDocumentUpload: PRLDocument;
+  miamCertificationDocumentUpload: Document;
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;

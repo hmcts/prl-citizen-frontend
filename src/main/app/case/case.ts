@@ -205,7 +205,7 @@ export interface Case {
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;
-  miamCertificationDocumentUpload: PRLDocument;
+  miamCertificationDocumentUpload: Document;
   draftConsentOrderFile: DraftConsentOrderFile;
   otherProceedingsTable: OtherProceedingsTable;
   allegationsOfHarmYesNo: string;

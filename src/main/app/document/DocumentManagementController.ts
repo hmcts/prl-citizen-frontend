@@ -95,11 +95,11 @@ export class DocumentManagerController {
     }
 
     if (filename === 'miamcertificate') {
-      if (!req.session.userCase.miamCertificationDocumentUpload.orderDocument.document_binary_url) {
-        throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+      if (!req.session.userCase.miamCertificationDocumentUpload.document_binary_url) {
+        throw new Error('miam certificate binary url is not found');
       }
-      filename = req.session.userCase.miamCertificationDocumentUpload.orderDocument.document_filename;
-      documentToGet = req.session.userCase.miamCertificationDocumentUpload.orderDocument.document_binary_url;
+      filename = req.session.userCase.miamCertificationDocumentUpload.document_filename;
+      documentToGet = req.session.userCase.miamCertificationDocumentUpload.document_binary_url;
       uid = this.getUID(documentToGet);
     }
 
