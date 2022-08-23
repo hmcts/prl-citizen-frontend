@@ -13,6 +13,11 @@ const en = {
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
 };
 
 const cy: typeof en = {
@@ -23,6 +28,11 @@ const cy: typeof en = {
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
 };
 
 const languages = {
