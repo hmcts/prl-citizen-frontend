@@ -12,8 +12,8 @@ const en = () => ({
   stopOtherPeopleDoingSomethingHint: 'For example, moving abroad or abducting the children',
   resolveSpecificIssue: 'Resolve a specific issue you are concerned about',
   resolveSpecificIssueHint: 'For example, what school the children will go to',
-  changeChildrenNameSurname: `Changing the children's names or surname`,
-  changeChildrenNameSurnameA: `Changing the children's names or surname`,
+  changeChildrenNameSurname: "Changing the children's names or surname",
+  changeChildrenNameSurnameA: "Changing the children's names or surname",
   allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children',
   takingChildOnHoliday: 'Taking the children on holiday',
   relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales',
@@ -50,8 +50,8 @@ const cy = () => ({
   stopOtherPeopleDoingSomethingHint: 'For example, moving abroad or abducting the children - welsh',
   resolveSpecificIssue: 'Resolve a specific issue you are concerned about - welsh',
   resolveSpecificIssueHint: 'For example, what school the children will go to - welsh',
-  changeChildrenNameSurname: `Changing the children's names or surname - welsh`,
-  changeChildrenNameSurnamA: `Changing the children's names or surname - welsh`,
+  changeChildrenNameSurname: "Changing the children's names or surname - welsh",
+  changeChildrenNameSurnamA: "Changing the children's names or surname - welsh",
   allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
   takingChildOnHoliday: 'Taking the children on holiday - welsh',
   relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
@@ -59,7 +59,7 @@ const cy = () => ({
     'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
   relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales - welsh',
   relocateChildrenOutsideUkA:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',  
+    'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
   specificHoliday: 'A specific holiday or arrangement - welsh',
   whatSchoolChildrenWillGoTo: 'What school the children will go to - welsh',
   religiousIssue: 'A religious issue - welsh',
@@ -118,27 +118,27 @@ export const form: FormContent = {
                 {
                   name: 'stopOtherPeopleDoingSomethingSubField',
                   label: l => l.changeChildrenNameSurname,
-                  value: 'changeChildrenNameSurname'
+                  value: 'changeChildrenNameSurname',
                 },
                 {
                   name: 'stopOtherPeopleDoingSomethingSubField',
                   label: l => l.allowMedicalTreatment,
-                  value: 'allowMedicalTreatment'
+                  value: 'allowMedicalTreatment',
                 },
                 {
                   name: 'stopOtherPeopleDoingSomethingSubField',
                   label: l => l.takingChildOnHoliday,
-                  value: 'takingChildOnHoliday'
+                  value: 'takingChildOnHoliday',
                 },
                 {
                   name: 'stopOtherPeopleDoingSomethingSubField',
                   label: l => l.relocateChildrenDifferentUkArea,
-                  value: 'relocateChildrenDifferentUkArea'
+                  value: 'relocateChildrenDifferentUkArea',
                 },
                 {
                   name: 'stopOtherPeopleDoingSomethingSubField',
                   label: l => l.relocateChildrenOutsideUk,
-                  value: 'relocateChildrenOutsideUk'
+                  value: 'relocateChildrenOutsideUk',
                 },
               ],
             },
@@ -195,9 +195,9 @@ export const form: FormContent = {
                   name: 'resolveSpecificIssueSubField',
                   label: l => l.returningChildrenToYourCare,
                   value: 'returningChildrenToYourCare',
-                  hint: l => l.returningChildrenToYourCare
-                }
-              ]
+                  hint: l => l.returningChildrenToYourCare,
+                },
+              ],
             },
           },
         },

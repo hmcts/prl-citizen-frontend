@@ -27,8 +27,19 @@ export const isFieldFilledIn: Validator = value => {
   }
 };
 
+/**
+ * It checks if at least one field is checked
+ * @returns A function that takes in a field and returns a validation error if the field is empty.
+ */
 export const atLeastOneFieldIsChecked: Validator = fields => {
-  if (!fields || (fields as []).length === 0) {
+  let _fields;
+  if (Array.isArray(fields)) {
+    _fields = fields;
+    _fields = _fields.filter(nestedItem => nestedItem !== '');
+  } else {
+    _fields = fields;
+  }
+  if (!_fields || (_fields as []).length === 0) {
     return ValidationError.REQUIRED;
   }
 };
