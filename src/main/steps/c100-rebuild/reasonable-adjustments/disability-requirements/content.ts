@@ -108,7 +108,7 @@ export const form: FormContent = {
         {
           name: 'disabilityRequirements',
           label: l => l.noSupportRequired,
-          value: 'none',
+          value: 'noSupport',
           behaviour: 'exclusive',
         },
       ],

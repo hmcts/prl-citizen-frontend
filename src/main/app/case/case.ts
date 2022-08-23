@@ -190,6 +190,8 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
+  //C100 Rebuild
+  disabilityRequirements?: string[];
 }
 
 export interface CaseWithId extends Case {
