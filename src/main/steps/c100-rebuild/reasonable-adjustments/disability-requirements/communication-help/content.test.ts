@@ -27,9 +27,9 @@ const en = {
   intermediary: 'Intermediary',
   intermediaryHint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
-  other: 'Other - welsh',
-  noSupportRequired: 'No, I do not need any support at this time - welsh',
-  describeWhatNeeded: 'Describe what you need - welsh',
+  other: 'Other',
+  noSupportRequired: 'No, I do not need any support at this time',
+  describeWhatNeeded: 'Describe what you need',
   errors: {
     communicationHelp: {
       required: 'Select what help you need with communicating and understanding',

@@ -1,5 +1,5 @@
 export interface Page {
-  id: string
+  id: string;
   url: string;
 }
 export interface PageSteps extends Page {
@@ -22,7 +22,7 @@ export const PageStepsConfig: PageSteps[] = [
     id: C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
     url: C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
     steps: [
-      {    
+      {
         id: 'documentsHelp',
         url: C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
       },
