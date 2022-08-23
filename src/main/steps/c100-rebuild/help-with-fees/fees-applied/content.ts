@@ -13,10 +13,10 @@ const en = () => ({
   two: 'No',
   errors: {
     feesAppliedDetails: {
-      required: 'Select yes if the other people in the application know your contact details',
+      required: 'Select yes if you already applied for help with your application fee',
     },
     hwfReferenceNumber: {
-      required: 'provide details',
+      required: 'Enter the help with fees reference number you received when you applied for help with fees',
     },
   },
 });
@@ -30,10 +30,10 @@ const cy = () => ({
   two: 'No - welsh',
   errors: {
     feesAppliedDetails: {
-      required: 'Select yes if the other people in the application know your contact details - welsh',
+      required: 'Select yes if you already applied for help with your application fee - welsh',
     },
     hwfReferenceNumber: {
-      required: 'provide details - welsh',
+      required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
     },
   },
 });
@@ -72,7 +72,7 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  onlycontinue: {
+  submit: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {

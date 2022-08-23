@@ -124,12 +124,14 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HELP_WITH_FEES_FEES_APPLIED,
+    getNextStep: data =>
+      data.needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE,
   },
   {
     url: C100_HELP_WITH_FEES_FEES_APPLIED,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE,
+    getNextStep: data =>
+      data.feesAppliedDetails === YesOrNo.NO ? C100_HELP_WITH_FEES_HWF_GUIDANCE : C100_HELP_WITH_FEES_HWF_GUIDANCE,
   },
   {
     url: C100_HELP_WITH_FEES_HWF_GUIDANCE,

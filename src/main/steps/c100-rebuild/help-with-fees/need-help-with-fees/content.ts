@@ -15,8 +15,8 @@ const en = () => ({
   line2: 'are on a low income',
   seeEligbilityHyperLink: 'See if you are eligible for Help with Fees.',
   select_all_apply: 'Select all that apply',
-  yesNeedHelpWithFeesPaying: 'Yes, I need help with paying the fee',
-  noNeedHelpWithFeesPaying: 'No, I do not need help',
+  one: 'Yes, I need help with paying the fee',
+  two: 'No, I do not need help',
   errors: {
     needHelpWithFees: {
       required: 'Select yes if you already applied for help with your application fee',
@@ -33,6 +33,7 @@ export const form: FormContent = {
     needHelpWithFees: {
       type: 'radios',
       classes: 'govuk-radios',
+      section: l => l.section,
       values: [
         {
           label: l => l.one,

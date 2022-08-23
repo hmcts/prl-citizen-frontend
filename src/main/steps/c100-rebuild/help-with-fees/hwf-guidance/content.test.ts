@@ -19,7 +19,7 @@ const en = {
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C',
   errors: {
     hwfGuidanceRefNumber: {
-      required: 'provide details',
+      required: 'Enter the help with fees reference number you received when you applied for help with fees',
     },
   },
 };
@@ -36,7 +36,7 @@ const cy = {
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C - welsh',
   errors: {
     hwfGuidanceRefNumber: {
-      required: 'provide details - welsh',
+      required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
     },
   },
 };
@@ -73,7 +73,7 @@ describe('help with fess > hwf guidance', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
   });
 

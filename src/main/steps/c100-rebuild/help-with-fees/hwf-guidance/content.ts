@@ -14,7 +14,7 @@ const en = () => ({
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C',
   errors: {
     hwfGuidanceRefNumber: {
-      required: 'provide details',
+      required: 'Enter the help with fees reference number you received when you applied for help with fees',
     },
   },
 });
@@ -31,7 +31,7 @@ const cy = () => ({
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C - welsh',
   errors: {
     hwfGuidanceRefNumber: {
-      required: 'provide details - welsh',
+      required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
     },
   },
 });
@@ -52,7 +52,7 @@ export const form: FormContent = {
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
   },
-  onlycontinue: {
+  submit: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {
