@@ -14,8 +14,7 @@ const en = {
   two: 'No',
   errors: {
     hearingPart1: {
-      required:
-        "Select yes if you're asking for a without notice",
+      required: "Select yes if you're asking for a without notice",
     },
   },
 };
@@ -28,8 +27,7 @@ const cy = {
   two: 'No - welsh',
   errors: {
     hearingPart1: {
-      required:
-        "Select yes if you're asking for a without notice - welsh",
+      required: "Select yes if you're asking for a without notice - welsh",
     },
   },
 };

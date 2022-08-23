@@ -1,16 +1,7 @@
 {% extends "common/template.njk" %}
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 
-{% block page_content %}
-<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
-<div class="govuk-body-m">{{ line1 }}</div>
-{{ govukWarningText({
-
-text: "If you ask for a without notice hearing, the court may require you to attend on the same day as you submit your application. They will contact you to tell you when you need to go to the court.",
-
-iconFallbackText: "Warning"
-
-}) }}
+{% block form %}
+  {% include "./form.njk"%}
 
 {% endblock %}
