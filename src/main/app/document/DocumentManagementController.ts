@@ -38,6 +38,7 @@ export class DocumentManagerController {
     const { _csrf, ...formData } = form.getParsedBody(req.body);
     const caseworkerUser = await getSystemUser();
     req.session.errors = form.getErrors(formData);
+    console.log(" Form Data:---", formData);  
     console.log("inside generatePdf");  
     try {
       //if (!req.session.errors.length) {
@@ -177,12 +178,39 @@ export class DocumentManagerController {
 
 
   public async post(req: AppRequest, res: Response): Promise<void> {
-    console.log('1');
+    
+    console.log("request session:", req.session);
     if (!req.files?.length) {
       if (req.headers.accept?.includes('application/json')) {
         throw new Error('No files were uploaded');
       } else {
-        return res.redirect(UPLOAD_DOCUMENT);
+        console.log("Request: ", req.files);
+        const fileData = req.files || [];
+        const obj = {
+          id: fileData[0]['originalname'],
+          name: fileData[0]['originalname']
+        }
+        req.session.userCase.applicantUploadFiles?.push(obj);
+        console.log("content in upload files: ", req.session.userCase.applicantUploadFiles?.push(obj))
+        //return res.redirect(UPLOAD_DOCUMENT);
+      }
+    }
+    else {
+      console.log("Request: ", req.files);
+      const fileData = req.files || [];
+      const obj = {
+        id: fileData[0]['originalname'],
+        name: fileData[0]['originalname']
+      }
+  
+      if (req.session.userCase['applicantUploadFiles']) {
+      req.session.userCase.applicantUploadFiles?.push(obj);
+      console.log("content in upload files: ", req.session.userCase.applicantUploadFiles?.push(obj))
+      //return res.redirect(UPLOAD_DOCUMENT);
+      }
+      else {
+        req.session.userCase['applicantUploadFiles'] = [];
+        req.session.userCase.applicantUploadFiles?.push(obj);
       }
     }
 
