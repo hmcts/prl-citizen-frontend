@@ -21,6 +21,8 @@ import {
   C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
   PageLink,
+  C100_HEARING_WITHOUT_NOTICE_PART1,
+  C100_HEARING_WITHOUT_NOTICE_PART2,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -160,5 +162,20 @@ export const C100Sequence: Step[] = [
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
+  },
+  {
+    url: C100_CONFIDENTIALITY_DETAILS_KNOW,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART1,
+  },
+  {
+    url: C100_HEARING_WITHOUT_NOTICE_PART1,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART2,
+  },
+  {
+    url: C100_HEARING_WITHOUT_NOTICE_PART2,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
