@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -12,51 +12,70 @@ const en = () => ({
   stopOtherPeopleDoingSomethingHint: 'For example, moving abroad or abducting the children',
   resolveSpecificIssue: 'Resolve a specific issue you are concerned about',
   resolveSpecificIssueHint: 'For example, what school the children will go to',
+  changeChildrenNameSurname: `Changing the children's names or surname`,
+  changeChildrenNameSurnameA: `Changing the children's names or surname`,
+  allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children',
+  takingChildOnHoliday: 'Taking the children on holiday',
+  relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales',
+  relocateChildrenOutsideUk:
+    'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
+  relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales',
+  relocateChildrenOutsideUkA:
+    'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
+  specificHoliday: 'A specific holiday or arrangement',
+  whatSchoolChildrenWillGoTo: 'What school the children will go to',
+  religiousIssue: 'A religious issue',
+  medicalTreatment: 'Medical treatment',
+  returningChildrenToYourCare: 'Returning the children to your care',
+  returningChildrenToYourCareHint: 'If the children have been abducted, unlawfully removed or unlawfully retained',
   errors: {
-    communicationHelp: {
-      required: 'Select what help you need with communicating and understanding',
+    courtOrder: {
+      required: 'Select  what you are asking the court to do',
     },
-    signLanguageInterpreterDetails: {
-      required: 'Describe which Sign Language interpreter you need',
+    stopOtherPeopleDoingSomethingSubField: {
+      required: 'Specify what you want the court to the other people in the application doing',
     },
-    otherDetails: {
-      required: 'Describe what you need to help with communicating and understanding',
+    resolveSpecificIssueSubField: {
+      required: 'Specify what issue you want the court to resolve',
     },
   },
 });
 
 const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
-  caption: 'Reasonable adjustments - welsh',
-  headingTitle: 'I need help communicating and understanding - welsh',
-  line1:
-    'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
-  select_all_apply: 'Select all that apply to you - welsh',
-  hearingLoop: 'Hearing loop (hearing enhancement system) - welsh',
-  infraredReceiver: 'Infrared receiver (hearing enhancement system) - welsh',
-  needToBeClosedWithSpeaker: 'Need to be close to who is speaking - welsh',
-  lipSpeaker: 'Lip speaker - welsh',
-  lipSpeakerHint: 'hearing person who has been trained to be easily lip read - welsh',
-  signLanguageInterpreter: 'Sign Language interpreter - welsh',
-  speechToTextReporter: 'Speech to text reporter (palantypist) - welsh',
-  needExtraTime: 'Extra time to think and explain myself - welsh',
-  visitCourtBeforeHearing: 'Visit to court before the hearing - welsh',
-  explanationOfCourt: "Explanation of the court and who's in the room at the hearing - welsh",
-  intermediary: 'Intermediary - welsh',
-  intermediaryHint:
-    'a person to help you if you have communication needs by providing professional support to participate in a hearing - welsh',
-  other: 'Other - welsh',
-  noSupportRequired: 'No, I do not need any support at this time - welsh',
-  describeWhatNeeded: 'Describe what you need - welsh',
+  title: 'What are you asking the court to do? - welsh',
+  select_all_apply: 'Select all that apply - welsh',
+  whoChildLiveWith: 'Decide who the children live with and when - welsh',
+  childTimeSpent: 'Decide how much time the children spend with each person - welsh',
+  stopOtherPeopleDoingSomething: 'Stop the other people in the application doing something - welsh',
+  stopOtherPeopleDoingSomethingHint: 'For example, moving abroad or abducting the children - welsh',
+  resolveSpecificIssue: 'Resolve a specific issue you are concerned about - welsh',
+  resolveSpecificIssueHint: 'For example, what school the children will go to - welsh',
+  changeChildrenNameSurname: `Changing the children's names or surname - welsh`,
+  changeChildrenNameSurnamA: `Changing the children's names or surname - welsh`,
+  allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
+  takingChildOnHoliday: 'Taking the children on holiday - welsh',
+  relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
+  relocateChildrenOutsideUk:
+    'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
+  relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales - welsh',
+  relocateChildrenOutsideUkA:
+      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',  
+  specificHoliday: 'A specific holiday or arrangement - welsh',
+  whatSchoolChildrenWillGoTo: 'What school the children will go to - welsh',
+  religiousIssue: 'A religious issue - welsh',
+  medicalTreatment: 'Medical treatment - welsh',
+  returningChildrenToYourCare: 'Returning the children to your care - welsh',
+  returningChildrenToYourCareHint:
+    'If the children have been abducted, unlawfully removed or unlawfully retained - welsh',
   errors: {
-    communicationHelp: {
-      required: 'Select what help you need with communicating and understanding - welsh',
+    courtOrder: {
+      required: 'Select  what you are asking the court to do - welsh',
     },
-    signLanguageInterpreterDetails: {
-      required: 'Describe which Sign Language interpreter you need - welsh',
+    stopOtherPeopleDoingSomethingSubField: {
+      required: 'Specify what you want the court to the other people in the application doing - welsh',
     },
-    otherDetails: {
-      required: 'Describe what you need to help with communicating and understanding - welsh',
+    resolveSpecificIssueSubField: {
+      required: 'Specify what issue you want the court to resolve - welsh',
     },
   },
 });
@@ -71,8 +90,9 @@ export const form: FormContent = {
     courtOrder: {
       id: 'courtOrder',
       type: 'checkboxes',
+      classes: 'govuk-checkboxes',
       hint: l => l.select_all_apply,
-      validator: value => atLeastOneFieldIsChecked(value),
+      validator: atLeastOneFieldIsChecked,
       values: [
         {
           name: 'courtOrder',
@@ -88,38 +108,39 @@ export const form: FormContent = {
           name: 'courtOrder',
           label: l => l.stopOtherPeopleDoingSomething,
           value: 'stopOtherPeopleDoingSomething',
-          hint: l => l.stopOtherPeopleDoingSomethingHint,
           subFields: {
             stopOtherPeopleDoingSomethingSubField: {
+              id: 'stopOtherPeopleDoingSomethingSubField',
               type: 'checkboxes',
-              validator: value => atLeastOneFieldIsChecked(value),
+              classes: 'govuk-checkboxes',
+              validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'courtOrder',
+                  name: 'stopOtherPeopleDoingSomethingSubField',
                   label: l => l.changeChildrenNameSurname,
-                  value: 'changeChildrenNameSurname',
+                  value: 'changeChildrenNameSurname'
                 },
                 {
-                  name: 'courtOrder',
+                  name: 'stopOtherPeopleDoingSomethingSubField',
                   label: l => l.allowMedicalTreatment,
-                  value: 'allowMedicalTreatment',
+                  value: 'allowMedicalTreatment'
                 },
                 {
-                  name: 'courtOrder',
+                  name: 'stopOtherPeopleDoingSomethingSubField',
                   label: l => l.takingChildOnHoliday,
-                  value: 'takingChildOnHoliday',
+                  value: 'takingChildOnHoliday'
                 },
                 {
-                  name: 'courtOrder',
-                  label: l => l.infraredReceiver,
-                  value: 'infraredReceiver',
+                  name: 'stopOtherPeopleDoingSomethingSubField',
+                  label: l => l.relocateChildrenDifferentUkArea,
+                  value: 'relocateChildrenDifferentUkArea'
                 },
                 {
-                  name: 'courtOrder',
-                  label: l => l.hearingLoop,
-                  value: 'hearingLoop',
-                }
-              ]
+                  name: 'stopOtherPeopleDoingSomethingSubField',
+                  label: l => l.relocateChildrenOutsideUk,
+                  value: 'relocateChildrenOutsideUk'
+                },
+              ],
             },
           },
         },
@@ -128,6 +149,57 @@ export const form: FormContent = {
           label: l => l.resolveSpecificIssue,
           value: 'resolveSpecificIssue',
           hint: l => l.resolveSpecificIssueHint,
+          subFields: {
+            resolveSpecificIssueSubField: {
+              id: 'resolveSpecificIssueSubField',
+              type: 'checkboxes',
+              classes: 'govuk-checkboxes',
+              validator: atLeastOneFieldIsChecked,
+              values: [
+                {
+                  name: 'resolveSpecificIssueSubField',
+                  label: l => l.specificHoliday,
+                  value: 'specificHoliday',
+                },
+                {
+                  name: 'resolveSpecificIssueSubField',
+                  label: l => l.whatSchoolChildrenWillGoTo,
+                  value: 'whatSchoolChildrenWillGoTo',
+                },
+                {
+                  name: 'resolveSpecificIssueSubField',
+                  label: l => l.religiousIssue,
+                  value: 'religiousIssue',
+                },
+                {
+                  name: 'resolveSpecificIssueSubField',
+                  label: l => l.changeChildrenNameSurnameA,
+                  value: 'changeChildrenNameSurnameA',
+                },
+                {
+                  name: 'resolveSpecificIssueSubField',
+                  label: l => l.medicalTreatment,
+                  value: 'medicalTreatment',
+                },
+                {
+                  name: 'resolveSpecificIssueSubField',
+                  label: l => l.relocateChildrenDifferentUkAreaA,
+                  value: 'relocateChildrenDifferentUkAreaA',
+                },
+                {
+                  name: 'resolveSpecificIssueSubField',
+                  label: l => l.relocateChildrenOutsideUkA,
+                  value: 'relocateChildrenOutsideUkA',
+                },
+                {
+                  name: 'resolveSpecificIssueSubField',
+                  label: l => l.returningChildrenToYourCare,
+                  value: 'returningChildrenToYourCare',
+                  hint: l => l.returningChildrenToYourCare
+                }
+              ]
+            },
+          },
         },
       ],
     },

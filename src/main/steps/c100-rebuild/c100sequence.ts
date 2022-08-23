@@ -28,6 +28,7 @@ import {
   C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
   C100_HEARING_WITHOUT_NOTICE_PART2,
+  C100_COURT_ORDER_COURT_ASKS1,
 } from '../urls';
 
 export const C100Sequence: Step[] = [
@@ -151,6 +152,11 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART2,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_COURT_ORDER_COURT_ASKS1,
+  },
+  {
+    url: C100_COURT_ORDER_COURT_ASKS1,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },

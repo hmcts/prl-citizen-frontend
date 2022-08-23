@@ -28,6 +28,7 @@ export class Form {
         .map(fieldWithSubFields => fieldWithSubFields.subFields)
         .map(subField => this.getParsedBody(body, subField))
         .forEach(parsedSubField => {
+          console.log("In Form: ", subFieldsParsedBody, parsedSubField);
           subFieldsParsedBody = { ...subFieldsParsedBody, ...parsedSubField };
         });
     }

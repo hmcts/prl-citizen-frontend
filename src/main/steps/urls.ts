@@ -175,3 +175,4 @@ export const C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: PageLink = `${C100_
 export const C100_CHILDERN_FURTHER_INFORMATION: PageLink = `${C100_CHILDERN_DETAILS}/further-information`;
 
 export const C100_HEARING_WITHOUT_NOTICE_PART2: PageLink = `${C100_URL}/hearing-without-notice/hearing-part2`;
+export const C100_COURT_ORDER_COURT_ASKS1: PageLink = `${C100_URL}/court-order/court-asks1`;

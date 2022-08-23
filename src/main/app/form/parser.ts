@@ -22,16 +22,20 @@ export const setupCheckboxParser: CheckboxParser =
   ([key, field]) => {
     if ((field as FormOptions)?.type === 'checkboxes') {
       field.parser = formData => {
+        console.log("In setupParser: ", key, isSavingAndSigningOut);
         const checkbox = formData[key] ?? [];
         let checkboxValues;
         if ((field as FormOptions).values.length > 1) {
           checkboxValues = checkbox.filter(Boolean);
+          console.log("In setupParser1: ", key, checkboxValues);
         } else {
           checkboxValues = checkbox[checkbox.length - 1];
+          console.log("In setupParser2: ", key, checkboxValues);
         }
 
         if (isSavingAndSigningOut && !checkboxValues) {
           checkboxValues = null;
+          console.log("In setupParser3: ", key, checkboxValues);
         }
 
         return [[key, checkboxValues]];
