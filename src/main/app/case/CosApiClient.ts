@@ -1,11 +1,11 @@
-import Axios, { AxiosInstance, AxiosResponse } from 'axios';
+import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import type { AppRequest, UserDetails } from '../controller/AppRequest';
+import type { UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData, RespondentCaseData, RespondentCaseId } from './definition';
+import { CaseData } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
