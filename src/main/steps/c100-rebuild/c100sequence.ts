@@ -31,6 +31,7 @@ import {
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   C100_TYPE_ORDER_SHORT_STATEMENT,
   PageLink,
+  // eslint-disable-next-line import/namespace
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';

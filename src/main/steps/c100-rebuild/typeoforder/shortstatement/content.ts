@@ -1,5 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -12,6 +13,12 @@ const en = () => ({
     'why you are bringing this matter to the court',
     'what you would like the court to do',
   ],
+  shortStatement: 'Describe what you want the court to do regarding the children in this application - welsh',
+  errors: {
+    shortStatement: {
+      required: 'Describe what you want the court to do regarding the children in this application',
+    },
+  },
 });
 
 const cy = () => ({
@@ -25,6 +32,12 @@ const cy = () => ({
     'why you are bringing this matter to the court - welsh',
     'what you would like the court to do - welsh',
   ],
+  shortStatement: 'Describe what you want the court to do regarding the children in this application - welsh',
+  errors: {
+    shortStatement: {
+      required: 'Describe what you want the court to do regarding the children in this application - welsh',
+    },
+  },
 });
 
 const languages = {
@@ -36,9 +49,10 @@ export const form: FormContent = {
   fields: {
     shortStatement: {
       type: 'textarea',
-      label: l => l.provideDetails,
+      label: l => l.shortStatement,
       labelSize: null,
       attributes: { rows: 10 },
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
   },
   onlycontinue: {
