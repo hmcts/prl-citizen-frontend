@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-//import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../app/form/Form';
+//import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
@@ -50,5 +50,12 @@ describe('citizen-home content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
+
+  // test('should contain detailsKnown field', () => {
+  //   const detailsKnownField = fields.detailsKnown as FormOptions;
+  //   expect(detailsKnownField.type).toBe('radios');
+  //   expect(detailsKnownField.classes).toBe('govuk-radios');
+  //   expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+  // });
 });
 /* eslint-enable @typescript-eslint/ban-types */

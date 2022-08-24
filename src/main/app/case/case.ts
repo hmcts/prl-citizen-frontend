@@ -35,6 +35,7 @@ import {
   OtherProceedingsTable,
   OthersToNotify,
   PRLDocument,
+  PartyDetails,
   Respondent,
   SpecialArrangement,
   State,
@@ -53,6 +54,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseStatus: 'caseStatus',
   welshNeeds: 'welshNeeds',
   respondents: 'respondents',
+  applicants: 'applicants',
+  applicantsFL401: 'applicantsFL401',
+  respondentsFL401: 'respondentsFL401',
   consentOrder: 'consentOrder',
   isCaseUrgent: 'isCaseUrgent',
   isWelshNeeded: 'isWelshNeeded',
@@ -82,6 +86,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   miamExemptionsTable: 'miamExemptionsTable',
   isIntermediaryNeeded: 'isIntermediaryNeeded',
   allocatedJudgeDetails: 'allocatedJudgeDetails',
+  miamCertificationDocumentUpload: 'miamCertificationDocumentUpload',
+  c1ADocument: 'c1ADocument',
   applicantAttendedMiam: 'applicantAttendedMiam',
   caseTypeOfApplication: 'caseTypeOfApplication',
   claimingExemptionMiam: 'claimingExemptionMiam',
@@ -163,6 +169,8 @@ export interface Case {
   children: Child[];
   miamTable: MiamTable;
   applicants: Applicant[];
+  applicantsFL401: PartyDetails;
+  respondentsFL401: PartyDetails;
   caseStatus: CaseStatus;
   welshNeeds: WelshNeed[];
   respondents: Respondent[];
@@ -198,6 +206,8 @@ export interface Case {
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;
+  miamCertificationDocumentUpload: Document;
+  c1ADocument: Document;
   draftConsentOrderFile: DraftConsentOrderFile;
   otherProceedingsTable: OtherProceedingsTable;
   allegationsOfHarmYesNo: string;

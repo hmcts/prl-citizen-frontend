@@ -5,4 +5,5 @@ export const respondent_tasklist_items_en = {
   mediation_miam: 'Mediation(MIAM)',
   international_factors: 'International element',
   view_all_orders_from_the_court: 'View all orders from the court',
+  view_all_documents: 'View all documents',
 };

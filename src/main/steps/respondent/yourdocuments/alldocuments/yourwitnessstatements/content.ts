@@ -5,7 +5,7 @@ import { FormContent } from '../../../../../app/form/Form';
 const en = () => {
   return {
     section: 'All documents',
-    title: 'Orders from the court',
+    title: "'s witness statements",
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -16,7 +16,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'All documents',
-    title: 'Orders from the court',
+    title: "'s witness statements",
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',

@@ -24,6 +24,7 @@ export class GetController {
       return;
     }
 
+    const name = this.getName(req) as string;
     const language = this.getPreferredLanguage(req) as Language;
 
     // const addresses = req.session?.addresses;
@@ -32,6 +33,7 @@ export class GetController {
       pageContent: this.content,
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
+      name,
       // addresses,
     });
 
@@ -45,6 +47,7 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
+      name,
       // isDraft: req.session?.userCase?.state ? req.session.userCase.state === State.Draft : true,
       // getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
@@ -92,5 +95,11 @@ export class GetController {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
+  }
+
+  private getName(req: AppRequest) {
+    const caption = req.query['name'] as string;
+    console.log('name : ' + caption);
+    return caption;
   }
 }

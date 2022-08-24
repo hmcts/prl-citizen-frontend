@@ -539,6 +539,8 @@ export interface CaseData {
   children: Child[];
   miamTable: MiamTable;
   applicants: Applicant[];
+  applicantsFL401: PartyDetails;
+  respondentsFL401: PartyDetails;
   caseStatus: CaseStatus;
   welshNeeds: WelshNeed[];
   respondents: Respondent[];
@@ -571,6 +573,8 @@ export interface CaseData {
   miamExemptionsTable: MiamExemptionsTable;
   isIntermediaryNeeded: string;
   allocatedJudgeDetails: AllocatedJudgeDetails;
+  miamCertificationDocumentUpload: Document;
+  c1ADocument: Document;
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;

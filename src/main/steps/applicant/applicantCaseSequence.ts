@@ -1,5 +1,6 @@
 import { Sections, Step } from '../constants';
 import {
+  APPLICANT,
   APPLICANT_ADDRESS_BLANK,
   APPLICANT_ADDRESS_CONFIRMATION,
   APPLICANT_ADDRESS_DETAILS,
@@ -10,12 +11,15 @@ import {
   APPLICANT_CONTACT_DETAILS,
   // APPLICANT_DETAILS_KNOWN,
   APPLICANT_FIND_ADDRESS,
+  APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_PERSONAL_DETAILS,
   APPLICANT_POSTAL_ADDRESS_DETAILS,
   APPLICANT_PRIVATE_DETAILS_CONFIRMED,
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_TASK_LIST_URL,
   // APPLICANT_START_ALTERNATIVE,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+  YOUR_WITNESS_STATEMENTS,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -89,5 +93,30 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_POSTAL_ADDRESS_DETAILS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${YOUR_WITNESS_STATEMENTS}`,
+  },
+  {
+    url: `${APPLICANT}${YOUR_WITNESS_STATEMENTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_ORDERS_FROM_THE_COURT,
+  },
+  {
+    url: APPLICANT_ORDERS_FROM_THE_COURT,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
 ];

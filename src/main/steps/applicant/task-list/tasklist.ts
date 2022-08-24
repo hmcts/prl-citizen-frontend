@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
-import { getConfirmOrEditYourContactDetails, getKeepYourDetailsPrivateStatus, getYourApplication } from './utils';
+import {
+  getConfirmOrEditYourContactDetails,
+  getKeepYourDetailsPrivateStatus,
+  getViewAllDocuments,
+  getYourApplication,
+} from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
@@ -36,6 +42,28 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           text: taskListItems.your_application_witness_statement,
           status: getYourApplication(userCase),
           href: URL.YOUR_APPLICATION_WITNESS_STATEMENT,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.viewAllDocuments,
+      items: [
+        {
+          id: 'view-all-documents',
+          text: taskListItems.view_all_documents,
+          status: getViewAllDocuments(userCase),
+          href: URL.APPLICANT_VIEW_ALL_DOCUMENTS,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.ordersFromTheCourt,
+      items: [
+        {
+          id: 'view-all-orders-from-the-court',
+          text: taskListItems.view_all_orders_from_the_court,
+          status: getViewAllOrdersFromTheCourt(userCase),
+          href: getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW' ? URL.APPLICANT_ORDERS_FROM_THE_COURT : '#',
         },
       ],
     },

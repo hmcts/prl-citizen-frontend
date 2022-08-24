@@ -213,6 +213,7 @@ export class PostController<T extends AnyObject> {
         // }
       }
     } catch (err) {
+      console.log('Retrieving case failed with error: ' + err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 
