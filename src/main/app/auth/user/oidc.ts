@@ -5,7 +5,6 @@ import jwt_decode from 'jwt-decode';
 import { PageLink } from '../../../steps/urls';
 import { CosApiClient } from '../../case/CosApiClient';
 import { CaseWithId } from '../../case/case';
-//import { State } from '../../case/definition';
 import { AppRequest, UserDetails } from '../../controller/AppRequest';
 
 export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink): string => {
