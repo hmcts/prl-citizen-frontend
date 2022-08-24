@@ -5,7 +5,7 @@ import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-const docsEmail: string = 'test';
+const docsEmail: string = 'example@test.com';
 
 const en = {
   section: 'How your documents will be shared',
@@ -35,7 +35,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('');
-    expect(generatedContent.email).toEqual('test);
+    expect(generatedContent.email).toEqual(docsEmail);
     expect(generatedContent.section).toEqual('How your documents will be shared');
   });
 

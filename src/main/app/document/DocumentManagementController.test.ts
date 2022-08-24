@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { APPLICANT_TASK_LIST_URL } from '../../steps/urls';
+import { FormContent, FormFields } from '../form/Form';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -9,9 +10,14 @@ jest.mock('../document/DocumentManagementClient');
 jest.mock('../../app/auth/user/oidc');
 
 describe('DocumentManagerController', () => {
-  const documentManagerController = new DocumentManagerController();
+  let generatedContent;
+  let form;
+  let fields;
+ 
 
   beforeEach(() => {
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
     jest.clearAllMocks();
     mockCreate.mockClear();
     mockDelete.mockClear();
@@ -19,6 +25,9 @@ describe('DocumentManagerController', () => {
 
     //jest.mock('getSystemUser', () => jest.fn());
   });
+
+  const documentManagerController = new DocumentManagerController(fields);
+
 
   describe('fetch file FL401-Final-Document for applicant', () => {
     test('fetch an existing file - %o', async () => {

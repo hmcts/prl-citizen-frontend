@@ -19,7 +19,7 @@ services:
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   citizen:
-    uploadDocsEmail: 'UPLOAD_EMAIL'
+    uploadDocsEmail: 'test.com'
   case:
     #url: 'http://localhost:4452'
     url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-502.service.core-compute-preview.internal'

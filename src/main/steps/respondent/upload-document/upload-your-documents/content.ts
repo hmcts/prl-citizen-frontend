@@ -1,26 +1,38 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn} from '../../../../app/form/Form';
 import { getFilename } from '../../../../app/case/formatter/uploaded-files';
-import { isObject } from 'lodash';
+import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 
 
 const en = {
   section: 'Provide the document',
   title: 'Provide the documents',
+  declaration: 'I believe that the facts stated in these documents are true',
   continue: 'Save and continue',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
 };
 
 const cy: typeof en = {
   section: 'Provide the document',
   title: 'Provide the documents',
+  declaration: 'I believe that the facts stated in these documents are true',
   continue: 'Save and continue',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
 };
 
 const languages = {
@@ -40,37 +52,17 @@ export const form: FormContent = {
 
 
     return {
-      applicant1UploadedFiles: {
-        type: 'hidden',
-        label: l => l.uploadFiles,
+       declarationCheck: {
+        type: 'checkboxes',
         labelHidden: true,
-        value:
-          (isObject(userCase.applicant1UploadedFiles)
-            ? JSON.stringify(userCase.applicant1UploadedFiles)
-            : userCase.applicant1UploadedFiles) || '[]',
-        parser: data => JSON.parse((data as Record<string, string>).applicant1UploadedFiles || '[]'),
-        validator: (value, formData) => {
-          const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-          if (!hasUploadedFiles) {
-            return 'notUploaded';
-          }
-        },
-      },
-      // ...(checkboxes.length === 1
-      //   ? {
-      //       applicant1CannotUploadDocuments: {
-      //         type: 'checkboxes',
-      //         label: l => l.cannotUploadDocuments,
-      //         labelHidden: true,
-      //         values: checkboxes.map(checkbox => ({
-      //           name: 'applicant1CannotUploadDocuments',
-      //           label: l => l[`${checkbox.id}Singular`],
-      //           value: checkbox.value,
-      //           conditionalText: l => l.cannotUploadYouCanPost,
-      //         })),
-      //       },
-      //     }
-      //   : {}),
+        validator: atLeastOneFieldIsChecked,
+        values: [
+          {
+            name: 'declarationCheck',
+            value: 'declaration consent',
+          },
+        ]
+      }
     };
   },
   submit: {

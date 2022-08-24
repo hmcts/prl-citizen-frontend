@@ -51,7 +51,7 @@
               </ol>
             </div>
 </details>
-<div class="uploadcomponent">
+{# <div class="uploadcomponent">
           <div class=" govuk-!-margin-bottom-3">
             <div class="govuk-form-group govuk-inset-text">
               <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
@@ -70,18 +70,40 @@
               </div>
             </div>
           </div>
- </div>
+ </div> #}
 
-<div id="uploadGroup" tabindex="0" class="uploadGroup hidden">
-  <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
-  <ul id="filesUploaded" class="govuk-list">
-    {% for filename in uploadedDocsFilenames %}
-      <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-        {{ filename }} aaaa <a href="/document-manager/delete/{{ loop.index0 }}?_csrf={{ csrfToken }}" class="govuk-link--no-visited-state">{{ remove }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
+ 
+
+ <div id="uploadGroup" tabindex="0" class="uploadGroup">
+      <form action="/document-manager?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
+        {{ govukFileUpload({
+          name: "files[]",
+          attributes: {
+            multiple: true,
+            accept: "image/jpeg,image/tiff,image/png,application/pdf"
+          },
+          label: {
+            text: chooseFilePhoto
+          },
+          classes: "govuk-!-margin-bottom-4"
+        }) }}
+        {{ govukButton({
+          text: upload,
+          type: "submit",
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+        }) }}
+      </form>
+
+    <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+    <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if userCase.applicantUploadFiles|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <ul id="filesUploaded" class="govuk-list">
+      {% for file in userCase.applicantUploadFiles %}
+        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
+          {{ file.value.documentFileName }} <a href="/document-manager/delete/{{ loop.index0 }}?_csrf={{ csrfToken }}" class="govuk-link--no-visited-state">{{ remove }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 
  <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
