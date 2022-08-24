@@ -134,7 +134,7 @@ export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DO
 /* view all documents */
 /* Applicant Documents */
 export const APPLICANT_CA_DA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/cadafinaldocumentrequest`;
-export const APPLICANT_ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence`;
+export const ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence`;
 export const APPLICANT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolenceresponse`;
 export const APPLICANT_POSITION_STATEMENT: PageLink = `${VIEW_ALL_DOCUMENTS}/positionstatement`;
 export const YOUR_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/yourwitnessstatements`;
@@ -155,7 +155,6 @@ export const APPLICANT_WITNESS_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/w
 /* Respondent Documents */
 export const RESPONDENT_CA_RESPONSE: PageLink = `${VIEW_ALL_DOCUMENTS}/caresponse`;
 export const RESPONDENT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentaohresponse`;
-export const RESPONDENT_ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentaohviolence`;
 export const RESPONDENT_APP_MADE_IN_PRCEEDINGS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentapplicationmade`;
 export const RESPONDENT_PREVIOUS_ORDERS_SUBMITTED: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentpreviousorders`;
 export const RESPONDENT_LETTER_FROM_SCHOOL: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentletterfromschool`;

@@ -339,7 +339,7 @@ const getAohAndViolence = (respondent: Respondent, taskListItems, userCase) => {
       '<namerespondentxxxxx>',
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_ALLEGATION_OF_HARM_VOILENCE : '#',
+    href: userCase.allegationsOfHarmYesNo ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
   };
 };
 
@@ -399,7 +399,7 @@ const getAohAndViolenceDA = (respondent: PartyDetails, taskListItems, userCase) 
       '<namerespondentxxxxx>',
       respondent.firstName + ' ' + respondent.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_ALLEGATION_OF_HARM_VOILENCE : '#',
+    href: userCase.allegationsOfHarmYesNo ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
   };
 };
 
@@ -457,10 +457,7 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href:
-      getApplicantAllegationsOfHarmAndViolence(userCase) === true
-        ? URL.APPLICANT + URL.APPLICANT_ALLEGATION_OF_HARM_VOILENCE
-        : '#',
+    href: getApplicantAllegationsOfHarmAndViolence(userCase) === true ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
   };
 };
 const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems, userCase) => {
@@ -512,10 +509,7 @@ const getApplicantAohAndViolenceDA = (applicant: PartyDetails, taskListItems, us
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href:
-      getApplicantAllegationsOfHarmAndViolence(userCase) === true
-        ? URL.APPLICANT + URL.APPLICANT_ALLEGATION_OF_HARM_VOILENCE
-        : '#',
+    href: getApplicantAllegationsOfHarmAndViolence(userCase) === true ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
   };
 };
 const getApplicantResponseToAohAndViolenceDA = (applicant: PartyDetails, taskListItems, userCase) => {
