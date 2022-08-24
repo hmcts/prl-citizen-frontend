@@ -8,7 +8,6 @@ import { CaseWithId } from '../../case/case';
 //import { State } from '../../case/definition';
 import { AppRequest, UserDetails } from '../../controller/AppRequest';
 
-
 export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink): string => {
   const id: string = config.get('services.idam.clientID');
   const loginUrl: string = config.get('services.idam.authorizationURL');

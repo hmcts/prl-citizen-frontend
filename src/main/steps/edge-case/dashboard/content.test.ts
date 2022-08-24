@@ -5,9 +5,9 @@ import { generateContent } from './content';
 /* eslint-disable @typescript-eslint/ban-types */
 describe('service-type content', () => {
   // , userCase: { applyingWith: 'alone'
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = { language: 'en', userCaseList: [{}, {}] } as CommonContent;
   test('should return correct english content', () => {
-    const generatedContent = generateContent(commonContent);
+    const generatedContent = generateContent({ ...commonContent, language: 'en' });
     expect(generatedContent.title).toEqual('Welcome to Citizen dashboard');
   });
 
