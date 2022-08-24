@@ -199,7 +199,7 @@ describe('C100Sequence', () => {
         disabilityRequirements: ['helpTravellingMovingBuildingSupport', 'communicationHelp'],
       })
     ).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help');
-    
+
     expect(C100Sequence[18].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[18].showInSection).toBe('c100');
     expect(C100Sequence[18].getNextStep({})).toBe('/c100-rebuild/hearing-without-notice/hearing-part1');
