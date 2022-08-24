@@ -117,19 +117,14 @@ export class CosApiClient {
     generateAndUploadDocumentRequest : GenerateAndUploadDocumentRequest
   ): Promise<String> {
 
-    //let myObject = {"key1":"value1","key2":"value2"};
-
     try {
-      // const eventId = 'citizen-case-update';
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + user.accessToken
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
       };
       console.log("Inside CosApiClient");
-      console.log("headers::::"+JSON.stringify(headers));
-      console.log("generateAndUploadDocumentRequest:::::" + JSON.stringify(generateAndUploadDocumentRequest));
-
 
       const response = await Axios.post(
         config.get('services.cos.url') + `/generate-citizen-statement-document`,
@@ -137,9 +132,7 @@ export class CosApiClient {
         { headers }
       );
       console.log(response);
-
-
-      return 'Success';
+      return response.data;
     } catch (err) {
       throw new Error('Case could not be updated.');
     }

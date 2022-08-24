@@ -7,30 +7,42 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
 import { CaseWithId } from '../case/case';
 import { CosApiClient } from '../case/CosApiClient';
-import { CITIZEN_UPDATE, DocumentType, ListValue, UploadDocumentList } from '../case/definition';
+import { CITIZEN_UPDATE, DocumentType, ListValue, State, UploadDocumentList } from '../case/definition';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { DocumentManagementClient } from './DocumentManagementClient';
 //import { DgsApiClient } from 'app/case/DgsApiClient';
 
 import { Form, FormFields, FormFieldsFn  } from '../form/Form';
-import { v4 as generateUuid } from 'uuid';
+//import { v4 as generateUuid } from 'uuid';
 import { getFilename } from '../case/formatter/uploaded-files';
 import {GenerateAndUploadDocumentRequest} from './GenerateAndUploadDocumentRequest';
+import { AnyObject, PostController } from '../controller/PostController';
+
 
 
 const UID_LENGTH = 36;
 @autobind
-export class DocumentManagerController {
+export class DocumentManagerController extends PostController<AnyObject>  {
    
-  constructor(protected readonly fields: FormFields | FormFieldsFn) { }
-
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+    super(fields);
+  }
   private getDocumentManagementClient(user: UserDetails) {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
   }
 
-  public async generatePdf(req: AppRequest<Partial<CaseWithId>>,
+  public async generatePdf(req: AppRequest<AnyObject>,
     res: Response): Promise<void> {
+    
+      if (!req?.session?.userCase) {
+        const initData = { id: '1661346907380146', state: State.successAuthentication, serviceType: '' };
+        req.session.userCase = initData; 
+      }
+      
+      if(req?.session?.userCase?.applicantUploadFiles == undefined){
+        req.session.userCase['applicantUploadFiles'] = [];
+      }
 
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);
@@ -40,41 +52,37 @@ export class DocumentManagerController {
     req.session.errors = form.getErrors(formData);
     console.log(" Form Data:---", formData);  
     console.log("inside generatePdf");  
-    try {
-      //if (!req.session.errors.length) {
-        console.log("calling cosApi");
-        let uploadDocumentDetails = 
-        {
-           filename: 'Sonali_saha.pdf',
-           caseId: '1660589382629898',
-           freeTextStatements: 'aaaaaa'
-         };
-        // uploadDocumentDetails.set("fileName", "Sonali_saha.pdf");
-        // uploadDocumentDetails.set("caseId", "1660589382629898");
+    let partyName = req.session.user.givenName + " " + req.session.user.familyName;
+    
+    let uploadDocumentDetails = 
+      {
+           caseId: req.session.userCase.id,
+           freeTextStatements: req.body.freeTextAreaForUpload,
+           parentDocumentType: req.query.parentDocumentType,
+           documentType: req.query.documentType,
+           partyName: partyName
+      };
+    let generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
 
-         
-
-        // uploadDocumentDetails.set("freeTextStatements", "Test information");
-        console.log("uploadDocumentDetails in generatePdf :::::" + uploadDocumentDetails);
-        console.log("uploadDocumentDetails1 in generatePdf :::::" + JSON.stringify(uploadDocumentDetails));
-        let generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
-
-        const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-        const updatedCaseDataFromCos = await client.generateUserUploadedStatementDocument(
+    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const updatedCaseDataFromCos = await client.generateUserUploadedStatementDocument(
           caseworkerUser,
           generateAndUploadDocumentRequest,
         );
-        console.log(updatedCaseDataFromCos);
-        if (updatedCaseDataFromCos !== 'Success') {
+    console.log(updatedCaseDataFromCos);
+    if (updatedCaseDataFromCos == 'FAILED') {
           req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'accessCode' });
-        }
-     // }
-    } catch (err) {
-      console.log(err);
-      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
+    }else{
+      const obj = {
+        id: updatedCaseDataFromCos as string,
+        name: updatedCaseDataFromCos as string
+      }
+      req.session.userCase.applicantUploadFiles?.push(obj);
+      req.session.errors = [];
     }
-
-    req.session.errors = form.getErrors(formData);
+    const redirectUrl = UPLOAD_DOCUMENT + '?' + 'caption=' + req.query.parentDocumentType 
+                                              + '&document_type=' + req.query.documentType;
+    this.redirect(req, res, redirectUrl);
   }
 
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
@@ -108,7 +116,7 @@ export class DocumentManagerController {
     }
 
     if (filename === DocumentType.WITNESS_STATEMENT) {
-      if (!req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url) {
+      if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
         throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
       }
       documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
@@ -178,7 +186,15 @@ export class DocumentManagerController {
 
 
   public async post(req: AppRequest, res: Response): Promise<void> {
+    if (!req?.session?.userCase) {
+      const initData = { id: '1661251852090684', state: State.successAuthentication, serviceType: '' };
+      req.session.userCase = initData; 
+    }
     
+    if(req?.session?.userCase?.applicantUploadFiles == undefined){
+      req.session.userCase['applicantUploadFiles'] = [];
+    }
+
     console.log("request session:", req.session);
     if (!req.files?.length) {
       if (req.headers.accept?.includes('application/json')) {
@@ -191,7 +207,7 @@ export class DocumentManagerController {
           name: fileData[0]['originalname']
         }
         req.session.userCase.applicantUploadFiles?.push(obj);
-        console.log("content in upload files: ", req.session.userCase.applicantUploadFiles?.push(obj))
+        console.log("content in upload files: ", obj)
         //return res.redirect(UPLOAD_DOCUMENT);
       }
     }
@@ -205,7 +221,7 @@ export class DocumentManagerController {
   
       if (req.session.userCase['applicantUploadFiles']) {
       req.session.userCase.applicantUploadFiles?.push(obj);
-      console.log("content in upload files: ", req.session.userCase.applicantUploadFiles?.push(obj))
+      console.log("content in upload files: ", obj)
       //return res.redirect(UPLOAD_DOCUMENT);
       }
       else {
@@ -215,41 +231,40 @@ export class DocumentManagerController {
     }
 
     //const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-    console.log('2');
     //const filesCreated = await documentManagementClient.create({
     //  files: req.files,
     //  classification: Classification.Public,
     //});
 
-    const filesCreated = (req.files as Express.Multer.File[]).map(file => {
-      return {
-        originalDocumentName: file.originalname,
-      };
-    });
+    // const filesCreated = (req.files as Express.Multer.File[]).map(file => {
+    //   return {
+    //     originalDocumentName: file.originalname,
+    //   };
+    // });
 
 
     console.log('3');
-    const newUploads: ListValue<Partial<UploadDocumentList> | null>[] = filesCreated.map(file => ({
-      id: generateUuid(),
-      value: {
-        id: "aaaaaaa",
-        value: {
-          parentDocumentType: 'Witness Statement',
-          DocumentType: 'Witness Statement',
-          partyName: 'Sonal Saha',
-          isApplicant: 'Yes',
-          uploadedBy: 'Uploaded by Sonali Saha',
-          dateCreated: '12/07/2022',
-          documentUploadedDate: '12/07/2022',
-          citizenDocument: {
-            document_url: 'abcd',
-            document_filename: file.originalDocumentName,
-            document_binary_url: 'abcd',
-          },
-        },
-      },
-    }));
-    console.log('ccc');
+    const newUploads: ListValue<Partial<UploadDocumentList> | null>[] = [];
+    // const newUploads: ListValue<Partial<UploadDocumentList> | null>[] = filesCreated.map(file => ({
+    //   id: generateUuid(),
+    //   value: {
+    //     id: "aaaaaaa",
+    //     value: {
+    //       parentDocumentType: 'Witness Statement',
+    //       DocumentType: 'Witness Statement',
+    //       partyName: 'Sonal Saha',
+    //       isApplicant: 'Yes',
+    //       uploadedBy: 'Uploaded by Sonali Saha',
+    //       dateCreated: '12/07/2022',
+    //       documentUploadedDate: '12/07/2022',
+    //       citizenDocument: {
+    //         document_url: 'abcd',
+    //         document_filename: file.originalDocumentName,
+    //         document_binary_url: 'abcd',
+    //       },
+    //     },
+    //   },
+    // }));
     //  const documentsKey = 'applicant1DocumentsUploaded';
     //  const updatedDocumentsUploaded = newUploads.concat(req.session.userCase?.[documentsKey] || []);
     //  req.session.userCase = await req.locals.api.triggerEvent(
@@ -257,12 +272,13 @@ export class DocumentManagerController {
     //    { [documentsKey]: updatedDocumentsUploaded },
     //     CITIZEN_UPDATE
     //  );
-    console.log('4');
     req.session.save(() => {
       if (req.headers.accept?.includes('application/json')) {
         res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
       } else {
-        res.redirect(UPLOAD_DOCUMENT);
+        const redirectUrl = UPLOAD_DOCUMENT + '?' + 'caption=' + req.query.parentDocumentType 
+                                              + '&document_type=' + req.query.documentType;
+        res.redirect(redirectUrl);
       }
     });
   }

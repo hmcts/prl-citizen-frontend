@@ -1,14 +1,14 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn} from '../../../../app/form/Form';
 import { getFilename } from '../../../../app/case/formatter/uploaded-files';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+//import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 
 
 const en = {
   section: 'Provide the document',
   title: 'Provide the documents',
-  declaration: 'I believe that the facts stated in these documents are true',
+  declaration: 'I believe that the facts stated in these documents are true 123',
   continue: 'Save and continue',
   add: 'Submit',
   uploadFiles: 'Your documents',
@@ -55,7 +55,7 @@ export const form: FormContent = {
        declarationCheck: {
         type: 'checkboxes',
         labelHidden: true,
-        validator: atLeastOneFieldIsChecked,
+        //validator: atLeastOneFieldIsChecked,
         values: [
           {
             name: 'declarationCheck',
