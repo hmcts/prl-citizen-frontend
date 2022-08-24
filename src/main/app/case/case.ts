@@ -108,6 +108,8 @@ export interface Case {
 
   contactDetailsPrivateAlternative?: string;
 
+  c100ApplicationFees?: string;
+
   /***** Applicant1 *****/
   applicant1FullName?: string;
   applicant1FirstNames?: string;
