@@ -191,6 +191,7 @@ export default class AddChilderns extends PostController<AnyObject> {
     }
     // eslint-disable-next-line no-self-assign
     req.session.settings.ListOfChild = req.session.settings.ListOfChild;
+
     // eslint-disable-next-line no-case-declarations
     const redirectURI = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${req.session.settings.ListOfChild[0].id}`;
     super.redirect(req, res, redirectURI);
