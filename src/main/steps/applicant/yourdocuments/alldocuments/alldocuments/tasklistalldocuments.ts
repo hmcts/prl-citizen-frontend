@@ -5,7 +5,7 @@ import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/uti
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [
-    ...getOrdersFromCourt(sectionTitles, taskListItems, URL.APPLICANT_ORDERS_FROM_THE_COURT),
+    ...getOrdersFromCourt(sectionTitles, taskListItems, userCase, URL.APPLICANT_ORDERS_FROM_THE_COURT),
     getApplicantDocuments(sectionTitles, taskListItems, userCase, true),
     getRespondentDocuments(sectionTitles, taskListItems, userCase, true),
     getCafcassDocuments(sectionTitles, taskListItems, userCase),
@@ -19,19 +19,22 @@ function getText(inputStr: string, userCase: CommonContent) {
   return inputStr.replace('<nameapplicantxxxxx>', 'Applicant_FNAME_LNAME');
 }
 
-export const getOrdersFromCourt = (sectionTitles, taskListItems, url) => {
-  return [
-    {
-      title: sectionTitles.ordersFromTheCourt,
-      items: [
-        {
-          id: 'orders-from-the-court-all-docs',
-          text: taskListItems.view_all_orders_from_the_court_all_docs,
-          href: url,
-        },
-      ],
-    },
-  ];
+export const getOrdersFromCourt = (sectionTitles, taskListItems, userCase, url) => {
+  if (userCase.orderCollection) {
+    return [
+      {
+        title: sectionTitles.ordersFromTheCourt,
+        items: [
+          {
+            id: 'orders-from-the-court-all-docs',
+            text: taskListItems.view_all_orders_from_the_court_all_docs,
+            href: url,
+          },
+        ],
+      },
+    ];
+  }
+  return [];
 };
 
 export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, isApplicant) => {
