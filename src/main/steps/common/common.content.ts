@@ -191,6 +191,7 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
+  userCaseList,
   addresses = [],
 }: // eligibility,
 // fee,
@@ -199,6 +200,7 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
   // eligibility?: Eligibility;
   // fee?: Fee;
@@ -212,6 +214,7 @@ export const generatePageContent = ({
     language,
     userCase,
     userEmail,
+    userCaseList,
     // contactEmail,
     addresses,
     // eligibility,
@@ -234,6 +237,7 @@ export type CommonContent = typeof en & {
   serviceName: string;
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
+  userCaseList?: Partial<CaseWithId>[];
   userEmail?: string;
   // contactEmail?: string;
   // referenceNumber?: string;

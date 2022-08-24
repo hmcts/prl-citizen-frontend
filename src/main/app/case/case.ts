@@ -188,6 +188,8 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
+  applicantCaseName?: string;
+  caseTypeOfApplication?: string;
 }
 
 export interface CaseWithId extends Case {

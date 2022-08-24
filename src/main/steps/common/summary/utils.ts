@@ -34,6 +34,7 @@ interface SummaryListRow {
   valueHtml?: string;
   changeUrl?: string;
   classes?: string;
+  caseLink?: string;
 }
 
 export interface SummaryList {
@@ -98,6 +99,59 @@ export const summaryList = (
     title: sectionTitle || '',
     rows: getSectionSummaryList(summaryData, content),
   };
+};
+
+export const summaryCaseList = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCaseList: Partial<CaseWithId>[],
+  sectionTitle?: string
+): SummaryList | undefined => {
+  const summaryData: SummaryListRow[] = [];
+  //summaryData.push({ key: 'Case Name', value: 'Case Status', changeUrl: 'Case Link' });
+  for (const userCase of userCaseList) {
+    const id = userCase.id;
+    const name = userCase.applicantCaseName;
+    const state = userCase.state;
+    const caseLink = userCase.caseTypeOfApplication === 'C100' ? '/applicant/task-list' : '/ca-da-respondent/task-list';
+    const row = {
+      key: name,
+      value: state,
+      changeUrl: id,
+      caseLink,
+    };
+
+    summaryData.push(row);
+  }
+
+  return {
+    title: sectionTitle || '',
+    rows: getSectionCaseList(summaryData, content),
+  };
+};
+
+const getSectionCaseList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
+  console.log(content);
+  return rows.map(item => {
+    const changeUrl = item.changeUrl;
+    return {
+      key: { ...(item.key ? { text: item.key } : {}) },
+      value: { ...(item.value ? { html: item.value } : {}) },
+      ...(changeUrl
+        ? {
+            actions: {
+              items: [
+                {
+                  href: `${item.caseLink}`,
+                  text: `${item.changeUrl}`,
+                  visuallyHiddenText: `${item.changeUrl}`,
+                },
+              ],
+            },
+          }
+        : {}),
+      ...(item.classes ? { classes: item.classes } : {}),
+    };
+  });
 };
 
 export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>

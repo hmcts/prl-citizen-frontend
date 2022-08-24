@@ -109,7 +109,7 @@ export class CosApiClient {
    * end.
    * @returns The response from the API is being returned.
    */
-  public async retrieveCasesByUserId(user: UserDetails): Promise<string | undefined> {
+  public async retrieveCasesByUserId(user: UserDetails): Promise<CaseWithId[]> {
     const response = await Axios.get(config.get('services.cos.url') + '/citizen/role/retrieve-cases/userid', {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,

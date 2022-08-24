@@ -1,57 +1,22 @@
-{% extends "common/template.njk" %}
+{% extends "../../common/page.njk" %}
 
 {% block page_content %}
-<h1>{{title}}</h1>
-<h1>C100 applications</h1>
-<h3> Applications made against you</h3>
-<table class="tg">
-<tbody>
-  <tr>
-    <td class="tg-0lax"><a href="/respondent/task-list" class="govuk-link">Case numbers</a></td>
-    <td class="tg-0lax">Case Name</td>
-    <td class="tg-0lax">Case Status</td>
-  </tr>
-  <tr>
-    <td class="tg-0lax"><a href="/applicant/task-list" class="govuk-link">Case numbers</a></td>
-    <td class="tg-0lax">Case Name</td>
-    <td class="tg-0lax">Case Status</td>
-  </tr>
-  <tr>
-    <td class="tg-0lax"><a href="/applicant/task-list" class="govuk-link">DA Applicant</a></td>
-    <td class="tg-0lax">Case Name</td>
-    <td class="tg-0lax">Case Status</td>
-  </tr>
-    <tr>
-    <td class="tg-0lax"><a href="/respondent/task-list" class="govuk-link">CA DA Respondent</a></td>
-    <td class="tg-0lax">Case Name</td>
-    <td class="tg-0lax">Case Status</td>
-  </tr>
-</tbody>
-</table>
+  {% if section %}
+    <span class="govuk-heading-l">{{ section }}</span>
+  
+  {% endif %}
+  {% if title %}
+    <h1>{{ title }}</h1>
+  {% endif %}
+  {% if line1 %}
+    <div class="govuk-hint">{{ line1 }}</div>
+  {% endif %}
+  {% if line2 %}
+    <p class="govuk-body">{{ line2 }}</p>
+  {% endif %}
 
-<h3> Applications made by you</h3>
-<table class="tg">
-<tbody>
-  <tr>
-    <td class="tg-0lax"><a href="/respondent/task-list" class="govuk-link">Case numbers</a></td>
-    <td class="tg-0lax">Case Name</td>
-    <td class="tg-0lax">Case Status</td>
-  </tr>
-  <tr>
-    <td class="tg-0lax"><a href="/applicant/task-list" class="govuk-link">Case numbers</a></td>
-    <td class="tg-0lax">Case Name</td>
-    <td class="tg-0lax">Case Status</td>
-  </tr>
-  <tr>
-    <td class="tg-0lax"><a href="/applicant/task-list" class="govuk-link">DA Applicant</a></td>
-    <td class="tg-0lax">Case Name</td>
-    <td class="tg-0lax">Case Status</td>
-  </tr>
-    <tr>
-    <td class="tg-0lax"><a href="/respondent/task-list" class="govuk-link">CA DA Respondent</a></td>
-    <td class="tg-0lax">Case Name</td>
-    <td class="tg-0lax">Case Status</td>
-  </tr>
-</tbody>
-</table>
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk"%}
 {% endblock %}

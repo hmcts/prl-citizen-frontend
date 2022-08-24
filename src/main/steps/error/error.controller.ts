@@ -57,7 +57,11 @@ export class ErrorController {
     const language = (req.session?.lang || 'en') as Language;
     const errorText =
       errorContent[language][res.statusCode] || errorContent[language][StatusCodes.INTERNAL_SERVER_ERROR];
-    const commonContent = generatePageContent({ language, userEmail: req.session?.user?.email });
+    const commonContent = generatePageContent({
+      language,
+      userEmail: req.session?.user?.email,
+      userCaseList: req.session.userCaseList,
+    });
     res.locals.isError = true;
 
     res.status(res.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);

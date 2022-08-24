@@ -20,6 +20,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 export interface AppSession extends Session {
   user: UserDetails;
   userCase: CaseWithId;
+  userCaseList: CaseWithId[];
   eligibility: Eligibility;
   lang: string | undefined;
   errors: FormError[] | undefined;
