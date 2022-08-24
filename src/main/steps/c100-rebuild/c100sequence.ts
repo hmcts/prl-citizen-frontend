@@ -21,6 +21,7 @@ import {
   C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
   PageLink,
+  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -160,5 +161,10 @@ export const C100Sequence: Step[] = [
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
+  },
+  {
+    url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
