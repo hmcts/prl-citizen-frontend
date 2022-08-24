@@ -286,7 +286,7 @@ export class PostController<T extends AnyObject> {
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
         const accessCodeValidated = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
         console.log(accessCodeValidated);
-         if (accessCodeValidated === 'linked') {
+        if (accessCodeValidated === 'linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         } else if (accessCodeValidated !== 'valid') {
           req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
