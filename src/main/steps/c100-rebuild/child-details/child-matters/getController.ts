@@ -55,14 +55,14 @@ export default class AddChildernMatter extends GetController {
 
       let listOfItems: listOfCheckedBoxItems = [
         {
-          text: 'Decide who theylive with',
+          text: 'Decide who the children live with and when',
         },
       ];
 
       if (checkIfDecisionMade === YesOrNo.YES) {
         listOfItems = [
           {
-            text: 'Decide who theylive with',
+            text: 'Decide who the children live with and when',
             checked: 'true',
           },
         ];
