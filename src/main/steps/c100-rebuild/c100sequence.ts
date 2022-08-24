@@ -20,6 +20,7 @@ import {
   C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
   C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
+  C100_TYPE_ORDER_SELECT_COURT_ORDER,
   PageLink,
 } from '../urls';
 
@@ -160,5 +161,10 @@ export const C100Sequence: Step[] = [
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
+  },
+  {
+    url: C100_TYPE_ORDER_SELECT_COURT_ORDER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
