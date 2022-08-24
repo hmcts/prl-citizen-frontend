@@ -4,7 +4,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(18);
+    expect(C100Sequence).toHaveLength(21);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -79,6 +79,23 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[17].url).toBe('/c100-rebuild/reasonable-adjustments/travelling-court');
     expect(C100Sequence[17].showInSection).toBe('c100');
-    expect(C100Sequence[17].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[17].getNextStep({})).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
+
+    expect(C100Sequence[18].url).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
+    expect(C100Sequence[18].showInSection).toBe('c100');
+    expect(C100Sequence[18].getNextStep({ needHelpWithFees: YesOrNo.YES })).toBe(
+      '/c100-rebuild/help-with-fees/fees-applied'
+    );
+    expect(C100Sequence[18].getNextStep({ needHelpWithFees: YesOrNo.NO })).toBe(
+      '/c100-rebuild/help-with-fees/hwf-guidance'
+    );
+
+    expect(C100Sequence[19].url).toBe('/c100-rebuild/help-with-fees/fees-applied');
+    expect(C100Sequence[19].showInSection).toBe('c100');
+    expect(C100Sequence[19].getNextStep({})).toBe('/c100-rebuild/help-with-fees/hwf-guidance');
+
+    expect(C100Sequence[20].url).toBe('/c100-rebuild/help-with-fees/hwf-guidance');
+    expect(C100Sequence[20].showInSection).toBe('c100');
+    expect(C100Sequence[20].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
   });
 });

@@ -192,6 +192,9 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
+  //C100 Rebuild
+  needHelpWithFees?: YesOrNo;
+  feesAppliedDetails?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
