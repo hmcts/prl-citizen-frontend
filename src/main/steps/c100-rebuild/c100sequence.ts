@@ -1,6 +1,7 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  C100_START,
   C100_CONFIDENTIALITY_DETAILS_KNOW,
   C100_CONFIDENTIALITY_FEEDBACK,
   C100_CONFIDENTIALITY_FEEDBACK_NO,
@@ -135,6 +136,11 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_START,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
