@@ -51,8 +51,8 @@ export type childernDetails = {
 export interface ApplicationSettings {
   toggleChild: number;
   childTemporaryFormData: {
-    TempFirstName: string;
-    TempLastName: string;
+    TempFirstName: string | unknown;
+    TempLastName: string | unknown;
   };
   ListOfChild: childernDetails[];
 }

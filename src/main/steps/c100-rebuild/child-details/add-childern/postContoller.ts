@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { C100_CHILDERN_DETAILS_ADD } from '../../../urls';
+import { C100_CHILDERN_DETAILS_ADD, C100_CHILDERN_DETAILS_PERSONAL_DETAILS } from '../../../urls';
 
 @autobind
 export default class AddChilderns extends PostController<AnyObject> {
@@ -63,6 +63,16 @@ export default class AddChilderns extends PostController<AnyObject> {
         case 'removeChild':
           // eslint-disable-next-line no-case-declarations
           const { childId } = req.query;
+          // eslint-disable-next-line no-case-declarations
+          const nextChildIdInremoveChild = req.session.settings['ListOfChild'].length + 1;
+          // eslint-disable-next-line no-case-declarations
+          const tempFirstNameInRemoveChild = req.body[`firstname-${nextChildIdInremoveChild}`];
+          // eslint-disable-next-line no-case-declarations
+          const tempLastNameInRemoveChild = req.body[`lastname-${nextChildIdInremoveChild}`];
+          req.session.settings.childTemporaryFormData.TempFirstName = tempFirstNameInRemoveChild;
+          req.session.settings.childTemporaryFormData.TempLastName = tempLastNameInRemoveChild;
+
+          console.log({ tempFirstNameInRemoveChild, tempLastNameInRemoveChild });
           req.session.settings.ListOfChild = req.session.settings.ListOfChild.filter(child => child.id !== childId);
           super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
           break;
@@ -182,7 +192,7 @@ export default class AddChilderns extends PostController<AnyObject> {
     // eslint-disable-next-line no-self-assign
     req.session.settings.ListOfChild = req.session.settings.ListOfChild;
     // eslint-disable-next-line no-case-declarations
-    const redirectURI = C100_CHILDERN_DETAILS_ADD;
+    const redirectURI = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${req.session.settings.ListOfChild[0].id}`;
     super.redirect(req, res, redirectURI);
   }
 
