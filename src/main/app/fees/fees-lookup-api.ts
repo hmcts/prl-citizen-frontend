@@ -10,12 +10,12 @@ export const getFeesForC100ApplicationSubmission = async (
 ): Promise<FeesResponse> => {
   try {
     const response = await axios.get<FeesResponse>(
-      `https://prl-cos-pr-513.service.core-compute-preview.internal/fees-and-payment-apis/getC100ApplicationFees`,
+      'https://prl-cos-pr-513.service.core-compute-preview.internal/fees-and-payment-apis/getC100ApplicationFees',
       {
         headers: {
           Accept: 'application/json',
           Authorization: 'Bearer ' + userDetails.accessToken,
-          ServiceAuthorization: getServiceAuthToken(),
+          serviceAuthorization: getServiceAuthToken(),
           ContentType: 'application/json',
         },
       }
