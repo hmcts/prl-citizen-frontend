@@ -1,4 +1,5 @@
 /* eslint-disable sort-imports */
+import { CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
@@ -27,7 +28,10 @@ import {
   C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
   C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
+  PageLink,
 } from '../urls';
+
+import PageStepConfigurator from './PageStepConfigurator';
 
 export const C100Sequence: Step[] = [
   {
@@ -96,32 +100,74 @@ export const C100Sequence: Step[] = [
   {
     url: C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      PageStepConfigurator.deriveSteps(
+        C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
+        data?.disabilityRequirements
+      );
+      const nextPage = PageStepConfigurator.getNextPage(C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS);
+      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+    },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const nextPage = PageStepConfigurator.getNextPage(
+        C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
+        C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
+        data?.disabilityRequirements
+      );
+      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+    },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
     showInSection: Sections.C100,
-    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const nextPage = PageStepConfigurator.getNextPage(
+        C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
+        C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
+        data?.disabilityRequirements
+      );
+      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+    },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const nextPage = PageStepConfigurator.getNextPage(
+        C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
+        C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
+        data?.disabilityRequirements
+      );
+      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+    },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const nextPage = PageStepConfigurator.getNextPage(
+        C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
+        C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
+        data?.disabilityRequirements
+      );
+      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+    },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      const nextPage = PageStepConfigurator.getNextPage(
+        C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
+        C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
+        data?.disabilityRequirements
+      );
+      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+    },
   },
   {
     url: C100_CHILDERN_DETAILS_ADD,
