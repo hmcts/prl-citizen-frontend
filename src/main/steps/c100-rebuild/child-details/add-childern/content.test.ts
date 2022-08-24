@@ -13,10 +13,10 @@ const en = {
   lastName: 'Last name(s)',
   errors: {
     'firstname-1': {
-      required: 'Select first name',
+      required: 'Enter the first name',
     },
     'lastname-1': {
-      required: 'Select last name',
+      required: 'Enter the last name',
     },
   },
 };
@@ -29,10 +29,10 @@ const cy = {
   lastName: 'Last name(s) - welsh',
   errors: {
     'firstname-1': {
-      required: 'Select first name - welsh',
+      required: 'Enter the first name - welsh',
     },
     'lastname-1': {
-      required: 'Select last name - welsh',
+      required: 'Enter the last name - welsh',
     },
   },
 };
