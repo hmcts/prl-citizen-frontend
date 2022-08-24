@@ -17,6 +17,7 @@ import {
   // CSRF_TOKEN_ERROR_URL,
   ACCESSIBILITY_STATEMENT,
   APPLICANT,
+  APPLICANT_ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
@@ -57,6 +58,8 @@ export class Routes {
     app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
 
     app.get(APPLICANT_MIAM_CERTIFICATE, errorHandler(documentManagerController.get));
+    app.get(`${APPLICANT}${APPLICANT_ALLEGATION_OF_HARM_VOILENCE}`, errorHandler(documentManagerController.get));
+
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

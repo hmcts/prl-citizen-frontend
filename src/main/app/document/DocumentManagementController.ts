@@ -103,6 +103,16 @@ export class DocumentManagerController {
       uid = this.getUID(documentToGet);
     }
 
+    if (filename === 'aohviolence') {
+      console.log(JSON.stringify(req.session.userCase))
+      if (!req.session.userCase.c1ADocument.document_binary_url) {
+        throw new Error('APPLICANT_ALLEGATION_OF_HARM_VOILENCE binary url is not found');
+      }
+      filename = req.session.userCase.c1ADocument.document_filename;
+      documentToGet = req.session.userCase.c1ADocument.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
+
     if (endPoint === 'orders') {
       for (const doc of req.session.userCase.orderCollection) {
         if (

@@ -250,6 +250,7 @@ export interface SolicitorOrg5 {
 }
 
 export interface AllegationOfHarm {
+  orderDocument: any;
   typesOfHarm: string;
 }
 
@@ -574,6 +575,7 @@ export interface CaseData {
   isIntermediaryNeeded: string;
   allocatedJudgeDetails: AllocatedJudgeDetails;
   miamCertificationDocumentUpload: PRLDocument;
+  c1ADocument: Document;
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;
@@ -804,6 +806,7 @@ export const enum DocumentType {
 }
 
 export interface Document {
+  orderDocument: any;
   document_url: string;
   document_filename: string;
   document_binary_url: string;
