@@ -1,13 +1,12 @@
 {% extends "common/form/form.njk"%}
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% import "./customSummaryList/macro.njk" as govukSummaryList %}
 
 {% block before_fields %}
   {% if sections %}
     {% for item in sections %}
     {% if item %}
         <h1 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h1>
-        {{ govukSummaryList({
+        {{ govukSummaryList.govukSummaryList({
           classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
           rows: item.rows
         })

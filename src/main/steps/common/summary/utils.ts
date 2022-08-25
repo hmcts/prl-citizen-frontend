@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
+import { APPLICANT_TASK_LIST_URL, CA_DA_RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -102,22 +103,26 @@ export const summaryList = (
 };
 
 export const summaryCaseList = (
-  { sectionTitles, keys, ...content }: SummaryListContent,
   userCaseList: Partial<CaseWithId>[],
   sectionTitle?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
-  //summaryData.push({ key: 'Case Name', value: 'Case Status', changeUrl: 'Case Link' });
+  summaryData.push({ key: 'Case Name', value: '<h4>Case Status</h4>' });
   for (const userCase of userCaseList) {
     const id = userCase.id;
     const name = userCase.applicantCaseName;
     const state = userCase.state;
-    const caseLink = userCase.caseTypeOfApplication === 'C100' ? '/applicant/task-list' : '/ca-da-respondent/task-list';
+    let caseUrl = '#';
+    if (userCase.caseTypeOfApplication === 'C100') {
+      caseUrl = APPLICANT_TASK_LIST_URL;
+    } else if (userCase.caseTypeOfApplication === 'FL401') {
+      caseUrl = CA_DA_RESPONDENT_TASK_LIST_URL;
+    }
     const row = {
       key: name,
       value: state,
       changeUrl: id,
-      caseLink,
+      caseLink: caseUrl,
     };
 
     summaryData.push(row);
@@ -125,12 +130,11 @@ export const summaryCaseList = (
 
   return {
     title: sectionTitle || '',
-    rows: getSectionCaseList(summaryData, content),
+    rows: getSectionCaseList(summaryData),
   };
 };
 
-const getSectionCaseList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
-  console.log(content);
+const getSectionCaseList = (rows: SummaryListRow[]): GovUkNunjucksSummary[] => {
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {

@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { CommonContent } from '../../../steps/common/common.content';
+import { CommonContent } from '../../common/common.content';
 import { summaryCaseList } from '../../common/summary/utils';
 //import { summaryCaseList } from './utils';
 
@@ -29,8 +29,8 @@ const en = (content: CommonContent) => {
   return {
     title: enContent.title,
     sections: [
-      summaryCaseList(enContent, c100CaseList, enContent.sectionTitles.yourCAapplication),
-      summaryCaseList(enContent, fl401CaseList, enContent.sectionTitles.daApplicationsAgainstYou),
+      summaryCaseList(c100CaseList, enContent.sectionTitles.yourCAapplication),
+      summaryCaseList(fl401CaseList, enContent.sectionTitles.daApplicationsAgainstYou),
     ],
   };
 };
