@@ -11,7 +11,6 @@ export const getTokenFromApi = async (): Promise<string> => {
 
   const url: string = config.get('services.authProvider.url') + '/lease';
   const microservice: string = config.get('services.authProvider.microservice');
-  console.log('microservicename ', microservice);
   const secret: string = config.get('services.authProvider.secret');
   const oneTimePassword = authenticator.generate(secret);
   const body = { microservice, oneTimePassword };
@@ -33,6 +32,5 @@ export const initAuthToken = (): void => {
 };
 
 export const getServiceAuthToken = (): string => {
-  console.log('token', token);
   return token;
 };
