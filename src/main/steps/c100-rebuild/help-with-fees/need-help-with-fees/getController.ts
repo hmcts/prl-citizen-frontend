@@ -1,11 +1,11 @@
 /* eslint-disable import/no-unresolved */
+import autobind from 'autobind-decorator';
+import { Response } from 'express';
+
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { getFeesForC100ApplicationSubmission } from '../../../../app/fees/fees-lookup-api';
-
-import autobind from 'autobind-decorator';
-import { Response } from 'express';
 
 @autobind
 export default class NeedHelpWithFeesGetController extends GetController {
@@ -18,10 +18,13 @@ export default class NeedHelpWithFeesGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     req.session.userCase.c100ApplicationFees = await (
       await getFeesForC100ApplicationSubmission(req.session.user, req.locals.logger)
-    ).amount;
+    ).feeAmountForC100Application;
 
-    res.redirect(req.url);
+    const callback = () => super.get(req, res);
+
+    super.saveSessionAndRedirect(req, res, callback);
   }
 }
