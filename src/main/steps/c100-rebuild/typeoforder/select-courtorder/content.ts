@@ -107,6 +107,7 @@ export const form: FormContent = {
           name: 'courtOrder',
           label: l => l.stopOtherPeopleDoingSomething,
           value: 'stopOtherPeopleDoingSomething',
+          hint: l => l.stopOtherPeopleDoingSomethingHint,
           subFields: {
             stopOtherPeopleDoingSomethingSubField: {
               id: 'stopOtherPeopleDoingSomethingSubField',
