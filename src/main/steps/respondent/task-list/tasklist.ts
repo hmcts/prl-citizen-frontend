@@ -80,6 +80,12 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           status: getViewAllDocuments(userCase),
           href: getViewAllDocuments(userCase) === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
         },
+        {
+          id: 'upload-document',
+          text: taskListItems.upload_document,
+          status: getInternationalFactorsStatus(userCase),
+          href: URL.UPLOAD_DOCUMENT_LIST_URL,
+        },
       ],
     },
     {

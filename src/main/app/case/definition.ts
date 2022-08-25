@@ -46,6 +46,108 @@ export interface Address {
   Country: string;
 }
 
+}
+
+export interface SolicitorOrg {
+  OrganisationID: string;
+  OrganisationName: string;
+}
+
+export interface SolicitorAddress {
+  County: string;
+  Country: string;
+  PostCode: string;
+  PostTown: string;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
+}
+
+export interface PartyDetails {
+  email: string;
+  gender: string;
+  address: Address;
+  dxNumber: string;
+  landline: string;
+  lastName: string;
+  firstName: string;
+  dateOfBirth: string;
+  otherGender: string;
+  phoneNumber: string;
+  placeOfBirth: string;
+  previousName: string;
+  solicitorOrg: SolicitorOrg;
+  sendSignUpLink: string;
+  solicitorEmail: string;
+  isAddressUnknown: string;
+  solicitorAddress: SolicitorAddress;
+  isDateOfBirthKnown: string;
+  solicitorReference: string;
+  solicitorTelephone: string;
+  isPlaceOfBirthKnown: string;
+  isDateOfBirthUnknown: string;
+  isAddressConfidential: string;
+  isCurrentAddressKnown: string;
+  relationshipToChildren: string;
+  representativeLastName: string;
+  representativeFirstName: string;
+  canYouProvidePhoneNumber: string;
+  canYouProvideEmailAddress: string;
+  isAtAddressLessThan5Years: string;
+  isPhoneNumberConfidential: string;
+  isEmailAddressConfidential: string;
+  respondentLivedWithApplicant: string;
+  doTheyHaveLegalRepresentation: string;
+  addressLivedLessThan5YearsDetails: string;
+  otherPersonRelationshipToChildren: string[];
+  isAtAddressLessThan5YearsWithDontKnow: string;
+}
+
+export interface Applicant {
+  id: string;
+  value: PartyDetails;
+}
+
+export interface CaseStatus {
+  state: string;
+}
+
+export interface WelshNeedsDeatils {
+  whoNeedsWelsh: string;
+  spokenOrWritten: string[];
+  fl401SpokenOrWritten: string[];
+}
+
+export interface WelshNeed {
+  id: string;
+  value: WelshNeedsDeatils;
+}
+
+export interface Address2 {
+  County: string;
+  Country: string;
+  PostCode: string;
+  PostTown: string;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
+}
+
+export interface SolicitorOrg2 {
+  OrganisationID: string;
+  OrganisationName: string;
+}
+
+export interface SolicitorAddress2 {
+  County: string;
+  Country: string;
+  PostCode: string;
+  PostTown: string;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
+}
+
 export interface AddressGlobal extends Address {}
 
 export interface AddressGlobalUK extends Address {}
@@ -69,6 +171,81 @@ export interface DynamicList {
   list_items: DynamicListElement[];
   valueLabel: string;
   valueCode: string;
+}
+
+export interface Respondent {
+  id: string;
+  value: PartyDetails;
+}
+
+export interface Address3 {
+  County: string;
+  Country: string;
+  PostCode: string;
+  PostTown: string;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
+}
+
+export interface SolicitorOrg3 {
+  OrganisationID: string;
+  OrganisationName: string;
+}
+
+export interface Value5 {
+  email: string;
+  gender: string;
+  address: Address3;
+  dxNumber: string;
+  lastName: string;
+  firstName: string;
+  dateOfBirth: string;
+  otherGender: string;
+  phoneNumber: string;
+  placeOfBirth: string;
+  previousName: string;
+  solicitorOrg: SolicitorOrg3;
+  solicitorEmail: string;
+  solicitorReference: string;
+  isAddressConfidential: string;
+  representativeLastName: string;
+  representativeFirstName: string;
+  canYouProvideEmailAddress: string;
+  isAtAddressLessThan5Years: string;
+  isPhoneNumberConfidential: string;
+  isEmailAddressConfidential: string;
+  addressLivedLessThan5YearsDetails: string;
+}
+
+export interface ApplicantTable {
+  id: string;
+  value: Value5;
+}
+
+export interface Address4 {
+  County: string;
+  Country: string;
+  PostCode: string;
+  PostTown: string;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
+}
+
+export interface SolicitorOrg4 {
+  OrganisationID: string;
+  OrganisationName: string;
+}
+
+export interface SolicitorAddress3 {
+  County: string;
+  Country: string;
+  PostCode: string;
+  PostTown: string;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
 }
 
 export interface DynamicListElement {
@@ -204,6 +381,8 @@ export interface AcknowledgementOfService {
   noticeOfProceedingsSolicitorFirm: string;
   statementOfTruth: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
+export interface Value7 {
+  personRelationshipToChild: string;
 }
 
 export interface Value7 {
@@ -299,133 +478,13 @@ export interface AlternativeService {
   reasonFailureToServeByBailiff: string;
 }
 
-export interface Applicant {
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  FullName: string;
-  HasOtherNames: YesOrNo;
-  AdditionalNames: ListValue<OtherName>[];
-  DateOfBirth: DateAsString;
-  Occupation: string;
-  EmailAddress: string;
-  PhoneNumber: string;
-  Nationality: Nationality[];
-  AdditionalNationality: ListValue<OtherName>[];
-  Address1: string;
-  Address2: string;
-  AddressTown: string;
-  AddressCountry: string;
-  AddressPostCode: string;
-  AddressSameAsApplicant1: string;
-  contactDetails: ContactDetails[];
-
-  AgreedToReceiveEmails: YesOrNo;
-  ConfirmReceipt: YesOrNo;
-  LanguagePreferenceWelsh: YesOrNo;
-  LastNameChangedWhenMarried: YesOrNo;
-  NameDifferentToMarriageCertificate: YesOrNo;
-  NameChangedHowOtherDetails: string;
-  HomeAddress: AddressGlobalUK;
-  KeepContactDetailsConfidential: YesOrNo;
-  Gender: Gender;
-  CorrespondenceAddress: AddressGlobalUK;
-  SolicitorRepresented: YesOrNo;
-  SolicitorName: string;
-  SolicitorReference: string;
-  SolicitorPhone: string;
-  SolicitorEmail: string;
-  SolicitorAddress: string;
-  SolicitorAgreeToReceiveEmails: YesOrNo;
-  SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
-  FinancialOrder: YesOrNo;
-  FinancialOrderFor: FinancialOrderFor[];
-  LegalProceedings: YesOrNo;
-  LegalProceedingsDetails: string;
+export interface OthersToNotify {
+  id: string;
+  value: PartyDetails;
 }
 
-export interface Application {
-  applicant1ScreenHasMarriageBroken: YesOrNo;
-  applicant2ScreenHasMarriageBroken: YesOrNo;
-  screenHasMarriageCert: YesOrNo;
-  marriageApplicant1Name: string;
-  marriageApplicant2Name: string;
-  marriageMarriedInUk: YesOrNo;
-  marriageCertificateInEnglish: YesOrNo;
-  marriageCertifiedTranslation: YesOrNo;
-  marriageCountryOfMarriage: string;
-  marriagePlaceOfMarriage: string;
-  marriageDate: DateAsString;
-  marriageIsSameSexCouple: YesOrNo;
-  marriageCertifyMarriageCertificateIsCorrect: YesOrNo;
-  marriageMarriageCertificateIsIncorrectDetails: string;
-  marriageIssueApplicationWithoutMarriageCertificate: YesOrNo;
-  jurisdictionApplicant1Residence: YesOrNo;
-  jurisdictionApplicant2Residence: YesOrNo;
-  jurisdictionApplicant1Domicile: YesOrNo;
-  jurisdictionApplicant2Domicile: YesOrNo;
-  jurisdictionApp1HabituallyResLastTwelveMonths: YesOrNo;
-  jurisdictionApp1HabituallyResLastSixMonths: YesOrNo;
-  jurisdictionResidualEligible: YesOrNo;
-  jurisdictionBothLastHabituallyResident: YesOrNo;
-  jurisdictionConnections: JurisdictionConnections[];
-  solServiceDateOfService: DateAsString;
-  solServiceDocumentsServed: string;
-  solServiceOnWhomServed: string;
-  solServiceHowServed: DocumentsServedHow;
-  solServiceServiceDetails: string;
-  solServiceAddressServed: string;
-  solServiceBeingThe: DocumentsServedBeingThe;
-  solServiceLocationServed: DocumentsServedWhere;
-  solServiceSpecifyLocationServed: string;
-  solServiceServiceSotName: string;
-  solServiceServiceSotFirm: string;
-  solServiceTruthStatement: string;
-  applicant1HWFReferenceNumber: string;
-  applicant1HWFNeedHelp: YesOrNo;
-  applicant1HWFAppliedForFees: YesOrNo;
-  applicant2HWFReferenceNumber: string;
-  applicant2HWFNeedHelp: YesOrNo;
-  applicant2HWFAppliedForFees: YesOrNo;
-  divorceWho: WhoDivorcing;
-  solUrgentCase: YesOrNo;
-  solUrgentCaseSupportingInformation: string;
-  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
-  solServiceMethod: ServiceMethod;
-  solStatementOfReconciliationCertify: YesOrNo;
-  solStatementOfReconciliationDiscussed: YesOrNo;
-  applicant1PrayerHasBeenGivenCheckbox: ThePrayer[];
-  applicant2PrayerHasBeenGiven: YesOrNo;
-  applicant1StatementOfTruth: YesOrNo;
-  applicant2StatementOfTruth: YesOrNo;
-  solSignStatementOfTruth: YesOrNo;
-  solStatementOfReconciliationName: string;
-  solStatementOfReconciliationFirm: string;
-  statementOfReconciliationComments: string;
-  solApplicationFeeInPounds: string;
-  solPaymentHowToPay: SolicitorPaymentMethod;
-  pbaNumbers: DynamicList;
-  feeAccountReference: string;
-  applicationFeeOrderSummary: OrderSummary;
-  applicant1KnowsApplicant2EmailAddress: YesOrNo;
-  app2ContactMethodIsDigital: YesOrNo;
-  applicant1CannotUploadSupportingDocument: DocumentType[];
-  applicant2CannotUploadSupportingDocument: DocumentType[];
-  documentUploadComplete: YesOrNo;
-  miniApplicationLink: Document;
-  dateSubmitted: DateAsString;
-  applicant2ConfirmApplicant1Information: YesOrNo;
-  applicant2ExplainsApplicant1IncorrectInformation: string;
-  reissueDate: DateAsString;
-  createdDate: DateAsString;
-  rejectReason: RejectReason;
-  previousState: State;
-  applicationPayments: ListValue<Payment>[];
-  overdueNotificationSent: YesOrNo;
-  applicant1ReminderSent: YesOrNo;
-  applicant2ReminderSent: YesOrNo;
-  applicant1NotifiedCanApplyForConditionalOrder: YesOrNo;
-  reissueOption: ReissueOption;
+export interface UrgencyDetails {
+  urgencyStatus: string;
 }
 
 export interface Bailiff {
@@ -464,6 +523,11 @@ export interface Children {
   FirstNameAfterAdoption: string;
   LastNameAfterAdoption: string;
   SexAtBirth: Gender;
+}
+
+export interface InterpreterNeed {
+  id: string;
+  value: Value9;
 }
 
 export interface OtherName {
@@ -662,6 +726,14 @@ export interface ConfidentialDetails {
   isConfidentialDetailsAvailable: string;
 }
 
+export interface AdoptionAgencyOrLocalAuthority {
+  adopAgencyOrLaId: string;
+  adopAgencyOrLaName?: string;
+  adopAgencyOrLaPhoneNumber?: string;
+  adopAgencyOrLaContactName?: string;
+  adopAgencyOrLaContactEmail?: string;
+}
+
 export interface HearingUrgencyTable {
   isCaseUrgent: string;
   setOutReasonsBelow: string;
@@ -672,6 +744,12 @@ export interface HearingUrgencyTable {
   reasonsForApplicationWithoutNotice: string;
   doYouRequireAHearingWithReducedNotice: string;
 }
+export interface Sibling {
+  siblingId: string;
+  siblingFirstName?: string;
+  siblingLastNames?: string;
+  siblingPlacementOrders?: (PlacementOrder | ListValue<PlacementOrder>)[];
+}
 
 export interface MiamExemptionsTable {
   urgencyEvidence: string;
@@ -681,7 +759,6 @@ export interface MiamExemptionsTable {
   domesticViolenceEvidence: string;
   previousAttendenceEvidence: string;
 }
-
 
 export interface SocialWorker {
   socialWorkerName: string;
@@ -754,6 +831,82 @@ export interface CtscContactDetails {
   town: string;
   postcode: string;
   emailAddress: string;
+}
+
+export interface DraftConsentOrderFile {
+  document_url: string;
+  document_filename: string;
+  document_binary_url: string;
+}
+
+export interface OtherProceedingsTable {
+  previousOrOngoingProceedings: string;
+}
+
+export interface ChildDetailsExtraTable {
+  childrenKnownToLocalAuthority: string;
+  childrenSubjectOfChildProtectionPlan: string;
+}
+
+export interface TypeOfApplicationTable {
+  natureOfOrder: string;
+  ordersApplyingFor: string;
+  typeOfChildArrangementsOrder: string;
+}
+
+export interface LitigationCapacityTable {
+  litigationCapacityFactors: string;
+  litigationCapacityReferrals: string;
+  litigationCapacityOtherFactors: string;
+  litigationCapacityOtherFactorsDetails: string;
+}
+
+export interface AttendingTheHearingTable {
+  isWelshNeeded: string;
+  adjustmentsRequired: string;
+  isDisabilityPresent: string;
+  isInterpreterNeeded: string;
+  isIntermediaryNeeded: string;
+  reasonsForIntermediary: string;
+  specialArrangementsRequired: string;
+  isSpecialArrangementsRequired: string;
+}
+
+export interface InternationalElementTable {
+  jurisdictionIssue: string;
+  requestToForeignAuthority: string;
+  habitualResidentInOtherState: string;
+  requestToForeignAuthorityGiveReason: string;
+  habitualResidentInOtherStateGiveReason: string;
+}
+
+export interface Address6 {
+  County: string;
+  Country: string;
+  PostCode: string;
+  PostTown: string;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
+}
+
+export interface Value12 {
+  personRelationshipToChild: string;
+}
+
+export interface RelationshipToChild {
+  id: string;
+  value: Value12;
+}
+
+export interface Value11 {
+  email: string;
+  gender: string;
+  address: Address6;
+  lastName: string;
+  firstName: string;
+  dateOfBirth: string;
+  otherGender: string;
   phoneNumber: string;
 }
 
@@ -1564,6 +1717,124 @@ export const enum SolicitorPaymentMethod {
   FEES_HELP_WITH = 'feesHelpWith',
 }
 
+export interface CaseData {
+  id: string;
+  children: Child[];
+  miamTable: MiamTable;
+  applicants: Applicant[];
+  caseStatus: CaseStatus;
+  welshNeeds: WelshNeed[];
+  respondents: Respondent[];
+  consentOrder: string;
+  isCaseUrgent: string;
+  isWelshNeeded: string;
+  natureOfOrder: string;
+  applicantTable: ApplicantTable[];
+  othersToNotify: OthersToNotify[];
+  urgencyDetails: UrgencyDetails;
+  //respondentTable: RespondentTable[];
+  allegationOfHarm: AllegationOfHarm;
+  dateOfSubmission: DateOfSubmission;
+  //declarationTable: DeclarationTable;
+  interpreterNeeds: InterpreterNeed[];
+  applicantCaseName: string;
+  childDetailsTable: ChildDetailsTable[];
+  jurisdictionIssue: string;
+  ordersApplyingFor: string[];
+  applicationDetails: string;
+  familyMediatorMiam: string;
+  setOutReasonsBelow: string;
+  specialArrangement: SpecialArrangement;
+  adjustmentsRequired: string;
+  confidentialDetails: ConfidentialDetails;
+  existingProceedings: string[];
+  hearingUrgencyTable: HearingUrgencyTable;
+  isDisabilityPresent: string;
+  isInterpreterNeeded: string;
+  miamExemptionsTable: MiamExemptionsTable;
+  isIntermediaryNeeded: string;
+  allocatedJudgeDetails: AllocatedJudgeDetails;
+  applicantAttendedMiam: string;
+  caseTypeOfApplication: string;
+  claimingExemptionMiam: string;
+  draftConsentOrderFile: DraftConsentOrderFile;
+  otherProceedingsTable: OtherProceedingsTable;
+  allegationsOfHarmYesNo: string;
+  childDetailsExtraTable: ChildDetailsExtraTable;
+  reasonsForIntermediary: string;
+  typeOfApplicationTable: TypeOfApplicationTable;
+  litigationCapacityTable: LitigationCapacityTable;
+  miamExemptionsChecklist: string[];
+  attendingTheHearingTable: AttendingTheHearingTable;
+  caseUrgencyTimeAndReason: string;
+  welshLanguageRequirement: string;
+  respondentFirstName?: string;
+  internationalElementTable: InternationalElementTable;
+  litigationCapacityFactors: string;
+  miamOtherGroundsChecklist: string;
+  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
+  otherPeopleInTheCaseTable: OtherPeopleInTheCaseTable[];
+  otherProceedingEmptyTable: OtherProceedingEmptyTable;
+  requestToForeignAuthority: string;
+  effortsMadeWithRespondents: string;
+  jurisdictionIssueGiveReason: string;
+  litigationCapacityReferrals: string;
+  specialArrangementsRequired: string;
+  applicant1Address1?: string;
+  applicant1Address2?: string;
+  applicant1AddressTown?: string;
+  applicant1ContactDetailsConsent?: YesOrNo;
+  applicant1EmailAddress?: string;
+  applicant1PhoneNumber?: string;
+  applicant1FullName?: string;
+  applicant1FirstNames?: string;
+  applicant1LastNames?: string;
+  applicant1HasOtherNames?: YesOrNo;
+  applicant1Occupation?: string;
+  applicant1PlaceOfBirth?: string;
+  serviceType: string;
+  claimNumber?: string;
+  caseCode?: string;
+  citizenRole?: FieldPrefix;
+  respondentLastName?: string;
+  //allegationsOfHarmOrdersTable: AllegationsOfHarmOrdersTable;
+  habitualResidentInOtherState: string;
+  otherProceedingsDetailsTable: OtherProceedingsDetailsTable[];
+  summaryTabForOrderAppliedFor: SummaryTabForOrderAppliedFor;
+  typeOfChildArrangementsOrder: string;
+  applicationPermissionRequired: string;
+  childrenKnownToLocalAuthority: string;
+  isSpecialArrangementsRequired: string;
+  otherProceedingsForSummaryTab: OtherProceedingsForSummaryTab[];
+  allegationsOfHarmOverviewTable: AllegationsOfHarmOverviewTable;
+  doYouNeedAWithoutNoticeHearing: string;
+  litigationCapacityOtherFactors: string;
+  welshLanguageRequirementsTable: WelshLanguageRequirementsTable;
+  miamPreviousAttendanceChecklist: string;
+  areRespondentsAwareOfProceedings: string;
+  reasonsForApplicationWithoutNotice: string;
+  allegationsOfHarmDomesticAbuseTable: AllegationsOfHarmDomesticAbuseTable;
+  allegationsOfHarmOtherConcernsTable: AllegationsOfHarmOtherConcernsTable;
+  applicationPermissionRequiredReason: string;
+  requestToForeignAuthorityGiveReason: string;
+  welshLanguageRequirementApplication: string;
+  allegationsOfHarmChildAbductionTable: AllegationsOfHarmChildAbductionTable;
+  childrenSubjectOfChildProtectionPlan: string;
+  childrenKnownToLocalAuthorityTextArea: string;
+  doYouRequireAHearingWithReducedNotice: string;
+  litigationCapacityOtherFactorsDetails: string;
+  c100ConfidentialityStatementDisclaimer: string[];
+  habitualResidentInOtherStateGiveReason: string;
+  languageRequirementApplicationNeedWelsh: string;
+  previousOrOngoingProceedingsForChildren: string;
+  welshLanguageRequirementApplicationNeedEnglish: string;
+  orderCollection: ListValue<PRLDocument>[];
+  documentsGenerated: ListValue<PRLDocument>[];
+  respondentName: string;
+  finalDocument: Document;
+  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+}
+
 export interface PRLDocument {
   documentDateAdded: DateAsString;
   documentComment: string;
@@ -1956,6 +2227,16 @@ export const enum YesNoNotsure {
   NOT_SURE = 'NotSure',
 }
 
+// citizen frontend
+export interface orderInterface {
+  caseNoDetails: string;
+  orderDateDetails: CaseDate;
+  orderTimeDetails: string;
+  currentOrderDetails: YesOrNo;
+  issueOrderDetails: string;
+}
+
+
 export interface CaseInvite {
   partyId: string;
   caseInviteEmail: string;
@@ -1963,6 +2244,12 @@ export interface CaseInvite {
   invitedUserId: string;
   expiryDate: string;
 }
+
+export const enum CONFIDENTIAL_DETAILS {
+  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
+  PRIVATE = 'This information will be kept confidential',
+}
+
 
 export const enum UserRole {
   CASE_WORKER = 'caseworker-divorce-courtadmin_beta',
@@ -2025,6 +2312,7 @@ export const enum DocumentType {
   //APPLICATION_WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
 }
 
+
 // citizen frontend
 export interface orderInterface {
   caseNoDetails: string;
@@ -2038,9 +2326,73 @@ export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
 }
+
+export interface Document {
+  document_url: string;
+  document_filename: string;
+  document_binary_url: string;
+  document_hash?: string | undefined | null;
+}
 export interface Fl401UploadWitnessDocuments {
   id: string;
   value: Document;
+}
+
+
+/** Document upload interfaces */
+export interface CitizenDocument {
+  document_url: string;
+  document_filename: string;
+  document_binary_url: string;
+}
+
+export interface Value {
+  parentDocumentType: string;
+  DocumentType: string;
+  partyName: string;
+  isApplicant: string;
+  uploadedBy: string;
+  dateCreated: string;
+  documentUploadedDate: string;
+  citizenDocument: CitizenDocument;
+}
+
+export interface UploadDocumentList {
+  id: string;
+  value: Value;
+}
+/***  */
+// citizen frontend
+export interface orderInterface {
+  caseNoDetails: string;
+  orderDateDetails: CaseDate;
+  orderTimeDetails: string;
+  currentOrderDetails: YesOrNo;
+  issueOrderDetails: string;
+}
+
+export const enum CONFIDENTIAL_DETAILS {
+  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
+  PRIVATE = 'This information will be kept confidential',
+}
+
+export const enum ContactDetails {
+  EMAIL = 'email',
+  PHONE = 'phone',
+}
+
+export const enum ContactDetailsPrivate {
+  EMAIL = 'email',
+  PHONE = 'phone',
+  ADDRESS = 'address',
+}
+
+export const enum PrivateLaw {
+  PRIVATELAW = 'prlapps',
+}
+
+export const enum ThePrayer {
+  I_CONFIRM = 'Yes',
 }
 
 export type RespondentCaseId = string | number | undefined;

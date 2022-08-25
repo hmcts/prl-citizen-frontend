@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 import { Application } from 'express';
+import multer from 'multer';
 
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -23,6 +24,7 @@ import {
   APPLICANT_ORDERS_FROM_THE_COURT,
   CONTACT_US,
   COOKIES_PAGE,
+  DOCUMENT_MANAGER,
   HOME_URL,
   PRIVACY_POLICY,
   RESPONDENT,
@@ -31,6 +33,8 @@ import {
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
 } from './steps/urls';
+
+const handleUploads = multer();
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -75,6 +79,10 @@ export class Routes {
           : PostController;
 
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
+        const documentManagerController = new DocumentManagerController(step.form.fields);
+        app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
+        app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
+        app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
       }
     }
 

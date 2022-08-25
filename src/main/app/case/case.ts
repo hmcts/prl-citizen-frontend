@@ -45,6 +45,7 @@ import {
   State,
   SummaryTabForOrderAppliedFor,
   TypeOfApplicationTable,
+  UploadDocumentList,
   UrgencyDetails,
   WelshLanguageRequirementsTable,
   WelshNeed,
@@ -149,6 +150,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   welshLanguageRequirementApplicationNeedEnglish: 'welshLanguageRequirementApplicationNeedEnglish',
   orderCollection: 'orderCollection',
   respondentName: 'respondentName',
+  respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
   serviceType: 'serviceType',
@@ -177,6 +179,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
+  applicantDocumentsUploaded: 'applicantDocumentsUploaded',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -325,6 +328,13 @@ export interface Case {
   orderCollection: ListValue<PRLDocument>[];
   documentsGenerated: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
+  documentText?: string;
+  applicantUploadFiles?: UploadedFile[];
+  declarationCheck?: string;
+  finalDocument?: Document;
+  fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
+  /*** Document upload */
+  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
   applicant1UploadedFiles?: UploadedFile[];
   finalDocument: Document;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];

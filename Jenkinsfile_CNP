@@ -24,7 +24,9 @@ def secrets = [
     secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
     secret('prl-citizen-frontend-idam-client-secret', 'CITIZEN_IDAM_SECRET'),
     secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
-    secret('postcode-lookup-token', 'POSTCODE_TOKEN')
+    secret('postcode-lookup-token', 'POSTCODE_TOKEN'),
+    secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL')
+
   ]
 ]
 

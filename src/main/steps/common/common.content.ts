@@ -191,7 +191,9 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
+  caption,
   name,
+  document_type,
   addresses = [],
 }: // eligibility,
 // fee,
@@ -200,6 +202,8 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  caption?: string;
+  document_type?: string;
   addresses?: [];
   name?: string;
   // eligibility?: Eligibility;

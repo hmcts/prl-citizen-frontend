@@ -9,14 +9,6 @@
 .hmcts-button-link,
 .uppy-FileInput-btn {
   @extend %govuk-body-m;
-  @extend %govuk-link;
-  @include govuk-link-style-default;
-  background: none;
-  color: $govuk-link-colour;
-  border: none;
-  padding: 0;
-  text-decoration: underline;
-  cursor: pointer;
 }
 section {
   margin-bottom: 2em;
@@ -77,4 +69,8 @@ section {
   position: absolute;
   top: 13px;
   width: 100%;
+}
+
+.float-right {
+  float: right !important;
 }

@@ -21,6 +21,11 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   return SectionStatus.TO_DO;
 };
 
+export const getYourApplication = (userCase: CaseWithId): SectionStatus => {
+  console.log(userCase);
+  return SectionStatus.DOWNLOAD;
+};
+
 export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.miamStart && userCase?.miamWillingness) {
     return SectionStatus.COMPLETED;

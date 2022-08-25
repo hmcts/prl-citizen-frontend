@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT, UPLOAD_DOCUMENT_SUCCESS } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
@@ -60,7 +60,7 @@ export class PostController<T extends AnyObject> {
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
-
+    console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
 
     if (req.session.errors.length) {
@@ -71,6 +71,12 @@ export class PostController<T extends AnyObject> {
 
     if (Object.keys(data).length !== 0) {
       req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
+    }
+
+    if (req.originalUrl.includes(UPLOAD_DOCUMENT_SUCCESS)) {
+      if (req?.session?.userCase?.applicantUploadFiles) {
+        req.session.userCase['applicantUploadFiles'] = [];
+      }
     }
 
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
@@ -203,18 +209,36 @@ export class PostController<T extends AnyObject> {
           req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
         }
 
-        req.session.errors = form.getErrors(formData);
-        if (req.session.errors.length) {
-          req.session.accessCodeLoginIn = false;
-        } else {
-          req.session.accessCodeLoginIn = true;
-        }
-        this.redirect(req, res);
-    */
+      if (req.session.errors.length) {
+        req.session.accessCodeLoginIn = false;
+      } else {
+        const initData = {
+          id: formData.id || '',
+          state: State.successAuthentication,
+          serviceType: '',
+          ...formData,
+        };
+        req.session.userCase = initData;
+        req.session.accessCodeLoginIn = true;
+      }
+
+      this.redirect(req, res);
+    }
+  }*/
+
+    // if (req?.session?.userCase) {
+    //   Object.assign(req?.session?.userCase, formData);
+    // } else {
+    //   const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
+    //   req.session.userCase = initData;
+    // }
+
     const caseworkerUser = await getSystemUser();
-    req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
-    req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseCode?.replace(/-/g, '');
+    const accessCode = formData.accessCode?.replace(/-/g, '');
+    // req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+    req.session.errors = form.getErrors(formData);
+
     try {
       if (!req.session.errors.length) {
         //const caseData = await req.locals.api.getCaseById(caseReference as string);
@@ -273,6 +297,13 @@ export class PostController<T extends AnyObject> {
         // if (accessCodeLinked) {
         //   req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         // }
+        const accessCodeValidated = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
+        console.log(accessCodeValidated);
+        if (accessCodeValidated === 'linked') {
+          req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
+        } else if (accessCodeValidated !== 'valid') {
+          req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        }
       }
     } catch (err) {
       console.log('Retrieving case failed with error: ' + err);

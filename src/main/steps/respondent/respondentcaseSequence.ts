@@ -36,6 +36,12 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   YOUR_WITNESS_STATEMENTS,
   SAFETY_MAIN_PAGE,
+  SAFETY_MAIN_PAGE,
+  UPLOAD_DOCUMENT,
+  UPLOAD_DOCUMENT_LIST_START_URL,
+  UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  UPLOAD_DOCUMENT_LIST_URL,
+  UPLOAD_DOCUMENT_SUCCESS,
   YOUR_SAFETY,
 } from '../urls';
 
@@ -185,6 +191,10 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
     url: SAFETY_MAIN_PAGE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => YOUR_SAFETY,
@@ -219,6 +229,31 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: COURT_PROCEEDINGS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_LIST_START_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_START_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT,
+  },
+  {
+    url: UPLOAD_DOCUMENT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_SUCCESS,
+  },
+  {
+    url: UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

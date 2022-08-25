@@ -46,6 +46,14 @@ export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/
 
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
+
+/* Upload document start */
+export const UPLOAD_DOCUMENT_LIST_URL: PageLink = '/respondent/upload-document';
+export const UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${UPLOAD_DOCUMENT_LIST_URL}/start`;
+export const UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details`;
+export const UPLOAD_DOCUMENT: PageLink = `${UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents`;
+export const UPLOAD_DOCUMENT_SUCCESS: PageLink = `${UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
+/* Upload document end */
 /* respondent-keep-details-private */
 export const RESPONDENT: PageLink = '/respondent';
 export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;
@@ -195,6 +203,8 @@ export const RESPONDENT_NOTICE_OF_HEARING: PageLink = `${VIEW_ALL_DOCUMENTS}/not
 export const RESPONDENT_SUPPORT_NEEDED: PageLink = `${VIEW_ALL_DOCUMENTS}/support_needed`;
 
 /** Document Urls */
+
+export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 /* your needs when you go to court */
 export const SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${APPLICANT}/support-you-need-during-case`;
 export const LANGUAGE_REQUIREMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/language-requirements`;
