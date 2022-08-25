@@ -191,8 +191,6 @@ export interface Case {
 
   citizenRole?: FieldPrefix;
   //C100 Rebuild
-  needHelpWithFees?: YesOrNo;
-  feesAppliedDetails?: YesOrNo;
   disabilityRequirements?: string[];
 }
 

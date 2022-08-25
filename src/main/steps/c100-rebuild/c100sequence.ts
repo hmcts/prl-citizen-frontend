@@ -21,12 +21,6 @@ import {
   C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
   C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
-
-  /** @C100 Help with Fees */
-  // eslint-disable-next-line sort-imports
-  C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
-  C100_HELP_WITH_FEES_FEES_APPLIED,
-  C100_HELP_WITH_FEES_HWF_GUIDANCE,
   PageLink,
 } from '../urls';
 
@@ -167,23 +161,6 @@ export const C100Sequence: Step[] = [
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
-  },
-  {
-    url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
-    showInSection: Sections.C100,
-    getNextStep: data =>
-      data.needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE,
-  },
-  {
-    url: C100_HELP_WITH_FEES_FEES_APPLIED,
-    showInSection: Sections.C100,
-    getNextStep: data =>
-      data.feesAppliedDetails === YesOrNo.NO ? C100_HELP_WITH_FEES_HWF_GUIDANCE : C100_HELP_WITH_FEES_HWF_GUIDANCE,
-  },
-  {
-    url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
   {
     url: C100_START,
