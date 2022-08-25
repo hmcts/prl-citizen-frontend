@@ -199,8 +199,6 @@ describe('C100Sequence', () => {
         disabilityRequirements: ['helpTravellingMovingBuildingSupport', 'communicationHelp'],
       })
     ).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help');
-    expect(C100Sequence[17].getNextStep({})).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
-
     expect(C100Sequence[18].url).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
     expect(C100Sequence[18].showInSection).toBe('c100');
     expect(C100Sequence[18].getNextStep({ needHelpWithFees: YesOrNo.YES })).toBe(
