@@ -1,4 +1,3 @@
-import config from 'config';
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
@@ -46,7 +45,7 @@ describe('citizen-home content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', en, () => generateContent({ ...commonContent, language: 'cy' }));
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
   test('should contain detailsKnown field', () => {
