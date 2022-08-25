@@ -4,4 +4,6 @@ export const applicant_en = {
   applicationDetails: 'Application detail',
   viewAllDocuments: 'Your documents',
   ordersFromTheCourt: 'Orders from the court',
+  courtHearings: 'Your court hearings',
+  yourDocuments: 'Your documents',
 };

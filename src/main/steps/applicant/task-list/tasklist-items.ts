@@ -5,4 +5,11 @@ export const applicant_tasklist_items_en = {
   your_application_witness_statement: 'Witness statement (PDF)',
   view_all_documents: 'View all documents',
   view_all_orders_from_the_court: 'View all orders from the court',
+  support_you_need_during_your_case: 'Support you need during your case',
+  application_submitted: 'Application submitted (PDF)',
+  witness_statement: 'Witness statement (PDF)',
+  details_of_court_hearings: 'Check details of your court hearings',
+  orders: 'View all orders from the court',
+  upload_document: 'Upload documents',
+  view_all_documents: 'View all documents',
 };

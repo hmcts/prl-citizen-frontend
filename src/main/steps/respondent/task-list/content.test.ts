@@ -16,10 +16,11 @@ const enContent = {
   sectionTitles: {
     respondentYourDetails: 'Your details',
     consentToTheApplication: 'Consent to the application',
-    applicationDetails: 'Application detail',
+    applicationDetails: 'Application details',
     respondentAdditionalInformation: 'Additional information',
     ordersFromTheCourt: 'Orders from the court',
     viewAllDocuments: 'Your documents',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -29,6 +30,8 @@ const enContent = {
     international_factors: 'International element',
     view_all_orders_from_the_court: 'View all orders from the court',
     view_all_documents: 'View all documents',
+    current_or_previous_proceedings: 'Current or previous proceedings',
+    your_safety: 'Your safety',
   },
 };
 const cyContent = {
@@ -42,11 +45,12 @@ const cyContent = {
   },
   sectionTitles: {
     respondentYourDetails: 'Your details',
+    applicationDetails: 'Application details',
     consentToTheApplication: 'Consent to the application',
-    applicationDetails: 'Application detail',
     respondentAdditionalInformation: 'Additional information',
     ordersFromTheCourt: 'Orders from the court',
     viewAllDocuments: 'Your documents',
+    respondentSafetyConcerns: 'Safety concerns',
   },
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
@@ -56,6 +60,8 @@ const cyContent = {
     international_factors: 'International element',
     view_all_orders_from_the_court: 'View all orders from the court',
     view_all_documents: 'View all documents',
+    current_or_previous_proceedings: 'Current or previous proceedings',
+    your_safety: 'Your safety',
   },
 };
 describe('task-list > content', () => {
@@ -94,7 +100,7 @@ describe('task-list > content', () => {
             {
               href: '/respondent/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
-              status: 'TO_DO',
+              status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
           ],
@@ -108,8 +114,14 @@ describe('task-list > content', () => {
               status: 'IN_PROGRESS',
               text: 'Mediation(MIAM)',
             },
+            {
+              href: '/respondent/proceedings/start',
+              id: 'current-or-previous-proceedings',
+              status: 'TO_DO',
+              text: 'Current or previous proceedings',
+            },
           ],
-          title: 'Application detail',
+          title: 'Application details',
         },
         {
           items: [
@@ -143,6 +155,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Orders from the court',
+        },
+        {
+          items: [
+             {
+              href: '/respondent/safety_concerns/main_page',
+              id: 'your-safety',
+              status: 'TO_DO',
+              text: 'Your safety',
+            },
+          ],
+          title: 'Safety concerns',
         },
       ],
     },

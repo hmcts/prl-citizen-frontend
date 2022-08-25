@@ -5,6 +5,7 @@ import * as URL from '../../urls';
 import {
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
+  getSupportYourNeedsDetails,
   getViewAllDocuments,
   getYourApplication,
 } from './utils';
@@ -26,6 +27,12 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           status: getConfirmOrEditYourContactDetails(userCase),
           href: URL.APPLICANT_CHECK_ANSWERS,
         },
+        {
+          id: 'support-you-need-during-your-case',
+          text: taskListItems.support_you_need_during_your_case,
+          status: getSupportYourNeedsDetails(userCase),
+          href: URL.LANGUAGE_REQUIREMENTS,
+        },
       ],
     },
     {
@@ -46,8 +53,25 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
       ],
     },
     {
-      title: sectionTitles.viewAllDocuments,
+      title: sectionTitles.courtHearings,
       items: [
+        {
+          id: 'check-details-of-your-court-hearings',
+          text: taskListItems.details_of_court_hearings,
+          status: getKeepYourDetailsPrivateStatus(userCase),
+          href: URL.APPLICANT_DETAILS_KNOWN,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.yourDocuments,
+      items: [
+        {
+          id: 'upload-document',
+          text: taskListItems.upload_document,
+          status: getKeepYourDetailsPrivateStatus(userCase),
+          href: URL.APPLICANT_DETAILS_KNOWN,
+        },
         {
           id: 'view-all-documents',
           text: taskListItems.view_all_documents,

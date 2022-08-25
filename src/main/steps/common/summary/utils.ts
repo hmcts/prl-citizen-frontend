@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -37,7 +36,7 @@ interface SummaryListRow {
   classes?: string;
 }
 
-interface SummaryList {
+export interface SummaryList {
   title: string;
   rows: GovUkNunjucksSummary[];
 }
@@ -53,7 +52,7 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
     const changeUrl = item.changeUrl;
     return {
       key: { ...(item.key ? { text: item.key } : {}) },
-      value: { ...(item.value ? { text: item.value } : {}) },
+      value: { ...(item.value ? { html: item.value } : {}) },
       ...(changeUrl
         ? {
             actions: {
@@ -88,7 +87,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: checkIfDataPresent(fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key]),
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
 
@@ -99,14 +98,6 @@ export const summaryList = (
     title: sectionTitle || '',
     rows: getSectionSummaryList(summaryData, content),
   };
-};
-
-export const checkIfDataPresent = field => {
-  if (field) {
-    return field;
-  } else {
-    return 'Complete this section';
-  }
 };
 
 export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>

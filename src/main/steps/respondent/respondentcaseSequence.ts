@@ -3,6 +3,9 @@ import { Sections, Step } from '../constants';
 import {
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
+  COURT_PROCEEDINGS_SUMMARY,
+  DOMESTIC_ABUSE_RISK,
+  DOMESTIC_ABUSE_RISK_NO,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
@@ -12,6 +15,8 @@ import {
   MIAM_START,
   MIAM_SUMMARY,
   RESPONDENT,
+  PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_START,
   RESPONDENT_ADDRESS_BLANK,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
@@ -30,6 +35,8 @@ import {
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   YOUR_WITNESS_STATEMENTS,
+  SAFETY_MAIN_PAGE,
+  YOUR_SAFETY,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -178,6 +185,40 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: SAFETY_MAIN_PAGE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => YOUR_SAFETY,
+  },
+  {
+    url: YOUR_SAFETY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => DOMESTIC_ABUSE_RISK_NO,
+  },
+  {
+    url: DOMESTIC_ABUSE_RISK_NO,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PROCEEDINGS_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: data =>
+      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
+        ? PROCEEDINGS_COURT_PROCEEDINGS
+        : COURT_PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: PROCEEDINGS_COURT_PROCEEDINGS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => COURT_PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

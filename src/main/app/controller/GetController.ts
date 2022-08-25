@@ -27,14 +27,14 @@ export class GetController {
     const name = this.getName(req) as string;
     const language = this.getPreferredLanguage(req) as Language;
 
-    // const addresses = req.session?.addresses;
+    const addresses = req.session?.addresses;
     const content = generatePageContent({
       language,
       pageContent: this.content,
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
+      addresses,
       name,
-      // addresses,
     });
 
     const sessionErrors = req.session?.errors || [];

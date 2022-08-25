@@ -6,12 +6,13 @@ import { CommonContent } from '../../common/common.content';
 import { generateContent } from './content';
 import { applicant_en } from './section-titles';
 import { applicant_tasklist_items_en } from './tasklist-items';
+
 const enContent = {
-  title: ' ',
+  title: 'Applicant',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.TO_DO]: 'Not Started',
+    [SectionStatus.TO_DO]: 'TO DO',
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
@@ -24,7 +25,7 @@ const cyContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
-    [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.TO_DO]: 'I WNEUD',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
@@ -57,8 +58,14 @@ describe('task-list > content', () => {
             {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
-              status: 'TO_DO',
+              status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
+            },
+            {
+              href: '/applicant/support-you-need-during-case/language-requirements',
+              id: 'support-you-need-during-your-case',
+              text: 'Support you need during your case',
+              status: 'TO_DO',
             },
           ],
           title: 'About you',
@@ -171,6 +178,62 @@ describe('task-list > content', () => {
             },
           ],
           title: applicant_en.ordersFromTheCourt,
+        },
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'application-submitted',
+              text: 'Application submitted (PDF)',
+              status: 'TO_DO',
+            },
+            {
+              href: '/applicant/confirm-contact-details/checkanswers',
+              id: 'witness-statement',
+              text: 'Witness statement (PDF)',
+              status: 'IN_PROGRESS',
+            },
+          ],
+          title: 'Your application',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'check-details-of-your-court-hearings',
+              text: 'Check details of your court hearings',
+              status: 'TO_DO',
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'upload-document',
+              text: 'Upload documents',
+              status: 'TO_DO',
+            },
+            {
+              href: '/applicant/confirm-contact-details/checkanswers',
+              id: 'view-all-documents',
+              text: 'View all documents',
+              status: 'IN_PROGRESS',
+            },
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'orders',
+              text: 'View all orders from the court',
+              status: 'TO_DO',
+            },
+          ],
+          title: 'Orders from the court',
         },
       ],
     },

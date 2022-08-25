@@ -18,12 +18,12 @@ export const getUserDetails = async (
   rawCode: string,
   callbackUrlPageLink: PageLink
 ): Promise<UserDetails> => {
-  //const id: string = config.get('services.idam.clientID');
-  const secret: string = config.get('services.idam.clientSecret');
+  const id: string = config.get('services.idam.clientID');
+  const secret: string = config.get('services.idam.citizenClientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
   const code = encodeURIComponent(rawCode);
-  const data = `client_id=prl-citizen-frontend&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
+  const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
@@ -38,30 +38,22 @@ export const getUserDetails = async (
 };
 
 export const getSystemUser = async (): Promise<UserDetails> => {
-  try {
-    //const id: string = config.get('services.idam.clientID');
-    const secret: string = config.get('services.idam.clientSecret');
-    const tokenUrl: string = config.get('services.idam.tokenURL');
-
-    const systemUsername: string = config.get('services.idam.systemUsername');
-    const systemPassword: string = config.get('services.idam.systemPassword');
-
-    const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-    const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=prl-citizen-frontend&client_secret=${secret}&scope=openid%20profile%20roles`;
-
-    const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
-
-    const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
-    return {
-      accessToken: response.data.access_token,
-      id: jwt.uid,
-      email: jwt.sub,
-      givenName: jwt.given_name,
-      familyName: jwt.family_name,
-    };
-  } catch (err) {
-    throw new Error('Error Occured in oidc getSystemUser.');
-  }
+  const id: string = config.get('services.idam.clientID');
+  const secret: string = config.get('services.idam.citizenClientSecret');
+  const tokenUrl: string = config.get('services.idam.tokenURL');
+  const systemUsername: string = config.get('services.idam.systemUsername');
+  const systemPassword: string = config.get('services.idam.systemPassword');
+  const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
+  const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
+  const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
+  const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
+  return {
+    accessToken: response.data.access_token,
+    id: jwt.uid,
+    email: jwt.sub,
+    givenName: jwt.given_name,
+    familyName: jwt.family_name,
+  };
 };
 
 interface IdTokenJwtPayload {
