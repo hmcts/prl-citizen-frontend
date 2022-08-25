@@ -14,7 +14,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
       this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
-      this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
+      //this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
       this.setSecret('secrets.prl.idam-solicitor-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.idam-solicitor-password', 'services.idam.systemPassword');
       set(config, 'services.case.url', 'https://manage-case.aat.platform.hmcts.net/cases');
