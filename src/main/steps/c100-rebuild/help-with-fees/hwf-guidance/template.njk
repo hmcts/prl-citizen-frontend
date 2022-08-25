@@ -4,9 +4,7 @@
 {% block page_content %}
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ hwfGuidanceTitle }}</h1>
 
-<p class="govuk-body-m">{{hwfApplyLinkHint1}}
-<a href="https://www.gov.uk/get-help-with-court-fees" target='_blank' class="govuk-link">{{applyForHwf}}</a>
-{{hwfApplyLinkHint2}}</p>
+<p class="govuk-body-m">{{hwfApplyLinkHint1}} {{applyForHwfLink | safe}} {{hwfApplyLinkHint2}}</p>
 
 <div class="govuk-inset-text">{{hwfGuidanceC100Hint}}</div>
 
