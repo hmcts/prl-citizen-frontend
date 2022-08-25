@@ -11,5 +11,4 @@ export const applicant_tasklist_items_en = {
   details_of_court_hearings: 'Check details of your court hearings',
   orders: 'View all orders from the court',
   upload_document: 'Upload documents',
-  view_all_documents: 'View all documents',
 };

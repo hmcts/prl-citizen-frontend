@@ -91,14 +91,10 @@ export const getRespondentAllegationsOfHarmAndViolence = (userCase: CaseWithId):
 };
 
 export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
-  //const documents: string[] = [];
-  console.log('userCase => ' + userCase);
+  console.log(userCase.orderCollection);
   return SectionStatus.READY_TO_VIEW;
-  // if (userCase.orderCollection && userCase.orderCollection.length > 0) {
-  //   return SectionStatus.READY_TO_VIEW;
-  // } else {
-  //   return SectionStatus.NOT_AVAILABLE_YET;
-  // }
+};
+
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     userCase?.proceedingsStart &&
@@ -142,8 +138,5 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
   if (userCase?.safetyConcerns) {
     return SectionStatus.COMPLETED;
   }
-  // if (userCase?.detailsKnown ) {
-  //   return SectionStatus.IN_PROGRESS;
-  // }
   return SectionStatus.TO_DO;
 };

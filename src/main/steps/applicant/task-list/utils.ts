@@ -36,11 +36,6 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   return SectionStatus.TO_DO;
 };
 
-export const getYourApplication = (userCase: CaseWithId): SectionStatus => {
-  console.log(userCase);
-  return SectionStatus.DOWNLOAD;
-};
-
 export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
   console.log('applicant getViewAllDocuments: ' + userCase);
   return SectionStatus.READY_TO_VIEW;

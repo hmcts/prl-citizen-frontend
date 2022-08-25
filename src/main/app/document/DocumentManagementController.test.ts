@@ -10,7 +10,6 @@ jest.mock('../../app/auth/user/oidc');
 
 describe('DocumentManagerController', () => {
   const documentManagerController = new DocumentManagerController();
-  let fields;
   beforeEach(() => {
     jest.clearAllMocks();
     mockCreate.mockClear();

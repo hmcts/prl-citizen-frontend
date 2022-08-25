@@ -8,6 +8,7 @@ import {
   getApplicantViewAllOrdersFromTheCourtAllDocuments,
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
+  getMiamStatus,
   getViewAllDocuments,
   getYourApplication,
 } from './utils';
@@ -165,34 +166,35 @@ describe('utils', () => {
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getViewAllDocuments({ ...userCase, ...data })).toBe(expected);
     });
-    describe('getMiamStatus', () => {
-        test.each([
-          {
-            data: {
-              ...mockUserCase,
-              miamStart: 'Yes',
-              miamWillingness: 'Yes',
-            },
-            expected: 'COMPLETED',
-          },
-          {
-            data: {
-              ...mockUserCase,
-              miamStart: '',
-              miamWillingness: '',
-            },
-            expected: 'TO_DO',
-          },
-          {
-            data: {
-              ...mockUserCase,
-              miamStart: undefined,
-              miamWillingness: undefined,
-            },
-            expected: 'TO_DO',
-          },
-        ])('should return correct status %#', async ({ data, expected }) => {
-          expect(getMiamStatus(data)).toBe(expected);
-        });
+  });
+  describe('getMiamStatus', () => {
+    test.each([
+      {
+        data: {
+          ...mockUserCase,
+          miamStart: 'Yes',
+          miamWillingness: 'Yes',
+        },
+        expected: 'COMPLETED',
+      },
+      {
+        data: {
+          ...mockUserCase,
+          miamStart: '',
+          miamWillingness: '',
+        },
+        expected: 'TO_DO',
+      },
+      {
+        data: {
+          ...mockUserCase,
+          miamStart: undefined,
+          miamWillingness: undefined,
+        },
+        expected: 'TO_DO',
+      },
+    ])('should return correct status %#', async ({ data, expected }) => {
+      expect(getMiamStatus(data)).toBe(expected);
+    });
   });
 });

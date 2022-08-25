@@ -46,8 +46,6 @@ export interface Address {
   Country: string;
 }
 
-}
-
 export interface SolicitorOrg {
   OrganisationID: string;
   OrganisationName: string;
@@ -381,6 +379,8 @@ export interface AcknowledgementOfService {
   noticeOfProceedingsSolicitorFirm: string;
   statementOfTruth: YesOrNo;
   prayerHasBeenGiven: YesOrNo;
+}
+
 export interface Value7 {
   personRelationshipToChild: string;
 }
@@ -540,13 +540,6 @@ export interface AdditionalNationality {
   country: string;
 }
 
-export const enum Gender {
-  MALE = 'male',
-  FEMALE = 'female',
-  NOT_GIVEN = 'notGiven',
-  INTERSEX = 'intersex',
-}
-
 export interface PlacementOrder {
   placementOrderId: string;
   placementOrderType?: string;
@@ -602,7 +595,7 @@ export interface CaseData {
   dateOfSubmission: DateOfSubmission;
   //declarationTable: DeclarationTable;
   interpreterNeeds: InterpreterNeed[];
-  applicantCaseName: string;
+  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
   childDetailsTable: ChildDetailsTable[];
   jurisdictionIssue: string;
   ordersApplyingFor: string[];
@@ -1423,16 +1416,6 @@ export const enum DocumentsServedWhere {
   USUAL_RESIDENCE = 'usualResidence',
 }
 
-export const enum FinancialOrderFor {
-  APPLICANT = 'applicant',
-  CHILDREN = 'children',
-}
-
-export const enum GeneralOrderDivorceParties {
-  APPLICANT = 'applicant',
-  RESPONDENT = 'respondent',
-}
-
 export const enum GeneralOrderJudge {
   DISTRICT_JUDGE = 'districtJudge',
   DEPUTY_DISTRICT_JUDGE = 'deputyDistrictJudge',
@@ -1538,14 +1521,6 @@ export const enum FinancialOrderFor {
 export const enum GeneralOrderDivorceParties {
   APPLICANT = 'applicant',
   RESPONDENT = 'respondent',
-}
-
-export const enum GeneralOrderJudge {
-  DISTRICT_JUDGE = 'districtJudge',
-  DEPUTY_DISTRICT_JUDGE = 'deputyDistrictJudge',
-  HIS_HONOUR_JUDGE = 'hisHonourJudge',
-  HER_HONOUR_JUDGE = 'herHonourJudge',
-  RECORDER = 'recorder',
 }
 
 export interface Value14 {
@@ -1654,11 +1629,6 @@ export interface AllegationsOfHarmOtherConcernsTable {
   allegationsOfHarmOtherConcernsCourtActions: string;
 }
 
-export const enum LanguagePreference {
-  ENGLISH = 'ENGLISH',
-  WELSH = 'WELSH',
-}
-
 export interface AllegationsOfHarmChildAbductionTable {
   childrenLocationNow: string;
   previousAbductionThreats: string;
@@ -1715,133 +1685,6 @@ export const enum ServicePaymentMethod {
 export const enum SolicitorPaymentMethod {
   FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
   FEES_HELP_WITH = 'feesHelpWith',
-}
-
-export interface CaseData {
-  id: string;
-  children: Child[];
-  miamTable: MiamTable;
-  applicants: Applicant[];
-  caseStatus: CaseStatus;
-  welshNeeds: WelshNeed[];
-  respondents: Respondent[];
-  consentOrder: string;
-  isCaseUrgent: string;
-  isWelshNeeded: string;
-  natureOfOrder: string;
-  applicantTable: ApplicantTable[];
-  othersToNotify: OthersToNotify[];
-  urgencyDetails: UrgencyDetails;
-  //respondentTable: RespondentTable[];
-  allegationOfHarm: AllegationOfHarm;
-  dateOfSubmission: DateOfSubmission;
-  //declarationTable: DeclarationTable;
-  interpreterNeeds: InterpreterNeed[];
-  applicantCaseName: string;
-  childDetailsTable: ChildDetailsTable[];
-  jurisdictionIssue: string;
-  ordersApplyingFor: string[];
-  applicationDetails: string;
-  familyMediatorMiam: string;
-  setOutReasonsBelow: string;
-  specialArrangement: SpecialArrangement;
-  adjustmentsRequired: string;
-  confidentialDetails: ConfidentialDetails;
-  existingProceedings: string[];
-  hearingUrgencyTable: HearingUrgencyTable;
-  isDisabilityPresent: string;
-  isInterpreterNeeded: string;
-  miamExemptionsTable: MiamExemptionsTable;
-  isIntermediaryNeeded: string;
-  allocatedJudgeDetails: AllocatedJudgeDetails;
-  applicantAttendedMiam: string;
-  caseTypeOfApplication: string;
-  claimingExemptionMiam: string;
-  draftConsentOrderFile: DraftConsentOrderFile;
-  otherProceedingsTable: OtherProceedingsTable;
-  allegationsOfHarmYesNo: string;
-  childDetailsExtraTable: ChildDetailsExtraTable;
-  reasonsForIntermediary: string;
-  typeOfApplicationTable: TypeOfApplicationTable;
-  litigationCapacityTable: LitigationCapacityTable;
-  miamExemptionsChecklist: string[];
-  attendingTheHearingTable: AttendingTheHearingTable;
-  caseUrgencyTimeAndReason: string;
-  welshLanguageRequirement: string;
-  respondentFirstName?: string;
-  internationalElementTable: InternationalElementTable;
-  litigationCapacityFactors: string;
-  miamOtherGroundsChecklist: string;
-  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
-  otherPeopleInTheCaseTable: OtherPeopleInTheCaseTable[];
-  otherProceedingEmptyTable: OtherProceedingEmptyTable;
-  requestToForeignAuthority: string;
-  effortsMadeWithRespondents: string;
-  jurisdictionIssueGiveReason: string;
-  litigationCapacityReferrals: string;
-  specialArrangementsRequired: string;
-  applicant1Address1?: string;
-  applicant1Address2?: string;
-  applicant1AddressTown?: string;
-  applicant1ContactDetailsConsent?: YesOrNo;
-  applicant1EmailAddress?: string;
-  applicant1PhoneNumber?: string;
-  applicant1FullName?: string;
-  applicant1FirstNames?: string;
-  applicant1LastNames?: string;
-  applicant1HasOtherNames?: YesOrNo;
-  applicant1Occupation?: string;
-  applicant1PlaceOfBirth?: string;
-  serviceType: string;
-  claimNumber?: string;
-  caseCode?: string;
-  citizenRole?: FieldPrefix;
-  respondentLastName?: string;
-  //allegationsOfHarmOrdersTable: AllegationsOfHarmOrdersTable;
-  habitualResidentInOtherState: string;
-  otherProceedingsDetailsTable: OtherProceedingsDetailsTable[];
-  summaryTabForOrderAppliedFor: SummaryTabForOrderAppliedFor;
-  typeOfChildArrangementsOrder: string;
-  applicationPermissionRequired: string;
-  childrenKnownToLocalAuthority: string;
-  isSpecialArrangementsRequired: string;
-  otherProceedingsForSummaryTab: OtherProceedingsForSummaryTab[];
-  allegationsOfHarmOverviewTable: AllegationsOfHarmOverviewTable;
-  doYouNeedAWithoutNoticeHearing: string;
-  litigationCapacityOtherFactors: string;
-  welshLanguageRequirementsTable: WelshLanguageRequirementsTable;
-  miamPreviousAttendanceChecklist: string;
-  areRespondentsAwareOfProceedings: string;
-  reasonsForApplicationWithoutNotice: string;
-  allegationsOfHarmDomesticAbuseTable: AllegationsOfHarmDomesticAbuseTable;
-  allegationsOfHarmOtherConcernsTable: AllegationsOfHarmOtherConcernsTable;
-  applicationPermissionRequiredReason: string;
-  requestToForeignAuthorityGiveReason: string;
-  welshLanguageRequirementApplication: string;
-  allegationsOfHarmChildAbductionTable: AllegationsOfHarmChildAbductionTable;
-  childrenSubjectOfChildProtectionPlan: string;
-  childrenKnownToLocalAuthorityTextArea: string;
-  doYouRequireAHearingWithReducedNotice: string;
-  litigationCapacityOtherFactorsDetails: string;
-  c100ConfidentialityStatementDisclaimer: string[];
-  habitualResidentInOtherStateGiveReason: string;
-  languageRequirementApplicationNeedWelsh: string;
-  previousOrOngoingProceedingsForChildren: string;
-  welshLanguageRequirementApplicationNeedEnglish: string;
-  orderCollection: ListValue<PRLDocument>[];
-  documentsGenerated: ListValue<PRLDocument>[];
-  respondentName: string;
-  finalDocument: Document;
-  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
-}
-
-export interface PRLDocument {
-  documentDateAdded: DateAsString;
-  documentComment: string;
-  documentFileName: string;
-  documentType: DocumentType;
-  documentEmailContent: string;
-  documentLink: Document;
 }
 
 export const enum State {
@@ -1979,6 +1822,11 @@ export const enum DocumentType {
   RESPONDENT_INVITATION = 'aos',
   SOLICITOR_SERVICE = 'solicitorService',
   WELSH_TRANSLATION = 'welshTranslation',
+  BIRTH_OR_ADOPTION_CERTIFICATE = 'birthOrAdoptionCertificate',
+  DEATH_CERTIFICATE = 'deathCertificate',
+  APPLICATION_SUMMARY = 'applicationSummary',
+  FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
+  WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
 }
 
 export const enum PaymentStatus {
@@ -1996,10 +1844,6 @@ export const enum PbaErrorMessage {
   CAE0004 = 'CAE0004',
   NOT_FOUND = 'NOT_FOUND',
   GENERAL = 'GENERAL',
-}
-
-export const enum ThePrayer {
-  I_CONFIRM = 'Yes',
 }
 
 /**
@@ -2217,16 +2061,6 @@ export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed'
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 
-export const enum YesOrNo {
-  YES = 'Yes',
-  NO = 'No',
-}
-export const enum YesNoNotsure {
-  YES = 'Yes',
-  NO = 'No',
-  NOT_SURE = 'NotSure',
-}
-
 // citizen frontend
 export interface orderInterface {
   caseNoDetails: string;
@@ -2250,38 +2084,12 @@ export const enum CONFIDENTIAL_DETAILS {
   PRIVATE = 'This information will be kept confidential',
 }
 
-
-export const enum UserRole {
-  CASE_WORKER = 'caseworker-divorce-courtadmin_beta',
-  LEGAL_ADVISOR = 'caseworker-divorce-courtadmin-la',
-  SUPER_USER = 'caseworker-divorce-superuser',
-  SYSTEMUPDATE = 'caseworker-divorce-systemupdate',
-  SOLICITOR = 'caseworker-divorce-solicitor',
-  APPLICANT_1_SOLICITOR = '[APPONESOLICITOR]',
-  APPLICANT_2_SOLICITOR = '[APPTWOSOLICITOR]',
-  ORGANISATION_CASE_ACCESS_ADMINISTRATOR = 'caseworker-caa',
-  CITIZEN = 'citizen',
-  CREATOR = '[CREATOR]',
-  APPLICANT_2 = '[APPLICANTTWO]',
-}
-
 export const enum Gender {
   MALE = 'Male',
   FEMALE = 'Female',
   OTHER = 'Other',
 }
 
-export const enum SectionStatus {
-  TO_DO = 'TO_DO',
-  IN_PROGRESS = 'IN_PROGRESS',
-  NOT_STARTED = 'NOT_STARTED',
-  COMPLETED = 'COMPLETED',
-  NOT_AVAILABLE_YET = 'NOT_AVAILABLE_YET',
-  READY_TO_VIEW = 'READY_TO_VIEW',
-  DOWNLOAD = 'DOWNLOAD',
-}
-
-export type DateAsString = string;
 export interface PRLDocument {
   dateCreated: DateAsString;
   orderType: string;
@@ -2301,18 +2109,6 @@ export interface ListValue<T> {
   value: T;
 }
 
-export const enum DocumentType {
-  BIRTH_OR_ADOPTION_CERTIFICATE = 'birthOrAdoptionCertificate',
-  DEATH_CERTIFICATE = 'deathCertificate',
-  APPLICATION = 'application',
-  EMAIL = 'email',
-  APPLICATION_SUMMARY = 'applicationSummary',
-  FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
-  WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
-  //APPLICATION_WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
-}
-
-
 // citizen frontend
 export interface orderInterface {
   caseNoDetails: string;
@@ -2320,11 +2116,6 @@ export interface orderInterface {
   orderTimeDetails: string;
   currentOrderDetails: YesOrNo;
   issueOrderDetails: string;
-}
-
-export const enum CONFIDENTIAL_DETAILS {
-  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
-  PRIVATE = 'This information will be kept confidential',
 }
 
 export interface Document {
@@ -2369,26 +2160,6 @@ export interface orderInterface {
   orderTimeDetails: string;
   currentOrderDetails: YesOrNo;
   issueOrderDetails: string;
-}
-
-export const enum CONFIDENTIAL_DETAILS {
-  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
-  PRIVATE = 'This information will be kept confidential',
-}
-
-export const enum ContactDetails {
-  EMAIL = 'email',
-  PHONE = 'phone',
-}
-
-export const enum ContactDetailsPrivate {
-  EMAIL = 'email',
-  PHONE = 'phone',
-  ADDRESS = 'address',
-}
-
-export const enum PrivateLaw {
-  PRIVATELAW = 'prlapps',
 }
 
 export const enum ThePrayer {

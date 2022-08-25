@@ -30,7 +30,6 @@ import {
   LitigationCapacityTable,
   MiamExemptionsTable,
   MiamTable,
-  orderInterface,
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
@@ -50,6 +49,7 @@ import {
   WelshLanguageRequirementsTable,
   WelshNeed,
   YesOrNo,
+  orderInterface,
   //DocumentType,
 } from './definition';
 
@@ -156,7 +156,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceType: 'serviceType',
   claimNumber: 'claimNumber',
   caseCode: 'caseCode',
-  respondentFirstName: 'respondentFirstName',
   respondentLastName: 'respondentLastName',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
@@ -324,7 +323,6 @@ export interface Case {
   respondentLastName?: string;
   respondentCaseInvites?: CaseInvite[];
   applicantCaseInvites?: CaseInvite[];
-  contactDetailsPrivate?: string;
   orderCollection: ListValue<PRLDocument>[];
   documentsGenerated: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
@@ -336,8 +334,6 @@ export interface Case {
   /*** Document upload */
   applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
   applicant1UploadedFiles?: UploadedFile[];
-  finalDocument: Document;
-  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   proceedingsCourtCase?: string;
   proceedingsStart?: string;
   proceedingsCourtOrder?: string;
@@ -471,11 +467,6 @@ export interface CaseDate {
 export enum LanguagePreference {
   English = 'english',
   Welsh = 'welsh',
-}
-
-export interface UploadedFile {
-  id: string;
-  name: string;
 }
 
 export enum FieldPrefix {
