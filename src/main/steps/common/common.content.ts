@@ -199,6 +199,8 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  caption?: string;
+  document_type?: string;
   addresses?: [];
   // eligibility?: Eligibility;
   // fee?: Fee;

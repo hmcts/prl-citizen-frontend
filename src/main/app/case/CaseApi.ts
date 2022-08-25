@@ -120,22 +120,7 @@ export class CaseApi {
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     try {
-      this.axios.interceptors.request.use(
-        //eslint-disable-next-line @typescript-eslint/no-shadow
-        function (config) {
-          return config;
-        },
-        function (error) {
-          // Do something with request error
-          return Promise.reject(error);
-        }
-      );
-      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`, {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-
+      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
       const token = tokenResponse.data.token;
       const event = { id: eventName };
 
@@ -144,16 +129,12 @@ export class CaseApi {
         data,
         event_token: token,
       });
+      // ...fromApiFormat(response.data.data)
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');
     }
-  }
-
-  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    const data = toApiFormat(userData);
-    return this.sendEvent(caseId, data, eventName);
   }
 
   public async triggerEventWithData(
@@ -181,6 +162,10 @@ export class CaseApi {
     } else {
       this.logger.error('API Error', error.message);
     }
+  }
+
+  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+    return this.sendEvent(caseId, toApiFormat(userData), eventName);
   }
 }
 

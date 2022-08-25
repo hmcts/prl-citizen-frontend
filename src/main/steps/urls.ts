@@ -46,6 +46,14 @@ export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/
 
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
+
+/* Upload document start */
+export const UPLOAD_DOCUMENT_LIST_URL: PageLink = '/respondent/upload-document';
+export const UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${UPLOAD_DOCUMENT_LIST_URL}/start`;
+export const UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details`;
+export const UPLOAD_DOCUMENT: PageLink = `${UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents`;
+export const UPLOAD_DOCUMENT_SUCCESS: PageLink = `${UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
+/* Upload document end */
 /* respondent-keep-details-private */
 export const RESPONDENT: PageLink = '/respondent';
 export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;
@@ -131,6 +139,14 @@ export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
+/* consent-to-the-application */
+export const RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
+export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
+export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
+export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';
+export const YOUR_APPLICATION_WITNESS_STATEMENT: PageLink = `${APPLICANT}${APPLICATION_WITNESS_STATEMENT}`;
+
+export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 /* your needs when you go to court */
 export const SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${APPLICANT}/support-you-need-during-case`;
 export const LANGUAGE_REQUIREMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/language-requirements`;

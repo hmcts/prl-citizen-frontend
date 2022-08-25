@@ -32,6 +32,11 @@ import {
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
   SAFETY_MAIN_PAGE,
+  UPLOAD_DOCUMENT,
+  UPLOAD_DOCUMENT_LIST_START_URL,
+  UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  UPLOAD_DOCUMENT_LIST_URL,
+  UPLOAD_DOCUMENT_SUCCESS,
   YOUR_SAFETY,
 } from '../urls';
 
@@ -199,6 +204,31 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: COURT_PROCEEDINGS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_LIST_START_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_START_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT,
+  },
+  {
+    url: UPLOAD_DOCUMENT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => UPLOAD_DOCUMENT_SUCCESS,
+  },
+  {
+    url: UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

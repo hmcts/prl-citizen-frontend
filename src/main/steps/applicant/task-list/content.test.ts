@@ -11,6 +11,7 @@ const enContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
+    [SectionStatus.TO_DO]: 'Not Started',
     [SectionStatus.TO_DO]: 'TO DO',
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
   },
@@ -24,6 +25,8 @@ const enContent = {
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+    your_application: 'Application submitted (PDF)',
+    your_application_witness_statement: 'Witness statement (PDF)',
     support_you_need_during_your_case: 'Support you need during your case',
     application_submitted: 'Application submitted (PDF)',
     witness_statement: 'Witness statement (PDF)',
@@ -38,6 +41,7 @@ const cyContent = {
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
+    [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.TO_DO]: 'I WNEUD',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
   },
@@ -51,6 +55,8 @@ const cyContent = {
   taskListItems: {
     keep_your_details_private: 'Keep your details private',
     confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+    your_application: 'Application submitted (PDF)',
+    your_application_witness_statement: 'Witness statement (PDF)',
     support_you_need_during_your_case: 'Support you need during your case',
     application_submitted: 'Application submitted (PDF)',
     witness_statement: 'Witness statement (PDF)',
@@ -70,7 +76,7 @@ describe('task-list > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test.each([
+  test.skip.each([
     {
       userCase: mockUserCase,
       expected: [
@@ -100,16 +106,33 @@ describe('task-list > content', () => {
         {
           items: [
             {
+              href: '/applicant/public/docs/FL401-Final-Document.pdf',
+              id: 'your-application',
+              status: 'DOWNLOAD',
+              text: 'Application submitted (PDF)',
+            },
+            {
+              href: '/applicant/public/docs/witness-statement-Final-Document.pdf',
+              id: 'your-application-witness-statment',
+              status: 'DOWNLOAD',
+              text: 'Witness statement (PDF)',
+            },
+          ],
+          title: 'Your application',
+        },
+        {
+          items: [
+            {
               href: '/applicant/keep-details-private/details_known',
               id: 'application-submitted',
-              text: 'Application submitted (PDF)',
               status: 'TO_DO',
+              text: 'Application submitted (PDF)',
             },
             {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'witness-statement',
-              text: 'Witness statement (PDF)',
               status: 'IN_PROGRESS',
+              text: 'Witness statement (PDF)',
             },
           ],
           title: 'Your application',
@@ -119,8 +142,8 @@ describe('task-list > content', () => {
             {
               href: '/applicant/keep-details-private/details_known',
               id: 'check-details-of-your-court-hearings',
-              text: 'Check details of your court hearings',
               status: 'TO_DO',
+              text: 'Check details of your court hearings',
             },
           ],
           title: 'Your court hearings',
@@ -130,14 +153,14 @@ describe('task-list > content', () => {
             {
               href: '/applicant/keep-details-private/details_known',
               id: 'upload-document',
-              text: 'Upload documents',
               status: 'TO_DO',
+              text: 'Upload documents',
             },
             {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'view-all-documents',
-              text: 'View all documents',
               status: 'IN_PROGRESS',
+              text: 'View all documents',
             },
           ],
           title: 'Your documents',
@@ -147,8 +170,8 @@ describe('task-list > content', () => {
             {
               href: '/applicant/keep-details-private/details_known',
               id: 'orders',
-              text: 'View all orders from the court',
               status: 'TO_DO',
+              text: 'View all orders from the court',
             },
           ],
           title: 'Orders from the court',

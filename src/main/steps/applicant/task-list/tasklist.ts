@@ -5,6 +5,7 @@ import {
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
   getSupportYourNeedsDetails,
+  getYourApplication,
 } from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
@@ -85,6 +86,23 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           text: taskListItems.orders,
           status: getKeepYourDetailsPrivateStatus(userCase),
           href: URL.APPLICANT_DETAILS_KNOWN,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.yourApplication,
+      items: [
+        {
+          id: 'your-application',
+          text: taskListItems.your_application,
+          status: getYourApplication(userCase),
+          href: URL.YOUR_APPLICATION_FL401,
+        },
+        {
+          id: 'your-application-witness-statment',
+          text: taskListItems.your_application_witness_statement,
+          status: getYourApplication(userCase),
+          href: URL.YOUR_APPLICATION_WITNESS_STATEMENT,
         },
       ],
     },
