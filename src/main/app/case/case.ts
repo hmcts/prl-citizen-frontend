@@ -193,6 +193,7 @@ export interface Case {
   //C100 Rebuild
   needHelpWithFees?: YesOrNo;
   feesAppliedDetails?: YesOrNo;
+  disabilityRequirements?: string[];
 }
 
 export interface CaseWithId extends Case {
