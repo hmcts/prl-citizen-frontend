@@ -1,4 +1,5 @@
 import autobind from 'autobind-decorator';
+import axios from 'axios';
 import { Response } from 'express';
 import Negotiator from 'negotiator';
 
@@ -44,11 +45,12 @@ export class GetController {
     /* It clears the session data for the contact details if the user has navigated to the start of the
   confidentiality section */
     this.clearConfidentialitySessionSaveData(req);
-
+    const responseSessionDataFromApi = await axios.get('http://localhost:3001/api/v1/draft');
     res.render(this.view, {
       ...content,
       sessionErrors,
       htmlLang: language,
+      cases: responseSessionDataFromApi.data,
       // isDraft: req.session?.userCase?.state ? req.session.userCase.state === State.Draft : true,
       // getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });

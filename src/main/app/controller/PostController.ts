@@ -1,8 +1,10 @@
 import autobind from 'autobind-decorator';
+import axios from 'axios';
 import { Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
@@ -30,6 +32,8 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
+    } else if (req.body['saveAndComeLater']) {
+      await this.saveAndComeBackLater(req, res);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
     } else {
@@ -86,6 +90,23 @@ export class PostController<T extends AnyObject> {
           item.errorType !== ValidationError.NOT_UPLOADED
       );
     }
+  }
+
+  /**
+   * It redirects the user to the next page in the journey
+   * @param req - AppRequest<T> - This is the request object that is passed to the controller. It is a
+   * wrapper around the Express Request object.
+   * @param {Response} res - Response - the response object from the express framework
+   */
+  private async saveAndComeBackLater(req: AppRequest<T>, res: Response): Promise<void> {
+    const boucingURL = req.originalUrl;
+    const caseData = req.session.userCase;
+    caseData['id'] = uuidv4();
+    await axios.post('http://localhost:3001/api/v1/draft', {
+      userCase: caseData,
+      boucingURL,
+    });
+    this.redirect(req, res, DASHBOARD_URL);
   }
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
