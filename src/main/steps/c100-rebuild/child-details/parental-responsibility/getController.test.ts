@@ -7,7 +7,7 @@ import { State } from '../../../../app/case/definition';
 import * as Urls from '../../../../steps/urls';
 import { C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
 
-import ParentResponsibility from './getController';
+import ParentResponsibility from './prgetController';
 
 const dummySessionData = {
   ListOfChild: [

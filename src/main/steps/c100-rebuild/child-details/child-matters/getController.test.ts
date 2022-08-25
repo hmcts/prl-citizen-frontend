@@ -6,7 +6,7 @@ import { State } from '../../../../app/case/definition';
 //import { generatePageContent } from '../../../../steps/common/common.content';
 import * as Urls from '../../../../steps/urls';
 
-import AddChildernMatterGetController from './getController';
+import AddChildernMatterGetController from './childMattergetController';
 
 const dummySessionData = {
   ListOfChild: [

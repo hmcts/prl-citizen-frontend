@@ -7,7 +7,7 @@ import { State } from '../../../../app/case/definition';
 import * as Urls from '../../../../steps/urls';
 import { C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
 
-import Personaldetails from './getController';
+import Personaldetails from './personalDetailsgetController';
 
 const dummySessionData = {
   ListOfChild: [

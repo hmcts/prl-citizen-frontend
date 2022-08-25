@@ -4,7 +4,7 @@ import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { FieldPrefix } from '../../../../app/case/case';
 import { State } from '../../../../app/case/definition';
 
-import AddChilderns from './getController';
+import AddChilderns from './addChildgetController';
 
 const dummySessionData = {
   ListOfChild: [
