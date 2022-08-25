@@ -2,7 +2,6 @@ import { CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  C100_START,
   C100_CONFIDENTIALITY_DETAILS_KNOW,
   C100_CONFIDENTIALITY_FEEDBACK,
   C100_CONFIDENTIALITY_FEEDBACK_NO,
@@ -21,6 +20,7 @@ import {
   C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
   C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
+  C100_START,
   PageLink,
 } from '../urls';
 
