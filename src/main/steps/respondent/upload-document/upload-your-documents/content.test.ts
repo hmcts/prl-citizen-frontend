@@ -4,7 +4,6 @@ import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-
 const en = {
   section: 'Provide the document',
   title: 'Provide the documents',

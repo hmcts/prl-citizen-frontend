@@ -119,23 +119,23 @@ export class CaseApi {
   }
 
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
-     try {
-       const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
-       const token = tokenResponse.data.token;
-       const event = { id: eventName };
+    try {
+      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
+      const token = tokenResponse.data.token;
+      const event = { id: eventName };
 
-       const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
-         event,
-         data,
-         event_token: token,
-       });
-       // ...fromApiFormat(response.data.data)
-       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
-     } catch (err) {
-       this.logError(err);
-       throw new Error('Case could not be updated.');
-     }
-   }
+      const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
+        event,
+        data,
+        event_token: token,
+      });
+      // ...fromApiFormat(response.data.data)
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
+  }
 
   public async triggerEventWithData(
     caseId: string,
@@ -163,11 +163,10 @@ export class CaseApi {
       this.logger.error('API Error', error.message);
     }
   }
-  
+
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     return this.sendEvent(caseId, toApiFormat(userData), eventName);
   }
-  
 }
 
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {

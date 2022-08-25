@@ -54,7 +54,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.section).toEqual(' ');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.line1).toEqual(
-      'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
+      'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.'
     );
   });
 

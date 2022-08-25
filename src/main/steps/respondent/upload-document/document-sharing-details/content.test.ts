@@ -4,7 +4,7 @@ import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-const docsEmail: string = 'example@test.com';
+const docsEmail = 'example@test.com';
 
 const en = {
   section: 'How your documents will be shared',
@@ -17,7 +17,6 @@ const cy: typeof en = {
   email: docsEmail,
   continue: 'Continue',
 };
-
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */

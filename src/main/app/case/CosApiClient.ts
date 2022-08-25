@@ -1,13 +1,13 @@
 import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
+import { GenerateAndUploadDocumentRequest } from '../../app/document/GenerateAndUploadDocumentRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
 import { CaseData } from './definition';
 import { fromApiFormat } from './from-api-format';
-import {GenerateAndUploadDocumentRequest} from '../../app/document/GenerateAndUploadDocumentRequest';
 
 export class CosApiClient {
   client: AxiosInstance;
@@ -70,12 +70,12 @@ export class CosApiClient {
     if (!caseId || !user || !accessCode) {
       return Promise.reject(new Error('Case id must be set and user must be set'));
     }
-    const response = await Axios.get(config.get('services.cos.url') + `/validate-access-code`, {
+    const response = await Axios.get(config.get('services.cos.url') + '/validate-access-code', {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
-        caseId: caseId,
-        accessCode: accessCode,
+        caseId,
+        accessCode,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -85,12 +85,7 @@ export class CosApiClient {
     return response.data;
   }
 
-  public async updateCase(
-    user: UserDetails,
-    caseId: string,
-    data: Partial<CaseData>,
-    eventId: string
-  ): Promise<CaseWithId> {
+  public async updateCase(user: UserDetails, caseId: string, data: Partial<CaseData>): Promise<CaseWithId> {
     data.applicantCaseName = 'Tom Jerry - updated';
     try {
       const eventId = 'citizen-case-update';
@@ -100,11 +95,9 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      const response = await Axios.post(
-        config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`,
-        data,
-        { headers }
-      );
+      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
+        headers,
+      });
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
@@ -114,9 +107,8 @@ export class CosApiClient {
 
   public async generateUserUploadedStatementDocument(
     user: UserDetails,
-    generateAndUploadDocumentRequest : GenerateAndUploadDocumentRequest
-  ): Promise<String> {
-
+    generateAndUploadDocumentRequest: GenerateAndUploadDocumentRequest
+  ): Promise<string> {
     try {
       const headers = {
         Accept: 'application/json',
@@ -124,10 +116,10 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      console.log("Inside CosApiClient");
+      console.log('Inside CosApiClient');
 
       const response = await Axios.post(
-        config.get('services.cos.url') + `/generate-citizen-statement-document`,
+        config.get('services.cos.url') + '/generate-citizen-statement-document',
         generateAndUploadDocumentRequest,
         { headers }
       );
@@ -138,5 +130,3 @@ export class CosApiClient {
     }
   }
 }
-
-

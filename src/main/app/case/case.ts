@@ -30,7 +30,6 @@ import {
   LitigationCapacityTable,
   MiamExemptionsTable,
   MiamTable,
-  orderInterface,
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
@@ -49,6 +48,7 @@ import {
   WelshLanguageRequirementsTable,
   WelshNeed,
   YesOrNo,
+  orderInterface,
   //DocumentType,
 } from './definition';
 

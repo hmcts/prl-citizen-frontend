@@ -74,9 +74,3 @@ if (upload) {
   upload.classList.remove(hidden);
   initUploadManager();
 }
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-import { CaseDate, FieldPrefix } from "./case";
+import { CaseDate, FieldPrefix } from './case';
 
 export interface ChildDetails {
   gender: string;
@@ -642,14 +642,14 @@ export interface CaseData {
   applicant1AddressTown?: string;
   applicant1ContactDetailsConsent?: YesOrNo;
   applicant1EmailAddress?: string;
-  applicant1PhoneNumber?: string;  
+  applicant1PhoneNumber?: string;
   applicant1FullName?: string;
   applicant1FirstNames?: string;
   applicant1LastNames?: string;
   applicant1HasOtherNames?: YesOrNo;
   applicant1Occupation?: string;
-  applicant1PlaceOfBirth?: string; 
-  serviceType: string; 
+  applicant1PlaceOfBirth?: string;
+  serviceType: string;
   claimNumber?: string;
   caseCode?: string;
   citizenRole?: FieldPrefix;
@@ -871,12 +871,6 @@ export const enum CONFIDENTIAL_DETAILS {
   PRIVATE = 'This information will be kept confidential',
 }
 
-export interface OtherName {
-  id?: string;
-  firstNames: string;
-  lastNames: string;
-}
-
 export const enum ContactDetails {
   EMAIL = 'email',
   PHONE = 'phone',
@@ -885,7 +879,7 @@ export const enum ContactDetails {
 export const enum ContactDetailsPrivate {
   EMAIL = 'email',
   PHONE = 'phone',
-  ADDRESS = 'address'
+  ADDRESS = 'address',
 }
 
 export const enum PrivateLaw {
@@ -894,12 +888,6 @@ export const enum PrivateLaw {
 
 export const enum ThePrayer {
   I_CONFIRM = 'Yes',
-}
-
-
-export interface UploadDocumentList {
-  id: string;
-  value: Value;
 }
 
 export type RespondentCaseId = string | number | undefined;

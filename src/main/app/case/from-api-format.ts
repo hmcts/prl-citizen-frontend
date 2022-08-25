@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
-import { fromApiApplicant1 as uploadedFilesFromApiApplicant1 } from './formatter/uploaded-files';
 import { Case, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, YesOrNo } from './definition';
+import { fromApiApplicant1 as uploadedFilesFromApiApplicant1 } from './formatter/uploaded-files';
 
 dayjs.extend(advancedFormat);
 

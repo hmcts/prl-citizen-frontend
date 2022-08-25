@@ -1,9 +1,7 @@
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn} from '../../../../app/form/Form';
 import { getFilename } from '../../../../app/case/formatter/uploaded-files';
+import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 //import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-
-
 
 const en = {
   section: 'Provide the document',
@@ -41,18 +39,16 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: userCase => {
+  fields: () => {
     const checkboxes: { id: string; value: string }[] = [];
 
-
-      checkboxes.push({
-        id: 'sot',
-        value: 'StatementOfTruth',
-      });
-
+    checkboxes.push({
+      id: 'sot',
+      value: 'StatementOfTruth',
+    });
 
     return {
-       declarationCheck: {
+      declarationCheck: {
         type: 'checkboxes',
         labelHidden: true,
         //validator: atLeastOneFieldIsChecked,
@@ -61,8 +57,8 @@ export const form: FormContent = {
             name: 'declarationCheck',
             value: 'declaration consent',
           },
-        ]
-      }
+        ],
+      },
     };
   },
   submit: {
@@ -76,7 +72,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-  form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     uploadedDocsFilenames,
   };
 };

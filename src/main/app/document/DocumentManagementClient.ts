@@ -1,10 +1,9 @@
 import Axios, { AxiosInstance, AxiosResponse } from 'axios';
+import config from 'config';
+import FormData from 'form-data';
 
 import { UserRole } from '../../app/case/definition';
 import type { UserDetails } from '../controller/AppRequest';
-
-import config from 'config';
-import FormData from 'form-data';
 
 export class DocumentManagementClient {
   client: AxiosInstance;
@@ -39,7 +38,7 @@ export class DocumentManagementClient {
       formData.append('files', file.buffer, file.originalname);
     }
     console.log('11');
-    
+
     const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/documents', formData, {
       headers: {
         ...formData.getHeaders(),
@@ -52,7 +51,7 @@ export class DocumentManagementClient {
     console.log('12');
     return response.data?._embedded?.documents || [];
   }
-  
+
   async delete({ url }: { url: string }): Promise<AxiosResponse> {
     return this.client.delete(url, { headers: { 'user-id': this.user.id } });
   }

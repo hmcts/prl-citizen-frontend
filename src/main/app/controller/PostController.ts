@@ -18,7 +18,7 @@ import { AppRequest } from './AppRequest';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
-  constructor(protected readonly fields: FormFields | FormFieldsFn) { }
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
@@ -60,7 +60,7 @@ export class PostController<T extends AnyObject> {
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
     // Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
-    console.log("errors are:", req.session.errors)
+    console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
 
     if (req.session.errors.length) {
@@ -73,8 +73,8 @@ export class PostController<T extends AnyObject> {
       req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
     }
 
-    if(req.originalUrl.includes(UPLOAD_DOCUMENT_SUCCESS)){
-      if(req?.session?.userCase?.applicantUploadFiles){
+    if (req.originalUrl.includes(UPLOAD_DOCUMENT_SUCCESS)) {
+      if (req?.session?.userCase?.applicantUploadFiles) {
         req.session.userCase['applicantUploadFiles'] = [];
       }
     }
@@ -274,7 +274,6 @@ export class PostController<T extends AnyObject> {
     }
   }*/
 
-
   private async checkCaseAccessCode(
     req: AppRequest<T>,
     res: Response,
@@ -290,7 +289,11 @@ export class PostController<T extends AnyObject> {
     try {
       if (!req.session.errors.length) {
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-        const accessCodeValidated = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
+        const accessCodeValidated = await client.validateAccessCode(
+          caseReference as string,
+          accessCode as string,
+          caseworkerUser
+        );
         console.log(accessCodeValidated);
         if (accessCodeValidated === 'linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });

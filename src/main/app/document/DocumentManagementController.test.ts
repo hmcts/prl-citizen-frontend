@@ -13,7 +13,6 @@ describe('DocumentManagerController', () => {
   let generatedContent;
   let form;
   let fields;
- 
 
   beforeEach(() => {
     form = generatedContent.form as FormContent;
@@ -27,7 +26,6 @@ describe('DocumentManagerController', () => {
   });
 
   const documentManagerController = new DocumentManagerController(fields);
-
 
   describe('fetch file FL401-Final-Document for applicant', () => {
     test('fetch an existing file - %o', async () => {
