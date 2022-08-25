@@ -6,8 +6,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   serviceName: 'Child Arrangements',
-  headingTitle: `Do you need help with paying
-   the fee for this application?`,
+  headingTitle: 'Do you need help with paying the fee for this application?',
   paragraph1: 'This application costs £',
   paragraph2: '. You may be able to get help with paying the fee if \n you have little or no savings, and either:',
   line1: 'get certain benefits',
@@ -26,10 +25,10 @@ const en = () => ({
 
 const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
-  headingTitle: `Do you need help with paying
-   the fee for this application? - welsh`,
+  headingTitle: 'Do you need help with paying the fee for this application? - welsh',
   paragraph1: 'This application costs £',
-  paragraph2: '. You may be able to get help with paying the fee if \n you have little or no savings, and either: - welsh',
+  paragraph2:
+    '. You may be able to get help with paying the fee if \n you have little or no savings, and either: - welsh',
   line1: 'get certain benefits - welsh',
   line2: 'are on a low income - welsh',
   seeEligbilityHyperLink:
