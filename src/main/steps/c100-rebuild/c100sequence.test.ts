@@ -211,5 +211,12 @@ describe('C100Sequence', () => {
     expect(C100Sequence[20].url).toBe('/c100-rebuild/hearing-without-notice/hearing-part2');
     expect(C100Sequence[20].showInSection).toBe('c100');
     expect(C100Sequence[20].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[18].getNextStep({})).toBe('/c100-rebuild/typeoforder/shortstatement');
+
+    ///c100-rebuild/typeoforder/shortstatement
+
+    expect(C100Sequence[19].url).toBe('/c100-rebuild/typeoforder/shortstatement');
+    expect(C100Sequence[19].showInSection).toBe('c100');
+    expect(C100Sequence[19].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
   });
 });
