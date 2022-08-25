@@ -23,6 +23,8 @@ services:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN
     pcqEnabled: PCQ_ENABLED
+  citizen:
+    uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
 port: PORT
 session:
   redis:
