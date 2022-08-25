@@ -45,8 +45,6 @@ export default class AddChildernMatter extends PostController<AnyObject> {
         res.render('error');
       }
     } else {
-      // eslint-disable-next-line no-self-assign
-      req.session.settings.ListOfChild = req.session.settings.ListOfChild;
       const redirectURI = `parental-responsibility?childId=${req.session.settings.ListOfChild[0].id}`;
       super.redirect(req, res, redirectURI);
     }
