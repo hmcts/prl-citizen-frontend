@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { APPLICANT_TASK_LIST_URL } from '../../steps/urls';
+
 import { DocumentManagerController } from './DocumentManagementController';
 
 const { mockCreate, mockDelete, mockGet } = require('./DocumentManagementClient');
@@ -10,7 +11,7 @@ jest.mock('../../app/auth/user/oidc');
 describe('DocumentManagerController', () => {
   // let generatedContent;
   // let form;
-   let fields;
+  let fields;
 
   beforeEach(() => {
     jest.clearAllMocks();
