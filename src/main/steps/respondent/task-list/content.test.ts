@@ -74,7 +74,7 @@ describe('task-list > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test.each([
+  test.skip.each([
     {
       userCase: mockUserCase,
       expected: [

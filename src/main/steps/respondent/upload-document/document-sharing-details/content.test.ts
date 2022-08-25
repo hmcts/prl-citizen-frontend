@@ -32,7 +32,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('');
+    expect(generatedContent.continue).toEqual('Continue');
     expect(generatedContent.email).toEqual(docsEmail);
     expect(generatedContent.section).toEqual('How your documents will be shared');
   });

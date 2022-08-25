@@ -2,7 +2,7 @@ import { respondentCaseSequence } from './respondentcaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(36);
+    expect(respondentCaseSequence).toHaveLength(37);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -46,7 +46,7 @@ describe('respondent1Sequence', () => {
 
     expect(respondentCaseSequence[10].url).toBe('/respondent/confirm-contact-details/checkanswers');
     expect(respondentCaseSequence[10].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[10].getNextStep({})).toBe('/respondent/confirm-contact-details/addresslookup');
+    expect(respondentCaseSequence[10].getNextStep({})).toBe('/respondent/task-list');
 
     expect(respondentCaseSequence[11].url).toBe('/respondent/confirm-contact-details/personaldetails');
     expect(respondentCaseSequence[11].showInSection).toBe('aboutRespondentCase');
@@ -74,7 +74,7 @@ describe('respondent1Sequence', () => {
 
     expect(respondentCaseSequence[17].url).toBe('/respondent/confirm-contact-details/addressconfirmation');
     expect(respondentCaseSequence[17].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[17].getNextStep({})).toBe('/respondent/international-factors/parents');
+    expect(respondentCaseSequence[17].getNextStep({})).toBe('/respondent/task-list');
 
     expect(respondentCaseSequence[18].url).toBe('/respondent/confirm-contact-details/addressblank');
     expect(respondentCaseSequence[18].showInSection).toBe('aboutRespondentCase');

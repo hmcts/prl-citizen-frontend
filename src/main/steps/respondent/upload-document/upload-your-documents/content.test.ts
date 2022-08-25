@@ -9,7 +9,7 @@ const en = {
   title: 'Provide the documents',
   continue: 'Save and continue',
   add: 'Submit',
-  uploadFiles: 'Uploaded documents',
+  uploadFiles: 'Your documents',
   remove: 'Remove',
 };
 
@@ -18,7 +18,7 @@ const cy: typeof en = {
   title: 'Provide the documents',
   continue: 'Save and continue',
   add: 'Submit',
-  uploadFiles: 'Uploaded documents',
+  uploadFiles: 'Your documents',
   remove: 'Remove',
 };
 
@@ -37,7 +37,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual('Provide the documents');
     expect(generatedContent.section).toEqual('Provide the document');
     expect(generatedContent.add).toEqual('Submit');
-    expect(generatedContent.uploadFiles).toEqual('uploadFiles');
+    expect(generatedContent.uploadFiles).toEqual('Your documents');
     expect(generatedContent.remove).toEqual('Remove');
   });
 

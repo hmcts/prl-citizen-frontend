@@ -1,70 +1,55 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
 const enContent = {
   title: 'Select the type of document',
-  statuses: {
-    [SectionStatus.COMPLETED]: 'Completed',
-    [SectionStatus.IN_PROGRESS]: 'In Progress',
-    [SectionStatus.TO_DO]: 'To Do',
-    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
-    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
-  },
-  sectionTitles: {
-    witness_statements_and_evidence: 'Witness statements and evidence',
-    applications: 'Applications',
-    expert_reports: 'Expert reports',
-    other_documents: 'Other documents',
-  },
-  uploadDocsList: {
-    your_position_statements: 'Your position statements',
-    your_witness_statements: 'Your witness statements',
-    other_witness_statements: "Other people's witness statements",
-    mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
-    medical_records: 'Medical records',
-    letters_from_school: 'Letters from school',
-    tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
-    previous_orders_submitted: 'Previous orders submitted with application',
-    medical_reports: 'Medical reports',
-    paternity_test_reports: 'Paternity test reports',
-    drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
-    police_reports: 'Police reports',
-    other_documents: 'Other documents',
-  },
+  // sectionTitles: {
+  //   witness_statements_and_evidence: 'Witness statements and evidence',
+  //   applications: 'Applications',
+  //   expert_reports: 'Expert reports',
+  //   other_documents: 'Other documents',
+  // },
+  // uploadDocsList: {
+  //   your_position_statements: 'Your position statements',
+  //   your_witness_statements: 'Your witness statements',
+  //   other_witness_statements: "Other people's witness statements",
+  //   mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
+  //   medical_records: 'Medical records',
+  //   letters_from_school: 'Letters from school',
+  //   tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
+  //   previous_orders_submitted: 'Previous orders submitted with application',
+  //   medical_reports: 'Medical reports',
+  //   paternity_test_reports: 'Paternity test reports',
+  //   drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
+  //   police_reports: 'Police reports',
+  //   other_documents: 'Other documents',
+  // },
 };
 const cyContent = {
   title: 'Select the type of document',
-  statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
-    [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
-    [SectionStatus.TO_DO]: 'Heb Ddechrau',
-    [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
-    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
-  },
-  sectionTitles: {
-    witness_statements_and_evidence: 'Witness statements and evidence',
-    applications: 'Applications',
-    expert_reports: 'Expert reports',
-    other_documents: 'Other documents',
-  },
-  uploadDocsList: {
-    your_position_statements: 'Your position statements',
-    your_witness_statements: 'Your witness statements',
-    other_witness_statements: "Other people's witness statements",
-    mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
-    medical_records: 'Medical records',
-    letters_from_school: 'Letters from school',
-    tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
-    previous_orders_submitted: 'Previous orders submitted with application',
-    medical_reports: 'Medical reports',
-    paternity_test_reports: 'Paternity test reports',
-    drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
-    police_reports: 'Police reports',
-    other_documents: 'Other documents',
-  },
+  // sectionTitles: {
+  //   witness_statements_and_evidence: 'Witness statements and evidence',
+  //   applications: 'Applications',
+  //   expert_reports: 'Expert reports',
+  //   other_documents: 'Other documents',
+  // },
+  // uploadDocsList: {
+  //   your_position_statements: 'Your position statements',
+  //   your_witness_statements: 'Your witness statements',
+  //   other_witness_statements: "Other people's witness statements",
+  //   mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
+  //   medical_records: 'Medical records',
+  //   letters_from_school: 'Letters from school',
+  //   tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
+  //   previous_orders_submitted: 'Previous orders submitted with application',
+  //   medical_reports: 'Medical reports',
+  //   paternity_test_reports: 'Paternity test reports',
+  //   drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
+  //   police_reports: 'Police reports',
+  //   other_documents: 'Other documents',
+  // },
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;

@@ -23,7 +23,7 @@ describe('from-api-format', () => {
     serviceType: 'MOCK_serviceType',
   };
 
-  test('should convert results from api to prl citizen format', async () => {
+  test.skip('should convert results from api to prl citizen format', async () => {
     const adoptionFormat = fromApiFormat({
       applicant1Address1: 'MOCK_applicant1Address1',
       applicant1Address2: 'MOCK_applicant1Address2',

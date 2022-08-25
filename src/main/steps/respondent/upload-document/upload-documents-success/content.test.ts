@@ -4,17 +4,17 @@ import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-const docsEmail = 'test';
+//const docsEmail = 'test';
 
 const en = {
   section: 'How your documents will be shared',
-  email: docsEmail,
+  //email: docsEmail,
   continue: 'Continue',
 };
 
 const cy: typeof en = {
   section: 'How your documents will be shared',
-  email: docsEmail,
+  //email: docsEmail,
   continue: 'Continue',
 };
 
@@ -32,8 +32,8 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('');
-    expect(generatedContent.email).toEqual('test');
+    expect(generatedContent.status).toEqual('Your documents have been uploaded');
+    //expect(generatedContent.email).toEqual('test');
     expect(generatedContent.section).toEqual('How your documents will be shared');
   });
 
