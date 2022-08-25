@@ -25,7 +25,6 @@ export default class AddChilderns extends PostController<AnyObject> {
           const nextChildId = req.session.settings['ListOfChild'].length + 1;
           if (req['body']['firstname-' + nextChildId] === '' || req['body']['lastname-' + nextChildId] === '') {
             if (req['body']['firstname-' + nextChildId] === '' && req['body']['lastname-' + nextChildId] === '') {
-              console.log('Inside If');
               req.session.errors = [
                 { propertyName: 'firstname-1', errorType: 'required' },
                 {
@@ -42,7 +41,6 @@ export default class AddChilderns extends PostController<AnyObject> {
               const fillLastName: any = req['body']['lastname-' + nextChildId];
               req.session.settings.childTemporaryFormData.TempFirstName = '';
               req.session.settings.childTemporaryFormData.TempLastName = fillLastName;
-              console.log({ fillLastName });
               super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
             } else if (req['body']['lastname-' + nextChildId] === '') {
               req.session.errors = [{ propertyName: 'lastname-1', errorType: 'required' }];
@@ -71,8 +69,6 @@ export default class AddChilderns extends PostController<AnyObject> {
           const tempLastNameInRemoveChild = req.body[`lastname-${nextChildIdInremoveChild}`];
           req.session.settings.childTemporaryFormData.TempFirstName = tempFirstNameInRemoveChild;
           req.session.settings.childTemporaryFormData.TempLastName = tempLastNameInRemoveChild;
-
-          console.log({ tempFirstNameInRemoveChild, tempLastNameInRemoveChild });
           req.session.settings.ListOfChild = req.session.settings.ListOfChild.filter(child => child.id !== childId);
           super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
           break;

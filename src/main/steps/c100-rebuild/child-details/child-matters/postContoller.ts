@@ -14,7 +14,6 @@ export default class AddChildernMatter extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log(req.body);
     const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 

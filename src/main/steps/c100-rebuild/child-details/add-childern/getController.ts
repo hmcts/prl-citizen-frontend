@@ -55,7 +55,6 @@ export default class AddChilderns extends GetController {
       const { addChild } = req.query;
       switch (addChild) {
         case 'true':
-          console.log({ addChild });
           break;
 
         default:

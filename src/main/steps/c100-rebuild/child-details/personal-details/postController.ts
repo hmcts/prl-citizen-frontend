@@ -67,7 +67,6 @@ export default class Personaldetails extends PostController<AnyObject> {
           req.body['child-dateOfBirth-year'] !== '';
 
         if (childApproxDateEnabled && checkIfDateEnabledAndApproxToggled) {
-          console.log({ msg: 'this blocked is trigger' });
           req.session.errors.push({
             propertyName: 'cannotHaveBothApproxAndExact',
             errorType: 'required',
