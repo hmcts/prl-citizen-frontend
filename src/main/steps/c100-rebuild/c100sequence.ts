@@ -176,8 +176,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HELP_WITH_FEES_FEES_APPLIED,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.feesAppliedDetails === YesOrNo.NO ? C100_HELP_WITH_FEES_HWF_GUIDANCE : C100_HELP_WITH_FEES_HWF_GUIDANCE,
+    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE,
   },
   {
     url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
