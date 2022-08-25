@@ -16,6 +16,7 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import {
   // CSRF_TOKEN_ERROR_URL,
   ACCESSIBILITY_STATEMENT,
+  ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT,
   APPLICANT_ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
@@ -24,15 +25,12 @@ import {
   CONTACT_US,
   COOKIES_PAGE,
   HOME_URL,
-  // KEEP_ALIVE_URL,
   PRIVACY_POLICY,
+  RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   TERMS_AND_CONDITIONS,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
-  // SAVE_AND_SIGN_OUT,
-  // TIMED_OUT_URL,
-  // RESPONDENT_TASK_LIST_URL
 } from './steps/urls';
 
 export class Routes {
@@ -57,9 +55,10 @@ export class Routes {
     app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
     app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
 
-    app.get(APPLICANT_MIAM_CERTIFICATE, errorHandler(documentManagerController.get));
-    app.get(`${APPLICANT}${APPLICANT_ALLEGATION_OF_HARM_VOILENCE}`, errorHandler(documentManagerController.get));
 
+    app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
+    app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
+    app.get(`${APPLICANT}${APPLICANT_ALLEGATION_OF_HARM_VOILENCE}`, errorHandler(documentManagerController.get));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

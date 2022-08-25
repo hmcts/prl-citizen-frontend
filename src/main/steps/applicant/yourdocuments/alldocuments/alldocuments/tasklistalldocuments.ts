@@ -5,7 +5,7 @@ import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/uti
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [
-    ...getOrdersFromCourt(sectionTitles, taskListItems, URL.APPLICANT_ORDERS_FROM_THE_COURT),
+    ...getOrdersFromCourt(sectionTitles, taskListItems, userCase, URL.APPLICANT_ORDERS_FROM_THE_COURT),
     getApplicantDocuments(sectionTitles, taskListItems, userCase, true),
     getRespondentDocuments(sectionTitles, taskListItems, userCase, true),
     getCafcassDocuments(sectionTitles, taskListItems, userCase),
@@ -19,19 +19,22 @@ function getText(inputStr: string, userCase: CommonContent) {
   return inputStr.replace('<nameapplicantxxxxx>', 'Applicant_FNAME_LNAME');
 }
 
-export const getOrdersFromCourt = (sectionTitles, taskListItems, url) => {
-  return [
-    {
-      title: sectionTitles.ordersFromTheCourt,
-      items: [
-        {
-          id: 'orders-from-the-court-all-docs',
-          text: taskListItems.view_all_orders_from_the_court_all_docs,
-          href: url,
-        },
-      ],
-    },
-  ];
+export const getOrdersFromCourt = (sectionTitles, taskListItems, userCase, url) => {
+  if (userCase.orderCollection) {
+    return [
+      {
+        title: sectionTitles.ordersFromTheCourt,
+        items: [
+          {
+            id: 'orders-from-the-court-all-docs',
+            text: taskListItems.view_all_orders_from_the_court_all_docs,
+            href: url,
+          },
+        ],
+      },
+    ];
+  }
+  return [];
 };
 
 export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, isApplicant) => {
@@ -79,7 +82,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     applicantItems.push({
       id: 'miam_certificate',
       text: getText(taskListItems.miam_certificate, userCase),
-      href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.APPLICANT_MIAM_CERTIFICATE : '#',
+      href: URL.APPLICANT + URL.APPLICANT_MIAM_CERTIFICATE,
     });
   }
   applicantItems.push({
@@ -339,7 +342,7 @@ const getAohAndViolence = (respondent: Respondent, taskListItems, userCase) => {
       '<namerespondentxxxxx>',
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_ALLEGATION_OF_HARM_VOILENCE : '#',
+    href: userCase.allegationsOfHarmYesNo ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
   };
 };
 
@@ -399,7 +402,7 @@ const getAohAndViolenceDA = (respondent: PartyDetails, taskListItems, userCase) 
       '<namerespondentxxxxx>',
       respondent.firstName + ' ' + respondent.lastName
     ),
-    href: userCase.allegationsOfHarmYesNo ? URL.APPLICANT + URL.RESPONDENT_ALLEGATION_OF_HARM_VOILENCE : '#',
+    href: userCase.allegationsOfHarmYesNo ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
   };
 };
 
@@ -457,10 +460,7 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href:
-      getApplicantAllegationsOfHarmAndViolence(userCase) === true
-        ? URL.APPLICANT + URL.APPLICANT_ALLEGATION_OF_HARM_VOILENCE
-        : '#',
+    href: getApplicantAllegationsOfHarmAndViolence(userCase) === true ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
   };
 };
 const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems, userCase) => {
@@ -512,10 +512,7 @@ const getApplicantAohAndViolenceDA = (applicant: PartyDetails, taskListItems, us
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href:
-      getApplicantAllegationsOfHarmAndViolence(userCase) === true
-        ? URL.APPLICANT + URL.APPLICANT_ALLEGATION_OF_HARM_VOILENCE
-        : '#',
+    href: getApplicantAllegationsOfHarmAndViolence(userCase) === true ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
   };
 };
 const getApplicantResponseToAohAndViolenceDA = (applicant: PartyDetails, taskListItems, userCase) => {
