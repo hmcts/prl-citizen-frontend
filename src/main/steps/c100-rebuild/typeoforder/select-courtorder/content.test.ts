@@ -113,6 +113,9 @@ describe('applicant personal details > applying-with > content', () => {
     expect((courtOrderField.values[2].label as LanguageLookup)(generatedContent)).toBe(
       en.stopOtherPeopleDoingSomething
     );
+    expect((courtOrderField.values[2].hint as LanguageLookup)(generatedContent)).toBe(
+      en.stopOtherPeopleDoingSomethingHint
+    );
     expect((courtOrderField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.resolveSpecificIssue);
     expect((courtOrderField.values[3].hint as LanguageLookup)(generatedContent)).toBe(en.resolveSpecificIssueHint);
 
