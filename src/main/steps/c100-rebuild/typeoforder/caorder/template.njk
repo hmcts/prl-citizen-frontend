@@ -19,17 +19,21 @@
                 <p class="govuk-body">{{childSecondary}}</p>
             {% elif item === "stopOtherPeopleDoingSomething"  %}
                 <h2 class="govuk-heading-m">{{stepsOrderTitle}}</h2>
+                <ul class="govuk-list govuk-list--bullet">
                 {% for subItem in userCase['stopOtherPeopleDoingSomethingSubField'] %}
                 {% if subItem !== ''  %}
                 <li>{{stepsList[subItem]}}</li>
                 {% endif %}
                 {% endfor %}
+                </ul>
                 <p class="govuk-body">{{stepsOrderSecondary}}</p>
             {% elif item === "resolveSpecificIssue"%}
                 <h2 class="govuk-heading-m">{{issueOrderTitle}}</h2>
-                {% for subItem in userCase['resolveSpecificIssueSubField'] %}
-                <li>{{issueOrderList[subItem]}}</li>
-                {% endfor %}
+                <ul class="govuk-list govuk-list--bullet">
+                    {% for subItem in userCase['resolveSpecificIssueSubField'] %}
+                    <li>{{issueOrderList[subItem]}}</li>
+                    {% endfor %}
+                 </ul>
                 <p class="govuk-body">{{issueOrderSecondary}}</p>
             {% endif %}
         {% endfor %}
