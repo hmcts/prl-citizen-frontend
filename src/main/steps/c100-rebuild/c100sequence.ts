@@ -178,6 +178,11 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART2,
     showInSection: Sections.C100,
+    getNextStep: () => C100_TYPE_ORDER_SELECT_COURT_ORDER,
+  },
+  {
+    url: C100_TYPE_ORDER_SELECT_COURT_ORDER,
+    showInSection: Sections.C100,
     getNextStep: () => C100_TYPE_ORDER_SHORT_STATEMENT,
   },
   {
