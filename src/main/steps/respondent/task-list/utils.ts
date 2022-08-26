@@ -91,7 +91,7 @@ export const getRespondentAllegationsOfHarmAndViolence = (userCase: CaseWithId):
 };
 
 export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
-  console.log(userCase.orderCollection);
+  console.log(userCase?.orderCollection);
   return SectionStatus.READY_TO_VIEW;
 };
 
