@@ -21,6 +21,7 @@ import {
   C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
+  C100_TYPE_ORDER_CAORDER,
   PageLink,
 } from '../urls';
 
@@ -165,6 +166,11 @@ export const C100Sequence: Step[] = [
   {
     url: C100_TYPE_ORDER_SELECT_COURT_ORDER,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_TYPE_ORDER_CAORDER,
+  },
+  {
+    url: C100_TYPE_ORDER_CAORDER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_TYPE_ORDER_CAORDER,
   },
 ];
