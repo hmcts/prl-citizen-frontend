@@ -1,12 +1,13 @@
 import { getFilename } from '../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
-//import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 const en = {
   section: 'Provide the document',
   title: 'Provide the documents',
-  declaration: 'I believe that the facts stated in these documents are true 123',
+  declaration: 'I believe that the facts stated in these documents are true',
+  consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Save and continue',
   add: 'Submit',
   uploadFiles: 'Your documents',
@@ -22,6 +23,7 @@ const cy: typeof en = {
   section: 'Provide the document',
   title: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
+  consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Save and continue',
   add: 'Submit',
   uploadFiles: 'Your documents',
@@ -42,23 +44,30 @@ export const form: FormContent = {
   fields: () => {
     const checkboxes: { id: string; value: string }[] = [];
 
-    checkboxes.push({
-      id: 'sot',
-      value: 'StatementOfTruth',
-    });
-
+      checkboxes.push({
+        id: 'sot',
+        value: 'StatementOfTruth',
+      });
+      
     return {
+
       declarationCheck: {
         type: 'checkboxes',
-        labelHidden: true,
-        //validator: atLeastOneFieldIsChecked,
         values: [
           {
             name: 'declarationCheck',
-            value: 'declaration consent',
+            label: l => l.declaration,
+            value: 'declaration',
           },
         ],
+        validator: atLeastOneFieldIsChecked,
       },
+      consentConfirm: {
+        type: 'label',
+        classes: 'govuk-label',
+        label: l => l.consent,
+        labelSize: 'm',
+      }
     };
   },
   submit: {
