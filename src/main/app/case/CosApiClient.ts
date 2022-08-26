@@ -1,6 +1,7 @@
 import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
+import { DocumentDetail } from '../../app/document/DocumentDetail';
 import { GenerateAndUploadDocumentRequest } from '../../app/document/GenerateAndUploadDocumentRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
@@ -108,7 +109,7 @@ export class CosApiClient {
   public async generateUserUploadedStatementDocument(
     user: UserDetails,
     generateAndUploadDocumentRequest: GenerateAndUploadDocumentRequest
-  ): Promise<string> {
+  ): Promise<DocumentDetail> {
     try {
       const headers = {
         Accept: 'application/json',
@@ -124,7 +125,11 @@ export class CosApiClient {
         { headers }
       );
       console.log(response);
-      return response.data;
+      return {
+        status: response.status,
+        documentId: response.data?.documentId,
+        documentName: response.data?.docuemntName,
+      };
     } catch (err) {
       throw new Error('Case could not be updated.');
     }

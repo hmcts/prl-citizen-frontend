@@ -36,7 +36,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
   public async generatePdf(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     if (!req?.session?.userCase) {
-      const initData = { id: '1661346907380146', state: State.successAuthentication, serviceType: '' };
+      const initData = { id: '1661441222471371', state: State.successAuthentication, serviceType: '' };
       req.session.userCase = initData;
     }
 
@@ -56,10 +56,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const uploadDocumentDetails = {
       caseId: req.session.userCase.id,
-      freeTextStatements: req.body.freeTextAreaForUpload,
+      freeTextUploadStatements: req.body.freeTextAreaForUpload,
       parentDocumentType: req.query.parentDocumentType,
       documentType: req.query.documentType,
       partyName,
+      partyId: req.session.user.id,
     };
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
 
@@ -69,12 +70,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
       generateAndUploadDocumentRequest
     );
     console.log(updatedCaseDataFromCos);
-    if (updatedCaseDataFromCos === 'FAILED') {
+    if (updatedCaseDataFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'accessCode' });
     } else {
       const obj = {
-        id: updatedCaseDataFromCos as string,
-        name: updatedCaseDataFromCos as string,
+        id: updatedCaseDataFromCos.documentId as string,
+        name: updatedCaseDataFromCos.documentName as string,
       };
       req.session.userCase.applicantUploadFiles?.push(obj);
       req.session.errors = [];
