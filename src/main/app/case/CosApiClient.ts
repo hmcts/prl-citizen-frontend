@@ -86,24 +86,22 @@ export class CosApiClient {
     return response.data;
   }
 
-  public async updateCase(
-    user: UserDetails,
-    caseId: string,
-    data: Partial<CaseData>,
-    eventId: string
-  ): Promise<CaseWithId> {
+  public async updateCase(user: UserDetails, caseId: string, data: Partial<CaseData>): Promise<CaseWithId> {
     data.applicantCaseName = 'Tom Jerry - updated';
     try {
-      const eventId = 'citizen-case-update';
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
-        headers,
-      });
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/${caseId}/citizen-case-update/update-case`,
+        data,
+        {
+          headers,
+        }
+      );
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {

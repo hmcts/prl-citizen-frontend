@@ -160,7 +160,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     if (filename === 'miamcertificate') {
-      if (!req.session.userCase.miamCertificationDocumentUpload.document_binary_url) {
+      if (!req.session.userCase.miamCertificationDocumentUpload?.document_binary_url) {
         throw new Error('miam certificate binary url is not found');
       }
       filename = req.session.userCase.miamCertificationDocumentUpload.document_filename;
@@ -169,7 +169,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     if (filename === 'aohviolence') {
-      if (!req.session.userCase.c1ADocument.document_binary_url) {
+      if (!req.session.userCase.c1ADocument?.document_binary_url) {
         throw new Error('c1ADocument binary url is not found');
       }
       filename = req.session.userCase.c1ADocument.document_filename;
@@ -177,8 +177,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
-    if (endPoint === 'orders') {
-      for (const doc of req.session.userCase.orderCollection) {
+    if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
+      for (const doc of req.session.userCase?.orderCollection) {
         if (
           doc.value.orderDocument.document_url.substring(doc.value.orderDocument.document_url.lastIndexOf('/') + 1) ===
           filename

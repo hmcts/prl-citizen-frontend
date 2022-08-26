@@ -4,6 +4,8 @@ import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
+import { respondent_en } from './section-titles';
+import { respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
   title: 'Respond to the application',
   statuses: {
@@ -13,27 +15,8 @@ const enContent = {
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
-  sectionTitles: {
-    respondentYourDetails: 'Your details',
-    consentToTheApplication: 'Consent to the application',
-    applicationDetails: 'Application details',
-    respondentAdditionalInformation: 'Additional information',
-    ordersFromTheCourt: 'Orders from the court',
-    viewAllDocuments: 'Your documents',
-    respondentSafetyConcerns: 'Safety concerns',
-  },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    do_you_consent_to_the_application: 'Do you consent to the application?',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    mediation_miam: 'Mediation(MIAM)',
-    international_factors: 'International element',
-    upload_document: 'Upload Documents',
-    view_all_orders_from_the_court: 'View all orders from the court',
-    view_all_documents: 'View all documents',
-    current_or_previous_proceedings: 'Current or previous proceedings',
-    your_safety: 'Your safety',
-  },
+  sectionTitles: respondent_en,
+  taskListItems: respondent_tasklist_items_en,
 };
 const cyContent = {
   title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
@@ -44,27 +27,8 @@ const cyContent = {
     [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
   },
-  sectionTitles: {
-    respondentYourDetails: 'Your details',
-    applicationDetails: 'Application details',
-    consentToTheApplication: 'Consent to the application',
-    respondentAdditionalInformation: 'Additional information',
-    ordersFromTheCourt: 'Orders from the court',
-    viewAllDocuments: 'Your documents',
-    respondentSafetyConcerns: 'Safety concerns',
-  },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    do_you_consent_to_the_application: 'Do you consent to the application?',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    mediation_miam: 'Mediation(MIAM)',
-    international_factors: 'International element',
-    upload_document: 'Upload Documents',
-    view_all_orders_from_the_court: 'View all orders from the court',
-    view_all_documents: 'View all documents',
-    current_or_previous_proceedings: 'Current or previous proceedings',
-    your_safety: 'Your safety',
-  },
+  sectionTitles: respondent_en,
+  taskListItems: respondent_tasklist_items_en,
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
@@ -160,7 +124,7 @@ describe('task-list > content', () => {
         },
         {
           items: [
-             {
+            {
               href: '/respondent/safety_concerns/main_page',
               id: 'your-safety',
               status: 'TO_DO',

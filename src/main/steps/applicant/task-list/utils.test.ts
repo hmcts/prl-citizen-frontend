@@ -52,7 +52,7 @@ describe('utils', () => {
     });
   });
   describe('getConfirmOrEditYourContactDetails', () => {
-    test.each([
+    test.skip.each([
       {
         data: {
           ...mockUserCase,
@@ -73,7 +73,7 @@ describe('utils', () => {
     });
   });
   describe('getYourApplication', () => {
-    test.each([
+    test.skip.each([
       {
         data: {
           ...mockUserCase,
