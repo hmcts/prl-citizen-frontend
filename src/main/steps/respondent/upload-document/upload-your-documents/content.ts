@@ -44,13 +44,12 @@ export const form: FormContent = {
   fields: () => {
     const checkboxes: { id: string; value: string }[] = [];
 
-      checkboxes.push({
-        id: 'sot',
-        value: 'StatementOfTruth',
-      });
-      
-    return {
+    checkboxes.push({
+      id: 'sot',
+      value: 'StatementOfTruth',
+    });
 
+    return {
       declarationCheck: {
         type: 'checkboxes',
         values: [
@@ -67,7 +66,7 @@ export const form: FormContent = {
         classes: 'govuk-label',
         label: l => l.consent,
         labelSize: 'm',
-      }
+      },
     };
   },
   submit: {
