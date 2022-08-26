@@ -38,6 +38,7 @@ import {
   OtherProceedingsTable,
   OthersToNotify,
   PRLDocument,
+  PartyDetails,
   Respondent,
   SpecialArrangement,
   State,
@@ -58,6 +59,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseStatus: 'caseStatus',
   welshNeeds: 'welshNeeds',
   respondents: 'respondents',
+  applicants: 'applicants',
+  applicantsFL401: 'applicantsFL401',
+  respondentsFL401: 'respondentsFL401',
   consentOrder: 'consentOrder',
   isCaseUrgent: 'isCaseUrgent',
   isWelshNeeded: 'isWelshNeeded',
@@ -87,6 +91,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   miamExemptionsTable: 'miamExemptionsTable',
   isIntermediaryNeeded: 'isIntermediaryNeeded',
   allocatedJudgeDetails: 'allocatedJudgeDetails',
+  miamCertificationDocumentUpload: 'miamCertificationDocumentUpload',
+  c1ADocument: 'c1ADocument',
   applicantAttendedMiam: 'applicantAttendedMiam',
   caseTypeOfApplication: 'caseTypeOfApplication',
   claimingExemptionMiam: 'claimingExemptionMiam',
@@ -143,9 +149,35 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   previousOrOngoingProceedingsForChildren: 'previousOrOngoingProceedingsForChildren',
   welshLanguageRequirementApplicationNeedEnglish: 'welshLanguageRequirementApplicationNeedEnglish',
   orderCollection: 'orderCollection',
+  respondentName: 'respondentName',
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
+  serviceType: 'serviceType',
+  claimNumber: 'claimNumber',
+  caseCode: 'caseCode',
+  respondentLastName: 'respondentLastName',
+  contactDetailsPrivate: 'contactDetailsPrivate',
+
+  applicant1FirstNames: 'applicant1FirstNames',
+  applicant1LastNames: 'applicant1LastNames',
+  applicant1FullName: 'applicant1FullName',
+  applicant1HasOtherNames: 'applicant1HasOtherNames',
+  applicant1AdditionalNames: 'applicant1AdditionalNames',
+  applicant1DateOfBirth: 'applicant1DateOfBirth',
+  applicant1Occupation: 'applicant1Occupation',
+  applicant1EmailAddress: 'applicant1EmailAddress',
+  applicant1PhoneNumber: 'applicant1PhoneNumber',
+  applicant1PlaceOfBirth: 'applicant1PlaceOfBirth',
+  applicant1Address1: 'applicant1Address1',
+  applicant1Address2: 'applicant1Address2',
+  applicant1AddressTown: 'applicant1AddressTown',
+  // applicant1AddressCounty: 'applicant1AddressCountry',
+  // applicant1AddressPostcode: 'applicant1AddressPostCode',
+  applicant1ContactDetails: 'applicant1ContactDetails',
+  applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
+  //applicant1LanguagePreference: 'applicant1LanguagePreference',
+  citizenRole: 'citizenRole',
   applicantDocumentsUploaded: 'applicantDocumentsUploaded',
 };
 
@@ -169,6 +201,8 @@ export interface Case {
   children?: Child[];
   miamTable?: MiamTable;
   applicants?: Applicant[];
+  applicantsFL401?: PartyDetails;
+  respondentsFL401?: PartyDetails;
   caseStatus?: CaseStatus;
   welshNeeds?: WelshNeed[];
   respondents?: Respondent[];
@@ -179,10 +213,10 @@ export interface Case {
   applicantTable?: ApplicantTable[];
   othersToNotify?: OthersToNotify[];
   urgencyDetails?: UrgencyDetails;
-  //respondentTable: RespondentTable[];
+  //respondentTable?: RespondentTable[];
   allegationOfHarm?: AllegationOfHarm;
   dateOfSubmission?: DateOfSubmission;
-  //declarationTable: DeclarationTable;
+  //declarationTable?: DeclarationTable;
   interpreterNeeds?: InterpreterNeed[];
   applicantCaseName?: string;
   childDetailsTable?: ChildDetailsTable[];
@@ -204,6 +238,8 @@ export interface Case {
   applicantAttendedMiam?: string;
   caseTypeOfApplication?: string;
   claimingExemptionMiam?: string;
+  miamCertificationDocumentUpload?: Document;
+  c1ADocument?: Document;
   draftConsentOrderFile?: DraftConsentOrderFile;
   otherProceedingsTable?: OtherProceedingsTable;
   allegationsOfHarmYesNo?: string;
@@ -225,7 +261,7 @@ export interface Case {
   jurisdictionIssueGiveReason?: string;
   litigationCapacityReferrals?: string;
   specialArrangementsRequired?: string;
-  //allegationsOfHarmOrdersTable: AllegationsOfHarmOrdersTable;
+  //allegationsOfHarmOrdersTable?: AllegationsOfHarmOrdersTable;
   habitualResidentInOtherState?: string;
   otherProceedingsDetailsTable?: OtherProceedingsDetailsTable[];
   summaryTabForOrderAppliedFor?: SummaryTabForOrderAppliedFor;
@@ -257,8 +293,7 @@ export interface Case {
   previousOrOngoingProceedingsForChildren?: string;
   welshLanguageRequirementApplicationNeedEnglish?: string;
 
-  //TODO: Below fields should be with in respondent object.
-  /***** case code authorization fields *****/
+  //TODO?: Below fields should be with in respondent object.
   serviceType?: string;
   claimNumber?: string;
   caseCode?: string;
@@ -283,6 +318,7 @@ export interface Case {
   iFactorsRequestProvideDetails?: string;
   iFactorsParentsProvideDetails?: string;
   confirmcontactdetails?: string;
+  respondentName?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
   respondentCaseInvites?: CaseInvite[];
@@ -297,6 +333,7 @@ export interface Case {
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   /*** Document upload */
   applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
+  applicant1UploadedFiles?: UploadedFile[];
   proceedingsCourtCase?: string;
   proceedingsStart?: string;
   proceedingsCourtOrder?: string;
@@ -432,11 +469,6 @@ export enum LanguagePreference {
   Welsh = 'welsh',
 }
 
-export interface UploadedFile {
-  id: string;
-  name: string;
-}
-
 export enum FieldPrefix {
   APPLICANT1 = 'applicant1',
   APPLICANT2 = 'applicant2',
@@ -446,4 +478,9 @@ export enum FieldPrefix {
   OTHER_PARENT = 'otherParent',
   APPLICANT = 'APPLICANT',
   RESPONDENT = 'RESPONDENT',
+}
+
+export interface UploadedFile {
+  id: string;
+  name: string;
 }

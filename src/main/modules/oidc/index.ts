@@ -29,7 +29,11 @@ export class OidcMiddleware {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
           req.session.save(() => res.redirect('/dashboard'));
         } else {
-          res.redirect(SIGN_IN_URL);
+          if (!req.session?.accessCodeLoginIn) {
+            res.redirect(CITIZEN_HOME_URL);
+          } else {
+            res.redirect(SIGN_IN_URL);
+          }
         }
       })
     );

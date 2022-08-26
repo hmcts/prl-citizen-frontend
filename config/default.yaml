@@ -22,13 +22,13 @@ services:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
     #url: 'http://localhost:4452'
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-502.service.core-compute-preview.internal'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
     #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     #checkDivCases: true
   cos:
-    url: 'https://prl-cos-pr-476.service.core-compute-preview.internal'
+    url: 'https://prl-cos-pr-505.service.core-compute-preview.internal'
   documentManagement:
-    url: 'http://ccd-case-document-am-api-prl-ccd-definitions-pr-502.service.core-compute-preview.internal'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
     checkDivCases: true
   dgs:
     url: 'http://localhost:4007'

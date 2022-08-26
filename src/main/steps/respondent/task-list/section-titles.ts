@@ -3,6 +3,7 @@ export const respondent_en = {
   applicationDetails: 'Application details',
   consentToTheApplication: 'Consent to the application',
   respondentAdditionalInformation: 'Additional information',
+  viewAllDocuments: 'Your documents',
   yourDocuments: 'Your documents',
   ordersFromTheCourt: 'Orders from the court',
   respondentSafetyConcerns: 'Safety concerns',

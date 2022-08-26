@@ -36,6 +36,33 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   return SectionStatus.TO_DO;
 };
 
+export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
+  console.log('applicant getViewAllDocuments: ' + userCase);
+  return SectionStatus.READY_TO_VIEW;
+};
+
+export const getApplicantViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
+  }
+  return flag;
+};
+export const getApplicantResponseToRequestForChildArrangements = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.childrenKnownToLocalAuthority) {
+    flag = true;
+  }
+  return flag;
+};
+export const getApplicantAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.allegationsOfHarmYesNo) {
+    flag = true;
+  }
+  return flag;
+};
+
 export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus => {
   if (
     userCase?.languageRequirements &&

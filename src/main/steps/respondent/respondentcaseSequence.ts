@@ -16,6 +16,7 @@ import {
   MIAM_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
+  RESPONDENT,
   RESPONDENT_ADDRESS_BLANK,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
@@ -26,11 +27,13 @@ import {
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_FIND_ADDRESS,
+  RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
+  RESPONDENT_VIEW_ALL_DOCUMENTS,
   SAFETY_MAIN_PAGE,
   UPLOAD_DOCUMENT,
   UPLOAD_DOCUMENT_LIST_START_URL,
@@ -38,6 +41,7 @@ import {
   UPLOAD_DOCUMENT_LIST_URL,
   UPLOAD_DOCUMENT_SUCCESS,
   YOUR_SAFETY,
+  YOUR_WITNESS_STATEMENTS,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -170,6 +174,26 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
+    url: RESPONDENT_TASK_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_ORDERS_FROM_THE_COURT,
+  },
+  {
+    url: RESPONDENT_ORDERS_FROM_THE_COURT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_TASK_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
     url: SAFETY_MAIN_PAGE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => YOUR_SAFETY,
@@ -231,5 +255,15 @@ export const respondentCaseSequence: Step[] = [
     url: UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${RESPONDENT}${YOUR_WITNESS_STATEMENTS}`,
+  },
+  {
+    url: `${RESPONDENT}${YOUR_WITNESS_STATEMENTS}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
 ];

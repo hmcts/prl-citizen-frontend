@@ -131,8 +131,7 @@ export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIV
 export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
 /* applicant-keep-details-private-end */
 
-/* fl401 applicant document list */
-export const APPLICANT_ALL_DOCUEMNTS: PageLink = `${APPLICANT}/alldocuments`;
+export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/orders`;
 
 /* consent-to-the-application */
 export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
@@ -140,11 +139,70 @@ export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
 /* consent-to-the-application */
-export const RESPONDENT_VIEW_ALL_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
+export const RESPONDENT_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
+
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
 export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';
 export const YOUR_APPLICATION_WITNESS_STATEMENT: PageLink = `${APPLICANT}${APPLICATION_WITNESS_STATEMENT}`;
+
+export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments';
+export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
+export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
+
+/* view all documents */
+/* Applicant Documents */
+export const APPLICANT_CA_DA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/cadafinaldocumentrequest`;
+export const ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence`;
+export const APPLICANT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolenceresponse`;
+export const APPLICANT_POSITION_STATEMENT: PageLink = `${VIEW_ALL_DOCUMENTS}/positionstatement`;
+export const YOUR_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/yourwitnessstatements`;
+export const OTHER_PEOPLE_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/otherpeoplewitnessstatement`;
+export const APPLICANT_MEDICAL_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/medicalreports`;
+export const APPLICANT_MIAM_CERTIFICATE: PageLink = `${VIEW_ALL_DOCUMENTS}/miamcertificate`;
+export const APPLICANT_APP_MADE_IN_PRCEEDINGS: PageLink = `${VIEW_ALL_DOCUMENTS}/applicationmade`;
+export const APPLICANT_PREVIOUS_ORDERS_SUBMITTED: PageLink = `${VIEW_ALL_DOCUMENTS}/previousorders`;
+export const APPLICANT_LETTER_FROM_SCHOOL: PageLink = `${VIEW_ALL_DOCUMENTS}/letterfromschool`;
+export const APPLICANT_DIGITAL_DOWNLOADS: PageLink = `${VIEW_ALL_DOCUMENTS}/digitaldownloads`;
+export const APPLICANT_PHOTOGRAPHIC_EVIDENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/photographicevidence`;
+export const APPLICANT_MOBILE_SCREENSHOTS: PageLink = `${VIEW_ALL_DOCUMENTS}/mobilescreenshots`;
+export const APPLICANT_MEDICAL_RECORDS: PageLink = `${VIEW_ALL_DOCUMENTS}/medicalrecords`;
+export const APPLICANT_PATERNITY_TEST_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/paternity_test_reports`;
+export const APPLICANT_DRUG_ALCOHOL_TESTS: PageLink = `${VIEW_ALL_DOCUMENTS}/drug_alcohol_tests`;
+export const APPLICANT_POLICE_DISCLOSURE: PageLink = `${VIEW_ALL_DOCUMENTS}/police_disclosures`;
+export const APPLICANT_WITNESS_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/witness_availability`;
+/* Respondent Documents */
+export const RESPONDENT_CA_RESPONSE: PageLink = `${VIEW_ALL_DOCUMENTS}/caresponse`;
+export const RESPONDENT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentaohresponse`;
+export const RESPONDENT_APP_MADE_IN_PRCEEDINGS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentapplicationmade`;
+export const RESPONDENT_PREVIOUS_ORDERS_SUBMITTED: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentpreviousorders`;
+export const RESPONDENT_LETTER_FROM_SCHOOL: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentletterfromschool`;
+export const RESPONDENT_POSITION_STATEMENT: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentpositionstatement`;
+export const RESPONDENT_OTHER_PEOPLE_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentOtherPeopleWitnessStatement`;
+export const RESPONDENT_DIGITAL_DOWNLOADS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentdigitaldownloads`;
+export const RESPONDENT_PHOTOGRAPHIC_EVIDENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentphotographicevidence`;
+export const RESPONDENT_MOBILE_SCREENSHOTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentmobilescreenshots`;
+export const RESPONDENT_MEDICAL_RECORDS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentmedicalrecords`;
+export const RESPONDENT_MEDICAL_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentmedicalreports`;
+export const RESPONDENT_PATERNITY_TEST_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondent_paternity_test_reports`;
+export const RESPONDENT_DRUG_ALCOHOL_TESTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondent_drug_alcohol_tests`;
+export const RESPONDENT_POLICE_DISCLOSURE: PageLink = `${VIEW_ALL_DOCUMENTS}/respondent_police_disclosure`;
+export const RESPONDENT_WITNESS_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/respondent_witness_availability`;
+/** CAFCASS and local authority document */
+export const RESPONDENT_SAFEGUARDING_LETTER: PageLink = `${VIEW_ALL_DOCUMENTS}/safeguarding_letter`;
+export const RESPONDENT_SECTION7_REPORT: PageLink = `${VIEW_ALL_DOCUMENTS}/section7_report`;
+export const RESPONDENT_SECTION37_REPORT: PageLink = `${VIEW_ALL_DOCUMENTS}/section37_report`;
+export const RESPONDENT_RISK_ASSESSMENT: PageLink = `${VIEW_ALL_DOCUMENTS}/risk_assessment_16a`;
+/** Other document */
+export const RESPONDENT_IMP_ADDRESS_CONTACT_INFO: PageLink = `${VIEW_ALL_DOCUMENTS}/important_address_and_contact_details`;
+export const RESPONDENT_DNA_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/dna_reports`;
+export const RESPONDENT_PRIVACY_NOTICE: PageLink = `${VIEW_ALL_DOCUMENTS}/privacy_notice`;
+export const RESPONDENT_SPECIAL_MEASURES: PageLink = `${VIEW_ALL_DOCUMENTS}/special_measures`;
+/** Attending the hearing */
+export const RESPONDENT_NOTICE_OF_HEARING: PageLink = `${VIEW_ALL_DOCUMENTS}/notice_of_hearing`;
+export const RESPONDENT_SUPPORT_NEEDED: PageLink = `${VIEW_ALL_DOCUMENTS}/support_needed`;
+
+/** Document Urls */
 
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 /* your needs when you go to court */
