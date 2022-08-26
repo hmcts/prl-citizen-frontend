@@ -6,12 +6,14 @@ const en = {
   section: 'How your documents will be shared',
   status: 'Your documents have been uploaded',
   continue: 'Continue',
+  remove: 'Remove',
 };
 
 const cy: typeof en = {
   section: 'How your documents will be shared',
   status: 'Your documents have been uploaded',
   continue: 'Continue',
+  remove: 'Remove',
 };
 
 const languages = {
