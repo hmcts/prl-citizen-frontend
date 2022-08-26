@@ -4,7 +4,8 @@ import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-const docsEmail = 'example@test.com';
+//const docsEmail = 'example@test.com';
+const docsEmail = 'citizen-upload-docs-email';
 
 const en = {
   section: 'How your documents will be shared',

@@ -58,7 +58,7 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    // Object.assign(req.session.userCase, formData);
+    Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
     console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
@@ -174,88 +174,40 @@ export class PostController<T extends AnyObject> {
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
   }
-  /*
-    private async checkCaseAccessCode(
-      req: AppRequest<T>,
-      res: Response,
-      form: Form,
-      formData: Partial<CaseWithId>
-    ): Promise<void> {
-      if (req?.session?.userCase) {
-        Object.assign(req?.session?.userCase, formData);
-      } else {
-        const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
-        req.session.userCase = initData;
-      }
-      const caseworkerUser = await getSystemUser();
-      req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
-      req.session.errors = form.getErrors(formData);
-      const caseReference = formData.caseCode?.replace(/-/g, '');
-      const accessCode = formData.accessCode?.replace(/-/g, '');
-      try {
-        if (!req.session.errors.length) {
-          const caseData = await req.locals.api.getCaseById(caseReference as string);
-          console.log(caseData);
-          const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-          const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
-          const caseDataFromCos = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
 
-          console.log(caseDataFromCos);
-          const updatedCaseDataFromCos = await client.updateCase(
-            caseworkerUser,
-            caseReference as string,
-            caseDataFromCos,
-            'citizen-case-update'
-          );
+  private async checkCaseAccessCode(
+    req: AppRequest<T>,
+    res: Response,
+    form: Form,
+    formData: Partial<CaseWithId>
+  ): Promise<void> {
+    // if (req?.session?.userCase) {
+    //   Object.assign(req?.session?.userCase, formData);
+    // } else {
+    //   const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
+    //   req.session.userCase = initData;
+    // }
+    /*
+    const caseworkerUser = await getSystemUser();
+        const caseReference = formData.caseCode?.replace(/-/g, '');
+        const accessCode = formData.accessCode?.replace(/-/g, '');
+        // req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+        req.session.errors = form.getErrors(formData);
 
-          console.log('*******************************');
-          console.log(updatedCaseDataFromCos);
-          let accessCodeMatched = false;
-          let accessCodeLinked = false;
-          if (caseData.respondentCaseInvites !== null) {
-            caseData.respondentCaseInvites?.forEach(obj => {
-              Object.entries(obj).forEach(([key, value]) => {
-                console.log(key);
-                Object.entries(value).forEach(([key1, value1]) => {
-                  if (key1 === 'hasLinked' && value1 === 'Yes') {
-                    accessCodeLinked = true;
-                  } else {
-                    accessCodeLinked = false;
-                  }
-                  if (key1 === 'accessCode' && value1 === formData.accessCode) {
-                    accessCodeMatched = true;
-                  }
-                });
-              });
-            });
+        try {
+          if (!req.session.errors.length) {
+            const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+            const accessCodeValidated = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
+            console.log(accessCodeValidated);
+            if (accessCodeValidated === 'linked') {
+              req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
+            } else if (accessCodeValidated !== 'valid') {
+              req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+            }
           }
-          if (caseData.applicantCaseInvites !== null) {
-            caseData.applicantCaseInvites?.forEach(obj => {
-              Object.entries(obj).forEach(([key, value]) => {
-                console.log(key);
-                Object.entries(value).forEach(([key1, value1]) => {
-                  if (key1 === 'hasLinked' && value1 === 'Yes') {
-                    accessCodeLinked = true;
-                  } else {
-                    accessCodeLinked = false;
-                  }
-                  if (key1 === 'accessCode' && value1 === formData.accessCode) {
-                    accessCodeMatched = true;
-                  }
-                });
-              });
-            });
-          }
-          if (!accessCodeMatched) {
-            req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
-          }
-          if (accessCodeLinked) {
-            req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
-          }
+        } catch (err) {
+          req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
         }
-      } catch (err) {
-        req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
-      }
 
       if (req.session.errors.length) {
         req.session.accessCodeLoginIn = false;
@@ -274,12 +226,13 @@ export class PostController<T extends AnyObject> {
     }
   }*/
 
-  private async checkCaseAccessCode(
-    req: AppRequest<T>,
-    res: Response,
-    form: Form,
-    formData: Partial<CaseWithId>
-  ): Promise<void> {
+    // if (req?.session?.userCase) {
+    //   Object.assign(req?.session?.userCase, formData);
+    // } else {
+    //   const initData = { id: ' ', state: State.successAuthentication, serviceType: '', ...formData };
+    //   req.session.userCase = initData;
+    // }
+
     const caseworkerUser = await getSystemUser();
     const caseReference = formData.caseCode?.replace(/-/g, '');
     const accessCode = formData.accessCode?.replace(/-/g, '');
@@ -288,7 +241,62 @@ export class PostController<T extends AnyObject> {
 
     try {
       if (!req.session.errors.length) {
-        const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+        //const caseData = await req.locals.api.getCaseById(caseReference as string);
+
+        const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
+        const caseDataFromCos = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
+        req.session.userCase = caseDataFromCos;
+        //console.log('caseDataFromCos=======>' + JSON.stringify(caseDataFromCos));
+
+        // const updatedCaseDataFromCos = await client.updateCase(
+        //   caseworkerUser,
+        //   caseReference as string,
+        //   caseDataFromCos,
+        //   'internal-update-application-tab'
+        // );
+
+        // let accessCodeMatched = false;
+        // let accessCodeLinked = false;
+        // if (caseData.respondentCaseInvites !== null) {
+        //   caseData.respondentCaseInvites?.forEach(obj => {
+        //     Object.entries(obj).forEach(([key, value]) => {
+        //       console.log(key);
+        //       Object.entries(value).forEach(([key1, value1]) => {
+        //         if (key1 === 'hasLinked' && value1 === 'Yes') {
+        //           accessCodeLinked = true;
+        //         } else {
+        //           accessCodeLinked = false;
+        //         }
+        //         if (key1 === 'accessCode' && value1 === formData.accessCode) {
+        //           accessCodeMatched = true;
+        //         }
+        //       });
+        //     });
+        //   });
+        // }
+        // if (caseData.applicantCaseInvites !== null) {
+        //   caseData.applicantCaseInvites?.forEach(obj => {
+        //     Object.entries(obj).forEach(([key, value]) => {
+        //       console.log(key);
+        //       Object.entries(value).forEach(([key1, value1]) => {
+        //         if (key1 === 'hasLinked' && value1 === 'Yes') {
+        //           accessCodeLinked = true;
+        //         } else {
+        //           accessCodeLinked = false;
+        //         }
+        //         if (key1 === 'accessCode' && value1 === formData.accessCode) {
+        //           accessCodeMatched = true;
+        //         }
+        //       });
+        //     });
+        //   });
+        // }
+        // if (!accessCodeMatched) {
+        //   req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        // }
+        // if (accessCodeLinked) {
+        //   req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
+        // }
         const accessCodeValidated = await client.validateAccessCode(
           caseReference as string,
           accessCode as string,
@@ -302,6 +310,7 @@ export class PostController<T extends AnyObject> {
         }
       }
     } catch (err) {
+      console.log('Retrieving case failed with error: ' + err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 

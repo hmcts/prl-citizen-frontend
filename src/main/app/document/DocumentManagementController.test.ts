@@ -9,10 +9,8 @@ jest.mock('../document/DocumentManagementClient');
 jest.mock('../../app/auth/user/oidc');
 
 describe('DocumentManagerController', () => {
-  // let generatedContent;
-  // let form;
   let fields;
-
+  const documentManagerController = new DocumentManagerController(fields);
   beforeEach(() => {
     jest.clearAllMocks();
     mockCreate.mockClear();
@@ -20,8 +18,6 @@ describe('DocumentManagerController', () => {
     mockGet.mockClear();
     //jest.mock('getSystemUser', () => jest.fn());
   });
-
-  const documentManagerController = new DocumentManagerController(fields);
 
   describe('fetch file FL401-Final-Document for applicant', () => {
     test('fetch an existing file - %o', async () => {
@@ -37,7 +33,7 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'http://ccd-case-document-am-api-prl-ccd-definitions-pr-502.service.core-compute-preview.internal/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
       });
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICANT_TASK_LIST_URL);
@@ -87,7 +83,7 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'http://ccd-case-document-am-api-prl-ccd-definitions-pr-502.service.core-compute-preview.internal/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
+        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
       });
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICANT_TASK_LIST_URL);
