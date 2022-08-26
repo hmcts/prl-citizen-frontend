@@ -179,4 +179,10 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   },
+
+  {
+    url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
 ];
