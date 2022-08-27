@@ -5,7 +5,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(20);
+    expect(C100Sequence).toHaveLength(25);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -200,12 +200,32 @@ describe('C100Sequence', () => {
       })
     ).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help');
 
-    expect(C100Sequence[18].url).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+    expect(C100Sequence[18].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[18].showInSection).toBe('c100');
-    expect(C100Sequence[18].getNextStep({})).toBe('/c100-rebuild/other-proceedings/proceeding-details');
+    expect(C100Sequence[18].getNextStep({})).toBe('/c100-rebuild/hearing-without-notice/hearing-part1');
 
-    expect(C100Sequence[19].url).toBe('/c100-rebuild/other-proceedings/proceeding-details');
+    expect(C100Sequence[19].url).toBe('/c100-rebuild/hearing-without-notice/hearing-part1');
     expect(C100Sequence[19].showInSection).toBe('c100');
-    expect(C100Sequence[19].getNextStep({})).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+    expect(C100Sequence[19].getNextStep({})).toBe('/c100-rebuild/hearing-without-notice/hearing-part2');
+
+    expect(C100Sequence[20].url).toBe('/c100-rebuild/hearing-without-notice/hearing-part2');
+    expect(C100Sequence[20].showInSection).toBe('c100');
+    expect(C100Sequence[20].getNextStep({})).toBe('/c100-rebuild/typeoforder/select-courtorder');
+
+    expect(C100Sequence[21].url).toBe('/c100-rebuild/typeoforder/select-courtorder');
+    expect(C100Sequence[21].showInSection).toBe('c100');
+    expect(C100Sequence[21].getNextStep({})).toBe('/c100-rebuild/typeoforder/shortstatement');
+
+    expect(C100Sequence[22].url).toBe('/c100-rebuild/typeoforder/shortstatement');
+    expect(C100Sequence[22].showInSection).toBe('c100');
+    expect(C100Sequence[22].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+
+    expect(C100Sequence[23].url).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+    expect(C100Sequence[23].showInSection).toBe('c100');
+    expect(C100Sequence[23].getNextStep({})).toBe('/c100-rebuild/other-proceedings/proceeding-details');
+
+    expect(C100Sequence[24].url).toBe('/c100-rebuild/other-proceedings/proceeding-details');
+    expect(C100Sequence[24].showInSection).toBe('c100');
+    expect(C100Sequence[24].getNextStep({})).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
   });
 });
