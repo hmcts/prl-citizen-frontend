@@ -13,12 +13,13 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { CITIZEN_UPDATE, DocumentType, ListValue, State, UploadDocumentList } from '../case/definition';
+import { DocumentType, ListValue, State, UploadDocumentList } from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
+import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 //import { DgsApiClient } from 'app/case/DgsApiClient';
 //import { v4 as generateUuid } from 'uuid';
@@ -65,17 +66,17 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
 
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-    const updatedCaseDataFromCos = await client.generateUserUploadedStatementDocument(
+    const uploadCitizenDocFromCos = await client.generateUserUploadedStatementDocument(
       caseworkerUser,
       generateAndUploadDocumentRequest
     );
-    console.log(updatedCaseDataFromCos);
-    if (updatedCaseDataFromCos.status !== 200) {
-      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'accessCode' });
+    console.log(uploadCitizenDocFromCos);
+    if (uploadCitizenDocFromCos.status !== 200) {
+      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {
       const obj = {
-        id: updatedCaseDataFromCos.documentId as string,
-        name: updatedCaseDataFromCos.documentName as string,
+        id: uploadCitizenDocFromCos.documentId as string,
+        name: uploadCitizenDocFromCos.documentName as string,
       };
       req.session.userCase.applicantUploadFiles?.push(obj);
       req.session.errors = [];
@@ -224,34 +225,34 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return refinedUrl.substring(refinedUrl.length - UID_LENGTH);
   }
 
-  public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-    const documentsUploadedKey = 'applicantDocumentsUploaded';
-    const documentsUploaded = (req.session.userCase[documentsUploadedKey] as ListValue<UploadDocumentList>[]) ?? [];
-
-    const documentIndexToDelete = parseInt(req.params.index, 10);
-    const documentToDelete = documentsUploaded[documentIndexToDelete];
-    if (!documentToDelete?.value?.value?.citizenDocument.document_url) {
-      return res.redirect(UPLOAD_DOCUMENT);
+  public async deleteDocument(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+    if (!req?.session?.userCase) {
+      const initData = { id: '1661509886231065', state: State.successAuthentication, serviceType: '' };
+      req.session.userCase = initData;
     }
-    const documentUrlToDelete = documentToDelete?.value?.value?.citizenDocument.document_url;
-
-    // documentsUploaded[documentIndexToDelete].value = null;
-
-    req.session.userCase = await req.locals.api.triggerEvent(
-      req.session.userCase.id,
-      { [documentsUploadedKey]: documentsUploaded },
-      CITIZEN_UPDATE
-    );
-
-    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-    await documentManagementClient.delete({ url: documentUrlToDelete });
-
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      return res.redirect(UPLOAD_DOCUMENT);
-    });
+    const caseworkerUser = await getSystemUser();
+    //req.session.userCase['applicantUploadFiles'];
+    const documentIdToDelete = req.params.documentId;
+    const deleteDocumentDetails = {
+      caseId: req.session.userCase.id,
+      documentId: documentIdToDelete,
+    };
+    const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
+    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(caseworkerUser, deleteDocumentRequest);
+    if (deleteCitizenDocFromCos === 'SUCCESS') {
+      req.session.userCase.applicantUploadFiles?.forEach((document, index) => {
+        if (document.id === documentIdToDelete) {
+          req.session.userCase.applicantUploadFiles?.splice(index, 1);
+        }
+      });
+      req.session.errors = [];
+    } else {
+      req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
+    }
+    const redirectUrl =
+      UPLOAD_DOCUMENT + '?' + 'caption=' + req.query.parentDocumentType + '&document_type=' + req.query.documentType;
+    this.redirect(req, res, redirectUrl);
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {

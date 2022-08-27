@@ -69,7 +69,10 @@ export class Routes {
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
-        app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
+        app.get(
+          `${DOCUMENT_MANAGER}/deleteDocument/:documentId`,
+          errorHandler(documentManagerController.deleteDocument)
+        );
         app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
