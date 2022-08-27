@@ -191,3 +191,5 @@ export const C100_HEARING_WITHOUT_NOTICE_PART1: PageLink = `${C100_URL}/hearing-
 export const C100_HEARING_WITHOUT_NOTICE_PART2: PageLink = `${C100_URL}/hearing-without-notice/hearing-part2`;
 export const C100_TYPE_ORDER_SELECT_COURT_ORDER: PageLink = `${C100_URL}/typeoforder/select-courtorder`;
 export const C100_TYPE_ORDER_SHORT_STATEMENT: PageLink = `${C100_URL}/typeoforder/shortstatement`;
+export const C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS: PageLink = `${C100_URL}/other-proceedings/current-previous-proceedings`;
+export const C100_OTHER_PROCEEDINGS_DETAILS: PageLink = `${C100_URL}/other-proceedings/proceeding-details`;
