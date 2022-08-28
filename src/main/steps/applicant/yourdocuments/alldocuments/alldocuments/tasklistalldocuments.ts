@@ -8,9 +8,9 @@ export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListIte
     ...getOrdersFromCourt(sectionTitles, taskListItems, userCase, URL.APPLICANT_ORDERS_FROM_THE_COURT),
     getApplicantDocuments(sectionTitles, taskListItems, userCase, true),
     getRespondentDocuments(sectionTitles, taskListItems, userCase, true),
-    getCafcassDocuments(sectionTitles, taskListItems, userCase),
-    getOtherDocuments(sectionTitles, taskListItems, userCase),
-    getAttendingTheHearingDocs(sectionTitles, taskListItems, userCase),
+    getCafcassDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
+    getOtherDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
+    getAttendingTheHearingDocs(sectionTitles, taskListItems, userCase, URL.APPLICANT),
   ];
 };
 
@@ -38,9 +38,9 @@ export const getOrdersFromCourt = (sectionTitles, taskListItems, userCase, url) 
 };
 
 export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, isApplicant) => {
-  let url = `${URL.APPLICANT}${URL.YOUR_WITNESS_STATEMENTS}`;
+  let url = URL.APPLICANT;
   if (!isApplicant) {
-    url = `${URL.RESPONDENT}${URL.YOUR_WITNESS_STATEMENTS}`;
+    url = URL.RESPONDENT;
   }
   const applicantItems: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
@@ -54,7 +54,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems, userCase));
     });
     userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, isApplicant));
+      applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
     });
     userCase.applicants.forEach((applicant: Applicant) => {
       applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
@@ -65,80 +65,80 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
     applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
     applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
-    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, isApplicant));
+    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
     applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
   }
   applicantItems.push({
     id: 'other_people_witness_statements',
     text: getText(taskListItems.other_people_witness_statements, userCase),
-    href: URL.APPLICANT + URL.OTHER_PEOPLE_WITNESS_STATEMENTS,
+    href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS,
   });
   applicantItems.push({
     id: 'medical_reports',
     text: getText(taskListItems.medical_reports, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_MEDICAL_REPORTS + '?byApplicant=Yes',
+    href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
   });
   if (userCase.miamCertificationDocumentUpload) {
     applicantItems.push({
       id: 'miam_certificate',
       text: getText(taskListItems.miam_certificate, userCase),
-      href: URL.APPLICANT + URL.APPLICANT_MIAM_CERTIFICATE + '?byApplicant=Yes',
+      href: url + URL.APPLICANT_MIAM_CERTIFICATE + '?byApplicant=Yes',
     });
   }
   applicantItems.push({
     id: 'applications_made_in_these_proceedings',
     text: getText(taskListItems.applications_made_in_these_proceedings, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_APP_MADE_IN_PRCEEDINGS + '?byApplicant=Yes',
+    href: url + URL.APPLICANT_APP_MADE_IN_PRCEEDINGS + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'previous_orders_submitted',
     text: getText(taskListItems.previous_orders_submitted, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=Yes',
+    href: url + URL.PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'letters_from_school',
     text: getText(taskListItems.letters_from_school, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_LETTER_FROM_SCHOOL + '?byApplicant=Yes',
+    href: url + URL.LETTER_FROM_SCHOOL + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'digital_downloads',
     text: getText(taskListItems.digital_downloads, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_DIGITAL_DOWNLOADS + '?byApplicant=Yes',
+    href: url + URL.DIGITAL_DOWNLOADS + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'photographic_evidence',
     text: getText(taskListItems.photographic_evidence, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_PHOTOGRAPHIC_EVIDENCE + '?byApplicant=Yes',
+    href: url + URL.PHOTOGRAPHIC_EVIDENCE + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'mobile_phone_screenshots',
     text: getText(taskListItems.mobile_phone_screenshots, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_MOBILE_SCREENSHOTS + '?byApplicant=Yes',
+    href: url + URL.APPLICANT_MOBILE_SCREENSHOTS + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'medical_records',
     text: getText(taskListItems.medical_records, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_MEDICAL_RECORDS + '?byApplicant=Yes',
+    href: url + URL.MEDICAL_RECORDS + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'paternity_test_reports',
     text: getText(taskListItems.paternity_test_reports, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_PATERNITY_TEST_REPORTS + '?byApplicant=Yes',
+    href: url + URL.PATERNITY_TEST_REPORTS + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'drug_alcohol_tests',
     text: getText(taskListItems.drug_alcohol_tests, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_DRUG_ALCOHOL_TESTS + '?byApplicant=Yes',
+    href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'police_disclosures',
     text: getText(taskListItems.police_disclosures, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_POLICE_DISCLOSURE + '?byApplicant=Yes',
+    href: url + URL.POLICE_DISCLOSURE + '?byApplicant=Yes',
   });
   applicantItems.push({
     id: 'witness_availability',
     text: getText(taskListItems.witness_availability, userCase),
-    href: URL.APPLICANT + URL.APPLICANT_WITNESS_AVAILABILITY + '?byApplicant=Yes',
+    href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=Yes',
   });
   return {
     title: sectionTitles.applicantsDocuments,
@@ -164,7 +164,7 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
       respondentItems.push(getAohAndViolence(respondent, taskListItems, userCase));
     });
     userCase.respondents.forEach((respondent: Respondent) => {
-      respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, isApplicant));
+      respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, url));
     });
     userCase.respondents.forEach((respondent: Respondent) => {
       respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase, url));
@@ -173,75 +173,75 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     respondentItems.push(getResponseToDA(userCase.respondentsFL401, taskListItems, userCase));
     respondentItems.push(getResponseToAohAndViolenceDA(userCase.respondentsFL401, taskListItems, userCase));
     respondentItems.push(getAohAndViolenceDA(userCase.respondentsFL401, taskListItems, userCase));
-    respondentItems2.push(getRespondentPositionStatementsDA(userCase.respondentsFL401, taskListItems, isApplicant));
+    respondentItems2.push(getRespondentPositionStatementsDA(userCase.respondentsFL401, taskListItems, url));
     respondentItems2.push(getRespondentWitnessStatementsDA(userCase.respondentsFL401, taskListItems, userCase, url));
   }
 
   respondentItems.push({
     id: 'applications_made_in_these_proceedings_respondent',
     text: getText(taskListItems.applications_made_in_these_proceedings_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_APP_MADE_IN_PRCEEDINGS + '?byApplicant=No',
+    href: url + URL.RESPONDENT_APP_MADE_IN_PRCEEDINGS + '?byApplicant=No',
   });
   respondentItems.push({
     id: 'previous_orders_submitted_respondent',
     text: getText(taskListItems.previous_orders_submitted_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=No',
+    href: url + URL.PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=No',
   });
   respondentItems.push({
     id: 'letters_from_school_respondent',
     text: getText(taskListItems.letters_from_school_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_LETTER_FROM_SCHOOL + '?byApplicant=No',
+    href: url + URL.LETTER_FROM_SCHOOL + '?byApplicant=No',
   });
 
   respondentItems2.push({
     id: 'other_people_witness_statements_respondent',
     text: getText(taskListItems.other_people_witness_statements_respondent, userCase),
-    href: URL.APPLICANT + URL.OTHER_PEOPLE_WITNESS_STATEMENTS + '?byApplicant=No',
+    href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'digital_downloads_respondent',
     text: getText(taskListItems.digital_downloads_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_DIGITAL_DOWNLOADS + '?byApplicant=No',
+    href: url + URL.DIGITAL_DOWNLOADS + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'photographic_evidence_respondent',
     text: getText(taskListItems.photographic_evidence_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_PHOTOGRAPHIC_EVIDENCE + '?byApplicant=No',
+    href: url + URL.PHOTOGRAPHIC_EVIDENCE + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'mobile_phone_screenshots_respondent',
     text: getText(taskListItems.mobile_phone_screenshots_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_MOBILE_SCREENSHOTS + '?byApplicant=No',
+    href: url + URL.RESPONDENT_MOBILE_SCREENSHOTS + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'medical_records_respondent',
     text: getText(taskListItems.medical_records_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_MEDICAL_RECORDS + '?byApplicant=No',
+    href: url + URL.MEDICAL_RECORDS + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'medical_reports_respondent',
     text: getText(taskListItems.medical_reports_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_MEDICAL_REPORTS + '?byApplicant=No',
+    href: url + URL.MEDICAL_REPORTS + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'paternity_test_reports_respondent',
     text: getText(taskListItems.paternity_test_reports_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_PATERNITY_TEST_REPORTS + '?byApplicant=No',
+    href: url + URL.PATERNITY_TEST_REPORTS + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'drug_alcohol_tests_respondent',
     text: getText(taskListItems.drug_alcohol_tests_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_DRUG_ALCOHOL_TESTS + '?byApplicant=No',
+    href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'police_disclosures_respondent',
     text: getText(taskListItems.police_disclosures_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_POLICE_DISCLOSURE + '?byApplicant=No',
+    href: url + URL.POLICE_DISCLOSURE + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'witness_availability_respondent',
     text: getText(taskListItems.witness_availability_respondent, userCase),
-    href: URL.APPLICANT + URL.RESPONDENT_WITNESS_AVAILABILITY + '?byApplicant=No',
+    href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=No',
   });
 
   return {
@@ -250,75 +250,75 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   };
 };
 
-export const getCafcassDocuments = (sectionTitles, taskListItems, userCase) => {
+export const getCafcassDocuments = (sectionTitles, taskListItems, userCase, url) => {
   return {
     title: sectionTitles.cafcassAndLaDocuments,
     items: [
       {
         id: 'safeguarding_letter',
         text: getText(taskListItems.safeguarding_letter, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_SAFEGUARDING_LETTER,
+        href: url + URL.RESPONDENT_SAFEGUARDING_LETTER,
       },
       {
         id: 'section7_report',
         text: getText(taskListItems.section7_report, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_SECTION7_REPORT,
+        href: url + URL.RESPONDENT_SECTION7_REPORT,
       },
       {
         id: 'section37_report',
         text: getText(taskListItems.section37_report, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_SECTION37_REPORT,
+        href: url + URL.RESPONDENT_SECTION37_REPORT,
       },
       {
         id: 'risk_assessment_16a',
         text: getText(taskListItems.risk_assessment_16a, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_RISK_ASSESSMENT,
+        href: url + URL.RESPONDENT_RISK_ASSESSMENT,
       },
     ],
   };
 };
 
-export const getOtherDocuments = (sectionTitles, taskListItems, userCase) => {
+export const getOtherDocuments = (sectionTitles, taskListItems, userCase, url) => {
   return {
     title: sectionTitles.otherDocuments,
     items: [
       {
         id: 'important_address_and_contact_details',
         text: getText(taskListItems.important_address_and_contact_details, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_IMP_ADDRESS_CONTACT_INFO,
+        href: url + URL.RESPONDENT_IMP_ADDRESS_CONTACT_INFO,
       },
       {
         id: 'dna_reports',
         text: getText(taskListItems.dna_reports, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_DNA_REPORTS,
+        href: url + URL.RESPONDENT_DNA_REPORTS,
       },
       {
         id: 'privacy_notice',
         text: getText(taskListItems.privacy_notice, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_PRIVACY_NOTICE,
+        href: url + URL.RESPONDENT_PRIVACY_NOTICE,
       },
       {
         id: 'special_measures',
         text: getText(taskListItems.special_measures, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_SPECIAL_MEASURES,
+        href: url + URL.RESPONDENT_SPECIAL_MEASURES,
       },
     ],
   };
 };
 
-export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, userCase) => {
+export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, userCase, url) => {
   return {
     title: sectionTitles.attendingTheHearing,
     items: [
       {
         id: 'notice_of_hearing',
         text: getText(taskListItems.notice_of_hearing, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_NOTICE_OF_HEARING,
+        href: url + URL.RESPONDENT_NOTICE_OF_HEARING,
       },
       {
         id: 'support_you_need_during_your_case',
         text: getText(taskListItems.support_you_need_during_your_case, userCase),
-        href: URL.APPLICANT + URL.RESPONDENT_SUPPORT_NEEDED,
+        href: url + URL.RESPONDENT_SUPPORT_NEEDED,
       },
     ],
   };
@@ -360,11 +360,7 @@ const getResponseToAohAndViolence = (respondent: Respondent, taskListItems, user
   };
 };
 
-const getRespondentPositionStatements = (respondent: Respondent, taskListItems, isApplicant) => {
-  let url = URL.RESPONDENT;
-  if (isApplicant) {
-    url = URL.APPLICANT;
-  }
+const getRespondentPositionStatements = (respondent: Respondent, taskListItems, url) => {
   return {
     id: 'respondent_position_statements',
     text: taskListItems.respondent_position_statements.replace(
@@ -422,11 +418,7 @@ const getResponseToAohAndViolenceDA = (respondent: PartyDetails, taskListItems, 
   };
 };
 
-const getRespondentPositionStatementsDA = (respondent: PartyDetails, taskListItems, isApplicant) => {
-  let url = URL.RESPONDENT;
-  if (isApplicant) {
-    url = URL.APPLICANT;
-  }
+const getRespondentPositionStatementsDA = (respondent: PartyDetails, taskListItems, url) => {
   return {
     id: 'respondent_position_statements',
     text: taskListItems.respondent_position_statements.replace(
@@ -479,11 +471,7 @@ const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItem
     href: URL.APPLICANT + URL.APPLICANT_RESPONSE_TO_AOH_VIOLENCE,
   };
 };
-const getApplicantPositionStatements = (applicant: Applicant, taskListItems, isApplicant) => {
-  let url = URL.RESPONDENT;
-  if (isApplicant) {
-    url = URL.APPLICANT;
-  }
+const getApplicantPositionStatements = (applicant: Applicant, taskListItems, url) => {
   return {
     id: 'applicant_position_statements',
     text: taskListItems.applicant_position_statements.replace(
@@ -500,7 +488,8 @@ const getApplicantWitnessStatements = (applicant: Applicant, taskListItems, url)
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href: url + '?name=' + applicant.value.firstName + ' ' + applicant.value.lastName,
+    href:
+      `${url}${URL.YOUR_WITNESS_STATEMENTS}` + '?name=' + applicant.value.firstName + ' ' + applicant.value.lastName,
   };
 };
 
@@ -535,11 +524,7 @@ const getApplicantResponseToAohAndViolenceDA = (applicant: PartyDetails, taskLis
     href: URL.APPLICANT + URL.APPLICANT_RESPONSE_TO_AOH_VIOLENCE,
   };
 };
-const getApplicantPositionStatementsDA = (applicant: PartyDetails, taskListItems, isApplicant) => {
-  let url = URL.RESPONDENT;
-  if (isApplicant) {
-    url = URL.APPLICANT;
-  }
+const getApplicantPositionStatementsDA = (applicant: PartyDetails, taskListItems, url) => {
   return {
     id: 'applicant_position_statements',
     text: taskListItems.applicant_position_statements.replace(
@@ -556,6 +541,6 @@ const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems,
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: url + '?name=' + applicant.firstName + ' ' + applicant.lastName,
+    href: `${url}${URL.YOUR_WITNESS_STATEMENTS}` + '?name=' + applicant.firstName + ' ' + applicant.lastName,
   };
 };
