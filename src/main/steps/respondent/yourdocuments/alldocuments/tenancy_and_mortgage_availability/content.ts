@@ -7,7 +7,7 @@ import { FormContent } from '../../../../../app/form/Form';
 const en = () => {
   return {
     section: 'All documents',
-    title: 'Police reports',
+    title: 'Tenancy and mortgage',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -18,7 +18,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'All documents',
-    title: 'Police reports',
+    title: 'Tenancy and mortgage',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -49,8 +49,6 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  console.log('hello' + content.name);
-
   const orders: object[] = [];
   for (const doc of content.userCase?.orderCollection || []) {
     const uid = doc.value.orderDocument.document_url.substring(

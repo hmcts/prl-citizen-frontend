@@ -50,6 +50,7 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   SAFETY_MAIN_PAGE,
+  TENANCY_AND_MORTGAGE_AVAILABILITY,
   WITNESS_AVAILABILITY,
   YOUR_SAFETY,
   YOUR_WITNESS_STATEMENTS,
@@ -384,6 +385,16 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: `${RESPONDENT}${WITNESS_AVAILABILITY}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${RESPONDENT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
+  },
+  {
+    url: `${RESPONDENT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },

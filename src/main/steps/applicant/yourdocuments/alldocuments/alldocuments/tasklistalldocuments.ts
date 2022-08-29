@@ -135,6 +135,11 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     text: getText(taskListItems.witness_availability, userCase),
     href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=Yes',
   });
+  applicantItems.push({
+    id: 'tenancy_and_mortgage_availability',
+    text: getText(taskListItems.tenancy_and_mortgage_availability, userCase),
+    href: url + URL.TENANCY_AND_MORTGAGE_AVAILABILITY + '?byApplicant=Yes',
+  });
   return {
     title: sectionTitles.applicantsDocuments,
     items: applicantItems,
@@ -232,6 +237,11 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     id: 'witness_availability_respondent',
     text: getText(taskListItems.witness_availability_respondent, userCase),
     href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=No',
+  });
+  respondentItems2.push({
+    id: 'tenancy_and_mortgage_availability',
+    text: getText(taskListItems.tenancy_and_mortgage_availability, userCase),
+    href: url + URL.TENANCY_AND_MORTGAGE_AVAILABILITY + '?byApplicant=No',
   });
 
   return {

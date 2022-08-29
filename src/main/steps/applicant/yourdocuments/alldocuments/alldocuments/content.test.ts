@@ -128,7 +128,7 @@ describe('task-list > content', () => {
             },
             {
               id: 'police_disclosures',
-              text: 'Police disclosures',
+              text: 'Police reports',
               href: '/applicant/yourdocuments/alldocuments/police_disclosures',
             },
             {
@@ -219,7 +219,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/yourdocuments/alldocuments/respondent_police_disclosure',
               id: 'police_disclosures_respondent',
-              text: 'Police disclosures',
+              text: 'Police reports',
             },
             {
               href: '/applicant/yourdocuments/alldocuments/respondent_drug_alcohol_tests',
@@ -393,7 +393,7 @@ describe('task-list > content', () => {
             },
             {
               id: 'police_disclosures',
-              text: 'Police disclosures',
+              text: 'Police reports',
               href: '#',
             },
             {
@@ -484,7 +484,7 @@ describe('task-list > content', () => {
             {
               href: '#',
               id: 'police_disclosures_respondent',
-              text: 'Police disclosures',
+              text: 'Police reports',
             },
             {
               href: '#',

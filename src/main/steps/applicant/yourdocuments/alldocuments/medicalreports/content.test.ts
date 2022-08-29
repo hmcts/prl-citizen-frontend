@@ -6,7 +6,7 @@ import { generateContent } from './content';
 
 const enContent = {
   section: 'All documents',
-  title: "'s witness statements",
+  title: 'Medical reports',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   caseNumber: 'Case number',
@@ -15,7 +15,7 @@ const enContent = {
 
 const cyContent = {
   section: 'All documents',
-  title: "'s witness statements",
+  title: 'Medical reports',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   caseNumber: 'Case number',
@@ -36,7 +36,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual("'s witness statements");
+    expect(generatedContent.title).toEqual('Medical reports');
     expect(generatedContent.section).toEqual('All documents');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
   });

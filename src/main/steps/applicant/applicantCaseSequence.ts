@@ -46,6 +46,7 @@ import {
   SAFETY_ARRANGEMENTS,
   SUPPORT_YOU_NEED_DURING_CASE,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  TENANCY_AND_MORTGAGE_AVAILABILITY,
   TRAVELLING_TO_COURT,
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
   WITNESS_AVAILABILITY,
@@ -370,5 +371,15 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
+  },
+  {
+    url: `${APPLICANT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
 ];
