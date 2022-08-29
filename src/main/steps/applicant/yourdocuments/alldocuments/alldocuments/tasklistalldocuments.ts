@@ -325,6 +325,7 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, userCas
 };
 
 const getResponseToCA = (respondent: Respondent, taskListItems, userCase) => {
+  console.log(userCase?.orderCollection);
   return {
     id: 'respondent_response_to_request_for_child_arrangements',
     text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
@@ -336,6 +337,7 @@ const getResponseToCA = (respondent: Respondent, taskListItems, userCase) => {
 };
 
 const getAohAndViolence = (respondent: Respondent, taskListItems, userCase) => {
+  console.log(userCase?.orderCollection);
   return {
     id: 'respondent_allegation_of_harm_and_violence',
     text: taskListItems.respondent_allegation_of_harm_and_violence.replace(
@@ -383,6 +385,7 @@ const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, u
 };
 
 const getResponseToDA = (respondent: PartyDetails, taskListItems, userCase) => {
+  console.log(userCase?.orderCollection);
   return {
     id: 'respondent_response_to_request_for_child_arrangements',
     text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
@@ -394,6 +397,7 @@ const getResponseToDA = (respondent: PartyDetails, taskListItems, userCase) => {
 };
 
 const getAohAndViolenceDA = (respondent: PartyDetails, taskListItems, userCase) => {
+  console.log(userCase?.orderCollection);
   return {
     id: 'respondent_allegation_of_harm_and_violence',
     text: taskListItems.respondent_allegation_of_harm_and_violence.replace(
@@ -462,6 +466,7 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
   };
 };
 const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems, userCase) => {
+  console.log(userCase?.orderCollection);
   return {
     id: 'applicant_response_to_other_side_allegation_of_harm',
     text: taskListItems.applicant_response_to_other_side_allegation_of_harm.replace(
@@ -515,6 +520,7 @@ const getApplicantAohAndViolenceDA = (applicant: PartyDetails, taskListItems, us
   };
 };
 const getApplicantResponseToAohAndViolenceDA = (applicant: PartyDetails, taskListItems, userCase) => {
+  console.log(userCase?.orderCollection);
   return {
     id: 'applicant_response_to_other_side_allegation_of_harm',
     text: taskListItems.applicant_response_to_other_side_allegation_of_harm.replace(
