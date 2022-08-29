@@ -187,17 +187,17 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
       uid = this.getUID(documentToGet);
     }
-
-    if (filename === 'miamcertificate') {
+    if (filename.includes('miamcertificate')) {
       if (!req.session.userCase.miamCertificationDocumentUpload?.document_binary_url) {
         throw new Error('miam certificate binary url is not found');
       }
       filename = req.session.userCase.miamCertificationDocumentUpload.document_filename;
       documentToGet = req.session.userCase.miamCertificationDocumentUpload.document_binary_url;
+
       uid = this.getUID(documentToGet);
     }
 
-    if (filename === 'aohviolence') {
+    if (filename.includes('aohviolence')) {
       if (!req.session.userCase.c1ADocument?.document_binary_url) {
         throw new Error('c1ADocument binary url is not found');
       }
