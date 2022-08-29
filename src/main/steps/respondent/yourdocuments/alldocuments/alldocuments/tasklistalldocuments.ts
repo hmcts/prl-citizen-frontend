@@ -14,8 +14,8 @@ export const generateRespondentTaskListAllDocuments = (sectionTitles, taskListIt
     ...getOrdersFromCourt(sectionTitles, taskListItems, userCase, URL.RESPONDENT_ORDERS_FROM_THE_COURT),
     getRespondentDocuments(sectionTitles, taskListItems, userCase, false),
     getApplicantDocuments(sectionTitles, taskListItems, userCase, false),
-    getCafcassDocuments(sectionTitles, taskListItems, userCase),
-    getOtherDocuments(sectionTitles, taskListItems, userCase),
-    getAttendingTheHearingDocs(sectionTitles, taskListItems, userCase),
+    getCafcassDocuments(sectionTitles, taskListItems, userCase, URL.RESPONDENT),
+    getOtherDocuments(sectionTitles, taskListItems, userCase, URL.RESPONDENT),
+    getAttendingTheHearingDocs(sectionTitles, taskListItems, userCase, URL.RESPONDENT),
   ];
 };
