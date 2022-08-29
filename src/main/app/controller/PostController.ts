@@ -240,7 +240,7 @@ export class PostController<T extends AnyObject> {
 
     const caseworkerUser = await getSystemUser();
     const caseReference = formData.caseCode?.replace(/-/g, '');
-    const accessCode = formData.accessCode?.replace(/-/g, '');
+    //const accessCode = formData.accessCode?.replace(/-/g, '');
     // req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
     req.session.errors = form.getErrors(formData);
 
@@ -302,17 +302,17 @@ export class PostController<T extends AnyObject> {
         // if (accessCodeLinked) {
         //   req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         // }
-        const accessCodeValidated = await client.validateAccessCode(
-          caseReference as string,
-          accessCode as string,
-          caseworkerUser
-        );
-        console.log(accessCodeValidated);
-        if (accessCodeValidated === 'linked') {
-          req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
-        } else if (accessCodeValidated !== 'valid') {
-          req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
-        }
+        // const accessCodeValidated = await client.validateAccessCode(
+        //   caseReference as string,
+        //   accessCode as string,
+        //   caseworkerUser
+        // );
+        // console.log(accessCodeValidated);
+        // if (accessCodeValidated === 'linked') {
+        //   req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
+        // } else if (accessCodeValidated !== 'valid') {
+        //   req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        // }
       }
     } catch (err) {
       console.log('Retrieving case failed with error: ' + err);
