@@ -111,11 +111,6 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     href: url + URL.PHOTOGRAPHIC_EVIDENCE + '?byApplicant=Yes',
   });
   applicantItems.push({
-    id: 'mobile_phone_screenshots',
-    text: getText(taskListItems.mobile_phone_screenshots, userCase),
-    href: url + URL.APPLICANT_MOBILE_SCREENSHOTS + '?byApplicant=Yes',
-  });
-  applicantItems.push({
     id: 'medical_records',
     text: getText(taskListItems.medical_records, userCase),
     href: url + URL.MEDICAL_RECORDS + '?byApplicant=Yes',
@@ -207,11 +202,6 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     id: 'photographic_evidence_respondent',
     text: getText(taskListItems.photographic_evidence_respondent, userCase),
     href: url + URL.PHOTOGRAPHIC_EVIDENCE + '?byApplicant=No',
-  });
-  respondentItems2.push({
-    id: 'mobile_phone_screenshots_respondent',
-    text: getText(taskListItems.mobile_phone_screenshots_respondent, userCase),
-    href: url + URL.RESPONDENT_MOBILE_SCREENSHOTS + '?byApplicant=No',
   });
   respondentItems2.push({
     id: 'medical_records_respondent',
