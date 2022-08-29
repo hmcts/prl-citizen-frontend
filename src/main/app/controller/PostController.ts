@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT, UPLOAD_DOCUMENT_SUCCESS } from '../../steps/urls';
+import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
@@ -75,9 +75,12 @@ export class PostController<T extends AnyObject> {
       req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
     }
 
-    if (req.originalUrl.includes(UPLOAD_DOCUMENT_SUCCESS)) {
+    if (req.originalUrl.includes('upload-documents-success')) {
       if (req?.session?.userCase?.applicantUploadFiles) {
         req.session.userCase['applicantUploadFiles'] = [];
+      }
+      if (req?.session?.userCase?.respondentUploadFiles) {
+        req.session.userCase['respondentUploadFiles'] = [];
       }
     }
 

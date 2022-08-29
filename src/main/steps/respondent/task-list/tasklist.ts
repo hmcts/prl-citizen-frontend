@@ -84,7 +84,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'upload-document',
           text: taskListItems.upload_document,
           status: getInternationalFactorsStatus(userCase),
-          href: URL.UPLOAD_DOCUMENT_LIST_URL,
+          href: URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
         },
       ],
     },
