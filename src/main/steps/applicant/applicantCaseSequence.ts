@@ -19,6 +19,11 @@ import {
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_START_ALTERNATIVE,
   APPLICANT_TASK_LIST_URL,
+  APPLICANT_UPLOAD_DOCUMENT,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+  APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
   // APPLICANT_START_ALTERNATIVE,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   COMMUNICATION_HELP,
@@ -340,5 +345,30 @@ export const applicantCaseSequence: Step[] = [
     url: `${APPLICANT}${POLICE_DISCLOSURE}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
 ];

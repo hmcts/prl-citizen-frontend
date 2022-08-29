@@ -18,7 +18,7 @@
     <h2 class="govuk-heading-s{% if userCase.applicantUploadFiles.length==0 %} hidden{% endif %}">Your documents for witness statement and evidence</h2>
     <ul id="filesUploadedList" class="govuk-list">
       <dl class="govuk-summary-list">
-        {% for file in userCase.respondentUploadFiles %}
+        {% for file in userCase.applicantUploadFiles %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__value">
               {{ file.name }}

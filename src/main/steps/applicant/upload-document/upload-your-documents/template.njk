@@ -15,7 +15,7 @@
       {% if title %}
     <h1 class="govuk-heading-l">{{ title }}</h1>
   {% endif %}
-      <form action="/document-manager/generatePdf?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=No" method="post" novalidate="">
+      <form action="/document-manager/generatePdf?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=Yes" method="post" novalidate="">
       {{ govukTextarea({
             name: "freeTextAreaForUpload",
             id: "freeTextAreaForUpload",
@@ -101,16 +101,16 @@
       </div>
     </div>
 
-    <h2 class="govuk-heading-s{% if userCase.respondentUploadFiles.length==0 %} hidden{% endif %}">{{ uploadFiles }}</h2>
+    <h2 class="govuk-heading-s{% if userCase.applicantUploadFiles.length==0 %} hidden{% endif %}">{{ uploadFiles }}</h2>
     <ul id="filesUploadedList" class="govuk-list">
     <dl class="govuk-summary-list">
-      {% for file in userCase.respondentUploadFiles %}  
+      {% for file in userCase.applicantUploadFiles %}  
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__value">
                 {{ file.name }} 
               </dt>
               <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="/document-manager/deleteDocument/{{file.id}}?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=No">
+                <a class="govuk-link" href="/document-manager/deleteDocument/{{file.id}}?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=Yes">
                   {{remove}}</span>
                 </a>
               </dd>

@@ -70,7 +70,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           id: 'upload-document',
           text: taskListItems.upload_document,
           status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.APPLICANT_DETAILS_KNOWN,
+          href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
         },
         {
           id: 'view-all-documents',

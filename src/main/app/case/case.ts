@@ -333,7 +333,8 @@ export interface Case {
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   /*** Document upload */
   applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
-  applicant1UploadedFiles?: UploadedFile[];
+  respondentDocumentsUploaded?: ListValue<UploadDocumentList>[];
+  respondentUploadFiles?: UploadedFile[];
   proceedingsCourtCase?: string;
   proceedingsStart?: string;
   proceedingsCourtOrder?: string;

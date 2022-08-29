@@ -5,9 +5,10 @@ import type { Response } from 'express';
 import {
   APPLICANT,
   APPLICANT_TASK_LIST_URL,
+  APPLICANT_UPLOAD_DOCUMENT,
   RESPONDENT,
   RESPONDENT_TASK_LIST_URL,
-  UPLOAD_DOCUMENT,
+  RESPONDENT_UPLOAD_DOCUMENT,
 } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
@@ -45,6 +46,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
       req.session.userCase['applicantUploadFiles'] = [];
     }
 
+    if (req?.session?.userCase?.respondentUploadFiles === undefined) {
+      req.session.userCase['respondentUploadFiles'] = [];
+    }
+
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);
 
@@ -54,6 +59,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
     console.log(' Form Data:---', formData);
     console.log('inside generatePdf');
     const partyName = req.session.user.givenName + ' ' + req.session.user.familyName;
+    const isApplicant = req.query.isApplicant;
+    let redirectUrl;
 
     const uploadDocumentDetails = {
       caseId: req.session.userCase.id,
@@ -62,6 +69,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentType: req.query.documentType,
       partyName,
       partyId: req.session.user.id,
+      isApplicant,
     };
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
 
@@ -78,11 +86,30 @@ export class DocumentManagerController extends PostController<AnyObject> {
         id: uploadCitizenDocFromCos.documentId as string,
         name: uploadCitizenDocFromCos.documentName as string,
       };
-      req.session.userCase.applicantUploadFiles?.push(obj);
+      if (isApplicant === 'Yes') {
+        req.session.userCase.applicantUploadFiles?.push(obj);
+      } else {
+        req.session.userCase.respondentUploadFiles?.push(obj);
+      }
       req.session.errors = [];
     }
-    const redirectUrl =
-      UPLOAD_DOCUMENT + '?' + 'caption=' + req.query.parentDocumentType + '&document_type=' + req.query.documentType;
+    if (isApplicant === 'Yes') {
+      redirectUrl =
+        APPLICANT_UPLOAD_DOCUMENT +
+        '?' +
+        'caption=' +
+        req.query.parentDocumentType +
+        '&document_type=' +
+        req.query.documentType;
+    } else {
+      redirectUrl =
+        RESPONDENT_UPLOAD_DOCUMENT +
+        '?' +
+        'caption=' +
+        req.query.parentDocumentType +
+        '&document_type=' +
+        req.query.documentType;
+    }
     this.redirect(req, res, redirectUrl);
   }
 
@@ -226,6 +253,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public async deleteDocument(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+    const isApplicant = req.query.isApplicant;
+    let redirectUrl;
     if (!req?.session?.userCase) {
       const initData = { id: '1661509886231065', state: State.successAuthentication, serviceType: '' };
       req.session.userCase = initData;
@@ -241,17 +270,40 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
     const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(caseworkerUser, deleteDocumentRequest);
     if (deleteCitizenDocFromCos === 'SUCCESS') {
-      req.session.userCase.applicantUploadFiles?.forEach((document, index) => {
-        if (document.id === documentIdToDelete) {
-          req.session.userCase.applicantUploadFiles?.splice(index, 1);
-        }
-      });
+      if (isApplicant === 'Yes') {
+        req.session.userCase.applicantUploadFiles?.forEach((document, index) => {
+          if (document.id === documentIdToDelete) {
+            req.session.userCase.applicantUploadFiles?.splice(index, 1);
+          }
+        });
+      } else {
+        req.session.userCase.respondentUploadFiles?.forEach((document, index) => {
+          if (document.id === documentIdToDelete) {
+            req.session.userCase.respondentUploadFiles?.splice(index, 1);
+          }
+        });
+      }
       req.session.errors = [];
     } else {
       req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
     }
-    const redirectUrl =
-      UPLOAD_DOCUMENT + '?' + 'caption=' + req.query.parentDocumentType + '&document_type=' + req.query.documentType;
+    if (isApplicant === 'Yes') {
+      redirectUrl =
+        APPLICANT_UPLOAD_DOCUMENT +
+        '?' +
+        'caption=' +
+        req.query.parentDocumentType +
+        '&document_type=' +
+        req.query.documentType;
+    } else {
+      redirectUrl =
+        RESPONDENT_UPLOAD_DOCUMENT +
+        '?' +
+        'caption=' +
+        req.query.parentDocumentType +
+        '&document_type=' +
+        req.query.documentType;
+    }
     this.redirect(req, res, redirectUrl);
   }
 
@@ -344,7 +396,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
       } else {
         const redirectUrl =
-          UPLOAD_DOCUMENT +
+          RESPONDENT_UPLOAD_DOCUMENT +
           '?' +
           'caption=' +
           req.query.parentDocumentType +
