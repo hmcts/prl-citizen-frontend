@@ -2,6 +2,7 @@ import { Applicant, PartyDetails, Respondent, YesNoDontKnow } from '../../../../
 import { CommonContent } from '../../../../../steps/common/common.content';
 import * as URL from '../../../../urls';
 import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/utils';
+
 import { applicant_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
