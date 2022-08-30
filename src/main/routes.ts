@@ -25,7 +25,9 @@ import {
   CONTACT_US,
   COOKIES_PAGE,
   DOCUMENT_MANAGER,
+  DRUG_ALCOHOL_TESTS,
   HOME_URL,
+  PATERNITY_TEST_REPORTS,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -84,6 +86,8 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
+        app.get(`${DRUG_ALCOHOL_TESTS}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${PATERNITY_TEST_REPORTS}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 
