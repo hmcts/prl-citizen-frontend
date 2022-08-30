@@ -1,4 +1,4 @@
-import { Applicant, PartyDetails, Respondent } from '../../../../../app/case/definition';
+import { Applicant, PartyDetails, Respondent, YesNoDontKnow } from '../../../../../app/case/definition';
 import { CommonContent } from '../../../../../steps/common/common.content';
 import * as URL from '../../../../urls';
 import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/utils';
@@ -85,11 +85,13 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       href: url + URL.APPLICANT_MIAM_CERTIFICATE + '?byApplicant=Yes',
     });
   }
-  applicantItems.push({
-    id: 'applications_made_in_these_proceedings',
-    text: getText(taskListItems.applications_made_in_these_proceedings, userCase),
-    href: url + URL.APPLICANT_APP_MADE_IN_PRCEEDINGS + '?byApplicant=Yes',
-  });
+  if (userCase?.previousOrOngoingProceedingsForChildren === YesNoDontKnow.yes) {
+    applicantItems.push({
+      id: 'applications_made_in_these_proceedings',
+      text: getText(taskListItems.applications_made_in_these_proceedings, userCase),
+      href: url + URL.APPLICATION_MADE_IN_THESE_PRCEEDINGS,
+    });
+  }
   applicantItems.push({
     id: 'previous_orders_submitted',
     text: getText(taskListItems.previous_orders_submitted, userCase),
@@ -180,7 +182,7 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   respondentItems.push({
     id: 'applications_made_in_these_proceedings_respondent',
     text: getText(taskListItems.applications_made_in_these_proceedings_respondent, userCase),
-    href: url + URL.RESPONDENT_APP_MADE_IN_PRCEEDINGS + '?byApplicant=No',
+    href: url + URL.APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   });
   respondentItems.push({
     id: 'previous_orders_submitted_respondent',

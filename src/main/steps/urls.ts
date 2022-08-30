@@ -167,12 +167,11 @@ export const YOUR_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/yourwitn
 export const OTHER_PEOPLE_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/otherpeoplewitnessstatement`;
 export const MEDICAL_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/medicalreports`;
 export const APPLICANT_MIAM_CERTIFICATE: PageLink = `${VIEW_ALL_DOCUMENTS}/miamcertificate`;
-export const APPLICANT_APP_MADE_IN_PRCEEDINGS: PageLink = `${VIEW_ALL_DOCUMENTS}/applicationmade`;
+export const APPLICATION_MADE_IN_THESE_PRCEEDINGS: PageLink = `${VIEW_ALL_DOCUMENTS}/applicationmade`;
 export const PREVIOUS_ORDERS_SUBMITTED: PageLink = `${VIEW_ALL_DOCUMENTS}/previousorders`;
 export const LETTER_FROM_SCHOOL: PageLink = `${VIEW_ALL_DOCUMENTS}/lettersfromschool`;
 export const DIGITAL_DOWNLOADS: PageLink = `${VIEW_ALL_DOCUMENTS}/digitaldownloads`;
 export const PHOTOGRAPHIC_EVIDENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/photographicevidence`;
-export const APPLICANT_MOBILE_SCREENSHOTS: PageLink = `${VIEW_ALL_DOCUMENTS}/mobilescreenshots`;
 export const MEDICAL_RECORDS: PageLink = `${VIEW_ALL_DOCUMENTS}/medicalrecords`;
 export const PATERNITY_TEST_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/paternity_test_reports`;
 export const DRUG_ALCOHOL_TESTS: PageLink = `${VIEW_ALL_DOCUMENTS}/drug_alcohol_tests`;
@@ -183,8 +182,6 @@ export const TENANCY_AND_MORTGAGE_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS
 /* Respondent Documents */
 export const RESPONDENT_CA_RESPONSE: PageLink = `${VIEW_ALL_DOCUMENTS}/caresponse`;
 export const RESPONDENT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentaohresponse`;
-export const RESPONDENT_APP_MADE_IN_PRCEEDINGS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentapplicationmade`;
-export const RESPONDENT_MOBILE_SCREENSHOTS: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentmobilescreenshots`;
 /** CAFCASS and local authority document */
 export const RESPONDENT_SAFEGUARDING_LETTER: PageLink = `${VIEW_ALL_DOCUMENTS}/safeguarding_letter`;
 export const RESPONDENT_SECTION7_REPORT: PageLink = `${VIEW_ALL_DOCUMENTS}/section7_report`;
