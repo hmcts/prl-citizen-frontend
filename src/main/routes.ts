@@ -28,6 +28,7 @@ import {
   HOME_URL,
   PRIVACY_POLICY,
   RESPONDENT,
+  RESPONDENT_MEDICAL_RECORDS,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   TERMS_AND_CONDITIONS,
   YOUR_APPLICATION_FL401,
@@ -84,6 +85,7 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
+        app.get(RESPONDENT_MEDICAL_RECORDS, errorHandler(documentManagerController.get));
       }
     }
 
