@@ -2164,6 +2164,11 @@ export interface CitizenDocument {
   document_binary_url: string;
 }
 
+export interface DocumentDetails {
+  documentName: string;
+  documentUploadedDate: string;
+}
+
 export interface Value {
   parentDocumentType: string;
   documentType: string;
@@ -2171,7 +2176,7 @@ export interface Value {
   isApplicant: string;
   uploadedBy: string;
   dateCreated: string;
-  documentUploadedDate: string;
+  documentDetails: DocumentDetails;
   citizenDocument: CitizenDocument;
 }
 

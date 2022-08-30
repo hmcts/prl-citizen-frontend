@@ -91,6 +91,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
+      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
+      req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     }
     if (isApplicant === 'Yes') {
@@ -206,6 +208,26 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
+    if (
+      (endPoint === 'positionstatements' || endPoint === 'previousorders') &&
+      req.session.userCase?.citizenUploadedDocumentList
+    ) {
+      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
+        if (
+          doc.value.citizenDocument.document_url.substring(
+            doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.citizenDocument.document_binary_url) {
+            throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
+          }
+          documentToGet = doc.value.citizenDocument.document_binary_url;
+          filename = doc.value.citizenDocument.document_filename;
+        }
+      }
+      uid = this.getUID(documentToGet);
+    }
+
     if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
       for (const doc of req.session.userCase?.orderCollection) {
         if (
@@ -222,7 +244,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
-if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.citizenUploadedDocumentList) {
+    if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.citizenUploadedDocumentList) {
       for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
         if (
           doc.value.citizenDocument.document_url.substring(
@@ -255,7 +277,7 @@ if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.ci
       }
       uid = this.getUID(documentToGet);
     }
-    
+
     if (endPoint === 'paternity_test_reports' && req.session.userCase?.citizenUploadedDocumentList) {
       for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
         if (
@@ -468,6 +490,8 @@ if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.ci
           }
         });
       }
+      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
+      req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     } else {
       req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
