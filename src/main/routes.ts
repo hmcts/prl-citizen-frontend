@@ -22,6 +22,7 @@ import {
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CONTACT_US,
   COOKIES_PAGE,
   DIGITAL_DOWNLOADS,
@@ -92,6 +93,7 @@ export class Routes {
         app.get(`${DIGITAL_DOWNLOADS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${YOUR_WITNESS_STATEMENTS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${WITNESS_AVAILABILITY}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 
