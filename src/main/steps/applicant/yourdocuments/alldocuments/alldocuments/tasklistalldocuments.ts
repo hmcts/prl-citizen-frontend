@@ -42,6 +42,18 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
   if (!isApplicant) {
     url = URL.RESPONDENT;
   }
+
+  let isDrugDocUploaded = false,
+    isPaternityDocUploaded = false;
+
+  for (const doc of userCase?.citizenUploadedDocumentList || []) {
+    if (doc.value.documentType === 'Drug and alcohol tests (toxicology)') {
+      isDrugDocUploaded = true;
+    }
+    if (doc.value.documentType === 'Paternity test reports') {
+      isPaternityDocUploaded = true;
+    }
+  }
   const applicantItems: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
     userCase.applicants.forEach((applicant: Applicant) => {
@@ -117,16 +129,20 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     text: getText(taskListItems.medical_records, userCase),
     href: url + URL.MEDICAL_RECORDS + '?byApplicant=Yes',
   });
-  applicantItems.push({
-    id: 'paternity_test_reports',
-    text: getText(taskListItems.paternity_test_reports, userCase),
-    href: url + URL.PATERNITY_TEST_REPORTS + '?byApplicant=Yes',
-  });
-  applicantItems.push({
-    id: 'drug_alcohol_tests',
-    text: getText(taskListItems.drug_alcohol_tests, userCase),
-    href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=Yes',
-  });
+  if (isPaternityDocUploaded) {
+    applicantItems.push({
+      id: 'paternity_test_reports',
+      text: getText(taskListItems.paternity_test_reports, userCase),
+      href: url + URL.PATERNITY_TEST_REPORTS + '?byApplicant=Yes',
+    });
+  }
+  if (isDrugDocUploaded) {
+    applicantItems.push({
+      id: 'drug_alcohol_tests',
+      text: getText(taskListItems.drug_alcohol_tests, userCase),
+      href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=Yes',
+    });
+  }
   applicantItems.push({
     id: 'police_disclosures',
     text: getText(taskListItems.police_disclosures, userCase),
