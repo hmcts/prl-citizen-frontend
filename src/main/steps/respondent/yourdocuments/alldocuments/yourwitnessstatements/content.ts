@@ -1,4 +1,4 @@
-import { RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
+import { YOUR_WITNESS_STATEMENTS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
@@ -48,16 +48,17 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
-  for (const doc of content.userCase?.orderCollection || []) {
-    const uid = doc.value.orderDocument.document_url.substring(
-      doc.value.orderDocument.document_url.lastIndexOf('/') + 1
-    );
-    //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
-    orders.push({
-      href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
-      createdDate: doc.value.otherDetails.orderCreatedDate,
-      fileName: doc.value.orderDocument.document_filename,
-    });
+  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
+    if (doc.value.documentType === 'Your witness statements') {
+      const uid = doc.value.citizenDocument.document_url.substring(
+        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+      );
+      orders.push({
+        href: `${YOUR_WITNESS_STATEMENTS}/${uid}`,
+        createdDate: doc.value.documentUploadedDate,
+        fileName: doc.value.citizenDocument.document_filename,
+      });
+    }
   }
 
   return {
