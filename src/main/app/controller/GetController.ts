@@ -54,7 +54,8 @@ export class GetController {
     });
   }
 
-  private getPreferredLanguage(req: AppRequest) {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public getPreferredLanguage(req: AppRequest) {
     // User selected language
     const requestedLanguage = req.query['lng'] as string;
     if (LanguageToggle.supportedLanguages.includes(requestedLanguage)) {

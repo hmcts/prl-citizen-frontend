@@ -27,6 +27,12 @@ import {
   C100_START,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   C100_TYPE_ORDER_SHORT_STATEMENT,
+
+  /** @C100 Help with Fees */
+  // eslint-disable-next-line sort-imports
+  C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
+  C100_HELP_WITH_FEES_FEES_APPLIED,
+  C100_HELP_WITH_FEES_HWF_GUIDANCE,
   PageLink,
 } from '../urls';
 
@@ -205,6 +211,22 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_START,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE,
+  },
+  {
+    url: C100_HELP_WITH_FEES_FEES_APPLIED,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE,
+  },
+  {
+    url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
