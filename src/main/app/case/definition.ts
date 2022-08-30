@@ -712,7 +712,8 @@ export interface CaseData {
   startAlternative?: string;
   //applicant1LanguagePreference?: LanguagePreference;
   citizenRole?: FieldPrefix;
-  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
+  citizenUploadedDocumentList?: UploadDocumentList[];
 }
 
 export interface ConfidentialDetails {
@@ -2139,7 +2140,7 @@ export interface CitizenDocument {
 
 export interface Value {
   parentDocumentType: string;
-  DocumentType: string;
+  documentType: string;
   partyName: string;
   isApplicant: string;
   uploadedBy: string;

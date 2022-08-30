@@ -332,7 +332,7 @@ export interface Case {
   declarationCheck?: string;
   finalDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
-  citizenUploadedDocumentList: UploadDocumentList[];
+  citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
   applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
   respondentDocumentsUploaded?: ListValue<UploadDocumentList>[];
