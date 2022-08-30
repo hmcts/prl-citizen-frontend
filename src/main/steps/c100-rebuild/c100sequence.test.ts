@@ -268,6 +268,5 @@ describe('C100Sequence', () => {
     expect(C100Sequence[33].url).toBe('/c100-rebuild/child-details/further-information');
     expect(C100Sequence[33].showInSection).toBe('c100');
     expect(C100Sequence[33].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
-
   });
 });
