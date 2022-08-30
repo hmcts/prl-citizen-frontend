@@ -31,6 +31,7 @@ import {
   HOME_URL,
   LETTER_FROM_SCHOOL,
   PATERNITY_TEST_REPORTS,
+  POLICE_DISCLOSURE,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -91,6 +92,7 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
+        app.get(`${POLICE_DISCLOSURE}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${DRUG_ALCOHOL_TESTS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${PATERNITY_TEST_REPORTS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${DIGITAL_DOWNLOADS}/:uid`, errorHandler(documentManagerController.get));
