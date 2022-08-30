@@ -29,6 +29,7 @@ import {
   DOCUMENT_MANAGER,
   DRUG_ALCOHOL_TESTS,
   HOME_URL,
+  LETTER_FROM_SCHOOL,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -94,6 +95,7 @@ export class Routes {
         app.get(`${YOUR_WITNESS_STATEMENTS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${WITNESS_AVAILABILITY}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${LETTER_FROM_SCHOOL}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 
