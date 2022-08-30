@@ -24,7 +24,9 @@ import {
   APPLICANT_ORDERS_FROM_THE_COURT,
   CONTACT_US,
   COOKIES_PAGE,
+  DIGITAL_DOWNLOADS,
   DOCUMENT_MANAGER,
+  DRUG_ALCOHOL_TESTS,
   HOME_URL,
   PRIVACY_POLICY,
   RESPONDENT,
@@ -84,6 +86,8 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
+        app.get(`${DRUG_ALCOHOL_TESTS}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${DIGITAL_DOWNLOADS}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 

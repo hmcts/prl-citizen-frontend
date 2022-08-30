@@ -222,6 +222,40 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
+    if (endPoint === 'drug_alcohol_tests' && req.session.userCase?.citizenUploadedDocumentList) {
+      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
+        if (
+          doc.value.citizenDocument.document_url.substring(
+            doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.citizenDocument.document_binary_url) {
+            throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+          }
+          documentToGet = doc.value.citizenDocument.document_binary_url;
+          filename = doc.value.citizenDocument.document_filename;
+        }
+      }
+      uid = this.getUID(documentToGet);
+    }
+
+    if (endPoint === 'digitaldownloads' && req.session.userCase?.citizenUploadedDocumentList) {
+      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
+        if (
+          doc.value.citizenDocument.document_url.substring(
+            doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.citizenDocument.document_binary_url) {
+            throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+          }
+          documentToGet = doc.value.citizenDocument.document_binary_url;
+          filename = doc.value.citizenDocument.document_filename;
+        }
+      }
+      uid = this.getUID(documentToGet);
+    }
+
     const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
