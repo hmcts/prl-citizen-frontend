@@ -1,8 +1,10 @@
 //import config from 'config';
 //import { getSystemUser } from 'app/auth/user/oidc';
-import { APPLICANT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
+import { PREVIOUS_ORDERS_SUBMITTED } from '../../../../../../main/steps/urls';
+import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
 
 const en = () => {
   return {
@@ -50,15 +52,20 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
-  for (const doc of content.userCase?.orderCollection || []) {
-    const uid = doc.value.orderDocument.document_url.substring(
-      doc.value.orderDocument.document_url.lastIndexOf('/') + 1
-    );
-    orders.push({
-      href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
-      createdDate: doc.value.otherDetails.orderCreatedDate,
-      fileName: doc.value.orderDocument.document_filename,
-    });
+  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
+    if (
+      doc.value.isApplicant === YesOrNo.YES &&
+      doc.value.documentType === documents_list_items_en.previous_orders_submitted
+    ) {
+      const uid = doc.value.citizenDocument.document_url.substring(
+        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+      );
+      orders.push({
+        href: `${PREVIOUS_ORDERS_SUBMITTED}/${uid}`,
+        createdDate: doc.value.documentDetails.documentUploadedDate,
+        fileName: doc.value.citizenDocument.document_filename,
+      });
+    }
   }
 
   return {

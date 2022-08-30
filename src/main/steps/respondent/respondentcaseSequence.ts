@@ -24,6 +24,7 @@ import {
   PHOTOGRAPHIC_EVIDENCE,
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
+  PREVIOUS_ORDERS_SUBMITTED,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
   RESPONDENT,
@@ -396,6 +397,16 @@ export const respondentCaseSequence: Step[] = [
   {
     url: `${RESPONDENT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
     showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${RESPONDENT}${PREVIOUS_ORDERS_SUBMITTED}`,
+  },
+  {
+    url: `${RESPONDENT}${PREVIOUS_ORDERS_SUBMITTED}`,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
 ];

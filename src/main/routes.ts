@@ -26,6 +26,8 @@ import {
   COOKIES_PAGE,
   DOCUMENT_MANAGER,
   HOME_URL,
+  POSITION_STATEMENTS,
+  PREVIOUS_ORDERS_SUBMITTED,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -84,6 +86,8 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
+        app.get(`${POSITION_STATEMENTS}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${PREVIOUS_ORDERS_SUBMITTED}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 
