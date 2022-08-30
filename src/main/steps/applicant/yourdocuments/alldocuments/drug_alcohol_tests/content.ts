@@ -49,15 +49,15 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const orders: object[] = [];
+  const drugCitizenDocs: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (doc.value.documentType === 'Drug and alcohol tests (toxicology)') {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
-      orders.push({
+      drugCitizenDocs.push({
         href: `${DRUG_ALCOHOL_TESTS}/${uid}`,
-        createdDate: doc.value.documentUploadedDate,
+        createdDate: doc.value.dateCreated,
         fileName: doc.value.citizenDocument.document_filename,
       });
     }
@@ -65,6 +65,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    orders,
+    drugCitizenDocs,
   };
 };
