@@ -244,7 +244,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
-if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.citizenUploadedDocumentList) {
+    if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.citizenUploadedDocumentList) {
       for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
         if (
           doc.value.citizenDocument.document_url.substring(
@@ -277,7 +277,7 @@ if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.ci
       }
       uid = this.getUID(documentToGet);
     }
-    
+
     if (endPoint === 'paternity_test_reports' && req.session.userCase?.citizenUploadedDocumentList) {
       for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
         if (
