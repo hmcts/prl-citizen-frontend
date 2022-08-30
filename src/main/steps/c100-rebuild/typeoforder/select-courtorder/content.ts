@@ -33,7 +33,7 @@ const en = () => ({
       required: 'Select  what you are asking the court to do',
     },
     stopOtherPeopleDoingSomethingSubField: {
-      required: 'Specify what you want the court to the other people in the application doing',
+      required: 'Specify what you want the court to stop the other people in the application doing',
     },
     resolveSpecificIssueSubField: {
       required: 'Specify what issue you want the court to resolve',
@@ -72,7 +72,7 @@ const cy = () => ({
       required: 'Select  what you are asking the court to do - welsh',
     },
     stopOtherPeopleDoingSomethingSubField: {
-      required: 'Specify what you want the court to the other people in the application doing - welsh',
+      required: 'Specify what you want the court to stop the other people in the application doing - welsh',
     },
     resolveSpecificIssueSubField: {
       required: 'Specify what issue you want the court to resolve - welsh',
