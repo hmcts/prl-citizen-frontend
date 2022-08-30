@@ -29,6 +29,7 @@ import {
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
+  TENANCY_AND_MORTGAGE_AVAILABILITY,
   TERMS_AND_CONDITIONS,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
@@ -84,6 +85,7 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
+        app.get(TENANCY_AND_MORTGAGE_AVAILABILITY, errorHandler(documentManagerController.get));
       }
     }
 
