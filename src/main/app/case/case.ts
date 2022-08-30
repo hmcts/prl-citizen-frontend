@@ -106,8 +106,6 @@ export interface Case {
   underTakingOrderOptions?: YesOrNo;
   underTakingOrder?: orderInterface;
 
-  contactDetailsPrivateAlternative?: string;
-
   /***** Applicant1 *****/
   applicant1FullName?: string;
   applicant1FirstNames?: string;
@@ -191,7 +189,11 @@ export interface Case {
 
   citizenRole?: FieldPrefix;
   //C100 Rebuild
+  contactDetailsPrivateAlternative?: string;
+  c100ApplicationFees?: string;
   disabilityRequirements?: string[];
+  needHelpWithFees?: YesOrNo;
+  feesAppliedDetails?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
