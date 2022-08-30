@@ -222,7 +222,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
-    if (endPoint === 'policereports' && req.session.userCase?.citizenUploadedDocumentList) {
+    if (endPoint === 'police_disclosures' && req.session.userCase?.citizenUploadedDocumentList) {
       for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
         if (
           doc.value.citizenDocument.document_url.substring(
