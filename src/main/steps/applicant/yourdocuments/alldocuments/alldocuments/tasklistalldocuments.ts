@@ -2,6 +2,7 @@ import { Applicant, PartyDetails, Respondent, YesNoDontKnow } from '../../../../
 import { CommonContent } from '../../../../../steps/common/common.content';
 import * as URL from '../../../../urls';
 import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/utils';
+import { applicant_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [
@@ -44,14 +45,46 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
   }
 
   let isDrugDocUploaded = false,
-    isPaternityDocUploaded = false;
+    isPaternityDocUploaded = false,
+    isPreviousOrdersSubmitted = false,
+    isMedicalReportsUploaded = false,
+    isLettersFromSchool = false,
+    isMedicalRecordsUpload = false,
+    isDigitalDownloadsUploaded = false,
+    isPoliceReportUploaded = false,
+    isWitnessAvailabilityUploaded = false,
+    isTenancyUploaded = false;
 
   for (const doc of userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.documentType === 'Drug and alcohol tests (toxicology)') {
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.drug_alcohol_tests) {
       isDrugDocUploaded = true;
     }
-    if (doc.value.documentType === 'Paternity test reports') {
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.paternity_test_reports) {
       isPaternityDocUploaded = true;
+    }
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_reports) {
+      isMedicalReportsUploaded = true;
+    }
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.previous_orders_submitted) {
+      isPreviousOrdersSubmitted = true;
+    }
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.letters_from_school) {
+      isLettersFromSchool = true;
+    }
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_records) {
+      isMedicalRecordsUpload = true;
+    }
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.digital_downloads) {
+      isDigitalDownloadsUploaded = true;
+    }
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.police_disclosures) {
+      isPoliceReportUploaded = true;
+    }
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.witness_availability) {
+      isWitnessAvailabilityUploaded = true;
+    }
+    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability) {
+      isTenancyUploaded = true;
     }
   }
   const applicantItems: object[] = [];
@@ -80,16 +113,21 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
     applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
   }
+
   applicantItems.push({
     id: 'other_people_witness_statements',
     text: getText(taskListItems.other_people_witness_statements, userCase),
     href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS,
   });
-  applicantItems.push({
-    id: 'medical_reports',
-    text: getText(taskListItems.medical_reports, userCase),
-    href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
-  });
+
+  if (isMedicalReportsUploaded) {
+    applicantItems.push({
+      id: 'medical_reports',
+      text: getText(taskListItems.medical_reports, userCase),
+      href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
+    });
+  }
+
   if (userCase.miamCertificationDocumentUpload) {
     applicantItems.push({
       id: 'miam_certificate',
@@ -104,31 +142,35 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       href: url + URL.APPLICATION_MADE_IN_THESE_PRCEEDINGS,
     });
   }
-  applicantItems.push({
-    id: 'previous_orders_submitted',
-    text: getText(taskListItems.previous_orders_submitted, userCase),
-    href: url + URL.PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=Yes',
-  });
-  applicantItems.push({
-    id: 'letters_from_school',
-    text: getText(taskListItems.letters_from_school, userCase),
-    href: url + URL.LETTER_FROM_SCHOOL + '?byApplicant=Yes',
-  });
-  applicantItems.push({
-    id: 'digital_downloads',
-    text: getText(taskListItems.digital_downloads, userCase),
-    href: url + URL.DIGITAL_DOWNLOADS + '?byApplicant=Yes',
-  });
-  applicantItems.push({
-    id: 'photographic_evidence',
-    text: getText(taskListItems.photographic_evidence, userCase),
-    href: url + URL.PHOTOGRAPHIC_EVIDENCE + '?byApplicant=Yes',
-  });
-  applicantItems.push({
-    id: 'medical_records',
-    text: getText(taskListItems.medical_records, userCase),
-    href: url + URL.MEDICAL_RECORDS + '?byApplicant=Yes',
-  });
+  if (isPreviousOrdersSubmitted) {
+    applicantItems.push({
+      id: 'previous_orders_submitted',
+      text: getText(taskListItems.previous_orders_submitted, userCase),
+      href: url + URL.PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=Yes',
+    });
+  }
+  if (isLettersFromSchool) {
+    applicantItems.push({
+      id: 'letters_from_school',
+      text: getText(taskListItems.letters_from_school, userCase),
+      href: url + URL.LETTER_FROM_SCHOOL + '?byApplicant=Yes',
+    });
+  }
+  if (isDigitalDownloadsUploaded) {
+    applicantItems.push({
+      id: 'digital_downloads',
+      text: getText(taskListItems.digital_downloads, userCase),
+      href: url + URL.DIGITAL_DOWNLOADS + '?byApplicant=Yes',
+    });
+  }
+  if (isMedicalRecordsUpload) {
+    applicantItems.push({
+      id: 'medical_records',
+      text: getText(taskListItems.medical_records, userCase),
+      href: url + URL.MEDICAL_RECORDS + '?byApplicant=Yes',
+    });
+  }
+
   if (isPaternityDocUploaded) {
     applicantItems.push({
       id: 'paternity_test_reports',
@@ -143,21 +185,28 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=Yes',
     });
   }
-  applicantItems.push({
-    id: 'police_disclosures',
-    text: getText(taskListItems.police_disclosures, userCase),
-    href: url + URL.POLICE_DISCLOSURE + '?byApplicant=Yes',
-  });
-  applicantItems.push({
-    id: 'witness_availability',
-    text: getText(taskListItems.witness_availability, userCase),
-    href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=Yes',
-  });
-  applicantItems.push({
-    id: 'tenancy_and_mortgage_availability',
-    text: getText(taskListItems.tenancy_and_mortgage_availability, userCase),
-    href: url + URL.TENANCY_AND_MORTGAGE_AVAILABILITY + '?byApplicant=Yes',
-  });
+  if (isPoliceReportUploaded) {
+    applicantItems.push({
+      id: 'police_disclosures',
+      text: getText(taskListItems.police_disclosures, userCase),
+      href: url + URL.POLICE_DISCLOSURE + '?byApplicant=Yes',
+    });
+  }
+  if (isWitnessAvailabilityUploaded) {
+    applicantItems.push({
+      id: 'witness_availability',
+      text: getText(taskListItems.witness_availability, userCase),
+      href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=Yes',
+    });
+  }
+  if (isTenancyUploaded) {
+    applicantItems.push({
+      id: 'tenancy_and_mortgage_availability',
+      text: getText(taskListItems.tenancy_and_mortgage_availability, userCase),
+      href: url + URL.TENANCY_AND_MORTGAGE_AVAILABILITY + '?byApplicant=Yes',
+    });
+  }
+
   return {
     title: sectionTitles.applicantsDocuments,
     items: applicantItems,
