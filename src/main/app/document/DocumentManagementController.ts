@@ -213,7 +213,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           filename
         ) {
           if (!doc.value.orderDocument.document_binary_url) {
-            throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+            throw new Error('ORDERS_FROM_THE_COURT binary url is not found');
           }
           documentToGet = doc.value.orderDocument.document_binary_url;
           filename = doc.value.orderDocument.document_filename;
@@ -230,7 +230,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           ) === filename
         ) {
           if (!doc.value.citizenDocument.document_binary_url) {
-            throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+            throw new Error('DRUG_ALCOHOL_TESTS binary url is not found');
           }
           documentToGet = doc.value.citizenDocument.document_binary_url;
           filename = doc.value.citizenDocument.document_filename;
@@ -247,7 +247,24 @@ export class DocumentManagerController extends PostController<AnyObject> {
           ) === filename
         ) {
           if (!doc.value.citizenDocument.document_binary_url) {
-            throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+            throw new Error('EMAIL_SCREENSHOTS binary url is not found');
+          }
+          documentToGet = doc.value.citizenDocument.document_binary_url;
+          filename = doc.value.citizenDocument.document_filename;
+        }
+      }
+      uid = this.getUID(documentToGet);
+    }
+
+    if (endPoint === 'yourwitnessstatements' && req.session.userCase?.citizenUploadedDocumentList) {
+      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
+        if (
+          doc.value.citizenDocument.document_url.substring(
+            doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.citizenDocument.document_binary_url) {
+            throw new Error('YOUR_WITNESS_STATEMENTS binary url is not found');
           }
           documentToGet = doc.value.citizenDocument.document_binary_url;
           filename = doc.value.citizenDocument.document_filename;

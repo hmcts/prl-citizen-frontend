@@ -34,6 +34,7 @@ import {
   TERMS_AND_CONDITIONS,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
+  YOUR_WITNESS_STATEMENTS,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -88,6 +89,7 @@ export class Routes {
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
         app.get(`${DRUG_ALCOHOL_TESTS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${DIGITAL_DOWNLOADS}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${YOUR_WITNESS_STATEMENTS}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 
