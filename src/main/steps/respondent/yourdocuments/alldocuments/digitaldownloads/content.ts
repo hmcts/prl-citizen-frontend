@@ -60,7 +60,7 @@ export const generateContent: TranslationFn = content => {
       );
       orders.push({
         href: `${DIGITAL_DOWNLOADS}/${uid}`,
-        createdDate: doc.value.documentUploadedDate,
+        createdDate: doc.value.documentDetails.documentUploadedDate,
         fileName: doc.value.citizenDocument.document_filename,
       });
     }
