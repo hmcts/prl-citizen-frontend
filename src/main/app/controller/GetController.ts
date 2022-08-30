@@ -32,6 +32,7 @@ export class GetController {
       pageContent: this.content,
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
+      userCaseList: req.session?.userCaseList,
       addresses,
     });
 

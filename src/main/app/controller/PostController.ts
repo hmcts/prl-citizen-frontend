@@ -18,7 +18,7 @@ import { AppRequest } from './AppRequest';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
-  constructor(protected readonly fields: FormFields | FormFieldsFn) { }
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
@@ -35,6 +35,7 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
     } else {
+      await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -279,7 +280,6 @@ export class PostController<T extends AnyObject> {
     }
   }*/
 
-
   private async checkCaseAccessCode(
     req: AppRequest<T>,
     res: Response,
@@ -295,7 +295,11 @@ export class PostController<T extends AnyObject> {
     try {
       if (!req.session.errors.length) {
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-        const accessCodeValidated = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
+        const accessCodeValidated = await client.validateAccessCode(
+          caseReference as string,
+          accessCode as string,
+          caseworkerUser
+        );
         console.log(accessCodeValidated);
         if (accessCodeValidated === 'Linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
@@ -314,10 +318,35 @@ export class PostController<T extends AnyObject> {
       if (req?.session?.userCase) {
         Object.assign(req?.session?.userCase, formData);
       } else {
-        const initData = { id: caseReference as string, state: State.successAuthentication, serviceType: '', ...formData };
+        const initData = {
+          id: caseReference as string,
+          state: State.successAuthentication,
+          serviceType: '',
+          ...formData,
+        };
         req.session.userCase = initData;
       }
     }
+    this.redirect(req, res);
+  }
+
+  private async getCaseList(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
+    //Object.assign(req.session.userCase, formData);
+    req.session.errors = form.getErrors(formData);
+
+    this.filterErrorsForSaveAsDraft(req);
+
+    if (req.session.errors.length) {
+      return this.redirect(req, res);
+    }
+
+    const caseworkerUser = await getSystemUser();
+
+    const cosApiClient = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
+    console.log('caseDataFromCos' + caseDataFromCos);
+
+    //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);
   }
 }

@@ -69,12 +69,12 @@ export class CosApiClient {
     if (!caseId || !user || !accessCode) {
       return Promise.reject(new Error('Case id must be set and user must be set'));
     }
-    const response = await Axios.get(config.get('services.cos.url') + `/validate-access-code`, {
+    const response = await Axios.get(config.get('services.cos.url') + '/validate-access-code', {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
-        caseId: caseId,
-        accessCode: accessCode,
+        caseId,
+        accessCode,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -84,12 +84,7 @@ export class CosApiClient {
     return response.data;
   }
 
-  public async updateCase(
-    user: UserDetails,
-    caseId: string,
-    data: Partial<CaseData>,
-    eventId: string
-  ): Promise<CaseWithId> {
+  public async updateCase(user: UserDetails, caseId: string, data: Partial<CaseData>): Promise<CaseWithId> {
     data.applicantCaseName = 'Tom Jerry - updated';
     try {
       const eventId = 'citizen-case-update';
@@ -109,21 +104,17 @@ export class CosApiClient {
     }
   }
 
-  public async linkCaseToCitizen(
-    user: UserDetails,
-    caseId: string,
-    accessCode: string,
-  ): Promise<AxiosResponse> {
+  public async linkCaseToCitizen(user: UserDetails, caseId: string, accessCode: string): Promise<AxiosResponse> {
     try {
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        caseId: caseId,
-        accessCode: accessCode,
+        caseId,
+        accessCode,
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      const response = await Axios.post(config.get('services.cos.url') + `/citizen/link`, {
+      const response = await Axios.post(config.get('services.cos.url') + '/citizen/link', {
         headers,
       });
       return response;
@@ -145,9 +136,9 @@ export class CosApiClient {
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + user.accessToken as string,
+        Authorization: ('Bearer ' + user.accessToken) as string,
         serviceAuthorization: getServiceAuthToken() as string,
-        accessCode: accessCode as string
+        accessCode: accessCode as string,
       };
       //: AxiosResponse<CaseWithId>
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
@@ -161,14 +152,14 @@ export class CosApiClient {
   }
 
   /**
-  * It takes a user, a caseId, a request and some data and returns a promise of an AxiosResponse
-  * @param {UserDetails} user - UserDetails - this is the user object that is returned from the auth
-  * service.
-  * @param {RespondentCaseId} caseId - RespondentCaseId,
-  * @param {AppRequest} req - AppRequest
-  * @param {RespondentCaseData} data - RespondentCaseData
-  * @returns The response from the API call.
-  */
+   * It takes a user, a caseId, a request and some data and returns a promise of an AxiosResponse
+   * @param {UserDetails} user - UserDetails - this is the user object that is returned from the auth
+   * service.
+   * @param {RespondentCaseId} caseId - RespondentCaseId,
+   * @param {AppRequest} req - AppRequest
+   * @param {RespondentCaseData} data - RespondentCaseData
+   * @returns The response from the API call.
+   */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async updateRespondentCase(
     user: UserDetails,
@@ -193,5 +184,23 @@ export class CosApiClient {
     } catch (err) {
       throw new Error('Case could not be updated.');
     }
+  }
+
+  /**
+   * It retrieves all cases from the COS service for a user and returns it in a format that the frontend can use
+   * @param {UserDetails} user - UserDetails - this is the user object that is passed in from the front
+   * end.
+   * @returns The response from the API is being returned.
+   */
+  public async retrieveCasesByUserId(user: UserDetails): Promise<CaseWithId[]> {
+    const response = await Axios.get(config.get('services.cos.url') + '/cases', {
+      headers: {
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
   }
 }

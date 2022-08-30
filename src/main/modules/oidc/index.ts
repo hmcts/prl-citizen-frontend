@@ -1,9 +1,9 @@
-import { CosApiClient } from '../../app/case/CosApiClient';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getCaseDetails, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
+import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
@@ -28,6 +28,7 @@ export class OidcMiddleware {
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
+          req.session.userCaseList = await getCaseDetails(req);
           req.session.save(() => res.redirect('/dashboard'));
         } else {
           if (!req.session?.accessCodeLoginIn) {
@@ -56,9 +57,15 @@ export class OidcMiddleware {
                 if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
                   const caseReference = req.session.userCase.caseCode;
                   const accessCode = req.session.userCase.accessCode;
-                  const data = {'applicantCaseName': 'Tom Jerry - updated'};
+                  const data = { applicantCaseName: 'Tom Jerry - updated' };
                   // const caseworkerUser = await getSystemUser();
-                  await client.linkCaseToCitizen1(req.session.user, caseReference as string, req, accessCode as string, data);
+                  await client.linkCaseToCitizen1(
+                    req.session.user,
+                    caseReference as string,
+                    req,
+                    accessCode as string,
+                    data
+                  );
                   req.session.accessCodeLoginIn = false;
                 }
               } catch (err) {
@@ -67,7 +74,7 @@ export class OidcMiddleware {
               }
             }
           }
-          
+
           if (!req.session.userCase) {
             //This language preference will be used while creating a case
             // const languagePreference =
