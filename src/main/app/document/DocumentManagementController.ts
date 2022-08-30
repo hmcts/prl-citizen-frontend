@@ -238,7 +238,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
       uid = this.getUID(documentToGet);
     }
-    
+
     if (endPoint === 'paternity_test_reports' && req.session.userCase?.citizenUploadedDocumentList) {
       for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
         if (
