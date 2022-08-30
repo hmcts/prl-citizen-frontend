@@ -222,6 +222,23 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
+    if (endPoint === 'paternity_test_reports' && req.session.userCase?.citizenUploadedDocumentList) {
+      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
+        if (
+          doc.value?.citizenDocument?.document_url.substring(
+            doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.citizenDocument.document_binary_url) {
+            throw new Error('PATERNITY_TEST_REPORTS binary url is not found');
+          }
+          documentToGet = doc.value.citizenDocument.document_binary_url;
+          filename = doc.value.citizenDocument.document_filename;
+        }
+      }
+      uid = this.getUID(documentToGet);
+    }
+
     if (endPoint === 'drug_alcohol_tests' && req.session.userCase?.citizenUploadedDocumentList) {
       for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
         if (
