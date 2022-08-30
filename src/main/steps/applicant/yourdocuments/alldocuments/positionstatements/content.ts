@@ -2,7 +2,6 @@
 //import { getSystemUser } from 'app/auth/user/oidc';
 
 import { POSITION_STATEMENTS } from '../../../../../../main/steps/urls';
-import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
@@ -55,7 +54,7 @@ export const generateContent: TranslationFn = content => {
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
-      doc.value.isApplicant === YesOrNo.YES &&
+      doc.value.isApplicant === content.byApplicant &&
       doc.value.documentType === documents_list_items_en.your_position_statements
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(
