@@ -50,6 +50,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
+  console.log('citizen document list : ' + content.userCase?.citizenUploadedDocumentList);
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
       doc.value.documentType === 'Emails, screenshots, images and other media files' &&
@@ -60,7 +61,7 @@ export const generateContent: TranslationFn = content => {
       );
       orders.push({
         href: `${DIGITAL_DOWNLOADS}/${uid}`,
-        createdDate: doc.value.documentUploadedDate,
+        createdDate: doc.value.dateCreated,
         fileName: doc.value.citizenDocument.document_filename,
       });
     }
