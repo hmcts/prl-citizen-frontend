@@ -86,7 +86,6 @@ export class Routes {
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
         app.get(`${POLICE_DISCLOSURE}/:uid`, errorHandler(documentManagerController.get));
-
       }
     }
 
