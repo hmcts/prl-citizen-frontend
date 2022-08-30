@@ -85,7 +85,7 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
-        app.get(TENANCY_AND_MORTGAGE_AVAILABILITY, errorHandler(documentManagerController.get));
+        app.get(`${TENANCY_AND_MORTGAGE_AVAILABILITY}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 

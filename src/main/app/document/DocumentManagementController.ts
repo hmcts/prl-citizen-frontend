@@ -225,8 +225,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.citizenUploadedDocumentList) {
       for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
         if (
-          doc.value.citizenDocument.document_url.substring(doc.value.citizenDocument.document_url.lastIndexOf('/') + 1) ===
-          filename
+          doc.value.citizenDocument.document_url.substring(
+            doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+          ) === filename
         ) {
           if (!doc.value.citizenDocument.document_binary_url) {
             throw new Error('TENANCY_AND_MORTGAGE_AVAILABILITY binary url is not found');
