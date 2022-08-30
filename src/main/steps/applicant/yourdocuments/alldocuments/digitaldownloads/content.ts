@@ -51,7 +51,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.documentType === 'Emails, screenshots, images and other media files') {
+    if (
+      doc.value.documentType === 'Emails, screenshots, images and other media files' &&
+      content.byApplicant === doc.value.isApplicant
+    ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
