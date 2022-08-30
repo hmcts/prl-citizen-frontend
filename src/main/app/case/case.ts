@@ -153,6 +153,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
+  citizenUploadedDocumentList: 'citizenUploadedDocumentList',
   serviceType: 'serviceType',
   claimNumber: 'claimNumber',
   caseCode: 'caseCode',
@@ -331,6 +332,7 @@ export interface Case {
   declarationCheck?: string;
   finalDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
+  citizenUploadedDocumentList: UploadDocumentList[];
   /*** Document upload */
   applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
   respondentDocumentsUploaded?: ListValue<UploadDocumentList>[];
