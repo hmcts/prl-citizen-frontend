@@ -548,6 +548,26 @@ export interface PlacementOrder {
   placementOrderDate?: CaseDate | string;
 }
 
+export interface ExistingProceedings {
+  id?: string;
+  value?: ProceedingDetails;
+}
+
+export interface ProceedingDetails {
+  previousOrOngoingProceedings?: string;
+  caseNumber?: string;
+  dateStarted?: CaseDate | string;
+  dateEnded?: CaseDate | string;
+  typeOfOrder?: string[];
+  otherTypeOfOrder?: String;
+  nameOfJudge?: String;
+  nameOfCourt?: String;
+  nameOfChildrenInvolved?: String;
+  nameOfGuardian?: String;
+  nameAndOffice?: String;
+  uploadRelevantOrder?: Document;
+}
+
 export interface ChildDetailsTable {
   id: string;
   value: Value10;
@@ -605,7 +625,7 @@ export interface CaseData {
   specialArrangement: SpecialArrangement;
   adjustmentsRequired: string;
   confidentialDetails: ConfidentialDetails;
-  existingProceedings: string[];
+  existingProceedings: ExistingProceedings[];
   hearingUrgencyTable: HearingUrgencyTable;
   isDisabilityPresent: string;
   isInterpreterNeeded: string;
@@ -667,7 +687,7 @@ export interface CaseData {
   c100ConfidentialityStatementDisclaimer: string[];
   habitualResidentInOtherStateGiveReason: string;
   languageRequirementApplicationNeedWelsh: string;
-  previousOrOngoingProceedingsForChildren: string;
+  previousOrOngoingProceedingsForChildren: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
   documentsGenerated: ListValue<PRLDocument>[];
@@ -1307,6 +1327,12 @@ export const enum YesNoNotsure {
   YES = 'Yes',
   NO = 'No',
   NOT_SURE = 'NotSure',
+}
+
+export const enum YesNoDontKnow {
+  yes = 'yes',
+  no = 'no',
+  dontKnow = 'dontKnow',
 }
 
 export const enum SectionStatus {

@@ -1,13 +1,13 @@
 //import config from 'config';
 //import { getSystemUser } from 'app/auth/user/oidc';
-import { MEDICAL_REPORTS } from '../../../../../../main/steps/urls';
+import { APPLICATION_MADE_IN_THESE_PRCEEDINGS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
 const en = () => {
   return {
     section: 'All documents',
-    title: 'Medical reports',
+    title: 'Applications made in these proceedings',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -18,7 +18,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'All documents',
-    title: 'Medical reports',
+    title: 'Applications made in these proceedings',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -50,17 +50,16 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
-  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.documentType === 'Medical reports' && doc.value.isApplicant === content.byApplicant) {
-      const uid = doc.value.citizenDocument.document_url.substring(
-        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-      );
-      orders.push({
-        href: `${MEDICAL_REPORTS}/${uid}`,
-        createdDate: doc.value.documentUploadedDate,
-        fileName: doc.value.citizenDocument.document_filename,
-      });
-    }
+  console.log('proceedings : ' + content.userCase?.existingProceedings);
+  for (const doc of content.userCase?.existingProceedings || []) {
+    const uid = doc.value?.uploadRelevantOrder?.document_url.substring(
+      doc.value.uploadRelevantOrder.document_url.lastIndexOf('/') + 1
+    );
+    orders.push({
+      href: `${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/${uid}`,
+      createdDate: 'No creation date available',
+      fileName: doc.value?.uploadRelevantOrder?.document_filename,
+    });
   }
 
   return {
