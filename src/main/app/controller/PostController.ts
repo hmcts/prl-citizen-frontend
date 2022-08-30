@@ -8,7 +8,7 @@ import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
@@ -69,9 +69,20 @@ export class PostController<T extends AnyObject> {
 
     const data = toApiFormat(formData);
 
-    if (Object.keys(data).length !== 0) {
-      req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
-    }
+    // if (Object.keys(data).length !== 0) {
+    //   req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
+    // }
+
+    const caseworkerUser = await getSystemUser();
+    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    // const requestMappedCaseData = {
+    //   applicantCaseName: 'XYZ',
+    //   natureOfOrder: 'test',
+    //   isCaseUrgent: 'Yes',
+    // };
+    // const caseId = req.session?.caseId;
+    await client.updateRespondentCase(caseworkerUser, '1661181673014144', req, data);
+    this.redirect(req, res);
 
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);
@@ -286,9 +297,9 @@ export class PostController<T extends AnyObject> {
         const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
         const accessCodeValidated = await client.validateAccessCode(caseReference as string, accessCode as string, caseworkerUser);
         console.log(accessCodeValidated);
-        if (accessCodeValidated === 'linked') {
+        if (accessCodeValidated === 'Linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
-        } else if (accessCodeValidated !== 'valid') {
+        } else if (accessCodeValidated !== 'Valid') {
           req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         }
       }
@@ -296,11 +307,16 @@ export class PostController<T extends AnyObject> {
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 
-    req.session.errors = form.getErrors(formData);
     if (req.session.errors.length) {
       req.session.accessCodeLoginIn = false;
     } else {
       req.session.accessCodeLoginIn = true;
+      if (req?.session?.userCase) {
+        Object.assign(req?.session?.userCase, formData);
+      } else {
+        const initData = { id: caseReference as string, state: State.successAuthentication, serviceType: '', ...formData };
+        req.session.userCase = initData;
+      }
     }
     this.redirect(req, res);
   }

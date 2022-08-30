@@ -1,3 +1,4 @@
+import { CosApiClient } from '../../app/case/CosApiClient';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
@@ -47,6 +48,26 @@ export class OidcMiddleware {
         if (req.session?.user) {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
+
+          if (req.session.userCase) {
+            if (req.session.accessCodeLoginIn) {
+              try {
+                const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+                if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
+                  const caseReference = req.session.userCase.caseCode;
+                  const accessCode = req.session.userCase.accessCode;
+                  const data = {'applicantCaseName': 'Tom Jerry - updated'};
+                  // const caseworkerUser = await getSystemUser();
+                  await client.linkCaseToCitizen1(req.session.user, caseReference as string, req, accessCode as string, data);
+                  req.session.accessCodeLoginIn = false;
+                }
+              } catch (err) {
+                req.session.accessCodeLoginIn = false;
+                //TODO Log error saying case linking has failed
+              }
+            }
+          }
+          
           if (!req.session.userCase) {
             //This language preference will be used while creating a case
             // const languagePreference =
