@@ -26,6 +26,7 @@ import {
   APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
   // APPLICANT_START_ALTERNATIVE,
   APPLICANT_VIEW_ALL_DOCUMENTS,
+  APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
   COURT_HEARING_SUPPORT,
@@ -379,6 +380,16 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: `${APPLICANT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${APPLICATION_MADE_IN_THESE_PRCEEDINGS}`,
+  },
+  {
+    url: `${APPLICANT}${APPLICATION_MADE_IN_THESE_PRCEEDINGS}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
