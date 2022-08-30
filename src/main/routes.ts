@@ -32,6 +32,7 @@ import {
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   TERMS_AND_CONDITIONS,
+  WITNESS_AVAILABILITY,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
   YOUR_WITNESS_STATEMENTS,
@@ -90,6 +91,7 @@ export class Routes {
         app.get(`${DRUG_ALCOHOL_TESTS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${DIGITAL_DOWNLOADS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${YOUR_WITNESS_STATEMENTS}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${WITNESS_AVAILABILITY}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 
