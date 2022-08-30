@@ -222,7 +222,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
-    if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.citizenUploadedDocumentList) {
+if (endPoint === 'tenancy_and_mortgage_availability' && req.session.userCase?.citizenUploadedDocumentList) {
       for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
         if (
           doc.value.citizenDocument.document_url.substring(doc.value.citizenDocument.document_url.lastIndexOf('/') + 1) ===
@@ -230,6 +230,23 @@ export class DocumentManagerController extends PostController<AnyObject> {
         ) {
           if (!doc.value.citizenDocument.document_binary_url) {
             throw new Error('TENANCY_AND_MORTGAGE_AVAILABILITY binary url is not found');
+          }
+          documentToGet = doc.value.citizenDocument.document_binary_url;
+          filename = doc.value.citizenDocument.document_filename;
+        }
+      }
+      uid = this.getUID(documentToGet);
+    }
+
+    if (endPoint === 'police_disclosures' && req.session.userCase?.citizenUploadedDocumentList) {
+      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
+        if (
+          doc.value?.citizenDocument?.document_url.substring(
+            doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.citizenDocument.document_binary_url) {
+            throw new Error('Police reports binary url is not found');
           }
           documentToGet = doc.value.citizenDocument.document_binary_url;
           filename = doc.value.citizenDocument.document_filename;
