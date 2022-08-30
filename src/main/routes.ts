@@ -26,6 +26,7 @@ import {
   COOKIES_PAGE,
   DOCUMENT_MANAGER,
   HOME_URL,
+  POLICE_REPORTS,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -84,6 +85,8 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
+        app.get(`${POLICE_REPORTS}/:uid`, errorHandler(documentManagerController.get));
+
       }
     }
 
