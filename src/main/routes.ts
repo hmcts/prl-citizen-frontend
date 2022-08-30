@@ -39,6 +39,7 @@ import {
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
+  TENANCY_AND_MORTGAGE_AVAILABILITY,
   TERMS_AND_CONDITIONS,
   WITNESS_AVAILABILITY,
   YOUR_APPLICATION_FL401,
@@ -98,6 +99,7 @@ export class Routes {
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
         app.get(`${POSITION_STATEMENTS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${PREVIOUS_ORDERS_SUBMITTED}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${TENANCY_AND_MORTGAGE_AVAILABILITY}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${POLICE_DISCLOSURE}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${DRUG_ALCOHOL_TESTS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${PATERNITY_TEST_REPORTS}/:uid`, errorHandler(documentManagerController.get));
