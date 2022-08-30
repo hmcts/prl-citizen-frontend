@@ -30,6 +30,8 @@ import {
   DRUG_ALCOHOL_TESTS,
   HOME_URL,
   LETTER_FROM_SCHOOL,
+  MEDICAL_RECORDS,
+  MEDICAL_REPORTS,
   PATERNITY_TEST_REPORTS,
   POLICE_DISCLOSURE,
   PRIVACY_POLICY,
@@ -100,6 +102,8 @@ export class Routes {
         app.get(`${WITNESS_AVAILABILITY}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${LETTER_FROM_SCHOOL}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${MEDICAL_RECORDS}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${MEDICAL_REPORTS}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 
