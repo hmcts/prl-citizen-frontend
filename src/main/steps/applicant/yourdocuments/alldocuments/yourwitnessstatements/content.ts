@@ -57,7 +57,7 @@ export const generateContent: TranslationFn = content => {
       );
       orders.push({
         href: `${YOUR_WITNESS_STATEMENTS}/${uid}`,
-        createdDate: doc.value.documentUploadedDate,
+        createdDate: doc.value.documentDetails.documentUploadedDate,
         fileName: doc.value.citizenDocument.document_filename,
       });
     }
