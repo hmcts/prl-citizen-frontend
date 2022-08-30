@@ -22,6 +22,7 @@ import {
   DateOfSubmission,
   Document,
   DraftConsentOrderFile,
+  ExistingProceedings,
   Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
   InternationalElementTable,
@@ -50,6 +51,7 @@ import {
   WelshNeed,
   YesOrNo,
   orderInterface,
+  YesNoDontKnow,
   //DocumentType,
 } from './definition';
 
@@ -229,7 +231,7 @@ export interface Case {
   specialArrangement?: SpecialArrangement;
   adjustmentsRequired?: string;
   confidentialDetails?: ConfidentialDetails;
-  existingProceedings?: string[];
+  existingProceedings?: ExistingProceedings[];
   hearingUrgencyTable?: HearingUrgencyTable;
   isDisabilityPresent?: string;
   isInterpreterNeeded?: string;
@@ -291,7 +293,7 @@ export interface Case {
   c100ConfidentialityStatementDisclaimer?: string[];
   habitualResidentInOtherStateGiveReason?: string;
   languageRequirementApplicationNeedWelsh?: string;
-  previousOrOngoingProceedingsForChildren?: string;
+  previousOrOngoingProceedingsForChildren?: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish?: string;
 
   //TODO?: Below fields should be with in respondent object.
