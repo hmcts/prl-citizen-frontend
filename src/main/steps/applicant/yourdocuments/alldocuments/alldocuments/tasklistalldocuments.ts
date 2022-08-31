@@ -59,61 +59,61 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
   for (const doc of userCase?.citizenUploadedDocumentList || []) {
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.drug_alcohol_tests &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isDrugDocUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.paternity_test_reports &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isPaternityDocUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_reports &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isMedicalReportsUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.previous_orders_submitted &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isPreviousOrdersSubmitted = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.letters_from_school &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isLettersFromSchool = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_records &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isMedicalRecordsUpload = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.digital_downloads &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isDigitalDownloadsUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.police_disclosures &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isPoliceReportUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.witness_availability &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isWitnessAvailabilityUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability &&
-      doc.value.byApplicant === 'Yes'
+      doc.value.isApplicant === 'Yes'
     ) {
       isTenancyUploaded = true;
     }
@@ -263,61 +263,61 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   for (const doc of userCase?.citizenUploadedDocumentList || []) {
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.drug_alcohol_tests &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isDrugDocUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.paternity_test_reports &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isPaternityDocUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_reports &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isMedicalReportsUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.previous_orders_submitted &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isPreviousOrdersSubmitted = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.letters_from_school &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isLettersFromSchool = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_records &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isMedicalRecordsUpload = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.digital_downloads &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isDigitalDownloadsUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.police_disclosures &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isPoliceReportUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.witness_availability &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isWitnessAvailabilityUploaded = true;
     }
     if (
       doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability &&
-      doc.value.byApplicant === 'No'
+      doc.value.isApplicant === 'No'
     ) {
       isTenancyUploaded = true;
     }
