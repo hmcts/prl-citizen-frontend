@@ -170,6 +170,7 @@ export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${CA_DA_SUP
 /* This is a route for the C100 application. */
 export const C100_URL: PageLink = '/c100-rebuild';
 export const C100_START: PageLink = `${C100_URL}/start`;
+export const C100_CREATE_APPLICATION: PageLink = `${C100_URL}/create-application`;
 export const C100_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/confidentiality/details-know`;
 export const C100_CONFIDENTIALITY_START: PageLink = `${C100_URL}/confidentiality/start`;
 export const C100_CONFIDENTIALITY_START_ALTERNATIVE: PageLink = `${C100_URL}/confidentiality/start-alternative`;

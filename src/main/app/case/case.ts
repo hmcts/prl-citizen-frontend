@@ -194,6 +194,7 @@ export interface Case {
   disabilityRequirements?: string[];
   needHelpWithFees?: YesOrNo;
   feesAppliedDetails?: YesOrNo;
+  caseId?: string;
 }
 
 export interface CaseWithId extends Case {

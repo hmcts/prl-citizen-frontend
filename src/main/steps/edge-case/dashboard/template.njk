@@ -1,13 +1,21 @@
 {% extends "common/template.njk" %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block page_content %}
-<br/>
-<a href="/applicant/task-list" class="govuk-link">DA Applicant</a>
-<br />
-<br />
-<a href="/ca-da-respondent/task-list" class="govuk-link">CA DA Respondent</a>
-<br/>
-<h1 class="govuk-heading-l">Create C100 Application</h1>
-<a href="/c100-rebuild/confidentiality/details-know" class="govuk-button">Start Now</a>
+
+<ul class="govuk-list">
+  <li>
+    <a class="govuk-link" href="/applicant/task-list">DA Applicant</a>
+  </li>
+  <li>
+    <a class="govuk-link" href="/ca-da-respondent/task-list">CA DA Respondent</a>
+  </li>
+  <li>
+    <a class="govuk-link" href="/c100-rebuild">C100 Application</a>
+  </li>
+</ul>
 
 {% endblock %}
