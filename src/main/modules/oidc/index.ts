@@ -60,6 +60,16 @@ export class OidcMiddleware {
             // req.session['lang'] =
             // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
           }
+          if (!req.session.settings) {
+            req.session.settings = {
+              toggleChild: 0,
+              ListOfChild: [],
+              childTemporaryFormData: {
+                TempFirstName: '',
+                TempLastName: '',
+              },
+            };
+          }
           return next();
         } else {
           res.redirect(SIGN_IN_URL);
