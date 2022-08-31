@@ -57,34 +57,64 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     isTenancyUploaded = false;
 
   for (const doc of userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.drug_alcohol_tests) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.drug_alcohol_tests &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isDrugDocUploaded = true;
     }
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.paternity_test_reports) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.paternity_test_reports &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isPaternityDocUploaded = true;
     }
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_reports) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_reports &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isMedicalReportsUploaded = true;
     }
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.previous_orders_submitted) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.previous_orders_submitted &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isPreviousOrdersSubmitted = true;
     }
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.letters_from_school) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.letters_from_school &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isLettersFromSchool = true;
     }
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_records) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_records &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isMedicalRecordsUpload = true;
     }
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.digital_downloads) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.digital_downloads &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isDigitalDownloadsUploaded = true;
     }
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.police_disclosures) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.police_disclosures &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isPoliceReportUploaded = true;
     }
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.witness_availability) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.witness_availability &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isWitnessAvailabilityUploaded = true;
     }
-    if (doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability &&
+      doc.value.byApplicant === 'Yes'
+    ) {
       isTenancyUploaded = true;
     }
   }
@@ -219,6 +249,79 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   if (!isApplicant) {
     url = URL.RESPONDENT;
   }
+  let isDrugDocUploaded = false,
+    isPaternityDocUploaded = false,
+    isPreviousOrdersSubmitted = false,
+    isMedicalReportsUploaded = false,
+    isLettersFromSchool = false,
+    isMedicalRecordsUpload = false,
+    isDigitalDownloadsUploaded = false,
+    isPoliceReportUploaded = false,
+    isWitnessAvailabilityUploaded = false,
+    isTenancyUploaded = false;
+
+  for (const doc of userCase?.citizenUploadedDocumentList || []) {
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.drug_alcohol_tests &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isDrugDocUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.paternity_test_reports &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isPaternityDocUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_reports &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isMedicalReportsUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.previous_orders_submitted &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isPreviousOrdersSubmitted = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.letters_from_school &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isLettersFromSchool = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_records &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isMedicalRecordsUpload = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.digital_downloads &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isDigitalDownloadsUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.police_disclosures &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isPoliceReportUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.witness_availability &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isWitnessAvailabilityUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability &&
+      doc.value.byApplicant === 'No'
+    ) {
+      isTenancyUploaded = true;
+    }
+  }
   const respondentItems: object[] = [];
   const respondentItems2: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
@@ -244,73 +347,89 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     respondentItems2.push(getRespondentPositionStatementsDA(userCase.respondentsFL401, taskListItems, url));
     respondentItems2.push(getRespondentWitnessStatementsDA(userCase.respondentsFL401, taskListItems, userCase, url));
   }
-
-  respondentItems.push({
-    id: 'applications_made_in_these_proceedings_respondent',
-    text: getText(taskListItems.applications_made_in_these_proceedings_respondent, userCase),
-    href: url + URL.APPLICATION_MADE_IN_THESE_PRCEEDINGS,
-  });
-  respondentItems.push({
-    id: 'previous_orders_submitted_respondent',
-    text: getText(taskListItems.previous_orders_submitted_respondent, userCase),
-    href: url + URL.PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=No',
-  });
-  respondentItems.push({
-    id: 'letters_from_school_respondent',
-    text: getText(taskListItems.letters_from_school_respondent, userCase),
-    href: url + URL.LETTER_FROM_SCHOOL + '?byApplicant=No',
-  });
+  if (userCase.previousOrOngoingProceedingsForChildren === YesNoDontKnow.yes) {
+    respondentItems.push({
+      id: 'applications_made_in_these_proceedings_respondent',
+      text: getText(taskListItems.applications_made_in_these_proceedings_respondent, userCase),
+      href: url + URL.APPLICATION_MADE_IN_THESE_PRCEEDINGS,
+    });
+  }
+  if (isPreviousOrdersSubmitted) {
+    respondentItems.push({
+      id: 'previous_orders_submitted_respondent',
+      text: getText(taskListItems.previous_orders_submitted_respondent, userCase),
+      href: url + URL.PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=No',
+    });
+  }
+  if (isLettersFromSchool) {
+    respondentItems.push({
+      id: 'letters_from_school_respondent',
+      text: getText(taskListItems.letters_from_school_respondent, userCase),
+      href: url + URL.LETTER_FROM_SCHOOL + '?byApplicant=No',
+    });
+  }
 
   respondentItems2.push({
     id: 'other_people_witness_statements_respondent',
     text: getText(taskListItems.other_people_witness_statements_respondent, userCase),
     href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS + '?byApplicant=No',
   });
-  respondentItems2.push({
-    id: 'digital_downloads_respondent',
-    text: getText(taskListItems.digital_downloads_respondent, userCase),
-    href: url + URL.DIGITAL_DOWNLOADS + '?byApplicant=No',
-  });
-  respondentItems2.push({
-    id: 'photographic_evidence_respondent',
-    text: getText(taskListItems.photographic_evidence_respondent, userCase),
-    href: url + URL.PHOTOGRAPHIC_EVIDENCE + '?byApplicant=No',
-  });
-  respondentItems2.push({
-    id: 'medical_records_respondent',
-    text: getText(taskListItems.medical_records_respondent, userCase),
-    href: url + URL.MEDICAL_RECORDS + '?byApplicant=No',
-  });
-  respondentItems2.push({
-    id: 'medical_reports_respondent',
-    text: getText(taskListItems.medical_reports_respondent, userCase),
-    href: url + URL.MEDICAL_REPORTS + '?byApplicant=No',
-  });
-  respondentItems2.push({
-    id: 'paternity_test_reports_respondent',
-    text: getText(taskListItems.paternity_test_reports_respondent, userCase),
-    href: url + URL.PATERNITY_TEST_REPORTS + '?byApplicant=No',
-  });
-  respondentItems2.push({
-    id: 'drug_alcohol_tests_respondent',
-    text: getText(taskListItems.drug_alcohol_tests_respondent, userCase),
-    href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=No',
-  });
-  respondentItems2.push({
-    id: 'police_disclosures_respondent',
-    text: getText(taskListItems.police_disclosures_respondent, userCase),
-    href: url + URL.POLICE_DISCLOSURE + '?byApplicant=No',
-  });
-  respondentItems2.push({
-    id: 'witness_availability_respondent',
-    text: getText(taskListItems.witness_availability_respondent, userCase),
-    href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=No',
-  });
-  respondentItems2.push({
-    id: 'tenancy_and_mortgage_availability',
-    text: getText(taskListItems.tenancy_and_mortgage_availability, userCase),
-    href: url + URL.TENANCY_AND_MORTGAGE_AVAILABILITY + '?byApplicant=No',
-  });
+  if (isDigitalDownloadsUploaded) {
+    respondentItems2.push({
+      id: 'digital_downloads_respondent',
+      text: getText(taskListItems.digital_downloads_respondent, userCase),
+      href: url + URL.DIGITAL_DOWNLOADS + '?byApplicant=No',
+    });
+  }
+  if (isMedicalRecordsUpload) {
+    respondentItems2.push({
+      id: 'medical_records_respondent',
+      text: getText(taskListItems.medical_records_respondent, userCase),
+      href: url + URL.MEDICAL_RECORDS + '?byApplicant=No',
+    });
+  }
+  if (isMedicalReportsUploaded) {
+    respondentItems2.push({
+      id: 'medical_reports_respondent',
+      text: getText(taskListItems.medical_reports_respondent, userCase),
+      href: url + URL.MEDICAL_REPORTS + '?byApplicant=No',
+    });
+  }
+  if (isPaternityDocUploaded) {
+    respondentItems2.push({
+      id: 'paternity_test_reports_respondent',
+      text: getText(taskListItems.paternity_test_reports_respondent, userCase),
+      href: url + URL.PATERNITY_TEST_REPORTS + '?byApplicant=No',
+    });
+  }
+  if (isDrugDocUploaded) {
+    respondentItems2.push({
+      id: 'drug_alcohol_tests_respondent',
+      text: getText(taskListItems.drug_alcohol_tests_respondent, userCase),
+      href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=No',
+    });
+  }
+  if (isPoliceReportUploaded) {
+    respondentItems2.push({
+      id: 'police_disclosures_respondent',
+      text: getText(taskListItems.police_disclosures_respondent, userCase),
+      href: url + URL.POLICE_DISCLOSURE + '?byApplicant=No',
+    });
+  }
+  if (isWitnessAvailabilityUploaded) {
+    respondentItems2.push({
+      id: 'witness_availability_respondent',
+      text: getText(taskListItems.witness_availability_respondent, userCase),
+      href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=No',
+    });
+  }
+  if (isTenancyUploaded) {
+    respondentItems2.push({
+      id: 'tenancy_and_mortgage_availability',
+      text: getText(taskListItems.tenancy_and_mortgage_availability, userCase),
+      href: url + URL.TENANCY_AND_MORTGAGE_AVAILABILITY + '?byApplicant=No',
+    });
+  }
 
   return {
     title: sectionTitles.respondentsDocuments,
