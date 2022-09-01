@@ -1,4 +1,5 @@
 import { TranslationFn } from '../../../app/controller/GetController';
+import * as URL from '../../urls';
 
 import { document_list_en } from './section-titles';
 import { documents_list_items_en } from './upload-document-list-items';
@@ -29,6 +30,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
-    sections: generateUploadDocumentList(translations.sectionTitles, translations.documentsListItems),
+    sections: generateUploadDocumentList(
+      translations.sectionTitles,
+      translations.documentsListItems,
+      URL.APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL
+    ),
   };
 };

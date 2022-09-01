@@ -43,7 +43,7 @@ describe('task-list > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test.skip.each([
+  test.each([
     {
       userCase: mockUserCase,
       expected: [
@@ -53,18 +53,18 @@ describe('task-list > content', () => {
               href: '/applicant/keep-details-private/details_known',
               id: 'keep-your-details-private',
               status: 'TO_DO',
-              text: 'Keep your details private',
+              text: applicant_tasklist_items_en.keep_your_details_private,
             },
             {
               href: '/applicant/confirm-contact-details/checkanswers',
               id: 'confirm-or-edit-your-contact-details',
               status: 'IN_PROGRESS',
-              text: 'Confirm or edit your contact details',
+              text: applicant_tasklist_items_en.confirm_or_edit_your_contact_details,
             },
             {
               href: '/applicant/support-you-need-during-case/language-requirements',
               id: 'support-you-need-during-your-case',
-              text: 'Support you need during your case',
+              text: applicant_tasklist_items_en.support_you_need_during_your_case,
               status: 'TO_DO',
             },
           ],
@@ -79,7 +79,7 @@ describe('task-list > content', () => {
               text: 'Application submitted (PDF)',
             },
             {
-              href: '/applicant/public/docs/witness-statement-Final-Document.pdf',
+              href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
               id: 'your-application-witness-statment',
               status: 'DOWNLOAD',
               text: 'Witness statement (PDF)',
@@ -89,6 +89,23 @@ describe('task-list > content', () => {
         },
         {
           items: [
+            {
+              href: '/applicant/keep-details-private/details_known',
+              id: 'check-details-of-your-court-hearings',
+              status: SectionStatus.TO_DO,
+              text: applicant_tasklist_items_en.details_of_court_hearings,
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'view-all-documents',
+              status: SectionStatus.READY_TO_VIEW,
+              text: applicant_tasklist_items_en.upload_document,
+            },
             {
               href: '/applicant/yourdocuments/alldocuments/alldocuments',
               id: 'view-all-documents',
