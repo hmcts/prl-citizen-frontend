@@ -16,7 +16,7 @@ const en = {
   continue: 'Save and continue',
   errors: {
     miamStart: {
-      required: 'Enter your details known',
+      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',
     },
   },
 };
@@ -33,7 +33,7 @@ const cy: typeof en = {
   continue: 'Save and continue',
   errors: {
     miamStart: {
-      required: 'Enter your details known',
+      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',
     },
   },
 };

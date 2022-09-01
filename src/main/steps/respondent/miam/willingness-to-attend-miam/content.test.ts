@@ -16,7 +16,7 @@ const enContent = {
   continue: 'Save and continue',
   errors: {
     miamWillingness: {
-      required: 'Enter your details known',
+      required: 'Select yes if you are willing to attend a MIAM',
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
@@ -35,7 +35,7 @@ const cyContent = {
   continue: 'Save and continue',
   errors: {
     miamWillingness: {
-      required: 'Enter your details known',
+      required: 'Select yes if you are willing to attend a MIAM',
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
