@@ -25,8 +25,20 @@ import {
   C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
   C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
   C100_START,
+  C100_TYPE_ORDER_CAORDER,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   C100_TYPE_ORDER_SHORT_STATEMENT,
+
+  /** @C100 Help with Fees */
+  // eslint-disable-next-line sort-imports
+  C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
+  C100_HELP_WITH_FEES_FEES_APPLIED,
+  C100_HELP_WITH_FEES_HWF_GUIDANCE,
+  C100_CHILDERN_DETAILS_ADD,
+  C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
+  C100_CHILDERN_DETAILS_CHILD_MATTERS,
+  C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
+  C100_CHILDERN_FURTHER_INFORMATION,
   PageLink,
 } from '../urls';
 
@@ -186,6 +198,11 @@ export const C100Sequence: Step[] = [
   {
     url: C100_TYPE_ORDER_SELECT_COURT_ORDER,
     showInSection: Sections.C100,
+    getNextStep: () => C100_TYPE_ORDER_CAORDER,
+  },
+  {
+    url: C100_TYPE_ORDER_CAORDER,
+    showInSection: Sections.C100,
     getNextStep: () => C100_TYPE_ORDER_SHORT_STATEMENT,
   },
   {
@@ -205,6 +222,47 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_START,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE,
+  },
+  {
+    url: C100_HELP_WITH_FEES_FEES_APPLIED,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE,
+  },
+  {
+    url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_ADD,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILDERN_DETAILS_CHILD_MATTERS,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_CHILD_MATTERS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILDERN_FURTHER_INFORMATION,
+  },
+  {
+    url: C100_CHILDERN_FURTHER_INFORMATION,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
