@@ -5,6 +5,7 @@ const CurrentOrPreviousProceedings = require('./pages/CurrentOrPreviousProceedin
 const ConsentToApplication = require('./pages/ConsentToApplication');
 const SupportYouNeedApplicant = require('./pages/SupportYouNeedDuringYourCase-Applicant');
 const SupportYouNeedRespondent = require('./pages/SupportYouNeedDuringYourCase-RespondentCADA');
+const ViewAllDocuments = require('./pages/ViewAllDocuments');
 
 module.exports = () => {
   return actor({
@@ -29,6 +30,9 @@ module.exports = () => {
     },
     supportYouNeedDuringYourCaseRespondent() {
       return SupportYouNeedRespondent.supportYouNeedHappyPath();
+    },
+    viewAllDocuments () {
+      return ViewAllDocuments.clickViewAllDocuments();
     }
   });
 };
