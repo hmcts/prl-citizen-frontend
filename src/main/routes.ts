@@ -14,6 +14,9 @@ import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 // import { RespondentTaskListGetController } from './steps/respondent/task-list/get';
+import {PaymentHandler} from './modules/payments/paymentController'
+
+
 import {
   // CSRF_TOKEN_ERROR_URL,
   ACCESSIBILITY_STATEMENT,
@@ -30,6 +33,8 @@ import {
   // eslint-disable-next-line sort-imports
   C100_CREATE_APPLICATION,
   C100_URL as C100_LANDING_PAGE,
+  // RESPONDENT_TASK_LIST_URL
+  PAYMENT_GATEWAY_ENTRY_URL
 } from './steps/urls';
 
 export class Routes {
@@ -67,6 +72,13 @@ export class Routes {
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }
+
+   /**
+    * 
+    * @Payment_Handler
+    */
+
+   app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler))
 
     app.get('/api/v1/session', (req, res) => res.json(req.session));
     // app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
