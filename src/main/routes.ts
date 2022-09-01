@@ -23,28 +23,17 @@ import {
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
+  CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   CONTACT_US,
   COOKIES_PAGE,
-  DIGITAL_DOWNLOADS,
   DOCUMENT_MANAGER,
-  DRUG_ALCOHOL_TESTS,
   HOME_URL,
-  LETTER_FROM_SCHOOL,
-  MEDICAL_RECORDS,
-  MEDICAL_REPORTS,
-  PATERNITY_TEST_REPORTS,
-  POLICE_DISCLOSURE,
-  POSITION_STATEMENTS,
-  PREVIOUS_ORDERS_SUBMITTED,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
-  TENANCY_AND_MORTGAGE_AVAILABILITY,
   TERMS_AND_CONDITIONS,
-  WITNESS_AVAILABILITY,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
-  YOUR_WITNESS_STATEMENTS,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -97,19 +86,8 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
-        app.get(`${POSITION_STATEMENTS}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${PREVIOUS_ORDERS_SUBMITTED}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${TENANCY_AND_MORTGAGE_AVAILABILITY}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${POLICE_DISCLOSURE}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${DRUG_ALCOHOL_TESTS}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${PATERNITY_TEST_REPORTS}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${DIGITAL_DOWNLOADS}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${YOUR_WITNESS_STATEMENTS}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${WITNESS_AVAILABILITY}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${LETTER_FROM_SCHOOL}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${MEDICAL_RECORDS}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${MEDICAL_REPORTS}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 

@@ -1,6 +1,6 @@
 //import config from 'config';
 //import { getSystemUser } from 'app/auth/user/oidc';
-import { PREVIOUS_ORDERS_SUBMITTED } from '../../../../../../main/steps/urls';
+import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
@@ -60,7 +60,7 @@ export const generateContent: TranslationFn = content => {
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
       orders.push({
-        href: `${PREVIOUS_ORDERS_SUBMITTED}/${uid}`,
+        href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
         createdDate: doc.value.documentDetails.documentUploadedDate,
         fileName: doc.value.citizenDocument.document_filename,
       });

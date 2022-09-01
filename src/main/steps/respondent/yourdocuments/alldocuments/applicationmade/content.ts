@@ -1,6 +1,6 @@
 //import config from 'config';
 //import { getSystemUser } from 'app/auth/user/oidc';
-import { APPLICATION_MADE_IN_THESE_PRCEEDINGS } from '../../../../../../main/steps/urls';
+import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
@@ -50,13 +50,12 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
-  console.log('proceedings : ' + content.userCase?.existingProceedings);
   for (const doc of content.userCase?.existingProceedings || []) {
     const uid = doc.value?.uploadRelevantOrder?.document_url.substring(
       doc.value.uploadRelevantOrder.document_url.lastIndexOf('/') + 1
     );
     orders.push({
-      href: `${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/${uid}`,
+      href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
       createdDate: 'No creation date available',
       fileName: doc.value?.uploadRelevantOrder?.document_filename,
     });

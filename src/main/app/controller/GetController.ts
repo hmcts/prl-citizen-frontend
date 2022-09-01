@@ -28,8 +28,6 @@ export class GetController {
     const language = this.getPreferredLanguage(req) as Language;
     const captionValue = this.getCaption(req) as string;
     const document_type = this.getDocumentType(req) as string;
-    console.log(document_type);
-    console.log(captionValue);
     const byApplicant = req.query['byApplicant'] as string;
     const addresses = req.session?.addresses;
     const content = generatePageContent({
@@ -81,12 +79,10 @@ export class GetController {
 
   private getCaption(req: AppRequest) {
     const caption = req.query['caption'] as string;
-    console.log(caption);
     return caption;
   }
   private getDocumentType(req: AppRequest) {
     const caption = req.query['document_type'] as string;
-    console.log(caption);
     return caption;
   }
 
@@ -119,7 +115,6 @@ export class GetController {
 
   private getName(req: AppRequest) {
     const caption = req.query['name'] as string;
-    console.log('name : ' + caption);
     return caption;
   }
 }

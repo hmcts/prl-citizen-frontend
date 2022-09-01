@@ -83,8 +83,6 @@ export class CosApiClient {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data);
-
     return response.data;
   }
 
@@ -122,14 +120,12 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      console.log('Inside CosApiClient');
 
       const response = await Axios.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',
         generateAndUploadDocumentRequest,
         { headers }
       );
-      console.log(response);
       return {
         status: response.status,
         documentId: response.data?.documentId,
@@ -151,14 +147,12 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      console.log('Inside CosApiClient');
 
       const response = await Axios.post(
         config.get('services.cos.url') + '/delete-citizen-statement-document',
         deleteDocumentRequest,
         { headers }
       );
-      console.log(response);
       return response.data;
     } catch (err) {
       throw new Error('Document could not be deleted.');

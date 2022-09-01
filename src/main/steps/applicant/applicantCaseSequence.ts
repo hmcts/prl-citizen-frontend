@@ -39,7 +39,6 @@ import {
   MEDICAL_REPORTS,
   OTHER_PEOPLE_WITNESS_STATEMENTS,
   PATERNITY_TEST_REPORTS,
-  PHOTOGRAPHIC_EVIDENCE,
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
@@ -247,16 +246,6 @@ export const applicantCaseSequence: Step[] = [
     url: `${APPLICANT}${YOUR_WITNESS_STATEMENTS}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
-  },
-  {
-    url: APPLICANT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => `${APPLICANT}${PHOTOGRAPHIC_EVIDENCE}`,
-  },
-  {
-    url: `${APPLICANT}${PHOTOGRAPHIC_EVIDENCE}`,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,

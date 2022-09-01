@@ -50,7 +50,6 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
-  console.log('proceedings : ' + content.userCase?.existingProceedings);
   for (const doc of content.userCase?.existingProceedings || []) {
     const uid = doc.value?.uploadRelevantOrder?.document_url.substring(
       doc.value.uploadRelevantOrder.document_url.lastIndexOf('/') + 1

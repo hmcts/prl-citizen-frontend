@@ -107,11 +107,6 @@ describe('task-list > content', () => {
               href: '/applicant/yourdocuments/alldocuments/digitaldownloads',
             },
             {
-              id: 'photographic_evidence',
-              text: 'Photographic evidence',
-              href: '/applicant/yourdocuments/alldocuments/photographicevidence',
-            },
-            {
               id: 'medical_records',
               text: 'Medical records',
               href: '/applicant/yourdocuments/alldocuments/medicalrecords',
@@ -190,11 +185,6 @@ describe('task-list > content', () => {
               href: '/applicant/yourdocuments/alldocuments/respondentdigitaldownloads',
               id: 'digital_downloads_respondent',
               text: 'Emails, screenshots, images and other media files',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentphotographicevidence',
-              id: 'photographic_evidence_respondent',
-              text: 'Photographic evidence',
             },
             {
               href: '/applicant/yourdocuments/alldocuments/respondentmedicalrecords',
@@ -372,11 +362,6 @@ describe('task-list > content', () => {
               href: '#',
             },
             {
-              id: 'photographic_evidence',
-              text: 'Photographic evidence',
-              href: '#',
-            },
-            {
               id: 'medical_records',
               text: 'Medical records',
               href: '#',
@@ -455,11 +440,6 @@ describe('task-list > content', () => {
               href: '#',
               id: 'digital_downloads_respondent',
               text: 'Emails, screenshots, images and other media files',
-            },
-            {
-              href: '#',
-              id: 'photographic_evidence_respondent',
-              text: 'Photographic evidence',
             },
             {
               href: '#',

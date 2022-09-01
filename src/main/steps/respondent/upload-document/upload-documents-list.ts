@@ -106,7 +106,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems) => {
       title: sectionTitles.expert_reports,
       items: [
         {
-          id: 'medical-records',
+          id: 'medical-reports',
           text: taskListItems.medical_reports,
           href:
             URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL +

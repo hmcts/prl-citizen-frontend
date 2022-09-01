@@ -90,8 +90,7 @@ export const getRespondentAllegationsOfHarmAndViolence = (userCase: CaseWithId):
   return flag;
 };
 
-export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
-  console.log(userCase?.orderCollection);
+export const getViewAllDocuments = (): SectionStatus => {
   return SectionStatus.READY_TO_VIEW;
 };
 

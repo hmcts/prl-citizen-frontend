@@ -1,6 +1,6 @@
 //import config from 'config';
 //import { getSystemUser } from 'app/auth/user/oidc';
-import { DIGITAL_DOWNLOADS } from '../../../../../../main/steps/urls';
+import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
@@ -50,7 +50,6 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
-  console.log('citizen document list : ' + content.userCase?.citizenUploadedDocumentList);
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
       doc.value.documentType === 'Emails, screenshots, images and other media files' &&
@@ -60,7 +59,7 @@ export const generateContent: TranslationFn = content => {
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
       orders.push({
-        href: `${DIGITAL_DOWNLOADS}/${uid}`,
+        href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
         createdDate: doc.value.dateCreated,
         fileName: doc.value.citizenDocument.document_filename,
       });

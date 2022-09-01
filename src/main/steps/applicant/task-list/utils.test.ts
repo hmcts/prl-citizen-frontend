@@ -83,8 +83,8 @@ describe('utils', () => {
         expected: SectionStatus.DOWNLOAD,
       },
       { data: { ...mockUserCase, doYouConsent: YesOrNo.NO }, expected: SectionStatus.DOWNLOAD },
-    ])('should return correct status %#', async ({ data, expected }) => {
-      expect(getYourApplication({ ...userCase, ...data })).toBe(expected);
+    ])('should return correct status %#', async ({ expected }) => {
+      expect(getYourApplication()).toBe(expected);
     });
   });
   describe('getApplicantAllegationsOfHarmAndViolence', () => {
@@ -163,8 +163,8 @@ describe('utils', () => {
         },
         expected: SectionStatus.READY_TO_VIEW,
       },
-    ])('should return correct status %#', async ({ data, expected }) => {
-      expect(getViewAllDocuments({ ...userCase, ...data })).toBe(expected);
+    ])('should return correct status %#', async ({ expected }) => {
+      expect(getViewAllDocuments()).toBe(expected);
     });
   });
   describe('getMiamStatus', () => {

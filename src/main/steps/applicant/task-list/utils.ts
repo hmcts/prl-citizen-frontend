@@ -21,8 +21,7 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   return SectionStatus.TO_DO;
 };
 
-export const getYourApplication = (userCase: CaseWithId): SectionStatus => {
-  console.log(userCase);
+export const getYourApplication = (): SectionStatus => {
   return SectionStatus.DOWNLOAD;
 };
 
@@ -36,8 +35,7 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   return SectionStatus.TO_DO;
 };
 
-export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
-  console.log('applicant getViewAllDocuments: ' + userCase);
+export const getViewAllDocuments = (): SectionStatus => {
   return SectionStatus.READY_TO_VIEW;
 };
 

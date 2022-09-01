@@ -1,6 +1,6 @@
 //import config from 'config';
 //import { getSystemUser } from 'app/auth/user/oidc';
-import { PATERNITY_TEST_REPORTS } from '../../../../../../main/steps/urls';
+import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
@@ -56,7 +56,7 @@ export const generateContent: TranslationFn = content => {
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
       paternityCitizenDocs.push({
-        href: `${PATERNITY_TEST_REPORTS}/${uid}`,
+        href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
         createdDate: doc.value.dateCreated,
         fileName: doc.value.citizenDocument.document_filename,
       });

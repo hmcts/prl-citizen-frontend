@@ -41,13 +41,13 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'your-application',
           text: taskListItems.your_application,
-          status: getYourApplication(userCase),
+          status: getYourApplication(),
           href: URL.YOUR_APPLICATION_FL401,
         },
         {
           id: 'your-application-witness-statment',
           text: taskListItems.your_application_witness_statement,
-          status: getYourApplication(userCase),
+          status: getYourApplication(),
           href: URL.APPLICANT + URL.YOUR_WITNESS_STATEMENTS,
         },
       ],
@@ -75,7 +75,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'view-all-documents',
           text: taskListItems.view_all_documents,
-          status: getViewAllDocuments(userCase),
+          status: getViewAllDocuments(),
           href: URL.APPLICANT_VIEW_ALL_DOCUMENTS,
         },
       ],

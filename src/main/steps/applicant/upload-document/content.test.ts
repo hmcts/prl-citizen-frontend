@@ -119,9 +119,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start?caption=Expert reports&document_type=Medical records',
-              id: 'medical-records',
-              text: 'Medical records',
+              href: '/applicant/upload-document/start?caption=Expert reports&document_type=Medical reports',
+              id: 'medical-reports',
+              text: 'Medical reports',
             },
             {
               href: '/applicant/upload-document/start?caption=Expert reports&document_type=Paternity test reports',

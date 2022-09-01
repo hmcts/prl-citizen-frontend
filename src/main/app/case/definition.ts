@@ -559,12 +559,12 @@ export interface ProceedingDetails {
   dateStarted?: CaseDate | string;
   dateEnded?: CaseDate | string;
   typeOfOrder?: string[];
-  otherTypeOfOrder?: String;
-  nameOfJudge?: String;
-  nameOfCourt?: String;
-  nameOfChildrenInvolved?: String;
-  nameOfGuardian?: String;
-  nameAndOffice?: String;
+  otherTypeOfOrder?: string;
+  nameOfJudge?: string;
+  nameOfCourt?: string;
+  nameOfChildrenInvolved?: string;
+  nameOfGuardian?: string;
+  nameAndOffice?: string;
   uploadRelevantOrder?: Document;
 }
 

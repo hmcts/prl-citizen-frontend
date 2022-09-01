@@ -22,7 +22,6 @@ import {
   MIAM_SUMMARY,
   OTHER_PEOPLE_WITNESS_STATEMENTS,
   PATERNITY_TEST_REPORTS,
-  PHOTOGRAPHIC_EVIDENCE,
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
@@ -357,16 +356,6 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: `${RESPONDENT}${PATERNITY_TEST_REPORTS}`,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
-  },
-  {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => `${RESPONDENT}${PHOTOGRAPHIC_EVIDENCE}`,
-  },
-  {
-    url: `${RESPONDENT}${PHOTOGRAPHIC_EVIDENCE}`,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
