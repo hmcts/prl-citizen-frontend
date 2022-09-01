@@ -5,7 +5,6 @@ import { FormContent } from '../../../../app/form/Form';
 const en = () => ({
   title: 'What you are asking the court to do',
   singlechildTitle: 'You would like the court to:',
-  multichildTitle: 'You would like the court to put in an arrangement about the children to:',
   childOption1: 'Decide who the children live with and when',
   childOption2: 'Decide how much time the children spend with each person',
   childSecondary: 'This is known as a Child Arrangements Order.',
@@ -37,7 +36,6 @@ const en = () => ({
 const cy = () => ({
   title: 'What you are asking the court to do - welsh',
   singlechildTitle: 'You would like the court to: - welsh',
-  multichildTitle: 'You would like the court to put in an arrangement about the children to: - welsh',
   childOption1: 'Decide who the children live with and when - welsh',
   childOption2: 'Decide how much time the children spend with each person - welsh',
   childSecondary: 'This is known as a Child Arrangements Order. - welsh',
