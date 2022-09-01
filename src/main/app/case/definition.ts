@@ -1402,5 +1402,5 @@ export const enum CONFIDENTIAL_DETAILS {
 }
 
 export const enum C100 {
-  CASE_TYPE = 'C100',
+  CASE_TYPE_OF_APPLICATION = 'C100',
 }

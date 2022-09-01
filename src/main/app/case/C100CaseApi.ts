@@ -18,7 +18,7 @@ class CaseApi {
 
   public async createCase(): Promise<CreateCaseResponse> {
     const data = {
-      caseTypeOfApplication: C100.CASE_TYPE,
+      caseTypeOfApplication: C100.CASE_TYPE_OF_APPLICATION,
     };
 
     try {
