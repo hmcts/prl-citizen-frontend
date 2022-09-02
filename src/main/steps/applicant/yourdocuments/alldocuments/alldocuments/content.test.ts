@@ -17,7 +17,53 @@ const cyContent = {
   taskListItems: applicant_tasklist_items_all_docs_en,
 };
 describe('task-list > content', () => {
-  const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: {
+      ...mockUserCase,
+      applicants: [
+        {
+          id: '1',
+          value: {
+            email: 'test',
+            gender: 'test',
+            dxNumber: 'test',
+            landline: 'test',
+            lastName: 'test',
+            firstName: 'test',
+            dateOfBirth: 'test',
+            otherGender: 'test',
+            phoneNumber: 'test',
+            placeOfBirth: 'test',
+            previousName: 'test',
+            sendSignUpLink: 'test',
+            solicitorEmail: 'test',
+            isAddressUnknown: 'test',
+            isDateOfBirthKnown: 'test',
+            solicitorReference: 'test',
+            solicitorTelephone: 'test',
+            isPlaceOfBirthKnown: 'test',
+            isDateOfBirthUnknown: 'test',
+            isAddressConfidential: 'test',
+            isCurrentAddressKnown: 'test',
+            relationshipToChildren: 'test',
+            representativeLastName: 'test',
+            representativeFirstName: 'test',
+            canYouProvidePhoneNumber: 'test',
+            canYouProvideEmailAddress: 'test',
+            isAtAddressLessThan5Years: 'test',
+            isPhoneNumberConfidential: 'test',
+            isEmailAddressConfidential: 'test',
+            respondentLivedWithApplicant: 'test',
+            doTheyHaveLegalRepresentation: 'test',
+            addressLivedLessThan5YearsDetails: 'test',
+            isAtAddressLessThan5YearsWithDontKnow: 'test',
+          },
+        },
+      ],
+      allegationsOfHarmYesNo: 'NO',
+    },
+  } as CommonContent;
   //eslint-disable-next-line jest/expect-expect
   test.skip('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));

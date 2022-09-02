@@ -52,28 +52,41 @@ describe('utils', () => {
     });
   });
   describe('getConfirmOrEditYourContactDetails', () => {
-    test.skip.each([
+    test.each([
       {
         data: {
           ...mockUserCase,
-          confirmcontactdetails: undefined,
+          applicant1FullName: undefined,
+          applicant1DateOfBirth: undefined,
         },
         expected: SectionStatus.TO_DO,
       },
       {
         data: {
           ...mockUserCase,
-          confirmcontactdetails: YesOrNo.NO,
+          applicant1FullName: YesOrNo.NO,
+        },
+        expected: SectionStatus.IN_PROGRESS,
+      },
+      {
+        data: {
+          ...mockUserCase,
+          applicant1FullName: 'Test',
+          applicant1DateOfBirth: {
+            year: 'string',
+            month: 'string',
+            day: 'string',
+          },
+          applicant1PlaceOfBirth: 'string',
         },
         expected: SectionStatus.COMPLETED,
       },
-      { data: { ...mockUserCase, confirmcontactdetails: 'Test' }, expected: SectionStatus.COMPLETED },
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getConfirmOrEditYourContactDetails({ ...userCase, ...data })).toBe(expected);
     });
   });
   describe('getYourApplication', () => {
-    test.skip.each([
+    test.each([
       {
         data: {
           ...mockUserCase,

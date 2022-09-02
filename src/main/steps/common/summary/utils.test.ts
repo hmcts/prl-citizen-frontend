@@ -41,7 +41,7 @@ const urls = {
 
 describe('common > summary > utils', () => {
   describe('SummaryList', () => {
-    test.skip.each([
+    test.each([
       {
         userCase: mockUserCase,
         expected: {
