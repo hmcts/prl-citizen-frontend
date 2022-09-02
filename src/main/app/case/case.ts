@@ -156,7 +156,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceType: 'serviceType',
   claimNumber: 'claimNumber',
   caseCode: 'caseCode',
-  respondentFirstName: 'respondentFirstName',
   respondentLastName: 'respondentLastName',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
@@ -447,8 +446,6 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
-  applicantCaseName?: string;
-  caseTypeOfApplication?: string;
 }
 
 export interface CaseWithId extends Case {

@@ -676,7 +676,6 @@ export interface CaseData {
   serviceType: string;
   claimNumber: string;
   applicantCaseName: string;
-  caseTypeOfApplication: string;
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
