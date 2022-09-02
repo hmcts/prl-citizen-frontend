@@ -80,6 +80,7 @@ import {
   /** Hearing Urgency */
   C100_HEARING_URGENCY_URGENT,
   C100_HEARING_URGENCY_URGENT_DETAILS,
+  C100_CHECK_YOUR_ANSWER,
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
 } from '../urls';
@@ -298,6 +299,11 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_CHILDERN_FURTHER_INFORMATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHECK_YOUR_ANSWER,
+  },
+  {
+    url: C100_CHECK_YOUR_ANSWER,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
