@@ -28,8 +28,6 @@ export class GetController {
     const language = this.getPreferredLanguage(req) as Language;
     const captionValue = this.getCaption(req) as string;
     const document_type = this.getDocumentType(req) as string;
-    console.log(document_type);
-    console.log(captionValue);
     const addresses = req.session?.addresses;
     const content = generatePageContent({
       language,
@@ -38,6 +36,7 @@ export class GetController {
       userEmail: req.session?.user?.email,
       caption: captionValue,
       document_type,
+      userCaseList: req.session?.userCaseList,
       addresses,
       name,
     });
