@@ -40,7 +40,7 @@ describe('task-list > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test.skip.each([
+  test.each([
     {
       userCase: mockUserCase,
       expected: [
@@ -107,6 +107,12 @@ describe('task-list > content', () => {
               id: 'view-all-documents',
               status: 'READY_TO_VIEW',
               text: 'View all documents',
+            },
+            {
+              href: '/respondent/upload-document',
+              id: 'upload-document',
+              status: SectionStatus.TO_DO,
+              text: 'Upload Documents',
             },
           ],
           title: 'Your documents',
