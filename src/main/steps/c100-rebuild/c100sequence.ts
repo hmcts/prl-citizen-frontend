@@ -38,6 +38,7 @@ import {
   C100_CHILDERN_DETAILS_CHILD_MATTERS,
   C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
   C100_CHILDERN_FURTHER_INFORMATION,
+  C100_CHECK_YOUR_ANSWER,
   PageLink,
 } from '../urls';
 
@@ -262,6 +263,11 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_CHILDERN_FURTHER_INFORMATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHECK_YOUR_ANSWER,
+  },
+  {
+    url: C100_CHECK_YOUR_ANSWER,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },

@@ -1,0 +1,22 @@
+{% extends "common/form/form.njk"%}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block before_fields %}
+  {% if sections %}
+    {% for item in sections %}
+      {% if item %}
+        <h2 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h2>
+        {{ govukSummaryList({
+          classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
+          rows: item.rows
+        })
+      }}
+    
+      {% endif %}
+    {% endfor %}
+      <h1 class="govuk-heading-l">Now submit your Application</h1>
+      <p class="govuk-body-l">Check all the information provided and documents uploaded carefully. By Submitting this application you are confirming that you have submitted all the documents required to process the application and the details you have provided is correct</p>
+      <br>
+  {% endif %}
+{% endblock %}
