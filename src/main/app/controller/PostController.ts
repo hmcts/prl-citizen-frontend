@@ -8,7 +8,7 @@ import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
@@ -58,7 +58,15 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    Object.assign(req.session.userCase, formData);
+    // This is for testing purpose
+    // when user clicks on the casenumber link, we need to capture the caseid and store in session.
+    if (req.session.userCase === null || req.session.userCase === undefined) {
+      req.session.userCase = { id: '1234', state: State.AwaitingPayment };
+    }
+
+    if (formData !== null && formData !== undefined) {
+      Object.assign(req.session.userCase, formData);
+    }
     req.session.errors = form.getErrors(formData);
     console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
@@ -69,7 +77,7 @@ export class PostController<T extends AnyObject> {
 
     const data = toApiFormat(formData);
 
-    if (Object.keys(data).length !== 0) {
+    if (Object.keys(data).length !== 0 && req.originalUrl.includes('checkanswers')) {
       req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
     }
 
