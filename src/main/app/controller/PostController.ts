@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT, UPLOAD_DOCUMENT_SUCCESS } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
@@ -61,7 +61,7 @@ export class PostController<T extends AnyObject> {
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
-
+    console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
 
     if (req.session.errors.length) {
@@ -84,6 +84,12 @@ export class PostController<T extends AnyObject> {
     // const caseId = req.session?.caseId;
     await client.updateRespondentCase(caseworkerUser, '1661181673014144', req, data);
     this.redirect(req, res);
+
+    if (req.originalUrl.includes(UPLOAD_DOCUMENT_SUCCESS)) {
+      if (req?.session?.userCase?.applicantUploadFiles) {
+        req.session.userCase['applicantUploadFiles'] = [];
+      }
+    }
 
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);
@@ -258,10 +264,9 @@ export class PostController<T extends AnyObject> {
           if (accessCodeLinked) {
             req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
           }
+        } catch (err) {
+          req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
         }
-      } catch (err) {
-        req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
-      }
 
       if (req.session.errors.length) {
         req.session.accessCodeLoginIn = false;
@@ -308,6 +313,7 @@ export class PostController<T extends AnyObject> {
         }
       }
     } catch (err) {
+      console.log('Retrieving case failed with error: ' + err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 

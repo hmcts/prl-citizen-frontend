@@ -1,9 +1,11 @@
 import fs from 'fs';
 
 import { Application } from 'express';
+import multer from 'multer';
 
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
+import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -15,16 +17,24 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import {
   // CSRF_TOKEN_ERROR_URL,
   ACCESSIBILITY_STATEMENT,
+  ALLEGATION_OF_HARM_VOILENCE,
+  APPLICANT,
+  APPLICANT_CA_DA_REQUEST,
+  APPLICANT_MIAM_CERTIFICATE,
+  APPLICANT_ORDERS_FROM_THE_COURT,
   CONTACT_US,
   COOKIES_PAGE,
+  DOCUMENT_MANAGER,
   HOME_URL,
-  // KEEP_ALIVE_URL,
   PRIVACY_POLICY,
+  RESPONDENT,
+  RESPONDENT_ORDERS_FROM_THE_COURT,
   TERMS_AND_CONDITIONS,
-  // SAVE_AND_SIGN_OUT,
-  // TIMED_OUT_URL,
-  // RESPONDENT_TASK_LIST_URL
+  YOUR_APPLICATION_FL401,
+  YOUR_APPLICATION_WITNESS_STATEMENT,
 } from './steps/urls';
+
+const handleUploads = multer();
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -50,7 +60,6 @@ export class Routes {
         : GetController;
 
       app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
-
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
@@ -58,6 +67,20 @@ export class Routes {
           : PostController;
 
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
+        const documentManagerController = new DocumentManagerController(step.form.fields);
+        app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
+        app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
+        app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
+        app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
+        app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
+        app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
+
+        app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
+
+        app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
+        app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
+        app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
       }
     }
 
