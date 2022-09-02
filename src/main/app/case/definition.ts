@@ -1387,7 +1387,6 @@ export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed'
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 
-
 // citizen frontend
 export interface orderInterface {
   caseNoDetails: string;
@@ -1400,4 +1399,8 @@ export interface orderInterface {
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
+}
+
+export const enum C100 {
+  CASE_TYPE_OF_APPLICATION = 'C100',
 }

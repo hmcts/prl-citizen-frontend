@@ -1,4 +1,4 @@
-import { CaseWithId } from '../../app/case/case';
+import { Case, CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
@@ -28,7 +28,6 @@ import {
   C100_TYPE_ORDER_CAORDER,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   C100_TYPE_ORDER_SHORT_STATEMENT,
-
   /** @C100 Help with Fees */
   // eslint-disable-next-line sort-imports
   C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
@@ -228,7 +227,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
     showInSection: Sections.C100,
-    getNextStep: data =>
+    getNextStep: (data: Partial<Case>) =>
       data.needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE,
   },
   {
