@@ -1,15 +1,27 @@
+import axios from 'axios';
+
 import { defaultViewArgs } from '../../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { FieldPrefix } from '../../../../app/case/case';
 import { State } from '../../../../app/case/definition';
-//import { generatePageContent } from '../../../../steps/common/common.content';
 import * as Urls from '../../../../steps/urls';
 
 import NeedHelpWithFeesGetController from './getController';
 
-describe('AddChildernMatterGetController', () => {
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.create = jest.fn(() => mockedAxios);
+
+describe('NeedHelpWithFeesGetController', () => {
   test('Should render the page', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: {
+        feeAmountForC100Application: '232',
+        errorRetrievingResponse: '',
+      },
+    });
+
     const controller = new NeedHelpWithFeesGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
@@ -49,7 +61,7 @@ describe('AddChildernMatterGetController', () => {
   });
 
   describe('Getting the users preferred language - english', () => {
-    test('Language whelsh via session', async () => {
+    test('Language english via session', async () => {
       const controller = new NeedHelpWithFeesGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'en';
