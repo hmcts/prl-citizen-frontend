@@ -9,10 +9,10 @@
 
 <h1 class="govuk-heading-xl govuk-!-margin-top-5">{{title}}</h1>
 {{ govukWarningText({
-  text: "Your answers will be shared with the other people in this case.",
+  text: topWarning,
   iconFallbackText: "Warning"
 }) }}
-<p class="govuk-body-l">Please review your answers before you finish your application.</p>
+<p class="govuk-body-l">{{makingSure}}</p>
 
 
 {% endblock %}
