@@ -138,9 +138,8 @@ export const ApplicantSummaryList = (
   };
 };
 
-
 /* eslint-disable import/namespace */
-export const UserRole = (
+export const TypeOfOrder = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
@@ -158,8 +157,79 @@ export const UserRole = (
   /** Removes entry in @summarydata if user is not a named user */
 
   return {
-    title: 'Determine User’s Role',
+    title: sectionTitles['AdvisingCourt'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
 
+/* eslint-disable import/namespace */
+export const WithoutNoticeHearing = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const isNamedApplicant =
+    userCase['namedApplicant'] === YesOrNo.YES ? 'Yes' : 'No - I am sending an application for someone else.';
+
+  const SummaryData = [
+    {
+      key: keys['user-role'],
+      value: isNamedApplicant,
+      changeUrl: Urls['USER_ROLE'],
+    },
+  ];
+
+  /** Removes entry in @summarydata if user is not a named user */
+
+  return {
+    title: sectionTitles['WithoutNoticeHearing'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+/* eslint-disable import/namespace */
+export const ChildernDetails = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const isNamedApplicant =
+    userCase['namedApplicant'] === YesOrNo.YES ? 'Yes' : 'No - I am sending an application for someone else.';
+
+  const SummaryData = [
+    {
+      key: keys['user-role'],
+      value: isNamedApplicant,
+      changeUrl: Urls['USER_ROLE'],
+    },
+  ];
+
+  /** Removes entry in @summarydata if user is not a named user */
+
+  return {
+    title: sectionTitles['ChildernDetails'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+/* eslint-disable import/namespace */
+export const InternationalElement = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const isNamedApplicant =
+    userCase['namedApplicant'] === YesOrNo.YES ? 'Yes' : 'No - I am sending an application for someone else.';
+
+  const SummaryData = [
+    {
+      key: keys['user-role'],
+      value: isNamedApplicant,
+      changeUrl: Urls['USER_ROLE'],
+    },
+  ];
+
+  /** Removes entry in @summarydata if user is not a named user */
+
+  return {
+    title: sectionTitles['InternationalElement'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};

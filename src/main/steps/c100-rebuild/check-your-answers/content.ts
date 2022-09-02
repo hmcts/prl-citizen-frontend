@@ -2,16 +2,27 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../../steps/common/common.content';
 
-import { ApplicantSummaryList, UserRole } from './utils';
+import {
+  ApplicantSummaryList,
+  ChildernDetails,
+  InternationalElement,
+  TypeOfOrder,
+  WithoutNoticeHearing,
+} from './utils';
 
 export const enContent = {
   serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',
   change: 'change',
+  topWarning: 'Your answers will be shared with the other people in this case.',
+  makingSure: 'Please review your answers before you finish your application.',
   continue: 'Accept and continue',
   sectionTitles: {
-    applicantDetails: 'Applicant details',
+    AdvisingCourt: "6. What you're asking the court to decide",
+    WithoutNoticeHearing: '7. Hearing details',
+    ChildernDetails: "8. Childen's details",
+    InternationalElement: '11. International elements',
   },
   keys: {
     phoneNumber: 'Phone number',
@@ -33,9 +44,14 @@ const cyContent: typeof enContent = {
   section: '',
   title: 'Check your Answers -welsh',
   change: 'change - welsh',
+  topWarning: 'Your answers will be shared with the other people in this case. - welsh',
+  makingSure: 'Please review your answers before you finish your application.- welsh',
   continue: 'Accept and continue - welsh',
   sectionTitles: {
-    applicantDetails: 'Applicant details -welsh',
+    AdvisingCourt: "6. What you're asking the court to decide - welsh",
+    WithoutNoticeHearing: '7. Hearing details - welsh',
+    ChildernDetails: "8. Childen's details - welsh",
+    InternationalElement: '11. International elements - welsh',
   },
   keys: {
     phoneNumber: 'Phone number -welsh',
@@ -59,7 +75,13 @@ const en = (content: any) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [UserRole(enContent, userCase), ApplicantSummaryList(enContent, userCase)],
+    sections: [
+      TypeOfOrder(enContent, userCase),
+      WithoutNoticeHearing(enContent, userCase),
+      ChildernDetails(enContent, userCase),
+      InternationalElement(enContent, userCase),
+      ApplicantSummaryList(enContent, userCase),
+    ],
   };
 };
 
@@ -69,7 +91,13 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [UserRole(enContent, userCase), ApplicantSummaryList(cyContent, userCase)],
+    sections: [
+      TypeOfOrder(cyContent, userCase),
+      WithoutNoticeHearing(cyContent, userCase),
+      ChildernDetails(cyContent, userCase),
+      InternationalElement(cyContent, userCase),
+      ApplicantSummaryList(cyContent, userCase),
+    ],
   };
 };
 
