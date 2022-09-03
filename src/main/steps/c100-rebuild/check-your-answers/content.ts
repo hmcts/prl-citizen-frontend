@@ -20,6 +20,9 @@ export const enContent = {
   continue: 'Accept and continue',
   Yes: 'Yes',
   No: 'No ',
+  SummaryDetail: 'Download a draft of your application (PDF)',
+  SummaryDetailInnerText:
+    "<p class='govuk-body'>            If you cannot open the PDF file after downloading, download and install            <a href='https://get.adobe.com/uk/reader/' class='govuk-link' rel='external' target='_blank'>Adobe Acrobat Reader</a> to try again.          </p><p class='govuk-body'>            Please note this draft is for your records. Only the completed application will be admitted in court.          </p><a class='govuk-button ga-pageLink govuk-button--secondary' role='button' draggable='false' data-module='govuk-button' data-ga-category='check your answers' data-ga-label='download draft' download='' href='/steps/completion/summary.pdf'>Download draft application</a>",
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -73,6 +76,9 @@ const cyContent: typeof enContent = {
   continue: 'Accept and continue - welsh',
   Yes: 'Yes - welsh',
   No: 'No - welsh',
+  SummaryDetail: 'Download a draft of your application (PDF)- welsh',
+  SummaryDetailInnerText:
+    "<p class='govuk-body'>            If you cannot open the PDF file after downloading, download and install            <a href='https://get.adobe.com/uk/reader/' class='govuk-link' rel='external' target='_blank'>Adobe Acrobat Reader</a> to try again.          </p><p class='govuk-body'>            Please note this draft is for your records. Only the completed application will be admitted in court.          </p><a class='govuk-button ga-pageLink govuk-button--secondary' role='button' draggable='false' data-module='govuk-button' data-ga-category='check your answers' data-ga-label='download draft' download='' href='/steps/completion/summary.pdf'>Download draft application</a>",
   StatementOfTruth: {
     title: 'Statement of Truth - welsh',
     heading: 'Confirm before you submit the application - welsh',

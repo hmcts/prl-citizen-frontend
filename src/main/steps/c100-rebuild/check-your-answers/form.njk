@@ -3,6 +3,9 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 
 {% block before_fields %}
   {% if sections %}
@@ -29,8 +32,6 @@
 {{ govukInsetText({
   text:  StatementOfTruth['inset'] | safe
 }) }}
-
-
 
 {{ govukCheckboxes({
   idPrefix: "stateoftruth",
@@ -59,3 +60,27 @@
       <br>
   {% endif %}
 {% endblock %}
+
+    {% block form_actions %}
+  <div class="govuk-button-group">
+
+    {{ govukButton({
+      text: "Pay and submit application"
+    }) }}
+    {{ govukButton({
+  text: "Save and come back later",
+  classes: "govuk-button--secondary"
+}) }}
+    </div>
+    {% endblock %}
+
+    {% block after_form %}
+    {{ govukDetails({
+  summaryText: SummaryDetail,
+  text: SummaryDetailInnerText | safe
+}) }}
+
+
+    {% endblock %}
+
+   
