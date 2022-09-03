@@ -1,4 +1,3 @@
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import * as Urls from '../../../steps/urls';
@@ -75,72 +74,6 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
       ...(item.classes ? { classes: item.classes } : {}),
     };
   });
-};
-
-/* eslint-disable import/namespace */
-export const ApplicantSummaryList = (
-  { sectionTitles, keys, ...content }: SummaryListContent,
-  userCase: Partial<CaseWithId>
-): SummaryList | undefined => {
-  const sectionTitle = sectionTitles.applicantDetails;
-
-  const UserContactPreferences = function () {
-    let perference = '';
-    if (userCase['contactPreferenceType'] === 'NAMED_PERSON') {
-      perference = 'The person named on this application';
-    } else if (userCase['contactPreferenceType'] === 'ACCOUNT_OWNER') {
-      perference = 'The account owner';
-    } else if (userCase['contactPreferenceType'] === 'BOTH_RECEIVE') {
-      perference = 'Both the account owner and the person named on this application';
-    } else {
-      perference = '';
-    }
-    return perference;
-  };
-
-  const SummaryData = [
-    {
-      key: keys.fullName,
-      value: userCase['applicantFirstName'] + ' ' + userCase['applicantLastName'],
-      changeUrl: Urls['FULL_NAME'],
-    },
-    {
-      key: keys.dateOfBirth,
-      value: getFormattedDate(userCase['applicantDateOfBirth'], content.language),
-      changeUrl: Urls['DATE_OF_BIRTH'],
-    },
-    {
-      key: keys.address,
-      changeUrl: Urls['MANUAL_ADDRESS'],
-    },
-    {
-      key: keys.recievingEmail,
-      value: UserContactPreferences(),
-      changeUrl: Urls['CONTACT_PREFERENCES'],
-    },
-    {
-      key: keys.namedPersonEmail,
-      value: userCase['applicantEmailAddress'],
-      changeUrl: Urls['EMAIL_ADDRESS'],
-    },
-    {
-      key: keys.namedPersonTel,
-      value: userCase['applicantHomeNumber'],
-      changeUrl: Urls['CONTACT_DETAILS'],
-    },
-    {
-      key: keys.namedPersonMob,
-      value: userCase['applicantPhoneNumber'],
-      changeUrl: Urls['CONTACT_DETAILS'],
-    },
-  ];
-
-  /** Removes entry in @summarydata if user is not a named user */
-
-  return {
-    title: sectionTitle,
-    rows: getSectionSummaryList(SummaryData, content),
-  };
 };
 
 /* eslint-disable import/namespace */
@@ -293,28 +226,56 @@ export const ChildernDetailsAdditional = (
 
 /* eslint-disable import/namespace */
 export const InternationalElement = (
-  { sectionTitles, keys, ...content }: SummaryListContent,
+  { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
+  let childLiveOutSideUK = userCase['internationalStart'] === 'Yes' ? Yes : No;
+  if (userCase['internationalStart'] === 'Yes') {
+    childLiveOutSideUK += '<br><br>';
+    childLiveOutSideUK += userCase['provideDetailsStart'];
+  }
+
+  let htmlbasedOutSideEnglandOrWales = userCase['internationalParents'] === 'Yes' ? Yes : No;
+  if (userCase['internationalParents'] === 'Yes') {
+    htmlbasedOutSideEnglandOrWales += '<br><br>';
+    htmlbasedOutSideEnglandOrWales += userCase['provideDetailsParents'];
+  }
+
+  let htmlanotherPersonSameOrder = userCase['internationalJurisdiction'] === 'Yes' ? Yes : No;
+  if (userCase['internationalJurisdiction'] === 'Yes') {
+    htmlanotherPersonSameOrder += '<br><br>';
+    htmlanotherPersonSameOrder += userCase['provideDetailsJurisdiction'];
+  }
+
+  let htmlotherCountryRequestInfo = userCase['internationalRequest'] === 'Yes' ? Yes : No;
+  if (userCase['internationalRequest'] === 'Yes') {
+    htmlotherCountryRequestInfo += '<br><br>';
+    htmlotherCountryRequestInfo += userCase['provideDetailsRequest'];
+  }
+
   const SummaryData = [
     {
       key: keys['liveOutSideUk'],
-      value: userCase['accessCode'],
+      value: '',
+      valueHtml: childLiveOutSideUK,
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_START'],
     },
     {
       key: keys['basedOutSideEnglandOrWales'],
-      value: userCase['accessCode'],
+      value: '',
+      valueHtml: htmlbasedOutSideEnglandOrWales,
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_PARENTS'],
     },
     {
       key: keys['anotherPersonSameOrder'],
-      value: userCase['accessCode'],
+      value: '',
+      valueHtml: htmlanotherPersonSameOrder,
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_JURISDICTION'],
     },
     {
       key: keys['otherCountryRequestInfo'],
-      value: userCase['accessCode'],
+      value: '',
+      valueHtml: htmlotherCountryRequestInfo,
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_REQUEST'],
     },
   ];

@@ -3,7 +3,6 @@ import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../../steps/common/common.content';
 
 import {
-  ApplicantSummaryList,
   ChildernDetails,
   ChildernDetailsAdditional,
   InternationalElement,
@@ -20,7 +19,18 @@ export const enContent = {
   makingSure: 'Please review your answers before you finish your application.',
   continue: 'Accept and continue',
   Yes: 'Yes',
-  No: 'No - welsh',
+  No: 'No ',
+  StatementOfTruth: {
+    title: 'Statement of Truth',
+    heading: 'Confirm before you submit the application',
+    warning:
+      'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+    inset:
+      '<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select Pay and submit your application to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>',
+    check: 'I believe that the facts stated in this application are true',
+    lastPara:
+      'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
+  },
   sectionTitles: {
     AdvisingCourt: "6. What you're asking the court to decide",
     WithoutNoticeHearing: '7. Hearing details',
@@ -63,6 +73,17 @@ const cyContent: typeof enContent = {
   continue: 'Accept and continue - welsh',
   Yes: 'Yes - welsh',
   No: 'No - welsh',
+  StatementOfTruth: {
+    title: 'Statement of Truth - welsh',
+    heading: 'Confirm before you submit the application - welsh',
+    warning:
+      'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+    inset:
+      '<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select Pay and submit your application to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>',
+    check: 'I believe that the facts stated in this application are true',
+    lastPara:
+      'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
+  },
   sectionTitles: {
     AdvisingCourt: "6. What you're asking the court to decide - welsh",
     WithoutNoticeHearing: '7. Hearing details - welsh',
@@ -109,7 +130,6 @@ const en = (content: any) => {
       ChildernDetails(enContent, userCase),
       ChildernDetailsAdditional(enContent, userCase),
       InternationalElement(enContent, userCase),
-      ApplicantSummaryList(enContent, userCase),
     ],
   };
 };
@@ -125,7 +145,6 @@ const cy: typeof en = (content: CommonContent) => {
       WithoutNoticeHearing(cyContent, userCase),
       ChildernDetails(cyContent, userCase),
       InternationalElement(cyContent, userCase),
-      ApplicantSummaryList(cyContent, userCase),
     ],
   };
 };
