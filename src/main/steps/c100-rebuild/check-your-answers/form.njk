@@ -1,6 +1,8 @@
 {% extends "common/form/form.njk"%}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {% block before_fields %}
   {% if sections %}
@@ -15,8 +17,45 @@
     
       {% endif %}
     {% endfor %}
-      <h1 class="govuk-heading-l">Now submit your Application</h1>
-      <p class="govuk-body-l">Check all the information provided and documents uploaded carefully. By Submitting this application you are confirming that you have submitted all the documents required to process the application and the details you have provided is correct</p>
+      <h2 class="govuk-heading-l">{{StatementOfTruth['title']}}</h2>
+      <h2 class="govuk-heading-m govuk-!-padding-bottom-4">{{StatementOfTruth['heading']}}</h2>
+
+
+{{ govukWarningText({
+  text: StatementOfTruth['warning'],
+  iconFallbackText: "Warning"
+}) }}
+
+{{ govukInsetText({
+  text:  StatementOfTruth['inset'] | safe
+}) }}
+
+
+
+{{ govukCheckboxes({
+  idPrefix: "stateoftruth",
+  name: "stateoftruth",
+  fieldset: {
+    legend: {
+      text: "",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  hint: {
+    text: ""
+  },
+  items: [
+    {
+      value: "true",
+      text: StatementOfTruth['check'] 
+    }
+  ]
+}) }}
+
+<p class="govuk-body govuk-!-padding-bottom-4">
+          {{StatementOfTruth['lastpara']}}
+        </p>
       <br>
   {% endif %}
 {% endblock %}
