@@ -1,6 +1,5 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import * as Urls from '../../../steps/urls';
 
@@ -297,14 +296,26 @@ export const InternationalElement = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const isNamedApplicant =
-    userCase['namedApplicant'] === YesOrNo.YES ? 'Yes' : 'No - I am sending an application for someone else.';
-
   const SummaryData = [
     {
-      key: keys['user-role'],
-      value: isNamedApplicant,
-      changeUrl: Urls['USER_ROLE'],
+      key: keys['liveOutSideUk'],
+      value: userCase['accessCode'],
+      changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_START'],
+    },
+    {
+      key: keys['basedOutSideEnglandOrWales'],
+      value: userCase['accessCode'],
+      changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_PARENTS'],
+    },
+    {
+      key: keys['anotherPersonSameOrder'],
+      value: userCase['accessCode'],
+      changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_JURISDICTION'],
+    },
+    {
+      key: keys['otherCountryRequestInfo'],
+      value: userCase['accessCode'],
+      changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_REQUEST'],
     },
   ];
 

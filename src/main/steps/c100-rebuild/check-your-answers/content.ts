@@ -45,12 +45,12 @@ export const enContent = {
     socialServiceLink: 'Are any of the children known to social services?',
     subjectToChildProtection: 'Are any of the children the subject of a child protection plan?',
     haveOtherChildern: "Do you or the respondents have other children who aren't part of this application?",
-    recievingEmail: 'Who should receive emails about the application',
-    namedPersonEmail: 'Email address of the person named on the application',
-    namedPersonMob: 'Enter your mobile phone number',
-    namedPersonTel: 'Enter your home phone number',
-    uploadDocuments: 'List of forms uploaded (Application form)',
-    additionalDocuments: 'List of Documents uploaded (supporting documents)',
+    liveOutSideUk: "Are the children's lives mainly based outside of England and Wales?",
+    basedOutSideEnglandOrWales:
+      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+    anotherPersonSameOrder:
+      'Could another person in the application apply for a similar order in a country outside England or Wales?',
+    otherCountryRequestInfo: 'Has another country asked (or been asked) for information or help for the children?',
   },
 };
 const cyContent: typeof enContent = {
@@ -87,12 +87,13 @@ const cyContent: typeof enContent = {
     socialServiceLink: 'Are any of the children known to social services? - welsh',
     subjectToChildProtection: 'Are any of the children the subject of a child protection plan? - welsh',
     haveOtherChildern: "Do you or the respondents have other children who aren't part of this application? - welsh",
-    recievingEmail: 'Who should receive emails about the application - welsh',
-    namedPersonEmail: 'Email address of the person named on the application -welsh',
-    namedPersonMob: 'Enter your mobile phone number - welsh',
-    namedPersonTel: 'Enter your home phone number - welsh',
-    uploadDocuments: 'List of forms uploaded (Application form) - welsh',
-    additionalDocuments: 'List of Documents uploaded (supporting documents) - welsh',
+    liveOutSideUk: "Are the children's lives mainly based outside of England and Wales?",
+    basedOutSideEnglandOrWales:
+      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales? - welsh",
+    anotherPersonSameOrder:
+      'Could another person in the application apply for a similar order in a country outside England or Wales? - welsh',
+    otherCountryRequestInfo:
+      'Has another country asked (or been asked) for information or help for the children? - welsh',
   },
 };
 
