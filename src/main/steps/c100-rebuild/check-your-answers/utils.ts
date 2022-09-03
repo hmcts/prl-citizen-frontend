@@ -75,9 +75,7 @@ export const ApplicantSummaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  console.log('usercase in check your answer -->', userCase);
   const sectionTitle = sectionTitles.applicantDetails;
-  console.log('Address in util userCase --->', userCase);
 
   const UserContactPreferences = function () {
     let perference = '';
@@ -143,14 +141,16 @@ export const TypeOfOrder = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const isNamedApplicant =
-    userCase['namedApplicant'] === YesOrNo.YES ? 'Yes' : 'No - I am sending an application for someone else.';
-
   const SummaryData = [
     {
-      key: keys['user-role'],
-      value: isNamedApplicant,
-      changeUrl: Urls['USER_ROLE'],
+      key: keys['whatAreYouAsking'],
+      value: userCase['namedApplicant'],
+      changeUrl: Urls['C100_TYPE_ORDER_CAORDER'],
+    },
+    {
+      key: keys['wantingCourtToDo'],
+      value: userCase['namedApplicant'],
+      changeUrl: Urls['C100_TYPE_ORDER_CAORDER'],
     },
   ];
 
@@ -167,14 +167,17 @@ export const WithoutNoticeHearing = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const isNamedApplicant =
-    userCase['namedApplicant'] === YesOrNo.YES ? 'Yes' : 'No - I am sending an application for someone else.';
-
   const SummaryData = [
+    //qualifyForUrgentHearing
     {
-      key: keys['user-role'],
-      value: isNamedApplicant,
-      changeUrl: Urls['USER_ROLE'],
+      key: keys['qualifyForUrgentHearing'],
+      value: userCase['xyz'],
+      changeUrl: Urls['zy'],
+    },
+    {
+      key: keys['askingNoHearing'],
+      value: userCase['hearingPart1'],
+      changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
     },
   ];
 
@@ -191,18 +194,55 @@ export const ChildernDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const isNamedApplicant =
-    userCase['namedApplicant'] === YesOrNo.YES ? 'Yes' : 'No - I am sending an application for someone else.';
+  const sessionChildData = userCase['childernDetails'];
 
-  const SummaryData = [
-    {
-      key: keys['user-role'],
-      value: isNamedApplicant,
-      changeUrl: Urls['USER_ROLE'],
-    },
-  ];
+  const newChildDataStorage: { key: string; keyHtml?: string; value: string; changeUrl: string }[] = [];
 
-  /** Removes entry in @summarydata if user is not a named user */
+  for (const child in sessionChildData) {
+    const firstname = sessionChildData[child]['firstname'],
+      lastname = sessionChildData[child]['lastname'],
+      id = sessionChildData[child]['id'],
+      personalDetails = sessionChildData[child]['personalDetails'],
+      childMatter = sessionChildData[child]['childMatter'];
+
+    const childNo = Number(child) + 1;
+
+    newChildDataStorage.push(
+      {
+        key: '',
+        keyHtml: '<h4 class="app-task-list__section">Child ' + childNo + '</h4>',
+        value: '',
+        changeUrl: '',
+      },
+      {
+        key: keys['fullName'],
+        value: firstname + ' ' + lastname,
+        changeUrl: Urls['C100_CHILDERN_DETAILS_ADD'],
+      },
+      {
+        key: keys['dateOfBirth'],
+        value: personalDetails?.['DateoBirth'],
+        changeUrl: Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'] + '?childId=' + id,
+      },
+      {
+        key: keys['gender'],
+        value: personalDetails?.['Sex'],
+        changeUrl: Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'] + '?childId=' + id,
+      },
+      {
+        key: keys['ordersAppliedFor'],
+        value: '',
+        changeUrl: Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'] + '?childId=' + id,
+      },
+      {
+        key: keys['isDecisionTaken'],
+        value: childMatter['isDecisionTaken'],
+        changeUrl: Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'] + '?childId=' + id,
+      }
+    );
+  }
+
+  const SummaryData = newChildDataStorage;
 
   return {
     title: sectionTitles['ChildernDetails'],
