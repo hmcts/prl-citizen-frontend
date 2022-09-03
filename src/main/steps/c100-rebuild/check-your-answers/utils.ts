@@ -46,6 +46,14 @@ type SummaryListContent = PageContent & {
   language?: string;
 };
 
+type SummaryListContentWithBoolean = PageContent & {
+  sectionTitles: Record<string, string>;
+  keys: Record<string, string>;
+  language?: string;
+  Yes: string;
+  No: string;
+};
+
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
   return rows.map(item => {
     const changeUrl = item.changeUrl;
@@ -246,6 +254,40 @@ export const ChildernDetails = (
 
   return {
     title: sectionTitles['ChildernDetails'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+/* eslint-disable import/namespace */
+export const ChildernDetailsAdditional = (
+  { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  let htmlForAdditionalText = userCase['childrenKnownToSocialServices'] === 'Yes' ? Yes : No;
+  htmlForAdditionalText += '<br/>';
+  htmlForAdditionalText += userCase['childrenKnownToSocialServicesDetails'];
+
+  const SummaryData = [
+    {
+      key: keys['socialServiceLink'],
+      value: '',
+      valueHtml: htmlForAdditionalText,
+      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+    },
+    {
+      key: keys['subjectToChildProtection'],
+      value: userCase['childrenSubjectOfProtectionPlan'],
+      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+    },
+    {
+      key: keys['haveOtherChildern'],
+      value: '',
+      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+    },
+  ];
+
+  return {
+    title: sectionTitles['additionationDetailsAboutChildern'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
