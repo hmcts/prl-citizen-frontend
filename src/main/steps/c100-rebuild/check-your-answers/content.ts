@@ -5,6 +5,7 @@ import { CommonContent } from '../../../steps/common/common.content';
 import {
   ApplicantSummaryList,
   ChildernDetails,
+  ChildernDetailsAdditional,
   InternationalElement,
   TypeOfOrder,
   WithoutNoticeHearing,
@@ -18,11 +19,14 @@ export const enContent = {
   topWarning: 'Your answers will be shared with the other people in this case.',
   makingSure: 'Please review your answers before you finish your application.',
   continue: 'Accept and continue',
+  Yes: 'Yes',
+  No: 'No - welsh',
   sectionTitles: {
     AdvisingCourt: "6. What you're asking the court to decide",
     WithoutNoticeHearing: '7. Hearing details',
     ChildernDetails: "8. Childen's details",
     InternationalElement: '11. International elements',
+    additionationDetailsAboutChildern: 'Additional details about the children',
   },
   keys: {
     whatAreYouAsking: 'What are you asking the court to do?',
@@ -38,6 +42,9 @@ export const enContent = {
     ordersAppliedFor: 'Orders applied for',
     isDecisionTaken:
       'State everyone who has parental responsibility for child 2 and how they have parental responsibility',
+    socialServiceLink: 'Are any of the children known to social services?',
+    subjectToChildProtection: 'Are any of the children the subject of a child protection plan?',
+    haveOtherChildern: "Do you or the respondents have other children who aren't part of this application?",
     recievingEmail: 'Who should receive emails about the application',
     namedPersonEmail: 'Email address of the person named on the application',
     namedPersonMob: 'Enter your mobile phone number',
@@ -54,11 +61,14 @@ const cyContent: typeof enContent = {
   topWarning: 'Your answers will be shared with the other people in this case. - welsh',
   makingSure: 'Please review your answers before you finish your application.- welsh',
   continue: 'Accept and continue - welsh',
+  Yes: 'Yes - welsh',
+  No: 'No - welsh',
   sectionTitles: {
     AdvisingCourt: "6. What you're asking the court to decide - welsh",
     WithoutNoticeHearing: '7. Hearing details - welsh',
     ChildernDetails: "8. Childen's details - welsh",
     InternationalElement: '11. International elements - welsh',
+    additionationDetailsAboutChildern: 'Additional details about the children - welsh',
   },
   keys: {
     whatAreYouAsking: 'What are you asking the court to do? - welsh',
@@ -74,6 +84,9 @@ const cyContent: typeof enContent = {
     ordersAppliedFor: 'Orders applied for - welsh',
     isDecisionTaken:
       'State everyone who has parental responsibility for child 2 and how they have parental responsibility - welsh',
+    socialServiceLink: 'Are any of the children known to social services? - welsh',
+    subjectToChildProtection: 'Are any of the children the subject of a child protection plan? - welsh',
+    haveOtherChildern: "Do you or the respondents have other children who aren't part of this application? - welsh",
     recievingEmail: 'Who should receive emails about the application - welsh',
     namedPersonEmail: 'Email address of the person named on the application -welsh',
     namedPersonMob: 'Enter your mobile phone number - welsh',
@@ -93,6 +106,7 @@ const en = (content: any) => {
       TypeOfOrder(enContent, userCase),
       WithoutNoticeHearing(enContent, userCase),
       ChildernDetails(enContent, userCase),
+      ChildernDetailsAdditional(enContent, userCase),
       InternationalElement(enContent, userCase),
       ApplicantSummaryList(enContent, userCase),
     ],
