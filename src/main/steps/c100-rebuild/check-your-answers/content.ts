@@ -14,7 +14,7 @@ export const enContent = {
   serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',
-  change: 'change',
+  change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
   makingSure: 'Please review your answers before you finish your application.',
   continue: 'Accept and continue',
@@ -72,6 +72,26 @@ export const enContent = {
       'Are you asking for a without notice hearing because there is literally no time to give notice of the application to the other person or people?',
     areAskingDuetoNoTimeGrantDetails: 'Details',
     doYouNeedAWithoutNoticeHearingDetails: 'Details',
+    whoChildLiveWith: 'Decide who the children live with and when',
+    childTimeSpent: 'Decide how much time the children spend with each person',
+    stopOtherPeopleDoingSomething: 'Stop the other people in the application doing something',
+    resolveSpecificIssue: 'Resolve a specific issue you are concerned about',
+    changeChildrenNameSurname: "Changing the children's names or surname",
+    allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children',
+    takingChildOnHoliday: 'Taking the children on holiday',
+    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales',
+    relocateChildrenOutsideUk:
+      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
+    specificHoliday: 'A specific holiday or arrangement',
+    whatSchoolChildrenWillGoTo: 'What school the children will go to',
+    religiousIssue: 'A religious issue',
+    changeChildrenNameSurnameA: "Changing the children's names or surname",
+    medicalTreatment: 'Medical treatment',
+    relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales',
+    relocateChildrenOutsideUkA:
+      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
+    returningChildrenToYourCare:
+      'Returning the children to your care <div id="resolveSpecificIssueSubField-8-item-hint" class="govuk-hint govuk-checkboxes__hint">If the children have been abducted, unlawfully removed or unlawfully retained</div>',
   },
 };
 const cyContent: typeof enContent = {
@@ -137,6 +157,26 @@ const cyContent: typeof enContent = {
       'Are you asking for a without notice hearing because there is literally no time to give notice of the application to the other person or people?',
     areAskingDuetoNoTimeGrantDetails: 'Details',
     doYouNeedAWithoutNoticeHearingDetails: 'Details - welsh',
+    whoChildLiveWith: 'Decide who the children live with and when - welsh',
+    childTimeSpent: 'Decide how much time the children spend with each person - welsh',
+    stopOtherPeopleDoingSomething: 'Stop the other people in the application doing something - welsh',
+    resolveSpecificIssue: 'Resolve a specific issue you are concerned about - welsh',
+    changeChildrenNameSurname: "Changing the children's names or surname - welsh",
+    allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
+    takingChildOnHoliday: 'Taking the children on holiday - welsh',
+    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
+    relocateChildrenOutsideUk:
+      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
+    specificHoliday: 'A specific holiday or arrangement',
+    whatSchoolChildrenWillGoTo: 'What school the children will go to',
+    religiousIssue: 'A religious issue',
+    changeChildrenNameSurnameA: "Changing the children's names or surname",
+    medicalTreatment: 'Medical treatment',
+    relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales',
+    relocateChildrenOutsideUkA:
+      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
+    returningChildrenToYourCare:
+      'Returning the children to your care <div id="resolveSpecificIssueSubField-8-item-hint" class="govuk-hint govuk-checkboxes__hint">If the children have been abducted, unlawfully removed or unlawfully retained</div>',
   },
 };
 

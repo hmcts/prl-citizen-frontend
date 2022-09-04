@@ -2,6 +2,7 @@ import { CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import * as Urls from '../../../steps/urls';
 
+import { CourtOrderParserHelper } from './dataHelper';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -81,16 +82,23 @@ export const TypeOfOrder = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
+  const html = CourtOrderParserHelper(
+    keys,
+    userCase['courtOrder'],
+    userCase['stopOtherPeopleDoingSomethingSubField'],
+    userCase['resolveSpecificIssueSubField']
+  );
   const SummaryData = [
     {
       key: keys['whatAreYouAsking'],
-      value: userCase['namedApplicant'],
-      changeUrl: Urls['C100_TYPE_ORDER_CAORDER'],
+      value: '',
+      valueHtml: html,
+      changeUrl: Urls['C100_TYPE_ORDER_SELECT_COURT_ORDER'],
     },
     {
       key: keys['wantingCourtToDo'],
-      value: userCase['namedApplicant'],
-      changeUrl: Urls['C100_TYPE_ORDER_CAORDER'],
+      value: userCase['shortStatement'],
+      changeUrl: Urls['C100_TYPE_ORDER_SHORT_STATEMENT'],
     },
   ];
 
@@ -145,14 +153,14 @@ export const WithoutNoticeHearing = (
     //qualifyForUrgentHearing
     {
       key: keys['qualifyForUrgentHearing'],
-      value: userCase['xyz'],
-      changeUrl: Urls['zy'],
+      value: userCase['hearingPart1'],
+      changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
     },
     {
       key: keys['askingNoHearing'],
       value: userCase['hearingPart1'],
       valueHtml: html,
-      changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
+      changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART2'],
     },
   ];
 
