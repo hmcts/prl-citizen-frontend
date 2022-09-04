@@ -107,6 +107,40 @@ export const WithoutNoticeHearing = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
+  let html = "<dl class='govuk-summary-list'>  ";
+
+  html += "<div class='govuk-summary-list__row' id='language_interpreter'> <dd class='govuk-summary-list__value'> ";
+  html += userCase['hearingPart1'];
+  html +=
+    "</dd></div><div class='govuk-summary-list__row' id='' style='border-bottom:1px solid #fff'><dt class='govuk-summary-list__key'>";
+  html += keys['detailOfWhyWithoutNotice'];
+  html += "</dt></div><div class='govuk-summary-list__row'><dd class='govuk-summary-list__value'>";
+  html += userCase['reasonsForApplicationWithoutNotice'];
+
+  html += "<div class='govuk-summary-list__row' id='language_interpreter'> <dd class='govuk-summary-list__value'> ";
+  html +=
+    "</dd></div><div class='govuk-summary-list__row' id='' style='border-bottom:1px solid #fff'><dt class='govuk-summary-list__key'>";
+  html +=
+    keys['areAskingwithoutNoticeHearing'] +
+    '<br> <p class="no-bold">' +
+    userCase['doYouNeedAWithoutNoticeHearing'] +
+    '</p><br>' +
+    keys['doYouNeedAWithoutNoticeHearingDetails'] +
+    '<br> <p class="no-bold">';
+  html += userCase['doYouNeedAWithoutNoticeHearingDetails'] + '</p><br><br>';
+  html += '</dt></div>';
+  html +=
+    "<div class='govuk-summary-list__row' id='' style='border-bottom:1px solid #fff'><dt class='govuk-summary-list__key'>";
+  html +=
+    keys['areAskingDuetoNoTimeGrant'] +
+    '<br><p class="no-bold">' +
+    userCase['doYouRequireAHearingWithReducedNotice'] +
+    '</p><br>' +
+    keys['areAskingDuetoNoTimeGrantDetails'] +
+    '<br><p class="no-bold">';
+  html += userCase['doYouRequireAHearingWithReducedNoticeDetails'] + '</p>';
+  html += '</div> </dl> ';
+
   const SummaryData = [
     //qualifyForUrgentHearing
     {
@@ -117,6 +151,7 @@ export const WithoutNoticeHearing = (
     {
       key: keys['askingNoHearing'],
       value: userCase['hearingPart1'],
+      valueHtml: html,
       changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
     },
   ];
