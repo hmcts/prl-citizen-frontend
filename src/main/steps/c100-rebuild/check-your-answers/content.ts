@@ -180,7 +180,7 @@ const cyContent: typeof enContent = {
   },
 };
 
-const en = (content: any) => {
+const en = (content: CommonContent) => {
   const userCase = content.userCase!;
 
   return {
@@ -206,6 +206,7 @@ const cy: typeof en = (content: CommonContent) => {
       TypeOfOrder(cyContent, userCase),
       WithoutNoticeHearing(cyContent, userCase),
       ChildernDetails(cyContent, userCase),
+      ChildernDetailsAdditional(cyContent, userCase),
       InternationalElement(cyContent, userCase),
     ],
   };
