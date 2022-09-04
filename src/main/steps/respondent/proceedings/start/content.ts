@@ -16,10 +16,10 @@ const en = {
   saveAndContinue: 'Save and continue',
   errors: {
     proceedingsStart: {
-      required: 'Please choose an option for court proceedings',
+      required: 'Select yes if the children have been involved in a previous court case',
     },
     proceedingsStartOrder: {
-      required: 'Please choose an option for court order',
+      required: 'Select yes if the children have been involved in a previous court case',
     },
   },
 };
@@ -38,10 +38,10 @@ const cy: typeof en = {
   saveAndContinue: 'Save and continue',
   errors: {
     proceedingsStart: {
-      required: 'Please select an answer',
+      required: 'Select yes if the children have been involved in a previous court case',
     },
     proceedingsStartOrder: {
-      required: 'Please select an answer',
+      required: 'Select yes if the children have been involved in a previous court case',
     },
   },
 };

@@ -44,10 +44,10 @@ const en = {
       required: 'Please choose an option for emergency order',
     },
     'emergencyOrder.caseNoDetails': {
-      required: 'please enter emergency order case number',
+      required: 'Enter the case number of the Emergency Protection Order',
     },
     'emergencyOrder.orderDateDetails': {
-      required: 'please enter emergency order date details',
+      required: 'Enter the date the Emergency Protection Order was made',
       invalidDate: 'Emergency order date must be a real date',
       incompleteDay: 'Emergency order date must include a day',
       incompleteMonth: 'Emergency order date must include a month',
@@ -55,16 +55,16 @@ const en = {
       invalidDateInFuture: 'Emergency order date must be in the past',
     },
     'emergencyOrder.orderTimeDetails': {
-      required: 'please enter emergency order time details',
+      required: 'Enter how long the Emergency Protection Order was for',
     },
     'emergencyOrder.currentOrderDetails': {
-      required: 'please enter emergency current order details',
+      required: 'Select yes if the Emergency Protection Order is a current order',
     },
     'emergencyOrder.issueOrderDetails': {
-      required: 'please enter emergency issue order details',
+      required: 'Enter which court issued the Emergency Protection Order',
     },
     supervisionOrderOption: {
-      required: 'Please choose an option for supervising order',
+      required: 'Select yes if the children were involved in a Supervision Order',
     },
     'supervisionOrder.caseNoDetails': {
       required: 'please enter supervision order case number',
@@ -82,7 +82,7 @@ const en = {
       required: 'please enter supervision issue order details',
     },
     careOrderOptions: {
-      required: 'Please choose an option for care order',
+      required: 'Select yes if the children were involved in a Care Order',
     },
     'careOrder.caseNoDetails': {
       required: 'please enter care order case number',
@@ -100,7 +100,7 @@ const en = {
       required: 'please enter care issue order details',
     },
     childAbductionOrderOption: {
-      required: 'Please choose an option for child abduction order',
+      required: 'Select yes if the children were involved in a Child Abduction',
     },
     'childAbductionOrder.caseNoDetails': {
       required: 'please enter child abduction order case number',
@@ -118,7 +118,7 @@ const en = {
       required: 'please enter child abduction issue order details',
     },
     caOrderOption: {
-      required: 'Please choose an option for child arrangement order',
+      required: 'Select yes if the children were involved in a Child Arrangements Order',
     },
     'caOrder.caseNoDetails': {
       required: 'please enter child arrangements order case number',
@@ -136,7 +136,7 @@ const en = {
       required: 'please enter child arrangements issue order details',
     },
     financialOrderOption: {
-      required: 'Please choose an option for financial order',
+      required: 'Select yes if the children were involved in a Financial Order under Schedule 1 of the Children Act 1989',
     },
     'financialOrder.caseNoDetails': {
       required: 'please enter financial order case number',
@@ -154,7 +154,7 @@ const en = {
       required: 'please enter financial issue order details',
     },
     nonmolestationOrderOption: {
-      required: 'Please choose an option for non molestation order',
+      required: 'Select yes if you have had a Non-molestation Order',
     },
     'nonmolestationOrder.caseNoDetails': {
       required: 'please enter nonmolestation order case number',
@@ -172,7 +172,7 @@ const en = {
       required: 'please enter nonmolestation issue order details',
     },
     occupationalOrderOptions: {
-      required: 'Please choose an option for occupational order',
+      required: 'Select yes if you have had an Occupation Order',
     },
     'occupationOrder.caseNoDetails': {
       required: 'please enter occupational order case number',
@@ -190,7 +190,7 @@ const en = {
       required: 'please enter occupational issue order details',
     },
     marraigeOrderOptions: {
-      required: 'Please choose an option for non marraige order',
+      required: 'Select yes if you have had a Forced Marriage Protection Order',
     },
     'marraigeOrder.caseNoDetails': {
       required: 'please enter marraige order case number',
@@ -208,7 +208,7 @@ const en = {
       required: 'please enter marraige issue order details',
     },
     restrainingOrderOptions: {
-      required: 'Please choose an option for restraining order',
+      required: 'Select yes if you have had a Restraining Order',
     },
     'restrainingOrder.caseNoDetails': {
       required: 'please enter restraining order case number',
@@ -226,7 +226,7 @@ const en = {
       required: 'please enter restraining issue order details',
     },
     injuctiveOrderOptions: {
-      required: 'Please choose an option for injuctive order',
+      required: 'Select yes if you have had an Other Injuctive Order',
     },
     'injuctiveOrder.caseNoDetails': {
       required: 'please enter injuctive order case number',
@@ -244,7 +244,7 @@ const en = {
       required: 'please enter injuctive issue order details',
     },
     underTakingOrderOptions: {
-      required: 'Please choose an option for undertaking order',
+      required: 'Select yes if you have had an Undertaking in Place of an Order',
     },
     'underTakingOrder.caseNoDetails': {
       required: 'please enter undertaking order case number',
