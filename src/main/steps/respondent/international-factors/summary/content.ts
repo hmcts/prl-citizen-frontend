@@ -57,7 +57,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls)],
+    sections: [summaryList(enContent, userCase, urls, 'respondentAdditionalInformation', fieldType, content.language)],
   };
 };
 
@@ -111,12 +111,19 @@ const urls = {
   request: INTERNATIONAL_FACTORS_REQUEST,
 };
 
+const fieldType = {
+  start: 'String',
+  parents: 'String',
+  jurisdiction: 'String',
+  request: 'String',
+};
+
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, 'respondentAdditionalInformation')],
+    sections: [summaryList(cyContent, userCase, urls, 'respondentAdditionalInformation', fieldType, content.language)],
   };
 };
 

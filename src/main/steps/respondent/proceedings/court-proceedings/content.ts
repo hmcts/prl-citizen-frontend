@@ -574,8 +574,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('emergencyOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'emergencyOrder.orderTimeDetails': {
               type: 'text',
@@ -670,8 +669,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('supervisionOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'supervisionOrder.orderTimeDetails': {
               type: 'text',
@@ -766,8 +764,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('careOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'careOrder.orderTimeDetails': {
               type: 'text',
@@ -863,8 +860,7 @@ export const form: FormContent = {
                 covertToDateObject('childAbductionOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'childAbductionOrder.orderTimeDetails': {
               type: 'text',
@@ -965,8 +961,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('caOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'caOrder.orderTimeDetails': {
               type: 'text',
@@ -1061,8 +1056,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('financialOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'financialOrder.orderTimeDetails': {
               type: 'text',
@@ -1164,8 +1158,7 @@ export const form: FormContent = {
                 covertToDateObject('nonmolestationOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'nonmolestationOrder.orderTimeDetails': {
               type: 'text',
@@ -1260,8 +1253,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('occupationOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'occupationOrder.orderTimeDetails': {
               type: 'text',
@@ -1362,8 +1354,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('marraigeOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'marraigeOrder.orderTimeDetails': {
               type: 'text',
@@ -1465,8 +1456,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('restrainingOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'restrainingOrder.orderTimeDetails': {
               type: 'text',
@@ -1567,8 +1557,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('injuctiveOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'injuctiveOrder.orderTimeDetails': {
               type: 'text',
@@ -1669,8 +1658,7 @@ export const form: FormContent = {
               parser: body => covertToDateObject('underTakingOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
                 //areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isFutureDate(value as CaseDate),
+                isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
             },
             'underTakingOrder.orderTimeDetails': {
               type: 'text',
