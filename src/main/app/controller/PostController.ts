@@ -316,6 +316,7 @@ export class PostController<T extends AnyObject> {
         } else if (accessCodeValidated !== 'Valid') {
           req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         }
+        req.session.userCase = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
       }
     } catch (err) {
       console.log('Retrieving case failed with error: ' + err);
