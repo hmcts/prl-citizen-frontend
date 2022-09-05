@@ -714,6 +714,15 @@ export interface CaseData {
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   miamStart?: string;
+  start?: YesOrNo;
+  iFactorsStartProvideDetails?: string;
+  parents?: YesOrNo;
+  iFactorsParentsProvideDetails?: string;
+  jurisdiction?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  request?: YesOrNo;
+  iFactorsRequestProvideDetails?: string;
+
 }
 
 export interface ConfidentialDetails {

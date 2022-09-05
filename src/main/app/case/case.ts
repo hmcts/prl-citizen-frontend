@@ -180,6 +180,14 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenRole: 'citizenRole',
   applicantDocumentsUploaded: 'applicantDocumentsUploaded',
   miamStart: 'miamStart',
+  start: 'start',
+  iFactorsStartProvideDetails: 'iFactorsStartProvideDetails',
+  parents: 'parents',
+  iFactorsParentsProvideDetails: 'iFactorsParentsProvideDetails',
+  jurisdiction: 'jurisdiction',
+  iFactorsJurisdictionProvideDetails: 'iFactorsJurisdictionProvideDetails',
+  request: 'request',
+  iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {

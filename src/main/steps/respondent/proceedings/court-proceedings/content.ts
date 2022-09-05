@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import {
-  areDateFieldsFilledIn,
+  //areDateFieldsFilledIn,
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
@@ -43,221 +43,221 @@ const en = {
     emergencyOrderOptions: {
       required: 'Please choose an option for emergency order',
     },
-    'emergencyOrder.caseNoDetails': {
-      required: 'please enter emergency order case number',
-    },
+    // 'emergencyOrder.caseNoDetails': {
+    //   required: 'please enter emergency order case number',
+    // },
     'emergencyOrder.orderDateDetails': {
-      required: 'please enter emergency order date details',
+      //required: 'please enter emergency order date details',
       invalidDate: 'Emergency order date must be a real date',
       incompleteDay: 'Emergency order date must include a day',
       incompleteMonth: 'Emergency order date must include a month',
       incompleteYear: 'Emergency order date must include a year',
       invalidDateInFuture: 'Emergency order date must be in the past',
     },
-    'emergencyOrder.orderTimeDetails': {
-      required: 'please enter emergency order time details',
-    },
-    'emergencyOrder.currentOrderDetails': {
-      required: 'please enter emergency current order details',
-    },
+    // 'emergencyOrder.orderTimeDetails': {
+    //   required: 'please enter emergency order time details',
+    // },
+    // 'emergencyOrder.currentOrderDetails': {
+    //   required: 'please enter emergency current order details',
+    // },
     'emergencyOrder.issueOrderDetails': {
       required: 'please enter emergency issue order details',
     },
     supervisionOrderOption: {
       required: 'Please choose an option for supervising order',
     },
-    'supervisionOrder.caseNoDetails': {
-      required: 'please enter supervision order case number',
-    },
-    'supervisionOrder.orderDateDetails': {
-      required: 'please enter supervision order date details',
-    },
-    'supervisionOrder.orderTimeDetails': {
-      required: 'please enter supervision order time details',
-    },
-    'supervisionOrder.currentOrderDetails': {
-      required: 'please enter supervision current order details',
-    },
+    // 'supervisionOrder.caseNoDetails': {
+    //   required: 'please enter supervision order case number',
+    // },
+    // 'supervisionOrder.orderDateDetails': {
+    //   required: 'please enter supervision order date details',
+    // },
+    // 'supervisionOrder.orderTimeDetails': {
+    //   required: 'please enter supervision order time details',
+    // },
+    // 'supervisionOrder.currentOrderDetails': {
+    //   required: 'please enter supervision current order details',
+    // },
     'supervisionOrder.issueOrderDetails': {
       required: 'please enter supervision issue order details',
     },
     careOrderOptions: {
       required: 'Please choose an option for care order',
     },
-    'careOrder.caseNoDetails': {
-      required: 'please enter care order case number',
-    },
-    'careOrder.orderDateDetails': {
-      required: 'please enter care order date details',
-    },
-    'careOrder.orderTimeDetails': {
-      required: 'please enter care order time details',
-    },
-    'careOrder.currentOrderDetails': {
-      required: 'please enter care current order details',
-    },
+    // 'careOrder.caseNoDetails': {
+    //   required: 'please enter care order case number',
+    // },
+    // 'careOrder.orderDateDetails': {
+    //   required: 'please enter care order date details',
+    // },
+    // 'careOrder.orderTimeDetails': {
+    //   required: 'please enter care order time details',
+    // },
+    // 'careOrder.currentOrderDetails': {
+    //   required: 'please enter care current order details',
+    // },
     'careOrder.issueOrderDetails': {
       required: 'please enter care issue order details',
     },
     childAbductionOrderOption: {
       required: 'Please choose an option for child abduction order',
     },
-    'childAbductionOrder.caseNoDetails': {
-      required: 'please enter child abduction order case number',
-    },
-    'childAbductionOrder.orderDateDetails': {
-      required: 'please enter child abduction order date details',
-    },
-    'childAbductionOrder.orderTimeDetails': {
-      required: 'please enter child abduction order time details',
-    },
-    'childAbductionOrder.currentOrderDetails': {
-      required: 'please enter child abduction current order details',
-    },
+    // 'childAbductionOrder.caseNoDetails': {
+    //   required: 'please enter child abduction order case number',
+    // },
+    // 'childAbductionOrder.orderDateDetails': {
+    //   required: 'please enter child abduction order date details',
+    // },
+    // 'childAbductionOrder.orderTimeDetails': {
+    //   required: 'please enter child abduction order time details',
+    // },
+    // 'childAbductionOrder.currentOrderDetails': {
+    //   required: 'please enter child abduction current order details',
+    // },
     'childAbductionOrder.issueOrderDetails': {
       required: 'please enter child abduction issue order details',
     },
     caOrderOption: {
       required: 'Please choose an option for child arrangement order',
     },
-    'caOrder.caseNoDetails': {
-      required: 'please enter child arrangements order case number',
-    },
-    'caOrder.orderDateDetails': {
-      required: 'please enter child arrangements order date details',
-    },
-    'caOrder.orderTimeDetails': {
-      required: 'please enter child arrangements order time details',
-    },
-    'caOrder.currentOrderDetails': {
-      required: 'please enter child arrangements current order details',
-    },
+    // 'caOrder.caseNoDetails': {
+    //   required: 'please enter child arrangements order case number',
+    // },
+    // 'caOrder.orderDateDetails': {
+    //   required: 'please enter child arrangements order date details',
+    // },
+    // 'caOrder.orderTimeDetails': {
+    //   required: 'please enter child arrangements order time details',
+    // },
+    // 'caOrder.currentOrderDetails': {
+    //   required: 'please enter child arrangements current order details',
+    // },
     'caOrder.issueOrderDetails': {
       required: 'please enter child arrangements issue order details',
     },
     financialOrderOption: {
       required: 'Please choose an option for financial order',
     },
-    'financialOrder.caseNoDetails': {
-      required: 'please enter financial order case number',
-    },
-    'financialOrder.orderDateDetails': {
-      required: 'please enter financial order date details',
-    },
-    'financialOrder.orderTimeDetails': {
-      required: 'please enter financial order time details',
-    },
-    'financialOrder.currentOrderDetails': {
-      required: 'please enter financial current order details',
-    },
+    // 'financialOrder.caseNoDetails': {
+    //   required: 'please enter financial order case number',
+    // },
+    // 'financialOrder.orderDateDetails': {
+    //   required: 'please enter financial order date details',
+    // },
+    // 'financialOrder.orderTimeDetails': {
+    //   required: 'please enter financial order time details',
+    // },
+    // 'financialOrder.currentOrderDetails': {
+    //   required: 'please enter financial current order details',
+    // },
     'financialOrder.issueOrderDetails': {
       required: 'please enter financial issue order details',
     },
     nonmolestationOrderOption: {
       required: 'Please choose an option for non molestation order',
     },
-    'nonmolestationOrder.caseNoDetails': {
-      required: 'please enter nonmolestation order case number',
-    },
-    'nonmolestationOrder.orderDateDetails': {
-      required: 'please enter nonmolestation order date details',
-    },
-    'nonmolestationOrder.orderTimeDetails': {
-      required: 'please enter nonmolestation order time details',
-    },
-    'nonmolestationOrder.currentOrderDetails': {
-      required: 'please enter nonmolestation current order details',
-    },
+    // 'nonmolestationOrder.caseNoDetails': {
+    //   required: 'please enter nonmolestation order case number',
+    // },
+    // 'nonmolestationOrder.orderDateDetails': {
+    //   required: 'please enter nonmolestation order date details',
+    // },
+    // 'nonmolestationOrder.orderTimeDetails': {
+    //   required: 'please enter nonmolestation order time details',
+    // },
+    // 'nonmolestationOrder.currentOrderDetails': {
+    //   required: 'please enter nonmolestation current order details',
+    // },
     'nonmolestationOrder.issueOrderDetails': {
       required: 'please enter nonmolestation issue order details',
     },
     occupationalOrderOptions: {
       required: 'Please choose an option for occupational order',
     },
-    'occupationOrder.caseNoDetails': {
-      required: 'please enter occupational order case number',
-    },
-    'occupationOrder.orderDateDetails': {
-      required: 'please enter occupational order date details',
-    },
-    'occupationOrder.orderTimeDetails': {
-      required: 'please enter occupational order time details',
-    },
-    'occupationOrder.currentOrderDetails': {
-      required: 'please enter occupational current order details',
-    },
+    // 'occupationOrder.caseNoDetails': {
+    //   required: 'please enter occupational order case number',
+    // },
+    // 'occupationOrder.orderDateDetails': {
+    //   required: 'please enter occupational order date details',
+    // },
+    // 'occupationOrder.orderTimeDetails': {
+    //   required: 'please enter occupational order time details',
+    // },
+    // 'occupationOrder.currentOrderDetails': {
+    //   required: 'please enter occupational current order details',
+    // },
     'occupationOrder.issueOrderDetails': {
       required: 'please enter occupational issue order details',
     },
     marraigeOrderOptions: {
       required: 'Please choose an option for non marraige order',
     },
-    'marraigeOrder.caseNoDetails': {
-      required: 'please enter marraige order case number',
-    },
-    'marraigeOrder.orderDateDetails': {
-      required: 'please enter marraige order date details',
-    },
-    'marraigeOrder.orderTimeDetails': {
-      required: 'please enter marraige order time details',
-    },
-    'marraigeOrder.currentOrderDetails': {
-      required: 'please enter marraige current order details',
-    },
+    // 'marraigeOrder.caseNoDetails': {
+    //   required: 'please enter marraige order case number',
+    // },
+    // 'marraigeOrder.orderDateDetails': {
+    //   required: 'please enter marraige order date details',
+    // },
+    // 'marraigeOrder.orderTimeDetails': {
+    //   required: 'please enter marraige order time details',
+    // },
+    // 'marraigeOrder.currentOrderDetails': {
+    //   required: 'please enter marraige current order details',
+    // },
     'marraigeOrder.issueOrderDetails': {
       required: 'please enter marraige issue order details',
     },
     restrainingOrderOptions: {
       required: 'Please choose an option for restraining order',
     },
-    'restrainingOrder.caseNoDetails': {
-      required: 'please enter restraining order case number',
-    },
-    'restrainingOrder.orderDateDetails': {
-      required: 'please enter restraining order date details',
-    },
-    'restrainingOrder.orderTimeDetails': {
-      required: 'please enter restraining order time details',
-    },
-    'restrainingOrder.currentOrderDetails': {
-      required: 'please enter restraining current order details',
-    },
+    // 'restrainingOrder.caseNoDetails': {
+    //   required: 'please enter restraining order case number',
+    // },
+    // 'restrainingOrder.orderDateDetails': {
+    //   required: 'please enter restraining order date details',
+    // },
+    // 'restrainingOrder.orderTimeDetails': {
+    //   required: 'please enter restraining order time details',
+    // },
+    // 'restrainingOrder.currentOrderDetails': {
+    //   required: 'please enter restraining current order details',
+    // },
     'restrainingOrder.issueOrderDetails': {
       required: 'please enter restraining issue order details',
     },
     injuctiveOrderOptions: {
       required: 'Please choose an option for injuctive order',
     },
-    'injuctiveOrder.caseNoDetails': {
-      required: 'please enter injuctive order case number',
-    },
-    'injuctiveOrder.orderDateDetails': {
-      required: 'please enter injuctive order date details',
-    },
-    'injuctiveOrder.orderTimeDetails': {
-      required: 'please enter injuctive order time details',
-    },
-    'injuctiveOrder.currentOrderDetails': {
-      required: 'please enter injuctive current order details',
-    },
+    // 'injuctiveOrder.caseNoDetails': {
+    //   required: 'please enter injuctive order case number',
+    // },
+    // 'injuctiveOrder.orderDateDetails': {
+    //   required: 'please enter injuctive order date details',
+    // },
+    // 'injuctiveOrder.orderTimeDetails': {
+    //   required: 'please enter injuctive order time details',
+    // },
+    // 'injuctiveOrder.currentOrderDetails': {
+    //   required: 'please enter injuctive current order details',
+    // },
     'injuctiveOrder.issueOrderDetails': {
       required: 'please enter injuctive issue order details',
     },
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
     },
-    'underTakingOrder.caseNoDetails': {
-      required: 'please enter undertaking order case number',
-    },
-    'underTakingOrder.orderDateDetails': {
-      required: 'please enter undertaking order date details',
-    },
-    'underTakingOrder.orderTimeDetails': {
-      required: 'please enter undertaking order time details',
-    },
-    'underTakingOrder.currentOrderDetails': {
-      required: 'please enter undertaking current order details',
-    },
+    // 'underTakingOrder.caseNoDetails': {
+    //   required: 'please enter undertaking order case number',
+    // },
+    // 'underTakingOrder.orderDateDetails': {
+    //   required: 'please enter undertaking order date details',
+    // },
+    // 'underTakingOrder.orderTimeDetails': {
+    //   required: 'please enter undertaking order time details',
+    // },
+    // 'underTakingOrder.currentOrderDetails': {
+    //   required: 'please enter undertaking current order details',
+    // },
     'underTakingOrder.issueOrderDetails': {
       required: 'please enter undertaking issue order details',
     },
@@ -298,221 +298,221 @@ const cy: typeof en = {
     emergencyOrderOptions: {
       required: 'Please choose an option for emergency order',
     },
-    'emergencyOrder.caseNoDetails': {
-      required: 'please enter emergency order case number',
-    },
+    // 'emergencyOrder.caseNoDetails': {
+    //   required: 'please enter emergency order case number',
+    // },
     'emergencyOrder.orderDateDetails': {
-      required: 'please enter emergency order date details',
+      //required: 'please enter emergency order date details',
       invalidDate: 'Emergency order date must be a real date',
       incompleteDay: 'Emergency order date must include a day',
       incompleteMonth: 'Emergency order date must include a month',
       incompleteYear: 'Emergency order date must include a year',
       invalidDateInFuture: 'Emergency order date must be in the past',
     },
-    'emergencyOrder.orderTimeDetails': {
-      required: 'please enter emergency order time details',
-    },
-    'emergencyOrder.currentOrderDetails': {
-      required: 'please enter emergency current order details',
-    },
+    // 'emergencyOrder.orderTimeDetails': {
+    //   required: 'please enter emergency order time details',
+    // },
+    // 'emergencyOrder.currentOrderDetails': {
+    //   required: 'please enter emergency current order details',
+    // },
     'emergencyOrder.issueOrderDetails': {
       required: 'please enter emergency issue order details',
     },
     supervisionOrderOption: {
       required: 'Please choose an option for supervising order',
     },
-    'supervisionOrder.caseNoDetails': {
-      required: 'please enter supervision order case number',
-    },
-    'supervisionOrder.orderDateDetails': {
-      required: 'please enter supervision order date details',
-    },
-    'supervisionOrder.orderTimeDetails': {
-      required: 'please enter supervision order time details',
-    },
-    'supervisionOrder.currentOrderDetails': {
-      required: 'please enter supervision current order details',
-    },
+    // 'supervisionOrder.caseNoDetails': {
+    //   required: 'please enter supervision order case number',
+    // },
+    // 'supervisionOrder.orderDateDetails': {
+    //   required: 'please enter supervision order date details',
+    // },
+    // 'supervisionOrder.orderTimeDetails': {
+    //   required: 'please enter supervision order time details',
+    // },
+    // 'supervisionOrder.currentOrderDetails': {
+    //   required: 'please enter supervision current order details',
+    // },
     'supervisionOrder.issueOrderDetails': {
       required: 'please enter supervision issue order details',
     },
     careOrderOptions: {
       required: 'Please choose an option for care order',
     },
-    'careOrder.caseNoDetails': {
-      required: 'please enter care order case number',
-    },
-    'careOrder.orderDateDetails': {
-      required: 'please enter care order date details',
-    },
-    'careOrder.orderTimeDetails': {
-      required: 'please enter care order time details',
-    },
-    'careOrder.currentOrderDetails': {
-      required: 'please enter care current order details',
-    },
+    // 'careOrder.caseNoDetails': {
+    //   required: 'please enter care order case number',
+    // },
+    // 'careOrder.orderDateDetails': {
+    //   required: 'please enter care order date details',
+    // },
+    // 'careOrder.orderTimeDetails': {
+    //   required: 'please enter care order time details',
+    // },
+    // 'careOrder.currentOrderDetails': {
+    //   required: 'please enter care current order details',
+    // },
     'careOrder.issueOrderDetails': {
       required: 'please enter care issue order details',
     },
     childAbductionOrderOption: {
       required: 'Please choose an option for child abduction order',
     },
-    'childAbductionOrder.caseNoDetails': {
-      required: 'please enter child abduction order case number',
-    },
-    'childAbductionOrder.orderDateDetails': {
-      required: 'please enter child abduction order date details',
-    },
-    'childAbductionOrder.orderTimeDetails': {
-      required: 'please enter child abduction order time details',
-    },
-    'childAbductionOrder.currentOrderDetails': {
-      required: 'please enter child abduction current order details',
-    },
+    // 'childAbductionOrder.caseNoDetails': {
+    //   required: 'please enter child abduction order case number',
+    // },
+    // 'childAbductionOrder.orderDateDetails': {
+    //   required: 'please enter child abduction order date details',
+    // },
+    // 'childAbductionOrder.orderTimeDetails': {
+    //   required: 'please enter child abduction order time details',
+    // },
+    // 'childAbductionOrder.currentOrderDetails': {
+    //   required: 'please enter child abduction current order details',
+    // },
     'childAbductionOrder.issueOrderDetails': {
       required: 'please enter child abduction issue order details',
     },
     caOrderOption: {
       required: 'Please choose an option for child arrangement order',
     },
-    'caOrder.caseNoDetails': {
-      required: 'please enter child arrangements order case number',
-    },
-    'caOrder.orderDateDetails': {
-      required: 'please enter child arrangements order date details',
-    },
-    'caOrder.orderTimeDetails': {
-      required: 'please enter child arrangements order time details',
-    },
-    'caOrder.currentOrderDetails': {
-      required: 'please enter child arrangements current order details',
-    },
+    // 'caOrder.caseNoDetails': {
+    //   required: 'please enter child arrangements order case number',
+    // },
+    // 'caOrder.orderDateDetails': {
+    //   required: 'please enter child arrangements order date details',
+    // },
+    // 'caOrder.orderTimeDetails': {
+    //   required: 'please enter child arrangements order time details',
+    // },
+    // 'caOrder.currentOrderDetails': {
+    //   required: 'please enter child arrangements current order details',
+    // },
     'caOrder.issueOrderDetails': {
       required: 'please enter child arrangements issue order details',
     },
     financialOrderOption: {
       required: 'Please choose an option for financial order',
     },
-    'financialOrder.caseNoDetails': {
-      required: 'please enter financial order case number',
-    },
-    'financialOrder.orderDateDetails': {
-      required: 'please enter financial order date details',
-    },
-    'financialOrder.orderTimeDetails': {
-      required: 'please enter financial order time details',
-    },
-    'financialOrder.currentOrderDetails': {
-      required: 'please enter financial current order details',
-    },
+    // 'financialOrder.caseNoDetails': {
+    //   required: 'please enter financial order case number',
+    // },
+    // 'financialOrder.orderDateDetails': {
+    //   required: 'please enter financial order date details',
+    // },
+    // 'financialOrder.orderTimeDetails': {
+    //   required: 'please enter financial order time details',
+    // },
+    // 'financialOrder.currentOrderDetails': {
+    //   required: 'please enter financial current order details',
+    // },
     'financialOrder.issueOrderDetails': {
       required: 'please enter financial issue order details',
     },
     nonmolestationOrderOption: {
       required: 'Please choose an option for non molestation order',
     },
-    'nonmolestationOrder.caseNoDetails': {
-      required: 'please enter nonmolestation order case number',
-    },
-    'nonmolestationOrder.orderDateDetails': {
-      required: 'please enter nonmolestation order date details',
-    },
-    'nonmolestationOrder.orderTimeDetails': {
-      required: 'please enter nonmolestation order time details',
-    },
-    'nonmolestationOrder.currentOrderDetails': {
-      required: 'please enter nonmolestation current order details',
-    },
+    // 'nonmolestationOrder.caseNoDetails': {
+    //   required: 'please enter nonmolestation order case number',
+    // },
+    // 'nonmolestationOrder.orderDateDetails': {
+    //   required: 'please enter nonmolestation order date details',
+    // },
+    // 'nonmolestationOrder.orderTimeDetails': {
+    //   required: 'please enter nonmolestation order time details',
+    // },
+    // 'nonmolestationOrder.currentOrderDetails': {
+    //   required: 'please enter nonmolestation current order details',
+    // },
     'nonmolestationOrder.issueOrderDetails': {
       required: 'please enter nonmolestation issue order details',
     },
     occupationalOrderOptions: {
       required: 'Please choose an option for occupational order',
     },
-    'occupationOrder.caseNoDetails': {
-      required: 'please enter occupational order case number',
-    },
-    'occupationOrder.orderDateDetails': {
-      required: 'please enter occupational order date details',
-    },
-    'occupationOrder.orderTimeDetails': {
-      required: 'please enter occupational order time details',
-    },
-    'occupationOrder.currentOrderDetails': {
-      required: 'please enter occupational current order details',
-    },
+    // 'occupationOrder.caseNoDetails': {
+    //   required: 'please enter occupational order case number',
+    // },
+    // 'occupationOrder.orderDateDetails': {
+    //   required: 'please enter occupational order date details',
+    // },
+    // 'occupationOrder.orderTimeDetails': {
+    //   required: 'please enter occupational order time details',
+    // },
+    // 'occupationOrder.currentOrderDetails': {
+    //   required: 'please enter occupational current order details',
+    // },
     'occupationOrder.issueOrderDetails': {
       required: 'please enter occupational issue order details',
     },
     marraigeOrderOptions: {
       required: 'Please choose an option for non marraige order',
     },
-    'marraigeOrder.caseNoDetails': {
-      required: 'please enter marraige order case number',
-    },
-    'marraigeOrder.orderDateDetails': {
-      required: 'please enter marraige order date details',
-    },
-    'marraigeOrder.orderTimeDetails': {
-      required: 'please enter marraige order time details',
-    },
-    'marraigeOrder.currentOrderDetails': {
-      required: 'please enter marraige current order details',
-    },
+    // 'marraigeOrder.caseNoDetails': {
+    //   required: 'please enter marraige order case number',
+    // },
+    // 'marraigeOrder.orderDateDetails': {
+    //   required: 'please enter marraige order date details',
+    // },
+    // 'marraigeOrder.orderTimeDetails': {
+    //   required: 'please enter marraige order time details',
+    // },
+    // 'marraigeOrder.currentOrderDetails': {
+    //   required: 'please enter marraige current order details',
+    // },
     'marraigeOrder.issueOrderDetails': {
       required: 'please enter marraige issue order details',
     },
     restrainingOrderOptions: {
       required: 'Please choose an option for restraining order',
     },
-    'restrainingOrder.caseNoDetails': {
-      required: 'please enter restraining order case number',
-    },
-    'restrainingOrder.orderDateDetails': {
-      required: 'please enter restraining order date details',
-    },
-    'restrainingOrder.orderTimeDetails': {
-      required: 'please enter restraining order time details',
-    },
-    'restrainingOrder.currentOrderDetails': {
-      required: 'please enter restraining current order details',
-    },
+    // 'restrainingOrder.caseNoDetails': {
+    //   required: 'please enter restraining order case number',
+    // },
+    // 'restrainingOrder.orderDateDetails': {
+    //   required: 'please enter restraining order date details',
+    // },
+    // 'restrainingOrder.orderTimeDetails': {
+    //   required: 'please enter restraining order time details',
+    // },
+    // 'restrainingOrder.currentOrderDetails': {
+    //   required: 'please enter restraining current order details',
+    // },
     'restrainingOrder.issueOrderDetails': {
       required: 'please enter restraining issue order details',
     },
     injuctiveOrderOptions: {
       required: 'Please choose an option for injuctive order',
     },
-    'injuctiveOrder.caseNoDetails': {
-      required: 'please enter injuctive order case number',
-    },
-    'injuctiveOrder.orderDateDetails': {
-      required: 'please enter injuctive order date details',
-    },
-    'injuctiveOrder.orderTimeDetails': {
-      required: 'please enter injuctive order time details',
-    },
-    'injuctiveOrder.currentOrderDetails': {
-      required: 'please enter injuctive current order details',
-    },
+    // 'injuctiveOrder.caseNoDetails': {
+    //   required: 'please enter injuctive order case number',
+    // },
+    // 'injuctiveOrder.orderDateDetails': {
+    //   required: 'please enter injuctive order date details',
+    // },
+    // 'injuctiveOrder.orderTimeDetails': {
+    //   required: 'please enter injuctive order time details',
+    // },
+    // 'injuctiveOrder.currentOrderDetails': {
+    //   required: 'please enter injuctive current order details',
+    // },
     'injuctiveOrder.issueOrderDetails': {
       required: 'please enter injuctive issue order details',
     },
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
     },
-    'underTakingOrder.caseNoDetails': {
-      required: 'please enter undertaking order case number',
-    },
-    'underTakingOrder.orderDateDetails': {
-      required: 'please enter undertaking order date details',
-    },
-    'underTakingOrder.orderTimeDetails': {
-      required: 'please enter undertaking order time details',
-    },
-    'underTakingOrder.currentOrderDetails': {
-      required: 'please enter undertaking current order details',
-    },
+    // 'underTakingOrder.caseNoDetails': {
+    //   required: 'please enter undertaking order case number',
+    // },
+    // 'underTakingOrder.orderDateDetails': {
+    //   required: 'please enter undertaking order date details',
+    // },
+    // 'underTakingOrder.orderTimeDetails': {
+    //   required: 'please enter undertaking order time details',
+    // },
+    // 'underTakingOrder.currentOrderDetails': {
+    //   required: 'please enter undertaking current order details',
+    // },
     'underTakingOrder.issueOrderDetails': {
       required: 'please enter undertaking issue order details',
     },
@@ -543,7 +543,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: value => isFieldFilledIn(value),
+              //validator: value => isFieldFilledIn(value),
             },
             'emergencyOrder.orderDateDetails': {
               type: 'date',
@@ -573,7 +573,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('emergencyOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -582,7 +582,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'emergencyOrder.currentOrderDetails': {
               type: 'radios',
@@ -600,7 +600,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'emergencyOrder.issueOrderDetails': {
               type: 'text',
@@ -639,7 +639,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'supervisionOrder.orderDateDetails': {
               type: 'date',
@@ -669,7 +669,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('supervisionOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -678,7 +678,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'supervisionOrder.currentOrderDetails': {
               type: 'radios',
@@ -696,7 +696,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'supervisionOrder.issueOrderDetails': {
               type: 'text',
@@ -735,7 +735,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'careOrder.orderDateDetails': {
               type: 'date',
@@ -765,7 +765,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('careOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -774,7 +774,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'careOrder.currentOrderDetails': {
               type: 'radios',
@@ -792,7 +792,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'careOrder.issueOrderDetails': {
               type: 'text',
@@ -831,7 +831,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'childAbductionOrder.orderDateDetails': {
               type: 'date',
@@ -862,7 +862,7 @@ export const form: FormContent = {
               parser: body =>
                 covertToDateObject('childAbductionOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -871,7 +871,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             currentOrderLabel: {
               type: 'label',
@@ -895,7 +895,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'childAbductionOrder.issueOrderDetails': {
               type: 'text',
@@ -934,7 +934,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'caOrder.orderDateDetails': {
               type: 'date',
@@ -964,7 +964,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('caOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -973,7 +973,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'caOrder.currentOrderDetails': {
               type: 'radios',
@@ -991,7 +991,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'caOrder.issueOrderDetails': {
               type: 'text',
@@ -1030,7 +1030,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'financialOrder.orderDateDetails': {
               type: 'date',
@@ -1060,7 +1060,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('financialOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -1069,7 +1069,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'financialOrder.currentOrderLabel': {
               type: 'label',
@@ -1093,7 +1093,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'financialOrder.issueOrderDetails': {
               type: 'text',
@@ -1132,7 +1132,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'nonmolestationOrder.orderDateDetails': {
               type: 'date',
@@ -1163,7 +1163,7 @@ export const form: FormContent = {
               parser: body =>
                 covertToDateObject('nonmolestationOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -1172,7 +1172,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'nonmolestationOrder.currentOrderDetails': {
               type: 'radios',
@@ -1190,7 +1190,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'nonmolestationOrder.issueOrderDetails': {
               type: 'text',
@@ -1229,7 +1229,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'occupationOrder.orderDateDetails': {
               type: 'date',
@@ -1259,7 +1259,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('occupationOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -1268,7 +1268,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'occupationOrder.currentOrderLabel': {
               type: 'label',
@@ -1292,7 +1292,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'occupationOrder.issueOrderDetails': {
               type: 'text',
@@ -1331,7 +1331,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'marraigeOrder.orderDateDetails': {
               type: 'date',
@@ -1361,7 +1361,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('marraigeOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -1370,7 +1370,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'marraigeOrder.currentOrderLabel': {
               type: 'label',
@@ -1394,7 +1394,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'marraigeOrder.issueOrderDetails': {
               type: 'text',
@@ -1434,7 +1434,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'restrainingOrder.orderDateDetails': {
               type: 'date',
@@ -1464,7 +1464,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('restrainingOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -1473,7 +1473,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'restrainingOrder.currentOrderLabel': {
               type: 'label',
@@ -1497,7 +1497,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'restrainingOrder.issueOrderDetails': {
               type: 'text',
@@ -1536,7 +1536,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'injuctiveOrder.orderDateDetails': {
               type: 'date',
@@ -1566,7 +1566,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('injuctiveOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -1575,7 +1575,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'injuctiveOrder.currentOrderLabel': {
               type: 'label',
@@ -1599,7 +1599,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'injuctiveOrder.issueOrderDetails': {
               type: 'text',
@@ -1638,7 +1638,7 @@ export const form: FormContent = {
               label: l => l.caseno,
               hint: l => l.casenohint,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'underTakingOrder.orderDateDetails': {
               type: 'date',
@@ -1668,7 +1668,7 @@ export const form: FormContent = {
               ],
               parser: body => covertToDateObject('underTakingOrder.orderDateDetails', body as Record<string, unknown>),
               validator: value =>
-                areDateFieldsFilledIn(value as CaseDate) ||
+                //areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isFutureDate(value as CaseDate),
             },
@@ -1677,7 +1677,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.ordertime,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'underTakingOrder.currentOrderLabel': {
               type: 'label',
@@ -1701,7 +1701,7 @@ export const form: FormContent = {
                   value: 'No',
                 },
               ],
-              validator: isFieldFilledIn,
+              //validator: isFieldFilledIn,
             },
             'underTakingOrder.issueOrderDetails': {
               type: 'text',
@@ -1724,7 +1724,7 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.saveAndContinue,
   },
 };
