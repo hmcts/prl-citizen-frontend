@@ -47,7 +47,7 @@ describe('citizen-home content', () => {
   });
 
   // eslint-disable-next-line jest/expect-expect
-  test('should return correct welsh content', () => {
+  test('should return correct welsh content ', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 });
