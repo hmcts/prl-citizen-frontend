@@ -29,8 +29,9 @@ export const getUserDetails = async (
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
-  console.log('tokenUrl' + tokenUrl);
-  console.log('data' + data);
+  console.log('auth tokenUrl ' + tokenUrl);
+  console.log('auth data ' + data);
+  console.log('auth token ' + response.data.access_token);
   return {
     accessToken: response.data.access_token,
     id: jwt.uid,
