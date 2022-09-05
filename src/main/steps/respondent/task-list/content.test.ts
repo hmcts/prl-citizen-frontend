@@ -7,7 +7,7 @@ import { generateContent } from './content';
 import { respondent_en } from './section-titles';
 import { respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
-  title: 'Respond to the application',
+  title: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -19,7 +19,7 @@ const enContent = {
   taskListItems: respondent_tasklist_items_en,
 };
 const cyContent = {
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',

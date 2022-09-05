@@ -2,32 +2,19 @@ import * as URL from '../../urls';
 
 import {
   getConfirmOrEditYourContactDetails,
-  getConsentToApplicationStatus,
   getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
-  getYourSafetyStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
     {
-      title: sectionTitles.consentToTheApplication,
-      items: [
-        {
-          id: 'consent-to-the-application',
-          text: taskListItems.do_you_consent_to_the_application,
-          status: getConsentToApplicationStatus(userCase),
-          href: URL.CONSENT_TO_APPLICATION,
-        },
-      ],
-    },
-    {
-      title: sectionTitles.respondentYourDetails,
+      title: sectionTitles.aboutYou,
       items: [
         {
           id: 'keep-your-details-private',
@@ -44,35 +31,52 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
       ],
     },
     {
-      title: sectionTitles.applicationDetails,
+      title: sectionTitles.theApplication,
       items: [
         {
-          id: 'medation-miam',
-          text: taskListItems.mediation_miam,
+          id: 'check_the_application',
+          text: taskListItems.check_the_application,
           status: getMiamStatus(userCase),
           href: URL.MIAM_START,
         },
         {
-          id: 'current-or-previous-proceedings',
-          text: taskListItems.current_or_previous_proceedings,
+          id: 'check_allegations_of_harm_and_violence',
+          text: taskListItems.check_allegations_of_harm_and_violence,
           status: getCurrentOrOtherProceedingsStatus(userCase),
           href: URL.PROCEEDINGS_START,
         },
       ],
     },
     {
-      title: sectionTitles.respondentAdditionalInformation,
+      title: sectionTitles.yourResponse,
       items: [
         {
-          id: 'international-factors',
-          text: taskListItems.international_factors,
+          id: 'respond_to_application',
+          text: taskListItems.respond_to_application,
+          status: getInternationalFactorsStatus(userCase),
+          href: URL.RESPOND_TO_APPLICATION,
+        },
+        {
+          id: 'respond_to_allegations_of_harm_and_violence',
+          text: taskListItems.respond_to_allegations_of_harm_and_violence,
           status: getInternationalFactorsStatus(userCase),
           href: URL.INTERNATIONAL_FACTORS_START,
         },
       ],
     },
     {
-      title: sectionTitles.viewAllDocuments,
+      title: sectionTitles.yourcourtHearings,
+      items: [
+        {
+          id: 'check_details_of_your_court_hearings',
+          text: taskListItems.check_details_of_your_court_hearings,
+          status: getInternationalFactorsStatus(userCase),
+          href: URL.INTERNATIONAL_FACTORS_START,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.yourDocuments,
       items: [
         {
           id: 'view-all-documents',
@@ -96,17 +100,6 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.view_all_orders_from_the_court,
           status: getViewAllOrdersFromTheCourt(userCase),
           href: getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW' ? URL.RESPONDENT_ORDERS_FROM_THE_COURT : '#',
-        },
-      ],
-    },
-    {
-      title: sectionTitles.respondentSafetyConcerns,
-      items: [
-        {
-          id: 'your-safety',
-          text: taskListItems.your_safety,
-          status: getYourSafetyStatus(userCase),
-          href: URL.SAFETY_MAIN_PAGE,
         },
       ],
     },
