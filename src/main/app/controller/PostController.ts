@@ -34,6 +34,8 @@ export class PostController<T extends AnyObject> {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
+    } else if (req.body.onlyContinue) {
+      await this.onlyContinue(req, res, form, formData);
     } else {
       await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
@@ -58,16 +60,39 @@ export class PostController<T extends AnyObject> {
     res.end();
   }
 
-  private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    // This is for testing purpose
+  /**
+   * It takes a request, response, form and form data, and then assigns the form data to the user case
+   * in the session, and then sets the errors in the session to the errors from the form, and then
+   * filters the errors for save as draft, and then if there are errors in the session, it redirects to
+   * the same page, otherwise it redirects to the same page
+   * @param req - AppRequest<T> - this is the request object that is passed to the controller. It
+   * contains the session, the body, the query and the params.
+   * @param {Response} res - Response - the response object
+   * @param {Form} form - Form - the form object that is being used to render the page
+   * @param formData - The data that was submitted by the user
+   * @returns a promise.
+   */
+  private async onlyContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
+      // This is for testing purpose
     // when user clicks on the casenumber link, we need to capture the caseid and store in session.
-    if (req.session.userCase === null || req.session.userCase === undefined) {
-      req.session.userCase = { id: '1234', state: State.AwaitingPayment };
-    }
+    // if (req.session.userCase === null || req.session.userCase === undefined) {
+    //   req.session.userCase = { id: '1234', state: State.AwaitingPayment };
+    // }
 
     if (formData !== null && formData !== undefined) {
       Object.assign(req.session.userCase, formData);
     }
+
+    req.session.errors = form.getErrors(formData);
+    this.filterErrorsForSaveAsDraft(req);
+    if (req.session.errors.length) {
+      return this.redirect(req, res);
+    }
+    this.redirect(req, res);
+  }
+
+  private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
+    Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
     console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
@@ -78,9 +103,20 @@ export class PostController<T extends AnyObject> {
 
     const data = toApiFormat(formData);
 
-    if (Object.keys(data).length !== 0 && req.originalUrl.includes('checkanswers')) {
-      req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
-    }
+    // if (Object.keys(data).length !== 0) {
+    //   req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
+    // }
+
+    const caseworkerUser = await getSystemUser();
+    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    // const requestMappedCaseData = {
+    //   applicantCaseName: 'XYZ',
+    //   natureOfOrder: 'test',
+    //   isCaseUrgent: 'Yes',
+    // };
+    // const caseId = req.session?.caseId;
+    await client.updateRespondentCase(caseworkerUser, '1661181673014144', req, data);
+    this.redirect(req, res);
 
     if (req.originalUrl.includes(UPLOAD_DOCUMENT_SUCCESS)) {
       if (req?.session?.userCase?.applicantUploadFiles) {
