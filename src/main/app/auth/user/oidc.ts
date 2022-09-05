@@ -3,7 +3,9 @@ import config from 'config';
 import jwt_decode from 'jwt-decode';
 
 import { PageLink } from '../../../steps/urls';
-import { UserDetails } from '../../controller/AppRequest';
+import { CosApiClient } from '../../case/CosApiClient';
+import { CaseWithId } from '../../case/case';
+import { AppRequest, UserDetails } from '../../controller/AppRequest';
 
 export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink): string => {
   const id: string = config.get('services.idam.clientID');
@@ -54,6 +56,12 @@ export const getSystemUser = async (): Promise<UserDetails> => {
     givenName: jwt.given_name,
     familyName: jwt.family_name,
   };
+};
+
+export const getCaseDetails = async (req: AppRequest): Promise<CaseWithId[]> => {
+  const cosApiClient = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+  const response = await cosApiClient.retrieveCasesByUserId(req.session.user);
+  return response;
 };
 
 interface IdTokenJwtPayload {
