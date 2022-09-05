@@ -26,7 +26,7 @@ export const getTokenFromApi = async (): Promise<string> => {
   } catch (err) {
     logger.error('Error in refreshing service auth token ', err.message, err.response?.status, err.response?.data);
   }
-
+  console.log('s2sToken ' + token);
   return token;
 };
 
@@ -36,6 +36,5 @@ export const initAuthToken = (): void => {
 };
 
 export const getServiceAuthToken = (): string => {
-  console.log('s2sToken ' + token);
   return token;
 };
