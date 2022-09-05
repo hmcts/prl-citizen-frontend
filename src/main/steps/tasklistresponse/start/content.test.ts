@@ -69,6 +69,12 @@ describe('task-list > content', () => {
               status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
+            {
+              href: '/respondent/task-list',
+              id: 'support_you_need_during_your_case',
+              status: 'TO_DO',
+              text: 'Support you need during your case',
+            },
           ],
           title: 'Your details',
         },
@@ -92,45 +98,6 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/international-factors/start',
-              id: 'international-factors',
-              status: 'TO_DO',
-              text: 'International element',
-            },
-          ],
-          title: 'Additional information',
-        },
-        {
-          items: [
-            {
-              href: '/respondent/yourdocuments/alldocuments/alldocuments',
-              id: 'view-all-documents',
-              status: 'READY_TO_VIEW',
-              text: 'View all documents',
-            },
-            {
-              href: '/respondent/upload-document',
-              id: 'upload-document',
-              status: SectionStatus.TO_DO,
-              text: 'Upload Documents',
-            },
-          ],
-          title: 'Your documents',
-        },
-        {
-          items: [
-            {
-              href: '#',
-              id: 'view-all-orders-from-the-court',
-              status: 'NOT_AVAILABLE_YET',
-              text: 'View all orders from the court',
-            },
-          ],
-          title: 'Orders from the court',
-        },
-        {
-          items: [
-            {
               href: '/respondent/safety_concerns/main_page',
               id: 'your-safety',
               status: 'TO_DO',
@@ -138,6 +105,17 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Safety concerns',
+        },
+        {
+          items: [
+            {
+              href: '/respondent/international-factors/start',
+              id: 'international-factors',
+              status: 'TO_DO',
+              text: 'International element',
+            },
+          ],
+          title: 'Additional information',
         },
       ],
     },
