@@ -9,26 +9,24 @@ type PaymentRetrivalDataType = {
 };
 
 interface PaymentApi {
-  RequestPaymentInformation(): Promise<void>;
   getPaymentCredentails(): Promise<PaymentRetrivalDataType>;
 }
 
 /* This class is used to create an instance of the axios library with the required headers for the
 PaymentSystemAPI */
 class PaymentSystemAPIInstance {
-  protected AxiosInstance;
-  constructor(URL: string, userSystemAuthToken: string, serviceAuthToken: string, caseId: string) {
-    this.AxiosInstance = axios.create({
-      url: URL,
+  protected AxiosAJAXInstance: AxiosInstance;
+  constructor(PaymentURL: string, userSystemAuthToken: string, serviceAuthToken: string) {
+    this.AxiosAJAXInstance = axios.create({
+      url: PaymentURL,
       headers: {
-        userSystemAuthToken,
-        serviceAuthToken,
-        caseId,
+        Authorization: userSystemAuthToken,
+        ServiceAuthorization: serviceAuthToken,
       },
     });
   }
   Instance(): AxiosInstance {
-    return this.AxiosInstance();
+    return this.AxiosAJAXInstance;
   }
 }
 
@@ -38,21 +36,39 @@ serviceAuthToken, and caseId. It also has a property called PaymentAjaxInstance 
 instance of the PaymentSystemAPIInstance class. It also has a method called
 RequestPaymentInformation that is async and returns a promise */
 export class PaymentTaskResolver extends PaymentSystemAPIInstance implements PaymentApi {
-  protected PaymentAjaxInstance;
+  protected caseId: string;
+  protected returnUrl: string;
+  protected applicantCaseName: string;
 
-  constructor(URL: string, userSystemAuthToken: string, serviceAuthToken: string, caseId: string) {
-    super(URL, userSystemAuthToken, serviceAuthToken, caseId);
-    this.PaymentAjaxInstance = super.Instance();
+  constructor(
+    PaymentURL: string,
+    userSystemAuthToken: string,
+    serviceAuthToken: string,
+    caseId: string,
+    returnUrl: string,
+    applicantCaseName: string
+  ) {
+    super(PaymentURL, userSystemAuthToken, serviceAuthToken);
+    this.caseId = caseId;
+    this.returnUrl = returnUrl;
+    this.applicantCaseName = applicantCaseName;
   }
-  async RequestPaymentInformation(): Promise<void> {}
 
   async getPaymentCredentails(): Promise<PaymentRetrivalDataType> {
-    return {
-      payment_reference: 'string',
-      date_created: 'string',
-      external_reference: 'string',
-      next_url: 'string',
-      status: 'string',
+    const paymentDetailsRequestBody = {
+      caseId: this.caseId,
+      returnUrl: this.returnUrl,
+      applicantCaseName: this.applicantCaseName,
     };
+    try {
+      const requestPaymentUpdate = await super.Instance().post('', paymentDetailsRequestBody);
+      console.log(requestPaymentUpdate);
+      return {
+        ...requestPaymentUpdate['data'],
+      };
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
   }
 }
