@@ -3,6 +3,7 @@ import fs from 'fs';
 import { Application } from 'express';
 import multer from 'multer';
 
+import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
@@ -22,6 +23,7 @@ import {
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICANT_TASK_LIST_URL,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   CONTACT_US,
@@ -52,6 +54,7 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     // app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     // app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
+    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

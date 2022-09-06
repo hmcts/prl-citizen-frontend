@@ -37,6 +37,7 @@ export class GetController {
       userEmail: req.session?.user?.email,
       caption: captionValue,
       document_type,
+      userCaseList: req.session?.userCaseList,
       addresses,
       name,
       byApplicant,

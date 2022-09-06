@@ -15,6 +15,10 @@ export const getTokenFromApi = async (): Promise<string> => {
   const oneTimePassword = authenticator.generate(secret);
   const body = { microservice, oneTimePassword };
 
+  console.log('s2s url ' + url);
+  console.log('s2s microservice ' + microservice);
+  console.log('s2s secret ' + secret);
+
   try {
     const response = await Axios.post(url, body);
     logger.info('Service auth token refreshed');
@@ -22,7 +26,7 @@ export const getTokenFromApi = async (): Promise<string> => {
   } catch (err) {
     logger.error('Error in refreshing service auth token ', err.message, err.response?.status, err.response?.data);
   }
-
+  console.log('s2sToken ' + token);
   return token;
 };
 
