@@ -15,8 +15,6 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
   const createPaymentEndpoint = '/fees-and-payment-apis/create-payment';
   const baseURL = paymentApiEndpoint + createPaymentEndpoint;
 
-  console.log({ baseURL });
-
   const paymentCreator = new PaymentTaskResolver(
     baseURL,
     Authorization,
@@ -25,6 +23,6 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
     returnUrL,
     applicantCaseName
   );
-  paymentCreator.getPaymentCredentails();
-  res.json({ msg: paymentHelperTranspiler, data: paymentCreator.getPaymentCredentails() });
+  const response = await paymentCreator.getPaymentCredentails();
+  res.redirect(response['next_url']);
 };
