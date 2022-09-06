@@ -18,9 +18,9 @@ class PaymentSystemAPIInstance {
   protected AxiosAJAXInstance: AxiosInstance;
   constructor(PaymentURL: string, userSystemAuthToken: string, serviceAuthToken: string) {
     this.AxiosAJAXInstance = axios.create({
-      url: PaymentURL,
+      baseURL: PaymentURL,
       headers: {
-        Authorization: userSystemAuthToken,
+        Authorization: `Bearer ${userSystemAuthToken}`,
         ServiceAuthorization: serviceAuthToken,
       },
     });
@@ -62,9 +62,15 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
     };
     try {
       const requestPaymentUpdate = await super.Instance().post('', paymentDetailsRequestBody);
-      console.log(requestPaymentUpdate);
+      const { payment_reference, date_created, external_reference, next_url, status }: PaymentRetrivalDataType =
+        requestPaymentUpdate['data'];
+
       return {
-        ...requestPaymentUpdate['data'],
+        payment_reference,
+        date_created,
+        external_reference,
+        next_url,
+        status,
       };
     } catch (error) {
       console.log(error);
