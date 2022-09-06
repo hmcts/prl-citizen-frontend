@@ -59,41 +59,6 @@ export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | un
   return SectionStatus.TO_DO;
 };
 
-export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
-  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
-    return SectionStatus.READY_TO_VIEW;
-  }
-  return SectionStatus.NOT_AVAILABLE_YET;
-};
-
-export const getViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): boolean => {
-  let flag = false;
-  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
-    flag = true;
-  }
-  return flag;
-};
-
-export const getRespondentResponseToRequestForChildArrangements = (userCase: CaseWithId): boolean => {
-  let flag = false;
-  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
-    flag = true;
-  }
-  return flag;
-};
-
-export const getRespondentAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
-  let flag = false;
-  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
-    flag = true;
-  }
-  return flag;
-};
-
-export const getViewAllDocuments = (): SectionStatus => {
-  return SectionStatus.READY_TO_VIEW;
-};
-
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     userCase?.proceedingsStart &&
