@@ -84,7 +84,7 @@ export class PostController<T extends AnyObject> {
     //   isCaseUrgent: 'Yes',
     // };
     // const caseId = req.session?.caseId;
-    await client.updateRespondentCase(caseworkerUser, '1661181673014144', req, data);
+    await client.updateRespondentCase(caseworkerUser, data.id, req, data);
     this.redirect(req, res);
 
     if (req.originalUrl.includes('upload-documents-success')) {

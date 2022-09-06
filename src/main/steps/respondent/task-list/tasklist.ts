@@ -33,7 +33,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'support_you_need_during_your_case',
           text: taskListItems.support_you_need_during_your_case,
           status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.RESPONDENT_TASK_LIST_URL,
+          href: URL.CA_DA_ATTENDING_THE_COURT,
         },
       ],
     },
