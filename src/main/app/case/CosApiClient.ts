@@ -72,7 +72,6 @@ export class CosApiClient {
     if (!caseId || !user || !accessCode) {
       return Promise.reject(new Error('Case id must be set and user must be set'));
     }
-    console.log('inside validate acessToken ' + user.accessToken);
     const response = await Axios.get(config.get('services.cos.url') + '/validate-access-code', {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
