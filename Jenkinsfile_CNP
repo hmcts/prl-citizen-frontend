@@ -23,7 +23,8 @@ def secrets = [
   'prl-${env}': [
     secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
     secret('prl-citizen-frontend-idam-client-secret', 'IDAM_SECRET'),
-    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET')
+    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
+    secret('postcode-lookup-token', 'POSTCODE_TOKEN')
   ]
 ]
 
