@@ -10,7 +10,7 @@ const enContent = {
   one: 'Yes',
   two: 'No',
   twoHint:
-    'For example, because a court in another country has the power to make decisions or judgements (jurisdiction).',
+    'For example, because a court in another country has the power to make decisions or judgments (jurisdiction).',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -29,7 +29,7 @@ const cyContent = {
   one: 'Yes',
   two: 'No',
   twoHint:
-    'For example, because a court in another country has the power to make decisions or judgements (jurisdiction).',
+    'For example, because a court in another country has the power to make decisions or judgments (jurisdiction).',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {

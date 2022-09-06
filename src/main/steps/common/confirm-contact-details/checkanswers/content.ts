@@ -19,6 +19,7 @@ export const enContent = {
     applicant1EmailAddress: 'Email',
   },
   errors: {},
+  confirmContactDetailsCheckAnswersUrl: 'Yes',
 };
 
 const en = (content: CommonContent) => {
@@ -50,6 +51,7 @@ const cyContent: typeof enContent = {
     applicant1EmailAddress: 'Email',
   },
   errors: {},
+  confirmContactDetailsCheckAnswersUrl: 'Yes',
 };
 
 const urls = {

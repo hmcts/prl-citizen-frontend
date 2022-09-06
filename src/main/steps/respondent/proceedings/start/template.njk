@@ -1,4 +1,7 @@
 {% extends "common/template.njk" %}
 
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-
+{% block page_content %}
+    <span class="govuk-caption-l">{{section}}</span>
+    <h1 class="govuk-heading-xl">{{title}}</h1>
+{% endblock %}
