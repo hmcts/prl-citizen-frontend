@@ -51,34 +51,32 @@
 {% endmacro %}
 
 {% block content %}
-  <div class="govuk-grid-column-full"></div>
-  <div class="govuk-grid-row">
-
-    <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-xl">
-        {{title}}
-      </h1>
-
-      {% block progressBar %}{% endblock %}
-      {% block notificationBanner %}{% endblock %}
-
-  <div class="govuk-form-group">
-
-    <fieldset class="govuk-fieldset">
-      <p class="govuk-body">{{userCase.respondentName}}</p>
-      <p class="govuk-body">Case number #{{userCase.id}}</p>
-    </fieldset>
-
+  <div class="govuk-grid-column-full">
+    {% block columnFull %}{% endblock %}
   </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% block twoThird %}
+        <h1 class="govuk-heading-xl">
+          {{title}}
+        </h1>
 
-      <ol class="app-task-list">
-        {% for section in sections %}
-          {{ taskListSection(section, loop.index) }}
-        {% endfor %}
-      </ol>
+        {% block progressBar %}{% endblock %}
+        {% block notificationBanner %}{% endblock %}
+        {% block caseDetails %}{% endblock %}
+
+        <ol class="app-task-list">
+          {% for section in sections %}
+            {{ taskListSection(section, loop.index) }}
+          {% endfor %}
+        </ol>
+      {% endblock %}
+      
     </div>
     <div class="govuk-grid-column-one-third">
+      {% block oneThird %}
            {% include "../contact-us.njk" %}
+      {% endblock %}
     </div>
 
   </div>

@@ -6,7 +6,7 @@ import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_en } from './tasklist-items';
 
 const en = () => ({
-  title: 'Respond to the application',
+  title: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -19,7 +19,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',

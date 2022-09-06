@@ -7,7 +7,7 @@ import { generateContent } from './content';
 import { respondent_en } from './section-titles';
 import { respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
-  title: 'Respond to the application',
+  title: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -19,7 +19,7 @@ const enContent = {
   taskListItems: respondent_tasklist_items_en,
 };
 const cyContent = {
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -45,17 +45,6 @@ describe('task-list > content', () => {
       userCase: mockUserCase,
       expected: [
         {
-          title: 'Consent to the application',
-          items: [
-            {
-              id: 'consent-to-the-application',
-              text: 'Do you consent to the application?',
-              status: 'IN_PROGRESS',
-              href: '/respondent/consent-to-application/consent',
-            },
-          ],
-        },
-        {
           items: [
             {
               href: '/respondent/keep-details-private/details_known',
@@ -69,36 +58,36 @@ describe('task-list > content', () => {
               status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
+            {
+              href: '/respondent/task-list',
+              id: 'support_you_need_during_your_case',
+              status: 'TO_DO',
+              text: 'Support you need during your case',
+            },
           ],
-          title: 'Your details',
+          title: 'About you',
         },
         {
           items: [
             {
               href: '/respondent/miam/miam-start',
-              id: 'medation-miam',
+              id: 'check_the_application',
               status: 'IN_PROGRESS',
-              text: 'Mediation(MIAM)',
-            },
-            {
-              href: '/respondent/proceedings/start',
-              id: 'current-or-previous-proceedings',
-              status: 'TO_DO',
-              text: 'Current or previous proceedings',
+              text: 'Check the application (PDF)',
             },
           ],
-          title: 'Application details',
+          title: 'The application',
         },
         {
           items: [
             {
               href: '/respondent/international-factors/start',
-              id: 'international-factors',
+              id: 'check_details_of_your_court_hearings',
               status: 'TO_DO',
-              text: 'International element',
+              text: 'Check details of your court hearings',
             },
           ],
-          title: 'Additional information',
+          title: 'Your court hearings',
         },
         {
           items: [
@@ -127,17 +116,6 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Orders from the court',
-        },
-        {
-          items: [
-            {
-              href: '/respondent/safety_concerns/main_page',
-              id: 'your-safety',
-              status: 'TO_DO',
-              text: 'Your safety',
-            },
-          ],
-          title: 'Safety concerns',
         },
       ],
     },
