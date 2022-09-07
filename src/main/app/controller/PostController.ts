@@ -85,10 +85,8 @@ export class PostController<T extends AnyObject> {
 
     req.session.errors = form.getErrors(formData);
     this.filterErrorsForSaveAsDraft(req);
-    if (req.session.errors.length) {
-      return this.redirect(req, res);
-    }
-    this.redirect(req, res);
+
+    return this.redirect(req, res);
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
