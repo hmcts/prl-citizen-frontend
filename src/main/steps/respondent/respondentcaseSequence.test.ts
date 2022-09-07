@@ -1,7 +1,7 @@
 import { respondentCaseSequence } from './respondentcaseSequence';
 
-describe('applicant1Sequence', () => {
-  test('should contain 1 entries in applicant 1 screen sequence', () => {
+describe('respondent1Sequence', () => {
+  test('should contain 1 entries in respondent 1 screen sequence', () => {
     expect(respondentCaseSequence).toHaveLength(32);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
@@ -122,7 +122,6 @@ describe('applicant1Sequence', () => {
 
     expect(respondentCaseSequence[29].url).toBe('/respondent/proceedings/start');
     expect(respondentCaseSequence[29].showInSection).toBe('aboutRespondentCase');
-    //expect(repondentCaseSequence[29].getNextStep({})).toBe('/respondent/proceedings/court-proceedings');
 
     expect(respondentCaseSequence[30].url).toBe('/respondent/proceedings/court-proceedings');
     expect(respondentCaseSequence[30].showInSection).toBe('aboutRespondentCase');

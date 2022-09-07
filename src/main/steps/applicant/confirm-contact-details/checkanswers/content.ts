@@ -3,10 +3,11 @@ import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 import {
-  APPLICANT_ADDRESS_DETAILS,
   APPLICANT_ADDRESS_HISTORY,
   APPLICANT_CONTACT_DETAILS,
+  APPLICANT_FIND_ADDRESS,
   APPLICANT_PERSONAL_DETAILS,
+  APPLICANT_POSTAL_ADDRESS_DETAILS,
 } from '../../../urls';
 
 export const enContent = {
@@ -19,10 +20,12 @@ export const enContent = {
     applicant1FullName: 'Name',
     applicant1DateOfBirth: 'Date of birth',
     applicant1PlaceOfBirth: 'Place of birth',
-    address: 'Address',
+    address: 'Home Address',
+    postalAddress: 'Postal Address',
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
     applicant1EmailAddress: 'Email',
+    applicant1SafeToCall: 'When it is safe to call you',
   },
   errors: {},
 };
@@ -48,10 +51,12 @@ const cyContent: typeof enContent = {
     applicant1FullName: 'Name',
     applicant1DateOfBirth: 'Date of birth',
     applicant1PlaceOfBirth: 'Place of birth',
-    address: 'Address',
+    address: 'Home Address',
+    postalAddress: 'Postal Address',
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
     applicant1EmailAddress: 'Email',
+    applicant1SafeToCall: 'When it is safe to call you',
   },
   errors: {},
 };
@@ -60,19 +65,23 @@ const urls = {
   applicant1FullName: APPLICANT_PERSONAL_DETAILS,
   applicant1DateOfBirth: APPLICANT_PERSONAL_DETAILS,
   applicant1PlaceOfBirth: APPLICANT_PERSONAL_DETAILS,
-  address: APPLICANT_ADDRESS_DETAILS,
+  address: APPLICANT_FIND_ADDRESS,
   addressHistory: APPLICANT_ADDRESS_HISTORY,
+  postalAddress: APPLICANT_POSTAL_ADDRESS_DETAILS,
   applicant1PhoneNumber: APPLICANT_CONTACT_DETAILS,
   applicant1EmailAddress: APPLICANT_CONTACT_DETAILS,
+  applicant1SafeToCall: APPLICANT_CONTACT_DETAILS,
 };
 const fieldType = {
   applicant1FullName: 'String',
   applicant1DateOfBirth: 'Date',
   applicant1PlaceOfBirth: 'String',
   address: 'String',
+  postalAddress: 'String',
   addressHistory: 'String',
   applicant1PhoneNumber: 'String',
   applicant1EmailAddress: 'String',
+  applicant1SafeToCall: 'String',
 };
 
 const cy: typeof en = (content: CommonContent) => {

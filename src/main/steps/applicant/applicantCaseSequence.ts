@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT_ADDRESS_BLANK,
@@ -8,17 +9,18 @@ import {
   APPLICANT_ADDRESS_LOOKUP_CONT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
-  // APPLICANT_DETAILS_KNOWN,
+  APPLICANT_DETAILS_KNOWN,
   APPLICANT_FIND_ADDRESS,
   APPLICANT_PERSONAL_DETAILS,
+  APPLICANT_POSTAL_ADDRESS_DETAILS,
   APPLICANT_PRIVATE_DETAILS_CONFIRMED,
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
+  APPLICANT_START_ALTERNATIVE,
   APPLICANT_TASK_LIST_URL,
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
   COURT_HEARING_SUPPORT,
   DOCUMENTS_SUPPORT,
-  // APPLICANT_START_ALTERNATIVE,
   LANGUAGE_REQUIREMENTS,
   REASONABLE_ADJUSTMENTS,
   SAFETY_ARRANGEMENTS,
@@ -34,7 +36,19 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
-
+  {
+    url: APPLICANT_DETAILS_KNOWN,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_START_ALTERNATIVE,
+  },
+  {
+    url: APPLICANT_START_ALTERNATIVE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: data =>
+      data.startAlternative === YesOrNo.YES
+        ? APPLICANT_PRIVATE_DETAILS_CONFIRMED
+        : APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
+  },
   {
     url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
@@ -92,6 +106,11 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_ADDRESS_HISTORY,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_POSTAL_ADDRESS_DETAILS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },

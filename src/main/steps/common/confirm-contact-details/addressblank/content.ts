@@ -3,7 +3,7 @@ import { FormContent, FormFields } from '../../../../app/form/Form';
 import {
   form as manualAddressForm,
   generateContent as manualAddressGenerateContent,
-} from '../../../common/components/common/address-manual';
+} from '../../../common/components/address-manual';
 
 const en = ({ manualAddressContent }) => {
   return {
