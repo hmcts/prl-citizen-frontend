@@ -1,4 +1,7 @@
 services:
+  postcodeLookup:
+    url: 'https://api.os.uk/search/places/v1'
+    token: POSTCODE_TOKEN
   authProvider:
     url: SERVICE_AUTH_PROVIDER_URL
     secret: SERVICE_AUTH_SECRET
@@ -6,7 +9,8 @@ services:
     authorizationURL: IDAM_WEB_URL
     tokenURL: IDAM_API_URL
     clientID: IDAM_CLIENT_ID
-    clientSecret: IDAM_SECRET
+    citizenClientSecret: CITIZEN_IDAM_SECRET
+    cosApiClientSecret: COS_API_IDAM_SECRET
   case:
     url: CCD_URL
   payments:
@@ -19,6 +23,8 @@ services:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN
     pcqEnabled: PCQ_ENABLED
+  citizen:
+    uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
 port: PORT
 session:
   redis:

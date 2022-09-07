@@ -2,7 +2,6 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
-import { ADDRESS_DETAILS, ADDRESS_HISTORY, CONTACT_DETAILS, PERSONAL_DETAILS } from '../../../urls';
 
 export const enContent = {
   section: 'Check your details',
@@ -12,7 +11,7 @@ export const enContent = {
   },
   keys: {
     applicant1FullName: 'Name',
-    applicant1DateOfBirth: 'Date of birth',
+    applicant1DateOfBirthText: 'Date of birth',
     applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
@@ -25,11 +24,13 @@ export const enContent = {
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
   const dob = userCase.applicant1DateOfBirth;
-  getFormattedDate(dob);
+  if (typeof dob !== 'string') {
+    getFormattedDate(dob);
+  }
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
+    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language)],
   };
 };
 
@@ -41,7 +42,7 @@ const cyContent: typeof enContent = {
   },
   keys: {
     applicant1FullName: 'Name',
-    applicant1DateOfBirth: 'Date of birth',
+    applicant1DateOfBirthText: 'Date of birth',
     applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
@@ -52,17 +53,17 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  applicant1FullName: PERSONAL_DETAILS,
-  applicant1DateOfBirth: PERSONAL_DETAILS,
-  applicant1PlaceOfBirthText: PERSONAL_DETAILS,
-  address: ADDRESS_DETAILS,
-  addressHistory: ADDRESS_HISTORY,
-  applicant1PhoneNumber: CONTACT_DETAILS,
-  applicant1EmailAddress: CONTACT_DETAILS,
+  applicant1FullName: 'personaldetails',
+  applicant1DateOfBirthText: 'personaldetails',
+  applicant1PlaceOfBirthText: 'personaldetails',
+  address: 'addressdetails',
+  addressHistory: 'addresshistory',
+  applicant1PhoneNumber: 'contactdetails',
+  applicant1EmailAddress: 'contactdetails',
 };
 const fieldType = {
   applicant1FullName: 'String',
-  applicant1DateOfBirth: 'Date',
+  applicant1DateOfBirthText: 'String',
   applicant1PlaceOfBirthText: 'String',
   address: 'String',
   addressHistory: 'String',
@@ -72,6 +73,12 @@ const fieldType = {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
+  const dob = userCase.applicant1DateOfBirth;
+  if (dob !== null && dob !== undefined && typeof dob !== 'string') {
+    getFormattedDate(dob);
+  }
+  //userCase.applicant1DateOfBirthText = getFormattedDate(userCase.applicant1DateOfBirth);
+  //console.log("userCase.applicant1DateOfBirthText====>"+userCase.applicant1DateOfBirthText);
   return {
     ...cyContent,
     language: content.language,

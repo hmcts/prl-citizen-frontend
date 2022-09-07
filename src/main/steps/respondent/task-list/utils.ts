@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { SectionStatus, YesOrNo } from '../../../app/case/definition';
 
-export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionStatus => {
+export const getKeepYourDetailsPrivateStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {
     return SectionStatus.COMPLETED;
   }
@@ -11,17 +11,17 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
   return SectionStatus.TO_DO;
 };
 
-export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {
+export const getConfirmOrEditYourContactDetails = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.applicant1FullName && userCase?.applicant1DateOfBirth && userCase?.applicant1PlaceOfBirth) {
     return SectionStatus.COMPLETED;
   }
   if (userCase?.applicant1FullName || userCase?.applicant1DateOfBirth || userCase?.applicant1PlaceOfBirth) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.NOT_STARTED;
+  return SectionStatus.TO_DO;
 };
 
-export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
+export const getConsentToApplicationStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.doYouConsent && userCase?.applicationReceivedDate && userCase?.courtPermission) {
     return SectionStatus.COMPLETED;
   }
@@ -31,7 +31,7 @@ export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStat
   return SectionStatus.TO_DO;
 };
 
-export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
+export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.miamStart && userCase?.miamWillingness) {
     return SectionStatus.COMPLETED;
   }
@@ -41,7 +41,7 @@ export const getMiamStatus = (userCase: CaseWithId): SectionStatus => {
   return SectionStatus.TO_DO;
 };
 
-export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStatus => {
+export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
     ((userCase?.parents === YesOrNo.YES && userCase?.iFactorsParentsProvideDetails) ||
@@ -59,7 +59,43 @@ export const getInternationalFactorsStatus = (userCase: CaseWithId): SectionStat
   return SectionStatus.TO_DO;
 };
 
-export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): SectionStatus => {
+export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    return SectionStatus.READY_TO_VIEW;
+  }
+  return SectionStatus.NOT_AVAILABLE_YET;
+};
+
+export const getViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
+  }
+  return flag;
+};
+
+export const getRespondentResponseToRequestForChildArrangements = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
+  }
+  return flag;
+};
+
+export const getRespondentAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
+  let flag = false;
+  if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
+    flag = true;
+  }
+  return flag;
+};
+
+export const getViewAllDocuments = (userCase: CaseWithId): SectionStatus => {
+  console.log(userCase?.orderCollection);
+  return SectionStatus.READY_TO_VIEW;
+};
+
+export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     userCase?.proceedingsStart &&
     userCase?.proceedingsStartOrder &&
@@ -98,12 +134,9 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): Sectio
   }
   return SectionStatus.TO_DO;
 };
-export const getYourSafetyStatus = (userCase: CaseWithId): SectionStatus => {
+export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.safetyConcerns) {
     return SectionStatus.COMPLETED;
   }
-  // if (userCase?.detailsKnown ) {
-  //   return SectionStatus.IN_PROGRESS;
-  // }
   return SectionStatus.TO_DO;
 };

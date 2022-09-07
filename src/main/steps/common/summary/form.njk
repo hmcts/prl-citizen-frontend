@@ -5,7 +5,7 @@
 {% block before_fields %}
   {% if sections %}
     {% for item in sections %}
-      {% if item %}
+    {% if item %}
         <h2 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h2>
         {{ govukSummaryList({
           classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',

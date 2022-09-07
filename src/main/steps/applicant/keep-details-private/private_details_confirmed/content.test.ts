@@ -5,25 +5,31 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const enContent = {
+  section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
-  line1: 'You have told us you want to keep these contact details private',
-  address: 'Address',
+  line1: 'You have told us you want to keep these contact details private:',
+  address: 'Home address',
   email: 'Email',
+  postalAddress: 'Postal address',
+  phone: 'Telephone number',
   line2: 'What the court will do',
   line3:
-    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
-  continue: 'Continue',
+    'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
+  continue: 'Save and continue',
 };
 
 const cyContent = {
+  section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
-  line1: 'You have told us you want to keep these contact details private',
-  address: 'Address',
+  line1: 'You have told us you want to keep these contact details private:',
+  address: 'Home address',
   email: 'Email',
+  postalAddress: 'Postal address',
+  phone: 'Telephone number',
   line2: 'What the court will do',
   line3:
-    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
-  continue: 'Continue',
+    'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
+  continue: 'Save and continue',
 };
 
 jest.mock('../../../../app/form/validation');
@@ -39,10 +45,10 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('The court will keep your contact details private');
-    expect(generatedContent.line1).toEqual('You have told us you want to keep these contact details private');
+    expect(generatedContent.line1).toEqual('You have told us you want to keep these contact details private:');
     expect(generatedContent.line2).toEqual('What the court will do');
     expect(generatedContent.line3).toEqual(
-      'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.'
+      'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.'
     );
   });
 
@@ -56,8 +62,8 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+  test('should contain Save and continue button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

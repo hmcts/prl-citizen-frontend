@@ -77,7 +77,7 @@ const en = {
   sendUsAMessage: 'Telephone',
   sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
   telephone: 'Telephone',
-  telephoneNumber: '0300 303 0642',
+  telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
   findOutCharges: 'Find out about call charges',
   openNewWindow: 'opens in a new window',
@@ -191,35 +191,48 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
-}: // addresses = [],
-// eligibility,
+  userCaseList,
+  caption,
+  name,
+  document_type,
+  addresses = [],
+}: // eligibility,
 // fee,
 {
   language: Language;
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
-  // addresses?: [];
+  caption?: string;
+  document_type?: string;
+  userCaseList?: Partial<CaseWithId>[];
+  addresses?: [];
+  name?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
   // const contactEmail = 'todo@test.com';
-
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
     language,
     userCase,
     userEmail,
+    name,
+    userCaseList,
     // contactEmail,
-    // addresses,
+    addresses,
+    caption,
+    document_type,
+
+    // contactEmail,
     // eligibility,
     // fee,
   };
 
-  if (pageContent) {
+  if (pageContent !== null && pageContent !== undefined) {
     Object.assign(content, pageContent(content));
   }
 
@@ -236,10 +249,14 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  userCaseList?: Partial<CaseWithId>[];
+  name?: string;
+  caption?: string;
+  document_type?: string;
   // contactEmail?: string;
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // addresses?: any[];
+  addresses?: any[];
   // eligibility?: Eligibility;
   // fee?: Fee;
 };

@@ -6,24 +6,28 @@ import { generateApplicantTaskList } from './tasklist';
 import { applicant_tasklist_items_en } from './tasklist-items';
 
 const en = () => ({
-  title: 'DA Applicant',
+  title: 'Applicant',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'TO DO',
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
 });
 
 const cy = () => ({
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'I WNEUD',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,

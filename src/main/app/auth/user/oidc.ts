@@ -3,7 +3,9 @@ import config from 'config';
 import jwt_decode from 'jwt-decode';
 
 import { PageLink } from '../../../steps/urls';
-import { UserDetails } from '../../controller/AppRequest';
+import { CosApiClient } from '../../case/CosApiClient';
+import { CaseWithId } from '../../case/case';
+import { AppRequest, UserDetails } from '../../controller/AppRequest';
 
 export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink): string => {
   const id: string = config.get('services.idam.clientID');
@@ -19,7 +21,7 @@ export const getUserDetails = async (
   callbackUrlPageLink: PageLink
 ): Promise<UserDetails> => {
   const id: string = config.get('services.idam.clientID');
-  const secret: string = config.get('services.idam.clientSecret');
+  const secret: string = config.get('services.idam.citizenClientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
   const code = encodeURIComponent(rawCode);
@@ -39,19 +41,14 @@ export const getUserDetails = async (
 
 export const getSystemUser = async (): Promise<UserDetails> => {
   const id: string = config.get('services.idam.clientID');
-  const secret: string = config.get('services.idam.clientSecret');
+  const secret: string = config.get('services.idam.citizenClientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
-
   const systemUsername: string = config.get('services.idam.systemUsername');
   const systemPassword: string = config.get('services.idam.systemPassword');
-
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}
-                &client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
-
+  const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
-
   return {
     accessToken: response.data.access_token,
     id: jwt.uid,
@@ -59,6 +56,12 @@ export const getSystemUser = async (): Promise<UserDetails> => {
     givenName: jwt.given_name,
     familyName: jwt.family_name,
   };
+};
+
+export const getCaseDetails = async (req: AppRequest): Promise<CaseWithId[]> => {
+  const cosApiClient = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+  const response = await cosApiClient.retrieveCasesByUserId(req.session.user);
+  return response;
 };
 
 interface IdTokenJwtPayload {

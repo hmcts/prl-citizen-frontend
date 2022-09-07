@@ -13,23 +13,7 @@ export default class ConfirmContactDetailsGetController extends GetController {
     if (req.session?.user) {
       res.locals.isLoggedIn = true;
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-      if (!req.session.userCase) {
-        //This language preference will be used while creating a case
-        //  const languagePreference =
-        //    req.session['lang'] === 'cy' ? LanguagePreference.WELSH : LanguagePreference.ENGLISH;
-        //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
-        //setting the applicant's preferred language in session
-        // req.session['lang'] =
-        //   req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
-      }
-      //return next();
     }
-
-    //console.log("BEFORE call to getCaseById method====1111====>>");
-    //res.locals.isLoggedIn = true;
-    //req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-    //await req.locals.api.getCases();
-    //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
 
     //req.session.userCase.applicant1FirstNames = 'John';
     //req.session.userCase.applicant1LastNames = 'Smith';
@@ -48,20 +32,14 @@ export default class ConfirmContactDetailsGetController extends GetController {
     } else {
       req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth;
     }
-    // req.session.userCase.applicant1DateOfBirthText = req.session.userCase.applicant1DateOfBirth;
-    // if(req.session.userCase.applicant1DateOfBirthText.day === '' || req.session.userCase.applicant1DateOfBirthText.month === '' || req.session.userCase.applicant1DateOfBirthText.year === ''){
-    //   req.session.userCase.applicant1DateOfBirthText = '<span class="govuk-error-message">Complete this section</span><div id="more-detail-hint-1" class="govuk-hint">Do not include personal or financial information, like your National Insurance number or credit card details.</div>';
-    // }
-
-    // if(!req.session.userCase.applicant1DateOfBirth || req.session.userCase.applicant1DateOfBirth.day === '' || req.session.userCase.applicant1DateOfBirth.month === '' || req.session.userCase.applicant1DateOfBirth.year === ''){
-    //   req.session.userCase.applicant1PlaceOfBirthText = '<span class="govuk-error-message">Complete this section</span>';
-    // } else {
-    //   req.session.userCase.applicant1DateOfBirthText = JSON.stringify(req.session.userCase.applicant1DateOfBirth);
-    // }
 
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
     req.session.userCase.applicant1AddressTown = 'London';
+    req.session.userCase.applicant1PhoneNumber = '1234567890';
+    req.session.userCase.applicant1EmailAddress = 'test@gmail.com';
+    req.session.userCase.applicant1DateOfBirth = { day: '20', month: '1', year: '2000' };
+    req.session.userCase.applicant1SafeToCall = '9 - 10 am on Monday';
     req.session.userCase.applicant1PhoneNumber = '';
     req.session.userCase.applicant1PhoneNumber =
       req.session.userCase.applicant1PhoneNumber !== ''
