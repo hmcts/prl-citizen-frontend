@@ -123,12 +123,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
 
       const caseworkerUser = await getSystemUser();
-      req.session.user = caseworkerUser;
       const caseReference = req.session.userCase.id;
 
       const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
-      console.log(caseDataFromCos);
+      // const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       //req.session.userCase = caseDataFromCos;
       // this is for testing //
       // req.session.userCase.orderCollection = [
@@ -203,7 +201,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         if (req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
           req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
             if (
-              //respondent?.value.email === req.session?.user.email &&
+              respondent?.value.email === req.session?.user.email &&
               !respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed
             ) {
               isAllegationOfHarmViewed = YesOrNo.YES;
@@ -227,12 +225,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
               caseReference as string,
               data,
               'linkCitizenAccount'
-              //req.session.userCase.accessCode as string
             );
-            console.log(updatedCaseDataFromCos);
+            req.session.userCase = updatedCaseDataFromCos;
           }
-          //const allegationOfHarmStatusEL = getById('check_allegations_of_harm_and_violence-status');
-          //console.log(allegationOfHarmStatusEL?.textContent);
         }
       }
 

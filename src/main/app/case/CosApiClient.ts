@@ -102,9 +102,6 @@ export class CosApiClient {
         serviceAuthorization: getServiceAuthToken(),
         accessCode: 'abcdef',
       };
-      console.log('data=====> ' + JSON.stringify(data));
-      console.log(headers.Authorization);
-      console.log(headers.serviceAuthorization);
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
       });

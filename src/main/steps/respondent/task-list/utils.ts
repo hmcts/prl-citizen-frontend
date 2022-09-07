@@ -47,9 +47,8 @@ export const getCheckAllegationOfHarmStatus = (
 ): SectionStatus => {
   let status = SectionStatus.DOWNLOAD;
   userCase?.respondents?.forEach((respondent: Respondent) => {
-    console.log(userEmail);
     if (
-      //respondent?.value.email === userEmail &&
+      respondent?.value.email === userEmail &&
       respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
     ) {
       status = SectionStatus.VIEW;
