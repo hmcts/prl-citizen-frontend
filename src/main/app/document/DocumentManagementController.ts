@@ -13,9 +13,8 @@ import {
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
-import { CaseWithId } from '../case/case';
-import { DocumentType, ListValue, UploadDocumentList, YesOrNo } from '../case/definition';
-import { getFilename } from '../case/formatter/uploaded-files';
+import { CaseWithId, UploadedFile } from '../case/case';
+import { DocumentType, YesOrNo } from '../case/definition';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -335,36 +334,57 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
-    if (req?.session?.userCase?.applicantUploadFiles === undefined) {
-      req.session.userCase['applicantUploadFiles'] = [];
-    }
+    const isApplicant = req.query.isApplicant;
+    //let applicantFiles: UploadedFile[] = [];
+    let respondentFiles: UploadedFile[] = [];
+    //if (isApplicant === YesOrNo.YES) { 
+      if (req?.session?.userCase?.applicantUploadFiles === undefined) {
+        req.session.userCase['applicantUploadFiles'] = [];
+      }
+  
+      if (req?.session?.userCase?.respondentUploadFiles === undefined) {
+        req.session.userCase['respondentUploadFiles'] = [];
+      }
+    
 
     if (!req.files?.length) {
       if (req.headers.accept?.includes('application/json')) {
         throw new Error('No files were uploaded');
       } else {
+        console.log("test.....")
         const fileData = req.files || [];
+        console.log("File data... : ", fileData)
         const obj = {
           id: fileData[0]['originalname'],
           name: fileData[0]['originalname'],
         };
         req.session.userCase.applicantUploadFiles?.push(obj);
+        console.log("content in upload files: ", req.session.userCase.applicantUploadFiles?.push(obj))
+
         //return res.redirect(UPLOAD_DOCUMENT);
       }
     } else {
       const fileData = req.files || [];
+      console.log("File data... : ", fileData)
+
       const obj = {
         id: fileData[0]['originalname'],
         name: fileData[0]['originalname'],
       };
 
-      if (req.session.userCase['applicantUploadFiles']) {
+      console.log("ID details: ", obj.id);
+      console.log("name details: ", obj.name);
+
+      if (isApplicant === YesOrNo.YES) { 
+
         req.session.userCase.applicantUploadFiles?.push(obj);
-        //return res.redirect(UPLOAD_DOCUMENT);
+
       } else {
-        req.session.userCase['applicantUploadFiles'] = [];
-        req.session.userCase.applicantUploadFiles?.push(obj);
+        req.session.userCase.respondentUploadFiles?.push(obj); 
+
+        console.log("Respondent files []", respondentFiles);
       }
+      
     }
 
     //const documentManagementClient = this.getDocumentManagementClient(req.session.user);
@@ -379,7 +399,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     //   };
     // });
 
-    const newUploads: ListValue<Partial<UploadDocumentList> | null>[] = [];
+    //const newUploads: ListValue<Partial<UploadDocumentList> | null>[] = [];
     // const newUploads: ListValue<Partial<UploadDocumentList> | null>[] = filesCreated.map(file => ({
     //   id: generateUuid(),
     //   value: {
@@ -408,9 +428,20 @@ export class DocumentManagerController extends PostController<AnyObject> {
     //     CITIZEN_UPDATE
     //  );
     req.session.save(() => {
+      console.log("trying to save session ...", req.headers);
       if (req.headers.accept?.includes('application/json')) {
-        res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
+        console.log("entering if..");
+        res.json(respondentFiles.map(file => ({ id: file.id, name: file.name })));
+        const redirectUrl =
+        RESPONDENT_UPLOAD_DOCUMENT +
+        '?' +
+        'caption=' +
+        req.query.parentDocumentType +
+        '&document_type=' +
+        req.query.documentType;
+      res.redirect(redirectUrl);
       } else {
+        console.log("entering else..");
         const redirectUrl =
           RESPONDENT_UPLOAD_DOCUMENT +
           '?' +
@@ -421,5 +452,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
         res.redirect(redirectUrl);
       }
     });
+    console.log("Request session: ", req.session.save);
   }
 }
