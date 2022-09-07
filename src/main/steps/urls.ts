@@ -215,3 +215,4 @@ export const C100_CHILDERN_FURTHER_INFORMATION: PageLink = `${C100_CHILDERN_DETA
 /** @C100  Payment Handler*/
 export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
 export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
+export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback/:paymentId/:status';

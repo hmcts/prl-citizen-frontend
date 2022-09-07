@@ -37,4 +37,4 @@ e2e:
 appInsights:
   instrumentationKey: false
 payments:
-  url: 'http://prl-cos-demo.service.core-compute-demo.internal'  
+  url: 'http://prl-cos-demo.service.core-compute-demo.internal'

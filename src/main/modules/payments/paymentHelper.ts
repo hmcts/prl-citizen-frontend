@@ -14,10 +14,11 @@ type ISystemCredentailsToApiData = {
 /* The class is used to get the data needed to make a payment to the api */
 export class PaymentHelper {
   SystemCredentailsToApiData = async (req: AppRequest): Promise<ISystemCredentailsToApiData> => {
-    // const { id } = req.session.userCase;
+    //  const { caseId } = req.session.userCase;
     const { accessToken } = req.session.user;
     const returnURL = `${req.protocol}://${req.get('host')}${PAYMENT_RETURN_URL}`;
     let token = '';
+    // const id = caseId + '';
     try {
       const ServiceAuthToken = await getTokenFromApi();
       token = ServiceAuthToken;
@@ -28,7 +29,7 @@ export class PaymentHelper {
       Authorization: accessToken,
       ServiceAuthorization: token,
       returnUrL: returnURL,
-      caseId: '1649164584941016',
+      caseId: '1662507207125544',
       applicantCaseName: 'Test',
     };
   };
