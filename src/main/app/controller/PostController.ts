@@ -34,8 +34,8 @@ export class PostController<T extends AnyObject> {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
-    } else {
       await this.getCaseList(req, res, form, formData);
+    } else {
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -310,7 +310,6 @@ export class PostController<T extends AnyObject> {
           accessCode as string,
           caseworkerUser
         );
-        console.log(accessCodeValidated);
         if (accessCodeValidated === 'Linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         } else if (accessCodeValidated !== 'Valid') {
@@ -356,7 +355,7 @@ export class PostController<T extends AnyObject> {
 
     const cosApiClient = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
     const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
-    console.log('caseDataFromCos' + caseDataFromCos);
+    console.log('retrieved casedata for case : ' + caseDataFromCos);
 
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);
