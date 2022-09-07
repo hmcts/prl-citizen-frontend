@@ -163,8 +163,8 @@ describe('utils', () => {
         },
         expected: SectionStatus.READY_TO_VIEW,
       },
-    ])('should return correct status %#', async ({ data, expected }) => {
-      expect(getViewAllDocuments({ ...userCase, ...data })).toBe(expected);
+    ])('should return correct status %#', async ({ expected }) => {
+      expect(getViewAllDocuments()).toBe(expected);
     });
   });
   describe('getMiamStatus', () => {
