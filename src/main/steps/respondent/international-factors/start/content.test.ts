@@ -9,9 +9,9 @@ const enContent = {
   title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     start: {
       required: 'Select yes if the children live outside of England or Wales',
@@ -27,9 +27,9 @@ const cyContent = {
   title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     start: {
       required: 'Select yes if the children live outside of England or Wales',
@@ -77,7 +77,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

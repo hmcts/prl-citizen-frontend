@@ -8,9 +8,9 @@ const en = {
   title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     start: {
       required: 'Select yes if the children live outside of England or Wales',
@@ -26,9 +26,9 @@ const cy: typeof en = {
   title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     start: {
       required: 'Select yes if the children live outside of England or Wales',
@@ -51,7 +51,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.label,
       section: l => l.section,
-      hint: l => l.twoHint,
+      hint: l => l.hint,
       values: [
         {
           label: l => l.one,

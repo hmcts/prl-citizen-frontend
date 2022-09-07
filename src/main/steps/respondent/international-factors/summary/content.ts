@@ -12,7 +12,7 @@ import { summaryList } from '../../../common/summary/utils';
 export const enContent = {
   section: ' ',
   title: 'Check your answers',
-  title2: 'International element',
+  title2: 'International elements',
   sectionTitles: {
     respondentAdditionalInformation: 'Additional information',
   },
@@ -54,17 +54,18 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
+
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, 'International elements', fieldType, content.language)],
+    sections: [summaryList(enContent, userCase, urls, enContent.title2, fieldType, content.language)],
   };
 };
 
 const cyContent: typeof enContent = {
   section: ' ',
   title: 'Check your answers',
-  title2: 'International element',
+  title2: 'International elements',
   sectionTitles: {
     respondentAdditionalInformation: 'Additional information',
   },
@@ -123,7 +124,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, 'International elements', fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, cyContent.title2, fieldType, content.language)],
   };
 };
 
