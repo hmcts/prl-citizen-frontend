@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {
@@ -39,6 +39,23 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
+};
+
+export const getCheckAllegationOfHarmStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userEmail: string
+): SectionStatus => {
+  let status = SectionStatus.DOWNLOAD;
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    console.log(userEmail);
+    if (
+      //respondent?.value.email === userEmail &&
+      respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
+    ) {
+      status = SectionStatus.VIEW;
+    }
+  });
+  return status;
 };
 
 export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {

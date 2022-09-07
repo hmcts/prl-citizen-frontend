@@ -2,8 +2,9 @@ import { CaseWithId } from '../../../app/case/case';
 import * as URL from '../../urls';
 
 import {
+  getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
-  getCurrentOrOtherProceedingsStatus,
+  //getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
@@ -12,7 +13,7 @@ import {
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userEmail) => {
   return [
     {
       title: sectionTitles.aboutYou,
@@ -39,7 +40,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
     },
     {
       title: sectionTitles.theApplication,
-      items: [...getTheApplicationSection(taskListItems, userCase)],
+      items: [...getTheApplicationSection(taskListItems, userCase, userEmail)],
     },
     ...getYourResponseSection(sectionTitles, taskListItems, userCase),
     {
@@ -84,7 +85,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
   ];
 };
 
-const getTheApplicationSection = (taskListItems, userCase: CaseWithId) => {
+const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userEmail) => {
   const itemList: object[] = [];
   if (userCase?.caseTypeOfApplication === 'C100') {
     itemList.push(
@@ -97,8 +98,8 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId) => {
       {
         id: 'check_allegations_of_harm_and_violence',
         text: taskListItems.check_allegations_of_harm_and_violence,
-        status: getCurrentOrOtherProceedingsStatus(userCase),
-        href: URL.PROCEEDINGS_START,
+        status: getCheckAllegationOfHarmStatus(userCase, userEmail),
+        href: URL.ALLEGATION_OF_HARM_VOILENCE + '?updateCase=Yes',
       }
     );
   } else {
