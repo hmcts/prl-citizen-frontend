@@ -19,7 +19,7 @@ PaymentSystemAPI */
 class PaymentSystemAPIInstance {
   protected AxiosAJAXInstance: AxiosInstance;
   constructor(PaymentURL: string, userSystemAuthToken: string, serviceAuthToken: string) {
-    //   userSystemAuthToken = token;
+     //  userSystemAuthToken = token;
     this.AxiosAJAXInstance = axios.create({
       baseURL: PaymentURL,
       headers: {
@@ -38,7 +38,7 @@ PaymentSystemAPI */
 export class CheckPaymentStatusApi {
   protected AxiosAJAXInstance: AxiosInstance;
   constructor(PaymentURL: string, userSystemAuthToken: string, serviceAuthToken: string) {
-    //  userSystemAuthToken = token;
+  //   userSystemAuthToken = token;
     this.AxiosAJAXInstance = axios.create({
       baseURL: PaymentURL,
       headers: {

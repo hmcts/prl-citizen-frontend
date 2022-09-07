@@ -35,9 +35,10 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
     res.render('error');
   } else {
     try {
+      const { caseId } = req.session.userCase;
       const PaymentURL =
         config.get('payments.url') +
-        `/fees-and-payment-apis/retrievePaymentStatus/${req.session.userCase?.paymentDetails?.['payment_reference']}/1662507207125544`;
+        `/fees-and-payment-apis/retrievePaymentStatus/${req.session.userCase?.paymentDetails?.['payment_reference']}/${caseId}`;
       const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
       const { Authorization, ServiceAuthorization } = paymentHelperTranspiler;
       const checkPayment = await new CheckPaymentStatusApi(PaymentURL, Authorization, ServiceAuthorization)
