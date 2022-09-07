@@ -218,6 +218,23 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
+    if (endPoint === 'downloadManageDocument' && req.session.userCase?.otherDocuments) {
+      for (const doc of req.session.userCase?.otherDocuments) {
+        if (
+          doc.value?.documentOther?.document_url.substring(
+            doc.value.documentOther.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.documentOther.document_binary_url) {
+            throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
+          }
+          documentToGet = doc.value.documentOther.document_binary_url;
+          filename = doc.value.documentOther.document_filename;
+        }
+      }
+      uid = this.getUID(documentToGet);
+    }
+
     if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
       for (const doc of req.session.userCase?.orderCollection) {
         if (

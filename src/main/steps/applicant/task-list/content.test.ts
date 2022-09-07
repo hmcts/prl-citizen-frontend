@@ -79,7 +79,7 @@ describe('task-list > content', () => {
               text: 'Application submitted (PDF)',
             },
             {
-              href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
+              href: '/applicant/witnessstatements',
               id: 'your-application-witness-statment',
               status: 'DOWNLOAD',
               text: 'Witness statement (PDF)',

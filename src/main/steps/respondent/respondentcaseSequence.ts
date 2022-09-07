@@ -20,6 +20,7 @@ import {
   LETTER_FROM_SCHOOL,
   MEDICAL_RECORDS,
   MEDICAL_REPORTS,
+  OTHER_DOCUMENTS,
   OTHER_PEOPLE_WITNESS_STATEMENTS,
   PATERNITY_TEST_REPORTS,
   POLICE_DISCLOSURE,
@@ -357,6 +358,16 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: `${RESPONDENT}${APPLICATION_MADE_IN_THESE_PRCEEDINGS}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${RESPONDENT}${OTHER_DOCUMENTS}`,
+  },
+  {
+    url: `${RESPONDENT}${OTHER_DOCUMENTS}`,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },

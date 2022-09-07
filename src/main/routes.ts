@@ -30,6 +30,7 @@ import {
   COOKIES_PAGE,
   DOCUMENT_MANAGER,
   HOME_URL,
+  MANAGE_DOCUMENTS_DOWNLOAD,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -91,6 +92,7 @@ export class Routes {
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
       }
     }
 

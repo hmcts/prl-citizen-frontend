@@ -462,24 +462,9 @@ export const getOtherDocuments = (sectionTitles, taskListItems, userCase, url) =
     title: sectionTitles.otherDocuments,
     items: [
       {
-        id: 'important_address_and_contact_details',
-        text: taskListItems.important_address_and_contact_details,
-        href: url + URL.RESPONDENT_IMP_ADDRESS_CONTACT_INFO,
-      },
-      {
-        id: 'dna_reports',
-        text: taskListItems.dna_reports,
-        href: url + URL.RESPONDENT_DNA_REPORTS,
-      },
-      {
-        id: 'privacy_notice',
-        text: taskListItems.privacy_notice,
-        href: url + URL.RESPONDENT_PRIVACY_NOTICE,
-      },
-      {
-        id: 'special_measures',
-        text: taskListItems.special_measures,
-        href: url + URL.RESPONDENT_SPECIAL_MEASURES,
+        id: 'other_documents',
+        text: taskListItems.other_documents,
+        href: url + URL.OTHER_DOCUMENTS,
       },
     ],
   };

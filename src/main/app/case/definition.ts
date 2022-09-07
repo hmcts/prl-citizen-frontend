@@ -568,6 +568,19 @@ export interface ProceedingDetails {
   uploadRelevantOrder?: Document;
 }
 
+export interface OtherDocuments {
+  id?: string;
+  value?: OtherDocumentDetailss;
+}
+
+export interface OtherDocumentDetailss {
+  documentName?: string;
+  notes?: string;
+  documentOther?: Document;
+  documentTypeOther?: string;
+  restrictCheckboxOtherDocuments?: string[];
+}
+
 export interface ChildDetailsTable {
   id: string;
   value: Value10;
@@ -626,6 +639,7 @@ export interface CaseData {
   adjustmentsRequired: string;
   confidentialDetails: ConfidentialDetails;
   existingProceedings: ExistingProceedings[];
+  otherDocuments: OtherDocuments[];
   hearingUrgencyTable: HearingUrgencyTable;
   isDisabilityPresent: string;
   isInterpreterNeeded: string;
