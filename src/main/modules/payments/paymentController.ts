@@ -2,7 +2,7 @@ import config from 'config';
 import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
-import { C100_CONFIRMATIONPAGE, PAYMENT_GATEWAY_ENTRY_URL } from '../../steps/urls';
+import { C100_CONFIRMATIONPAGE, DASHBOARD_URL } from '../../steps/urls';
 
 import { CheckPaymentStatusApi, PaymentTaskResolver } from './paymentApi';
 import { PaymentHelper } from './paymentHelper';
@@ -51,7 +51,10 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
           res.redirect(C100_CONFIRMATIONPAGE);
           break;
         default:
-          res.redirect(PAYMENT_GATEWAY_ENTRY_URL);
+          req.session.paymentError = true;
+          req.session.save(() => {
+            res.redirect(DASHBOARD_URL);
+          });
       }
     } catch (error) {
       res.json(error);

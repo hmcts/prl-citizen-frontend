@@ -35,6 +35,7 @@ export default class AddChilderns extends GetController {
     if (req.session?.errors) {
       req.session.errors = undefined;
     }
+
     super.clearConfidentialitySessionSaveData(req);
 
     this.addChildQueryInSession(req, res);
@@ -46,7 +47,6 @@ export default class AddChilderns extends GetController {
       formaction: req.originalUrl,
       listedChildern: listOfChild,
       tempFormData: req.session.settings.childTemporaryFormData,
-      caseId: req.session.userCase?.caseId,
     });
   }
 

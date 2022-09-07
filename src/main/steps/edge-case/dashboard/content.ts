@@ -2,10 +2,12 @@ import { TranslationFn } from '../../../app/controller/GetController';
 
 const en = () => ({
   title: 'Welcome to Citizen dashboard',
+  paymentError: '',
 });
 
 const cy = () => ({
   title: 'Welcome to Citizen dashboard(welsh)',
+  paymentError: '',
 });
 
 const languages = {

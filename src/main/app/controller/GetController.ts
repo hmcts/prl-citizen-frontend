@@ -45,10 +45,16 @@ export class GetController {
   confidentiality section */
     this.clearConfidentialitySessionSaveData(req);
 
+    if (!req.session.hasOwnProperty('paymentError')) {
+      req.session.paymentError = false;
+    }
+
     res.render(this.view, {
       ...content,
       sessionErrors,
       htmlLang: language,
+      caseId: req.session.userCase?.caseId,
+      paymentError: req.session.paymentError,
       // isDraft: req.session?.userCase?.state ? req.session.userCase.state === State.Draft : true,
       // getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
