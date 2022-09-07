@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { SectionStatus, YesOrNo, Respondent } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {
@@ -41,15 +41,15 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
   return SectionStatus.TO_DO;
 };
 
-export const getFinalDocumentStatus = (userCase: Partial<CaseWithId> | undefined, userEmail: String): SectionStatus => {
+export const getFinalDocumentStatus = (userCase: Partial<CaseWithId> | undefined, userEmail: string): SectionStatus => {
   let status = SectionStatus.DOWNLOAD;
   userCase?.respondents?.forEach((respondent: Respondent) => {
-  if (
-    respondent?.value.email === userEmail &&
-    respondent?.value?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES
-  ) {
-    status = SectionStatus.VIEW;
-  }
+    if (
+      respondent?.value.email === userEmail &&
+      respondent?.value?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES
+    ) {
+      status = SectionStatus.VIEW;
+    }
   });
   return status;
 };

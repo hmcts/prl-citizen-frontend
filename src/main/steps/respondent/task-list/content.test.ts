@@ -70,9 +70,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/miam/miam-start',
+              href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
               id: 'check_the_application',
-              status: 'IN_PROGRESS',
+              status: 'DOWNLOAD',
               text: 'Check the application (PDF)',
             },
           ],

@@ -4,9 +4,9 @@ import * as URL from '../../urls';
 import {
   getConfirmOrEditYourContactDetails,
   getCurrentOrOtherProceedingsStatus,
+  getFinalDocumentStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
-  getFinalDocumentStatus,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
 } from './utils';
