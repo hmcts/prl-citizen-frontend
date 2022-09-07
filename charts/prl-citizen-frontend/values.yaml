@@ -8,19 +8,12 @@ nodejs:
       resourceGroup: prl
       secrets:
         - AppInsightsInstrumentationKey
-        - prl-cos-idam-client-secret
-        - microservicekey-prl-cos-api
-  environment:
-    NODE_ENV: production
-    REFORM_TEAM: prl
-    REFORM_SERVICE_NAME: prl-citizen-frontend
-    SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
-    IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
-    PAYMENTS_API_URL: 'http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    FEES_API_URL: 'http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
-
+        - prl-citizen-frontend-idam-client-secret
+        - microservicekey-prl-citizen-frontend
+        - system-update-user-username
+        - system-update-user-password
+        - idam-solicitor-username
+        - idam-solicitor-password
+        - postcode-lookup-token
 idam-pr:
   enabled: false

@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 
-import { CaseDate } from './case';
+import { CaseDate, FieldPrefix } from './case';
 
 export interface Address {
   AddressLine1: string;
@@ -271,6 +271,12 @@ export const enum ContactDetails {
   PHONE = 'phone',
 }
 
+export const enum ContactDetailsPrivate {
+  EMAIL = 'email',
+  PHONE = 'phone',
+  ADDRESS = 'address'
+}
+
 export interface Children {
   FirstName: string;
   LastName: string;
@@ -309,414 +315,44 @@ export interface PlacementOrder {
 
 export interface CaseData {
   serviceType: string;
-  applyingWith: ApplyingWith;
-  applyingWithPrivateLaw:string;
-  applyingWithAdoption: string;
-  dateChildMovedIn?: DateAsString;
-  applicant1FirstName: string;
-  applicant1LastName: string;
-  applicant1Email: string;
-  applicant1HasOtherNames: YesOrNo;
-  applicant1AdditionalNames: ListValue<OtherName>[];
-  applicant1DateOfBirth: DateAsString;
-  applicant1Occupation: string;
-  applicant1EmailAddress: string;
-  applicant1PhoneNumber: string;
-  applicant1Nationality: Nationality[];
-  applicant1AdditionalNationalities: ListValue<AdditionalNationality>[];
-  applicant1Address1: string;
-  applicant1Address2: string;
-  applicant1AddressTown: string;
-  applicant1AddressCountry: string;
-  applicant1AddressPostCode: string;
-  applicant1ContactDetails: ContactDetails[];
+  claimNumber: string;
+  caseCode: string;
+  respondentFirstName: string;
+  respondentLastName: string;
+  //contactDetailsPrivate: string;
+  contactDetailsPrivate?: ContactDetails[];
 
-  applicant2FirstName: string;
-  applicant2LastName: string;
-  applicant2Email: string;
-  applicant2HasOtherNames: YesOrNo;
-  applicant2AdditionalNames: ListValue<OtherName>[];
-  applicant2DateOfBirth: DateAsString;
-  applicant2Occupation: string;
-  applicant2EmailAddress: string;
-  applicant2PhoneNumber: string;
-  applicant2Nationality: Nationality[];
-  applicant2AdditionalNationalities: ListValue<AdditionalNationality>[];
-  applicant2Address1: string;
-  applicant2Address2: string;
-  applicant2AddressTown: string;
-  applicant2AddressCountry: string;
-  applicant2AddressPostCode: string;
-  applicant2AddressSameAsApplicant1: string;
-  applicant2ContactDetails: ContactDetails[];
+  /***** Applicant1 *****/
+  applicant1FullName?: string;
+  applicant1FirstNames?: string;
+  applicant1LastNames?: string;
+  applicant1HasOtherNames?: YesOrNo;
+  applicant1AdditionalName?: string;
+  applicant1AdditionalNames?: OtherName[];
+  applicant1EmailAddress?: string;
+  applicant1PhoneNumber?: string;
+  applicant1DateOfBirth?: CaseDate;
+  applicant1DateOfBirthText?: string;
+  applicant1Occupation?: string;
+  applicant1SelectAddress?: string;
+  applicant1PlaceOfBirth?: string;
+  applicant1PlaceOfBirthText?: string;
+  applicant1PlaceOfText?: string;
+  applicant1Address1?: string;
+  applicant1Address2?: string;
+  applicant1AddressTown?: string;
+  applicant1AddressCounty?: string;
+  applicant1AddressPostcode?: string;
+  applicant1ContactDetails?: ContactDetails[];
+  applicant1ContactDetailsConsent?: YesOrNo;
+  //applicant1LanguagePreference?: LanguagePreference;
+   accessCode: string;
+  respondentCaseInvites: CaseInvite[]
+  detailsKnown?: string;
+  startAlternative?: string;
+ //applicant1LanguagePreference?: LanguagePreference;
+ citizenRole?: FieldPrefix;
 
-  childrenFirstName: string;
-  childrenLastName: string;
-  childrenDateOfBirth: DateAsString;
-  childrenNationality: Nationality[];
-  childrenAdditionalNationalities: ListValue<AdditionalNationality>[];
-  childrenFirstNameAfterAdoption: string;
-  childrenLastNameAfterAdoption: string;
-  childrenSexAtBirth: Gender;
-  placementOrders: ListValue<PlacementOrder>[];
-  addAnotherPlacementOrder: YesOrNo;
-  selectedPlacementOrderId: string;
-  hyphenatedCaseRef: string;
-
-  birthMotherFirstName: string;
-  birthMotherLastName: string;
-  birthMotherStillAlive: string;
-  birthMotherNotAliveReason: string;
-  birthMotherNationality: Nationality[];
-  birthMotherOccupation: string;
-  birthMotherAddressKnown: YesOrNo;
-  birthMotherAddress1: string;
-  birthMotherAddress2: string;
-  birthMotherAddress3: string;
-  birthMotherAddressTown: string;
-  birthMotherAddressCounty: string;
-  birthMotherAddressPostCode: string;
-  birthMotherAddressCountry: string;
-  birthMotherOtherNationalities: ListValue<AdditionalNationality>[];
-  birthMotherNameOnCertificate: string;
-  birthMotherAddressNotKnownReason: string;
-
-  birthFatherFirstName: string;
-  birthFatherLastName: string;
-  birthFatherStillAlive: string;
-  birthFatherNotAliveReason: string;
-  birthFatherNationality: Nationality[];
-  birthFatherOccupation: string;
-  birthFatherAddressKnown: YesOrNo;
-  birthFatherAddress1: string;
-  birthFatherAddress2: string;
-  birthFatherAddress3: string;
-  birthFatherAddressTown: string;
-  birthFatherAddressCounty: string;
-  birthFatherAddressPostCode: string;
-  birthFatherAddressCountry: string;
-  birthFatherOtherNationalities: ListValue<AdditionalNationality>[];
-  birthFatherNameOnCertificate: string;
-  birthFatherAddressNotKnownReason: string;
-
-  otherParentFirstName: string;
-  otherParentLastName: string;
-  otherParentStillAlive: string;
-  otherParentNotAliveReason: string;
-  otherParentNationality: Nationality[];
-  otherParentOccupation: string;
-  otherParentAddressKnown: YesOrNo;
-  otherParentAddress1: string;
-  otherParentAddress2: string;
-  otherParentAddress3: string;
-  otherParentAddressTown: string;
-  otherParentAddressCounty: string;
-  otherParentAddressPostCode: string;
-  otherParentAddressCountry: string;
-  otherParentOtherNationalities: ListValue<AdditionalNationality>[];
-  otherParentNameOnCertificate: string;
-  otherParentAddressNotKnownReason: string;
-
-  socialWorkerName: string;
-  socialWorkerPhoneNumber: string;
-  socialWorkerEmail: string;
-  socialWorkerTeamEmail: string;
-  solicitorFirm: string;
-  solicitorName: string;
-  solicitorPhoneNumber: string;
-  solicitorEmail: string;
-  solicitorHelpingWithApplication: YesOrNo;
-  adopAgencyOrLAs: ListValue<AdoptionAgencyOrLocalAuthority>[];
-  siblings: ListValue<Sibling>[];
-  payments: ListValue<Payment>[];
-  hasAnotherAdopAgencyOrLA: YesOrNo;
-  selectedAdoptionAgencyId: string;
-  hasSiblings: string;
-  hasSiblingNotSureReason: string;
-  hasPoForSiblings: string;
-  hasPoForSiblingsNotSureReason: string;
-  addAnotherSiblingPlacementOrder: YesOrNo;
-  selectedSiblingId: string;
-  selectedSiblingPoId: string;
-
-  applicant1StatementOfTruth: YesOrNo;
-  applicant2StatementOfTruth: YesOrNo;
-  applicant1SotFullName: string;
-  applicant2SotFullName: string;
-  pcqId: string;
-
-  applicationType: ApplicationType;
-  divorceOrDissolution: DivorceOrDissolution;
-  labelContentApplicant2: string;
-  labelContentTheApplicant2: string;
-  labelContentTheApplicant2UC: string;
-  labelContentApplicant2UC: string;
-  labelContentUnionType: string;
-  labelContentUnionTypeUC: string;
-  labelContentApplicationType: ApplicationType;
-
-  applicant1AgreedToReceiveEmails: YesOrNo;
-  applicant1LanguagePreferenceWelsh: YesOrNo;
-  applicant1LastNameChangedWhenMarried: YesOrNo;
-  applicant1NameDifferentToMarriageCertificate: YesOrNo;
-  applicant1NameChangedHowOtherDetails: string;
-  applicant1HomeAddress: AddressGlobalUK;
-  applicant1KeepContactDetailsConfidential: YesOrNo;
-  applicant1Gender: Gender;
-  applicant1CorrespondenceAddress: AddressGlobalUK;
-  applicant1SolicitorRepresented: YesOrNo;
-  applicant1SolicitorName: string;
-  applicant1SolicitorReference: string;
-  applicant1SolicitorPhone: string;
-  applicant1SolicitorEmail: string;
-  applicant1SolicitorAgreeToReceiveEmails: YesOrNo;
-  applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
-  applicant1FinancialOrder: YesOrNo;
-  applicant1FinancialOrderFor: FinancialOrderFor[];
-
-  applicant2MiddleName: string;
-  applicant2AgreedToReceiveEmails: YesOrNo;
-  applicant2LanguagePreferenceWelsh: YesOrNo;
-  applicant2LastNameChangedWhenMarried: YesOrNo;
-  applicant2NameDifferentToMarriageCertificate: YesOrNo;
-  applicant2NameChangedHowOtherDetails: string;
-  applicant2HomeAddress: AddressGlobalUK;
-  applicant2KeepContactDetailsConfidential: YesOrNo;
-  applicant2Gender: Gender;
-  applicant2CorrespondenceAddress: AddressGlobalUK;
-  applicant2SolicitorRepresented: YesOrNo;
-  applicant2SolicitorName: string;
-  applicant2SolicitorReference: string;
-  applicant2SolicitorPhone: string;
-  applicant2SolicitorEmail: string;
-  applicant2SolicitorAgreeToReceiveEmails: YesOrNo;
-  applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
-  applicant2FinancialOrder: YesOrNo;
-  applicant2FinancialOrderFor: FinancialOrderFor[];
-  applicant1ScreenHasMarriageBroken: YesOrNo;
-  applicant2ScreenHasMarriageBroken: YesOrNo;
-  screenHasMarriageCert: YesOrNo;
-  marriageApplicant1Name: string;
-  marriageApplicant2Name: string;
-  marriageMarriedInUk: YesOrNo;
-  marriageCertificateInEnglish: YesOrNo;
-  marriageCertifiedTranslation: YesOrNo;
-  marriageCountryOfMarriage: string;
-  marriagePlaceOfMarriage: string;
-  marriageDate: DateAsString;
-  marriageIsSameSexCouple: YesOrNo;
-  marriageCertifyMarriageCertificateIsCorrect: YesOrNo;
-  marriageMarriageCertificateIsIncorrectDetails: string;
-  marriageIssueApplicationWithoutMarriageCertificate: YesOrNo;
-  jurisdictionApplicant1Residence: YesOrNo;
-  jurisdictionApplicant2Residence: YesOrNo;
-  jurisdictionApplicant1Domicile: YesOrNo;
-  jurisdictionApplicant2Domicile: YesOrNo;
-  jurisdictionApp1HabituallyResLastTwelveMonths: YesOrNo;
-  jurisdictionApp1HabituallyResLastSixMonths: YesOrNo;
-  jurisdictionResidualEligible: YesOrNo;
-  jurisdictionBothLastHabituallyResident: YesOrNo;
-  jurisdictionConnections: JurisdictionConnections[];
-  solServiceDateOfService: DateAsString;
-  solServiceDocumentsServed: string;
-  solServiceOnWhomServed: string;
-  solServiceHowServed: DocumentsServedHow;
-  solServiceServiceDetails: string;
-  solServiceAddressServed: string;
-  solServiceBeingThe: DocumentsServedBeingThe;
-  solServiceLocationServed: DocumentsServedWhere;
-  solServiceSpecifyLocationServed: string;
-  solServiceServiceSotName: string;
-  solServiceServiceSotFirm: string;
-  solServiceTruthStatement: string;
-  applicant1HWFReferenceNumber: string;
-  applicant1HWFNeedHelp: YesOrNo;
-  applicant1HWFAppliedForFees: YesOrNo;
-  applicant2HWFReferenceNumber: string;
-  applicant2HWFNeedHelp: YesOrNo;
-  applicant2HWFAppliedForFees: YesOrNo;
-  divorceWho: WhoDivorcing;
-  solUrgentCase: YesOrNo;
-  solUrgentCaseSupportingInformation: string;
-  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
-  solServiceMethod: ServiceMethod;
-  solStatementOfReconciliationCertify: YesOrNo;
-  solStatementOfReconciliationDiscussed: YesOrNo;
-  applicant1PrayerHasBeenGivenCheckbox: ThePrayer[];
-  applicant2PrayerHasBeenGiven: YesOrNo;
-  solSignStatementOfTruth: YesOrNo;
-  solStatementOfReconciliationName: string;
-  solStatementOfReconciliationFirm: string;
-  statementOfReconciliationComments: string;
-  solApplicationFeeInPounds: string;
-  solPaymentHowToPay: SolicitorPaymentMethod;
-  pbaNumbers: DynamicList;
-  feeAccountReference: string;
-  applicationFeeOrderSummary: OrderSummary;
-  applicant1KnowsApplicant2EmailAddress: YesOrNo;
-  app2ContactMethodIsDigital: YesOrNo;
-  applicant1CannotUploadSupportingDocument: DocumentType[];
-  applicant2CannotUploadSupportingDocument: DocumentType[];
-  documentUploadComplete: YesOrNo;
-  miniApplicationLink: Document;
-  dateSubmitted: DateAsString;
-  applicant2ConfirmApplicant1Information: YesOrNo;
-  applicant2ExplainsApplicant1IncorrectInformation: string;
-  reissueDate: DateAsString;
-  createdDate: DateAsString;
-  rejectReason: RejectReason;
-  previousState: State;
-  applicationPayments: ListValue<Payment>[];
-  overdueNotificationSent: YesOrNo;
-  applicant1ReminderSent: YesOrNo;
-  applicant2ReminderSent: YesOrNo;
-  applicant1NotifiedCanApplyForConditionalOrder: YesOrNo;
-  reissueOption: ReissueOption;
-  applicant2InviteEmailAddress: string;
-  applicant2UserId: string;
-  jurisdictionDisagreeReason: string;
-  dateAosSubmitted: DateAsString;
-  digitalNoticeOfProceedings: YesOrNo;
-  noticeOfProceedingsEmail: string;
-  noticeOfProceedingsSolicitorFirm: string;
-  statementOfTruth: YesOrNo;
-  prayerHasBeenGiven: YesOrNo;
-  coDateSubmitted: DateAsString;
-  coRespondentAnswersLink: Document;
-  coApplyForConditionalOrder: YesOrNo;
-  coOnlinePetitionLink: Document;
-  coChangeOrAddToApplication: YesOrNo;
-  coIsEverythingInApplicationTrue: YesOrNo;
-  coSolicitorName: string;
-  coSolicitorFirm: string;
-  coSolicitorAdditionalComments: string;
-  coGranted: YesOrNo;
-  coClaimsGranted: YesOrNo;
-  coClaimsCostsOrderInformation: string;
-  coDecisionDate: DateAsString;
-  coGrantedDate: DateAsString;
-  coRefusalDecision: RefusalOption;
-  coRefusalAdminErrorInfo: string;
-  coRefusalRejectionReason: RejectionReason;
-  coRefusalRejectionAdditionalInfo: string;
-  coRefusalClarificationReason: ClarificationReason;
-  coRefusalClarificationAdditionalInfo: string;
-  coClarificationResponse: string;
-  coClarificationUploadDocuments: ListValue<DivorceDocument>[];
-  coOutcomeCase: YesOrNo;
-  coCourt: ConditionalOrderCourt;
-  coDateAndTimeOfHearing: DateAsString;
-  coPronouncementJudge: string;
-  coJudgeCostsClaimGranted: JudgeCostsClaimGranted;
-  coJudgeCostsOrderAdditionalInfo: string;
-  coCertificateOfEntitlementDocument: DivorceDocument;
-  coApplicantStatementOfTruth: YesOrNo;
-  dateFinalOrderSubmitted: DateAsString;
-  dateFinalOrderEligibleFrom: DateAsString;
-  generalOrderDate: DateAsString;
-  generalOrderDivorceParties: GeneralOrderDivorceParties[];
-  generalOrderRecitals: string;
-  generalOrderJudgeType: GeneralOrderJudge;
-  generalOrderJudgeName: string;
-  generalOrderLegalAdvisorName: string;
-  generalOrderDetails: string;
-  generalOrderDraft: Document;
-  generalEmailParties: GeneralParties;
-  generalEmailOtherRecipientEmail: string;
-  generalEmailOtherRecipientName: string;
-  generalEmailDetails: string;
-  generalReferralReason: GeneralReferralReason;
-  generalApplicationFrom: GeneralParties;
-  generalApplicationReferralDate: DateAsString;
-  generalApplicationAddedDate: DateAsString;
-  generalReferralType: GeneralReferralType;
-  alternativeServiceMedium: AlternativeServiceMediumType;
-  generalReferralJudgeDetails: string;
-  generalReferralLegalAdvisorDetails: string;
-  generalReferralFeeRequired: YesOrNo;
-  alternativeServiceApplications: ListValue<AlternativeService>[];
-  receivedServiceApplicationDate: DateAsString;
-  alternativeServiceType: AlternativeServiceType;
-  receivedServiceAddedDate: DateAsString;
-  serviceApplicationGranted: YesOrNo;
-  serviceApplicationRefusalReason: string;
-  serviceApplicationDecisionDate: DateAsString;
-  deemedServiceDate: DateAsString;
-  dateOfPayment: DateAsString;
-  paymentMethod: ServicePaymentMethod;
-  feeAccountNumber: string;
-  feeAccountReferenceNumber: string;
-  helpWithFeesReferenceNumber: string;
-  servicePaymentFeeOrderSummary: OrderSummary;
-  localCourtName: string;
-  localCourtEmail: string;
-  certificateOfServiceDocument: DivorceDocument;
-  certificateOfServiceDate: DateAsString;
-  successfulServedByBailiff: YesOrNo;
-  reasonFailureToServeByBailiff: string;
-  applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
-  applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
-  divorceUnit: Court;
-  documentsGenerated: ListValue<DivorceDocument>[];
-  documentsUploaded: ListValue<DivorceDocument>[];
-  confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
-  generalOrders: ListValue<DivorceGeneralOrder>[];
-  previousCaseId: CaseLink;
-  dueDate: DateAsString;
-  notes: ListValue<CaseNote>[];
-  note: string;
-  bulkListCaseReference: string;
-  dataVersion: number;
-  exampleRetiredField: string;
-  applicant1ContactDetailsConfidential: ConfidentialAddress;
-  applicant2ContactDetailsConfidential: ConfidentialAddress;
-  applicant1LegalProceedingsRelated: LegalProceedingsRelated[];
-  applicant2LegalProceedingsRelated: LegalProceedingsRelated[];
-  dateConditionalOrderSubmitted: DateAsString;
-  coWhoPaysCosts: WhoPaysCostOrder;
-  coJudgeWhoPaysCosts: WhoPaysCostOrder;
-  coJudgeTypeCostsDecision: CostOrderList;
-  selectedDivorceCentreSiteId: string;
-  coTypeCostsDecision: CostOrderList;
-  legalProceedingsExist: YesOrNo;
-  legalProceedingsDescription: string;
-  doYouAgreeCourtHasJurisdiction: YesOrNo;
-  serviceApplicationType: AlternativeServiceType;
-  coCourtName: Court;
-  courtName: Court;
-  applicant1PrayerHasBeenGiven: YesOrNo;
-  coAddNewDocuments: YesOrNo;
-  coDocumentsUploaded: ListValue<DivorceDocument>[];
-  coIsEverythingInPetitionTrue: YesOrNo;
-}
-
-export interface Children {
-  FirstName: string;
-  LastName: string;
-  DateOfBirth: DateAsString;
-  Nationality: Nationality[];
-  FirstNameAfterAdoption: string;
-  LastNameAfterAdoption: string;
-  SexAtBirth: Gender;
-}
-
-export interface Parent {
-  FirstName: string;
-  LastName: string;
-  StillAlive: string;
-  NotAliveReason: string;
-  Nationality: Nationality[];
-  Occupation: string;
-  AddressKnown: YesOrNo;
-  Address1: string;
-  Address2: string;
-  Address3: string;
-  AddressTown: string;
-  AddressCounty: string;
-  AddressPostCode: string;
-  AddressCountry: string;
-  OtherNationalities: ListValue<AdditionalNationality>[];
-  NameOnCertificate: string;
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -755,10 +391,15 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
+  partyId: string;
   applicant2InviteEmailAddress: string;
   accessCode: string;
+  caseInviteEmail: string
   applicant2UserId: string;
+  invitedUserId: string;
+  expiryDate: string;
 }
+
 
 export interface ConditionalOrder {
   DateSubmitted: DateAsString;
@@ -959,6 +600,15 @@ export interface DivorceDocument {
   documentLink: Document;
 }
 
+export interface AdoptionDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
+}
+
 export interface DocAssemblyRequest {
   templateId: string;
   outputType: string;
@@ -1109,9 +759,13 @@ export const enum YesNoNotsure {
 }
 
 export const enum SectionStatus {
-  NOT_STARTED = 'NOT_STARTED',
+  TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED',
+  CAN_NOT_START_YET = 'CAN_NOT_START_YET',
+  DOWNLOAD = 'DOWNLOAD',
+  VIEW = 'VIEW',
+  NOT_STARTED = 'NOT_STARTED'
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1173,8 +827,8 @@ export const enum Court {
   BURY_ST_EDMUNDS = 'buryStEdmunds',
 }
 
-export const enum Adoption {
-  ADOPTION = 'adoption',
+export const enum PrivateLaw {
+  PRIVATELAW = 'prlapps',
 }
 
 export const enum DivorceOrDissolution {
@@ -1363,6 +1017,15 @@ export const enum SolicitorPaymentMethod {
   FEES_HELP_WITH = 'feesHelpWith',
 }
 
+export interface PRLDocument {
+  documentDateAdded: DateAsString;
+  documentComment: string;
+  documentFileName: string;
+  documentType: DocumentType;
+  documentEmailContent: string;
+  documentLink: Document;
+}
+
 export const enum State {
   Holding = 'Holding',
   AwaitingAos = 'AwaitingAos',
@@ -1397,6 +1060,8 @@ export const enum State {
   PendingDispute = 'PendingDispute',
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
+  successAuthentication = 'SuccessAuthentication'
+
 }
 
 export const enum UserRole {
@@ -1681,8 +1346,8 @@ export const enum HttpStatus {
   NOT_EXTENDED = 'NOT_EXTENDED',
   NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
 }
-export const CASE_TYPE = 'A58';
-export const JURISDICTION = 'ADOPTION';
+export const CASE_TYPE = 'PRLAPPS';
+export const JURISDICTION = 'PRIVATELAW';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_INVITE_APPLICANT_2 = 'citizen-invite-applicant2';
 export const CITIZEN_CREATE = 'citizen-create-application';
@@ -1692,6 +1357,8 @@ export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const RESPONDENTS_DETAILS = 'respondentsDetails';
+export const APPLICANTS_DETAILS = 'applicantsDetails';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
@@ -1706,7 +1373,7 @@ export const SUBMIT_AOS = 'submit-aos';
 export const DRAFT_AOS = 'draft-aos';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
-export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_LINK_APPLICANT_2 = 'citizen-update-application';
 export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
 export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
@@ -1719,3 +1386,18 @@ export const SYSTEM_NOTIFY_APPLICANT1_CONDITIONAL_ORDER = 'system-notify-applica
 export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
 export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+
+
+// citizen frontend
+export interface orderInterface {
+  caseNoDetails: string;
+  orderDateDetails: CaseDate;
+  orderTimeDetails: string;
+  currentOrderDetails: YesOrNo;
+  issueOrderDetails: string;
+}
+
+export const enum CONFIDENTIAL_DETAILS {
+  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
+  PRIVATE = 'This information will be kept confidential',
+}

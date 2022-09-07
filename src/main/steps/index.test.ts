@@ -15,7 +15,7 @@ describe('Steps', () => {
     it('returns the next step when correct details a passed', () => {
       mockReq.originalUrl = CITIZEN_HOME_URL;
       const data = {};
-      expect(getNextStepUrl(mockReq, data)).toBe('/service-type');
+      expect(getNextStepUrl(mockReq, data)).toBe('/dashboard');
     });
 
     // it('step with content', () => {

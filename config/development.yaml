@@ -3,17 +3,27 @@ security:
 port: 3001
 timeout: 30000
 services:
+  postcodeLookup:
+    url: 'https://api.os.uk/search/places/v1'
+    token: POSTCODE_TOKEN
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'ds_ui'
+    microservice: 'prl_cos_api'
     secret: 'NEED TO INSERT SECRET'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
-    clientSecret: 'NEED TO INSERT SECRET'
+    citizenClientSecret: 'NEED TO INSERT SECRET'
+    cosApiClientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
+  case:
+    #url: 'http://localhost:4452'
+    url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-421.service.core-compute-preview.internal'
+    checkDivCases: true
+  cos:
+    url: 'https://prl-cos-pr-426.service.core-compute-preview.internal'
 health:
   timeout: 5000
   deadline: 15000
@@ -25,4 +35,4 @@ session:
 e2e:
   userTestPassword: ''
 appInsights:
-  instrumentationKey:
+  instrumentationKey: false

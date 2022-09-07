@@ -1,0 +1,24 @@
+{% extends "common/form/form.njk"%}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block before_fields %}
+  {% if sections %}
+    {% for item in sections %}
+    {% if item %}
+        <h2 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h2>
+        {{ govukSummaryList({
+          classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
+          rows: item.rows
+        })
+      }}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block after_fields %}
+  <p class="govuk-hint">If any of the above information is confidential please update the <a href="#">keep your details private section</a></p>
+  <h2 class="govuk-heading-m govuk-!-margin-top-9">{{submitApplication}}</h2>
+  <p class="govuk-body">{{checkInfoBeforeSubmit}}</p>
+{% endblock %}

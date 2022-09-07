@@ -14,17 +14,17 @@ describe('AccessibilityStatementGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
-    // const userCase = req.session.userCase;
+    const userCase = req.session.userCase;
 
     expect(res.render).toBeCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,
-        // userCase,
+        userCase,
         userEmail: 'test@example.com',
       }),
       ...defaultViewArgs,
-      // userCase: req.session.userCase,
+      userCase: req.session.userCase,
     });
   });
 });

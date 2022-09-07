@@ -1,4 +1,7 @@
 services:
+  postcodeLookup:
+    url: 'https://api.os.uk/search/places/v1'
+    token: POSTCODE_TOKEN
   idam:
     authorizationURL: 'http://localhost:9002/login'
     tokenURL: 'http://localhost:5000/o/token'

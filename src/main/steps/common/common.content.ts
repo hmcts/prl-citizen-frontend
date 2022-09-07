@@ -1,7 +1,7 @@
 import { capitalize } from 'lodash';
 
-// import { CaseWithId } from '../../app/case/case';
-import { Fee } from '../../app/case/definition';
+import { CaseWithId } from '../../app/case/case';
+// import { Fee } from '../../app/case/definition';
 // import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
@@ -73,13 +73,14 @@ const en = {
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
   webChat: 'Web chat',
-  webChatDetails:
-    'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
-  sendUsAMessage: 'Send us a message',
+  webChatDetails: 'Ask a question or get any help in any language',
+  sendUsAMessage: 'Telephone',
   sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
   telephone: 'Telephone',
-  telephoneNumber: '0300 303 0642',
+  telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
+  findOutCharges: 'Find out about call charges',
+  openNewWindow: 'opens in a new window',
   habitualResidentHelpText1:
     'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
   habitualResidentHelpText2:
@@ -178,6 +179,8 @@ const cy: typeof en = {
     "Mae ein holl asiantau sgwrsio dros y we yn brysur yn helpu pobl eraill. Dewch yn ôl nes ymlaen neu cysylltwch â ni trwy un o'r dulliau uchod.",
   sendUsAMessage: 'Anfonwch neges atom',
   sendUsAMessageDetails: 'Byddwn yn ymdrechu i ymateb o fewn 5 diwrnod.',
+  findOutCharges: 'Find out about call charges',
+  openNewWindow: 'opens in a new window',
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
@@ -186,37 +189,36 @@ const cy: typeof en = {
 export const generatePageContent = ({
   language,
   pageContent,
-  // userCase,
+  userCase,
   userEmail,
-}: // addresses = [],
-// eligibility,
+  addresses = [],
+}: // eligibility,
 // fee,
 {
   language: Language;
   pageContent?: TranslationFn;
-  // userCase?: Partial<CaseWithId>;
+  userCase?: Partial<CaseWithId>;
   userEmail?: string;
-  // addresses?: [];
+  addresses?: [];
   // eligibility?: Eligibility;
-  fee?: Fee;
+  // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
   // const contactEmail = 'todo@test.com';
-
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
     language,
-    // userCase,
+    userCase,
     userEmail,
     // contactEmail,
-    // addresses,
+    addresses,
     // eligibility,
     // fee,
   };
 
-  if (pageContent) {
+  if (pageContent !== null && pageContent !== undefined) {
     Object.assign(content, pageContent(content));
   }
 
@@ -231,12 +233,12 @@ export type CommonContent = typeof en & {
   language: Language;
   serviceName: string;
   pageContent?: TranslationFn;
-  // userCase?: Partial<CaseWithId>;
+  userCase?: Partial<CaseWithId>;
   userEmail?: string;
   // contactEmail?: string;
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // addresses?: any[];
+  addresses?: any[];
   // eligibility?: Eligibility;
   // fee?: Fee;
 };

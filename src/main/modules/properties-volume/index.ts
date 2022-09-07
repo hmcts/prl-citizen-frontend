@@ -10,12 +10,30 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
-      this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.clientSecret');
+      this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
+      this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
+      this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
       this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
+      this.setSecret('secrets.prl.idam-solicitor-username', 'services.idam.systemUsername');
+      this.setSecret('secrets.prl.idam-solicitor-password', 'services.idam.systemPassword');
+      set(config, 'services.case.url', 'https://manage-case.aat.platform.hmcts.net/cases');
     } else {
-      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
+      this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
-      // this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
+      this.setLocalSecret('idam-solicitor-password', 'services.idam.systemPassword');
+      //this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
+      this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
+      this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
+      this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
+      this.setLocalSecret('idam-solicitor-password', 'services.idam.systemPassword');
+      // this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
+      // this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
       // this.setLocalEndpoints();
     }
   }
@@ -33,16 +51,4 @@ export class PropertiesVolume {
     const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
     set(config, toPath, result.toString().replace('\n', ''));
   }
-
-  // private setLocalEndpoints(): void {
-  //   const result = execSync('az keyvault secret show --vault-name adoption-aat -o tsv --query value --name endpoints');
-  //   const decoded = Buffer.from(result.toString().replace('\n', ''), 'base64');
-
-  //   const endpoints = JSON.parse(decoded.toString());
-
-  //   set(config, 'services.authProvider.url', endpoints.s2s);
-  //   set(config, 'services.idam.authorizationURL', endpoints.idamWeb);
-  //   set(config, 'services.idam.tokenURL', endpoints.idamToken);
-  //   set(config, 'services.case.url', endpoints.ccd);
-  // }
 }
