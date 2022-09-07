@@ -46,6 +46,7 @@ export default class AddChilderns extends GetController {
       formaction: req.originalUrl,
       listedChildern: listOfChild,
       tempFormData: req.session.settings.childTemporaryFormData,
+      caseId: req.session.userCase?.caseId,
     });
   }
 

@@ -2,7 +2,7 @@ import config from 'config';
 import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
-import { DASHBOARD_URL, PAYMENT_GATEWAY_ENTRY_URL } from '../../steps/urls';
+import { C100_CONFIRMATIONPAGE, PAYMENT_GATEWAY_ENTRY_URL } from '../../steps/urls';
 
 import { CheckPaymentStatusApi, PaymentTaskResolver } from './paymentApi';
 import { PaymentHelper } from './paymentHelper';
@@ -48,7 +48,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
       switch (paymentStatus) {
         case 'Success':
           req.session.userCase.paymentSuccessDetails = checkPayment['data'];
-          res.redirect(DASHBOARD_URL);
+          res.redirect(C100_CONFIRMATIONPAGE);
           break;
         default:
           res.redirect(PAYMENT_GATEWAY_ENTRY_URL);
