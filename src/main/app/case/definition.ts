@@ -1404,3 +1404,60 @@ export const enum CONFIDENTIAL_DETAILS {
 export const enum C100 {
   CASE_TYPE_OF_APPLICATION = 'C100',
 }
+
+export enum C100OrderTypes {
+  CHILD_ARRANGEMENT_ORDER = 'childArrangementOrder',
+  EMERGENCY_PROTECTION_ORDER = 'emergencyProtectionOrder',
+  SUPERVISION_ORDER = 'supervisionOrder',
+  CARE_ORDER = 'careOrder',
+  CHILD_ABDUCTION_ORDER = 'childAbductionOrder',
+  CONTACT_ORDER_FOR_DIVORCE = 'contactOrderForDivorce',
+  CONTACT_ORDER_FOR_ADOPTION='contactOrderForAdoption',
+  CHILD_MAINTENANCE_ORDER='childMaintenanceOrder',
+  FINANCIAL_ORDER='financialOrder',
+  NON_MOLESTATION_ORDER='nonMolestationOrder',
+  OCCUPATION_ORDER='occupationOrder',
+  FORCED_MARRIAGE_PROTECTION_ORDER='forcedMarriageProtectionOrder',
+  RESTRANING_ORDER='restrainingOrder',
+  OTHER_INJUCTION_ORDER='otherInjuctionOrder',
+  UNDERTAKING_ORDER='undertakingOrder',
+  OTHER_ORDER='otherOrder',
+}
+
+export const enum YesNoEmpty {
+  YES = 'Yes',
+  NO = 'No',
+  EMPTY = '',
+}
+
+export interface C100DocumentInfo extends DocumentInfo{
+  id: string;
+}
+export interface C100OrderInterface {
+  orderDetail: string;
+  caseNo: string;
+  orderDate: CaseDate;
+  currentOrder: YesNoEmpty;
+  orderEndDate: CaseDate;
+  orderCopy: YesNoEmpty;
+  orderDocument?: C100DocumentInfo;
+}
+
+export const C100OrderTypeKeyMapper = {
+  childArrangementOrder: 'childArrangementOrders',
+  emergencyProtectionOrder:'emergencyProtectionOrders',
+  supervisionOrder:'supervisionOrders',
+  careOrder: 'careOrders',
+  childAbductionOrder:'childAbductionOrders',
+  contactOrderForDivorce: 'contactOrdersForDivorce',
+  contactOrderForAdoption: 'contactOrdersForAdoption',
+  childMaintenanceOrder: 'childMaintenanceOrders',
+  financialOrder: 'financialOrders',
+  nonMolestationOrder: 'nonMolestationOrders',
+  occupationOrder: 'occupationOrders',
+  forcedMarriageProtectionOrder: 'forcedMarriageProtectionOrders',
+  restrainingOrder: 'restrainingOrders',
+  otherInjuctionOrder: 'otherInjuctionOrders',
+  undertakingOrder: 'undertakingOrders',
+  otherOrder: 'otherOrders'
+}

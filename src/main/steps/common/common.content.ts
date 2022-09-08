@@ -196,6 +196,7 @@ export const generatePageContent = ({
   userCase,
   userEmail,
   addresses = [],
+  additionalData,
 }: // eligibility,
 // fee,
 {
@@ -204,6 +205,7 @@ export const generatePageContent = ({
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
   addresses?: [];
+  additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -218,6 +220,7 @@ export const generatePageContent = ({
     userEmail,
     // contactEmail,
     addresses,
+    additionalData,
     // eligibility,
     // fee,
   };
@@ -233,6 +236,11 @@ const getServiceName = (translations: typeof en): string => {
   return capitalize(translations.applyForChildArrangements);
 };
 
+type CommonContentAdditionalData = {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  [key: string]: any;
+};
+
 export type CommonContent = typeof en & {
   language: Language;
   serviceName: string;
@@ -243,6 +251,7 @@ export type CommonContent = typeof en & {
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
+  additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
 };
