@@ -57,7 +57,7 @@ describe('DocumentManagerController', () => {
       } catch (err) {
         flag = true;
       }
-      expect(flag).toBe(false);
+      expect(flag).toBe(true);
     });
   });
 
@@ -113,7 +113,7 @@ describe('DocumentManagerController', () => {
       } catch (err) {
         flag = true;
       }
-      expect(flag).toBe(false);
+      expect(flag).toBe(true);
     });
   });
 });

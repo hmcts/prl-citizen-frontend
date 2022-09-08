@@ -13,9 +13,8 @@ import {
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
-import { CaseWithId } from '../case/case';
-import { DocumentType, ListValue, Respondent, UploadDocumentList, YesOrNo } from '../case/definition';
-import { getFilename } from '../case/formatter/uploaded-files';
+import { CaseWithId, UploadedFile } from '../case/case';
+import { DocumentType, Respondent, YesOrNo } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
@@ -110,6 +109,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     let filename = '';
     let endPoint = '';
+    let client;
+    let caseReference;
+    let caseworkerUser;
     try {
       const originalUrl = req.originalUrl;
 
@@ -119,131 +121,80 @@ export class DocumentManagerController extends PostController<AnyObject> {
         endPoint = itemlist[itemlist.length - 2];
       }
 
-      const caseworkerUser = await getSystemUser();
-      const caseReference = req.session.userCase.id;
+      caseworkerUser = await getSystemUser();
+      caseReference = req.session.userCase.id;
 
-      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-      // const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
-      //req.session.userCase = caseDataFromCos;
-      // this is for testing //
-      // req.session.userCase.orderCollection = [
-      //   {
-      //     id: '9df80a48-dd3d-4e29-918b-472aa34a2490',
-      //     value: {
-      //       dateCreated: '08-Aug-2022',
-      //       orderType: 'test_orderType',
-      //       orderDocument: {
-      //         document_url:
-      //           'http://dm-store-aat.service.core-compute-aat.internal/documents/f2436270-0d05-436b-bafc-51000defd1e',
-      //         document_binary_url:
-      //           'http://dm-store-aat.service.core-compute-aat.internal/documents/f2436270-0d05-436b-bafc-51000defd1eb/binary',
-      //         document_filename: 'FL401-Final-Document 11.pdf',
-      //         document_hash: null,
-      //       },
-      //       otherDetails: {
-      //         createdBy: 'createdBy',
-      //         orderCreatedDate: 'orderCreatedDate',
-      //         orderMadeDate: 'orderMadeDate',
-      //         orderRecipients: 'orderRecipients',
-      //       },
-      //     },
-      //   },
-      // ];
+      client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
+      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+      req.session.userCase = caseDataFromCos;
+    } catch (err) {
+      console.log(err);
+    }
 
-      let documentToGet;
-      let uid;
+    let documentToGet;
+    let uid;
+    let isAllegationOfHarmViewed;
 
-      if (filename === 'cadafinaldocumentrequest') {
-        if (!req.session.userCase.finalDocument?.document_binary_url) {
-          throw new Error('APPLICANT_CA_REQUEST binary url is not found');
-        }
-        filename = req.session.userCase.finalDocument.document_filename;
-        documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-        uid = this.getUID(documentToGet);
+    if (filename === 'cadafinaldocumentrequest') {
+      if (!req.session.userCase.finalDocument?.document_binary_url) {
+        throw new Error('APPLICANT_CA_REQUEST binary url is not found');
       }
+      filename = req.session.userCase.finalDocument.document_filename;
+      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
 
-      if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
-        if (!req.session.userCase.finalDocument?.document_binary_url) {
-          throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
-        }
-        documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-        uid = this.getUID(documentToGet);
+    if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
+      if (!req.session.userCase.finalDocument?.document_binary_url) {
+        throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
       }
+      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
 
-      if (filename === DocumentType.WITNESS_STATEMENT) {
-        if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
-          throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
-        }
-        documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
-        uid = this.getUID(documentToGet);
+    if (filename === DocumentType.WITNESS_STATEMENT) {
+      if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
+        throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
       }
-      if (filename.includes('miamcertificate')) {
-        if (!req.session.userCase.miamCertificationDocumentUpload?.document_binary_url) {
-          throw new Error('miam certificate binary url is not found');
-        }
-        filename = req.session.userCase.miamCertificationDocumentUpload.document_filename;
-        documentToGet = req.session.userCase.miamCertificationDocumentUpload.document_binary_url;
-
-        uid = this.getUID(documentToGet);
+      documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
+    if (filename.includes('miamcertificate')) {
+      if (!req.session.userCase.miamCertificationDocumentUpload?.document_binary_url) {
+        throw new Error('miam certificate binary url is not found');
       }
+      filename = req.session.userCase.miamCertificationDocumentUpload.document_filename;
+      documentToGet = req.session.userCase.miamCertificationDocumentUpload.document_binary_url;
 
-      if (filename.includes('aohviolence')) {
-        if (!req.session.userCase.c1ADocument?.document_binary_url) {
-          throw new Error('c1ADocument binary url is not found');
-        }
-        filename = req.session.userCase.c1ADocument.document_filename;
-        documentToGet = req.session.userCase.c1ADocument.document_binary_url;
-        uid = this.getUID(documentToGet);
-        let isAllegationOfHarmViewed;
-        if (req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
-          req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
-            if (
-              respondent?.value.email === req.session?.user.email &&
-              !respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed
-            ) {
-              isAllegationOfHarmViewed = YesOrNo.YES;
-              if (respondent.value.response && respondent.value.response.citizenFlags) {
-                respondent.value.response.citizenFlags.isAllegationOfHarmViewed = YesOrNo.YES;
-              } else {
-                respondent.value.response = {
-                  citizenFlags: {
-                    isApplicationViewed: 'No',
-                    isAllegationOfHarmViewed: 'Yes',
-                  },
-                };
-              }
-            }
-          });
-          if (isAllegationOfHarmViewed) {
-            const data = toApiFormat(req?.session?.userCase);
-            data.id = caseReference;
-            const updatedCaseDataFromCos = await client.updateCase(
-              caseworkerUser,
-              caseReference as string,
-              data,
-              'linkCitizenAccount'
-            );
-            req.session.userCase = updatedCaseDataFromCos;
+      uid = this.getUID(documentToGet);
+    }
+
+    if (filename.includes('aohviolence')) {
+      if (!req.session.userCase.c1ADocument?.document_binary_url) {
+        throw new Error('c1ADocument binary url is not found');
+      }
+      filename = req.session.userCase.c1ADocument.document_filename;
+      documentToGet = req.session.userCase.c1ADocument.document_binary_url;
+      uid = this.getUID(documentToGet);
+      isAllegationOfHarmViewed = YesOrNo.YES;
+    }
+
+    if (endPoint === 'downloadCitizenDocument' && req.session.userCase?.citizenUploadedDocumentList) {
+      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
+        if (
+          doc.value.citizenDocument.document_url.substring(
+            doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.citizenDocument.document_binary_url) {
+            throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
           }
+          documentToGet = doc.value.citizenDocument.document_binary_url;
+          filename = doc.value.citizenDocument.document_filename;
         }
       }
-
-      if (endPoint === 'downloadCitizenDocument' && req.session.userCase?.citizenUploadedDocumentList) {
-        for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
-          if (
-            doc.value.citizenDocument.document_url.substring(
-              doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-            ) === filename
-          ) {
-            if (!doc.value.citizenDocument.document_binary_url) {
-              throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
-            }
-            documentToGet = doc.value.citizenDocument.document_binary_url;
-            filename = doc.value.citizenDocument.document_filename;
-            }
-        }
-        uid = this.getUID(documentToGet);
-      }
+      uid = this.getUID(documentToGet);
+    }
 
     if (endPoint === 'downloadManageDocument' && req.session.userCase?.otherDocuments) {
       for (const doc of req.session.userCase?.otherDocuments) {
@@ -262,65 +213,106 @@ export class DocumentManagerController extends PostController<AnyObject> {
       uid = this.getUID(documentToGet);
     }
 
-      if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
-        for (const doc of req.session.userCase?.orderCollection) {
-          if (
-            doc.value.orderDocument.document_url.substring(
-              doc.value.orderDocument.document_url.lastIndexOf('/') + 1
-            ) === filename
-          ) {
-            if (!doc.value.orderDocument.document_binary_url) {
-              throw new Error('ORDERS_FROM_THE_COURT binary url is not found');
-            }
-            documentToGet = doc.value.orderDocument.document_binary_url;
-            filename = doc.value.orderDocument.document_filename;
+    if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
+      for (const doc of req.session.userCase?.orderCollection) {
+        if (
+          doc.value.orderDocument.document_url.substring(doc.value.orderDocument.document_url.lastIndexOf('/') + 1) ===
+          filename
+        ) {
+          if (!doc.value.orderDocument.document_binary_url) {
+            throw new Error('ORDERS_FROM_THE_COURT binary url is not found');
           }
+          documentToGet = doc.value.orderDocument.document_binary_url;
+          filename = doc.value.orderDocument.document_filename;
         }
-        uid = this.getUID(documentToGet);
+      }
+      uid = this.getUID(documentToGet);
+    }
+
+    if (endPoint === 'applicationmade' && req.session.userCase?.existingProceedings) {
+      for (const doc of req.session.userCase?.existingProceedings) {
+        if (
+          doc.value?.uploadRelevantOrder?.document_url.substring(
+            doc.value.uploadRelevantOrder.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.uploadRelevantOrder.document_binary_url) {
+            throw new Error('APPLICATION MADE IN THESE PROCEEDINGS binary url is not found');
+          }
+          documentToGet = doc.value.uploadRelevantOrder.document_binary_url;
+          filename = doc.value.uploadRelevantOrder.document_filename;
+        }
+      }
+      uid = this.getUID(documentToGet);
+    }
+
+    const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
+    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
+    const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
+
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      } else if (generatedDocument) {
+        if (
+          isAllegationOfHarmViewed === YesOrNo.YES &&
+          req.query?.updateCase &&
+          req.query?.updateCase === YesOrNo.YES
+        ) {
+          this.setAllegationOfHarmViewed(req, caseReference, client, caseworkerUser);
+        }
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
+        return res.end(generatedDocument.data);
       }
 
-      if (endPoint === 'applicationmade' && req.session.userCase?.existingProceedings) {
-        for (const doc of req.session.userCase?.existingProceedings) {
-          if (
-            doc.value?.uploadRelevantOrder?.document_url.substring(
-              doc.value.uploadRelevantOrder.document_url.lastIndexOf('/') + 1
-            ) === filename
-          ) {
-            if (!doc.value.uploadRelevantOrder.document_binary_url) {
-              throw new Error('APPLICATION MADE IN THESE PROCEEDINGS binary url is not found');
-            }
-            documentToGet = doc.value.uploadRelevantOrder.document_binary_url;
-            filename = doc.value.uploadRelevantOrder.document_filename;
-          }
-        }
-        uid = this.getUID(documentToGet);
+      let redirectUrl = '';
+      if (req.originalUrl.includes(APPLICANT)) {
+        console.log('redirect to APPLICANT_TASK_LIST_URL');
+        redirectUrl = APPLICANT_TASK_LIST_URL;
+      } else if (req.originalUrl.includes(RESPONDENT)) {
+        console.log('redirect to RESPONDENT_TASK_LIST_URL');
+        redirectUrl = RESPONDENT_TASK_LIST_URL;
       }
+      return res.redirect(redirectUrl);
+    });
+  }
 
-      const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
-      const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-      const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
-
-      req.session.save(err => {
-        if (err) {
-          throw err;
-        } else if (generatedDocument) {
-          res.setHeader('Content-Type', 'application/pdf');
-          res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
-          return res.end(generatedDocument.data);
+  private async setAllegationOfHarmViewed(
+    req: AppRequest<Partial<CaseWithId>>,
+    caseReference: string,
+    client: CosApiClient,
+    caseworkerUser: UserDetails
+  ) {
+    let isAllegationOfHarmViewed;
+    req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
+      if (
+        respondent?.value.email === req.session?.user.email &&
+        !respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed
+      ) {
+        isAllegationOfHarmViewed = YesOrNo.YES;
+        if (respondent.value.response && respondent.value.response.citizenFlags) {
+          respondent.value.response.citizenFlags.isAllegationOfHarmViewed = YesOrNo.YES;
+        } else {
+          respondent.value.response = {
+            citizenFlags: {
+              isApplicationViewed: 'No',
+              isAllegationOfHarmViewed: 'Yes',
+            },
+          };
         }
-
-        let redirectUrl = '';
-        if (req.originalUrl.includes(APPLICANT)) {
-          console.log('redirect to APPLICANT_TASK_LIST_URL');
-          redirectUrl = APPLICANT_TASK_LIST_URL;
-        } else if (req.originalUrl.includes(RESPONDENT)) {
-          console.log('redirect to RESPONDENT_TASK_LIST_URL');
-          redirectUrl = RESPONDENT_TASK_LIST_URL;
-        }
-        return res.redirect(redirectUrl);
-      });
-    } catch (err) {
-      console.log(err);
+      }
+    });
+    if (isAllegationOfHarmViewed) {
+      const data = toApiFormat(req?.session?.userCase);
+      data.id = caseReference;
+      const updatedCaseDataFromCos = await client.updateCase(
+        caseworkerUser,
+        caseReference as string,
+        data,
+        'linkCitizenAccount'
+      );
+      req.session.userCase = updatedCaseDataFromCos;
     }
   }
 
