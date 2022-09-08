@@ -16,7 +16,7 @@ interface PaymentApi {
 
 /* This class is used to create an instance of the axios library with the required headers for the
 PaymentSystemAPI */
-class PaymentSystemAPIInstance {
+export class PaymentSystemAPIInstance {
   protected AxiosAJAXInstance: AxiosInstance;
   constructor(PaymentURL: string, userSystemAuthToken: string, serviceAuthToken: string) {
     //userSystemAuthToken = token;

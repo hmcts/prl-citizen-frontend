@@ -16,7 +16,7 @@ export class PaymentHelper {
   SystemCredentailsToApiData = async (req: AppRequest): Promise<ISystemCredentailsToApiData> => {
     let { caseId } = req.session.userCase;
     const { accessToken } = req.session.user;
-    const returnURL = `${req.protocol}://${req.get('host')}${PAYMENT_RETURN_URL}`;
+    const returnURL = `${req.protocol}://${req.headers.host}${PAYMENT_RETURN_URL}`;
     let token = '';
     caseId = caseId + '';
     try {
