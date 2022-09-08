@@ -53,3 +53,28 @@ section {
   text-decoration: none;
   color: #0B0C0C !important;
 }
+.progress-bar-line {
+  text-decoration: none;
+  background-color: #1D70B8 !important;
+  border: 0px solid #1D70B8;
+}
+.hmcts-progress-bar__icon {
+  position: relative;
+  background-color: #ffffff;
+  border: 6px solid #CECECE;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: block;
+  height: 32px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 32px;
+}
+.hmcts-progress-bar__list::before {
+  border-top: 6px solid #CECECE;
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 13px;
+  width: 100%;
+}
