@@ -34,6 +34,7 @@ import {
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
+  RESPONDENT_TASK_LIST_URL,
   TERMS_AND_CONDITIONS,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
@@ -56,6 +57,7 @@ export class Routes {
     // app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     // app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
+    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

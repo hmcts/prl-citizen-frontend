@@ -80,7 +80,7 @@
               <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
                 Upload a file
               </label>
-      <form action="/document-manager?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}" method="post" enctype="multipart/form-data">
+      <form action="/document-manager?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=No" method="post" enctype="multipart/form-data">
         {{ govukFileUpload({
           name: "files[]",
           attributes: {
