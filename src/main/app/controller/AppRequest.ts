@@ -8,6 +8,8 @@ import { YesOrNo } from '../case/definition';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
+  req: any;
+  req: any;
   session: AppSession;
   locals: {
     env: string;

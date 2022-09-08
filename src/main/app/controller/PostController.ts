@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import { getNextStepUrl } from '../../steps';
-import { DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
@@ -106,7 +106,8 @@ export class PostController<T extends AnyObject> {
       userCase: caseData,
       boucingURL,
     });
-    this.redirect(req, res, DASHBOARD_URL);
+    //this.redirect(req, res, DASHBOARD_URL);
+    res.json(req.body);
   }
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {

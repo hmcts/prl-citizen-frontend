@@ -105,7 +105,8 @@ export interface Case {
   injuctiveOrder?: orderInterface;
   underTakingOrderOptions?: YesOrNo;
   underTakingOrder?: orderInterface;
-
+  saveAndComeBackLaterStared?: boolean;
+  contactDetailsPrivateAlternative?: string;
   /***** Applicant1 *****/
   applicant1FullName?: string;
   applicant1FirstNames?: string;
