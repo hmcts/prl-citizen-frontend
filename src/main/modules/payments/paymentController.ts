@@ -31,8 +31,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const PaymentValidationHandler = async (req: AppRequest, res: Response) => {
   if (!req.params.hasOwnProperty('status') && !req.params.hasOwnProperty('paymentId')) {
-    console.log({ msg: 'properties missing ' });
-    res.render('error');
+    res.status(500);
   } else {
     try {
       const { caseId } = req.session.userCase;
@@ -57,7 +56,8 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
           });
       }
     } catch (error) {
-      res.json(error);
+      console.log(error);
+      res.status(500);
     }
   }
 };

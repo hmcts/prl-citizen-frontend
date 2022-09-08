@@ -9,6 +9,7 @@ export const mockRequest: any = ({
   userCase = {},
   appLocals = {},
   query = {},
+  params = {},
 } = {}): AppRequest =>
   ({
     headers: { 'accept-language': 'en', ...headers },
@@ -25,6 +26,7 @@ export const mockRequest: any = ({
       },
     },
     query: { ...query },
+    params: { ...params },
     session: {
       user: {
         id: '123456',
