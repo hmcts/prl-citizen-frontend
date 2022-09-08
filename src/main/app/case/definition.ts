@@ -99,6 +99,26 @@ export interface PartyDetails {
   addressLivedLessThan5YearsDetails: string;
   otherPersonRelationshipToChildren: string[];
   isAtAddressLessThan5YearsWithDontKnow: string;
+  response: Response;
+}
+
+export interface Response {
+  legalRepresentation: string;
+  consent: Consent;
+  keepDetailsPrivate: KeepDetailsPrivate;
+}
+
+export interface Consent {
+  consentToTheApplication: string;
+  noConsentReason: string;
+  applicationReceivedDate: DateAsString; 
+  permissionFromCourt: string;
+  courtOrderDetails: string;
+}
+
+export interface KeepDetailsPrivate {
+  otherPeopleKnowYourContactDetails: string;
+  confidentiality: string;
 }
 
 export interface Applicant {
@@ -294,11 +314,6 @@ export interface CaseNote {
   author: string;
   date: DateAsString;
   note: string;
-}
-
-export interface Respondent {
-  id: string;
-  value: PartyDetails;
 }
 
 export interface Address3 {
