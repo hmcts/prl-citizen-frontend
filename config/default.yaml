@@ -23,7 +23,7 @@ services:
     url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-421.service.core-compute-preview.internal'
     checkDivCases: true
   cos:
-    url: 'https://prl-cos-pr-513.service.core-compute-preview.internal'
+    url: 'http://prl-cos-demo.service.core-compute-demo.internal'
 health:
   timeout: 5000
   deadline: 15000
