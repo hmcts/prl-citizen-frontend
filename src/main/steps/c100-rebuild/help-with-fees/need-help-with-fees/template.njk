@@ -1,0 +1,11 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{headingTitle}}</h1>
+<p class="govuk-body-m">{{paragraph1}}{{ userCase.c100ApplicationFees }}{{paragraph2}}</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>{{line1}}</li>
+    <li>{{line2}}</li>
+</ul>
+<p class="govuk-body">{{ seeEligbilityHyperLink | safe }}</p>
+{% endblock %}

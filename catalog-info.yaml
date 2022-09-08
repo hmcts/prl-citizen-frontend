@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "prl-citizen-frontend"
+  annotations:
+    # This must match folder-name/job-name in Jenkins.
+    jenkins.io/job-full-name: cft:HMCTS_j_to_z/prl-citizen-frontend
+    github.com/project-slug: hmcts/prl-citizen-frontend
+  tags:
+    - nodejs
+  links:
+    - url: https://hmcts-reform.slack.com/app_redirect?channel=prl-tech-notifications
+      title: "#prl-tech-notifications on Slack"
+      icon: chat
+spec:
+  type: service
+  lifecycle: production
+  owner: dts_family_private_law

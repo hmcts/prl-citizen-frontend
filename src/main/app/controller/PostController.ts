@@ -33,7 +33,7 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body['saveAndComeLater']) {
-      await this.saveAndComeBackLater(req, res);
+      await this.saveAndComeBackLater(req, res, form, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
     } else {
@@ -98,7 +98,27 @@ export class PostController<T extends AnyObject> {
    * wrapper around the Express Request object.
    * @param {Response} res - Response - the response object from the express framework
    */
-  private async saveAndComeBackLater(req: AppRequest<T>, res: Response): Promise<void> {
+  private async saveAndComeBackLater(
+    req: AppRequest<T>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    Object.assign(req.session.userCase, formData);
+    req.session.errors = form.getErrors(formData);
+
+    this.filterErrorsForSaveAsDraft(req);
+
+    if (req.session.errors.length) {
+      return this.redirect(req, res);
+    }
+
+    const data = toApiFormat(formData);
+
+    if (Object.keys(data).length !== 0) {
+      req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
+    }
+
     const boucingURL = req.originalUrl;
     const caseData = req.session.userCase;
     caseData['id'] = uuidv4();

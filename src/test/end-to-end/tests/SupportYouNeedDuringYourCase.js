@@ -1,4 +1,4 @@
-Feature('International Element');
+Feature('Feature - 2');
 
 Scenario('International Element - basic journey @cross-browser', async ({ I }) => {
   await I.enterPinPageHappyPath();

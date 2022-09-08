@@ -7,6 +7,8 @@ import { PostController } from './app/controller/PostController';
 import { sessionDataStorage } from './server';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import LandingPageGetController from './steps/c100-rebuild/landing/get';
+import { LandingPageController } from './steps/c100-rebuild/landing/landingPageController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { HomeGetController } from './steps/home/get';
@@ -24,13 +26,16 @@ import {
   TERMS_AND_CONDITIONS,
   // SAVE_AND_SIGN_OUT,
   // TIMED_OUT_URL,
-  // RESPONDENT_TASK_LIST_URL
+  // RESPONDENT_TASK_LIST_URL,
+  /** C100 URL's */
+  // eslint-disable-next-line sort-imports
+  C100_CREATE_APPLICATION,
+  C100_URL as C100_LANDING_PAGE,
 } from './steps/urls';
 
 export class Routes {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
-
     // app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
     // app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
@@ -41,6 +46,8 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     // app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     // app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
+    app.get(C100_LANDING_PAGE, errorHandler(new LandingPageGetController().get));
+    app.get(C100_CREATE_APPLICATION, errorHandler(new LandingPageController().get));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -62,6 +69,7 @@ export class Routes {
       }
     }
 
+    app.get('/api/v1/session', (req, res) => res.json(req.session));
     app.get('/api/v1/draft/:caseId', (req: Request, res: Response): void => {
       const caseId = req.params.caseId;
       const findFromArray = sessionDataStorage.filter(i => i['caseData'].id === caseId);
