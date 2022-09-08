@@ -43,12 +43,12 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
 
 export const getCheckAllegationOfHarmStatus = (
   userCase: Partial<CaseWithId> | undefined,
-  userEmail: string
+  userIdamId: string
 ): SectionStatus => {
   let status = SectionStatus.DOWNLOAD;
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (
-      respondent?.value.email === userEmail &&
+      respondent?.value.user?.idamId === userIdamId &&
       respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
     ) {
       status = SectionStatus.VIEW;

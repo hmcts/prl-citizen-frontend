@@ -287,7 +287,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let isAllegationOfHarmViewed;
     req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
       if (
-        respondent?.value.email === req.session?.user.email &&
+        respondent?.value?.user?.idamId === req.session?.user.id &&
         !respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed
       ) {
         isAllegationOfHarmViewed = YesOrNo.YES;

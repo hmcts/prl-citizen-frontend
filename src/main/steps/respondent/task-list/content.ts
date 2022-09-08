@@ -48,7 +48,7 @@ export const generateContent: TranslationFn = content => {
       translations.sectionTitles,
       translations.taskListItems,
       content.userCase,
-      content.userEmail
+      content.userIdamId
     ),
   };
 };

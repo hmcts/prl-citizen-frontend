@@ -27,7 +27,7 @@ export const mockRequest: any = ({
     query: { ...query },
     session: {
       user: {
-        id: '123456',
+        id: '',
         accessToken: 'mock-user-access-token',
         name: 'test',
         givenName: 'First name',
