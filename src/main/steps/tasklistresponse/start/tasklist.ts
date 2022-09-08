@@ -6,6 +6,7 @@ import {
   getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
+  getLegalRepresentationStatus,
   getMiamStatus,
   getYourSafetyStatus,
 } from './utils';
@@ -13,6 +14,17 @@ import {
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
   return [
+    {
+      title: sectionTitles.legalrepresentation,
+      items: [
+        {
+          id: 'do_you_have_legal_representation',
+          text: taskListItems.do_you_have_legal_representation,
+          status: getLegalRepresentationStatus(userCase),
+          href: URL.LEGAL_REPRESENTATION_START,
+        },
+      ],
+    },
     {
       title: sectionTitles.consentToTheApplication,
       items: [

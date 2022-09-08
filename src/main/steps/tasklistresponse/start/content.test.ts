@@ -45,6 +45,17 @@ describe('task-list > content', () => {
       userCase: mockUserCase,
       expected: [
         {
+          title: 'Legal representation',
+          items: [
+            {
+              id: 'do_you_have_legal_representation',
+              text: 'Do you have a legal representative?',
+              status: 'TO_DO',
+              href: '/tasklistresponse/legalrepresentation/start',
+            },
+          ],
+        },
+        {
           title: 'Consent to the application',
           items: [
             {

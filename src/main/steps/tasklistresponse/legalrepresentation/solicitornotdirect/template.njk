@@ -1,0 +1,32 @@
+
+{% extends "common/template.njk" %}
+
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% block page_content %}
+<div>
+    <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+         <form >
+         <h1 class="govuk-heading-xl">Complete your response</h1>
+         <p class="govuk-body">Complete your response to the applicant's request for child arrangements.</p>
+         <p class="govuk-body">Once you have completed all of the main sections, you will be able to review and submit your answers.</p>
+          <h3 class="govuk-heading-m">Transfer your case to your legal representative</h3>
+            <p class="govuk-body">Once you have submitted your response, you have the option to pass your case over to a legal representative.</p>
+            <p class="govuk-body">You will need to provide them with your Case number. Once the case is transferred, you won't be able to edit your response.</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>Your Case number is: {{caseId}}</li>
+            </ul>
+            <div class="govuk-warning-text">
+              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
+                Do not respond to the application yourself, if you plan to have a legal representative complete the response.
+              </strong>
+            </div>
+            <div class="govuk-!-padding-bottom-4"></div>
+            <button class="govuk-button" data-module="govuk-button">
+              Continue
+            </button>
+       </form>
+    </main>
+</div>
+{% endblock %}

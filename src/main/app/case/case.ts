@@ -454,6 +454,7 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
+  legalrepresentation?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
