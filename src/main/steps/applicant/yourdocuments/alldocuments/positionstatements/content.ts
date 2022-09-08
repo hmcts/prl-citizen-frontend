@@ -54,7 +54,7 @@ export const generateContent: TranslationFn = content => {
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
-      doc.value.partyName === content.name &&
+      doc.value.isApplicant === content.byApplicant &&
       doc.value.documentType === documents_list_items_en.your_position_statements
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(

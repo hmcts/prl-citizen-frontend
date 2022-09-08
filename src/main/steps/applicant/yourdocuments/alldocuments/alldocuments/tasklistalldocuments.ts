@@ -531,7 +531,14 @@ const getRespondentPositionStatements = (respondent: Respondent, taskListItems, 
       '<namerespondentxxxxx>',
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
-    href: url + URL.POSITION_STATEMENTS + '?name=' + respondent.value.firstName + ' ' + respondent.value.lastName,
+    href:
+      url +
+      URL.POSITION_STATEMENTS +
+      '?name=' +
+      respondent.value.firstName +
+      ' ' +
+      respondent.value.lastName +
+      '&byApplicant=No',
   };
 };
 
@@ -542,7 +549,14 @@ const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, u
       '<namerespondentxxxxx>',
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
-    href: url + URL.YOUR_WITNESS_STATEMENTS + '?name=' + respondent.value.firstName + ' ' + respondent.value.lastName,
+    href:
+      url +
+      URL.YOUR_WITNESS_STATEMENTS +
+      '?name=' +
+      respondent.value.firstName +
+      ' ' +
+      respondent.value.lastName +
+      '&byApplicant=No',
   };
 };
 
@@ -589,7 +603,8 @@ const getRespondentPositionStatementsDA = (respondent: PartyDetails, taskListIte
       '<namerespondentxxxxx>',
       respondent.firstName + ' ' + respondent.lastName
     ),
-    href: url + URL.POSITION_STATEMENTS + '?name=' + respondent.firstName + ' ' + respondent.lastName,
+    href:
+      url + URL.POSITION_STATEMENTS + '?name=' + respondent.firstName + ' ' + respondent.lastName + '&byApplicant=No',
   };
 };
 
@@ -600,7 +615,14 @@ const getRespondentWitnessStatementsDA = (respondent: PartyDetails, taskListItem
       '<namerespondentxxxxx>',
       respondent.firstName + ' ' + respondent.lastName
     ),
-    href: url + URL.YOUR_WITNESS_STATEMENTS + '?name=' + respondent.firstName + ' ' + respondent.lastName,
+    href:
+      url +
+      URL.YOUR_WITNESS_STATEMENTS +
+      '?name=' +
+      respondent.firstName +
+      ' ' +
+      respondent.lastName +
+      '&byApplicant=No',
   };
 };
 
@@ -642,7 +664,14 @@ const getApplicantPositionStatements = (applicant: Applicant, taskListItems, url
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href: url + URL.POSITION_STATEMENTS + '?name=' + applicant.value.firstName + ' ' + applicant.value.lastName,
+    href:
+      url +
+      URL.POSITION_STATEMENTS +
+      '?name=' +
+      applicant.value.firstName +
+      ' ' +
+      applicant.value.lastName +
+      '&byApplicant=Yes',
   };
 };
 const getApplicantWitnessStatements = (applicant: Applicant, taskListItems, url) => {
@@ -653,7 +682,12 @@ const getApplicantWitnessStatements = (applicant: Applicant, taskListItems, url)
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href:
-      `${url}${URL.YOUR_WITNESS_STATEMENTS}` + '?name=' + applicant.value.firstName + ' ' + applicant.value.lastName,
+      `${url}${URL.YOUR_WITNESS_STATEMENTS}` +
+      '?name=' +
+      applicant.value.firstName +
+      ' ' +
+      applicant.value.lastName +
+      '&byApplicant=Yes',
   };
 };
 
@@ -695,7 +729,8 @@ const getApplicantPositionStatementsDA = (applicant: PartyDetails, taskListItems
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: url + URL.POSITION_STATEMENTS + '?name=' + applicant.firstName + ' ' + applicant.lastName,
+    href:
+      url + URL.POSITION_STATEMENTS + '?name=' + applicant.firstName + ' ' + applicant.lastName + '&byApplicant=Yes',
   };
 };
 const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems, url) => {
@@ -705,6 +740,12 @@ const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems,
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: `${url}${URL.YOUR_WITNESS_STATEMENTS}` + '?name=' + applicant.firstName + ' ' + applicant.lastName,
+    href:
+      `${url}${URL.YOUR_WITNESS_STATEMENTS}` +
+      '?name=' +
+      applicant.firstName +
+      ' ' +
+      applicant.lastName +
+      '&byApplicant=Yes',
   };
 };

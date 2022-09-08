@@ -9,7 +9,7 @@ import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
-import { toApiFormat } from '../case/to-api-format';
+//import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -36,6 +36,7 @@ export class PostController<T extends AnyObject> {
       await this.checkCaseAccessCode(req, res, form, formData);
       await this.getCaseList(req, res, form, formData);
     } else {
+      await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -70,21 +71,21 @@ export class PostController<T extends AnyObject> {
       return this.redirect(req, res);
     }
 
-    const data = toApiFormat(formData);
+    //const data = toApiFormat(formData);
 
     // if (Object.keys(data).length !== 0) {
     //   req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
     // }
 
-    const caseworkerUser = await getSystemUser();
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    //const caseworkerUser = await getSystemUser();
+    //const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
     // const requestMappedCaseData = {
     //   applicantCaseName: 'XYZ',
     //   natureOfOrder: 'test',
     //   isCaseUrgent: 'Yes',
     // };
     // const caseId = req.session?.caseId;
-    await client.updateRespondentCase(caseworkerUser, data.id, req, data);
+    //await client.updateRespondentCase(caseworkerUser, req.session.userCase.id, req, data);
     this.redirect(req, res);
 
     if (req.originalUrl.includes('upload-documents-success')) {

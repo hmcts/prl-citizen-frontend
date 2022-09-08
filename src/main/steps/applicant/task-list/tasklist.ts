@@ -83,7 +83,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
 };
 
 const getTheApplication = (taskListItems, userCase) => {
-  if (userCase.caseTypeOfApplication === 'C100') {
+  if (userCase?.caseTypeOfApplication === 'C100') {
     return [
       {
         id: 'your_application_ca',
@@ -123,7 +123,7 @@ const getTheApplication = (taskListItems, userCase) => {
 };
 
 const getYourResponse = (sectionTitles, taskListItems, userCase) => {
-  if (userCase.caseTypeOfApplication === 'C100') {
+  if (userCase?.caseTypeOfApplication === 'C100') {
     return [
       {
         title: sectionTitles.theResponse,

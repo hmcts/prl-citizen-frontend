@@ -16,7 +16,7 @@ export const enContent = {
 };
 
 const en = (content: CommonContent) => {
-  const userCaseList: Partial<CaseWithId>[] = content.userCaseList!;
+  const userCaseList: Partial<CaseWithId>[] = content.userCaseList || [];
   const c100CaseList: Partial<CaseWithId>[] = [];
   const fl401CaseList: Partial<CaseWithId>[] = [];
   for (const userCase of userCaseList) {
