@@ -24,6 +24,8 @@ describe('CookiesGetController', () => {
       }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
+      paymentError: false,
+      caseId: undefined,
     });
   });
 });
