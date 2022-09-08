@@ -375,7 +375,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
       if (isApplicant === YesOrNo.YES) {
         req.session.userCase.applicantUploadFiles?.push(obj);
-        
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
 
@@ -385,46 +384,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     let redirectUrl;
 
-    // const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    // const form = new Form(fields);
-
-    // const { _csrf, ...formData } = form.getParsedBody(req.body);
-    // const caseworkerUser = await getSystemUser();
-    // req.session.errors = form.getErrors(formData);
-
-    // const partyName = req.session.user.givenName + ' ' + req.session.user.familyName;
-    // let redirectUrl;
-
-    // const uploadedDocumentDetails = {
-    //   caseId: req.session.userCase.id,
-    //   FileSystem: req.files,
-    //   parentDocumentType: req.query.parentDocumentType,
-    //   documentType: req.query.documentType,
-    //   partyName,
-    //   partyId: req.session.user.id,
-    //   isApplicant,
-    // };
-    // const uploadedDocumentList = new UploadedDocumentList(uploadedDocumentDetails);
-
-    // const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-    // const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(caseworkerUser, uploadedDocumentList);
-    // if (citizenDocumentListFromCos.status !== 200) {
-    //   req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
-    // } else {
-    //   const obj = {
-    //     id: citizenDocumentListFromCos.documentId as string,
-    //     name: citizenDocumentListFromCos.documentName as string,
-    //   };
-    //   if (isApplicant === YesOrNo.YES) {
-    //     req.session.userCase.applicantUploadFiles?.push(obj);
-    //   } else {
-    //     req.session.userCase.respondentUploadFiles?.push(obj);
-    //   }
-    //   const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
-    //   req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
-    //   req.session.errors = [];
-    // }
-
+   
     if (isApplicant === YesOrNo.YES) {
       redirectUrl =
         APPLICANT_UPLOAD_DOCUMENT +
