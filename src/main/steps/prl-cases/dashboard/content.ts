@@ -16,10 +16,10 @@ export const enContent = {
 };
 
 const en = (content: CommonContent) => {
-  const userCaseList: Partial<CaseWithId>[] = content.userCaseList!;
+  const userCaseList: Partial<CaseWithId>[] = content.userCaseList || [];
   const c100CaseList: Partial<CaseWithId>[] = [];
   const fl401CaseList: Partial<CaseWithId>[] = [];
-  for (const userCase of userCaseList) {
+  for (const userCase of userCaseList || []) {
     if (userCase.caseTypeOfApplication === 'C100') {
       c100CaseList.push(userCase);
     } else if (userCase.caseTypeOfApplication === 'FL401') {

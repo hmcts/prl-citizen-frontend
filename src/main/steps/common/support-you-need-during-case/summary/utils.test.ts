@@ -37,7 +37,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/ca-da-respondent/support-you-need-during-case/language-requirements',
+                    href: '/respondent/support-you-need-during-case/language-requirements',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any language requirements?',
                   },
@@ -50,7 +50,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/ca-da-respondent/support-you-need-during-case/language-requirements',
+                    href: '/respondent/support-you-need-during-case/language-requirements',
                     text: 'Edit',
                     visuallyHiddenText: 'Give details of the language you require (including dialect, if applicable)',
                   },

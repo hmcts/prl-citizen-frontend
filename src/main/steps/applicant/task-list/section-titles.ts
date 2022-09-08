@@ -6,4 +6,5 @@ export const applicant_en = {
   ordersFromTheCourt: 'Orders from the court',
   courtHearings: 'Your court hearings',
   yourDocuments: 'Your documents',
+  theResponse: 'response',
 };

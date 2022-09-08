@@ -1,15 +1,13 @@
 //import config from 'config';
 //import { getSystemUser } from 'app/auth/user/oidc';
-
-import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
+import { MANAGE_DOCUMENTS_DOWNLOAD } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
 
 const en = () => {
   return {
     section: 'All documents',
-    title: "'s position statements",
+    title: 'Other documents',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -20,7 +18,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'All documents',
-    title: "'s position statements",
+    title: 'Other documents',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -52,18 +50,15 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
-  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (
-      doc.value.isApplicant === content.byApplicant &&
-      doc.value.documentType === documents_list_items_en.your_position_statements
-    ) {
-      const uid = doc.value.citizenDocument.document_url.substring(
-        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
+  for (const doc of content.userCase?.otherDocuments || []) {
+    if (doc.value?.documentTypeOther === 'otherReports') {
+      const uid = doc.value.documentOther?.document_url.substring(
+        doc.value.documentOther.document_url.lastIndexOf('/') + 1
       );
       orders.push({
-        href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
-        createdDate: doc.value.documentDetails.documentUploadedDate,
-        fileName: doc.value.citizenDocument.document_filename,
+        href: `${MANAGE_DOCUMENTS_DOWNLOAD}/${uid}`,
+        createdDate: 'Not present',
+        fileName: doc.value.documentOther?.document_filename,
       });
     }
   }
