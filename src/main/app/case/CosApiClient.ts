@@ -4,6 +4,7 @@ import config from 'config';
 import { DeleteDocumentRequest } from '../../app/document/DeleteDocumentRequest';
 import { DocumentDetail } from '../../app/document/DocumentDetail';
 import { GenerateAndUploadDocumentRequest } from '../../app/document/GenerateAndUploadDocumentRequest';
+import { UploadedDocumentList } from '../../app/document/UploadedDocumentList';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
@@ -125,6 +126,33 @@ export class CosApiClient {
       const response = await Axios.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',
         generateAndUploadDocumentRequest,
+        { headers }
+      );
+      return {
+        status: response.status,
+        documentId: response.data?.documentId,
+        documentName: response.data?.documentName,
+      };
+    } catch (err) {
+      throw new Error('Case could not be updated.');
+    }
+  }
+
+  public async UploadDocumentListFromCitizen(
+    user: UserDetails,
+    uploadedDocumentList: UploadedDocumentList
+  ): Promise<DocumentDetail> {
+    try {
+      const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
+      };
+
+      const response = await Axios.post(
+        config.get('services.cos.url') + '/upload-citizen-statement-document',
+        uploadedDocumentList,
         { headers }
       );
       return {

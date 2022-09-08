@@ -1,4 +1,3 @@
-import { isObject } from 'lodash';
 import { getFilename } from '../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
@@ -42,7 +41,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: userCase => {
+  fields: () => {
     const checkboxes: { id: string; value: string }[] = [];
 
     checkboxes.push({
@@ -51,22 +50,6 @@ export const form: FormContent = {
     });
 
     return {
-      respondentUploadFiles: {
-        type: 'hidden',
-        label: l => l.uploadFiles,
-        labelHidden: true,
-        value:
-          (isObject(userCase.respondentUploadFiles)
-            ? JSON.stringify(userCase.respondentUploadFiles)
-            : userCase.respondentUploadFiles) || '[]',
-        parser: data => JSON.parse((data as Record<string, string>).respondentUploadFiles || '[]'),
-        validator: (value, formData) => {
-          const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-          if (!hasUploadedFiles ) {
-            return 'notUploaded';
-          }
-        },
-      },
       declarationCheck: {
         type: 'checkboxes',
         values: [
