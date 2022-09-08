@@ -11,8 +11,10 @@ const en = () => ({
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'To Do',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.VIEW]: 'View',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
@@ -24,8 +26,10 @@ const cy = () => ({
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
+    [SectionStatus.VIEW]: 'View (in Welsh)',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
@@ -44,7 +48,7 @@ export const generateContent: TranslationFn = content => {
       translations.sectionTitles,
       translations.taskListItems,
       content.userCase,
-      content.userEmail
+      content.userIdamId
     ),
   };
 };

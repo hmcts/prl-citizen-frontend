@@ -53,7 +53,8 @@ export class CosApiClient {
     if (!caseId || !user) {
       return Promise.reject(new Error('Case id must be set and user must be set'));
     }
-
+    console.log('=====accessToken========'+'Bearer ' + user.accessToken);
+    console.log('=====getServiceAuthToken()========'+ getServiceAuthToken());
     const response = await Axios.get(config.get('services.cos.url') + `/${caseId}`, {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
@@ -88,22 +89,24 @@ export class CosApiClient {
     return response.data;
   }
 
-  public async updateCase(user: UserDetails, caseId: string, data: Partial<CaseData>): Promise<CaseWithId> {
-    data.applicantCaseName = 'Tom Jerry - updated';
+  public async updateCase(
+    user: UserDetails,
+    caseId: string,
+    data: Partial<CaseData>,
+    eventId: string
+  ): Promise<CaseWithId> {
+    //data.applicantCaseName = 'Tom Jerry - updated';
     try {
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
+        accessCode: 'abcdef',
       };
-      const response = await Axios.post(
-        config.get('services.cos.url') + `/${caseId}/citizen-case-update/update-case`,
-        data,
-        {
-          headers,
-        }
-      );
+      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
+        headers,
+      });
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {

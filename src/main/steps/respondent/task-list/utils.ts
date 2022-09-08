@@ -41,11 +41,11 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
   return SectionStatus.TO_DO;
 };
 
-export const getFinalDocumentStatus = (userCase: Partial<CaseWithId> | undefined, userEmail: string): SectionStatus => {
+export const getFinalDocumentStatus = (userCase: Partial<CaseWithId> | undefined, userIdamId: string): SectionStatus => {
   let status = SectionStatus.DOWNLOAD;
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (
-      respondent?.value.email === userEmail &&
+      respondent?.value.user.idamId === userIdamId &&
       respondent?.value?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES
     ) {
       status = SectionStatus.VIEW;

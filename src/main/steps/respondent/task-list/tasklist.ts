@@ -12,7 +12,7 @@ import {
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userEmail) => {
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   return [
     {
       title: sectionTitles.aboutYou,
@@ -39,7 +39,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
     },
     {
       title: sectionTitles.theApplication,
-      items: [...getTheApplicationSection(taskListItems, userCase, userEmail)],
+      items: [...getTheApplicationSection(taskListItems, userCase, userIdamId)],
     },
     ...getYourResponseSection(sectionTitles, taskListItems, userCase),
     {
@@ -84,14 +84,14 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
   ];
 };
 
-const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userEmail: string) => {
+const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamId: string) => {
   const itemList: object[] = [];
   if (userCase?.caseTypeOfApplication === 'C100') {
     itemList.push(
       {
         id: 'check_the_application',
         text: taskListItems.check_the_application,
-        status: getFinalDocumentStatus(userCase, userEmail),
+        status: getFinalDocumentStatus(userCase, userIdamId),
         href: URL.APPLICANT_CA_DA_REQUEST + '?updateCase=Yes',
       },
       {
@@ -105,7 +105,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userEmail
     itemList.push({
       id: 'check_the_application',
       text: taskListItems.check_the_application,
-      status: getFinalDocumentStatus(userCase, userEmail),
+      status: getFinalDocumentStatus(userCase, userIdamId),
       href: URL.APPLICANT_CA_DA_REQUEST + '?updateCase=Yes',
     });
   }

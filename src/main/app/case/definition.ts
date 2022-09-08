@@ -100,6 +100,7 @@ export interface PartyDetails {
   otherPersonRelationshipToChildren: string[];
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
+  user: User;
 }
 
 export interface Applicant {
@@ -114,6 +115,10 @@ export interface CitizenFlags {
 
 export interface Response {
   citizenFlags: CitizenFlags
+}
+export interface User {
+  email: string,
+  idamId: string
 }
 export interface CaseStatus {
   state: string;
