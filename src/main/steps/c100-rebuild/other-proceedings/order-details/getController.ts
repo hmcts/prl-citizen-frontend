@@ -20,7 +20,7 @@ export default class AddOrderDetails extends GetController {
     const orderType = req.query?.orderType as C100OrderTypes;
 
     if (!Object.values(C100OrderTypes).includes(orderType)) {
-      return;
+      return res.redirect('error');
     }
 
     super.get(req, res);
