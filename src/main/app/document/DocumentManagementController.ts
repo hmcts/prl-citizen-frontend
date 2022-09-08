@@ -384,7 +384,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     let redirectUrl;
 
-   
     if (isApplicant === YesOrNo.YES) {
       redirectUrl =
         APPLICANT_UPLOAD_DOCUMENT +
