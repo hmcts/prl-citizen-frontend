@@ -32,16 +32,6 @@ export default class ConfirmContactDetailsGetController extends GetController {
     } else {
       req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth;
     }
-    // req.session.userCase.applicant1DateOfBirthText = req.session.userCase.applicant1DateOfBirth;
-    // if(req.session.userCase.applicant1DateOfBirthText.day === '' || req.session.userCase.applicant1DateOfBirthText.month === '' || req.session.userCase.applicant1DateOfBirthText.year === ''){
-    //   req.session.userCase.applicant1DateOfBirthText = '<span class="govuk-error-message">Complete this section</span><div id="more-detail-hint-1" class="govuk-hint">Do not include personal or financial information, like your National Insurance number or credit card details.</div>';
-    // }
-
-    // if(!req.session.userCase.applicant1DateOfBirth || req.session.userCase.applicant1DateOfBirth.day === '' || req.session.userCase.applicant1DateOfBirth.month === '' || req.session.userCase.applicant1DateOfBirth.year === ''){
-    //   req.session.userCase.applicant1PlaceOfBirthText = '<span class="govuk-error-message">Complete this section</span>';
-    // } else {
-    //   req.session.userCase.applicant1DateOfBirthText = JSON.stringify(req.session.userCase.applicant1DateOfBirth);
-    // }
 
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
