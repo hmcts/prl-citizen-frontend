@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
@@ -33,7 +33,7 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body['saveAndComeLater']) {
-      await this.saveAndComeBackLater(req, res);
+      await this.saveAndComeBackLater(req, res, form, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
     } else {
@@ -98,7 +98,27 @@ export class PostController<T extends AnyObject> {
    * wrapper around the Express Request object.
    * @param {Response} res - Response - the response object from the express framework
    */
-  private async saveAndComeBackLater(req: AppRequest<T>, res: Response): Promise<void> {
+  private async saveAndComeBackLater(
+    req: AppRequest<T>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    Object.assign(req.session.userCase, formData);
+    req.session.errors = form.getErrors(formData);
+
+    this.filterErrorsForSaveAsDraft(req);
+
+    if (req.session.errors.length) {
+      return this.redirect(req, res);
+    }
+
+    const data = toApiFormat(formData);
+
+    if (Object.keys(data).length !== 0) {
+      req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
+    }
+
     const boucingURL = req.originalUrl;
     const caseData = req.session.userCase;
     caseData['id'] = uuidv4();
@@ -106,8 +126,7 @@ export class PostController<T extends AnyObject> {
       userCase: caseData,
       boucingURL,
     });
-    //this.redirect(req, res, DASHBOARD_URL);
-    res.json(req.body);
+    this.redirect(req, res, DASHBOARD_URL);
   }
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
