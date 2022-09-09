@@ -112,10 +112,8 @@ describe('ConfirmContactDetailsGetController', () => {
   test('Should render the  Confirm Contact Details page with confidential data case4', async () => {
     const req = mockRequest();
     const res = mockResponse();
-
-    req.session.userCase.detailsKnown = 'No';
-    req.session.userCase.startAlternative = 'No';
-    req.session.userCase.contactDetailsPrivate = [];
+    
+  
 
     await controller.get(req, res);
     const language = 'en';
@@ -127,10 +125,12 @@ describe('ConfirmContactDetailsGetController', () => {
           language,
           pageContent: generateContent,
           userEmail: 'test@example.com',
-          userCase: req.session.userCase,
+          userCase: {},
+          userIdamId: '123456',
         }),
         ...defaultViewArgs,
       })
     );
+    //expect(1).toEqual(1);
   });
 });

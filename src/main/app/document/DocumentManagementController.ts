@@ -27,7 +27,6 @@ import { DocumentManagementClient } from './DocumentManagementClient';
 //import { v4 as generateUuid } from 'uuid';
 import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentRequest';
 
-
 const UID_LENGTH = 36;
 @autobind
 export class DocumentManagerController extends PostController<AnyObject> {

@@ -16,15 +16,18 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
     const userCase = req.session.userCase;
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toBeCalledWith(
+      expect.anything(), 
+      expect.objectContaining({
       ...generatePageContent({
         language,
         pageContent: generateContent,
         userCase,
         userEmail: 'test@example.com',
+       
       }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
-    });
+    }));
   });
 });
