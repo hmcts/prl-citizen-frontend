@@ -100,20 +100,26 @@ export interface PartyDetails {
   otherPersonRelationshipToChildren: string[];
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
+  user: User;
+}
+
+export interface User {
+  email: string,
+  idamId: string
 }
 
 export interface Response {
-  legalRepresentation: string;
-  consent: Consent;
-  keepDetailsPrivate: KeepDetailsPrivate;
+  legalRepresentation?: string;
+  consent?: Consent;
+  keepDetailsPrivate?: KeepDetailsPrivate;
 }
 
 export interface Consent {
-  consentToTheApplication: string;
-  noConsentReason: string;
-  applicationReceivedDate: DateAsString; 
-  permissionFromCourt: string;
-  courtOrderDetails: string;
+  consentToTheApplication?: string;
+  noConsentReason?: string;
+  applicationReceivedDate?: DateAsString; 
+  permissionFromCourt?: string;
+  courtOrderDetails?: string;
 }
 
 export interface KeepDetailsPrivate {
@@ -728,6 +734,11 @@ export interface CaseData {
   //applicant1LanguagePreference?: LanguagePreference;
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
 }
 
 export interface ConfidentialDetails {

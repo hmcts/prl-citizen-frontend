@@ -114,9 +114,9 @@ export const summaryCaseList = (
     const state = userCase.state;
     let caseUrl = '#';
     if (userCase.caseTypeOfApplication === 'C100') {
-      caseUrl = APPLICANT_TASK_LIST_URL;
+      caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
     } else if (userCase.caseTypeOfApplication === 'FL401') {
-      caseUrl = CA_DA_RESPONDENT_TASK_LIST_URL;
+      caseUrl = CA_DA_RESPONDENT_TASK_LIST_URL + '/' + id;
     }
     const row = {
       key: name,

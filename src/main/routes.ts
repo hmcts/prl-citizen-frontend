@@ -3,8 +3,11 @@ import fs from 'fs';
 import { Application } from 'express';
 import multer from 'multer';
 
+import { ConsentGetController } from './app/controller/ConsentGetController';
+import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
+import { SaveRespondentResponseController } from './app/controller/SaveRespondentResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -22,6 +25,9 @@ import {
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICANT_TASK_LIST_URL,
+  CONSENT_SAVE,
+  CONSENT_TO_APPLICATION,
   CONTACT_US,
   COOKIES_PAGE,
   DOCUMENT_MANAGER,
@@ -48,8 +54,10 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
+    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
     // app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     // app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
+    app.get(`${CONSENT_SAVE}`, errorHandler(new SaveRespondentResponseController().save));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -60,6 +68,10 @@ export class Routes {
         : GetController;
 
       app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+      app.get(
+        `${CONSENT_TO_APPLICATION}/:caseId`,
+        errorHandler(new ConsentGetController(step.view, step.generateContent).getConsent)
+      );
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
