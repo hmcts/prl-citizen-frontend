@@ -28,7 +28,6 @@ export class OidcMiddleware {
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
-          req.session.userCaseList = await getCaseDetails(req);
           req.session.save(() => res.redirect('/dashboard'));
         } else {
           if (!req.session?.accessCodeLoginIn) {
@@ -88,6 +87,7 @@ export class OidcMiddleware {
             // req.session['lang'] =
             // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
           }
+          req.session.userCaseList = await getCaseDetails(req);
           return next();
         } else {
           res.redirect(SIGN_IN_URL);
