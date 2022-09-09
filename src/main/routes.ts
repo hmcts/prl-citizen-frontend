@@ -3,9 +3,10 @@ import fs from 'fs';
 import { Application } from 'express';
 import multer from 'multer';
 
+import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
+
 import { ConsentGetController } from './app/controller/ConsentGetController';
 import { GetCaseController } from './app/controller/GetCaseController';
-import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { SaveRespondentResponseController } from './app/controller/SaveRespondentResponseController';
@@ -32,18 +33,18 @@ import {
   CONSENT_TO_APPLICATION,
   CONTACT_US,
   COOKIES_PAGE,
-  DOCUMENT_MANAGER,
   CSRF_TOKEN_ERROR_URL,
+  DOCUMENT_MANAGER,
   HOME_URL,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
+  SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
+  TIMED_OUT_URL,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
-  SAVE_AND_SIGN_OUT,
-  TIMED_OUT_URL,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -68,6 +69,7 @@ export class Routes {
 
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
 
+    app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -75,10 +77,6 @@ export class Routes {
       const getController = getControllerFileName
         ? require(`${step.stepDir}/${getControllerFileName}`).default
         : GetController;
-      app.get(
-        `${CONSENT_TO_APPLICATION}/:caseId`,
-        errorHandler(new ConsentGetController(step.view, step.generateContent).getConsent)
-      );
 
       if (step && getController) {
         app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));

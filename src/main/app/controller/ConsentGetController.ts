@@ -5,9 +5,8 @@ import { Respondent, YesOrNo } from '../case/definition';
 import { fromApiDate } from '../case/from-api-format';
 
 import { AppRequest } from './AppRequest';
-import { GetController } from './GetController';
 
-export class ConsentGetController extends GetController {
+export class ConsentGetController {
   //constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
 
   public async getConsent(req: AppRequest, res: Response): Promise<void> {

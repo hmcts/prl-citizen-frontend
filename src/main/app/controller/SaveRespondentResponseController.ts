@@ -34,7 +34,7 @@ export class SaveRespondentResponseController {
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
-    res.redirect(RESPONDENT_TASK_LIST_URL);
+    req.session.save(() => res.redirect(RESPONDENT_TASK_LIST_URL));
   }
 
   private setConsentDetails(respondent: Respondent, req: AppRequest) {
