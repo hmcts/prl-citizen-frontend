@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { SectionStatus } from '../../../app/case/definition';
+import { SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
@@ -42,7 +42,10 @@ describe('task-list > content', () => {
   });
   test.each([
     {
-      userCase: mockUserCase,
+      userCase: {
+        ...mockUserCase,
+        legalrepresentation: YesOrNo.NO,
+      },
       expected: [
         {
           title: 'Legal representation',
@@ -50,7 +53,7 @@ describe('task-list > content', () => {
             {
               id: 'do_you_have_legal_representation',
               text: 'Do you have a legal representative?',
-              status: 'TO_DO',
+              status: 'COMPLETED',
               href: '/tasklistresponse/legalrepresentation/start',
             },
           ],
@@ -127,6 +130,28 @@ describe('task-list > content', () => {
             },
           ],
           title: 'Additional information',
+        },
+      ],
+    },
+  ])('should generate correct task list %#', ({ userCase, expected }) => {
+    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
+    expect(taskListItems).toEqual(expected);
+  });
+
+  test.each([
+    {
+      userCase: mockUserCase,
+      expected: [
+        {
+          title: 'Legal representation',
+          items: [
+            {
+              id: 'do_you_have_legal_representation',
+              text: 'Do you have a legal representative?',
+              status: 'TO_DO',
+              href: '/tasklistresponse/legalrepresentation/start',
+            },
+          ],
         },
       ],
     },
