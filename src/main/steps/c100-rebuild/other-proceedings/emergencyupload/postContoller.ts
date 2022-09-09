@@ -76,6 +76,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
         const validateFileSize: boolean = FileValidations.sizeValidation(documents.size);
         const formData: FormData = new FormData();
+        console.log({ document: documents });
         if (validateMimeType && validateFileSize) {
           formData.append('file', documents.data, {
             contentType: documents.mimetype,
