@@ -64,8 +64,9 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    * @param {Response} res - Response - This is the response object that will be sent back to the client.
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log('inside postdocumentUploader');
     const { files }: AppRequest<AnyObject> = req;
+    const { orderType } = req.query;
+    console.log({ orderType });
     if (isNull(files)) {
       const errorMessage = 'valdiation error';
       this.uploadFileError(req, res, errorMessage);
@@ -76,11 +77,13 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
         const validateFileSize: boolean = FileValidations.sizeValidation(documents.size);
         const formData: FormData = new FormData();
-        console.log({ document: documents });
         if (validateMimeType && validateFileSize) {
+          const dateOfSystem = new Date().toLocaleString().split(',')[0].split('/').join('');
+          const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
+          const fileName = `applicant_emergency_protection_${orderType}_${dateOfSystem}.${extensionType}`;
           formData.append('file', documents.data, {
             contentType: documents.mimetype,
-            filename: documents.name,
+            filename: fileName,
           });
           const formHeaders = formData.getHeaders();
           const Headers = {
@@ -98,9 +101,18 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               }
             );
             const responseBody: IDocumentUploadResponse = requestDocument['data'];
-            console.log(responseBody);
+            const { document_url, document_filename, document_binary_url } = responseBody['document'];
+            const courtOrderType: AnyType | undefined = orderType;
+            const documentData = {
+              orderType: courtOrderType,
+              id: document_url.split('/')[document_url.split('/').length - 1],
+              document_url,
+              document_filename,
+              document_binary_url,
+            };
+            req.session.userCase['emergencyuploadedDocuments']?.push(documentData);
 
-            res.json({ requestDocument: requestDocument['data'] });
+            res.json({ requestDocument: documentData });
           } catch (error) {
             res.json(error);
           }

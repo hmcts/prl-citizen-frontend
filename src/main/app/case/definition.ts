@@ -30,6 +30,13 @@ export interface Document {
   document_binary_url: string;
 }
 
+export interface EmergencyCourtDocument extends Document{
+  orderType: string,
+  id: string,
+}
+
+export type EmergencyCourtDocumentStorage = EmergencyCourtDocument[];
+
 export interface DynamicElementIndicator {}
 
 export interface DynamicList {
