@@ -8,7 +8,7 @@ const en = {
   continue: 'Continue',
   errors: {
     addressPostcode: {
-      required: 'Enter UK Post Code',
+      required: 'Enter a valid postcode',
     },
   },
 };
@@ -19,7 +19,7 @@ const cy: typeof en = {
   continue: 'Continue',
   errors: {
     addressPostcode: {
-      required: 'Enter UK Post Code',
+      required: 'Enter a valid postcode',
     },
   },
 };
@@ -42,8 +42,8 @@ export const form: FormContent = {
       validator: isInvalidPostcode,
     },
   },
-  submit: {
-    text: l => l.continue,
+  onlyContinue: {
+    text: l => l.onlyContinue,
   },
 };
 
