@@ -41,6 +41,7 @@ e2e:
 appInsights:
   instrumentationKey: false
 documentUpload:
+  url: 'https://prl-cos-pr-539.service.core-compute-preview.internal'
   validation:
     totaldocuments: 1
     sizeInKB: 20000000    

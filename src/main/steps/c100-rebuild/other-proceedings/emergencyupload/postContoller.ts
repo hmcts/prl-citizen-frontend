@@ -11,56 +11,10 @@ import { getServiceAuthTokenForPRLCitizen } from '../../../../app/auth/service/g
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
-/**
- * import { C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD } from '../../../urls';
 
+// eslint-disable-next-line import/no-unresolved
+import { AnyType, FileMimeTypeInfo, FileType, IDocumentUploadResponse, URL_OF_FILE_UPLOAD } from './index';
 
-
-
-
-import { Logger } from '@hmcts/nodejs-logging';
- */
-
-type URL_OF_FILE = string;
-type AnyType = any;
-
-/**
- * ****** File Extensions Types are being check
- */
-type FileType = {
-  doc: string;
-  docx: string;
-  pdf: string;
-  png: string;
-  xls: string;
-  xlsx: string;
-  jpg: string;
-  txt: string;
-  rtf: string;
-  rtf2: string;
-  gif: string;
-};
-
-/**
- * ****** File MimeTypes are being check
- */
-type FileMimeTypeInfo = {
-  'application/msword': string;
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': string;
-  'application/pdf': string;
-  'image/png': string;
-  'application/vnd.ms-excel': string;
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': string;
-  'image/jpeg': string;
-  'text/plain': string;
-  'application/rtf': string;
-  'text/rtf': string;
-  'image/gif': string;
-};
-
-export const PRL_COS_API_URL: URL_OF_FILE = config.get('services.cos.url');
-
-/* It's a type that is being used to check the file type. */
 export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo>> = {
   doc: 'application/msword',
   docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -74,6 +28,8 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   rtf2: 'text/rtf',
   gif: 'image/gif',
 };
+
+export const DOCUMENT_UPLOAD_URL: URL_OF_FILE_UPLOAD = config.get('documentUpload.url');
 
 export class FileValidations {
   /* This is a static method that is checking the file size. */
@@ -131,14 +87,18 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             ServiceAuthorization: 'Bearer ' + (await getServiceAuthTokenForPRLCitizen()),
           };
           try {
-            const requestDocument = await this.UploadDocumentInstance(
-              'https://prl-cos-pr-539.service.core-compute-preview.internal',
-              Headers
-            ).post('/upload-citizen-statement-document', formData, {
-              headers: {
-                ...formHeaders,
-              },
-            });
+            const requestDocument = await this.UploadDocumentInstance(DOCUMENT_UPLOAD_URL, Headers).post(
+              '/upload-citizen-statement-document',
+              formData,
+              {
+                headers: {
+                  ...formHeaders,
+                },
+              }
+            );
+            const responseBody: IDocumentUploadResponse = requestDocument['data'];
+            console.log(responseBody);
+
             res.json({ requestDocument: requestDocument['data'] });
           } catch (error) {
             res.json(error);
