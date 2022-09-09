@@ -15,10 +15,10 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
 
+
 import { CaseWithId, UploadedFile } from '../case/case';
 import { DocumentType, ListValue, Respondent, UploadDocumentList, YesOrNo } from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
-
 
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
@@ -250,6 +250,33 @@ export class DocumentManagerController extends PostController<AnyObject> {
             }
             documentToGet = doc.value.uploadRelevantOrder.document_binary_url;
             document_filename = doc.value.uploadRelevantOrder.document_filename;
+
+    if (endPoint === 'downloadManageDocument' && req.session.userCase?.otherDocuments) {
+      for (const doc of req.session.userCase?.otherDocuments) {
+        if (
+          doc.value?.documentOther?.document_url.substring(
+            doc.value.documentOther.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.documentOther.document_binary_url) {
+            throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
+          }
+          documentToGet = doc.value.documentOther.document_binary_url;
+          filename = doc.value.documentOther.document_filename;
+        }
+      }
+      uid = this.getUID(documentToGet);
+    }
+
+    if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
+      for (const doc of req.session.userCase?.orderCollection) {
+        if (
+          doc.value.orderDocument.document_url.substring(doc.value.orderDocument.document_url.lastIndexOf('/') + 1) ===
+          filename
+        ) {
+          if (!doc.value.orderDocument.document_binary_url) {
+            throw new Error('ORDERS_FROM_THE_COURT binary url is not found');
+
           }
         }
         uid = this.getUID(documentToGet);
@@ -326,82 +353,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
         req.session.userCase = updatedCaseDataFromCos;
       }
     }
-
-
-    if (endPoint === 'downloadManageDocument' && req.session.userCase?.otherDocuments) {
-      for (const doc of req.session.userCase?.otherDocuments) {
-        if (
-          doc.value?.documentOther?.document_url.substring(
-            doc.value.documentOther.document_url.lastIndexOf('/') + 1
-          ) === filename
-        ) {
-          if (!doc.value.documentOther.document_binary_url) {
-            throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
-          }
-          documentToGet = doc.value.documentOther.document_binary_url;
-          filename = doc.value.documentOther.document_filename;
-        }
-      }
-      uid = this.getUID(documentToGet);
-    }
-
-    if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
-      for (const doc of req.session.userCase?.orderCollection) {
-        if (
-          doc.value.orderDocument.document_url.substring(doc.value.orderDocument.document_url.lastIndexOf('/') + 1) ===
-          filename
-        ) {
-          if (!doc.value.orderDocument.document_binary_url) {
-            throw new Error('ORDERS_FROM_THE_COURT binary url is not found');
-          }
-          documentToGet = doc.value.orderDocument.document_binary_url;
-          filename = doc.value.orderDocument.document_filename;
-        }
-      }
-      uid = this.getUID(documentToGet);
-    }
-
-    if (endPoint === 'applicationmade' && req.session.userCase?.existingProceedings) {
-      for (const doc of req.session.userCase?.existingProceedings) {
-        if (
-          doc.value?.uploadRelevantOrder?.document_url.substring(
-            doc.value.uploadRelevantOrder.document_url.lastIndexOf('/') + 1
-          ) === filename
-        ) {
-          if (!doc.value.uploadRelevantOrder.document_binary_url) {
-            throw new Error('APPLICATION MADE IN THESE PROCEEDINGS binary url is not found');
-          }
-          documentToGet = doc.value.uploadRelevantOrder.document_binary_url;
-          filename = doc.value.uploadRelevantOrder.document_filename;
-        }
-      }
-      uid = this.getUID(documentToGet);
-    }
-
-    const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
-    const documentManagementClient = this.getDocumentManagementClient(req.session.user);
-    const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
-
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      } else if (generatedDocument) {
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
-        return res.end(generatedDocument.data);
-      }
-
-      let redirectUrl = '';
-      if (req.originalUrl.includes(APPLICANT)) {
-        console.log('redirect to APPLICANT_TASK_LIST_URL');
-        redirectUrl = APPLICANT_TASK_LIST_URL;
-      } else if (req.originalUrl.includes(RESPONDENT)) {
-        console.log('redirect to RESPONDENT_TASK_LIST_URL');
-        redirectUrl = RESPONDENT_TASK_LIST_URL;
-      }
-      return res.redirect(redirectUrl);
-    });
-
   }
 
   private getUID(documentToGet: string) {
