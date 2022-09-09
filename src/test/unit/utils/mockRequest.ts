@@ -33,7 +33,6 @@ export const mockRequest: any = ({
         givenName: 'First name',
         familyName: 'Last name',
         email: 'test@example.com',
-
       },
       userCase: {
         id: '1234',

@@ -23,7 +23,7 @@ describe('ContactUsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
-          userIdamId: '123456'
+          userIdamId: '123456',
         }),
         ...defaultViewArgs,
         userCase: req.session.userCase,

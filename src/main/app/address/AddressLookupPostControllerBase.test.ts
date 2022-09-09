@@ -30,7 +30,7 @@ describe('AddressLookupPostControllerBase', () => {
   let controller;
 
   beforeEach(() => {
-    req = mockRequest({ session: { userCase: { email: 'test@example.com',id: '123456' } } });
+    req = mockRequest({ session: { userCase: { email: 'test@example.com', id: '123456' } } });
     res = mockResponse();
     controller = new AddressLookupPostControllerBase({}, FieldPrefix.APPLICANT1);
   });

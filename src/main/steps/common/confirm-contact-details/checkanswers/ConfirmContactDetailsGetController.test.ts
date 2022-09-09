@@ -23,7 +23,6 @@ describe('ConfirmContactDetailsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
-          
         }),
         ...defaultViewArgs,
       })
@@ -49,7 +48,6 @@ describe('ConfirmContactDetailsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
-          
         }),
         ...defaultViewArgs,
       })
@@ -77,7 +75,6 @@ describe('ConfirmContactDetailsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
-         
         }),
         ...defaultViewArgs,
       })
@@ -105,7 +102,6 @@ describe('ConfirmContactDetailsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
-          
         }),
         ...defaultViewArgs,
       })
@@ -116,8 +112,6 @@ describe('ConfirmContactDetailsGetController', () => {
   test('Should render the  Confirm Contact Details page with confidential data case4', async () => {
     const req = mockRequest();
     const res = mockResponse();
-    
-  
 
     await controller.get(req, res);
     const language = 'en';
@@ -130,7 +124,6 @@ describe('ConfirmContactDetailsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
-          
         }),
         ...defaultViewArgs,
       })

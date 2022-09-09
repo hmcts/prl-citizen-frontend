@@ -234,7 +234,7 @@ export const generatePageContent = ({
     // contactEmail,
     // eligibility,
     // fee,
-    userIdamId
+    userIdamId,
   };
 
   if (pageContent !== null && pageContent !== undefined) {

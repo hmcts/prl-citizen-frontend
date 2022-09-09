@@ -5,7 +5,7 @@ import { SaveSignOutGetController } from './get';
 
 describe('SaveSignOutGetController', () => {
   const controller = new SaveSignOutGetController();
-  let req = mockRequest({ session: { user: { email: 'test@example.com',id: '123456' } } });
+  let req = mockRequest({ session: { user: { email: 'test@example.com', id: '123456' } } });
   const res = mockResponse();
 
   it('saves and signs out', async () => {
