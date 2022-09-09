@@ -53,6 +53,7 @@ import {
   YesNoDontKnow,
   YesOrNo,
   orderInterface,
+  SafetyConcerns,
   //DocumentType,
 } from './definition';
 
@@ -184,6 +185,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
   applicantDocumentsUploaded: 'applicantDocumentsUploaded',
+  respondentSafetyConcerns: 'respondentSafetyConcerns',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -348,7 +350,6 @@ export interface Case {
   proceedingsStartOrder?: string;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
-  supervisionOrder?: orderInterface;
   emergencyOrderOptions?: YesOrNo;
   emergencyOrder?: orderInterface;
   careOrderOptions?: YesOrNo;
@@ -451,7 +452,7 @@ export interface Case {
   respondentTravellingOtherDetails?: string;
   //applicant1LanguagePreference?: LanguagePreference;
 
-  safetyConcerns?: string;
+  respondentSafetyConcerns?: SafetyConcerns;
 
   citizenRole?: FieldPrefix;
 }

@@ -46,6 +46,8 @@ export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/
 
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
+export const C7_RESPONSE: PageLink = '/c7response';
+export const C7_RESPONSE_START: PageLink = `${C7_RESPONSE}/start`;
 
 /* Applicant Upload document start */
 export const APPLICANT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/applicant/upload-document';
@@ -71,12 +73,12 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 /* respondent-keep-details-private-end */
 
 /* MIAM */
-export const MIAM: PageLink = `${RESPONDENT}/miam`;
+export const MIAM: PageLink = `${C7_RESPONSE}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
 
 /* international-factors */
-export const INTERNATIONAL_FACTORS: PageLink = `${RESPONDENT}/international-factors`;
+export const INTERNATIONAL_FACTORS: PageLink = `${C7_RESPONSE}/international-factors`;
 export const INTERNATIONAL_FACTORS_START: PageLink = `${INTERNATIONAL_FACTORS}/start`;
 export const INTERNATIONAL_FACTORS_PARENTS: PageLink = `${INTERNATIONAL_FACTORS}/parents`;
 export const INTERNATIONAL_FACTORS_JURISDICTION: PageLink = `${INTERNATIONAL_FACTORS}/jurisdiction`;
@@ -89,11 +91,11 @@ export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 /* MIAM */
 
 /* safety concerns */
-export const SAFETY_CONCERNS: PageLink = `${RESPONDENT}/safety_concerns`;
-export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
-export const YOUR_SAFETY: PageLink = `${SAFETY_CONCERNS}/your_safety`;
-export const DOMESTIC_ABUSE_RISK: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk`;
-export const DOMESTIC_ABUSE_RISK_NO: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk_no`;
+export const SAFETY_CONCERNS_NA: PageLink = `${RESPONDENT}/safety_concerns`;
+export const SAFETY_MAIN_PAGE_NA: PageLink = `${SAFETY_CONCERNS_NA}/main_page`;
+export const YOUR_SAFETY_NA: PageLink = `${SAFETY_CONCERNS_NA}/your_safety`;
+export const DOMESTIC_ABUSE_RISK_NA: PageLink = `${SAFETY_CONCERNS_NA}/domestic_abuse_risk`;
+export const DOMESTIC_ABUSE_RISK_NO_NA: PageLink = `${SAFETY_CONCERNS_NA}/domestic_abuse_risk_no`;
 
 /* respondent-confirm-contact-details-start */
 export const RESPONDENT_CONFIRM_CONTACT_DETAILS: PageLink = `${RESPONDENT}${CONFIRM_CONTACT_DETAILS}`;
@@ -112,6 +114,7 @@ export const RESPONDENT_ADDRESS_HISTORY: PageLink = `${RESPONDENT}${ADDRESS_HIST
 /* Applicant-start */
 export const APPLICANT: PageLink = '/applicant';
 export const APPLICANT_TASK_LIST_URL: PageLink = '/applicant/task-list';
+
 
 /* applicant-confirm-contact-details-start */
 export const APPLICANT_CONFIRM_CONTACT_DETAILS: PageLink = `${APPLICANT}${CONFIRM_CONTACT_DETAILS}`;
@@ -141,7 +144,7 @@ export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${
 export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/orders`;
 
 /* consent-to-the-application */
-export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
+export const CONSENT: PageLink = `${C7_RESPONSE}/consent-to-application`;
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
@@ -157,7 +160,17 @@ export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments';
 export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 
-export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
+
+
+/* safety concerns */
+export const SAFETY_CONCERNS: PageLink = `${C7_RESPONSE}/safety_concerns`;
+export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
+export const YOUR_SAFETY: PageLink = `${SAFETY_CONCERNS}/your_safety`;
+export const DOMESTIC_ABUSE_RISK: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk`;
+export const SEXUAL_ABUSE: PageLink = `${SAFETY_CONCERNS}/sexual_abuse`;
+export const SEXUAL_ABUSE_DESCRIPTION: PageLink = `${SAFETY_CONCERNS}/sexual_abuse_description`;
+export const PHYSICAL_ABUSE: PageLink = `${SAFETY_CONCERNS}/physical_abuse`;
+export const DOMESTIC_ABUSE_RISK_NO: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk_no`;
 
 export const APPLICANT_WITNESS_STATEMENTS_DA: PageLink = `${APPLICANT}/witnessstatements`;
 /* view all documents */

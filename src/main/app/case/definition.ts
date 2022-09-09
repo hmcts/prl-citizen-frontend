@@ -748,6 +748,8 @@ export interface CaseData {
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
+  respondentSafetyConcerns?: SafetyConcerns;
+
 }
 
 export interface ConfidentialDetails {
@@ -2197,6 +2199,27 @@ export interface Value {
 export interface UploadDocumentList {
   id: string;
   value: Value;
+}
+
+export interface AbuseDetails {
+  explainWhoWasInvolved: string;
+  whenDidBehaviourStart: string;
+  isBehaviourStillGoingOn: YesOrNo;
+  haveYouEverAskedForHelp: YesOrNo;
+}
+
+export interface SafetyConcerns {
+  domesticAbuseDetails: YesOrNo;
+  isSexuallyAbused: YesOrNo;
+  sexualAbuseDescription: AbuseDetails;
+  isPhysicallyAbused: YesOrNo;
+  physicalAbuseDescription: AbuseDetails;
+  isFinanciallyAbused: YesOrNo;
+  financialAbuseDescription: AbuseDetails;
+  isPhyschologicallyAbused: YesOrNo;
+  physchologicalAbuseDescription: AbuseDetails;
+  isEmotinallyAbused: YesOrNo;
+  emotionalAbuseDescription: AbuseDetails;
 }
 /***  */
 // citizen frontend

@@ -123,7 +123,7 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             id: 'respond_to_application',
             text: taskListItems.respond_to_application,
             status: getInternationalFactorsStatus(userCase),
-            href: URL.RESPOND_TO_APPLICATION,
+            href: URL.C7_RESPONSE_START,
           },
           {
             id: 'respond_to_allegations_of_harm_and_violence',
