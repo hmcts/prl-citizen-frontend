@@ -24,6 +24,7 @@ describe('AccessibilityStatementGetController', () => {
         pageContent: generateContent,
         userCase,
         userEmail: 'test@example.com',
+        userIdamId: '123456'
        
       }),
       ...defaultViewArgs,

@@ -23,6 +23,7 @@ describe('ConfirmContactDetailsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
+          
         }),
         ...defaultViewArgs,
       })
@@ -48,6 +49,7 @@ describe('ConfirmContactDetailsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
+          
         }),
         ...defaultViewArgs,
       })
@@ -75,6 +77,7 @@ describe('ConfirmContactDetailsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
+         
         }),
         ...defaultViewArgs,
       })
@@ -102,6 +105,7 @@ describe('ConfirmContactDetailsGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
+          
         }),
         ...defaultViewArgs,
       })
@@ -125,8 +129,8 @@ describe('ConfirmContactDetailsGetController', () => {
           language,
           pageContent: generateContent,
           userEmail: 'test@example.com',
-          userCase: {},
-          userIdamId: '123456',
+          userCase: req.session.userCase,
+          
         }),
         ...defaultViewArgs,
       })

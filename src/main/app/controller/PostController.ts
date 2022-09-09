@@ -311,12 +311,12 @@ export class PostController<T extends AnyObject> {
           caseworkerUser
         );
         console.log(accessCodeValidated);
-        // if (accessCodeValidated === 'Linked') {
-        //   req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
-        // } else if (accessCodeValidated !== 'Valid') {
-        //   req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
-        // }
-        //req.session.userCase = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
+        if (accessCodeValidated === 'Linked') {
+          req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
+        } else if (accessCodeValidated !== 'Valid') {
+          req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        }
+        req.session.userCase = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
       }
     } catch (err) {
       console.log('Retrieving case failed with error: ' + err);

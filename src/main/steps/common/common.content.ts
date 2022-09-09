@@ -197,7 +197,7 @@ export const generatePageContent = ({
   byApplicant,
   document_type,
   addresses = [],
-  userIdamId,
+  userIdamId = '',
 }: // eligibility,
 // fee,
 {

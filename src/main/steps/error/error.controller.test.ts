@@ -21,7 +21,7 @@ describe('ErrorController', () => {
     expect(logger.info.mock.calls[0][0]).toContain('404 Not Found: /request');
     expect(res.statusCode).toBe(404);
     expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com'}),
       ...errorContent.en[404],
     });
   });
@@ -36,7 +36,7 @@ describe('ErrorController', () => {
     expect(logger.error.mock.calls[0][0]).toContain('Bad request');
     expect(res.statusCode).toBe(err.status);
     expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com'}),
       ...errorContent.en[400],
     });
   });
@@ -51,7 +51,7 @@ describe('ErrorController', () => {
     expect(logger.error.mock.calls[0][0]).toContain('Bad request');
     expect(res.statusCode).toBe(500);
     expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com'}),
       ...errorContent.en[500],
     });
   });
@@ -66,7 +66,7 @@ describe('ErrorController', () => {
     expect(logger.error.mock.calls[0][0]).toContain('HTTPError: Bad request');
     expect(res.statusCode).toBe(400);
     expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com'}),
       ...errorContent.en[400],
     });
   });
@@ -80,7 +80,7 @@ describe('ErrorController', () => {
     expect(logger.error.mock.calls[0][0]).toContain('CSRF Token Failed');
     expect(res.statusCode).toBe(400);
     expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com'}),
       ...errorContent.en[400],
     });
   });
@@ -98,7 +98,7 @@ describe('ErrorController', () => {
     expect(res.statusCode).toBe(500);
     expect(res.render).toHaveBeenCalledTimes(1);
     expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: 'en', userEmail: 'test@example.com' }),
+      ...generatePageContent({ language: 'en', userEmail: 'test@example.com'}),
       ...errorContent.en[500],
     });
   });

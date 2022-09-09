@@ -5,7 +5,7 @@ import { SaveSignOutGetController } from './get';
 
 describe('SaveSignOutGetController', () => {
   const controller = new SaveSignOutGetController();
-  let req = mockRequest({ session: { user: { email: 'test@example.com' } } });
+  let req = mockRequest({ session: { user: { email: 'test@example.com',id: '123456' } } });
   const res = mockResponse();
 
   it('saves and signs out', async () => {
@@ -17,7 +17,7 @@ describe('SaveSignOutGetController', () => {
     test('Should throw an error', async () => {
       req = mockRequest({
         session: {
-          user: { email: 'test@example.com' },
+          user: { email: 'test@example.com', id: '123456' },
           destroy: jest.fn(done => done('MOCK_ERROR')),
         },
       });
