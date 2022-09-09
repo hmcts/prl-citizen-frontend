@@ -462,24 +462,9 @@ export const getOtherDocuments = (sectionTitles, taskListItems, userCase, url) =
     title: sectionTitles.otherDocuments,
     items: [
       {
-        id: 'important_address_and_contact_details',
-        text: taskListItems.important_address_and_contact_details,
-        href: url + URL.RESPONDENT_IMP_ADDRESS_CONTACT_INFO,
-      },
-      {
-        id: 'dna_reports',
-        text: taskListItems.dna_reports,
-        href: url + URL.RESPONDENT_DNA_REPORTS,
-      },
-      {
-        id: 'privacy_notice',
-        text: taskListItems.privacy_notice,
-        href: url + URL.RESPONDENT_PRIVACY_NOTICE,
-      },
-      {
-        id: 'special_measures',
-        text: taskListItems.special_measures,
-        href: url + URL.RESPONDENT_SPECIAL_MEASURES,
+        id: 'other_documents',
+        text: taskListItems.other_documents,
+        href: url + URL.OTHER_DOCUMENTS,
       },
     ],
   };
@@ -546,7 +531,14 @@ const getRespondentPositionStatements = (respondent: Respondent, taskListItems, 
       '<namerespondentxxxxx>',
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
-    href: url + URL.POSITION_STATEMENTS + '?name=' + respondent.value.firstName + ' ' + respondent.value.lastName,
+    href:
+      url +
+      URL.POSITION_STATEMENTS +
+      '?name=' +
+      respondent.value.firstName +
+      ' ' +
+      respondent.value.lastName +
+      '&byApplicant=No',
   };
 };
 
@@ -557,7 +549,14 @@ const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, u
       '<namerespondentxxxxx>',
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
-    href: url + URL.YOUR_WITNESS_STATEMENTS + '?name=' + respondent.value.firstName + ' ' + respondent.value.lastName,
+    href:
+      url +
+      URL.YOUR_WITNESS_STATEMENTS +
+      '?name=' +
+      respondent.value.firstName +
+      ' ' +
+      respondent.value.lastName +
+      '&byApplicant=No',
   };
 };
 
@@ -604,7 +603,8 @@ const getRespondentPositionStatementsDA = (respondent: PartyDetails, taskListIte
       '<namerespondentxxxxx>',
       respondent.firstName + ' ' + respondent.lastName
     ),
-    href: url + URL.POSITION_STATEMENTS + '?name=' + respondent.firstName + ' ' + respondent.lastName,
+    href:
+      url + URL.POSITION_STATEMENTS + '?name=' + respondent.firstName + ' ' + respondent.lastName + '&byApplicant=No',
   };
 };
 
@@ -615,7 +615,14 @@ const getRespondentWitnessStatementsDA = (respondent: PartyDetails, taskListItem
       '<namerespondentxxxxx>',
       respondent.firstName + ' ' + respondent.lastName
     ),
-    href: url + URL.YOUR_WITNESS_STATEMENTS + '?name=' + respondent.firstName + ' ' + respondent.lastName,
+    href:
+      url +
+      URL.YOUR_WITNESS_STATEMENTS +
+      '?name=' +
+      respondent.firstName +
+      ' ' +
+      respondent.lastName +
+      '&byApplicant=No',
   };
 };
 
@@ -657,7 +664,14 @@ const getApplicantPositionStatements = (applicant: Applicant, taskListItems, url
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href: url + URL.POSITION_STATEMENTS + '?name=' + applicant.value.firstName + ' ' + applicant.value.lastName,
+    href:
+      url +
+      URL.POSITION_STATEMENTS +
+      '?name=' +
+      applicant.value.firstName +
+      ' ' +
+      applicant.value.lastName +
+      '&byApplicant=Yes',
   };
 };
 const getApplicantWitnessStatements = (applicant: Applicant, taskListItems, url) => {
@@ -668,7 +682,12 @@ const getApplicantWitnessStatements = (applicant: Applicant, taskListItems, url)
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href:
-      `${url}${URL.YOUR_WITNESS_STATEMENTS}` + '?name=' + applicant.value.firstName + ' ' + applicant.value.lastName,
+      `${url}${URL.YOUR_WITNESS_STATEMENTS}` +
+      '?name=' +
+      applicant.value.firstName +
+      ' ' +
+      applicant.value.lastName +
+      '&byApplicant=Yes',
   };
 };
 
@@ -710,7 +729,8 @@ const getApplicantPositionStatementsDA = (applicant: PartyDetails, taskListItems
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: url + URL.POSITION_STATEMENTS + '?name=' + applicant.firstName + ' ' + applicant.lastName,
+    href:
+      url + URL.POSITION_STATEMENTS + '?name=' + applicant.firstName + ' ' + applicant.lastName + '&byApplicant=Yes',
   };
 };
 const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems, url) => {
@@ -720,6 +740,12 @@ const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems,
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: `${url}${URL.YOUR_WITNESS_STATEMENTS}` + '?name=' + applicant.firstName + ' ' + applicant.lastName,
+    href:
+      `${url}${URL.YOUR_WITNESS_STATEMENTS}` +
+      '?name=' +
+      applicant.firstName +
+      ' ' +
+      applicant.lastName +
+      '&byApplicant=Yes',
   };
 };

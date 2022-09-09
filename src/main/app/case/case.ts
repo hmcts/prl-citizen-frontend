@@ -31,6 +31,7 @@ import {
   LitigationCapacityTable,
   MiamExemptionsTable,
   MiamTable,
+  OtherDocuments,
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
@@ -87,6 +88,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   adjustmentsRequired: 'adjustmentsRequired',
   confidentialDetails: 'confidentialDetails',
   existingProceedings: 'existingProceedings',
+  otherDocuments: 'otherDocuments',
   hearingUrgencyTable: 'hearingUrgencyTable',
   isDisabilityPresent: 'isDisabilityPresent',
   isInterpreterNeeded: 'isInterpreterNeeded',
@@ -232,6 +234,7 @@ export interface Case {
   adjustmentsRequired?: string;
   confidentialDetails?: ConfidentialDetails;
   existingProceedings?: ExistingProceedings[];
+  otherDocuments?: OtherDocuments[];
   hearingUrgencyTable?: HearingUrgencyTable;
   isDisabilityPresent?: string;
   isInterpreterNeeded?: string;

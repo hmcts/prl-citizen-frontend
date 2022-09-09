@@ -49,4 +49,5 @@ export const applicant_tasklist_items_all_docs_en = {
   special_measures: 'Special measures',
   notice_of_hearing: 'Notice of hearing',
   support_you_need_during_your_case: 'Support you need during your case',
+  other_documents: 'Other documents',
 };
