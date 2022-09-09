@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-import { APPLICANT_TASK_LIST_URL, CA_DA_RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { APPLICANT_TASK_LIST_URL } from '../../../steps/urls';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -116,7 +116,7 @@ export const summaryCaseList = (
     if (userCase.caseTypeOfApplication === 'C100') {
       caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
     } else if (userCase.caseTypeOfApplication === 'FL401') {
-      caseUrl = CA_DA_RESPONDENT_TASK_LIST_URL;
+      caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
     }
     const row = {
       key: name,

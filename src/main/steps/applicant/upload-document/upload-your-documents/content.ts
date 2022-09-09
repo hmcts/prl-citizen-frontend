@@ -1,3 +1,5 @@
+//import { isObject } from 'lodash';
+
 import { getFilename } from '../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';

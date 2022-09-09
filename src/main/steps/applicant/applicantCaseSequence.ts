@@ -26,6 +26,7 @@ import {
   APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
   // APPLICANT_START_ALTERNATIVE,
   APPLICANT_VIEW_ALL_DOCUMENTS,
+  APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
@@ -37,6 +38,7 @@ import {
   LETTER_FROM_SCHOOL,
   MEDICAL_RECORDS,
   MEDICAL_REPORTS,
+  OTHER_DOCUMENTS,
   OTHER_PEOPLE_WITNESS_STATEMENTS,
   PATERNITY_TEST_REPORTS,
   POLICE_DISCLOSURE,
@@ -381,5 +383,25 @@ export const applicantCaseSequence: Step[] = [
     url: `${APPLICANT}${APPLICATION_MADE_IN_THESE_PRCEEDINGS}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${OTHER_DOCUMENTS}`,
+  },
+  {
+    url: `${APPLICANT}${OTHER_DOCUMENTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_WITNESS_STATEMENTS_DA,
+  },
+  {
+    url: APPLICANT_WITNESS_STATEMENTS_DA,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
 ];
