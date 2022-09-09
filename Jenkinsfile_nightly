@@ -20,7 +20,8 @@ def secrets = [
   'prl-${env}': [
     secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
     secret('prl-citizen-frontend-idam-client-secret', 'CITIZEN_IDAM_SECRET'),
-    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET')
+    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
+    secret("launchDarkly-sdk-key", "LAUNCH_DARKLY_SDK_KEY")
   ]
 ]
 
