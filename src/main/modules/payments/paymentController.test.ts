@@ -26,6 +26,14 @@ describe('PaymentHandler', () => {
 describe('PaymentValidationHandler', () => {
   req.params.status = 'Success';
   req.params.paymentId = 'DUMMY_X100';
+  const paymentDetails = {
+    payment_reference: 'RF32-123',
+    date_created: '9-10-2022',
+    external_reference: 'N/A',
+    next_url: 'http://localhost:3001/payment/reciever/callback/RC-12/Success',
+    status: 'Success',
+  };
+  req.session.userCase.paymentDetails = paymentDetails;
   test('ex', () => {
     PaymentValidationHandler(req, res);
     expect(1).toBe(1);
