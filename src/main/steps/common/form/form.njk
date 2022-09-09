@@ -42,6 +42,20 @@
           }) if getContent(form.submit.text)
         }}
 
+         {{
+          govukButton({
+            text: getContent(form.onlyContinue.text),
+            classes: form.submit.classes,
+            preventDoubleClick: true,
+            type: "submit",
+            name: "onlyContinue",
+            value: true,
+            attributes: {
+              id: ''
+            }
+          }) if getContent(form.onlyContinue.text)
+        }}
+        
         {{
           govukButton({
             text: getContent(form.saveAsDraft.text),

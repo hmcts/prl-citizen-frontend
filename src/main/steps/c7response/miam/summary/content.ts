@@ -27,7 +27,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, 'applicationDetails', fieldType, content.language)],
+    sections: [summaryList(enContent, userCase, urls, 'applicationDetails', fieldType, content.language)],
   };
 };
 
@@ -60,6 +60,9 @@ const fieldType = {
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
+
+  updateContent(cyContent, userCase, urls);
+
   return {
     ...cyContent,
     language: content.language,

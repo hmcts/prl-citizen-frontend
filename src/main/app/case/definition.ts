@@ -746,6 +746,17 @@ export interface CaseData {
   startAlternative?: string;
   //applicant1LanguagePreference?: LanguagePreference;
   citizenRole?: FieldPrefix;
+  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  miamStart?: string;
+  start?: YesOrNo;
+  iFactorsStartProvideDetails?: string;
+  parents?: YesOrNo;
+  iFactorsParentsProvideDetails?: string;
+  jurisdiction?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  request?: YesOrNo;
+  iFactorsRequestProvideDetails?: string;
+
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   respondentSafetyConcerns?: SafetyConcerns;
@@ -2180,19 +2191,14 @@ export interface CitizenDocument {
   document_binary_url: string;
 }
 
-export interface DocumentDetails {
-  documentName: string;
-  documentUploadedDate: string;
-}
-
 export interface Value {
   parentDocumentType: string;
-  documentType: string;
+  DocumentType: string;
   partyName: string;
   isApplicant: string;
   uploadedBy: string;
   dateCreated: string;
-  documentDetails: DocumentDetails;
+  documentUploadedDate: string;
   citizenDocument: CitizenDocument;
 }
 

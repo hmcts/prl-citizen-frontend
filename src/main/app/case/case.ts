@@ -158,7 +158,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
-  citizenUploadedDocumentList: 'citizenUploadedDocumentList',
   serviceType: 'serviceType',
   claimNumber: 'claimNumber',
   caseCode: 'caseCode',
@@ -185,6 +184,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
   applicantDocumentsUploaded: 'applicantDocumentsUploaded',
+  miamStart: 'miamStart',
+  start: 'start',
+  iFactorsStartProvideDetails: 'iFactorsStartProvideDetails',
+  parents: 'parents',
+  iFactorsParentsProvideDetails: 'iFactorsParentsProvideDetails',
+  jurisdiction: 'jurisdiction',
+  iFactorsJurisdictionProvideDetails: 'iFactorsJurisdictionProvideDetails',
+  request: 'request',
+  iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
   respondentSafetyConcerns: 'respondentSafetyConcerns',
 };
 
@@ -350,6 +358,7 @@ export interface Case {
   proceedingsStartOrder?: string;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
+  supervisionOrder?: orderInterface;
   emergencyOrderOptions?: YesOrNo;
   emergencyOrder?: orderInterface;
   careOrderOptions?: YesOrNo;
