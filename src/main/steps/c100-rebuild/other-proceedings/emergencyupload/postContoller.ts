@@ -11,6 +11,7 @@ import { getServiceAuthTokenForPRLCitizen } from '../../../../app/auth/service/g
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD } from '../../../urls';
 
 // eslint-disable-next-line import/no-unresolved
 import { AnyType, FileMimeTypeInfo, FileType, IDocumentUploadResponse, URL_OF_FILE_UPLOAD } from './index';
@@ -110,9 +111,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               document_filename,
               document_binary_url,
             };
-            req.session.userCase['emergencyuploadedDocuments']?.push(documentData);
-
-            res.json({ requestDocument: documentData });
+            this.removeExistedDocument(courtOrderType, req);
+            req.session.userCase.emergencyuploadedDocuments = [documentData];
+            req.session.save(() => {
+              res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD);
+            });
           } catch (error) {
             res.json(error);
           }
@@ -120,6 +123,13 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       }
     }
   }
+
+  public removeExistedDocument = async (orderType: string, req: AppRequest): Promise<void> => {
+    // invoke an api call;
+    req.session.userCase['emergencyuploadedDocuments'] = req.session.userCase['emergencyuploadedDocuments']?.filter(
+      document => document.orderType !== orderType
+    );
+  };
 
   /* It's a function that creates an instance of the axios library. */
   public UploadDocumentInstance = (BASEURL: string, header: AxiosRequestHeaders): AxiosInstance => {

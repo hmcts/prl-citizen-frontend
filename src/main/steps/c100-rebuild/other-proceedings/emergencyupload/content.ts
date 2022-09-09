@@ -37,6 +37,7 @@ export const generateContent: TranslationFn = content => {
         'Upload it here.',
       ],
       uploadButton: 'Upload file',
+      remove: 'Remove - welsh',
     };
   };
   const cy = () => {
@@ -55,6 +56,7 @@ export const generateContent: TranslationFn = content => {
         'Upload it here.',
       ],
       uploadButton: 'Upload file (Whelsh)',
+      remove: 'Remove - welsh',
     };
   };
 

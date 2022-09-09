@@ -2,11 +2,11 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { FieldPrefix } from '../../../../app/case/case';
+import { EmergencyCourtDocument } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
-import {C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD} from '../../../urls'
-
+import { C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD } from '../../../urls';
 @autobind
 export default class EmergencyDocumentUpload extends GetController {
   constructor(
@@ -23,6 +23,19 @@ export default class EmergencyDocumentUpload extends GetController {
     }
 
     const { orderType } = req.query;
+    let currentOrderDocument: EmergencyCourtDocument | undefined = {
+      orderType: '',
+      id: '',
+      document_url: '',
+      document_filename: '',
+      document_binary_url: '',
+    };
+
+    if (req.session.userCase.hasOwnProperty('emergencyuploadedDocuments')) {
+      currentOrderDocument = req.session.userCase.emergencyuploadedDocuments?.filter(
+        document => document.orderType === orderType
+      )[0];
+    }
 
     const language = super.getPreferredLanguage(req) as Language;
 
@@ -45,6 +58,7 @@ export default class EmergencyDocumentUpload extends GetController {
       htmlLang: language,
       orderType,
       postURL: C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD,
+      document: currentOrderDocument,
     });
   }
 }

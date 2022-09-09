@@ -39,25 +39,7 @@
   summaryText: uploadDescription,
   text: requirementTest  | safe
 }) }}
-<div id="uploadGroup" tabindex="0" class="uploadGroup">
-    <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
-    <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
-    <ul id="filesUploaded" class="govuk-list">
-      {%if uploadedDocuments.length >0 %}
-      {% for file in uploadedDocuments %}
-        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-          {{ file.fileName }} 
-          {% set documentId = file.documentId%}
-          <a href="" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
-        </li>
-      {% endfor %}
-      {%endif%}
-    </ul>
-  </div>   
-    <p class="govuk-body">
-    {{ fileFormats }}<br>
-    {{ fileSize }}
-  </p>
+
 
 {% set removepoint = '/upload-your-documents?query=delete&docId={{documentId}}&documentType=applicationform'%}
 
@@ -77,6 +59,23 @@
           classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
         }) }}
 
-</form>       
+</form>  
+
   </div>
+
+  <div id="uploadGroup" tabindex="0" class="uploadGroup">
+    <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+    <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <ul id="filesUploaded" class="govuk-list">
+        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
+          {{ document.document_filename }} 
+          {% set documentId = document.id %}
+          <a href="" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
+        </li>
+    </ul>
+  </div>   
+    <p class="govuk-body">
+    {{ fileFormats }}<br>
+    {{ fileSize }}
+  </p>
 {% endblock %}
