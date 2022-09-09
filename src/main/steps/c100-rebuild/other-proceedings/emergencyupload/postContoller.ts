@@ -1,4 +1,5 @@
-import { Logger } from '@hmcts/nodejs-logging';
+import https from 'https';
+
 import autobind from 'autobind-decorator';
 import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
 import config from 'config';
@@ -6,11 +7,19 @@ import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
 
+import { getServiceAuthTokenForPRLCitizen } from '../../../../app/auth/service/get-service-auth-token';
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import { FormFieldsFn, FormFields } from '../../../../app/form/Form';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import {getServiceAuthToken} from'../../../../app/auth/service/get-service-auth-token';
-import { C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD } from '../../../urls';
+import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+/**
+ * import { C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD } from '../../../urls';
+
+
+
+
+
+import { Logger } from '@hmcts/nodejs-logging';
+ */
 
 type URL_OF_FILE = string;
 type AnyType = any;
@@ -48,17 +57,6 @@ type FileMimeTypeInfo = {
   'text/rtf': string;
   'image/gif': string;
 };
-
-/**
- * ****** File Upload validations Message
- */
-// type FileUploadErrorTranslatables = {
-//   FORMAT_ERROR?: string;
-//   SIZE_ERROR?: string;
-//   TOTAL_FILES_EXCEED_ERROR?: string;
-//   CONTINUE_WITHOUT_UPLOAD_ERROR?: string;
-//   NO_FILE_UPLOAD_ERROR?: string;
-// };
 
 export const PRL_COS_API_URL: URL_OF_FILE = config.get('services.cos.url');
 
@@ -110,7 +108,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    * @param {Response} res - Response - This is the response object that will be sent back to the client.
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log("inside postdocumentUploader");
+    console.log('inside postdocumentUploader');
     const { files }: AppRequest<AnyObject> = req;
     if (isNull(files)) {
       const errorMessage = 'valdiation error';
@@ -128,35 +126,26 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             filename: documents.name,
           });
           const formHeaders = formData.getHeaders();
-          /**
-           * @RequestHeaders
-           */
           const Headers = {
             Authorization: `Bearer ${req.session.user['accessToken']}`,
-            ServiceAuthorization: 'Bearer' + getServiceAuthToken(),
+            ServiceAuthorization: 'Bearer ' + (await getServiceAuthTokenForPRLCitizen()),
           };
           try {
-            const RequestDocument = await this.UploadDocumentInstance(PRL_COS_API_URL, Headers).post(
-              `/generate-citizen-statement-document`,
-              formData,
-              {
-                headers: {
-                  ...formHeaders,
-                },
-              }
-            );
-
-            const uploadedDocument = RequestDocument.data.document;
-            req.session['caseDocuments'].push(uploadedDocument);
-            req.session['errors'] = undefined;
-            this.redirect(req, res, C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD);
+            const requestDocument = await this.UploadDocumentInstance(
+              'https://prl-cos-pr-539.service.core-compute-preview.internal',
+              Headers
+            ).post('/upload-citizen-statement-document', formData, {
+              headers: {
+                ...formHeaders,
+              },
+            });
+            res.json({ requestDocument: requestDocument['data'] });
           } catch (error) {
-            Logger.error(error);
+            res.json(error);
           }
         }
       }
     }
-    res.json({ msg: 'welcome' });
   }
 
   /* It's a function that creates an instance of the axios library. */
@@ -166,6 +155,9 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       headers: header,
       maxContentLength: Infinity,
       maxBodyLength: Infinity,
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
     });
   };
 
