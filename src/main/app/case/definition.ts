@@ -99,12 +99,28 @@ export interface PartyDetails {
   addressLivedLessThan5YearsDetails: string;
   otherPersonRelationshipToChildren: string[];
   isAtAddressLessThan5YearsWithDontKnow: string;
+  response: Response;
+  user: User;
 }
 
 export interface Applicant {
   id: string;
   value: PartyDetails;
 }
+export interface User {
+  email: string,
+  idamId: string
+}
+
+export interface CitizenFlags {
+  isApplicationViewed: string,
+  isAllegationOfHarmViewed: string
+}
+
+export interface Response {
+  citizenFlags: CitizenFlags
+}
+
 
 export interface CaseStatus {
   state: string;
