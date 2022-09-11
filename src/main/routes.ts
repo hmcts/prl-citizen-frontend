@@ -5,11 +5,8 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
-import { ConsentGetController } from './app/controller/ConsentGetController';
-import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
-import { SaveRespondentResponseController } from './app/controller/SaveRespondentResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -18,6 +15,9 @@ import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { GetCaseController } from './steps/prl-cases/dashboard/GetCaseController';
+import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
+import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -63,7 +63,7 @@ export class Routes {
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
-    app.get(`${CONSENT_SAVE}`, errorHandler(new SaveRespondentResponseController().save));
+    app.get(`${CONSENT_SAVE}`, errorHandler(new ConsentPostController().save));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
 

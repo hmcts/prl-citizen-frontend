@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {
@@ -21,13 +21,21 @@ export const getConfirmOrEditYourContactDetails = (userCase: Partial<CaseWithId>
   return SectionStatus.TO_DO;
 };
 
-export const getConsentToApplicationStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (userCase?.doYouConsent && userCase?.applicationReceivedDate && userCase?.courtPermission) {
-    return SectionStatus.COMPLETED;
-  }
-  if (userCase?.doYouConsent || userCase?.applicationReceivedDate || userCase?.courtPermission) {
-    return SectionStatus.IN_PROGRESS;
-  }
+export const getConsentToApplicationStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (respondent?.value.user?.idamId === userIdamId) {
+      const consent = respondent?.value?.response?.consent;
+      if (consent?.consentToTheApplication && consent?.applicationReceivedDate && consent?.permissionFromCourt) {
+        return SectionStatus.COMPLETED;
+      }
+      if (consent?.consentToTheApplication || consent?.applicationReceivedDate || consent?.permissionFromCourt) {
+        return SectionStatus.IN_PROGRESS;
+      }
+    }
+  });
   return SectionStatus.TO_DO;
 };
 

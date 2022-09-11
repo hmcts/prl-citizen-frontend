@@ -13,7 +13,7 @@ import {
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   return [
     {
       title: sectionTitles.consentToTheApplication,
@@ -21,7 +21,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'consent-to-the-application',
           text: taskListItems.do_you_consent_to_the_application,
-          status: getConsentToApplicationStatus(userCase),
+          status: getConsentToApplicationStatus(userCase, userIdamId),
           href: URL.CONSENT_TO_APPLICATION + '/' + userCase.id,
         },
       ],

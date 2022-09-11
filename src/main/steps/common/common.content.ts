@@ -107,6 +107,7 @@ const en = {
   apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
+  onlyContinue: 'Continue',
 };
 
 const cy: typeof en = {
@@ -184,6 +185,7 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  onlyContinue: 'Continue (in welsh)',
 };
 
 export const generatePageContent = ({
@@ -196,6 +198,7 @@ export const generatePageContent = ({
   name,
   document_type,
   addresses = [],
+  userIdamId,
 }: // eligibility,
 // fee,
 {
@@ -208,6 +211,7 @@ export const generatePageContent = ({
   userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
   name?: string;
+  userIdamId?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -226,7 +230,7 @@ export const generatePageContent = ({
     addresses,
     caption,
     document_type,
-
+    userIdamId,
     // contactEmail,
     // eligibility,
     // fee,
@@ -259,6 +263,7 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   // eligibility?: Eligibility;
   // fee?: Fee;
+  userIdamId?: string;
 };
 
 export type Language = 'en' | 'cy';
