@@ -25,8 +25,7 @@ def secrets = [
     secret('prl-citizen-frontend-idam-client-secret', 'CITIZEN_IDAM_SECRET'),
     secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
     secret('postcode-lookup-token', 'POSTCODE_TOKEN'),
-    secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL')
-
+    secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL'),
   ]
 ]
 
