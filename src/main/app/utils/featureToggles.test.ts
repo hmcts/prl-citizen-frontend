@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 
 import { FeatureToggles } from '../../../main/app/utils/featureToggles';
+import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 
 describe('FeatureToggles', () => {
   describe('isAnyEnabled', () => {
@@ -10,6 +11,16 @@ describe('FeatureToggles', () => {
 
     it('should throw an error if toggle does not exist', () => {
       expect(() => FeatureToggles.isAnyEnabled('one', 'two', 'three')).to.throw(Error);
+    });
+  });
+
+  describe('hasAnyAuthorisedFeature', () => {
+    it('should throw an error when no feature names are provided', () => {
+      expect(() => FeatureToggles.hasAnyAuthorisedFeature(['one'])).to.throw(Error);
+    });
+
+    it('should throw an error if toggle does not exist', () => {
+      expect(() => FeatureToggles.hasAnyAuthorisedFeature([])).to.throw(Error);
     });
   });
 
