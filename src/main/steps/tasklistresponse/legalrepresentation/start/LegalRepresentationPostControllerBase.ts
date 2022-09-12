@@ -46,7 +46,6 @@ export default class LegalRepresentationPostControllerBase extends PostControlle
           respondent.value.response.legalRepresentation = formData.legalRepresentation;
         }
       });
-      console.log(JSON.stringify(req.session.userCase?.respondents));
 
       const eventId = 'consentToTheApplication';
       const caseworkerUser = await getSystemUser();
