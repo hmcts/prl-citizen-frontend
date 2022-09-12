@@ -3,7 +3,7 @@ import fs from 'fs';
 import { Application } from 'express';
 import multer from 'multer';
 
-import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
+//import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -12,10 +12,10 @@ import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
-import { ErrorController } from './steps/error/error.controller';
+//import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { SaveSignOutGetController } from './steps/save-sign-out/get';
+//import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 // import { RespondentTaskListGetController } from './steps/respondent/task-list/get';
 import {
@@ -27,16 +27,16 @@ import {
   APPLICANT_ORDERS_FROM_THE_COURT,
   CONTACT_US,
   COOKIES_PAGE,
-  CSRF_TOKEN_ERROR_URL,
+  //CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
   HOME_URL,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
-  RESPONDENT_TASK_LIST_URL,
-  SAVE_AND_SIGN_OUT,
+  //RESPONDENT_TASK_LIST_URL,
+  //SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
-  TIMED_OUT_URL,
+  //TIMED_OUT_URL,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
 } from './steps/urls';
@@ -46,7 +46,7 @@ const handleUploads = multer();
 export class Routes {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
-    const errorController = new ErrorController();
+    //const errorController = new ErrorController();
 
     // app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
