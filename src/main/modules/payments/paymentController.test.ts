@@ -24,14 +24,21 @@ const res = mockResponse({});
 
 describe('PaymentHandler', () => {
   test('Should render the page', async () => {
-    await PaymentHandler(req, res);
+    const paymentDetailsRequestBody = {
+      caseId: dummyCaseID,
+      returnUrl: 'http://localhost:3001/payment/reciever/callback',
+      applicantCaseName: 'Test',
+    };
     mockedAxios.post.mockResolvedValue({
       data: {
-        feeAmountForC100Application: '232',
-        errorRetrievingResponse: '',
+        ...paymentDetailsRequestBody,
       },
     });
-    expect(1).toBe(1);
+    await PaymentHandler(req, res);
+    expect(res.send).toHaveBeenCalledTimes(0);
+    expect(res.render).toHaveBeenCalledTimes(0);
+    expect(res.redirect).toHaveBeenCalledTimes(1);
+    expect(res.send.mock.calls).toHaveLength(0);
   });
 });
 
