@@ -17,9 +17,19 @@ export default class EmergencyDocumentUpload extends GetController {
     super(view, content);
   }
 
+  public async removeDocument(req: AppRequest): Promise<void> {
+    const { removeId } = req.query;
+    console.log(removeId);
+    //invoke call and session;
+  }
+
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
       return;
+    }
+
+    if (req.query.hasOwnProperty('removeId')) {
+      this.removeDocument(req);
     }
 
     const { orderType } = req.query;

@@ -63,7 +63,7 @@
 
   </div>
 
-  {% if document.id != undefined %}
+  {% if document.id !== undefined %}
   <div id="uploadGroup" tabindex="0" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
     <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
@@ -71,7 +71,7 @@
         <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
           {{ document.document_filename }} 
           {% set documentId = document.id %}
-          <a href="" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
+          <a href="{{postURL}}?removeId={{orderType}}" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
         </li>
     </ul>
   </div>   
