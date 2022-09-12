@@ -21,7 +21,7 @@
 {%endif%}
 
 
-  <h1 class="govuk-heading-xl">{{title}} {{orderType}}</h1>
+  <h1 class="govuk-heading-xl">{{title}} {{orderType | orderStringParser}}</h1>
   <p class="govuk-body">{{ youNeed }}</p>
   <p class="govuk-body">{{ youNeed2 }}</p>
 

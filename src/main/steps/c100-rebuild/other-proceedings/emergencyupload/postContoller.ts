@@ -136,7 +136,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     );
     if (checkIfOrderExist && checkIfOrderExist.length > 0) {
       req.session.errors = [{ propertyName: 'document', errorType: 'required' }];
-      res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + 'orderType=' + orderType);
+      res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + '?orderType=' + orderType);
     }
   };
 
