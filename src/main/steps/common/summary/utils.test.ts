@@ -1,6 +1,6 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { FieldPrefix } from '../../../app/case/case';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
+
 import { SummaryList, summaryList } from './utils';
 
 const enContent = {
@@ -90,20 +90,18 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      const role = 'APPLICANT' as FieldPrefix;
       const result: SummaryList | undefined = summaryList(
         enContent,
         userCase,
         urls,
         'applicationDetails',
         enContent.fieldType,
-        'en',
-        role
+        'en'
       );
       console.log(' result ======>' + JSON.stringify(result));
-      expect(
-        summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en', role)
-      ).toStrictEqual(expected);
+      expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
+        expected
+      );
     });
   });
 });

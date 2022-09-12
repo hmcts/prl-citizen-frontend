@@ -6,6 +6,8 @@ const en = {
   title: 'Your contact details',
   phoneNumber: 'UK telephone number',
   email: 'Email address',
+  applicant1SafeToCall: 'When it is safe to call you (optional)',
+  safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',
   errors: {
     phoneNumber: {
@@ -23,6 +25,8 @@ const cy: typeof en = {
   title: 'Eich manylion cyswllt',
   phoneNumber: 'Rhif ffôn y DU',
   email: 'Cyfeiriad ebost',
+  applicant1SafeToCall: 'When it is safe to call you (optional)',
+  safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',
   errors: {
     phoneNumber: {
@@ -56,6 +60,13 @@ export const form: FormContent = {
       label: l => l.email,
       labelSize: null,
       validator: value => isFieldFilledIn(value) || isEmailValid(value),
+    },
+    applicant1SafeToCall: {
+      type: 'text',
+      classes: 'govuk-input--width-20',
+      hint: l => l.safeToCallHint,
+      label: l => l.applicant1SafeToCall,
+      labelSize: null,
     },
   },
   submit: {

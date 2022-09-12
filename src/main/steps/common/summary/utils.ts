@@ -90,9 +90,7 @@ export const summaryList = (
       value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
-    if (prefix === 'APPLICANT') {
-      summaryData.push(row);
-    } else if (key !== 'applicant1SafeToCall') {
+    if (key !== 'applicant1SafeToCall') {
       summaryData.push(row);
     }
   }
