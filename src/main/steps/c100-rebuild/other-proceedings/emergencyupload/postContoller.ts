@@ -114,7 +114,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             this.removeExistedDocument(courtOrderType, req);
             req.session.userCase.emergencyuploadedDocuments = [documentData];
             req.session.save(() => {
-              res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD);
+              const redirectURL = C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + `?orderType=${orderType}`;
+              res.redirect(redirectURL);
             });
           } catch (error) {
             res.json(error);
