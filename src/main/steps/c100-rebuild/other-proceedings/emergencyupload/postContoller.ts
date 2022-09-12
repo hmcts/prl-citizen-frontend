@@ -129,25 +129,34 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   }
 
   public removeExistedDocument = async (orderType: string, req: AppRequest, res: Response): Promise<void> => {
-  
-    try {
-      const Headers = {
-        Authorization: `Bearer ${req.session.user['accessToken']}`,
-        ServiceAuthorization: 'Bearer ' + (await getServiceAuthTokenForPRLCitizen()),
-      };
-      if (req.session.userCase.hasOwnProperty('emergencyuploadedDocuments')) {
-        const docId = req.session.userCase.emergencyuploadedDocuments?.filter(
-          document => document.orderType === orderType
-        )[0].id;
-        const deleteDocumentPath = `/${docId}/delete`;
-        await this.DeleteDocumentInstance(DOCUMENT_UPLOAD_URL, Headers).delete(deleteDocumentPath);
-      }
-    } catch (error) {
-      res.json(error);
-    }
-    req.session.userCase['emergencyuploadedDocuments'] = req.session.userCase['emergencyuploadedDocuments']?.filter(
-      document => document.orderType !== orderType
+    const checkIfOrderExist = req.session.userCase.emergencyuploadedDocuments?.filter(
+      document => document.orderType === orderType
     );
+    if (checkIfOrderExist && checkIfOrderExist.length > 0) {
+      try {
+        const Headers = {
+          Authorization: `Bearer ${req.session.user['accessToken']}`,
+          ServiceAuthorization: 'Bearer ' + (await getServiceAuthTokenForPRLCitizen()),
+        };
+        if (req.session.userCase.hasOwnProperty('emergencyuploadedDocuments')) {
+          const docId = req.session.userCase.emergencyuploadedDocuments?.filter(
+            document => document.orderType === orderType
+          )[0].id;
+          const deleteDocumentPath = `/${docId}/delete`;
+          await this.DeleteDocumentInstance(DOCUMENT_UPLOAD_URL, Headers).delete(deleteDocumentPath);
+          req.session.userCase['emergencyuploadedDocuments'] = req.session.userCase[
+            'emergencyuploadedDocuments'
+          ]?.filter(document => document.orderType !== orderType);
+          req.session.save(err => {
+            if (err) {
+              throw err;
+            }
+          });
+        }
+      } catch (error) {
+        res.json(error);
+      }
+    }
   };
 
   /* It's a function that creates an instance of the axios library. */
