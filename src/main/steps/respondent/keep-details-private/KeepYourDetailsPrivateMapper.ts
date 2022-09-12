@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../app/case/case';
 import { ConfidentialityList, KeepDetailsPrivate, Respondent, YesOrNo } from '../../../app/case/definition';
 import type { AppRequest } from '../../../app/controller/AppRequest';
 
@@ -9,8 +10,6 @@ export const setKeepYourDetailsPrivate = (respondent: Respondent, req: AppReques
     req.session.userCase.contactDetailsPrivate.forEach(element => {
       confidentialityList.push(ConfidentialityList[element]);
     });
-
-    console.log(confidentialityList);
   }
 
   if (respondent?.value?.response && respondent?.value?.response?.keepDetailsPrivate) {
@@ -30,24 +29,19 @@ export const setKeepYourDetailsPrivate = (respondent: Respondent, req: AppReques
   return respondent;
 };
 
-// export const getConsentDetails = (respondent: Respondent, req: AppRequest): Partial<CaseWithId> => {
-//   if (respondent?.value?.response?.consent?.consentToTheApplication === YesOrNo.NO) {
-//     req.session.userCase.doYouConsent = YesOrNo.NO;
-//     req.session.userCase.reasonForNotConsenting = respondent?.value?.response?.consent.noConsentReason;
-//   } else {
-//     req.session.userCase.doYouConsent = YesOrNo.YES;
-//     req.session.userCase.reasonForNotConsenting = '';
-//   }
-//   if (respondent?.value?.response?.consent?.permissionFromCourt === YesOrNo.NO) {
-//     req.session.userCase.courtPermission = YesOrNo.NO;
-//     req.session.userCase.courtOrderDetails = '';
-//   } else {
-//     req.session.userCase.courtPermission = YesOrNo.YES;
-//     req.session.userCase.courtOrderDetails = respondent?.value?.response?.consent?.courtOrderDetails;
-//   }
-//   req.session.userCase.applicationReceivedDate = fromApiDate(
-//     respondent?.value?.response?.consent?.applicationReceivedDate
-//   );
+export const getKeepYourDetailsPrivate = (respondent: Respondent, req: AppRequest): Partial<CaseWithId> => {
+  req.session.userCase.detailsKnown = respondent.value?.response.keepDetailsPrivate?.otherPeopleKnowYourContactDetails;
+  req.session.userCase.startAlternative = respondent.value?.response.keepDetailsPrivate?.confidentiality;
+  const confidentialityList: string[] = [];
+  if (
+    respondent.value?.response.keepDetailsPrivate?.confidentiality === YesOrNo.YES &&
+    respondent.value.response.keepDetailsPrivate.confidentialityList
+  ) {
+    respondent.value.response.keepDetailsPrivate.confidentialityList.forEach(element => {
+      confidentialityList.push(ConfidentialityList[element]);
+    });
+    req.session.userCase.contactDetailsPrivate = confidentialityList;
+  }
 
-//   return req.session.userCase;
-// };
+  return req.session.userCase;
+};

@@ -1,14 +1,23 @@
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
-export const getKeepYourDetailsPrivateStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (userCase?.detailsKnown && userCase?.startAlternative) {
-    return SectionStatus.COMPLETED;
-  }
-  if (userCase?.detailsKnown || userCase?.startAlternative) {
-    return SectionStatus.IN_PROGRESS;
-  }
-  return SectionStatus.TO_DO;
+export const getKeepYourDetailsPrivateStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  let status = SectionStatus.TO_DO;
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (respondent?.value.user?.idamId === userIdamId) {
+      const keepDetailsPrivate = respondent?.value?.response?.keepDetailsPrivate;
+      if (keepDetailsPrivate?.confidentiality && keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+        status = SectionStatus.COMPLETED;
+      } else if (keepDetailsPrivate?.confidentiality || keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+        status = SectionStatus.IN_PROGRESS;
+      }
+    }
+  });
+
+  return status;
 };
 
 export const getConfirmOrEditYourContactDetails = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {

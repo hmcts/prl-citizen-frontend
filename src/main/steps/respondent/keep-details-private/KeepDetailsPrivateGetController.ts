@@ -5,11 +5,11 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
-import { CONSENT_TO_APPLICATION } from '../../urls';
+import { RESPONDENT_DETAILS_KNOWN } from '../../urls';
 
-import { getConsentDetails } from './ConsentMapper';
+import { getKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
-export class ConsentGetController extends GetController {
+export class KeepDetailsPrivateGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const caseworkerUser = await getSystemUser();
     const caseReference = req.params?.caseId;
@@ -23,12 +23,12 @@ export class ConsentGetController extends GetController {
       if (
         respondent?.value?.user?.idamId === req.session?.user.id &&
         respondent?.value?.response &&
-        respondent?.value?.response?.consent &&
-        respondent?.value?.response?.consent?.consentToTheApplication
+        respondent?.value?.response?.keepDetailsPrivate &&
+        respondent?.value?.response?.keepDetailsPrivate?.confidentiality
       ) {
-        Object.assign(req.session.userCase, getConsentDetails(respondent, req));
+        Object.assign(req.session.userCase, getKeepYourDetailsPrivate(respondent, req));
       }
     });
-    req.session.save(() => res.redirect(CONSENT_TO_APPLICATION));
+    req.session.save(() => res.redirect(RESPONDENT_DETAILS_KNOWN));
   }
 }

@@ -18,6 +18,7 @@ import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
+import { KeepDetailsPrivateGetController } from './steps/respondent/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/respondent/keep-details-private/KeepDetailsPrivatePostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
@@ -39,6 +40,7 @@ import {
   HOME_URL,
   PRIVACY_POLICY,
   RESPONDENT,
+  RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
@@ -71,8 +73,6 @@ export class Routes {
 
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
 
-    app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
-
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
@@ -83,6 +83,14 @@ export class Routes {
       if (step && getController) {
         app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
       }
+      app.get(
+        `${CONSENT_TO_APPLICATION}/:caseId`,
+        errorHandler(new ConsentGetController(step.view, step.generateContent).get)
+      );
+      app.get(
+        `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
+        errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
+      );
 
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
