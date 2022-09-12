@@ -24,7 +24,7 @@ export const generateContent: TranslationFn = content => {
   const en = () => {
     return {
       serviceName: 'Application upload',
-      title: 'Upload Emergency Protection Orders 1',
+      title: 'Upload Emergency Protection Orders ',
       youNeed:
         'If you are uploading documents from a computer, name the files clearly. For example, emergency-protection-order.doc.',
       youNeed2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
@@ -37,13 +37,13 @@ export const generateContent: TranslationFn = content => {
         'Upload it here.',
       ],
       uploadButton: 'Upload file',
-      remove: 'Remove - welsh',
+      remove: 'Remove',
     };
   };
   const cy = () => {
     return {
       serviceName: 'Application upload - (Whelsh)',
-      title: 'Upload Emergency Protection Orders 1 - (Whelsh)',
+      title: 'Upload Emergency Protection Orders  - (Whelsh)',
       youNeed:
         'If you are uploading documents from a computer, name the files clearly. For example, emergency-protection-order.doc. - (Whelsh)',
       youNeed2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.- (Whelsh)',

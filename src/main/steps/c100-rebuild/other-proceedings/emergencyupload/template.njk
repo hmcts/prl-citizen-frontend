@@ -21,7 +21,7 @@
 {%endif%}
 
 
-  <h1 class="govuk-heading-xl">{{title}}</h1>
+  <h1 class="govuk-heading-xl">{{title}} {{orderType}}</h1>
   <p class="govuk-body">{{ youNeed }}</p>
   <p class="govuk-body">{{ youNeed2 }}</p>
 
@@ -63,6 +63,7 @@
 
   </div>
 
+  {% if document.id != undefined %}
   <div id="uploadGroup" tabindex="0" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
     <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
@@ -74,6 +75,7 @@
         </li>
     </ul>
   </div>   
+  {%endif%}
     <p class="govuk-body">
     {{ fileFormats }}<br>
     {{ fileSize }}

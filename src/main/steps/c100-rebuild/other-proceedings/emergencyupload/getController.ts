@@ -50,8 +50,8 @@ export default class EmergencyDocumentUpload extends GetController {
     if (req.session?.errors) {
       req.session.errors = undefined;
     }
-    super.clearConfidentialitySessionSaveData(req);
 
+    super.clearConfidentialitySessionSaveData(req);
     res.render(this.view, {
       ...content,
       sessionErrors,

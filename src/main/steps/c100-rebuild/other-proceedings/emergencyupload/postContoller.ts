@@ -111,8 +111,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               document_filename,
               document_binary_url,
             };
-            this.removeExistedDocument(courtOrderType, req);
-            req.session.userCase.emergencyuploadedDocuments = [documentData];
+            this.removeExistedDocument(courtOrderType, req, res);
+            req.session.userCase.emergencyuploadedDocuments = [
+              ...(req.session.userCase.emergencyuploadedDocuments as []),
+              documentData,
+            ];
             req.session.save(() => {
               const redirectURL = C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + `?orderType=${orderType}`;
               res.redirect(redirectURL);
@@ -125,8 +128,23 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
   }
 
-  public removeExistedDocument = async (orderType: string, req: AppRequest): Promise<void> => {
-    // invoke an api call;
+  public removeExistedDocument = async (orderType: string, req: AppRequest, res: Response): Promise<void> => {
+  
+    try {
+      const Headers = {
+        Authorization: `Bearer ${req.session.user['accessToken']}`,
+        ServiceAuthorization: 'Bearer ' + (await getServiceAuthTokenForPRLCitizen()),
+      };
+      if (req.session.userCase.hasOwnProperty('emergencyuploadedDocuments')) {
+        const docId = req.session.userCase.emergencyuploadedDocuments?.filter(
+          document => document.orderType === orderType
+        )[0].id;
+        const deleteDocumentPath = `/${docId}/delete`;
+        await this.DeleteDocumentInstance(DOCUMENT_UPLOAD_URL, Headers).delete(deleteDocumentPath);
+      }
+    } catch (error) {
+      res.json(error);
+    }
     req.session.userCase['emergencyuploadedDocuments'] = req.session.userCase['emergencyuploadedDocuments']?.filter(
       document => document.orderType !== orderType
     );
@@ -139,6 +157,16 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       headers: header,
       maxContentLength: Infinity,
       maxBodyLength: Infinity,
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    });
+  };
+
+  public DeleteDocumentInstance = (BASEURL: string, headers: AxiosRequestHeaders): AxiosInstance => {
+    return axios.create({
+      baseURL: BASEURL,
+      headers,
       httpsAgent: new https.Agent({
         rejectUnauthorized: false,
       }),
