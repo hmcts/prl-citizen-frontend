@@ -17,9 +17,7 @@ import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
-
 import { TimedOutGetController } from './steps/timed-out/get';
-
 import {
   ACCESSIBILITY_STATEMENT,
   ALLEGATION_OF_HARM_VOILENCE,
@@ -29,18 +27,18 @@ import {
   APPLICANT_ORDERS_FROM_THE_COURT,
   CONTACT_US,
   COOKIES_PAGE,
-  DOCUMENT_MANAGER,
   CSRF_TOKEN_ERROR_URL,
+  DOCUMENT_MANAGER,
   HOME_URL,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
+  SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
+  TIMED_OUT_URL,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
-  SAVE_AND_SIGN_OUT,
-  TIMED_OUT_URL,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -49,7 +47,6 @@ export class Routes {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
-
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
 
@@ -65,7 +62,6 @@ export class Routes {
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
 
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
-
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
