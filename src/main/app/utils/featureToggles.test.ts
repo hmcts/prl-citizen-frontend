@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 
 import { FeatureToggles } from '../../../main/app/utils/featureToggles';
-import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 
 describe('FeatureToggles', () => {
   describe('isAnyEnabled', () => {
