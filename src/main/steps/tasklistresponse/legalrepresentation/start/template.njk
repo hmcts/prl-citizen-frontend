@@ -15,10 +15,10 @@
     
     <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
 
-    {% if userCase.legalrepresentation == 'Yes' %}
+    {% if userCase.legalRepresentation == 'Yes' %}
     {{ govukRadios({
-    idPrefix: "legalrepresentation",
-    name: "legalrepresentation",
+    idPrefix: "legalRepresentation",
+    name: "legalRepresentation",
     fieldset: {
       legend: {
         text: "",
@@ -42,10 +42,10 @@
     }
   }) }}
 
-    {% elif userCase.legalrepresentation == 'No' %}
+    {% elif userCase.legalRepresentation == 'No' %}
     {{ govukRadios({
-    idPrefix: "legalrepresentation",
-    name: "legalrepresentation",
+    idPrefix: "legalRepresentation",
+    name: "legalRepresentation",
     fieldset: {
       legend: {
         text: "",
@@ -72,8 +72,8 @@
     {% else %}
 
     {{ govukRadios({
-    idPrefix: "legalrepresentation",
-    name: "legalrepresentation",
+    idPrefix: "legalRepresentation",
+    name: "legalRepresentation",
     fieldset: {
       legend: {
         text: "",

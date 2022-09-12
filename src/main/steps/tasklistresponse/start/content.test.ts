@@ -44,7 +44,7 @@ describe('task-list > content', () => {
     {
       userCase: {
         ...mockUserCase,
-        legalrepresentation: YesOrNo.NO,
+        legalRepresentation: YesOrNo.NO,
       },
       expected: [
         {

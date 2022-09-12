@@ -2,7 +2,7 @@ import { CaseWithId } from '../../../app/case/case';
 import { SectionStatus, YesOrNo } from '../../../app/case/definition';
 
 export const getLegalRepresentationStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (userCase?.legalrepresentation) {
+  if (userCase?.legalRepresentation) {
     return SectionStatus.COMPLETED;
   }
   return SectionStatus.TO_DO;

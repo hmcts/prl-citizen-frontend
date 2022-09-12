@@ -17,6 +17,7 @@ import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
+//import LegalRepresentationGetController from './steps/tasklistresponse/legalRepresentation/start/LegalRepresentationGetController';
 import LegalRepresentationPostControllerBase from './steps/tasklistresponse/legalrepresentation/start/LegalRepresentationPostControllerBase';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -112,7 +113,11 @@ export class Routes {
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
-        app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));        
+        // app.get(
+        //   LEGAL_REPRESENTATION_START,
+        //   errorHandler(new LegalRepresentationGetController(step.view, step.generateContent).get)
+        // );
       }
     }
   }

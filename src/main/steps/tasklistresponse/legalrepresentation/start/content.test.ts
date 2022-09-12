@@ -24,7 +24,7 @@ const enContent = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    legalrepresentation: {
+    legalRepresentation: {
       required: 'Enter your answer',
     },
   },
@@ -39,7 +39,7 @@ const cyContent = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    legalrepresentation: {
+    legalRepresentation: {
       required: 'Enter your answer',
     },
   },

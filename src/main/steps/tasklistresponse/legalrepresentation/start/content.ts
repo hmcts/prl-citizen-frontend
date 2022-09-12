@@ -12,7 +12,7 @@ const en = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    legalrepresentation: {
+    legalRepresentation: {
       required: 'Enter your answer',
     },
   },
@@ -27,7 +27,7 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    legalrepresentation: {
+    legalRepresentation: {
       required: 'Enter your answer',
     },
   },
