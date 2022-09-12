@@ -13,10 +13,10 @@ const en = {
   miamSubFields: miam_collapse_content_en,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  onlyContinue: 'Save and continue',
   errors: {
     miamStart: {
-      required: 'Enter your details known',
+      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',
     },
   },
 };
@@ -30,10 +30,10 @@ const cy: typeof en = {
   miamSubFields: miam_collapse_content_cy,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  onlyContinue: 'Save and continue',
   errors: {
     miamStart: {
-      required: 'Enter your details known',
+      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',
     },
   },
 };
@@ -66,8 +66,8 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  submit: {
-    text: l => l.continue,
+  onlyContinue: {
+    text: l => l.onlyContinue,
   },
 };
 

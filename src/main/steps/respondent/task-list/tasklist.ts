@@ -77,8 +77,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'view-all-documents',
           text: taskListItems.view_all_documents,
-          status: getViewAllDocuments(userCase),
-          href: getViewAllDocuments(userCase) === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
+          status: getViewAllDocuments(),
+          href: getViewAllDocuments() === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
         },
         {
           id: 'upload-document',
