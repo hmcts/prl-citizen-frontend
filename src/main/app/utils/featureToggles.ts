@@ -32,11 +32,4 @@ export class FeatureToggles {
     }
     return featureNames.some(featureName => toBoolean(config.get<boolean>(`featureToggles.${featureName}`)));
   }
-
-  async isTestFlagEnabled(): Promise<boolean> {
-    return this.launchDarklyClient.serviceVariation(
-      'test-flag',
-      toBoolean(config.get<boolean>('featureToggles.testFlag'))
-    );
-  }
 }
