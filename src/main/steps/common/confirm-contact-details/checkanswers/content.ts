@@ -17,6 +17,7 @@ export const enContent = {
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
     applicant1EmailAddress: 'Email',
+    applicant1SafeToCall: 'When it is safe to call you (optional)',
   },
   errors: {},
 };
@@ -48,6 +49,7 @@ const cyContent: typeof enContent = {
     addressHistory: 'Address history',
     applicant1PhoneNumber: 'Phone number',
     applicant1EmailAddress: 'Email',
+    applicant1SafeToCall: 'When it is safe to call you (optional)',
   },
   errors: {},
 };
@@ -60,6 +62,7 @@ const urls = {
   addressHistory: 'addresshistory',
   applicant1PhoneNumber: 'contactdetails',
   applicant1EmailAddress: 'contactdetails',
+  applicant1SafeToCall: 'contactdetails',
 };
 const fieldType = {
   applicant1FullName: 'String',
@@ -69,6 +72,7 @@ const fieldType = {
   addressHistory: 'String',
   applicant1PhoneNumber: 'String',
   applicant1EmailAddress: 'String',
+  applicant1SafeToCall: 'String',
 };
 
 const cy: typeof en = (content: CommonContent) => {

@@ -1,7 +1,7 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
-import { summaryList } from './utils';
+import { SummaryList, summaryList } from './utils';
 
 const enContent = {
   section: 'Check your details',
@@ -90,6 +90,15 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      const result: SummaryList | undefined = summaryList(
+        enContent,
+        userCase,
+        urls,
+        'applicationDetails',
+        enContent.fieldType,
+        'en'
+      );
+      console.log(' result ======>' + JSON.stringify(result));
       expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
         expected
       );
