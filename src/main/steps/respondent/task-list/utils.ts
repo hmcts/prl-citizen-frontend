@@ -25,18 +25,18 @@ export const getConsentToApplicationStatus = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string
 ): SectionStatus => {
+  let status = SectionStatus.TO_DO;
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (respondent?.value.user?.idamId === userIdamId) {
       const consent = respondent?.value?.response?.consent;
       if (consent?.consentToTheApplication && consent?.applicationReceivedDate && consent?.permissionFromCourt) {
-        return SectionStatus.COMPLETED;
-      }
-      if (consent?.consentToTheApplication || consent?.applicationReceivedDate || consent?.permissionFromCourt) {
-        return SectionStatus.IN_PROGRESS;
+        status = SectionStatus.COMPLETED;
+      } else if (consent?.consentToTheApplication || consent?.applicationReceivedDate || consent?.permissionFromCourt) {
+        status = SectionStatus.IN_PROGRESS;
       }
     }
   });
-  return SectionStatus.TO_DO;
+  return status;
 };
 
 export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
