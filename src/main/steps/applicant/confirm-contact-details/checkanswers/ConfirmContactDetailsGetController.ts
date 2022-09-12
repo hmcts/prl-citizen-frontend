@@ -15,10 +15,6 @@ export default class ConfirmContactDetailsGetController extends GetController {
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
     }
 
-    //req.session.userCase.applicant1FirstNames = 'John';
-    //req.session.userCase.applicant1LastNames = 'Smith';
-    //req.session.userCase.applicant1PlaceOfBirth = 'London';
-
     if (!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames) {
       req.session.userCase.applicant1FullName = '<span class="govuk-error-message">Complete this section</span>';
     } else {

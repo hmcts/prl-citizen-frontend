@@ -31,7 +31,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
 };
 
 const getRemainingTaskList = (sectionTitles, taskListItems, userCase) => {
-  if (userCase.legalrepresentation === YesOrNo.NO) {
+  if (userCase?.legalrepresentation === YesOrNo.NO) {
     return [
       {
         title: sectionTitles.consentToTheApplication,

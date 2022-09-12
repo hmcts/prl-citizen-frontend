@@ -1,9 +1,108 @@
 {% extends "common/template.njk" %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% block page_content %}
-
 <h1 class="govuk-heading-xl">{{title}}</h1>
+{{ govukInsetText({
+  text: insetText
+}) }}
+<main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+  <form action="" method="post" novalidate="" type="submit">
+    
+    <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
 
-<div class="govuk-inset-text"> {{insetText}} </div>
+    {% if userCase.legalrepresentation == 'Yes' %}
+    {{ govukRadios({
+    idPrefix: "legalrepresentation",
+    name: "legalrepresentation",
+    fieldset: {
+      legend: {
+        text: "",
+        isPageHeading: true if not title,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    items: [
+    {
+      value: "Yes",
+      text: "Yes",
+      checked: true
+    },
+    {
+      value: "No",
+      text: "No"
+    }
+  ],
+    formGroup: {
+      classes: "govuk-fieldset__legend--l"
+    }
+  }) }}
 
+    {% elif userCase.legalrepresentation == 'No' %}
+    {{ govukRadios({
+    idPrefix: "legalrepresentation",
+    name: "legalrepresentation",
+    fieldset: {
+      legend: {
+        text: "",
+        isPageHeading: true if not title,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    items: [
+    {
+      value: "Yes",
+      text: "Yes"
+    },
+    {
+      value: "No",
+      text: "No",
+      checked: true
+    }
+  ],
+    formGroup: {
+      classes: "govuk-fieldset__legend--l"
+    }
+  }) }}
+  
+    {% else %}
+
+    {{ govukRadios({
+    idPrefix: "legalrepresentation",
+    name: "legalrepresentation",
+    fieldset: {
+      legend: {
+        text: "",
+        isPageHeading: true if not title,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    items: [
+    {
+      value: "Yes",
+      text: "Yes"
+    },
+    {
+      value: "No",
+      text: "No"
+    }
+  ],
+    errorMessage: "Please select Yes or No",
+    formGroup: {
+      classes: "govuk-fieldset__legend--l"
+    }
+  }) }}
+{% endif %}
+
+    <button type="submit" formnovalidate="formnovalidate" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">
+      Save and continue
+    </button>
+  </form>
+  <p class="govuk-body"><a href="https://www.gov.uk/find-legal-advice/find-legal-adviser" class="govuk-link" rel="external" target="_blank">Find legal representation</a></p>
+  <p class="govuk-body"><a href="https://www.gov.uk/legal-aid" class="govuk-link" rel="external" target="_blank">Do you need legal aid?</a></p>
+</main>
 {% endblock %}

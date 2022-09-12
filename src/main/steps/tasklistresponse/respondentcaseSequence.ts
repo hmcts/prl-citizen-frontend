@@ -11,6 +11,9 @@ import {
   INTERNATIONAL_FACTORS_REQUEST,
   INTERNATIONAL_FACTORS_START,
   INTERNATIONAL_FACTORS_SUMMARY,
+  LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
+  LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
+  LEGAL_REPRESENTATION_START,
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
@@ -36,6 +39,7 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
+  RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
 } from '../urls';
@@ -231,5 +235,30 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => LEGAL_REPRESENTATION_START,
+  },
+  {
+    url: LEGAL_REPRESENTATION_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
+  },
+  {
+    url: LEGAL_REPRESENTATION_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
+  },
+  {
+    url: LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
 ];

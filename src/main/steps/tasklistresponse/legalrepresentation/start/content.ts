@@ -1,7 +1,7 @@
-import { YesOrNo } from '../../../../app/case/definition';
+//import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+//import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   title: 'Will you be using a legal representative to respond to the application?',
@@ -39,26 +39,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    legalrepresentation: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-  },
-  submit: {
-    text: l => l.continue,
-  },
+  fields: {},
 };
 
 export const generateContent: TranslationFn = content => {

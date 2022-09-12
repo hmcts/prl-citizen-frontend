@@ -6,7 +6,9 @@
 
 <div>
 <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
-    <form>
+    <form action="/redirect/tasklistresponse" method="post">
+    <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+
     <h1 class="govuk-heading-xl">Transfer your case to your legal representative</h1> 
     <p class="govuk-body">To tranfer your case to your legal representative, provide them with your Case number.</p>
     <p class="govuk-body">Once your case is passed to your representative, you won't be able to edit your response. They will handle your case and receive any updates from the court.</p>

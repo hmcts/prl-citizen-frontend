@@ -5,8 +5,9 @@
 {% block page_content %}
 <div>
     <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
-         <form >
-         <h1 class="govuk-heading-xl">Complete your response</h1>
+
+    <form action="/redirect/tasklistresponse" method="post">
+    <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">         <h1 class="govuk-heading-xl">Complete your response</h1>
          <p class="govuk-body">Complete your response to the applicant's request for child arrangements.</p>
          <p class="govuk-body">Once you have completed all of the main sections, you will be able to review and submit your answers.</p>
           <h3 class="govuk-heading-m">Transfer your case to your legal representative</h3>

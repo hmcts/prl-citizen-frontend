@@ -17,9 +17,6 @@ import {
   DOMESTIC_ABUSE_RISK,
   DOMESTIC_ABUSE_RISK_NO,
   DRUG_ALCOHOL_TESTS,
-  LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
-  LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
-  LEGAL_REPRESENTATION_START,
   LETTER_FROM_SCHOOL,
   MEDICAL_RECORDS,
   MEDICAL_REPORTS,
@@ -443,28 +440,5 @@ export const respondentCaseSequence: Step[] = [
     url: CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => LEGAL_REPRESENTATION_START,
-  },
-  {
-    url: LEGAL_REPRESENTATION_START,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.legalrepresentation === YesOrNo.YES
-        ? LEGAL_REPRESENTATION_SOLICITOR_DIRECT
-        : LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
-  },
-  {
-    url: LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
-  },
-  {
-    url: LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
   },
 ];

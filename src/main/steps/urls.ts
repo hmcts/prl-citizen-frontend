@@ -242,4 +242,5 @@ export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${CA_DA_SUP
 export const LEGAL_REPRESENTATION_START: PageLink = '/tasklistresponse/legalrepresentation/start';
 export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = '/tasklistresponse/legalrepresentation/solicitordirect';
 export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
-  '/tasklistresponse/legalrepresentation/solicitordirect';
+  '/tasklistresponse/legalrepresentation/solicitornotdirect';
+export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
