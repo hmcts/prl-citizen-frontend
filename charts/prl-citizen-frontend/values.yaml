@@ -27,6 +27,7 @@ nodejs:
         - system-update-user-password
         - idam-solicitor-username
         - idam-solicitor-password
+        - launchDarkly-sdk-key
         - postcode-lookup-token
 idam-pr:
   enabled: false
