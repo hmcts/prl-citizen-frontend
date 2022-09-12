@@ -38,6 +38,12 @@ export const generateContent: TranslationFn = content => {
       ],
       uploadButton: 'Upload file',
       remove: 'Remove',
+      errors: {
+        document: {
+          required:
+            'There is a problem. You can upload only one file. If you wish to upload a new file, delete the existing file and upload a new one',
+        },
+      },
     };
   };
   const cy = () => {
@@ -57,6 +63,12 @@ export const generateContent: TranslationFn = content => {
       ],
       uploadButton: 'Upload file (Whelsh)',
       remove: 'Remove - welsh',
+      errors: {
+        document: {
+          required:
+            'There is a problem. You can upload only one file. If you wish to upload a new file, delete the existing file and upload a new one - welsh',
+        },
+      },
     };
   };
 

@@ -8,6 +8,7 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { getServiceAuthTokenForPRLCitizen } from '../../../../app/auth/service/get-service-auth-token';
+import { EmergencyCourtDocument } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -30,7 +31,7 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   gif: 'image/gif',
 };
 
-export const DOCUMENT_UPLOAD_URL: URL_OF_FILE_UPLOAD = config.get('documentUpload.url');
+export const PRL_COS_URL: URL_OF_FILE_UPLOAD = config.get('documentUpload.url');
 
 export class FileValidations {
   /* This is a static method that is checking the file size. */
@@ -86,13 +87,15 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             contentType: documents.mimetype,
             filename: fileName,
           });
+          const courtOrderType: AnyType | undefined = orderType;
+          this.checkIfDocumentAlreadyExist(courtOrderType, req, res);
           const formHeaders = formData.getHeaders();
           const Headers = {
             Authorization: `Bearer ${req.session.user['accessToken']}`,
             ServiceAuthorization: 'Bearer ' + (await getServiceAuthTokenForPRLCitizen()),
           };
           try {
-            const requestDocument = await this.UploadDocumentInstance(DOCUMENT_UPLOAD_URL, Headers).post(
+            const requestDocument = await this.UploadDocumentInstance(PRL_COS_URL, Headers).post(
               '/upload-citizen-statement-document',
               formData,
               {
@@ -101,9 +104,9 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                 },
               }
             );
+            console.log(requestDocument);
             const responseBody: IDocumentUploadResponse = requestDocument['data'];
             const { document_url, document_filename, document_binary_url } = responseBody['document'];
-            const courtOrderType: AnyType | undefined = orderType;
             const documentData = {
               orderType: courtOrderType,
               id: document_url.split('/')[document_url.split('/').length - 1],
@@ -111,16 +114,15 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               document_filename,
               document_binary_url,
             };
-            this.removeExistedDocument(courtOrderType, req, res);
-            req.session.userCase.emergencyuploadedDocuments = [
-              ...(req.session.userCase.emergencyuploadedDocuments as []),
-              documentData,
-            ];
+            const currentSessionDocument: EmergencyCourtDocument[] =
+              req.session['userCase']['emergencyuploadedDocuments'] || [];
+            req.session.userCase.emergencyuploadedDocuments = [...currentSessionDocument, documentData];
             req.session.save(() => {
               const redirectURL = C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + `?orderType=${orderType}`;
               res.redirect(redirectURL);
             });
           } catch (error) {
+            console.log(error);
             res.json(error);
           }
         }
@@ -128,34 +130,13 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
   }
 
-  public removeExistedDocument = async (orderType: string, req: AppRequest, res: Response): Promise<void> => {
+  public checkIfDocumentAlreadyExist = async (orderType: string, req: AppRequest, res: Response): Promise<void> => {
     const checkIfOrderExist = req.session.userCase.emergencyuploadedDocuments?.filter(
       document => document.orderType === orderType
     );
     if (checkIfOrderExist && checkIfOrderExist.length > 0) {
-      try {
-        const Headers = {
-          Authorization: `Bearer ${req.session.user['accessToken']}`,
-          ServiceAuthorization: 'Bearer ' + (await getServiceAuthTokenForPRLCitizen()),
-        };
-        if (req.session.userCase.hasOwnProperty('emergencyuploadedDocuments')) {
-          const docId = req.session.userCase.emergencyuploadedDocuments?.filter(
-            document => document.orderType === orderType
-          )[0].id;
-          const deleteDocumentPath = `/${docId}/delete`;
-          await this.DeleteDocumentInstance(DOCUMENT_UPLOAD_URL, Headers).delete(deleteDocumentPath);
-          req.session.userCase['emergencyuploadedDocuments'] = req.session.userCase[
-            'emergencyuploadedDocuments'
-          ]?.filter(document => document.orderType !== orderType);
-          req.session.save(err => {
-            if (err) {
-              throw err;
-            }
-          });
-        }
-      } catch (error) {
-        res.json(error);
-      }
+      req.session.errors = [{ propertyName: 'document', errorType: 'required' }];
+      res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + 'orderType=' + orderType);
     }
   };
 
@@ -166,16 +147,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       headers: header,
       maxContentLength: Infinity,
       maxBodyLength: Infinity,
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
-    });
-  };
-
-  public DeleteDocumentInstance = (BASEURL: string, headers: AxiosRequestHeaders): AxiosInstance => {
-    return axios.create({
-      baseURL: BASEURL,
-      headers,
       httpsAgent: new https.Agent({
         rejectUnauthorized: false,
       }),

@@ -71,7 +71,7 @@
         <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
           {{ document.document_filename }} 
           {% set documentId = document.id %}
-          <a href="{{postURL}}?removeId={{orderType}}" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
+          <a href="{{postURL}}?removeId={{documentId}}&orderType={{orderType}}" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
         </li>
     </ul>
   </div>   
