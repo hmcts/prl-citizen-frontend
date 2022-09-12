@@ -9,6 +9,8 @@ export const enContent = {
   title: 'Welcome to Citizen dashboard',
   sectionTitles: {
     yourCAapplication: 'CA Applications made by you',
+    youtCArespondentApplication: 'CA Applications against you',
+    daApplicationsMadeByYou: 'DA Applications made by you',
     daApplicationsAgainstYou: 'DA Applications made against you',
   },
   keys: {},
@@ -17,20 +19,34 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCaseList: Partial<CaseWithId>[] = content.userCaseList || [];
-  const c100CaseList: Partial<CaseWithId>[] = [];
-  const fl401CaseList: Partial<CaseWithId>[] = [];
+  const c100CaseListApplicant: Partial<CaseWithId>[] = [];
+  const c100CaseListRespondent: Partial<CaseWithId>[] = [];
+  const fl401CaseListApplicant: Partial<CaseWithId>[] = [];
+  const fl401CaseListRespondent: Partial<CaseWithId>[] = [];
+  let isRespondent = false;
   for (const userCase of userCaseList || []) {
+    isRespondent = isLinkedToRespondent(userCase);
     if (userCase.caseTypeOfApplication === 'C100') {
-      c100CaseList.push(userCase);
+      if (!isRespondent) {
+        c100CaseListApplicant.push(userCase);
+      } else {
+        c100CaseListRespondent.push(userCase);
+      }
     } else if (userCase.caseTypeOfApplication === 'FL401') {
-      fl401CaseList.push(userCase);
+      if (!isRespondent) {
+        fl401CaseListApplicant.push(userCase);
+      } else {
+        fl401CaseListRespondent.push(userCase);
+      }
     }
   }
   return {
     title: enContent.title,
     sections: [
-      summaryCaseList(c100CaseList, enContent.sectionTitles.yourCAapplication),
-      summaryCaseList(fl401CaseList, enContent.sectionTitles.daApplicationsAgainstYou),
+      summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, isRespondent),
+      summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, isRespondent),
+      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, isRespondent),
+      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, isRespondent),
     ],
   };
 };
@@ -56,3 +72,13 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
+function isLinkedToRespondent(userCase: Partial<CaseWithId>): boolean {
+  for (const caseInviteEmail of userCase.caseInvites || []) {
+    for (const respondent of userCase.respondents || []) {
+      if (caseInviteEmail.value.partyId === respondent.id) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

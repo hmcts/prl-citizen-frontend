@@ -327,8 +327,7 @@ export interface Case {
   respondentName?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
-  respondentCaseInvites?: CaseInvite[];
-  applicantCaseInvites?: CaseInvite[];
+  caseInvites?: CaseInvite[];
   orderCollection?: ListValue<PRLDocument>[];
   documentsGenerated?: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
