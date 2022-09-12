@@ -123,9 +123,16 @@ export interface Consent {
 }
 
 export interface KeepDetailsPrivate {
-  otherPeopleKnowYourContactDetails: string;
-  confidentiality: string;
+  otherPeopleKnowYourContactDetails?: string;
+  confidentiality?: string;
+  confidentialityList?: ConfidentialityList[];
 }
+
+ export enum ConfidentialityList{
+   phoneNumber = 'phoneNumber',
+   email = 'email',
+   address = 'address',
+ }
 
 export interface Applicant {
   id: string;
@@ -531,7 +538,7 @@ export const enum ContactDetails {
 
 export const enum ContactDetailsPrivate {
   EMAIL = 'email',
-  PHONE = 'phone',
+  PHONE = 'phoneNumber',
   ADDRESS = 'address'
 }
 

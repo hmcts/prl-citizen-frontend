@@ -3,24 +3,23 @@ import type { Response } from 'express';
 
 import { getSystemUser } from '../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { Respondent } from '../../../app/case/definition';
+import { Respondent, YesOrNo } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
-import type { AppRequest } from '../../../app/controller/AppRequest';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { RESPONDENT_TASK_LIST_URL } from '../../urls';
+import { RESPONDENT_PRIVATE_DETAILS_CONFIRMED, RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED } from '../../../steps/urls';
 
-import { setConsentDetails } from './ConsentMapper';
+import { setKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
 @autobind
-export class ConsentPostController extends PostController<AnyObject> {
+export class KeepDetailsPrivatePostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
-  public async post(req: AppRequest, res: Response): Promise<void> {
+  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const caseworkerUser = await getSystemUser();
     const caseReference = req.session.userCase.id;
-    let eventId = '';
 
     const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
 
@@ -29,18 +28,26 @@ export class ConsentPostController extends PostController<AnyObject> {
 
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        if (req.url.includes('consent')) {
-          Object.assign(respondent, setConsentDetails(respondent, req));
-          eventId = 'consentToTheApplication';
-        }
+        Object.assign(respondent, setKeepYourDetailsPrivate(respondent, req));
       }
     });
 
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
-    const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference as string, caseData, eventId);
+    const updatedCaseDataFromCos = await client.updateCase(
+      caseworkerUser,
+      caseReference as string,
+      caseData,
+      'keepYourDetailsPrivate'
+    );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
-    req.session.save(() => res.redirect(RESPONDENT_TASK_LIST_URL));
+    let redirectUrl = RESPONDENT_PRIVATE_DETAILS_CONFIRMED;
+
+    if (req.session.userCase.startAlternative === YesOrNo.NO) {
+      redirectUrl = RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED;
+    }
+
+    req.session.save(() => res.redirect(redirectUrl));
   }
 }

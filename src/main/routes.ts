@@ -18,6 +18,7 @@ import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
+import { KeepDetailsPrivatePostController } from './steps/respondent/keep-details-private/KeepDetailsPrivatePostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -38,6 +39,7 @@ import {
   HOME_URL,
   PRIVACY_POLICY,
   RESPONDENT,
+  RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
   SAVE_AND_SIGN_OUT,
@@ -63,7 +65,7 @@ export class Routes {
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
-    app.get(`${CONSENT_SAVE}`, errorHandler(new ConsentPostController().save));
+
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
 
@@ -103,6 +105,11 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(ALLEGATION_OF_HARM_VOILENCE, errorHandler(documentManagerController.get));
+        app.get(`${CONSENT_SAVE}`, errorHandler(new ConsentPostController(step.form.fields).post));
+        app.get(
+          `${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`,
+          errorHandler(new KeepDetailsPrivatePostController(step.form.fields).post)
+        );
       }
     }
   }

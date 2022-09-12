@@ -22,7 +22,7 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[4].url).toBe('/respondent/keep-details-private/start_alternative');
     expect(respondentCaseSequence[4].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[4].getNextStep({})).toBe(
-      '/respondent/keep-details-private/private_details_not_confirmed'
+      '/respondent/keep-details-private/save'
     );
 
     expect(respondentCaseSequence[5].url).toBe('/respondent/keep-details-private/private_details_confirmed');

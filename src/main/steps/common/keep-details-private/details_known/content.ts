@@ -49,22 +49,22 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.one,
-          value: 'Yes',
+          value: 'yes',
         },
         {
           label: l => l.two,
-          value: 'No',
+          value: 'no',
         },
         {
           label: l => l.three,
-          value: 'I',
+          value: 'dontKnow',
         },
       ],
       validator: isFieldFilledIn,
     },
   },
-  submit: {
-    text: l => l.continue,
+  onlyContinue: {
+    text: l => l.onlyContinue,
   },
 };
 
