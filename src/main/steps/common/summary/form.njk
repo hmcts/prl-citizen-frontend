@@ -19,9 +19,7 @@
 
 
 {% block after_fields %}
-{% if (confirmContactDetailsCheckAnswersUrl == 'Yes') %}
   <p class="govuk-hint">If any of the above information is confidential please update the <a href="#">keep your details private section</a></p>
-{% endif %}
-<h2 class="govuk-heading-m govuk-!-margin-top-9">{{submitApplication}}</h2>
+  <h2 class="govuk-heading-m govuk-!-margin-top-9">{{submitApplication}}</h2>
   <p class="govuk-body">{{checkInfoBeforeSubmit}}</p>
 {% endblock %}
