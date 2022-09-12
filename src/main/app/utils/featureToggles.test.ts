@@ -15,7 +15,7 @@ describe('FeatureToggles', () => {
 
   describe('hasAnyAuthorisedFeature', () => {
     it('should throw an error when no feature names are provided', () => {
-      expect(() => FeatureToggles.hasAnyAuthorisedFeature(['one'])).to.throw(Error);
+      expect(() => FeatureToggles.hasAnyAuthorisedFeature(['one'], 'test')).to.throw(Error);
     });
 
     it('should throw an error if toggle does not exist', () => {
