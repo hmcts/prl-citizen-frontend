@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
@@ -8,6 +10,10 @@ const mockToken =
 
 const dummyCaseID = '2122323';
 
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.create = jest.fn(() => mockedAxios);
+
 const req = mockRequest({});
 req.session.user.accessToken = mockToken;
 req.session.userCase.caseId = dummyCaseID;
@@ -17,8 +23,14 @@ req.host = 'localhost:3001';
 const res = mockResponse({});
 
 describe('PaymentHandler', () => {
-  test('testing the payment handler', () => {
-    PaymentHandler(req, res);
+  test('Should render the page', async () => {
+    await PaymentHandler(req, res);
+    mockedAxios.post.mockResolvedValue({
+      data: {
+        feeAmountForC100Application: '232',
+        errorRetrievingResponse: '',
+      },
+    });
     expect(1).toBe(1);
   });
 });
@@ -34,8 +46,16 @@ describe('PaymentValidationHandler', () => {
     status: 'Success',
   };
   req.session.userCase.paymentDetails = paymentDetails;
-  test('ex', () => {
-    PaymentValidationHandler(req, res);
-    expect(1).toBe(1);
+  test('expecting PaymentValidationHandler Controller', async () => {
+    mockedAxios.post.mockResolvedValue({
+      data: {
+        ...paymentDetails,
+      },
+    });
+    await PaymentValidationHandler(req, res);
+    expect(res.send).toHaveBeenCalledTimes(0);
+    expect(res.render).toHaveBeenCalledTimes(0);
+    expect(res.redirect).toHaveBeenCalledTimes(1);
+    expect(res.send.mock.calls).toHaveLength(0);
   });
 });
