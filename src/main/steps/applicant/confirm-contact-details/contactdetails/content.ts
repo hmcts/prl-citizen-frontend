@@ -1,5 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { generateContent as contactDetailsGenerateContent } from '../../../common/confirm-contact-details/contactdetails/content';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 export { form as contactdetailscontent } from '../../../common/confirm-contact-details/contactdetails/content';
 const en = {
@@ -74,10 +75,10 @@ export const form: FormContent = {
   },
 };
 
+export { form } from '../../../common/confirm-contact-details/contactdetails/content';
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const contactDetailsContent = contactDetailsGenerateContent(content);
   return {
-    ...translations,
-    form,
+    ...contactDetailsContent,
   };
 };

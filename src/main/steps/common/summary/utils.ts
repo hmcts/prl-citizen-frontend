@@ -2,10 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import dayjs from 'dayjs';
 
-import { CaseDate, CaseWithId, FieldPrefix } from '../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-import * as Urls from '../../../steps/urls';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -53,7 +52,7 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
     const changeUrl = item.changeUrl;
     return {
       key: { ...(item.key ? { text: item.key } : {}) },
-      value: { ...(item.value ? { text: item.value } : { html: item.valueHtml }) },
+      value: { ...(item.value ? { html: item.value } : {}) },
       ...(changeUrl
         ? {
             actions: {
@@ -80,8 +79,7 @@ export const summaryList = (
   urls: any,
   sectionTitle?: string,
   fieldTypes?: any,
-  language?: string,
-  prefix?: FieldPrefix
+  language?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
@@ -89,7 +87,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: checkIfDataPresent(fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key]),
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
     if (prefix === 'APPLICANT') {
@@ -103,14 +101,6 @@ export const summaryList = (
     title: sectionTitle || '',
     rows: getSectionSummaryList(summaryData, content),
   };
-};
-
-export const checkIfDataPresent = field => {
-  if (field) {
-    return field;
-  } else {
-    return 'Complete this section';
-  }
 };
 
 export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>

@@ -21,7 +21,7 @@ export const getConfirmOrEditYourContactDetails = (userCase: Partial<CaseWithId>
   return SectionStatus.TO_DO;
 };
 
-export const getConsentToApplicationStatus = (userCase: CaseWithId): SectionStatus => {
+export const getConsentToApplicationStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.doYouConsent && userCase?.applicationReceivedDate && userCase?.courtPermission) {
     return SectionStatus.COMPLETED;
   }
@@ -38,7 +38,6 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
   if (userCase?.miamStart || userCase?.miamWillingness) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.TO_DO;
   return SectionStatus.TO_DO;
 };
 
@@ -60,7 +59,7 @@ export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | un
   return SectionStatus.TO_DO;
 };
 
-export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): SectionStatus => {
+export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     userCase?.proceedingsStart &&
     userCase?.proceedingsStartOrder &&
@@ -99,7 +98,7 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: CaseWithId): Sectio
   }
   return SectionStatus.TO_DO;
 };
-export const getYourSafetyStatus = (userCase: CaseWithId): SectionStatus => {
+export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.safetyConcerns) {
     return SectionStatus.COMPLETED;
   }

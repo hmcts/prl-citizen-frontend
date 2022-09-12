@@ -11,9 +11,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentLastName: 'respondentLastName',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
-  //applicant1FirstNames: 'applicant1FirstName',
-  // applicant1LastNames: 'applicant1LastName',
-  //applicant1FullName: 'applicant1FullName',
+  applicant1FirstNames: 'applicant1FirstNames',
+  applicant1LastNames: 'applicant1LastNames',
+  applicant1FullName: 'applicant1FullName',
   applicant1HasOtherNames: 'applicant1HasOtherNames',
   applicant1AdditionalNames: 'applicant1AdditionalNames',
   applicant1DateOfBirth: 'applicant1DateOfBirth',
@@ -57,6 +57,7 @@ export interface Case {
   accessCode?: string;
   detailsKnown?: string;
   startAlternative?: string;
+  contactDetailsPrivate?: string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
@@ -106,8 +107,6 @@ export interface Case {
   underTakingOrderOptions?: YesOrNo;
   underTakingOrder?: orderInterface;
 
-  contactDetailsPrivate?: string;
-
   /***** Applicant1 *****/
   applicant1FullName?: string;
   applicant1FirstNames?: string;
@@ -139,13 +138,57 @@ export interface Case {
   applicant1PostalAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
-  //respondentCaseInvites?: CaseInvite[];
-  //applicantCaseInvites?: CaseInvite[];
-  citizenRole?: FieldPrefix;
+  //support you need during the case
+  languageRequirements?: string;
+  languageDetails?: string;
+  reasonableAdjustments?: string;
+  helpCommunication?: string;
+  describeOtherNeed?: string;
+  courtHearing?: string;
+  communicationSupportOther?: string;
+  docsSupport?: string;
+  otherDetails?: string;
+  courtComfort?: string;
+  otherProvideDetails?: string;
+  safetyArrangements?: string;
+  safetyArrangementsDetails?: string;
+  travellingToCourt?: string;
+  travellingOtherDetails?: string;
+  unableForCourtProceedings?: string;
+  courtProceedingProvideDetails?: string;
 
+  //CA-DA-Respondent
+  respondentAttendingToCourt?: string;
+  respondentHearingDetails?: string;
+  respondentLangRequirements?: string;
+  respondentLangDetails?: string;
+  respondentSpecialArrangements?: string;
+  respondentSpecialArrangementsDetails?: string;
+  respondentReasonableAdjustments?: string;
+  respondentDocsSupport?: string;
+  respondentDocsDetails?: string;
+  respondentLargePrintDetails?: string;
+  respondentOtherDetails?: string;
+  respondentHelpCommunication?: string;
+  respondentSignLanguageDetails?: string;
+  respondentDescribeOtherNeed?: string;
+  respondentCourtHearing?: string;
+  respondentSupportWorkerDetails?: string;
+  respondentFamilyDetails?: string;
+  respondentTherapyDetails?: string;
+  respondentCommSupportOther?: string;
+  respondentCourtComfort?: string;
+  respondentLightingDetails?: string;
+  respondentOtherProvideDetails?: string;
+  respondentTravellingToCourt?: string;
+  respondentParkingDetails?: string;
+  respondentDifferentChairDetails?: string;
+  respondentTravellingOtherDetails?: string;
   //applicant1LanguagePreference?: LanguagePreference;
 
   safetyConcerns?: string;
+
+  citizenRole?: FieldPrefix;
 }
 
 export interface CaseWithId extends Case {
@@ -175,7 +218,7 @@ export interface UploadedFile {
 }
 
 export enum FieldPrefix {
-  APPLICANT1 = 'applicant',
+  APPLICANT1 = 'applicant1',
   APPLICANT2 = 'applicant2',
   CHILDREN = 'children',
   BIRTH_FATHER = 'birthFather',

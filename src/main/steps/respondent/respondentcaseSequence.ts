@@ -1,19 +1,9 @@
-import { Checkbox } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  ADDRESS_BLANK,
-  ADDRESS_CONFIRMATION,
-  ADDRESS_DETAILS,
-  ADDRESS_HISTORY,
-  ADDRESS_LOOKUP,
-  ADDRESS_LOOKUP_CONT,
-  CHECK_ANSWERS,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
-  CONTACT_DETAILS,
   COURT_PROCEEDINGS_SUMMARY,
-  DETAILS_KNOWN,
   DOMESTIC_ABUSE_RISK,
   DOMESTIC_ABUSE_RISK_NO,
   INTERNATIONAL_FACTORS_JURISDICTION,
@@ -24,6 +14,8 @@ import {
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
+  PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_START,
   RESPONDENT_ADDRESS_BLANK,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
@@ -39,15 +31,7 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
-  PERSONAL_DETAILS,
-  PRIVATE_DETAILS_CONFIRMED,
-  PRIVATE_DETAILS_NOT_CONFIRMED,
-  PROCEEDINGS_COURT_PROCEEDINGS,
-  PROCEEDINGS_START,
-  RESPONDENT_FIND_ADDRESS,
-  RESPONDENT_TASK_LIST_URL,
   SAFETY_MAIN_PAGE,
-  START_ALTERNATIVE,
   YOUR_SAFETY,
 } from '../urls';
 
@@ -68,7 +52,7 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: DETAILS_KNOWN,
+    url: RESPONDENT_DETAILS_KNOWN,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_START_ALTERNATIVE,
   },
@@ -76,7 +60,7 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_START_ALTERNATIVE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: data =>
-      data.startAlternative === Checkbox.Checked
+      data.startAlternative === YesOrNo.YES
         ? RESPONDENT_PRIVATE_DETAILS_CONFIRMED
         : RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   },
@@ -107,7 +91,6 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_CHECK_ANSWERS,
-    url: CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

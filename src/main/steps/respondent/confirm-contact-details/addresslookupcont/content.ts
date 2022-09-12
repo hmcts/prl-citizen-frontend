@@ -49,7 +49,7 @@ export const form: FormContent = {
   },
 };
 
-export { form } from '../../../common/confirm-contact-details/addresslookupcont/content';
+// export { form } from '../../../common/confirm-contact-details/addresslookupcont/content';
 
 export const generateContent: TranslationFn = content => {
   const selectAddressContent = selectAddressGenerateContent(content);

@@ -48,12 +48,6 @@ describe('common > summary > utils', () => {
           title: 'applicationDetails',
           rows: [
             {
-              key: {
-                text: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
-              },
-              value: {
-                html: 'Yes',
-              },
               actions: {
                 items: [
                   {
@@ -90,9 +84,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'When did you receive the application?' },
-              value: {
-                html: '',
-              },
+              value: {},
             },
           ],
         },

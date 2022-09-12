@@ -1,10 +1,38 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { generateContent as privateDetailsNotConfirmedGenerateContent } from '../../../common/keep-details-private/private_details_not_confirmed/content';
+import { FormContent } from '../../../../app/form/Form';
 
-export { form } from '../../../common/keep-details-private/private_details_not_confirmed/content';
+const en = {
+  section: 'Keeping your contact details private',
+  title: 'The court will not keep your contact details private',
+  line1:
+    'You have told us you do not want to keep your contact details private from the other people in this application.',
+  continue: 'Save and continue',
+};
+
+const cy: typeof en = {
+  section: 'Keeping your contact details private',
+  title: 'The court will not keep your contact details private',
+  line1:
+    'You have told us you do not want to keep your contact details private from the other people in this application.',
+  continue: 'Save and continue',
+};
+
+const languages = {
+  en,
+  cy,
+};
+
+export const form: FormContent = {
+  fields: {},
+  submit: {
+    text: l => l.continue,
+  },
+};
+
 export const generateContent: TranslationFn = content => {
-  const privateDetailsNotConfirmedContent = privateDetailsNotConfirmedGenerateContent(content);
+  const translations = languages[content.language];
   return {
-    ...privateDetailsNotConfirmedContent,
+    ...translations,
+    form,
   };
 };

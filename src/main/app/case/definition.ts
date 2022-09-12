@@ -347,12 +347,13 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
-  accessCode: string;
+   accessCode: string;
   respondentCaseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
  //applicant1LanguagePreference?: LanguagePreference;
  citizenRole?: FieldPrefix;
+
 }
 
 export interface AdoptionAgencyOrLocalAuthority {
@@ -762,9 +763,10 @@ export const enum SectionStatus {
   TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED',
+  CAN_NOT_START_YET = 'CAN_NOT_START_YET',
   DOWNLOAD = 'DOWNLOAD',
-  VIEW = 'VIEW'
-  CAN_NOT_START_YET = 'CAN_NOT_START_YET'
+  VIEW = 'VIEW',
+  NOT_STARTED = 'NOT_STARTED'
 }
 
 export const enum AlternativeServiceMediumType {

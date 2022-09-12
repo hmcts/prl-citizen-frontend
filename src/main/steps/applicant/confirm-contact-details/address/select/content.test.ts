@@ -39,7 +39,7 @@ describe('applicant > address > select > content', () => {
     expect(generatedContent.errors).toEqual({
       applicantSelectAddress: (selectAddressContent.errors as any).selectAddress,
     });
-    expect(generatedContent.changePostCodeUrl).toEqual('/applicant/confirm-contact-details/address/lookup');
+    expect(generatedContent.changePostCodeUrl).toEqual('/applicant/confirm-contact-details/addresslookup');
     expect(generatedContent.cantFindAddressUrl).toEqual('/applicant/confirm-contact-details/address/manual');
   });
 
@@ -51,7 +51,7 @@ describe('applicant > address > select > content', () => {
     expect(generatedContent.errors).toEqual({
       applicantSelectAddress: (selectAddressContent.errors as any).selectAddress,
     });
-    expect(generatedContent.changePostCodeUrl).toEqual('/applicant/confirm-contact-details/address/lookup');
+    expect(generatedContent.changePostCodeUrl).toEqual('/applicant/confirm-contact-details/addresslookup');
     expect(generatedContent.cantFindAddressUrl).toEqual('/applicant/confirm-contact-details/address/manual');
   });
 

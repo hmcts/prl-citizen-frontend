@@ -28,11 +28,10 @@ const en = (content: CommonContent) => {
   if (typeof dob !== 'string') {
     getFormattedDate(dob);
   }
-  const citizenRole = userCase.citizenRole;
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language, citizenRole)],
+    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language)],
   };
 };
 
@@ -56,14 +55,14 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  applicant1FullName: '_PERSONAL_DETAILS',
-  applicant1DateOfBirthText: '_PERSONAL_DETAILS',
-  applicant1PlaceOfBirthText: '_PERSONAL_DETAILS',
-  address: '_ADDRESS_DETAILS',
-  addressHistory: '_ADDRESS_HISTORY',
-  applicant1PhoneNumber: '_CONTACT_DETAILS',
-  applicant1EmailAddress: '_CONTACT_DETAILS',
-  applicant1SafeToCall: '_CONTACT_DETAILS',
+  applicant1FullName: 'personaldetails',
+  applicant1DateOfBirthText: 'personaldetails',
+  applicant1PlaceOfBirthText: 'personaldetails',
+  address: 'addressdetails',
+  addressHistory: 'addresshistory',
+  applicant1PhoneNumber: 'contactdetails',
+  applicant1EmailAddress: 'contactdetails',
+  applicant1SafeToCall: 'contactdetails',
 };
 const fieldType = {
   applicant1FullName: 'String',
@@ -84,11 +83,10 @@ const cy: typeof en = (content: CommonContent) => {
   }
   //userCase.applicant1DateOfBirthText = getFormattedDate(userCase.applicant1DateOfBirth);
   //console.log("userCase.applicant1DateOfBirthText====>"+userCase.applicant1DateOfBirthText);
-  const citizenRole = userCase.citizenRole;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language, citizenRole)],
+    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
   };
 };
 

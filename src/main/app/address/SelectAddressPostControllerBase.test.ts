@@ -58,16 +58,16 @@ describe('SelectAddressPostController', () => {
 
     describe('and when there is a selected address', () => {
       const formData = {
-        applicantAddressCounty: 'CITY OF WESTMINSTER',
-        applicantAddressPostcode: 'SW1H 9AJ',
-        applicantAddress1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
-        applicantAddress2: '',
-        applicantAddressTown: 'LONDON',
-        applicantSelectAddress: 0,
+        applicant1AddressCounty: 'CITY OF WESTMINSTER',
+        applicant1AddressPostcode: 'SW1H 9AJ',
+        applicant1Address1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
+        applicant1Address2: '',
+        applicant1AddressTown: 'LONDON',
+        applicant1SelectAddress: 0,
       };
       beforeEach(() => {
-        req.body.applicantSelectAddress = 0;
-        mockGetParsedBody.mockReturnValue({ applicantSelectAddress: 0 });
+        req.body.applicant1SelectAddress = 0;
+        mockGetParsedBody.mockReturnValue({ applicant1SelectAddress: 0 });
         mockGetErrors.mockReturnValue([]);
         controller = new SelectAddressPostController({}, FieldPrefix.APPLICANT1);
         req.locals.api.triggerEvent.mockResolvedValue(formData);
@@ -75,34 +75,28 @@ describe('SelectAddressPostController', () => {
 
       test('should set the address fields in userCase session data', async () => {
         await controller.post(req, res);
-        expect(req.session.userCase.applicantAddress1).toBe('102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE');
-        expect(req.session.userCase.applicantAddress2).toBe('');
-        expect(req.session.userCase.applicantAddressTown).toBe('LONDON');
-        expect(req.session.userCase.applicantAddressCounty).toBe('CITY OF WESTMINSTER');
-        expect(req.session.userCase.applicantAddressPostcode).toBe('SW1H 9AJ');
+        expect(req.session.userCase.applicant1Address1).toBe('102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE');
+        expect(req.session.userCase.applicant1Address2).toBe('');
+        expect(req.session.userCase.applicant1AddressTown).toBe('LONDON');
+        expect(req.session.userCase.applicant1AddressCounty).toBe('CITY OF WESTMINSTER');
+        expect(req.session.userCase.applicant1AddressPostcode).toBe('SW1H 9AJ');
       });
-
-      /*test('should call save with correct params', async () => {
-        await controller.post(req, res);
-        expect(req.locals.api.triggerEvent).toHaveBeenCalledTimes(1);
-        expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('MOCK_ID', formData, 'citizen-update-application');
-      });*/
     });
 
     describe('and when there is no selected address', () => {
       beforeEach(() => {
-        mockGetParsedBody.mockReturnValue({ applicantSelectAddress: -1 });
+        mockGetParsedBody.mockReturnValue({ applicant1SelectAddress: -1 });
         mockGetErrors.mockReturnValue([]);
         controller = new SelectAddressPostController({}, FieldPrefix.APPLICANT1);
       });
 
       test('should not set the address fields in userCase session data', async () => {
         await controller.post(req, res);
-        expect(req.session.userCase.applicantAddress1).toBe(undefined);
-        expect(req.session.userCase.applicantAddress2).toBe(undefined);
-        expect(req.session.userCase.applicantAddressTown).toBe(undefined);
-        expect(req.session.userCase.applicantAddressCounty).toBe(undefined);
-        expect(req.session.userCase.applicantAddressPostcode).toBe(undefined);
+        expect(req.session.userCase.applicant1Address1).toBe(undefined);
+        expect(req.session.userCase.applicant1Address2).toBe(undefined);
+        expect(req.session.userCase.applicant1AddressTown).toBe(undefined);
+        expect(req.session.userCase.applicant1AddressCounty).toBe(undefined);
+        expect(req.session.userCase.applicant1AddressPostcode).toBe(undefined);
       });
     });
 
