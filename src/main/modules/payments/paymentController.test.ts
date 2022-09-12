@@ -39,6 +39,7 @@ describe('PaymentHandler', () => {
     expect(res.render).toHaveBeenCalledTimes(0);
     expect(res.redirect).toHaveBeenCalledTimes(1);
     expect(res.send.mock.calls).toHaveLength(0);
+    expect(req.host).toBe('localhost:3001');
   });
 });
 
