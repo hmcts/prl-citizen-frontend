@@ -90,25 +90,27 @@ describe('respondent1Sequence', () => {
     expect(tasklistresponseCaseSequence[19].showInSection).toBe('aboutRespondentCase');
     expect(tasklistresponseCaseSequence[19].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(tasklistresponseCaseSequence[20].url).toBe('/respondent/international-factors/start');
+    expect(tasklistresponseCaseSequence[20].url).toBe('/tasklistresponse/international-factors/start');
     expect(tasklistresponseCaseSequence[20].showInSection).toBe('aboutRespondentCase');
-    expect(tasklistresponseCaseSequence[20].getNextStep({})).toBe('/respondent/international-factors/parents');
+    expect(tasklistresponseCaseSequence[20].getNextStep({})).toBe('/tasklistresponse/international-factors/parents');
 
-    expect(tasklistresponseCaseSequence[21].url).toBe('/respondent/international-factors/parents');
+    expect(tasklistresponseCaseSequence[21].url).toBe('/tasklistresponse/international-factors/parents');
     expect(tasklistresponseCaseSequence[21].showInSection).toBe('aboutRespondentCase');
-    expect(tasklistresponseCaseSequence[21].getNextStep({})).toBe('/respondent/international-factors/jurisdiction');
+    expect(tasklistresponseCaseSequence[21].getNextStep({})).toBe(
+      '/tasklistresponse/international-factors/jurisdiction'
+    );
 
-    expect(tasklistresponseCaseSequence[22].url).toBe('/respondent/international-factors/jurisdiction');
+    expect(tasklistresponseCaseSequence[22].url).toBe('/tasklistresponse/international-factors/jurisdiction');
     expect(tasklistresponseCaseSequence[22].showInSection).toBe('aboutRespondentCase');
-    expect(tasklistresponseCaseSequence[22].getNextStep({})).toBe('/respondent/international-factors/request');
+    expect(tasklistresponseCaseSequence[22].getNextStep({})).toBe('/tasklistresponse/international-factors/request');
 
-    expect(tasklistresponseCaseSequence[23].url).toBe('/respondent/international-factors/request');
+    expect(tasklistresponseCaseSequence[23].url).toBe('/tasklistresponse/international-factors/request');
     expect(tasklistresponseCaseSequence[23].showInSection).toBe('aboutRespondentCase');
-    expect(tasklistresponseCaseSequence[23].getNextStep({})).toBe('/respondent/international-factors/summary');
+    expect(tasklistresponseCaseSequence[23].getNextStep({})).toBe('/tasklistresponse/international-factors/summary');
 
-    expect(tasklistresponseCaseSequence[24].url).toBe('/respondent/international-factors/summary');
+    expect(tasklistresponseCaseSequence[24].url).toBe('/tasklistresponse/international-factors/summary');
     expect(tasklistresponseCaseSequence[24].showInSection).toBe('aboutRespondentCase');
-    expect(tasklistresponseCaseSequence[24].getNextStep({})).toBe('/respondent/task-list');
+    expect(tasklistresponseCaseSequence[24].getNextStep({})).toBe('/tasklistresponse/start');
 
     // expect(tasklistresponseCaseSequence[27].url).toBe('/respondent/safety_concerns/domestic_abuse_risk');
     // expect(tasklistresponseCaseSequence[27].showInSection).toBe('aboutRespondentCase');

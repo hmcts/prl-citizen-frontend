@@ -7,7 +7,7 @@ import * as Urls from '../../../../steps/urls';
 
 import LegalRepresentationGetController from './LegalRepresentationGetController';
 
-describe('AddChildernMatterGetController', () => {
+describe('LegalRepresentationGetController', () => {
   test('Should render the page', async () => {
     const controller = new LegalRepresentationGetController('page', () => ({}));
 
@@ -20,12 +20,12 @@ describe('AddChildernMatterGetController', () => {
   test('Testing controller native methods to ensure right validation', async () => {
     const controller = new LegalRepresentationGetController('page', () => ({}));
 
-    const req = mockRequest({ userCase: { state: State.AwaitingPayment } });
+    const req = mockRequest({ userCase: { state: State.FinalOrderComplete } });
     const res = mockResponse();
     await controller.get(req, res);
     req.originalUrl = Urls.LEGAL_REPRESENTATION_START;
     //controller.clearConfidentialitySessionSaveData(req);
-    expect(req.session['contactDetailsPrivateAlternative']).toBe(undefined);
+    //expect(req.session['contactDetailsPrivateAlternative']).toBe(undefined);
     expect(req.originalUrl).toBe(req.originalUrl);
   });
 
@@ -37,24 +37,12 @@ describe('AddChildernMatterGetController', () => {
       const req = mockRequest();
       const res = mockResponse();
       req.session.lang = language;
-      const settings = {
-        toggleChild: 0,
-        childTemporaryFormData: {},
-      };
-      req.session.settings = settings;
       await controller.get(req, res);
-
-      const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
-
       expect(res.render).not.toBeCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
-        childernForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        childId,
-        postURL: `${Urls.LEGAL_REPRESENTATION_START}?childId=${childId}`,
-        isDateOfBirthKnown: 'No',
       });
     });
 
@@ -62,34 +50,16 @@ describe('AddChildernMatterGetController', () => {
       const controller = new LegalRepresentationGetController('page', () => ({}));
 
       const language = 'en';
-      const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
       const req = mockRequest();
       const res = mockResponse();
       req.session.lang = language;
-      const settings = {
-        toggleChild: 0,
-        childTemporaryFormData: {},
-      };
-      req.session.settings = settings;
-      req.query.childId = childId;
       await controller.get(req, res);
-
-      const checkIfDecisionMade = 'Yes';
-
-      const childDetails = req.session.settings.ListOfChild.filter(child => child.id === childId)[0];
 
       expect(res.render).not.toBeCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
-        childernForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
-        childDetails: req.session.settings.ListOfChild.filter(child => child.id === childId)[0],
-        checkIfDecisionMade,
-        childId,
-        postURL: `${Urls.LEGAL_REPRESENTATION_START}`,
-        parentialResponsbilityStatement: childDetails?.parentialResponsibility?.statement,
       });
     });
 
