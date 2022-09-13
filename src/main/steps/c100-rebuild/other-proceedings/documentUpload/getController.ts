@@ -9,7 +9,7 @@ import { FieldPrefix } from '../../../../app/case/case';
 import { EmergencyCourtDocument } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
-import { Language, generatePageContent } from '../../../../steps/common/common.content';
+import { Language, generatePageContent } from '../../../common/common.content';
 import { C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD } from '../../../urls';
 
 import { PRL_COS_URL } from './postController';
@@ -33,7 +33,7 @@ export default class EmergencyDocumentUpload extends GetController {
     if (res.locals.isError || res.headersSent) {
       return;
     }
-    const { orderType } = req.query;
+    const { orderType, orderId } = req.query;
     if (req.query.hasOwnProperty('removeId') && req.query.hasOwnProperty('orderType')) {
       this.removeDocument(req, res);
     } else {
@@ -71,6 +71,7 @@ export default class EmergencyDocumentUpload extends GetController {
         sessionErrors,
         htmlLang: language,
         orderType,
+        orderId,
         postURL: C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD,
         document: currentOrderDocument,
       });

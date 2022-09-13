@@ -8,7 +8,7 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { getServiceAuthTokenForPRLCitizen } from '../../../../app/auth/service/get-service-auth-token';
-import { EmergencyCourtDocument } from '../../../../app/case/definition';
+import { C100OrderInterface, C100OrderTypeKeyMapper } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -67,8 +67,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
-    const { orderType } = req.query;
-    console.log({ orderType });
+    const { orderType, orderId } = req.query;
+    console.log({ orderType, orderId });
     if (isNull(files)) {
       const errorMessage = 'valdiation error';
       this.uploadFileError(req, res, errorMessage);
@@ -88,7 +88,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             filename: fileName,
           });
           const courtOrderType: AnyType | undefined = orderType;
-          this.checkIfDocumentAlreadyExist(courtOrderType, req, res);
+          const courtOrderId: AnyType | undefined = orderId;
+          const orderSessionData = req.session.userCase?.[
+            C100OrderTypeKeyMapper[courtOrderType]
+          ] as C100OrderInterface[];
+          const orderSessionDataById = orderSessionData[courtOrderId - 1];
+          this.checkIfDocumentAlreadyExist(courtOrderType, req, res, orderSessionDataById);
           const formHeaders = formData.getHeaders();
           const Headers = {
             Authorization: `Bearer ${req.session.user['accessToken']}`,
@@ -107,18 +112,26 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             console.log(requestDocument);
             const responseBody: IDocumentUploadResponse = requestDocument['data'];
             const { document_url, document_filename, document_binary_url } = responseBody['document'];
-            const documentData = {
-              orderType: courtOrderType,
+            const documentInfo = {
               id: document_url.split('/')[document_url.split('/').length - 1],
-              document_url,
-              document_filename,
-              document_binary_url,
+              url: document_url,
+              filename: document_filename,
+              binaryUrl: document_binary_url,
             };
-            const currentSessionDocument: EmergencyCourtDocument[] =
-              req.session['userCase']['emergencyuploadedDocuments'] || [];
-            req.session.userCase.emergencyuploadedDocuments = [...currentSessionDocument, documentData];
+            // const currentSessionDocument: EmergencyCourtDocument[] =
+            //   req.session['userCase']['emergencyuploadedDocuments'] || [];
+            // req.session.userCase.emergencyuploadedDocuments = [...currentSessionDocument, documentData];
+
+            //orderSessionDataById.orderDocument = documentInfo;
+
+            if (req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]) {
+              req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1].orderDocument =
+                documentInfo;
+            }
+
             req.session.save(() => {
-              const redirectURL = C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + `?orderType=${orderType}`;
+              const redirectURL =
+                C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + `?orderType=${orderType}` + `?orderId=${orderId}`;
               res.redirect(redirectURL);
             });
           } catch (error) {
@@ -130,11 +143,13 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
   }
 
-  public checkIfDocumentAlreadyExist = async (orderType: string, req: AppRequest, res: Response): Promise<void> => {
-    const checkIfOrderExist = req.session.userCase.emergencyuploadedDocuments?.filter(
-      document => document.orderType === orderType
-    );
-    if (checkIfOrderExist && checkIfOrderExist.length > 0) {
+  public checkIfDocumentAlreadyExist = async (
+    orderType: string,
+    req: AppRequest,
+    res: Response,
+    orderDataById: C100OrderInterface
+  ): Promise<void> => {
+    if (orderDataById.orderDocument) {
       req.session.errors = [{ propertyName: 'document', errorType: 'required' }];
       res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + '?orderType=' + orderType);
     }

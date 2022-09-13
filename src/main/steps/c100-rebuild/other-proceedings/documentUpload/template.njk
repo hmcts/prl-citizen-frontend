@@ -44,7 +44,7 @@
 {% set removepoint = '/upload-your-documents?query=delete&docId={{documentId}}&documentType=applicationform'%}
 
 <div class="govuk-form-group govuk-inset-text">
- <form action="{{postURL}}?orderType={{orderType}}" method="post" enctype="multipart/form-data">
+ <form action="{{postURL}}?orderType={{orderType}}&orderId={{orderId}}" method="post" enctype="multipart/form-data">
       {{ govukFileUpload({
   id: "file-upload-1",
   name: "documents",
