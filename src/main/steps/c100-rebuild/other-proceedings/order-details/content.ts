@@ -128,7 +128,7 @@ export const generateFormFields = (
     fields[key] = {
       type: 'fieldset',
       label: l => {
-        return `${l[`${orderType}Label`]} ${count}`;
+        return count === 1 ? `${l[`${orderType}Label`]}` : `${l[`${orderType}Label`]} ${count}`;
       },
       classes: 'govuk-fieldset__legend--m',
       subFields: {

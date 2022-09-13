@@ -165,7 +165,7 @@ describe('other proceedings > order-details > content', () => {
     } = fieldset.subFields as FormFields;
 
     expect(fieldset.type).toBe('fieldset');
-    expect((fieldset.label as Function)(generatedContent)).toBe(`${en.careOrderLabel} 1`);
+    expect((fieldset.label as Function)(generatedContent)).toBe(`${en.careOrderLabel}`);
 
     expect(orderDetail.type).toBe('text');
     expect((orderDetail.label as Function)(generatedContent)).toBe(en.courtIssuedLabel);
