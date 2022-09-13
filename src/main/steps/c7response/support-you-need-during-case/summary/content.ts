@@ -1,6 +1,7 @@
-import { summaryList } from '../../../common/support-you-need-during-case/summary/utils';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { CommonContent } from '../../../common/common.content';
+import { summaryList } from '../../../common/support-you-need-during-case/summary/utils';
 import {
   CA_DA_ATTENDING_THE_COURT,
   CA_DA_COMMUNICATION_HELP,
@@ -12,7 +13,6 @@ import {
   CA_DA_SPECIAL_ARRANGEMENTS,
   CA_DA_TRAVELLING_TO_COURT,
 } from '../../../urls';
-import { CommonContent } from '../../../common/common.content';
 
 export const enContent = {
   section: 'Check your answers ',

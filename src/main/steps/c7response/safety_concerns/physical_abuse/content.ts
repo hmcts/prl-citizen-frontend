@@ -1,11 +1,11 @@
-import { YesOrNo } from 'app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   section: 'Safety concerns',
-  title: 'Have you ever been sexually abused?',
+  title: 'Have you ever been physically abused?',
   example: 'Physical abuse includes actions such as:',
   punch: 'punching',
   choke: 'choking',
@@ -24,7 +24,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Safety concerns',
-  title: 'Have you ever been sexually abused?',
+  title: 'Have you ever been physically abused?',
   example: 'Physical abuse includes actions such as:',
   punch: 'punching',
   choke: 'choking',

@@ -115,7 +115,6 @@ export const RESPONDENT_ADDRESS_HISTORY: PageLink = `${RESPONDENT}${ADDRESS_HIST
 export const APPLICANT: PageLink = '/applicant';
 export const APPLICANT_TASK_LIST_URL: PageLink = '/applicant/task-list';
 
-
 /* applicant-confirm-contact-details-start */
 export const APPLICANT_CONFIRM_CONTACT_DETAILS: PageLink = `${APPLICANT}${CONFIRM_CONTACT_DETAILS}`;
 export const APPLICANT_CHECK_ANSWERS: PageLink = `${APPLICANT}${CHECK_ANSWERS}`;
@@ -160,8 +159,6 @@ export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments';
 export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 
-
-
 /* safety concerns */
 export const SAFETY_CONCERNS: PageLink = `${C7_RESPONSE}/safety_concerns`;
 export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
@@ -170,6 +167,13 @@ export const DOMESTIC_ABUSE_RISK: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_
 export const SEXUAL_ABUSE: PageLink = `${SAFETY_CONCERNS}/sexual_abuse`;
 export const SEXUAL_ABUSE_DESCRIPTION: PageLink = `${SAFETY_CONCERNS}/sexual_abuse_description`;
 export const PHYSICAL_ABUSE: PageLink = `${SAFETY_CONCERNS}/physical_abuse`;
+export const PHYSICAL_ABUSE_DESCRIPTION: PageLink = `${SAFETY_CONCERNS}/physical_abuse_description`;
+export const FINANCIAL_ABUSE: PageLink = `${SAFETY_CONCERNS}/financial_abuse`;
+export const FINANCIAL_ABUSE_DESCRIPTION: PageLink = `${SAFETY_CONCERNS}/financial_abuse_description`;
+export const PSYCHOLOGICAL_ABUSE: PageLink = `${SAFETY_CONCERNS}/psychological_abuse`;
+export const PSYCHOLOGICAL_ABUSE_DESCRIPTION: PageLink = `${SAFETY_CONCERNS}/psychological_abuse_description`;
+export const EMOTIONAL_ABUSE: PageLink = `${SAFETY_CONCERNS}/emotional_abuse`;
+export const EMOTIONAL_ABUSE_DESCRIPTION: PageLink = `${SAFETY_CONCERNS}/emotional_abuse_description`;
 export const DOMESTIC_ABUSE_RISK_NO: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk_no`;
 
 export const APPLICANT_WITNESS_STATEMENTS_DA: PageLink = `${APPLICANT}/witnessstatements`;
@@ -232,7 +236,7 @@ export const UNABLE_TO_TAKE_COURT_PROCEEDINGS: PageLink = `${SUPPORT_YOU_NEED_DU
 export const SAFETY_ARRANGEMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/safety-arrangements`;
 export const SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/summary`;
 
-export const PROCEEDINGS: PageLink = `${RESPONDENT}/proceedings`;
+export const PROCEEDINGS: PageLink = `${C7_RESPONSE}/proceedings`;
 export const PROCEEDINGS_START: PageLink = `${PROCEEDINGS}/start`;
 export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/court-proceedings`;
 export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;

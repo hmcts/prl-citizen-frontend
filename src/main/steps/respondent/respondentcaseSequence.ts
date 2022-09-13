@@ -12,7 +12,6 @@ import {
   CA_DA_SPECIAL_ARRANGEMENTS,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   CA_DA_TRAVELLING_TO_COURT,
-  COURT_PROCEEDINGS_SUMMARY,
   DIGITAL_DOWNLOADS,
   DRUG_ALCOHOL_TESTS,
   LETTER_FROM_SCHOOL,
@@ -24,8 +23,6 @@ import {
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
-  PROCEEDINGS_COURT_PROCEEDINGS,
-  PROCEEDINGS_START,
   RESPONDENT,
   RESPONDENT_ADDRESS_BLANK,
   RESPONDENT_ADDRESS_CONFIRMATION,
@@ -175,24 +172,6 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: DOMESTIC_ABUSE_RISK_NO_NA,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
-  {
-    url: PROCEEDINGS_START,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
-        ? PROCEEDINGS_COURT_PROCEEDINGS
-        : COURT_PROCEEDINGS_SUMMARY,
-  },
-  {
-    url: PROCEEDINGS_COURT_PROCEEDINGS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => COURT_PROCEEDINGS_SUMMARY,
-  },
-  {
-    url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

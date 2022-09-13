@@ -42,6 +42,7 @@ import {
   PRLDocument,
   PartyDetails,
   Respondent,
+  SafetyConcerns,
   SpecialArrangement,
   State,
   SummaryTabForOrderAppliedFor,
@@ -53,7 +54,6 @@ import {
   YesNoDontKnow,
   YesOrNo,
   orderInterface,
-  SafetyConcerns,
   //DocumentType,
 } from './definition';
 

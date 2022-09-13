@@ -5,7 +5,7 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 const en = {
   section: 'Safety concerns',
-  title: 'About the sexual abuse',
+  title: 'About the physical abuse',
   description: 'Briefly describe what happened and who was involved, if you feel able to',
   descriptionHint:
     'We will treat your information sensitively, and you will have a chance to give further details to the court later in the proceedings.',
@@ -19,16 +19,16 @@ const en = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    'respondentSafetyConcerns.sexualAbuseDescription.explainWhoWasInvolved': {
+    'respondentSafetyConcerns.physicalAbuseDescription.explainWhoWasInvolved': {
       required: 'Please describe what happened and who was involved? ',
     },
-    'respondentSafetyConcerns.sexualAbuseDescription.whenDidBehaviourStart': {
+    'respondentSafetyConcerns.physicalAbuseDescription.whenDidBehaviourStart': {
       required: 'Please explain when did this behaviour start? ',
     },
-    'respondentSafetyConcerns.sexualAbuseDescription.isBehaviourStillGoingOn': {
+    'respondentSafetyConcerns.physicalAbuseDescription.isBehaviourStillGoingOn': {
       required: 'Please explain is nehaviour still going on? ',
     },
-    'respondentSafetyConcerns.sexualAbuseDescription.haveYouEverAskedForHelp': {
+    'respondentSafetyConcerns.physicalAbuseDescription.haveYouEverAskedForHelp': {
       required: 'Please mention if you ever asked for help ',
     },
   },
@@ -36,7 +36,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Safety concerns',
-  title: 'About the sexual abuse',
+  title: 'About the physical abuse',
   description: 'Briefly describe what happened and who was involved, if you feel able to',
   descriptionHint:
     'We will treat your information sensitively, and you will have a chance to give further details to the court later in the proceedings.',
@@ -50,16 +50,16 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    'respondentSafetyConcerns.sexualAbuseDescription.explainWhoWasInvolved': {
+    'respondentSafetyConcerns.physicalAbuseDescription.explainWhoWasInvolved': {
       required: 'Please describe what happened and who was involved? ',
     },
-    'respondentSafetyConcerns.sexualAbuseDescription.whenDidBehaviourStart': {
+    'respondentSafetyConcerns.physicalAbuseDescription.whenDidBehaviourStart': {
       required: 'Please explain when did this behaviour start? ',
     },
-    'respondentSafetyConcerns.sexualAbuseDescription.isBehaviourStillGoingOn': {
+    'respondentSafetyConcerns.physicalAbuseDescription.isBehaviourStillGoingOn': {
       required: 'Please explain is nehaviour still going on? ',
     },
-    'respondentSafetyConcerns.sexualAbuseDescription.haveYouEverAskedForHelp': {
+    'respondentSafetyConcerns.physicalAbuseDescription.haveYouEverAskedForHelp': {
       required: 'Please mention if you ever asked for help ',
     },
   },
@@ -72,14 +72,14 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    'respondentSafetyConcerns.sexualAbuseDescription.explainWhoWasInvolved': {
+    'respondentSafetyConcerns.physicalAbuseDescription.explainWhoWasInvolved': {
       type: 'textarea',
       label: l => l.description,
       hint: l => l.descriptionHint,
       labelSize: 'm',
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
-    'respondentSafetyConcerns.sexualAbuseDescription.whenDidBehaviourStart': {
+    'respondentSafetyConcerns.physicalAbuseDescription.whenDidBehaviourStart': {
       type: 'text',
       classes: 'govuk-label',
       label: l => l.behaviour,
@@ -87,7 +87,7 @@ export const form: FormContent = {
       labelSize: 'm',
       validator: value => isFieldFilledIn(value),
     },
-    'respondentSafetyConcerns.sexualAbuseDescription.isBehaviourStillGoingOn': {
+    'respondentSafetyConcerns.physicalAbuseDescription.isBehaviourStillGoingOn': {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.ongoingBehaviour,
@@ -105,7 +105,7 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-    'respondentSafetyConcerns.sexualAbuseDescription.haveYouEverAskedForHelp': {
+    'respondentSafetyConcerns.physicalAbuseDescription.haveYouEverAskedForHelp': {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.help,

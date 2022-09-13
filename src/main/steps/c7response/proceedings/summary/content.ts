@@ -1,8 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
-import { PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../../urls';
 import { summaryList } from '../../../common/summary/utils';
+import { PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../../urls';
 
 const fieldType = {
   proceedingsStart: 'String',

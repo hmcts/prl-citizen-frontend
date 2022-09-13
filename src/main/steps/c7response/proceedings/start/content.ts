@@ -62,15 +62,15 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.courtCaseYes,
-          value: 'Yes',
+          value: 'yes',
         },
         {
           label: l => l.courtCaseNo,
-          value: 'No',
+          value: 'no',
         },
         {
           label: l => l.courtCaseDontKnow,
-          value: 'I',
+          value: 'dontKnow',
         },
       ],
       validator: isFieldFilledIn,

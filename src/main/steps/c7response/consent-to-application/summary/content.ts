@@ -1,8 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
-import { CONSENT_TO_APPLICATION } from '../../../urls';
 import { summaryList } from '../../../common/summary/utils';
+import { CONSENT_TO_APPLICATION } from '../../../urls';
 
 const urls = {
   doYouConsent: CONSENT_TO_APPLICATION,

@@ -204,8 +204,6 @@ export class PostController<T extends AnyObject> {
         throw err;
       }
 
-      console.log("Headers are: ", req.accepts);
-      res.setHeader('Content-Type', 'application/json')
       res.redirect(target);
     });
   }

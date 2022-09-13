@@ -1,0 +1,21 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  {% if section %}
+    <span class="govuk-caption-l">{{ section }}</span>
+  {% endif %}
+  {% if title %}
+    <h1 class="govuk-heading-l govuk-!-padding-bottom-6">{{ title }}</h1>
+  {% endif %}
+  <div id="emotionalabuseetypes">
+    <p class="govuk-body">{{example}}</p>
+    <p class="govuk-body">Examples include:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{line1}}</li>
+      <li>{{line2}}</li>
+      <li>{{line3}}</li>
+      <li>{{line4}}</li>
+    </ul>
+  </div>
+
+{% endblock %}

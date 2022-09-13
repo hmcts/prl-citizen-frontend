@@ -7,6 +7,10 @@ import {
   COURT_PROCEEDINGS_SUMMARY,
   DOMESTIC_ABUSE_RISK,
   DOMESTIC_ABUSE_RISK_NO,
+  EMOTIONAL_ABUSE,
+  EMOTIONAL_ABUSE_DESCRIPTION,
+  FINANCIAL_ABUSE,
+  FINANCIAL_ABUSE_DESCRIPTION,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
@@ -15,8 +19,12 @@ import {
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
+  PHYSICAL_ABUSE,
+  PHYSICAL_ABUSE_DESCRIPTION,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
+  PSYCHOLOGICAL_ABUSE,
+  PSYCHOLOGICAL_ABUSE_DESCRIPTION,
   RESPONDENT_ADDRESS_BLANK,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
@@ -184,9 +192,57 @@ export const responseCaseSequence: Step[] = [
   {
     url: DOMESTIC_ABUSE_RISK,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data => 
-    data.respondentSafetyConcerns?.isSexuallyAbused === YesOrNo.YES 
-     ? SEXUAL_ABUSE : DOMESTIC_ABUSE_RISK_NO,
+    getNextStep: data => SEXUAL_ABUSE,
+  },
+  {
+    url: SEXUAL_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => SEXUAL_ABUSE_DESCRIPTION,
+  },
+  {
+    url: SEXUAL_ABUSE_DESCRIPTION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PHYSICAL_ABUSE,
+  },
+  {
+    url: PHYSICAL_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PHYSICAL_ABUSE_DESCRIPTION,
+  },
+  {
+    url: PHYSICAL_ABUSE_DESCRIPTION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => FINANCIAL_ABUSE,
+  },
+  {
+    url: FINANCIAL_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => FINANCIAL_ABUSE_DESCRIPTION,
+  },
+  {
+    url: FINANCIAL_ABUSE_DESCRIPTION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PSYCHOLOGICAL_ABUSE,
+  },
+  {
+    url: PSYCHOLOGICAL_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PSYCHOLOGICAL_ABUSE_DESCRIPTION,
+  },
+  {
+    url: PSYCHOLOGICAL_ABUSE_DESCRIPTION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => EMOTIONAL_ABUSE,
+  },
+  {
+    url: EMOTIONAL_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => EMOTIONAL_ABUSE_DESCRIPTION,
+  },
+  {
+    url: EMOTIONAL_ABUSE_DESCRIPTION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => C7_RESPONSE_START,
   },
   {
     url: SEXUAL_ABUSE,

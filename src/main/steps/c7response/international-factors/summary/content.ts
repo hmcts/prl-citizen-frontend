@@ -1,13 +1,13 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
+import { summaryList } from '../../../common/summary/utils';
 import {
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
   INTERNATIONAL_FACTORS_START,
 } from '../../../urls';
-import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
   section: ' ',

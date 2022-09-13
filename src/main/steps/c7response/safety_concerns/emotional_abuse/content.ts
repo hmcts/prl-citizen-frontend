@@ -5,17 +5,18 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   section: 'Safety concerns',
-  title: 'Have you ever been sexually abused?',
-  example: 'Examples of sexual abuse include:',
-  line1: 'being forced or pressured to have sex without consent',
-  line2: 'being threatened into an unwanted sexual activity',
-  line3: 'unwanted touching or groping',
+  title: 'Have you ever been emotionally abused?',
+  example: 'Emotional abuse could be spoken (verbal) or not involving words or speech (non-verbal):',
+  line1: 'name calling',
+  line2: 'constant criticism',
+  line3: 'controlling behaviour',
+  line4: 'not letting them have an opinion',
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    'respondentSafetyConcerns.isSexuallyAbused': {
+    'respondentSafetyConcerns.isEmotinallyAbused': {
       required: 'Please choose one of the following options ',
     },
   },
@@ -23,17 +24,18 @@ const en = {
 
 const cy: typeof en = {
   section: 'Safety concerns',
-  title: 'Have you ever been sexually abused?',
-  example: 'Examples of sexual abuse include:',
-  line1: 'being forced or pressured to have sex without consent',
-  line2: 'being threatened into an unwanted sexual activity',
-  line3: 'unwanted touching or groping',
+  title: 'Have you ever been emotionally abused?',
+  example: 'Emotional abuse could be spoken (verbal) or not involving words or speech (non-verbal):',
+  line1: 'name calling',
+  line2: 'constant criticism',
+  line3: 'controlling behaviour',
+  line4: 'not letting them have an opinion',
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    'respondentSafetyConcerns.isSexuallyAbused': {
+    'respondentSafetyConcerns.isEmotinallyAbused': {
       required: 'Please choose one of the following options ',
     },
   },
@@ -46,7 +48,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    'respondentSafetyConcerns.isSexuallyAbused': {
+    'respondentSafetyConcerns.isEmotinallyAbused': {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.label,

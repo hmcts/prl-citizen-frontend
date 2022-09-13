@@ -756,8 +756,6 @@ export interface CaseData {
   iFactorsJurisdictionProvideDetails?: string;
   request?: YesOrNo;
   iFactorsRequestProvideDetails?: string;
-
-  fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   respondentSafetyConcerns?: SafetyConcerns;
 
@@ -2191,14 +2189,19 @@ export interface CitizenDocument {
   document_binary_url: string;
 }
 
+export interface DocumentDetails {
+  documentName: string;
+  documentUploadedDate: string;
+}
+
 export interface Value {
   parentDocumentType: string;
-  DocumentType: string;
+  documentType: string;
   partyName: string;
   isApplicant: string;
   uploadedBy: string;
   dateCreated: string;
-  documentUploadedDate: string;
+  documentDetails: DocumentDetails;
   citizenDocument: CitizenDocument;
 }
 
@@ -2222,8 +2225,8 @@ export interface SafetyConcerns {
   physicalAbuseDescription: AbuseDetails;
   isFinanciallyAbused: YesOrNo;
   financialAbuseDescription: AbuseDetails;
-  isPhyschologicallyAbused: YesOrNo;
-  physchologicalAbuseDescription: AbuseDetails;
+  isPsychologicallyAbused: YesOrNo;
+  psychologicalAbuseDescription: AbuseDetails;
   isEmotinallyAbused: YesOrNo;
   emotionalAbuseDescription: AbuseDetails;
 }

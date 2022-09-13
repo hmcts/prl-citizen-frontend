@@ -1,8 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
-import { MIAM_ATTEND_WILLINGNESS, MIAM_START } from '../../../urls';
 import { summaryList } from '../../../common/summary/utils';
+import { MIAM_ATTEND_WILLINGNESS, MIAM_START } from '../../../urls';
 
 export const enContent = {
   section: 'Check your answers',

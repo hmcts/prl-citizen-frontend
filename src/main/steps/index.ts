@@ -7,10 +7,10 @@ import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
+import { responseCaseSequence } from './c7response/responseCaseSequence';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
-import { responseCaseSequence } from './c7response/responseCaseSequence';
 import { CITIZEN_HOME_URL, PRL_CASE_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
@@ -71,7 +71,12 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     return CITIZEN_HOME_URL;
   }
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...citizenSequence, ...respondentCaseSequence, ...applicantCaseSequence, ...responseCaseSequence].find(s => s.url === path);
+  const nextStep = [
+    ...citizenSequence,
+    ...respondentCaseSequence,
+    ...applicantCaseSequence,
+    ...responseCaseSequence,
+  ].find(s => s.url === path);
 
   const url = nextStep ? nextStep.getNextStep(data) : CITIZEN_HOME_URL;
 
