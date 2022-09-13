@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnyObject } from '../controller/PostController';
 
-import { C100OrderInterface, CaseData, ContactDetails, OtherName, State, YesOrNo, orderInterface } from './definition';
+import { CaseData, ContactDetails, OtherName, OtherProceedings, State, YesOrNo, orderInterface } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -195,22 +195,7 @@ export interface Case {
   needHelpWithFees?: YesOrNo;
   feesAppliedDetails?: YesOrNo;
   caseId?: string;
-  childArrangementOrders?: C100OrderInterface[];
-  emergencyProtectionOrders?: C100OrderInterface[];
-  supervisionOrders?: C100OrderInterface[];
-  careOrders?: C100OrderInterface[];
-  childAbductionOrders?: C100OrderInterface[];
-  contactOrdersForDivorce?: C100OrderInterface[];
-  contactOrdersForAdoption?: C100OrderInterface[];
-  childMaintenanceOrders?: C100OrderInterface[];
-  financialOrders?: C100OrderInterface[];
-  nonMolestationOrders?: C100OrderInterface[];
-  occupationOrders?: C100OrderInterface[];
-  forcedMarriageProtectionOrders?: C100OrderInterface[];
-  restrainingOrders?: C100OrderInterface[];
-  otherInjuctionOrders?: C100OrderInterface[];
-  undertakingOrders?: C100OrderInterface[];
-  otherOrders?: C100OrderInterface[];
+  otherProceedings?: OtherProceedings;
 }
 
 export interface CaseWithId extends Case {

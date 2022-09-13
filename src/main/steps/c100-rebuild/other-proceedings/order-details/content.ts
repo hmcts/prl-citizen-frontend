@@ -9,28 +9,29 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
+//import { v4 as uuid } from 'uuid';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   pageTitle: 'Provide details of court cases you or the children have been involved in',
   additionalNote:
     'If you do not have the specific details, you can skip this section and proceed with the application.',
-  emergencyProtectionOrderLabel: 'Emergency protection order',
-  childArrangementOrderLabel: 'Child arrangements order',
-  supervisionOrderLabel: 'Supervision order',
-  careOrderLabel: 'Care order',
-  childAbductionOrderLabel: 'Child abduction',
-  contactOrderForDivorceLabel: 'A contact or residence order for divorce',
-  contactOrderForAdoptionLabel: 'A contact or residence order for adpotion',
-  childMaintenanceOrderLabel: 'Child Maintenance order',
+  emergencyProtectionOrderLabel: 'Emergency Protection Order',
+  childArrangementOrderLabel: 'Child Arrangements Order',
+  supervisionOrderLabel: 'Supervision Order',
+  careOrderLabel: 'Care Order',
+  childAbductionOrderLabel: 'Child Abduction Order',
+  contactOrderForDivorceLabel: 'A contact or Residence Order for Divorce',
+  contactOrderForAdoptionLabel: 'A contact or Residence Order for Adpotion',
+  childMaintenanceOrderLabel: 'Child Maintenance Order',
   financialOrderLabel: 'Financial Order',
-  nonMolestationOrderLabel: 'Non-molestation order',
-  occupationOrderLabel: 'Occupation order',
-  forcedMarriageProtectionOrderLabel: 'Forced marriage protection order',
-  restrainingOrderLabel: 'Restraining order',
-  otherInjuctionOrderLabel: 'Other injunction order',
-  undertakingOrderLabel: 'Undertaking in place of an order',
-  otherOrderLabel: 'Other order',
+  nonMolestationOrderLabel: 'Non-molestation Order',
+  occupationOrderLabel: 'Occupation Order',
+  forcedMarriageProtectionOrderLabel: 'Forced Marriage Protection Order',
+  restrainingOrderLabel: 'Restraining Order',
+  otherInjuctionOrderLabel: 'Other Injunction Order',
+  undertakingOrderLabel: 'Undertaking Order',
+  otherOrderLabel: 'Other Order',
   courtIssuedLabel: 'Which court issued the order? (optional)',
   caseNumberLabel: 'Case number (optional)',
   caseNumberHint: 'For example, BS19F99999',
@@ -62,22 +63,22 @@ const cy = () => ({
   pageTitle: 'Provide details of court cases you or the children have been involved in - welsh',
   additionalNote:
     'If you do not have the specific details, you can skip this section and proceed with the application. - welsh',
-  emergencyProtectionOrderLabel: 'Emergency protection order - welsh',
-  childArrangementOrderLabel: 'Child arrangements order - welsh',
-  supervisionOrderLabel: 'Supervision order - welsh',
-  careOrderLabel: 'Care order - welsh',
-  childAbductionOrderLabel: 'Child abduction - welsh',
-  contactOrderForDivorceLabel: 'A contact or residence order for divorce - welsh',
-  contactOrderForAdoptionLabel: 'A contact or residence order for adpotion - welsh',
-  childMaintenanceOrderLabel: 'Child Maintenance order - welsh',
+  emergencyProtectionOrderLabel: 'Emergency Protection Order - welsh',
+  childArrangementOrderLabel: 'Child Arrangements Order - welsh',
+  supervisionOrderLabel: 'Supervision Order - welsh',
+  careOrderLabel: 'Care Order - welsh',
+  childAbductionOrderLabel: 'Child Abduction Order - welsh',
+  contactOrderForDivorceLabel: 'A contact or Residence Order for Divorce - welsh',
+  contactOrderForAdoptionLabel: 'A contact or Residence Order for Adpotion - welsh',
+  childMaintenanceOrderLabel: 'Child Maintenance Order - welsh',
   financialOrderLabel: 'Financial Order - welsh',
-  nonMolestationOrderLabel: 'Non-molestation order - welsh',
-  occupationOrderLabel: 'Occupation order - welsh',
-  forcedMarriageProtectionOrderLabel: 'Forced marriage protection order - welsh',
-  restrainingOrderLabel: 'Restraining order - welsh',
-  otherInjuctionOrderLabel: 'Other injunction order - welsh',
-  undertakingOrderLabel: 'Undertaking in place of an order - welsh',
-  otherOrderLabel: 'Other order - welsh',
+  nonMolestationOrderLabel: 'Non-molestation Order - welsh',
+  occupationOrderLabel: 'Occupation Order - welsh',
+  forcedMarriageProtectionOrderLabel: 'Forced Marriage Protection Order - welsh',
+  restrainingOrderLabel: 'Restraining Order - welsh',
+  otherInjuctionOrderLabel: 'Other Injunction Order - welsh',
+  undertakingOrderLabel: 'Undertaking Order - welsh',
+  otherOrderLabel: 'Other Order - welsh',
   courtIssuedLabel: 'Which court issued the order? (optional) - welsh',
   caseNumberLabel: 'Case number (optional) - welsh',
   caseNumberHint: 'For example, BS19F99999 - welsh',
@@ -302,6 +303,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 };
 
 export const getOrderSessionDataShape = (): C100OrderInterface => ({
+  //id: uuid().toString(),
   orderDetail: '',
   caseNo: '',
   orderDate: {
@@ -348,7 +350,7 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orderType = content?.additionalData?.req?.query?.orderType as C100OrderTypes;
-  const orderSessionData = content?.userCase?.[C100OrderTypeKeyMapper[orderType]] as C100OrderInterface[];
+  const orderSessionData = content?.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[orderType]];
   const { fields, errors } = generateFormFields(
     orderType,
     !orderSessionData?.length ? [getOrderSessionDataShape()] : orderSessionData

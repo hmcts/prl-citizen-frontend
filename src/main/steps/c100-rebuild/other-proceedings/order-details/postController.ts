@@ -3,8 +3,10 @@ import { Response } from 'express';
 
 import {
   C100OrderInterface,
+  C100OrderTypeInterface,
   C100OrderTypeKeyMapper,
   C100OrderTypes,
+  OtherProceedings,
   YesNoEmpty,
 } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
@@ -25,8 +27,15 @@ export default class AddOrderDetailsPostController {
 
     req.session.userCase = {
       ...(req.session?.userCase ?? {}),
-      [orderTypeCaseKey]: this.transformFormData(formData),
+      otherProceedings: {
+        ...((req.session?.userCase?.otherProceedings ?? {}) as OtherProceedings),
+        order: {
+          ...((req.session.userCase?.otherProceedings?.order ?? {}) as C100OrderTypeInterface),
+          [orderTypeCaseKey]: this.transformFormData(formData),
+        },
+      },
     };
+
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length) {
@@ -34,8 +43,8 @@ export default class AddOrderDetailsPostController {
     }
 
     if (addOrder) {
-      (req.session.userCase[orderTypeCaseKey] as C100OrderInterface[]) = [
-        ...(req.session.userCase[orderTypeCaseKey] as C100OrderInterface[]),
+      req.session.userCase.otherProceedings!.order![orderTypeCaseKey] = [
+        ...req.session.userCase.otherProceedings!.order![orderTypeCaseKey],
         getOrderSessionDataShape(),
       ];
       this.redirect(req, res, req.originalUrl);
