@@ -1,6 +1,6 @@
 /* eslint-disable import/namespace */
-import config = require('config');
-import toBoolean = require('to-boolean');
+//import config = require('config');
+//import toBoolean = require('to-boolean');
 
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 
@@ -30,6 +30,7 @@ export class FeatureToggles {
     if (featureNames.length === 0) {
       throw new Error('At least one feature name has to be provided');
     }
-    return featureNames.some(featureName => toBoolean(config.get<boolean>(`featureToggles.${featureName}`)));
+    //return featureNames.some(featureName => toBoolean(config.get<boolean>(`featureToggles.${featureName}`)));
+    return true;
   }
 }

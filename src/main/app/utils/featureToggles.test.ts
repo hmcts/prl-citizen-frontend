@@ -8,24 +8,24 @@ describe('FeatureToggles', () => {
       expect(() => FeatureToggles.isAnyEnabled()).to.throw(Error);
     });
 
-    it('should throw an error if toggle does not exist', () => {
-      expect(() => FeatureToggles.isAnyEnabled('one', 'two', 'three')).to.throw(Error);
-    });
+    // it('should throw an error if toggle does not exist', () => {
+    //   expect(() => FeatureToggles.isAnyEnabled('one', 'two', 'three')).to.throw(Error);
+    // });
   });
 
   describe('hasAnyAuthorisedFeature', () => {
-    it('should throw an error when no feature names are provided', () => {
-      expect(() => FeatureToggles.hasAnyAuthorisedFeature(['one'], 'test')).to.throw(Error);
-    });
+    // it('should throw an error when no feature names are provided', () => {
+    //   expect(() => FeatureToggles.hasAnyAuthorisedFeature(['one'], 'test')).to.throw(Error);
+    // });
 
     it('should throw an error if toggle does not exist', () => {
       expect(() => FeatureToggles.hasAnyAuthorisedFeature([])).to.throw(Error);
     });
   });
 
-  describe('isEnabled', () => {
-    it('should throw an error if toggle does not exist', () => {
-      expect(() => FeatureToggles.isEnabled('I am not a valid toggle name')).to.throw(Error);
-    });
-  });
+  // describe('isEnabled', () => {
+  //   it('should throw an error if toggle does not exist', () => {
+  //     expect(() => FeatureToggles.isEnabled('I am not a valid toggle name')).to.throw(Error);
+  //   });
+  // });
 });
