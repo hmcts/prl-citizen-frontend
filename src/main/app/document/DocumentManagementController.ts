@@ -305,7 +305,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       data.id = caseReference;
       const updatedCaseDataFromCos = await client.updateCase(
         caseworkerUser,
-        caseReference as string,
+        caseReference,
         data,
         'linkCitizenAccount'
       );
@@ -322,7 +322,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const isApplicant = req.query.isApplicant;
     let redirectUrl;
     const caseworkerUser = await getSystemUser();
-    //req.session.userCase['applicantUploadFiles'];
     const documentIdToDelete = req.params.documentId;
     const deleteDocumentDetails = {
       caseId: req.session.userCase.id,
@@ -373,9 +372,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant = req.query.isApplicant;
-    //let applicantFiles: UploadedFile[] = [];
     const respondentFiles: UploadedFile[] = [];
-    //if (isApplicant === YesOrNo.YES) {
+    
     if (req?.session?.userCase?.applicantUploadFiles === undefined) {
       req.session.userCase['applicantUploadFiles'] = [];
     }

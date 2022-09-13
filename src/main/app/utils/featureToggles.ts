@@ -30,7 +30,6 @@ export class FeatureToggles {
     if (featureNames.length === 0) {
       throw new Error('At least one feature name has to be provided');
     }
-    //return featureNames.some(featureName => toBoolean(config.get<boolean>(`featureToggles.${featureName}`)));
     return true;
   }
 }
