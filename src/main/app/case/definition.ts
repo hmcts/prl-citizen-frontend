@@ -32,6 +32,13 @@ export interface Document {
 
 export interface DynamicElementIndicator {}
 
+export interface EmergencyCourtDocument extends Document{
+  orderType: string,
+  id: string,
+}
+
+export type EmergencyCourtDocumentStorage = EmergencyCourtDocument[];
+
 export interface DynamicList {
   value: DynamicListElement;
   list_items: DynamicListElement[];

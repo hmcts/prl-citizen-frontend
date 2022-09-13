@@ -1,0 +1,83 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "fileupload/macro.njk" import fileUpload %}
+
+
+
+{% extends "common/page.njk" %}
+
+
+{% block page_content %}
+
+{% if FileErrors.length > 0 %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: FileErrors
+}) }}
+
+{%endif%}
+
+
+  <h1 class="govuk-heading-xl">{{title}} {{orderType | orderStringParser}}</h1>
+  <p class="govuk-body">{{ youNeed }}</p>
+  <p class="govuk-body">{{ youNeed2 }}</p>
+
+
+
+{% set uploadReqTest = ""%}
+
+{% for item in uploadRequirement %}
+    {% set uploadReqTest = uploadReqTest + "<li>" + item + "</li>"%}
+{% endfor %}
+
+{% set requirementTest = "<ol class='govuk-list govuk-list--number'>" + uploadReqTest + "</ol>" %}
+
+{{ govukDetails({
+  summaryText: uploadDescription,
+  text: requirementTest  | safe
+}) }}
+
+
+{% set removepoint = '/upload-your-documents?query=delete&docId={{documentId}}&documentType=applicationform'%}
+
+<div class="govuk-form-group govuk-inset-text">
+ <form action="{{postURL}}?orderType={{orderType}}" method="post" enctype="multipart/form-data">
+      {{ govukFileUpload({
+  id: "file-upload-1",
+  name: "documents",
+  classes: "govuk-!-margin-bottom-3",
+  label: {
+    text: "Upload a file"
+  }
+}) }}
+  {{ govukButton({
+          text: uploadButton,
+          type: "upload document",
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
+        }) }}
+
+</form>  
+
+  </div>
+
+  {% if document.id !== undefined and document.id !== '' %}
+  <div id="uploadGroup" tabindex="0" class="uploadGroup">
+    <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+    <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <ul id="filesUploaded" class="govuk-list">
+        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
+          {{ document.document_filename }} 
+          {% set documentId = document.id %}
+          <a href="{{postURL}}?removeId={{documentId}}&orderType={{orderType}}" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
+        </li>
+    </ul>
+  </div>   
+  {%endif%}
+    <p class="govuk-body">
+    {{ fileFormats }}<br>
+    {{ fileSize }}
+  </p>
+{% endblock %}

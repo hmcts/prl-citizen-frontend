@@ -40,6 +40,7 @@ import {
   C100_CHILDERN_FURTHER_INFORMATION,
   C100_CONFIRMATIONPAGE,
   C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+  C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD,
   PageLink,
 } from '../urls';
 
@@ -274,6 +275,11 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD,
+  },
+  {
+    url: C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD,
     showInSection: Sections.C100,
     getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   },

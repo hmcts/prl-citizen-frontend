@@ -10,6 +10,10 @@ services:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'prl_citizen_frontend'
     secret: 'NEED TO INSERT SECRET'
+  prlauthProvider:
+    url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
+    microservice: 'prl_citizen_frontend'
+    secret: 'NEED TO INSERT SECRET'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
@@ -23,7 +27,7 @@ services:
     url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-421.service.core-compute-preview.internal'
     checkDivCases: true
   cos:
-    url: 'https://prl-cos-pr-513.service.core-compute-preview.internal'
+    url: 'https://prl-cos-pr-539.service.core-compute-preview.internal'
 health:
   timeout: 5000
   deadline: 15000
@@ -36,3 +40,7 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey: false
+documentUpload:
+  validation:
+    totaldocuments: 1
+    sizeInKB: 20000000  

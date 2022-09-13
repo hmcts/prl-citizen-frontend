@@ -34,3 +34,18 @@ export const initAuthToken = (): void => {
 export const getServiceAuthToken = (): string => {
   return token;
 };
+
+export const getServiceAuthTokenForPRLCitizen = async (): Promise<string> => {
+  const url: string = config.get('services.prlauthProvider.url') + '/testing-support/lease';
+  const microservice: string = config.get('services.prlauthProvider.microservice');
+  const body = { microservice };
+  try {
+    const response = await Axios.post(url, body);
+    logger.info('Service auth token refreshed');
+    token = response.data;
+  } catch (err) {
+    logger.error('Error in refreshing service auth token ', err.message, err.response?.status, err.response?.data);
+  }
+
+  return token;
+};
