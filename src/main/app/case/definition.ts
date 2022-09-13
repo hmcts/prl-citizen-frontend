@@ -644,7 +644,6 @@ export interface CaseData {
   dateOfSubmission: DateOfSubmission;
   //declarationTable: DeclarationTable;
   interpreterNeeds: InterpreterNeed[];
-  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
   childDetailsTable: ChildDetailsTable[];
   jurisdictionIssue: string;
   ordersApplyingFor: string[];
