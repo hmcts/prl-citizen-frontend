@@ -816,10 +816,8 @@ export interface CaseInvite {
 
 export interface CaseInviteValue {
   partyId: string;
-  applicant2InviteEmailAddress: string;
+  caseInviteEmail: string;
   accessCode: string;
-  caseInviteEmail: string
-  applicant2UserId: string;
   invitedUserId: string;
   expiryDate: string;
 }
@@ -2117,14 +2115,6 @@ export interface orderInterface {
   issueOrderDetails: string;
 }
 
-
-export interface CaseInvite {
-  partyId: string;
-  caseInviteEmail: string;
-  accessCode: string;
-  invitedUserId: string;
-  expiryDate: string;
-}
 
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
