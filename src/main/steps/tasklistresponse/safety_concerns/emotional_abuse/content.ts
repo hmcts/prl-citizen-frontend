@@ -14,7 +14,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     'respondentSafetyConcerns.isEmotinallyAbused': {
       required: 'Please choose one of the following options ',
@@ -33,7 +33,7 @@ const cy: typeof en = {
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     'respondentSafetyConcerns.isEmotinallyAbused': {
       required: 'Please choose one of the following options ',
@@ -66,7 +66,7 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

@@ -1,7 +1,7 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  C7_RESPONSE_START,
+  RESPOND_TO_APPLICATION,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   COURT_PROCEEDINGS_SUMMARY,
@@ -52,9 +52,9 @@ import {
 
 export const responseCaseSequence: Step[] = [
   {
-    url: C7_RESPONSE_START,
+    url: RESPOND_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: CONSENT_TO_APPLICATION,
@@ -64,7 +64,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: CONSENT_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_DETAILS_KNOWN,
@@ -82,12 +82,12 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: MIAM_START,
@@ -102,22 +102,22 @@ export const responseCaseSequence: Step[] = [
   {
     url: MIAM_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_PERSONAL_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_CONTACT_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_ADDRESS_DETAILS,
@@ -142,17 +142,17 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_ADDRESS_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_ADDRESS_BLANK,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_ADDRESS_HISTORY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: INTERNATIONAL_FACTORS_START,
@@ -177,7 +177,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: SAFETY_MAIN_PAGE,
@@ -242,7 +242,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: EMOTIONAL_ABUSE_DESCRIPTION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: SEXUAL_ABUSE,
@@ -252,12 +252,12 @@ export const responseCaseSequence: Step[] = [
   {
     url: SEXUAL_ABUSE_DESCRIPTION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: DOMESTIC_ABUSE_RISK_NO,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: PROCEEDINGS_START,
@@ -275,7 +275,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
@@ -300,6 +300,6 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
 ];

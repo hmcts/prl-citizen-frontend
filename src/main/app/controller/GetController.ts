@@ -41,7 +41,7 @@ export class GetController {
       addresses,
       name,
       byApplicant,
-      
+      userIdamId: req.session?.user?.id,
     });
 
     const sessionErrors = req.session?.errors || [];
@@ -62,18 +62,16 @@ export class GetController {
     });
   }
 
-  private getPreferredLanguage(req: AppRequest) {
+  protected getPreferredLanguage(req: AppRequest) {
     // User selected language
     const requestedLanguage = req.query['lng'] as string;
     if (LanguageToggle.supportedLanguages.includes(requestedLanguage)) {
       return requestedLanguage;
     }
-
     // Saved session language
     if (req.session?.lang) {
       return req.session.lang;
     }
-
     // Browsers default language
     const negotiator = new Negotiator(req);
     return negotiator.language(LanguageToggle.supportedLanguages) || 'en';

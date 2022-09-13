@@ -5,7 +5,6 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
-import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
@@ -19,6 +18,7 @@ import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
+import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import {
   ACCESSIBILITY_STATEMENT,
   ALLEGATION_OF_HARM_VOILENCE,
@@ -39,6 +39,7 @@ import {
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
+  RESPOND_TO_APPLICATION,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
   TIMED_OUT_URL,
@@ -66,6 +67,7 @@ export class Routes {
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
+    app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -85,6 +87,7 @@ export class Routes {
           : PostController;
 
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
+
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
         app.get(

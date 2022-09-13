@@ -7,7 +7,7 @@ import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
-import { responseCaseSequence } from './c7response/responseCaseSequence';
+import { responseCaseSequence } from './tasklistresponse/responseCaseSequence';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';

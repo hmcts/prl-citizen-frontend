@@ -1,7 +1,5 @@
 //import { YesOrNo } from 'app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   section: 'Safety concerns',
@@ -26,7 +24,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
-  saveAndContinue: 'Save and Continue',
+  saveAndContinue: 'Continue',
   errors: {
     'respondentSafetyConcerns.domesticAbuseDetails': {
       required: 'Please choose one of the following options ',
@@ -57,7 +55,7 @@ const cy: typeof en = {
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
-  saveAndContinue: 'Save and Continue',
+  saveAndContinue: 'Continue',
   errors: {
     'respondentSafetyConcerns.domesticAbuseDetails': {
       required: 'Please choose one of the following options ',
@@ -70,35 +68,13 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {
-    'respondentSafetyConcerns.domesticAbuseDetails': {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.label,
-      section: l => l.section,
-      values: [
-        {
-          label: l => l.one,
-          value: 'Yes',
-        },
-        {
-          label: l => l.two,
-          value: 'No',
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-  },
-  submit: {
-    text: l => l.saveAndContinue,
-  },
-};
+
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const domesticAbuse = content.userCase?.respondentSafetyConcerns?.domesticAbuseDetails;
   return {
     ...translations,
-    form,
+    domesticAbuse,
   };
 };

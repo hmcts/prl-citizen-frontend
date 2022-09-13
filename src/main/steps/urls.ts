@@ -46,8 +46,8 @@ export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/
 
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
-export const C7_RESPONSE: PageLink = '/c7response';
-export const C7_RESPONSE_START: PageLink = `${C7_RESPONSE}/start`;
+export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
+
 
 /* Applicant Upload document start */
 export const APPLICANT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/applicant/upload-document';
@@ -73,12 +73,12 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 /* respondent-keep-details-private-end */
 
 /* MIAM */
-export const MIAM: PageLink = `${C7_RESPONSE}/miam`;
+export const MIAM: PageLink = `/tasklistresponse/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
 
 /* international-factors */
-export const INTERNATIONAL_FACTORS: PageLink = `${C7_RESPONSE}/international-factors`;
+export const INTERNATIONAL_FACTORS: PageLink = `/tasklistresponse/international-factors`;
 export const INTERNATIONAL_FACTORS_START: PageLink = `${INTERNATIONAL_FACTORS}/start`;
 export const INTERNATIONAL_FACTORS_PARENTS: PageLink = `${INTERNATIONAL_FACTORS}/parents`;
 export const INTERNATIONAL_FACTORS_JURISDICTION: PageLink = `${INTERNATIONAL_FACTORS}/jurisdiction`;
@@ -143,7 +143,7 @@ export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${
 export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/orders`;
 
 /* consent-to-the-application */
-export const CONSENT: PageLink = `${C7_RESPONSE}/consent-to-application`;
+export const CONSENT: PageLink = `/tasklistresponse/consent-to-application`;
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
@@ -160,7 +160,7 @@ export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_
 export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 
 /* safety concerns */
-export const SAFETY_CONCERNS: PageLink = `${C7_RESPONSE}/safety_concerns`;
+export const SAFETY_CONCERNS: PageLink = `/tasklistresponse/safety_concerns`;
 export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
 export const YOUR_SAFETY: PageLink = `${SAFETY_CONCERNS}/your_safety`;
 export const DOMESTIC_ABUSE_RISK: PageLink = `${SAFETY_CONCERNS}/domestic_abuse_risk`;
@@ -236,7 +236,7 @@ export const UNABLE_TO_TAKE_COURT_PROCEEDINGS: PageLink = `${SUPPORT_YOU_NEED_DU
 export const SAFETY_ARRANGEMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/safety-arrangements`;
 export const SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/summary`;
 
-export const PROCEEDINGS: PageLink = `${C7_RESPONSE}/proceedings`;
+export const PROCEEDINGS: PageLink = `/tasklistresponse/proceedings`;
 export const PROCEEDINGS_START: PageLink = `${PROCEEDINGS}/start`;
 export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/court-proceedings`;
 export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;

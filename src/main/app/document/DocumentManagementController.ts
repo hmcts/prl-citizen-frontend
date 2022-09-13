@@ -119,7 +119,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
 
       const caseworkerUser = await getSystemUser();
-      req.session.user = caseworkerUser;
+     // req.session.user = caseworkerUser;
       const caseReference = req.session.userCase.id;
 
       const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');

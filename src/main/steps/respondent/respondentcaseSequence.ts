@@ -46,7 +46,6 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
-  C7_RESPONSE_START,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
@@ -54,6 +53,7 @@ import {
   YOUR_SAFETY_NA,
   DOMESTIC_ABUSE_RISK_NA,
   DOMESTIC_ABUSE_RISK_NO_NA,
+  RESPOND_TO_APPLICATION,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -353,10 +353,10 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_TASK_LIST_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C7_RESPONSE_START,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
-    url: C7_RESPONSE_START,
+    url: RESPOND_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

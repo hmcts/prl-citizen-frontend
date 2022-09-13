@@ -1,6 +1,7 @@
 {% extends "common/template.njk" %}
 
 {% block page_content %}
+  <form action="/tasklistresponse/safety_concerns/domestic_abuse_risk" method="post">
 
   <span class="govuk-caption-xl">{{section}}</span>
   <h1 class="govuk-heading-xl">{{title}}</h1>
@@ -26,6 +27,26 @@
     <li>{{line14}}</li>
   </ul>
   <p class="govuk-body">{{line15}}</p>
+    <div class="govuk-form-group">
+           <fieldset class="govuk-fieldset">
+             <div class="govuk-radios" data-module="govuk-radios">
+               <div class="govuk-radios__item">
+                 <input id="generalabuse-yes" class="govuk-radios__input" type="radio" value="yes" name="generalabuse">
+                 <label for="generalabuse-yes" class="govuk-label govuk-radios__label">Yes</label>
+               </div>
+               <div class="govuk-radios__item">
+                 <input id="generalabuse-no" class="govuk-radios__input" type="radio" value="no" name="generalabuse">
+                 <label for="generalabuse-no" class="govuk-label govuk-radios__label">No</label>
+               </div>
+             </div>
+            </fieldset>
+          </div>
+
+
+          <button type="submit" formnovalidate="formnovalidate" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">Save and continue
+          </button>
+
+          </form>
 
 {% endblock %}
 {% block page_content_under_form %}
@@ -45,5 +66,8 @@
       <p class="govuk-body">The information you provide in this section will also be shared with the respondents so that they have the opportunity to respond to your allegations.</p>
     </div>
   </details>
+
+
+
 
 {% endblock %}
