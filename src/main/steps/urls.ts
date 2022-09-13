@@ -79,6 +79,7 @@ export const INTERNATIONAL_FACTORS_SUMMARY: PageLink = `${INTERNATIONAL_FACTORS}
 /* international-factors */
 
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
+export const MIAM_SAVE: PageLink = `${MIAM}/save`;
 /* MIAM */
 
 /* safety concerns */

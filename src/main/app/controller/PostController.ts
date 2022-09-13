@@ -73,12 +73,7 @@ export class PostController<T extends AnyObject> {
    * @returns a promise.
    */
   private async onlyContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    // This is for testing purpose
-    // when user clicks on the casenumber link, we need to capture the caseid and store in session.
-    if (req.session.userCase === null || req.session.userCase === undefined) {
-      req.session.userCase = { id: '1662375512631535', state: State.Draft };
-    }
-
+    
     if (formData !== null && formData !== undefined) {
       Object.assign(req.session.userCase, formData);
     }

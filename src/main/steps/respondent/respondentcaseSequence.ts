@@ -15,6 +15,7 @@ import {
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
+  MIAM_SAVE,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
   RESPONDENT,
@@ -97,8 +98,13 @@ export const respondentCaseSequence: Step[] = [
   {
     url: MIAM_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => MIAM_SAVE,
   },
+  // {
+  //   url: MIAM_SUMMARY,
+  //   showInSection: Sections.AboutRespondentCase,
+  //   getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  // },
   {
     url: RESPONDENT_CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
