@@ -303,12 +303,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (isApplicationViewed) {
       const data = toApiFormat(req?.session?.userCase);
       data.id = caseReference;
-      const updatedCaseDataFromCos = await client.updateCase(
-        caseworkerUser,
-        caseReference,
-        data,
-        'linkCitizenAccount'
-      );
+      const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference, data, 'linkCitizenAccount');
       req.session.userCase = updatedCaseDataFromCos;
     }
   }
@@ -373,7 +368,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant = req.query.isApplicant;
     const respondentFiles: UploadedFile[] = [];
-    
+
     if (req?.session?.userCase?.applicantUploadFiles === undefined) {
       req.session.userCase['applicantUploadFiles'] = [];
     }
