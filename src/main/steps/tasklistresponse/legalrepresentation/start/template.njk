@@ -15,7 +15,7 @@
     
     <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
 
-    {% if userCase.legalRepresentation == 'Yes' %}
+    {% if formaction == 'Yes' %}
     {{ govukRadios({
     idPrefix: "legalRepresentation",
     name: "legalRepresentation",
@@ -42,7 +42,7 @@
     }
   }) }}
 
-    {% elif userCase.legalRepresentation == 'No' %}
+    {% elif formaction == 'No' %}
     {{ govukRadios({
     idPrefix: "legalRepresentation",
     name: "legalRepresentation",

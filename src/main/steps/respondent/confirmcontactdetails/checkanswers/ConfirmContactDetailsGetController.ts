@@ -22,18 +22,7 @@ export default class ConfirmContactDetailsGetController extends GetController {
         // req.session['lang'] =
         //   req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
       }
-      //return next();
     }
-
-    //console.log("BEFORE call to getCaseById method====1111====>>");
-    //res.locals.isLoggedIn = true;
-    //req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-    //await req.locals.api.getCases();
-    //req.session.userCase = await req.locals.api.getCaseById('1651759489115676');
-
-    //req.session.userCase.applicant1FirstNames = 'John';
-    //req.session.userCase.applicant1LastNames = 'Smith';
-    //req.session.userCase.applicant1PlaceOfBirth = 'London';
 
     if (!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames) {
       req.session.userCase.applicant1FullName = '<span class="govuk-error-message">Complete this section</span>';

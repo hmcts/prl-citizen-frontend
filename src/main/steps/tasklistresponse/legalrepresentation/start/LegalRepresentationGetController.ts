@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { Respondent } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
@@ -23,11 +24,17 @@ export default class LegalRepresentationGetController extends GetController {
       userCase: req.session?.userCase,
     });
     const sessionErrors = req.session?.errors || [];
+    let formaction = '';
+    req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+      if (respondent?.value?.user?.idamId === req.session?.user.id) {
+        formaction = respondent.value.response.legalRepresentation || '';
+      }
+    });
     res.render(this.view, {
       ...content,
       sessionErrors,
       htmlLang: language,
-      formaction: req.originalUrl,
+      formaction,
       userIdamId: req.session?.user?.id,
     });
   }
