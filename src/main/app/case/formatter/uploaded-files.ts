@@ -12,10 +12,6 @@ export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => {
   };
 };
 
-export const documentUploadApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
-  applicantDocumentsUploaded: data.applicantDocumentsUploaded,
-});
-
 export const getFilename = (document: Partial<UploadDocumentList> | undefined | null): string | undefined => {
   return document?.value?.citizenDocument.document_filename;
 };

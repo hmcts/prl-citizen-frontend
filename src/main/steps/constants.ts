@@ -16,3 +16,6 @@ export interface Step {
   excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
+
+export const ApplicantUploadFiles = 'applicantUploadFiles';
+export const RespondentUploadFiles = 'respondentUploadFiles';

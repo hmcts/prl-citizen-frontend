@@ -14,21 +14,21 @@
             <div class="govuk-warning-text govuk-!-margin-bottom-4">
               <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
               <strong class="govuk-warning-text__text govuk-!-margin-bottom-4">
-                <span class="govuk-warning-text__assistive">Warning</span>
-                When you upload a document, it will  be shared with the other people in the case.
+                <span class="govuk-warning-text__assistive">{{warning}}</span>
+                {{warningTxt}}
               </strong>
 
-              <p class="govuk-body govuk-!-margin-left-7">If there is information that should not be shared, remove it from the document. If this is not possible, do not upload the document. Instead, you can ask  the court to restrict who can see the document. </p>
+              <p class="govuk-body govuk-!-margin-left-7">{{documentSharedLine1}}</p>
 
-              <p class="govuk-body govuk-!-margin-left-7">The court will only agree to restrict who can see the document if:</p>
+              <p class="govuk-body govuk-!-margin-left-7">{{documentSharedLine2}}</p>
 
               <ul class="govuk-list govuk-list--bullet govuk-!-margin-left-7 govuk-!-margin-bottom-6">
-                <li>there is a good reason not to share the document, for example safety concerns</li>
-                <li>the document is not something the judge needs to see</li>
-                <li>an address that needs to be kept private is included in the document</li>
+                <li>{{documentSharedLine3}}</li>
+                <li>{{documentSharedLine4}}</li>
+                <li>{{documentSharedLine5}}</li>
               </ul>
-              <p class="govuk-body govuk-!-margin-left-7">If you want the court to restrict who can see a document, email: {{email}}</p>
-                <p class="govuk-body govuk-!-margin-left-7">You must say why the document should be restricted.</p>
+              <p class="govuk-body govuk-!-margin-left-7">{{documentSharedLine6}}{{email}}</p>
+                <p class="govuk-body govuk-!-margin-left-7">{{documentSharedLine7}}</p>
 
             </div>
 
