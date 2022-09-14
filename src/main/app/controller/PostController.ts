@@ -3,6 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
+import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
@@ -15,6 +16,7 @@ import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
 
+const UploadDocumentSucess = 'upload-documents-success';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
@@ -88,12 +90,12 @@ export class PostController<T extends AnyObject> {
     //await client.updateRespondentCase(caseworkerUser, req.session.userCase.id, req, data);
     this.redirect(req, res);
 
-    if (req.originalUrl.includes('upload-documents-success')) {
+    if (req.originalUrl.includes(UploadDocumentSucess)) {
       if (req?.session?.userCase?.applicantUploadFiles) {
-        req.session.userCase['applicantUploadFiles'] = [];
+        req.session.userCase[ApplicantUploadFiles] = [];
       }
       if (req?.session?.userCase?.respondentUploadFiles) {
-        req.session.userCase['respondentUploadFiles'] = [];
+        req.session.userCase[RespondentUploadFiles] = [];
       }
     }
 
