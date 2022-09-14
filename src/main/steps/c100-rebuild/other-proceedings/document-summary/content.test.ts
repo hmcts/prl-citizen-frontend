@@ -39,13 +39,13 @@ describe('other proceedings > documentSummary > content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  /*test('should contain Continue button', () => {
+  test('should contain Continue button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });*/
+  });
   test('should contain SaveAndComeLater button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
