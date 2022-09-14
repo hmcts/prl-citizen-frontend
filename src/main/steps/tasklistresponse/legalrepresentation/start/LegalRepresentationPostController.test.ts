@@ -13,7 +13,7 @@ const dummySessionData = {
   legalRepresentation: YesOrNo.YES,
   respondents: [
     {
-      id: '',
+      id: '123',
       value: {
         response: {
           legalRepresentation: YesOrNo.YES,
@@ -46,7 +46,7 @@ describe('PostController', () => {
     const req = mockRequest({ body });
     req.session.user.id = '123';
     req.session.userCase = dummySessionData;
-
+    req.body = { legalRepresentation: YesOrNo.YES };
     const res = mockResponse();
     const language = 'en';
     req.session.lang = language;
@@ -71,6 +71,7 @@ describe('PostController', () => {
     const res = mockResponse();
     const language = 'en';
     req.session.lang = language;
+    req.body = { legalRepresentation: YesOrNo.YES };
     await controller.post(req, res);
 
     const redirectUrl = LEGAL_REPRESENTATION_START;
@@ -87,7 +88,7 @@ describe('PostController', () => {
     const req = mockRequest({ dummySessionData });
     req.session.user.id = '123';
     req.session.userCase = dummySessionData;
-
+    req.body = { legalRepresentation: YesOrNo.YES };
     const language = 'en';
     req.session.lang = language;
     controller.post(req, mockResponse());
