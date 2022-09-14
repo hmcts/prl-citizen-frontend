@@ -86,7 +86,7 @@ export const enContent = {
   title: 'Check your answers',
   title2: 'Current or previous court cases',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    applicationDetails: '',
   },
   keys: {
     proceedingsStart: 'Have the children been involved in a court case?',
@@ -488,7 +488,7 @@ const cyContent: typeof enContent = {
   title: 'Check your answers',
   title2: 'Current or previous court cases',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    applicationDetails: '',
   },
   keys: {
     proceedingsStart: 'Have the children been involved in a court case?',

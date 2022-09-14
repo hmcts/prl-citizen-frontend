@@ -75,7 +75,7 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };
