@@ -172,6 +172,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DateOfBirth: 'applicant1DateOfBirth',
   applicant1Occupation: 'applicant1Occupation',
   applicant1EmailAddress: 'applicant1EmailAddress',
+  applicant1SafeToCall: 'applicant1SafeToCall',
   applicant1PhoneNumber: 'applicant1PhoneNumber',
   applicant1PlaceOfBirth: 'applicant1PlaceOfBirth',
   applicant1Address1: 'applicant1Address1',
@@ -326,8 +327,7 @@ export interface Case {
   respondentName?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
-  respondentCaseInvites?: CaseInvite[];
-  applicantCaseInvites?: CaseInvite[];
+  caseInvites?: CaseInvite[];
   orderCollection?: ListValue<PRLDocument>[];
   documentsGenerated?: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
@@ -377,8 +377,8 @@ export interface Case {
   applicant1AdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
-  applicant1PhoneNumber?: string;
   applicant1SafeToCall?: string;
+  applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;

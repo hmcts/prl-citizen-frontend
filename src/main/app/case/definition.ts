@@ -723,6 +723,7 @@ export interface CaseData {
   applicant1AdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
+  applicant1SafeToCall?: string;
   applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1DateOfBirthText?: string;
@@ -740,7 +741,7 @@ export interface CaseData {
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
   accessCode: string;
-  respondentCaseInvites: CaseInvite[]
+  caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
   //applicant1LanguagePreference?: LanguagePreference;
@@ -808,13 +809,17 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
+  id: string;
+  value: CaseInviteValue;
+}
+
+export interface CaseInviteValue {
   partyId: string;
-  applicant2InviteEmailAddress: string;
+  caseInviteEmail: string;
   accessCode: string;
-  caseInviteEmail: string
-  applicant2UserId: string;
   invitedUserId: string;
   expiryDate: string;
+  isApplicant: YesOrNo;
 }
 
 
@@ -2110,14 +2115,6 @@ export interface orderInterface {
   issueOrderDetails: string;
 }
 
-
-export interface CaseInvite {
-  partyId: string;
-  caseInviteEmail: string;
-  accessCode: string;
-  invitedUserId: string;
-  expiryDate: string;
-}
 
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
