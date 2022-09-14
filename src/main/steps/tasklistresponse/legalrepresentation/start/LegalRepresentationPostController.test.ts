@@ -35,7 +35,6 @@ describe('PostController', () => {
 
   test('post should be able to save legal representation information', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
-    const body = {};
     const mockForm = {
       fields: {
         legalRepresentation: YesOrNo.YES,
@@ -43,10 +42,10 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new LegalRepresentationPostController(mockForm.fields);
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ dummySessionData });
     req.session.user.id = '123';
     req.session.userCase = dummySessionData;
-    req.body = { legalRepresentation: YesOrNo.YES };
+
     const res = mockResponse();
     const language = 'en';
     req.session.lang = language;
@@ -56,7 +55,6 @@ describe('PostController', () => {
 
   test('proceed saving child without error', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
-    const body = {};
     const mockForm = {
       fields: {
         legalRepresentation: YesOrNo.YES,
@@ -64,14 +62,13 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new LegalRepresentationPostController(mockForm.fields);
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ dummySessionData });
     req.session.user.id = '123';
     req.session.userCase = dummySessionData;
 
     const res = mockResponse();
     const language = 'en';
     req.session.lang = language;
-    req.body = { legalRepresentation: YesOrNo.YES };
     await controller.post(req, res);
 
     const redirectUrl = LEGAL_REPRESENTATION_START;
@@ -88,7 +85,7 @@ describe('PostController', () => {
     const req = mockRequest({ dummySessionData });
     req.session.user.id = '123';
     req.session.userCase = dummySessionData;
-    req.body = { legalRepresentation: YesOrNo.YES };
+
     const language = 'en';
     req.session.lang = language;
     controller.post(req, mockResponse());
