@@ -9,7 +9,19 @@ import LegalRepresentationPostController from './LegalRepresentationPostControll
 
 // import Mock = jest.Mock;
 
-const dummySessionData = { legalRepresentation: YesOrNo.YES };
+const dummySessionData = {
+  legalRepresentation: YesOrNo.YES,
+  respondents: [
+    {
+      response: {
+        legalRepresentation: YesOrNo.YES,
+      },
+      user: {
+        idamId: '123',
+      },
+    },
+  ],
+};
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
@@ -22,7 +34,9 @@ describe('PostController', () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
     const body = {};
     const mockForm = {
-      fields: {},
+      fields: {
+        legalRepresentation: YesOrNo.YES,
+      },
     } as unknown as FormContent;
     const controller = new LegalRepresentationPostController(mockForm.fields);
 
@@ -38,7 +52,9 @@ describe('PostController', () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
     const body = {};
     const mockForm = {
-      fields: {},
+      fields: {
+        legalRepresentation: YesOrNo.YES,
+      },
     } as unknown as FormContent;
     const controller = new LegalRepresentationPostController(mockForm.fields);
 
@@ -54,7 +70,9 @@ describe('PostController', () => {
 
   test('Child has both date and Approx date enabled', async () => {
     const mockForm = {
-      fields: {},
+      fields: {
+        legalRepresentation: YesOrNo.YES,
+      },
     } as unknown as FormContent;
     const controller = new LegalRepresentationPostController(mockForm.fields);
     const req = mockRequest({ dummySessionData });
