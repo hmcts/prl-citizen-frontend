@@ -197,6 +197,7 @@ export const C100_TYPE_ORDER_CAORDER: PageLink = `${C100_URL}/typeoforder/caorde
 export const C100_TYPE_ORDER_SHORT_STATEMENT: PageLink = `${C100_URL}/typeoforder/shortstatement`;
 export const C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS: PageLink = `${C100_URL}/other-proceedings/current-previous-proceedings`;
 export const C100_OTHER_PROCEEDINGS_DETAILS: PageLink = `${C100_URL}/other-proceedings/proceeding-details`;
+export const C100_OTHER_PROCEEDINGS_ORDER_DETAILS: PageLink = `${C100_URL}/other-proceedings/order-details`;
 
 /** @C100 Help with Fees */
 export const C100_HELP_WITH_FEES: PageLink = `${C100_URL}/help-with-fees`;
