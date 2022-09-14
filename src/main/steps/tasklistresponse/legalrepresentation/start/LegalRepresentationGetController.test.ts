@@ -1,17 +1,31 @@
 import { defaultViewArgs } from '../../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { State } from '../../../../app/case/definition';
+import { State, YesOrNo } from '../../../../app/case/definition';
 //import { generatePageContent } from '../../../../steps/common/common.content';
 import * as Urls from '../../../../steps/urls';
 
 import LegalRepresentationGetController from './LegalRepresentationGetController';
 
+const dummySessionData = {
+  legalRepresentation: YesOrNo.YES,
+  respondents: [
+    {
+      response: {
+        legalRepresentation: YesOrNo.YES,
+      },
+      user: {
+        idamId: '123',
+      },
+    },
+  ],
+};
+
 describe('LegalRepresentationGetController', () => {
   test('Should render the page', async () => {
     const controller = new LegalRepresentationGetController('page', () => ({}));
 
-    const req = mockRequest();
+    const req = mockRequest({ dummySessionData });
     const res = mockResponse();
     await controller.get(req, res);
     expect(1).toEqual(1);
@@ -20,7 +34,7 @@ describe('LegalRepresentationGetController', () => {
   test('Testing controller native methods to ensure right validation', async () => {
     const controller = new LegalRepresentationGetController('page', () => ({}));
 
-    const req = mockRequest({ userCase: { state: State.FinalOrderComplete } });
+    const req = mockRequest({ dummySessionData });
     const res = mockResponse();
     await controller.get(req, res);
     req.originalUrl = Urls.LEGAL_REPRESENTATION_START;
@@ -34,7 +48,7 @@ describe('LegalRepresentationGetController', () => {
       const controller = new LegalRepresentationGetController('page', () => ({}));
 
       const language = 'cy';
-      const req = mockRequest();
+      const req = mockRequest({ dummySessionData });
       const res = mockResponse();
       req.session.lang = language;
       await controller.get(req, res);
@@ -50,7 +64,7 @@ describe('LegalRepresentationGetController', () => {
       const controller = new LegalRepresentationGetController('page', () => ({}));
 
       const language = 'en';
-      const req = mockRequest();
+      const req = mockRequest({ dummySessionData });
       const res = mockResponse();
       req.session.lang = language;
       await controller.get(req, res);

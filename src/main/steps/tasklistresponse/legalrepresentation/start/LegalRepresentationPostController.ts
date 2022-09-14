@@ -43,12 +43,7 @@ export default class LegalRepresentationPostController extends PostController<An
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = req.session.userCase?.id;
       const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-      const updatedCaseDataFromCos = await client.updateCase(
-        caseworkerUser,
-        caseReference as string,
-        caseData,
-        eventId
-      );
+      const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference, caseData, eventId);
       Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
       req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
