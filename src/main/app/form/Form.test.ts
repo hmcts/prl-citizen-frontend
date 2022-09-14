@@ -16,6 +16,15 @@ describe('Form', () => {
         ],
         validator: jest.fn().mockImplementation(isFieldFilledIn),
       },
+      fieldset: {
+        type: 'fieldset',
+        subFields: {
+          input: {
+            type: 'text',
+            value: 'test',
+          },
+        },
+      },
       dateField: {
         type: 'date',
         values: [
@@ -156,10 +165,16 @@ describe('Form', () => {
     });
 
     it('returns the parsed body of subfields', () => {
-      const body = { field: YesOrNo.YES, testSubField: 'test', checkboxes: ['', '', 'checkbox1', 'checkbox2'] };
+      const body = {
+        field: YesOrNo.YES,
+        fieldset: { input: 'test' },
+        testSubField: 'test',
+        checkboxes: ['', '', 'checkbox1', 'checkbox2'],
+      };
 
       expect(subFieldForm.getParsedBody(body)).toStrictEqual({
         field: 'Yes',
+        fieldset: { input: 'test' },
         testSubField: 'test',
         checkboxes: ['checkbox1', 'checkbox2'],
       });
@@ -192,6 +207,9 @@ describe('Form', () => {
       {
         body: {
           field: 'Yes',
+          fieldset: {
+            input: 'test',
+          },
           dateField: {
             day: '1',
             month: '1',

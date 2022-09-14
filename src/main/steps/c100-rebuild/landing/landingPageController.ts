@@ -14,7 +14,9 @@ export class LandingPageController {
           ...(req.session.userCase || {}),
           caseId,
         };
-        res.redirect(C100_START);
+        req.session.save(() => {
+          res.redirect(C100_START);
+        });
       } catch (e) {
         // Handle error here
       }

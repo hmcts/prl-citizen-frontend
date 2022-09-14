@@ -39,6 +39,7 @@ import {
   C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
   C100_CHILDERN_FURTHER_INFORMATION,
   C100_CONFIRMATIONPAGE,
+  C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
   PageLink,
 } from '../urls';
 
@@ -270,5 +271,10 @@ export const C100Sequence: Step[] = [
     url: C100_CONFIRMATIONPAGE,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIRMATIONPAGE,
+  },
+  {
+    url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   },
 ];

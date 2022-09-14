@@ -7,7 +7,7 @@ export const defaultViewArgs = {
   sessionErrors: [],
   //isDraft: true,
   userCase: expect.any(Object),
-
+  additionalData: expect.any(Object),
   // serviceName: expect.any(String),
   // sessionErrors: expect.any(Array),
   // isDraft: expect.any(Boolean),

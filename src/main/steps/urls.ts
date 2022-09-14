@@ -197,6 +197,7 @@ export const C100_TYPE_ORDER_CAORDER: PageLink = `${C100_URL}/typeoforder/caorde
 export const C100_TYPE_ORDER_SHORT_STATEMENT: PageLink = `${C100_URL}/typeoforder/shortstatement`;
 export const C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS: PageLink = `${C100_URL}/other-proceedings/current-previous-proceedings`;
 export const C100_OTHER_PROCEEDINGS_DETAILS: PageLink = `${C100_URL}/other-proceedings/proceeding-details`;
+export const C100_OTHER_PROCEEDINGS_ORDER_DETAILS: PageLink = `${C100_URL}/other-proceedings/order-details`;
 
 /** @C100 Help with Fees */
 export const C100_HELP_WITH_FEES: PageLink = `${C100_URL}/help-with-fees`;
@@ -211,3 +212,8 @@ export const C100_CHILDERN_DETAILS_PERSONAL_DETAILS: PageLink = `${C100_CHILDERN
 export const C100_CHILDERN_DETAILS_CHILD_MATTERS: PageLink = `${C100_CHILDERN_DETAILS}/child-matters`;
 export const C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: PageLink = `${C100_CHILDERN_DETAILS}/parental-responsibility`;
 export const C100_CHILDERN_FURTHER_INFORMATION: PageLink = `${C100_CHILDERN_DETAILS}/further-information`;
+
+/** @C100  Payment Handler*/
+export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
+export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
+export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback/:paymentId/:status';

@@ -1,4 +1,22 @@
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
 {% for fieldName, field in form.fields %}
   {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
-  {% include "./fields/" + field.type + ".njk" %}
+  {% if field.type === 'fieldset' %}
+      {% call govukFieldset({
+          legend: {
+            text: getContent(field.label),
+            classes: field.classes,
+            isPageHeading: true
+          }
+        }) 
+      %}
+      {% for fieldName, field in field.subFields %}
+      {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
+      {% include "./fields/" + field.type + ".njk" %}
+      {% endfor %}
+      {% endcall %}
+    {% else %}
+      {% include "./fields/" + field.type + ".njk" %}
+    {% endif%}
 {% endfor %}

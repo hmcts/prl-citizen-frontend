@@ -60,3 +60,4 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
     logger
   );
 };
+

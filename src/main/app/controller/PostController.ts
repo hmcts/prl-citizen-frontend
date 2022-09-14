@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import axios from 'axios';
+import https from 'https';
 import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -76,7 +77,6 @@ export class PostController<T extends AnyObject> {
          ...req.session.userCase,
         [groupObjectName]: formData }
     }
-    console.log(req.session.userCase)
     req.session.errors = form.getErrors(formData);
 
     this.filterErrorsForSaveAsDraft(req);
@@ -146,18 +146,23 @@ export class PostController<T extends AnyObject> {
     //const boucingURL = req.originalUrl;
     const caseData = req.session.userCase;
     const eventName = 'citizen-case-update';
-    console.log(caseData)
     const userDetails = await getSystemUser();
+    const requestBody = {caseData: JSON.stringify(caseData)};
+console.log(requestBody);
+    const axiosInstance = axios.create({
+      baseURL: `https://prl-cos-pr-513.service.core-compute-preview.internal`,
+      headers:  {
+          Authorization: 'Bearer ' + userDetails.accessToken,
+          serviceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          accessCode: '12345678',
+          'Content-Type': 'application/json',
+        },
+        httpsAgent: new https.Agent({  
+          rejectUnauthorized: false
+      })
+  })
 
-    await axios.post<any>(`/${caseData.id}/${eventName}/update-case`, {
-      headers: {
-        Authorization: 'Bearer ' + userDetails.accessToken,
-        serviceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        accessCode: '12345678',
-        'Content-Type': 'application/json',
-      },
-      caseData: JSON.stringify(caseData)
-    });
+  await axiosInstance.post(`${caseData.caseId}/${eventName}/update-case`, requestBody);
     this.redirect(req, res, DASHBOARD_URL);
   }
 

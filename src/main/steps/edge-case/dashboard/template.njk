@@ -1,4 +1,5 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block page_content %}
 <br/>
@@ -11,26 +12,30 @@
 <a href="/c100-rebuild/confidentiality/details-know" class="govuk-button">Start Now</a>
 <br/>
 
-{% if cases.length > 0 %}
-<table class="govuk-table govuk-!-margin-top-5">
-  <caption class="govuk-table__caption govuk-table__caption--l">Draft Application</caption>
-  <thead class="govuk-table__head ">
-    <tr class="govuk-table__row govuk-!-padding-bottom-9">
-      <th scope="col" class="govuk-table__header">Application</th>
-      <th scope="col" class="govuk-table__header">Complete</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    {% for case in cases %}
-    <tr class="govuk-table__row">
-      <th  class="govuk-table__cell"><p class="govuk-body-s govuk-!-padding-top-3">Application No : <b>{{case.caseData.id | truncate(8, true, "") }}</b> </p></th>
-      <td class="govuk-table__cell"><a href='/api/v1/draft/{{case.caseData.id}}' class="govuk-button govuk-button--secondary">Continue </a></td>
-    </tr>
+{% if paymentError === true %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: "The payment has been unsuccessful",
+      href: "#passport-issued-day"
+    }
+  ]
+}) }}
 
-
-{% endfor %}
-
-  </tbody>
-</table>
 {% endif %}
+<ul class="govuk-list">
+  <li>
+    <a class="govuk-link" href="/applicant/task-list">DA Applicant</a>
+  </li>
+  <li>
+    <a class="govuk-link" href="/ca-da-respondent/task-list">CA DA Respondent</a>
+  </li>
+  <li>
+    <a class="govuk-link" href="/c100-rebuild">C100 Application</a>
+  </li>
+</ul>
+
+<a class='govuk-button' href='/payments/gateway'>Pay Now </a>
+
 {% endblock %}

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, ContactDetails, OtherName, State, YesOrNo, orderInterface } from './definition';
+import { CaseData, ContactDetails, OtherName, OtherProceedings, State, YesOrNo, orderInterface } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   serviceType: 'serviceType',
@@ -195,9 +195,28 @@ export interface Case {
   needHelpWithFees?: YesOrNo;
   feesAppliedDetails?: YesOrNo;
   caseId?: string;
+  otherProceedings?: OtherProceedings;
 }
 
 export interface CaseWithId extends Case {
+  paymentSuccessDetails?: {
+    amount: string;
+    reference: string;
+    ccd_case_number: string;
+    case_reference: string;
+    channel: string;
+    method: string;
+    status: string;
+    external_reference: string;
+    payment_group_reference: string;
+  };
+  paymentDetails?: {
+    payment_reference: string;
+    date_created: string;
+    external_reference: string;
+    next_url: string;
+    status: string;
+  };
   id: string;
   state: State;
 }
