@@ -6,7 +6,7 @@ const en = {
   title: 'Your contact details',
   phoneNumber: 'UK telephone number',
   email: 'Email address',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     phoneNumber: {
       required: 'Enter UK telephone number',
@@ -14,7 +14,7 @@ const en = {
     },
     email: {
       required: 'Enter Email address',
-      invalid: 'Enter an email address in the correct format, like name@example.com',
+      invalid: 'Enter a valid email address',
     },
   },
 };
@@ -23,7 +23,7 @@ const cy: typeof en = {
   title: 'Eich manylion cyswllt',
   phoneNumber: 'Rhif ffôn y DU',
   email: 'Cyfeiriad ebost',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     phoneNumber: {
       required: 'Rhowch rif ffôn y DU',
