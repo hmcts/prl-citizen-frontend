@@ -5,51 +5,9 @@ import { CommonContent } from '../../common/common.content';
 import { generateContent } from './content';
 const enContent = {
   title: 'Select the type of document',
-  // sectionTitles: {
-  //   witness_statements_and_evidence: 'Witness statements and evidence',
-  //   applications: 'Applications',
-  //   expert_reports: 'Expert reports',
-  //   other_documents: 'Other documents',
-  // },
-  // uploadDocsList: {
-  //   your_position_statements: 'Your position statements',
-  //   your_witness_statements: 'Your witness statements',
-  //   other_witness_statements: "Other people's witness statements",
-  //   mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
-  //   medical_records: 'Medical records',
-  //   letters_from_school: 'Letters from school',
-  //   tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
-  //   previous_orders_submitted: 'Previous orders submitted with application',
-  //   medical_reports: 'Medical reports',
-  //   paternity_test_reports: 'Paternity test reports',
-  //   drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
-  //   police_reports: 'Police reports',
-  //   other_documents: 'Other documents',
-  // },
 };
 const cyContent = {
   title: 'Select the type of document',
-  // sectionTitles: {
-  //   witness_statements_and_evidence: 'Witness statements and evidence',
-  //   applications: 'Applications',
-  //   expert_reports: 'Expert reports',
-  //   other_documents: 'Other documents',
-  // },
-  // uploadDocsList: {
-  //   your_position_statements: 'Your position statements',
-  //   your_witness_statements: 'Your witness statements',
-  //   other_witness_statements: "Other people's witness statements",
-  //   mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
-  //   medical_records: 'Medical records',
-  //   letters_from_school: 'Letters from school',
-  //   tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
-  //   previous_orders_submitted: 'Previous orders submitted with application',
-  //   medical_reports: 'Medical reports',
-  //   paternity_test_reports: 'Paternity test reports',
-  //   drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
-  //   police_reports: 'Police reports',
-  //   other_documents: 'Other documents',
-  // },
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
