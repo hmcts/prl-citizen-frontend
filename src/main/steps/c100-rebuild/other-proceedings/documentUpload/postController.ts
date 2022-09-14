@@ -8,7 +8,7 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { getServiceAuthTokenForPRLCitizen } from '../../../../app/auth/service/get-service-auth-token';
-import { C100OrderInterface, C100OrderTypeKeyMapper } from '../../../../app/case/definition';
+import { C100OrderInterface, C100OrderTypeKeyMapper, C100OrderTypeNameMapper } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -80,15 +80,16 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         const validateFileSize: boolean = FileValidations.sizeValidation(documents.size);
         const formData: FormData = new FormData();
         if (validateMimeType && validateFileSize) {
+          const courtOrderType: AnyType | undefined = orderType;
+          const courtOrderId: AnyType | undefined = orderId;
           const dateOfSystem = new Date().toLocaleString().split(',')[0].split('/').join('');
           const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
-          const fileName = `applicant_emergency_protection_${orderType}_${dateOfSystem}.${extensionType}`;
+          const orderTypeName = C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();
+          const fileName = `applicant__${orderTypeName}_${orderId}__${dateOfSystem}.${extensionType}`;
           formData.append('file', documents.data, {
             contentType: documents.mimetype,
             filename: fileName,
           });
-          const courtOrderType: AnyType | undefined = orderType;
-          const courtOrderId: AnyType | undefined = orderId;
           const orderSessionData = req.session.userCase?.[
             C100OrderTypeKeyMapper[courtOrderType]
           ] as C100OrderInterface[];
@@ -118,11 +119,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               filename: document_filename,
               binaryUrl: document_binary_url,
             };
-            // const currentSessionDocument: EmergencyCourtDocument[] =
-            //   req.session['userCase']['emergencyuploadedDocuments'] || [];
-            // req.session.userCase.emergencyuploadedDocuments = [...currentSessionDocument, documentData];
-
-            //orderSessionDataById.orderDocument = documentInfo;
 
             if (req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]) {
               req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1].orderDocument =
@@ -131,7 +127,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
             req.session.save(() => {
               const redirectURL =
-                C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + `?orderType=${orderType}` + `?orderId=${orderId}`;
+                C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + `?orderType=${orderType}` + `&orderId=${orderId}`;
               res.redirect(redirectURL);
             });
           } catch (error) {

@@ -21,7 +21,7 @@
 {%endif%}
 
 
-  <h1 class="govuk-heading-xl">{{title}} {{orderType | orderStringParser}}</h1>
+  <h1 class="govuk-heading-xl">{{title}} {{orderTypeName}}{{orderId}}</h1>
   <p class="govuk-body">{{ youNeed }}</p>
   <p class="govuk-body">{{ youNeed2 }}</p>
 
@@ -69,9 +69,9 @@
     <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
     <ul id="filesUploaded" class="govuk-list">
         <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-          {{ document.document_filename }} 
+          {{ document.filename }} 
           {% set documentId = document.id %}
-          <a href="{{postURL}}?removeId={{documentId}}&orderType={{orderType}}" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
+          <a href="{{postURL}}?removeId={{documentId}}&orderType={{orderType}}&orderId={{orderId}}" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
         </li>
     </ul>
   </div>   

@@ -6,12 +6,18 @@ import { Response } from 'express';
 
 import { getServiceAuthTokenForPRLCitizen } from '../../../../app/auth/service/get-service-auth-token';
 import { FieldPrefix } from '../../../../app/case/case';
-import { EmergencyCourtDocument } from '../../../../app/case/definition';
+import {
+  C100DocumentInfo,
+  C100OrderInterface,
+  C100OrderTypeKeyMapper,
+  C100OrderTypeNameMapper,
+} from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../common/common.content';
 import { C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD } from '../../../urls';
 
+import { AnyType } from './documentConstants';
 import { PRL_COS_URL } from './postController';
 
 @autobind
@@ -25,8 +31,8 @@ export default class EmergencyDocumentUpload extends GetController {
   }
 
   public async removeDocument(req: AppRequest, res: Response): Promise<void> {
-    const { removeId, orderType } = req.query;
-    this.removeExistedDocument(removeId as string, req, res, orderType as string);
+    const { removeId, orderType, orderId } = req.query;
+    this.removeExistingDocument(removeId as string, req, res, orderType as string, orderId as string);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -34,21 +40,24 @@ export default class EmergencyDocumentUpload extends GetController {
       return;
     }
     const { orderType, orderId } = req.query;
+    const courtOrderType: AnyType | undefined = orderType;
+    const courtOrderId: AnyType | undefined = orderId;
     if (req.query.hasOwnProperty('removeId') && req.query.hasOwnProperty('orderType')) {
       this.removeDocument(req, res);
     } else {
-      let currentOrderDocument: EmergencyCourtDocument | undefined = {
-        orderType: '',
+      let currentOrderDocument: C100DocumentInfo | undefined = {
         id: '',
-        document_url: '',
-        document_filename: '',
-        document_binary_url: '',
+        url: '',
+        filename: '',
+        binaryUrl: '',
       };
 
-      if (req.session.userCase.hasOwnProperty('emergencyuploadedDocuments')) {
-        currentOrderDocument = req.session.userCase.emergencyuploadedDocuments?.filter(
-          document => document.orderType === orderType
-        )[0];
+      const orderSessionData = req.session.userCase?.[C100OrderTypeKeyMapper[courtOrderType]] as C100OrderInterface[];
+      const orderTypeName = C100OrderTypeNameMapper[courtOrderType];
+
+      const orderSessionDataById = orderSessionData[courtOrderId - 1];
+      if (orderSessionDataById.orderDocument) {
+        currentOrderDocument = orderSessionDataById.orderDocument;
       }
 
       const language = super.getPreferredLanguage(req) as Language;
@@ -72,17 +81,19 @@ export default class EmergencyDocumentUpload extends GetController {
         htmlLang: language,
         orderType,
         orderId,
+        orderTypeName,
         postURL: C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD,
         document: currentOrderDocument,
       });
     }
   }
 
-  public removeExistedDocument = async (
+  public removeExistingDocument = async (
     docId: string,
     req: AppRequest,
     res: Response,
-    orderType: string
+    orderType: string,
+    orderId: string
   ): Promise<void> => {
     try {
       const Headers = {
@@ -94,11 +105,19 @@ export default class EmergencyDocumentUpload extends GetController {
       req.session.userCase.emergencyuploadedDocuments = req.session.userCase.emergencyuploadedDocuments?.filter(
         document => document.id !== docId
       );
+
+      const courtOrderType: AnyType | undefined = orderType;
+      const courtOrderId: AnyType | undefined = orderId;
+
+      if (req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]) {
+        req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1].orderDocument = undefined;
+      }
+
       req.session.save(err => {
         if (err) {
           throw err;
         }
-        res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + '?orderType=' + orderType);
+        res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + '?orderType=' + orderType + '&orderId=' + orderId);
       });
     } catch (error) {
       console.log(error);
