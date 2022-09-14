@@ -1,8 +1,10 @@
 import autobind from 'autobind-decorator';
+import axios from 'axios';
 import { Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
@@ -10,8 +12,14 @@ import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case
 import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
+import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 
 import { AppRequest } from './AppRequest';
+
+const groupNameMapper = {
+'international-elements': 'c100RebuildInternationalElements',
+'confidentiality': 'c100RebuildConfidentiality'
+}
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -30,6 +38,8 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
+    } else if (req.body['saveAndComeLater']) {
+      await this.saveAndComeBackLater(req, res, form, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
     } else {
@@ -57,7 +67,16 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    Object.assign(req.session.userCase, formData);
+
+    const groupObjectName = groupNameMapper[req.originalUrl.split('/')[2]];
+    if(req.session.userCase && req.session.userCase.hasOwnProperty(groupObjectName)) {
+      Object.assign(req.session.userCase[groupObjectName],formData);
+    } else {
+      req.session.userCase = { 
+         ...req.session.userCase,
+        [groupObjectName]: formData }
+    }
+    console.log(req.session.userCase)
     req.session.errors = form.getErrors(formData);
 
     this.filterErrorsForSaveAsDraft(req);
@@ -86,6 +105,60 @@ export class PostController<T extends AnyObject> {
           item.errorType !== ValidationError.NOT_UPLOADED
       );
     }
+  }
+  
+ /**
+   * It redirects the user to the next page in the journey
+   * @param req - AppRequest<T> - This is the request object that is passed to the controller. It is a
+   * wrapper around the Express Request object.
+   * @param {Response} res - Response - the response object from the express framework
+   */
+  private async saveAndComeBackLater(
+    req: AppRequest<T>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    const groupObjectName = groupNameMapper[req.originalUrl.split('/')[2]];
+    if(req.session.userCase && req.session.userCase.hasOwnProperty(groupObjectName)) {
+      Object.assign(req.session.userCase[groupObjectName],formData);
+    } else {
+      req.session.userCase = { 
+        id: uuidv4(),
+        state: State.Draft,
+        serviceType: '',
+        [groupObjectName]: formData }
+    }
+    req.session.errors = form.getErrors(formData);
+
+    this.filterErrorsForSaveAsDraft(req);
+
+    if (req.session.errors.length) {
+      return this.redirect(req, res);
+    }
+
+    const data = toApiFormat(formData);
+
+    if (Object.keys(data).length !== 0) {
+      req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
+    }
+
+    //const boucingURL = req.originalUrl;
+    const caseData = req.session.userCase;
+    const eventName = 'citizen-case-update';
+    console.log(caseData)
+    const userDetails = await getSystemUser();
+
+    await axios.post<any>(`/${caseData.id}/${eventName}/update-case`, {
+      headers: {
+        Authorization: 'Bearer ' + userDetails.accessToken,
+        serviceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        accessCode: '12345678',
+        'Content-Type': 'application/json',
+      },
+      caseData: JSON.stringify(caseData)
+    });
+    this.redirect(req, res, DASHBOARD_URL);
   }
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {

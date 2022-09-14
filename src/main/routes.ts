@@ -1,9 +1,10 @@
 import fs from 'fs';
 
-import { Application } from 'express';
+import { Application, Request, Response  } from 'express';
 
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
+import { sessionDataStorage } from './server';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import LandingPageGetController from './steps/c100-rebuild/landing/get';
@@ -69,6 +70,13 @@ export class Routes {
     }
 
     app.get('/api/v1/session', (req, res) => res.json(req.session));
+    app.get('/api/v1/draft/:caseId', (req: Request, res: Response): void => {
+      const caseId = req.params.caseId;
+      const findFromArray = sessionDataStorage.filter(i => i['caseData'].id === caseId);
+      const caseData = findFromArray[0];
+      req.session['userCase'] = caseData['caseData'];
+      res.redirect(caseData['boundingURL']);
+    });
     // app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
 
     // app.use(errorController.notFound as unknown as RequestHandler);

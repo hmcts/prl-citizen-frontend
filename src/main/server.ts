@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
 import config = require('config');
-import express, { RequestHandler } from 'express';
+import express, { Request, RequestHandler, Response } from 'express';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
@@ -45,6 +45,21 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const sessionDataStorage: {}[] = [];
+
+app.get('/api/v1/draft', (req, res) => {
+  res.json(sessionDataStorage);
+});
+
+app.post('/api/v1/draft', (req: Request, res: Response) => {
+  const caseData = req.body['userCase'];
+  const boundingURL = req.body.boucingURL;
+  const objectFormed = { caseData, boundingURL };
+  sessionDataStorage.push(objectFormed);
+  res.json({ msg: 'session has been pushed' });
+});
+
 new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
