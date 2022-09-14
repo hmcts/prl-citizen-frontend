@@ -52,8 +52,10 @@ export default class EmergencyDocumentUpload extends GetController {
         binaryUrl: '',
       };
 
-      const orderSessionData = req.session.userCase?.[C100OrderTypeKeyMapper[courtOrderType]] as C100OrderInterface[];
-      const orderTypeName = C100OrderTypeNameMapper[courtOrderType];
+      const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
+        C100OrderTypeKeyMapper[courtOrderType]
+      ] as C100OrderInterface[];
+      const orderTypeName = C100OrderTypeNameMapper[courtOrderType] + ' ';
 
       const orderSessionDataById = orderSessionData[courtOrderId - 1];
       if (orderSessionDataById.orderDocument) {
@@ -102,15 +104,14 @@ export default class EmergencyDocumentUpload extends GetController {
       };
       const deleteDocumentPath = `/${docId}/delete`;
       await this.DeleteDocumentInstance(PRL_COS_URL, Headers).delete(deleteDocumentPath);
-      req.session.userCase.emergencyuploadedDocuments = req.session.userCase.emergencyuploadedDocuments?.filter(
-        document => document.id !== docId
-      );
 
       const courtOrderType: AnyType | undefined = orderType;
       const courtOrderId: AnyType | undefined = orderId;
 
-      if (req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]) {
-        req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1].orderDocument = undefined;
+      if (req.session.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]) {
+        req.session.userCase.otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
+          courtOrderId - 1
+        ].orderDocument = undefined;
       }
 
       req.session.save(err => {

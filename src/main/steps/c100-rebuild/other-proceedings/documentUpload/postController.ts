@@ -90,11 +90,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             contentType: documents.mimetype,
             filename: fileName,
           });
-          const orderSessionData = req.session.userCase?.[
+          const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
             C100OrderTypeKeyMapper[courtOrderType]
           ] as C100OrderInterface[];
           const orderSessionDataById = orderSessionData[courtOrderId - 1];
-          this.checkIfDocumentAlreadyExist(courtOrderType, req, res, orderSessionDataById);
+          this.checkIfDocumentAlreadyExist(courtOrderType, req, res, orderSessionDataById, courtOrderId);
           const formHeaders = formData.getHeaders();
           const Headers = {
             Authorization: `Bearer ${req.session.user['accessToken']}`,
@@ -120,9 +120,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               binaryUrl: document_binary_url,
             };
 
-            if (req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]) {
-              req.session.userCase[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1].orderDocument =
-                documentInfo;
+            if (
+              req.session.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
+            ) {
+              req.session.userCase.otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
+                courtOrderId - 1
+              ].orderDocument = documentInfo;
             }
 
             req.session.save(() => {
@@ -143,11 +146,17 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     orderType: string,
     req: AppRequest,
     res: Response,
-    orderDataById: C100OrderInterface
+    orderDataById: C100OrderInterface,
+    orderId: string
   ): Promise<void> => {
     if (orderDataById.orderDocument) {
       req.session.errors = [{ propertyName: 'document', errorType: 'required' }];
-      res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + '?orderType=' + orderType);
+      req.session.save(err => {
+        if (err) {
+          throw err;
+        }
+        res.redirect(C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD + '?orderType=' + orderType + '&orderId=' + orderId);
+      });
     }
   };
 
