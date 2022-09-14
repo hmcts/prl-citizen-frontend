@@ -62,6 +62,7 @@ const urls = {
   addressHistory: 'addresshistory',
   applicant1PhoneNumber: 'contactdetails',
   applicant1EmailAddress: 'contactdetails',
+  applicant1SafeToCall: 'contactdetails',
 };
 const fieldType = {
   applicant1FullName: 'String',
