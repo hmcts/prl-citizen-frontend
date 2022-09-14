@@ -242,7 +242,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           req.query?.updateCase &&
           req.query?.updateCase === YesOrNo.YES
         ) {
-          this.setAllegationOfHarmViewed(req, caseReference, client, caseworkerUser);
+          this.setAllegationOfHarmViewed(req, caseReference, client, req.session.user);
         }
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
@@ -287,11 +287,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (isAllegationOfHarmViewed) {
       const data = toApiFormat(req?.session?.userCase);
       data.id = caseReference;
+      delete data.finalDocument;
       const updatedCaseDataFromCos = await client.updateCase(
         caseworkerUser,
         caseReference as string,
         data,
-        'linkCitizenAccount'
+        'citizen-internal-case-update'
       );
       req.session.userCase = updatedCaseDataFromCos;
     }

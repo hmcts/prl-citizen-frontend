@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { APPLICANT_TASK_LIST_URL } from '../../steps/urls';
+//import { YesOrNo } from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -82,9 +83,9 @@ describe('DocumentManagerController', () => {
 
       await documentManagerController.get(req, res);
 
-      // expect(mockGet).toHaveBeenCalledWith({
-      //   url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
-      // });
+      expect(mockGet).toHaveBeenCalledWith({
+        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
+      });
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICANT_TASK_LIST_URL);
     });
@@ -114,6 +115,44 @@ describe('DocumentManagerController', () => {
         flag = true;
       }
       expect(flag).toBe(true);
+    });
+  });
+
+  describe('check Allegation of Harm property saved', () => {
+    test('check Allegation of Harm property saved', async () => {
+      const { req, res } = getMockRequestResponse();
+      req.session.user.idamId = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            email: 'abc@test.com',
+            idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
+      req.headers.accept = 'application/pdf';
+      req.query.updateCase = 'Yes';
+      req.session.userCase.c1ADocument = {
+            document_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+            document_binary_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+            document_filename: 'C100.pdf',
+            document_hash: null,
+        };
+
+      let flag = false;
+      try {
+        await documentManagerController.get(req, res);
+      } catch (err) {
+        flag = true;
+      }
+      expect(flag).toBe(false);
+      expect(mockGet).toHaveBeenCalledWith({
+        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+      });
     });
   });
 });
