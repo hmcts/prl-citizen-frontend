@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
-import { getSystemUser } from '../../../app/auth/user/oidc';
+//import { getSystemUser } from '../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Respondent } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
@@ -18,13 +18,13 @@ export class ConsentPostController extends PostController<AnyObject> {
     super(fields);
   }
   public async post(req: AppRequest, res: Response): Promise<void> {
-    const caseworkerUser = await getSystemUser();
+    const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
     let eventId = '';
 
-    const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
-    const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+    const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
 
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
@@ -38,7 +38,8 @@ export class ConsentPostController extends PostController<AnyObject> {
 
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
-    const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference as string, caseData, eventId);
+    delete caseData.finalDocument;
+    const updatedCaseDataFromCos = await client.updateCase(loggedInCitizen, caseReference as string, caseData, eventId);
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
     req.session.save(() => res.redirect(RESPONDENT_TASK_LIST_URL));

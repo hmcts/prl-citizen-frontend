@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
-import { getSystemUser } from '../../../app/auth/user/oidc';
+//import { getSystemUser } from '../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Respondent, YesOrNo } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
@@ -18,24 +18,33 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
     super(fields);
   }
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const caseworkerUser = await getSystemUser();
+    const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
 
-    const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
-    const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+    const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
-
-    req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-      if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(respondent, setKeepYourDetailsPrivate(respondent, req));
+    if (req.session.userCase.caseTypeOfApplication === 'C100') {
+      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+        if (respondent?.value?.user?.idamId === req.session?.user.id) {
+          Object.assign(respondent.value, setKeepYourDetailsPrivate(respondent.value, req));
+        }
+      });
+    } else {
+      if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
+        Object.assign(
+          req.session.userCase.respondentsFL401,
+          setKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req)
+        );
       }
-    });
+    }
 
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
+    delete caseData.finalDocument;
     const updatedCaseDataFromCos = await client.updateCase(
-      caseworkerUser,
+      loggedInCitizen,
       caseReference as string,
       caseData,
       'keepYourDetailsPrivate'

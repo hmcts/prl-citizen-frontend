@@ -12,8 +12,9 @@
             <p class="govuk-body-m">{{line1}}:</p>
 
             <ul class="govuk-list govuk-list--bullet">
-                <li>{{address}}</li>
-                <li>{{email}}</li>
+            {% for element in userCase.contactDetailsPrivate %}
+                <li>{{element}}</li>
+            {% endfor %}
             </ul>
 
             <h2 class="govuk-heading-m">{{line2}}</h2>

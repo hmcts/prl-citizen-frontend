@@ -1,6 +1,5 @@
 import { Response } from 'express';
 
-import { getSystemUser } from '../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -11,12 +10,12 @@ import { getConsentDetails } from './ConsentMapper';
 
 export class ConsentGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    const caseworkerUser = await getSystemUser();
+    const loggedInCitizen = req.session.user;
     const caseReference = req.params?.caseId;
 
-    const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
-    const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+    const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
 
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {

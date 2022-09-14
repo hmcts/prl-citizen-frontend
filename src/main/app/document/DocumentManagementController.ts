@@ -48,7 +48,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const form = new Form(fields);
 
     const { _csrf, ...formData } = form.getParsedBody(req.body);
-    const caseworkerUser = await getSystemUser();
+    const loggedInCitizen = await getSystemUser();
     req.session.errors = form.getErrors(formData);
     console.log(' Form Data:---', formData);
     console.log('inside generatePdf');
@@ -64,9 +64,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     };
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
 
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
     const updatedCaseDataFromCos = await client.generateUserUploadedStatementDocument(
-      caseworkerUser,
+      loggedInCitizen,
       generateAndUploadDocumentRequest
     );
     console.log(updatedCaseDataFromCos);
@@ -97,12 +97,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
         endPoint = itemlist[itemlist.length - 2];
       }
 
-      const caseworkerUser = await getSystemUser();
-      //req.session.user = caseworkerUser;
+      const loggedInCitizen = await getSystemUser();
+      //req.session.user = loggedInCitizen;
       const caseReference = req.session.userCase.id;
 
-      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+      const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+      const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
       // this is for testing //
       // req.session.userCase.orderCollection = [
