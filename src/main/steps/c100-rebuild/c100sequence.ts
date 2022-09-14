@@ -80,6 +80,7 @@ import {
   C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
+  C100_APPLICANT_ADD_APPLICANTS,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
