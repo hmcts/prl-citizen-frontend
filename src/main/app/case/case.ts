@@ -179,6 +179,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
   applicantDocumentsUploaded: 'applicantDocumentsUploaded',
+  miamStart: 'miamStart',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {

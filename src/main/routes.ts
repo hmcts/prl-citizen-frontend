@@ -55,6 +55,7 @@ export class Routes {
     const errorController = new ErrorController();
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
+
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
 
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
