@@ -820,6 +820,7 @@ export interface CaseInviteValue {
   accessCode: string;
   invitedUserId: string;
   expiryDate: string;
+  isApplicant: YesOrNo;
 }
 
 
