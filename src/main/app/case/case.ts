@@ -198,6 +198,24 @@ export interface Case {
 }
 
 export interface CaseWithId extends Case {
+  paymentSuccessDetails?: {
+    amount: string;
+    reference: string;
+    ccd_case_number: string;
+    case_reference: string;
+    channel: string;
+    method: string;
+    status: string;
+    external_reference: string;
+    payment_group_reference: string;
+  };
+  paymentDetails?: {
+    payment_reference: string;
+    date_created: string;
+    external_reference: string;
+    next_url: string;
+    status: string;
+  };
   id: string;
   state: State;
 }
