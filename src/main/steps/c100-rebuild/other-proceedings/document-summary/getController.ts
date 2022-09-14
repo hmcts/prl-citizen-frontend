@@ -6,12 +6,18 @@ import { C100OrderTypeKeyMapper, C100OrderTypes, YesNoEmpty } from '../../../../
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 
+const hasOrderDcoument = (orders, orderType: C100OrderTypes) => {
+  let hasDocument = false;
 
-const hasOrderDcoument = (orders, orderType: C100OrderTypes) =>{
-  return orders.find(order => {
-    return order.orderCopy === YesNoEmpty.YES;
-  })
-}
+  if (Object.keys(orders).length && orders[C100OrderTypeKeyMapper[orderType]]) {
+    hasDocument =
+      orders[C100OrderTypeKeyMapper[orderType]].find(order => {
+        return order.orderCopy === YesNoEmpty.YES;
+      }) ?? false;
+  }
+
+  return hasDocument;
+};
 @autobind
 export default class UploadConfirmation extends GetController {
   constructor(
@@ -24,9 +30,8 @@ export default class UploadConfirmation extends GetController {
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     const orderType = req.query?.orderType as C100OrderTypes;
-    const orderSessionData = req.session?.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[orderType]] ?? [];
-
-    if (!Object.values(C100OrderTypes).includes(orderType) || !hasOrderDcoument(orderSessionData, orderType).length) {
+    const orderSessionData = req.session?.userCase?.otherProceedings?.order ?? {};
+    if (!Object.values(C100OrderTypes).includes(orderType) || !hasOrderDcoument(orderSessionData, orderType)) {
       return res.redirect('error');
     }
 

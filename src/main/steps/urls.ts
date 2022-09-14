@@ -198,11 +198,9 @@ export const C100_TYPE_ORDER_SHORT_STATEMENT: PageLink = `${C100_URL}/typeoforde
 export const C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS: PageLink = `${C100_URL}/other-proceedings/current-previous-proceedings`;
 export const C100_OTHER_PROCEEDINGS_DETAILS: PageLink = `${C100_URL}/other-proceedings/proceeding-details`;
 export const C100_OTHER_PROCEEDINGS_ORDER_DETAILS: PageLink = `${C100_URL}/other-proceedings/order-details`;
-<<<<<<< HEAD
 export const C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD: PageLink = `${C100_URL}/other-proceedings/documentupload`;
-=======
 export const C100_OTHER_PROCEEDINGS_UPLOAD_CONFIRMATION: PageLink = `${C100_URL}/other-proceedings/upload-confirmation`;
->>>>>>> 56e508d3 (feat(PRLC100-85) page for upload confirmation)
+export const C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY: PageLink = `${C100_URL}/other-proceedings/document-summary`;
 
 /** @C100 Help with Fees */
 export const C100_HELP_WITH_FEES: PageLink = `${C100_URL}/help-with-fees`;

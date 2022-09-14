@@ -9,7 +9,10 @@ const en = () => ({
     'You have uploaded details of your past and current proceedings. These will be reviewed by the court once you submit the application.',
 });
 
-const cy = () => ({});
+const cy = () => ({
+  headingTitle:
+    'You have uploaded details of your past and current proceedings. These will be reviewed by the court once you submit the application.  - welsh',
+});
 
 const languages = {
   en,
@@ -29,22 +32,27 @@ export const form: FormContent = {
 const getOrderDocuments = (orders, orderType: C100OrderTypes) => {
   let documents = [];
 
-  documents = orders.filter(order => {
-    return order.orderCopy === YesNoEmpty.YES;
-  }).map(o=>{
-    return {
-      fileName: o.orderDocument.filename || 'adfdafdfdsfdsfdsf',
-      redirectUrl: '#'
-    }
-  });
-  
+  if (Object.keys(orders).length && orders[C100OrderTypeKeyMapper[orderType]]) {
+    documents = orders[C100OrderTypeKeyMapper[orderType]]
+      .filter(order => {
+        return order.orderCopy === YesNoEmpty.YES;
+      })
+      .map(o => {
+        return {
+          fileName: o.orderDocument.filename,
+
+          redirectUrl: '#',
+        };
+      });
+  }
+
   return documents;
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const { orderType } = content.additionalData?.req?.query;
-  const orderSessionData = content?.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[orderType]] ?? [];
+  const orderSessionData = content.userCase?.otherProceedings?.order ?? {};
   return {
     ...translations,
     form,
