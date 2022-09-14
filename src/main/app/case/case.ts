@@ -19,6 +19,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DateOfBirth: 'applicant1DateOfBirth',
   applicant1Occupation: 'applicant1Occupation',
   applicant1EmailAddress: 'applicant1EmailAddress',
+  applicant1SafeToCall: 'applicant1SafeToCall',
   applicant1PhoneNumber: 'applicant1PhoneNumber',
   applicant1PlaceOfBirth: 'applicant1PlaceOfBirth',
   applicant1Address1: 'applicant1Address1',
@@ -114,8 +115,8 @@ export interface Case {
   applicant1AdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
-  applicant1PhoneNumber?: string;
   applicant1SafeToCall?: string;
+  applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;
@@ -155,6 +156,36 @@ export interface Case {
   travellingOtherDetails?: string;
   unableForCourtProceedings?: string;
   courtProceedingProvideDetails?: string;
+
+  //CA-DA-Respondent
+  respondentAttendingToCourt?: string;
+  respondentHearingDetails?: string;
+  respondentLangRequirements?: string;
+  respondentLangDetails?: string;
+  respondentSpecialArrangements?: string;
+  respondentSpecialArrangementsDetails?: string;
+  respondentReasonableAdjustments?: string;
+  respondentDocsSupport?: string;
+  respondentDocsDetails?: string;
+  respondentLargePrintDetails?: string;
+  respondentOtherDetails?: string;
+  respondentHelpCommunication?: string;
+  respondentSignLanguageDetails?: string;
+  respondentDescribeOtherNeed?: string;
+  respondentCourtHearing?: string;
+  respondentSupportWorkerDetails?: string;
+  respondentFamilyDetails?: string;
+  respondentTherapyDetails?: string;
+  respondentCommSupportOther?: string;
+  respondentCourtComfort?: string;
+  respondentLightingDetails?: string;
+  respondentOtherProvideDetails?: string;
+  respondentTravellingToCourt?: string;
+  respondentParkingDetails?: string;
+  respondentDifferentChairDetails?: string;
+  respondentTravellingOtherDetails?: string;
+  //applicant1LanguagePreference?: LanguagePreference;
+
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
