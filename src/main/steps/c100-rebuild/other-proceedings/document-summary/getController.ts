@@ -19,7 +19,7 @@ const hasOrderDcoument = (orders, orderType: C100OrderTypes) => {
   return hasDocument;
 };
 @autobind
-export default class UploadConfirmation extends GetController {
+export default class DocumentSummary extends GetController {
   constructor(
     protected readonly view: string,
     protected readonly content: TranslationFn,

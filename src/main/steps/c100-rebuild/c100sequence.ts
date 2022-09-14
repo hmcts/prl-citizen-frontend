@@ -282,11 +282,11 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_EMERGENCY_UPLOAD,
     showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    getNextStep: () => C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
   },
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
+    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   },
 ];
