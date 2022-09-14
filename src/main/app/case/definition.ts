@@ -28,12 +28,12 @@ export interface Child {
 }
 
 export interface MiamTable {
-  soleTraderName: string;
-  familyMediatorMiam: string;
-  applicantAttendedMiam: string;
-  claimingExemptionMiam: string;
-  familyMediatorServiceName: string;
-  mediatorRegistrationNumber: string;
+  soleTraderName?: string;
+  familyMediatorMiam?: string;
+  applicantAttendedMiam?: string;
+  claimingExemptionMiam?: string;
+  familyMediatorServiceName?: string;
+  mediatorRegistrationNumber?: string;
 }
 
 export interface Address {
@@ -111,6 +111,7 @@ export interface User {
 export interface Response {
   legalRepresentation?: string;
   consent?: Consent;
+  miam?: MiamTable;
   keepDetailsPrivate?: KeepDetailsPrivate;
 }
 
