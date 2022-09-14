@@ -1,4 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
@@ -24,16 +25,18 @@ const en = (content: CommonContent) => {
   const fl401CaseListApplicant: Partial<CaseWithId>[] = [];
   const fl401CaseListRespondent: Partial<CaseWithId>[] = [];
   let isRespondent = false;
+  let isRespondentFL401 = false;
   for (const userCase of userCaseList || []) {
-    isRespondent = isLinkedToRespondent(userCase);
     if (userCase.caseTypeOfApplication === 'C100') {
+      isRespondent = isLinkedToRespondent(userCase);
       if (!isRespondent) {
         c100CaseListApplicant.push(userCase);
       } else {
         c100CaseListRespondent.push(userCase);
       }
     } else if (userCase.caseTypeOfApplication === 'FL401') {
-      if (!isRespondent) {
+      isRespondentFL401 = isLinkedToRespondentFl401(userCase);
+      if (!isRespondentFL401) {
         fl401CaseListApplicant.push(userCase);
       } else {
         fl401CaseListRespondent.push(userCase);
@@ -45,8 +48,8 @@ const en = (content: CommonContent) => {
     sections: [
       summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, isRespondent),
       summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, isRespondent),
-      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, isRespondent),
-      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, isRespondent),
+      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
+      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),
     ],
   };
 };
@@ -78,6 +81,15 @@ function isLinkedToRespondent(userCase: Partial<CaseWithId>): boolean {
       if (caseInviteEmail.value.partyId === respondent.id) {
         return true;
       }
+    }
+  }
+  return false;
+}
+function isLinkedToRespondentFl401(userCase: Partial<CaseWithId>): boolean {
+  for (const caseInviteEmail of userCase.caseInvites || []) {
+    console.log(caseInviteEmail.value.isApplicant);
+    if (caseInviteEmail.value.isApplicant === YesOrNo.NO) {
+      return true;
     }
   }
   return false;
