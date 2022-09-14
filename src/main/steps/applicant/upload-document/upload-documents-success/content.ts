@@ -7,6 +7,8 @@ const en = {
   status: 'Your documents have been uploaded',
   continue: 'Continue',
   remove: 'Remove',
+  sucess: 'Success',
+  documentDetails: 'Your documents for ',
 };
 
 const cy: typeof en = {
@@ -14,6 +16,8 @@ const cy: typeof en = {
   status: 'Your documents have been uploaded',
   continue: 'Continue',
   remove: 'Remove',
+  sucess: 'Success',
+  documentDetails: 'Your documents for ',
 };
 
 const languages = {

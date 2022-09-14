@@ -183,7 +183,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
-  applicantDocumentsUploaded: 'applicantDocumentsUploaded',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -339,8 +338,6 @@ export interface Case {
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
-  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
-  respondentDocumentsUploaded?: ListValue<UploadDocumentList>[];
   respondentUploadFiles?: UploadedFile[];
   proceedingsCourtCase?: string;
   proceedingsStart?: string;

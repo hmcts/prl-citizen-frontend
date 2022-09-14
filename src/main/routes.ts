@@ -5,7 +5,6 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
-import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
@@ -16,6 +15,7 @@ import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 //import LegalRepresentationGetController from './steps/tasklistresponse/legalRepresentation/start/LegalRepresentationGetController';
 import LegalRepresentationPostControllerBase from './steps/tasklistresponse/legalrepresentation/start/LegalRepresentationPostControllerBase';

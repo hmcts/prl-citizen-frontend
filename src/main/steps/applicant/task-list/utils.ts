@@ -13,28 +13,11 @@ export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionSt
 
 export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {
   if (userCase?.applicant1FullName && userCase?.applicant1DateOfBirth && userCase?.applicant1PlaceOfBirth) {
-    console.log(
-      'completed' + userCase?.applicant1FullName,
-      userCase?.applicant1DateOfBirth,
-      userCase?.applicant1PlaceOfBirth
-    );
-
     return SectionStatus.COMPLETED;
   }
   if (userCase?.applicant1FullName || userCase?.applicant1DateOfBirth || userCase?.applicant1PlaceOfBirth) {
-    console.log(
-      'in progress' + userCase?.applicant1FullName,
-      userCase?.applicant1DateOfBirth,
-      userCase?.applicant1PlaceOfBirth
-    );
-
     return SectionStatus.IN_PROGRESS;
   }
-  console.log(
-    'to do' + userCase?.applicant1FullName,
-    userCase?.applicant1DateOfBirth,
-    userCase?.applicant1PlaceOfBirth
-  );
 
   return SectionStatus.TO_DO;
 };
