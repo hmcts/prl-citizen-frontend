@@ -134,13 +134,13 @@ describe('DocumentManagerController', () => {
       req.headers.accept = 'application/pdf';
       req.query.updateCase = 'Yes';
       req.session.userCase.c1ADocument = {
-            document_url:
-              'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
-            document_binary_url:
-              'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
-            document_filename: 'C100.pdf',
-            document_hash: null,
-        };
+        document_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
 
       let flag = false;
       try {
