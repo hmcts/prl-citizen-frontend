@@ -18,7 +18,7 @@ import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 //import LegalRepresentationGetController from './steps/tasklistresponse/legalRepresentation/start/LegalRepresentationGetController';
-import LegalRepresentationPostControllerBase from './steps/tasklistresponse/legalrepresentation/start/LegalRepresentationPostControllerBase';
+import LegalRepresentationPostController from './steps/tasklistresponse/legalrepresentation/start/LegalRepresentationPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -91,7 +91,7 @@ export class Routes {
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
         app.post(
           LEGAL_REPRESENTATION_START,
-          errorHandler(new LegalRepresentationPostControllerBase(step.form.fields).post)
+          errorHandler(new LegalRepresentationPostController(step.form.fields).post)
         );
 
         const documentManagerController = new DocumentManagerController(step.form.fields);

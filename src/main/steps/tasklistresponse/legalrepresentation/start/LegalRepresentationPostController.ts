@@ -15,31 +15,21 @@ import {
 } from '../../../urls';
 
 @autobind
-export default class LegalRepresentationPostControllerBase extends PostController<AnyObject> {
+export default class LegalRepresentationPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    //const postcode = req.body[`${this.fieldPrefix}AddressPostcode`] as string; , protected readonly fieldPrefix: FieldPrefix
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-    console.log('form : ' + JSON.stringify(form));
-    console.log('fields : ' + JSON.stringify(fields));
-    console.log('form Data : ' + JSON.stringify(formData));
     if (formData.legalRepresentation) {
       req.session.userCase.legalRepresentation = formData.legalRepresentation;
       let returnUrl = LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT;
-      console.log('1' + returnUrl);
-      console.log('1' + formData.legalRepresentation);
-
       if (formData.legalRepresentation === YesOrNo.YES) {
-        console.log('2' + returnUrl);
-
         returnUrl = LEGAL_REPRESENTATION_SOLICITOR_DIRECT;
       }
-      console.log('3' + returnUrl);
       res.redirect(returnUrl);
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
