@@ -1,0 +1,58 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block page_content %}
+{% set html %}
+  <h3 class="govuk-notification-banner__heading">
+{{headingTitle}}  </h3>
+  
+{% endset %}
+
+{% set editLinkHtml %}
+  <a class="govuk-link" href="#">
+                          Edit<span class="govuk-visually-hidden"> name</span>
+                        </a>
+  
+{% endset %}
+
+{{ govukNotificationBanner({
+  html:  html,
+  type: "success"
+}) }}
+
+
+{{ govukTable({
+  caption: "What you have uploaded",
+  captionClasses: "govuk-table__caption--l",
+  firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        text: "applicant__emergency_protection_order_1__date.pdf"
+      },
+      {
+       html: editLinkHtml
+      }
+    ],
+    [
+      {
+        text: "Next 33 weeks"
+      },
+      {
+       html: editLinkHtml
+      }
+    ],
+    [
+      {
+        text: "Total estimated pay"
+      },
+      {
+        html: editLinkHtml
+      }
+    ]
+  ]
+}) }}
+
+
+{% endblock %}
