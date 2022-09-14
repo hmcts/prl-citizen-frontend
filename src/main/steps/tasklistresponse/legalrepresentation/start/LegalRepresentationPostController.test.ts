@@ -42,6 +42,8 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     req.session.user.id = '123';
+    req.session.userCase = dummySessionData;
+
     const res = mockResponse();
     const language = 'en';
     req.session.lang = language;
@@ -61,6 +63,8 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     req.session.user.id = '123';
+    req.session.userCase = dummySessionData;
+
     const res = mockResponse();
     const language = 'en';
     req.session.lang = language;
@@ -79,6 +83,8 @@ describe('PostController', () => {
     const controller = new LegalRepresentationPostController(mockForm.fields);
     const req = mockRequest({ dummySessionData });
     req.session.user.id = '123';
+    req.session.userCase = dummySessionData;
+
     const language = 'en';
     req.session.lang = language;
     controller.post(req, mockResponse());

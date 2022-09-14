@@ -27,6 +27,7 @@ describe('LegalRepresentationGetController', () => {
 
     const req = mockRequest({ dummySessionData });
     req.session.user.id = '123';
+    req.session.userCase = dummySessionData;
     const res = mockResponse();
     await controller.get(req, res);
     expect(1).toEqual(1);
@@ -40,8 +41,7 @@ describe('LegalRepresentationGetController', () => {
     await controller.get(req, res);
     req.originalUrl = Urls.LEGAL_REPRESENTATION_START;
     req.session.user.id = '123';
-    //controller.clearConfidentialitySessionSaveData(req);
-    //expect(req.session['contactDetailsPrivateAlternative']).toBe(undefined);
+    req.session.userCase = dummySessionData;
     expect(req.originalUrl).toBe(req.originalUrl);
   });
 
@@ -52,6 +52,7 @@ describe('LegalRepresentationGetController', () => {
       const language = 'cy';
       const req = mockRequest({ dummySessionData });
       req.session.user.id = '123';
+      req.session.userCase = dummySessionData;
       const res = mockResponse();
       req.session.lang = language;
       await controller.get(req, res);
@@ -69,6 +70,7 @@ describe('LegalRepresentationGetController', () => {
       const language = 'en';
       const req = mockRequest({ dummySessionData });
       req.session.user.id = '123';
+      req.session.userCase = dummySessionData;
       const res = mockResponse();
       req.session.lang = language;
       await controller.get(req, res);
@@ -87,6 +89,7 @@ describe('LegalRepresentationGetController', () => {
       const language = 'cy';
       const req = mockRequest({ headers: { 'accept-language': 'cy' } });
       req.session.user.id = '123';
+      req.session.userCase = dummySessionData;
       const res = mockResponse();
       req.query.lng = language;
       await controller.get(req, res);
@@ -99,6 +102,7 @@ describe('LegalRepresentationGetController', () => {
       const language = 'en';
       const req = mockRequest({ headers: { 'accept-language': 'en' } });
       req.session.user.id = '123';
+      req.session.userCase = dummySessionData;
       const res = mockResponse();
       req.query.lng = language;
       await controller.get(req, res);
@@ -111,6 +115,7 @@ describe('LegalRepresentationGetController', () => {
 
     const req = mockRequest();
     req.session.user.id = '123';
+    req.session.userCase = dummySessionData;
     const res = mockResponse();
     res.locals.isError = true;
     await controller.get(req, res);
@@ -122,6 +127,7 @@ describe('LegalRepresentationGetController', () => {
 
     const req = mockRequest();
     req.session.user.id = '123';
+    req.session.userCase = dummySessionData;
     const res = mockResponse();
     res.headersSent = true;
     await controller.get(req, res);
@@ -133,6 +139,7 @@ describe('LegalRepresentationGetController', () => {
 
     const req = mockRequest();
     req.session.user.id = '123';
+    req.session.userCase = dummySessionData;
     const res = mockResponse();
     await controller.get(req, res);
     expect(res.session).not.toBe(req.session);
@@ -144,6 +151,7 @@ describe('LegalRepresentationGetController', () => {
 
       const req = mockRequest({ userCase: { state: State.Draft }, session: { errors: [] } });
       req.session.user.id = '123';
+      req.session.userCase = dummySessionData;
       const res = mockResponse();
       await controller.get(req, res);
       expect(req).not.toBe(res.render());
