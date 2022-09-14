@@ -217,3 +217,6 @@ export const C100_CHILDERN_FURTHER_INFORMATION: PageLink = `${C100_CHILDERN_DETA
 export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
 export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
 export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback/:paymentId/:status';
+
+/** @C100 Applicant Details */
+export const C100_APPLICANT_ADD_APPLICANTS: PageLink = `${C100_URL}/applicant/add-applicants`;

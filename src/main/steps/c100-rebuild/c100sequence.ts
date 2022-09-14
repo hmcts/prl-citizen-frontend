@@ -41,6 +41,7 @@ import {
   C100_CONFIRMATIONPAGE,
   C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
   PageLink,
+  C100_APPLICANT_ADD_APPLICANTS,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -274,6 +275,11 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS,
     showInSection: Sections.C100,
     getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   },
