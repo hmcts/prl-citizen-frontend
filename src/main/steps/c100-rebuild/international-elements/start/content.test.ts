@@ -8,8 +8,8 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Do the children live outside of England or Wales? ',
-  line1: 'For example, does their main family life take place outside of England and Wales?    ',
+  title: "Are the children's lives mainly based outside of England and Wales?",
+  line1: 'For example, is their family life mainly based outside of England and Wales?',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
@@ -24,8 +24,8 @@ const en = {
 };
 
 const cy = {
-  title: 'Do the children live outside of England or Wales?  - welsh',
-  line1: 'For example, does their main family life take place outside of England and Wales? - welsh  ',
+  title: "Are the children's lives mainly based outside of England and Wales? - welsh",
+  line1: 'For example, is their family life mainly based outside of England and Wales? - welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
