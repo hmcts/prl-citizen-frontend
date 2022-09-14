@@ -136,23 +136,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let isApplicationViewed;
     let document_filename;
 
-    if (filename === 'cadafinaldocumentrequest') {
-      if (!req.session.userCase.finalDocument?.document_binary_url) {
-        throw new Error('APPLICANT_CA_REQUEST binary url is not found');
-      }
-      document_filename = req.session.userCase.finalDocument.document_filename;
-      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-      uid = this.getUID(documentToGet);
-      isApplicationViewed = YesOrNo.YES;
-    }
 
-    if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
-      if (!req.session.userCase.finalDocument?.document_binary_url) {
-        throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
-      }
-      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-      uid = this.getUID(documentToGet);
-    }
 
     if (filename === DocumentType.WITNESS_STATEMENT) {
       if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
@@ -161,92 +145,32 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
       uid = this.getUID(documentToGet);
     }
-    if (filename.includes('miamcertificate')) {
-      if (!req.session.userCase.miamCertificationDocumentUpload?.document_binary_url) {
-        throw new Error('miam certificate binary url is not found');
+      
+    let fileNameElementMap = new Map<string, string>();
+    fileNameElementMap.set('cadafinaldocumentrequest','finalDocument');
+    fileNameElementMap.set('miamcertificate','miamCertificationDocumentUpload');
+    fileNameElementMap.set('aohviolence','c1ADocument');
+
+    for (let [fileNameDoc, element] of fileNameElementMap) {
+      if (filename === fileNameDoc || filename.includes(fileNameDoc)) {
+        uid = this.getDocumentUID(req, element);
+        break;
       }
-      document_filename = req.session.userCase.miamCertificationDocumentUpload.document_filename;
-      documentToGet = req.session.userCase.miamCertificationDocumentUpload.document_binary_url;
+  }
 
-      uid = this.getUID(documentToGet);
-    }
+    let fileNameParentChildElementMap = new Map<string, string[]>();
+    fileNameParentChildElementMap.set('downloadManageDocument',['otherDocuments','documentOther']);
+    fileNameParentChildElementMap.set('downloadCitizenDocument',['citizenUploadedDocumentList','citizenDocument']);
+    fileNameParentChildElementMap.set('orders',['orderCollection','orderDocument']);
+    fileNameParentChildElementMap.set('applicationmade',['existingProceedings','uploadRelevantOrder']);
 
-    if (filename.includes('aohviolence')) {
-      if (!req.session.userCase.c1ADocument?.document_binary_url) {
-        throw new Error('c1ADocument binary url is not found');
+    for (let [fileNameDoc, element] of fileNameElementMap) {
+      if (filename === fileNameDoc || filename.includes(fileNameDoc)) {
+        uid = this.getUIDForEndPointURL(endPoint, req, filename, fileNameDoc ,element[0],element[1]);
+        break;
       }
-      document_filename = req.session.userCase.c1ADocument.document_filename;
-      documentToGet = req.session.userCase.c1ADocument.document_binary_url;
-      uid = this.getUID(documentToGet);
-    }
-
-    if (endPoint === 'downloadCitizenDocument' && req.session.userCase?.citizenUploadedDocumentList) {
-      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
-        if (
-          doc.value.citizenDocument.document_url.substring(
-            doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-          ) === filename
-        ) {
-          if (!doc.value.citizenDocument.document_binary_url) {
-            throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
-          }
-          documentToGet = doc.value.citizenDocument.document_binary_url;
-          document_filename = doc.value.citizenDocument.document_filename;
-        }
-      }
-      uid = this.getUID(documentToGet);
-    }
-
-    if (endPoint === 'downloadManageDocument' && req.session.userCase?.otherDocuments) {
-      for (const doc of req.session.userCase?.otherDocuments) {
-        if (
-          doc.value?.documentOther?.document_url.substring(
-            doc.value.documentOther.document_url.lastIndexOf('/') + 1
-          ) === filename
-        ) {
-          if (!doc.value.documentOther.document_binary_url) {
-            throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
-          }
-          documentToGet = doc.value.documentOther.document_binary_url;
-          document_filename = doc.value.documentOther.document_filename;
-        }
-      }
-      uid = this.getUID(documentToGet);
-    }
-
-    if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
-      for (const doc of req.session.userCase?.orderCollection) {
-        if (
-          doc.value.orderDocument.document_url.substring(doc.value.orderDocument.document_url.lastIndexOf('/') + 1) ===
-          filename
-        ) {
-          if (!doc.value.orderDocument.document_binary_url) {
-            throw new Error('ORDERS_FROM_THE_COURT binary url is not found');
-          }
-          documentToGet = doc.value.orderDocument.document_binary_url;
-          document_filename = doc.value.orderDocument.document_filename;
-        }
-      }
-      uid = this.getUID(documentToGet);
-    }
-
-    if (endPoint === 'applicationmade' && req.session.userCase?.existingProceedings) {
-      for (const doc of req.session.userCase?.existingProceedings) {
-        if (
-          doc.value?.uploadRelevantOrder?.document_url.substring(
-            doc.value.uploadRelevantOrder.document_url.lastIndexOf('/') + 1
-          ) === filename
-        ) {
-          if (!doc.value.uploadRelevantOrder.document_binary_url) {
-            throw new Error('APPLICATION MADE IN THESE PROCEEDINGS binary url is not found');
-          }
-          documentToGet = doc.value.uploadRelevantOrder.document_binary_url;
-          document_filename = doc.value.uploadRelevantOrder.document_filename;
-        }
-      }
-      uid = this.getUID(documentToGet);
-    }
-
+  }
+   
     const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
@@ -273,6 +197,38 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
       return res.redirect(redirectUrl);
     });
+  }
+
+  private getUIDForEndPointURL(endPoint: string, req: AppRequest<Partial<CaseWithId>>, filename: string, endPointInput: string, parentElement: string, childElement: string) {
+   let documentToGet = '';
+    if (endPoint === endPointInput && req.session.userCase[`${parentElement}`]) {
+      for (const doc of req.session.userCase[`${childElement}`]) {
+        if (
+          doc.value[`${childElement}`].document_url.substring(
+            doc.value[`${childElement}`].document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value[`${childElement}`].document_binary_url) {
+            throw new Error('binary url is not found for ' + parentElement +':'+ childElement);
+          }
+          documentToGet = doc.value[`${childElement}`].document_binary_url;
+          break;
+        }
+        
+      }
+      return this.getUID(documentToGet);
+    }
+  }
+
+  private getDocumentUID(req: AppRequest<Partial<CaseWithId>>, element: string): string {
+    let returnValue = '';
+    
+      if (!req.session.userCase[`${element}`].document_binary_url) {
+        throw new Error('binary url is not found for '+element);
+      }
+      returnValue = this.getUID(req.session.userCase[`${element}`].document_binary_url);
+  
+    return returnValue;
   }
 
   private async setIsApplicationViewed(
