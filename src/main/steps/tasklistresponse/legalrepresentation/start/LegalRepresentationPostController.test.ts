@@ -13,11 +13,14 @@ const dummySessionData = {
   legalRepresentation: YesOrNo.YES,
   respondents: [
     {
-      response: {
-        legalRepresentation: YesOrNo.YES,
-      },
-      user: {
-        idamId: '123',
+      id: '',
+      value: {
+        response: {
+          legalRepresentation: YesOrNo.YES,
+        },
+        user: {
+          idamId: '123',
+        },
       },
     },
   ],
