@@ -13,10 +13,10 @@ const enContent = {
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  onlyContinue: 'Save and continue',
   errors: {
     miamWillingness: {
-      required: 'Enter your details known',
+      required: 'Select yes if you are willing to attend a MIAM',
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
@@ -32,10 +32,10 @@ const cyContent = {
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  onlyContinue: 'Save and continue',
   errors: {
     miamWillingness: {
-      required: 'Enter your details known',
+      required: 'Select yes if you are willing to attend a MIAM',
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
@@ -83,7 +83,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 

@@ -146,6 +146,7 @@ export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocum
 export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
+export const CONSENT_SAVE: PageLink = `${CONSENT}/save`;
 
 /* consent-to-the-application */
 export const RESPONDENT_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;

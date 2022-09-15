@@ -103,7 +103,6 @@ export interface PartyDetails {
   user: User;
 }
 
-
 export interface User {
   email: string,
   idamId: string
@@ -118,7 +117,7 @@ export interface Response {
 export interface Consent {
   consentToTheApplication?: string;
   noConsentReason?: string;
-  applicationReceivedDate?: DateAsString; 
+  applicationReceivedDate?: DateAsString;
   permissionFromCourt?: string;
   courtOrderDetails?: string;
 }
@@ -773,7 +772,13 @@ export interface CaseData {
   startAlternative?: string;
   //applicant1LanguagePreference?: LanguagePreference;
   citizenRole?: FieldPrefix;
-  fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
+  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
+  miamStart?: string;
   citizenUploadedDocumentList?: UploadDocumentList[];
   legalRepresentation?: YesOrNo;
 }

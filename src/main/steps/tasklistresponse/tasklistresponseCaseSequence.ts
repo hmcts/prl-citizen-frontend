@@ -1,6 +1,7 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   COURT_PROCEEDINGS_SUMMARY,
@@ -58,7 +59,7 @@ export const tasklistresponseCaseSequence: Step[] = [
   {
     url: CONSENT_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => CONSENT_SAVE,
   },
   {
     url: RESPONDENT_DETAILS_KNOWN,
