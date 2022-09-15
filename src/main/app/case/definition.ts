@@ -714,6 +714,7 @@ export interface CaseData {
   //applicant1LanguagePreference?: LanguagePreference;
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  miamStart?: string;
 }
 
 export interface ConfidentialDetails {
