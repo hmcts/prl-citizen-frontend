@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
+import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent } from '../../../../app/form/Form';
 import * as steps from '../../../../steps';
@@ -35,6 +36,8 @@ describe('PostController', () => {
   beforeEach(() => {
     req = mockRequest({ session: { userCase: { email: 'test@example.com' } } });
     res = mockResponse();
+    req.session.userCase = body;
+    jest.spyOn(CosApiClient.prototype, 'updateCase').mockResolvedValue(req.session.userCase);
     const mockForm = {
       fields: {
         legalRepresentation: YesOrNo.YES,
@@ -61,13 +64,12 @@ describe('PostController', () => {
   test('proceed saving legal representation without error', async () => {
     req.session.user.id = '123';
     req.session.userCase = body;
-
     req.body.respondents = body.respondents;
+    body.respondents[0].value.response.legalRepresentation = YesOrNo.NO;
     req.body.legalRepresentation = body.respondents[0].value.response.legalRepresentation;
     const language = 'en';
     req.session.lang = language;
     controller.post(req, res);
-
     const redirectUrl = LEGAL_REPRESENTATION_START;
     expect(req.originalUrl).not.toBe(redirectUrl);
   });

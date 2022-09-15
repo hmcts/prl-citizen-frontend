@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getSystemUser } from '../../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { Respondent, YesOrNo } from '../../../../app/case/definition';
 import { toApiFormat } from '../../../../app/case/to-api-format';
@@ -38,12 +37,11 @@ export default class LegalRepresentationPostController extends PostController<An
       });
 
       const eventId = 'consentToTheApplication';
-      const caseworkerUser = await getSystemUser();
       const caseReference = req.session.userCase.id;
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = req.session.userCase?.id;
-      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-      const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference, caseData, eventId);
+      const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
+      const updatedCaseDataFromCos = await client.updateCase(req.session.user, caseReference, caseData, eventId);
       Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
       req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
