@@ -19,6 +19,9 @@ import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
+import DomesticAbusePostController from './steps/tasklistresponse/safety_concerns/domestic_abuse_risk/DomesticAbusePostController';
+import SexualAbusePostController from './steps/tasklistresponse/safety_concerns/sexual_abuse/SexualAbusePostController';
+import PhysicalAbusePostController from 'steps/tasklistresponse/safety_concerns/physical_abuse/PhysicalAbusePostController';
 import {
   ACCESSIBILITY_STATEMENT,
   ALLEGATION_OF_HARM_VOILENCE,
@@ -33,14 +36,17 @@ import {
   COOKIES_PAGE,
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
+  DOMESTIC_ABUSE_RISK,
   HOME_URL,
   MANAGE_DOCUMENTS_DOWNLOAD,
+  PHYSICAL_ABUSE,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
   RESPOND_TO_APPLICATION,
   SAVE_AND_SIGN_OUT,
+  SEXUAL_ABUSE,
   TERMS_AND_CONDITIONS,
   TIMED_OUT_URL,
   YOUR_APPLICATION_FL401,
@@ -87,7 +93,9 @@ export class Routes {
           : PostController;
 
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
-
+        app.post(DOMESTIC_ABUSE_RISK, errorHandler(new DomesticAbusePostController(step.form.fields).post));
+        app.post(SEXUAL_ABUSE, errorHandler(new SexualAbusePostController(step.form.fields).post));
+        app.post(PHYSICAL_ABUSE, errorHandler(new PhysicalAbusePostController(step.form.fields).post));
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
         app.get(

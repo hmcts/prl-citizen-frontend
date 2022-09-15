@@ -1,19 +1,40 @@
 {% extends "common/template.njk" %}
 
 {% block page_content %}
-  {% if section %}
-    <span class="govuk-caption-l">{{ section }}</span>
-  {% endif %}
-  {% if title %}
-    <h1 class="govuk-heading-l govuk-!-padding-bottom-6">{{ title }}</h1>
-  {% endif %}
- <div id="physicalabusetypes">
-                    <p class="govuk-body">{{example}}</p>
-                      <ul class="govuk-list govuk-list--bullet">
-                       <li>{{punch}}</li>
-                       <li>{{choke}}</li>
-                       <li>{{kick}}</li>
-                       <li>{{hitting}}</li>
-                     </ul>
-                  </div>
+
+  <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+
+    <form action="/tasklistresponse/safety_concerns/physical_abuse" method="post" novalidate="">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="steps-abuse-concerns-question-form-answer-supplemental">
+          <span class="govuk-caption-xl">{{section}}</span>
+          <h1 class="govuk-heading-xl">{{title}}</h1>
+          <input value="" type="hidden" name="physicalabuse" id="physicalabuse">
+          <div id="physicalabusetypes">
+            <p class="govuk-body">Physical abuse includes actions such as:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>punching</li>
+              <li>choking</li>
+              <li>kicking</li>
+              <li>hitting with an object</li>
+            </ul>
+          </div>
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input id="physicalabuse-yes" class="govuk-radios__input" type="radio" value="Yes" name="respondentSafetyConcerns.isPhysicallyAbused">
+              <label for="physicalabuse-yes" class="govuk-label govuk-radios__label">Yes</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input id="physicalabuse-no" class="govuk-radios__input" type="radio" value="No" name="respondentSafetyConcerns.isPhysicallyAbused">
+              <label for="physicalabuse-no" class="govuk-label govuk-radios__label">No</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" formnovalidate="formnovalidate" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">Continue</button>
+    </form>
+
+  </main>
 {% endblock %}

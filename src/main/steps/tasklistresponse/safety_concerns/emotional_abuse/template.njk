@@ -17,5 +17,38 @@
       <li>{{line4}}</li>
     </ul>
   </div>
+<form action="sexualabuse-answer" method="post" novalidate="">
 
+               <div class="govuk-form-group">
+                 <fieldset class="govuk-fieldset" aria-describedby="steps-abuse-concerns-question-form-answer-supplemental">
+                   <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                     <h1 class="govuk-fieldset__heading">
+                       <span class="govuk-caption-xl">Safety concerns</span>
+                       Have you ever been sexually abused?
+                     </h1>
+                   </legend>
+                   <input value="" type="hidden" name="steps_abuse_concerns_question_form[answer]" id="steps_abuse_concerns_question_form_answer">
+                   <div id="steps-abuse-concerns-question-form-answer-supplemental">
+                    <p class="govuk-body">Examples of sexual abuse include:</p>
+                      <ul class="govuk-list govuk-list--bullet">
+                       <li>being forced or pressured to have sex without consent</li>
+                       <li>being threatened into an unwanted sexual activity</li>
+                       <li>unwanted touching or groping</li>
+                     </ul>
+                  </div>
+                  <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                      <input id="sexualabuse-yes" class="govuk-radios__input" type="radio" value="yes" name="sexualabuse">
+                      <label for="sexualabuse-yes" class="govuk-label govuk-radios__label">Yes</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                      <input id="sexualabuse-no" class="govuk-radios__input" type="radio" value="no" name="sexualabuse">
+                      <label for="sexualabuse-no" class="govuk-label govuk-radios__label">No</label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+               <button type="submit" formnovalidate="formnovalidate" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">Save and continue</button>
+            </form>
 {% endblock %}

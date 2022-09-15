@@ -1,7 +1,4 @@
-import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   section: 'Safety concerns',
@@ -44,35 +41,11 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {
-    'respondentSafetyConcerns.isSexuallyAbused': {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.label,
-      section: l => l.section,
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-  },
-  submit: {
-    text: l => l.continue,
-  },
-};
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const sexualAbuse = content.userCase?.respondentSafetyConcerns?.isSexuallyAbused;
   return {
     ...translations,
-    form,
+    sexualAbuse,
   };
 };

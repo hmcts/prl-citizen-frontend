@@ -68,8 +68,6 @@ const languages = {
   cy,
 };
 
-
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const domesticAbuse = content.userCase?.respondentSafetyConcerns?.domesticAbuseDetails;
@@ -78,3 +76,4 @@ export const generateContent: TranslationFn = content => {
     domesticAbuse,
   };
 };
+

@@ -1,18 +1,41 @@
 {% extends "common/template.njk" %}
 
 {% block page_content %}
-  {% if section %}
-    <span class="govuk-caption-l">{{ section }}</span>
-  {% endif %}
-  {% if title %}
-    <h1 class="govuk-heading-l govuk-!-padding-bottom-6">{{ title }}</h1>
-  {% endif %}
-  <div id="steps-abuse-concerns-question-form-answer-supplemental">
-    <p class="govuk-body">{{example}}</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>{{line1}}</li>
-      <li>{{line2}}</li>
-      <li>{{line3}}</li>
-    </ul>
-  </div>
+  
+      <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+
+
+
+            <form action="/tasklistresponse/safety_concerns/sexual_abuse" method="post">
+
+               <div class="govuk-form-group">
+                 <fieldset class="govuk-fieldset" aria-describedby="steps-abuse-concerns-question-form-answer-supplemental">
+                    <span class="govuk-caption-xl">{{section}}</span>
+                   <h1 class="govuk-heading-xl">{{title}}</h1>
+                   <input value="" type="hidden" name="steps_abuse_concerns_question_form[answer]" id="steps_abuse_concerns_question_form_answer">
+                   <div id="steps-abuse-concerns-question-form-answer-supplemental">
+                    <p class="govuk-body">Examples of sexual abuse include:</p>
+                      <ul class="govuk-list govuk-list--bullet">
+                       <li>being forced or pressured to have sex without consent</li>
+                       <li>being threatened into an unwanted sexual activity</li>
+                       <li>unwanted touching or groping</li>
+                     </ul>
+                  </div>
+                  <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                      <input id="sexualabuse-yes" class="govuk-radios__input" type="radio" value="Yes" name="respondentSafetyConcerns.isSexuallyAbused">
+                      <label for="sexualabuse-yes" class="govuk-label govuk-radios__label">Yes</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                      <input id="sexualabuse-no" class="govuk-radios__input" type="radio" value="No" name="respondentSafetyConcerns.isSexuallyAbused">
+                      <label for="sexualabuse-no" class="govuk-label govuk-radios__label">No</label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+               <button type="submit" formnovalidate="formnovalidate" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">Continue</button>
+            </form>
+
+      </main>
 {% endblock %}
