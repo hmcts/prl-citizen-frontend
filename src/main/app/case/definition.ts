@@ -36,6 +36,11 @@ export interface MiamTable {
   mediatorRegistrationNumber?: string;
 }
 
+export interface Miam {
+  attendedMiam?: string;
+  willingToAttendMiam?: string;
+  reasonNotAttendingMiam?: string;
+ }
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
@@ -111,7 +116,7 @@ export interface User {
 export interface Response {
   legalRepresentation?: string;
   consent?: Consent;
-  miam?: MiamTable;
+  miam?: Miam;
   keepDetailsPrivate?: KeepDetailsPrivate;
 }
 
