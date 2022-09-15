@@ -158,6 +158,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
+  citizenUploadedDocumentList: 'citizenUploadedDocumentList',
   serviceType: 'serviceType',
   claimNumber: 'claimNumber',
   caseCode: 'caseCode',
@@ -172,6 +173,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DateOfBirth: 'applicant1DateOfBirth',
   applicant1Occupation: 'applicant1Occupation',
   applicant1EmailAddress: 'applicant1EmailAddress',
+  applicant1SafeToCall: 'applicant1SafeToCall',
   applicant1PhoneNumber: 'applicant1PhoneNumber',
   applicant1PlaceOfBirth: 'applicant1PlaceOfBirth',
   applicant1Address1: 'applicant1Address1',
@@ -183,17 +185,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
-  applicantDocumentsUploaded: 'applicantDocumentsUploaded',
-  miamStart: 'miamStart',
-  start: 'start',
-  iFactorsStartProvideDetails: 'iFactorsStartProvideDetails',
-  parents: 'parents',
-  iFactorsParentsProvideDetails: 'iFactorsParentsProvideDetails',
-  jurisdiction: 'jurisdiction',
-  iFactorsJurisdictionProvideDetails: 'iFactorsJurisdictionProvideDetails',
-  request: 'request',
-  iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
-  respondentSafetyConcerns: 'respondentSafetyConcerns',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -337,8 +328,7 @@ export interface Case {
   respondentName?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
-  respondentCaseInvites?: CaseInvite[];
-  applicantCaseInvites?: CaseInvite[];
+  caseInvites?: CaseInvite[];
   orderCollection?: ListValue<PRLDocument>[];
   documentsGenerated?: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
@@ -349,8 +339,6 @@ export interface Case {
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
-  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
-  respondentDocumentsUploaded?: ListValue<UploadDocumentList>[];
   respondentUploadFiles?: UploadedFile[];
   proceedingsCourtCase?: string;
   proceedingsStart?: string;
@@ -390,8 +378,8 @@ export interface Case {
   applicant1AdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
-  applicant1PhoneNumber?: string;
   applicant1SafeToCall?: string;
+  applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;

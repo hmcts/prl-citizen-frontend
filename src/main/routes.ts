@@ -6,6 +6,7 @@ import multer from 'multer';
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
 import { GetController } from './app/controller/GetController';
+import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
@@ -15,10 +16,10 @@ import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
-import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import DomesticAbusePostController from './steps/tasklistresponse/safety_concerns/domestic_abuse_risk/DomesticAbusePostController';
 import SexualAbusePostController from './steps/tasklistresponse/safety_concerns/sexual_abuse/SexualAbusePostController';
 import PhysicalAbusePostController from 'steps/tasklistresponse/safety_concerns/physical_abuse/PhysicalAbusePostController';
@@ -44,13 +45,15 @@ import {
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
+  SAVE_AND_SIGN_OUT,
   RESPOND_TO_APPLICATION,
   SAVE_AND_SIGN_OUT,
   SEXUAL_ABUSE,
   TERMS_AND_CONDITIONS,
-  TIMED_OUT_URL,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
+  SAVE_AND_SIGN_OUT,
+  TIMED_OUT_URL,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -69,7 +72,7 @@ export class Routes {
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
-    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
+    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
