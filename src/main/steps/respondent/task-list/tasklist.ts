@@ -13,7 +13,8 @@ import {
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+  console.log(userIdamId);
   return [
     {
       title: sectionTitles.consentToTheApplication,
@@ -33,7 +34,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'keep-your-details-private',
           text: taskListItems.keep_your_details_private,
           status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.RESPONDENT_DETAILS_KNOWN,
+          href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
         },
         {
           id: 'confirm-or-edit-your-contact-details',
@@ -77,8 +78,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'view-all-documents',
           text: taskListItems.view_all_documents,
-          status: getViewAllDocuments(),
-          href: getViewAllDocuments() === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
+          status: getViewAllDocuments(userCase),
+          href: getViewAllDocuments(userCase) === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
         },
         {
           id: 'upload-document',

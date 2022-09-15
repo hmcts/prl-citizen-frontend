@@ -5,7 +5,6 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
-import { ConsentGetController } from './app/controller/ConsentGetController';
 import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -17,6 +16,7 @@ import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { MIAMGetController } from './steps/respondent/miam/MIAMGetController';
 import { MIAMPostController } from './steps/respondent/miam/MIAMPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
@@ -30,12 +30,13 @@ import {
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASK_LIST_URL,
   //CONSENT_SAVE,
-  CONSENT_TO_APPLICATION,
+  //CONSENT_TO_APPLICATION,
   CONTACT_US,
   COOKIES_PAGE,
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
   HOME_URL,
+  MIAM_START,
   MIAM_SAVE,
   PRIVACY_POLICY,
   RESPONDENT,
@@ -70,8 +71,6 @@ export class Routes {
 
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
 
-    app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
-
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
@@ -82,6 +81,11 @@ export class Routes {
       if (step && getController) {
         app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
       }
+
+      app.get(
+        `${MIAM_START}/:caseId`,
+        errorHandler(new MIAMGetController(step.view, step.generateContent).get)
+      );
 
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));

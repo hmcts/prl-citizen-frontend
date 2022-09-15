@@ -699,7 +699,7 @@ export interface CaseData {
   orderCollection: ListValue<PRLDocument>[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
-  finalDocument: Document;
+  finalDocument?: Document;
   serviceType: string;
   claimNumber: string;
   applicantCaseName: string;

@@ -75,7 +75,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'view-all-documents',
           text: taskListItems.view_all_documents,
-          status: getViewAllDocuments(),
+          status: getViewAllDocuments(userCase),
           href: URL.APPLICANT_VIEW_ALL_DOCUMENTS,
         },
       ],

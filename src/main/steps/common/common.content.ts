@@ -197,6 +197,7 @@ export const generatePageContent = ({
   name,
   document_type,
   addresses = [],
+  userIdamId,
 }: // eligibility,
 // fee,
 {
@@ -209,6 +210,7 @@ export const generatePageContent = ({
   userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
   name?: string;
+  userIdamId?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -227,7 +229,7 @@ export const generatePageContent = ({
     addresses,
     caption,
     document_type,
-
+    userIdamId,
     // contactEmail,
     // eligibility,
     // fee,
@@ -260,6 +262,7 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   // eligibility?: Eligibility;
   // fee?: Fee;
+  userIdamId?: string;
 };
 
 export type Language = 'en' | 'cy';
