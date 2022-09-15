@@ -99,6 +99,12 @@ export interface PartyDetails {
   addressLivedLessThan5YearsDetails: string;
   otherPersonRelationshipToChildren: string[];
   isAtAddressLessThan5YearsWithDontKnow: string;
+  user: User;
+}
+
+export interface User {
+  email: string,
+  idamId: string
 }
 
 export interface Applicant {
