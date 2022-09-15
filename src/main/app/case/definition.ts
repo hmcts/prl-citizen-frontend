@@ -99,6 +99,32 @@ export interface PartyDetails {
   addressLivedLessThan5YearsDetails: string;
   otherPersonRelationshipToChildren: string[];
   isAtAddressLessThan5YearsWithDontKnow: string;
+  response: Response;
+  user: User;
+}
+
+export interface User {
+  email: string,
+  idamId: string
+}
+
+export interface Response {
+  legalRepresentation?: string;
+  consent?: Consent;
+  keepDetailsPrivate?: KeepDetailsPrivate;
+}
+
+export interface Consent {
+  consentToTheApplication?: string;
+  noConsentReason?: string;
+  applicationReceivedDate?: DateAsString;
+  permissionFromCourt?: string;
+  courtOrderDetails?: string;
+}
+
+export interface KeepDetailsPrivate {
+  otherPeopleKnowYourContactDetails: string;
+  confidentiality: string;
 }
 
 export interface Applicant {
@@ -294,11 +320,6 @@ export interface CaseNote {
   author: string;
   date: DateAsString;
   note: string;
-}
-
-export interface Respondent {
-  id: string;
-  value: PartyDetails;
 }
 
 export interface Address3 {
@@ -714,6 +735,11 @@ export interface CaseData {
   //applicant1LanguagePreference?: LanguagePreference;
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
   miamStart?: string;
 }
 

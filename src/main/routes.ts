@@ -5,8 +5,11 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
+import { ConsentGetController } from './app/controller/ConsentGetController';
+import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
+import { SaveRespondentResponseController } from './app/controller/SaveRespondentResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -25,6 +28,9 @@ import {
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICANT_TASK_LIST_URL,
+  CONSENT_SAVE,
+  CONSENT_TO_APPLICATION,
   CONTACT_US,
   COOKIES_PAGE,
   CSRF_TOKEN_ERROR_URL,
@@ -49,7 +55,6 @@ export class Routes {
     const errorController = new ErrorController();
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
-
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
 
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
@@ -57,11 +62,14 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-
+    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
+    app.get(`${CONSENT_SAVE}`, errorHandler(new SaveRespondentResponseController().save));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
 
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
+
+    app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

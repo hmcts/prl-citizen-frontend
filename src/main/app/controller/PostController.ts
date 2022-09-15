@@ -9,7 +9,7 @@ import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
-import { toApiFormat } from '../case/to-api-format';
+//import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -37,7 +37,7 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else {
-      await this.getCaseList(req, res, form, formData);
+      //await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -99,22 +99,22 @@ export class PostController<T extends AnyObject> {
       return this.redirect(req, res);
     }
 
-    const data = toApiFormat(formData);
+    //const data = toApiFormat(formData);
 
     // if (Object.keys(data).length !== 0) {
     //   req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
     // }
 
-    const caseworkerUser = await getSystemUser();
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    //const caseworkerUser = await getSystemUser();
+    //const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
     // const requestMappedCaseData = {
     //   applicantCaseName: 'XYZ',
     //   natureOfOrder: 'test',
     //   isCaseUrgent: 'Yes',
     // };
     // const caseId = req.session?.caseId;
-    await client.updateRespondentCase(caseworkerUser, '1661181673014144', req, data);
-    this.redirect(req, res);
+    // await client.updateRespondentCase(caseworkerUser, '1661181673014144', req, data);
+    // this.redirect(req, res);
 
     if (req.originalUrl.includes(UPLOAD_DOCUMENT_SUCCESS)) {
       if (req?.session?.userCase?.applicantUploadFiles) {
@@ -367,25 +367,25 @@ export class PostController<T extends AnyObject> {
     this.redirect(req, res);
   }
 
-  private async getCaseList(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    //Object.assign(req.session.userCase, formData);
-    req.session.errors = form.getErrors(formData);
+  // private async getCaseList(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
+  //   //Object.assign(req.session.userCase, formData);
+  //   req.session.errors = form.getErrors(formData);
 
-    this.filterErrorsForSaveAsDraft(req);
+  //   this.filterErrorsForSaveAsDraft(req);
 
-    if (req.session.errors.length) {
-      return this.redirect(req, res);
-    }
+  //   if (req.session.errors.length) {
+  //     return this.redirect(req, res);
+  //   }
 
-    const caseworkerUser = await getSystemUser();
+  //   const caseworkerUser = await getSystemUser();
 
-    const cosApiClient = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-    const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
-    console.log('caseDataFromCos' + caseDataFromCos);
+  //   const cosApiClient = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+  //   const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
+  //   console.log('caseDataFromCos' + caseDataFromCos);
 
-    //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
-    this.redirect(req, res);
-  }
+  //   //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
+  //   this.redirect(req, res);
+  // }
 }
 
 export type AnyObject = Record<string, unknown>;
