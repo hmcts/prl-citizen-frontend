@@ -46,87 +46,62 @@ const en = {
       incompleteYear: 'Emergency order date must include a year',
       invalidDateInFuture: 'Emergency order date must be in the past',
     },
-
-    'emergencyOrder.issueOrderDetails': {
-      required: 'please enter emergency issue order details',
-    },
+    
     supervisionOrderOption: {
       required: 'Please choose an option for supervising order',
     },
 
-    'supervisionOrder.issueOrderDetails': {
-      required: 'please enter supervision issue order details',
-    },
+    
     careOrderOptions: {
       required: 'Please choose an option for care order',
     },
 
-    'careOrder.issueOrderDetails': {
-      required: 'please enter care issue order details',
-    },
+    
     childAbductionOrderOption: {
       required: 'Please choose an option for child abduction order',
     },
 
-    'childAbductionOrder.issueOrderDetails': {
-      required: 'please enter child abduction issue order details',
-    },
+    
     caOrderOption: {
       required: 'Please choose an option for child arrangement order',
     },
 
-    'caOrder.issueOrderDetails': {
-      required: 'please enter child arrangements issue order details',
-    },
+    
     financialOrderOption: {
       required: 'Please choose an option for financial order',
     },
 
-    'financialOrder.issueOrderDetails': {
-      required: 'please enter financial issue order details',
-    },
+  
     nonmolestationOrderOption: {
       required: 'Please choose an option for non molestation order',
     },
 
-    'nonmolestationOrder.issueOrderDetails': {
-      required: 'please enter nonmolestation issue order details',
-    },
+   
     occupationalOrderOptions: {
       required: 'Please choose an option for occupational order',
     },
 
-    'occupationOrder.issueOrderDetails': {
-      required: 'please enter occupational issue order details',
-    },
+   
     marraigeOrderOptions: {
       required: 'Please choose an option for non marraige order',
     },
 
-    'marraigeOrder.issueOrderDetails': {
-      required: 'please enter marraige issue order details',
-    },
+    
     restrainingOrderOptions: {
       required: 'Please choose an option for restraining order',
     },
 
-    'restrainingOrder.issueOrderDetails': {
-      required: 'please enter restraining issue order details',
-    },
+    
     injuctiveOrderOptions: {
       required: 'Please choose an option for injuctive order',
     },
 
-    'injuctiveOrder.issueOrderDetails': {
-      required: 'please enter injuctive issue order details',
-    },
+   
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
     },
 
-    'underTakingOrder.issueOrderDetails': {
-      required: 'please enter undertaking issue order details',
-    },
+   
   },
 };
 
@@ -172,87 +147,62 @@ const cy: typeof en = {
       incompleteYear: 'Emergency order date must include a year',
       invalidDateInFuture: 'Emergency order date must be in the past',
     },
-
-    'emergencyOrder.issueOrderDetails': {
-      required: 'please enter emergency issue order details',
-    },
+    
     supervisionOrderOption: {
       required: 'Please choose an option for supervising order',
     },
 
-    'supervisionOrder.issueOrderDetails': {
-      required: 'please enter supervision issue order details',
-    },
+    
     careOrderOptions: {
       required: 'Please choose an option for care order',
     },
 
-    'careOrder.issueOrderDetails': {
-      required: 'please enter care issue order details',
-    },
+    
     childAbductionOrderOption: {
       required: 'Please choose an option for child abduction order',
     },
 
-    'childAbductionOrder.issueOrderDetails': {
-      required: 'please enter child abduction issue order details',
-    },
+    
     caOrderOption: {
       required: 'Please choose an option for child arrangement order',
     },
 
-    'caOrder.issueOrderDetails': {
-      required: 'please enter child arrangements issue order details',
-    },
+    
     financialOrderOption: {
       required: 'Please choose an option for financial order',
     },
 
-    'financialOrder.issueOrderDetails': {
-      required: 'please enter financial issue order details',
-    },
+    
     nonmolestationOrderOption: {
       required: 'Please choose an option for non molestation order',
     },
 
-    'nonmolestationOrder.issueOrderDetails': {
-      required: 'please enter nonmolestation issue order details',
-    },
+    
     occupationalOrderOptions: {
       required: 'Please choose an option for occupational order',
     },
 
-    'occupationOrder.issueOrderDetails': {
-      required: 'please enter occupational issue order details',
-    },
+    
     marraigeOrderOptions: {
       required: 'Please choose an option for non marraige order',
     },
 
-    'marraigeOrder.issueOrderDetails': {
-      required: 'please enter marraige issue order details',
-    },
+   
     restrainingOrderOptions: {
       required: 'Please choose an option for restraining order',
     },
 
-    'restrainingOrder.issueOrderDetails': {
-      required: 'please enter restraining issue order details',
-    },
+    
     injuctiveOrderOptions: {
       required: 'Please choose an option for injuctive order',
     },
 
-    'injuctiveOrder.issueOrderDetails': {
-      required: 'please enter injuctive issue order details',
-    },
+    
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
     },
 
-    'underTakingOrder.issueOrderDetails': {
-      required: 'please enter undertaking issue order details',
-    },
+    
   },
 };
 
@@ -338,7 +288,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              
             },
           },
         },
@@ -428,7 +378,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              
             },
           },
         },
@@ -518,7 +468,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              
             },
           },
         },
@@ -615,7 +565,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              
             },
           },
         },
@@ -705,7 +655,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+             
             },
           },
         },
@@ -801,7 +751,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+             
             },
           },
         },
@@ -892,7 +842,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              
             },
           },
         },
@@ -988,7 +938,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              
             },
           },
         },
@@ -1084,7 +1034,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              
             },
           },
         },
@@ -1181,7 +1131,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              
             },
           },
         },
@@ -1277,7 +1227,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+              
             },
           },
         },
@@ -1373,7 +1323,7 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              validator: isFieldFilledIn,
+             
             },
           },
         },
