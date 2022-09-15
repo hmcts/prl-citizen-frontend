@@ -2,6 +2,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
+  serviceName: 'Child arrangements',
   caption: 'Getting started',
   headingTitle: 'What you’ll need to complete your application',
   subTitle1: 'You will need to have:',
@@ -31,6 +32,7 @@ const en = () => ({
 });
 
 const cy = () => ({
+  serviceName: 'Child arrangements - welsh',
   caption: 'Getting started - welsh',
   headingTitle: 'What you’ll need to complete your application - welsh',
   subTitle1: 'You will need to have: - welsh',

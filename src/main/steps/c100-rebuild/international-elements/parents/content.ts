@@ -5,6 +5,7 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
+  serviceName: 'Child arrangements',
   title:
     "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
   line1:
@@ -25,6 +26,7 @@ const en = () => ({
 });
 
 const cy = () => ({
+  serviceName: 'Child arrangements - welsh',
   title:
     "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales? - welsh",
   line1:
