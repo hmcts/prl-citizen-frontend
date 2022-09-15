@@ -9,6 +9,35 @@
         {{userCase.respondentName}}
       </h1>
       <p class="govuk-body">Case number #{{userCase.id}}</p>
+
+
+
+{% for banner in banners %}
+  {% if banner.bannerHeading %}
+    <p class="govuk-notification-banner__heading">
+      {{ banner.bannerHeading }}
+      {% if banner.bannerHeadingLink %}
+      <a class="govuk-notification-banner__link" href={{ banner.bannerHeadingLink }}>{{banner.bannerHeadingLinkText}}</a>.
+      {% endif %}
+    </p>
+  {% endif %}
+
+  {% for content in banner.bannerContent %}
+    <p class="govuk-notification-banner__content">{{ content.line1 }}</p>
+    <p class="govuk-notification-banner__content">{{ content.line2 }}</p>
+  {% endfor %}
+
+  {% for link in banner.bannerLinks %}
+    <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>.
+  {% endfor %}
+
+{% endfor %}
+
+
+
+
+
+
   </div>
 {% endblock %}
 {% block oneThird %}

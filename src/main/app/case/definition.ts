@@ -2216,3 +2216,19 @@ export const enum ThePrayer {
 
 export type RespondentCaseId = string | number | undefined;
 export type RespondentCaseData = object | [] | undefined;
+
+export interface Banner {
+  bannerHeading?: string;
+  bannerHeadingLink?: string;
+  bannerHeadingText?: string;
+  bannerContent?: Content[];
+  bannerLinks?: BannerLink[];
+}
+export interface Content {
+  line1?: string;
+  line2?: string;
+}
+export interface BannerLink {
+  href?: string;
+  text?: string;
+}

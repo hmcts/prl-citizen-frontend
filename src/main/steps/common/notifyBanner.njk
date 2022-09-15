@@ -1,23 +1,20 @@
-{% extends "./page.njk" %}
-{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-
-{% block page_content %}
+{% for banner in banners %}
 {% set html %}
-  {% if bannerHeading %}
+  {% if banner.bannerHeading %}
     <p class="govuk-notification-banner__heading">
-      {{ bannerHeading }}
-      {% if bannerHeadingLink %}
-      <a class="govuk-notification-banner__link" href={{ bannerHeadingLink }}>{{bannerHeadingLinkText}}</a>.
+      {{ banner.bannerHeading }}
+      {% if banner.bannerHeadingLink %}
+      <a class="govuk-notification-banner__link" href={{ banner.bannerHeadingLink }}>{{banner.bannerHeadingLinkText}}</a>.
       {% endif %}
     </p>
   {% endif %}
 
-  {% for content in bannerContent %}
-    <p class="govuk-notification-banner__content">{{ bannerContent.line1 }}</p>
-    <p class="govuk-notification-banner__content">{{ bannerContent.line2 }}</p>
+  {% for content in banner.bannerContent %}
+    <p class="govuk-notification-banner__content">{{ content.line1 }}</p>
+    <p class="govuk-notification-banner__content">{{ content.line2 }}</p>
   {% endfor %}
 
-  {% for link in bannerLinks %}
+  {% for link in banner.bannerLinks %}
     <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>.
   {% endfor %}
 {% endset %}
@@ -25,5 +22,4 @@
 {{ govukNotificationBanner({
   html: html
 }) }}
-
-{% endblock %}
+{% endfor %}
