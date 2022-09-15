@@ -73,4 +73,15 @@ describe('PostController', () => {
     const redirectUrl = LEGAL_REPRESENTATION_START;
     expect(req.originalUrl).not.toBe(redirectUrl);
   });
+
+  test('legal representation with error', async () => {
+    req.session.user.id = '123';
+    req.session.userCase = body;
+    req.session.errors = [];
+    req.body.respondents = body.respondents;
+    const language = 'en';
+    req.session.lang = language;
+    controller.post(req, res);
+    expect(req.session.errors).toHaveLength(1);
+  });
 });

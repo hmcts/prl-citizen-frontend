@@ -12,7 +12,13 @@
 }) }}
 <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
   <form action="" method="post" novalidate="" type="submit">
-    
+      {% for error in sessionErrors %}
+        <div class=" {%- if error.propertyName === 'legalRepresentation' %}  govuk-form-group--error  {% endif %}">
+          {%- if error.propertyName == 'legalRepresentation' %}
+            <span class="govuk-error-message" id="steps-legalRepresentationerror"><span class="govuk-visually-hidden">Error: </span>{{errors.legalRepresentation.required}}</span>
+            {%set errorTypeClassInput = " govuk-input--error"%}
+        {% endif %}
+      {% endfor %}
     <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
 
     {% if formaction == 'Yes' %}
@@ -78,7 +84,7 @@
       legend: {
         text: "",
         isPageHeading: true if not title,
-        classes: "govuk-fieldset__legend--l"
+        classes: "govuk-fieldset__legend--l" + errorTypeClassInput
       }
     },
     items: [
@@ -92,11 +98,15 @@
     }
   ],
     formGroup: {
-      classes: "govuk-fieldset__legend--l"
+      classes: "govuk-fieldset__legend--l" + errorTypeClassInput
     }
   }) }}
 {% endif %}
-
+{% for error in sessionErrors %}
+          {%- if error.propertyName == 'legalRepresentation' %}
+           </div>
+        {% endif %}
+      {% endfor %}
     <button type="submit" formnovalidate="formnovalidate" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">
       Save and continue
     </button>

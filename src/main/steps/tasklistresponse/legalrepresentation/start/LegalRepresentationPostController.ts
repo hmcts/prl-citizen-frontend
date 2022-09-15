@@ -10,6 +10,7 @@ import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import {
   LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
   LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
+  LEGAL_REPRESENTATION_START,
   RESPOND_TO_APPLICATION,
 } from '../../../urls';
 
@@ -23,7 +24,14 @@ export default class LegalRepresentationPostController extends PostController<An
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-    if (formData.legalRepresentation) {
+    if (!req.body.legalRepresentation) {
+      req.session.errors?.push({
+        propertyName: 'legalRepresentation',
+        errorType: 'required',
+      });
+      const redirectUrl = LEGAL_REPRESENTATION_START;
+      super.redirect(req, res, redirectUrl);
+    } else if (formData.legalRepresentation) {
       req.session.userCase.legalRepresentation = formData.legalRepresentation;
       let returnUrl = LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT;
       if (formData.legalRepresentation === YesOrNo.YES) {
@@ -35,7 +43,7 @@ export default class LegalRepresentationPostController extends PostController<An
           respondent.value.response.legalRepresentation = formData.legalRepresentation;
         }
       });
-
+      req.session.errors = [];
       const eventId = 'consentToTheApplication';
       const caseReference = req.session.userCase.id;
       const caseData = toApiFormat(req?.session?.userCase);
@@ -46,7 +54,6 @@ export default class LegalRepresentationPostController extends PostController<An
 
       req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
     }
-    req.session.errors = [];
     this.redirect(req, res);
   }
 }

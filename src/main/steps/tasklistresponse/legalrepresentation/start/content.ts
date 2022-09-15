@@ -13,7 +13,7 @@ const en = {
   continue: 'Save and continue',
   errors: {
     legalRepresentation: {
-      required: 'Enter your answer',
+      required: 'Select yes if you are using a legal representative to respond to the application',
     },
   },
 };
@@ -28,7 +28,7 @@ const cy: typeof en = {
   continue: 'Save and continue',
   errors: {
     legalRepresentation: {
-      required: 'Enter your answer',
+      required: 'Select yes if you are using a legal representative to respond to the application',
     },
   },
 };
