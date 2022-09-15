@@ -5,6 +5,7 @@ import {
   C100DocumentInfo,
   C100OrderTypes,
   C1ASafteyConcerns,
+  C100ListOfApplicants,
   CaseData,
   ContactDetails,
   MiamNonAttendReason,
@@ -118,6 +119,7 @@ export interface Case {
   injuctiveOrder?: orderInterface;
   underTakingOrderOptions?: YesOrNo;
   underTakingOrder?: orderInterface;
+  allApplicants?: C100ListOfApplicants;
 
   /***** Applicant1 *****/
   applicant1FullName?: string;

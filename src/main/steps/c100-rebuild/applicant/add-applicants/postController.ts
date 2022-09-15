@@ -1,0 +1,86 @@
+import autobind from 'autobind-decorator';
+import { Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
+
+import { Case } from '../../../../app/case/case';
+import { C100ListOfApplicants } from '../../../../app/case/definition';
+import { AppRequest } from '../../../../app/controller/AppRequest';
+import { AnyObject, PostController } from '../../../../app/controller/PostController';
+import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
+
+// eslint-disable-next-line import/no-unresolved
+import { postControllerRollBackRoutes } from './index';
+
+@autobind
+/* It takes in a request and a response object, and then it does a bunch of stuff */
+export default class AddApplicantPostController
+  extends PostController<AnyObject>
+  implements postControllerRollBackRoutes
+{
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+    super(fields);
+  }
+
+  /**
+   * The function takes in a request and a response object, and then it does a bunch of stuff
+   * @param req - AppRequest<AnyObject>
+   * @param {Response} res - Response - this is the response object that is passed to the controller.
+   */
+  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    console.log(req.body);
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+
+    // Object.assign(req.session.userCase, formData);
+
+    this.errorsAndRedirect(req, res, formData, form);
+    const { addAnotherApplicant } = req['body'];
+    switch (addAnotherApplicant) {
+      case 'Yes':
+        this.addAnotherApplication(req);
+        break;
+      default:
+    }
+    return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+  }
+
+  /**
+   * It takes the form data, the form, and the request and response objects, and if there are errors, it
+   * sets the errors in the session and redirects
+   * @param req - AppRequest<AnyObject> - The request object
+   * @param {Response} res - Response - The response object from express
+   * @param {AnyObject} formData - The data that was submitted by the user.
+   * @param {Form} form - The form object that was created in the controller.
+   * @returns The errors from the form.
+   */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  protected errorsAndRedirect(req: AppRequest<AnyObject>, res: Response, formData: Partial<Case>, form: Form) {
+    req.session.errors = form.getErrors(formData);
+    if (req.session.errors.length) {
+      return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+    }
+  }
+
+  /**
+   * It takes a request and a response, and returns a redirect to the root path
+   * @param req - AppRequest<AnyObject>
+   * @param {Response} res - Response - this is the response object that will be sent back to the client.
+   * @returns The response body is being returned.
+   */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  protected addAnotherApplication(req: AppRequest<AnyObject>): void {
+    const { applicantFirstName, applicantLastName } = req['body'];
+    const applicantInformation = {
+      id: uuidv4(),
+      applicantFirstName,
+      applicantLastName,
+    };
+    let applicantInSession: C100ListOfApplicants = [];
+    if (req.session.userCase.hasOwnProperty('allApplicants') && req.session.userCase.allApplicants) {
+      applicantInSession = req.session.userCase.allApplicants;
+    }
+    req.session.userCase.allApplicants = [...applicantInSession, applicantInformation];
+  }
+}
