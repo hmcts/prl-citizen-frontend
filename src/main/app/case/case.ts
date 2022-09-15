@@ -167,6 +167,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DateOfBirth: 'applicant1DateOfBirth',
   applicant1Occupation: 'applicant1Occupation',
   applicant1EmailAddress: 'applicant1EmailAddress',
+  applicant1SafeToCall: 'applicant1SafeToCall',
   applicant1PhoneNumber: 'applicant1PhoneNumber',
   applicant1PlaceOfBirth: 'applicant1PlaceOfBirth',
   applicant1Address1: 'applicant1Address1',
@@ -179,6 +180,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
   applicantDocumentsUploaded: 'applicantDocumentsUploaded',
+  miamStart: 'miamStart',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -372,8 +374,8 @@ export interface Case {
   applicant1AdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
-  applicant1PhoneNumber?: string;
   applicant1SafeToCall?: string;
+  applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1DateOfBirthText?: string;
   applicant1Occupation?: string;

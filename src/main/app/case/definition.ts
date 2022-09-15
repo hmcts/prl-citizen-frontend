@@ -117,7 +117,7 @@ export interface Response {
 export interface Consent {
   consentToTheApplication?: string;
   noConsentReason?: string;
-  applicationReceivedDate?: DateAsString; 
+  applicationReceivedDate?: DateAsString;
   permissionFromCourt?: string;
   courtOrderDetails?: string;
 }
@@ -711,6 +711,7 @@ export interface CaseData {
   applicant1AdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
+  applicant1SafeToCall?: string;
   applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1DateOfBirthText?: string;
@@ -739,6 +740,7 @@ export interface CaseData {
   courtPermission?: YesOrNo;
   reasonForNotConsenting?: string;
   courtOrderDetails?: string;
+  miamStart?: string;
 }
 
 export interface ConfidentialDetails {
