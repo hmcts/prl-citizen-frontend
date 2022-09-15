@@ -22,6 +22,7 @@ import {
   DateOfSubmission,
   Document,
   DraftConsentOrderFile,
+  ExistingProceedings,
   Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
   InternationalElementTable,
@@ -30,6 +31,7 @@ import {
   LitigationCapacityTable,
   MiamExemptionsTable,
   MiamTable,
+  OtherDocuments,
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
@@ -48,6 +50,7 @@ import {
   UrgencyDetails,
   WelshLanguageRequirementsTable,
   WelshNeed,
+  YesNoDontKnow,
   YesOrNo,
   orderInterface,
   //DocumentType,
@@ -85,6 +88,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   adjustmentsRequired: 'adjustmentsRequired',
   confidentialDetails: 'confidentialDetails',
   existingProceedings: 'existingProceedings',
+  otherDocuments: 'otherDocuments',
   hearingUrgencyTable: 'hearingUrgencyTable',
   isDisabilityPresent: 'isDisabilityPresent',
   isInterpreterNeeded: 'isInterpreterNeeded',
@@ -153,6 +157,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
+  citizenUploadedDocumentList: 'citizenUploadedDocumentList',
   serviceType: 'serviceType',
   claimNumber: 'claimNumber',
   caseCode: 'caseCode',
@@ -179,7 +184,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
-  applicantDocumentsUploaded: 'applicantDocumentsUploaded',
   miamStart: 'miamStart',
 };
 
@@ -230,7 +234,8 @@ export interface Case {
   specialArrangement?: SpecialArrangement;
   adjustmentsRequired?: string;
   confidentialDetails?: ConfidentialDetails;
-  existingProceedings?: string[];
+  existingProceedings?: ExistingProceedings[];
+  otherDocuments?: OtherDocuments[];
   hearingUrgencyTable?: HearingUrgencyTable;
   isDisabilityPresent?: string;
   isInterpreterNeeded?: string;
@@ -292,7 +297,7 @@ export interface Case {
   c100ConfidentialityStatementDisclaimer?: string[];
   habitualResidentInOtherStateGiveReason?: string;
   languageRequirementApplicationNeedWelsh?: string;
-  previousOrOngoingProceedingsForChildren?: string;
+  previousOrOngoingProceedingsForChildren?: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish?: string;
 
   //TODO?: Below fields should be with in respondent object.
@@ -323,8 +328,7 @@ export interface Case {
   respondentName?: string;
   respondentFirstName?: string;
   respondentLastName?: string;
-  respondentCaseInvites?: CaseInvite[];
-  applicantCaseInvites?: CaseInvite[];
+  caseInvites?: CaseInvite[];
   orderCollection?: ListValue<PRLDocument>[];
   documentsGenerated?: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
@@ -333,9 +337,9 @@ export interface Case {
   declarationCheck?: string;
   finalDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
+  citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
-  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
-  applicant1UploadedFiles?: UploadedFile[];
+  respondentUploadFiles?: UploadedFile[];
   proceedingsCourtCase?: string;
   proceedingsStart?: string;
   proceedingsCourtOrder?: string;

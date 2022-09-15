@@ -1,40 +1,29 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../../../test/unit/utils/mockUserCase';
+import { applicant_tasklist_items_all_docs_en } from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
+import { respondent_all_docs_en } from './section-titles-all-documents';
+
 const enContent = {
   title: 'All documents',
-  sectionTitles: {
-    ordersFromTheCourt: 'Orders from the court',
-    respondentsDocuments: "Respondent's documents",
-  },
-  taskListItems: {
-    view_all_orders_from_the_court_all_docs: 'View all orders from the court',
-    respondent_response_to_request_for_child_arrangements: "<namerespondentxxxxx>'s request for child arrangements",
-    respondent_allegations_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",
-  },
+  sectionTitles: respondent_all_docs_en,
+  taskListItems: applicant_tasklist_items_all_docs_en,
 };
 const cyContent = {
   title: 'All documents',
-  sectionTitles: {
-    ordersFromTheCourt: 'Orders from the court',
-    respondentsDocuments: "Respondent's documents",
-  },
-  taskListItems: {
-    view_all_orders_from_the_court_all_docs: 'View all orders from the court',
-    respondent_response_to_request_for_child_arrangements: "<namerespondentxxxxx>'s request for child arrangements",
-    respondent_allegations_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",
-  },
+  sectionTitles: respondent_all_docs_en,
+  taskListItems: applicant_tasklist_items_all_docs_en,
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
   //eslint-disable-next-line jest/expect-expect
-  test.skip('should return correct english content', () => {
+  test('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
   });
   //eslint-disable-next-line jest/expect-expect
-  test.skip('should return correct welsh content', () => {
+  test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
   test.skip.each([
