@@ -28,7 +28,7 @@ export class SaveRespondentResponseController {
     caseData.id = caseReference;
     const updatedCaseDataFromCos = await client.updateCase(
       caseworkerUser,
-      caseReference as string,
+      caseReference,
       caseData,
       'linkCitizenAccount'
     );
