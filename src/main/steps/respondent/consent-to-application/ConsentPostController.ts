@@ -20,7 +20,6 @@ export class ConsentPostController extends PostController<AnyObject> {
   public async post(req: AppRequest, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
-    let eventId = '';
 
     const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
@@ -29,17 +28,19 @@ export class ConsentPostController extends PostController<AnyObject> {
 
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        if (req.url.includes('consent')) {
-          Object.assign(respondent, setConsentDetails(respondent, req));
-          eventId = 'consentToTheApplication';
-        }
+        Object.assign(respondent, setConsentDetails(respondent, req));
       }
     });
 
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
     delete caseData.finalDocument;
-    const updatedCaseDataFromCos = await client.updateCase(loggedInCitizen, caseReference as string, caseData, eventId);
+    const updatedCaseDataFromCos = await client.updateCase(
+      loggedInCitizen,
+      caseReference as string,
+      caseData,
+      'consentToTheApplication'
+    );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
     req.session.save(() => res.redirect(RESPONDENT_TASK_LIST_URL));
