@@ -1462,6 +1462,28 @@ export const C100OrderTypeKeyMapper = {
   undertakingOrder: 'undertakingOrders',
   otherOrder: 'otherOrders'
 }
+
+export const C100OrderTypeNameMapper = {
+  childArrangementOrder: 'Child Arrangement Order',
+  emergencyProtectionOrder:'Emergency Protection Order',
+  supervisionOrder:'Supervision Order',
+  careOrder: 'Care Order',
+  childAbductionOrder:'A contact or Residence Order for Divorce',
+  contactOrderForDivorce: `A contact or residence order (Section 8 Children
+    Act 1989) made within proceedings for a divorce or
+    dissolution of a civil partnership`,
+  contactOrderForAdoption: `A contact or residence order (Section 8 Children Act
+    1989) made in connection with an Adoption Order`,
+  childMaintenanceOrder: 'Child Maintenance Order',
+  financialOrder: 'Financial Order',
+  nonMolestationOrder: 'Non-molestation Order',
+  occupationOrder: 'Occupation Order',
+  forcedMarriageProtectionOrder: 'Forced Marriage Protection Order',
+  restrainingOrder: 'Restraining Order',
+  otherInjuctionOrder: 'Other Injuction Order',
+  undertakingOrder: 'Undertaking Order',
+  otherOrder: 'Other Order'
+}
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface,
   emergencyProtectionOrders:C100OrderInterface,
