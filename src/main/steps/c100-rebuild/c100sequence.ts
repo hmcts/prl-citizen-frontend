@@ -40,6 +40,9 @@ import {
   C100_CHILDERN_FURTHER_INFORMATION,
   C100_CONFIRMATIONPAGE,
   C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+
+  /** @C1A Safety concerns */
+  C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
   PageLink,
 } from '../urls';
 
@@ -276,5 +279,10 @@ export const C100Sequence: Step[] = [
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
     showInSection: Sections.C100,
     getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
