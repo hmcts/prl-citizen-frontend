@@ -27,9 +27,10 @@ const en = {
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
-  errorSummaryHeading: 'There is a problem',
+  errorSummaryHeading: 'There is a problem on this page',
   saveAndSignOut: 'Save and sign out',
   saveAsDraft: 'Save as draft',
+  onlyContinue: 'Continue',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -107,7 +108,6 @@ const en = {
   apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
-  onlyContinue: 'Continue',
 };
 
 const cy: typeof en = {
@@ -131,7 +131,7 @@ const cy: typeof en = {
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem (in welsh)',
+  errorSummaryHeading: 'There is a problem on this page (in welsh)',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
@@ -196,6 +196,7 @@ export const generatePageContent = ({
   userCaseList,
   caption,
   name,
+  byApplicant,
   document_type,
   addresses = [],
   userIdamId,
@@ -211,6 +212,7 @@ export const generatePageContent = ({
   userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
   name?: string;
+  byApplicant?: string;
   userIdamId?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
@@ -230,6 +232,7 @@ export const generatePageContent = ({
     addresses,
     caption,
     document_type,
+    byApplicant,
     userIdamId,
     // contactEmail,
     // eligibility,
@@ -261,6 +264,7 @@ export type CommonContent = typeof en & {
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
+  byApplicant?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
   userIdamId?: string;

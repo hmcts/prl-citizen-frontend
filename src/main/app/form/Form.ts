@@ -127,6 +127,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  onlyContinue?: {
+    text: Label;
+    classes?: string;
+  };
   saveAsDraft?: {
     text: Label;
     classes?: string;
@@ -136,10 +140,6 @@ export interface FormContent {
     classes?: string;
   };
   editAddress?: {
-    text: Label;
-    classes?: string;
-  };
-  onlyContinue?: {
     text: Label;
     classes?: string;
   };

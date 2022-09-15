@@ -21,7 +21,6 @@ console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   orderCollection: uploadedFilesFromApiApplicant1,
-  applicantDocumentsUploaded: uploadedFilesFromApiApplicant1,
   // applicant1DateOfBirth: data => ({
   //   applicant1DateOfBirth: fromApiDate(data.applicant1DateOfBirth),
   // }),

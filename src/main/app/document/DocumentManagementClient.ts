@@ -37,7 +37,6 @@ export class DocumentManagementClient {
     for (const [, file] of Object.entries(files)) {
       formData.append('files', file.buffer, file.originalname);
     }
-    console.log('11');
 
     const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/documents', formData, {
       headers: {
@@ -48,7 +47,6 @@ export class DocumentManagementClient {
       maxBodyLength: Infinity,
       timeout: config.get<number>('uploadTimeout'),
     });
-    console.log('12');
     return response.data?._embedded?.documents || [];
   }
 

@@ -1,15 +1,8 @@
-export const documents_list_items_en = {
-  your_position_statements: 'Your position statements',
-  your_witness_statements: 'Your witness statements',
-  other_witness_statements: "Other people's witness statements",
-  mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
-  medical_records: 'Medical records',
-  letters_from_school: 'Letters from school',
-  tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
-  previous_orders_submitted: 'Previous orders submitted with application',
-  medical_reports: 'Medical reports',
-  paternity_test_reports: 'Paternity test reports',
-  drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
-  police_reports: 'Police reports',
-  other_documents: 'Other documents',
-};
+import {
+  documents_list_items_cy as applicant_documents_list_items_cy,
+  documents_list_items_en as applicant_documents_list_items_en,
+} from '../../applicant/upload-document/upload-document-list-items';
+
+export const documents_list_items_en = applicant_documents_list_items_en;
+
+export const documents_list_items_cy = applicant_documents_list_items_cy;

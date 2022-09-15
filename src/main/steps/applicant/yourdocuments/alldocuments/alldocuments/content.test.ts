@@ -3,136 +3,67 @@ import mockUserCase from '../../../../../../test/unit/utils/mockUserCase';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
+import { applicant_all_docs_en } from './section-titles-all-documents';
+import { applicant_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
+
 const enContent = {
   title: 'All documents',
-  sectionTitles: {
-    ordersFromTheCourt: 'Orders from the court',
-    applicantsDocuments: "Applicant's documents",
-    respondentsDocuments: "Respondent's documents",
-    cafcassAndLaDocuments: 'CAFCASS and local authority document',
-    otherDocuments: 'Other documents',
-    attendingTheHearing: 'Attending the hearing',
-  },
-  taskListItems: {
-    view_all_orders_from_the_court_all_docs: 'View all orders from the court',
-    applicant_request_for_child_arrangements: "<nameapplicantxxxxx>'s request for child arrangements",
-    applicant_allegations_of_harm_and_violence: "<nameapplicantxxxxx>'s allegations of harm and violence",
-    applicant_response_to_other_side_allegation_of_harm:
-      "<nameapplicantxxxxx>'s response to the other side's allegations of harm or violence",
-    applicant_position_statements: "<nameapplicantxxxxx>'s position statements",
-    applicant_witness_statements: "<nameapplicantxxxxx>'s witness statements",
-    other_people_witness_statements: "Other people's witness statements",
-    medical_reports: 'Medical reports',
-    miam_certificate: 'MIAM certificate',
-    applications_made_in_these_proceedings: 'Applications made in these proceedings',
-    previous_orders_submitted: 'Previous orders submitted with application',
-    letters_from_school: 'Letters from school',
-    digital_downloads: 'Emails, screenshots, images and other media files',
-    photographic_evidence: 'Photographic evidence',
-    mobile_phone_screenshots: 'Mobile phone screenshots',
-    medical_records: 'Medical records',
-    paternity_test_reports: 'Paternity test reports',
-    drug_alcohol_tests: 'Drug and alcohol tests (toxicology)',
-    police_disclosures: 'Police disclosures',
-    witness_availability: 'Witness availability',
-    respondent_response_to_request_for_child_arrangements:
-      "<namerespondentxxxxx>'s response to the request for child arrangements",
-    respondent_response_to_allegations_of_harm_and_violence:
-      "<namerespondentxxxxx>'s response to the allegations of harm and violence",
-    respondent_allegation_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",
-    applications_made_in_these_proceedings_respondent: 'Applications made in these proceedings',
-    previous_orders_submitted_respondent: 'Previous orders submitted with application',
-    letters_from_school_respondent: 'Letters from school',
-    respondent_position_statements: "<namerespondentxxxxx>'s position statements",
-    respondent_witness_statements: "<namerespondentxxxxx>'s witness statements",
-    other_people_witness_statements_respondent: "Other people's witness statements",
-    digital_downloads_respondent: 'Emails, screenshots, images and other media files',
-    photographic_evidence_respondent: 'Photographic evidence',
-    mobile_phone_screenshots_respondent: 'Mobile phone screenshots',
-    medical_records_respondent: 'Medical records',
-    medical_reports_respondent: 'Medical reports',
-    paternity_test_reports_respondent: 'Paternity test reports',
-    drug_alcohol_tests_respondent: 'Drug and alcohol tests (toxicology)',
-    police_disclosures_respondent: 'Police disclosures',
-    witness_availability_respondent: 'Witness availability',
-    safeguarding_letter: 'Safeguarding letter',
-    section7_report: 'Section 7 report',
-    section37_report: 'Section 37 report',
-    risk_assessment_16a: '16a risk assessment',
-    important_address_and_contact_details: 'Important information about your address and contact details',
-    dna_reports: 'DNA reports',
-    privacy_notice: 'Privacy notice',
-    special_measures: 'Special measures',
-    notice_of_hearing: 'Notice of hearing',
-    support_you_need_during_your_case: 'Support you need during your case',
-  },
+  sectionTitles: applicant_all_docs_en,
+  taskListItems: applicant_tasklist_items_all_docs_en,
 };
 const cyContent = {
   title: 'All documents',
-  sectionTitles: {
-    ordersFromTheCourt: 'Orders from the court',
-    applicantsDocuments: "Applicant's documents",
-    respondentsDocuments: "Respondent's documents",
-    cafcassAndLaDocuments: 'CAFCASS and local authority document',
-    otherDocuments: 'Other documents',
-    attendingTheHearing: 'Attending the hearing',
-  },
-  taskListItems: {
-    view_all_orders_from_the_court_all_docs: 'View all orders from the court',
-    applicant_request_for_child_arrangements: "<nameapplicantxxxxx>'s request for child arrangements",
-    applicant_allegations_of_harm_and_violence: "<nameapplicantxxxxx>'s allegations of harm and violence",
-    applicant_response_to_other_side_allegation_of_harm:
-      "<nameapplicantxxxxx>'s response to the other side's allegations of harm or violence",
-    applicant_position_statements: "<nameapplicantxxxxx>'s position statements",
-    applicant_witness_statements: "<nameapplicantxxxxx>'s witness statements",
-    other_people_witness_statements: "Other people's witness statements",
-    medical_reports: 'Medical reports',
-    miam_certificate: 'MIAM certificate',
-    applications_made_in_these_proceedings: 'Applications made in these proceedings',
-    previous_orders_submitted: 'Previous orders submitted with application',
-    letters_from_school: 'Letters from school',
-    digital_downloads: 'Emails, screenshots, images and other media files',
-    photographic_evidence: 'Photographic evidence',
-    mobile_phone_screenshots: 'Mobile phone screenshots',
-    medical_records: 'Medical records',
-    paternity_test_reports: 'Paternity test reports',
-    drug_alcohol_tests: 'Drug and alcohol tests (toxicology)',
-    police_disclosures: 'Police disclosures',
-    witness_availability: 'Witness availability',
-    respondent_response_to_request_for_child_arrangements:
-      "<namerespondentxxxxx>'s response to the request for child arrangements",
-    respondent_response_to_allegations_of_harm_and_violence:
-      "<namerespondentxxxxx>'s response to the allegations of harm and violence",
-    respondent_allegation_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",
-    applications_made_in_these_proceedings_respondent: 'Applications made in these proceedings',
-    previous_orders_submitted_respondent: 'Previous orders submitted with application',
-    letters_from_school_respondent: 'Letters from school',
-    respondent_position_statements: "<namerespondentxxxxx>'s position statements",
-    respondent_witness_statements: "<namerespondentxxxxx>'s witness statements",
-    other_people_witness_statements_respondent: "Other people's witness statements",
-    digital_downloads_respondent: 'Emails, screenshots, images and other media files',
-    photographic_evidence_respondent: 'Photographic evidence',
-    mobile_phone_screenshots_respondent: 'Mobile phone screenshots',
-    medical_records_respondent: 'Medical records',
-    medical_reports_respondent: 'Medical reports',
-    paternity_test_reports_respondent: 'Paternity test reports',
-    drug_alcohol_tests_respondent: 'Drug and alcohol tests (toxicology)',
-    police_disclosures_respondent: 'Police disclosures',
-    witness_availability_respondent: 'Witness availability',
-    safeguarding_letter: 'Safeguarding letter',
-    section7_report: 'Section 7 report',
-    section37_report: 'Section 37 report',
-    risk_assessment_16a: '16a risk assessment',
-    important_address_and_contact_details: 'Important information about your address and contact details',
-    dna_reports: 'DNA reports',
-    privacy_notice: 'Privacy notice',
-    special_measures: 'Special measures',
-    notice_of_hearing: 'Notice of hearing',
-    support_you_need_during_your_case: 'Support you need during your case',
-  },
+  sectionTitles: applicant_all_docs_en,
+  taskListItems: applicant_tasklist_items_all_docs_en,
 };
 describe('task-list > content', () => {
-  const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: {
+      ...mockUserCase,
+      applicants: [
+        {
+          id: '1',
+          value: {
+            email: 'test',
+            gender: 'test',
+            dxNumber: 'test',
+            landline: 'test',
+            lastName: 'test',
+            firstName: 'test',
+            dateOfBirth: 'test',
+            otherGender: 'test',
+            phoneNumber: 'test',
+            placeOfBirth: 'test',
+            previousName: 'test',
+            sendSignUpLink: 'test',
+            solicitorEmail: 'test',
+            isAddressUnknown: 'test',
+            isDateOfBirthKnown: 'test',
+            solicitorReference: 'test',
+            solicitorTelephone: 'test',
+            isPlaceOfBirthKnown: 'test',
+            isDateOfBirthUnknown: 'test',
+            isAddressConfidential: 'test',
+            isCurrentAddressKnown: 'test',
+            relationshipToChildren: 'test',
+            representativeLastName: 'test',
+            representativeFirstName: 'test',
+            canYouProvidePhoneNumber: 'test',
+            canYouProvideEmailAddress: 'test',
+            isAtAddressLessThan5Years: 'test',
+            isPhoneNumberConfidential: 'test',
+            isEmailAddressConfidential: 'test',
+            respondentLivedWithApplicant: 'test',
+            doTheyHaveLegalRepresentation: 'test',
+            addressLivedLessThan5YearsDetails: 'test',
+            isAtAddressLessThan5YearsWithDontKnow: 'test',
+          },
+        },
+      ],
+      allegationsOfHarmYesNo: 'NO',
+    },
+  } as CommonContent;
   //eslint-disable-next-line jest/expect-expect
   test.skip('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
@@ -222,16 +153,6 @@ describe('task-list > content', () => {
               href: '/applicant/yourdocuments/alldocuments/digitaldownloads',
             },
             {
-              id: 'photographic_evidence',
-              text: 'Photographic evidence',
-              href: '/applicant/yourdocuments/alldocuments/photographicevidence',
-            },
-            {
-              id: 'mobile_phone_screenshots',
-              text: 'Mobile phone screenshots',
-              href: '/applicant/yourdocuments/alldocuments/mobilescreenshots',
-            },
-            {
               id: 'medical_records',
               text: 'Medical records',
               href: '/applicant/yourdocuments/alldocuments/medicalrecords',
@@ -248,7 +169,7 @@ describe('task-list > content', () => {
             },
             {
               id: 'police_disclosures',
-              text: 'Police disclosures',
+              text: 'Police reports',
               href: '/applicant/yourdocuments/alldocuments/police_disclosures',
             },
             {
@@ -312,16 +233,6 @@ describe('task-list > content', () => {
               text: 'Emails, screenshots, images and other media files',
             },
             {
-              href: '/applicant/yourdocuments/alldocuments/respondentphotographicevidence',
-              id: 'photographic_evidence_respondent',
-              text: 'Photographic evidence',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentmobilescreenshots',
-              id: 'mobile_phone_screenshots_respondent',
-              text: 'Mobile phone screenshots',
-            },
-            {
               href: '/applicant/yourdocuments/alldocuments/respondentmedicalrecords',
               id: 'medical_records_respondent',
               text: 'Medical records',
@@ -344,7 +255,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/yourdocuments/alldocuments/respondent_police_disclosure',
               id: 'police_disclosures_respondent',
-              text: 'Police disclosures',
+              text: 'Police reports',
             },
             {
               href: '/applicant/yourdocuments/alldocuments/respondent_drug_alcohol_tests',
@@ -497,16 +408,6 @@ describe('task-list > content', () => {
               href: '#',
             },
             {
-              id: 'photographic_evidence',
-              text: 'Photographic evidence',
-              href: '#',
-            },
-            {
-              id: 'mobile_phone_screenshots',
-              text: 'Mobile phone screenshots',
-              href: '#',
-            },
-            {
               id: 'medical_records',
               text: 'Medical records',
               href: '#',
@@ -523,7 +424,7 @@ describe('task-list > content', () => {
             },
             {
               id: 'police_disclosures',
-              text: 'Police disclosures',
+              text: 'Police reports',
               href: '#',
             },
             {
@@ -588,16 +489,6 @@ describe('task-list > content', () => {
             },
             {
               href: '#',
-              id: 'photographic_evidence_respondent',
-              text: 'Photographic evidence',
-            },
-            {
-              href: '#',
-              id: 'mobile_phone_screenshots_respondent',
-              text: 'Mobile phone screenshots',
-            },
-            {
-              href: '#',
               id: 'medical_records_respondent',
               text: 'Medical records',
             },
@@ -619,7 +510,7 @@ describe('task-list > content', () => {
             {
               href: '#',
               id: 'police_disclosures_respondent',
-              text: 'Police disclosures',
+              text: 'Police reports',
             },
             {
               href: '#',

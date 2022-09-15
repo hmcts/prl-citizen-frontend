@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-import { APPLICANT_TASK_LIST_URL, CA_DA_RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -49,7 +49,7 @@ type SummaryListContent = PageContent & {
 };
 
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
-  console.log(content);
+  console.log(content.title);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {
@@ -92,8 +92,9 @@ export const summaryList = (
       value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
-
-    summaryData.push(row);
+    if (key !== 'applicant1SafeToCall') {
+      summaryData.push(row);
+    }
   }
 
   return {
@@ -104,7 +105,8 @@ export const summaryList = (
 
 export const summaryCaseList = (
   userCaseList: Partial<CaseWithId>[],
-  sectionTitle?: string
+  sectionTitle?: string,
+  isRespondent?: boolean
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   summaryData.push({ key: 'Case Name', value: '<h4>Case Status</h4>' });
@@ -114,9 +116,17 @@ export const summaryCaseList = (
     const state = userCase.state;
     let caseUrl = '#';
     if (userCase.caseTypeOfApplication === 'C100') {
-      caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
+      if (!isRespondent) {
+        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
+      } else {
+        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
+      }
     } else if (userCase.caseTypeOfApplication === 'FL401') {
-      caseUrl = CA_DA_RESPONDENT_TASK_LIST_URL + '/' + id;
+      if (!isRespondent) {
+        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
+      } else {
+        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
+      }
     }
     const row = {
       key: name,

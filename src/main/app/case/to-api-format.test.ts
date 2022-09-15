@@ -41,7 +41,7 @@ describe('to-api-format', () => {
     expect(apiFormat).toBe(expected);
   });
 
-  test.skip('should convert results from adoption-web to CCD api format', async () => {
+  test('should convert results from citizen-web to CCD api format', async () => {
     const apiFormat = toApiFormat(results as Partial<Case>);
     expect(apiFormat).toStrictEqual({
       applicant1Address1: 'MOCK_applicant1Address1',

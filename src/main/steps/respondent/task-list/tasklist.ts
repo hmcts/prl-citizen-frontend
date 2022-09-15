@@ -1,9 +1,10 @@
+import { CaseWithId } from '../../../app/case/case';
 import * as URL from '../../urls';
 
 import {
+  getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
-  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
@@ -41,50 +42,44 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           status: getConfirmOrEditYourContactDetails(userCase),
           href: URL.RESPONDENT_CHECK_ANSWERS,
         },
-      ],
-    },
-    {
-      title: sectionTitles.applicationDetails,
-      items: [
         {
-          id: 'medation-miam',
-          text: taskListItems.mediation_miam,
-          status: getMiamStatus(userCase),
-          href: URL.MIAM_START,
-        },
-        {
-          id: 'current-or-previous-proceedings',
-          text: taskListItems.current_or_previous_proceedings,
-          status: getCurrentOrOtherProceedingsStatus(userCase),
-          href: URL.PROCEEDINGS_START,
+          id: 'support_you_need_during_your_case',
+          text: taskListItems.support_you_need_during_your_case,
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+          href: URL.CA_DA_ATTENDING_THE_COURT,
         },
       ],
     },
     {
-      title: sectionTitles.respondentAdditionalInformation,
+      title: sectionTitles.theApplication,
+      items: [...getTheApplicationSection(taskListItems, userCase, userIdamId)],
+    },
+    ...getYourResponseSection(sectionTitles, taskListItems, userCase),
+    {
+      title: sectionTitles.yourcourtHearings,
       items: [
         {
-          id: 'international-factors',
-          text: taskListItems.international_factors,
+          id: 'check_details_of_your_court_hearings',
+          text: taskListItems.check_details_of_your_court_hearings,
           status: getInternationalFactorsStatus(userCase),
           href: URL.INTERNATIONAL_FACTORS_START,
         },
       ],
     },
     {
-      title: sectionTitles.viewAllDocuments,
+      title: sectionTitles.yourDocuments,
       items: [
         {
           id: 'view-all-documents',
           text: taskListItems.view_all_documents,
-          status: getViewAllDocuments(userCase),
-          href: getViewAllDocuments(userCase) === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
+          status: getViewAllDocuments(),
+          href: getViewAllDocuments() === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
         },
         {
           id: 'upload-document',
           text: taskListItems.upload_document,
           status: getInternationalFactorsStatus(userCase),
-          href: URL.UPLOAD_DOCUMENT_LIST_URL,
+          href: URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
         },
       ],
     },
@@ -111,4 +106,58 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
       ],
     },
   ];
+};
+
+const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamId) => {
+  const itemList: object[] = [];
+  if (userCase?.caseTypeOfApplication === 'C100') {
+    itemList.push(
+      {
+        id: 'check_the_application',
+        text: taskListItems.check_the_application,
+        status: getMiamStatus(userCase),
+        href: URL.MIAM_START,
+      },
+      {
+        id: 'check_allegations_of_harm_and_violence',
+        text: taskListItems.check_allegations_of_harm_and_violence,
+        status: getCheckAllegationOfHarmStatus(userCase, userIdamId),
+        href: URL.ALLEGATION_OF_HARM_VOILENCE + '?updateCase=Yes',
+      }
+    );
+  } else {
+    itemList.push({
+      id: 'check_the_application',
+      text: taskListItems.check_the_application,
+      status: getMiamStatus(userCase),
+      href: URL.MIAM_START,
+    });
+  }
+
+  return itemList;
+};
+
+const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId) => {
+  if (userCase?.caseTypeOfApplication === 'C100') {
+    return [
+      {
+        title: sectionTitles.yourResponse,
+        items: [
+          {
+            id: 'respond_to_application',
+            text: taskListItems.respond_to_application,
+            status: getInternationalFactorsStatus(userCase),
+            href: URL.RESPOND_TO_APPLICATION,
+          },
+          {
+            id: 'respond_to_allegations_of_harm_and_violence',
+            text: taskListItems.respond_to_allegations_of_harm_and_violence,
+            status: getInternationalFactorsStatus(userCase),
+            href: URL.INTERNATIONAL_FACTORS_START,
+          },
+        ],
+      },
+    ];
+  }
+  return [];
 };

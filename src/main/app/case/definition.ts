@@ -112,12 +112,19 @@ export interface Response {
   legalRepresentation?: string;
   consent?: Consent;
   keepDetailsPrivate?: KeepDetailsPrivate;
+  citizenFlags?: CitizenFlags
+}
+
+
+export interface CitizenFlags {
+  isApplicationViewed: string,
+  isAllegationOfHarmViewed: string
 }
 
 export interface Consent {
   consentToTheApplication?: string;
   noConsentReason?: string;
-  applicationReceivedDate?: DateAsString; 
+  applicationReceivedDate?: DateAsString;
   permissionFromCourt?: string;
   courtOrderDetails?: string;
 }
@@ -327,6 +334,11 @@ export interface CaseNote {
   author: string;
   date: DateAsString;
   note: string;
+}
+
+export interface Respondent {
+  id: string;
+  value: PartyDetails;
 }
 
 export interface Address3 {
@@ -576,6 +588,39 @@ export interface PlacementOrder {
   placementOrderDate?: CaseDate | string;
 }
 
+export interface ExistingProceedings {
+  id?: string;
+  value?: ProceedingDetails;
+}
+
+export interface ProceedingDetails {
+  previousOrOngoingProceedings?: string;
+  caseNumber?: string;
+  dateStarted?: CaseDate | string;
+  dateEnded?: CaseDate | string;
+  typeOfOrder?: string[];
+  otherTypeOfOrder?: string;
+  nameOfJudge?: string;
+  nameOfCourt?: string;
+  nameOfChildrenInvolved?: string;
+  nameOfGuardian?: string;
+  nameAndOffice?: string;
+  uploadRelevantOrder?: Document;
+}
+
+export interface OtherDocuments {
+  id?: string;
+  value?: OtherDocumentDetailss;
+}
+
+export interface OtherDocumentDetailss {
+  documentName?: string;
+  notes?: string;
+  documentOther?: Document;
+  documentTypeOther?: string;
+  restrictCheckboxOtherDocuments?: string[];
+}
+
 export interface ChildDetailsTable {
   id: string;
   value: Value10;
@@ -623,7 +668,6 @@ export interface CaseData {
   dateOfSubmission: DateOfSubmission;
   //declarationTable: DeclarationTable;
   interpreterNeeds: InterpreterNeed[];
-  applicantDocumentsUploaded?: ListValue<UploadDocumentList>[];
   childDetailsTable: ChildDetailsTable[];
   jurisdictionIssue: string;
   ordersApplyingFor: string[];
@@ -633,7 +677,8 @@ export interface CaseData {
   specialArrangement: SpecialArrangement;
   adjustmentsRequired: string;
   confidentialDetails: ConfidentialDetails;
-  existingProceedings: string[];
+  existingProceedings: ExistingProceedings[];
+  otherDocuments: OtherDocuments[];
   hearingUrgencyTable: HearingUrgencyTable;
   isDisabilityPresent: string;
   isInterpreterNeeded: string;
@@ -695,7 +740,7 @@ export interface CaseData {
   c100ConfidentialityStatementDisclaimer: string[];
   habitualResidentInOtherStateGiveReason: string;
   languageRequirementApplicationNeedWelsh: string;
-  previousOrOngoingProceedingsForChildren: string;
+  previousOrOngoingProceedingsForChildren: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
   documentsGenerated: ListValue<PRLDocument>[];
@@ -718,6 +763,7 @@ export interface CaseData {
   applicant1AdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
+  applicant1SafeToCall?: string;
   applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1DateOfBirthText?: string;
@@ -735,7 +781,7 @@ export interface CaseData {
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
   accessCode: string;
-  respondentCaseInvites: CaseInvite[]
+  caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
   //applicant1LanguagePreference?: LanguagePreference;
@@ -746,6 +792,8 @@ export interface CaseData {
   courtPermission?: YesOrNo;
   reasonForNotConsenting?: string;
   courtOrderDetails?: string;
+  miamStart?: string;
+  citizenUploadedDocumentList?: UploadDocumentList[];
 }
 
 export interface ConfidentialDetails {
@@ -807,13 +855,17 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
+  id: string;
+  value: CaseInviteValue;
+}
+
+export interface CaseInviteValue {
   partyId: string;
-  applicant2InviteEmailAddress: string;
+  caseInviteEmail: string;
   accessCode: string;
-  caseInviteEmail: string
-  applicant2UserId: string;
   invitedUserId: string;
   expiryDate: string;
+  isApplicant: YesOrNo;
 }
 
 
@@ -1339,6 +1391,12 @@ export const enum YesNoNotsure {
   YES = 'Yes',
   NO = 'No',
   NOT_SURE = 'NotSure',
+}
+
+export const enum YesNoDontKnow {
+  yes = 'yes',
+  no = 'no',
+  dontKnow = 'dontKnow',
 }
 
 export const enum SectionStatus {
@@ -2104,14 +2162,6 @@ export interface orderInterface {
 }
 
 
-export interface CaseInvite {
-  partyId: string;
-  caseInviteEmail: string;
-  accessCode: string;
-  invitedUserId: string;
-  expiryDate: string;
-}
-
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
@@ -2170,14 +2220,19 @@ export interface CitizenDocument {
   document_binary_url: string;
 }
 
+export interface DocumentDetails {
+  documentName: string;
+  documentUploadedDate: string;
+}
+
 export interface Value {
   parentDocumentType: string;
-  DocumentType: string;
+  documentType: string;
   partyName: string;
   isApplicant: string;
   uploadedBy: string;
   dateCreated: string;
-  documentUploadedDate: string;
+  documentDetails: DocumentDetails;
   citizenDocument: CitizenDocument;
 }
 
