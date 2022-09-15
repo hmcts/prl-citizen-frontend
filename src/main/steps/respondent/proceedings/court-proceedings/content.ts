@@ -46,62 +46,50 @@ const en = {
       incompleteYear: 'Emergency order date must include a year',
       invalidDateInFuture: 'Emergency order date must be in the past',
     },
-    
+
     supervisionOrderOption: {
       required: 'Please choose an option for supervising order',
     },
 
-    
     careOrderOptions: {
       required: 'Please choose an option for care order',
     },
 
-    
     childAbductionOrderOption: {
       required: 'Please choose an option for child abduction order',
     },
 
-    
     caOrderOption: {
       required: 'Please choose an option for child arrangement order',
     },
 
-    
     financialOrderOption: {
       required: 'Please choose an option for financial order',
     },
 
-  
     nonmolestationOrderOption: {
       required: 'Please choose an option for non molestation order',
     },
 
-   
     occupationalOrderOptions: {
       required: 'Please choose an option for occupational order',
     },
 
-   
     marraigeOrderOptions: {
       required: 'Please choose an option for non marraige order',
     },
 
-    
     restrainingOrderOptions: {
       required: 'Please choose an option for restraining order',
     },
 
-    
     injuctiveOrderOptions: {
       required: 'Please choose an option for injuctive order',
     },
 
-   
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
     },
-
-   
   },
 };
 
@@ -147,62 +135,50 @@ const cy: typeof en = {
       incompleteYear: 'Emergency order date must include a year',
       invalidDateInFuture: 'Emergency order date must be in the past',
     },
-    
+
     supervisionOrderOption: {
       required: 'Please choose an option for supervising order',
     },
 
-    
     careOrderOptions: {
       required: 'Please choose an option for care order',
     },
 
-    
     childAbductionOrderOption: {
       required: 'Please choose an option for child abduction order',
     },
 
-    
     caOrderOption: {
       required: 'Please choose an option for child arrangement order',
     },
 
-    
     financialOrderOption: {
       required: 'Please choose an option for financial order',
     },
 
-    
     nonmolestationOrderOption: {
       required: 'Please choose an option for non molestation order',
     },
 
-    
     occupationalOrderOptions: {
       required: 'Please choose an option for occupational order',
     },
 
-    
     marraigeOrderOptions: {
       required: 'Please choose an option for non marraige order',
     },
 
-   
     restrainingOrderOptions: {
       required: 'Please choose an option for restraining order',
     },
 
-    
     injuctiveOrderOptions: {
       required: 'Please choose an option for injuctive order',
     },
 
-    
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
     },
-
-    
   },
 };
 
@@ -288,7 +264,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              
             },
           },
         },
@@ -378,7 +353,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              
             },
           },
         },
@@ -468,7 +442,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              
             },
           },
         },
@@ -565,7 +538,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              
             },
           },
         },
@@ -655,7 +627,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-             
             },
           },
         },
@@ -751,7 +722,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-             
             },
           },
         },
@@ -842,7 +812,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              
             },
           },
         },
@@ -938,7 +907,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              
             },
           },
         },
@@ -1034,7 +1002,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              
             },
           },
         },
@@ -1131,7 +1098,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              
             },
           },
         },
@@ -1227,7 +1193,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-              
             },
           },
         },
@@ -1323,7 +1288,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               label: l => l.issueorder,
               labelSize: 'm',
-             
             },
           },
         },
