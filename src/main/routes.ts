@@ -6,6 +6,7 @@ import multer from 'multer';
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
 import { GetController } from './app/controller/GetController';
+import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
@@ -63,7 +64,7 @@ export class Routes {
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
-    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
+    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));

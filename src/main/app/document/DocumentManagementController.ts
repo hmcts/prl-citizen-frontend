@@ -50,8 +50,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const caseworkerUser = req.session.user;
     req.session.errors = form.getErrors(formData);
 
-    const partyName = req.session.user.givenName + ' ' + req.session.user.familyName;
     const isApplicant = req.query.isApplicant;
+    const partyName = this.getPartyName(isApplicant, req);
 
     const uploadDocumentDetails = {
       caseId: req.session.userCase.id,
@@ -86,6 +86,38 @@ export class DocumentManagerController extends PostController<AnyObject> {
       req.session.errors = [];
     }
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
+  }
+
+  private getPartyName(isApplicant, req: AppRequest<AnyObject>) {
+    let partyName = '';
+    if (YesOrNo.YES === isApplicant) {
+      if (req.session.userCase?.caseTypeOfApplication === 'C100') {
+        req.session.userCase?.applicants?.forEach(applicant => {
+          if (applicant.value?.user?.idamId === req.session.user.id) {
+            partyName = applicant.value?.firstName + ' ' + applicant.value?.lastName;
+          }
+        });
+      } else {
+        if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session.user.id) {
+          partyName =
+            req.session.userCase.applicantsFL401?.firstName + ' ' + req.session.userCase.applicantsFL401?.lastName;
+        }
+      }
+    } else {
+      if (req.session.userCase?.caseTypeOfApplication === 'C100') {
+        req.session.userCase?.respondents?.forEach(respondent => {
+          if (respondent.value?.user?.idamId === req.session.user.id) {
+            partyName = respondent.value?.firstName + ' ' + respondent.value?.lastName;
+          }
+        });
+      } else {
+        if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session.user.id) {
+          partyName =
+            req.session.userCase.respondentsFL401?.firstName + ' ' + req.session.userCase.respondentsFL401?.lastName;
+        }
+      }
+    }
+    return partyName;
   }
 
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
