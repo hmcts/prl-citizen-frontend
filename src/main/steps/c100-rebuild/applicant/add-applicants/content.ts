@@ -2,6 +2,7 @@ import { C100ListOfApplicants } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
+import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -72,7 +73,6 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
           value: applicantData[index].applicantFirstName,
           classes: 'govuk-input govuk-!-width-one-half',
           label: l => l.firstName,
-          labelSize: 's',
         },
         [`ApplicantLastName-${count}`]: {
           type: 'text',
@@ -83,10 +83,11 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
           hint: h => h.caseNumberHint,
         },
         removeApplicant: {
-          type: 'button',
+          type: 'link',
           label: l => l.removeApplicant + ` ${count}`,
-          classes: 'govuk-button--warning margin-top-3',
+          classes: 'govuk-button govuk-button--warning margin-top-3',
           value: 'Yes',
+          href: `${C100_APPLICANT_ADD_APPLICANTS}?action=remove&applicantId=${applicantData[index].id}`,
         },
       },
     };
@@ -144,12 +145,12 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   updatedFormContents = {
     ...form,
     fields: {
-      ...formFields,
-      ...(form.fields ?? {}),
       informationFieldSet: {
         type: 'inset',
         label: label => label.subTitle,
       },
+      ...formFields,
+      ...(form.fields ?? {}),
     },
   };
   return updatedFormContents;
