@@ -17,8 +17,6 @@ import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
-//import LegalRepresentationGetController from './steps/tasklistresponse/legalRepresentation/start/LegalRepresentationGetController';
-import LegalRepresentationPostController from './steps/tasklistresponse/legalrepresentation/start/LegalRepresentationPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -36,7 +34,6 @@ import {
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
   HOME_URL,
-  LEGAL_REPRESENTATION_START,
   MANAGE_DOCUMENTS_DOWNLOAD,
   PRIVACY_POLICY,
   RESPONDENT,
@@ -81,7 +78,6 @@ export class Routes {
       if (step && getController) {
         app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
       }
-
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
@@ -89,11 +85,6 @@ export class Routes {
           : PostController;
 
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
-        app.post(
-          LEGAL_REPRESENTATION_START,
-          errorHandler(new LegalRepresentationPostController(step.form.fields).post)
-        );
-
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
         app.get(
@@ -114,10 +105,6 @@ export class Routes {
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
-        // app.get(
-        //   LEGAL_REPRESENTATION_START,
-        //   errorHandler(new LegalRepresentationGetController(step.view, step.generateContent).get)
-        // );
       }
     }
   }

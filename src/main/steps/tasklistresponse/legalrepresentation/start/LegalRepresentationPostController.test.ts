@@ -9,8 +9,7 @@ import LegalRepresentationPostController from './LegalRepresentationPostControll
 
 // import Mock = jest.Mock;
 
-const dummySessionData = {
-  legalRepresentation: YesOrNo.YES,
+const body = {
   respondents: [
     {
       id: '123',
@@ -29,66 +28,47 @@ const dummySessionData = {
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
 describe('PostController', () => {
+  let req;
+  let res;
+  let controller;
+
+  beforeEach(() => {
+    req = mockRequest({ session: { userCase: { email: 'test@example.com' } } });
+    res = mockResponse();
+    const mockForm = {
+      fields: {
+        legalRepresentation: YesOrNo.YES,
+      },
+    } as unknown as FormContent;
+    controller = new LegalRepresentationPostController(mockForm.fields);
+  });
   afterEach(() => {
     getNextStepUrlMock.mockClear();
   });
 
   test('post should be able to save legal representation information', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
-    const mockForm = {
-      fields: {
-        legalRepresentation: YesOrNo.YES,
-      },
-    } as unknown as FormContent;
-    const controller = new LegalRepresentationPostController(mockForm.fields);
-
-    const req = mockRequest({ dummySessionData });
     req.session.user.id = '123';
-    req.session.userCase = dummySessionData;
-
-    const res = mockResponse();
+    req.session.userCase = body;
+    req.body.respondents = body.respondents;
+    req.body.legalRepresentation = body.respondents[0].value.response.legalRepresentation;
     const language = 'en';
     req.session.lang = language;
-    await controller.post(req, res);
+    controller.post(req, res);
     expect(1).toEqual(1);
   });
 
-  test('proceed saving child without error', async () => {
-    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
-    const mockForm = {
-      fields: {
-        legalRepresentation: YesOrNo.YES,
-      },
-    } as unknown as FormContent;
-    const controller = new LegalRepresentationPostController(mockForm.fields);
-
-    const req = mockRequest({ dummySessionData });
+  test('proceed saving legal representation without error', async () => {
     req.session.user.id = '123';
-    req.session.userCase = dummySessionData;
+    req.session.userCase = body;
 
-    const res = mockResponse();
+    req.body.respondents = body.respondents;
+    req.body.legalRepresentation = body.respondents[0].value.response.legalRepresentation;
     const language = 'en';
     req.session.lang = language;
-    await controller.post(req, res);
+    controller.post(req, res);
 
     const redirectUrl = LEGAL_REPRESENTATION_START;
     expect(req.originalUrl).not.toBe(redirectUrl);
-  });
-
-  test('Child has both date and Approx date enabled', async () => {
-    const mockForm = {
-      fields: {
-        legalRepresentation: YesOrNo.YES,
-      },
-    } as unknown as FormContent;
-    const controller = new LegalRepresentationPostController(mockForm.fields);
-    const req = mockRequest({ dummySessionData });
-    req.session.user.id = '123';
-    req.session.userCase = dummySessionData;
-
-    const language = 'en';
-    req.session.lang = language;
-    controller.post(req, mockResponse());
-    expect(1).toBe(1);
   });
 });

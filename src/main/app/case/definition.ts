@@ -774,6 +774,7 @@ export interface CaseData {
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
+  legalRepresentation?: YesOrNo;
 }
 
 export interface ConfidentialDetails {
