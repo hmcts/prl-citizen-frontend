@@ -752,7 +752,8 @@ export interface CaseData {
   startAlternative?: string;
   //applicant1LanguagePreference?: LanguagePreference;
   citizenRole?: FieldPrefix;
-  fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
+  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  miamStart?: string;
   citizenUploadedDocumentList?: UploadDocumentList[];
 }
 

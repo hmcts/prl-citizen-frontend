@@ -37,6 +37,8 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
       await this.getCaseList(req, res, form, formData);
+    } else if (req.body.onlyContinue) {
+      await this.onlyContinue(req, res, form, formData);
     } else {
       await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
@@ -59,6 +61,35 @@ export class PostController<T extends AnyObject> {
       // ignore
     }
     res.end();
+  }
+
+  /**
+   * It takes a request, response, form and form data, and then assigns the form data to the user case
+   * in the session, and then sets the errors in the session to the errors from the form, and then
+   * filters the errors for save as draft, and then if there are errors in the session, it redirects to
+   * the same page, otherwise it redirects to the same page
+   * @param req - AppRequest<T> - this is the request object that is passed to the controller. It
+   * contains the session, the body, the query and the params.
+   * @param {Response} res - Response - the response object
+   * @param {Form} form - Form - the form object that is being used to render the page
+   * @param formData - The data that was submitted by the user
+   * @returns a promise.
+   */
+  private async onlyContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
+    // This is for testing purpose
+    // when user clicks on the casenumber link, we need to capture the caseid and store in session.
+    if (req.session.userCase === null || req.session.userCase === undefined) {
+      req.session.userCase = { id: '1662375512631535', state: State.Draft };
+    }
+
+    if (formData !== null && formData !== undefined) {
+      Object.assign(req.session.userCase, formData);
+    }
+
+    req.session.errors = form.getErrors(formData);
+    this.filterErrorsForSaveAsDraft(req);
+
+    return this.redirect(req, res);
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
