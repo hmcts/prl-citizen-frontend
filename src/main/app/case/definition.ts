@@ -313,6 +313,15 @@ export interface PlacementOrder {
   placementOrderDate?: CaseDate | string;
 }
 
+
+export type C100Applicant = {
+  id?: string,
+  applicantFirstName?: string | unknown,
+  applicantLastName?: string | unknown,
+}
+
+export type C100ListOfApplicants = C100Applicant[];
+
 export interface CaseData {
   serviceType: string;
   claimNumber: string;
@@ -345,6 +354,7 @@ export interface CaseData {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  applicants?: C100Applicant;
   //applicant1LanguagePreference?: LanguagePreference;
    accessCode: string;
   respondentCaseInvites: CaseInvite[]

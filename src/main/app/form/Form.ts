@@ -114,7 +114,13 @@ export type LanguageLookup = (lang: Record<string, never>) => string;
 
 type Parser = (value: Record<string, unknown> | string[]) => void;
 
-type Label = string | LanguageLookup;
+export type LabelFormFormatter = {
+  text?: string | never;
+  classes?: string;
+  isPageHeading?: boolean;
+};
+
+type Label = LabelFormFormatter | string | LanguageLookup;
 
 type Warning = Label;
 
