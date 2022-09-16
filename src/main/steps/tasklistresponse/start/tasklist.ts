@@ -11,7 +11,7 @@ import {
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   return [
     {
       title: sectionTitles.consentToTheApplication,
@@ -19,7 +19,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'consent-to-the-application',
           text: taskListItems.do_you_consent_to_the_application,
-          status: getConsentToApplicationStatus(userCase),
+          status: getConsentToApplicationStatus(userCase, userIdamId),
           href: URL.CONSENT_TO_APPLICATION + '/' + userCase.id,
         },
       ],
@@ -30,7 +30,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'keep-your-details-private',
           text: taskListItems.keep_your_details_private,
-          status: getKeepYourDetailsPrivateStatus(userCase),
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
           href: URL.RESPONDENT_DETAILS_KNOWN,
         },
         {
@@ -42,7 +42,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'support_you_need_during_your_case',
           text: taskListItems.support_you_need_during_your_case,
-          status: getKeepYourDetailsPrivateStatus(userCase),
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
           href: URL.CA_DA_ATTENDING_THE_COURT,
         },
       ],

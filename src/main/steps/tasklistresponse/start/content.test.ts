@@ -50,7 +50,7 @@ describe('task-list > content', () => {
             {
               id: 'consent-to-the-application',
               text: 'Do you consent to the application?',
-              status: 'IN_PROGRESS',
+              status: 'TO_DO',
               href: '/tasklistresponse/consent-to-application/consent/1234567',
             },
           ],
