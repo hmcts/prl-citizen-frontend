@@ -1,6 +1,12 @@
 import { Banner, SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { APPLICANT, APPLICANT_CA_DA_REQUEST, RESPOND_TO_APPLICATION } from '../../../steps/urls';
+import {
+  APPLICANT,
+  APPLICANT_CA_DA_REQUEST,
+  FIND_OUT_ABOUT_CAFCASS,
+  FIND_OUT_ABOUT_CAFCASS_CYMRU,
+  RESPOND_TO_APPLICATION,
+} from '../../../steps/urls';
 
 import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
@@ -72,6 +78,25 @@ const getC100Banners = userCase => {
       {
         href: RESPOND_TO_APPLICATION,
         text: 'Respond to the application',
+      },
+    ],
+  });
+  banners.push({
+    bannerHeading: 'Cafcass will contact you **',
+    bannerContent: [
+      {
+        line1:
+          'The Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru) will contact you to consider the needs of the children.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: FIND_OUT_ABOUT_CAFCASS,
+        text: 'Find out about Cafcass',
+      },
+      {
+        href: FIND_OUT_ABOUT_CAFCASS_CYMRU,
+        text: 'Find out about Cafcass Cymru ',
       },
     ],
   });
