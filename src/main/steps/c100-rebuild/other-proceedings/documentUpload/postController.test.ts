@@ -67,7 +67,7 @@ describe('Document upload controller', () => {
     });
 
     expect(res.redirect).toBeCalledWith(
-      '/c100-rebuild/other-proceedings/documentupload?orderType=otherOrder&orderId=1'
+      '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
     );
     expect(req.session.errors).toEqual(errors);
   });
@@ -138,7 +138,7 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toBeCalledWith(
-      '/c100-rebuild/other-proceedings/documentupload?orderType=otherOrder&orderId=1'
+      '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
     );
   });
 
