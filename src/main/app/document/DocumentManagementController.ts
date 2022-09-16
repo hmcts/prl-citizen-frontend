@@ -18,7 +18,7 @@ import { DocumentType, Respondent, YesOrNo } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../form/Form';
+import { FormFields, FormFieldsFn } from '../form/Form';
 
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
@@ -42,13 +42,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req?.session?.userCase?.respondentUploadFiles === undefined) {
       req.session.userCase[RespondentUploadFiles] = [];
     }
-
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const form = new Form(fields);
-
-    const { _csrf, ...formData } = form.getParsedBody(req.body);
     const loggedInCitizen = req.session.user;
-    req.session.errors = form.getErrors(formData);
 
     const isApplicant = req.query.isApplicant;
     const partyName = this.getPartyName(isApplicant, req);
@@ -70,7 +64,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
       generateAndUploadDocumentRequest
     );
     if (uploadCitizenDocFromCos.status !== 200) {
-      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      if (!req.session.errors) {
+        req.session.errors = [];
+      }
+      req.session.errors?.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {
       const obj = {
         id: uploadCitizenDocFromCos.documentId as string,
@@ -361,6 +358,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
       req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     } else {
+      if (!req.session.errors) {
+        req.session.errors = [];
+      }
       req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
     }
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));

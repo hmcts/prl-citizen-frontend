@@ -10,6 +10,11 @@ jest.mock('../../app/auth/user/oidc');
 
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCase');
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
+const generateUserUploadedStatementDocumentMock = jest.spyOn(
+  CosApiClient.prototype,
+  'generateUserUploadedStatementDocument'
+);
+const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
 
 describe('DocumentManagerController', () => {
   let fields;
@@ -186,6 +191,166 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
+    });
+  });
+
+  describe('check document uploaded sucesfully from text area', () => {
+    test('check document uploaded sucesfully from text area for respondent', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+          },
+        },
+      ];
+      const documentDetail = {
+        status: 200,
+        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
+        documentName: 'uploaded.pdf',
+      };
+      req.query.isApplicant = 'No';
+      generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
+      await documentManagerController.generatePdf(req, res);
+
+      expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
+    });
+  });
+
+  describe('check citizen document uploaded', () => {
+    test('check document uploaded sucesfully from text area for respondent', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+          },
+        },
+      ];
+      const documentDetail = {
+        status: 200,
+        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
+        documentName: 'uploaded.pdf',
+      };
+      req.query.isApplicant = 'No';
+      generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
+      await documentManagerController.generatePdf(req, res);
+
+      expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
+    });
+    test('check document uploaded sucesfully from text area for applicant', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.applicants = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+          },
+        },
+      ];
+      const documentDetail = {
+        status: 200,
+        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
+        documentName: 'uploaded.pdf',
+      };
+      req.query.isApplicant = 'Yes';
+      generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
+      await documentManagerController.generatePdf(req, res);
+
+      expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded.pdf');
+    });
+    test('failed to uploaded document from text area', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.applicants = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+          },
+        },
+      ];
+      const documentDetail = {
+        status: 400,
+      };
+      req.query.isApplicant = 'Yes';
+      generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
+      await documentManagerController.generatePdf(req, res);
+
+      expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
+    });
+  });
+
+  describe('check delete document feature', () => {
+    test('check delete document feature for applicant', async () => {
+      const uploadedFiles = [
+        {
+          id: '9813df11-41bf-4b46-a602-86766b5e3547',
+          documentName: 'uploaded1.pdf',
+        },
+        {
+          id: '9813df11-41bf-4aaa-a602-86766b5e3547',
+          documentName: 'uploaded2.pdf',
+        },
+      ];
+      req.query.isApplicant = 'Yes';
+      req.session.userCase.applicantUploadFiles = uploadedFiles;
+      req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
+      deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
+      await documentManagerController.deleteDocument(req, res);
+
+      expect(req.session.userCase.applicantUploadFiles).toHaveLength(1);
+    });
+    test('check delete document feature for respondent', async () => {
+      const uploadedFiles = [
+        {
+          id: '9813df11-41bf-4b46-a602-86766b5e3547',
+          documentName: 'uploaded1.pdf',
+        },
+        {
+          id: '9813df11-41bf-4aaa-a602-86766b5e3547',
+          documentName: 'uploaded2.pdf',
+        },
+      ];
+      req.query.isApplicant = 'No';
+      req.session.userCase.respondentUploadFiles = uploadedFiles;
+      req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
+      deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
+      await documentManagerController.deleteDocument(req, res);
+
+      expect(req.session.userCase.respondentUploadFiles).toHaveLength(1);
+    });
+    test('fail to delete citizen document', async () => {
+      const uploadedFiles = [
+        {
+          id: '9813df11-41bf-4b46-a602-86766b5e3547',
+          documentName: 'uploaded1.pdf',
+        },
+        {
+          id: '9813df11-41bf-4aaa-a602-86766b5e3547',
+          documentName: 'uploaded2.pdf',
+        },
+      ];
+      req.query.isApplicant = 'No';
+      req.session.userCase.respondentUploadFiles = uploadedFiles;
+      req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
+      deleteCitizenStatementDocumentMock.mockResolvedValue('FAILURE');
+      await documentManagerController.deleteDocument(req, res);
+
+      expect(req.session.errors[0].errorType).toEqual('Document could not be deleted');
     });
   });
 });
