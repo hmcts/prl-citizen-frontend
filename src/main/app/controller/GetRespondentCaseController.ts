@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { APPLICANT_TASK_LIST_URL } from '../../steps/urls';
+import { RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';

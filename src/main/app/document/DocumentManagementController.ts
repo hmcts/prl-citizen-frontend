@@ -65,7 +65,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
 
     const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
-    const updatedCaseDataFromCos = await client.generateUserUploadedStatementDocument(
+    const uploadCitizenDocFromCos = await client.generateUserUploadedStatementDocument(
       loggedInCitizen,
       generateAndUploadDocumentRequest
     );
@@ -81,7 +81,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
+      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
       req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     }

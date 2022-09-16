@@ -5,11 +5,10 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
-import { ConsentGetController } from './app/controller/ConsentGetController';
+//import { ConsentGetController } from './app/controller/ConsentGetController';
 import { GetController } from './app/controller/GetController';
-import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
+//import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
-import { SaveRespondentResponseController } from './app/controller/SaveRespondentResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -19,9 +18,9 @@ import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
-import { MIAMGetController } from './steps/respondent/miam/MIAMGetController';
-import { MIAMPostController } from './steps/respondent/miam/MIAMPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
+import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
+import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -34,8 +33,8 @@ import {
   APPLICANT_TASK_LIST_URL,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
-  CONSENT_SAVE,
-  CONSENT_TO_APPLICATION,
+  // CONSENT_SAVE,
+  // CONSENT_TO_APPLICATION,
   CONTACT_US,
   COOKIES_PAGE,
   CSRF_TOKEN_ERROR_URL,

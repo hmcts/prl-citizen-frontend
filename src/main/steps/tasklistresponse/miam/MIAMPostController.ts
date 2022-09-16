@@ -38,7 +38,7 @@ export class MIAMPostController extends PostController<AnyObject> {
 
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
-    delete caseData.finalDocument;
+    //delete caseData.finalDocument;
 
     const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference as string, caseData, eventId);
     Object.assign(req.session.userCase, updatedCaseDataFromCos);

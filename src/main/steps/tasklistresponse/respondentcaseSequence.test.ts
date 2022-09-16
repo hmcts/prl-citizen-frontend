@@ -32,15 +32,15 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[6].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[6].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[7].url).toBe('/respondent/miam/miam-start');
+    expect(respondentCaseSequence[7].url).toBe('/tasklistresponse/miam/miam-start');
     expect(respondentCaseSequence[7].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[7].getNextStep({})).toBe('/respondent/miam/summary');
+    expect(respondentCaseSequence[7].getNextStep({})).toBe('/tasklistresponse/miam/summary');
 
-    expect(respondentCaseSequence[8].url).toBe('/respondent/miam/willingness-to-attend-miam');
+    expect(respondentCaseSequence[8].url).toBe('/tasklistresponse/miam/willingness-to-attend-miam');
     expect(respondentCaseSequence[8].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[8].getNextStep({})).toBe('/respondent/miam/summary');
+    expect(respondentCaseSequence[8].getNextStep({})).toBe('/tasklistresponse/miam/summary');
 
-    expect(respondentCaseSequence[9].url).toBe('/respondent/miam/summary');
+    expect(respondentCaseSequence[9].url).toBe('/tasklistresponse/miam/summary');
     expect(respondentCaseSequence[9].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/task-list');
 

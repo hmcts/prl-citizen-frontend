@@ -47,7 +47,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/keep-details-private/details_known',
+              href: '/respondent/keep-details-private/details_known/'+mockUserCase.id,
               id: 'keep-your-details-private',
               status: 'TO_DO',
               text: 'Keep your details private',
@@ -70,7 +70,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/miam/miam-start',
+              href: '/tasklistresponse/miam/miam-start',
               id: 'check_the_application',
               status: 'IN_PROGRESS',
               text: 'Check the application (PDF)',

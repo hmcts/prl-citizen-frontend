@@ -71,7 +71,8 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 /* respondent-keep-details-private-end */
 
 /* MIAM */
-export const MIAM: PageLink = `${RESPONDENT}/miam`;
+export const MIAM_HOME: PageLink = '/tasklistresponse';
+export const MIAM: PageLink = `${MIAM_HOME}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
 

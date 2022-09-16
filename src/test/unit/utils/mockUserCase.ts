@@ -148,4 +148,5 @@ export default {
     firstName: test,
     lastName: test,
   },
+  id: '1234'
 } as unknown as CaseWithId;

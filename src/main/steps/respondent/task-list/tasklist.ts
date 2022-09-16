@@ -13,7 +13,7 @@ import {
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
-
+  console.log(userIdamId);
   return [
     {
       title: sectionTitles.aboutYou,

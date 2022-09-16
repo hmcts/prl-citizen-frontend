@@ -63,14 +63,7 @@ export class PostController<T extends AnyObject> {
     res.end();
   }
 
-
-
-
-
-
-
-
-private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
+  private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
     if (req?.session?.userCase) {
       Object.assign(req.session.userCase, formData);
     }
