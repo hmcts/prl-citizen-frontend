@@ -39,6 +39,7 @@ import {
   C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
   C100_CHILDERN_FURTHER_INFORMATION,
   C100_CONFIRMATIONPAGE,
+  C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
   PageLink,
 } from '../urls';
 
@@ -270,5 +271,10 @@ export const C100Sequence: Step[] = [
     url: C100_CONFIRMATIONPAGE,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIRMATIONPAGE,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
