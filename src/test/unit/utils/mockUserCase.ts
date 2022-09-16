@@ -32,6 +32,7 @@ export default {
   applicant1HasOtherNames: YesOrNo.YES,
   applicant1AdditionalNames: [{ firstNames: 'MOCK_ADDITIONAL_FIRST_NAMES', lastNames: 'MOCK_ADDITIONAL_LAST_NAMES' }],
   applicant1EmailAddress: 'applicant1@email.com',
+  applicantSafeCallTime: '10:30',
   applicant1PhoneNumber: '01234567893',
   applicant1ContactDetailsConsent: YesOrNo.YES,
   applicant1DateOfBirth: { day: '1', month: '4', year: '1990' },
@@ -139,4 +140,12 @@ export default {
   applicant1UploadedFiles: [{ id: 'MOCK_DOCUMENT_ID', name: 'MOCK_DOCUMENT_FILE_NAME' }],
   applicant1DocumentsUploaded: [{ id: 'MOCK_DOCUMENT_ID', value: { documentFileName: 'MOCK_DOCUMENT_FILE_NAME' } }],
   orderCollection: [],
+  respondentsFL401: {
+    firstName: test,
+    lastName: test,
+  },
+  applicantsFL401: {
+    firstName: test,
+    lastName: test,
+  },
 } as unknown as CaseWithId;

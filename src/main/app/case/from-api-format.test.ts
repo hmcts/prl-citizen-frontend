@@ -23,8 +23,8 @@ describe('from-api-format', () => {
     serviceType: 'MOCK_serviceType',
   };
 
-  test.skip('should convert results from api to prl citizen format', async () => {
-    const adoptionFormat = fromApiFormat({
+  test('should convert results from api to prl citizen format', async () => {
+    const privateLawFormat = fromApiFormat({
       applicant1Address1: 'MOCK_applicant1Address1',
       applicant1Address2: 'MOCK_applicant1Address2',
       applicant1AddressTown: 'MOCK_applicant1AddressTown',
@@ -44,13 +44,6 @@ describe('from-api-format', () => {
       respondentLastName: 'MOCK_respondentLastName',
       serviceType: 'MOCK_serviceType',
     } as unknown as CaseData);
-    expect(adoptionFormat).toStrictEqual(results);
+    expect(privateLawFormat).toStrictEqual(results);
   });
-
-  // test('should convert results from api to prl citizen format fromApiFormat', async () => {
-  //   const result = fromApiFormat({
-  //     applicant1DateOfBirth: '2021-07-26',
-  //   } as unknown as CaseData);
-  //   expect(result).toStrictEqual({ applicant1DateOfBirth: { year: '2021', month: '7', day: '26' } });
-  // });
 });
