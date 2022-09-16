@@ -42,6 +42,9 @@ import {
   C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
+
+  /** @C1A Safety concerns */
+  C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
   PageLink,
 } from '../urls';
 
@@ -289,5 +292,10 @@ export const C100Sequence: Step[] = [
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
     getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
