@@ -67,6 +67,13 @@
       {% block page_content_under_form %}
       {% endblock %}
     </div>
+    
+    <div class="govuk-grid-column-one-third">
+    {% block page_safetyConcerns %}
+
+    {% endblock %}
+    </div>
+   
     <div class="govuk-grid-column-one-third">
        {% block page_contact_us %}
              {% include "./contact-us.njk" %}
