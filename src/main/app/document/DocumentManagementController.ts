@@ -12,7 +12,6 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT,
 } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
 import { DocumentType, Respondent, YesOrNo } from '../case/definition';
@@ -48,7 +47,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const form = new Form(fields);
 
     const { _csrf, ...formData } = form.getParsedBody(req.body);
-    const loggedInCitizen = await getSystemUser();
+    const loggedInCitizen = req.session.user;
     req.session.errors = form.getErrors(formData);
 
     const isApplicant = req.query.isApplicant;
@@ -137,7 +136,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         endPoint = itemlist[itemlist.length - 2];
       }
 
-      loggedInCitizen = await getSystemUser();
+      loggedInCitizen = req.session.user;
       caseReference = req.session.userCase.id;
 
       client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
@@ -294,7 +293,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     req: AppRequest<Partial<CaseWithId>>,
     caseReference: string,
     client: CosApiClient,
-    caseworkerUser: UserDetails
+    loggedInCitizen: UserDetails
   ) {
     let isAllegationOfHarmViewed;
     req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
@@ -319,7 +318,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       data.id = caseReference;
       delete data.finalDocument;
       const updatedCaseDataFromCos = await client.updateCase(
-        caseworkerUser,
+        loggedInCitizen,
         caseReference as string,
         data,
         'citizen-internal-case-update'
@@ -335,15 +334,15 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
   public async deleteDocument(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const isApplicant = req.query.isApplicant;
-    const caseworkerUser = req.session.user;
+    const loggedInCitizen = req.session.user;
     const documentIdToDelete = req.params.documentId;
     const deleteDocumentDetails = {
       caseId: req.session.userCase.id,
       documentId: documentIdToDelete,
     };
     const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-    const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(caseworkerUser, deleteDocumentRequest);
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
+    const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(loggedInCitizen, deleteDocumentRequest);
     if ('SUCCESS' === deleteCitizenDocFromCos) {
       if (isApplicant === YesOrNo.YES) {
         req.session.userCase.applicantUploadFiles?.forEach((document, index) => {
@@ -358,7 +357,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           }
         });
       }
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
+      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
       req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     } else {
