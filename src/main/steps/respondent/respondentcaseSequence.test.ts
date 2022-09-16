@@ -42,7 +42,7 @@ describe('respondent1Sequence', () => {
 
     expect(respondentCaseSequence[9].url).toBe('/respondent/miam/summary');
     expect(respondentCaseSequence[9].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/miam/save');
 
     expect(respondentCaseSequence[10].url).toBe('/respondent/confirm-contact-details/checkanswers');
     expect(respondentCaseSequence[10].showInSection).toBe('aboutRespondentCase');

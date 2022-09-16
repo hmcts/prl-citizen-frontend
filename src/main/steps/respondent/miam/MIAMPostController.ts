@@ -18,7 +18,6 @@ export class MIAMPostController extends PostController<AnyObject> {
     super(fields);
   }
   public async post(req: AppRequest, res: Response): Promise<void> {
-    //const caseworkerUser = await getSystemUser();
     const caseworkerUser = req.session.user;
     const caseReference = req.session.userCase.id;
     let eventId = '';
@@ -40,7 +39,7 @@ export class MIAMPostController extends PostController<AnyObject> {
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
     delete caseData.finalDocument;
-    
+
     const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference as string, caseData, eventId);
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 

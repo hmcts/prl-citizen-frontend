@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { APPLICANT_TASK_LIST_URL } from '../../steps/urls';
+import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
@@ -16,6 +16,13 @@ export class GetCaseController {
         }
       });
     }
-    req.session.save(() => res.redirect(APPLICANT_TASK_LIST_URL));
+    let url = 'APPLICANT_TASK_LIST_URL';
+
+    if (req.originalUrl.includes('applicant')) {
+      url = APPLICANT_TASK_LIST_URL;
+    } else if (req.originalUrl.includes('respondent')) {
+      url = RESPONDENT_TASK_LIST_URL;
+    }
+    req.session.save(() => res.redirect(url));
   }
 }

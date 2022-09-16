@@ -51,7 +51,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'medation-miam',
           text: taskListItems.mediation_miam,
           status: getMiamStatus(userCase),
-          href: URL.MIAM_START,
+          href: URL.MIAM_START + '/' + userCase.id,
         },
         {
           id: 'current-or-previous-proceedings',
