@@ -56,7 +56,7 @@ describe('Safety concern about > applying-with > content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain courtOrder field', () => {
+  test('should contain safety concern about field', () => {
     const concernAboutField = fields.safetyConernAbout as FormOptions;
     expect(concernAboutField.type).toBe('checkboxes');
     expect((concernAboutField?.hint as Function)(generatedContent)).toBe(en.select_all_relevant);
