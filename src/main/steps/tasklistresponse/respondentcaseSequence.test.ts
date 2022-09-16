@@ -7,13 +7,13 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[1].url).toBe('/respondent/consent-to-application/consent');
+    expect(respondentCaseSequence[1].url).toBe('/tasklistresponse/consent-to-application/consent');
     expect(respondentCaseSequence[1].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[1].getNextStep({})).toBe('/respondent/consent-to-application/summary');
+    expect(respondentCaseSequence[1].getNextStep({})).toBe('/tasklistresponse/consent-to-application/summary');
 
-    expect(respondentCaseSequence[2].url).toBe('/respondent/consent-to-application/summary');
+    expect(respondentCaseSequence[2].url).toBe('/tasklistresponse/consent-to-application/summary');
     expect(respondentCaseSequence[2].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[2].getNextStep({})).toBe('/respondent/consent-to-application/save');
+    expect(respondentCaseSequence[2].getNextStep({})).toBe('/tasklistresponse/consent-to-application/save');
 
     expect(respondentCaseSequence[3].url).toBe('/respondent/keep-details-private/details_known');
     expect(respondentCaseSequence[3].showInSection).toBe('aboutRespondentCase');

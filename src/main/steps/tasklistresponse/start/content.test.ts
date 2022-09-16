@@ -51,7 +51,7 @@ describe('task-list > content', () => {
               id: 'consent-to-the-application',
               text: 'Do you consent to the application?',
               status: 'IN_PROGRESS',
-              href: '/respondent/consent-to-application/consent',
+              href: '/tasklistresponse/consent-to-application/consent/1234567',
             },
           ],
         },
@@ -120,6 +120,7 @@ describe('task-list > content', () => {
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {
+    userCase.id = '1234567';
     const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
     expect(taskListItems).toEqual(expected);
   });
