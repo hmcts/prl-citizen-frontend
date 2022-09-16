@@ -2,6 +2,7 @@ import https from 'https';
 
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
+import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
@@ -11,6 +12,17 @@ import { C100 } from './definition';
 
 interface CreateCaseResponse {
   id: string;
+}
+
+export interface DocumentUploadResponse {
+  status: string;
+  document: {
+    document_url: string;
+    document_binary_url: string;
+    document_filename: string;
+    document_hash: string;
+    document_creation_date: string;
+  };
 }
 
 class CaseApi {
@@ -29,6 +41,29 @@ class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
+    }
+  }
+
+  public async uploadDocument(formdata: FormData): Promise<DocumentUploadResponse> {
+    try {
+      const response = await this.axios.post<DocumentUploadResponse>('/upload-citizen-statement-document', formdata, {
+        headers: {
+          ...formdata.getHeaders(),
+        },
+      });
+      return { document: response.data.document, status: response.data.status };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Document could not be uploaded.');
+    }
+  }
+
+  public async deleteDocument(docId: string): Promise<void> {
+    try {
+      await this.axios.delete<void>(`/${docId}/delete`);
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Document could not be deleted.');
     }
   }
 
