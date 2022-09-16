@@ -13,7 +13,7 @@ describe('respondent1Sequence', () => {
 
     expect(tasklistresponseCaseSequence[2].url).toBe('/respondent/consent-to-application/summary');
     expect(tasklistresponseCaseSequence[2].showInSection).toBe('aboutRespondentCase');
-    expect(tasklistresponseCaseSequence[2].getNextStep({})).toBe('/respondent/task-list');
+    expect(tasklistresponseCaseSequence[2].getNextStep({})).toBe('/respondent/consent-to-application/save');
 
     expect(tasklistresponseCaseSequence[3].url).toBe('/respondent/keep-details-private/details_known');
     expect(tasklistresponseCaseSequence[3].showInSection).toBe('aboutRespondentCase');
