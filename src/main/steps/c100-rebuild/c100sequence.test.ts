@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../app/case/definition';
+import { C100OrderTypes, YesOrNo } from '../../app/case/definition';
 
 import PageStepConfigurator from './PageStepConfigurator';
 import { C100Sequence } from './c100sequence';
@@ -229,7 +229,9 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[25].url).toBe('/c100-rebuild/other-proceedings/proceeding-details');
     expect(C100Sequence[25].showInSection).toBe('c100');
-    expect(C100Sequence[25].getNextStep({})).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+    expect(C100Sequence[25].getNextStep({
+      courtProceedingsOrders:[C100OrderTypes.CARE_ORDER, C100OrderTypes.OTHER_ORDER]
+    })).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings?orderType=careOrder');
 
     expect(C100Sequence[26].url).toBe('/c100-rebuild/start');
     expect(C100Sequence[26].showInSection).toBe('c100');

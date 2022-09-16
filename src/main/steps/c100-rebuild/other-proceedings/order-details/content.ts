@@ -9,6 +9,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
+export * from './routeGuard';
 //import { v4 as uuid } from 'uuid';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -21,8 +22,8 @@ const en = () => ({
   supervisionOrderLabel: 'Supervision Order',
   careOrderLabel: 'Care Order',
   childAbductionOrderLabel: 'Child Abduction Order',
-  contactOrderForDivorceLabel: 'A contact or Residence Order for Divorce',
-  contactOrderForAdoptionLabel: 'A contact or Residence Order for Adpotion',
+  contactOrderForDivorceLabel: 'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership',
+  contactOrderForAdoptionLabel: 'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order',
   childMaintenanceOrderLabel: 'Child Maintenance Order',
   financialOrderLabel: 'Financial Order',
   nonMolestationOrderLabel: 'Non-molestation Order',
@@ -68,8 +69,8 @@ const cy = () => ({
   supervisionOrderLabel: 'Supervision Order - welsh',
   careOrderLabel: 'Care Order - welsh',
   childAbductionOrderLabel: 'Child Abduction Order - welsh',
-  contactOrderForDivorceLabel: 'A contact or Residence Order for Divorce - welsh',
-  contactOrderForAdoptionLabel: 'A contact or Residence Order for Adpotion - welsh',
+  contactOrderForDivorceLabel: 'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership - welsh',
+  contactOrderForAdoptionLabel: 'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order - welsh',
   childMaintenanceOrderLabel: 'Child Maintenance Order - welsh',
   financialOrderLabel: 'Financial Order - welsh',
   nonMolestationOrderLabel: 'Non-molestation Order - welsh',

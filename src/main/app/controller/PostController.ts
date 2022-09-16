@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { C100_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
@@ -140,7 +140,7 @@ export class PostController<T extends AnyObject> {
       target = req.url;
     } else {
       //redirects to input nextUrl if present otherwise calls getNextStepUrl to get the next step url
-      target = nextUrl || getNextStepUrl(req, req.session.userCase);
+      target = nextUrl || (req.path.startsWith(C100_URL) ? getNextStepUrl(req, req.session.userCase, false) : getNextStepUrl(req, req.session.userCase))
     }
 
     req.session.save(err => {

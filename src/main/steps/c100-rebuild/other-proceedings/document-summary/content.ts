@@ -1,6 +1,8 @@
-import { C100OrderTypeKeyMapper, C100OrderTypes, YesNoEmpty } from '../../../../app/case/definition';
+import { C100OrderTypeInterface} from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { getAllOrderDocuments } from '../util';
+export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -27,19 +29,20 @@ export const form: FormContent = {
     text: l => l.saveAndComeLater,
   },
 };
+interface OrderDocument{
+  fileName?:string;
+  redirectUrl?:string
+}[]
 
-const getOrderDocuments = (orders, orderType: C100OrderTypes) => {
-  let documents = [];
+const getOrderDocuments = (orders:C100OrderTypeInterface|{}):OrderDocument[]|[] => {
+  const ordersWithDocument = getAllOrderDocuments(orders)
+  let documents:OrderDocument[]=[];
 
-  if (Object.keys(orders).length && orders[C100OrderTypeKeyMapper[orderType]]) {
-    documents = orders[C100OrderTypeKeyMapper[orderType]]
-      .filter(order => {
-        return order.orderCopy === YesNoEmpty.YES;
-      })
-      .map(o => {
+  if (ordersWithDocument.length) {
+    documents = ordersWithDocument
+      .map(order => {
         return {
-          fileName: o.orderDocument.filename,
-
+          fileName: order.orderDocument?.filename,
           redirectUrl: '#',
         };
       });
@@ -50,13 +53,12 @@ const getOrderDocuments = (orders, orderType: C100OrderTypes) => {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const { orderType } = content.additionalData?.req?.query;
   const orderSessionData = content.userCase?.otherProceedings?.order ?? {};
   return {
     ...translations,
     form,
     data: {
-      documents: getOrderDocuments(orderSessionData, orderType),
+      documents: getOrderDocuments(orderSessionData),
     },
   };
 };
