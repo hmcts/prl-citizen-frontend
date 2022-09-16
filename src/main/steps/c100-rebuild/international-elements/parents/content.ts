@@ -5,9 +5,11 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
+  serviceName: 'Child arrangements',
+  title:
+    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
   line1:
-    'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
+    'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales.',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
@@ -24,9 +26,11 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: "Do the children's parents or anyone significant to the children live outside of England or Wales? - welsh ",
+  serviceName: 'Child arrangements - welsh',
+  title:
+    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales? - welsh",
   line1:
-    'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales. - welsh  ',
+    'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales. - welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',

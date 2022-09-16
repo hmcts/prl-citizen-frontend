@@ -8,8 +8,9 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Could another person in the application apply for a similar order in a country outside England or Wales? ',
-  line1: 'For example, because a court in another country has the power to make decisions or judgments (jurisdiction).',
+  serviceName: 'Child arrangements',
+  title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
+  line1: 'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
@@ -26,10 +27,11 @@ const en = {
 };
 
 const cy = {
+  serviceName: 'Child arrangements - welsh',
   title:
-    'Could another person in the application apply for a similar order in a country outside England or Wales?  - welsh ',
+    'Could another person in the application apply for a similar order in a country outside England or Wales? - welsh',
   line1:
-    'For example, because a court in another country has the power to make decisions or judgments (jurisdiction). - welsh  ',
+    'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments. - welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',

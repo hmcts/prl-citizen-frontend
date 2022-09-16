@@ -14,6 +14,7 @@ import { AuthProvider } from './modules/auth-provider';
 import { AxiosLogger } from './modules/axios-logger';
 import { CSRFToken } from './modules/csrf';
 import { ErrorHandler } from './modules/error-handler';
+import { FileUpload } from './modules/fileupload';
 import { HealthCheck } from './modules/health';
 import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
@@ -45,21 +46,7 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const sessionDataStorage: {}[] = [];
-
-app.get('/api/v1/draft', (req, res) => {
-  res.json(sessionDataStorage);
-});
-
-app.post('/api/v1/draft', (req: Request, res: Response) => {
-  const caseData = req.body['userCase'];
-  const boundingURL = req.body.boucingURL;
-  const objectFormed = { caseData, boundingURL };
-  sessionDataStorage.push(objectFormed);
-  res.json({ msg: 'session has been pushed' });
-});
-
+new FileUpload().enableFor(app);
 new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);

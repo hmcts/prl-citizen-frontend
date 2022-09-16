@@ -18,13 +18,10 @@ describe('PaymentHelper', () => {
   test('Should match the output values corresponding to given input', async () => {
     const generateMockSystemCredential = await InstanceOfPaymentHelper.SystemCredentailsToApiData(req);
 
-    expect(generateMockSystemCredential).toEqual({
-      Authorization: mockToken,
-      ServiceAuthorization: undefined,
-      applicantCaseName: 'Test',
-      caseId: dummyCaseID,
-      returnUrL: 'http://undefined/payment/reciever/callback',
-    });
+    expect(generateMockSystemCredential.Authorization).toEqual(mockToken);
+    expect(generateMockSystemCredential.applicantCaseName).toEqual('Test');
+    expect(generateMockSystemCredential.caseId).toEqual(dummyCaseID);
+    expect(generateMockSystemCredential.returnUrL).toEqual('http://undefined/payment/reciever/callback');
   });
 
   test('Shouldn"t match the output values corresponding to given input', async () => {

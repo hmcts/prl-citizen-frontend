@@ -5,9 +5,10 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
+  serviceName: 'Child arrangements',
   title: 'Has another country asked (or been asked) for information or help for the children?',
   line1:
-    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
+    'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
   one: 'Yes',
   two: 'No',
   provideDetails: 'Provide details',
@@ -23,9 +24,10 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Has another country asked (or been asked) for information or help for the children? - welsh ',
+  serviceName: 'Child arrangements - welsh',
+  title: 'Has another country asked (or been asked) for information or help for the children? - welsh',
   line1:
-    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case. - welsh  ',
+    'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales. - welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',

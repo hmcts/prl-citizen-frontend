@@ -2,6 +2,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
+  serviceName: 'Child arrangements',
   caption: 'Getting started',
   headingTitle: 'What you’ll need to complete your application',
   subTitle1: 'You will need to have:',
@@ -22,7 +23,6 @@ const en = () => ({
     'details of the other people in the case (the respondents), including their contact details, address and date of birth',
     "the children's details, including date of birth",
     'details of any previous family court cases',
-    'solicitor details (if you have asked one to represent you)',
     'a signed document confirming your mediation information and assessment meeting (MIAM) attendance (unless you are exempt)',
   ],
   secondList: [
@@ -32,6 +32,7 @@ const en = () => ({
 });
 
 const cy = () => ({
+  serviceName: 'Child arrangements - welsh',
   caption: 'Getting started - welsh',
   headingTitle: 'What you’ll need to complete your application - welsh',
   subTitle1: 'You will need to have: - welsh',
@@ -52,7 +53,6 @@ const cy = () => ({
     'details of the other people in the case (the respondents), including their contact details, address and date of birth - welsh',
     "the children's details, including date of birth - welsh",
     'details of any previous family court cases - welsh',
-    'solicitor details (if you have asked one to represent you) - welsh',
     'a signed document confirming your mediation information and assessment meeting (MIAM) attendance (unless you are exempt) - welsh',
   ],
   secondList: [
