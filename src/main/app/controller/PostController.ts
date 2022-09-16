@@ -1,19 +1,16 @@
 import autobind from 'autobind-decorator';
-import axios from 'axios';
-import https from 'https';
 import { Response } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 
 import { getNextStepUrl } from '../../steps';
 import { DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
+import { updateCaseApi } from '../case/C100CaseApi';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CASE_EVENT_UPDATE, CaseData, State } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
-import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 
 import { AppRequest } from './AppRequest';
 
@@ -70,13 +67,7 @@ export class PostController<T extends AnyObject> {
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
 
     const groupObjectName = groupNameMapper[req.originalUrl.split('/')[2]];
-    if(req.session.userCase && req.session.userCase.hasOwnProperty(groupObjectName)) {
-      Object.assign(req.session.userCase[groupObjectName],formData);
-    } else {
-      req.session.userCase = { 
-         ...req.session.userCase,
-        [groupObjectName]: formData }
-    }
+    this.groupingFormData(req, groupObjectName, formData);
     req.session.errors = form.getErrors(formData);
 
     this.filterErrorsForSaveAsDraft(req);
@@ -119,16 +110,8 @@ export class PostController<T extends AnyObject> {
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
-    const groupObjectName = groupNameMapper[req.originalUrl.split('/')[2]];
-    if(req.session.userCase && req.session.userCase.hasOwnProperty(groupObjectName)) {
-      Object.assign(req.session.userCase[groupObjectName],formData);
-    } else {
-      req.session.userCase = { 
-        id: uuidv4(),
-        state: State.Draft,
-        serviceType: '',
-        [groupObjectName]: formData }
-    }
+    const group = req.originalUrl.split('/').length === 3 ? req.originalUrl.split('/')[2] : req.originalUrl.split('/')[3];
+    this.groupingFormData(req, groupNameMapper[group], formData);
     req.session.errors = form.getErrors(formData);
 
     this.filterErrorsForSaveAsDraft(req);
@@ -145,24 +128,8 @@ export class PostController<T extends AnyObject> {
 
     //const boucingURL = req.originalUrl;
     const caseData = req.session.userCase;
-    const eventName = 'citizen-case-update';
-    const userDetails = await getSystemUser();
-    const requestBody = {caseData: JSON.stringify(caseData)};
-console.log(requestBody);
-    const axiosInstance = axios.create({
-      baseURL: `https://prl-cos-pr-513.service.core-compute-preview.internal`,
-      headers:  {
-          Authorization: 'Bearer ' + userDetails.accessToken,
-          serviceAuthorization: 'Bearer ' + getServiceAuthToken(),
-          accessCode: '12345678',
-          'Content-Type': 'application/json',
-        },
-        httpsAgent: new https.Agent({  
-          rejectUnauthorized: false
-      })
-  })
-
-  await axiosInstance.post(`${caseData.caseId}/${eventName}/update-case`, requestBody);
+    const axiosInstance = updateCaseApi(req.session.user.accessToken);
+    await axiosInstance.post(`${caseData.caseId}/${CASE_EVENT_UPDATE}/update-case`, caseData);
     this.redirect(req, res, DASHBOARD_URL);
   }
 
@@ -245,6 +212,19 @@ console.log(requestBody);
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
   }
+
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
+    protected groupingFormData(req: AppRequest, groupObjectName: string, formData: Partial<Case>): void {
+      if(req.session.userCase && req.session.userCase.hasOwnProperty(groupObjectName)) {
+        req.session.userCase[groupObjectName] = JSON.parse(req.session.userCase[groupObjectName]);
+        Object.assign(req.session.userCase[groupObjectName],formData);
+        req.session.userCase[groupObjectName] = JSON.stringify(req.session.userCase[groupObjectName]);
+      } else {
+        req.session.userCase = { 
+          ...req.session.userCase,
+          [groupObjectName]: JSON.stringify(formData) }
+      }
+    }
 
   private async checkCaseAccessCode(req: AppRequest<T>, res: Response, form: Form, formData: Partial<CaseWithId>) {
     if (req?.session?.userCase) {
