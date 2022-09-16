@@ -140,7 +140,11 @@ export class PostController<T extends AnyObject> {
       target = req.url;
     } else {
       //redirects to input nextUrl if present otherwise calls getNextStepUrl to get the next step url
-      target = nextUrl || (req.path.startsWith(C100_URL) ? getNextStepUrl(req, req.session.userCase, false) : getNextStepUrl(req, req.session.userCase))
+      target =
+        nextUrl ||
+        (req.path.startsWith(C100_URL)
+          ? getNextStepUrl(req, req.session.userCase, false)
+          : getNextStepUrl(req, req.session.userCase));
     }
 
     req.session.save(err => {

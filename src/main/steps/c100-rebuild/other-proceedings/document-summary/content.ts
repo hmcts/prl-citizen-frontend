@@ -1,4 +1,4 @@
-import { C100OrderTypeInterface} from '../../../../app/case/definition';
+import { C100OrderTypeInterface } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { getAllOrderDocuments } from '../util';
@@ -29,23 +29,23 @@ export const form: FormContent = {
     text: l => l.saveAndComeLater,
   },
 };
-interface OrderDocument{
-  fileName?:string;
-  redirectUrl?:string
-}[]
+interface OrderDocument {
+  fileName?: string;
+  redirectUrl?: string;
+}
+[];
 
-const getOrderDocuments = (orders:C100OrderTypeInterface|{}):OrderDocument[]|[] => {
-  const ordersWithDocument = getAllOrderDocuments(orders)
-  let documents:OrderDocument[]=[];
+const getOrderDocuments = (orders: C100OrderTypeInterface | Record<string, never> = {}): OrderDocument[] | [] => {
+  const ordersWithDocument = getAllOrderDocuments(orders);
+  let documents: OrderDocument[] = [];
 
   if (ordersWithDocument.length) {
-    documents = ordersWithDocument
-      .map(order => {
-        return {
-          fileName: order.orderDocument?.filename,
-          redirectUrl: '#',
-        };
-      });
+    documents = ordersWithDocument.map(order => {
+      return {
+        fileName: order.orderDocument?.filename,
+        redirectUrl: '#',
+      };
+    });
   }
 
   return documents;

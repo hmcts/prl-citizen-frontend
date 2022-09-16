@@ -22,8 +22,10 @@ const en = () => ({
   supervisionOrderLabel: 'Supervision Order',
   careOrderLabel: 'Care Order',
   childAbductionOrderLabel: 'Child Abduction Order',
-  contactOrderForDivorceLabel: 'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership',
-  contactOrderForAdoptionLabel: 'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order',
+  contactOrderForDivorceLabel:
+    'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership',
+  contactOrderForAdoptionLabel:
+    'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order',
   childMaintenanceOrderLabel: 'Child Maintenance Order',
   financialOrderLabel: 'Financial Order',
   nonMolestationOrderLabel: 'Non-molestation Order',
@@ -69,8 +71,10 @@ const cy = () => ({
   supervisionOrderLabel: 'Supervision Order - welsh',
   careOrderLabel: 'Care Order - welsh',
   childAbductionOrderLabel: 'Child Abduction Order - welsh',
-  contactOrderForDivorceLabel: 'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership - welsh',
-  contactOrderForAdoptionLabel: 'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order - welsh',
+  contactOrderForDivorceLabel:
+    'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership - welsh',
+  contactOrderForAdoptionLabel:
+    'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order - welsh',
   childMaintenanceOrderLabel: 'Child Maintenance Order - welsh',
   financialOrderLabel: 'Financial Order - welsh',
   nonMolestationOrderLabel: 'Non-molestation Order - welsh',

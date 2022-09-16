@@ -1463,22 +1463,22 @@ export const C100OrderTypeKeyMapper = {
   otherOrder: 'otherOrders'
 }
 export interface C100OrderTypeInterface {
-  childArrangementOrders?: C100OrderInterface,
-  emergencyProtectionOrders:C100OrderInterface,
-  supervisionOrders:C100OrderInterface,
-  careOrders: C100OrderInterface,
-  childAbductionOrders:C100OrderInterface,
-  contactOrdersForDivorce: C100OrderInterface,
-  contactOrdersForAdoption: C100OrderInterface,
-  childMaintenanceOrders: C100OrderInterface,
-  financialOrders: C100OrderInterface,
-  nonMolestationOrders: C100OrderInterface,
-  occupationOrders: C100OrderInterface,
-  forcedMarriageProtectionOrders: C100OrderInterface,
-  restrainingOrders: C100OrderInterface,
-  otherInjuctionOrders: C100OrderInterface,
-  undertakingOrders: C100OrderInterface,
-  otherOrders: C100OrderInterface
+  childArrangementOrders?: C100OrderInterface[],
+  emergencyProtectionOrders?:C100OrderInterface[],
+  supervisionOrders?:C100OrderInterface[],
+  careOrders?: C100OrderInterface[],
+  childAbductionOrders?:C100OrderInterface[],
+  contactOrdersForDivorce?: C100OrderInterface[],
+  contactOrdersForAdoption?: C100OrderInterface[],
+  childMaintenanceOrders?: C100OrderInterface[],
+  financialOrders?: C100OrderInterface[],
+  nonMolestationOrders?: C100OrderInterface[],
+  occupationOrders?: C100OrderInterface[],
+  forcedMarriageProtectionOrders?: C100OrderInterface[],
+  restrainingOrders?: C100OrderInterface[],
+  otherInjuctionOrders?: C100OrderInterface[],
+  undertakingOrders?: C100OrderInterface[],
+  otherOrders?: C100OrderInterface[]
 }
 
 export const C100OrderTypeNameMapper = {

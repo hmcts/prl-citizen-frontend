@@ -1,6 +1,7 @@
 // import s from 'connect-redis';
-import { NextFunction, Response } from 'express';
 import * as fs from 'fs';
+
+import { NextFunction, Response } from 'express';
 
 // eslint-disable-next-line import/no-unresolved
 import { Case } from '../app/case/case';
@@ -69,7 +70,11 @@ const stepForms: Record<string, Form> = {};
 //   return `${url}${queryString}`;
 // };
 
-export const getNextStepUrl = (req: AppRequest, data: Partial<Case>, retainQueryString?:boolean|undefined): string => {
+export const getNextStepUrl = (
+  req: AppRequest,
+  data: Partial<Case>,
+  retainQueryString?: boolean | undefined
+): string => {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   if ((req.body as any).saveAsDraft) {
     return CITIZEN_HOME_URL;
@@ -84,7 +89,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>, retainQuery
   ].find(s => s.url === path);
 
   const url = nextStep ? nextStep.getNextStep(data, req) : CITIZEN_HOME_URL;
-  
+
   return [undefined, true].includes(retainQueryString) ? `${url}${queryString}` : url;
 };
 
@@ -108,9 +113,9 @@ const getStepFiles = (stepDir: string) => {
 };
 
 type RouteGuard = {
-  get?:(req: AppRequest, res: Response, next: NextFunction) => Promise<void>,
-  post?:(req: AppRequest, res: Response, next: NextFunction)=> Promise<void>,
-  }
+  get?: (req: AppRequest, res: Response, next: NextFunction) => Promise<void>;
+  post?: (req: AppRequest, res: Response, next: NextFunction) => Promise<void>;
+};
 
 export type StepWithContent = Step & {
   stepDir: string;

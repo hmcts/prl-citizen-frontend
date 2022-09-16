@@ -12,6 +12,7 @@ import {
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+
 import { getFormFields, getOrderSessionDataShape } from './content';
 
 @autobind
@@ -33,7 +34,10 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
         ...((req.session?.userCase?.otherProceedings ?? {}) as OtherProceedings),
         order: {
           ...((req.session.userCase?.otherProceedings?.order ?? {}) as C100OrderTypeInterface),
-          [orderTypeCaseKey]: this.transformFormData(formData, req.session?.userCase?.otherProceedings?.order?.[orderTypeCaseKey]),
+          [orderTypeCaseKey]: this.transformFormData(
+            formData,
+            req.session?.userCase?.otherProceedings?.order?.[orderTypeCaseKey]
+          ),
         },
       },
     };
@@ -55,7 +59,7 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
     }
   }
 
-  private transformFormData(formData, orginialData:C100OrderInterface[]): C100OrderInterface[] {
+  private transformFormData(formData, orginialData: C100OrderInterface[]): C100OrderInterface[] {
     return Object.entries(formData).reduce((transformedData: C100OrderInterface[], [fieldName, value]) => {
       const [fieldId, fieldIndex] = fieldName.split('-');
       const index = Number(fieldIndex) - 1;
