@@ -1,4 +1,3 @@
-import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
@@ -9,6 +8,8 @@ const en = {
   remove: 'Remove',
   sucess: 'Success',
   documentDetails: 'Your documents for ',
+  uploadAnotherDoc: 'Upload another document',
+
 };
 
 const cy: typeof en = {
@@ -18,6 +19,7 @@ const cy: typeof en = {
   remove: 'Remove',
   sucess: 'Success',
   documentDetails: 'Your documents for ',
+  uploadAnotherDoc: 'Upload another document',
 };
 
 const languages = {
@@ -25,28 +27,13 @@ const languages = {
   cy,
 };
 
+
 export const form: FormContent = {
   fields: {
-    start: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.label,
-      section: l => l.section,
-      hint: l => l.hint,
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
-    },
+   
   },
 
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };
