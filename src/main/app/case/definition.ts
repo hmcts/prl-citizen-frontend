@@ -117,8 +117,8 @@ export interface Response {
 
 
 export interface CitizenFlags {
-  isApplicationViewed: string,
-  isAllegationOfHarmViewed: string
+  isApplicationViewed?: string,
+  isAllegationOfHarmViewed?: string
 }
 
 export interface Consent {

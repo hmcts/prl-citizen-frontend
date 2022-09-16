@@ -15,7 +15,8 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { DocumentType, YesOrNo } from '../case/definition';
+import { DocumentType, Respondent, YesOrNo } from '../case/definition';
+import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -123,6 +124,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     let filename = '';
     let endPoint = '';
+    let client;
+    let caseReference;
+    let loggedInCitizen;
+    let isAllegationOfHarmViewed;
     try {
       const originalUrl = req.originalUrl;
 
@@ -132,37 +137,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
         endPoint = itemlist[itemlist.length - 2];
       }
 
-      const loggedInCitizen = await getSystemUser();
-      //req.session.user = loggedInCitizen;
-      const caseReference = req.session.userCase.id;
+      loggedInCitizen = await getSystemUser();
+      caseReference = req.session.userCase.id;
 
-      const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+      client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
-      // this is for testing //
-      // req.session.userCase.orderCollection = [
-      //   {
-      //     id: '9df80a48-dd3d-4e29-918b-472aa34a2490',
-      //     value: {
-      //       dateCreated: '08-Aug-2022',
-      //       orderType: 'test_orderType',
-      //       orderDocument: {
-      //         document_url:
-      //           'http://dm-store-aat.service.core-compute-aat.internal/documents/f2436270-0d05-436b-bafc-51000defd1e',
-      //         document_binary_url:
-      //           'http://dm-store-aat.service.core-compute-aat.internal/documents/f2436270-0d05-436b-bafc-51000defd1eb/binary',
-      //         document_filename: 'FL401-Final-Document 11.pdf',
-      //         document_hash: null,
-      //       },
-      //       otherDetails: {
-      //         createdBy: 'createdBy',
-      //         orderCreatedDate: 'orderCreatedDate',
-      //         orderMadeDate: 'orderMadeDate',
-      //         orderRecipients: 'orderRecipients',
-      //       },
-      //     },
-      //   },
-      // ];
     } catch (err) {
       console.log(err);
     }
@@ -210,6 +190,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       filename = req.session.userCase.c1ADocument.document_filename;
       documentToGet = req.session.userCase.c1ADocument.document_binary_url;
       uid = this.getUID(documentToGet);
+      isAllegationOfHarmViewed = YesOrNo.YES;
     }
 
     if (endPoint === 'downloadCitizenDocument' && req.session.userCase?.citizenUploadedDocumentList) {
@@ -287,6 +268,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
       if (err) {
         throw err;
       } else if (generatedDocument) {
+        if (
+          isAllegationOfHarmViewed === YesOrNo.YES &&
+          req.query?.updateCase &&
+          req.query?.updateCase === YesOrNo.YES
+        ) {
+          this.setAllegationOfHarmViewed(req, caseReference, client, req.session.user);
+        }
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
         return res.end(generatedDocument.data);
@@ -300,6 +288,44 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
       return res.redirect(redirectUrl);
     });
+  }
+
+  private async setAllegationOfHarmViewed(
+    req: AppRequest<Partial<CaseWithId>>,
+    caseReference: string,
+    client: CosApiClient,
+    caseworkerUser: UserDetails
+  ) {
+    let isAllegationOfHarmViewed;
+    req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
+      if (
+        respondent?.value?.user?.idamId === req.session?.user.id &&
+        !respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed
+      ) {
+        isAllegationOfHarmViewed = YesOrNo.YES;
+        if (respondent.value.response && respondent.value.response.citizenFlags) {
+          respondent.value.response.citizenFlags.isAllegationOfHarmViewed = YesOrNo.YES;
+        } else {
+          respondent.value.response = {
+            citizenFlags: {
+              isAllegationOfHarmViewed: 'Yes',
+            },
+          };
+        }
+      }
+    });
+    if (isAllegationOfHarmViewed) {
+      const data = toApiFormat(req?.session?.userCase);
+      data.id = caseReference;
+      delete data.finalDocument;
+      const updatedCaseDataFromCos = await client.updateCase(
+        caseworkerUser,
+        caseReference as string,
+        data,
+        'citizen-internal-case-update'
+      );
+      req.session.userCase = updatedCaseDataFromCos;
+    }
   }
 
   private getUID(documentToGet: string) {
