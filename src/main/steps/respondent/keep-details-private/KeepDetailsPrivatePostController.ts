@@ -42,7 +42,6 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
 
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
-    delete caseData.finalDocument;
     const updatedCaseDataFromCos = await client.updateCase(
       loggedInCitizen,
       caseReference as string,

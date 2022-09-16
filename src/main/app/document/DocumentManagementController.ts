@@ -313,7 +313,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (isAllegationOfHarmViewed) {
       const data = toApiFormat(req?.session?.userCase);
       data.id = caseReference;
-      delete data.finalDocument;
       const updatedCaseDataFromCos = await client.updateCase(
         loggedInCitizen,
         caseReference as string,
