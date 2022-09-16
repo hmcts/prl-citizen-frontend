@@ -8,7 +8,6 @@ import { RespondentTaskListGetController } from '../main/steps/respondent/task-l
 import { GetController } from './app/controller/GetController';
 import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
-import { SaveRespondentResponseController } from './app/controller/SaveRespondentResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -73,7 +72,6 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
-    app.get(`${CONSENT_SAVE}`, errorHandler(new SaveRespondentResponseController().save));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
@@ -88,10 +86,6 @@ export class Routes {
       if (step && getController) {
         app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
       }
-      app.get(
-        `${CONSENT_TO_APPLICATION}/:caseId`,
-        errorHandler(new ConsentGetController(step.view, step.generateContent).get)
-      );
       app.get(
         `${CONSENT_TO_APPLICATION}/:caseId`,
         errorHandler(new ConsentGetController(step.view, step.generateContent).get)

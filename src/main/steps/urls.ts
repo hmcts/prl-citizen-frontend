@@ -142,7 +142,7 @@ export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${
 export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/orders`;
 
 /* consent-to-the-application */
-export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
+export const CONSENT: PageLink = `/tasklistresponse/consent-to-application`;
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 export const CONSENT_SAVE: PageLink = `${CONSENT}/save`;

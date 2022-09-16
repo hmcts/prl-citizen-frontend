@@ -12,6 +12,9 @@ import {
   CA_DA_SPECIAL_ARRANGEMENTS,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   CA_DA_TRAVELLING_TO_COURT,
+  CONSENT_SAVE,
+  CONSENT_SUMMARY,
+  CONSENT_TO_APPLICATION,
   COURT_PROCEEDINGS_SUMMARY,
   DIGITAL_DOWNLOADS,
   DOMESTIC_ABUSE_RISK,
@@ -65,6 +68,16 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_TASK_LIST_URL,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: CONSENT_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => CONSENT_SUMMARY,
+  },
+  {
+    url: CONSENT_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => CONSENT_SAVE,
   },
   {
     url: RESPONDENT_DETAILS_KNOWN,

@@ -4,7 +4,6 @@ import * as URL from '../../urls';
 import {
   getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
-  getConsentToApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
@@ -17,18 +16,7 @@ import {
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   return [
     {
-      title: sectionTitles.consentToTheApplication,
-      items: [
-        {
-          id: 'consent-to-the-application',
-          text: taskListItems.do_you_consent_to_the_application,
-          status: getConsentToApplicationStatus(userCase, userIdamId),
-          href: URL.CONSENT_TO_APPLICATION + '/' + userCase.id,
-        },
-      ],
-    },
-    {
-      title: sectionTitles.respondentYourDetails,
+      title: sectionTitles.aboutYou,
       items: [
         {
           id: 'keep-your-details-private',

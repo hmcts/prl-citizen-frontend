@@ -13,7 +13,15 @@
 
             <ul class="govuk-list govuk-list--bullet">
             {% for element in userCase.contactDetailsPrivate %}
-                <li>{{element}}</li>
+            {% if element === 'address' %}
+                <li>{{address}}</li>
+            {% endif %}
+            {% if element === 'phoneNumber' %}
+                <li>{{phoneNumber}}</li>
+            {% endif %}
+            {% if element === 'email' %}
+                <li>{{email}}</li>
+            {% endif %}
             {% endfor %}
             </ul>
 
