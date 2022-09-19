@@ -58,7 +58,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/keep-details-private/details_known',
+              href: '/respondent/keep-details-private/details_known/1234567',
               id: 'keep-your-details-private',
               status: 'TO_DO',
               text: 'Keep your details private',
