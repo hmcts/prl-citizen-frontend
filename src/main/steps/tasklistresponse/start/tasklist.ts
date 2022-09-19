@@ -31,7 +31,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'keep-your-details-private',
           text: taskListItems.keep_your_details_private,
           status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-          href: URL.RESPONDENT_DETAILS_KNOWN,
+          href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
         },
         {
           id: 'confirm-or-edit-your-contact-details',
