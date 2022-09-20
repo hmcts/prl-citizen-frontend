@@ -83,7 +83,7 @@ describe('task-list > content', () => {
             {
               href: '/tasklistresponse/miam/miam-start/' + mockUserCase.id,
               id: 'medation-miam',
-              status: 'IN_PROGRESS',
+              status: 'TO_DO',
               text: 'Mediation(MIAM)',
             },
             {

@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {
@@ -31,14 +31,21 @@ export const getConsentToApplicationStatus = (userCase: Partial<CaseWithId> | un
   return SectionStatus.TO_DO;
 };
 
-export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (userCase?.miamStart && userCase?.miamWillingness) {
-    return SectionStatus.COMPLETED;
-  }
-  if (userCase?.miamStart || userCase?.miamWillingness) {
-    return SectionStatus.IN_PROGRESS;
-  }
-  return SectionStatus.TO_DO;
+export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined, userIdamId: string): SectionStatus => {
+  let status = SectionStatus.TO_DO;
+
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (respondent?.value.user?.idamId === userIdamId) {
+      const miam = respondent?.value?.response?.miam;
+      if (miam?.attendedMiam && miam?.willingToAttendMiam) {
+        status = SectionStatus.COMPLETED;
+      } else if (miam?.attendedMiam || miam?.willingToAttendMiam) {
+        status = SectionStatus.IN_PROGRESS;
+      }
+    }
+  });
+
+  return status;
 };
 
 export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {

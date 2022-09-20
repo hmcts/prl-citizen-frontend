@@ -11,7 +11,7 @@ import {
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   return [
     {
       title: sectionTitles.consentToTheApplication,
@@ -53,7 +53,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'medation-miam',
           text: taskListItems.mediation_miam,
-          status: getMiamStatus(userCase),
+          status: getMiamStatus(userCase, userIdamId),
           href: URL.MIAM_START + '/' + userCase.id,
         },
         {
