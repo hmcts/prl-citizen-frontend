@@ -1,6 +1,6 @@
 import { Banner, SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { APPLICANT, APPLICANT_CA_DA_REQUEST, RESPOND_TO_APPLICATION } from '../../../steps/urls';
+import {APPLICANT_CA_MANAGE_ORDER_PDF, APPLICANT_DA_MANAGE_ORDER_PDF } from '../../../steps/urls';
 
 import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
@@ -56,23 +56,19 @@ const getC100Banners = userCase => {
   console.log(userCase.caseTypeOfApplication);
   const banners: Banner[] = [];
   banners.push({
-    bannerHeading: 'Respond to an application about a child',
+    bannerHeading: 'You have a new order from the court',
     bannerContent: [
       {
-        line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
         line2:
-          'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+          ' ',
       },
     ],
     bannerLinks: [
       {
-        href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
-        text: 'Check the application (PDF)',
-      },
-      {
-        href: RESPOND_TO_APPLICATION,
-        text: 'Respond to the application',
-      },
+        href: APPLICANT_CA_MANAGE_ORDER_PDF,
+        text: 'View the order (PDF)',
+      }
     ],
   });
   return banners;
@@ -81,25 +77,24 @@ const getC100Banners = userCase => {
 const getFl401Banners = userCase => {
   console.log(userCase.caseTypeOfApplication);
   const banners: Banner[] = [];
+  console.log(userCase);
+  if(userCase.orderCollection && userCase.orderCollection.length > 0) {
   banners.push({
-    bannerHeading: 'Respond to an application about a child',
+    bannerHeading: 'You have a new order from the court',
     bannerContent: [
       {
-        line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
         line2:
-          'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+          ' ',
       },
     ],
     bannerLinks: [
       {
-        href: APPLICANT_CA_DA_REQUEST,
-        text: 'Check the application (PDF)',
-      },
-      {
-        href: RESPOND_TO_APPLICATION,
-        text: 'Respond to the application',
-      },
+        href: APPLICANT_DA_MANAGE_ORDER_PDF,
+        text: 'View the order (PDF)',
+      }
     ],
   });
+}
   return banners;
 };
