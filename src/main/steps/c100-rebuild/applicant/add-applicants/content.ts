@@ -76,10 +76,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
           labelSize: 's',
           classes: 'govuk-input govuk-!-width-one-half',
           label: l => l.firstName,
-          validator: value => {
-            const valueInputError = isFieldFilledIn(value as string);
-            return valueInputError !== 'required' ? valueInputError : '';
-          },
+          validator: value => isFieldFilledIn(value as string),
         },
         [`ApplicantLastName-${count}`]: {
           type: 'text',

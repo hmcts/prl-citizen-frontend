@@ -21,6 +21,12 @@ export default class AddApplicants extends GetController {
     if (res.locals.isError || res.headersSent) {
       return;
     }
+    if (!req.session.userCase.hasOwnProperty('applicantTemporaryFormData')) {
+      req.session.userCase['applicantTemporaryFormData'] = {
+        TempFirstName: '',
+        TempLastName: '',
+      };
+    }
 
     const language = super.getPreferredLanguage(req) as Language;
 
@@ -38,11 +44,8 @@ export default class AddApplicants extends GetController {
     if (req.session?.errors) {
       req.session.errors = undefined;
     }
-
     super.clearConfidentialitySessionSaveData(req);
-
     const checkIFNotRemoveQuery = req.query.hasOwnProperty('action') && req.query.hasOwnProperty('applicantId');
-
     if (checkIFNotRemoveQuery) {
       this.removeApplicantUsingId(req, res);
     } else {
