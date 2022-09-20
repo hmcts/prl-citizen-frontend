@@ -47,6 +47,7 @@ export default class AddApplicantPostController
         const { _csrf, ...formData } = form.getParsedBody(req.body);
         this.errorsAndRedirect(req, res, formData, form);
         this.addAnotherApplicant(req);
+        this.resetSessionTemporaryFormValues(req);
         return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
       } else {
         this.mapEnteriesToValuesAfterContinuing(req, res);
@@ -60,6 +61,7 @@ export default class AddApplicantPostController
       switch (addAnotherApplicant) {
         case 'Yes':
           this.addAnotherApplicant(req);
+          this.resetSessionTemporaryFormValues(req);
           break;
         default:
       }
@@ -127,5 +129,12 @@ export default class AddApplicantPostController
     }
     req.session.userCase.allApplicants = newApplicantStorage;
     return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+  }
+
+  protected resetSessionTemporaryFormValues(req: AppRequest<AnyObject>): void {
+    req.session.userCase['applicantTemporaryFormData'] = {
+      TempFirstName: '',
+      TempLastName: '',
+    };
   }
 }
