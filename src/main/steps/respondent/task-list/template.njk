@@ -10,8 +10,10 @@
     {{userCase.respondentName}}
   </h1>
   <p class="govuk-body">Case number #{{userCase.id}}</p>
-  {% include "../../common/notifyBanner.njk" %}
 </div>
+{% endblock %}
+{% block notificationBanner %}
+  {% include "../../common/notifyBanner.njk" %}
 {% endblock %}
 {% block oneThird %}
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!">
