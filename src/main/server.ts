@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
 import config = require('config');
-import express, { Request, RequestHandler, Response } from 'express';
+import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';

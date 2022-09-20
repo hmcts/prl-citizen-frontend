@@ -16,8 +16,13 @@ import { AppRequest } from './AppRequest';
 
 const groupNameMapper = {
 'international-elements': 'c100RebuildInternationalElements',
-'confidentiality': 'c100RebuildConfidentiality'
-}
+'confidentiality': 'c100RebuildConfidentiality',
+'reasonable-adjustments': 'c100RebuildReasonableAdjustments'
+};
+// const excludePropsList = {
+  
+
+// }
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -66,8 +71,7 @@ export class PostController<T extends AnyObject> {
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
 
-    const groupObjectName = groupNameMapper[req.originalUrl.split('/')[2]];
-    this.groupingFormData(req, groupObjectName, formData);
+    this.groupingFormData(req, formData);
     req.session.errors = form.getErrors(formData);
 
     this.filterErrorsForSaveAsDraft(req);
@@ -110,8 +114,7 @@ export class PostController<T extends AnyObject> {
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
-    const group = req.originalUrl.split('/').length === 3 ? req.originalUrl.split('/')[2] : req.originalUrl.split('/')[3];
-    this.groupingFormData(req, groupNameMapper[group], formData);
+    this.groupingFormData(req, formData);
     req.session.errors = form.getErrors(formData);
 
     this.filterErrorsForSaveAsDraft(req);
@@ -214,18 +217,23 @@ export class PostController<T extends AnyObject> {
   }
 
     //eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected groupingFormData(req: AppRequest, groupObjectName: string, formData: Partial<Case>): void {
+    protected groupingFormData(req: AppRequest, formData: Partial<Case>): void {
+      const groupObjectName = groupNameMapper[req.originalUrl.split('/')[2]];
       if(req.session.userCase && req.session.userCase.hasOwnProperty(groupObjectName)) {
-        req.session.userCase[groupObjectName] = JSON.parse(req.session.userCase[groupObjectName]);
-        Object.assign(req.session.userCase[groupObjectName],formData);
-        req.session.userCase[groupObjectName] = JSON.stringify(req.session.userCase[groupObjectName]);
+          req.session.userCase[groupObjectName] = JSON.parse(req.session.userCase[groupObjectName]);
+          if(req.originalUrl.split('/').length === 4) {
+            req.session.userCase[groupObjectName]['disabilityRequirements'] = {};
+            Object.assign(req.session.userCase[groupObjectName]['disabilityRequirements'],formData);
+          } else if (req.originalUrl.split('/').length > 4) {
+            Object.assign(req.session.userCase[groupObjectName],formData);
+          }
+          req.session.userCase[groupObjectName] = JSON.stringify(req.session.userCase[groupObjectName]);
       } else {
         req.session.userCase = { 
           ...req.session.userCase,
           [groupObjectName]: JSON.stringify(formData) }
-      }
     }
-
+  }
   private async checkCaseAccessCode(req: AppRequest<T>, res: Response, form: Form, formData: Partial<CaseWithId>) {
     if (req?.session?.userCase) {
       Object.assign(req?.session?.userCase, formData);
