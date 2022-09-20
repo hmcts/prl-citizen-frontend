@@ -25,18 +25,3 @@ export const getAllOrderDocuments = (
 ): C100OrderInterface[] | [] => {
   return getAllOrders(orders).filter(order => order.orderDocument?.id);
 };
-
-/*
-const getAllOrdersWithOrderCopy = (orders: C100OrderTypeInterface|{}):Partial<C100OrderTypeInterface> => {
-
-  return Object.entries(orders).reduce((_ordersWithOrderCopy, [orderType, orderData]) => {
-    const ordersWithCopy = orderData.filter(order => order.orderCopy === YesNoEmpty.YES)
-
-    if (ordersWithCopy.length) {
-      _ordersWithOrderCopy[orderType] = ordersWithCopy
-    }
-
-    return _ordersWithOrderCopy
-  }, {});
-
-}*/
