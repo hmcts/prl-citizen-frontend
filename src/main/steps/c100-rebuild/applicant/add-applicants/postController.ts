@@ -10,14 +10,10 @@ import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
 
 // eslint-disable-next-line import/no-unresolved
-import { postControllerRollBackRoutes } from './index';
 
 @autobind
 /* It takes in a request and a response object, and then it does a bunch of stuff */
-export default class AddApplicantPostController
-  extends PostController<AnyObject>
-  implements postControllerRollBackRoutes
-{
+export default class AddApplicantPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
