@@ -1,6 +1,6 @@
 import { Banner, SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import {APPLICANT_CA_MANAGE_ORDER_PDF, APPLICANT_DA_MANAGE_ORDER_PDF } from '../../../steps/urls';
+import { RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../steps/urls';
 
 import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
@@ -55,46 +55,92 @@ export const generateContent: TranslationFn = content => {
 const getC100Banners = userCase => {
   console.log(userCase.caseTypeOfApplication);
   const banners: Banner[] = [];
-  banners.push({
-    bannerHeading: 'You have a new order from the court',
-    bannerContent: [
-      {
-        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
-        line2:
-          ' ',
-      },
-    ],
-    bannerLinks: [
-      {
-        href: APPLICANT_CA_MANAGE_ORDER_PDF,
-        text: 'View the order (PDF)',
-      }
-    ],
-  });
+  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+    const doc = userCase.orderCollection[0];
+    const uid = doc.value.orderDocument.document_url.substring(
+      doc.value.orderDocument.document_url.lastIndexOf('/') + 1
+    );
+    if (userCase.caseStatus !== 'ALL_FINAL_ORDERS_ISSUED') {
+      banners.push({
+        bannerHeading: 'You have a new order from the court',
+        bannerContent: [
+          {
+            line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+            line2: ' ',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
+            text: 'View the order (PDF)',
+          },
+        ],
+      });
+    } else {
+      banners.push({
+        bannerHeading: 'You have a final order',
+        bannerContent: [
+          {
+            line1:
+              'The court has made a final decision about your case. The order tells you what the court has decided. ',
+            line2: ' ',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
+            text: 'View the order (PDF)',
+          },
+        ],
+      });
+    }
+  }
   return banners;
 };
 
 const getFl401Banners = userCase => {
   console.log(userCase.caseTypeOfApplication);
   const banners: Banner[] = [];
-  console.log(userCase);
-  if(userCase.orderCollection && userCase.orderCollection.length > 0) {
-  banners.push({
-    bannerHeading: 'You have a new order from the court',
-    bannerContent: [
-      {
-        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
-        line2:
-          ' ',
-      },
-    ],
-    bannerLinks: [
-      {
-        href: APPLICANT_DA_MANAGE_ORDER_PDF,
-        text: 'View the order (PDF)',
-      }
-    ],
-  });
-}
+  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+    const doc = userCase.orderCollection[0];
+    const uid = doc.value.orderDocument.document_url.substring(
+      doc.value.orderDocument.document_url.lastIndexOf('/') + 1
+    );
+    console.log(userCase.caseStatus);
+    if (userCase.caseStatus !== 'ALL_FINAL_ORDERS_ISSUED') {
+      banners.push({
+        bannerHeading: 'You have a new order from the court',
+        bannerContent: [
+          {
+            line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+            line2: ' ',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
+            text: 'View the order (PDF)',
+          },
+        ],
+      });
+    } else {
+      banners.push({
+        bannerHeading: 'You have a final order',
+        bannerContent: [
+          {
+            line1:
+              'The court has made a final decision about your case. The order tells you what the court has decided. ',
+            line2: ' ',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
+            text: 'View the order (PDF)',
+          },
+        ],
+      });
+    }
+  }
   return banners;
 };
