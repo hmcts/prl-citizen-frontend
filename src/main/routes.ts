@@ -9,7 +9,6 @@ import { ConsentGetController } from './app/controller/ConsentGetController';
 import { GetController } from './app/controller/GetController';
 import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
-import { SaveRespondentResponseController } from './app/controller/SaveRespondentResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -32,7 +31,6 @@ import {
   APPLICANT_TASK_LIST_URL,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
-  CONSENT_SAVE,
   CONSENT_TO_APPLICATION,
   CONTACT_US,
   COOKIES_PAGE,
@@ -68,7 +66,6 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
-    app.get(`${CONSENT_SAVE}`, errorHandler(new SaveRespondentResponseController().save));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
