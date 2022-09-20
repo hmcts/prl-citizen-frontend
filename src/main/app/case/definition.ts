@@ -1357,6 +1357,7 @@ export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CASE_EVENT_UPDATE = 'citizen-case-update';
 export const RESPONDENTS_DETAILS = 'respondentsDetails';
 export const APPLICANTS_DETAILS = 'applicantsDetails';
 export const CITIZEN_APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
