@@ -50,6 +50,8 @@ export default class AddApplicants extends GetController {
         ...content,
         sessionErrors,
         htmlLang: language,
+        tempFirstName: 'daim',
+        tempLastName: '',
       });
     }
   }

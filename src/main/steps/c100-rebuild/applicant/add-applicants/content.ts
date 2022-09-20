@@ -14,6 +14,7 @@ const en = () => ({
   lastName: 'Last name(s)',
   buttonAddApplicant: 'Add another applicant',
   removeApplicant: 'Remove applicant',
+  labelFornewName: 'Enter a new name',
   errors: {
     applicantFirstName: {
       required: 'Enter the first name',
@@ -33,6 +34,7 @@ const cy = () => ({
   lastName: 'Last name(s) - welsh',
   buttonAddApplicant: 'Add another applicant - welsh',
   removeApplicant: 'Remove applicant - welsh',
+  labelFornewName: 'Enter a new name - welsh',
   errors: {
     applicantFirstName: {
       required: 'Enter the first name - welsh',
@@ -74,6 +76,10 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
           labelSize: 's',
           classes: 'govuk-input govuk-!-width-one-half',
           label: l => l.firstName,
+          validator: value => {
+            const valueInputError = isFieldFilledIn(value as string);
+            return valueInputError !== 'required' ? valueInputError : '';
+          },
         },
         [`ApplicantLastName-${count}`]: {
           type: 'text',
@@ -81,6 +87,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
           value: applicantData[index].applicantLastName,
           classes: 'govuk-input govuk-!-width-one-half',
           hint: h => h.caseNumberHint,
+          validator: isFieldFilledIn,
         },
         removeApplicant: {
           type: 'link',
@@ -109,27 +116,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
 };
 
 export const form: FormContent = {
-  fields: {
-    applicantFirstName: {
-      type: 'text',
-      classes: 'govuk-input govuk-!-width-one-half',
-      label: label => label.firstName,
-      hint: hint => hint.firstNameHint,
-      validator: isFieldFilledIn,
-    },
-    applicantLastName: {
-      type: 'text',
-      classes: 'govuk-input govuk-!-width-one-half',
-      label: label => label.lastName,
-      validator: isFieldFilledIn,
-    },
-    addAnotherApplicant: {
-      type: 'button',
-      label: l => l.buttonAddApplicant,
-      classes: 'govuk-button--secondary margin-top-3',
-      value: 'Yes',
-    },
-  },
+  fields: {},
   submit: {
     text: l => l.onlycontinue,
   },
@@ -156,6 +143,42 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedFormContents;
 };
 
+const updatedSessionValue = (formValues: FormContent, sessionData) => {
+  console.log(sessionData);
+  return {
+    ...formValues,
+    fields: {
+      applicantLabel: {
+        type: 'heading',
+        label: label => label.labelFornewName,
+        classes: 'govuk-fieldset__heading',
+        labelSize: 'm',
+      },
+      applicantFirstName: {
+        type: 'text',
+        classes: 'govuk-input govuk-!-width-one-half',
+        label: label => label.firstName,
+        hint: hint => hint.firstNameHint,
+        validator: isFieldFilledIn,
+        value: sessionData['TempFirstName'],
+      },
+      applicantLastName: {
+        type: 'text',
+        classes: 'govuk-input govuk-!-width-one-half',
+        label: label => label.lastName,
+        validator: isFieldFilledIn,
+        value: sessionData['TempLastName'],
+      },
+      addAnotherApplicant: {
+        type: 'button',
+        label: l => l.buttonAddApplicant,
+        classes: 'govuk-button--secondary margin-top-3',
+        value: 'Yes',
+      },
+    },
+  };
+};
+
 export const generateContent: TranslationFn = content => {
   const sessionDataOFApplicant = content.additionalData?.req.session;
   const applicantData: C100ListOfApplicants =
@@ -174,6 +197,9 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    form: updateFormFields(form, fields),
+    form: updateFormFields(
+      updatedSessionValue(form, content.additionalData?.req.session.userCase?.applicantTemporaryFormData),
+      fields
+    ),
   };
 };
