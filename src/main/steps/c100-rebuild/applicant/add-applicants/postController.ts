@@ -29,21 +29,42 @@ export default class AddApplicantPostController
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     console.log(req.body);
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const form = new Form(fields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    req.session.userCase.applicantTemporaryFormData = {
+      TempFirstName: req['body']['applicantFirstName'],
+      TempLastName: req['body']['applicantLastName'],
+    };
+    const saveAndContinueChecked = req['body']['saveAndContinue'] && req['body']['saveAndContinue'] !== undefined;
+    if (saveAndContinueChecked) {
+      const toggleCheckIfApplicantFieldIsFilled =
+        req['body']['applicantFirstName'] !== '' || req['body']['applicantFirstName'] !== '';
 
-    // Object.assign(req.session.userCase, formData);
-
-    this.errorsAndRedirect(req, res, formData, form);
-    const { addAnotherApplicant } = req['body'];
-    switch (addAnotherApplicant) {
-      case 'Yes':
-        this.addAnotherApplication(req);
-        break;
-      default:
+      /* Checking if the applicant fields are filled, and if they are, it is mapping the entries to the
+     values after continuing, and adding another application. If they are not filled, it is just
+     mapping the entries to the values after continuing. */
+      if (toggleCheckIfApplicantFieldIsFilled) {
+        const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+        const form = new Form(fields);
+        const { _csrf, ...formData } = form.getParsedBody(req.body);
+        this.errorsAndRedirect(req, res, formData, form);
+        this.addAnotherApplicant(req);
+        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+      } else {
+        this.mapEnteriesToValuesAfterContinuing(req, res);
+      }
+    } else {
+      const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+      const form = new Form(fields);
+      const { _csrf, ...formData } = form.getParsedBody(req.body);
+      this.errorsAndRedirect(req, res, formData, form);
+      const { addAnotherApplicant } = req['body'];
+      switch (addAnotherApplicant) {
+        case 'Yes':
+          this.addAnotherApplicant(req);
+          break;
+        default:
+      }
+      return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
     }
-    return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
   }
 
   /**
@@ -70,7 +91,7 @@ export default class AddApplicantPostController
    * @returns The response body is being returned.
    */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  protected addAnotherApplication(req: AppRequest<AnyObject>): void {
+  protected addAnotherApplicant(req: AppRequest<AnyObject>): void {
     const { applicantFirstName, applicantLastName } = req['body'];
     const applicantInformation = {
       id: uuidv4(),
@@ -82,5 +103,29 @@ export default class AddApplicantPostController
       applicantInSession = req.session.userCase.allApplicants;
     }
     req.session.userCase.allApplicants = [...applicantInSession, applicantInformation];
+    req.session.save();
+  }
+
+  /**
+   * It takes the data from the form and maps it to the correct object in the session
+   * @param req - AppRequest<AnyObject>
+   */
+  protected mapEnteriesToValuesAfterContinuing(req: AppRequest<AnyObject>, res: Response): void {
+    const lengthOfApplicantInSession = req.session.userCase.allApplicants?.length;
+    const newApplicantStorage: C100ListOfApplicants = [];
+    if (lengthOfApplicantInSession) {
+      for (let applicant = 0; applicant < lengthOfApplicantInSession; applicant++) {
+        const currentIndexPositioninBody = applicant + 1;
+        const applicantFirstName = req.body[`ApplicantFirstName-${currentIndexPositioninBody}`];
+        const applicantLastName = req.body[`ApplicantLastName-${currentIndexPositioninBody}`];
+        if (req.session.userCase.allApplicants) {
+          const { id } = req.session.userCase.allApplicants[applicant];
+          const applicantObject = { id, applicantFirstName, applicantLastName };
+          newApplicantStorage.push(applicantObject);
+        }
+      }
+    }
+    req.session.userCase.allApplicants = newApplicantStorage;
+    return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
   }
 }

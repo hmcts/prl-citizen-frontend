@@ -250,6 +250,10 @@ export interface CaseWithId extends Case {
   };
   id: string;
   state: State;
+  applicantTemporaryFormData?: {
+    TempFirstName?: string | unknown;
+    TempLastName?: string | unknown;
+  };
 }
 
 export enum Checkbox {
