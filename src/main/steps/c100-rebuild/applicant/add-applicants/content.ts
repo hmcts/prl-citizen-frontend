@@ -116,7 +116,33 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    applicantLabel: {
+      type: 'heading',
+      label: label => label.labelFornewName,
+      classes: 'govuk-fieldset__heading',
+      labelSize: 'm',
+    },
+    applicantFirstName: {
+      type: 'text',
+      classes: 'govuk-input govuk-!-width-one-half',
+      label: label => label.firstName,
+      hint: hint => hint.firstNameHint,
+      validator: isFieldFilledIn,
+    },
+    applicantLastName: {
+      type: 'text',
+      classes: 'govuk-input govuk-!-width-one-half',
+      label: label => label.lastName,
+      validator: isFieldFilledIn,
+    },
+    addAnotherApplicant: {
+      type: 'button',
+      label: l => l.buttonAddApplicant,
+      classes: 'govuk-button--secondary margin-top-3',
+      value: 'Yes',
+    },
+  },
   submit: {
     text: l => l.onlycontinue,
   },
@@ -144,38 +170,10 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 };
 
 const updatedSessionValue = (formValues: FormContent, sessionData) => {
-  console.log(sessionData);
+  formValues.fields['applicantFirstName'].value = sessionData.TempFirstName;
+  formValues.fields['applicantLastName'].value = sessionData.TempLastName;
   return {
     ...formValues,
-    fields: {
-      applicantLabel: {
-        type: 'heading',
-        label: label => label.labelFornewName,
-        classes: 'govuk-fieldset__heading',
-        labelSize: 'm',
-      },
-      applicantFirstName: {
-        type: 'text',
-        classes: 'govuk-input govuk-!-width-one-half',
-        label: label => label.firstName,
-        hint: hint => hint.firstNameHint,
-        validator: isFieldFilledIn,
-        value: sessionData['TempFirstName'],
-      },
-      applicantLastName: {
-        type: 'text',
-        classes: 'govuk-input govuk-!-width-one-half',
-        label: label => label.lastName,
-        validator: isFieldFilledIn,
-        value: sessionData['TempLastName'],
-      },
-      addAnotherApplicant: {
-        type: 'button',
-        label: l => l.buttonAddApplicant,
-        classes: 'govuk-button--secondary margin-top-3',
-        value: 'Yes',
-      },
-    },
   };
 };
 
