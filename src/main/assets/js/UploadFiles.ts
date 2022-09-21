@@ -3,6 +3,5 @@ const uploadDocumentFile = (): HTMLElement | null => document.getElementById('up
 if (uploadDocumentFile) {
   uploadDocumentFile.onclick = function (e) {
     e.preventDefault();
-    console.log('Hello from ts');
   };
 }

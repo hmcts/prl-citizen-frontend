@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
-import { Case, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, YesOrNo } from './definition';
 import { fromApiApplicant1 as uploadedFilesFromApiApplicant1 } from './formatter/uploaded-files';
 
@@ -21,7 +21,6 @@ console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   orderCollection: uploadedFilesFromApiApplicant1,
-  applicantDocumentsUploaded: uploadedFilesFromApiApplicant1,
   // applicant1DateOfBirth: data => ({
   //   applicant1DateOfBirth: fromApiDate(data.applicant1DateOfBirth),
   // }),
@@ -91,9 +90,9 @@ const fields: FromApiConverters = {
   // }),
 };
 
-const fromApiDate = date => {
+export const fromApiDate = (date: string | undefined): CaseDate => {
   if (!date) {
-    return;
+    return { year: '', month: '', day: '' };
   }
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [y, m, d] = date.split('-');

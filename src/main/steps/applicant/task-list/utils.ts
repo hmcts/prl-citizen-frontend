@@ -18,11 +18,11 @@ export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): Sectio
   if (userCase?.applicant1FullName || userCase?.applicant1DateOfBirth || userCase?.applicant1PlaceOfBirth) {
     return SectionStatus.IN_PROGRESS;
   }
+
   return SectionStatus.TO_DO;
 };
 
-export const getYourApplication = (userCase: CaseWithId): SectionStatus => {
-  console.log(userCase);
+export const getYourApplication = (): SectionStatus => {
   return SectionStatus.DOWNLOAD;
 };
 

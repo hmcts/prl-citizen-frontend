@@ -3,18 +3,20 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT, UPLOAD_DOCUMENT_SUCCESS } from '../../steps/urls';
+import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
+import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
-import { toApiFormat } from '../case/to-api-format';
+//import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
 
+const UploadDocumentSucess = 'upload-documents-success';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
@@ -34,6 +36,7 @@ export class PostController<T extends AnyObject> {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
+      await this.getCaseList(req, res, form, formData);
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else {
@@ -84,7 +87,9 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    Object.assign(req.session.userCase, formData);
+    if (req?.session?.userCase) {
+      Object.assign(req.session.userCase, formData);
+    }
     req.session.errors = form.getErrors(formData);
     console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
@@ -93,26 +98,29 @@ export class PostController<T extends AnyObject> {
       return this.redirect(req, res);
     }
 
-    const data = toApiFormat(formData);
+    //const data = toApiFormat(formData);
 
     // if (Object.keys(data).length !== 0) {
     //   req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
     // }
 
-    const caseworkerUser = await getSystemUser();
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    //const caseworkerUser = await getSystemUser();
+    //const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
     // const requestMappedCaseData = {
     //   applicantCaseName: 'XYZ',
     //   natureOfOrder: 'test',
     //   isCaseUrgent: 'Yes',
     // };
     // const caseId = req.session?.caseId;
-    await client.updateRespondentCase(caseworkerUser, '1661181673014144', req, data);
+    //await client.updateRespondentCase(caseworkerUser, req.session.userCase.id, req, data);
     this.redirect(req, res);
 
-    if (req.originalUrl.includes(UPLOAD_DOCUMENT_SUCCESS)) {
+    if (req.originalUrl.includes(UploadDocumentSucess)) {
       if (req?.session?.userCase?.applicantUploadFiles) {
-        req.session.userCase['applicantUploadFiles'] = [];
+        req.session.userCase[ApplicantUploadFiles] = [];
+      }
+      if (req?.session?.userCase?.respondentUploadFiles) {
+        req.session.userCase[RespondentUploadFiles] = [];
       }
     }
 
@@ -140,7 +148,7 @@ export class PostController<T extends AnyObject> {
       req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
       const caseReference = req.session.userCase.caseCode;
       const caseData = await req.locals.api.getCaseById(caseReference as string);
-      console.log('case details ====> ' + JSON.stringify(caseData));
+      console.log('Saving data for case : ' + JSON.stringify(caseData.id));
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
@@ -330,12 +338,12 @@ export class PostController<T extends AnyObject> {
           accessCode as string,
           caseworkerUser
         );
-        console.log(accessCodeValidated);
         if (accessCodeValidated === 'Linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         } else if (accessCodeValidated !== 'Valid') {
           req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         }
+        //req.session.userCase = await client.retrieveByCaseId(caseReference as string, caseworkerUser);
       }
     } catch (err) {
       console.log('Retrieving case failed with error: ' + err);
@@ -375,7 +383,7 @@ export class PostController<T extends AnyObject> {
 
     const cosApiClient = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
     const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
-    console.log('caseDataFromCos' + caseDataFromCos);
+    console.log('retrieved casedata for case : ' + caseDataFromCos);
 
     //this.checkReturnUrlAndRedirect(req, res, this.ALLOWED_RETURN_URLS);
     this.redirect(req, res);

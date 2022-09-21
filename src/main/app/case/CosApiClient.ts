@@ -1,6 +1,7 @@
 import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 
+import { DeleteDocumentRequest } from '../../app/document/DeleteDocumentRequest';
 import { DocumentDetail } from '../../app/document/DocumentDetail';
 import { GenerateAndUploadDocumentRequest } from '../../app/document/GenerateAndUploadDocumentRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
@@ -86,22 +87,24 @@ export class CosApiClient {
     return response.data;
   }
 
-  public async updateCase(user: UserDetails, caseId: string, data: Partial<CaseData>): Promise<CaseWithId> {
-    data.applicantCaseName = 'Tom Jerry - updated';
+  public async updateCase(
+    user: UserDetails,
+    caseId: string,
+    data: Partial<CaseData>,
+    eventId: string
+  ): Promise<CaseWithId> {
+    //data.applicantCaseName = 'Tom Jerry - updated';
     try {
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
+        accessCode: 'Dummy accessCode',
       };
-      const response = await Axios.post(
-        config.get('services.cos.url') + `/${caseId}/citizen-case-update/update-case`,
-        data,
-        {
-          headers,
-        }
-      );
+      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
+        headers,
+      });
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
@@ -120,21 +123,42 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      console.log('Inside CosApiClient');
 
       const response = await Axios.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',
         generateAndUploadDocumentRequest,
         { headers }
       );
-      console.log(response);
       return {
         status: response.status,
         documentId: response.data?.documentId,
-        documentName: response.data?.docuemntName,
+        documentName: response.data?.documentName,
       };
     } catch (err) {
       throw new Error('Case could not be updated.');
+    }
+  }
+
+  public async deleteCitizenStatementDocument(
+    user: UserDetails,
+    deleteDocumentRequest: DeleteDocumentRequest
+  ): Promise<string> {
+    try {
+      const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
+      };
+
+      const response = await Axios.post(
+        config.get('services.cos.url') + '/delete-citizen-statement-document',
+        deleteDocumentRequest,
+        { headers }
+      );
+      return response.data;
+    } catch (err) {
+      throw new Error('Document could not be deleted.');
     }
   }
 
