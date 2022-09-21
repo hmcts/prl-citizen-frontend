@@ -22,18 +22,19 @@ nodejs:
     COS_URL: 'http://prl-cos-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
   keyVaults:
     prl:
-      resourceGroup: prl
       secrets:
         - AppInsightsInstrumentationKey
         - prl-citizen-frontend-idam-client-secret
-        - microservicekey-prl-citizen-frontend
+        - postcode-lookup-token
         - prl-cos-idam-client-secret
         - microservicekey-prl-cos-api
+        - microservicekey-prl-citizen-frontend
         - system-update-user-username
         - system-update-user-password
         - idam-solicitor-username
         - idam-solicitor-password
         - launchDarkly-sdk-key
-        - postcode-lookup-token
+        - citizen-upload-docs-email
+
 idam-pr:
   enabled: false
