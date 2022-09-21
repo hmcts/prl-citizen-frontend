@@ -60,7 +60,8 @@ const getC100Banners = userCase => {
     const uid = doc.value.orderDocument.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    if (userCase.caseStatus !== 'ALL_FINAL_ORDERS_ISSUED') {
+    console.log(userCase.state);
+    if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push({
         bannerHeading: 'You have a new order from the court',
         bannerContent: [
@@ -106,8 +107,8 @@ const getFl401Banners = userCase => {
     const uid = doc.value.orderDocument.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    console.log(userCase.caseStatus);
-    if (userCase.caseStatus !== 'ALL_FINAL_ORDERS_ISSUED') {
+    console.log(userCase.state);
+    if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push({
         bannerHeading: 'You have a new order from the court',
         bannerContent: [
