@@ -198,6 +198,8 @@ export const C100_TYPE_ORDER_SHORT_STATEMENT: PageLink = `${C100_URL}/typeoforde
 export const C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS: PageLink = `${C100_URL}/other-proceedings/current-previous-proceedings`;
 export const C100_OTHER_PROCEEDINGS_DETAILS: PageLink = `${C100_URL}/other-proceedings/proceeding-details`;
 export const C100_OTHER_PROCEEDINGS_ORDER_DETAILS: PageLink = `${C100_URL}/other-proceedings/order-details`;
+export const C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${C100_URL}/other-proceedings/documentUpload`;
+export const C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY: PageLink = `${C100_URL}/other-proceedings/document-summary`;
 
 /** @C100 Help with Fees */
 export const C100_HELP_WITH_FEES: PageLink = `${C100_URL}/help-with-fees`;
@@ -217,3 +219,8 @@ export const C100_CHILDERN_FURTHER_INFORMATION: PageLink = `${C100_CHILDERN_DETA
 export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
 export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
 export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback/:paymentId/:status';
+
+/** @C100 Rebuild C1A Safety Concerns */
+export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
+export const C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-about`;
+export const C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concerns-for-safety`;

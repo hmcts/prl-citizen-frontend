@@ -5,7 +5,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(37);
+    expect(C100Sequence).toHaveLength(41);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -275,5 +275,25 @@ describe('C100Sequence', () => {
     expect(C100Sequence[35].url).toBe('/c100-rebuild/confirmation-page');
     expect(C100Sequence[35].showInSection).toBe('c100');
     expect(C100Sequence[35].getNextStep({})).toBe('/c100-rebuild/confirmation-page');
+
+    expect(C100Sequence[36].url).toBe('/c100-rebuild/other-proceedings/order-details');
+    expect(C100Sequence[36].showInSection).toBe('c100');
+    expect(C100Sequence[36].getNextStep({})).toBe('/c100-rebuild/other-proceedings/documentUpload');
+
+    expect(C100Sequence[37].url).toBe('/c100-rebuild/other-proceedings/documentUpload');
+    expect(C100Sequence[37].showInSection).toBe('c100');
+    expect(C100Sequence[37].getNextStep({})).toBe('/c100-rebuild/other-proceedings/document-summary');
+
+    expect(C100Sequence[38].url).toBe('/c100-rebuild/other-proceedings/document-summary');
+    expect(C100Sequence[38].showInSection).toBe('c100');
+    expect(C100Sequence[38].getNextStep({})).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+
+    expect(C100Sequence[39].url).toBe('/c100-rebuild/safety-concerns/concern-about');
+    expect(C100Sequence[39].showInSection).toBe('c100');
+    expect(C100Sequence[39].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+
+    expect(C100Sequence[40].url).toBe('/c100-rebuild/safety-concerns/concerns-for-safety');
+    expect(C100Sequence[40].showInSection).toBe('c100');
+    expect(C100Sequence[40].getNextStep({})).toBe('/c100-rebuild/safety-concerns/concern-about');
   });
 });

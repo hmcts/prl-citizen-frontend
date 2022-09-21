@@ -37,11 +37,15 @@ export class Nunjucks {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
-    const env = nunjucks.configure([path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, hmctsFrontendPath], {
-      autoescape: true,
-      watch: app.locals.developmentMode,
-      express: app,
-    });
+    const commonForC100 = path.join(__dirname, '..', '..', 'steps', 'c100-rebuild', 'common');
+    const env = nunjucks.configure(
+      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, hmctsFrontendPath, commonForC100],
+      {
+        autoescape: true,
+        watch: app.locals.developmentMode,
+        express: app,
+      }
+    );
 
     env.addGlobal('getContent', function (prop): string {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
@@ -122,6 +126,19 @@ export class Nunjucks {
 
     env.addFilter('uniqueConfidentials', array => {
       return [...new Map(array.map(item => [item['name'], item])).values()];
+    });
+
+    env.addFilter('orderStringParser', str => {
+      const orderNumber = str
+        .split('')
+        .map(num => {
+          if (Number.isInteger(Number(num))) {
+            return num;
+          }
+        })
+        .filter(num => num !== undefined)
+        .join('');
+      return orderNumber;
     });
 
     app.use((req, res, next) => {
