@@ -255,6 +255,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
               throw new Error('Binary URL is not found for ' + element + ':' + childElement);
             }
             documentToGet = doc.value[`${childElement}`].document_binary_url;
+            break;
           }
         }
         uid = this.getUID(documentToGet);
