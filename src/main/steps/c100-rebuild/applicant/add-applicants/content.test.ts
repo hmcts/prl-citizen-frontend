@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { generateContent, generateFormFields, form } from './content';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
+
+import { form, generateContent, generateFormFields } from './content';
 
 jest.mock('../../../../app/form/validation');
 
@@ -60,47 +61,48 @@ const dummyApplicants = [
   },
 ];
 
-
-describe('chekcing form fields',()=> {
+describe('checking form fields', () => {
   test('should match forms fields', () => {
-    expect(JSON.stringify(form)).toEqual(JSON.stringify({
-      fields: {
-        applicantLabel: {
-          type: 'heading',
-          label: label => label.labelFornewName,
-          labelSize: 'm',
+    expect(JSON.stringify(form)).toEqual(
+      JSON.stringify({
+        fields: {
+          applicantLabel: {
+            type: 'heading',
+            label: label => label.labelFornewName,
+            labelSize: 'm',
+          },
+          applicantFirstName: {
+            type: 'text',
+            classes: 'govuk-input govuk-!-width-one-half',
+            label: label => label.firstName,
+            hint: hint => hint.firstNameHint,
+            validator: isFieldFilledIn,
+            labelSize: 'none',
+          },
+          applicantLastName: {
+            type: 'text',
+            classes: 'govuk-input govuk-!-width-one-half',
+            label: label => label.lastName,
+            validator: isFieldFilledIn,
+            labelSize: 'none',
+          },
+          addAnotherApplicant: {
+            type: 'button',
+            label: l => l.buttonAddApplicant,
+            classes: 'govuk-button--secondary margin-top-3',
+            value: 'Yes',
+          },
         },
-        applicantFirstName: {
-          type: 'text',
-          classes: 'govuk-input govuk-!-width-one-half',
-          label: label => label.firstName,
-          hint: hint => hint.firstNameHint,
-          validator: isFieldFilledIn,
-          labelSize: 'none',
+        submit: {
+          text: l => l.onlycontinue,
         },
-        applicantLastName: {
-          type: 'text',
-          classes: 'govuk-input govuk-!-width-one-half',
-          label: label => label.lastName,
-          validator: isFieldFilledIn,
-          labelSize: 'none',
+        saveAndComeLater: {
+          text: l => l.saveAndComeLater,
         },
-        addAnotherApplicant: {
-          type: 'button',
-          label: l => l.buttonAddApplicant,
-          classes: 'govuk-button--secondary margin-top-3',
-          value: 'Yes',
-        },
-      },
-      submit: {
-        text: l => l.onlycontinue,
-      },
-      saveAndComeLater: {
-        text: l => l.saveAndComeLater,
-      },
-    })
-)});
-} )
+      })
+    );
+  });
+});
 
 describe('applicant > add-applicants > content', () => {
   const commonContent = {
@@ -169,4 +171,15 @@ describe('applicant > add-applicants > content', () => {
     ).toBe('Save and come back later');
   });
 
+  test('applicant > add-applicants > content › chekcing generated form fields', () => {
+    const formFields = generateFormFields([
+      {
+        id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+        applicantFirstName: 'Test',
+        applicantLastName: 'Test',
+      },
+    ]);
+    expect(formFields).not.toBe(null);
+    expect(1).toBe(1);
+  });
 });
