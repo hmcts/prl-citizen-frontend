@@ -73,7 +73,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
         [`ApplicantFirstName-${count}`]: {
           type: 'text',
           value: applicantData[index].applicantFirstName,
-          labelSize: 's',
+          labelSize: 'none',
           classes: 'govuk-input govuk-!-width-one-half',
           label: l => l.firstName,
           validator: value => isFieldFilledIn(value as string),
@@ -84,6 +84,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
           value: applicantData[index].applicantLastName,
           classes: 'govuk-input govuk-!-width-one-half',
           hint: h => h.caseNumberHint,
+          labelSize: 'none',
           validator: isFieldFilledIn,
         },
         removeApplicant: {
@@ -117,7 +118,6 @@ export const form: FormContent = {
     applicantLabel: {
       type: 'heading',
       label: label => label.labelFornewName,
-      classes: 'govuk-fieldset__heading',
       labelSize: 'm',
     },
     applicantFirstName: {
@@ -126,12 +126,14 @@ export const form: FormContent = {
       label: label => label.firstName,
       hint: hint => hint.firstNameHint,
       validator: isFieldFilledIn,
+      labelSize: 'none',
     },
     applicantLastName: {
       type: 'text',
       classes: 'govuk-input govuk-!-width-one-half',
       label: label => label.lastName,
       validator: isFieldFilledIn,
+      labelSize: 'none',
     },
     addAnotherApplicant: {
       type: 'button',
