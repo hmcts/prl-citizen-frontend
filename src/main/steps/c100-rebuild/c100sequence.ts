@@ -502,6 +502,11 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
   },
 ];
