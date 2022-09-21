@@ -103,6 +103,30 @@ export interface PartyDetails {
   user: User;
 }
 
+export interface User {
+  email: string,
+  idamId: string
+}
+
+export interface Response {
+  legalRepresentation?: string;
+  consent?: Consent;
+  keepDetailsPrivate?: KeepDetailsPrivate;
+}
+
+export interface Consent {
+  consentToTheApplication?: string;
+  noConsentReason?: string;
+  applicationReceivedDate?: DateAsString;
+  permissionFromCourt?: string;
+  courtOrderDetails?: string;
+}
+
+export interface KeepDetailsPrivate {
+  otherPeopleKnowYourContactDetails: string;
+  confidentiality: string;
+}
+
 export interface Applicant {
   id: string;
   value: PartyDetails;
@@ -739,6 +763,7 @@ export interface CaseData {
   applicant1AdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   applicant1EmailAddress?: string;
+  applicant1SafeToCall?: string;
   applicant1PhoneNumber?: string;
   applicant1DateOfBirth?: CaseDate;
   applicant1DateOfBirthText?: string;
@@ -756,12 +781,18 @@ export interface CaseData {
   applicant1ContactDetailsConsent?: YesOrNo;
   //applicant1LanguagePreference?: LanguagePreference;
   accessCode: string;
-  respondentCaseInvites: CaseInvite[]
+  caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
   //applicant1LanguagePreference?: LanguagePreference;
   citizenRole?: FieldPrefix;
-  fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
+  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
+  miamStart?: string;
   citizenUploadedDocumentList?: UploadDocumentList[];
 }
 
@@ -824,13 +855,17 @@ export const enum PaymentMethod {
   APPLY_FOR_HWF = 'applyForHWF',
 }
 export interface CaseInvite {
+  id: string;
+  value: CaseInviteValue;
+}
+
+export interface CaseInviteValue {
   partyId: string;
-  applicant2InviteEmailAddress: string;
+  caseInviteEmail: string;
   accessCode: string;
-  caseInviteEmail: string
-  applicant2UserId: string;
   invitedUserId: string;
   expiryDate: string;
+  isApplicant: YesOrNo;
 }
 
 
