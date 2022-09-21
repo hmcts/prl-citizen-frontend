@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
