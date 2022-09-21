@@ -1,6 +1,6 @@
 nodejs:
   image: 'hmctspublic.azurecr.io/prl/citizen-frontend:latest'
-  applicationPort: 3000
+  applicationPort: 3001
   readinessDelay: 130
   livenessDelay: 130
   autoscaling: # Default is false
