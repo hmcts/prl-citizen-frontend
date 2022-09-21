@@ -137,30 +137,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       req.session.userCase = caseDataFromCos;
-      // this is for testing //
-      // req.session.userCase.orderCollection = [
-      //   {
-      //     id: '9df80a48-dd3d-4e29-918b-472aa34a2490',
-      //     value: {
-      //       dateCreated: '08-Aug-2022',
-      //       orderType: 'test_orderType',
-      //       orderDocument: {
-      //         document_url:
-      //           'http://dm-store-aat.service.core-compute-aat.internal/documents/f2436270-0d05-436b-bafc-51000defd1e',
-      //         document_binary_url:
-      //           'http://dm-store-aat.service.core-compute-aat.internal/documents/f2436270-0d05-436b-bafc-51000defd1eb/binary',
-      //         document_filename: 'FL401-Final-Document 11.pdf',
-      //         document_hash: null,
-      //       },
-      //       otherDetails: {
-      //         createdBy: 'createdBy',
-      //         orderCreatedDate: 'orderCreatedDate',
-      //         orderMadeDate: 'orderMadeDate',
-      //         orderRecipients: 'orderRecipients',
-      //       },
-      //     },
-      //   },
-      // ];
     } catch (err) {
       console.log(err);
     }
