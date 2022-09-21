@@ -11,6 +11,8 @@ const en = () => ({
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'To Do',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
+    [SectionStatus.VIEW]: 'VIEW',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
@@ -24,6 +26,8 @@ const cy = () => ({
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
+    [SectionStatus.VIEW]: 'VIEW (In Welsh)',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
   },
@@ -40,6 +44,11 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
-    sections: generateRespondentTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
+    sections: generateRespondentTaskList(
+      translations.sectionTitles,
+      translations.taskListItems,
+      content.userCase,
+      content.userIdamId
+    ),
   };
 };

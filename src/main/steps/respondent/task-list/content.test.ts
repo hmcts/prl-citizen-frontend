@@ -12,6 +12,8 @@ const enContent = {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'To Do',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
+    [SectionStatus.VIEW]: 'VIEW',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
@@ -24,6 +26,8 @@ const cyContent = {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
+    [SectionStatus.VIEW]: 'VIEW (In Welsh)',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
   },
@@ -70,9 +74,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/miam/miam-start',
+              href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
               id: 'check_the_application',
-              status: 'IN_PROGRESS',
+              status: 'DOWNLOAD',
               text: 'Check the application (PDF)',
             },
           ],

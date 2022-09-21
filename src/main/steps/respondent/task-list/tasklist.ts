@@ -2,17 +2,17 @@ import { CaseWithId } from '../../../app/case/case';
 import * as URL from '../../urls';
 
 import {
+  getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
-  getCurrentOrOtherProceedingsStatus,
+  getFinalApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
-  getMiamStatus,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   return [
     {
       title: sectionTitles.aboutYou,
@@ -39,7 +39,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
     },
     {
       title: sectionTitles.theApplication,
-      items: [...getTheApplicationSection(taskListItems, userCase)],
+      items: [...getTheApplicationSection(taskListItems, userCase, userIdamId)],
     },
     ...getYourResponseSection(sectionTitles, taskListItems, userCase),
     {
@@ -84,29 +84,29 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
   ];
 };
 
-const getTheApplicationSection = (taskListItems, userCase: CaseWithId) => {
+const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamId) => {
   const itemList: object[] = [];
   if (userCase?.caseTypeOfApplication === 'C100') {
     itemList.push(
       {
         id: 'check_the_application',
         text: taskListItems.check_the_application,
-        status: getMiamStatus(userCase),
-        href: URL.MIAM_START,
+        status: getFinalApplicationStatus(userCase, userIdamId),
+        href: URL.APPLICANT_CA_DA_REQUEST + '?updateCase=Yes',
       },
       {
         id: 'check_allegations_of_harm_and_violence',
         text: taskListItems.check_allegations_of_harm_and_violence,
-        status: getCurrentOrOtherProceedingsStatus(userCase),
-        href: URL.PROCEEDINGS_START,
+        status: getCheckAllegationOfHarmStatus(userCase, userIdamId),
+        href: URL.ALLEGATION_OF_HARM_VOILENCE + '?updateCase=Yes',
       }
     );
   } else {
     itemList.push({
       id: 'check_the_application',
       text: taskListItems.check_the_application,
-      status: getMiamStatus(userCase),
-      href: URL.MIAM_START,
+      status: getFinalApplicationStatus(userCase, userIdamId),
+      href: URL.APPLICANT_CA_DA_REQUEST + '?updateCase=Yes',
     });
   }
 

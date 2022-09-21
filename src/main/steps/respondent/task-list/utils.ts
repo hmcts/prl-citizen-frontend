@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.detailsKnown && userCase?.startAlternative) {
@@ -138,4 +138,38 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
     return SectionStatus.COMPLETED;
   }
   return SectionStatus.TO_DO;
+};
+
+export const getFinalApplicationStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  let result = SectionStatus.DOWNLOAD;
+
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (
+      respondent?.value.user.idamId === userIdamId &&
+      respondent?.value?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES
+    ) {
+      result = SectionStatus.VIEW;
+    }
+  });
+
+  return result;
+};
+
+export const getCheckAllegationOfHarmStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  let status = SectionStatus.DOWNLOAD;
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (
+      respondent?.value.user?.idamId === userIdamId &&
+      respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
+    ) {
+      status = SectionStatus.VIEW;
+    }
+  });
+  return status;
 };

@@ -48,7 +48,7 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents//binary',
       });
     });
   });
@@ -69,7 +69,7 @@ describe('DocumentManagerController', () => {
       } catch (err) {
         flag = true;
       }
-      expect(flag).toBe(true);
+      expect(flag).toBe(false);
     });
   });
 
@@ -137,41 +137,9 @@ describe('DocumentManagerController', () => {
               email: 'test@example.net',
             },
           },
-        },
-      ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
-      req.headers.accept = 'application/pdf';
-      req.query.updateCase = 'Yes';
-      req.session.userCase.c1ADocument = {
-        document_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
-        document_binary_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
-        document_filename: 'C100.pdf',
-        document_hash: null,
-      };
-
-      await documentManagerController.get(req, res);
-
-      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
-    });
-  });
-
-  describe('check Allegation of Harm property saved with Response', () => {
-    test('check Allegation of Harm property saved', async () => {
-      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-      req.session.userCase.respondents = [
-        {
-          id: '9813df99-41bf-4b46-a602-86676b5e3547',
-          value: {
-            user: {
-              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-              email: 'test@example.net',
-            },
-            response: {
-              citizenFlags: {
-                isApplicationViewed: 'Yes',
-              },
+          response: {
+            citizenFlags: {
+              isAllegationOfHarmViewed: null,
             },
           },
         },
@@ -190,7 +158,81 @@ describe('DocumentManagerController', () => {
 
       await documentManagerController.get(req, res);
 
-      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
+      expect(req.session.userCase.respondents[0].value.response?.citizenFlags?.isAllegationOfHarmViewed).toEqual(undefined);
+    });
+  });
+
+  describe('check isApplicationViewed property saved with Response - value is No', () => {
+    test('check isApplicationViewed property saved', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'Yes',
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
+      req.headers.accept = 'application/pdf';
+      req.query.updateCase = 'Yes';
+      req.session.userCase.finalDocument = {
+        document_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isApplicationViewed).toEqual('Yes');
+    });
+  });
+
+  describe('check isApplicationViewed property saved with Response - value is null', () => {
+    test('check isApplicationViewed property saved', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isApplicationViewed: null,
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
+      req.headers.accept = 'application/pdf';
+      req.query.updateCase = 'Yes';
+      req.session.userCase.finalDocument = {
+        document_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isApplicationViewed).toEqual('Yes');
     });
   });
 
@@ -283,14 +325,13 @@ describe('DocumentManagerController', () => {
           },
         },
       ];
-      // const documentDetail = {
-      //   status: 400,
-      // };
+      const documentDetail = {
+        status: 400,
+      };
       req.query.isApplicant = 'Yes';
-      //generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
+      generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
       await documentManagerController.generatePdf(req, res);
-      expect(1).toEqual(1);
-      //expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
+      expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
     });
   });
 

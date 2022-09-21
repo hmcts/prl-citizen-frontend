@@ -14,7 +14,7 @@ import {
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { DocumentType, Respondent, YesOrNo } from '../case/definition';
+import { DocumentType, DownloadFileFieldFlag, FileProperties, Respondent, YesOrNo } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
@@ -27,9 +27,35 @@ import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentReq
 const UID_LENGTH = 36;
 @autobind
 export class DocumentManagerController extends PostController<AnyObject> {
+  private fileNameSearchPatternElementMap: Map<string, FileProperties> = new Map<string, FileProperties>();
+  private fileNameElementMap: Map<string, FileProperties> = new Map<string, FileProperties>();
+
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
+
+    if (this.fileNameSearchPatternElementMap.size === 0) {
+      this.fileNameSearchPatternElementMap = new Map<string, FileProperties>();
+      this.fileNameSearchPatternElementMap.set('miamcertificate', { elements: ['miamCertificationDocumentUpload'] });
+      this.fileNameSearchPatternElementMap.set('cadafinaldocumentrequest', {
+        elements: ['finalDocument'],
+        downloadFileFieldFlag: DownloadFileFieldFlag.IS_APPLICATION_VIEWED,
+      });
+      this.fileNameSearchPatternElementMap.set('aohviolence', {
+        elements: ['c1ADocument'],
+        downloadFileFieldFlag: DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED,
+      });
+    }
+
+    if (this.fileNameElementMap.size === 0) {
+      this.fileNameElementMap.set('downloadCitizenDocument', {
+        elements: ['citizenUploadedDocumentList', 'citizenDocument'],
+      });
+      this.fileNameElementMap.set('orders', { elements: ['orderCollection', 'orderDocument'] });
+      this.fileNameElementMap.set('applicationmade', { elements: ['existingProceedings', 'uploadRelevantOrder'] });
+      this.fileNameElementMap.set('downloadManageDocument', { elements: ['otherDocuments', 'documentOther'] });
+    }
   }
+
   private getDocumentManagementClient(user: UserDetails) {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
   }
@@ -123,7 +149,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let client;
     let caseReference;
     let loggedInCitizen;
-    let isAllegationOfHarmViewed;
     try {
       const originalUrl = req.originalUrl;
 
@@ -143,25 +168,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
       console.log(err);
     }
 
-    let documentToGet;
-    let uid;
-
-    if (filename === 'cadafinaldocumentrequest') {
-      if (!req.session.userCase.finalDocument?.document_binary_url) {
-        throw new Error('APPLICANT_CA_REQUEST binary url is not found');
-      }
-      filename = req.session.userCase.finalDocument.document_filename;
-      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-      uid = this.getUID(documentToGet);
-    }
-
-    if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
-      if (!req.session.userCase.finalDocument?.document_binary_url) {
-        throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
-      }
-      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-      uid = this.getUID(documentToGet);
-    }
+    let documentToGet = '';
+    let uid = '';
+    let fieldFlag = '';
 
     if (filename === DocumentType.WITNESS_STATEMENT) {
       if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
@@ -170,90 +179,29 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
       uid = this.getUID(documentToGet);
     }
-    if (filename.includes('miamcertificate')) {
-      if (!req.session.userCase.miamCertificationDocumentUpload?.document_binary_url) {
-        throw new Error('miam certificate binary url is not found');
-      }
-      filename = req.session.userCase.miamCertificationDocumentUpload.document_filename;
-      documentToGet = req.session.userCase.miamCertificationDocumentUpload.document_binary_url;
-      uid = this.getUID(documentToGet);
-    }
 
-    if (filename.includes('aohviolence')) {
-      if (!req.session.userCase.c1ADocument?.document_binary_url) {
-        throw new Error('c1ADocument binary url is not found');
-      }
-      filename = req.session.userCase.c1ADocument.document_filename;
-      documentToGet = req.session.userCase.c1ADocument.document_binary_url;
-      uid = this.getUID(documentToGet);
-      isAllegationOfHarmViewed = YesOrNo.YES;
-    }
-
-    if (endPoint === 'downloadCitizenDocument' && req.session.userCase?.citizenUploadedDocumentList) {
-      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
-        if (
-          doc.value?.citizenDocument?.document_url?.substring(
-            doc.value?.citizenDocument?.document_url?.lastIndexOf('/') + 1
-          ) === filename
-        ) {
-          if (!doc.value.citizenDocument.document_binary_url) {
-            throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
+    for (const entry of this.fileNameSearchPatternElementMap.entries()) {
+      const fileNameSearchPattern = entry[0];
+      if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
+        uid = this.getDocumentUIDWithOutFlag(req, entry[1].elements, entry[1].downloadFileFieldFlag);
+        if (uid.trim() !== '') {
+          if (entry[1]?.downloadFileFieldFlag) {
+            fieldFlag = entry[1]?.downloadFileFieldFlag;
           }
-          documentToGet = doc.value.citizenDocument.document_binary_url;
-          filename = doc.value.citizenDocument.document_filename;
+          break;
         }
       }
-      uid = this.getUID(documentToGet);
     }
 
-    if (endPoint === 'downloadManageDocument' && req.session.userCase?.otherDocuments) {
-      for (const doc of req.session.userCase?.otherDocuments) {
-        if (
-          doc.value?.documentOther?.document_url.substring(
-            doc.value.documentOther.document_url.lastIndexOf('/') + 1
-          ) === filename
-        ) {
-          if (!doc.value.documentOther.document_binary_url) {
-            throw new Error('APPLICATION_POSITION_STATEMENT binary url is not found');
-          }
-          documentToGet = doc.value.documentOther.document_binary_url;
-          filename = doc.value.documentOther.document_filename;
+    if (uid.trim() === '') {
+      for (const entry of this.fileNameElementMap.entries()) {
+        const searchPattern = entry[0];
+        const element = entry[1];
+        uid = this.getDocumentUIDWithMultipleElements(endPoint, req, filename, searchPattern, element.elements);
+        if (uid !== '') {
+          break;
         }
       }
-      uid = this.getUID(documentToGet);
-    }
-
-    if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
-      for (const doc of req.session.userCase?.orderCollection) {
-        if (
-          doc.value.orderDocument.document_url.substring(doc.value.orderDocument.document_url.lastIndexOf('/') + 1) ===
-          filename
-        ) {
-          if (!doc.value.orderDocument.document_binary_url) {
-            throw new Error('ORDERS_FROM_THE_COURT binary url is not found');
-          }
-          documentToGet = doc.value.orderDocument.document_binary_url;
-          filename = doc.value.orderDocument.document_filename;
-        }
-      }
-      uid = this.getUID(documentToGet);
-    }
-
-    if (endPoint === 'applicationmade' && req.session.userCase?.existingProceedings) {
-      for (const doc of req.session.userCase?.existingProceedings) {
-        if (
-          doc.value?.uploadRelevantOrder?.document_url.substring(
-            doc.value.uploadRelevantOrder.document_url.lastIndexOf('/') + 1
-          ) === filename
-        ) {
-          if (!doc.value.uploadRelevantOrder.document_binary_url) {
-            throw new Error('APPLICATION MADE IN THESE PROCEEDINGS binary url is not found');
-          }
-          documentToGet = doc.value.uploadRelevantOrder.document_binary_url;
-          filename = doc.value.uploadRelevantOrder.document_filename;
-        }
-      }
-      uid = this.getUID(documentToGet);
     }
 
     const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
@@ -264,12 +212,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       if (err) {
         throw err;
       } else if (generatedDocument) {
-        if (
-          isAllegationOfHarmViewed === YesOrNo.YES &&
-          req.query?.updateCase &&
-          req.query?.updateCase === YesOrNo.YES
-        ) {
-          this.setAllegationOfHarmViewed(req, caseReference, client, req.session.user);
+        if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
+          this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
         }
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
@@ -286,31 +230,94 @@ export class DocumentManagerController extends PostController<AnyObject> {
     });
   }
 
-  private async setAllegationOfHarmViewed(
+  private getDocumentUIDWithMultipleElements(
+    endPoint: string,
+    req: AppRequest<Partial<CaseWithId>>,
+    filename: string,
+    endPoint_input: string,
+    elements: string[] | undefined
+  ) {
+    let documentToGet = '';
+    let uid = '';
+
+    if (elements !== null && elements?.length && elements?.length > 0) {
+      const element = elements[0];
+      const childElement = elements[1];
+
+      if (endPoint === endPoint_input && req.session.userCase[`${element}`]) {
+        for (const doc of req.session.userCase[`${element}`]) {
+          if (
+            doc.value[`${childElement}`]?.document_url?.substring(
+              doc.value[`${childElement}`]?.document_url?.lastIndexOf('/') + 1
+            ) === filename
+          ) {
+            if (!doc.value[`${childElement}`].document_binary_url) {
+              throw new Error('Binary URL is not found for ' + element + ':' + childElement);
+            }
+            documentToGet = doc.value[`${childElement}`].document_binary_url;
+          }
+        }
+        uid = this.getUID(documentToGet);
+      }
+    }
+    return uid;
+  }
+
+  private getDocumentUIDWithOutFlag(
+    req: AppRequest<Partial<CaseWithId>>,
+    element: string[] | undefined,
+    flag: string | undefined
+  ) {
+    let uid = '';
+    let documentToGet = '';
+    let ele = '';
+    const document_filename = req.session.userCase[`${element}`]?.document_filename;
+
+    if (element !== null && element !== undefined) {
+      ele = element[0];
+      if (!req.session.userCase[`${ele}`]?.document_binary_url) {
+        throw new Error('binary url is not found for ' + document_filename);
+      }
+      documentToGet = req.session.userCase[`${ele}`]?.document_binary_url;
+      uid = this.getUID(documentToGet);
+
+      if (flag !== null || flag !== undefined) {
+        flag = YesOrNo.YES;
+      }
+    }
+    return uid;
+  }
+
+  private async setFlagViewed(
     req: AppRequest<Partial<CaseWithId>>,
     caseReference: string,
     client: CosApiClient,
-    loggedInCitizen: UserDetails
+    loggedInCitizen: UserDetails,
+    flag: string
   ) {
-    let isAllegationOfHarmViewed;
+    let isFlagViewed;
+    let skipCallToSaveState: boolean;
     req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
-      if (
-        respondent?.value?.user?.idamId === req.session?.user.id &&
-        !respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed
-      ) {
-        isAllegationOfHarmViewed = YesOrNo.YES;
-        if (respondent.value.response && respondent.value.response.citizenFlags) {
-          respondent.value.response.citizenFlags.isAllegationOfHarmViewed = YesOrNo.YES;
-        } else {
-          respondent.value.response = {
-            citizenFlags: {
-              isAllegationOfHarmViewed: 'Yes',
-            },
-          };
+      const cvIsApplicationViewed = respondent?.value?.response?.citizenFlags?.isApplicationViewed;
+      const cvIsAllegationOfHarmViewed = respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed;
+
+      if (respondent?.value?.user?.idamId === req.session?.user.id) {
+        if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && cvIsApplicationViewed === YesOrNo.YES) {
+          skipCallToSaveState = true;
+        } else if (
+          flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED &&
+          cvIsAllegationOfHarmViewed === YesOrNo.YES
+        ) {
+          skipCallToSaveState = true;
+        }
+
+        if (!skipCallToSaveState) {
+          this.setCaseDataCitizenFlags(flag, cvIsAllegationOfHarmViewed, cvIsApplicationViewed, respondent);
+          isFlagViewed = YesOrNo.YES;
         }
       }
     });
-    if (isAllegationOfHarmViewed) {
+    if (isFlagViewed) {
       const data = toApiFormat(req?.session?.userCase);
       data.id = caseReference;
       const updatedCaseDataFromCos = await client.updateCase(
@@ -320,6 +327,42 @@ export class DocumentManagerController extends PostController<AnyObject> {
         'citizen-internal-case-update'
       );
       req.session.userCase = updatedCaseDataFromCos;
+    }
+  }
+
+  private setCaseDataCitizenFlags(
+    flag: string,
+    cvIsAllegationOfHarmViewed: string | undefined,
+    cvIsApplicationViewed: string | undefined,
+    respondent: Respondent
+  ) {
+    if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && respondent?.value?.response?.citizenFlags) {
+      if (cvIsAllegationOfHarmViewed === null || cvIsAllegationOfHarmViewed === undefined) {
+        respondent.value.response.citizenFlags = {
+          isAllegationOfHarmViewed: 'No',
+          isApplicationViewed: 'Yes',
+        };
+      } else {
+        respondent.value.response.citizenFlags = {
+          isAllegationOfHarmViewed: 'Yes',
+          isApplicationViewed: 'Yes',
+        };
+      }
+    } else if (
+      flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED &&
+      respondent?.value?.response?.citizenFlags
+    ) {
+      if (cvIsApplicationViewed === null || cvIsApplicationViewed === undefined) {
+        respondent.value.response.citizenFlags = {
+          isAllegationOfHarmViewed: 'Yes',
+          isApplicationViewed: 'No',
+        };
+      } else {
+        respondent.value.response.citizenFlags = {
+          isAllegationOfHarmViewed: 'Yes',
+          isApplicationViewed: 'Yes',
+        };
+      }
     }
   }
 

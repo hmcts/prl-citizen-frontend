@@ -198,6 +198,7 @@ export const generatePageContent = ({
   byApplicant,
   document_type,
   addresses = [],
+  userIdamId,
 }: // eligibility,
 // fee,
 {
@@ -211,6 +212,7 @@ export const generatePageContent = ({
   addresses?: [];
   name?: string;
   byApplicant?: string;
+  userIdamId?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -233,6 +235,7 @@ export const generatePageContent = ({
     // contactEmail,
     // eligibility,
     // fee,
+    userIdamId,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -263,6 +266,7 @@ export type CommonContent = typeof en & {
   byApplicant?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
+  userIdamId?: string;
 };
 
 export type Language = 'en' | 'cy';

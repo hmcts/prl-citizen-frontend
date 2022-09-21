@@ -120,7 +120,15 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
 }
 
-
+export const enum DownloadFileFieldFlag {
+  IS_APPLICATION_VIEWED = 'isApplicationViewed',
+  IS_ALLEGATION_OF_HARM_VIEWED = 'isAllegationOfHarmViewed',
+  
+}
+export interface FileProperties {
+  elements?: string[],
+  downloadFileFieldFlag?: string | DownloadFileFieldFlag
+}
 export interface Consent {
   consentToTheApplication?: string;
   noConsentReason?: string;
