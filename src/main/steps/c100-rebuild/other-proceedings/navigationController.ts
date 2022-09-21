@@ -1,7 +1,7 @@
 import { Case } from '../../../app/case/case';
 import { C100OrderInterface, C100OrderTypeKeyMapper, C100OrderTypes, YesNoEmpty } from '../../../app/case/definition';
 import {
-  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  C100_CONFIDENTIALITY_DETAILS_KNOW,
   C100_OTHER_PROCEEDINGS_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
   C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
@@ -62,7 +62,7 @@ class OtherProceedingsNavigationController {
               // check at last if there were any previous order types having at least an order with order copy
               nextUrl = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
             } else {
-              nextUrl = C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS;
+              nextUrl = C100_CONFIDENTIALITY_DETAILS_KNOW;
             }
           }
         }

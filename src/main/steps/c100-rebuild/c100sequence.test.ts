@@ -334,7 +334,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[38].url).toBe('/c100-rebuild/other-proceedings/document-summary');
     expect(C100Sequence[38].showInSection).toBe('c100');
-    expect(C100Sequence[38].getNextStep({})).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+    expect(C100Sequence[38].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
 
     expect(C100Sequence[39].url).toBe('/c100-rebuild/safety-concerns/concern-about');
     expect(C100Sequence[39].showInSection).toBe('c100');

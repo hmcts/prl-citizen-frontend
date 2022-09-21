@@ -92,8 +92,8 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...QueryString.parse(urlQueryStr),
   } as Record<string, string>;
 
-  if (nextStep?.santizeQueryString) {
-    finalQueryString = nextStep?.santizeQueryString(path, urlPath, { ...finalQueryString });
+  if (nextStep?.sanitizeQueryString) {
+    finalQueryString = nextStep?.sanitizeQueryString(path, urlPath, { ...finalQueryString });
   }
 
   if (Object.values(finalQueryString).length) {

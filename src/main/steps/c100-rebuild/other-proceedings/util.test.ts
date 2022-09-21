@@ -12,7 +12,7 @@ import {
   isAnyOrderWithDocument,
   isAnyOrderWithOrderCopy,
   isValidOrderType,
-  santizeOtherProceedingsQueryString,
+  sanitizeOtherProceedingsQueryString,
 } from './util';
 
 const dummyRequest = mockRequest({
@@ -86,9 +86,9 @@ describe('OtherProceedingsNavigationController', () => {
     );
   });
 
-  test('santizeOtherProceedingsQueryString method should remove unnecssary query string on page navigation', async () => {
+  test('sanitizeOtherProceedingsQueryString method should remove unnecssary query string on page navigation', async () => {
     expect(
-      santizeOtherProceedingsQueryString(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, C100_OTHER_PROCEEDINGS_ORDER_DETAILS, {
+      sanitizeOtherProceedingsQueryString(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, C100_OTHER_PROCEEDINGS_ORDER_DETAILS, {
         orderId: '1',
         orderType: 'careOrder',
         lng: 'cy',
@@ -101,11 +101,15 @@ describe('OtherProceedingsNavigationController', () => {
     );
 
     expect(
-      santizeOtherProceedingsQueryString(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
-        orderId: '1',
-        orderType: 'careOrder',
-        lng: 'cy',
-      })
+      sanitizeOtherProceedingsQueryString(
+        C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+        C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+        {
+          orderId: '1',
+          orderType: 'careOrder',
+          lng: 'cy',
+        }
+      )
     ).toEqual(
       expect.objectContaining({
         orderId: '1',
@@ -115,7 +119,7 @@ describe('OtherProceedingsNavigationController', () => {
     );
 
     expect(
-      santizeOtherProceedingsQueryString(
+      sanitizeOtherProceedingsQueryString(
         C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
         C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
         {
@@ -131,11 +135,15 @@ describe('OtherProceedingsNavigationController', () => {
     );
 
     expect(
-      santizeOtherProceedingsQueryString(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, C100_OTHER_PROCEEDINGS_ORDER_DETAILS, {
-        orderId: '1',
-        orderType: 'careOrder',
-        lng: 'cy',
-      })
+      sanitizeOtherProceedingsQueryString(
+        C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+        C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+        {
+          orderId: '1',
+          orderType: 'careOrder',
+          lng: 'cy',
+        }
+      )
     ).toEqual(
       expect.objectContaining({
         orderType: 'careOrder',
@@ -144,7 +152,7 @@ describe('OtherProceedingsNavigationController', () => {
     );
 
     expect(
-      santizeOtherProceedingsQueryString(
+      sanitizeOtherProceedingsQueryString(
         C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
         C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
         {
@@ -162,7 +170,7 @@ describe('OtherProceedingsNavigationController', () => {
     );
 
     expect(
-      santizeOtherProceedingsQueryString(
+      sanitizeOtherProceedingsQueryString(
         C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
         C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
         {
@@ -178,7 +186,7 @@ describe('OtherProceedingsNavigationController', () => {
     );
 
     expect(
-      santizeOtherProceedingsQueryString(
+      sanitizeOtherProceedingsQueryString(
         C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
         C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
         {

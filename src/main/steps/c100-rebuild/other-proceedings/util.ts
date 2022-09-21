@@ -45,7 +45,7 @@ export const getAllOrderDocuments = (
   return getAllOrders(orders).filter(order => order.orderDocument?.id);
 };
 
-export const santizeOtherProceedingsQueryString = (
+export const sanitizeOtherProceedingsQueryString = (
   fromUrl: string,
   toUrl: string,
   queryString: Record<string, string>
