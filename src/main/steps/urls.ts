@@ -200,6 +200,7 @@ export const C100_OTHER_PROCEEDINGS_DETAILS: PageLink = `${C100_URL}/other-proce
 export const C100_OTHER_PROCEEDINGS_ORDER_DETAILS: PageLink = `${C100_URL}/other-proceedings/order-details`;
 export const C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${C100_URL}/other-proceedings/documentUpload`;
 export const C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY: PageLink = `${C100_URL}/other-proceedings/document-summary`;
+export const C100_SUBMIT_APPLICATION_HELP_WITH_FEE: PageLink = `${C100_URL}/submit-application/paper-submit-hwf`;
 
 /** @C100 Help with Fees */
 export const C100_HELP_WITH_FEES: PageLink = `${C100_URL}/help-with-fees`;

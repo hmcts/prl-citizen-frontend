@@ -1,0 +1,73 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+          {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+                      {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+
+{% block page_content %}
+            {% set html %}
+                <h2 class="govuk-notification-banner__heading">{{notificationHeading}}</h2>
+                <p class="govuk-body">Your case number is <strong>{{userCase['caseId']}}</strong></p>
+            {% endset %}
+
+            {{ govukNotificationBanner({
+            html: html,
+            type: 'success'
+            }) }}
+
+          <h2 class="govuk-heading-xl">{{secondaryHeading}}</h2>
+
+{{ govukWarningText({
+  text: warningText,
+  iconFallbackText: "Warning"
+}) }}
+
+
+
+          <h2 class="app-task-list__section govuk-heading-l">
+            <span class="app-task-list__section-number">1. </span>{{secondaryHeading1}}
+          </h2>
+
+          <p class="govuk-body">If you have uploaded any documents, they have been attached to your application.</p>
+
+
+{{ govukInsetText({
+  html: innerText
+}) }}
+
+{{ govukButton({
+  text: "Download your application"
+})}}
+
+              <h2 class="app-task-list__section govuk-heading-l">
+                <span class="app-task-list__section-number">2. </span> {{secondaryHeading2}}
+              </h2>
+              <p class="govuk-body">{{paragraphText}}</p>
+              <p class="govuk-body">{{paragraphText1}}</p>
+              <h2 class="app-task-list__section govuk-heading-l">
+                <span class="app-task-list__section-number">3. </span> {{secondaryHeading3}}
+              </h2>
+
+              <p class="govuk-body">{{paragraphText2}}</p>
+              {{ govukInsetText({
+                html: postalAddress
+              }) }}
+
+            <h2 class="app-task-list__section govuk-heading-l">
+              <span class="app-task-list__section-number">4. </span> {{secondaryHeading4}}
+            </h2>
+
+                <p class="govuk-body">{{paragraphText3}}
+                </p>
+                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+            <h3 class="govuk-heading-m">You can also:</h3>
+
+            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
+           {% for item in firstList %}
+                    <li>{{item | safe}}</li>
+                {% endfor %}
+            </ul>
+
+{% endblock %}
+
