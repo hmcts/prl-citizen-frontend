@@ -52,7 +52,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const isApplicant = req.query.isApplicant;
     const partyName = this.getPartyName(isApplicant, req);
-    let redirectUrl;
 
     const uploadDocumentDetails = {
       caseId: req.session.userCase.id,
@@ -124,9 +123,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     let filename = '';
     let endPoint = '';
-    let client;
-    let caseReference;
-    let caseworkerUser;
+
     try {
       const originalUrl = req.originalUrl;
 
