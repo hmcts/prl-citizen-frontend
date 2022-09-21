@@ -308,7 +308,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 };
 
 export const getOrderSessionDataShape = (): C100OrderInterface => ({
-  //id: uuid().toString(),
+  id: '',
   orderDetail: '',
   caseNo: '',
   orderDate: {

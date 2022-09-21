@@ -17,23 +17,18 @@ class OtherProceedingsNavigationController {
   private orderType = '';
   private orderId: number | undefined = undefined;
 
-  private getOrderId(): number {
-    return this.orders.findIndex(order => order.orderCopy === YesNoEmpty.YES) + 1;
+  private getOrderId(): string | undefined {
+    return this.orders.find(order => order.orderCopy === YesNoEmpty.YES)?.id;
   }
-  private getNextOrderId(): number {
-    return (
-      this.orders.findIndex((order, index) => order.orderCopy === YesNoEmpty.YES && index > Number(this.orderId) - 1) +
-      1
-    );
+  private getNextOrderId(): string | undefined {
+    return this.orders.find(order => Number(order.id) > Number(this.orderId) && order.orderCopy === YesNoEmpty.YES)?.id;
   }
   private getCurrentOrderTypeIndex(): number {
     return this.selectedOrderTypes.findIndex(_orderType => _orderType === this.orderType);
   }
   private getNextOrderType(): C100OrderTypes | '' {
     const currentSelectedOrderIndex = this.getCurrentOrderTypeIndex();
-    return currentSelectedOrderIndex <= this.selectedOrderTypes.length - 1
-      ? this.selectedOrderTypes[currentSelectedOrderIndex + 1]
-      : '';
+    return this.selectedOrderTypes[currentSelectedOrderIndex + 1] ?? '';
   }
 
   private getOrdersByType(caseData): C100OrderInterface[] | [] {

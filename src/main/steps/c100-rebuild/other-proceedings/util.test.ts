@@ -1,7 +1,19 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { C100OrderTypes } from '../../../app/case/definition';
+import {
+  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
+  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+  C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+} from '../../urls';
 
-import { getAllOrderDocuments, isAnyOrderWithDocument, isAnyOrderWithOrderCopy, isValidOrderType } from './util';
+import {
+  getAllOrderDocuments,
+  isAnyOrderWithDocument,
+  isAnyOrderWithOrderCopy,
+  isValidOrderType,
+  santizeOtherProceedingsQueryString,
+} from './util';
 
 const dummyRequest = mockRequest({
   query: {},
@@ -71,6 +83,114 @@ describe('OtherProceedingsNavigationController', () => {
           },
         }),
       ])
+    );
+  });
+
+  test('santizeOtherProceedingsQueryString method should remove unnecssary query string on page navigation', async () => {
+    expect(
+      santizeOtherProceedingsQueryString(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, C100_OTHER_PROCEEDINGS_ORDER_DETAILS, {
+        orderId: '1',
+        orderType: 'careOrder',
+        lng: 'cy',
+      })
+    ).toEqual(
+      expect.objectContaining({
+        orderType: 'careOrder',
+        lng: 'cy',
+      })
+    );
+
+    expect(
+      santizeOtherProceedingsQueryString(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
+        orderId: '1',
+        orderType: 'careOrder',
+        lng: 'cy',
+      })
+    ).toEqual(
+      expect.objectContaining({
+        orderId: '1',
+        orderType: 'careOrder',
+        lng: 'cy',
+      })
+    );
+
+    expect(
+      santizeOtherProceedingsQueryString(
+        C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+        C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
+        {
+          orderId: '1',
+          orderType: 'careOrder',
+          lng: 'cy',
+        }
+      )
+    ).toEqual(
+      expect.objectContaining({
+        lng: 'cy',
+      })
+    );
+
+    expect(
+      santizeOtherProceedingsQueryString(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, C100_OTHER_PROCEEDINGS_ORDER_DETAILS, {
+        orderId: '1',
+        orderType: 'careOrder',
+        lng: 'cy',
+      })
+    ).toEqual(
+      expect.objectContaining({
+        orderType: 'careOrder',
+        lng: 'cy',
+      })
+    );
+
+    expect(
+      santizeOtherProceedingsQueryString(
+        C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+        C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+        {
+          orderId: '1',
+          orderType: 'careOrder',
+          lng: 'cy',
+        }
+      )
+    ).toEqual(
+      expect.objectContaining({
+        orderId: '1',
+        orderType: 'careOrder',
+        lng: 'cy',
+      })
+    );
+
+    expect(
+      santizeOtherProceedingsQueryString(
+        C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+        C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
+        {
+          orderId: '1',
+          orderType: 'careOrder',
+          lng: 'cy',
+        }
+      )
+    ).toEqual(
+      expect.objectContaining({
+        lng: 'cy',
+      })
+    );
+
+    expect(
+      santizeOtherProceedingsQueryString(
+        C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
+        C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+        {
+          orderId: '1',
+          orderType: 'careOrder',
+          lng: 'cy',
+        }
+      )
+    ).toEqual(
+      expect.objectContaining({
+        lng: 'cy',
+      })
     );
   });
 });

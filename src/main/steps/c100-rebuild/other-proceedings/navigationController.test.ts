@@ -17,30 +17,37 @@ const dummyRequest = mockRequest({
         order: {
           careOrders: [
             {
+              id: '1',
               orderCopy: '',
             },
             {
+              id: '2',
               orderCopy: 'Yes',
             },
             {
+              id: '3',
               orderCopy: 'No',
             },
             {
+              id: '4',
               orderCopy: 'Yes',
             },
           ],
           emergencyProtectionOrders: [
             {
+              id: '1',
               orderCopy: '',
             },
           ],
           otherOrders: [
             {
+              id: '1',
               orderCopy: 'Yes',
             },
           ],
           supervisionOrders: [
             {
+              id: '1',
               orderCopy: '',
             },
           ],

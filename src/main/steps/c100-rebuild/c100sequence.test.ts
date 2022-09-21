@@ -16,6 +16,7 @@ const otherProceedingsMockData = mockRequest({
         order: {
           careOrders: [
             {
+              id: '1',
               orderDetail: '',
               caseNo: '',
               orderDate: {
