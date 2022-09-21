@@ -89,4 +89,61 @@ describe('PostController', () => {
     controller.post(req, mockResponse());
     expect(req.session.userCase['allApplicants']).toHaveLength(2);
   });
+
+  test('Adding Applicant after if both body appliantfirst and applicantlastname is empty', async () => {
+    const mockFields = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddApplicantPostController(mockFields.fields);
+    const req = mockRequest();
+    req.session.userCase['allApplicants'] = dummyData;
+    req.body = {
+      'ApplicantFirstName-1': '',
+      'ApplicantLastName-1': '',
+      applicantFirstName: '',
+      applicantLastName: '',
+    };
+    controller.post(req, mockResponse());
+    expect(req.session.userCase['allApplicants']).toHaveLength(2);
+  });
+
+  test('Adding Applicant after if both body appliantfirst and applicantlastname with values', async () => {
+    const mockFields = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddApplicantPostController(mockFields.fields);
+    const req = mockRequest();
+    req.session.userCase['allApplicants'] = dummyData;
+    req.session.save = function () {
+      return req.session;
+    };
+    req.body = {
+      saveAndContinue: 'true',
+      'ApplicantFirstName-1': 'da',
+      'ApplicantLastName-1': 'x',
+      applicantFirstName: 'test',
+      applicantLastName: 'tes',
+    };
+    controller.post(req, mockResponse());
+    expect(req.session.userCase['allApplicants']).toHaveLength(3);
+  });
+  test('Adding another applicant using addAnotherApplicant', async () => {
+    const mockFields = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddApplicantPostController(mockFields.fields);
+    const req = mockRequest();
+    req.session.userCase['allApplicants'] = dummyData;
+    req.session.save = function () {
+      return req.session;
+    };
+    req.body = {
+      applicantFirstName: 'dummy 3',
+      applicantLastName: 'dummy 3',
+    };
+    controller.addAnotherApplicant(req);
+    expect(req.session.userCase['allApplicants']).toHaveLength(3);
+    expect(req.session.userCase['allApplicants'][2].applicantFirstName).toBe('dummy 3');
+    expect(req.session.userCase['allApplicants'][2].applicantLastName).toBe('dummy 3');
+  });
 });

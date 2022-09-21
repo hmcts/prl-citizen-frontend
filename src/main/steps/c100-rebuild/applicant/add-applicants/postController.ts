@@ -31,7 +31,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
     const saveAndContinueChecked = req['body']['saveAndContinue'] && req['body']['saveAndContinue'] !== undefined;
     if (saveAndContinueChecked) {
       const toggleCheckIfApplicantFieldIsFilled =
-        req['body']['applicantFirstName'] !== '' || req['body']['applicantFirstName'] !== '';
+        req['body']['applicantFirstName'] !== '' || req['body']['applicantLastName'] !== '';
 
       /* Checking if the applicant fields are filled, and if they are, it is mapping the entries to the
      values after continuing, and adding another application. If they are not filled, it is just

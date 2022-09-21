@@ -2,8 +2,8 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-
-import { generateContent, generateFormFields } from './content';
+import { isFieldFilledIn } from '../../../../app/form/validation';
+import { generateContent, generateFormFields, form } from './content';
 
 jest.mock('../../../../app/form/validation');
 
@@ -59,6 +59,49 @@ const dummyApplicants = [
     applicantLastName: 'Test2',
   },
 ];
+
+
+describe('chekcing form fields',()=> {
+  test('should match forms fields', () => {
+    expect(JSON.stringify(form)).toEqual(JSON.stringify({
+      fields: {
+        applicantLabel: {
+          type: 'heading',
+          label: label => label.labelFornewName,
+          labelSize: 'm',
+        },
+        applicantFirstName: {
+          type: 'text',
+          classes: 'govuk-input govuk-!-width-one-half',
+          label: label => label.firstName,
+          hint: hint => hint.firstNameHint,
+          validator: isFieldFilledIn,
+          labelSize: 'none',
+        },
+        applicantLastName: {
+          type: 'text',
+          classes: 'govuk-input govuk-!-width-one-half',
+          label: label => label.lastName,
+          validator: isFieldFilledIn,
+          labelSize: 'none',
+        },
+        addAnotherApplicant: {
+          type: 'button',
+          label: l => l.buttonAddApplicant,
+          classes: 'govuk-button--secondary margin-top-3',
+          value: 'Yes',
+        },
+      },
+      submit: {
+        text: l => l.onlycontinue,
+      },
+      saveAndComeLater: {
+        text: l => l.saveAndComeLater,
+      },
+    })
+)});
+} )
+
 describe('applicant > add-applicants > content', () => {
   const commonContent = {
     language: 'en',
@@ -125,4 +168,5 @@ describe('applicant > add-applicants > content', () => {
       (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
   });
+
 });
