@@ -1,8 +1,6 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
-// import { Fee } from '../../app/case/definition';
-// import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {
@@ -199,9 +197,7 @@ export const generatePageContent = ({
   document_type,
   addresses = [],
   userIdamId,
-}: // eligibility,
-// fee,
-{
+}: {
   language: Language;
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
@@ -213,12 +209,10 @@ export const generatePageContent = ({
   name?: string;
   userIdamId?: string;
   byApplicant?: string;
-  // eligibility?: Eligibility;
-  // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
-  // const contactEmail = 'todo@test.com';
+
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
@@ -227,15 +221,12 @@ export const generatePageContent = ({
     userEmail,
     name,
     userCaseList,
-    // contactEmail,
+
     addresses,
     caption,
     document_type,
     userIdamId,
     byApplicant,
-    // contactEmail,
-    // eligibility,
-    // fee,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -259,13 +250,11 @@ export type CommonContent = typeof en & {
   name?: string;
   caption?: string;
   document_type?: string;
-  // contactEmail?: string;
-  // referenceNumber?: string;
+
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   byApplicant?: string;
-  // eligibility?: Eligibility;
-  // fee?: Fee;
+
   userIdamId?: string;
 };
 

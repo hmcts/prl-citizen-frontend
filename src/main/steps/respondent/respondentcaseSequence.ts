@@ -30,11 +30,6 @@ import {
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
-  // INTERNATIONAL_FACTORS_JURISDICTION,
-  // INTERNATIONAL_FACTORS_PARENTS,
-  // INTERNATIONAL_FACTORS_REQUEST,
-  // INTERNATIONAL_FACTORS_START,
-  // INTERNATIONAL_FACTORS_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
   RESPONDENT,
@@ -74,16 +69,7 @@ export const respondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
-  // {
-  //   url: CONSENT_TO_APPLICATION,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getNextStep: () => CONSENT_SUMMARY,
-  // },
-  // {
-  //   url: CONSENT_SUMMARY,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getNextStep: () => CONSENT_SAVE,
-  // },
+
   {
     url: RESPONDENT_DETAILS_KNOWN,
     showInSection: Sections.AboutRespondentCase,

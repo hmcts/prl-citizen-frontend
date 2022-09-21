@@ -21,7 +21,6 @@ export const setMIAMDetails = (respondent: Respondent, req: AppRequest): Respond
   return respondent;
 };
 
-//get the values from db and set the value to request user session front end fields
 export const getMIAMDetails = (respondent: Respondent, req: AppRequest): Partial<CaseWithId> => {
   if (respondent?.value?.response?.miam?.attendedMiam === YesOrNo.YES) {
     req.session.userCase.miamStart = YesOrNo.YES;

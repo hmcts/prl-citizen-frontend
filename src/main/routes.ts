@@ -5,9 +5,7 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
-//import { ConsentGetController } from './app/controller/ConsentGetController';
 import { GetController } from './app/controller/GetController';
-//import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
@@ -33,8 +31,6 @@ import {
   APPLICANT_TASK_LIST_URL,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
-  // CONSENT_SAVE,
-  // CONSENT_TO_APPLICATION,
   CONTACT_US,
   COOKIES_PAGE,
   CSRF_TOKEN_ERROR_URL,

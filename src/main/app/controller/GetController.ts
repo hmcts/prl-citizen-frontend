@@ -5,7 +5,6 @@ import Negotiator from 'negotiator';
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import * as Urls from '../../steps/urls';
-// import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_UPDATE } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
@@ -57,8 +56,6 @@ export class GetController {
       caption: captionValue,
       document_type,
       name,
-      // isDraft: req.session?.userCase?.state ? req.session.userCase.state === State.Draft : true,
-      // getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
   }
 

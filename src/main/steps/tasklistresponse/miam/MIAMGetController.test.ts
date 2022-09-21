@@ -16,7 +16,7 @@ describe('MIAMGetController', () => {
       text: 'welsh',
     },
   };
-  //const userEmail = 'test@example.com';
+
   const generateContent = content => languages[content.language];
   const miamGetController = new MIAMGetController('page', generateContent);
   const req = mockRequest();
