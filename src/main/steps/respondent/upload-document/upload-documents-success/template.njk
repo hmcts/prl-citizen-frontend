@@ -15,7 +15,7 @@
   </div>
   <div class="uploadedfiles govuk-!-margin-bottom-3" style=" display: inline-block">
 
-    <h2 class="govuk-heading-s{% if userCase.applicantUploadFiles.length==0 %} hidden{% endif %}">{{documentDetails}}{{caption}}</h2>
+    <h2 class="govuk-heading-s{% if userCase.respondentUploadFiles.length==0 %} hidden{% endif %}">{{documentDetails}}{{caption}}</h2>
     <ul id="filesUploadedList" class="govuk-list">
       <dl class="govuk-summary-list">
         {% for file in userCase.respondentUploadFiles %}
@@ -30,7 +30,7 @@
     </ul>
   </div>
   <div class="govuk-button-group">
-    <form action="/respondent/upload-document" method="post" novalidate="">
+    <form action="/respondent/upload-document">
       <input type="hidden" name="answers-checked" value="true">
       <button class="govuk-button govuk-button--secondary" data-module="govuk-button" value="Save and come back later">Upload another document</button>
     </form>
