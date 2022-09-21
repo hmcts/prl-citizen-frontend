@@ -61,7 +61,7 @@ export const form: FormContent = {
               label: l => l.emailTitle,
               labelSize: null,
               //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-              validator: value => {
+              validator: (value): void | string => {
                 return isFieldFilledIn(value) !== 'required' ? isEmailValid(value) : '';
               },
             },
