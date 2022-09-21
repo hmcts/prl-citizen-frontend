@@ -35,42 +35,43 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { files }: AppRequest<AnyObject> = req;
     const { orderType, orderId } = req.query;
 
-    if (isNull(files) || files === undefined) {
-      const errorMessage = 'valdiation error';
-      this.uploadFileError(req, res, errorMessage);
-    } else {
-      const { documents }: AnyType = files;
+    const courtOrderType = orderType as C100OrderTypes;
+    const courtOrderId: AnyType | undefined = orderId;
 
-      const formData: FormData = new FormData();
+    const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
+      C100OrderTypeKeyMapper[courtOrderType]
+    ] as C100OrderInterface[];
+    const orderSessionDataById = orderSessionData[courtOrderId - 1];
 
-      const courtOrderType = orderType as C100OrderTypes;
-      const courtOrderId: AnyType | undefined = orderId;
-      const dateOfSystem = new Date().toLocaleString().split(',')[0].split('/').join('');
-      const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
-      const orderTypeName = this.buildOrderTypeName(courtOrderType);
-      let fileName: string;
-      if (orderId === '1') {
-        fileName = `applicant__${orderTypeName}__${dateOfSystem}.${extensionType}`;
-      } else {
-        fileName = `applicant__${orderTypeName}_${orderId}__${dateOfSystem}.${extensionType}`;
-      }
-      formData.append('file', documents.data, {
-        contentType: documents.mimetype,
-        filename: fileName,
+    if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+      req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
+      req.session.save(err => {
+        if (err) {
+          throw err;
+        }
+        res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
       });
-      const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
-        C100OrderTypeKeyMapper[courtOrderType]
-      ] as C100OrderInterface[];
-      const orderSessionDataById = orderSessionData[courtOrderId - 1];
-      if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
-        req.session.errors = [{ propertyName: 'document', errorType: 'required' }];
-        req.session.save(err => {
-          if (err) {
-            throw err;
-          }
-          res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
-        });
+    } else {
+      if (isNull(files) || files === undefined) {
+        this.uploadFileError(req, res, orderType as string, orderId as string);
       } else {
+        const { documents }: AnyType = files;
+
+        const formData: FormData = new FormData();
+
+        const dateOfSystem = new Date().toLocaleString().split(',')[0].split('/').join('');
+        const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
+        const orderTypeName = this.buildOrderTypeName(courtOrderType);
+        let fileName: string;
+        if (orderId === '1') {
+          fileName = `applicant__${orderTypeName}__${dateOfSystem}.${extensionType}`;
+        } else {
+          fileName = `applicant__${orderTypeName}_${orderId}__${dateOfSystem}.${extensionType}`;
+        }
+        formData.append('file', documents.data, {
+          contentType: documents.mimetype,
+          filename: fileName,
+        });
         try {
           const userDeatils = req?.session?.user;
           const responseBody: DocumentUploadResponse = await caseApi(userDeatils, req.locals.logger).uploadDocument(
@@ -130,12 +131,18 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   private uploadFileError(
     req: AppRequest<AnyObject>,
     res: Response<AnyType, Record<string, AnyType>>,
-    errorMessage?: string
+    orderType: string,
+    orderId: string
   ) {
     /**
      * @Insert @Error @here
      */
-    console.log(errorMessage);
-    super.redirect(req, res, '');
+    req.session.errors = [{ propertyName: 'document', errorType: 'required' }];
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
+    });
   }
 }

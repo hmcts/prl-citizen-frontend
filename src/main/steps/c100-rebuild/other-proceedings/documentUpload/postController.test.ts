@@ -18,7 +18,7 @@ describe('Document upload controller', () => {
   });
 
   test('Should redirect back to the current page when document already exists', async () => {
-    const errors = [{ errorType: 'required', propertyName: 'document' }];
+    const errors = [{ errorType: 'multipleFiles', propertyName: 'document' }];
     const mockForm = {
       fields: {
         field: {
@@ -153,6 +153,29 @@ describe('Document upload controller', () => {
           save: jest.fn(done => done('MOCK_ERROR')),
         },
       });
+      const QUERY = {
+        orderType: 'otherOrder',
+        orderId: '1',
+      };
+      req.query = QUERY;
+      req.session.userCase = {
+        otherProceedings: {
+          order: {
+            otherOrders: [
+              {
+                orderDetail: 'OtherOrder1',
+                orderCopy: 'Yes',
+                orderDocument: {
+                  id: '',
+                  url: '',
+                  filename: '',
+                  binaryUrl: '',
+                },
+              },
+            ],
+          },
+        },
+      };
       try {
         await controller.post(req, res);
       } catch (err) {
