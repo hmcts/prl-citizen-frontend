@@ -124,67 +124,71 @@ describe('task-list > content', () => {
     expect(taskListItems).toEqual(expected);
   });
 
-
   describe('check withdraw banners', () => {
     test('check withdraw banners', async () => {
       const userCase = mockUserCase;
       userCase.state = State.CASE_WITHDRAWN;
-      userCase.orderCollection = [{
-        id: '81dd27a1-e7fe-49d9-9015-d3231c79995b',
-        value: {
-          dateCreated: '2022-09-21T12:25:22.599271',
-          orderType: 'Blank order or directions (C21) - to withdraw application',
-          orderTypeId: 'blankOrderOrDirectionsWithdraw',
-          orderDocument: {
-            document_url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/0b3346e6-9642-4648-80ad-40cd0446e527',
-            document_binary_url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/0b3346e6-9642-4648-80ad-40cd0446e527/binary',
-            document_filename: 'Blank_Order_Directions_C21.pdf',
-            document_hash: null,
-          },
-          otherDetails: {
-            createdBy: 'test',
-            orderCreatedDate: '21 September 2022',
-            orderMadeDate: '21 September 2022',
-            orderRecipients: 'test solicitor firm',
+      userCase.orderCollection = [
+        {
+          id: '81dd27a1-e7fe-49d9-9015-d3231c79995b',
+          value: {
+            dateCreated: '2022-09-21T12:25:22.599271',
+            orderType: 'Blank order or directions (C21) - to withdraw application',
+            orderTypeId: 'blankOrderOrDirectionsWithdraw',
+            orderDocument: {
+              document_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/0b3346e6-9642-4648-80ad-40cd0446e527',
+              document_binary_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/0b3346e6-9642-4648-80ad-40cd0446e527/binary',
+              document_filename: 'Blank_Order_Directions_C21.pdf',
+              document_hash: null,
+            },
+            otherDetails: {
+              createdBy: 'test',
+              orderCreatedDate: '21 September 2022',
+              orderMadeDate: '21 September 2022',
+              orderRecipients: 'test solicitor firm',
+            },
           },
         },
-      }]
+      ];
       const expectedBanners = [
         {
           bannerHeading: 'Respond to an application about a child',
           bannerContent: [
             {
               line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
-              line2: 'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.'
-            }
+              line2:
+                'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+            },
           ],
           bannerLinks: [
             {
               href: '/yourdocuments/alldocuments/cadafinaldocumentrequest',
-              text: 'Check the application (PDF)'
+              text: 'Check the application (PDF)',
             },
             {
               href: '/tasklistresponse/start',
-              text: 'Respond to the application'
-            }
-          ]
+              text: 'Respond to the application',
+            },
+          ],
         },
         {
           bannerHeading: 'The case has now been withdrawn',
           bannerContent: [
             {
-              line1: 'The court has agreed to withdraw the case.'
-            }
+              line1: 'The court has agreed to withdraw the case.',
+            },
           ],
           bannerLinks: [
             {
               href: '/respondent/yourdocuments/alldocuments/orders/0b3346e6-9642-4648-80ad-40cd0446e527',
-              text: 'View the order or letter that says the case has been withdrawn (PDF)'
-            }
-          ]
-        }
+              text: 'View the order or letter that says the case has been withdrawn (PDF)',
+            },
+          ],
+        },
       ];
-      const { banners }  = generateContent({ ...commonContent, userCase });
+      const { banners } = generateContent({ ...commonContent, userCase });
       expect(banners).toEqual(expectedBanners);
     });
   });

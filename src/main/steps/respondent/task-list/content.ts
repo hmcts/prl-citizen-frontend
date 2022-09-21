@@ -133,33 +133,34 @@ const getFl401Banners = userCase => {
   return banners;
 };
 
-const getWithdrawBanners = (userCase: Partial<CaseWithId> ) => {
+const getWithdrawBanners = (userCase: Partial<CaseWithId>) => {
   let uid = '';
-   if(userCase.orderCollection){
-     userCase.orderCollection.forEach((element) => {
-       if (element.value.orderTypeId === 'blankOrderOrDirectionsWithdraw'){
+  if (userCase.orderCollection) {
+    userCase.orderCollection.forEach(element => {
+      if (element.value.orderTypeId === 'blankOrderOrDirectionsWithdraw') {
         uid = element.value.orderDocument.document_url.substring(
           element.value.orderDocument.document_url.lastIndexOf('/') + 1
         );
-       }
-     })
-   }
-  
-  // if(userCase.state === 'CASE_WITHDRAWN'){
-  return [{
-    bannerHeading: 'The case has now been withdrawn',
-    bannerContent: [
-      {
-        line1: 'The court has agreed to withdraw the case.',
-      },
-    ],
-    bannerLinks: [
-      {
-        href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
-        text: 'View the order or letter that says the case has been withdrawn (PDF)',
       }
-    ],
-  }];
-// }
-};
+    });
+  }
 
+  // if(userCase.state === 'CASE_WITHDRAWN'){
+  return [
+    {
+      bannerHeading: 'The case has now been withdrawn',
+      bannerContent: [
+        {
+          line1: 'The court has agreed to withdraw the case.',
+        },
+      ],
+      bannerLinks: [
+        {
+          href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
+          text: 'View the order or letter that says the case has been withdrawn (PDF)',
+        },
+      ],
+    },
+  ];
+  // }
+};

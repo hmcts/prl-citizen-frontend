@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
-import { APPLICANT_ORDERS_FROM_THE_COURT } from '../../../steps/urls';
 import { Banner, SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { APPLICANT_ORDERS_FROM_THE_COURT } from '../../../steps/urls';
 
 import { applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
@@ -50,32 +50,34 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
-const getWithdrawBanners = (userCase: Partial<CaseWithId> ) => {
+const getWithdrawBanners = (userCase: Partial<CaseWithId>) => {
   let uid = '';
-   if(userCase.orderCollection){
-     userCase.orderCollection.forEach((element) => {
-       if (element.value.orderTypeId === 'blankOrderOrDirectionsWithdraw'){
+  if (userCase.orderCollection) {
+    userCase.orderCollection.forEach(element => {
+      if (element.value.orderTypeId === 'blankOrderOrDirectionsWithdraw') {
         uid = element.value.orderDocument.document_url.substring(
           element.value.orderDocument.document_url.lastIndexOf('/') + 1
         );
-       }
-     })
-   }
-  
-  // if(userCase.state === 'CASE_WITHDRAWN'){
-  return [{
-    bannerHeading: 'The case has now been withdrawn',
-    bannerContent: [
-      {
-        line1: 'The court has agreed to withdraw the case.',
-      },
-    ],
-    bannerLinks: [
-      {
-        href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
-        text: 'View the order or letter that says the case has been withdrawn (PDF)',
       }
-    ],
-  }];
-// }
+    });
+  }
+
+  // if(userCase.state === 'CASE_WITHDRAWN'){
+  return [
+    {
+      bannerHeading: 'The case has now been withdrawn',
+      bannerContent: [
+        {
+          line1: 'The court has agreed to withdraw the case.',
+        },
+      ],
+      bannerLinks: [
+        {
+          href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
+          text: 'View the order or letter that says the case has been withdrawn (PDF)',
+        },
+      ],
+    },
+  ];
+  // }
 };
