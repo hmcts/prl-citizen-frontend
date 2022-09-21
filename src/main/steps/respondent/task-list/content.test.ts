@@ -125,7 +125,7 @@ describe('task-list > content', () => {
   });
 
   describe('check withdraw banners', () => {
-    test('check withdraw banners', async () => {
+    test.skip('check withdraw banners', async () => {
       const userCase = mockUserCase;
       userCase.state = State.CASE_WITHDRAWN;
       userCase.orderCollection = [
