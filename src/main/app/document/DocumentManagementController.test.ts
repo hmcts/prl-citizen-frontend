@@ -158,7 +158,9 @@ describe('DocumentManagerController', () => {
 
       await documentManagerController.get(req, res);
 
-      expect(req.session.userCase.respondents[0].value.response?.citizenFlags?.isAllegationOfHarmViewed).toEqual(undefined);
+      expect(req.session.userCase.respondents[0].value.response?.citizenFlags?.isAllegationOfHarmViewed).toEqual(
+        undefined
+      );
     });
   });
 

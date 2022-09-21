@@ -337,7 +337,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
     respondent: Respondent
   ) {
     if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && respondent?.value?.response?.citizenFlags) {
-      if (cvIsAllegationOfHarmViewed === null || cvIsAllegationOfHarmViewed === undefined) {
+      if (
+        cvIsAllegationOfHarmViewed === null ||
+        cvIsAllegationOfHarmViewed === undefined ||
+        cvIsAllegationOfHarmViewed === 'No'
+      ) {
         respondent.value.response.citizenFlags = {
           isAllegationOfHarmViewed: 'No',
           isApplicationViewed: 'Yes',
@@ -352,7 +356,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED &&
       respondent?.value?.response?.citizenFlags
     ) {
-      if (cvIsApplicationViewed === null || cvIsApplicationViewed === undefined) {
+      if (cvIsApplicationViewed === null || cvIsApplicationViewed === undefined || cvIsApplicationViewed === 'No') {
         respondent.value.response.citizenFlags = {
           isAllegationOfHarmViewed: 'Yes',
           isApplicationViewed: 'No',
