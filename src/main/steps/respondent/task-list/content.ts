@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../app/case/case';
 import { Banner, SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import {
@@ -5,6 +6,7 @@ import {
   APPLICANT_CA_DA_REQUEST,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
+  RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPOND_TO_APPLICATION,
 } from '../../../steps/urls';
 
@@ -60,7 +62,7 @@ export const generateContent: TranslationFn = content => {
 
 const getC100Banners = userCase => {
   console.log(userCase.caseTypeOfApplication);
-  const banners: Banner[] = [];
+  let banners: Banner[] = [];
   banners.push({
     bannerHeading: 'Respond to an application about a child',
     bannerContent: [
@@ -100,12 +102,13 @@ const getC100Banners = userCase => {
       },
     ],
   });
+  banners = [...banners, ...getWithdrawBanners(userCase)];
   return banners;
 };
 
 const getFl401Banners = userCase => {
   console.log(userCase.caseTypeOfApplication);
-  const banners: Banner[] = [];
+  let banners: Banner[] = [];
   banners.push({
     bannerHeading: 'Respond to an application about a child',
     bannerContent: [
@@ -126,5 +129,37 @@ const getFl401Banners = userCase => {
       },
     ],
   });
+  banners = [...banners, ...getWithdrawBanners(userCase)];
   return banners;
 };
+
+const getWithdrawBanners = (userCase: Partial<CaseWithId> ) => {
+  let uid = '';
+   if(userCase.orderCollection){
+     userCase.orderCollection.forEach((element) => {
+       if (element.value.orderTypeId === 'blankOrderOrDirectionsWithdraw'){
+        uid = element.value.orderDocument.document_url.substring(
+          element.value.orderDocument.document_url.lastIndexOf('/') + 1
+        );
+       }
+     })
+   }
+  
+  // if(userCase.state === 'CASE_WITHDRAWN'){
+  return [{
+    bannerHeading: 'The case has now been withdrawn',
+    bannerContent: [
+      {
+        line1: 'The court has agreed to withdraw the case.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
+        text: 'View the order or letter that says the case has been withdrawn (PDF)',
+      }
+    ],
+  }];
+// }
+};
+

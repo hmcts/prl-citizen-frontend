@@ -1,7 +1,8 @@
+import { getSystemUser } from '../auth/user/oidc';
+import { CosApiClient } from '../case/CosApiClient';
 import { Response } from 'express';
 
 import { RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
-import { CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 
@@ -9,12 +10,13 @@ export class GetRespondentCaseController {
   //constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
 
   public async getCase(req: AppRequest, res: Response): Promise<void> {
-    if (req.params?.caseId && req.session?.userCaseList) {
-      req.session?.userCaseList.forEach((element: CaseWithId) => {
-        if (element?.id.toString() === req.params?.caseId) {
-          req.session.userCase = element;
-        }
-      });
+    if (req.params?.caseId) {
+      const caseworkerUser = await getSystemUser();
+      const caseReference = req.params?.caseId;
+
+      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
+      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+      req.session.userCase = caseDataFromCos;
     }
     req.session.save(() => res.redirect(RESPONDENT_TASK_LIST_URL));
   }

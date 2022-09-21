@@ -1772,8 +1772,8 @@ export const enum State {
   PendingDispute = 'PendingDispute',
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
-  successAuthentication = 'SuccessAuthentication'
-
+  successAuthentication = 'SuccessAuthentication',
+  CASE_WITHDRAWN='CASE_WITHDRAWN'
 }
 
 export const enum UserRole {
@@ -2138,6 +2138,7 @@ export interface PRLDocument {
   orderType: string;
   orderDocument: Document;
   otherDetails: OtherDetails;
+  orderTypeId?: string;
 }
 
 export interface OtherDetails {

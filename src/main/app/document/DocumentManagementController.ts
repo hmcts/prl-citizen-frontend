@@ -12,7 +12,6 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT,
 } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
 import { DocumentType, YesOrNo } from '../case/definition';
@@ -132,8 +131,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         endPoint = itemlist[itemlist.length - 2];
       }
 
-      const caseworkerUser = await getSystemUser();
-      req.session.user = caseworkerUser;
+      const caseworkerUser = req.session.user;
       const caseReference = req.session.userCase.id;
 
       const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
