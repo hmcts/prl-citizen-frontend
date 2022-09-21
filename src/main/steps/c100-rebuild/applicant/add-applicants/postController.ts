@@ -24,7 +24,6 @@ export default class AddApplicantPostController extends PostController<AnyObject
    * @param {Response} res - Response - this is the response object that is passed to the controller.
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log(req.body);
     req.session.userCase.applicantTemporaryFormData = {
       TempFirstName: req['body']['applicantFirstName'],
       TempLastName: req['body']['applicantLastName'],
@@ -89,7 +88,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
    * @returns The response body is being returned.
    */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  protected addAnotherApplicant(req: AppRequest<AnyObject>): void {
+  public addAnotherApplicant(req: AppRequest<AnyObject>): void {
     const { applicantFirstName, applicantLastName } = req['body'];
     const applicantInformation = {
       id: uuidv4(),
@@ -108,7 +107,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
    * It takes the data from the form and maps it to the correct object in the session
    * @param req - AppRequest<AnyObject>
    */
-  protected mapEnteriesToValuesAfterContinuing(req: AppRequest<AnyObject>, res: Response): void {
+  public mapEnteriesToValuesAfterContinuing(req: AppRequest<AnyObject>, res: Response): void {
     const lengthOfApplicantInSession = req.session.userCase.allApplicants?.length;
     const newApplicantStorage: C100ListOfApplicants = [];
     if (lengthOfApplicantInSession) {
@@ -127,7 +126,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
     return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
   }
 
-  protected resetSessionTemporaryFormValues(req: AppRequest<AnyObject>): void {
+  public resetSessionTemporaryFormValues(req: AppRequest<AnyObject>): void {
     req.session.userCase['applicantTemporaryFormData'] = {
       TempFirstName: '',
       TempLastName: '',
