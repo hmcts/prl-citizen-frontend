@@ -1,6 +1,6 @@
 nodejs:
   image: 'hmctspublic.azurecr.io/prl/citizen-frontend:latest'
-  applicationPort: 3001
+  applicationPort: 3000
   readinessDelay: 130
   livenessDelay: 130
   autoscaling: # Default is false
@@ -9,13 +9,22 @@ nodejs:
     targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
   aadIdentityName: prl
   ingressHost: privatelaw.{{ .Values.global.environment }}.platform.hmcts.net
+
   environment:
     NODE_ENV: production
     REFORM_TEAM: prl
     REFORM_SERVICE_NAME: prl-citizen-frontend
+
     SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
+
+    #REDIS_HOST: 'adoption-web-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net'
+    #SECURE_COOKIE: 'true'
+    CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
+    CDAM_API_URL: 'http://ccd-case-document-am-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+
   keyVaults:
     prl:
       resourceGroup: prl
