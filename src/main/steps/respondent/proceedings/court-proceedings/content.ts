@@ -36,19 +36,19 @@ const en = {
   saveAndContinue: 'Save and continue',
   errors: {
     emergencyOrderOptions: {
-      required: 'Please choose an option for emergency order',
+      required: 'Please choose an option for Emergency Protection Order',
     },
 
     'emergencyOrder.orderDateDetails': {
-      invalidDate: 'Emergency order date must be a real date',
-      incompleteDay: 'Emergency order date must include a day',
-      incompleteMonth: 'Emergency order date must include a month',
-      incompleteYear: 'Emergency order date must include a year',
-      invalidDateInFuture: 'Emergency order date must be in the past',
+      invalidDate: 'Emergency Protection Order date must be a real date',
+      incompleteDay: 'Emergency Protection Order date must include a day',
+      incompleteMonth: 'Emergency Protection Order date must include a month',
+      incompleteYear: 'Emergency Protection Order date must include a year',
+      invalidDateInFuture: 'Emergency Protection Order date must be in the past',
     },
 
     supervisionOrderOption: {
-      required: 'Please choose an option for supervising order',
+      required: 'Please choose an option for supervision order',
     },
 
     careOrderOptions: {
@@ -72,11 +72,11 @@ const en = {
     },
 
     occupationalOrderOptions: {
-      required: 'Please choose an option for occupational order',
+      required: 'Please choose an option for Occupation order',
     },
 
     marraigeOrderOptions: {
-      required: 'Please choose an option for non marraige order',
+      required: 'Please choose an option for non-marriage order',
     },
 
     restrainingOrderOptions: {
@@ -125,19 +125,19 @@ const cy: typeof en = {
   saveAndContinue: 'Save and continue',
   errors: {
     emergencyOrderOptions: {
-      required: 'Please choose an option for emergency order',
+      required: 'Please choose an option for Emergency Protection Order',
     },
 
     'emergencyOrder.orderDateDetails': {
-      invalidDate: 'Emergency order date must be a real date',
-      incompleteDay: 'Emergency order date must include a day',
-      incompleteMonth: 'Emergency order date must include a month',
-      incompleteYear: 'Emergency order date must include a year',
-      invalidDateInFuture: 'Emergency order date must be in the past',
+      invalidDate: 'Emergency Protection Order date must be a real date',
+      incompleteDay: 'Emergency Protection Order date must include a day',
+      incompleteMonth: 'Emergency Protection Order date must include a month',
+      incompleteYear: 'Emergency Protection Order date must include a year',
+      invalidDateInFuture: 'Emergency Protection Order date must be in the past',
     },
 
     supervisionOrderOption: {
-      required: 'Please choose an option for supervising order',
+      required: 'Please choose an option for supervision order',
     },
 
     careOrderOptions: {
@@ -161,11 +161,11 @@ const cy: typeof en = {
     },
 
     occupationalOrderOptions: {
-      required: 'Please choose an option for occupational order',
+      required: 'Please choose an option for Occupation order',
     },
 
     marraigeOrderOptions: {
-      required: 'Please choose an option for non marraige order',
+      required: 'Please choose an option for non-marriage order',
     },
 
     restrainingOrderOptions: {

@@ -19,7 +19,7 @@ export const enContent = {
   keys: {
     start: 'Do the children live outside of England or Wales?',
     iFactorsStartProvideDetails: 'Provide details',
-    parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+    parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
     iFactorsParentsProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
@@ -72,7 +72,7 @@ const cyContent: typeof enContent = {
   keys: {
     start: 'Do the children live outside of England or Wales?',
     iFactorsStartProvideDetails: 'Provide details',
-    parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+    parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
     iFactorsParentsProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
