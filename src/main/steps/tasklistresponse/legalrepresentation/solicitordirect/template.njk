@@ -3,24 +3,22 @@
 
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% block page_content %}
-
 <div>
 <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
     <form action="/redirect/tasklistresponse" method="post">
     <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
-
-    <h1 class="govuk-heading-xl">Transfer your case to your legal representative</h1> 
-    <p class="govuk-body">To tranfer your case to your legal representative, provide them with your Case number.</p>
-    <p class="govuk-body">Once your case is passed to your representative, you won't be able to edit your response. They will handle your case and receive any updates from the court.</p>
+    <h1 class="govuk-heading-xl">{{title}}</h1> 
+    <p class="govuk-body">{{line1}}</p>
+    <p class="govuk-body">{{line2}}</p>
         <ul class="govuk-list govuk-list--bullet">
-        <li>Your Case number is: {{caseId}}</li>
+        <li>{{listItem}}{{caseId}}</li>
         </ul>
         <div class="govuk-!-padding-bottom-4"></div>
         <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
         <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">Warning</span>
-            Do not respond to this application yourself if you plan to have a legal representative complete the response.
+            <span class="govuk-warning-text__assistive">{{warning}}</span>
+            {{warning}}
         </strong>
         </div>
         <button class="govuk-button" data-module="govuk-button">
