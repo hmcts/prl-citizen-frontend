@@ -754,6 +754,7 @@ export interface CaseData {
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
+  orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
 }
 
 export interface ConfidentialDetails {
@@ -2232,4 +2233,8 @@ export interface Content {
 export interface BannerLink {
   href?: string;
   text?: string;
+}
+
+export interface WithoutNoticeOrderDetails {
+  orderWithoutGivingNotice?: YesOrNo;
 }
