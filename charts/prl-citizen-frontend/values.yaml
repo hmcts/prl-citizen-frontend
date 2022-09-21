@@ -20,6 +20,7 @@ nodejs:
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     CDAM_API_URL: 'http://ccd-case-document-am-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     COS_URL: 'http://prl-cos-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+
   keyVaults:
     prl:
       secrets:
