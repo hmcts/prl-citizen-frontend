@@ -10,14 +10,17 @@ import {
   YesNoEmpty,
 } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import { AnyObject } from '../../../../app/controller/PostController';
-import { Form, FormFields } from '../../../../app/form/Form';
-import { getNextStepUrl } from '../../../../steps';
+import { AnyObject, PostController } from '../../../../app/controller/PostController';
+import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 
 import { getFormFields, getOrderSessionDataShape } from './content';
 
 @autobind
-export default class AddOrderDetailsPostController {
+export default class AddOrderDetailsPostController extends PostController<AnyObject> {
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+    super(fields);
+  }
+
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const orderType = req.query.orderType as C100OrderTypes;
     const orderTypeCaseKey = C100OrderTypeKeyMapper[orderType];
@@ -31,7 +34,10 @@ export default class AddOrderDetailsPostController {
         ...((req.session?.userCase?.otherProceedings ?? {}) as OtherProceedings),
         order: {
           ...((req.session.userCase?.otherProceedings?.order ?? {}) as C100OrderTypeInterface),
-          [orderTypeCaseKey]: this.transformFormData(formData),
+          [orderTypeCaseKey]: this.transformFormData(
+            formData,
+            req.session?.userCase?.otherProceedings?.order?.[orderTypeCaseKey]
+          ),
         },
       },
     };
@@ -43,40 +49,28 @@ export default class AddOrderDetailsPostController {
     }
 
     if (addOrder) {
+      const orders = req.session.userCase.otherProceedings!.order![orderTypeCaseKey];
       req.session.userCase.otherProceedings!.order![orderTypeCaseKey] = [
-        ...req.session.userCase.otherProceedings!.order![orderTypeCaseKey],
-        getOrderSessionDataShape(),
+        ...orders,
+        {
+          ...getOrderSessionDataShape(),
+          id: String(orders.length + 1),
+        },
       ];
-      this.redirect(req, res, req.originalUrl);
+      super.redirect(req, res, req.originalUrl);
     } else if (onlycontinue) {
-      this.redirect(req, res);
+      super.redirect(req, res);
     }
   }
 
-  protected redirect(req: AppRequest<AnyObject>, res: Response, nextUrl?: string): void {
-    let target;
-
-    if (req.session.errors?.length) {
-      target = req.url;
-    } else {
-      target = nextUrl || getNextStepUrl(req, req.session.userCase);
-    }
-
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      res.redirect(target);
-    });
-  }
-
-  private transformFormData(formData): C100OrderInterface[] {
+  private transformFormData(formData, orginialData: C100OrderInterface[]): C100OrderInterface[] {
     return Object.entries(formData).reduce((transformedData: C100OrderInterface[], [fieldName, value]) => {
       const [fieldId, fieldIndex] = fieldName.split('-');
       const index = Number(fieldIndex) - 1;
 
       if (!transformedData[index]) {
         transformedData[index] = getOrderSessionDataShape();
+        transformedData[index].id = fieldIndex;
       }
 
       if (fieldId === 'orderCopy' && value !== YesNoEmpty.YES) {
@@ -86,6 +80,6 @@ export default class AddOrderDetailsPostController {
       transformedData[index][fieldId] = value;
 
       return transformedData;
-    }, []);
+    }, orginialData ?? []);
   }
 }

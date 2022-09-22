@@ -5,7 +5,7 @@ import { Application } from 'express';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
-import { stepsWithContent } from './steps/';
+import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import LandingPageGetController from './steps/c100-rebuild/landing/get';
 import { LandingPageController } from './steps/c100-rebuild/landing/landingPageController';
@@ -60,7 +60,11 @@ export class Routes {
         ? require(`${step.stepDir}/${getControllerFileName}`).default
         : GetController;
 
-      app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+      app.get(
+        step.url,
+        this.routeGuard.bind(this, step, 'get'),
+        errorHandler(new getController(step.view, step.generateContent).get)
+      );
 
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
@@ -68,7 +72,11 @@ export class Routes {
           ? require(`${step.stepDir}/${postControllerFileName}`).default
           : PostController;
 
-        app.post(step.url, errorHandler(new postController(step.form.fields).post));
+        app.post(
+          step.url,
+          this.routeGuard.bind(this, step, 'post'),
+          errorHandler(new postController(step.form.fields).post)
+        );
       }
     }
 
@@ -84,5 +92,13 @@ export class Routes {
     // app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
 
     // app.use(errorController.notFound as unknown as RequestHandler);
+  }
+
+  private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
+    if (typeof step?.routeGuard?.[httpMethod] === 'function') {
+      step.routeGuard[httpMethod].call(this, req, res, next);
+    } else {
+      next();
+    }
   }
 }
