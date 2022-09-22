@@ -31,9 +31,15 @@ export default class StartPostController extends CommonConfidentialityController
           const applicantInformation = applicant;
           if (applicant['id'] === applicantId) {
             applicantInformation['start'] = req['body']['start'] as string;
-            if ((req['body']['contactDetailsPrivate'] as []) && req.body['contactDetailsPrivate'] !== '') {
-              const contactDetailSelection = req['body']['contactDetailsPrivate'] as [];
-              applicantInformation['contactDetailsPrivate'] = contactDetailSelection.filter(details => details !== '');
+            if (req.body['start'] === YesOrNo.NO) {
+              applicantInformation['contactDetailsPrivate'] = [] as [];
+            } else {
+              if ((req['body']['contactDetailsPrivate'] as []) && req.body['contactDetailsPrivate'] !== '') {
+                const contactDetailSelection = req['body']['contactDetailsPrivate'] as [];
+                applicantInformation['contactDetailsPrivate'] = contactDetailSelection.filter(
+                  details => details !== ''
+                );
+              }
             }
           }
           return applicantInformation;

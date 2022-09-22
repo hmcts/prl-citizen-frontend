@@ -159,7 +159,10 @@ export const generateContent: TranslationFn = content => {
               if (subValue['value'] === bodyVal) {
                 field['attributes'] = { checked: true };
               }
-              subFieldValueStorage = [...subFieldValueStorage.filter(item => item.value !== field['value']), field];
+              subFieldValueStorage = [
+                ...subFieldValueStorage.filter(item => item.value !== field['value']),
+                field as FieldLabel,
+              ];
             }
           }
           if (fieldSet.subFields?.contactDetailsPrivate.values) {
