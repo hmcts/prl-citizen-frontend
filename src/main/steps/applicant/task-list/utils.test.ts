@@ -56,28 +56,28 @@ describe('utils', () => {
       {
         data: {
           ...mockUserCase,
-          applicant1FullName: undefined,
-          applicant1DateOfBirth: undefined,
+          citizenUserFullName: undefined,
+          citizenUserDateOfBirth: undefined,
         },
         expected: SectionStatus.TO_DO,
       },
       {
         data: {
           ...mockUserCase,
-          applicant1FullName: YesOrNo.NO,
+          citizenUserFullName: YesOrNo.NO,
         },
         expected: SectionStatus.IN_PROGRESS,
       },
       {
         data: {
           ...mockUserCase,
-          applicant1FullName: 'Test',
-          applicant1DateOfBirth: {
+          citizenUserFullName: 'Test',
+          citizenUserDateOfBirth: {
             year: 'string',
             month: 'string',
             day: 'string',
           },
-          applicant1PlaceOfBirth: 'string',
+          citizenUserPlaceOfBirth: 'string',
         },
         expected: SectionStatus.COMPLETED,
       },

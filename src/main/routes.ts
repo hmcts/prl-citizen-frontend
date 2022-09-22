@@ -11,6 +11,7 @@ import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsPostController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
@@ -30,6 +31,7 @@ import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
+  APPLICANT_CONTACT_DETAILS_SAVE,
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASK_LIST_URL,
@@ -132,6 +134,10 @@ export class Routes {
         app.post(
           `${RESPONDENT_CONTACT_DETAILS_SAVE}`,
           errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.post(
+          `${APPLICANT_CONTACT_DETAILS_SAVE}`,
+          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
         );
       }
     }

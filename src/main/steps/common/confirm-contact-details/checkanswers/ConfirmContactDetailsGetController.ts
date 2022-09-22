@@ -27,32 +27,32 @@ export default class ConfirmContactDetailsGetController extends GetController {
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
     }
 
-    if (!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames) {
-      req.session.userCase.applicant1FullName = '';
+    if (!req.session.userCase.citizenUserFirstNames || !req.session.userCase.citizenUserLastNames) {
+      req.session.userCase.citizenUserFullName = '';
     } else {
-      req.session.userCase.applicant1FullName =
-        req.session.userCase.applicant1FirstNames + ' ' + req.session.userCase.applicant1LastNames;
+      req.session.userCase.citizenUserFullName =
+        req.session.userCase.citizenUserFirstNames + ' ' + req.session.userCase.citizenUserLastNames;
     }
 
-    if (!req.session.userCase.applicant1PlaceOfBirth) {
-      req.session.userCase.applicant1PlaceOfBirthText = '';
+    if (!req.session.userCase.citizenUserPlaceOfBirth) {
+      req.session.userCase.citizenUserPlaceOfBirthText = '';
     } else {
-      req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth;
+      req.session.userCase.citizenUserPlaceOfBirthText = req.session.userCase.citizenUserPlaceOfBirth;
     }
 
-    if (!req.session.userCase.applicant1DateOfBirthText) {
-      req.session.userCase.applicant1DateOfBirthText = '';
+    if (!req.session.userCase.citizenUserDateOfBirthText) {
+      req.session.userCase.citizenUserDateOfBirthText = '';
     } else {
-      req.session.userCase.applicant1DateOfBirthText = getFormattedDate(req.session.userCase.applicant1DateOfBirth);
+      req.session.userCase.citizenUserDateOfBirthText = getFormattedDate(req.session.userCase.citizenUserDateOfBirth);
     }
 
-    //console.log("48 applicant1DateOfBirthText: "+ req.session.userCase.applicant1DateOfBirthText);
+    //console.log("48 citizenUserDateOfBirthText: "+ req.session.userCase.citizenUserDateOfBirthText);
 
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
     req.session.userCase.applicant1AddressTown = 'London';
-    req.session.userCase.applicant1PhoneNumber = '';
-    req.session.userCase.applicant1EmailAddress = '';
+    req.session.userCase.citizenUserPhoneNumber = '';
+    req.session.userCase.citizenUserEmailAddress = '';
 
     validateDataCompletion(req);
 
@@ -64,15 +64,15 @@ export default class ConfirmContactDetailsGetController extends GetController {
 }
 
 const fieldsArray: string[] = [
-  'applicant1FullName',
-  'applicant1PlaceOfBirthText',
+  'citizenUserFullName',
+  'citizenUserPlaceOfBirthText',
   'applicant1Address1',
   'applicant1Address2',
   'applicant1AddressTown',
-  'applicant1PhoneNumber',
-  'applicant1EmailAddress',
+  'citizenUserPhoneNumber',
+  'citizenUserEmailAddress',
   'applicant1SafeToCall',
-  'applicant1DateOfBirthText',
+  'citizenUserDateOfBirthText',
 ];
 
 function validateDataCompletion(req: AppRequest<Partial<Case>>) {
@@ -88,8 +88,8 @@ function validateDataCompletion(req: AppRequest<Partial<Case>>) {
 }
 
 const privateFieldsMap = new Map<string, string>([
-  ['email', 'applicant1EmailAddress'],
-  ['phone', 'applicant1PhoneNumber'],
+  ['email', 'citizenUserEmailAddress'],
+  ['phone', 'citizenUserPhoneNumber'],
 ]);
 
 function getConfidentialData(req: AppRequest<Partial<Case>>) {

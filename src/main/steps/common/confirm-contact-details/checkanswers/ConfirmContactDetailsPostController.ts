@@ -63,7 +63,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
       loggedInCitizen,
       caseReference as string,
       caseData,
-      'keepYourDetailsPrivate'
+      'citizen-internal-case-update'
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 

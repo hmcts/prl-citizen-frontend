@@ -14,16 +14,16 @@ export default class ConfirmContactDetailsGetController extends GetController {
       res.locals.isLoggedIn = true;
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
     }
-    req.session.userCase.applicant1FirstNames = 'John2';
-    req.session.userCase.applicant1LastNames = 'Smith';
-    req.session.userCase.applicant1FullName = 'John Smith';
-    req.session.userCase.applicant1PlaceOfBirth = 'London';
+    req.session.userCase.citizenUserFirstNames = 'John2';
+    req.session.userCase.citizenUserLastNames = 'Smith';
+    //req.session.userCase.citizenUserFullName = 'John Smith';
+    req.session.userCase.citizenUserPlaceOfBirth = 'London';
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
     req.session.userCase.applicant1AddressTown = 'London';
-    req.session.userCase.applicant1PhoneNumber = '1234567890';
-    req.session.userCase.applicant1EmailAddress = 'test@gmail.com';
-    req.session.userCase.applicant1DateOfBirth = { day: '20', month: '1', year: '2000' };
+    req.session.userCase.citizenUserPhoneNumber = '1234567890';
+    req.session.userCase.citizenUserEmailAddress = 'test@gmail.com';
+    req.session.userCase.citizenUserDateOfBirth = { day: '20', month: '1', year: '2000' };
 
     const callback = redirect ? undefined : () => super.get(req, res);
     super.saveSessionAndRedirect(req, res, callback);

@@ -1,47 +1,72 @@
+import { CaseWithId } from '../../../../app/case/case';
 import { PartyDetails } from '../../../../app/case/definition';
+import { fromApiDate } from '../../../../app/case/from-api-format';
 import { toApiDate } from '../../../../app/case/to-api-format';
-//import { CaseWithId } from '../../../../app/case/case';
 import type { AppRequest } from '../../../../app/controller/AppRequest';
+import { getFormattedDate } from '../../../common/summary/utils';
 
 export const setContactDetails = (partyDetails: PartyDetails, req: AppRequest): PartyDetails => {
-  if (req.session.userCase.applicant1FirstNames) {
-    partyDetails.firstName = req.session.userCase.applicant1FirstNames;
+  if (req.session.userCase.citizenUserFirstNames) {
+    partyDetails.firstName = req.session.userCase.citizenUserFirstNames;
   }
-  if (req.session.userCase.applicant1LastNames) {
-    partyDetails.lastName = req.session.userCase.applicant1LastNames;
+  if (req.session.userCase.citizenUserLastNames) {
+    partyDetails.lastName = req.session.userCase.citizenUserLastNames;
   }
-  if (req.session.userCase.applicant1AdditionalName) {
-    partyDetails.previousName = req.session.userCase.applicant1AdditionalName;
+  if (req.session.userCase.citizenUserAdditionalName) {
+    partyDetails.previousName = req.session.userCase.citizenUserAdditionalName;
   }
-  if (req.session.userCase.applicant1DateOfBirth) {
-    partyDetails.dateOfBirth = toApiDate(req.session.userCase.applicant1DateOfBirth);
+  if (req.session.userCase.citizenUserDateOfBirth) {
+    partyDetails.dateOfBirth = toApiDate(req.session.userCase.citizenUserDateOfBirth);
   }
-  if (req.session.userCase.applicant1PlaceOfBirth) {
-    partyDetails.placeOfBirth = req.session.userCase.applicant1PlaceOfBirth;
+  if (req.session.userCase.citizenUserPlaceOfBirth) {
+    partyDetails.placeOfBirth = req.session.userCase.citizenUserPlaceOfBirth;
   }
-  if (req.session.userCase.applicant1PhoneNumber) {
-    partyDetails.phoneNumber = req.session.userCase.applicant1PhoneNumber;
+  if (req.session.userCase.citizenUserPhoneNumber) {
+    partyDetails.phoneNumber = req.session.userCase.citizenUserPhoneNumber;
   }
-  if (req.session.userCase.applicant1EmailAddress) {
-    partyDetails.email = req.session.userCase.applicant1EmailAddress;
+  if (req.session.userCase.citizenUserEmailAddress) {
+    partyDetails.email = req.session.userCase.citizenUserEmailAddress;
   }
 
   return partyDetails;
 };
 
-// export const getKeepYourDetailsPrivate = (partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> => {
-//   req.session.userCase.detailsKnown = partyDetails.response.keepDetailsPrivate?.otherPeopleKnowYourContactDetails;
-//   req.session.userCase.startAlternative = partyDetails.response.keepDetailsPrivate?.confidentiality;
-//   const confidentialityList: string[] = [];
-//   if (
-//     partyDetails.response.keepDetailsPrivate?.confidentiality === YesOrNo.YES &&
-//     partyDetails.response.keepDetailsPrivate.confidentialityList
-//   ) {
-//     partyDetails.response.keepDetailsPrivate.confidentialityList.forEach(element => {
-//       confidentialityList.push(ConfidentialityList[element]);
-//     });
-//     req.session.userCase.contactDetailsPrivate = confidentialityList;
-//   }
+export const getContactDetails = (partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> => {
+  if (partyDetails.firstName) {
+    req.session.userCase.citizenUserFirstNames = partyDetails.firstName;
+  }
+  if (partyDetails.lastName) {
+    req.session.userCase.citizenUserLastNames = partyDetails.lastName;
+  }
+  if (!req.session.userCase.citizenUserFirstNames || !req.session.userCase.citizenUserLastNames) {
+    req.session.userCase.citizenUserFullName = '';
+  } else {
+    req.session.userCase.citizenUserFullName =
+      req.session.userCase.citizenUserFirstNames + ' ' + req.session.userCase.citizenUserLastNames;
+  }
+  if (partyDetails.placeOfBirth) {
+    req.session.userCase.citizenUserPlaceOfBirth = partyDetails.placeOfBirth;
+  }
+  if (!req.session.userCase.citizenUserPlaceOfBirth) {
+    req.session.userCase.citizenUserPlaceOfBirthText = '';
+  } else {
+    req.session.userCase.citizenUserPlaceOfBirthText = req.session.userCase.citizenUserPlaceOfBirth;
+  }
+  if (partyDetails.dateOfBirth) {
+    req.session.userCase.citizenUserDateOfBirth = fromApiDate(partyDetails.placeOfBirth);
+  }
+  if (!req.session.userCase.citizenUserDateOfBirthText) {
+    req.session.userCase.citizenUserDateOfBirthText = '';
+  } else {
+    req.session.userCase.citizenUserDateOfBirthText = getFormattedDate(req.session.userCase.citizenUserDateOfBirth);
+  }
 
-//   return req.session.userCase;
-// };
+  if (partyDetails.phoneNumber) {
+    req.session.userCase.citizenUserPhoneNumber = partyDetails.phoneNumber;
+  }
+
+  if (partyDetails.email) {
+    req.session.userCase.citizenUserEmailAddress = partyDetails.email;
+  }
+  return req.session.userCase;
+};

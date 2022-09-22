@@ -108,12 +108,12 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_PERSONAL_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPONDENT_CHECK_ANSWERS,
   },
   {
     url: RESPONDENT_CONTACT_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPONDENT_CHECK_ANSWERS,
   },
   {
     url: RESPONDENT_ADDRESS_DETAILS,

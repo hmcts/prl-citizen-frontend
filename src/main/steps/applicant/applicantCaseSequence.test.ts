@@ -27,15 +27,15 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[5].url).toBe('/applicant/confirm-contact-details/checkanswers');
     expect(applicantCaseSequence[5].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[5].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[5].getNextStep({})).toBe('/applicant/confirm-contact-details/save');
 
     expect(applicantCaseSequence[6].url).toBe('/applicant/confirm-contact-details/personaldetails');
     expect(applicantCaseSequence[6].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[6].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[6].getNextStep({})).toBe('/applicant/confirm-contact-details/checkanswers');
 
     expect(applicantCaseSequence[7].url).toBe('/applicant/confirm-contact-details/contactdetails');
     expect(applicantCaseSequence[7].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[7].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[7].getNextStep({})).toBe('/applicant/confirm-contact-details/checkanswers');
 
     expect(applicantCaseSequence[8].url).toBe('/applicant/confirm-contact-details/addressdetails');
     expect(applicantCaseSequence[8].showInSection).toBe('aboutApplicantCase');
