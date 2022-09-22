@@ -49,9 +49,13 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
     }
 
     if (addOrder) {
+      const orders = req.session.userCase.otherProceedings!.order![orderTypeCaseKey];
       req.session.userCase.otherProceedings!.order![orderTypeCaseKey] = [
-        ...req.session.userCase.otherProceedings!.order![orderTypeCaseKey],
-        getOrderSessionDataShape(),
+        ...orders,
+        {
+          ...getOrderSessionDataShape(),
+          id: String(orders.length + 1),
+        },
       ];
       super.redirect(req, res, req.originalUrl);
     } else if (onlycontinue) {
@@ -66,6 +70,7 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
 
       if (!transformedData[index]) {
         transformedData[index] = getOrderSessionDataShape();
+        transformedData[index].id = fieldIndex;
       }
 
       if (fieldId === 'orderCopy' && value !== YesNoEmpty.YES) {

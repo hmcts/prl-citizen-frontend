@@ -1,6 +1,7 @@
 import { C100OrderTypeInterface } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../../steps/urls';
 import { getAllOrderDocuments } from '../util';
 export * from './routeGuard';
 
@@ -31,7 +32,7 @@ export const form: FormContent = {
 };
 interface OrderDocument {
   fileName?: string;
-  redirectUrl?: string;
+  editUrl?: string;
 }
 [];
 
@@ -43,7 +44,7 @@ const getOrderDocuments = (orders: C100OrderTypeInterface | Record<string, never
     documents = ordersWithDocument.map(order => {
       return {
         fileName: order.orderDocument?.filename,
-        redirectUrl: '#',
+        editUrl: `${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${order.orderType}&orderId=${order.id}`,
       };
     });
   }

@@ -1434,7 +1434,7 @@ export interface C100DocumentInfo extends DocumentInfo{
   id: string;
 }
 export interface C100OrderInterface {
-  //id: string;
+  id: string;
   orderDetail: string;
   caseNo: string;
   orderDate: CaseDate;

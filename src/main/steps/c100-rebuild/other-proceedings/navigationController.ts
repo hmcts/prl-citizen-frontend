@@ -1,7 +1,7 @@
 import { Case } from '../../../app/case/case';
 import { C100OrderInterface, C100OrderTypeKeyMapper, C100OrderTypes, YesNoEmpty } from '../../../app/case/definition';
 import {
-  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  C100_CONFIDENTIALITY_DETAILS_KNOW,
   C100_OTHER_PROCEEDINGS_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
   C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
@@ -17,23 +17,18 @@ class OtherProceedingsNavigationController {
   private orderType = '';
   private orderId: number | undefined = undefined;
 
-  private getOrderId(): number {
-    return this.orders.findIndex(order => order.orderCopy === YesNoEmpty.YES) + 1;
+  private getOrderId(): string | undefined {
+    return this.orders.find(order => order.orderCopy === YesNoEmpty.YES)?.id;
   }
-  private getNextOrderId(): number {
-    return (
-      this.orders.findIndex((order, index) => order.orderCopy === YesNoEmpty.YES && index > Number(this.orderId) - 1) +
-      1
-    );
+  private getNextOrderId(): string | undefined {
+    return this.orders.find(order => Number(order.id) > Number(this.orderId) && order.orderCopy === YesNoEmpty.YES)?.id;
   }
   private getCurrentOrderTypeIndex(): number {
     return this.selectedOrderTypes.findIndex(_orderType => _orderType === this.orderType);
   }
   private getNextOrderType(): C100OrderTypes | '' {
     const currentSelectedOrderIndex = this.getCurrentOrderTypeIndex();
-    return currentSelectedOrderIndex <= this.selectedOrderTypes.length - 1
-      ? this.selectedOrderTypes[currentSelectedOrderIndex + 1]
-      : '';
+    return this.selectedOrderTypes[currentSelectedOrderIndex + 1] ?? '';
   }
 
   private getOrdersByType(caseData): C100OrderInterface[] | [] {
@@ -67,7 +62,7 @@ class OtherProceedingsNavigationController {
               // check at last if there were any previous order types having at least an order with order copy
               nextUrl = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
             } else {
-              nextUrl = C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS;
+              nextUrl = C100_CONFIDENTIALITY_DETAILS_KNOW;
             }
           }
         }

@@ -17,4 +17,5 @@ export interface Step {
   showInCompleteSection?: Sections;
   excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>, req?: AppRequest) => PageLink;
+  sanitizeQueryString?: (fromurl: string, toUrl: string, queryString: Record<string, string>) => Record<string, string>;
 }
