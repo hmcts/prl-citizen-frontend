@@ -94,14 +94,14 @@ export default class AddApplicantPostController extends PostController<AnyObject
   public addAnotherApplicant(req: AppRequest<AnyObject>): void {
     const { applicantFirstName, applicantLastName } = req['body'];
     const applicantInformation = {
-      id: uuidv4(),
+      id: uuidv4() as string,
       applicantFirstName,
       applicantLastName,
-      detailsKnown: 'Yes',
+      detailsKnown: '',
       startAlternative: '',
       start: '',
-      contactDetailsPrivate: [],
-      contactDetailsPrivateAlternative: [],
+      contactDetailsPrivate: [] as [],
+      contactDetailsPrivateAlternative: [] as [],
     };
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('allApplicants') && req.session.userCase.allApplicants) {
@@ -121,8 +121,8 @@ export default class AddApplicantPostController extends PostController<AnyObject
     if (lengthOfApplicantInSession) {
       for (let applicant = 0; applicant < lengthOfApplicantInSession; applicant++) {
         const currentIndexPositioninBody = applicant + 1;
-        const applicantFirstName = req.body[`ApplicantFirstName-${currentIndexPositioninBody}`];
-        const applicantLastName = req.body[`ApplicantLastName-${currentIndexPositioninBody}`];
+        const applicantFirstName = req.body[`ApplicantFirstName-${currentIndexPositioninBody}`] as string;
+        const applicantLastName = req.body[`ApplicantLastName-${currentIndexPositioninBody}`] as string;
         if (req.session.userCase.allApplicants) {
           const { id } = req.session.userCase.allApplicants[applicant];
           const applicantObject = {

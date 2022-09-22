@@ -329,6 +329,11 @@ export type C100Applicant = {
   id?: string,
   applicantFirstName?: string | unknown,
   applicantLastName?: string | unknown,
+  detailsKnown?: string | unknown 
+  startAlternative?: string | unknown,
+  start?: string | unknown,
+  contactDetailsPrivate?: unknown | [],
+  contactDetailsPrivateAlternative?: unknown | [],
 }
 
 export type C100ListOfApplicants = C100Applicant[];

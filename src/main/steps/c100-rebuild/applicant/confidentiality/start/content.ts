@@ -67,51 +67,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.label,
       section: l => l.section,
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-          subFields: {
-            contactDetailsPrivate: {
-              type: 'checkboxes',
-              label: l => l.contact_details_private,
-              // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-              validator: (value, formData: Partial<Case>) => {
-                if (formData.start === 'Yes') {
-                  return atLeastOneFieldIsChecked(formData?.contactDetailsPrivate);
-                }
-                return '';
-              },
-              values: [
-                {
-                  name: 'contactDetailsPrivate',
-                  label: l => l.address,
-                  value: 'address',
-                },
-                {
-                  name: 'contactDetailsPrivate',
-                  label: l => l.homePhoneNumber,
-                  value: 'homephone',
-                },
-                {
-                  name: 'contactDetailsPrivate',
-                  label: l => l.mobilePhoneNumber,
-                  value: 'mobilephone',
-                },
-                {
-                  name: 'contactDetailsPrivate',
-                  label: l => l.Email,
-                  value: 'email',
-                },
-              ],
-            },
-          },
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
+      values: [],
       validator: isFieldFilledIn,
     },
   },
@@ -122,8 +78,112 @@ export const form: FormContent = {
     text: l => l.saveAndComeLater,
   },
 };
+type FieldLabel = {
+  name: string;
+  label: string;
+  value: string;
+  attributes: {
+    checked: boolean;
+  };
+};
+
+type FieldLabelArray = FieldLabel[];
 
 export const generateContent: TranslationFn = content => {
+  const userId = content['userId'];
+  const startOption = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0]?.['start'];
+  const contactDetailsPrivate = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0]?.[
+    'contactDetailsPrivate'
+  ] as [];
+  console.log({ contactDetailsPrivate });
+  let detailKnownFormField = form.fields['start']?.['values'];
+
+  const formFieldValues = [
+    {
+      label: l => l.one,
+      value: YesOrNo.YES,
+      subFields: {
+        contactDetailsPrivate: {
+          type: 'checkboxes',
+          label: l => l.contact_details_private,
+          // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+          validator: (value, formData: Partial<Case>) => {
+            if (formData.start === 'Yes') {
+              return atLeastOneFieldIsChecked(formData?.contactDetailsPrivate);
+            }
+            return '';
+          },
+          values: [
+            {
+              name: 'contactDetailsPrivate',
+              label: l => l.address,
+              value: 'address',
+            },
+            {
+              name: 'contactDetailsPrivate',
+              label: l => l.homePhoneNumber,
+              value: 'homephone',
+            },
+            {
+              name: 'contactDetailsPrivate',
+              label: l => l.mobilePhoneNumber,
+              value: 'mobilephone',
+            },
+            {
+              name: 'contactDetailsPrivate',
+              label: l => l.Email,
+              value: 'email',
+            },
+          ],
+        },
+      },
+    },
+    {
+      label: l => l.two,
+      value: YesOrNo.NO,
+    },
+  ];
+
+  switch (startOption) {
+    case YesOrNo.YES:
+      // eslint-disable-next-line no-case-declarations
+      let subFieldValueStorage: FieldLabelArray = [];
+      detailKnownFormField = formFieldValues.map(fieldSet => {
+        const { value } = fieldSet;
+        if (value === YesOrNo.YES) {
+          fieldSet['attributes'] = { checked: true };
+          const subFields = fieldSet['subFields']?.['contactDetailsPrivate']['values'] as [];
+          for (const subValue of subFields) {
+            for (const bodyVal of contactDetailsPrivate) {
+              const field: FieldLabel = subValue as never;
+              if (subValue['value'] === bodyVal) {
+                field['attributes'] = { checked: true };
+              }
+              subFieldValueStorage = [...subFieldValueStorage.filter(item => item.value !== field['value']), field];
+            }
+          }
+          if (fieldSet.subFields?.contactDetailsPrivate.values) {
+            fieldSet.subFields.contactDetailsPrivate.values = subFieldValueStorage as any;
+          }
+        }
+        return fieldSet;
+      });
+      break;
+
+    case YesOrNo.NO:
+      detailKnownFormField = formFieldValues.map(fieldSet => {
+        const { value } = fieldSet;
+        if (value === YesOrNo.NO) {
+          fieldSet['attributes'] = { checked: true };
+        }
+        return fieldSet;
+      });
+      break;
+
+    default:
+      detailKnownFormField = formFieldValues;
+  }
+  form.fields['start'].values = detailKnownFormField;
   const translations = languages[content.language]();
   return {
     ...translations,

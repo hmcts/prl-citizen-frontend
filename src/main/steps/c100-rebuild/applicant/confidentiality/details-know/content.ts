@@ -74,7 +74,7 @@ export const generateContent: TranslationFn = content => {
     },
   ];
   switch (selectedUser) {
-    case 'Yes':
+    case YesOrNo.YES:
       detailKnownFormField = checkedFormField.map(fieldSet => {
         const { value } = fieldSet;
         if (value === YesOrNo.YES) {
@@ -83,7 +83,7 @@ export const generateContent: TranslationFn = content => {
         return fieldSet;
       });
       break;
-    case 'No':
+    case YesOrNo.NO:
       detailKnownFormField = checkedFormField.map(fieldSet => {
         const { value } = fieldSet;
         if (value === YesOrNo.NO) {
