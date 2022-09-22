@@ -8,7 +8,7 @@ const en = () => ({
     emergencyProtectionOrder: 'Upload Emergency Protection Order',
     supervisionOrder: 'Upload Supervision Order',
     careOrder: 'Upload Care Order',
-    childAbductionOrder: 'Upload A contact or Residence Order for Divorce',
+    childAbductionOrder: 'Upload Child Abduction Order',
     contactOrderForDivorce: `Upload A contact or residence order (Section 8 Children
         Act 1989) made within proceedings for a divorce or
         dissolution of a civil partnership`,
@@ -54,7 +54,7 @@ const cy = () => ({
     emergencyProtectionOrder: 'Upload Emergency Protection Order - welsh',
     supervisionOrder: 'Upload Supervision Order -  welsh',
     careOrder: 'Upload Care Order - welsh',
-    childAbductionOrder: 'Upload A contact or Residence Order for Divorce - welsh',
+    childAbductionOrder: 'Upload Child Abduction Order - welsh',
     contactOrderForDivorce: `Upload A contact or residence order (Section 8 Children
         Act 1989) made within proceedings for a divorce or
         dissolution of a civil partnership - welsh`,
