@@ -7,7 +7,10 @@ import { C100ListOfApplicants } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
+import {
+  C100_APPLICANT_ADD_APPLICANTS,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+} from '../../../urls';
 
 // eslint-disable-next-line import/no-unresolved
 
@@ -94,6 +97,11 @@ export default class AddApplicantPostController extends PostController<AnyObject
       id: uuidv4(),
       applicantFirstName,
       applicantLastName,
+      detailsKnown: 'Yes',
+      startAlternative: '',
+      start: '',
+      contactDetailsPrivate: [],
+      contactDetailsPrivateAlternative: [],
     };
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('allApplicants') && req.session.userCase.allApplicants) {
@@ -117,13 +125,21 @@ export default class AddApplicantPostController extends PostController<AnyObject
         const applicantLastName = req.body[`ApplicantLastName-${currentIndexPositioninBody}`];
         if (req.session.userCase.allApplicants) {
           const { id } = req.session.userCase.allApplicants[applicant];
-          const applicantObject = { id, applicantFirstName, applicantLastName };
+          const applicantObject = {
+            ...req.session.userCase.allApplicants[applicant],
+            id,
+            applicantFirstName,
+            applicantLastName,
+          };
           newApplicantStorage.push(applicantObject);
         }
       }
     }
     req.session.userCase.allApplicants = newApplicantStorage;
-    return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+    const redirectURI =
+      C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW +
+      `?applicantId=${req.session.userCase.allApplicants[0].id}`;
+    return super.redirect(req, res, redirectURI);
   }
 
   public resetSessionTemporaryFormValues(req: AppRequest<AnyObject>): void {
