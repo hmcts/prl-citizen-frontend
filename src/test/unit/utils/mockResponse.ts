@@ -11,6 +11,7 @@ export const mockResponse: any = ({ locals = {} } = {}): Response => {
   res.type = jest.fn().mockReturnValue(res);
   res.end = jest.fn();
   res.cookie = jest.fn();
+
   res.status = jest.fn().mockImplementation((code = 200) => {
     res.statusCode = code;
     return res;
