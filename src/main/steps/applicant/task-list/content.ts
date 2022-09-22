@@ -18,6 +18,34 @@ const en = () => ({
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
+  newOrderBanner: {
+    bannerHeading: 'You have a new order from the court',
+    bannerContent: [
+      {
+        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the order (PDF)',
+      },
+    ],
+  },
+  finalOrderBanner: {
+    bannerHeading: 'You have a final order',
+    bannerContent: [
+      {
+        line1: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the order (PDF)',
+      },
+    ],
+  },
 });
 
 const cy = () => ({
@@ -32,6 +60,34 @@ const cy = () => ({
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
+  newOrderBanner: {
+    bannerHeading: 'You have a new order from the court',
+    bannerContent: [
+      {
+        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the order (PDF)',
+      },
+    ],
+  },
+  finalOrderBanner: {
+    bannerHeading: 'You have a final order',
+    bannerContent: [
+      {
+        line1: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the order (PDF)',
+      },
+    ],
+  },
 });
 
 const languages = {
@@ -44,8 +100,8 @@ export const generateContent: TranslationFn = content => {
 
   const banners: Banner[] =
     content.userCase?.caseTypeOfApplication === 'C100'
-      ? getC100Banners(content.userCase)
-      : getFl401Banners(content.userCase);
+      ? getC100Banners(content.userCase, translations)
+      : getFl401Banners(content.userCase, translations);
   return {
     ...translations,
     sections: generateApplicantTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
@@ -53,87 +109,26 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
-const getC100Banners = userCase => {
+const getC100Banners = (userCase, translations) => {
   const banners: Banner[] = [];
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
-    const doc = userCase.orderCollection[0];
-    const uid = doc.value.orderDocument.document_url.substring(
-      doc.value.orderDocument.document_url.lastIndexOf('/') + 1
-    );
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
-      banners.push({
-        bannerHeading: 'You have a new order from the court',
-        bannerContent: [
-          {
-            line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
-          },
-        ],
-        bannerLinks: [
-          {
-            href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
-            text: 'View the order (PDF)',
-          },
-        ],
-      });
+      banners.push(translations.newOrderBanner);
     } else {
-      banners.push({
-        bannerHeading: 'You have a final order',
-        bannerContent: [
-          {
-            line1:
-              'The court has made a final decision about your case. The order tells you what the court has decided. ',
-          },
-        ],
-        bannerLinks: [
-          {
-            href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
-            text: 'View the order (PDF)',
-          },
-        ],
-      });
+      banners.push(translations.finalOrderBanner);
     }
   }
   return banners;
 };
 
-const getFl401Banners = userCase => {
+const getFl401Banners = (userCase, translations) => {
   const banners: Banner[] = [];
+  // please add all the banners before this if condition, the following banner is added only if no other is present
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
-    const doc = userCase.orderCollection[0];
-    const uid = doc.value.orderDocument.document_url.substring(
-      doc.value.orderDocument.document_url.lastIndexOf('/') + 1
-    );
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
-      banners.push({
-        bannerHeading: 'You have a new order from the court',
-        bannerContent: [
-          {
-            line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
-          },
-        ],
-        bannerLinks: [
-          {
-            href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
-            text: 'View the order (PDF)',
-          },
-        ],
-      });
+      banners.push(translations.newOrderBanner);
     } else {
-      banners.push({
-        bannerHeading: 'You have a final order',
-        bannerContent: [
-          {
-            line1:
-              'The court has made a final decision about your case. The order tells you what the court has decided. ',
-          },
-        ],
-        bannerLinks: [
-          {
-            href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
-            text: 'View the order (PDF)',
-          },
-        ],
-      });
+      banners.push(translations.finalOrderBanner);
     }
   }
   return banners;
