@@ -31,6 +31,7 @@ export class PropertiesVolume {
 
   private setSecret(fromPath: string, toPath: string): void {
     console.log('***** setting values *********');
+    console.log('fromPath is ' + fromPath );
     if (config.has(fromPath)) {
       console.log('config is available' + config );
       console.log('fromPath is available' + fromPath );
