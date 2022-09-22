@@ -112,8 +112,7 @@ export const RESPONDENT_ADDRESS_HISTORY: PageLink = `${RESPONDENT}${ADDRESS_HIST
 /* Applicant-start */
 export const APPLICANT: PageLink = '/applicant';
 export const APPLICANT_TASK_LIST_URL: PageLink = '/applicant/task-list';
-export const APPLICANT_CA_MANAGE_ORDER_PDF: PageLink = '/';
-export const APPLICANT_DA_MANAGE_ORDER_PDF: PageLink = '/';
+
 /* applicant-confirm-contact-details-start */
 export const APPLICANT_CONFIRM_CONTACT_DETAILS: PageLink = `${APPLICANT}${CONFIRM_CONTACT_DETAILS}`;
 export const APPLICANT_CHECK_ANSWERS: PageLink = `${APPLICANT}${CHECK_ANSWERS}`;

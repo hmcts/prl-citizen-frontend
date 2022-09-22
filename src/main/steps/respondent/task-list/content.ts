@@ -43,7 +43,6 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase)
       : getFl401Banners(content.userCase);
-  console.log(banners);
 
   return {
     ...translations,
@@ -53,21 +52,18 @@ export const generateContent: TranslationFn = content => {
 };
 
 const getC100Banners = userCase => {
-  console.log(userCase.caseTypeOfApplication);
   const banners: Banner[] = [];
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
     const doc = userCase.orderCollection[0];
     const uid = doc.value.orderDocument.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    console.log(userCase.state);
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push({
         bannerHeading: 'You have a new order from the court',
         bannerContent: [
           {
             line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
-            line2: ' ',
           },
         ],
         bannerLinks: [
@@ -84,7 +80,6 @@ const getC100Banners = userCase => {
           {
             line1:
               'The court has made a final decision about your case. The order tells you what the court has decided. ',
-            line2: ' ',
           },
         ],
         bannerLinks: [
@@ -96,25 +91,42 @@ const getC100Banners = userCase => {
       });
     }
   }
+    banners.push({
+      bannerHeading: 'Respond to an application about a child',
+      bannerContent: [
+        {
+          line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+          line2:
+            'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+        },
+      ],
+      bannerLinks: [
+        {
+          href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+          text: 'Check the application (PDF)',
+        },
+        {
+          href: RESPOND_TO_APPLICATION,
+          text: 'Respond to the application',
+        },
+      ],
+    });
   return banners;
 };
 
 const getFl401Banners = userCase => {
-  console.log(userCase.caseTypeOfApplication);
   const banners: Banner[] = [];
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
     const doc = userCase.orderCollection[0];
     const uid = doc.value.orderDocument.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    console.log(userCase.state);
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push({
         bannerHeading: 'You have a new order from the court',
         bannerContent: [
           {
             line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
-            line2: ' ',
           },
         ],
         bannerLinks: [
@@ -131,7 +143,6 @@ const getFl401Banners = userCase => {
           {
             line1:
               'The court has made a final decision about your case. The order tells you what the court has decided. ',
-            line2: ' ',
           },
         ],
         bannerLinks: [
@@ -143,5 +154,25 @@ const getFl401Banners = userCase => {
       });
     }
   }
+   banners.push({
+      bannerHeading: 'Respond to an application about a child',
+      bannerContent: [
+        {
+          line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+          line2:
+            'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+        },
+      ],
+      bannerLinks: [
+        {
+          href: APPLICANT_CA_DA_REQUEST,
+          text: 'Check the application (PDF)',
+        },
+        {
+          href: RESPOND_TO_APPLICATION,
+          text: 'Respond to the application',
+        },
+      ],
+    });
   return banners;
 };
