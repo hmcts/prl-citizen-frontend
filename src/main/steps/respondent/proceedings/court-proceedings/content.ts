@@ -36,15 +36,15 @@ const en = {
   saveAndContinue: 'Save and continue',
   errors: {
     emergencyOrderOptions: {
-      required: 'Please choose an option for Emergency Protection Order',
+      required: 'Please choose an option for emergency protection order',
     },
 
     'emergencyOrder.orderDateDetails': {
-      invalidDate: 'Emergency Protection Order date must be a real date',
-      incompleteDay: 'Emergency Protection Order date must include a day',
-      incompleteMonth: 'Emergency Protection Order date must include a month',
-      incompleteYear: 'Emergency Protection Order date must include a year',
-      invalidDateInFuture: 'Emergency Protection Order date must be in the past',
+      invalidDate: 'emergency protection order date must be a real date',
+      incompleteDay: 'emergency protection order date must include a day',
+      incompleteMonth: 'emergency protection order date must include a month',
+      incompleteYear: 'emergency protection order date must include a year',
+      invalidDateInFuture: 'emergency protection order date must be in the past',
     },
 
     supervisionOrderOption: {
@@ -60,7 +60,7 @@ const en = {
     },
 
     caOrderOption: {
-      required: 'Please choose an option for child arrangement order',
+      required: 'Please choose an option for child arrangements order',
     },
 
     financialOrderOption: {
@@ -72,11 +72,11 @@ const en = {
     },
 
     occupationalOrderOptions: {
-      required: 'Please choose an option for Occupation order',
+      required: 'Please choose an option for occupation order',
     },
 
     marraigeOrderOptions: {
-      required: 'Please choose an option for non-marriage order',
+      required: 'Please choose an option for forced marriage order',
     },
 
     restrainingOrderOptions: {
@@ -84,7 +84,7 @@ const en = {
     },
 
     injuctiveOrderOptions: {
-      required: 'Please choose an option for injuctive order',
+      required: 'Please choose an option for injunctive order',
     },
 
     underTakingOrderOptions: {
@@ -125,15 +125,15 @@ const cy: typeof en = {
   saveAndContinue: 'Save and continue',
   errors: {
     emergencyOrderOptions: {
-      required: 'Please choose an option for Emergency Protection Order',
+      required: 'Please choose an option for emergency protection order',
     },
 
     'emergencyOrder.orderDateDetails': {
-      invalidDate: 'Emergency Protection Order date must be a real date',
-      incompleteDay: 'Emergency Protection Order date must include a day',
-      incompleteMonth: 'Emergency Protection Order date must include a month',
-      incompleteYear: 'Emergency Protection Order date must include a year',
-      invalidDateInFuture: 'Emergency Protection Order date must be in the past',
+      invalidDate: 'emergency protection order date must be a real date',
+      incompleteDay: 'emergency protection order date must include a day',
+      incompleteMonth: 'emergency protection order date must include a month',
+      incompleteYear: 'emergency protection order date must include a year',
+      invalidDateInFuture: 'emergency protection order date must be in the past',
     },
 
     supervisionOrderOption: {
@@ -149,7 +149,7 @@ const cy: typeof en = {
     },
 
     caOrderOption: {
-      required: 'Please choose an option for child arrangement order',
+      required: 'Please choose an option for child arrangements order',
     },
 
     financialOrderOption: {
@@ -161,11 +161,11 @@ const cy: typeof en = {
     },
 
     occupationalOrderOptions: {
-      required: 'Please choose an option for Occupation order',
+      required: 'Please choose an option for occupation order',
     },
 
     marraigeOrderOptions: {
-      required: 'Please choose an option for non-marriage order',
+      required: 'Please choose an option for forced marriage order',
     },
 
     restrainingOrderOptions: {
@@ -173,7 +173,7 @@ const cy: typeof en = {
     },
 
     injuctiveOrderOptions: {
-      required: 'Please choose an option for injuctive order',
+      required: 'Please choose an option for injunctive order',
     },
 
     underTakingOrderOptions: {

@@ -118,7 +118,7 @@ const en = {
       required: 'please enter child abduction issue order details',
     },
     caOrderOption: {
-      required: 'Please choose an option for child arrangement order',
+      required: 'Please choose an option for child arrangements order',
     },
     'caOrder.caseNoDetails': {
       required: 'please enter child arrangements order case number',
@@ -226,22 +226,22 @@ const en = {
       required: 'please enter restraining issue order details',
     },
     injuctiveOrderOptions: {
-      required: 'Please choose an option for injuctive order',
+      required: 'Please choose an option for injunctive order',
     },
     'injuctiveOrder.caseNoDetails': {
-      required: 'please enter injuctive order case number',
+      required: 'please enter injunctive order case number',
     },
     'injuctiveOrder.orderDateDetails': {
-      required: 'please enter injuctive order date details',
+      required: 'please enter injunctive order date details',
     },
     'injuctiveOrder.orderTimeDetails': {
-      required: 'please enter injuctive order time details',
+      required: 'please enter injunctive order time details',
     },
     'injuctiveOrder.currentOrderDetails': {
-      required: 'please enter injuctive current order details',
+      required: 'please enter injunctive current order details',
     },
     'injuctiveOrder.issueOrderDetails': {
-      required: 'please enter injuctive issue order details',
+      required: 'please enter injunctive issue order details',
     },
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
@@ -373,7 +373,7 @@ const cy: typeof en = {
       required: 'please enter child abduction issue order details',
     },
     caOrderOption: {
-      required: 'Please choose an option for child arrangement order',
+      required: 'Please choose an option for child arrangements order',
     },
     'caOrder.caseNoDetails': {
       required: 'please enter child arrangements order case number',
@@ -481,22 +481,22 @@ const cy: typeof en = {
       required: 'please enter restraining issue order details',
     },
     injuctiveOrderOptions: {
-      required: 'Please choose an option for injuctive order',
+      required: 'Please choose an option for injunctive order',
     },
     'injuctiveOrder.caseNoDetails': {
-      required: 'please enter injuctive order case number',
+      required: 'please enter injunctive order case number',
     },
     'injuctiveOrder.orderDateDetails': {
-      required: 'please enter injuctive order date details',
+      required: 'please enter injunctive order date details',
     },
     'injuctiveOrder.orderTimeDetails': {
-      required: 'please enter injuctive order time details',
+      required: 'please enter injunctive order time details',
     },
     'injuctiveOrder.currentOrderDetails': {
-      required: 'please enter injuctive current order details',
+      required: 'please enter injunctive current order details',
     },
     'injuctiveOrder.issueOrderDetails': {
-      required: 'please enter injuctive issue order details',
+      required: 'please enter injunctive issue order details',
     },
     underTakingOrderOptions: {
       required: 'Please choose an option for undertaking order',
