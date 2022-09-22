@@ -76,7 +76,7 @@ const en = {
     },
 
     marraigeOrderOptions: {
-      required: 'Please choose an option for forced marriage order',
+      required: 'Please choose an option for forced marriage protection order',
     },
 
     restrainingOrderOptions: {
@@ -165,7 +165,7 @@ const cy: typeof en = {
     },
 
     marraigeOrderOptions: {
-      required: 'Please choose an option for forced marriage order',
+      required: 'Please choose an option for forced marriage protection order',
     },
 
     restrainingOrderOptions: {
