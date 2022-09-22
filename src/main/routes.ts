@@ -17,6 +17,7 @@ import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
+import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/RespondentConfirmContactDetailsPostController';
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { KeepDetailsPrivateGetController } from './steps/respondent/keep-details-private/KeepDetailsPrivateGetController';
@@ -44,6 +45,7 @@ import {
   MANAGE_DOCUMENTS_DOWNLOAD,
   PRIVACY_POLICY,
   RESPONDENT,
+  RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -126,6 +128,10 @@ export class Routes {
         app.get(
           `${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`,
           errorHandler(new KeepDetailsPrivatePostController(step.form.fields).post)
+        );
+        app.post(
+          `${RESPONDENT_CONTACT_DETAILS_SAVE}`,
+          errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
         );
       }
     }

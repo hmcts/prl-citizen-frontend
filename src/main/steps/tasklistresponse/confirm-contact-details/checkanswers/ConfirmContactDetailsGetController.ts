@@ -14,7 +14,7 @@ export default class ConfirmContactDetailsGetController extends GetController {
       res.locals.isLoggedIn = true;
       req.locals.api = getCaseApi(req.session.user, req.locals.logger);
     }
-    req.session.userCase.applicant1FirstNames = 'John';
+    req.session.userCase.applicant1FirstNames = 'John2';
     req.session.userCase.applicant1LastNames = 'Smith';
     req.session.userCase.applicant1FullName = 'John Smith';
     req.session.userCase.applicant1PlaceOfBirth = 'London';
