@@ -74,9 +74,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+              href: '#',
               id: 'check_the_application',
-              status: 'DOWNLOAD',
+              status: 'NOT_AVAILABLE_YET',
               text: 'Check the application (PDF)',
             },
           ],

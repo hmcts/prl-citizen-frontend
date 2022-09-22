@@ -163,7 +163,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
       client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
-      req.session.userCase = caseDataFromCos;
+      //req.session.userCase = caseDataFromCos;
+      Object.assign(req.session.userCase, caseDataFromCos);
     } catch (err) {
       console.log(err);
     }
@@ -337,38 +338,63 @@ export class DocumentManagerController extends PostController<AnyObject> {
     cvIsApplicationViewed: string | undefined,
     respondent: Respondent
   ) {
-    if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && respondent?.value?.response?.citizenFlags) {
-      if (
-        cvIsAllegationOfHarmViewed === null ||
-        cvIsAllegationOfHarmViewed === undefined ||
-        cvIsAllegationOfHarmViewed === 'No'
-      ) {
-        respondent.value.response.citizenFlags = {
-          isAllegationOfHarmViewed: 'No',
-          isApplicationViewed: 'Yes',
-        };
-      } else {
-        respondent.value.response.citizenFlags = {
-          isAllegationOfHarmViewed: 'Yes',
-          isApplicationViewed: 'Yes',
-        };
+    const temp = {};
+    if (respondent?.value?.response?.citizenFlags) {
+      if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED) {
+        //Object.assign(respondent?.value?.response?.citizenFlags, {isApplicationViewed: 'Yes'});
+        Object.assign(temp, { isApplicationViewed: 'Yes' });
+
+        if (cvIsAllegationOfHarmViewed === 'Yes') {
+          Object.assign(temp, { isAllegationOfHarmViewed: 'Yes' });
+        } else {
+          Object.assign(temp, { isAllegationOfHarmViewed: 'No' });
+        }
       }
-    } else if (
-      flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED &&
-      respondent?.value?.response?.citizenFlags
-    ) {
-      if (cvIsApplicationViewed === null || cvIsApplicationViewed === undefined || cvIsApplicationViewed === 'No') {
-        respondent.value.response.citizenFlags = {
-          isAllegationOfHarmViewed: 'Yes',
-          isApplicationViewed: 'No',
-        };
-      } else {
-        respondent.value.response.citizenFlags = {
-          isAllegationOfHarmViewed: 'Yes',
-          isApplicationViewed: 'Yes',
-        };
+
+      if (flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED) {
+        Object.assign(temp, { isAllegationOfHarmViewed: 'Yes' });
+
+        if (cvIsApplicationViewed === 'Yes') {
+          Object.assign(temp, { isApplicationViewed: 'Yes' });
+        } else {
+          Object.assign(temp, { isApplicationViewed: 'No' });
+        }
       }
+      Object.assign(respondent.value.response.citizenFlags, temp);
     }
+
+    //   if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && respondent?.value?.response?.citizenFlags) {
+    //     if (
+    //       cvIsAllegationOfHarmViewed === null ||
+    //       cvIsAllegationOfHarmViewed === undefined ||
+    //       cvIsAllegationOfHarmViewed === 'No'
+    //     ) {
+    //       respondent.value.response.citizenFlags = {
+    //         isAllegationOfHarmViewed: 'No',
+    //         isApplicationViewed: 'Yes',
+    //       };
+    //     } else {
+    //       respondent.value.response.citizenFlags = {
+    //         isAllegationOfHarmViewed: 'Yes',
+    //         isApplicationViewed: 'Yes',
+    //       };
+    //     }
+    //   } else if (
+    //     flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED &&
+    //     respondent?.value?.response?.citizenFlags
+    //   ) {
+    //     if (cvIsApplicationViewed === null || cvIsApplicationViewed === undefined || cvIsApplicationViewed === 'No') {
+    //       respondent.value.response.citizenFlags = {
+    //         isAllegationOfHarmViewed: 'Yes',
+    //         isApplicationViewed: 'No',
+    //       };
+    //     } else {
+    //       respondent.value.response.citizenFlags = {
+    //         isAllegationOfHarmViewed: 'Yes',
+    //         isApplicationViewed: 'Yes',
+    //       };
+    //     }
+    //   }
   }
 
   private getUID(documentToGet: string) {

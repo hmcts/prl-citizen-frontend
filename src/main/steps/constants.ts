@@ -19,3 +19,4 @@ export interface Step {
 
 export const ApplicantUploadFiles = 'applicantUploadFiles';
 export const RespondentUploadFiles = 'respondentUploadFiles';
+export const UPDATE_CASE_YES = '?updateCase=Yes';

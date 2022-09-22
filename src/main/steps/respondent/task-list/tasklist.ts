@@ -1,4 +1,6 @@
 import { CaseWithId } from '../../../app/case/case';
+import { SectionStatus } from '../../../app/case/definition';
+import { UPDATE_CASE_YES } from '../../../steps/constants';
 import * as URL from '../../urls';
 
 import {
@@ -92,13 +94,19 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
         id: 'check_the_application',
         text: taskListItems.check_the_application,
         status: getFinalApplicationStatus(userCase, userIdamId),
-        href: URL.APPLICANT_CA_DA_REQUEST + '?updateCase=Yes',
+        href:
+          getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
+            ? '#'
+            : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
       },
       {
         id: 'check_allegations_of_harm_and_violence',
         text: taskListItems.check_allegations_of_harm_and_violence,
         status: getCheckAllegationOfHarmStatus(userCase, userIdamId),
-        href: URL.ALLEGATION_OF_HARM_VOILENCE + '?updateCase=Yes',
+        href:
+          getCheckAllegationOfHarmStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
+            ? '#'
+            : URL.ALLEGATION_OF_HARM_VOILENCE + UPDATE_CASE_YES,
       }
     );
   } else {
@@ -106,7 +114,10 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
       id: 'check_the_application',
       text: taskListItems.check_the_application,
       status: getFinalApplicationStatus(userCase, userIdamId),
-      href: URL.APPLICANT_CA_DA_REQUEST + '?updateCase=Yes',
+      href:
+        getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
+          ? '#'
+          : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
     });
   }
 

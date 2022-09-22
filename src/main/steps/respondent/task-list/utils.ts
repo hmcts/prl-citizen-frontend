@@ -146,6 +146,10 @@ export const getFinalApplicationStatus = (
 ): SectionStatus => {
   let result = SectionStatus.DOWNLOAD;
 
+  if (!userCase?.finalDocument?.document_binary_url) {
+    return SectionStatus.NOT_AVAILABLE_YET;
+  }
+
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (
       respondent?.value.user.idamId === userIdamId &&
@@ -163,6 +167,11 @@ export const getCheckAllegationOfHarmStatus = (
   userIdamId: string
 ): SectionStatus => {
   let status = SectionStatus.DOWNLOAD;
+
+  if (!userCase?.c1ADocument?.document_binary_url) {
+    return SectionStatus.NOT_AVAILABLE_YET;
+  }
+
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (
       respondent?.value.user?.idamId === userIdamId &&
