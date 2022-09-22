@@ -46,15 +46,14 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase)
       : getFl401Banners(content.userCase);
-  console.log(banners);
   return {
     ...translations,
     sections: generateApplicantTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
+    banners,
   };
 };
 
 const getC100Banners = userCase => {
-  console.log(userCase.caseTypeOfApplication);
   const banners: Banner[] = [];
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
     const doc = userCase.orderCollection[0];
@@ -100,14 +99,12 @@ const getC100Banners = userCase => {
 };
 
 const getFl401Banners = userCase => {
-  console.log(userCase.caseTypeOfApplication);
   const banners: Banner[] = [];
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
     const doc = userCase.orderCollection[0];
     const uid = doc.value.orderDocument.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    console.log(userCase.caseStatus);
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push({
         bannerHeading: 'You have a new order from the court',

@@ -1,6 +1,11 @@
 import { Banner, SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../steps/urls';
+import {
+  APPLICANT,
+  APPLICANT_CA_DA_REQUEST,
+  RESPONDENT_ORDERS_FROM_THE_COURT,
+  RESPOND_TO_APPLICATION,
+} from '../../../steps/urls';
 
 import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
@@ -91,26 +96,26 @@ const getC100Banners = userCase => {
       });
     }
   }
-    banners.push({
-      bannerHeading: 'Respond to an application about a child',
-      bannerContent: [
-        {
-          line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
-          line2:
-            'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
-        },
-      ],
-      bannerLinks: [
-        {
-          href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
-          text: 'Check the application (PDF)',
-        },
-        {
-          href: RESPOND_TO_APPLICATION,
-          text: 'Respond to the application',
-        },
-      ],
-    });
+  banners.push({
+    bannerHeading: 'Respond to an application about a child',
+    bannerContent: [
+      {
+        line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+        line2:
+          'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+        text: 'Check the application (PDF)',
+      },
+      {
+        href: RESPOND_TO_APPLICATION,
+        text: 'Respond to the application',
+      },
+    ],
+  });
   return banners;
 };
 
@@ -154,25 +159,25 @@ const getFl401Banners = userCase => {
       });
     }
   }
-   banners.push({
-      bannerHeading: 'Respond to an application about a child',
-      bannerContent: [
-        {
-          line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
-          line2:
-            'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
-        },
-      ],
-      bannerLinks: [
-        {
-          href: APPLICANT_CA_DA_REQUEST,
-          text: 'Check the application (PDF)',
-        },
-        {
-          href: RESPOND_TO_APPLICATION,
-          text: 'Respond to the application',
-        },
-      ],
-    });
+  banners.push({
+    bannerHeading: 'Respond to an application about a child',
+    bannerContent: [
+      {
+        line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+        line2:
+          'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: APPLICANT_CA_DA_REQUEST,
+        text: 'Check the application (PDF)',
+      },
+      {
+        href: RESPOND_TO_APPLICATION,
+        text: 'Respond to the application',
+      },
+    ],
+  });
   return banners;
 };
