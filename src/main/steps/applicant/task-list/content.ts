@@ -66,7 +66,6 @@ const getC100Banners = userCase => {
         bannerContent: [
           {
             line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
-            line2: ' ',
           },
         ],
         bannerLinks: [
@@ -83,7 +82,6 @@ const getC100Banners = userCase => {
           {
             line1:
               'The court has made a final decision about your case. The order tells you what the court has decided. ',
-            line2: ' ',
           },
         ],
         bannerLinks: [
@@ -111,7 +109,6 @@ const getFl401Banners = userCase => {
         bannerContent: [
           {
             line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
-            line2: ' ',
           },
         ],
         bannerLinks: [
@@ -128,7 +125,6 @@ const getFl401Banners = userCase => {
           {
             line1:
               'The court has made a final decision about your case. The order tells you what the court has decided. ',
-            line2: ' ',
           },
         ],
         bannerLinks: [
