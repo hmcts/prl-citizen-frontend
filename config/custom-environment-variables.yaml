@@ -13,6 +13,8 @@ services:
     cosApiClientSecret: COS_API_IDAM_SECRET
   case:
     url: CCD_URL
+  cos:
+    url: COS_URL
   payments:
     url: PAYMENTS_API_URL
   feeLookup:
