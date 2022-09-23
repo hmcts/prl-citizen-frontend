@@ -46,7 +46,7 @@ class CaseApi {
 
   public async uploadDocument(formdata: FormData): Promise<DocumentUploadResponse> {
     try {
-      const response = await this.axios.post<DocumentUploadResponse>('/upload-citizen-statement-document', formdata, {
+      const response = await this.axios.post<DocumentUploadResponse>('/upload-citizen-document', formdata, {
         headers: {
           ...formdata.getHeaders(),
         },

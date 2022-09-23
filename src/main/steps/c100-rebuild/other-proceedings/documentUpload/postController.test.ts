@@ -145,7 +145,7 @@ describe('Document upload controller', () => {
       switch (url) {
         case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
           return Promise.resolve({ data: 'Test S2S Token' });
-        case '/upload-citizen-statement-document':
+        case '/upload-citizen-document':
           return Promise.resolve({
             data: {
               status: 'Success',
@@ -215,7 +215,7 @@ describe('Document upload controller', () => {
       switch (url) {
         case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
           return Promise.resolve({ data: 'Test S2S Token' });
-        case '/upload-citizen-statement-document':
+        case '/upload-citizen-document':
           return Promise.resolve({
             data: {
               status: 'Success',
