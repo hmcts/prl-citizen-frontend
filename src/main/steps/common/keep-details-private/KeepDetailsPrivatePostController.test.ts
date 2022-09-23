@@ -46,6 +46,7 @@ describe('KeepDetailsPrivatePostController', () => {
     req.session.userCase.respondents = respondents;
     req.session.userCase.startAlternative = YesOrNo.YES;
     req.session.userCase.caseTypeOfApplication = 'C100';
+    req.url = 'respondent';
     await controller.post(req, res);
     expect(req.session.userCase.respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });
@@ -64,6 +65,7 @@ describe('KeepDetailsPrivatePostController', () => {
     req.session.userCase.respondentsFL401 = respondents[0].value;
     req.session.userCase.startAlternative = YesOrNo.YES;
     req.session.userCase.caseTypeOfApplication = 'fl401';
+    req.url = 'respondent';
     await controller.post(req, res);
     expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });

@@ -15,8 +15,8 @@ export const enContent = {
     citizenUserPlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
-    citizenUserPhoneNumber: 'Phone number',
-    citizenUserEmailAddress: 'Email',
+    citizenUserPhoneNumberText: 'Phone number',
+    citizenUserEmailAddressText: 'Email',
     applicant1SafeToCall: 'When it is safe to call you (optional)',
   },
   errors: {},
@@ -47,8 +47,8 @@ const cyContent: typeof enContent = {
     citizenUserPlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
-    citizenUserPhoneNumber: 'Phone number',
-    citizenUserEmailAddress: 'Email',
+    citizenUserPhoneNumberText: 'Phone number',
+    citizenUserEmailAddressText: 'Email',
     applicant1SafeToCall: 'When it is safe to call you (optional)',
   },
   errors: {},
@@ -60,8 +60,8 @@ const urls = {
   citizenUserPlaceOfBirthText: 'personaldetails',
   address: 'addressdetails',
   addressHistory: 'addresshistory',
-  citizenUserPhoneNumber: 'contactdetails',
-  citizenUserEmailAddress: 'contactdetails',
+  citizenUserPhoneNumberText: 'contactdetails',
+  citizenUserEmailAddressText: 'contactdetails',
   applicant1SafeToCall: 'contactdetails',
 };
 const fieldType = {
@@ -70,8 +70,8 @@ const fieldType = {
   citizenUserPlaceOfBirthText: 'String',
   address: 'String',
   addressHistory: 'String',
-  citizenUserPhoneNumber: 'String',
-  citizenUserEmailAddress: 'String',
+  citizenUserPhoneNumberText: 'String',
+  citizenUserEmailAddressText: 'String',
   applicant1SafeToCall: 'String',
 };
 

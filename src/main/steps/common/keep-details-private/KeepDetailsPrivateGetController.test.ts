@@ -152,6 +152,7 @@ describe('KeepDetailsPrivateGetController', () => {
     };
     respondents[0].value.response = response;
     req.session.userCase.respondentsFL401 = respondents[0].value;
+    req.url = 'respondent';
     await controller.get(req, res);
     expect(req.session.userCase.startAlternative).toEqual('Yes');
   });

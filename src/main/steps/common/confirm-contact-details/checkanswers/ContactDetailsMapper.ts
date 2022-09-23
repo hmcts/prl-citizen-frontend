@@ -47,26 +47,39 @@ export const getContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
   if (partyDetails.placeOfBirth) {
     req.session.userCase.citizenUserPlaceOfBirth = partyDetails.placeOfBirth;
   }
+  if (partyDetails.dateOfBirth) {
+    req.session.userCase.citizenUserDateOfBirth = fromApiDate(partyDetails.dateOfBirth);
+  }
+  if (partyDetails.phoneNumber) {
+    req.session.userCase.citizenUserPhoneNumber = partyDetails.phoneNumber;
+  }
+  if (partyDetails.email) {
+    req.session.userCase.citizenUserEmailAddress = partyDetails.email;
+  }
+  return req.session.userCase;
+};
+
+export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   if (!req.session.userCase.citizenUserPlaceOfBirth) {
     req.session.userCase.citizenUserPlaceOfBirthText = '';
   } else {
     req.session.userCase.citizenUserPlaceOfBirthText = req.session.userCase.citizenUserPlaceOfBirth;
   }
-  if (partyDetails.dateOfBirth) {
-    req.session.userCase.citizenUserDateOfBirth = fromApiDate(partyDetails.placeOfBirth);
-  }
-  if (!req.session.userCase.citizenUserDateOfBirthText) {
+  if (!req.session.userCase.citizenUserDateOfBirth) {
     req.session.userCase.citizenUserDateOfBirthText = '';
   } else {
     req.session.userCase.citizenUserDateOfBirthText = getFormattedDate(req.session.userCase.citizenUserDateOfBirth);
   }
-
-  if (partyDetails.phoneNumber) {
-    req.session.userCase.citizenUserPhoneNumber = partyDetails.phoneNumber;
+  if (!req.session.userCase.citizenUserPhoneNumber) {
+    req.session.userCase.citizenUserPhoneNumberText = '';
+  } else {
+    req.session.userCase.citizenUserPhoneNumberText = req.session.userCase.citizenUserPhoneNumber;
+  }
+  if (!req.session.userCase.citizenUserEmailAddress) {
+    req.session.userCase.citizenUserEmailAddressText = '';
+  } else {
+    req.session.userCase.citizenUserEmailAddressText = req.session.userCase.citizenUserEmailAddress;
   }
 
-  if (partyDetails.email) {
-    req.session.userCase.citizenUserEmailAddress = partyDetails.email;
-  }
   return req.session.userCase;
 };

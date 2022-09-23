@@ -13,9 +13,7 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[2].url).toBe('/applicant/keep-details-private/start_alternative');
     expect(applicantCaseSequence[2].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[2].getNextStep({})).toBe(
-      '/applicant/keep-details-private/private_details_not_confirmed'
-    );
+    expect(applicantCaseSequence[2].getNextStep({})).toBe('/applicant/keep-details-private/save');
 
     expect(applicantCaseSequence[3].url).toBe('/applicant/keep-details-private/private_details_confirmed');
     expect(applicantCaseSequence[3].showInSection).toBe('aboutApplicantCase');

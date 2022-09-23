@@ -378,8 +378,10 @@ export interface Case {
   citizenUserAdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   citizenUserEmailAddress?: string;
+  citizenUserEmailAddressText?: string;
   applicant1SafeToCall?: string;
   citizenUserPhoneNumber?: string;
+  citizenUserPhoneNumberText?: string;
   citizenUserDateOfBirth?: CaseDate;
   citizenUserDateOfBirthText?: string;
   applicant1Occupation?: string;

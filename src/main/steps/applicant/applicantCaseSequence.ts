@@ -1,4 +1,3 @@
-import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT,
@@ -13,6 +12,7 @@ import {
   APPLICANT_CONTACT_DETAILS_SAVE,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_FIND_ADDRESS,
+  APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_PERSONAL_DETAILS,
   APPLICANT_POSTAL_ADDRESS_DETAILS,
@@ -70,10 +70,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_START_ALTERNATIVE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: data =>
-      data.startAlternative === YesOrNo.YES
-        ? APPLICANT_PRIVATE_DETAILS_CONFIRMED
-        : APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
+    getNextStep: () => APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
   },
   {
     url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,

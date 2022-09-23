@@ -33,7 +33,7 @@ describe('utils', () => {
           citizenUserDateOfBirth: undefined,
           citizenUserPlaceOfBirth: undefined,
         },
-        expected: SectionStatus.TO_DO,
+        expected: SectionStatus.IN_PROGRESS,
       },
       {
         data: {
@@ -42,11 +42,11 @@ describe('utils', () => {
           citizenUserDateOfBirth: date,
           citizenUserPlaceOfBirth: 'date',
         },
-        expected: SectionStatus.COMPLETED,
+        expected: SectionStatus.IN_PROGRESS,
       },
       { data: { ...mockUserCase, citizenUserFullName: 'Test' }, expected: SectionStatus.IN_PROGRESS },
     ])('should return correct status %#', async ({ data, expected }) => {
-      expect(getConfirmOrEditYourContactDetails({ ...userCase, ...data })).toBe(expected);
+      expect(getConfirmOrEditYourContactDetails({ ...userCase, ...data }, '123456')).toBe(expected);
     });
   });
   describe('getConsentToApplicationStatus', () => {

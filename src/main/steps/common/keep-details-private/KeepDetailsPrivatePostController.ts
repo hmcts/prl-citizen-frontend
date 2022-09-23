@@ -2,18 +2,23 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 //import { getSystemUser } from '../../../app/auth/user/oidc';
-import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { Applicant, Respondent } from '../../../../app/case/definition';
-import { toApiFormat } from '../../../../app/case/to-api-format';
-import { AppRequest } from '../../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
+import { CosApiClient } from '../../../app/case/CosApiClient';
+import { Applicant, Respondent, YesOrNo } from '../../../app/case/definition';
+import { toApiFormat } from '../../../app/case/to-api-format';
+import { AppRequest } from '../../../app/controller/AppRequest';
+import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+import {
+  APPLICANT_PRIVATE_DETAILS_CONFIRMED,
+  APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
+  RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
+  RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
+} from '../../../steps/urls';
 
-import { setContactDetails } from './ContactDetailsMapper';
+import { setKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
 @autobind
-export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
+export class KeepDetailsPrivatePostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
@@ -29,13 +34,13 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
       if (req.url.includes('respondent')) {
         req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
           if (respondent?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(respondent.value, setContactDetails(respondent.value, req));
+            Object.assign(respondent.value, setKeepYourDetailsPrivate(respondent.value, req));
           }
         });
       } else {
         req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
           if (applicant?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(applicant.value, setContactDetails(applicant.value, req));
+            Object.assign(applicant.value, setKeepYourDetailsPrivate(applicant.value, req));
           }
         });
       }
@@ -44,14 +49,14 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
         if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
           Object.assign(
             req.session.userCase.respondentsFL401,
-            setContactDetails(req.session.userCase.respondentsFL401, req)
+            setKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req)
           );
         }
       } else {
         if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
           Object.assign(
             req.session.userCase.applicantsFL401,
-            setContactDetails(req.session.userCase.applicantsFL401, req)
+            setKeepYourDetailsPrivate(req.session.userCase.applicantsFL401, req)
           );
         }
       }
@@ -63,16 +68,23 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
       loggedInCitizen,
       caseReference as string,
       caseData,
-      'linkCitizenAccount'
+      'keepYourDetailsPrivate'
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
     let redirectUrl;
-
     if (req.url.includes('respondent')) {
-      redirectUrl = RESPONDENT_TASK_LIST_URL;
+      redirectUrl = RESPONDENT_PRIVATE_DETAILS_CONFIRMED;
     } else {
-      redirectUrl = APPLICANT_TASK_LIST_URL;
+      redirectUrl = APPLICANT_PRIVATE_DETAILS_CONFIRMED;
+    }
+
+    if (req.session.userCase.startAlternative === YesOrNo.NO) {
+      if (req.url.includes('respondent')) {
+        redirectUrl = RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED;
+      } else {
+        redirectUrl = APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED;
+      }
     }
 
     req.session.save(() => res.redirect(redirectUrl));

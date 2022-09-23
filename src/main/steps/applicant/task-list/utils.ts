@@ -1,25 +1,52 @@
 import { CaseWithId } from '../../../app/case/case';
-import { SectionStatus } from '../../../app/case/definition';
+import { Applicant, SectionStatus } from '../../../app/case/definition';
 
-export const getKeepYourDetailsPrivateStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.detailsKnown && userCase?.startAlternative) {
-    return SectionStatus.COMPLETED;
+export const getKeepYourDetailsPrivateStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  let status = SectionStatus.TO_DO;
+  let keepDetailsPrivate;
+  if (userCase?.caseTypeOfApplication === 'C100') {
+    userCase?.respondents?.forEach((applicant: Applicant) => {
+      if (applicant?.value.user?.idamId === userIdamId) {
+        keepDetailsPrivate = applicant?.value?.response?.keepDetailsPrivate;
+      }
+    });
+  } else {
+    keepDetailsPrivate = userCase?.applicantsFL401?.response?.keepDetailsPrivate;
   }
-  if (userCase?.detailsKnown || userCase?.startAlternative) {
-    return SectionStatus.IN_PROGRESS;
+  if (keepDetailsPrivate?.confidentiality && keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+    status = SectionStatus.COMPLETED;
+  } else if (keepDetailsPrivate?.confidentiality || keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+    status = SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.TO_DO;
+  return status;
 };
 
-export const getConfirmOrEditYourContactDetails = (userCase: CaseWithId): SectionStatus => {
-  if (userCase?.citizenUserFullName && userCase?.citizenUserDateOfBirth && userCase?.citizenUserPlaceOfBirth) {
-    return SectionStatus.COMPLETED;
-  }
-  if (userCase?.citizenUserFullName || userCase?.citizenUserDateOfBirth || userCase?.citizenUserPlaceOfBirth) {
-    return SectionStatus.IN_PROGRESS;
+export const getConfirmOrEditYourContactDetails = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  const status = SectionStatus.TO_DO;
+  let resp;
+  if (userCase?.caseTypeOfApplication === 'C100') {
+    userCase?.respondents?.forEach((applicant: Applicant) => {
+      if (applicant?.value.user?.idamId === userIdamId) {
+        resp = applicant?.value;
+      }
+    });
+  } else {
+    resp = userCase?.applicantsFL401;
   }
 
-  return SectionStatus.TO_DO;
+  if (resp?.firstName && resp?.lastName && resp?.dateOfBirth && resp?.placeOfBirth) {
+    return SectionStatus.COMPLETED;
+  }
+  if (resp?.firstName || resp?.lastName || resp?.dateOfBirth || resp?.placeOfBirth) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return status;
 };
 
 export const getYourApplication = (): SectionStatus => {

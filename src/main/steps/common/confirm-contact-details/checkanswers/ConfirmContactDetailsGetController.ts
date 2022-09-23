@@ -1,65 +1,51 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getCaseApi } from '../../../../app/case/CaseApi';
+import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { Case } from '../../../../app/case/case';
-import { CONFIDENTIAL_DETAILS } from '../../../../app/case/definition';
+import { Applicant, CONFIDENTIAL_DETAILS, Respondent } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
-import { getFormattedDate } from '../../../common/summary/utils';
-import { CommonContent } from '../../common.content';
+import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
 
-import { generateContent } from './content';
+import { getContactDetails } from './ContactDetailsMapper';
 
-export type PageContent = Record<string, unknown>;
-export type TranslationFn = (content: CommonContent) => PageContent;
 @autobind
-export default class ConfirmContactDetailsGetController extends GetController {
-  constructor() {
-    super(__dirname + '/template', generateContent);
-  }
-
+export class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    const redirect = false;
+    const loggedInCitizen = req.session.user;
+    const caseReference = req.session.userCase.id;
 
-    if (req.session?.user) {
-      res.locals.isLoggedIn = true;
-      req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-    }
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
-    if (!req.session.userCase.citizenUserFirstNames || !req.session.userCase.citizenUserLastNames) {
-      req.session.userCase.citizenUserFullName = '';
+    const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
+    Object.assign(req.session.userCase, caseDataFromCos);
+
+    if (req.session.userCase.caseTypeOfApplication === 'C100') {
+      if (req.url.includes('respondent')) {
+        req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+          if (respondent?.value?.user?.idamId === req.session?.user.id) {
+            Object.assign(req.session.userCase, getContactDetails(respondent.value, req));
+          }
+        });
+      } else {
+        req.session.userCase?.respondents?.forEach((applicant: Applicant) => {
+          if (applicant?.value?.user?.idamId === req.session?.user.id) {
+            Object.assign(req.session.userCase, getContactDetails(applicant.value, req));
+          }
+        });
+      }
     } else {
-      req.session.userCase.citizenUserFullName =
-        req.session.userCase.citizenUserFirstNames + ' ' + req.session.userCase.citizenUserLastNames;
+      if (req.url.includes('respondent')) {
+        Object.assign(req.session.userCase, getContactDetails(req.session.userCase.respondentsFL401!, req));
+      } else {
+        Object.assign(req.session.userCase, getContactDetails(req.session.userCase.applicantsFL401!, req));
+      }
     }
 
-    if (!req.session.userCase.citizenUserPlaceOfBirth) {
-      req.session.userCase.citizenUserPlaceOfBirthText = '';
-    } else {
-      req.session.userCase.citizenUserPlaceOfBirthText = req.session.userCase.citizenUserPlaceOfBirth;
-    }
+    const redirectUrl = setRedirectUrl(req);
 
-    if (!req.session.userCase.citizenUserDateOfBirthText) {
-      req.session.userCase.citizenUserDateOfBirthText = '';
-    } else {
-      req.session.userCase.citizenUserDateOfBirthText = getFormattedDate(req.session.userCase.citizenUserDateOfBirth);
-    }
-
-    //console.log("48 citizenUserDateOfBirthText: "+ req.session.userCase.citizenUserDateOfBirthText);
-
-    req.session.userCase.applicant1Address1 = 'Flat 100';
-    req.session.userCase.applicant1Address2 = 'Plashet Grove';
-    req.session.userCase.applicant1AddressTown = 'London';
-    req.session.userCase.citizenUserPhoneNumber = '';
-    req.session.userCase.citizenUserEmailAddress = '';
-
-    validateDataCompletion(req);
-
-    getConfidentialData(req);
-
-    const callback = redirect ? undefined : () => super.get(req, res);
-    super.saveSessionAndRedirect(req, res, callback);
+    req.session.save(() => res.redirect(redirectUrl));
   }
 }
 
@@ -69,30 +55,40 @@ const fieldsArray: string[] = [
   'applicant1Address1',
   'applicant1Address2',
   'applicant1AddressTown',
-  'citizenUserPhoneNumber',
-  'citizenUserEmailAddress',
+  'citizenUserPhoneNumberText',
+  'citizenUserEmailAddressText',
   'applicant1SafeToCall',
   'citizenUserDateOfBirthText',
 ];
 
-function validateDataCompletion(req: AppRequest<Partial<Case>>) {
+function setRedirectUrl(req: AppRequest<Partial<Case>>) {
+  let redirectUrl = '';
+
+  if (req.url.includes('respondent')) {
+    redirectUrl = RESPONDENT_CHECK_ANSWERS;
+  } else {
+    redirectUrl = APPLICANT_CHECK_ANSWERS;
+  }
+  return redirectUrl;
+}
+
+export const validateDataCompletion = (req: AppRequest<Partial<Case>>): void => {
   for (const key in req.session.userCase) {
     if (fieldsArray.includes(key)) {
       const value = req.session.userCase[`${key}`];
-      // console.log("key is: "+key+", value is : "+value+", type of value is: "+typeof(value));
       if (typeof value === 'string' && (value === null || value === undefined || value.trim() === '')) {
         req.session.userCase[`${key}`] = '<span class="govuk-error-message">Complete this section</span>';
       }
     }
   }
-}
+};
 
 const privateFieldsMap = new Map<string, string>([
-  ['email', 'citizenUserEmailAddress'],
-  ['phone', 'citizenUserPhoneNumber'],
+  ['email', 'citizenUserEmailAddressText'],
+  ['phoneNumber', 'citizenUserPhoneNumberText'],
 ]);
 
-function getConfidentialData(req: AppRequest<Partial<Case>>) {
+export const getConfidentialData = (req: AppRequest<Partial<Case>>): void => {
   for (const [key, value] of privateFieldsMap) {
     if (req.session.userCase?.detailsKnown && req.session.userCase?.startAlternative) {
       if (req.session.userCase.contactDetailsPrivate?.length !== 0) {
@@ -112,4 +108,4 @@ function getConfidentialData(req: AppRequest<Partial<Case>>) {
       );
     }
   }
-}
+};
