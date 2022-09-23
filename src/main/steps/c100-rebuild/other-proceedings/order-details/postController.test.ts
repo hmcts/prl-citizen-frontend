@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { C100OrderTypes } from '../../../../app/case/definition';
+import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -19,7 +20,10 @@ describe('AddOrderDetails Post Controller', () => {
   } as unknown as CommonContent;
 
   test('Should navigagte to the next page without any errors', async () => {
-    const controller = new AddOrderDetailsPostController();
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddOrderDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       query: {

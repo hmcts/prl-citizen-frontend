@@ -21,7 +21,7 @@
 {%endif%}
 
 
-  <h1 class="govuk-heading-xl">{{title}} {{orderTypeName}}
+  <h1 class="govuk-heading-xl">{{titleList[orderType]}}
   
  {% if orderId == '1' %}
   {{''}}
@@ -52,10 +52,25 @@
 {% set removepoint = '/upload-your-documents?query=delete&docId={{documentId}}&documentType=applicationform'%}
 
 <div class="govuk-form-group govuk-inset-text">
+   {% for error in sessionErrors %}
+    {%- if  error.propertyName === 'document'  %}<div class="govuk-form-group--error">  {% endif %}
+    {% endfor %}
  <form action="{{postURL}}?orderType={{orderType}}&orderId={{orderId}}" method="post" enctype="multipart/form-data">
  <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+  {% for error in sessionErrors %}
+    {%- if  error.propertyName === 'document'  %}
+    {%- if  error.errorType === 'required'  %}
+         <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
+    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].required}}</span>
+     {% endif %}
+      {%- if  error.errorType === 'multipleFiles'  %}
+     <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
+    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].multipleFiles}}</span>
+     {% endif %}
+     {% endif %}
+    {% endfor %}
       {{ govukFileUpload({
-  id: "file-upload-1",
+  id: "document",
   name: "documents",
   classes: "govuk-!-margin-bottom-3",
   label: {
@@ -67,6 +82,10 @@
           type: "upload document",
           classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
         }) }}
+
+         {% for error in sessionErrors %}
+    {%- if  error.propertyName === 'document'  %}</div>  {% endif %}
+    {% endfor %}
 
 </form>  
 

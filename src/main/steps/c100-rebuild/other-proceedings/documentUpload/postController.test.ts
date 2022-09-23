@@ -18,7 +18,7 @@ describe('Document upload controller', () => {
   });
 
   test('Should redirect back to the current page when document already exists', async () => {
-    const errors = [{ errorType: 'required', propertyName: 'document' }];
+    const errors = [{ errorType: 'multipleFiles', propertyName: 'document' }];
     const mockForm = {
       fields: {
         field: {
@@ -72,6 +72,58 @@ describe('Document upload controller', () => {
     expect(req.session.errors).toEqual(errors);
   });
 
+  test('Should redirect back to the next page when document already exists while clicking save and continue', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+    const QUERY = {
+      orderType: 'otherOrder',
+      orderId: '1',
+    };
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.body.saveAndContinue = true;
+    req.session.userCase = {
+      otherProceedings: {
+        order: {
+          otherOrders: [
+            {
+              orderDetail: 'OtherOrder1',
+              orderDocument: {
+                id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+                url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                filename: 'applicant_emergency_protection_order10_12092022.rtf',
+                binaryUrl:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          ],
+        },
+      },
+    };
+
+    req.query = QUERY;
+
+    await controller.post(req, res);
+
+    expect(req.query).toEqual({
+      orderType: 'otherOrder',
+      orderId: '1',
+    });
+
+    expect(res.redirect).toBeCalledWith('/citizen-home');
+  });
+
   test('Should upload document and redirect back to current page', async () => {
     const mockForm = {
       fields: {
@@ -93,7 +145,7 @@ describe('Document upload controller', () => {
       switch (url) {
         case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
           return Promise.resolve({ data: 'Test S2S Token' });
-        case '/upload-citizen-statement-document':
+        case '/upload-citizen-document':
           return Promise.resolve({
             data: {
               status: 'Success',
@@ -142,6 +194,76 @@ describe('Document upload controller', () => {
     );
   });
 
+  test('Should upload document for second order and redirect back to current page', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+    const QUERY = {
+      orderType: 'otherOrder',
+      orderId: '2',
+    };
+
+    mockedAxios.post.mockImplementation(url => {
+      switch (url) {
+        case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
+          return Promise.resolve({ data: 'Test S2S Token' });
+        case '/upload-citizen-document':
+          return Promise.resolve({
+            data: {
+              status: 'Success',
+              document: {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_filename: 'applicant_emergency_protection_order10_12092022.rtf',
+                document_binary_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          });
+        default:
+          return Promise.reject(new Error('not found'));
+      }
+    });
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.session.userCase = {
+      otherProceedings: {
+        order: {
+          otherOrders: [
+            {
+              orderDetail: 'OtherOrder2',
+              orderCopy: 'Yes',
+              orderDocument: {
+                id: '',
+                url: '',
+                filename: '',
+                binaryUrl: '',
+              },
+            },
+          ],
+        },
+      },
+    };
+
+    req.query = QUERY;
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toBeCalledWith(
+      '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=2'
+    );
+  });
+
   describe('when there is an error in saving session', () => {
     test('should throw an error', async () => {
       const controller = new UploadDocumentController({});
@@ -153,6 +275,29 @@ describe('Document upload controller', () => {
           save: jest.fn(done => done('MOCK_ERROR')),
         },
       });
+      const QUERY = {
+        orderType: 'otherOrder',
+        orderId: '1',
+      };
+      req.query = QUERY;
+      req.session.userCase = {
+        otherProceedings: {
+          order: {
+            otherOrders: [
+              {
+                orderDetail: 'OtherOrder1',
+                orderCopy: 'Yes',
+                orderDocument: {
+                  id: '',
+                  url: '',
+                  filename: '',
+                  binaryUrl: '',
+                },
+              },
+            ],
+          },
+        },
+      };
       try {
         await controller.post(req, res);
       } catch (err) {

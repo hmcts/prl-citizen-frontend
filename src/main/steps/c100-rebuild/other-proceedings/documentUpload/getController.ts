@@ -7,7 +7,6 @@ import {
   C100DocumentInfo,
   C100OrderInterface,
   C100OrderTypeKeyMapper,
-  C100OrderTypeNameMapper,
   C100OrderTypes,
 } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
@@ -53,8 +52,6 @@ export default class DocumentUpload extends GetController {
       const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
         C100OrderTypeKeyMapper[courtOrderType]
       ] as C100OrderInterface[];
-      const orderTypeName = C100OrderTypeNameMapper[courtOrderType] + ' ';
-
       const orderSessionDataById = orderSessionData[courtOrderId - 1];
       if (orderSessionDataById.orderDocument) {
         currentOrderDocument = orderSessionDataById.orderDocument;
@@ -80,7 +77,6 @@ export default class DocumentUpload extends GetController {
         sessionErrors,
         htmlLang: language,
         orderType,
-        orderTypeName,
         orderId,
         postURL: C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
         document: currentOrderDocument,

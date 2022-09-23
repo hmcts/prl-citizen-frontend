@@ -27,7 +27,7 @@ const en = () => ({
   undertakingOrder: 'Undertaking in place of an order',
   otherOrder: 'Other orders',
   errors: {
-    courtProceedingsOrder: {
+    courtProceedingsOrders: {
       required: 'Specify which court cases you or the children have been involved in',
     },
   },
@@ -57,7 +57,7 @@ const cy = () => ({
   undertakingOrder: 'Undertaking in place of an order - welsh',
   otherOrder: 'Other orders - welsh',
   errors: {
-    courtProceedingsOrder: {
+    courtProceedingsOrders: {
       required: 'Specify which court cases you or the children have been involved in - welsh',
     },
   },
@@ -70,93 +70,93 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    courtProceedingsOrder: {
-      id: 'courtProceedingsOrder',
+    courtProceedingsOrders: {
+      id: 'courtProceedingsOrders',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.childArrangementOrder,
           value: 'childArrangementOrder',
           hint: l => l.section8Hint,
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.emergencyProtectionOrder,
           value: 'emergencyProtectionOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.supervisionOrder,
           value: 'supervisionOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.caseOrder,
-          value: 'caseOrder',
+          value: 'careOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.childAbduction,
-          value: 'childAbduction',
+          value: 'childAbductionOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.contactOrderForDivorce,
           value: 'contactOrderForDivorce',
           hint: l => l.section8Hint,
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.contactOrderForAdoption,
           value: 'contactOrderForAdoption',
           hint: l => l.section8Hint,
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.childMaintenanceOrder,
           value: 'childMaintenanceOrder',
           hint: l => l.schedule1Hint,
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.financialOrder,
           value: 'financialOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.nonMolestationOrder,
           value: 'nonMolestationOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.occupationOrder,
           value: 'occupationOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.forcedMarriageProtectionOrder,
           value: 'forcedMarriageProtectionOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.restrainingOrder,
           value: 'restrainingOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.otherInjuctionOrder,
           value: 'otherInjuctionOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.undertakingOrder,
           value: 'undertakingOrder',
         },
         {
-          name: 'courtProceedingsOrder',
+          name: 'courtProceedingsOrders',
           label: l => l.otherOrder,
           value: 'otherOrder',
         },

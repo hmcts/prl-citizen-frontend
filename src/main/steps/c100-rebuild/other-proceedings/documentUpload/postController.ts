@@ -4,16 +4,30 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { DocumentUploadResponse, caseApi } from '../../../../app/case/C100CaseApi';
-import {
-  C100OrderInterface,
-  C100OrderTypeKeyMapper,
-  C100OrderTypeNameMapper,
-  C100OrderTypes,
-} from '../../../../app/case/definition';
+import { C100OrderInterface, C100OrderTypeKeyMapper, C100OrderTypes } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
+
+const C100OrderTypeNameMapper = {
+  childArrangementOrder: 'Child Arrangement Order',
+  emergencyProtectionOrder: 'Emergency Protection Order',
+  supervisionOrder: 'Supervision Order',
+  careOrder: 'Care Order',
+  childAbductionOrder: 'Child Abduction Order',
+  contactOrderForDivorce: 'Contact Order For Divorce',
+  contactOrderForAdoption: 'Contact Order For Adoption',
+  childMaintenanceOrder: 'Child Maintenance Order',
+  financialOrder: 'Financial Order',
+  nonMolestationOrder: 'Non-molestation Order',
+  occupationOrder: 'Occupation Order',
+  forcedMarriageProtectionOrder: 'Forced Marriage Protection Order',
+  restrainingOrder: 'Restraining Order',
+  otherInjuctionOrder: 'Other Injuction Order',
+  undertakingOrder: 'Undertaking Order',
+  otherOrder: 'Other Order',
+};
 
 // eslint-disable-next-line import/no-unresolved
 import { AnyType } from './getController';
@@ -35,35 +49,19 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { files }: AppRequest<AnyObject> = req;
     const { orderType, orderId } = req.query;
 
-    if (isNull(files) || files === undefined) {
-      const errorMessage = 'valdiation error';
-      this.uploadFileError(req, res, errorMessage);
+    const courtOrderType = orderType as C100OrderTypes;
+    const courtOrderId: AnyType | undefined = orderId;
+
+    const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
+      C100OrderTypeKeyMapper[courtOrderType]
+    ] as C100OrderInterface[];
+    const orderSessionDataById = orderSessionData[courtOrderId - 1];
+
+    if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+      super.redirect(req, res, '');
     } else {
-      const { documents }: AnyType = files;
-
-      const formData: FormData = new FormData();
-
-      const courtOrderType = orderType as C100OrderTypes;
-      const courtOrderId: AnyType | undefined = orderId;
-      const dateOfSystem = new Date().toLocaleString().split(',')[0].split('/').join('');
-      const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
-      const orderTypeName = this.buildOrderTypeName(courtOrderType);
-      let fileName: string;
-      if (orderId === '1') {
-        fileName = `applicant__${orderTypeName}__${dateOfSystem}.${extensionType}`;
-      } else {
-        fileName = `applicant__${orderTypeName}_${orderId}__${dateOfSystem}.${extensionType}`;
-      }
-      formData.append('file', documents.data, {
-        contentType: documents.mimetype,
-        filename: fileName,
-      });
-      const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
-        C100OrderTypeKeyMapper[courtOrderType]
-      ] as C100OrderInterface[];
-      const orderSessionDataById = orderSessionData[courtOrderId - 1];
       if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
-        req.session.errors = [{ propertyName: 'document', errorType: 'required' }];
+        req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
         req.session.save(err => {
           if (err) {
             throw err;
@@ -71,34 +69,55 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
         });
       } else {
-        try {
-          const userDeatils = req?.session?.user;
-          const responseBody: DocumentUploadResponse = await caseApi(userDeatils, req.locals.logger).uploadDocument(
-            formData
-          );
-          const { document_url, document_filename, document_binary_url } = responseBody['document'];
-          const documentInfo = {
-            id: document_url.split('/')[document_url.split('/').length - 1],
-            url: document_url,
-            filename: document_filename,
-            binaryUrl: document_binary_url,
-          };
+        if (isNull(files) || files === undefined) {
+          this.uploadFileError(req, res, orderType as string, orderId as string);
+        } else {
+          const { documents }: AnyType = files;
 
-          if (
-            req.session.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
-          ) {
-            req.session.userCase.otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
-              courtOrderId - 1
-            ].orderDocument = documentInfo;
+          const formData: FormData = new FormData();
+
+          const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
+          const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
+          const orderTypeName = this.buildOrderTypeName(courtOrderType);
+          let fileName: string;
+          if (orderId === '1') {
+            fileName = `applicant__${orderTypeName}__${dateOfSystem}.${extensionType}`;
+          } else {
+            fileName = `applicant__${orderTypeName}_${orderId}__${dateOfSystem}.${extensionType}`;
           }
-
-          req.session.save(() => {
-            const redirectURL = `${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`;
-            res.redirect(redirectURL);
+          formData.append('file', documents.data, {
+            contentType: documents.mimetype,
+            filename: fileName,
           });
-        } catch (error) {
-          console.log(error);
-          res.json(error);
+          try {
+            const userDeatils = req?.session?.user;
+            const responseBody: DocumentUploadResponse = await caseApi(userDeatils, req.locals.logger).uploadDocument(
+              formData
+            );
+            const { document_url, document_filename, document_binary_url } = responseBody['document'];
+            const documentInfo = {
+              id: document_url.split('/')[document_url.split('/').length - 1],
+              url: document_url,
+              filename: document_filename,
+              binaryUrl: document_binary_url,
+            };
+
+            if (
+              req.session.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
+            ) {
+              req.session.userCase.otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
+                courtOrderId - 1
+              ].orderDocument = documentInfo;
+            }
+
+            req.session.save(() => {
+              const redirectURL = `${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`;
+              res.redirect(redirectURL);
+            });
+          } catch (error) {
+            console.log(error);
+            res.json(error);
+          }
         }
       }
     }
@@ -112,13 +131,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   };
 
   private buildOrderTypeName(courtOrderType: C100OrderTypes) {
-    if (courtOrderType === C100OrderTypes.CONTACT_ORDER_FOR_ADOPTION) {
-      return 'contact_order_for_adoption';
-    } else if (courtOrderType === C100OrderTypes.CONTACT_ORDER_FOR_DIVORCE) {
-      return 'contact_order_for_divorce';
-    } else {
-      return C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();
-    }
+    return C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();
   }
 
   /**
@@ -130,12 +143,18 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   private uploadFileError(
     req: AppRequest<AnyObject>,
     res: Response<AnyType, Record<string, AnyType>>,
-    errorMessage?: string
+    orderType: string,
+    orderId: string
   ) {
     /**
      * @Insert @Error @here
      */
-    console.log(errorMessage);
-    super.redirect(req, res, '');
+    req.session.errors = [{ propertyName: 'document', errorType: 'required' }];
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
+    });
   }
 }
