@@ -46,7 +46,7 @@ export class PropertiesVolume {
    */
   private setLocalSecret(secret: string, toPath: string): void {
     const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
-    console.log('******* config is '+config);
+    console.log('******* config is ' + config);
     set(config, toPath, result.toString().replace('\n', ''));
   }
 }
