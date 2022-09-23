@@ -59,6 +59,8 @@ export const generateContent: TranslationFn = content => {
   const applicantId = content.additionalData?.req.query.applicantId ? content.additionalData.req.query.applicantId : '';
   const userId = applicantId;
   const selectedUser = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0]?.['detailsKnown'];
+  const applicantData = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0];
+  const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName']  
   let detailKnownFormField = form.fields['detailsKnown']?.['values'];
   const checkedFormField = [
     {
@@ -107,6 +109,7 @@ export const generateContent: TranslationFn = content => {
   }
   form.fields['detailsKnown'].values = detailKnownFormField;
   const translations = languages[content.language]();
+  translations['applicantName'] = applicantName;
   return {
     ...translations,
     form,

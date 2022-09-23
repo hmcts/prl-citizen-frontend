@@ -195,6 +195,9 @@ export const generateContent: TranslationFn = content => {
   }
   form.fields['startAlternative'].values = detailKnownFormField;
   const translations = languages[content.language]();
+  const applicantData = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0];
+  const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName']  
+  translations['applicantName'] = applicantName;
   return {
     ...translations,
     form,

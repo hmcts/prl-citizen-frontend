@@ -72,6 +72,9 @@ export const generateContent: TranslationFn = content => {
     }
     translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
   }
+  const applicantData = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0];
+  const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName']  
+  translations['applicantName'] = applicantName;
 
   return {
     ...translations,

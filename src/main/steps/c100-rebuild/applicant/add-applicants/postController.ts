@@ -46,7 +46,11 @@ export default class AddApplicantPostController extends PostController<AnyObject
         this.errorsAndRedirect(req, res, formData, form);
         this.addAnotherApplicant(req);
         this.resetSessionTemporaryFormValues(req);
-        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+        req.session.userCase.applicantTemporaryFormData = undefined;
+        const redirectURI =
+          C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW +
+          `?applicantId=${req.session.userCase?.allApplicants?.[0].id}`;
+        return super.redirect(req, res, redirectURI);
       } else {
         this.mapEnteriesToValuesAfterContinuing(req, res);
       }
@@ -136,6 +140,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       }
     }
     req.session.userCase.allApplicants = newApplicantStorage;
+    req.session.userCase.applicantTemporaryFormData = undefined;
     const redirectURI =
       C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW +
       `?applicantId=${req.session.userCase.allApplicants[0].id}`;
