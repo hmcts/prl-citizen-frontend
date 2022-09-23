@@ -1434,7 +1434,7 @@ export interface C100DocumentInfo extends DocumentInfo{
   id: string;
 }
 export interface C100OrderInterface {
-  //id: string;
+  id: string;
   orderDetail: string;
   caseNo: string;
   orderDate: CaseDate;
@@ -1463,45 +1463,24 @@ export const C100OrderTypeKeyMapper = {
   otherOrder: 'otherOrders'
 }
 export interface C100OrderTypeInterface {
-  childArrangementOrders?: C100OrderInterface,
-  emergencyProtectionOrders:C100OrderInterface,
-  supervisionOrders:C100OrderInterface,
-  careOrders: C100OrderInterface,
-  childAbductionOrders:C100OrderInterface,
-  contactOrdersForDivorce: C100OrderInterface,
-  contactOrdersForAdoption: C100OrderInterface,
-  childMaintenanceOrders: C100OrderInterface,
-  financialOrders: C100OrderInterface,
-  nonMolestationOrders: C100OrderInterface,
-  occupationOrders: C100OrderInterface,
-  forcedMarriageProtectionOrders: C100OrderInterface,
-  restrainingOrders: C100OrderInterface,
-  otherInjuctionOrders: C100OrderInterface,
-  undertakingOrders: C100OrderInterface,
-  otherOrders: C100OrderInterface
+  childArrangementOrders?: C100OrderInterface[],
+  emergencyProtectionOrders?:C100OrderInterface[],
+  supervisionOrders?:C100OrderInterface[],
+  careOrders?: C100OrderInterface[],
+  childAbductionOrders?:C100OrderInterface[],
+  contactOrdersForDivorce?: C100OrderInterface[],
+  contactOrdersForAdoption?: C100OrderInterface[],
+  childMaintenanceOrders?: C100OrderInterface[],
+  financialOrders?: C100OrderInterface[],
+  nonMolestationOrders?: C100OrderInterface[],
+  occupationOrders?: C100OrderInterface[],
+  forcedMarriageProtectionOrders?: C100OrderInterface[],
+  restrainingOrders?: C100OrderInterface[],
+  otherInjuctionOrders?: C100OrderInterface[],
+  undertakingOrders?: C100OrderInterface[],
+  otherOrders?: C100OrderInterface[]
 }
 
-export const C100OrderTypeNameMapper = {
-  childArrangementOrder: 'Child Arrangement Order',
-  emergencyProtectionOrder:'Emergency Protection Order',
-  supervisionOrder:'Supervision Order',
-  careOrder: 'Care Order',
-  childAbductionOrder:'A contact or Residence Order for Divorce',
-  contactOrderForDivorce: `A contact or residence order (Section 8 Children
-    Act 1989) made within proceedings for a divorce or
-    dissolution of a civil partnership`,
-  contactOrderForAdoption: `A contact or residence order (Section 8 Children Act
-    1989) made in connection with an Adoption Order`,
-  childMaintenanceOrder: 'Child Maintenance Order',
-  financialOrder: 'Financial Order',
-  nonMolestationOrder: 'Non-molestation Order',
-  occupationOrder: 'Occupation Order',
-  forcedMarriageProtectionOrder: 'Forced Marriage Protection Order',
-  restrainingOrder: 'Restraining Order',
-  otherInjuctionOrder: 'Other Injuction Order',
-  undertakingOrder: 'Undertaking Order',
-  otherOrder: 'Other Order'
-}
 export interface OtherProceedings {
   order?: C100OrderTypeInterface
 }
