@@ -20,6 +20,10 @@ import {
   LETTER_FROM_SCHOOL,
   MEDICAL_RECORDS,
   MEDICAL_REPORTS,
+  MIAM_ATTEND_WILLINGNESS,
+  MIAM_SAVE,
+  MIAM_START,
+  MIAM_SUMMARY,
   OTHER_DOCUMENTS,
   OTHER_PEOPLE_WITNESS_STATEMENTS,
   PATERNITY_TEST_REPORTS,
@@ -65,6 +69,7 @@ export const respondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
+
   {
     url: RESPONDENT_DETAILS_KNOWN,
     showInSection: Sections.AboutRespondentCase,
@@ -87,6 +92,21 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: MIAM_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: data => (data.miamStart === YesOrNo.NO ? MIAM_ATTEND_WILLINGNESS : MIAM_SUMMARY),
+  },
+  {
+    url: MIAM_ATTEND_WILLINGNESS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => MIAM_SUMMARY,
+  },
+  {
+    url: MIAM_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => MIAM_SAVE,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS,

@@ -12,7 +12,8 @@ import {
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+  console.log(userIdamId);
   return [
     {
       title: sectionTitles.aboutYou,
@@ -21,7 +22,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'keep-your-details-private',
           text: taskListItems.keep_your_details_private,
           status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.RESPONDENT_DETAILS_KNOWN,
+          href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
         },
         {
           id: 'confirm-or-edit-your-contact-details',

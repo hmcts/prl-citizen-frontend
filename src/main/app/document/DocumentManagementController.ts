@@ -47,7 +47,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const form = new Form(fields);
 
     const { _csrf, ...formData } = form.getParsedBody(req.body);
-    const caseworkerUser = req.session.user;
+    const loggedInCitizen = await getSystemUser();
     req.session.errors = form.getErrors(formData);
 
     const isApplicant = req.query.isApplicant;
@@ -64,9 +64,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     };
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
 
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
     const uploadCitizenDocFromCos = await client.generateUserUploadedStatementDocument(
-      caseworkerUser,
+      loggedInCitizen,
       generateAndUploadDocumentRequest
     );
     if (uploadCitizenDocFromCos.status !== 200) {
@@ -81,7 +81,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
+      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
       req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     }
@@ -132,37 +132,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
         endPoint = itemlist[itemlist.length - 2];
       }
 
-      const caseworkerUser = await getSystemUser();
-      req.session.user = caseworkerUser;
+      const loggedInCitizen = await getSystemUser();
+
       const caseReference = req.session.userCase.id;
 
-      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+      const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+      const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
-      // this is for testing //
-      // req.session.userCase.orderCollection = [
-      //   {
-      //     id: '9df80a48-dd3d-4e29-918b-472aa34a2490',
-      //     value: {
-      //       dateCreated: '08-Aug-2022',
-      //       orderType: 'test_orderType',
-      //       orderDocument: {
-      //         document_url:
-      //           'http://dm-store-aat.service.core-compute-aat.internal/documents/f2436270-0d05-436b-bafc-51000defd1e',
-      //         document_binary_url:
-      //           'http://dm-store-aat.service.core-compute-aat.internal/documents/f2436270-0d05-436b-bafc-51000defd1eb/binary',
-      //         document_filename: 'FL401-Final-Document 11.pdf',
-      //         document_hash: null,
-      //       },
-      //       otherDetails: {
-      //         createdBy: 'createdBy',
-      //         orderCreatedDate: 'orderCreatedDate',
-      //         orderMadeDate: 'orderMadeDate',
-      //         orderRecipients: 'orderRecipients',
-      //       },
-      //     },
-      //   },
-      // ];
     } catch (err) {
       console.log(err);
     }
@@ -385,8 +361,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
           name: fileData[0]['originalname'],
         };
         req.session.userCase.applicantUploadFiles?.push(obj);
-
-        //return res.redirect(UPLOAD_DOCUMENT);
       }
     } else {
       const fileData = req.files || [];

@@ -51,7 +51,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/respondent/miam/miam-start',
+                    href: '/tasklistresponse/miam/miam-start',
                     text: 'Edit',
                     visuallyHiddenText: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
                   },
