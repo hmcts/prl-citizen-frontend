@@ -206,6 +206,7 @@ export interface Case {
   caseId?: string;
   courtProceedingsOrders?: C100OrderTypes[];
   otherProceedings?: OtherProceedings;
+  haveSafetyConcerns?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

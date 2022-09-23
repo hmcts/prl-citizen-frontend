@@ -342,7 +342,10 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[40].url).toBe('/c100-rebuild/safety-concerns/concerns-for-safety');
     expect(C100Sequence[40].showInSection).toBe('c100');
-    expect(C100Sequence[40].getNextStep({})).toBe('/c100-rebuild/safety-concerns/concern-about');
+    expect(C100Sequence[40].getNextStep({ haveSafetyConcerns: YesOrNo.YES })).toBe(
+      '/c100-rebuild/safety-concerns/concern-about'
+    );
+    expect(C100Sequence[40].getNextStep({ needHelpWithFees: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/start');
 
     expect(C100Sequence[41].url).toBe('/c100-rebuild/document-submission');
     expect(C100Sequence[41].showInSection).toBe('c100');
