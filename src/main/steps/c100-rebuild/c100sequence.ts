@@ -1,5 +1,6 @@
 import { Case, CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
   C100_CONFIDENTIALITY_DETAILS_KNOW,
@@ -47,9 +48,12 @@ import {
   C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
   PageLink,
+  C100_DOCUMENT_SUBMISSION,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
+import OtherProceedingsNavigationController from './other-proceedings/navigationController';
+import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 
 export const C100Sequence: Step[] = [
   {
@@ -218,16 +222,6 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
   {
-    url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_DETAILS,
-  },
-  {
-    url: C100_OTHER_PROCEEDINGS_DETAILS,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
-  },
-  {
     url: C100_START,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
@@ -279,20 +273,46 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_CONFIRMATIONPAGE,
   },
   {
+    url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_OTHER_PROCEEDINGS_DETAILS,
+  },
+  {
+    url: C100_OTHER_PROCEEDINGS_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData: Partial<Case>): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DETAILS, caseData);
+    },
+  },
+  {
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+    sanitizeQueryString: sanitizeOtherProceedingsQueryString,
+    getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(
+        C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+        caseData,
+        req!.query
+      );
+    },
   },
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
+    sanitizeQueryString: sanitizeOtherProceedingsQueryString,
+    getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(
+        C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+        caseData,
+        req!.query
+      );
+    },
   },
-
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    sanitizeQueryString: sanitizeOtherProceedingsQueryString,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
@@ -303,5 +323,11 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
+  },
+
+  {
+    url: C100_DOCUMENT_SUBMISSION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_DOCUMENT_SUBMISSION,
   },
 ];

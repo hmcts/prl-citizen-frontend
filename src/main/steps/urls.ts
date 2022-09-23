@@ -224,3 +224,6 @@ export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback
 export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
 export const C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-about`;
 export const C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concerns-for-safety`;
+
+/** @C100 Document Submission */
+export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
