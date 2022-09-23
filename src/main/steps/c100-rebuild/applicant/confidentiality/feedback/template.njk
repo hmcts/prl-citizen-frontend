@@ -7,37 +7,9 @@
 <p class="govuk-body-m">{{p1}}</p>
 <ul class="govuk-list govuk-list--bullet">
 
-  {%if userCase['contactDetailsPrivate'] and userCase['contactDetailsPrivateAlternative']  === undefined %}
-      {% for details in userCase['contactDetailsPrivate'] %}
-                {% if details === "address" %}
-                <li>Address</li>
-                {% elif details === "homephone"  %}
-                <li>Home phone</li>
-                {% elif details === "mobilephone"  %}
-                <li>Mobile phone</li>
-                {% elif details === "email"%}
-                <li>Email</li>
-                {% else %}
-              {% endif %}
-        {% endfor %}
-  {%endif%}
-
-
-  {%if userCase['contactDetailsPrivateAlternative'] and userCase['contactDetailsPrivate'] === undefined  %}
-      {% for privateDetails in userCase['contactDetailsPrivateAlternative'] %}
-                {% if  privateDetails === "address" %}
-                <li>Address</li>
-                {% elif privateDetails === "homephone" %}
-                <li>Home phone</li>
-                {% elif  privateDetails === "mobilephone" %}
-                <li>Mobile phone</li>
-              {% elif privateDetails === "email"%}
-                <li>Email</li>
-                {% else %}
-              {% endif %}
+      {% for privateDetails in listOfCofidentialInfromations %}
+                <li>{{privateDetails}}</li>
       {% endfor %}
-  {%endif%}
-
 
 </ul>
 <h2 class="govuk-heading-m">{{heading3}}</h2>

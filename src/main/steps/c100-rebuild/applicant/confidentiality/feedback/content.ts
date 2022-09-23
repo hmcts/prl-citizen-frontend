@@ -8,6 +8,7 @@ const en = () => ({
   p1: 'You have told us you want to keep these contact details private',
   heading3: 'What the court will do',
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
+  listOfCofidentialInfromations: ['address', 'homephone', 'mobilephone', 'email'],
 });
 
 const cy = () => ({
@@ -16,6 +17,7 @@ const cy = () => ({
   p1: 'You have told us you want to keep these contact details private - welsh',
   heading3: 'What the court will do - welsh',
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court. - welsh',
+  listOfCofidentialInfromations: ['address - welsh', 'homephone - welsh', 'mobilephone - welsh', 'email - welsh'],
 });
 
 const languages = {
@@ -34,7 +36,42 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const userId = content['userId'];
+  const selectedOptionsContactDetailPrivate = content.userCase?.allApplicants?.filter(
+    user => user['id'] === userId
+  )[0]?.['contactDetailsPrivate'] as [];
+
   const translations = languages[content.language]();
+
+  if (selectedOptionsContactDetailPrivate.length > 0) {
+    const shownToggledConfidentialOptions = [] as [];
+
+    for (const items of translations['listOfCofidentialInfromations'] as []) {
+      for (const subItems of selectedOptionsContactDetailPrivate as unknown as string) {
+        if (items === subItems) {
+          shownToggledConfidentialOptions.push(items);
+        }
+      }
+    }
+    translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
+  }
+
+  const selectedOptionsContactDetailPrivateAlterative = content.userCase?.allApplicants?.filter(
+    user => user['id'] === userId
+  )[0]?.['contactDetailsPrivateAlternative'] as [];
+
+  if (selectedOptionsContactDetailPrivateAlterative.length > 0) {
+    const shownToggledConfidentialOptions = [] as [];
+    for (const items of translations['listOfCofidentialInfromations'] as []) {
+      for (const subItems of selectedOptionsContactDetailPrivateAlterative as unknown as string) {
+        if (items === subItems) {
+          shownToggledConfidentialOptions.push(items);
+        }
+      }
+    }
+    translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
+  }
+
   return {
     ...translations,
     form,
