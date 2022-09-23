@@ -201,7 +201,7 @@ export interface FormInput {
   options?: DropdownOptionsLookup;
   disabled?: boolean;
   detailsHtml?: Label;
-  textAndLink?: Label;
+  textAndHtml?: Label;
   link?: string;
   divider?: boolean | string;
   exclusive?: boolean;

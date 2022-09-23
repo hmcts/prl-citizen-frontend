@@ -61,12 +61,12 @@ const languages = {
 export const form: FormContent = {
   fields: {
     paragraph1: {
-      type: 'textAndLink',
-      textAndLink: l => l.paragraph1,
+      type: 'textAndHtml',
+      textAndHtml: l => l.paragraph1,
     },
     paragraph2: {
-      type: 'textAndLink',
-      textAndLink: l => l.paragraph2,
+      type: 'textAndHtml',
+      textAndHtml: l => l.paragraph2,
     },
     warningMessage: {
       type: 'warning',
@@ -82,8 +82,8 @@ export const form: FormContent = {
           value: YesOrNo.YES,
           subFields: {
             doYouHaveSafetyConcernsYesInfo: {
-              type: 'textAndLink',
-              textAndLink: l => l.infoSafetyConcernsYes,
+              type: 'textAndHtml',
+              textAndHtml: l => l.infoSafetyConcernsYes,
             },
           },
         },

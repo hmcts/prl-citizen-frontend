@@ -3,5 +3,5 @@
     id: field.id if field.id else fieldName,
     name: fieldName, 
     type: field.type,
-    text: getContent(field.textAndLink) | safe
+    text: getContent(field.textAndHtml) | safe
 }) }}
