@@ -21,6 +21,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
     } else {
       console.log('inside develop env setup');
+      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
       this.setLocalSecret('system-update-user-username', 'services.idam.systemUsername');
@@ -33,9 +34,9 @@ export class PropertiesVolume {
     console.log('***** setting values *********');
     console.log('fromPath is ' + fromPath);
     if (config.has(fromPath)) {
-      console.log('config is available' + config);
-      console.log('fromPath is available' + fromPath);
-      console.log('toPath is available' + toPath);
+      console.log('config is available ' + config.get(fromPath));
+      console.log('fromPath is available ' + fromPath);
+      console.log('toPath is available ' + toPath);
       set(config, toPath, get(config, fromPath));
     }
   }
@@ -45,6 +46,7 @@ export class PropertiesVolume {
    */
   private setLocalSecret(secret: string, toPath: string): void {
     const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
+    console.log('******* config is '+config);
     set(config, toPath, result.toString().replace('\n', ''));
   }
 }
