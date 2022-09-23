@@ -90,7 +90,8 @@ type FieldLabel = {
 type FieldLabelArray = FieldLabel[];
 
 export const generateContent: TranslationFn = content => {
-  const userId = content['userId'];
+  const applicantId = content.additionalData?.req.query.applicantId ? content.additionalData.req.query.applicantId : '';
+  const userId = applicantId;
   const startOption = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0]?.['start'];
   const contactDetailsPrivate = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0]?.[
     'contactDetailsPrivate'

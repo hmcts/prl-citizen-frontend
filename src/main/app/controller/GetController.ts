@@ -33,7 +33,6 @@ export class GetController {
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
       addresses,
-      userId: req.query?.['applicantId'] as string,
       additionalData: {
         req,
       },
