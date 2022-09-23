@@ -27,7 +27,7 @@ export default class LegalRepresentationGetController extends GetController {
     let formaction = '';
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        formaction = respondent.value.response.legalRepresentation || '';
+        formaction = respondent.value.response.legalRepresentation || req.session.userCase.legalRepresentation || '';
       }
     });
     res.render(this.view, {
