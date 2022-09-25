@@ -45,6 +45,7 @@ import {
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
 
   /** @C1A Safety concerns */
+  C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
   PageLink,
@@ -329,5 +330,10 @@ export const C100Sequence: Step[] = [
     url: C100_DOCUMENT_SUBMISSION,
     showInSection: Sections.C100,
     getNextStep: () => C100_DOCUMENT_SUBMISSION,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   },
 ];
