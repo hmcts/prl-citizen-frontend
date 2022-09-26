@@ -40,7 +40,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       const { _csrf, ...formData } = form.getParsedBody(req.body);
       if (
         (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantFirstName'] === '') ||
-        req['body']['applicantLastName'] === ''
+        (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantLastName'] === '')
       ) {
         req.session.errors = form.getErrors(formData);
         return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
