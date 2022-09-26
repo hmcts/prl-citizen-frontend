@@ -4,8 +4,6 @@
 
 {% block page_content %}
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
         <p class="govuk-body-l">{{caption}}</p>
         <h2 class="govuk-heading-m govuk-!-margin-bottom-7">{{ behaviourHeader }}</h2>
@@ -47,7 +45,5 @@
         {% for line in bottomLines %}
             <p class="govuk-body">{{line}}</p>
         {% endfor %}
-    </div>
-</div
 
 {% endblock %}

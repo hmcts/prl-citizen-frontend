@@ -334,6 +334,6 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
   },
 ];
