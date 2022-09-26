@@ -55,13 +55,13 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['allApplicants'] = dummyData;
+    req.session.userCase['appl_allApplicants'] = dummyData;
     req.body = {
       'ApplicantFirstName-1': '',
       'ApplicantLastName-1': '',
     };
     controller.mapEnteriesToValuesAfterContinuing(req, mockResponse());
-    expect(req.session.userCase['allApplicants']).toEqual([
+    expect(req.session.userCase['appl_allApplicants']).toEqual([
       {
         id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
         applicantFirstName: '',
@@ -81,13 +81,13 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['allApplicants'] = dummyData;
+    req.session.userCase['appl_allApplicants'] = dummyData;
     req.body = {
       'ApplicantFirstName-1': '',
       'ApplicantLastName-1': '',
     };
     controller.post(req, mockResponse());
-    expect(req.session.userCase['allApplicants']).toHaveLength(2);
+    expect(req.session.userCase['appl_allApplicants']).toHaveLength(2);
   });
 
   test('Adding Applicant after if both body appliantfirst and applicantlastname is empty', async () => {
@@ -96,7 +96,7 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['allApplicants'] = dummyData;
+    req.session.userCase['appl_allApplicants'] = dummyData;
     req.body = {
       'ApplicantFirstName-1': '',
       'ApplicantLastName-1': '',
@@ -104,7 +104,7 @@ describe('PostController', () => {
       applicantLastName: '',
     };
     controller.post(req, mockResponse());
-    expect(req.session.userCase['allApplicants']).toHaveLength(2);
+    expect(req.session.userCase['appl_allApplicants']).toHaveLength(2);
   });
 
   test('Adding Applicant after if both body appliantfirst and applicantlastname with values', async () => {
@@ -113,7 +113,7 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['allApplicants'] = dummyData;
+    req.session.userCase['appl_allApplicants'] = dummyData;
     req.session.save = function () {
       return req.session;
     };
@@ -125,7 +125,7 @@ describe('PostController', () => {
       applicantLastName: 'tes',
     };
     controller.post(req, mockResponse());
-    expect(req.session.userCase['allApplicants']).toHaveLength(3);
+    expect(req.session.userCase['appl_allApplicants']).toHaveLength(3);
   });
   test('Adding another applicant using addAnotherApplicant', async () => {
     const mockFields = {
@@ -133,7 +133,7 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['allApplicants'] = dummyData;
+    req.session.userCase['appl_allApplicants'] = dummyData;
     req.session.save = function () {
       return req.session;
     };
@@ -142,8 +142,8 @@ describe('PostController', () => {
       applicantLastName: 'dummy 3',
     };
     controller.addAnotherApplicant(req);
-    expect(req.session.userCase['allApplicants']).toHaveLength(3);
-    expect(req.session.userCase['allApplicants'][2].applicantFirstName).toBe('dummy 3');
-    expect(req.session.userCase['allApplicants'][2].applicantLastName).toBe('dummy 3');
+    expect(req.session.userCase['appl_allApplicants']).toHaveLength(3);
+    expect(req.session.userCase['appl_allApplicants'][2].applicantFirstName).toBe('dummy 3');
+    expect(req.session.userCase['appl_allApplicants'][2].applicantLastName).toBe('dummy 3');
   });
 });

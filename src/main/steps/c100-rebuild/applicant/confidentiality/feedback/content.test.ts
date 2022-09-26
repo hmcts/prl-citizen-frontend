@@ -1,10 +1,33 @@
-import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
+import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
-jest.mock('../../../../app/form/validation');
+jest.mock('../../../../../app/form/validation');
+
+const dummyApplicantData = [
+  {
+    id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+    applicantFirstName: 'Test1',
+    applicantLastName: 'Test2',
+    detailsKnown: '',
+    startAlternative: '',
+    start: 'Yes',
+    contactDetailsPrivate: ['email'],
+    contactDetailsPrivateAlternative: ['email'],
+  },
+  {
+    id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+    applicantFirstName: 'Test2',
+    applicantLastName: 'Test2',
+    detailsKnown: '',
+    startAlternative: '',
+    start: 'Yes',
+    contactDetailsPrivate: ['email'],
+    contactDetailsPrivateAlternative: ['email'],
+  },
+];
 
 const en = {
   caption: 'Keeping your contact details private',
@@ -23,7 +46,17 @@ const cy = {
 };
 
 describe('applicant personal details > confidentiality > feedback', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: { appl_allApplicants: dummyApplicantData },
+    additionalData: {
+      req: {
+        query: {
+          applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        },
+      },
+    },
+  } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));

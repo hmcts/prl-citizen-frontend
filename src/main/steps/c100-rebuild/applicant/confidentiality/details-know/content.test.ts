@@ -4,7 +4,7 @@ import { CommonContent, generatePageContent } from '../../../../common/common.co
 
 import { generateContent } from './content';
 
-jest.mock('../../../../app/form/validation');
+jest.mock('../../../../../app/form/validation');
 
 const en = {
   caption: 'Keeping your contact details private',
