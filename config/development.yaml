@@ -9,13 +9,13 @@ services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'prl_cos_api'
-    secret: SERVICE_AUTH_SECRET
+    secret: 'NEED TO INSERT SECRET'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
-    citizenClientSecret: CITIZEN_IDAM_SECRET
-    cosApiClientSecret: COS_API_IDAM_SECRET
+    citizenClientSecret: 'NEED TO INSERT SECRET'
+    cosApiClientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   citizen:
