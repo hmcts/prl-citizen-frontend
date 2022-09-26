@@ -2,11 +2,12 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
+import { updateCaseApi } from '../case/C100CaseApi';
 import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
+import { CASE_EVENT_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
@@ -30,6 +31,8 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
+    } else if (req.body['saveAndComeLater']) {
+      await this.saveAndComeBackLater(req, res, form, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
     } else {
@@ -128,7 +131,32 @@ export class PostController<T extends AnyObject> {
     }
     return req.session.userCase;
   }
+  private async saveAndComeBackLater(
+    req: AppRequest<T>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    Object.assign(req.session.userCase, formData);
+    req.session.errors = form.getErrors(formData);
 
+    this.filterErrorsForSaveAsDraft(req);
+
+    if (req.session.errors.length) {
+      return this.redirect(req, res);
+    }
+
+    const data = toApiFormat(formData);
+
+    if (Object.keys(data).length !== 0) {
+      req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
+    }
+
+    const caseData = req.session.userCase;
+    const axiosInstance = updateCaseApi(req.session.user.accessToken);
+    await axiosInstance.post(`${caseData.caseId}/${CASE_EVENT_UPDATE}/update-case`, caseData);
+    this.redirect(req, res, DASHBOARD_URL);
+  }
   protected redirect(req: AppRequest<T>, res: Response, nextUrl?: string): void {
     let target;
     if (req.body['saveAsDraft']) {

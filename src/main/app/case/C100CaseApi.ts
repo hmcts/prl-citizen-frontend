@@ -95,3 +95,19 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
     logger
   );
 };
+
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const updateCaseApi = (accessToken: string): any => {
+  return Axios.create({
+    baseURL: config.get('services.cos.url'),
+    headers: {
+      Authorization: 'Bearer ' + accessToken,
+      serviceAuthorization: 'Bearer ' + getServiceAuthToken(),
+      accessCode: '12345678',
+      'Content-Type': 'application/json',
+    },
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: false,
+    }),
+  });
+};
