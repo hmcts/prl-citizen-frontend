@@ -6,14 +6,24 @@ import AddApplicantPostController from './postController';
 
 const dummyData = [
   {
-    id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
-    applicantFirstName: 'Test',
-    applicantLastName: 'Test',
+    id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+    applicantFirstName: 'Test1',
+    applicantLastName: 'Test2',
+    detailsKnown: '',
+    startAlternative: '',
+    start: 'Yes',
+    contactDetailsPrivate: ['email'],
+    contactDetailsPrivateAlternative: ['email'],
   },
   {
-    id: '95dd0bb0-82da-49b2-ac5a-18e6e834948c',
+    id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
     applicantFirstName: 'Test2',
     applicantLastName: 'Test2',
+    detailsKnown: '',
+    startAlternative: '',
+    start: 'Yes',
+    contactDetailsPrivate: ['email'],
+    contactDetailsPrivateAlternative: ['email'],
   },
 ];
 
@@ -63,14 +73,24 @@ describe('PostController', () => {
     controller.mapEnteriesToValuesAfterContinuing(req, mockResponse());
     expect(req.session.userCase['appl_allApplicants']).toEqual([
       {
-        id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+        id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
         applicantFirstName: '',
         applicantLastName: '',
+        detailsKnown: '',
+        startAlternative: '',
+        start: 'Yes',
+        contactDetailsPrivate: ['email'],
+        contactDetailsPrivateAlternative: ['email'],
       },
       {
-        id: '95dd0bb0-82da-49b2-ac5a-18e6e834948c',
+        id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
         applicantFirstName: undefined,
         applicantLastName: undefined,
+        detailsKnown: '',
+        startAlternative: '',
+        start: 'Yes',
+        contactDetailsPrivate: ['email'],
+        contactDetailsPrivateAlternative: ['email'],
       },
     ]);
   });

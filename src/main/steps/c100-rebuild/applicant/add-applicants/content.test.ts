@@ -112,7 +112,7 @@ describe('applicant > add-applicants > content', () => {
       req: {
         session: {
           userCase: {
-            allApplicants: dummyApplicants,
+            appl_allApplicants: dummyApplicants,
             applicantTemporaryFormData: {
               TempFirstName: 'dummy',
               TempLastName: 'dummy',
