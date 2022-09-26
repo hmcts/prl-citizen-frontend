@@ -175,6 +175,7 @@ export const generateContent: TranslationFn = content => {
             }
           }
           if (fieldSet.subFields?.contactDetailsPrivateAlternative.values) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             fieldSet.subFields.contactDetailsPrivateAlternative.values = subFieldValueStorage as any;
           }
         }
