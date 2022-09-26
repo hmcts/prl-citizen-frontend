@@ -35,14 +35,21 @@ export default class AddApplicantPostController extends PostController<AnyObject
     if (saveAndContinueChecked) {
       const toggleCheckIfApplicantFieldIsFilled =
         req['body']['applicantFirstName'] !== '' || req['body']['applicantLastName'] !== '';
+      const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+      const form = new Form(fields);
+      const { _csrf, ...formData } = form.getParsedBody(req.body);
+      if (
+        (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantFirstName'] === '') ||
+        req['body']['applicantLastName'] === ''
+      ) {
+        req.session.errors = form.getErrors(formData);
+        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+      }
 
       /* Checking if the applicant fields are filled, and if they are, it is mapping the entries to the
      values after continuing, and adding another application. If they are not filled, it is just
      mapping the entries to the values after continuing. */
       if (toggleCheckIfApplicantFieldIsFilled) {
-        const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-        const form = new Form(fields);
-        const { _csrf, ...formData } = form.getParsedBody(req.body);
         this.errorsAndRedirect(req, res, formData, form);
         this.addAnotherApplicant(req);
         this.resetSessionTemporaryFormValues(req);
