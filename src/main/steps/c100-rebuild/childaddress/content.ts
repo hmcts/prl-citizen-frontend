@@ -9,8 +9,11 @@ const en = () => ({
   paragraph2: `This information will be used to identify which court will handle your application.
                 If the children have a different postcode, enter the one that is most 
                 convenient to most children in the application.`,
-  warningText: `You should only enter your own postcode if the children live with you at the address,
-                 or you don't know where the children are living.`,
+  warningText: {
+    text: `You should only enter your own postcode if the children live with you at the address,
+          or you don't know where the children are living.`,
+    iconFallbackText: 'Warning',
+  },
   postcodeLabel: 'Postcode',
   detailsLabel: "Why we use the term 'children'",
   detailsContent: `We use ‘children’ as a general term to mean whether you have a child or children.
@@ -30,8 +33,11 @@ const cy = () => ({
   paragraph2: `This information will be used to identify which court will handle your application.
                 If the children have a different postcode, enter the one that is most 
                 convenient to most children in the application. - welsh`,
-  warningText: `You should only enter your own postcode if the children live with you at the address,
-                or you don't know where the children are living. - welsh`,
+  warningText: {
+    text: `You should only enter your own postcode if the children live with you at the address,
+          or you don't know where the children are living. - welsh`,
+    iconFallbackText: 'Warning - welsh',
+  },
   postcodeLabel: 'Postcode - welsh',
   detailsLabel: "Why we use the term 'children' - welsh",
   detailsContent: `We use ‘children’ as a general term to mean whether you have a child or children.

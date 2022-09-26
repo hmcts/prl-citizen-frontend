@@ -7,12 +7,8 @@
 <p class="govuk-body-l">{{paragraph1}}</p>
 <p class="govuk-body-m">{{paragraph2}}</p>
 
-{{ govukWarningText({
-  text: warningText,
-  iconFallbackText: "Warning"
-}) }}
+{{ govukWarningText(warningText) }}
 {% endblock %}
-
   {% block page_content_under_form %}
     {{ govukDetails({
     summaryText: detailsLabel,
