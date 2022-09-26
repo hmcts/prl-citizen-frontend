@@ -349,5 +349,9 @@ describe('C100Sequence', () => {
     expect(C100Sequence[41].url).toBe('/c100-rebuild/safety-concerns/concern-about');
     expect(C100Sequence[41].showInSection).toBe('c100');
     expect(C100Sequence[41].getNextStep({})).toBe('/c100-rebuild/safety-concerns/child/concerns-about');
+
+    expect(C100Sequence[42].url).toBe('/c100-rebuild/document-submission');
+    expect(C100Sequence[42].showInSection).toBe('c100');
+    expect(C100Sequence[42].getNextStep({})).toBe('/c100-rebuild/document-submission');
   });
 });
