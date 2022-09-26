@@ -23,6 +23,9 @@ export default class LegalRepresentationGetController extends GetController {
       pageContent: this.content,
       userCase: req.session?.userCase,
     });
+    if (!req.session.errors) {
+      req.session.errors = [];
+    }
     const sessionErrors = req.session?.errors || [];
     let formaction = '';
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {

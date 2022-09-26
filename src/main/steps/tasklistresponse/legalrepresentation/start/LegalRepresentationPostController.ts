@@ -11,7 +11,7 @@ import {
   LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
   LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
   LEGAL_REPRESENTATION_START,
-  RESPOND_TO_APPLICATION,
+  //RESPOND_TO_APPLICATION,
 } from '../../../urls';
 
 @autobind
@@ -24,12 +24,13 @@ export default class LegalRepresentationPostController extends PostController<An
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const redirectUrl = LEGAL_REPRESENTATION_START;
+
     if (!req.body.legalRepresentation) {
       req.session.errors?.push({
         propertyName: 'legalRepresentation',
         errorType: 'required',
       });
-      const redirectUrl = LEGAL_REPRESENTATION_START;
       super.redirect(req, res, redirectUrl);
     } else if (formData.legalRepresentation) {
       req.session.userCase.legalRepresentation = formData.legalRepresentation;
@@ -37,14 +38,14 @@ export default class LegalRepresentationPostController extends PostController<An
       if (formData.legalRepresentation === YesOrNo.YES) {
         returnUrl = LEGAL_REPRESENTATION_SOLICITOR_DIRECT;
       }
-      res.redirect(returnUrl);
+      super.redirect(req, res, returnUrl); //res.redirect(returnUrl);
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
           respondent.value.response.legalRepresentation = formData.legalRepresentation;
         }
       });
       req.session.errors = [];
-      const eventId = 'consentToTheApplication';
+      const eventId = 'legalRepresentation';
       const caseReference = req.session.userCase.id;
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = req.session.userCase?.id;
@@ -52,8 +53,7 @@ export default class LegalRepresentationPostController extends PostController<An
       const updatedCaseDataFromCos = await client.updateCase(req.session.user, caseReference, caseData, eventId);
       Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
-      req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
+      //req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
     }
-    this.redirect(req, res);
   }
 }
