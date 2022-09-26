@@ -323,7 +323,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
+    getNextStep: data =>
+      data.haveSafetyConcerns === YesOrNo.YES ? C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT : C100_CONFIDENTIALITY_START,
   },
   {
     url: C100_CHILD_ADDRESS,
