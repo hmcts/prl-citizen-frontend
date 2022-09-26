@@ -14,7 +14,6 @@ const en = {
   paragraph1: 'See the National Society for Prevention of Cruelty to Children (NSPCC) guidance on ',
   spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse',
   spottingSignsOfChildAbuseLabel: ' spotting the signs of child abuse.',
-  supportNavLabel: 'SupportNav',
   select_all_relevant: 'Select any options that are relevant to your situation.',
   physicalAbuse: 'Physical abuse',
   physicalAbuseHint: 'Behaviour such as punching, choking, kicking or hitting with an object',
