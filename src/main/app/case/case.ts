@@ -119,7 +119,7 @@ export interface Case {
   injuctiveOrder?: orderInterface;
   underTakingOrderOptions?: YesOrNo;
   underTakingOrder?: orderInterface;
-  allApplicants?: C100ListOfApplicants;
+  appl_allApplicants?: C100ListOfApplicants;
 
   /***** Applicant1 *****/
   applicant1FullName?: string;

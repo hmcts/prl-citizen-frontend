@@ -27,7 +27,7 @@ export default class StartPostController extends CommonConfidentialityController
     if (req.query['applicantId']) {
       if (req.body['startAlternative'] && req.body['startAlternative'] !== '') {
         const { applicantId } = req['query'];
-        const modifiedApplicantDetails = req.session.userCase.allApplicants?.map(applicant => {
+        const modifiedApplicantDetails = req.session.userCase.appl_allApplicants?.map(applicant => {
           const applicantInformation = applicant;
           if (applicant['id'] === applicantId) {
             applicantInformation['startAlternative'] = req['body']['startAlternative'] as string;

@@ -33,7 +33,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const applicantId = content.additionalData?.req.query.applicantId ? content.additionalData.req.query.applicantId : '';
   const userId = applicantId;
-  const applicantData = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0];
+  const applicantData = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0];
   const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName'];
   translations['applicantName'] = applicantName;
   return {

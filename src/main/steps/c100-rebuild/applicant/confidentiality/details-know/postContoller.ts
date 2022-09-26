@@ -27,7 +27,7 @@ export default class DetailKnownController extends CommonConfidentialityControll
     if (req.query['applicantId']) {
       if (req.body['detailsKnown'] && req.body['detailsKnown'] !== '') {
         const { applicantId } = req['query'];
-        const modifiedApplicantDetails = req.session.userCase.allApplicants?.map(applicant => {
+        const modifiedApplicantDetails = req.session.userCase.appl_allApplicants?.map(applicant => {
           const applicantInformation = applicant;
           if (applicant['id'] === applicantId) {
             applicantInformation['detailsKnown'] = req['body']['detailsKnown'] as string;

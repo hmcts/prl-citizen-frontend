@@ -65,8 +65,8 @@ export default class AddApplicants extends GetController {
       const { action, applicantId } = req.query;
       switch (action) {
         case 'remove':
-          if (req.session.userCase.hasOwnProperty('allApplicants') && req.session.userCase.allApplicants) {
-            req.session.userCase['allApplicants'] = req.session.userCase.allApplicants.filter(
+          if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
+            req.session.userCase['appl_allApplicants'] = req.session.userCase.appl_allApplicants.filter(
               applicant => applicant['id'] !== applicantId
             );
             return req.session.save(err => {
@@ -79,7 +79,7 @@ export default class AddApplicants extends GetController {
           break;
 
         default:
-          res.redirect('non');
+          res.redirect('error');
       }
     }
   };

@@ -40,7 +40,7 @@ export const generateContent: TranslationFn = content => {
     ? (content.additionalData.req.query.applicantId as string)
     : ('' as string);
   const userId = applicantId as string;
-  const selectedOptionsContactDetailPrivate = content.userCase?.allApplicants?.filter(
+  const selectedOptionsContactDetailPrivate = content.userCase?.appl_allApplicants?.filter(
     user => user['id'] === userId
   )[0]?.['contactDetailsPrivate'] as [];
 
@@ -59,7 +59,7 @@ export const generateContent: TranslationFn = content => {
     translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
   }
 
-  const selectedOptionsContactDetailPrivateAlterative = content.userCase?.allApplicants?.filter(
+  const selectedOptionsContactDetailPrivateAlterative = content.userCase?.appl_allApplicants?.filter(
     user => user['id'] === userId
   )[0]?.['contactDetailsPrivateAlternative'] as [];
   if (selectedOptionsContactDetailPrivateAlterative.length > 0) {
@@ -73,7 +73,7 @@ export const generateContent: TranslationFn = content => {
     }
     translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
   }
-  const applicantData = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0];
+  const applicantData = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0];
   const applicantName = (applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName']) as string;
   translations['applicantName'] = applicantName;
 

@@ -179,9 +179,9 @@ const updatedSessionValue = (formValues: FormContent, sessionData) => {
 export const generateContent: TranslationFn = content => {
   const sessionDataOFApplicant = content.additionalData?.req.session;
   const applicantData: C100ListOfApplicants =
-    sessionDataOFApplicant['userCase'].hasOwnProperty('allApplicants') &&
-    sessionDataOFApplicant['userCase']['allApplicants']
-      ? sessionDataOFApplicant['userCase']['allApplicants']
+    sessionDataOFApplicant['userCase'].hasOwnProperty('appl_allApplicants') &&
+    sessionDataOFApplicant['userCase']['appl_allApplicants']
+      ? sessionDataOFApplicant['userCase']['appl_allApplicants']
       : ([] as C100ListOfApplicants);
   const translations = languages[content.language]();
 

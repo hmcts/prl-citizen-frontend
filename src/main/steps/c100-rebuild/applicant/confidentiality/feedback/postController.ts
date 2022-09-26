@@ -19,15 +19,15 @@ export default class StartPostController extends CommonConfidentialityController
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { applicantId } = req.query;
-    const currentApplicant = req.session.userCase.allApplicants?.findIndex(
+    const currentApplicant = req.session.userCase.appl_allApplicants?.findIndex(
       applicant => applicant.id === applicantId
     ) as number;
     let nextURI = '' as string;
-    if (req.session.userCase.allApplicants) {
-      if (currentApplicant < req.session.userCase.allApplicants?.length - 1) {
+    if (req.session.userCase.appl_allApplicants) {
+      if (currentApplicant < req.session.userCase.appl_allApplicants?.length - 1) {
         nextURI =
           C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW +
-          `?applicantId=${req.session.userCase.allApplicants[currentApplicant + 1].id}`;
+          `?applicantId=${req.session.userCase.appl_allApplicants[currentApplicant + 1].id}`;
       } else {
         nextURI = C100_APPLICANT_ADD_APPLICANTS;
       }

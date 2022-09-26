@@ -49,7 +49,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
         req.session.userCase.applicantTemporaryFormData = undefined;
         const redirectURI =
           C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW +
-          `?applicantId=${req.session.userCase?.allApplicants?.[0].id}`;
+          `?applicantId=${req.session.userCase?.appl_allApplicants?.[0].id}`;
         return super.redirect(req, res, redirectURI);
       } else {
         this.mapEnteriesToValuesAfterContinuing(req, res);
@@ -108,10 +108,10 @@ export default class AddApplicantPostController extends PostController<AnyObject
       contactDetailsPrivateAlternative: [] as [],
     };
     let applicantInSession: C100ListOfApplicants = [];
-    if (req.session.userCase.hasOwnProperty('allApplicants') && req.session.userCase.allApplicants) {
-      applicantInSession = req.session.userCase.allApplicants;
+    if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
+      applicantInSession = req.session.userCase.appl_allApplicants;
     }
-    req.session.userCase.allApplicants = [...applicantInSession, applicantInformation];
+    req.session.userCase.appl_allApplicants = [...applicantInSession, applicantInformation];
     req.session.save();
   }
 
@@ -120,17 +120,17 @@ export default class AddApplicantPostController extends PostController<AnyObject
    * @param req - AppRequest<AnyObject>
    */
   public mapEnteriesToValuesAfterContinuing(req: AppRequest<AnyObject>, res: Response): void {
-    const lengthOfApplicantInSession = req.session.userCase.allApplicants?.length;
+    const lengthOfApplicantInSession = req.session.userCase.appl_allApplicants?.length;
     const newApplicantStorage: C100ListOfApplicants = [];
     if (lengthOfApplicantInSession) {
       for (let applicant = 0; applicant < lengthOfApplicantInSession; applicant++) {
         const currentIndexPositioninBody = applicant + 1;
         const applicantFirstName = req.body[`ApplicantFirstName-${currentIndexPositioninBody}`] as string;
         const applicantLastName = req.body[`ApplicantLastName-${currentIndexPositioninBody}`] as string;
-        if (req.session.userCase.allApplicants) {
-          const { id } = req.session.userCase.allApplicants[applicant];
+        if (req.session.userCase.appl_allApplicants) {
+          const { id } = req.session.userCase.appl_allApplicants[applicant];
           const applicantObject = {
-            ...req.session.userCase.allApplicants[applicant],
+            ...req.session.userCase.appl_allApplicants[applicant],
             id,
             applicantFirstName,
             applicantLastName,
@@ -139,11 +139,11 @@ export default class AddApplicantPostController extends PostController<AnyObject
         }
       }
     }
-    req.session.userCase.allApplicants = newApplicantStorage;
+    req.session.userCase.appl_allApplicants = newApplicantStorage;
     req.session.userCase.applicantTemporaryFormData = undefined;
     const redirectURI =
       C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW +
-      `?applicantId=${req.session.userCase.allApplicants[0].id}`;
+      `?applicantId=${req.session.userCase.appl_allApplicants[0].id}`;
     return super.redirect(req, res, redirectURI);
   }
 

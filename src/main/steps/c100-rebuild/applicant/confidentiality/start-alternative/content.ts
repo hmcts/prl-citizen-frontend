@@ -99,10 +99,12 @@ type FieldLabelArray = FieldLabel[];
 export const generateContent: TranslationFn = content => {
   const applicantId = content.additionalData?.req.query.applicantId ? content.additionalData.req.query.applicantId : '';
   const userId = applicantId;
-  const startOption = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0]?.['startAlternative'];
-  const contactDetailsPrivateAlternative = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0]?.[
-    'contactDetailsPrivateAlternative'
-  ] as [];
+  const startOption = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0]?.[
+    'startAlternative'
+  ];
+  const contactDetailsPrivateAlternative = content.userCase?.appl_allApplicants?.filter(
+    user => user['id'] === userId
+  )[0]?.['contactDetailsPrivateAlternative'] as [];
 
   let detailKnownFormField = form.fields['startAlternative']?.['values'];
 
@@ -195,8 +197,8 @@ export const generateContent: TranslationFn = content => {
   }
   form.fields['startAlternative'].values = detailKnownFormField;
   const translations = languages[content.language]();
-  const applicantData = content.userCase?.allApplicants?.filter(user => user['id'] === userId)[0];
-  const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName']  
+  const applicantData = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0];
+  const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName'];
   translations['applicantName'] = applicantName;
   return {
     ...translations,
