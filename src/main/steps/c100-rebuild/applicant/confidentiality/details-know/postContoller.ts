@@ -23,7 +23,7 @@ export default class DetailKnownController extends CommonConfidentialityControll
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
     let redirectURI = req.originalUrl;
-    let applicantData = req.session.userCase['allApplicants'] as C100ListOfApplicants;
+    let applicantData = req.session.userCase['appl_allApplicants'] as C100ListOfApplicants;
     if (req.query['applicantId']) {
       if (req.body['detailsKnown'] && req.body['detailsKnown'] !== '') {
         const { applicantId } = req['query'];

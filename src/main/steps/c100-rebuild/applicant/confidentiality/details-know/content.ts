@@ -60,7 +60,7 @@ export const generateContent: TranslationFn = content => {
   const userId = applicantId;
   const applicantData = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0];
   const selectedUser = applicantData?.['detailsKnown'];
-  const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName']  
+  const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName'];
   let detailKnownFormField = form.fields['detailsKnown']?.['values'];
   const checkedFormField = [
     {

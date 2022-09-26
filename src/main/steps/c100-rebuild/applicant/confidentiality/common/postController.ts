@@ -18,7 +18,7 @@ export class CommonConfidentialityController extends PostController<AnyObject> {
     redirectURI?: string,
     applicantData?: C100ListOfApplicants
   ): Promise<void> {
-    req.session.userCase['allApplicants'] = applicantData as [];
+    req.session.userCase['appl_allApplicants'] = applicantData as [];
     super.redirect(req as AppRequest<AnyObject>, res as Response, redirectURI as string);
   }
 }
