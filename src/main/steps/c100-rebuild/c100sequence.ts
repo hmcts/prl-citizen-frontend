@@ -47,6 +47,7 @@ import {
   /** @C1A Safety concerns */
   C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
+  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   PageLink,
 } from '../urls';
 
@@ -322,5 +323,10 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   },
 ];
