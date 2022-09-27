@@ -117,9 +117,20 @@ export interface Response {
   legalRepresentation?: string;
   consent?: Consent;
   miam?: Miam;
+  citizenInternationalElements?: CitizenInternationalElements;
   keepDetailsPrivate?: KeepDetailsPrivate;
 }
 
+export interface CitizenInternationalElements {
+  childrenLiveOutsideOfEnWl?: YesOrNo;
+  childrenLiveOutsideOfEnWlDetails?: string;
+  parentsAnyOneLiveOutsideEnWl?: YesOrNo;
+  parentsAnyOneLiveOutsideEnWlDetails?: string;
+  anotherPersonOrderOutsideEnWl?: YesOrNo;
+  anotherPersonOrderOutsideEnWlDetails?: string;
+  anotherCountryAskedInformation?: YesOrNo;
+  anotherCountryAskedInformationDetaails?: string;
+}
 export interface Consent {
   consentToTheApplication?: string;
   noConsentReason?: string;
@@ -786,6 +797,15 @@ export interface CaseData {
   courtOrderDetails?: string;
   miamStart?: string;
   citizenUploadedDocumentList?: UploadDocumentList[];
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
+
 }
 
 export interface ConfidentialDetails {

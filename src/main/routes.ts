@@ -17,6 +17,8 @@ import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
+import { InternationalFactorsGetController } from './steps/tasklistresponse/international-factors/InternationalFactorsGetController';
+import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
 import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
 import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
@@ -36,6 +38,8 @@ import {
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
   HOME_URL,
+  INTERNATIONAL_FACTORS_SAVE,
+  INTERNATIONAL_FACTORS_START,
   MANAGE_DOCUMENTS_DOWNLOAD,
   MIAM_SAVE,
   MIAM_START,
@@ -83,6 +87,10 @@ export class Routes {
       }
 
       app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
+      app.get(
+        `${INTERNATIONAL_FACTORS_START}/:caseId`,
+        errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
+      );
 
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
@@ -112,6 +120,10 @@ export class Routes {
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MIAM_SAVE}`, errorHandler(new MIAMPostController(step.form.fields).post));
+        app.get(
+          `${INTERNATIONAL_FACTORS_SAVE}`,
+          errorHandler(new InternationalFactorsPostController(step.form.fields).post)
+        );
       }
     }
   }

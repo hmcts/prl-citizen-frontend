@@ -9,6 +9,7 @@ export const setMIAMDetails = (respondent: Respondent, req: AppRequest): Respond
     miamFromResponsent.attendedMiam = req.session.userCase.miamStart;
     miamFromResponsent.willingToAttendMiam = req.session.userCase.miamWillingness;
     miamFromResponsent.reasonNotAttendingMiam = req.session.userCase.miamNotWillingExplnation;
+    respondent.value.response.miam = miamFromResponsent;
   } else {
     respondent.value.response = {
       miam: {

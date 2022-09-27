@@ -1,3 +1,5 @@
+import { CaseWithId } from '../../../../app/case/case';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
@@ -19,7 +21,7 @@ export const enContent = {
   keys: {
     start: 'Do the children live outside of England or Wales?',
     iFactorsStartProvideDetails: 'Provide details',
-    parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+    parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
     iFactorsParentsProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
@@ -54,10 +56,22 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
+  updateUserCaseUrls(userCase);
+  //updateUserCase(userCase);
+
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls)],
+    sections: [
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.respondentAdditionalInformation,
+        fieldType,
+        content.language
+      ),
+    ],
   };
 };
 
@@ -71,7 +85,7 @@ const cyContent: typeof enContent = {
   keys: {
     start: 'Do the children live outside of England or Wales?',
     iFactorsStartProvideDetails: 'Provide details',
-    parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+    parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
     iFactorsParentsProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
@@ -106,17 +120,44 @@ const cyContent: typeof enContent = {
 
 const urls = {
   start: INTERNATIONAL_FACTORS_START,
+  iFactorsStartProvideDetails: INTERNATIONAL_FACTORS_START,
   parents: INTERNATIONAL_FACTORS_PARENTS,
+  iFactorsParentsProvideDetails: INTERNATIONAL_FACTORS_PARENTS,
   jurisdiction: INTERNATIONAL_FACTORS_JURISDICTION,
+  iFactorsJurisdictionProvideDetails: INTERNATIONAL_FACTORS_JURISDICTION,
   request: INTERNATIONAL_FACTORS_REQUEST,
+  iFactorsRequestProvideDetails: INTERNATIONAL_FACTORS_REQUEST,
+};
+
+const fieldType = {
+  start: 'String',
+  iFactorsStartProvideDetails: 'String',
+  parents: 'String',
+  iFactorsParentsProvideDetails: 'String',
+  jurisdiction: 'String',
+  iFactorsJurisdictionProvideDetails: 'String',
+  request: 'String',
+  iFactorsRequestProvideDetails: 'String',
 };
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
+
+  updateUserCaseUrls(userCase);
+
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, 'respondentAdditionalInformation')],
+    sections: [
+      summaryList(
+        cyContent,
+        userCase,
+        urls,
+        cyContent.sectionTitles.respondentAdditionalInformation,
+        fieldType,
+        content.language
+      ),
+    ],
   };
 };
 
@@ -139,3 +180,61 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
+
+function updateUserCaseUrls(userCase: Partial<CaseWithId>) {
+  if (userCase.start === YesOrNo.NO) {
+    userCase.iFactorsStartProvideDetails = '';
+  }
+  if (userCase.parents === YesOrNo.NO) {
+    userCase.iFactorsParentsProvideDetails = '';
+  }
+  if (userCase.jurisdiction === YesOrNo.NO) {
+    userCase.iFactorsJurisdictionProvideDetails = '';
+  }
+  if (userCase.request === YesOrNo.NO) {
+    userCase.iFactorsRequestProvideDetails = '';
+  }
+
+  for (const key in enContent.keys) {
+    if (userCase[key] === '') {
+      delete enContent.keys[key];
+      delete urls[key];
+    }
+  }
+
+  // for (const key in enContent.keys) {
+  //  if(enContent?.keys[key]?.includes('Provide details')){
+  //     enContent.keys[key] === '';
+  //   }
+  // }
+}
+// function updateUserCase(userCase: Partial<CaseWithId>) {
+//   Object.assign(urls, { start: INTERNATIONAL_FACTORS_START });
+//   Object.assign(fieldType, { start: 'String' });
+//   if (userCase.start === YesOrNo.YES) {
+//     Object.assign(enContent.keys, { iFactorsStartProvideDetails: 'Provide details' });
+//     Object.assign(urls, { iFactorsStartProvideDetails: INTERNATIONAL_FACTORS_START });
+//     Object.assign(fieldType, { iFactorsStartProvideDetails: 'String' });
+//   }
+//   Object.assign(urls, { parents: INTERNATIONAL_FACTORS_PARENTS });
+//   Object.assign(fieldType, { parents: 'String' });
+//   if (userCase.parents === YesOrNo.YES) {
+//     Object.assign(enContent.keys, { iFactorsParentsProvideDetails: 'Provide details' });
+//     Object.assign(urls, { iFactorsParentsProvideDetails: INTERNATIONAL_FACTORS_PARENTS });
+//     Object.assign(fieldType, { iFactorsParentsProvideDetails: 'String' });
+//   }
+//   Object.assign(urls, { jurisdiction: INTERNATIONAL_FACTORS_JURISDICTION });
+//   Object.assign(fieldType, { jurisdiction: 'String' });
+//   if (userCase.jurisdiction === YesOrNo.YES) {
+//     Object.assign(enContent.keys, { iFactorsJurisdictionProvideDetails: 'Provide details' });
+//     Object.assign(urls, { iFactorsJurisdictionProvideDetails: INTERNATIONAL_FACTORS_JURISDICTION });
+//     Object.assign(fieldType, { iFactorsJurisdictionProvideDetails: 'String' });
+//   }
+//   Object.assign(urls, { request: INTERNATIONAL_FACTORS_REQUEST });
+//   Object.assign(fieldType, { request: 'String' });
+//   if (userCase.request === YesOrNo.YES) {
+//     Object.assign(enContent.keys, { iFactorsRequestProvideDetails: 'Provide details' });
+//     Object.assign(urls, { iFactorsRequestProvideDetails: INTERNATIONAL_FACTORS_REQUEST });
+//     Object.assign(fieldType, { iFactorsRequestProvideDetails: 'String' });
+//   }
+// }

@@ -48,7 +48,11 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined, userIda
   return status;
 };
 
-export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
+export const getInternationalFactorsStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  console.log('userIdamId===>' + userIdamId);
   if (
     ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
     ((userCase?.parents === YesOrNo.YES && userCase?.iFactorsParentsProvideDetails) ||

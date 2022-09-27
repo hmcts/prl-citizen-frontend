@@ -81,8 +81,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'international-factors',
           text: taskListItems.international_factors,
-          status: getInternationalFactorsStatus(userCase),
-          href: URL.INTERNATIONAL_FACTORS_START,
+          status: getInternationalFactorsStatus(userCase, userIdamId),
+          href: URL.INTERNATIONAL_FACTORS_START + '/' + userCase.id,
         },
       ],
     },
