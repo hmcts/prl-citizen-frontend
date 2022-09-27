@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { Case } from '../../../../app/case/case';
 import {
   C100OrderInterface,
   C100OrderTypeInterface,
@@ -27,7 +28,7 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
     const form = new Form(getFormFields().fields as FormFields);
     const { addOrder, onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const newData = {
+    const newData: Partial<Case> = {
       op_otherProceedings: {
         ...((req.session?.userCase?.op_otherProceedings ?? {}) as OtherProceedings),
         order: {
