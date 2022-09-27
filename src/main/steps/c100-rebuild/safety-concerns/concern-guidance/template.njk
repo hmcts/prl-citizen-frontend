@@ -7,7 +7,6 @@
         <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
         <p class="govuk-body-l">{{caption}}</p>
         <h2 class="govuk-heading-m govuk-!-margin-bottom-7">{{ behaviourHeader }}</h2>
-        <h2>
         {% for item in abusiveBehaviours %}
             <p class="govuk-body">{{item | safe}}</p>
         {% endfor %}
@@ -16,10 +15,9 @@
                 {% for abuse in abuseList %}
                     <li>{{abuse}}</li>
                 {% endfor %}
-        </ul>
+            </ul>
         <p class="govuk-body">{{otherFormsLine}}</p>
         <p class="govuk-body">{{abusiveGuidance}} {{typesOfAbusiveBehaviour | safe}} {{andSignsOf}} {{childAbuse | safe}}</p>
-        </h2>
         <h2 class="govuk-heading-m govuk-!-margin-bottom-7">{{ infoUsedByCourtHeader }}</h2>
         {% for info in infoList %}
             <p class="govuk-body">{{info | safe}}</p>
@@ -34,7 +32,7 @@
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text" data-ga-category="explanations" data-ga-label="applicant abuse info">
                     {{cafcassSupportHeader}}
-              </span>
+                </span>
             </summary>
             <div class="govuk-details__text">
                 {% for cafcassSupportLine in cafcassSupportLines %}
