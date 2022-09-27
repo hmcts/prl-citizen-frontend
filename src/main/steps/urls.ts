@@ -225,5 +225,9 @@ export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
 export const C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-about`;
 export const C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concerns-for-safety`;
 
+/** @C100 Document Submission */
+export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
+
 /** @C100 MIAM */
-export const C100_MIAM_HAVE_DOCUMENT_SIGNED_BY_MEDIATOR: PageLink = `${C100_URL}/miam/mediator-document`;
+export const C100_MIAM: PageLink = `${C100_URL}/miam`;
+export const C100_MIAM_MEDIATOR_DOCUMENT: PageLink = `${C100_MIAM}/mediator-document`;
