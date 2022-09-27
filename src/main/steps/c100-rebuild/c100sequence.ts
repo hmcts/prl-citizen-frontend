@@ -327,7 +327,7 @@ export const C100Sequence: Step[] = [
       data.haveSafetyConcerns === YesOrNo.YES ? C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT : C100_CONFIDENTIALITY_START,
   },
   {
-    url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
+    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   },
