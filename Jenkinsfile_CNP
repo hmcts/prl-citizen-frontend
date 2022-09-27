@@ -27,7 +27,8 @@ def secrets = [
     secret('postcode-lookup-token', 'POSTCODE_TOKEN'),
     secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL'),
     secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
-    secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET')
+    secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET'),
+    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET')
   ]
 ]
 
