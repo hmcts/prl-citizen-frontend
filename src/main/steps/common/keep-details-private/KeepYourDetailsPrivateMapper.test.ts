@@ -33,7 +33,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });
 
-  test('Should setConsentDetails with response', async () => {
+  test('Should setKeepYourDetailsPrivate with response', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     req.session.userCase.detailsKnown = 'Yes';
     req.session.userCase.startAlternative = 'Yes';
@@ -46,7 +46,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });
 
-  test('Should setConsentDetails with consent', async () => {
+  test('Should setKeepYourDetailsPrivate without keepDetailsPrivate', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     req.session.userCase.detailsKnown = 'Yes';
     req.session.userCase.startAlternative = 'Yes';
@@ -60,7 +60,25 @@ describe('KeepYourDetailsPrivateMapper', () => {
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });
 
-  test('Should getConsentDetails with consent Yes', async () => {
+  test('Should setKeepYourDetailsPrivate with keepDetailsPrivate', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase.detailsKnown = 'Yes';
+    req.session.userCase.startAlternative = 'Yes';
+    const response = {
+      legalRepresentation: 'No',
+      keepDetailsPrivate: {
+        otherPeopleKnowYourContactDetails: '',
+        confidentiality: '',
+        confidentialityList: [],
+      },
+    };
+    respondents[0].value.response = response;
+    await setKeepYourDetailsPrivate(respondents[0].value, req);
+    expect(respondents[0].value.response.keepDetailsPrivate.otherPeopleKnowYourContactDetails).toEqual('Yes');
+    expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
+  });
+
+  test('Should getKeepYourDetailsPrivate with consent Yes', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     const response = {
       legalRepresentation: 'No',
@@ -75,7 +93,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
     expect(req.session.userCase.startAlternative).toEqual('No');
   });
 
-  test('Should getConsentDetails with consent No', async () => {
+  test('Should getKeepYourDetailsPrivate with keepDetailsPrivate No', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     const response = {
       legalRepresentation: 'No',
@@ -90,13 +108,14 @@ describe('KeepYourDetailsPrivateMapper', () => {
     expect(req.session.userCase.startAlternative).toEqual('No');
   });
 
-  test('Should getConsentDetails with permissionFromCourt Yes', async () => {
+  test('Should getKeepYourDetailsPrivate with confidentiality Yes', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     const response = {
       legalRepresentation: 'No',
       keepDetailsPrivate: {
         otherPeopleKnowYourContactDetails: 'No',
         confidentiality: 'Yes',
+        confidentialityList: ['address', 'phoneNumber'],
       },
     };
     respondents[0].value.response = response;

@@ -31,7 +31,7 @@ export class KeepDetailsPrivateGetController extends GetController {
           }
         });
       } else {
-        req.session.userCase?.respondents?.forEach((applicant: Applicant) => {
+        req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
           if (
             applicant?.value?.user?.idamId === req.session?.user.id &&
             applicant?.value?.response &&
