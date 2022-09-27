@@ -12,7 +12,7 @@ import {
 import { CommonConfidentialityController } from '../common/postController';
 
 @autobind
-export default class StartAltertivePostController extends CommonConfidentialityController {
+export default class FeedbackNoPostController extends CommonConfidentialityController {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
