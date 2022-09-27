@@ -54,7 +54,7 @@ const getOrderDocuments = (orders: C100OrderTypeInterface | Record<string, never
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const orderSessionData = content.userCase?.otherProceedings?.order ?? {};
+  const orderSessionData = content.userCase?.op_otherProceedings?.order ?? {};
   return {
     ...translations,
     form,

@@ -23,16 +23,16 @@ const en = () => ({
   travellingCourtOtherSubField: 'Describe what you need',
   travellingCourtNoOption: 'No, I do not need any support at this time',
   errors: {
-    parkingSpaceSubField: {
+    ra_parkingSpaceSubField: {
       required: 'Describe why you need a parking space close to the venue',
     },
-    differentTypeChairSubField: {
+    ra_differentTypeChairSubField: {
       required: 'Describe what type of chair you need',
     },
-    travellingCourtOtherSubField: {
+    ra_travellingCourtOtherSubField: {
       required: 'Describe what help you need if travelling to, or moving around court buildings',
     },
-    travellingCourt: {
+    ra_travellingCourt: {
       required: 'Select what help you need if travelling to, or moving around court buildings',
     },
   },
@@ -58,16 +58,16 @@ const cy = () => ({
   travellingCourtOtherSubField: 'Describe what you need - welsh',
   travellingCourtNoOption: 'No, I do not need any support at this time - welsh',
   errors: {
-    parkingSpaceSubField: {
+    ra_parkingSpaceSubField: {
       required: 'Describe why you need a parking space close to the venue - welsh',
     },
-    differentTypeChairSubField: {
+    ra_differentTypeChairSubField: {
       required: 'Describe what type of chair you need - welsh',
     },
-    travellingCourtOtherSubField: {
+    ra_travellingCourtOtherSubField: {
       required: 'Describe what help you need if travelling to, or moving around court buildings - welsh',
     },
-    travellingCourt: {
+    ra_travellingCourt: {
       required: 'Select what help you need if travelling to, or moving around court buildings - welsh',
     },
   },
@@ -80,18 +80,18 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    travellingCourt: {
-      id: 'travellingCourt',
+    ra_travellingCourt: {
+      id: 'ra_travellingCourt',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'travellingCourt',
+          name: 'ra_travellingCourt',
           label: l => l.parkingSpace,
           value: 'parkingSpace',
           subFields: {
-            parkingSpaceSubField: {
+            ra_parkingSpaceSubField: {
               type: 'textarea',
               label: l => l.parkingSpaceSubField,
               labelSize: null,
@@ -103,31 +103,31 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'travellingCourt',
+          name: 'ra_travellingCourt',
           label: l => l.wheelchairAccess,
           value: 'wheelchairAccess',
         },
         {
-          name: 'travellingCourt',
+          name: 'ra_travellingCourt',
           label: l => l.venueWheelchair,
           value: 'venueWheelchair',
         },
         {
-          name: 'travellingCourt',
+          name: 'ra_travellingCourt',
           label: l => l.accessToilet,
           value: 'accessToilet',
         },
         {
-          name: 'travellingCourt',
+          name: 'ra_travellingCourt',
           label: l => l.helpUsingLift,
           value: 'helpUsingLift',
         },
         {
-          name: 'travellingCourt',
+          name: 'ra_travellingCourt',
           label: l => l.differentTypeChair,
           value: 'differentTypeChair',
           subFields: {
-            differentTypeChairSubField: {
+            ra_differentTypeChairSubField: {
               type: 'textarea',
               label: l => l.differentTypeChairSubField,
               hint: l => l.differentTypeChairSubFieldHint,
@@ -140,16 +140,16 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'travellingCourt',
+          name: 'ra_travellingCourt',
           label: l => l.guideBuilding,
           value: 'guideBuilding',
         },
         {
-          name: 'travellingCourt',
+          name: 'ra_travellingCourt',
           label: l => l.travellingCourtOther,
           value: 'travellingCourtOther',
           subFields: {
-            travellingCourtOtherSubField: {
+            ra_travellingCourtOtherSubField: {
               type: 'textarea',
               label: l => l.travellingCourtOtherSubField,
               labelSize: null,
@@ -165,7 +165,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'travellingCourt',
+          name: 'ra_travellingCourt',
           label: l => l.travellingCourtNoOption,
           value: 'travellingCourtNoOption',
           behaviour: 'exclusive',
