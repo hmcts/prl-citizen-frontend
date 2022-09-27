@@ -14,7 +14,7 @@ export class PropertiesVolume {
       //this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
       this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
-      this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
+      this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.authProvider.secret');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.system-update-user-password', 'services.idam.systemPassword');
       this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
@@ -31,6 +31,7 @@ export class PropertiesVolume {
   private setSecret(fromPath: string, toPath: string): void {
     if (config.has(fromPath)) {
       set(config, toPath, get(config, fromPath));
+      console.log('secret : ' + get(config, fromPath));
     }
   }
 
