@@ -55,6 +55,7 @@ export interface Case {
   caseCode?: string;
   accessCode?: string;
   detailsKnown?: string;
+  haveDocSigned?: string;
   startAlternative?: string;
   contactDetailsPrivate?: string;
   miamStart?: string;
