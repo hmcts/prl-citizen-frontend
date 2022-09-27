@@ -54,6 +54,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const partyName = this.getPartyName(isApplicant, req);
 
     const uploadDocumentDetails = {
+      documentRequestedByCourt: req.session.userCase.start,
       caseId: req.session.userCase.id,
       freeTextUploadStatements: req.body.freeTextAreaForUpload,
       parentDocumentType: req.query.parentDocumentType,

@@ -103,22 +103,6 @@ export class PostController<T extends AnyObject> {
       return this.redirect(req, res);
     }
 
-    //const data = toApiFormat(formData);
-
-    // if (Object.keys(data).length !== 0) {
-    //   req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
-    // }
-
-    //const caseworkerUser = await getSystemUser();
-    //const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-    // const requestMappedCaseData = {
-    //   applicantCaseName: 'XYZ',
-    //   natureOfOrder: 'test',
-    //   isCaseUrgent: 'Yes',
-    // };
-    // const caseId = req.session?.caseId;
-    //await client.updateRespondentCase(caseworkerUser, req.session.userCase.id, req, data);
-
     if (req.originalUrl.includes(UploadDocumentSucess)) {
       if (req?.session?.userCase?.applicantUploadFiles) {
         req.session.userCase[ApplicantUploadFiles] = [];

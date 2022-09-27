@@ -124,6 +124,9 @@ export class CosApiClient {
         serviceAuthorization: getServiceAuthToken(),
       };
 
+      console.log('Auth token: {}', user.accessToken);
+      console.log('Service auth token: {}', getServiceAuthToken());
+
       const response = await Axios.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',
         generateAndUploadDocumentRequest,
