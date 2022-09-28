@@ -3,6 +3,7 @@ import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
+  C100_CHILD_ADDRESS,
   C100_CONFIDENTIALITY_DETAILS_KNOW,
   C100_CONFIDENTIALITY_FEEDBACK,
   C100_CONFIDENTIALITY_FEEDBACK_NO,
@@ -324,6 +325,11 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: data =>
       data.haveSafetyConcerns === YesOrNo.YES ? C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT : C100_CONFIDENTIALITY_START,
+  },
+  {
+    url: C100_CHILD_ADDRESS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILD_ADDRESS,
   },
   {
     url: C100_DOCUMENT_SUBMISSION,
