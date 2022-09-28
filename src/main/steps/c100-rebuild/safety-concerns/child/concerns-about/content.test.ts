@@ -100,7 +100,7 @@ describe('safetyconcerns > child > concern about > content', () => {
   });
 
   test('should contain specialArrangements field', () => {
-    const childConcernAboutField = fields.concernAboutChild as FormOptions;
+    const childConcernAboutField = fields.c1A_concernAboutChild as FormOptions;
 
     expect(childConcernAboutField.type).toBe('checkboxes');
     expect((childConcernAboutField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);
