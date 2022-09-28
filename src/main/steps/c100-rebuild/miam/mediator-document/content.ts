@@ -10,7 +10,7 @@ const en = () => ({
   one: 'Yes',
   two: 'No',
   errors: {
-    c1A_haveDocSigned: {
+    miam_haveDocSigned: {
       required: 'Select yes if you have a document signed by the mediator',
     },
   },
@@ -23,7 +23,7 @@ const cy = () => ({
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    c1A_haveDocSigned: {
+    miam_haveDocSigned: {
       required: 'Select yes if you have a document signed by the mediator - welsh',
     },
   },
@@ -36,7 +36,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_haveDocSigned: {
+    miam_haveDocSigned: {
       type: 'radios',
       classes: 'govuk-radios',
       hint: l => l.docSigned,

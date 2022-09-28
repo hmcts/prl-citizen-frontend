@@ -38,7 +38,7 @@ describe('miam->have document signed by mediator or not', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.c1A_haveDocSigned as FormOptions;
+    const applyingWithField = fields.miam_haveDocSigned as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
