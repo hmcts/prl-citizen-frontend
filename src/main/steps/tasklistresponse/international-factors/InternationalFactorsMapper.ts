@@ -57,7 +57,6 @@ export const setInternationalFactorsDetails = (respondent: Respondent, req: AppR
     };
   }
 
-  
   return respondent;
 };
 
@@ -105,7 +104,6 @@ export const getInternationalFactorsDetails = (respondent: Respondent, req: AppR
     });
   }
 
-  
   Object.assign(req.session.userCase, tempValue);
   return req.session.userCase;
 };

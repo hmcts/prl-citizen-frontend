@@ -10,7 +10,6 @@ import { getInternationalFactorsDetails } from './InternationalFactorsMapper';
 
 export class InternationalFactorsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    
     const loggedInCitizen = req.session.user;
     const caseReference = req.params?.caseId;
 
