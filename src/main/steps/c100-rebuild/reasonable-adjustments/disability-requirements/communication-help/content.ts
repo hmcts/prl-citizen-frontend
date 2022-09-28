@@ -27,13 +27,13 @@ const en = () => ({
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
-    communicationHelp: {
+    ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding',
     },
-    signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreterDetails: {
       required: 'Describe which Sign Language interpreter you need',
     },
-    otherDetails: {
+    ra_communicationHelpOtherDetails: {
       required: 'Describe what you need to help with communicating and understanding',
     },
   },
@@ -63,13 +63,13 @@ const cy = () => ({
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
-    communicationHelp: {
+    ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding - welsh',
     },
-    signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreterDetails: {
       required: 'Describe which Sign Language interpreter you need - welsh',
     },
-    otherDetails: {
+    ra_communicationHelpOtherDetails: {
       required: 'Describe what you need to help with communicating and understanding - welsh',
     },
   },
@@ -82,39 +82,39 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    communicationHelp: {
-      id: 'communicationHelp',
+    ra_communicationHelp: {
+      id: 'ra_communicationHelp',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.hearingLoop,
           value: 'hearingLoop',
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.infraredReceiver,
           value: 'infraredReceiver',
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.needToBeClosedWithSpeaker,
           value: 'needToBeClosedWithSpeaker',
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.lipSpeaker,
           value: 'lipSpeaker',
           hint: l => l.lipSpeakerHint,
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.signLanguageInterpreter,
           value: 'signLanguageInterpreter',
           subFields: {
-            signLanguageInterpreterDetails: {
+            ra_signLanguageInterpreterDetails: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -126,37 +126,37 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.speechToTextReporter,
           value: 'speechToTextReporter',
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.needExtraTime,
           value: 'needExtraTime',
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.visitCourtBeforeHearing,
           value: 'visitCourtBeforeHearing',
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.explanationOfCourt,
           value: 'explanationOfCourt',
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.intermediary,
           value: 'intermediary',
           hint: l => l.intermediaryHint,
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.other,
           value: 'other',
           subFields: {
-            otherDetails: {
+            ra_communicationHelpOtherDetails: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -171,7 +171,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'communicationHelp',
+          name: 'ra_communicationHelp',
           label: l => l.noSupportRequired,
           value: 'none',
           behaviour: 'exclusive',

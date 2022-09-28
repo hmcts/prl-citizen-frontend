@@ -39,7 +39,7 @@ describe('Document upload controller', () => {
     const res = mockResponse();
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.session.userCase = {
-      otherProceedings: {
+      op_otherProceedings: {
         order: {
           otherOrders: [
             {
@@ -94,7 +94,7 @@ describe('Document upload controller', () => {
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.body.saveAndContinue = true;
     req.session.userCase = {
-      otherProceedings: {
+      op_otherProceedings: {
         order: {
           otherOrders: [
             {
@@ -167,7 +167,7 @@ describe('Document upload controller', () => {
     const res = mockResponse();
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.session.userCase = {
-      otherProceedings: {
+      op_otherProceedings: {
         order: {
           otherOrders: [
             {
@@ -237,7 +237,7 @@ describe('Document upload controller', () => {
     const res = mockResponse();
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.session.userCase = {
-      otherProceedings: {
+      op_otherProceedings: {
         order: {
           otherOrders: [
             {
@@ -282,7 +282,7 @@ describe('Document upload controller', () => {
       };
       req.query = QUERY;
       req.session.userCase = {
-        otherProceedings: {
+        op_otherProceedings: {
           order: {
             otherOrders: [
               {
@@ -311,89 +311,21 @@ describe('Document upload controller', () => {
   describe('Should check invalid file format present or not', () => {
     test('should return an error', async () => {
       const controller = new UploadDocumentController({});
-      const res = mockResponse();
-      const req = mockRequest({
-        session: {
-          user: { email: 'test@example.com' },
-        },
-      });
-      const QUERY = {
-        orderType: 'otherOrder',
-        orderId: '1',
-      };
-      req.query = QUERY;
-      req.session.userCase = {
-        otherProceedings: {
-          order: {
-            otherOrders: [
-              {
-                orderDetail: 'OtherOrder1',
-                orderCopy: 'Yes',
-                orderDocument: {
-                  id: '',
-                  url: '',
-                  filename: '',
-                  binaryUrl: '',
-                },
-              },
-            ],
-          },
-        },
-      };
-      req.files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
-      await controller.post(req, res);
       expect(controller.isValidFileFormat({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
         false
       );
       expect(controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
         false
       );
-      expect(res.redirect).toBeCalledWith(
-        '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
-      );
     });
     test('should return an true', async () => {
       const controller = new UploadDocumentController({});
-      const res = mockResponse();
-      const req = mockRequest({
-        session: {
-          user: { email: 'test@example.com' },
-        },
-      });
-      const QUERY = {
-        orderType: 'otherOrder',
-        orderId: '1',
-      };
-      req.query = QUERY;
-      req.session.userCase = {
-        otherProceedings: {
-          order: {
-            otherOrders: [
-              {
-                orderDetail: 'OtherOrder1',
-                orderCopy: 'Yes',
-                orderDocument: {
-                  id: '',
-                  url: '',
-                  filename: '',
-                  binaryUrl: '',
-                },
-              },
-            ],
-          },
-        },
-      };
-      req.files = { documents: { name: 'test.png', size: '812300345', data: '', mimetype: 'text' } };
-      await controller.post(req, res);
-      expect(controller.isValidFileFormat({ name: 'test.png', size: '812300345', data: '', mimetype: 'text' })).toBe(
+      expect(controller.isValidFileFormat({ name: 'test.png', size: '81230023', data: '', mimetype: 'text' })).toBe(
         true
       );
       expect(
-        controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '812300345', data: '', mimetype: 'text' })
+        controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '81230023', data: '', mimetype: 'text' })
       ).toBe(true);
-      expect(res.redirect).toBeCalledWith(
-        '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
-      );
     });
   });
 });

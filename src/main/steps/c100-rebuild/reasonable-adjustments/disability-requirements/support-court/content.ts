@@ -20,19 +20,19 @@ const en = () => ({
   supportCourtOtherSubField: 'Describe what you need',
   supportCourtNoOption: 'No, I do not need any support at this time',
   errors: {
-    supportWorkerCarerSubField: {
+    ra_supportWorkerCarerSubField: {
       required: 'Enter the name of the support worker or carer you will bring',
     },
-    friendFamilyMemberSubField: {
+    ra_friendFamilyMemberSubField: {
       required: 'Enter the name of a friend or family member you will bring',
     },
-    therapyAnimalSubField: {
+    ra_therapyAnimalSubField: {
       required: 'Describe which therapy animal you will bring',
     },
-    supportCourtOtherSubField: {
+    ra_supportCourtOtherSubField: {
       required: 'Describe which support you need to bring with you to a hearing ',
     },
-    supportCourt: {
+    ra_supportCourt: {
       required: 'Select which support you need to bring with you to a hearing',
     },
   },
@@ -55,19 +55,19 @@ const cy = () => ({
   supportCourtOtherSubField: 'Describe what you need - welsh',
   supportCourtNoOption: 'No, I do not need any support at this time - welsh',
   errors: {
-    supportWorkerCarerSubField: {
+    ra_supportWorkerCarerSubField: {
       required: 'Enter the name of the support worker or carer you will bring - welsh',
     },
-    friendFamilyMemberSubField: {
+    ra_friendFamilyMemberSubField: {
       required: 'Enter the name of a friend or family member you will bring - welsh',
     },
-    therapyAnimalSubField: {
+    ra_therapyAnimalSubField: {
       required: 'Describe which therapy animal you will bring - welsh',
     },
-    supportCourtOtherSubField: {
+    ra_supportCourtOtherSubField: {
       required: 'Describe which support you need to bring with you to a hearing - welsh',
     },
-    supportCourt: {
+    ra_supportCourt: {
       required: 'Select which support you need to bring with you to a hearing - welsh',
     },
   },
@@ -80,18 +80,18 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    supportCourt: {
-      id: 'supportCourt',
+    ra_supportCourt: {
+      id: 'ra_supportCourt',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'supportCourt',
+          name: 'ra_supportCourt',
           label: l => l.supportWorkerCarer,
           value: 'supportWorkerCarer',
           subFields: {
-            supportWorkerCarerSubField: {
+            ra_supportWorkerCarerSubField: {
               type: 'textarea',
               label: l => l.supportWorkerCarerSubField,
               labelSize: null,
@@ -103,11 +103,11 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'supportCourt',
+          name: 'ra_supportCourt',
           label: l => l.friendFamilyMember,
           value: 'friendFamilyMember',
           subFields: {
-            friendFamilyMemberSubField: {
+            ra_friendFamilyMemberSubField: {
               type: 'textarea',
               label: l => l.friendFamilyMemberSubField,
               labelSize: null,
@@ -119,16 +119,16 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'supportCourt',
+          name: 'ra_supportCourt',
           label: l => l.assistanceGuideDog,
           value: 'assistanceGuideDog',
         },
         {
-          name: 'supportCourt',
+          name: 'ra_supportCourt',
           label: l => l.therapyAnimal,
           value: 'therapyAnimal',
           subFields: {
-            therapyAnimalSubField: {
+            ra_therapyAnimalSubField: {
               type: 'textarea',
               label: l => l.therapyAnimalSubField,
               labelSize: null,
@@ -140,11 +140,11 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'supportCourt',
+          name: 'ra_supportCourt',
           label: l => l.supportCourtOther,
           value: 'supportCourtOther',
           subFields: {
-            supportCourtOtherSubField: {
+            ra_supportCourtOtherSubField: {
               type: 'textarea',
               label: l => l.supportCourtOtherSubField,
               labelSize: null,
@@ -160,7 +160,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'supportCourt',
+          name: 'ra_supportCourt',
           label: l => l.supportCourtNoOption,
           value: 'supportCourtNoOption',
           behaviour: 'exclusive',

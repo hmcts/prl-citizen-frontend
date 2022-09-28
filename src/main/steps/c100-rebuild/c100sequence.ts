@@ -125,7 +125,7 @@ export const C100Sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       PageStepConfigurator.deriveSteps(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       const nextPage = PageStepConfigurator.getNextPage(C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS);
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
@@ -138,7 +138,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
@@ -150,7 +150,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
@@ -162,7 +162,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
@@ -174,7 +174,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
@@ -186,7 +186,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },

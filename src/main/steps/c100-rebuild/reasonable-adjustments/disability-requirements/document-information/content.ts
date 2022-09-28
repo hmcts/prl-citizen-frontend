@@ -22,16 +22,16 @@ const en = () => ({
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
-    documentInformation: {
+    ra_documentInformation: {
       required: 'Select which format you need your documents in',
     },
-    specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocumentsDetails: {
       required: 'Describe which colour you need your documents in',
     },
-    largePrintDocumentsDetails: {
+    ra_largePrintDocumentsDetails: {
       required: 'Describe which large print you need your documents in',
     },
-    otherDetails: {
+    ra_otherDetails: {
       required: 'Describe which alternative format you need your documents in',
     },
   },
@@ -56,16 +56,16 @@ const cy = () => ({
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
-    documentInformation: {
+    ra_documentInformation: {
       required: 'Select which format you need your documents in - welsh',
     },
-    specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocumentsDetails: {
       required: 'Describe which colour you need your documents in - welsh',
     },
-    largePrintDocumentsDetails: {
+    ra_largePrintDocumentsDetails: {
       required: 'Describe which large print you need your documents in - welsh',
     },
-    otherDetails: {
+    ra_otherDetails: {
       required: 'Describe which alternative format you need your documents in - welsh',
     },
   },
@@ -78,18 +78,18 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    documentInformation: {
-      id: 'documentInformation',
+    ra_documentInformation: {
+      id: 'ra_documentInformation',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'documentInformation',
+          name: 'ra_documentInformation',
           label: l => l.specifiedColorDocuments,
           value: 'specifiedColorDocuments',
           subFields: {
-            specifiedColorDocumentsDetails: {
+            ra_specifiedColorDocumentsDetails: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -101,22 +101,22 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'documentInformation',
+          name: 'ra_documentInformation',
           label: l => l.easyReadFormatDocuments,
           value: 'easyReadFormatDocuments',
           hint: l => l.easyReadFormatDocumentsHint,
         },
         {
-          name: 'documentInformation',
+          name: 'ra_documentInformation',
           label: l => l.brailleDocuments,
           value: 'brailleDocuments',
         },
         {
-          name: 'documentInformation',
+          name: 'ra_documentInformation',
           label: l => l.largePrintDocuments,
           value: 'largePrintDocuments',
           subFields: {
-            largePrintDocumentsDetails: {
+            ra_largePrintDocumentsDetails: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -128,26 +128,26 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'documentInformation',
+          name: 'ra_documentInformation',
           label: l => l.audioTranslationDocuments,
           value: 'audioTranslationDocuments',
         },
         {
-          name: 'documentInformation',
+          name: 'ra_documentInformation',
           label: l => l.readOutDocuments,
           value: 'readOutDocuments',
         },
         {
-          name: 'documentInformation',
+          name: 'ra_documentInformation',
           label: l => l.emailInformation,
           value: 'emailInformation',
         },
         {
-          name: 'documentInformation',
+          name: 'ra_documentInformation',
           label: l => l.other,
           value: 'other',
           subFields: {
-            otherDetails: {
+            ra_otherDetails: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -162,7 +162,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'documentInformation',
+          name: 'ra_documentInformation',
           label: l => l.noSupportRequired,
           value: 'none',
           behaviour: 'exclusive',

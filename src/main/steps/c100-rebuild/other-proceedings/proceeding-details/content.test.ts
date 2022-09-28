@@ -31,7 +31,7 @@ const en = {
   undertakingOrder: 'Undertaking in place of an order',
   otherOrder: 'Other orders',
   errors: {
-    courtProceedingsOrders: {
+    op_courtProceedingsOrders: {
       required: 'Specify which court cases you or the children have been involved in',
     },
   },
@@ -61,7 +61,7 @@ const cy = {
   undertakingOrder: 'Undertaking in place of an order - welsh',
   otherOrder: 'Other orders - welsh',
   errors: {
-    courtProceedingsOrders: {
+    op_courtProceedingsOrders: {
       required: 'Specify which court cases you or the children have been involved in - welsh',
     },
   },
@@ -87,8 +87,8 @@ describe('proceeding details screen', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain courtProceedingsOrders field', () => {
-    const courtProceedingsOrderField = fields.courtProceedingsOrders as FormOptions;
+  test('should contain op_courtProceedingsOrders field', () => {
+    const courtProceedingsOrderField = fields.op_courtProceedingsOrders as FormOptions;
     expect(courtProceedingsOrderField.type).toBe('checkboxes');
 
     expect((courtProceedingsOrderField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);

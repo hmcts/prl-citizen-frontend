@@ -57,11 +57,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
     const courtOrderType = orderType as C100OrderTypes;
     const courtOrderId: AnyType | undefined = orderId;
-    console.log('session', req.session.userCase?.otherProceedings?.order);
-    const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
+
+    const orderSessionData = req.session.userCase?.op_otherProceedings?.order?.[
       C100OrderTypeKeyMapper[courtOrderType]
     ] as C100OrderInterface[];
-    console.log('resss', orderSessionData);
     const orderSessionDataById = orderSessionData[courtOrderId - 1];
 
     if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
@@ -121,9 +120,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             };
 
             if (
-              req.session.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
+              req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][
+                courtOrderId - 1
+              ]
             ) {
-              req.session.userCase.otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
+              req.session.userCase.op_otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
                 courtOrderId - 1
               ].orderDocument = documentInfo;
             }

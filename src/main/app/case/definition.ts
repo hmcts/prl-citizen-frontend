@@ -1403,6 +1403,7 @@ export const enum CONFIDENTIAL_DETAILS {
 
 export const enum C100 {
   CASE_TYPE_OF_APPLICATION = 'C100',
+  CASE_UPDATE = 'citizen-case-update'
 }
 
 export enum C100OrderTypes {
