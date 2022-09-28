@@ -7,7 +7,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  headingTitle: 'Do you have a document signed by the mediator?  ',
+  title: 'Do you have a document signed by the mediator?  ',
   docSigned:
     'The mediator should give you a signed document to confirm you attended a MIAM, or do not need to attend. If you do not have a document, you should ask the mediator for one.',
   one: 'Yes',
@@ -15,7 +15,7 @@ const en = {
 };
 
 const cy = {
-  headingTitle: 'Do you have a document signed by the mediator? - welsh  ',
+  title: 'Do you have a document signed by the mediator? - welsh  ',
   docSigned:
     'The mediator should give you a signed document to confirm you attended a MIAM, or do not need to attend. If you do not have a document, you should ask the mediator for one. - Welsh',
   one: 'Yes - Welsh',
@@ -23,6 +23,7 @@ const cy = {
 };
 
 describe('miam->have document signed by mediator or not', () => {
+  let form;
   const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
@@ -35,20 +36,18 @@ describe('miam->have document signed by mediator or not', () => {
   });
   test('should contain applyingWith field', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
-    const form = generatedContent.form as FormContent;
+    form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.haveDocSigned as FormOptions;
+    const applyingWithField = fields.c1A_haveDocSigned as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
   });
 
-  test('should contain saveAndComeLater button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent | undefined;
+  test('should contain Continue button', () => {
     expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
   });
 });

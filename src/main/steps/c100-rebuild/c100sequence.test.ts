@@ -353,10 +353,10 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[42].url).toBe('/c100-rebuild/miam/mediator-document');
     expect(C100Sequence[42].showInSection).toBe('c100');
-    expect(C100Sequence[42].getNextStep({ haveDocSigned: YesOrNo.YES })).toBe(
+    expect(C100Sequence[42].getNextStep({ c1A_haveDocSigned: YesOrNo.YES })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
-    expect(C100Sequence[42].getNextStep({ haveDocSigned: YesOrNo.NO })).toBe(
+    expect(C100Sequence[42].getNextStep({ c1A_haveDocSigned: YesOrNo.NO })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
   });

@@ -4,26 +4,26 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = () => ({
-  headingTitle: 'Do you have a document signed by the mediator?  ',
+  title: 'Do you have a document signed by the mediator?  ',
   docSigned:
     'The mediator should give you a signed document to confirm you attended a MIAM, or do not need to attend. If you do not have a document, you should ask the mediator for one.',
   one: 'Yes',
   two: 'No',
   errors: {
-    haveDocSigned: {
+    c1A_haveDocSigned: {
       required: 'Select yes if you have a document signed by the mediator',
     },
   },
 });
 
 const cy = () => ({
-  headingTitle: 'Do you have a document signed by the mediator? - welsh  ',
+  title: 'Do you have a document signed by the mediator? - welsh  ',
   docSigned:
     'The mediator should give you a signed document to confirm you attended a MIAM, or do not need to attend. If you do not have a document, you should ask the mediator for one. - Welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    haveDocSigned: {
+    c1A_haveDocSigned: {
       required: 'Select yes if you have a document signed by the mediator - welsh',
     },
   },
@@ -36,7 +36,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    haveDocSigned: {
+    c1A_haveDocSigned: {
       type: 'radios',
       classes: 'govuk-radios',
       hint: l => l.docSigned,
