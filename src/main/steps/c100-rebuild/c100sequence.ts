@@ -49,6 +49,7 @@ import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
   PageLink,
   C100_DOCUMENT_SUBMISSION,
+  C100_MIAM_OTHER_PROCEEDINGS,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -329,5 +330,11 @@ export const C100Sequence: Step[] = [
     url: C100_DOCUMENT_SUBMISSION,
     showInSection: Sections.C100,
     getNextStep: () => C100_DOCUMENT_SUBMISSION,
+  },
+  {
+    url: C100_MIAM_OTHER_PROCEEDINGS,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.haveSafetyConcerns === YesOrNo.YES ? C100_CONFIDENTIALITY_DETAILS_KNOW : C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];

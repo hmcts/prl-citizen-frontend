@@ -227,3 +227,7 @@ export const C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = `${C100_C1
 
 /** @C100 Document Submission */
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
+
+/** @C100 MIAM */
+export const C100_MIAM: PageLink = `${C100_URL}/miam`;
+export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/miam-other-proceedings`;
