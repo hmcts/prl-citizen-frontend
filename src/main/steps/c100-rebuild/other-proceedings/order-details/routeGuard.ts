@@ -5,7 +5,7 @@ import { C100OrderTypes } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 
 const isValidOrderType = (orderType: C100OrderTypes, caseData: Partial<Case>) => {
-  return Object.values(C100OrderTypes).includes(orderType) && caseData?.courtProceedingsOrders?.includes(orderType);
+  return Object.values(C100OrderTypes).includes(orderType) && caseData?.op_courtProceedingsOrders?.includes(orderType);
 };
 
 export const routeGuard = {

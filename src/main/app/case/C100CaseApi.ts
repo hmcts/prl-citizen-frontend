@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import https from 'https';
 
 import Axios, { AxiosError, AxiosInstance } from 'axios';
@@ -8,24 +10,9 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
+import { Case } from './case';
 import { C100 } from './definition';
-
-interface CreateCaseResponse {
-  id: string;
-}
-
-export interface DocumentUploadResponse {
-  status: string;
-  document: {
-    document_url: string;
-    document_binary_url: string;
-    document_filename: string;
-    document_hash: string;
-    document_creation_date: string;
-  };
-}
-
-class CaseApi {
+export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
   public async createCase(): Promise<CreateCaseResponse> {
@@ -44,9 +31,29 @@ class CaseApi {
     }
   }
 
+  public async updateCase(caseId: string, caseData: Partial<Case>, returnUrl: string): Promise<UpdateCaseResponse> {
+    const data: UpdateCaseRequest = {
+      ...transformCaseData(caseData),
+      c100RebuildReturnUrl: returnUrl,
+    };
+    console.info(data);
+
+    try {
+      const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100.CASE_UPDATE}/update-case`, data, {
+        headers: {
+          accessCode: '12345678',
+        },
+      });
+      return { data: response.data };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
+  }
+
   public async uploadDocument(formdata: FormData): Promise<DocumentUploadResponse> {
     try {
-      const response = await this.axios.post<DocumentUploadResponse>('/upload-citizen-statement-document', formdata, {
+      const response = await this.axios.post<DocumentUploadResponse>('/upload-citizen-document', formdata, {
         headers: {
           ...formdata.getHeaders(),
         },
@@ -94,4 +101,69 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
     }),
     logger
   );
+};
+
+const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
+  const caseDataMapperKeys = Object.keys(updateCaseDataMapper);
+  const transformedCaseData = Object.entries(caseData).reduce((transformedData: Record<string, any>, [field, data]) => {
+    const [type] = field.split('_');
+    const key = updateCaseDataMapper[type];
+
+    if (caseDataMapperKeys.includes(type) && !transformedData[key]) {
+      transformedData[key] = {};
+    }
+
+    if (transformedData[key]) {
+      transformedData[key][field] = data;
+    }
+
+    return transformedData;
+  }, {});
+
+  return (
+    Object.entries(transformedCaseData).reduce((data: UpdateCase, [_field, _data]) => {
+      data[_field] = JSON.stringify(_data);
+      return data;
+    }, {}) ?? {}
+  );
+};
+
+interface CreateCaseResponse {
+  id: string;
+}
+interface UpdateCaseResponse {
+  [key: string]: any;
+}
+
+interface UpdateCase {
+  c100RebuildConfidentiality?: Record<string, string>;
+  c100RebuildInternationalElements?: Record<string, string>;
+  c100RebuildReasonableAdjustments?: Record<string, string>;
+  c100RebuildTypeOfOrder?: Record<string, string>;
+  c100RebuildHearingWithoutNotice?: Record<string, string>;
+  c100RebuildOtherProceedings?: Record<string, string>;
+}
+
+interface UpdateCaseRequest extends UpdateCase {
+  c100RebuildReturnUrl: string;
+}
+
+export interface DocumentUploadResponse {
+  status: string;
+  document: {
+    document_url: string;
+    document_binary_url: string;
+    document_filename: string;
+    document_hash: string;
+    document_creation_date: string;
+  };
+}
+
+const updateCaseDataMapper = {
+  appl: 'c100RebuildApplicants',
+  ie: 'c100RebuildInternationalElements',
+  ra: 'c100RebuildReasonableAdjustments',
+  too: 'c100RebuildTypeOfOrder',
+  hwn: 'c100RebuildHearingWithoutNotice',
+  op: 'c100RebuildOtherProceedings',
 };

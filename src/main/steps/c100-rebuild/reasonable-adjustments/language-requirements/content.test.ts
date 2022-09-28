@@ -23,10 +23,10 @@ const en = {
     if applicable)`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time',
   errors: {
-    needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguageDetails: {
       required: 'Give details of the language you need an interpreter for',
     },
-    languageNeeds: {
+    ra_languageNeeds: {
       required: 'Select whether you have any language requirements',
     },
   },
@@ -48,10 +48,10 @@ const cy = {
     if applicable) - welsh`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time - welsh',
   errors: {
-    needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguageDetails: {
       required: 'Give details of the language you need an interpreter for - welsh',
     },
-    languageNeeds: {
+    ra_languageNeeds: {
       required: 'Select whether you have any language requirements - welsh',
     },
   },
@@ -78,9 +78,9 @@ describe('Language requirements content', () => {
   });
 
   test('should contain languageNeeds field', () => {
-    const languageNeedsField = fields.languageNeeds as FormOptions;
+    const languageNeedsField = fields.ra_languageNeeds as FormOptions;
     const needInterpreterInCertainLanguageDetailsField = languageNeedsField.values[2].subFields
-      ?.needInterpreterInCertainLanguageDetails as FormOptions;
+      ?.ra_needInterpreterInCertainLanguageDetails as FormOptions;
 
     expect(languageNeedsField.type).toBe('checkboxes');
     expect(needInterpreterInCertainLanguageDetailsField.type).toBe('textarea');

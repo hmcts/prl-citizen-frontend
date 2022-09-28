@@ -31,13 +31,13 @@ const en = {
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
-    communicationHelp: {
+    ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding',
     },
-    signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreterDetails: {
       required: 'Describe which Sign Language interpreter you need',
     },
-    otherDetails: {
+    ra_communicationHelpOtherDetails: {
       required: 'Describe what you need to help with communicating and understanding',
     },
   },
@@ -67,13 +67,13 @@ const cy = {
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
-    communicationHelp: {
+    ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding - welsh',
     },
-    signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreterDetails: {
       required: 'Describe which Sign Language interpreter you need - welsh',
     },
-    otherDetails: {
+    ra_communicationHelpOtherDetails: {
       required: 'Describe what you need to help with communicating and understanding - welsh',
     },
   },
@@ -100,7 +100,7 @@ describe('Communication help content', () => {
   });
 
   test('should contain communicationHelp field', () => {
-    const communicationHelpField = fields.communicationHelp as FormOptions;
+    const communicationHelpField = fields.ra_communicationHelp as FormOptions;
 
     expect(communicationHelpField.type).toBe('checkboxes');
 
@@ -131,14 +131,15 @@ describe('Communication help content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('needExtraTime');
 
     const signLanguageInterpreterDetailsField = communicationHelpField.values[4].subFields
-      ?.signLanguageInterpreterDetails as FormOptions;
+      ?.ra_signLanguageInterpreterDetails as FormOptions;
     expect(signLanguageInterpreterDetailsField.type).toBe('textarea');
     expect((signLanguageInterpreterDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (signLanguageInterpreterDetailsField.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
 
-    const otherDetailsField = communicationHelpField.values[10].subFields?.otherDetails as FormOptions;
+    const otherDetailsField = communicationHelpField.values[10].subFields
+      ?.ra_communicationHelpOtherDetails as FormOptions;
     expect(otherDetailsField.type).toBe('textarea');
     expect((otherDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (otherDetailsField.validator as Function)('test text area');

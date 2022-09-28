@@ -24,19 +24,19 @@ const en = {
   supportCourtOtherSubField: 'Describe what you need',
   supportCourtNoOption: 'No, I do not need any support at this time',
   errors: {
-    supportWorkerCarerSubField: {
+    ra_supportWorkerCarerSubField: {
       required: 'Enter the name of the support worker or carer you will bring',
     },
-    friendFamilyMemberSubField: {
+    ra_friendFamilyMemberSubField: {
       required: 'Enter the name of a friend or family member you will bring',
     },
-    therapyAnimalSubField: {
+    ra_therapyAnimalSubField: {
       required: 'Describe which therapy animal you will bring',
     },
-    supportCourtOtherSubField: {
+    ra_supportCourtOtherSubField: {
       required: 'Describe which support you need to bring with you to a hearing ',
     },
-    supportCourt: {
+    ra_supportCourt: {
       required: 'Select which support you need to bring with you to a hearing',
     },
   },
@@ -59,19 +59,19 @@ const cy = {
   supportCourtOtherSubField: 'Describe what you need - welsh',
   supportCourtNoOption: 'No, I do not need any support at this time - welsh',
   errors: {
-    supportWorkerCarerSubField: {
+    ra_supportWorkerCarerSubField: {
       required: 'Enter the name of the support worker or carer you will bring - welsh',
     },
-    friendFamilyMemberSubField: {
+    ra_friendFamilyMemberSubField: {
       required: 'Enter the name of a friend or family member you will bring - welsh',
     },
-    therapyAnimalSubField: {
+    ra_therapyAnimalSubField: {
       required: 'Describe which therapy animal you will bring - welsh',
     },
-    supportCourtOtherSubField: {
+    ra_supportCourtOtherSubField: {
       required: 'Describe which support you need to bring with you to a hearing - welsh',
     },
-    supportCourt: {
+    ra_supportCourt: {
       required: 'Select which support you need to bring with you to a hearing - welsh',
     },
   },
@@ -98,9 +98,9 @@ describe('applicant personal details > applying-with > content', () => {
   });
 
   test('should contain specialArrangements field', () => {
-    const supportCourtField = fields.supportCourt as FormOptions;
+    const supportCourtField = fields.ra_supportCourt as FormOptions;
     const supportWorkerCarerSubFields = supportCourtField.values[0].subFields
-      ?.supportWorkerCarerSubField as FormOptions;
+      ?.ra_supportWorkerCarerSubField as FormOptions;
 
     expect(supportCourtField.type).toBe('checkboxes');
     expect(supportWorkerCarerSubFields.type).toBe('textarea');
@@ -113,7 +113,7 @@ describe('applicant personal details > applying-with > content', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
     const friendFamilyMemberSubFields = supportCourtField.values[1].subFields
-      ?.friendFamilyMemberSubField as FormOptions;
+      ?.ra_friendFamilyMemberSubField as FormOptions;
 
     expect(supportCourtField.type).toBe('checkboxes');
     expect(friendFamilyMemberSubFields.type).toBe('textarea');
@@ -122,7 +122,7 @@ describe('applicant personal details > applying-with > content', () => {
     (friendFamilyMemberSubFields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
-    const therapyAnimalSubFields = supportCourtField.values[3].subFields?.therapyAnimalSubField as FormOptions;
+    const therapyAnimalSubFields = supportCourtField.values[3].subFields?.ra_therapyAnimalSubField as FormOptions;
 
     expect(therapyAnimalSubFields.type).toBe('textarea');
     expect((therapyAnimalSubFields?.label as Function)(generatedContent)).toBe(en.therapyAnimalSubField);
@@ -130,7 +130,8 @@ describe('applicant personal details > applying-with > content', () => {
     (therapyAnimalSubFields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
-    const supportCourtOtherSubFields = supportCourtField.values[4].subFields?.supportCourtOtherSubField as FormOptions;
+    const supportCourtOtherSubFields = supportCourtField.values[4].subFields
+      ?.ra_supportCourtOtherSubField as FormOptions;
 
     expect(supportCourtOtherSubFields.type).toBe('textarea');
     expect((supportCourtOtherSubFields?.label as Function)(generatedContent)).toBe(en.supportCourtOtherSubField);

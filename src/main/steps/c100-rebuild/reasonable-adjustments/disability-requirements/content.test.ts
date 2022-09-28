@@ -28,7 +28,7 @@ const en = {
     'for example, access and mobility support if a hearing takes place in person',
   noSupportRequired: 'No, I do not need any support at this time',
   errors: {
-    disabilityRequirements: {
+    ra_disabilityRequirements: {
       required:
         'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case',
     },
@@ -56,7 +56,7 @@ const cy = {
     'for example, access and mobility support if a hearing takes place in person - welsh',
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   errors: {
-    disabilityRequirements: {
+    ra_disabilityRequirements: {
       required:
         'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case - welsh',
     },
@@ -84,7 +84,7 @@ describe('Disability requirements content', () => {
   });
 
   test('should contain disabilityRequirements field', () => {
-    const disabilityRequirementsField = fields.disabilityRequirements as FormOptions;
+    const disabilityRequirementsField = fields.ra_disabilityRequirements as FormOptions;
 
     expect(disabilityRequirementsField.type).toBe('checkboxes');
 

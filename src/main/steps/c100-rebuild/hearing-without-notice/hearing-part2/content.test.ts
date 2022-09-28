@@ -21,19 +21,19 @@ const en = {
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    reasonsForApplicationWithoutNotice: {
+    hwn_reasonsForApplicationWithoutNotice: {
       required: 'Enter details',
     },
-    doYouNeedAWithoutNoticeHearing: {
+    hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Select yes if the other person may obstruct',
     },
-    doYouRequireAHearingWithReducedNotice: {
+    hwn_doYouRequireAHearingWithReducedNotice: {
       required: "Select yes if there's no time to give notice",
     },
-    doYouNeedAWithoutNoticeHearingDetails: {
+    hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Enter details',
     },
-    doYouRequireAHearingWithReducedNoticeDetails: {
+    hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Enter details',
     },
   },
@@ -53,19 +53,19 @@ const cy = {
   two: 'No - welsh',
   provideDetails: 'Provide details -welsh',
   errors: {
-    reasonsForApplicationWithoutNotice: {
+    hwn_reasonsForApplicationWithoutNotice: {
       required: 'Enter details - welsh',
     },
-    doYouNeedAWithoutNoticeHearing: {
+    hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Select yes if the other person may obstruct - welsh',
     },
-    doYouRequireAHearingWithReducedNotice: {
+    hwn_doYouRequireAHearingWithReducedNotice: {
       required: "Select yes if there's no time to give notice - welsh",
     },
-    doYouNeedAWithoutNoticeHearingDetails: {
+    hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Enter details - welsh',
     },
-    doYouRequireAHearingWithReducedNoticeDetails: {
+    hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Enter details - welsh',
     },
   },
@@ -88,12 +88,12 @@ describe('Hearing without notice part2', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const reasonsForApplicationWithoutNoticeField = fields.reasonsForApplicationWithoutNotice as FormOptions;
+    const reasonsForApplicationWithoutNoticeField = fields.hwn_reasonsForApplicationWithoutNotice as FormOptions;
     expect(reasonsForApplicationWithoutNoticeField.type).toBe('textarea');
     (reasonsForApplicationWithoutNoticeField.validator as Function)('Test');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
 
-    const doYouNeedAWithoutNoticeHearingField = fields.doYouNeedAWithoutNoticeHearing as FormOptions;
+    const doYouNeedAWithoutNoticeHearingField = fields.hwn_doYouNeedAWithoutNoticeHearing as FormOptions;
     expect(doYouNeedAWithoutNoticeHearingField.type).toBe('radios');
     expect(doYouNeedAWithoutNoticeHearingField.classes).toBe('govuk-radios');
     expect((doYouNeedAWithoutNoticeHearingField.label as LanguageLookup)(generatedContent)).toBe(
@@ -101,13 +101,14 @@ describe('Hearing without notice part2', () => {
     );
     expect((doYouNeedAWithoutNoticeHearingField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((doYouNeedAWithoutNoticeHearingField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    const subfield1 = doYouNeedAWithoutNoticeHearingField.values[0].subFields!.doYouNeedAWithoutNoticeHearingDetails;
+    const subfield1 =
+      doYouNeedAWithoutNoticeHearingField.values[0].subFields!.hwn_doYouNeedAWithoutNoticeHearingDetails;
     expect((subfield1?.label as Function)(generatedContent)).toBe(en.provideDetails);
     expect(subfield1.type).toBe('textarea');
     (subfield1.validator as Function)('Yes');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
 
-    const doYouRequireAHearingWithReducedNoticeField = fields.doYouRequireAHearingWithReducedNotice as FormOptions;
+    const doYouRequireAHearingWithReducedNoticeField = fields.hwn_doYouRequireAHearingWithReducedNotice as FormOptions;
     expect(doYouRequireAHearingWithReducedNoticeField.type).toBe('radios');
     expect(doYouRequireAHearingWithReducedNoticeField.classes).toBe('govuk-radios');
     expect((doYouRequireAHearingWithReducedNoticeField.label as LanguageLookup)(generatedContent)).toBe(
@@ -124,7 +125,7 @@ describe('Hearing without notice part2', () => {
       en.two
     );
     const subfield2 =
-      doYouRequireAHearingWithReducedNoticeField.values[0].subFields!.doYouRequireAHearingWithReducedNoticeDetails;
+      doYouRequireAHearingWithReducedNoticeField.values[0].subFields!.hwn_doYouRequireAHearingWithReducedNoticeDetails;
     expect((subfield2?.label as Function)(generatedContent)).toBe(en.provideDetails);
     expect(subfield2.type).toBe('textarea');
     (subfield2.validator as Function)('Yes');
