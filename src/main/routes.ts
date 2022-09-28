@@ -3,8 +3,9 @@ import fs from 'fs';
 import { Application } from 'express';
 import multer from 'multer';
 
-import { GetCaseController } from './app/controller/GetCaseController';
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
+
+import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
@@ -30,19 +31,19 @@ import {
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   CONTACT_US,
   COOKIES_PAGE,
-  DOCUMENT_MANAGER,
   CSRF_TOKEN_ERROR_URL,
+  DOCUMENT_MANAGER,
   HOME_URL,
   MANAGE_DOCUMENTS_DOWNLOAD,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
+  SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
+  TIMED_OUT_URL,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
-  SAVE_AND_SIGN_OUT,
-  TIMED_OUT_URL,
 } from './steps/urls';
 
 const handleUploads = multer();

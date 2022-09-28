@@ -1,10 +1,11 @@
 import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
+import FormData from 'form-data';
+
 
 import { DeleteDocumentRequest } from '../../app/document/DeleteDocumentRequest';
 import { DocumentDetail } from '../../app/document/DocumentDetail';
 import { GenerateAndUploadDocumentRequest } from '../../app/document/GenerateAndUploadDocumentRequest';
-import { UploadedDocumentList } from '../../app/document/UploadedDocumentList';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
@@ -123,6 +124,7 @@ export class CosApiClient {
         serviceAuthorization: getServiceAuthToken(),
       };
 
+      console.log("Generated document request: ", generateAndUploadDocumentRequest)
       const response = await Axios.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',
         generateAndUploadDocumentRequest,
@@ -140,28 +142,49 @@ export class CosApiClient {
 
   public async UploadDocumentListFromCitizen(
     user: UserDetails,
-    uploadedDocumentList: UploadedDocumentList
+    caseId: string,
+    parentDocumentType: string,
+    documentType: string,
+    partyId: string,
+    partyName: string,
+    isApplicant: string,
+    files: UploadedFiles
   ): Promise<DocumentDetail> {
     try {
       const headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Content-Type': '*',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        serviceAuthorization: getServiceAuthToken()
       };
 
-      const response = await Axios.post(
-        config.get('services.cos.url') + '/upload-citizen-statement-document',
-        uploadedDocumentList,
-        { headers }
-      );
+      let formData = new FormData();
+  
+      for (const [, file] of Object.entries(files)) {
+        formData.append('files', file.buffer, file.originalname);
+      }
+
+      formData.append('caseId', caseId);
+      formData.append('parentDocumentType', parentDocumentType);
+      formData.append('documentType', documentType);
+      formData.append('partyId', partyId);
+      formData.append('partyName', partyName);
+      formData.append('isApplicant', isApplicant);
+
+      console.log("Upload document request from form Data: ", formData)
+
+      const response = await this.client.post('/upload-citizen-statement-document', formData, {
+          headers 
+      });
+  
       return {
         status: response.status,
         documentId: response.data?.documentId,
         documentName: response.data?.documentName,
       };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      console.log("Error: ", err)
+      throw new Error('Case document is not updting.');
     }
   }
 
@@ -288,3 +311,9 @@ export class CosApiClient {
     return response.data;
   }
 }
+
+export type UploadedFiles =
+| {
+    [fieldname: string]: Express.Multer.File[];
+  }
+| Express.Multer.File[];

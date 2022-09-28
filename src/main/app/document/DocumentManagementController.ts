@@ -13,7 +13,7 @@ import {
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
-import { CaseWithId, UploadedFile } from '../case/case';
+import { CaseWithId } from '../case/case';
 import { DocumentType, YesOrNo } from '../case/definition';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
@@ -22,6 +22,7 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentRequest';
+import { UploadedDocumentRequest } from './UploadedDocumentRequest';
 //import { UploadedDocumentList } from './UploadedDocumentList';
 
 const UID_LENGTH = 36;
@@ -64,6 +65,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
       isApplicant,
     };
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
+
+    console.log("Generate upload doc: ", generateAndUploadDocumentRequest);
+    console.log("Auth: ", caseworkerUser.accessToken);
+    console.log("Serv auth: ", getServiceAuthToken());
 
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
     const uploadCitizenDocFromCos = await client.generateUserUploadedStatementDocument(
@@ -350,9 +355,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
-    const isApplicant = req.query.isApplicant;
+    let isApplicant;
+    if (req.query && req.query.isApplicant) {
+
+     isApplicant = req.query.isApplicant;
+    }
     //let applicantFiles: UploadedFile[] = [];
-    const respondentFiles: UploadedFile[] = [];
+    //const respondentFiles: UploadedFile[] = [];
     //if (isApplicant === YesOrNo.YES) {
     if (req?.session?.userCase?.applicantUploadFiles === undefined) {
       req.session.userCase['applicantUploadFiles'] = [];
@@ -390,16 +399,73 @@ export class DocumentManagerController extends PostController<AnyObject> {
       console.log('ID details: ', obj.id);
       console.log('name details: ', obj.name);
 
+      // if (isApplicant === YesOrNo.YES) {
+      //   req.session.userCase.applicantUploadFiles?.push(obj);
+      // } else {
+      //   req.session.userCase.respondentUploadFiles?.push(obj);
+
+      //   console.log('Respondent files []', respondentFiles);
+      // }
+    }
+    let redirectUrl;
+
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
+    const caseworkerUser = await getSystemUser();
+    req.session.errors = form.getErrors(formData);
+
+    const partyName = req.session.user.givenName + ' ' + req.session.user.familyName;
+
+    console.log("Auth Token: ", caseworkerUser.accessToken);
+    console.log("Service auth  Token: ",getServiceAuthToken());
+
+    const files = req.files || [];
+    let parentDocumentType;
+    let documentType
+    const caseId = req.session.userCase.id;
+    if (req.query && req.query.parentDocumentType) {
+      parentDocumentType =  req.query.parentDocumentType;
+    }
+    if (req.query && req.query.documentType) {
+     documentType = req.query.documentType;
+    }
+    const partyId = req.session.user.id;
+
+    const uploadedDocumentRequest = new UploadedDocumentRequest(caseId, files, parentDocumentType,
+      documentType, partyName, partyId, isApplicant);
+
+    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+
+    console.log('Calling upload request: ', uploadedDocumentRequest);
+
+    const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(
+      caseworkerUser,
+      caseId, 
+      parentDocumentType,
+      documentType, 
+      partyId, 
+      partyName, 
+      isApplicant,
+      files
+    );
+    if (citizenDocumentListFromCos.status !== 200) {
+      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+    } else {
+      const obj = {
+        id: citizenDocumentListFromCos.documentId as string,
+        name: citizenDocumentListFromCos.documentName as string,
+      };
       if (isApplicant === YesOrNo.YES) {
         req.session.userCase.applicantUploadFiles?.push(obj);
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
-
-        console.log('Respondent files []', respondentFiles);
       }
+      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
+      req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
+      req.session.errors = [];
     }
-
-    let redirectUrl;
 
     if (isApplicant === YesOrNo.YES) {
       redirectUrl =
