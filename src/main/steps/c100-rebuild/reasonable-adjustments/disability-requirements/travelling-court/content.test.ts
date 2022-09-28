@@ -27,16 +27,16 @@ const en = {
   travellingCourtOtherSubField: 'Describe what you need',
   travellingCourtNoOption: 'No, I do not need any support at this time',
   errors: {
-    parkingSpaceSubField: {
+    ra_parkingSpaceSubField: {
       required: 'Describe why you need a parking space close to the venue',
     },
-    differentTypeChairSubField: {
+    ra_differentTypeChairSubField: {
       required: 'Describe what type of chair you need',
     },
-    travellingCourtOtherSubField: {
+    ra_travellingCourtOtherSubField: {
       required: 'Describe what help you need if travelling to, or moving around court buildings',
     },
-    travellingCourt: {
+    ra_travellingCourt: {
       required: 'Select what help you need if travelling to, or moving around court buildings',
     },
   },
@@ -62,16 +62,16 @@ const cy = {
   travellingCourtOtherSubField: 'Describe what you need - welsh',
   travellingCourtNoOption: 'No, I do not need any support at this time - welsh',
   errors: {
-    parkingSpaceSubField: {
+    ra_parkingSpaceSubField: {
       required: 'Describe why you need a parking space close to the venue - welsh',
     },
-    differentTypeChairSubField: {
+    ra_differentTypeChairSubField: {
       required: 'Describe what type of chair you need - welsh',
     },
-    travellingCourtOtherSubField: {
+    ra_travellingCourtOtherSubField: {
       required: 'Describe what help you need if travelling to, or moving around court buildings - welsh',
     },
-    travellingCourt: {
+    ra_travellingCourt: {
       required: 'Select what help you need if travelling to, or moving around court buildings - welsh',
     },
   },
@@ -98,8 +98,8 @@ describe('applicant personal details > applying-with > content', () => {
   });
 
   test('should contain travellingCourt field', () => {
-    const travellingCourtField = fields.travellingCourt as FormOptions;
-    const parkingSpaceSubFields = travellingCourtField.values[0].subFields?.parkingSpaceSubField as FormOptions;
+    const travellingCourtField = fields.ra_travellingCourt as FormOptions;
+    const parkingSpaceSubFields = travellingCourtField.values[0].subFields?.ra_parkingSpaceSubField as FormOptions;
 
     expect(travellingCourtField.type).toBe('checkboxes');
     expect(parkingSpaceSubFields.type).toBe('textarea');
@@ -112,7 +112,7 @@ describe('applicant personal details > applying-with > content', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
     const differentTypeChairSubFields = travellingCourtField.values[5].subFields
-      ?.differentTypeChairSubField as FormOptions;
+      ?.ra_differentTypeChairSubField as FormOptions;
 
     expect(travellingCourtField.type).toBe('checkboxes');
     expect(differentTypeChairSubFields.type).toBe('textarea');
@@ -123,7 +123,7 @@ describe('applicant personal details > applying-with > content', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
     const travellingCourtOtherSubFields = travellingCourtField.values[7].subFields
-      ?.travellingCourtOtherSubField as FormOptions;
+      ?.ra_travellingCourtOtherSubField as FormOptions;
 
     expect(travellingCourtOtherSubFields.type).toBe('textarea');
     expect((travellingCourtOtherSubFields?.label as Function)(generatedContent)).toBe(en.travellingCourtOtherSubField);

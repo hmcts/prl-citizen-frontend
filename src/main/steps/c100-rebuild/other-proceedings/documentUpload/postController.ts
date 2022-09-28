@@ -52,7 +52,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const courtOrderType = orderType as C100OrderTypes;
     const courtOrderId: AnyType | undefined = orderId;
 
-    const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
+    const orderSessionData = req.session.userCase?.op_otherProceedings?.order?.[
       C100OrderTypeKeyMapper[courtOrderType]
     ] as C100OrderInterface[];
     const orderSessionDataById = orderSessionData[courtOrderId - 1];
@@ -103,9 +103,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             };
 
             if (
-              req.session.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
+              req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][
+                courtOrderId - 1
+              ]
             ) {
-              req.session.userCase.otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
+              req.session.userCase.op_otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
                 courtOrderId - 1
               ].orderDocument = documentInfo;
             }

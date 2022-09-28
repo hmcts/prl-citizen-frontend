@@ -18,19 +18,19 @@ const en = () => ({
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    reasonsForApplicationWithoutNotice: {
+    hwn_reasonsForApplicationWithoutNotice: {
       required: 'Enter details',
     },
-    doYouNeedAWithoutNoticeHearing: {
+    hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Select yes if the other person may obstruct',
     },
-    doYouRequireAHearingWithReducedNotice: {
+    hwn_doYouRequireAHearingWithReducedNotice: {
       required: "Select yes if there's no time to give notice",
     },
-    doYouNeedAWithoutNoticeHearingDetails: {
+    hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Enter details',
     },
-    doYouRequireAHearingWithReducedNoticeDetails: {
+    hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Enter details',
     },
   },
@@ -50,19 +50,19 @@ const cy = () => ({
   two: 'No - welsh',
   provideDetails: 'Provide details -welsh',
   errors: {
-    reasonsForApplicationWithoutNotice: {
+    hwn_reasonsForApplicationWithoutNotice: {
       required: 'Enter details - welsh',
     },
-    doYouNeedAWithoutNoticeHearing: {
+    hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Select yes if the other person may obstruct - welsh',
     },
-    doYouRequireAHearingWithReducedNotice: {
+    hwn_doYouRequireAHearingWithReducedNotice: {
       required: "Select yes if there's no time to give notice - welsh",
     },
-    doYouNeedAWithoutNoticeHearingDetails: {
+    hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Enter details - welsh',
     },
-    doYouRequireAHearingWithReducedNoticeDetails: {
+    hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Enter details - welsh',
     },
   },
@@ -75,11 +75,11 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    reasonsForApplicationWithoutNotice: {
+    hwn_reasonsForApplicationWithoutNotice: {
       type: 'textarea',
       validator: value => isFieldFilledIn(value),
     },
-    doYouNeedAWithoutNoticeHearing: {
+    hwn_doYouNeedAWithoutNoticeHearing: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.doYouNeedAWithoutNoticeHearingLabel,
@@ -89,7 +89,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            doYouNeedAWithoutNoticeHearingDetails: {
+            hwn_doYouNeedAWithoutNoticeHearingDetails: {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,
@@ -105,7 +105,7 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-    doYouRequireAHearingWithReducedNotice: {
+    hwn_doYouRequireAHearingWithReducedNotice: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.doYouRequireAHearingWithReducedNoticeLabel,
@@ -116,7 +116,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            doYouRequireAHearingWithReducedNoticeDetails: {
+            hwn_doYouRequireAHearingWithReducedNoticeDetails: {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,
@@ -124,7 +124,6 @@ export const form: FormContent = {
             },
           },
         },
-
         {
           label: l => l.two,
           value: YesOrNo.NO,

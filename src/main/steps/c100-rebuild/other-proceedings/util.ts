@@ -36,7 +36,9 @@ export const isAnyOrderWithDocument = (orders: C100OrderTypeInterface | Record<s
 };
 
 export const isValidOrderType = (orderType: C100OrderTypes, caseData: Partial<Case>): boolean => {
-  return !!(Object.values(C100OrderTypes).includes(orderType) && caseData?.courtProceedingsOrders?.includes(orderType));
+  return !!(
+    Object.values(C100OrderTypes).includes(orderType) && caseData?.op_courtProceedingsOrders?.includes(orderType)
+  );
 };
 
 export const getAllOrderDocuments = (

@@ -29,13 +29,13 @@ const en = () => ({
   returningChildrenToYourCare: 'Returning the children to your care',
   returningChildrenToYourCareHint: 'If the children have been abducted, unlawfully removed or unlawfully retained',
   errors: {
-    courtOrder: {
+    too_courtOrder: {
       required: 'Select  what you are asking the court to do',
     },
-    stopOtherPeopleDoingSomethingSubField: {
+    too_stopOtherPeopleDoingSomethingSubField: {
       required: 'Specify what you want the court to stop the other people in the application doing',
     },
-    resolveSpecificIssueSubField: {
+    too_resolveSpecificIssueSubField: {
       required: 'Specify what issue you want the court to resolve',
     },
   },
@@ -68,13 +68,13 @@ const cy = () => ({
   returningChildrenToYourCareHint:
     'If the children have been abducted, unlawfully removed or unlawfully retained - welsh',
   errors: {
-    courtOrder: {
+    too_courtOrder: {
       required: 'Select  what you are asking the court to do - welsh',
     },
-    stopOtherPeopleDoingSomethingSubField: {
+    too_stopOtherPeopleDoingSomethingSubField: {
       required: 'Specify what you want the court to stop the other people in the application doing - welsh',
     },
-    resolveSpecificIssueSubField: {
+    too_resolveSpecificIssueSubField: {
       required: 'Specify what issue you want the court to resolve - welsh',
     },
   },
@@ -87,55 +87,55 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    courtOrder: {
-      id: 'courtOrder',
+    too_courtOrder: {
+      id: 'too_courtOrder',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'courtOrder',
+          name: 'too_courtOrder',
           label: l => l.whoChildLiveWith,
           value: 'whoChildLiveWith',
         },
         {
-          name: 'courtOrder',
+          name: 'too_courtOrder',
           label: l => l.childTimeSpent,
           value: 'childTimeSpent',
         },
         {
-          name: 'courtOrder',
+          name: 'too_courtOrder',
           label: l => l.stopOtherPeopleDoingSomething,
           value: 'stopOtherPeopleDoingSomething',
           hint: l => l.stopOtherPeopleDoingSomethingHint,
           subFields: {
-            stopOtherPeopleDoingSomethingSubField: {
-              id: 'stopOtherPeopleDoingSomethingSubField',
+            too_stopOtherPeopleDoingSomethingSubField: {
+              id: 'too_stopOtherPeopleDoingSomethingSubField',
               type: 'checkboxes',
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'stopOtherPeopleDoingSomethingSubField',
+                  name: 'too_stopOtherPeopleDoingSomethingSubField',
                   label: l => l.changeChildrenNameSurname,
                   value: 'changeChildrenNameSurname',
                 },
                 {
-                  name: 'stopOtherPeopleDoingSomethingSubField',
+                  name: 'too_stopOtherPeopleDoingSomethingSubField',
                   label: l => l.allowMedicalTreatment,
                   value: 'allowMedicalTreatment',
                 },
                 {
-                  name: 'stopOtherPeopleDoingSomethingSubField',
+                  name: 'too_stopOtherPeopleDoingSomethingSubField',
                   label: l => l.takingChildOnHoliday,
                   value: 'takingChildOnHoliday',
                 },
                 {
-                  name: 'stopOtherPeopleDoingSomethingSubField',
+                  name: 'too_stopOtherPeopleDoingSomethingSubField',
                   label: l => l.relocateChildrenDifferentUkArea,
                   value: 'relocateChildrenDifferentUkArea',
                 },
                 {
-                  name: 'stopOtherPeopleDoingSomethingSubField',
+                  name: 'too_stopOtherPeopleDoingSomethingSubField',
                   label: l => l.relocateChildrenOutsideUk,
                   value: 'relocateChildrenOutsideUk',
                 },
@@ -144,53 +144,53 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'courtOrder',
+          name: 'too_courtOrder',
           label: l => l.resolveSpecificIssue,
           value: 'resolveSpecificIssue',
           hint: l => l.resolveSpecificIssueHint,
           subFields: {
-            resolveSpecificIssueSubField: {
-              id: 'resolveSpecificIssueSubField',
+            too_resolveSpecificIssueSubField: {
+              id: 'too_resolveSpecificIssueSubField',
               type: 'checkboxes',
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssueSubField',
                   label: l => l.specificHoliday,
                   value: 'specificHoliday',
                 },
                 {
-                  name: 'resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssueSubField',
                   label: l => l.whatSchoolChildrenWillGoTo,
                   value: 'whatSchoolChildrenWillGoTo',
                 },
                 {
-                  name: 'resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssueSubField',
                   label: l => l.religiousIssue,
                   value: 'religiousIssue',
                 },
                 {
-                  name: 'resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssueSubField',
                   label: l => l.changeChildrenNameSurname1,
                   value: 'changeChildrenNameSurnameA',
                 },
                 {
-                  name: 'resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssueSubField',
                   label: l => l.medicalTreatment,
                   value: 'medicalTreatment',
                 },
                 {
-                  name: 'resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssueSubField',
                   label: l => l.relocateChildrenDifferentUkArea1,
                   value: 'relocateChildrenDifferentUkAreaA',
                 },
                 {
-                  name: 'resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssueSubField',
                   label: l => l.relocateChildrenOutsideUk1,
                   value: 'relocateChildrenOutsideUkA',
                 },
                 {
-                  name: 'resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssueSubField',
                   label: l => l.returningChildrenToYourCare,
                   value: 'returningChildrenToYourCare',
                   hint: l => l.returningChildrenToYourCareHint,
