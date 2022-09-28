@@ -18,10 +18,13 @@ def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def secrets = [
   'prl-${env}': [
-    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
+    secret('AppInsightsInstrumentationKey', 'APP_INSIGHTS_INSTRUMENTATION_KEY'),
     secret('prl-citizen-frontend-idam-client-secret', 'CITIZEN_IDAM_SECRET'),
-    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
-    secret("launchDarkly-sdk-key", "LAUNCH_DARKLY_SDK_KEY")
+    secret('prl-cos-idam-client-secret', 'COS_API_IDAM_SECRET'),
+    secret('postcode-lookup-token', 'POSTCODE_TOKEN'),
+    secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL'),
+    secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
+    secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET')
   ]
 ]
 
