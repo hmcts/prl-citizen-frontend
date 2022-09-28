@@ -11,5 +11,9 @@ module.exports = {
     '@hmcts/nodejs-logging': '<rootDir>/src/test/unit/mocks/hmcts/nodejs-logging',
   },
   coverageThreshold: {
+    "src/**/c100-rebuild/**": {
+      "functions": 85,
+      "lines": 85
+    }
   },
 };
