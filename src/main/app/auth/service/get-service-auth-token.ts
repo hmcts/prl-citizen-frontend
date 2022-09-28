@@ -22,9 +22,6 @@ export const getTokenFromApi = async (): Promise<string> => {
   const cosApiClientSecret: string = config.get('services.idam.cosApiClientSecret');
   console.log('cosApiClientSecret is:' + cosApiClientSecret);
 
-  const uploadDocsEmail: string = config.get('services.citizen.UPLOAD_DOCUMENTS_EMAIL');
-  console.log('uploadDocsEmail is:' + uploadDocsEmail);
-
   const oneTimePassword = authenticator.generate(secret);
   console.log('oneTimePassword is:' + oneTimePassword);
   const body = { microservice, oneTimePassword };
