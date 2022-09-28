@@ -37,7 +37,9 @@ export class PropertiesVolume {
       console.log('config is available ' + config.get(fromPath));
       console.log('fromPath is available ' + fromPath);
       console.log('toPath is available ' + toPath);
+      console.log('get(config, fromPath) ' + get(config, fromPath))
       set(config, toPath, get(config, fromPath));
+      console.log('its a success')
     }
   }
 
