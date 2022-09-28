@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
@@ -129,29 +130,50 @@ export default class AddApplicantPostController extends PostController<AnyObject
   public mapEnteriesToValuesAfterContinuing(req: AppRequest<AnyObject>, res: Response): void {
     const lengthOfApplicantInSession = req.session.userCase.appl_allApplicants?.length;
     const newApplicantStorage: C100ListOfApplicants = [];
+    const errorMessageStorage = [];
     if (lengthOfApplicantInSession) {
       for (let applicant = 0; applicant < lengthOfApplicantInSession; applicant++) {
         const currentIndexPositioninBody = applicant + 1;
         const applicantFirstName = req.body[`ApplicantFirstName-${currentIndexPositioninBody}`] as string;
         const applicantLastName = req.body[`ApplicantLastName-${currentIndexPositioninBody}`] as string;
-        if (req.session.userCase.appl_allApplicants) {
-          const { id } = req.session.userCase.appl_allApplicants[applicant];
-          const applicantObject = {
-            ...req.session.userCase.appl_allApplicants[applicant],
-            id,
-            applicantFirstName,
-            applicantLastName,
-          };
-          newApplicantStorage.push(applicantObject);
+        if (applicantFirstName !== '' && applicantLastName !== '') {
+          if (req.session.userCase.appl_allApplicants) {
+            const { id } = req.session.userCase.appl_allApplicants[applicant];
+            const applicantObject = {
+              ...req.session.userCase.appl_allApplicants[applicant],
+              id,
+              applicantFirstName,
+              applicantLastName,
+            };
+            newApplicantStorage.push(applicantObject);
+          }
+        } else {
+          if (applicantFirstName === '') {
+            errorMessageStorage.push({
+              propertyName: 'ApplicantFirstName-' + currentIndexPositioninBody,
+              errorType: 'required',
+            } as never);
+          }
+          if (applicantLastName === '') {
+            errorMessageStorage.push({
+              propertyName: 'ApplicantLastName-' + currentIndexPositioninBody,
+              errorType: 'required',
+            } as never);
+          }
         }
       }
     }
-    req.session.userCase.appl_allApplicants = newApplicantStorage;
-    req.session.userCase.applicantTemporaryFormData = undefined;
-    const redirectURI =
-      C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW +
-      `?applicantId=${req.session.userCase.appl_allApplicants[0].id}`;
-    return super.redirect(req, res, redirectURI);
+    if (errorMessageStorage.length === 0) {
+      req.session.userCase.appl_allApplicants = newApplicantStorage;
+      req.session.userCase.applicantTemporaryFormData = undefined;
+      const redirectURI =
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW +
+        `?applicantId=${req.session.userCase.appl_allApplicants[0].id}`;
+      return super.redirect(req, res, redirectURI);
+    } else {
+      req.session.errors = errorMessageStorage;
+      return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+    }
   }
 
   public resetSessionTemporaryFormValues(req: AppRequest<AnyObject>): void {
