@@ -52,6 +52,7 @@ import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   PageLink,
   C100_DOCUMENT_SUBMISSION,
+  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -322,6 +323,7 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
+  //41
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
     showInSection: Sections.C100,
@@ -329,23 +331,30 @@ export const C100Sequence: Step[] = [
       data.haveSafetyConcerns === YesOrNo.YES ? C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT : C100_CONFIDENTIALITY_START,
   },
   {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
+  },
+  {
     url: C100_CHILD_ADDRESS,
     showInSection: Sections.C100,
     getNextStep: () => C100_CHILD_ADDRESS,
-  },
-  {
-    url: C100_DOCUMENT_SUBMISSION,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_DOCUMENT_SUBMISSION,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   },
+
   {
-    url: C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+  },
+
+  {
+    url: C100_DOCUMENT_SUBMISSION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_DOCUMENT_SUBMISSION,
   },
 ];
