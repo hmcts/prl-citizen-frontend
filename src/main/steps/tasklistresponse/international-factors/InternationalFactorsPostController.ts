@@ -37,7 +37,7 @@ export class InternationalFactorsPostController extends PostController<AnyObject
 
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
-    const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference as string, caseData, eventId);
+    const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference, caseData, eventId);
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
     req.session.save(() => res.redirect(RESPONDENT_TASK_LIST_URL));
