@@ -309,24 +309,18 @@ describe('Document upload controller', () => {
   });
 
   describe('Should check invalid file format present or not', () => {
-    let controller;
-    let res;
-    let req;
-    let QUERY;
-    beforeEach(() => {
-      controller = new UploadDocumentController({});
-      res = mockResponse();
-      req = mockRequest({
+    test('should return an error', async () => {
+      const controller = new UploadDocumentController({});
+      const res = mockResponse();
+      const req = mockRequest({
         session: {
           user: { email: 'test@example.com' },
         },
       });
-      QUERY = {
+      const QUERY = {
         orderType: 'otherOrder',
         orderId: '1',
       };
-    });
-    test('should return an error', async () => {
       req.query = QUERY;
       req.session.userCase = {
         otherProceedings: {
@@ -359,6 +353,17 @@ describe('Document upload controller', () => {
       );
     });
     test('should return an true', async () => {
+      const controller = new UploadDocumentController({});
+      const res = mockResponse();
+      const req = mockRequest({
+        session: {
+          user: { email: 'test@example.com' },
+        },
+      });
+      const QUERY = {
+        orderType: 'otherOrder',
+        orderId: '1',
+      };
       req.query = QUERY;
       req.session.userCase = {
         otherProceedings: {
