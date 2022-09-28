@@ -7,7 +7,7 @@ import { get, set } from 'lodash';
 
 export class PropertiesVolume {
   enableFor(app: Application): void {
-    if (!app.locals.developmentMode) {
+    if (app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
