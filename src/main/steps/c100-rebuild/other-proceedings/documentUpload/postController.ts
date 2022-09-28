@@ -149,7 +149,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     return false;
   };
 
-  private buildOrderTypeName(courtOrderType: C100OrderTypes) {
+  public buildOrderTypeName(courtOrderType: C100OrderTypes): string {
     return C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();
   }
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

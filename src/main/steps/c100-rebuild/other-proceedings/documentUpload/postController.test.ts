@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
+import { C100OrderTypes } from '../../../../app/case/definition';
 import * as steps from '../../../../steps';
 
 import UploadDocumentController from './postController';
@@ -317,6 +318,7 @@ describe('Document upload controller', () => {
       expect(controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
         false
       );
+      expect(controller.buildOrderTypeName('childArrangementOrder' as C100OrderTypes)).toBe('child_arrangement_order');
     });
     test('should return an true', async () => {
       const controller = new UploadDocumentController({});
@@ -326,6 +328,9 @@ describe('Document upload controller', () => {
       expect(
         controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '81230023', data: '', mimetype: 'text' })
       ).toBe(true);
+      expect(controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
+        false
+      );
     });
   });
 });
