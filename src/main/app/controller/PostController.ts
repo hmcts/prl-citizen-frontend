@@ -39,7 +39,6 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else {
-      //await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
