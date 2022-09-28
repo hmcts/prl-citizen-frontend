@@ -64,6 +64,7 @@ export interface Case {
   caseCode?: string;
   accessCode?: string;
   detailsKnown?: string;
+  miamOtherProceedings?: string;
   startAlternative?: string;
   contactDetailsPrivate?: string;
   miamStart?: string;
