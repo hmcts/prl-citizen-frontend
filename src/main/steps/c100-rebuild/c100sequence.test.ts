@@ -350,7 +350,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[41].url).toBe('/c100-rebuild/safety-concerns/concern-guidance');
     expect(C100Sequence[41].showInSection).toBe('c100');
     expect(C100Sequence[41].getNextStep({})).toBe('/c100-rebuild/safety-concerns/concerns-for-safety');
-  
+
     expect(C100Sequence[42].url).toBe('/c100-rebuild/childaddress');
     expect(C100Sequence[42].showInSection).toBe('c100');
     expect(C100Sequence[42].getNextStep({})).toBe('/c100-rebuild/childaddress');
@@ -363,8 +363,8 @@ describe('C100Sequence', () => {
     expect(C100Sequence[44].showInSection).toBe('c100');
     expect(C100Sequence[44].getNextStep({})).toBe('/c100-rebuild/safety-concerns/applicant/concerns-about');
 
-
     expect(C100Sequence[45].url).toBe('/c100-rebuild/document-submission');
     expect(C100Sequence[45].showInSection).toBe('c100');
-    expect(C100Sequence[45].getNextStep({})).toBe('/c100-rebuild/document-submission'); });
+    expect(C100Sequence[45].getNextStep({})).toBe('/c100-rebuild/document-submission');
+  });
 });
