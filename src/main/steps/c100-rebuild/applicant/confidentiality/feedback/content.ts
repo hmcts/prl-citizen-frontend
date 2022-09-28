@@ -8,7 +8,12 @@ const en = () => ({
   p1: 'You have told us you want to keep these contact details private',
   heading3: 'What the court will do',
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
-  listOfCofidentialInfromations: ['address', 'homephone', 'mobilephone', 'email'],
+  listOfCofidentialInfromations: [
+    { key: 'address', value: 'Address' },
+    { key: 'homephone', value: 'Home phone number' },
+    { key: 'mobilephone', value: 'Mobile phone number' },
+    { key: 'email', value: 'Email' },
+  ],
 });
 
 const cy = () => ({
@@ -17,7 +22,12 @@ const cy = () => ({
   p1: 'You have told us you want to keep these contact details private - welsh',
   heading3: 'What the court will do - welsh',
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court. - welsh',
-  listOfCofidentialInfromations: ['address - welsh', 'homephone - welsh', 'mobilephone - welsh', 'email - welsh'],
+  listOfCofidentialInfromations: [
+    { key: 'address', value: 'Address - welsh' },
+    { key: 'homephone', value: 'Home phone number - welsh' },
+    { key: 'mobilephone', value: 'Mobile phone number - welsh' },
+    { key: 'email', value: 'Email - welsh' },
+  ],
 });
 
 const languages = {
@@ -51,8 +61,8 @@ export const generateContent: TranslationFn = content => {
 
     for (const items of translations['listOfCofidentialInfromations'] as []) {
       for (const subItems of selectedOptionsContactDetailPrivate as unknown as string) {
-        if ((items as string) === (subItems as string)) {
-          shownToggledConfidentialOptions.push(items as never);
+        if ((items['key'] as string) === (subItems as string)) {
+          shownToggledConfidentialOptions.push(items['value'] as never);
         }
       }
     }
@@ -66,8 +76,8 @@ export const generateContent: TranslationFn = content => {
     const shownToggledConfidentialOptions = [] as [];
     for (const items of translations['listOfCofidentialInfromations'] as []) {
       for (const subItems of selectedOptionsContactDetailPrivateAlterative as unknown as string) {
-        if ((items as string) === (subItems as string)) {
-          shownToggledConfidentialOptions.push(items);
+        if ((items['key'] as string) === (subItems as string)) {
+          shownToggledConfidentialOptions.push(items['value']);
         }
       }
     }
