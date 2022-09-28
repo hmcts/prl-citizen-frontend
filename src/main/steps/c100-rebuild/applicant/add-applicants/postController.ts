@@ -160,6 +160,16 @@ export default class AddApplicantPostController extends PostController<AnyObject
               errorType: 'required',
             } as never);
           }
+          if (req.session.userCase.appl_allApplicants) {
+            const { id } = req.session.userCase.appl_allApplicants[applicant];
+            const applicantObject = {
+              ...req.session.userCase.appl_allApplicants[applicant],
+              id,
+              applicantFirstName,
+              applicantLastName,
+            };
+            newApplicantStorage.push(applicantObject);
+          }
         }
       }
     }
@@ -171,6 +181,8 @@ export default class AddApplicantPostController extends PostController<AnyObject
         `?applicantId=${req.session.userCase.appl_allApplicants[0].id}`;
       return super.redirect(req, res, redirectURI);
     } else {
+      req.session.userCase.appl_allApplicants = newApplicantStorage;
+      req.session.userCase.applicantTemporaryFormData = undefined;
       req.session.errors = errorMessageStorage;
       return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
     }
