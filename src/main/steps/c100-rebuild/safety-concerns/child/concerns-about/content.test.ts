@@ -36,7 +36,7 @@ const en = {
   somethingElse: 'Something else',
   somethingElseHint: 'Any concerns you have that do not fit into the above categories',
   errors: {
-    concernAboutChild: {
+    c1A_concernAboutChild: {
       required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing',
     },
   },
@@ -73,7 +73,7 @@ const cy = {
   somethingElse: 'Something else - welsh',
   somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
   errors: {
-    concernAboutChild: {
+    c1A_concernAboutChild: {
       required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing - welsh',
     },
   },
