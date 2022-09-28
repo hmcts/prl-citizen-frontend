@@ -12,7 +12,7 @@ jest.mock('../../../../app/form/validation');
 const en = {
   pageTitle: 'Enter your name  ',
   subTitle:
-    'Only include the children you’re making this application about <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later.',
+    'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later.',
   firstName: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastName: 'Last name(s)',
@@ -32,7 +32,7 @@ const en = {
 const cy = {
   pageTitle: 'Enter your name - welsh',
   subTitle:
-    'Only include the children you’re making this application about <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later. - welsh',
+    'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later. - welsh',
   firstName: 'First name(s) - welsh',
   firstNameHint: 'Include all middle names here - welsh',
   lastName: 'Last name(s) - welsh',
