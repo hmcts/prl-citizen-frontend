@@ -62,67 +62,54 @@ export const setInternationalFactorsDetails = (respondent: Respondent, req: AppR
 };
 
 export const getInternationalFactorsDetails = (respondent: Respondent, req: AppRequest): Partial<CaseWithId> => {
-  //   const tempValue = {
-  //     start: YesOrNo.NO,
-  //     parents: YesOrNo.NO,
-  //     jurisdiction: YesOrNo.NO,
-  //     request: YesOrNo.NO,
-  //     iFactorsStartProvideDetails: '',
-  //     iFactorsParentsProvideDetails: '',
-  //     iFactorsJurisdictionProvideDetails: '',
-  //     iFactorsRequestProvideDetails: '',
-  //   };
-
   const tempValue = {};
 
   if (respondent?.value?.response?.citizenInternationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.NO) {
-    Object.assign(tempValue, { start: YesOrNo.NO });
-  } else if (respondent?.value?.response?.citizenInternationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.YES) {
+    Object.assign(tempValue, { start: YesOrNo.NO, iFactorsStartProvideDetails: '' });
+  }
+  if (respondent?.value?.response?.citizenInternationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.YES) {
     Object.assign(tempValue, {
       start: YesOrNo.YES,
       iFactorsStartProvideDetails:
         respondent?.value?.response?.citizenInternationalElements?.childrenLiveOutsideOfEnWlDetails,
     });
-    if (respondent?.value?.response?.citizenInternationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO) {
-      Object.assign(tempValue, { parents: YesOrNo.NO });
-    } else if (
-      respondent?.value?.response?.citizenInternationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES
-    ) {
-      Object.assign(tempValue, {
-        parents: YesOrNo.YES,
-        iFactorsParentsProvideDetails:
-          respondent?.value?.response?.citizenInternationalElements?.parentsAnyOneLiveOutsideEnWlDetails,
-      });
-
-      if (respondent?.value?.response?.citizenInternationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.NO) {
-        Object.assign(tempValue, { jurisdiction: YesOrNo.NO });
-      } else if (
-        respondent?.value?.response?.citizenInternationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.YES
-      ) {
-        Object.assign(tempValue, {
-          jurisdiction: YesOrNo.YES,
-          iFactorsJurisdictionProvideDetails:
-            respondent?.value?.response?.citizenInternationalElements?.anotherPersonOrderOutsideEnWlDetails,
-        });
-
-        if (respondent?.value?.response?.citizenInternationalElements?.anotherCountryAskedInformation === YesOrNo.NO) {
-          Object.assign(tempValue, { request: YesOrNo.NO });
-        } else if (
-          respondent?.value?.response?.citizenInternationalElements?.anotherCountryAskedInformation === YesOrNo.YES
-        ) {
-          Object.assign(tempValue, {
-            request: YesOrNo.YES,
-            iFactorsRequestProvideDetails:
-              respondent?.value?.response?.citizenInternationalElements?.anotherCountryAskedInformationDetaails,
-          });
-        }
-      }
-    }
   }
+  if (respondent?.value?.response?.citizenInternationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO) {
+    Object.assign(tempValue, { parents: YesOrNo.NO, iFactorsParentsProvideDetails: '' });
+  }
+  if (respondent?.value?.response?.citizenInternationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES) {
+    Object.assign(tempValue, {
+      parents: YesOrNo.YES,
+      iFactorsParentsProvideDetails:
+        respondent?.value?.response?.citizenInternationalElements?.parentsAnyOneLiveOutsideEnWlDetails,
+    });
+  }
+  if (respondent?.value?.response?.citizenInternationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.NO) {
+    Object.assign(tempValue, { jurisdiction: YesOrNo.NO, iFactorsJurisdictionProvideDetails: '' });
+  }
+  if (respondent?.value?.response?.citizenInternationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.YES) {
+    Object.assign(tempValue, {
+      jurisdiction: YesOrNo.YES,
+      iFactorsJurisdictionProvideDetails:
+        respondent?.value?.response?.citizenInternationalElements?.anotherPersonOrderOutsideEnWlDetails,
+    });
+  }
+  if (respondent?.value?.response?.citizenInternationalElements?.anotherCountryAskedInformation === YesOrNo.NO) {
+    Object.assign(tempValue, { request: YesOrNo.NO, iFactorsRequestProvideDetails: '' });
+  }
+  if (respondent?.value?.response?.citizenInternationalElements?.anotherCountryAskedInformation === YesOrNo.YES) {
+    Object.assign(tempValue, {
+      request: YesOrNo.YES,
+      iFactorsRequestProvideDetails:
+        respondent?.value?.response?.citizenInternationalElements?.anotherCountryAskedInformationDetaails,
+    });
+  }
+
   console.log('==getInternationalFactorsDetails====tempValue========' + JSON.stringify(tempValue));
   Object.assign(req.session.userCase, tempValue);
   return req.session.userCase;
 };
+
 function clearValuesFromRespondent(internationaElementsFromRespondent: CitizenInternationalElements) {
   internationaElementsFromRespondent.childrenLiveOutsideOfEnWlDetails = '';
   internationaElementsFromRespondent.parentsAnyOneLiveOutsideEnWlDetails = '';
