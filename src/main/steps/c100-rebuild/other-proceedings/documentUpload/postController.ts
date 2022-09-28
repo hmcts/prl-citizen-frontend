@@ -61,6 +61,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
       C100OrderTypeKeyMapper[courtOrderType]
     ] as C100OrderInterface[];
+    console.log(orderSessionData);
     const orderSessionDataById = orderSessionData[courtOrderId - 1];
 
     if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
