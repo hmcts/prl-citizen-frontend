@@ -1,8 +1,7 @@
-import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
-import { generateContent } from './content';
+import { cy, en, generateContent } from './content';
 
 jest.mock('../../../../../app/form/validation');
 
@@ -29,20 +28,32 @@ const dummyApplicantData = [
   },
 ];
 
-const en = {
+const enLanguageContent = {
   caption: 'Keeping your contact details private',
   headingTitle: 'The court will keep your contact details private',
   p1: 'You have told us you want to keep these contact details private',
   heading3: 'What the court will do',
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
+  listOfCofidentialInfromations: [
+    { key: 'address', value: 'Address' },
+    { key: 'homephone', value: 'Home phone number' },
+    { key: 'mobilephone', value: 'Mobile phone number' },
+    { key: 'email', value: 'Email' },
+  ],
 };
 
-const cy = {
+const cyLanguageContent = {
   caption: 'Keeping your contact details private  - welsh',
   headingTitle: 'The court will keep your contact details private- welsh ',
   p1: 'You have told us you want to keep these contact details private - welsh',
   heading3: 'What the court will do - welsh',
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court. - welsh',
+  listOfCofidentialInfromations: [
+    { key: 'address', value: 'Address - welsh' },
+    { key: 'homephone', value: 'Home phone number - welsh' },
+    { key: 'mobilephone', value: 'Mobile phone number - welsh' },
+    { key: 'email', value: 'Email - welsh' },
+  ],
 };
 
 describe('applicant personal details > confidentiality > feedback', () => {
@@ -59,12 +70,12 @@ describe('applicant personal details > confidentiality > feedback', () => {
   } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
+    expect(en()).toEqual(enLanguageContent);
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+    expect(cy()).toEqual(cyLanguageContent);
   });
 
   test('should contain applyingWith field', () => {

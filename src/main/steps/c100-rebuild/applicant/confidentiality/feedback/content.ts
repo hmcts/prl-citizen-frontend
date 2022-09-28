@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   caption: 'Keeping your contact details private',
   headingTitle: 'The court will keep your contact details private',
   p1: 'You have told us you want to keep these contact details private',
@@ -16,7 +16,8 @@ const en = () => ({
   ],
 });
 
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'Keeping your contact details private  - welsh',
   headingTitle: 'The court will keep your contact details private- welsh ',
   p1: 'You have told us you want to keep these contact details private - welsh',
