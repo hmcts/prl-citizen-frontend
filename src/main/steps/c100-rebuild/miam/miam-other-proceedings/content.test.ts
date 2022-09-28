@@ -7,15 +7,14 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  headingTitle:
-    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+  title: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
   localAuthority: 'These will usually involve a local authority.',
   one: 'Yes',
   two: 'No',
 };
 
 const cy = {
-  headingTitle:
+  title:
     'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? - welsh  ',
   localAuthority: 'These will usually involve a local authority. - Welsh',
   one: 'Yes - Welsh',
@@ -23,6 +22,7 @@ const cy = {
 };
 
 describe('miam->Are the children involved in any emergency protection, care or supervision proceedings', () => {
+  let form;
   const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
@@ -35,7 +35,7 @@ describe('miam->Are the children involved in any emergency protection, care or s
   });
   test('should contain applyingWith field', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
-    const form = generatedContent.form as FormContent;
+    form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
     const applyingWithField = fields.miamOtherProceedings as FormOptions;
     expect(applyingWithField.type).toBe('radios');
@@ -44,11 +44,9 @@ describe('miam->Are the children involved in any emergency protection, care or s
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
   });
 
-  test('should contain saveAndComeLater button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent | undefined;
+  test('should contain Continue button', () => {
     expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
   });
 });
