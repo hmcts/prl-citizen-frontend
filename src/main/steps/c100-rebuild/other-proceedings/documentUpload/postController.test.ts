@@ -307,4 +307,69 @@ describe('Document upload controller', () => {
       }
     });
   });
+
+  describe('Should check invalid file format present or not', () => {
+    let controller;
+    let res;
+    let req;
+    let QUERY;
+    beforeEach(() => {
+      controller = new UploadDocumentController({});
+      res = mockResponse();
+      req = mockRequest({
+        session: {
+          user: { email: 'test@example.com' },
+        },
+      });
+      QUERY = {
+        orderType: 'otherOrder',
+        orderId: '1',
+      };
+      req.query = QUERY;
+      req.session.userCase = {
+        otherProceedings: {
+          order: {
+            otherOrders: [
+              {
+                orderDetail: 'OtherOrder1',
+                orderCopy: 'Yes',
+                orderDocument: {
+                  id: '',
+                  url: '',
+                  filename: '',
+                  binaryUrl: '',
+                },
+              },
+            ],
+          },
+        },
+      };
+    });
+    test('should return an error', async () => {
+      req.files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
+      await controller.post(req, res);
+      expect(controller.isValidFileFormat({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
+        false
+      );
+      expect(controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
+        false
+      );
+      expect(res.redirect).toBeCalledWith(
+        '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
+      );
+    });
+    test('should return an true', async () => {
+      req.files = { documents: { name: 'test.png', size: '812300345', data: '', mimetype: 'text' } };
+      await controller.post(req, res);
+      expect(controller.isValidFileFormat({ name: 'test.png', size: '812300345', data: '', mimetype: 'text' })).toBe(
+        true
+      );
+      expect(
+        controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '812300345', data: '', mimetype: 'text' })
+      ).toBe(true);
+      expect(res.redirect).toBeCalledWith(
+        '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
+      );
+    });
+  });
 });
