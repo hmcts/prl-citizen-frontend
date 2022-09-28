@@ -205,6 +205,7 @@ export interface Case {
   feesAppliedDetails?: YesOrNo;
   caseId?: string;
   haveSafetyConcerns?: YesOrNo;
+  miamAttendance?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
 }

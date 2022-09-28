@@ -52,6 +52,7 @@ import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   PageLink,
   C100_DOCUMENT_SUBMISSION,
+  C100_MIAM_ATTENDANCE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -348,4 +349,12 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
   },
+
+  {
+    url: C100_MIAM_ATTENDANCE,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.miamAttendance === YesOrNo.YES ? C100_MIAM_ATTENDANCE : C100_CONFIDENTIALITY_START,
+  },
+
 ];
