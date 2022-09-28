@@ -57,7 +57,7 @@ export const setInternationalFactorsDetails = (respondent: Respondent, req: AppR
     };
   }
 
-  console.log('==setInternationalFactorsDetails====respondent========' + JSON.stringify(respondent));
+  
   return respondent;
 };
 
@@ -105,7 +105,7 @@ export const getInternationalFactorsDetails = (respondent: Respondent, req: AppR
     });
   }
 
-  console.log('==getInternationalFactorsDetails====tempValue========' + JSON.stringify(tempValue));
+  
   Object.assign(req.session.userCase, tempValue);
   return req.session.userCase;
 };
