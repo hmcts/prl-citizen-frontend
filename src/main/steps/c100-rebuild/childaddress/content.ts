@@ -20,7 +20,7 @@ const en = () => ({
                    We do this to avoid repetition.`,
   errors: {
     postcode: {
-      required: 'Enter a valid full postcode, with or without a space',
+      required: 'Enter a full postcode, with or without a space',
       invalid: 'Enter a valid full postcode, with or without a space',
     },
   },
@@ -44,7 +44,7 @@ const cy = () => ({
                    We do this to avoid repetition. - welsh`,
   errors: {
     postcode: {
-      required: 'Enter a valid full postcode, with or without a space - welsh',
+      required: 'Enter a full postcode, with or without a space - welsh',
       invalid: 'Enter a valid full postcode, with or without a space - welsh',
     },
   },
