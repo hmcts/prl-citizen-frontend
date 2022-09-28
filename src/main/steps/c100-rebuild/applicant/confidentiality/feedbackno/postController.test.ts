@@ -47,6 +47,7 @@ describe('FeedbackNoPostController - post Controller', () => {
     expect(
       req.session.userCase['appl_allApplicants'].findIndex(applicant => applicant['id'] === req.query['applicantId'])
     ).toBe(0);
+    expect(res.redirect).toHaveBeenCalled();
   });
 
   test('Check if current applicant is not the last applicant - it shouldn"t redirect to next applicant', async () => {
@@ -59,5 +60,6 @@ describe('FeedbackNoPostController - post Controller', () => {
     expect(
       req.session.userCase['appl_allApplicants'].findIndex(applicant => applicant['id'] === req.query['applicantId'])
     ).not.toBe(0);
+    expect(res.redirect).toHaveBeenCalled();
   });
 });

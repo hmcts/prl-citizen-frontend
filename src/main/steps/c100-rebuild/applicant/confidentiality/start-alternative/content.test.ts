@@ -41,7 +41,40 @@ const cy = {
   Email: 'Email - Welsh',
 };
 describe('applicant personal details > applying-with > content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: {
+      appl_allApplicants: [
+        {
+          id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+          applicantFirstName: 'Test1',
+          applicantLastName: 'Test2',
+          detailsKnown: 'Yes',
+          startAlternative: 'Yes',
+          start: '',
+          contactDetailsPrivate: [],
+          contactDetailsPrivateAlternative: ['email'],
+        },
+        {
+          id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+          applicantFirstName: 'Test2',
+          applicantLastName: 'Test2',
+          detailsKnown: 'Yes',
+          startAlternative: 'Yes',
+          start: '',
+          contactDetailsPrivate: ['email'],
+          contactDetailsPrivateAlternative: ['email'],
+        },
+      ],
+    },
+    additionalData: {
+      req: {
+        query: {
+          applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        },
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
