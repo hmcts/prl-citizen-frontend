@@ -4,8 +4,7 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = () => ({
-  headingTitle:
-    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+  title: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
   localAuthority: 'These will usually involve a local authority.',
   one: 'Yes',
   two: 'No',
@@ -18,7 +17,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  headingTitle:
+  title:
     'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? - welsh  ',
   localAuthority: 'These will usually involve a local authority. - Welsh',
   one: 'Yes - Welsh',
