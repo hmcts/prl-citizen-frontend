@@ -150,12 +150,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   private buildOrderTypeName(courtOrderType: C100OrderTypes) {
     return C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();
   }
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   public isValidFileFormat = (documents: any): boolean => {
     const extension = documents.name.split('.')[documents.name.split('.').length - 1];
     return AllowedFileExtentionList.indexOf(extension) > -1;
   };
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   public isFileSizeMoreThan20MB = (documents: any): boolean => {
     return documents.size / 1024 ** 2 > 20;
   };
@@ -165,11 +165,13 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    * @param res - Response<AnyType, Record<string, AnyType>>
    * @param {string} [errorMessage] - The error message to be displayed.
    */
+
   private uploadFileError(
     req: AppRequest<AnyObject>,
     res: Response<AnyType, Record<string, AnyType>>,
     orderType: string,
     orderId: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     errObj: any
   ) {
     /**

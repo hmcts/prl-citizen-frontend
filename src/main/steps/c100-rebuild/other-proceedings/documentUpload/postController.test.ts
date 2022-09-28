@@ -275,6 +275,7 @@ describe('Document upload controller', () => {
           save: jest.fn(done => done('MOCK_ERROR')),
         },
       });
+      req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
       const QUERY = {
         orderType: 'otherOrder',
         orderId: '1',
