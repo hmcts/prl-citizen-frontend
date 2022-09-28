@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { Case } from '../../../../app/case/case';
 import {
   C100OrderInterface,
   C100OrderTypeInterface,
@@ -25,21 +26,24 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
     const orderType = req.query.orderType as C100OrderTypes;
     const orderTypeCaseKey = C100OrderTypeKeyMapper[orderType];
     const form = new Form(getFormFields().fields as FormFields);
-    const { addOrder, onlycontinue, ...formFields } = req.body;
+    const { addOrder, onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-
-    req.session.userCase = {
-      ...(req.session?.userCase ?? {}),
-      otherProceedings: {
-        ...((req.session?.userCase?.otherProceedings ?? {}) as OtherProceedings),
+    const newData: Partial<Case> = {
+      op_otherProceedings: {
+        ...((req.session?.userCase?.op_otherProceedings ?? {}) as OtherProceedings),
         order: {
-          ...((req.session.userCase?.otherProceedings?.order ?? {}) as C100OrderTypeInterface),
+          ...((req.session.userCase?.op_otherProceedings?.order ?? {}) as C100OrderTypeInterface),
           [orderTypeCaseKey]: this.transformFormData(
             formData,
-            req.session?.userCase?.otherProceedings?.order?.[orderTypeCaseKey]
+            req.session?.userCase?.op_otherProceedings?.order?.[orderTypeCaseKey]
           ),
         },
       },
+    };
+
+    req.session.userCase = {
+      ...(req.session?.userCase ?? {}),
+      ...newData,
     };
 
     req.session.errors = form.getErrors(formData);
@@ -49,8 +53,8 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
     }
 
     if (addOrder) {
-      const orders = req.session.userCase.otherProceedings!.order![orderTypeCaseKey];
-      req.session.userCase.otherProceedings!.order![orderTypeCaseKey] = [
+      const orders = req.session.userCase.op_otherProceedings!.order![orderTypeCaseKey];
+      req.session.userCase.op_otherProceedings!.order![orderTypeCaseKey] = [
         ...orders,
         {
           ...getOrderSessionDataShape(),
@@ -60,6 +64,8 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
       super.redirect(req, res, req.originalUrl);
     } else if (onlycontinue) {
       super.redirect(req, res);
+    } else if (saveAndComeLater) {
+      super.saveAndComeLater(req, res, { ...newData });
     }
   }
 

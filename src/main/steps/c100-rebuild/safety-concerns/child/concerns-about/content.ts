@@ -82,56 +82,56 @@ const languages = {
 export const form: FormContent = {
   fields: {
     c1A_concernAboutChild: {
-      id: 'concernAboutChild',
+      id: 'c1A_concernAboutChild',
       type: 'checkboxes',
       hint: l => l.select_all_relevant,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          id: 'concernAboutChild',
+          id: 'c1A_concernAboutChild',
           label: l => l.physicalAbuse,
           hint: l => l.physicalAbuseHint,
           value: 'physicalAbuse',
         },
         {
-          id: 'concernAboutChild',
+          id: 'c1A_concernAboutChild',
           label: l => l.psychologicalAbuse,
           hint: l => l.psychologicalAbuseHint,
           value: 'psychologicalAbuse',
         },
         {
-          id: 'concernAboutChild',
+          id: 'c1A_concernAboutChild',
           label: l => l.emotionalAbuse,
           hint: l => l.emotionalAbuseHint,
           value: 'emotionalAbuse',
         },
         {
-          id: 'concernAboutChild',
+          id: 'c1A_concernAboutChild',
           label: l => l.sexualAbuse,
           hint: l => l.sexualAbuseHint,
           value: 'sexualAbuse',
         },
 
         {
-          id: 'concernAboutChild',
+          id: 'c1A_concernAboutChild',
           label: l => l.financialAbuse,
           hint: l => l.financialAbuseHint,
           value: 'financialAbuse',
         },
         {
-          id: 'concernAboutChild',
+          id: 'c1A_concernAboutChild',
           label: l => l.witnessingDomesticAbuse,
           hint: l => l.witnessingDomesticAbuseHint,
           value: 'witnessingDomesticAbuse',
         },
         {
-          id: 'concernAboutChild',
+          id: 'c1A_concernAboutChild',
           label: l => l.abductionAbuse,
           hint: l => l.abductionAbuseHint,
           value: 'abductionAbuse',
         },
         {
-          id: 'concernAboutChild',
+          id: 'c1A_concernAboutChild',
           label: l => l.somethingElse,
           hint: l => l.somethingElseHint,
           value: 'somethingElse',

@@ -26,10 +26,10 @@ const en = {
   specialArrangementsOtherSubField: 'Provide details of what you or the children need',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time',
   errors: {
-    specialArrangementsOtherSubField: {
+    ra_specialArrangementsOtherSubField: {
       required: 'Give details of the special arrangements you or the children need',
     },
-    specialArrangements: {
+    ra_specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court',
     },
   },
@@ -54,10 +54,10 @@ const cy = {
   specialArrangementsOtherSubField: 'Provide details of what you or the children need - welsh',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time - welsh',
   errors: {
-    specialArrangementsOtherSubField: {
+    ra_specialArrangementsOtherSubField: {
       required: 'Give details of the special arrangements you or the children need - welsh',
     },
-    specialArrangements: {
+    ra_specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court - welsh',
     },
   },
@@ -84,9 +84,9 @@ describe('applicant personal details > applying-with > content', () => {
   });
 
   test('should contain specialArrangements field', () => {
-    const specialArrangementsField = fields.specialArrangements as FormOptions;
+    const specialArrangementsField = fields.ra_specialArrangements as FormOptions;
     const specialArrangementsOtherSubFields = specialArrangementsField.values[6].subFields
-      ?.specialArrangementsOtherSubField as FormOptions;
+      ?.ra_specialArrangementsOtherSubField as FormOptions;
 
     expect(specialArrangementsField.type).toBe('checkboxes');
     expect(specialArrangementsOtherSubFields.type).toBe('textarea');

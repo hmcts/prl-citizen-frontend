@@ -13,10 +13,10 @@ const en = () => ({
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    internationalRequest: {
+    ie_internationalRequest: {
       required: 'Select yes if another country has asked (or been asked) for information or help for the children',
     },
-    provideDetailsRequest: {
+    ie_provideDetailsRequest: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children',
     },
@@ -32,11 +32,11 @@ const cy = () => ({
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
-    internationalRequest: {
+    ie_internationalRequest: {
       required:
         'Select yes if another country has asked (or been asked) for information or help for the children - Welsh',
     },
-    provideDetailsRequest: {
+    ie_provideDetailsRequest: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children - Welsh ',
     },
@@ -50,7 +50,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    internationalRequest: {
+    ie_internationalRequest: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -58,7 +58,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            provideDetailsRequest: {
+            ie_provideDetailsRequest: {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,

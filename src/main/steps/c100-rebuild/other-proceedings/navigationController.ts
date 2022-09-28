@@ -32,11 +32,11 @@ class OtherProceedingsNavigationController {
   }
 
   private getOrdersByType(caseData): C100OrderInterface[] | [] {
-    return caseData?.otherProceedings?.order[C100OrderTypeKeyMapper[this.orderType]] ?? [];
+    return caseData?.op_otherProceedings?.order[C100OrderTypeKeyMapper[this.orderType]] ?? [];
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPage: PageLink, caseData: Partial<Case>, queryParams?: Record<string, any>): PageLink {
-    this.selectedOrderTypes = caseData?.courtProceedingsOrders ?? [];
+    this.selectedOrderTypes = caseData?.op_courtProceedingsOrders ?? [];
     this.orderType = queryParams?.orderType as C100OrderTypes;
     this.orderId = queryParams?.orderId;
     this.orders = this.getOrdersByType(caseData);
@@ -58,7 +58,7 @@ class OtherProceedingsNavigationController {
             nextUrl = `${C100_OTHER_PROCEEDINGS_ORDER_DETAILS}?orderType=${nextOrderType}`;
           } else {
             // there is no other order type present
-            if (isAnyOrderWithOrderCopy(caseData?.otherProceedings?.order)) {
+            if (isAnyOrderWithOrderCopy(caseData?.op_otherProceedings?.order)) {
               // check at last if there were any previous order types having at least an order with order copy
               nextUrl = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
             } else {
