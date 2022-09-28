@@ -325,6 +325,8 @@ describe('Document upload controller', () => {
         orderType: 'otherOrder',
         orderId: '1',
       };
+    });
+    test('should return an error', async () => {
       req.query = QUERY;
       req.session.userCase = {
         otherProceedings: {
@@ -344,8 +346,6 @@ describe('Document upload controller', () => {
           },
         },
       };
-    });
-    test('should return an error', async () => {
       req.files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
       await controller.post(req, res);
       expect(controller.isValidFileFormat({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
@@ -359,6 +359,25 @@ describe('Document upload controller', () => {
       );
     });
     test('should return an true', async () => {
+      req.query = QUERY;
+      req.session.userCase = {
+        otherProceedings: {
+          order: {
+            otherOrders: [
+              {
+                orderDetail: 'OtherOrder1',
+                orderCopy: 'Yes',
+                orderDocument: {
+                  id: '',
+                  url: '',
+                  filename: '',
+                  binaryUrl: '',
+                },
+              },
+            ],
+          },
+        },
+      };
       req.files = { documents: { name: 'test.png', size: '812300345', data: '', mimetype: 'text' } };
       await controller.post(req, res);
       expect(controller.isValidFileFormat({ name: 'test.png', size: '812300345', data: '', mimetype: 'text' })).toBe(
