@@ -12,7 +12,7 @@ export class MIAMPostController extends PostController<AnyObject> {
   }
   public async post(req: AppRequest, res: Response): Promise<void> {
     try {
-      super.updateCaseWithEventId(req, res, RESPONSE_MIAM_ELEMENTS, EVENT_RESPONDENT_MIAM);
+      await super.updateCaseWithEventId(req, res, RESPONSE_MIAM_ELEMENTS, EVENT_RESPONDENT_MIAM);
     } catch (err) {
       throw new Error('MIAMPostController - Case could not be updated.');
     }
