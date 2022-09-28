@@ -19,10 +19,10 @@ const en = () => ({
     if applicable)`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time',
   errors: {
-    needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguageDetails: {
       required: 'Give details of the language you need an interpreter for',
     },
-    languageNeeds: {
+    ra_languageNeeds: {
       required: 'Select whether you have any language requirements',
     },
   },
@@ -44,10 +44,10 @@ const cy = () => ({
     if applicable) - welsh`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time - welsh',
   errors: {
-    needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguageDetails: {
       required: 'Give details of the language you need an interpreter for - welsh',
     },
-    languageNeeds: {
+    ra_languageNeeds: {
       required: 'Select whether you have any language requirements - welsh',
     },
   },
@@ -60,28 +60,28 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    languageNeeds: {
-      id: 'languageNeeds',
+    ra_languageNeeds: {
+      id: 'ra_languageNeeds',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'languageNeeds',
+          name: 'ra_languageNeeds',
           label: l => l.speakInWelsh,
           value: 'speakInWelsh',
         },
         {
-          name: 'languageNeeds',
+          name: 'ra_languageNeeds',
           label: l => l.readAndWriteInWelsh,
           value: 'readAndWriteInWelsh',
         },
         {
-          name: 'languageNeeds',
+          name: 'ra_languageNeeds',
           label: l => l.needInterpreterInCertainLanguage,
           value: 'needInterpreterInCertainLanguage',
           subFields: {
-            needInterpreterInCertainLanguageDetails: {
+            ra_needInterpreterInCertainLanguageDetails: {
               type: 'textarea',
               label: l => l.needInterpreterInCertainLanguageDetailsLabel,
               labelSize: null,
@@ -93,7 +93,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'languageNeeds',
+          name: 'ra_languageNeeds',
           label: l => l.noLanguageRequirements,
           value: 'none',
           behaviour: 'exclusive',

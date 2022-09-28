@@ -15,7 +15,7 @@ const en = () => ({
   one: 'Yes',
   two: 'No',
   errors: {
-    hearingPart1: {
+    hwn_hearingPart1: {
       required: "Select yes if you're asking for a without notice",
     },
   },
@@ -32,7 +32,7 @@ const cy = () => ({
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {
-    hearingPart1: {
+    hwn_hearingPart1: {
       required: "Select yes if you're asking for a without notice - welsh",
     },
   },
@@ -45,7 +45,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    hearingPart1: {
+    hwn_hearingPart1: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [

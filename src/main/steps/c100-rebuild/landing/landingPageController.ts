@@ -1,6 +1,5 @@
 import { Response } from 'express';
 
-import { caseApi } from '../../../app/case/C100CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { C100_START } from '../../urls';
 
@@ -9,7 +8,7 @@ export class LandingPageController {
     const userDeatils = req?.session?.user;
     if (userDeatils) {
       try {
-        const { id: caseId } = await caseApi(userDeatils, req.locals.logger).createCase();
+        const { id: caseId } = await req.locals.C100Api.createCase();
         req.session.userCase = {
           ...(req.session.userCase || {}),
           caseId,

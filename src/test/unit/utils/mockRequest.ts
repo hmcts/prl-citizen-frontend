@@ -20,6 +20,11 @@ export const mockRequest: any = ({
         addPayment: jest.fn(),
         getCaseById: jest.fn(),
       },
+      C100Api: {
+        caseApi: jest.fn(),
+        createCase: jest.fn(),
+        updateCase: jest.fn(),
+      },
       logger: {
         info: jest.fn(),
         error: jest.fn(),
