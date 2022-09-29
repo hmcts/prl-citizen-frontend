@@ -15,6 +15,7 @@ import {
   C100_INTERNATIONAL_ELEMENTS_PARENTS,
   C100_INTERNATIONAL_ELEMENTS_REQUEST,
   C100_INTERNATIONAL_ELEMENTS_START,
+  C100_MIAM_ATTENDANCE,
   C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   C100_OTHER_PROCEEDINGS_DETAILS,
   C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
@@ -30,6 +31,7 @@ import {
   C100_TYPE_ORDER_CAORDER,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   C100_TYPE_ORDER_SHORT_STATEMENT,
+
   /** @C100 Help with Fees */
   // eslint-disable-next-line sort-imports
   C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
@@ -52,7 +54,6 @@ import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   PageLink,
   C100_DOCUMENT_SUBMISSION,
-  C100_MIAM_ATTENDANCE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -354,7 +355,6 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_ATTENDANCE,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.miamAttendance === YesOrNo.YES ? C100_MIAM_ATTENDANCE : C100_CONFIDENTIALITY_START,
+      data.miam_attendance === YesOrNo.YES ? C100_MIAM_ATTENDANCE : C100_CONFIDENTIALITY_START,
   },
-
 ];

@@ -7,14 +7,14 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  headingTitle: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
+  title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
   paragraph1: 'The MIAM must be about the same issue that is being dealt with in this application.',
   one: 'Yes',
   two: 'No',
 };
 
 const cy = {
-  headingTitle: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)? - welsh  ',
+  title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)? - welsh  ',
   paragraph1: 'The MIAM must be about the same issue that is being dealt with in this application. - welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
@@ -35,7 +35,7 @@ describe('applicant personal details > applying-with > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.miamAttendance as FormOptions;
+    const applyingWithField = fields.miam_attendance as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
