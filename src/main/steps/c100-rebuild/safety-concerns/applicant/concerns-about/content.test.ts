@@ -9,7 +9,7 @@ jest.mock('../../../../../app/form/validation');
 const en = {
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
-  headingTitle: 'What type of behaviour have you experienced or are at risk of experiencing?',
+  title: 'What type of behaviour have you experienced or are at risk of experiencing?',
   paragraph1:
     'Describe the abusive behaviour that you are concerned about. If you are not sure that the behaviour is abusive,',
   seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse',
@@ -41,7 +41,7 @@ const en = {
 const cy = {
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
-  headingTitle: 'What type of behaviour have you experienced or are at risk of experiencing? - welsh',
+  title: 'What type of behaviour have you experienced or are at risk of experiencing? - welsh',
   paragraph1:
     'Describe the abusive behaviour that you are concerned about. If you are not sure that the behaviour is abusive,- welsh',
   seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse - welsh',
