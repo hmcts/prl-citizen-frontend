@@ -52,6 +52,7 @@ import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   PageLink,
   C100_DOCUMENT_SUBMISSION,
+  C100_MIAM_MIAM_DOMESTIC_ABUSE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -345,6 +346,11 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
+  },
+  {
+    url: C100_MIAM_MIAM_DOMESTIC_ABUSE,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
   },
