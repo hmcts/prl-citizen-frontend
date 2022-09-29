@@ -349,7 +349,7 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
   },
-  { 
+  {
     url: C100_MIAM_OTHER_PROCEEDINGS,
     showInSection: Sections.C100,
     getNextStep: data =>
