@@ -381,26 +381,17 @@ describe('Document upload controller', () => {
 
   describe('Should check invalid file format present or not', () => {
     test('should return an error', async () => {
+      const files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
       const controller = new UploadDocumentController({});
-      expect(controller.isValidFileFormat({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
-        false
-      );
-      expect(controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
-        false
-      );
+      expect(controller.isValidFileFormat(files)).toBe(false);
+      expect(controller.isFileSizeMoreThan20MB(files)).toBe(false);
       expect(controller.buildOrderTypeName('childArrangementOrder' as C100OrderTypes)).toBe('child_arrangement_order');
     });
     test('should return an true', async () => {
       const controller = new UploadDocumentController({});
-      expect(controller.isValidFileFormat({ name: 'test.png', size: '81230023', data: '', mimetype: 'text' })).toBe(
-        true
-      );
-      expect(
-        controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '81230023', data: '', mimetype: 'text' })
-      ).toBe(true);
-      expect(controller.isFileSizeMoreThan20MB({ name: 'test.rtf', size: '812300', data: '', mimetype: 'text' })).toBe(
-        false
-      );
+      const files = { documents: { name: 'test.png', size: '8123004466', data: '', mimetype: 'text' } };
+      expect(controller.isValidFileFormat(files)).toBe(true);
+      expect(controller.isFileSizeMoreThan20MB(files)).toBe(true);
     });
   });
 });

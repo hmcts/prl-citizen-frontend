@@ -52,7 +52,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
-    const { documents }: AnyType = files;
     const { orderType, orderId } = req.query;
 
     const courtOrderType = orderType as C100OrderTypes;
@@ -80,17 +79,19 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             propertyName: 'document',
             errorType: 'required',
           });
-        } else if (!this.isValidFileFormat(documents)) {
+        } else if (!this.isValidFileFormat(files)) {
           this.uploadFileError(req, res, orderType as string, orderId as string, {
             propertyName: 'document',
             errorType: 'fileFormat',
           });
-        } else if (this.isFileSizeMoreThan20MB(documents)) {
+        } else if (this.isFileSizeMoreThan20MB(files)) {
           this.uploadFileError(req, res, orderType as string, orderId as string, {
             propertyName: 'document',
             errorType: 'fileSize',
           });
         } else {
+          const { documents }: AnyType = files;
+
           const formData: FormData = new FormData();
 
           const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
@@ -153,12 +154,14 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     return C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();
   }
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  public isValidFileFormat = (documents: any): boolean => {
+  public isValidFileFormat = (files: any): boolean => {
+    const { documents }: AnyType = files;
     const extension = documents.name.split('.')[documents.name.split('.').length - 1];
     return AllowedFileExtentionList.indexOf(extension) > -1;
   };
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  public isFileSizeMoreThan20MB = (documents: any): boolean => {
+  public isFileSizeMoreThan20MB = (files: any): boolean => {
+    const { documents }: AnyType = files;
     return documents.size / 1024 ** 2 > 20;
   };
   /**
