@@ -14,11 +14,11 @@ const en = () => ({
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    internationalParents: {
+    ie_internationalParents: {
       required:
         "Select yes if the children's parents or anyone significant to the children living outside of England or Wales",
     },
-    provideDetailsParents: {
+    ie_provideDetailsParents: {
       required:
         "Provide details about the children's parents or anyone significant to the children living outside of England or Wales",
     },
@@ -35,11 +35,11 @@ const cy = () => ({
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
-    internationalParents: {
+    ie_internationalParents: {
       required:
         "Select yes if the children's parents or anyone significant to the children living outside of England or Wales - Welsh",
     },
-    provideDetailsParents: {
+    ie_provideDetailsParents: {
       required:
         "Provide details about the children's parents or anyone significant to the children living outside of England or Wales - Welsh ",
     },
@@ -53,7 +53,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    internationalParents: {
+    ie_internationalParents: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -61,7 +61,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            provideDetailsParents: {
+            ie_provideDetailsParents: {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,

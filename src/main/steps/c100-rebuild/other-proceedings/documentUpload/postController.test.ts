@@ -39,7 +39,7 @@ describe('Document upload controller', () => {
     const res = mockResponse();
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.session.userCase = {
-      otherProceedings: {
+      op_otherProceedings: {
         order: {
           otherOrders: [
             {
@@ -94,7 +94,7 @@ describe('Document upload controller', () => {
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.body.saveAndContinue = true;
     req.session.userCase = {
-      otherProceedings: {
+      op_otherProceedings: {
         order: {
           otherOrders: [
             {
@@ -167,7 +167,7 @@ describe('Document upload controller', () => {
     const res = mockResponse();
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.session.userCase = {
-      otherProceedings: {
+      op_otherProceedings: {
         order: {
           otherOrders: [
             {
@@ -237,7 +237,7 @@ describe('Document upload controller', () => {
     const res = mockResponse();
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.session.userCase = {
-      otherProceedings: {
+      op_otherProceedings: {
         order: {
           otherOrders: [
             {
@@ -281,7 +281,7 @@ describe('Document upload controller', () => {
       };
       req.query = QUERY;
       req.session.userCase = {
-        otherProceedings: {
+        op_otherProceedings: {
           order: {
             otherOrders: [
               {

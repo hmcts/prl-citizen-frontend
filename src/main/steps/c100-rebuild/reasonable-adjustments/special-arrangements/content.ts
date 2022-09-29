@@ -22,10 +22,10 @@ const en = () => ({
   specialArrangementsOtherSubField: 'Provide details of what you or the children need',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time',
   errors: {
-    specialArrangementsOtherSubField: {
+    ra_specialArrangementsOtherSubField: {
       required: 'Give details of the special arrangements you or the children need',
     },
-    specialArrangements: {
+    ra_specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court',
     },
   },
@@ -50,10 +50,10 @@ const cy = () => ({
   specialArrangementsOtherSubField: 'Provide details of what you or the children need - welsh',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time - welsh',
   errors: {
-    specialArrangementsOtherSubField: {
+    ra_specialArrangementsOtherSubField: {
       required: 'Give details of the special arrangements you or the children need - welsh',
     },
-    specialArrangements: {
+    ra_specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court - welsh',
     },
   },
@@ -66,50 +66,50 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    specialArrangements: {
-      id: 'specialArrangements',
+    ra_specialArrangements: {
+      id: 'ra_specialArrangements',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'specialArrangements',
+          name: 'ra_specialArrangements',
           label: l => l.separateWaitingRoom,
           value: 'separateWaitingRoom',
         },
         {
-          name: 'specialArrangements',
+          name: 'ra_specialArrangements',
           label: l => l.separateExitEntrance,
           value: 'separateExitEntrance',
         },
         {
-          name: 'specialArrangements',
+          name: 'ra_specialArrangements',
           label: l => l.screenWithOtherPeople,
           hint: l => l.screenWithOtherPeopleHint,
           value: 'screenWithOtherPeople',
         },
         {
-          name: 'specialArrangements',
+          name: 'ra_specialArrangements',
           label: l => l.separateToilets,
           value: 'separateToilets',
         },
         {
-          name: 'specialArrangements',
+          name: 'ra_specialArrangements',
           label: l => l.visitCourtBeforeHearing,
           value: 'visitCourtBeforeHearing',
         },
         {
-          name: 'specialArrangements',
+          name: 'ra_specialArrangements',
           label: l => l.videoLinks,
           hint: l => l.videoLinksHint,
           value: 'videoLinks',
         },
         {
-          name: 'specialArrangements',
+          name: 'ra_specialArrangements',
           label: l => l.specialArrangementsOther,
           value: 'specialArrangementsOther',
           subFields: {
-            specialArrangementsOtherSubField: {
+            ra_specialArrangementsOtherSubField: {
               type: 'textarea',
               label: l => l.specialArrangementsOtherSubField,
               labelSize: null,
@@ -121,7 +121,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'specialArrangements',
+          name: 'ra_specialArrangements',
           label: l => l.noSafetyRequirements,
           value: 'noSafetyRequirements',
           behaviour: 'exclusive',

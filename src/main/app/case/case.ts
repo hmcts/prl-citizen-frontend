@@ -201,13 +201,13 @@ export interface Case {
   //C100 Rebuild
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;
-  disabilityRequirements?: string[];
+  ra_disabilityRequirements?: string[];
   needHelpWithFees?: YesOrNo;
   feesAppliedDetails?: YesOrNo;
   caseId?: string;
-  courtProceedingsOrders?: C100OrderTypes[];
-  otherProceedings?: OtherProceedings;
   haveSafetyConcerns?: YesOrNo;
+  op_courtProceedingsOrders?: C100OrderTypes[];
+  op_otherProceedings?: OtherProceedings;
 }
 
 export interface CaseWithId extends Case {

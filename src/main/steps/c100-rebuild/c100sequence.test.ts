@@ -11,8 +11,8 @@ const otherProceedingsMockData = mockRequest({
   },
   session: {
     userCase: {
-      courtProceedingsOrders: ['careOrder'],
-      otherProceedings: {
+      op_courtProceedingsOrders: ['careOrder'],
+      op_otherProceedings: {
         order: {
           careOrders: [
             {
@@ -47,7 +47,7 @@ const otherProceedingsMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(43);
+    expect(C100Sequence).toHaveLength(46);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -110,7 +110,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[12].showInSection).toBe('c100');
     expect(
       C100Sequence[12].getNextStep({
-        disabilityRequirements: [
+        ra_disabilityRequirements: [
           'documentsHelp',
           'communicationHelp',
           'extraSupport',
@@ -126,7 +126,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[13].showInSection).toBe('c100');
     expect(
       C100Sequence[13].getNextStep({
-        disabilityRequirements: [
+        ra_disabilityRequirements: [
           'documentsHelp',
           'communicationHelp',
           'extraSupport',
@@ -142,7 +142,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[14].showInSection).toBe('c100');
     expect(
       C100Sequence[14].getNextStep({
-        disabilityRequirements: [
+        ra_disabilityRequirements: [
           'documentsHelp',
           'communicationHelp',
           'extraSupport',
@@ -156,7 +156,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[15].showInSection).toBe('c100');
     expect(
       C100Sequence[15].getNextStep({
-        disabilityRequirements: [
+        ra_disabilityRequirements: [
           'documentsHelp',
           'communicationHelp',
           'extraSupport',
@@ -170,7 +170,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[16].showInSection).toBe('c100');
     expect(
       C100Sequence[16].getNextStep({
-        disabilityRequirements: [
+        ra_disabilityRequirements: [
           'documentsHelp',
           'communicationHelp',
           'extraSupport',
@@ -184,7 +184,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[17].showInSection).toBe('c100');
     expect(
       C100Sequence[17].getNextStep({
-        disabilityRequirements: [
+        ra_disabilityRequirements: [
           'documentsHelp',
           'communicationHelp',
           'extraSupport',
@@ -197,7 +197,7 @@ describe('C100Sequence', () => {
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[12].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[12].showInSection).toBe('c100');
-    expect(C100Sequence[12].getNextStep({ disabilityRequirements: ['dummyPage'] })).toBe(
+    expect(C100Sequence[12].getNextStep({ ra_disabilityRequirements: ['dummyPage'] })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
 
@@ -206,7 +206,7 @@ describe('C100Sequence', () => {
       '/c100-rebuild/reasonable-adjustments/disability-requirements/document-information'
     );
     expect(C100Sequence[13].showInSection).toBe('c100');
-    expect(C100Sequence[13].getNextStep({ disabilityRequirements: ['documentsHelp'] })).toBe(
+    expect(C100Sequence[13].getNextStep({ ra_disabilityRequirements: ['documentsHelp'] })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
 
@@ -215,21 +215,21 @@ describe('C100Sequence', () => {
       '/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help'
     );
     expect(C100Sequence[14].showInSection).toBe('c100');
-    expect(C100Sequence[14].getNextStep({ disabilityRequirements: ['communicationHelp'] })).toBe(
+    expect(C100Sequence[14].getNextStep({ ra_disabilityRequirements: ['communicationHelp'] })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[15].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/support-court');
     expect(C100Sequence[15].showInSection).toBe('c100');
-    expect(C100Sequence[15].getNextStep({ disabilityRequirements: ['extraSupport'] })).toBe(
+    expect(C100Sequence[15].getNextStep({ ra_disabilityRequirements: ['extraSupport'] })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[16].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable');
     expect(C100Sequence[16].showInSection).toBe('c100');
-    expect(C100Sequence[16].getNextStep({ disabilityRequirements: ['feelComfortableSupport'] })).toBe(
+    expect(C100Sequence[16].getNextStep({ ra_disabilityRequirements: ['feelComfortableSupport'] })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
 
@@ -238,7 +238,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[17].showInSection).toBe('c100');
     expect(
       C100Sequence[17].getNextStep({
-        disabilityRequirements: ['helpTravellingMovingBuildingSupport', 'communicationHelp'],
+        ra_disabilityRequirements: ['helpTravellingMovingBuildingSupport', 'communicationHelp'],
       })
     ).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help');
 
@@ -347,16 +347,28 @@ describe('C100Sequence', () => {
     );
     expect(C100Sequence[40].getNextStep({ needHelpWithFees: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/start');
 
-    expect(C100Sequence[41].url).toBe('/c100-rebuild/document-submission');
+    expect(C100Sequence[41].url).toBe('/c100-rebuild/childaddress');
     expect(C100Sequence[41].showInSection).toBe('c100');
-    expect(C100Sequence[41].getNextStep({})).toBe('/c100-rebuild/document-submission');
+    expect(C100Sequence[41].getNextStep({})).toBe('/c100-rebuild/childaddress');
 
-    expect(C100Sequence[42].url).toBe('/c100-rebuild/miam/mediator-document');
+    expect(C100Sequence[42].url).toBe('/c100-rebuild/document-submission');
     expect(C100Sequence[42].showInSection).toBe('c100');
-    expect(C100Sequence[42].getNextStep({ miam_haveDocSigned: YesOrNo.YES })).toBe(
+    expect(C100Sequence[42].getNextStep({})).toBe('/c100-rebuild/document-submission');
+
+    expect(C100Sequence[43].url).toBe('/c100-rebuild/safety-concerns/child/concerns-about');
+    expect(C100Sequence[43].showInSection).toBe('c100');
+    expect(C100Sequence[43].getNextStep({})).toBe('/c100-rebuild/safety-concerns/child/concerns-about');
+
+    expect(C100Sequence[44].url).toBe('/c100-rebuild/safety-concerns/concern-guidance');
+    expect(C100Sequence[44].showInSection).toBe('c100');
+    expect(C100Sequence[44].getNextStep({})).toBe('/c100-rebuild/safety-concerns/concerns-for-safety');
+
+    expect(C100Sequence[45].url).toBe('/c100-rebuild/miam/mediator-document');
+    expect(C100Sequence[45].showInSection).toBe('c100');
+    expect(C100Sequence[45].getNextStep({ miam_haveDocSigned: YesOrNo.YES })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
-    expect(C100Sequence[42].getNextStep({ miam_haveDocSigned: YesOrNo.NO })).toBe(
+    expect(C100Sequence[45].getNextStep({ miam_haveDocSigned: YesOrNo.NO })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
   });

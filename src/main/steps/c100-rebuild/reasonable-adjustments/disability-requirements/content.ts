@@ -24,7 +24,7 @@ const en = () => ({
     'for example, access and mobility support if a hearing takes place in person',
   noSupportRequired: 'No, I do not need any support at this time',
   errors: {
-    disabilityRequirements: {
+    ra_disabilityRequirements: {
       required:
         'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case',
     },
@@ -52,7 +52,7 @@ const cy = () => ({
     'for example, access and mobility support if a hearing takes place in person - welsh',
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   errors: {
-    disabilityRequirements: {
+    ra_disabilityRequirements: {
       required:
         'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case - welsh',
     },
@@ -66,38 +66,38 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    disabilityRequirements: {
-      id: 'disabilityRequirements',
+    ra_disabilityRequirements: {
+      id: 'ra_disabilityRequirements',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'disabilityRequirements',
+          name: 'ra_disabilityRequirements',
           label: l => l.documentsHelp,
           value: 'documentsHelp',
           hint: l => l.documentsHelpHint,
         },
         {
-          name: 'disabilityRequirements',
+          name: 'ra_disabilityRequirements',
           label: l => l.communicationHelp,
           value: 'communicationHelp',
           hint: l => l.communicationHelpHint,
         },
         {
-          name: 'disabilityRequirements',
+          name: 'ra_disabilityRequirements',
           label: l => l.extraSupport,
           value: 'extraSupport',
           hint: l => l.extraSupportHint,
         },
         {
-          name: 'disabilityRequirements',
+          name: 'ra_disabilityRequirements',
           label: l => l.feelComfortableSupport,
           value: 'feelComfortableSupport',
           hint: l => l.feelComfortableSupportHint,
         },
         {
-          name: 'disabilityRequirements',
+          name: 'ra_disabilityRequirements',
           label: l => l.helpTravellingMovingBuildingSupport,
           value: 'helpTravellingMovingBuildingSupport',
           hint: l => l.helpTravellingMovingBuildingSupportHint,
@@ -106,7 +106,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'disabilityRequirements',
+          name: 'ra_disabilityRequirements',
           label: l => l.noSupportRequired,
           value: 'noSupport',
           behaviour: 'exclusive',
