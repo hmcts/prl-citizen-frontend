@@ -37,7 +37,7 @@ describe('miam->Are the children involved in any emergency protection, care or s
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.miamOtherProceedings as FormOptions;
+    const applyingWithField = fields.miam_otherProceedings as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);

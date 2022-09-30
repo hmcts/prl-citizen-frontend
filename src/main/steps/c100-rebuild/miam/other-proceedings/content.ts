@@ -9,7 +9,7 @@ const en = () => ({
   one: 'Yes',
   two: 'No',
   errors: {
-    miamOtherProceedings: {
+    miam_otherProceedings: {
       required:
         'Select yes if the children are involved in any emergency protection, care or supervision proceedings(or have been)',
     },
@@ -23,7 +23,7 @@ const cy = () => ({
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    miamOtherProceedings: {
+    miam_otherProceedings: {
       required:
         'Select yes if the children are involved in any emergency protection, care or supervision proceedings(or have been) - welsh',
     },
@@ -37,7 +37,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    miamOtherProceedings: {
+    miam_otherProceedings: {
       type: 'radios',
       classes: 'govuk-radios',
       hint: l => l.localAuthority,
