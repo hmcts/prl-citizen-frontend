@@ -233,3 +233,4 @@ export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submissi
 
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;
+export const C100_MIAM_UPLOAD_CONFIRMATION: PageLink = `${C100_MIAM}/upload-confirmation`;
