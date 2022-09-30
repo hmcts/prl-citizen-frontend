@@ -62,7 +62,6 @@ describe('applicant personal details > applying-with > content', () => {
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
   });
-
   test('should contain saveAndComeLater button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
