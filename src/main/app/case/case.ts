@@ -212,7 +212,7 @@ export interface Case {
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_attendance?: YesOrNo;
-  valid_reason?: YesOrNo;
+  miam_validReason?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

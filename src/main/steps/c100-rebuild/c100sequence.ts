@@ -398,6 +398,6 @@ export const C100Sequence: Step[] = [
     url: C100_VALID_REASON,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.valid_reason === YesOrNo.YES ? C100_VALID_REASON : C100_CONFIDENTIALITY_START,
+      data.miam_validReason === YesOrNo.YES ? C100_VALID_REASON : C100_CONFIDENTIALITY_START,
   },
 ];
