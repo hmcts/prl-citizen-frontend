@@ -237,6 +237,7 @@ export const C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink = `${C100
 /** @C100 Document Submission */
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
 
+
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;
 export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/other-proceedings`;
@@ -245,3 +246,4 @@ export const C100_MIAM_ATTENDANCE: PageLink = `${C100_MIAM}/attendance`;
 export const C100_MIAM_MEDIATOR_CONFIRMAION: PageLink = `${C100_MIAM}/mediator-confirmation`;
 export const C100_MIAM_URGENCY: PageLink = `${C100_MIAM}/urgency`;
 export const C100_MIAM_INFO: PageLink = `${C100_MIAM}/miam-info`;
+export const C100_VALID_REASON: PageLink = `${C100_URL}/miam/valid-reason`;
