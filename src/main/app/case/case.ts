@@ -3,6 +3,7 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   C100OrderTypes,
+  C1ASafteyConcerns,
   CaseData,
   ContactDetails,
   OtherName,
@@ -205,9 +206,10 @@ export interface Case {
   needHelpWithFees?: YesOrNo;
   feesAppliedDetails?: YesOrNo;
   caseId?: string;
-  haveSafetyConcerns?: YesOrNo;
+  c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
+  c1A_safteyConcerns?: C1ASafteyConcerns;
 }
 
 export interface CaseWithId extends Case {
