@@ -232,4 +232,6 @@ export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink = `${C100_C
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
 
 /** @C100 MIAM */
-export const C100_MIAM_ATTENDANCE: PageLink = `${C100_URL}/miam/miam-attendance`;
+export const C100_MIAM: PageLink = `${C100_URL}/miam`;
+export const C100_MIAM_MEDIATOR_DOCUMENT: PageLink = `${C100_MIAM}/mediator-document`;
+export const C100_MIAM_ATTENDANCE: PageLink = `${C100_URL}/miam/attendance`;
