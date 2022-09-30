@@ -5,12 +5,9 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Do you have a document signed by the mediator?',
-  paragraph: `The mediator should give you a signed document
-      to confirm you attended a MIAM, or do not need to attend.
-      If you do not have a document, you should ask the mediator for one.`,
-  yesMediatorDocument: 'Yes',
-  noMediatorDocument: 'No',
+  title: 'Has a mediator confirmed that you do not need to attend a MIAM?',
+  one: 'Yes',
+  two: 'No',
   errors: {
     miam_mediatorDocument: {
       required: 'Select yes if a mediator has confirmed that you do not need to attend a MIAM?',
@@ -19,12 +16,9 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Do you have a document signed by the mediator? - welsh',
-  paragraph: `The mediator should give you a signed document
-      to confirm you attended a MIAM, or do not need to attend.
-      If you do not have a document, you should ask the mediator for one.- welsh`,
-  yesMediatorDocument: 'Yes- welsh',
-  noMediatorDocument: 'No- welsh',
+  title: 'Has a mediator confirmed that you do not need to attend a MIAM? - welsh',
+  one: 'Yes - welsh',
+  two: 'No - welsh',
   errors: {
     miam_mediatorDocument: {
       required: 'Select yes if a mediator has confirmed that you do not need to attend a MIAM? - welsh',
@@ -46,11 +40,11 @@ export const form: FormContent = {
       section: l => l.section,
       values: [
         {
-          label: l => l.yesMediatorDocument,
+          label: l => l.one,
           value: YesOrNo.YES,
         },
         {
-          label: l => l.noMediatorDocument,
+          label: l => l.two,
           value: YesOrNo.NO,
         },
       ],
