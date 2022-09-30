@@ -53,6 +53,7 @@ import {
   PageLink,
   C100_DOCUMENT_SUBMISSION,
   C100_MIAM_OTHER_PROCEEDINGS,
+  C100_MIAM_MEDIATOR_DOCUMENT,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -354,5 +355,11 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: data =>
       data.haveSafetyConcerns === YesOrNo.YES ? C100_CONFIDENTIALITY_DETAILS_KNOW : C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_MIAM_MEDIATOR_DOCUMENT,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.startAlternative === YesOrNo.YES ? C100_CONFIDENTIALITY_DETAILS_KNOW : C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
