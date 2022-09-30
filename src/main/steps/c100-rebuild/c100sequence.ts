@@ -30,9 +30,8 @@ import {
   C100_TYPE_ORDER_CAORDER,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   C100_TYPE_ORDER_SHORT_STATEMENT,
-  /** @C100 Help with Fees */
-  // eslint-disable-next-line sort-imports
-  C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
+  C100_VALID_REASON, // eslint-disable-next-line sort-imports
+  /** @C100 Help with Fees */ C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
   C100_HELP_WITH_FEES_FEES_APPLIED,
   C100_HELP_WITH_FEES_HWF_GUIDANCE,
   C100_CHILDERN_DETAILS_ADD,
@@ -394,5 +393,11 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  },
+  {
+    url: C100_VALID_REASON,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.valid_reason === YesOrNo.YES ? C100_VALID_REASON : C100_CONFIDENTIALITY_START,
   },
 ];

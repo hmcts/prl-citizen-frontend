@@ -1,0 +1,7 @@
+{% extends "common/template.njk" %}
+{% block page_content %}
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{lvTitle}}</h1>
+<p class="govuk-body-l">{{lvparagraph1}} </p>
+<p class="govuk-body-l">{{lvparagraph2}} {{applyForLvrLink | safe}} {{lvparagraph3}}</p>
+<p class="govuk-body">{{lvparagraph4}} </p>
+{% endblock %}
