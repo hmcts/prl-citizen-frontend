@@ -33,7 +33,7 @@ const en = {
   somethingElseHint: 'Any concerns you have that do not fit into the above categories',
   errors: {
     c1A_concernAboutApplicant: {
-      required: 'Specify the type of behaviour the you have experienced or are at risk of experiencing',
+      required: 'Specify the type of behaviour you have experienced or are at risk of experiencing',
     },
   },
 };
@@ -65,7 +65,7 @@ const cy = {
   somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
   errors: {
     c1A_concernAboutApplicant: {
-      required: 'Specify the type of behaviour the you have experienced or are at risk of experiencing - welsh',
+      required: 'Specify the type of behaviour you have experienced or are at risk of experiencing - welsh',
     },
   },
 };
