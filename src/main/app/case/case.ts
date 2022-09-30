@@ -116,7 +116,6 @@ export interface Case {
   injuctiveOrder?: orderInterface;
   underTakingOrderOptions?: YesOrNo;
   underTakingOrder?: orderInterface;
-  
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
