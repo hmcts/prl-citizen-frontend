@@ -7,7 +7,7 @@ const logger = Logger.getLogger('service-auth-token');
 let token;
 
 export const getTokenFromApi = async (): Promise<string> => {
-logger.info('Refreshing service auth token');
+  logger.info('Refreshing service auth token');
 
   const url: string = config.get('services.authProvider.url') + '/lease';
   const microservice: string = config.get('services.authProvider.microservice');
