@@ -2,68 +2,128 @@ import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { FieldPrefix } from '../../../../app/case/case';
 
-import AddApplicants from './getController';
+import AddChildern from './getController';
 
-const dummyData = [
+const dummyChild = [
   {
-    id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
-    applicantFirstName: 'Test',
-    applicantLastName: 'Test',
+    id: '8689c8b2-a4f9-45f1-823a-66e18107852d',
+    firstname: 'Test1',
+    lastname: 'Test1',
+    personalDetails: {
+      DateoBirth: '',
+      isDateOfBirthKnown: '',
+      ApproximateDateOfBirth: '',
+      Sex: '',
+    },
+    childMatter: {
+      isDecisionTaken: '',
+    },
+    parentialResponsibility: {
+      statement: '',
+    },
   },
   {
-    id: '95dd0bb0-82da-49b2-ac5a-18e6e834948c',
-    applicantFirstName: 'Test2',
-    applicantLastName: 'Test2',
+    id: 'b910ce67-3f36-41e8-aa74-5a1276a65368',
+    firstname: 'Test2',
+    lastname: 'Test2',
+    personalDetails: {
+      DateoBirth: '',
+      isDateOfBirthKnown: '',
+      ApproximateDateOfBirth: '',
+      Sex: '',
+    },
+    childMatter: {
+      isDecisionTaken: '',
+    },
+    parentialResponsibility: {
+      statement: '',
+    },
   },
 ];
 
 describe('Add Applicant Controller', () => {
   test('Should render the page', async () => {
-    const controller = new AddApplicants('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new AddChildern('page', () => ({}), FieldPrefix.APPLICANT);
     const language = 'en';
     const req = mockRequest();
     const res = mockResponse();
     req.session.lang = language;
-    req.session.userCase['appl_allApplicants'] = dummyData;
+    req.session.userCase['childern'] = dummyChild;
     await controller.get(req, res);
-    expect(req.session.userCase['appl_allApplicants']).toEqual([
+    expect(req.session.userCase['childern']).toEqual([
       {
-        id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
-        applicantFirstName: 'Test',
-        applicantLastName: 'Test',
+        id: '8689c8b2-a4f9-45f1-823a-66e18107852d',
+        firstname: 'Test1',
+        lastname: 'Test1',
+        personalDetails: {
+          DateoBirth: '',
+          isDateOfBirthKnown: '',
+          ApproximateDateOfBirth: '',
+          Sex: '',
+        },
+        childMatter: {
+          isDecisionTaken: '',
+        },
+        parentialResponsibility: {
+          statement: '',
+        },
       },
       {
-        id: '95dd0bb0-82da-49b2-ac5a-18e6e834948c',
-        applicantFirstName: 'Test2',
-        applicantLastName: 'Test2',
+        id: 'b910ce67-3f36-41e8-aa74-5a1276a65368',
+        firstname: 'Test2',
+        lastname: 'Test2',
+        personalDetails: {
+          DateoBirth: '',
+          isDateOfBirthKnown: '',
+          ApproximateDateOfBirth: '',
+          Sex: '',
+        },
+        childMatter: {
+          isDecisionTaken: '',
+        },
+        parentialResponsibility: {
+          statement: '',
+        },
       },
     ]);
   });
 });
 
-describe('Remove applicant using query from session', () => {
-  test('removing applicant from session', async () => {
-    const controller = new AddApplicants('page', () => ({}), FieldPrefix.APPLICANT);
+describe('Remove childern using query from session', () => {
+  test('removing childern from session', async () => {
+    const controller = new AddChildern('page', () => ({}), FieldPrefix.APPLICANT);
     const language = 'en';
     const req = mockRequest();
-    req.session.userCase['appl_allApplicants'] = dummyData;
+    req.session.userCase['childern'] = dummyChild;
     req.query = {
       action: 'remove',
-      applicantId: '95dd0bb0-82da-49b2-ac5a-18e6e834948c',
+      childId: '8689c8b2-a4f9-45f1-823a-66e18107852d',
     };
-    req.session.userCase['applicantTemporaryFormData'] = {
+    req.session.userCase['tempChildernFormData'] = {
       TempFirstName: '',
       TempLastName: '',
     };
     const res = mockResponse();
     req.session.lang = language;
     controller.removeApplicantUsingId(req, res);
-    expect(req.session.userCase['appl_allApplicants']).toHaveLength(1);
-    expect(req.session.userCase['appl_allApplicants']).toEqual([
+    expect(req.session.userCase['childern']).toHaveLength(1);
+    expect(req.session.userCase['childern']).toEqual([
       {
-        id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
-        applicantFirstName: 'Test',
-        applicantLastName: 'Test',
+        id: 'b910ce67-3f36-41e8-aa74-5a1276a65368',
+        firstname: 'Test2',
+        lastname: 'Test2',
+        personalDetails: {
+          DateoBirth: '',
+          isDateOfBirthKnown: '',
+          ApproximateDateOfBirth: '',
+          Sex: '',
+        },
+        childMatter: {
+          isDecisionTaken: '',
+        },
+        parentialResponsibility: {
+          statement: '',
+        },
       },
     ]);
   });

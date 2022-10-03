@@ -167,8 +167,8 @@ export default class AddChildernPostController extends PostController<AnyObject>
             const applicantObject = {
               ...req.session.userCase.childern[child],
               id,
-              childFirstName,
-              childLastName,
+              firstname: childFirstName,
+              lastname: childLastName,
             };
             newApplicantStorage.push(applicantObject);
           }
