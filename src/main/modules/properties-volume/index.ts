@@ -18,7 +18,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.system-update-user-password', 'services.idam.systemPassword');
-      this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
+      //this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
     } else {
       console.log('inside develop env setup');
       this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');

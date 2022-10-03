@@ -11,18 +11,18 @@ services:
     clientID: IDAM_CLIENT_ID
     citizenClientSecret: CITIZEN_IDAM_SECRET
     cosApiClientSecret: COS_API_IDAM_SECRET
-    systemUsername: SYSTEM_UPDATE_USER_USERNAME
-    systemPassword: SYSTEM_UPDATE_USER_PASSWORD
-  citizen:
-    uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
     url: CCD_URL
-  cos:
-    url: COS_URL
+  payments:
+    url: PAYMENTS_API_URL
+  feeLookup:
+    url: FEE_LOOKUP_URL
   documentManagement:
     url: DOCUMENT_MANAGEMENT_URL
-  dgs:
-    url: DGS_URL
+  equalityAndDiversity:
+    url: EQUALITY_URL
+    tokenKey: PCQ_TOKEN
+    pcqEnabled: PCQ_ENABLED
 port: PORT
 session:
   redis:
