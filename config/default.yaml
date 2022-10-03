@@ -20,10 +20,10 @@ services:
     systemPassword: 'dummy_password'
   case:
     #url: 'http://localhost:4452'
-    url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-421.service.core-compute-preview.internal'
+    url: 'http://ccd-data-store-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
     checkDivCases: true
   cos:
-    url: 'https://prl-cos-pr-426.service.core-compute-preview.internal'
+    url: 'https://prl-cos-pr-505.service.core-compute-preview.internal'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
 health:
