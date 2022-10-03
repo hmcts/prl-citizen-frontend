@@ -1,9 +1,11 @@
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { generateContent } from '../../miam/domestic-abuse/content';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+jest.mock('../../../../app/form/validation');
+
+const en = {
   section: 'Miam section',
   caption: 'MIAM exemptions',
   headingTitle: 'Do you have any of the following evidence of domestic violence or abuse?',
@@ -100,9 +102,9 @@ const en = () => ({
         'Select what letter from a domestic violence or abuse support service, specialist or organisation you have.',
     },
   },
-});
+};
 
-const cy = () => ({
+const cy = {
   section: 'Miam section',
   caption: 'MIAM exemption - welsh',
   headingTitle: 'Do you have any of the following evidence of domestic violence or abuse?',
@@ -198,231 +200,64 @@ const cy = () => ({
         'Select what letter from a domestic violence or abuse support service, specialist or organisation you have - welsh',
     },
   },
+};
+
+describe('miam domestic abuse', () => {
+  const commonContent = { language: 'en' } as CommonContent;
+  let generatedContent;
+  let form;
+  let fields;
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+  });
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct english content', () => {
+    languageAssertions('en', en, () => generateContent(commonContent));
+  });
+
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct welsh content', () => {
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should contain miam domesticabuse involvement field', () => {
+    const miam_domesticabuse_involvement_field = fields.miam_domesticabuse_involvement as FormOptions;
+    expect(miam_domesticabuse_involvement_field.type).toBe('checkboxes');
+    expect((miam_domesticabuse_involvement_field.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
+    expect((miam_domesticabuse_involvement_field.values[0].label as LanguageLookup)(generatedContent)).toBe(
+      en.policeInvolvement
+    );
+    expect((miam_domesticabuse_involvement_field.values[1].label as LanguageLookup)(generatedContent)).toBe(
+      en.courtInvolvement
+    );
+    expect((miam_domesticabuse_involvement_field.values[2].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterOfBeingVictim
+    );
+    expect((miam_domesticabuse_involvement_field.values[3].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromAuthority
+    );
+    expect((miam_domesticabuse_involvement_field.values[4].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromSupportService
+    );
+    expect((miam_domesticabuse_involvement_field.values[5].label as LanguageLookup)(generatedContent)).toBe(
+      en.ILRDuetoDomesticAbuse
+    );
+    expect((miam_domesticabuse_involvement_field.values[6].label as LanguageLookup)(generatedContent)).toBe(
+      en.financiallyAbuse
+    );
+  });
+
+  test('should contain Save and continue button', () => {
+    expect(
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
+  });
+
+  test('should contain SaveAndComeLater button', () => {
+    expect(
+      (form.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
+  });
 });
-
-const languages = {
-  en,
-  cy,
-};
-
-export const form: FormContent = {
-  fields: {
-    miam_domesticabuse_involvement: {
-      id: 'miam_domesticabuse_involvement',
-      section: l => l.section,
-      type: 'checkboxes',
-      hint: l => l.select_all_apply,
-      validator: value => atLeastOneFieldIsChecked(value),
-      values: [
-        {
-          name: 'miam_domesticabuse_involvement',
-          label: l => l.policeInvolvement,
-          hint: l => l.policeInvolvement_hint,
-          value: 'policeInvolvement',
-          subFields: {
-            miam_domesticabuse_involvement_subfields: {
-              type: 'checkboxes',
-              validator: value => atLeastOneFieldIsChecked(value),
-              values: [
-                {
-                  name: 'miam_domesticabuse_involvement_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOfSomeoneArrest'],
-                  value: 'evidenceOfSomeoneArrest',
-                },
-                {
-                  name: 'miam_domesticabuse_involvement_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOfPolice'],
-                  value: 'evidenceOfPolice',
-                },
-                {
-                  name: 'miam_domesticabuse_involvement_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOfOnGoingCriminalProceeding'],
-                  value: 'evidenceOfOnGoingCriminalProceeding',
-                },
-                {
-                  name: 'miam_domesticabuse_involvement_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOfConviction'],
-                  value: 'evidenceOfConviction',
-                },
-                {
-                  name: 'miam_domesticabuse_involvement_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOFProtectionNotice'],
-                  value: 'evidenceOFProtectionNotice',
-                },
-              ],
-            },
-          },
-        },
-        {
-          name: 'miam_domesticabuse_involvement',
-          label: l => l.courtInvolvement,
-          hint: l => l.courtInvolvement_hint,
-          value: 'courtInvolvement',
-          subFields: {
-            miam_domesticabuse_courtInvolvement_subfields: {
-              type: 'checkboxes',
-              validator: value => atLeastOneFieldIsChecked(value),
-              values: [
-                {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
-                  label: l => l.courtInvolvement_subFields['boundedByCourtAction'],
-                  value: 'boundedByCourtAction',
-                },
-                {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
-                  label: l => l.courtInvolvement_subFields['protectionInjuction'],
-                  value: 'protectionInjuction',
-                },
-                {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
-                  label: l => l.courtInvolvement_subFields['fmlAct1996'],
-                  value: 'fmlAct1996',
-                },
-                {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
-                  label: l => l.courtInvolvement_subFields['ukdomesticVoilcenceUK'],
-                  value: 'ukdomesticVoilcenceUK',
-                },
-                {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
-                  label: l => l.courtInvolvement_subFields['ukPotentialVictim'],
-                  value: 'ukPotentialVictim',
-                },
-              ],
-            },
-          },
-        },
-        {
-          name: 'miam_domesticabuse_involvement',
-          label: l => l.letterOfBeingVictim,
-          hint: l => l.letterFromAuthority_hint,
-          value: 'letterOfBeingVictim',
-          subFields: {
-            miam_domesticabuse_letterOfBeingVictim_subfields: {
-              type: 'checkboxes',
-              validator: value => atLeastOneFieldIsChecked(value),
-              values: [
-                {
-                  name: 'miam_domesticabuse_letterOfBeingVictim_subfields',
-                  label: l => l.letterOfBeingVictim_subFields['letterFromHealthProfessional'],
-                  hint: l => l.letterOfBeingVictim_subFields['letterFromHealthProfessional_hint'],
-                  value: 'letterFromHealthProfessional',
-                },
-                {
-                  name: 'miam_domesticabuse_letterOfBeingVictim_subfields',
-                  label: l => l.letterOfBeingVictim_subFields['letterFromHPfromPerspectiveParty'],
-                  hint: l => l.letterOfBeingVictim_subFields['letterFromHPfromPerspectiveParty_hint'],
-                  value: 'letterFromHPfromPerspectiveParty',
-                },
-              ],
-            },
-          },
-        },
-        {
-          name: 'miam_domesticabuse_involvement',
-          label: l => l.letterFromAuthority,
-          hint: l => l.letterFromAuthority_hint,
-          value: 'letterFromAuthority',
-          subFields: {
-            miam_domesticabuse_letterFromAuthority_subfields: {
-              type: 'checkboxes',
-              validator: value => atLeastOneFieldIsChecked(value),
-              values: [
-                {
-                  name: 'miam_domesticabuse_letterFromAuthority_subfields',
-                  label: l => l.letterFromAuthority_subFields['letterFromMultiAgencyMember'],
-                  value: 'letterFromMultiAgencyMember',
-                },
-                {
-                  name: 'miam_domesticabuse_letterFromAuthority_subfields',
-                  label: l => l.letterFromAuthority_subFields['letterFromOfficer'],
-                  hint: l => l.letterFromAuthority_subFields['letterFromOfficer_hint'],
-                  value: 'letterFromOfficer',
-                },
-                {
-                  name: 'miam_domesticabuse_letterFromAuthority_subfields',
-                  label: l => l.letterFromAuthority_subFields['letterFromPublicAuthority'],
-                  value: 'letterFromPublicAuthority',
-                },
-              ],
-            },
-          },
-        },
-        {
-          name: 'miam_domesticabuse_involvement',
-          label: l => l.letterFromSupportService,
-          hint: l => l.letterFromSupportService_hint,
-          value: 'letterFromSupportService',
-          subFields: {
-            miam_domesticabuse_letterFromSupportService_subfields: {
-              type: 'checkboxes',
-              validator: value => atLeastOneFieldIsChecked(value),
-              values: [
-                {
-                  name: 'miam_domesticabuse_letterFromSupportService_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOfSomeoneArrest'],
-                  value: 'evidenceOfSomeoneArrest',
-                },
-                {
-                  name: 'miam_domesticabuse_letterFromSupportService_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOfPolice'],
-                  value: 'evidenceOfPolice',
-                },
-                {
-                  name: 'miam_domesticabuse_letterFromSupportService_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOfOnGoingCriminalProceeding'],
-                  value: 'evidenceOfOnGoingCriminalProceeding',
-                },
-                {
-                  name: 'miam_domesticabuse_letterFromSupportService_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOfConviction'],
-                  value: 'evidenceOfConviction',
-                },
-                {
-                  name: 'miam_domesticabuse_letterFromSupportService_subfields',
-                  label: l => l.policeInvolvement_subFields['evidenceOFProtectionNotice'],
-                  value: 'evidenceOFProtectionNotice',
-                },
-              ],
-            },
-          },
-        },
-        {
-          name: 'miam_domesticabuse_involvement',
-          label: l => l.ILRDuetoDomesticAbuse,
-          hint: l => l.ILRDuetoDomesticAbuse_hint,
-          value: 'ILRDuetoDomesticAbuse',
-        },
-        {
-          name: 'miam_domesticabuse_involvement',
-          label: l => l.financiallyAbuse,
-          hint: l => l.financiallyAbuse_hint,
-          value: 'financiallyAbuse',
-        },
-        {
-          divider: 'or',
-        },
-        {
-          name: 'miam_domesticabuse_involvement',
-          label: l => l.noneOfOptions,
-          value: 'none',
-          behaviour: 'exclusive',
-        },
-      ],
-    },
-  },
-  onlycontinue: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
-};
-
-export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    form,
-  };
-};
