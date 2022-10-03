@@ -370,5 +370,8 @@ describe('C100Sequence', () => {
     expect(C100Sequence[45].getNextStep({ miam_haveDocSigned: YesOrNo.NO })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
+    expect(C100Sequence[46].url).toBe('/c100-rebuild/miam/no-need');
+    expect(C100Sequence[46].showInSection).toBe('c100');
+    expect(C100Sequence[46].getNextStep({})).toBe('/c100-rebuild/miam/no-need');
   });
 });

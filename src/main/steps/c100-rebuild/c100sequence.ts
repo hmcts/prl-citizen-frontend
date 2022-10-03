@@ -361,6 +361,6 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_NONEED,
     showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    getNextStep: () => C100_MIAM_NONEED,
   },
 ];
