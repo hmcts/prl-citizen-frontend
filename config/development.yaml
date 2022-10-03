@@ -24,6 +24,8 @@ services:
     checkDivCases: true
   cos:
     url: 'https://prl-cos-pr-426.service.core-compute-preview.internal'
+  documentManagement:
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
 health:
   timeout: 5000
   deadline: 15000
