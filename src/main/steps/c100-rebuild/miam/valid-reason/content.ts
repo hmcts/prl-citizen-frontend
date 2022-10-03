@@ -5,6 +5,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
+  serviceName: 'Child Arrangements',
   title: 'Do you have valid reasons for not attending a MIAM?',
   paragraph1: 'You must attend a MIAM before making an application unless you have valid reasons not to attend.',
   applyForVrLink:
@@ -21,6 +22,7 @@ const en = () => ({
 });
 
 const cy = () => ({
+  serviceName: 'Child Arrangements',
   title: 'Do you have valid reasons for not attending a MIAM? - Welsh',
   paragraph1:
     'You must attend a MIAM before making an application unless you have valid reasons not to attend. - Welsh',
