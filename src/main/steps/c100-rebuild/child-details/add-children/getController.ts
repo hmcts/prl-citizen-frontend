@@ -5,10 +5,10 @@ import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../common/common.content';
-import { C100_CHILDERN_DETAILS_ADD } from '../../../urls';
+import { C100_children_DETAILS_ADD } from '../../../urls';
 
 @autobind
-export default class AddChildern extends GetController {
+export default class Addchildren extends GetController {
   constructor(
     protected readonly view: string,
     protected readonly content: TranslationFn,
@@ -21,8 +21,8 @@ export default class AddChildern extends GetController {
     if (res.locals.isError || res.headersSent) {
       return;
     }
-    if (!req.session.userCase.hasOwnProperty('tempChildernFormData')) {
-      req.session.userCase['tempChildernFormData'] = {
+    if (!req.session.userCase.hasOwnProperty('tempchildrenFormData')) {
+      req.session.userCase['tempchildrenFormData'] = {
         TempFirstName: '',
         TempLastName: '',
       };
@@ -65,13 +65,13 @@ export default class AddChildern extends GetController {
       const { action, childId } = req.query;
       switch (action) {
         case 'remove':
-          if (req.session.userCase.hasOwnProperty('childern') && req.session.userCase.childern) {
-            req.session.userCase['childern'] = req.session.userCase.childern.filter(child => child['id'] !== childId);
+          if (req.session.userCase.hasOwnProperty('children') && req.session.userCase.children) {
+            req.session.userCase['children'] = req.session.userCase.children.filter(child => child['id'] !== childId);
             return req.session.save(err => {
               if (err) {
                 console.log(err);
               }
-              res.redirect(C100_CHILDERN_DETAILS_ADD);
+              res.redirect(C100_children_DETAILS_ADD);
             });
           }
           break;

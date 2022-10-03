@@ -6,7 +6,7 @@ import { State } from '../../../../app/case/definition';
 //import { generatePageContent } from '../../../../steps/common/common.content';
 import * as Urls from '../../../../steps/urls';
 
-import AddChildernMatterGetController from './getController';
+import AddchildrenMatterGetController from './getController';
 
 const dummySessionData = {
   ListOfChild: [
@@ -47,9 +47,9 @@ const dummySessionData = {
   ],
 };
 
-describe('AddChildernMatterGetController', () => {
+describe('AddchildrenMatterGetController', () => {
   test('Should render the page', async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -58,12 +58,12 @@ describe('AddChildernMatterGetController', () => {
   });
 
   test('Testing controller native methods to ensure right validation', async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest({ userCase: { state: State.AwaitingPayment } });
     const res = mockResponse();
     await controller.get(req, res);
-    req.originalUrl = Urls.C100_CHILDERN_DETAILS_CHILD_MATTERS;
+    req.originalUrl = Urls.C100_children_DETAILS_CHILD_MATTERS;
     controller.clearConfidentialitySessionSaveData(req);
     expect(req.session['contactDetailsPrivateAlternative']).toBe(undefined);
     expect(req.originalUrl).toBe(req.originalUrl);
@@ -71,7 +71,7 @@ describe('AddChildernMatterGetController', () => {
 
   describe('Getting the users preferred language', () => {
     test('Language whelsh via session', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'cy';
       const req = mockRequest();
@@ -94,9 +94,9 @@ describe('AddChildernMatterGetController', () => {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
-        childernForms: req.session.settings?.['toggleChild'],
+        childrenForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
+        listedchildren: req.session.settings.ListOfChild,
         childDetails: req.session.settings.ListOfChild.filter(child => child.id === childId)[0],
         checkIfDecisionMade,
         childId,
@@ -106,7 +106,7 @@ describe('AddChildernMatterGetController', () => {
     });
 
     test('Language english via session', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'en';
       const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
@@ -130,9 +130,9 @@ describe('AddChildernMatterGetController', () => {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
-        childernForms: req.session.settings?.['toggleChild'],
+        childrenForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
+        listedchildren: req.session.settings.ListOfChild,
         childDetails: req.session.settings.ListOfChild.filter(child => child.id === childId)[0],
         checkIfDecisionMade,
         childId,
@@ -142,7 +142,7 @@ describe('AddChildernMatterGetController', () => {
     });
 
     test('Language via browser settings - welsh', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'cy';
       const req = mockRequest({ headers: { 'accept-language': 'cy' } });
@@ -153,7 +153,7 @@ describe('AddChildernMatterGetController', () => {
     });
 
     test('Language via browser settings - English', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
       const language = 'en';
       const req = mockRequest({ headers: { 'accept-language': 'en' } });
@@ -165,7 +165,7 @@ describe('AddChildernMatterGetController', () => {
   });
 
   test("Doesn't call render if an error page has already been rendered upstream", async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -175,7 +175,7 @@ describe('AddChildernMatterGetController', () => {
   });
 
   test("Doesn't call render if headers have already been sent already upstream", async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -185,7 +185,7 @@ describe('AddChildernMatterGetController', () => {
   });
 
   test('sends the current page form session state to the view', async () => {
-    const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+    const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -195,7 +195,7 @@ describe('AddChildernMatterGetController', () => {
 
   describe('generatePageContent()', () => {
     test('calls generatePageContent with correct arguments for new sessions', async () => {
-      const controller = new AddChildernMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
+      const controller = new AddchildrenMatterGetController('page', () => ({}), FieldPrefix.APPLICANT);
 
       const req = mockRequest({ userCase: { state: State.Draft }, session: { errors: [] } });
       const res = mockResponse();

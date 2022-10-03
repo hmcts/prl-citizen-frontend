@@ -5,7 +5,7 @@ import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
-import { C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
+import { C100_children_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
 @autobind
 export default class ParentResponsibility extends GetController {
   constructor(
@@ -42,16 +42,16 @@ export default class ParentResponsibility extends GetController {
         req.session.errors = undefined;
       }
       super.clearConfidentialitySessionSaveData(req);
-      const postURL = `${C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY}?childId=${childId}`;
+      const postURL = `${C100_children_DETAILS_PARENTIAL_RESPONSIBILITY}?childId=${childId}`;
       const parentialResponsbilityStatement = childDetails?.parentialResponsibility?.statement;
 
       res.render(this.view, {
         ...content,
         sessionErrors,
         htmlLang: language,
-        childernForms: req.session.settings?.['toggleChild'],
+        childrenForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
+        listedchildren: req.session.settings.ListOfChild,
         childDetails,
         childId,
         postURL,

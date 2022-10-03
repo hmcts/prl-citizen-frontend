@@ -61,30 +61,30 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['tempChildernFormData'] = {
+    req.session.userCase['tempchildrenFormData'] = {
       TempFirstName: 'Test1',
       TempLastName: 'Test2',
     };
     controller.resetSessionTemporaryFormValues(req);
-    expect(req.session.userCase['tempChildernFormData']).toEqual({
+    expect(req.session.userCase['tempchildrenFormData']).toEqual({
       TempFirstName: '',
       TempLastName: '',
     });
   });
 
-  test('Adding childern after clicking on Continue Button', async () => {
+  test('Adding children after clicking on Continue Button', async () => {
     const mockFields = {
       fields: {},
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['childern'] = dummyChild;
+    req.session.userCase['children'] = dummyChild;
     req.body = {
       'childFirstName-1': '',
       'childLastName-1': '',
     };
     controller.mapEnteriesToValuesAfterContinuing(req, mockResponse());
-    expect(req.session.userCase['childern']).toEqual([
+    expect(req.session.userCase['children']).toEqual([
       {
         id: '8689c8b2-a4f9-45f1-823a-66e18107852d',
         firstname: '',
@@ -122,28 +122,28 @@ describe('PostController', () => {
     ]);
   });
 
-  test('Adding childern after clicking on Continue Button - s', async () => {
+  test('Adding children after clicking on Continue Button - s', async () => {
     const mockFields = {
       fields: {},
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['childern'] = dummyChild;
+    req.session.userCase['children'] = dummyChild;
     req.body = {
       'childFirstName-1': '',
       'childLastName-1': '',
     };
     controller.post(req, mockResponse());
-    expect(req.session.userCase['childern']).toHaveLength(2);
+    expect(req.session.userCase['children']).toHaveLength(2);
   });
 
-  test('Adding childern after if both body appliantfirst and childLastName is empty', async () => {
+  test('Adding children after if both body appliantfirst and childLastName is empty', async () => {
     const mockFields = {
       fields: {},
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['childern'] = dummyChild;
+    req.session.userCase['children'] = dummyChild;
     req.body = {
       'childFirstName-1': '',
       'childLastName-1': '',
@@ -151,7 +151,7 @@ describe('PostController', () => {
       lastname: '',
     };
     controller.post(req, mockResponse());
-    expect(req.session.userCase['childern']).toHaveLength(2);
+    expect(req.session.userCase['children']).toHaveLength(2);
   });
 
   test('Adding Applicant after if both body appliantfirst and applicantlastname with values', async () => {
@@ -160,7 +160,7 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['childern'] = dummyChild;
+    req.session.userCase['children'] = dummyChild;
     req.session.save = function () {
       return req.session;
     };
@@ -172,7 +172,7 @@ describe('PostController', () => {
       lastname: 'tes',
     };
     controller.post(req, mockResponse());
-    expect(req.session.userCase['childern']).toHaveLength(3);
+    expect(req.session.userCase['children']).toHaveLength(3);
   });
   test('Adding another applicant using addAnotherchild', async () => {
     const mockFields = {
@@ -180,7 +180,7 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['childern'] = dummyChild;
+    req.session.userCase['children'] = dummyChild;
     req.session.save = function () {
       return req.session;
     };
@@ -189,7 +189,7 @@ describe('PostController', () => {
       lastname: 'dummy 3',
     };
     controller.addAnotherChild(req);
-    expect(req.session.userCase['childern']).toHaveLength(3);
-    expect(req.session.userCase['childern'][2].firstname).toBe('dummy 3');
+    expect(req.session.userCase['children']).toHaveLength(3);
+    expect(req.session.userCase['children'][2].firstname).toBe('dummy 3');
   });
 });

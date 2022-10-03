@@ -6,7 +6,7 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
-import { C100_CHILDERN_DETAILS_CHILD_MATTERS } from '../../../urls';
+import { C100_children_DETAILS_CHILD_MATTERS } from '../../../urls';
 
 type listOfCheckedBoxItems = {
   text: string;
@@ -14,7 +14,7 @@ type listOfCheckedBoxItems = {
 }[];
 
 @autobind
-export default class AddChildernMatter extends GetController {
+export default class AddchildrenMatter extends GetController {
   constructor(
     protected readonly view: string,
     protected readonly content: TranslationFn,
@@ -51,7 +51,7 @@ export default class AddChildernMatter extends GetController {
       super.clearConfidentialitySessionSaveData(req);
 
       const checkIfDecisionMade = childDetails?.childMatter?.isDecisionTaken;
-      const postURL = `${C100_CHILDERN_DETAILS_CHILD_MATTERS}?childId=${childId}`;
+      const postURL = `${C100_children_DETAILS_CHILD_MATTERS}?childId=${childId}`;
 
       let listOfItems: listOfCheckedBoxItems = [
         {
@@ -72,9 +72,9 @@ export default class AddChildernMatter extends GetController {
         ...content,
         sessionErrors,
         htmlLang: language,
-        childernForms: req.session.settings?.['toggleChild'],
+        childrenForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
+        listedchildren: req.session.settings.ListOfChild,
         childDetails,
         checkIfDecisionMade,
         childId,

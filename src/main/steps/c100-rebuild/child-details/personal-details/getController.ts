@@ -6,7 +6,7 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
-import { C100_CHILDERN_DETAILS_PERSONAL_DETAILS } from '../../../urls';
+import { C100_children_DETAILS_PERSONAL_DETAILS } from '../../../urls';
 
 @autobind
 export default class Personaldetails extends GetController {
@@ -67,7 +67,7 @@ export default class Personaldetails extends GetController {
         day: approxDobOfchild?.[0],
       };
 
-      const postURL = `${C100_CHILDERN_DETAILS_PERSONAL_DETAILS}?childId=${childId}`;
+      const postURL = `${C100_children_DETAILS_PERSONAL_DETAILS}?childId=${childId}`;
 
       let childSex: { value: string; text: string; checked?: string }[] = [
         {
@@ -101,9 +101,9 @@ export default class Personaldetails extends GetController {
         ...content,
         sessionErrors,
         htmlLang: language,
-        childernForms: req.session.settings?.['toggleChild'],
+        childrenForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
+        listedchildren: req.session.settings.ListOfChild,
         childDetails,
         childSex,
         dob,

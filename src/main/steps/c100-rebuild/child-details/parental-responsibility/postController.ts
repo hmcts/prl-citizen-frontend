@@ -5,9 +5,9 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import {
-  C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
-  C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
-  C100_CHILDERN_FURTHER_INFORMATION,
+  C100_children_DETAILS_PARENTIAL_RESPONSIBILITY,
+  C100_children_DETAILS_PERSONAL_DETAILS,
+  C100_children_FURTHER_INFORMATION,
 } from '../../../urls';
 
 @autobind
@@ -33,17 +33,17 @@ export default class ParentResponsibility extends PostController<AnyObject> {
           req.session.settings.ListOfChild[currentChild].parentialResponsibility = {
             statement: '',
           };
-          const redirectUrl = C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
+          const redirectUrl = C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
           super.redirect(req, res, redirectUrl);
         } else {
           req.session.settings.ListOfChild[currentChild].parentialResponsibility = {
             statement: req.body.parentalResponsibility,
           };
           if (currentChild + 1 >= req.session.settings.ListOfChild.length) {
-            super.redirect(req, res, C100_CHILDERN_FURTHER_INFORMATION);
+            super.redirect(req, res, C100_children_FURTHER_INFORMATION);
           } else {
             const nextChildId = req.session.settings['ListOfChild'][currentChild + 1];
-            const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${nextChildId.id}`;
+            const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${nextChildId.id}`;
             super.redirect(req, res, redirectUrl);
           }
         }

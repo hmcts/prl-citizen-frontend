@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { childernDetails } from '../../../../app/controller/AppRequest';
+import { childrenDetails } from '../../../../app/controller/AppRequest';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -128,15 +128,15 @@ describe('checking form fields', () => {
   });
 });
 
-describe('child > add-childern > content', () => {
+describe('child > add-children > content', () => {
   const commonContent = {
     language: 'en',
     additionalData: {
       req: {
         session: {
           userCase: {
-            childern: dummyChild,
-            tempChildernFormData: {
+            children: dummyChild,
+            tempchildrenFormData: {
               TempFirstName: 'dummy',
               TempLastName: 'dummy',
             },
@@ -153,7 +153,7 @@ describe('child > add-childern > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(dummyChild as childernDetails[]);
+    const { errors } = generateFormFields(dummyChild as childrenDetails[]);
     languageAssertions(
       'en',
       {
@@ -169,7 +169,7 @@ describe('child > add-childern > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(dummyChild as childernDetails[]);
+    const { errors } = generateFormFields(dummyChild as childrenDetails[]);
     languageAssertions(
       'cy',
       {
@@ -195,7 +195,7 @@ describe('child > add-childern > content', () => {
     ).toBe('Save and come back later');
   });
 
-  test('child > add-childern > content › checking generated form fields', () => {
+  test('child > add-children > content › checking generated form fields', () => {
     const formFields = generateFormFields([
       {
         id: 'b910ce67-3f36-41e8-aa74-5a1276a65368',

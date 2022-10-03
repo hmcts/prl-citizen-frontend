@@ -6,7 +6,7 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { C100_CHILDERN_DETAILS_CHILD_MATTERS, C100_CHILDERN_DETAILS_PERSONAL_DETAILS } from '../../../urls';
+import { C100_children_DETAILS_CHILD_MATTERS, C100_children_DETAILS_PERSONAL_DETAILS } from '../../../urls';
 
 /* Defining the minimum and maximum values for the day, month and year. */
 const DateValidations = {
@@ -77,7 +77,7 @@ export default class Personaldetails extends PostController<AnyObject> {
             ApproximateDateOfBirth: '//',
           };
           req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
-          const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+          const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
           super.redirect(req, res, redirectUrl);
         } else {
           /* Checking if the date is valid and if it is not valid it is redirecting to the same page. */
@@ -100,7 +100,7 @@ export default class Personaldetails extends PostController<AnyObject> {
                 errorType: 'required',
               });
             }
-            const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+            const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
             super.redirect(req, res, redirectUrl);
           } else {
             this.proceedWithoutError(req, res);
@@ -136,7 +136,7 @@ export default class Personaldetails extends PostController<AnyObject> {
         } else {
           return;
         }
-        const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+        const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
         super.redirect(req, res, redirectUrl);
       }
     } else {
@@ -153,7 +153,7 @@ export default class Personaldetails extends PostController<AnyObject> {
           propertyName: 'cannotHaveBothApproxAndExact',
           errorType: 'required',
         });
-        const redirectUrl = C100_CHILDERN_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+        const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
         super.redirect(req, res, redirectUrl);
       } else {
         this.proceedWithoutError(req, res);
@@ -177,7 +177,7 @@ export default class Personaldetails extends PostController<AnyObject> {
       if (checkIfChildIdMatches) {
         const matchChildIndex = req.session.settings.ListOfChild.findIndex(child => child.id === childId);
         req.session.settings.ListOfChild[matchChildIndex].personalDetails = this.personalDetailsMapper(req);
-        const redirectUrl = C100_CHILDERN_DETAILS_CHILD_MATTERS + `?childId=${childId}`;
+        const redirectUrl = C100_children_DETAILS_CHILD_MATTERS + `?childId=${childId}`;
         super.redirect(req, res, redirectUrl);
       } else {
         res.render('error');

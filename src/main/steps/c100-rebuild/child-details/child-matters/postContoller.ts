@@ -5,10 +5,10 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { C100_CHILDERN_DETAILS_CHILD_MATTERS, C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
+import { C100_children_DETAILS_CHILD_MATTERS, C100_children_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
 
 @autobind
-export default class AddChildernMatter extends PostController<AnyObject> {
+export default class AddchildrenMatter extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
@@ -31,14 +31,14 @@ export default class AddChildernMatter extends PostController<AnyObject> {
           req.session.settings.ListOfChild[matchChildIndex].childMatter = {
             isDecisionTaken: YesOrNo.NO,
           };
-          const redirectUrl = C100_CHILDERN_DETAILS_CHILD_MATTERS + `?childId=${childId}`;
+          const redirectUrl = C100_children_DETAILS_CHILD_MATTERS + `?childId=${childId}`;
           super.redirect(req, res, redirectUrl);
         } else {
           const isDecisionTaken = req.body.isDecisionTaken !== '' ? YesOrNo.NO : YesOrNo.YES;
           req.session.settings.ListOfChild[matchChildIndex].childMatter = {
             isDecisionTaken,
           };
-          const redirectUrl = C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
+          const redirectUrl = C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
           super.redirect(req, res, redirectUrl);
         }
       } else {

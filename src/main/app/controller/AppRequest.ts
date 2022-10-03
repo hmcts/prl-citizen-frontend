@@ -33,7 +33,7 @@ export interface AppSession extends Session {
   settings: ApplicationSettings;
 }
 
-export type childernDetails = {
+export type childrenDetails = {
   id: undefined | string;
   firstname: string | unknown;
   lastname: string | unknown;
@@ -57,7 +57,7 @@ export interface ApplicationSettings {
     TempFirstName: string | unknown;
     TempLastName: string | unknown;
   };
-  ListOfChild: childernDetails[];
+  ListOfChild: childrenDetails[];
 }
 
 export interface UserDetails {

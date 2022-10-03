@@ -1,8 +1,8 @@
-import { childernDetails } from '../../../../app/controller/AppRequest';
+import { childrenDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { C100_CHILDERN_DETAILS_ADD } from '../../../urls';
+import { C100_children_DETAILS_ADD } from '../../../urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -48,15 +48,12 @@ const languages = {
   cy,
 };
 
-export const generateFormFields = (applicantData: childernDetails[]): GenerateDynamicFormFields => {
+export const generateFormFields = (applicantData: childrenDetails[]): GenerateDynamicFormFields => {
   const fields = {};
   const errors = {
     en: {},
     cy: {},
   };
-
-  console.log(applicantData);
-
   for (let index = 0; index < applicantData.length; index++) {
     const count = index + 1;
     const key = `fieldset${count}`;
@@ -90,7 +87,7 @@ export const generateFormFields = (applicantData: childernDetails[]): GenerateDy
           label: l => l.removeChild + ` ${count}`,
           classes: 'govuk-button govuk-button--warning margin-top-3',
           value: 'Yes',
-          href: `${C100_CHILDERN_DETAILS_ADD}?action=remove&childId=${applicantData[index].id}`,
+          href: `${C100_children_DETAILS_ADD}?action=remove&childId=${applicantData[index].id}`,
         },
       },
     };
@@ -176,10 +173,10 @@ const updatedSessionValue = (formValues: FormContent, sessionData) => {
 
 export const generateContent: TranslationFn = content => {
   const sessionDataOFApplicant = content.additionalData?.req.session;
-  const applicantData: childernDetails[] =
-    sessionDataOFApplicant['userCase'].hasOwnProperty('childern') && sessionDataOFApplicant['userCase']['childern']
-      ? sessionDataOFApplicant['userCase']['childern']
-      : ([] as childernDetails[]);
+  const applicantData: childrenDetails[] =
+    sessionDataOFApplicant['userCase'].hasOwnProperty('children') && sessionDataOFApplicant['userCase']['children']
+      ? sessionDataOFApplicant['userCase']['children']
+      : ([] as childrenDetails[]);
   const translations = languages[content.language]();
 
   const { fields, errors } = generateFormFields(applicantData);
@@ -192,7 +189,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form: updateFormFields(
-      updatedSessionValue(form, content.additionalData?.req.session.userCase?.tempChildernFormData),
+      updatedSessionValue(form, content.additionalData?.req.session.userCase?.tempchildrenFormData),
       fields
     ),
   };

@@ -60,7 +60,7 @@ export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data
 
 export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
-export type childernDetails = {
+export type childrenDetails = {
   id: undefined | string;
   firstname: string | unknown;
   lastname: string | unknown;
@@ -241,6 +241,8 @@ export interface Case {
   hu_urgentHearingReasons?: YesOrNo;
   childern?: childernDetails[];
   tempChildernFormData?: {
+  children?: childrenDetails[];
+  tempchildrenFormData?: {
     TempFirstName: string | unknown;
     TempLastName: string | unknown;
   };

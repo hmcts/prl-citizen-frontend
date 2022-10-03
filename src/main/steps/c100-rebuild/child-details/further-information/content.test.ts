@@ -9,7 +9,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   headingTitle: 'Further Information',
-  childrenKnownToSocialServicesLable: 'Are any of the childern known to social service?',
+  childrenKnownToSocialServicesLable: 'Are any of the children known to social service?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan?',
@@ -33,7 +33,7 @@ const en = {
 
 const cy = {
   headingTitle: 'Further Information - welsh',
-  childrenKnownToSocialServicesLable: 'Are any of the childern known to social service - welsh?',
+  childrenKnownToSocialServicesLable: 'Are any of the children known to social service - welsh?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known - welsh',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan - welsh?',

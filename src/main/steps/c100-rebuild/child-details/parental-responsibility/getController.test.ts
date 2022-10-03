@@ -5,7 +5,7 @@ import { FieldPrefix } from '../../../../app/case/case';
 import { State } from '../../../../app/case/definition';
 //import { generatePageContent } from '../../../../steps/common/common.content';
 import * as Urls from '../../../../steps/urls';
-import { C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
+import { C100_children_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
 
 import ParentResponsibility from './getController';
 
@@ -48,7 +48,7 @@ const dummySessionData = {
   ],
 };
 
-describe('AddChildernMatterGetController', () => {
+describe('AddchildrenMatterGetController', () => {
   test('Should render the page', async () => {
     const controller = new ParentResponsibility('page', () => ({}), FieldPrefix.APPLICANT);
 
@@ -64,7 +64,7 @@ describe('AddChildernMatterGetController', () => {
     const req = mockRequest({ userCase: { state: State.AwaitingPayment } });
     const res = mockResponse();
     await controller.get(req, res);
-    req.originalUrl = Urls.C100_CHILDERN_DETAILS_CHILD_MATTERS;
+    req.originalUrl = Urls.C100_children_DETAILS_CHILD_MATTERS;
     controller.clearConfidentialitySessionSaveData(req);
     expect(req.session['contactDetailsPrivateAlternative']).toBe(undefined);
     expect(req.originalUrl).toBe(req.originalUrl);
@@ -94,13 +94,13 @@ describe('AddChildernMatterGetController', () => {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
-        childernForms: req.session.settings?.['toggleChild'],
+        childrenForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
+        listedchildren: req.session.settings.ListOfChild,
         childDetails: req.session.settings.ListOfChild.filter(child => child.id === childId)[0],
         checkIfDecisionMade,
         childId,
-        postURL: `${C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY}?childId=${childId}`,
+        postURL: `${C100_children_DETAILS_PARENTIAL_RESPONSIBILITY}?childId=${childId}`,
         parentialResponsbilityStatement: childDetails?.parentialResponsibility?.statement,
       });
     });
@@ -130,13 +130,13 @@ describe('AddChildernMatterGetController', () => {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
-        childernForms: req.session.settings?.['toggleChild'],
+        childrenForms: req.session.settings?.['toggleChild'],
         formaction: req.originalUrl,
-        listedChildern: req.session.settings.ListOfChild,
+        listedchildren: req.session.settings.ListOfChild,
         childDetails: req.session.settings.ListOfChild.filter(child => child.id === childId)[0],
         checkIfDecisionMade,
         childId,
-        postURL: `${C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY}?childId=${childId}`,
+        postURL: `${C100_children_DETAILS_PARENTIAL_RESPONSIBILITY}?childId=${childId}`,
         parentialResponsbilityStatement: childDetails?.parentialResponsibility?.statement,
       });
     });

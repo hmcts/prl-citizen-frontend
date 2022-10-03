@@ -3,17 +3,17 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Case, childernDetails } from '../../../../app/case/case';
+import { Case, childrenDetails } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { C100_CHILDERN_DETAILS_ADD, C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
+import { C100_children_DETAILS_ADD, C100_children_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
 
 // eslint-disable-next-line import/no-unresolved
 
 @autobind
 /* It takes in a request and a response object, and then it does a bunch of stuff */
-export default class AddChildernPostController extends PostController<AnyObject> {
+export default class AddchildrenPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
@@ -24,8 +24,7 @@ export default class AddChildernPostController extends PostController<AnyObject>
    * @param {Response} res - Response - this is the response object that is passed to the controller.
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log(req.body);
-    req.session.userCase.tempChildernFormData = {
+    req.session.userCase.tempchildrenFormData = {
       TempFirstName: req['body']['firstname'],
       TempLastName: req['body']['lastname'],
     };
@@ -36,11 +35,11 @@ export default class AddChildernPostController extends PostController<AnyObject>
       const form = new Form(fields);
       const { _csrf, ...formData } = form.getParsedBody(req.body);
       if (
-        (req.session.userCase.childern?.length === 0 && req['body']['firstname'] === '') ||
-        (req.session.userCase.childern?.length === 0 && req['body']['lastname'] === '')
+        (req.session.userCase.children?.length === 0 && req['body']['firstname'] === '') ||
+        (req.session.userCase.children?.length === 0 && req['body']['lastname'] === '')
       ) {
         req.session.errors = form.getErrors(formData);
-        return super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+        return super.redirect(req, res, C100_children_DETAILS_ADD);
       }
 
       /* Checking if the applicant fields are filled, and if they are, it is mapping the entries to the
@@ -50,9 +49,9 @@ export default class AddChildernPostController extends PostController<AnyObject>
         this.errorsAndRedirect(req, res, formData, form);
         this.addAnotherChild(req);
         this.resetSessionTemporaryFormValues(req);
-        req.session.userCase.tempChildernFormData = undefined;
+        req.session.userCase.tempchildrenFormData = undefined;
         const redirectURI =
-          C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${req.session.userCase?.childern?.[0].id}`;
+          C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${req.session.userCase?.children?.[0].id}`;
         return super.redirect(req, res, redirectURI);
       } else {
         this.mapEnteriesToValuesAfterContinuing(req, res);
@@ -70,7 +69,7 @@ export default class AddChildernPostController extends PostController<AnyObject>
           break;
         default:
       }
-      return super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+      return super.redirect(req, res, C100_children_DETAILS_ADD);
     }
   }
 
@@ -87,7 +86,7 @@ export default class AddChildernPostController extends PostController<AnyObject>
   protected errorsAndRedirect(req: AppRequest<AnyObject>, res: Response, formData: Partial<Case>, form: Form) {
     req.session.errors = form.getErrors(formData);
     if (req.session.errors.length) {
-      return super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+      return super.redirect(req, res, C100_children_DETAILS_ADD);
     }
   }
 
@@ -117,11 +116,11 @@ export default class AddChildernPostController extends PostController<AnyObject>
         statement: '',
       },
     };
-    let applicantInSession: childernDetails[] = [];
-    if (req.session.userCase.hasOwnProperty('childern') && req.session.userCase.childern) {
-      applicantInSession = req.session.userCase.childern;
+    let applicantInSession: childrenDetails[] = [];
+    if (req.session.userCase.hasOwnProperty('children') && req.session.userCase.children) {
+      applicantInSession = req.session.userCase.children;
     }
-    req.session.userCase.childern = [...applicantInSession, applicantInformation];
+    req.session.userCase.children = [...applicantInSession, applicantInformation];
     req.session.save();
   }
 
@@ -130,8 +129,8 @@ export default class AddChildernPostController extends PostController<AnyObject>
    * @param req - AppRequest<AnyObject>
    */
   public mapEnteriesToValuesAfterContinuing(req: AppRequest<AnyObject>, res: Response): void {
-    const lengthOfApplicantInSession = req.session.userCase.childern?.length;
-    const newApplicantStorage: childernDetails[] = [];
+    const lengthOfApplicantInSession = req.session.userCase.children?.length;
+    const newApplicantStorage: childrenDetails[] = [];
     const errorMessageStorage = [];
     if (lengthOfApplicantInSession) {
       for (let child = 0; child < lengthOfApplicantInSession; child++) {
@@ -139,10 +138,10 @@ export default class AddChildernPostController extends PostController<AnyObject>
         const childFirstName = req.body[`childFirstName-${currentIndexPositioninBody}`] as string;
         const childLastName = req.body[`childLastName-${currentIndexPositioninBody}`] as string;
         if (childFirstName !== '' && childLastName !== '') {
-          if (req.session.userCase.childern) {
-            const { id } = req.session.userCase.childern[child];
+          if (req.session.userCase.children) {
+            const { id } = req.session.userCase.children[child];
             const applicantObject = {
-              ...req.session.userCase.childern[child],
+              ...req.session.userCase.children[child],
               id,
               firstname: childFirstName,
               lastname: childLastName,
@@ -162,10 +161,10 @@ export default class AddChildernPostController extends PostController<AnyObject>
               errorType: 'required',
             } as never);
           }
-          if (req.session.userCase.childern) {
-            const { id } = req.session.userCase.childern[child];
+          if (req.session.userCase.children) {
+            const { id } = req.session.userCase.children[child];
             const applicantObject = {
-              ...req.session.userCase.childern[child],
+              ...req.session.userCase.children[child],
               id,
               firstname: childFirstName,
               lastname: childLastName,
@@ -176,21 +175,21 @@ export default class AddChildernPostController extends PostController<AnyObject>
       }
     }
     if (errorMessageStorage.length === 0) {
-      req.session.userCase.childern = newApplicantStorage;
-      req.session.userCase.tempChildernFormData = undefined;
+      req.session.userCase.children = newApplicantStorage;
+      req.session.userCase.tempchildrenFormData = undefined;
       const redirectURI =
-        C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${req.session.userCase.childern[0].id}`;
+        C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${req.session.userCase.children[0].id}`;
       return super.redirect(req, res, redirectURI);
     } else {
-      req.session.userCase.childern = newApplicantStorage;
-      req.session.userCase.tempChildernFormData = undefined;
+      req.session.userCase.children = newApplicantStorage;
+      req.session.userCase.tempchildrenFormData = undefined;
       req.session.errors = errorMessageStorage;
-      return super.redirect(req, res, C100_CHILDERN_DETAILS_ADD);
+      return super.redirect(req, res, C100_children_DETAILS_ADD);
     }
   }
 
   public resetSessionTemporaryFormValues(req: AppRequest<AnyObject>): void {
-    req.session.userCase['tempChildernFormData'] = {
+    req.session.userCase['tempchildrenFormData'] = {
       TempFirstName: '',
       TempLastName: '',
     };

@@ -4,7 +4,7 @@ import { FormContent } from '../../../../app/form/Form';
 import * as steps from '../../../../steps';
 //import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 // import { ApplicationType, CITIZEN_UPDATE /*, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE*/ } from '../case/definition';
-import { C100_CHILDERN_DETAILS_CHILD_MATTERS } from '../../../urls';
+import { C100_children_DETAILS_CHILD_MATTERS } from '../../../urls';
 
 import Personaldetails from './postController';
 
@@ -100,7 +100,7 @@ describe('PostController', () => {
     req.session.settings = settings;
     await controller.proceedWithoutError(req, res);
 
-    const redirectUrl = C100_CHILDERN_DETAILS_CHILD_MATTERS + `?childId=${dummySessionData.ListOfChild[0].id}`;
+    const redirectUrl = C100_children_DETAILS_CHILD_MATTERS + `?childId=${dummySessionData.ListOfChild[0].id}`;
     expect(req.originalUrl).not.toBe(redirectUrl);
     expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
   });
@@ -125,7 +125,7 @@ describe('PostController', () => {
     req.session.settings = settings;
     await controller.proceedWithoutError(req, res);
 
-    const redirectUrl = C100_CHILDERN_DETAILS_CHILD_MATTERS + `?childId=${dummySessionData.ListOfChild[0].id}`;
+    const redirectUrl = C100_children_DETAILS_CHILD_MATTERS + `?childId=${dummySessionData.ListOfChild[0].id}`;
     expect(req.originalUrl).not.toBe(redirectUrl);
     expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
   });

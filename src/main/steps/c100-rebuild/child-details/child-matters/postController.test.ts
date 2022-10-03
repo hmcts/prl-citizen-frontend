@@ -5,7 +5,7 @@ import * as steps from '../../../../steps';
 //import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 // import { ApplicationType, CITIZEN_UPDATE /*, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE*/ } from '../case/definition';
 
-import AddChilderns from './postContoller';
+import Addchildrens from './postContoller';
 
 // import Mock = jest.Mock;
 
@@ -61,7 +61,7 @@ describe('PostController', () => {
     const mockPhoneNumberFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new AddChilderns(mockPhoneNumberFormContent.fields);
+    const controller = new Addchildrens(mockPhoneNumberFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
@@ -84,7 +84,7 @@ describe('PostController', () => {
     const mockPhoneNumberFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new AddChilderns(mockPhoneNumberFormContent.fields);
+    const controller = new Addchildrens(mockPhoneNumberFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
@@ -108,7 +108,7 @@ describe('PostController', () => {
     const mockPhoneNumberFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new AddChilderns(mockPhoneNumberFormContent.fields);
+    const controller = new Addchildrens(mockPhoneNumberFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
