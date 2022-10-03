@@ -57,6 +57,24 @@ export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data
 
 export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
+export type childernDetails = {
+  id: undefined | string;
+  firstname: string | unknown;
+  lastname: string | unknown;
+  personalDetails?: {
+    DateoBirth: string;
+    isDateOfBirthKnown: YesOrNo | string;
+    ApproximateDateOfBirth: string;
+    Sex: string | unknown;
+  };
+  childMatter?: {
+    isDecisionTaken: string | unknown;
+  };
+  parentialResponsibility?: {
+    statement: string | unknown;
+  };
+};
+
 export interface Case {
   /***** case code authorization fields *****/
   serviceType: string;
@@ -208,6 +226,11 @@ export interface Case {
   haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
+  childern?: childernDetails[];
+  tempChildernFormData?: {
+    TempFirstName: string | unknown;
+    TempLastName: string | unknown;
+  };
 }
 
 export interface CaseWithId extends Case {
