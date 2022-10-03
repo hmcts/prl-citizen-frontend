@@ -50,8 +50,12 @@ import {
   C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   PageLink,
   C100_DOCUMENT_SUBMISSION,
+
+  /** @MIAM */
+  C100_MIAM_MEDIATOR_DOCUMENT,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -347,5 +351,16 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
+  },
+  {
+    url: C100_MIAM_MEDIATOR_DOCUMENT,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.startAlternative === YesOrNo.YES ? C100_CONFIDENTIALITY_DETAILS_KNOW : C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   },
 ];
