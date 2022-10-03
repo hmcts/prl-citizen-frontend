@@ -4,10 +4,11 @@ import { Response } from 'express';
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
-import { Language, generatePageContent } from '../../../../steps/common/common.content';
+import { Language, generatePageContent } from '../../../common/common.content';
+import { C100_CHILDERN_DETAILS_ADD } from '../../../urls';
 
 @autobind
-export default class AddChilderns extends GetController {
+export default class AddChildern extends GetController {
   constructor(
     protected readonly view: string,
     protected readonly content: TranslationFn,
@@ -20,6 +21,12 @@ export default class AddChilderns extends GetController {
     if (res.locals.isError || res.headersSent) {
       return;
     }
+    if (!req.session.userCase.hasOwnProperty('tempChildernFormData')) {
+      req.session.userCase['tempChildernFormData'] = {
+        TempFirstName: '',
+        TempLastName: '',
+      };
+    }
 
     const language = super.getPreferredLanguage(req) as Language;
 
@@ -28,38 +35,49 @@ export default class AddChilderns extends GetController {
       pageContent: this.content,
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
+      additionalData: {
+        req,
+      },
     });
 
     const sessionErrors = req.session?.errors || [];
-    const listOfChild = req.session.settings.ListOfChild;
     if (req.session?.errors) {
       req.session.errors = undefined;
     }
-
     super.clearConfidentialitySessionSaveData(req);
-
-    this.addChildQueryInSession(req, res);
-    res.render(this.view, {
-      ...content,
-      sessionErrors,
-      htmlLang: language,
-      childernForms: req.session.settings?.['toggleChild'],
-      formaction: req.originalUrl,
-      listedChildern: listOfChild,
-      tempFormData: req.session.settings.childTemporaryFormData,
-    });
+    const checkIFNotRemoveQuery = req.query.hasOwnProperty('action') && req.query.hasOwnProperty('childId');
+    if (checkIFNotRemoveQuery) {
+      this.removeApplicantUsingId(req, res);
+    } else {
+      res.render(this.view, {
+        ...content,
+        sessionErrors,
+        htmlLang: language,
+        tempFirstName: '',
+        tempLastName: '',
+      });
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  public addChildQueryInSession = (req: AppRequest, res: Response) => {
-    if (req.query.hasOwnProperty('addChild')) {
-      const { addChild } = req.query;
-      switch (addChild) {
-        case 'true':
+  public removeApplicantUsingId = (req: AppRequest, res: Response) => {
+    if (req.query.hasOwnProperty('action') && req.query.hasOwnProperty('childId')) {
+      const { action, childId } = req.query;
+      switch (action) {
+        case 'remove':
+          if (req.session.userCase.hasOwnProperty('childern') && req.session.userCase.childern) {
+            req.session.userCase['childern'] = req.session.userCase.childern.filter(child => child['id'] !== childId);
+            return req.session.save(err => {
+              if (err) {
+                console.log(err);
+              }
+              res.redirect(C100_CHILDERN_DETAILS_ADD);
+            });
+          }
           break;
 
         default:
-          res.render('error');
+          res.redirect('error');
       }
     }
   };
