@@ -6,5 +6,23 @@ nodejs:
   devmemoryRequests: 512Mi
   devcpuLimits: 1000m
   devcpuRequests: 500m
+  keyVaults:
+     prl:
+       resourceGroup: prl
+       secrets:
+         - AppInsightsInstrumentationKey
+         - prl-citizen-frontend-idam-client-secret
+         - microservicekey-prl-citizen-frontend
+         - prl-cos-idam-client-secret
+         - microservicekey-prl-cos-api
+         - system-update-user-username
+         - system-update-user-password
+         - idam-solicitor-username
+         - idam-solicitor-password
+         - launchDarkly-sdk-key
+         - postcode-lookup-token
 idam-pr:
-  enabled: false
+  enabled: true
+  redirect_uris:
+    prl-citizen-frontend:
+      - https://${SERVICE_FQDN}/receiver
