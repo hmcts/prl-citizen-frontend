@@ -4,29 +4,42 @@ import { FormContent } from '../../../../app/form/Form';
 
 import AddApplicantPostController from './postController';
 
-const dummyData = [
+const dummyChild = [
   {
-    id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-    applicantFirstName: 'Test1',
-    applicantLastName: 'Test2',
-    detailsKnown: '',
-    startAlternative: '',
-    start: 'Yes',
-    contactDetailsPrivate: ['email'],
-    contactDetailsPrivateAlternative: ['email'],
+    id: '8689c8b2-a4f9-45f1-823a-66e18107852d',
+    firstname: 'Test1',
+    lastname: 'Test1',
+    personalDetails: {
+      DateoBirth: '',
+      isDateOfBirthKnown: '',
+      ApproximateDateOfBirth: '',
+      Sex: '',
+    },
+    childMatter: {
+      isDecisionTaken: '',
+    },
+    parentialResponsibility: {
+      statement: '',
+    },
   },
   {
-    id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
-    applicantFirstName: 'Test2',
-    applicantLastName: 'Test2',
-    detailsKnown: '',
-    startAlternative: '',
-    start: 'Yes',
-    contactDetailsPrivate: ['email'],
-    contactDetailsPrivateAlternative: ['email'],
+    id: 'b910ce67-3f36-41e8-aa74-5a1276a65368',
+    firstname: 'Test2',
+    lastname: 'Test2',
+    personalDetails: {
+      DateoBirth: '',
+      isDateOfBirthKnown: '',
+      ApproximateDateOfBirth: '',
+      Sex: '',
+    },
+    childMatter: {
+      isDecisionTaken: '',
+    },
+    parentialResponsibility: {
+      statement: '',
+    },
   },
 ];
-
 describe('PostController', () => {
   test('Should redirect back to the current page with the form data on errors', async () => {
     const mockPhoneNumberFormContent = {
@@ -39,7 +52,7 @@ describe('PostController', () => {
     const language = 'en';
     req.session.lang = language;
     await controller.post(req, res);
-    expect(dummyData).toEqual(dummyData);
+    expect(dummyChild).toEqual(dummyChild);
   });
 
   test('reseting form fields in Session', async () => {
@@ -48,83 +61,97 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['applicantTemporaryFormData'] = {
+    req.session.userCase['tempChildernFormData'] = {
       TempFirstName: 'Test1',
       TempLastName: 'Test2',
     };
     controller.resetSessionTemporaryFormValues(req);
-    expect(req.session.userCase['applicantTemporaryFormData']).toEqual({
+    expect(req.session.userCase['tempChildernFormData']).toEqual({
       TempFirstName: '',
       TempLastName: '',
     });
   });
 
-  test('Adding Applicant after clicking on Continue Button', async () => {
+  test('Adding childern after clicking on Continue Button', async () => {
     const mockFields = {
       fields: {},
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['appl_allApplicants'] = dummyData;
+    req.session.userCase['childern'] = dummyChild;
     req.body = {
-      'ApplicantFirstName-1': '',
-      'ApplicantLastName-1': '',
+      'childFirstName-1': '',
+      'childLastName-1': '',
     };
     controller.mapEnteriesToValuesAfterContinuing(req, mockResponse());
-    expect(req.session.userCase['appl_allApplicants']).toEqual([
+    expect(req.session.userCase['childern']).toEqual([
       {
-        id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-        applicantFirstName: '',
-        applicantLastName: '',
-        detailsKnown: '',
-        startAlternative: '',
-        start: 'Yes',
-        contactDetailsPrivate: ['email'],
-        contactDetailsPrivateAlternative: ['email'],
+        id: '8689c8b2-a4f9-45f1-823a-66e18107852d',
+        firstname: '',
+        lastname: '',
+        personalDetails: {
+          DateoBirth: '',
+          isDateOfBirthKnown: '',
+          ApproximateDateOfBirth: '',
+          Sex: '',
+        },
+        childMatter: {
+          isDecisionTaken: '',
+        },
+        parentialResponsibility: {
+          statement: '',
+        },
       },
       {
-        id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
-        applicantFirstName: undefined,
-        applicantLastName: undefined,
-        detailsKnown: '',
-        startAlternative: '',
-        start: 'Yes',
-        contactDetailsPrivate: ['email'],
-        contactDetailsPrivateAlternative: ['email'],
+        id: 'b910ce67-3f36-41e8-aa74-5a1276a65368',
+        firstname: undefined,
+        lastname: undefined,
+        personalDetails: {
+          DateoBirth: '',
+          isDateOfBirthKnown: '',
+          ApproximateDateOfBirth: '',
+          Sex: '',
+        },
+        childMatter: {
+          isDecisionTaken: '',
+        },
+        parentialResponsibility: {
+          statement: '',
+        },
       },
     ]);
   });
 
-  test('Adding Applicant after clicking on Continue Button - s', async () => {
+  test('Adding childern after clicking on Continue Button - s', async () => {
     const mockFields = {
       fields: {},
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['appl_allApplicants'] = dummyData;
+    req.session.userCase['childern'] = dummyChild;
     req.body = {
-      'ApplicantFirstName-1': '',
-      'ApplicantLastName-1': '',
+      'childFirstName-1': '',
+      'childLastName-1': '',
     };
     controller.post(req, mockResponse());
-    expect(req.session.userCase['appl_allApplicants']).toHaveLength(2);
+    expect(req.session.userCase['childern']).toHaveLength(2);
   });
 
-  test('Adding Applicant after if both body appliantfirst and applicantlastname is empty', async () => {
+  test('Adding childern after if both body appliantfirst and childLastName is empty', async () => {
     const mockFields = {
       fields: {},
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['appl_allApplicants'] = dummyData;
+    req.session.userCase['childern'] = dummyChild;
     req.body = {
-      'ApplicantFirstName-1': '',
-      'ApplicantLastName-1': '',
-      applicantFirstName: '',
-      applicantLastName: '',
+      'childFirstName-1': '',
+      'childLastName-1': '',
+      firstname: '',
+      lastname: '',
     };
     controller.post(req, mockResponse());
-    expect(req.session.userCase['appl_allApplicants']).toHaveLength(2);
+    expect(req.session.userCase['childern']).toHaveLength(2);
   });
 
   test('Adding Applicant after if both body appliantfirst and applicantlastname with values', async () => {
@@ -133,37 +160,36 @@ describe('PostController', () => {
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['appl_allApplicants'] = dummyData;
+    req.session.userCase['childern'] = dummyChild;
     req.session.save = function () {
       return req.session;
     };
     req.body = {
       saveAndContinue: 'true',
-      'ApplicantFirstName-1': 'da',
-      'ApplicantLastName-1': 'x',
-      applicantFirstName: 'test',
-      applicantLastName: 'tes',
+      'childFirstName-1': 'da',
+      'childLastName-1': 'x',
+      firstname: 'test',
+      lastname: 'tes',
     };
     controller.post(req, mockResponse());
-    expect(req.session.userCase['appl_allApplicants']).toHaveLength(3);
+    expect(req.session.userCase['childern']).toHaveLength(3);
   });
-  test('Adding another applicant using addAnotherApplicant', async () => {
+  test('Adding another applicant using addAnotherchild', async () => {
     const mockFields = {
       fields: {},
     } as unknown as FormContent;
     const controller = new AddApplicantPostController(mockFields.fields);
     const req = mockRequest();
-    req.session.userCase['appl_allApplicants'] = dummyData;
+    req.session.userCase['childern'] = dummyChild;
     req.session.save = function () {
       return req.session;
     };
     req.body = {
-      applicantFirstName: 'dummy 3',
-      applicantLastName: 'dummy 3',
+      firstname: 'dummy 3',
+      lastname: 'dummy 3',
     };
-    controller.addAnotherApplicant(req);
-    expect(req.session.userCase['appl_allApplicants']).toHaveLength(3);
-    expect(req.session.userCase['appl_allApplicants'][2].applicantFirstName).toBe('dummy 3');
-    expect(req.session.userCase['appl_allApplicants'][2].applicantLastName).toBe('dummy 3');
+    controller.addAnotherChild(req);
+    expect(req.session.userCase['childern']).toHaveLength(3);
+    expect(req.session.userCase['childern'][2].firstname).toBe('dummy 3');
   });
 });

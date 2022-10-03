@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { childernDetails } from '../../../../app/controller/AppRequest';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -10,55 +11,77 @@ import { form, generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  pageTitle: 'Enter your name  ',
-  subTitle:
-    'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later.',
+  pageTitle: 'Enter the names of the children',
+  subTitle: 'Only include the children you’re making this application about',
   firstName: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastName: 'Last name(s)',
-  buttonAddApplicant: 'Add another applicant',
-  removeApplicant: 'Remove applicant',
+  buttonAddChild: 'Add another child',
+  removeChild: 'Remove Child',
   labelFornewName: 'Enter a new name',
   errors: {
-    applicantFirstName: {
+    firstname: {
       required: 'Enter the first name',
     },
-    applicantLastName: {
+    lastname: {
       required: 'Enter the last name',
     },
   },
 };
 
 const cy = {
-  pageTitle: 'Enter your name - welsh',
-  subTitle:
-    'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later. - welsh',
+  pageTitle: 'Enter the names of the children- welsh',
+  subTitle: 'Only include the children you’re making this application about- welsh',
   firstName: 'First name(s) - welsh',
   firstNameHint: 'Include all middle names here - welsh',
   lastName: 'Last name(s) - welsh',
-  buttonAddApplicant: 'Add another applicant - welsh',
-  removeApplicant: 'Remove applicant - welsh',
+  buttonAddChild: 'Add another child - welsh',
+  removeChild: 'Remove child - welsh',
   labelFornewName: 'Enter a new name - welsh',
   errors: {
-    applicantFirstName: {
+    firstname: {
       required: 'Enter the first name - welsh',
     },
-    applicantLastName: {
+    lastname: {
       required: 'Enter the last name - welsh',
     },
   },
 };
 
-const dummyApplicants = [
+const dummyChild = [
   {
-    id: 'f944071e-278a-4421-b8de-88dcab3f5137',
-    applicantFirstName: 'Test1',
-    applicantLastName: 'Test1',
+    id: '8689c8b2-a4f9-45f1-823a-66e18107852d',
+    firstname: 'Test1',
+    lastname: 'Test1',
+    personalDetails: {
+      DateoBirth: '',
+      isDateOfBirthKnown: '',
+      ApproximateDateOfBirth: '',
+      Sex: '',
+    },
+    childMatter: {
+      isDecisionTaken: '',
+    },
+    parentialResponsibility: {
+      statement: '',
+    },
   },
   {
-    id: 'c73b9d9e-1c26-4865-a0d1-01e988c67700',
-    applicantFirstName: 'Test2',
-    applicantLastName: 'Test2',
+    id: 'b910ce67-3f36-41e8-aa74-5a1276a65368',
+    firstname: 'Test2',
+    lastname: 'Test2',
+    personalDetails: {
+      DateoBirth: '',
+      isDateOfBirthKnown: '',
+      ApproximateDateOfBirth: '',
+      Sex: '',
+    },
+    childMatter: {
+      isDecisionTaken: '',
+    },
+    parentialResponsibility: {
+      statement: '',
+    },
   },
 ];
 
@@ -67,12 +90,12 @@ describe('checking form fields', () => {
     expect(JSON.stringify(form)).toEqual(
       JSON.stringify({
         fields: {
-          applicantLabel: {
+          childLabel: {
             type: 'heading',
             label: label => label.labelFornewName,
             labelSize: 'm',
           },
-          applicantFirstName: {
+          firstname: {
             type: 'text',
             classes: 'govuk-input govuk-!-width-one-half',
             label: label => label.firstName,
@@ -80,16 +103,16 @@ describe('checking form fields', () => {
             validator: isFieldFilledIn,
             labelSize: 'none',
           },
-          applicantLastName: {
+          lastname: {
             type: 'text',
             classes: 'govuk-input govuk-!-width-one-half',
             label: label => label.lastName,
             validator: isFieldFilledIn,
             labelSize: 'none',
           },
-          addAnotherApplicant: {
+          addAnotherChild: {
             type: 'button',
-            label: l => l.buttonAddApplicant,
+            label: l => l.buttonAddChild,
             classes: 'govuk-button--secondary margin-top-3',
             value: 'Yes',
           },
@@ -105,15 +128,15 @@ describe('checking form fields', () => {
   });
 });
 
-describe('applicant > add-applicants > content', () => {
+describe('child > add-childern > content', () => {
   const commonContent = {
     language: 'en',
     additionalData: {
       req: {
         session: {
           userCase: {
-            appl_allApplicants: dummyApplicants,
-            applicantTemporaryFormData: {
+            childern: dummyChild,
+            tempChildernFormData: {
               TempFirstName: 'dummy',
               TempLastName: 'dummy',
             },
@@ -130,7 +153,7 @@ describe('applicant > add-applicants > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(dummyApplicants);
+    const { errors } = generateFormFields(dummyChild as childernDetails[]);
     languageAssertions(
       'en',
       {
@@ -146,7 +169,7 @@ describe('applicant > add-applicants > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(dummyApplicants);
+    const { errors } = generateFormFields(dummyChild as childernDetails[]);
     languageAssertions(
       'cy',
       {
@@ -172,15 +195,14 @@ describe('applicant > add-applicants > content', () => {
     ).toBe('Save and come back later');
   });
 
-  test('applicant > add-applicants > content › chekcing generated form fields', () => {
+  test('child > add-childern > content › checking generated form fields', () => {
     const formFields = generateFormFields([
       {
-        id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
-        applicantFirstName: 'Test',
-        applicantLastName: 'Test',
+        id: 'b910ce67-3f36-41e8-aa74-5a1276a65368',
+        firstname: 'Test2',
+        lastname: 'Test2',
       },
     ]);
     expect(formFields).not.toBe(null);
-    expect(1).toBe(1);
   });
 });
