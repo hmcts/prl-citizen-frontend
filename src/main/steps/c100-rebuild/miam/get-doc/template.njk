@@ -1,0 +1,36 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
+
+<p class="govuk-body-l">{{caption}}</p>
+
+{% for line in lines %}
+    <p class="govuk-body">{{line}}</p>
+{% endfor %}
+
+</br>
+
+{{govukButton({
+            text: 'Save and come back later',
+            preventDoubleClick: true,
+            type: "submit",
+            name: "saveAndComeLater",
+            value: true,
+            attributes: {
+              formaction: "?action=saveAndComeLater"
+            }
+          })
+}}
+{{ govukButton({
+  text: "Go back",
+  classes: "govuk-button--secondary"
+  attributes: {
+              onclick: "history.back(-1)"
+            }
+}) }}
+
+
+{% endblock %}
