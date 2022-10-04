@@ -22,7 +22,7 @@ export default class SafteyConcernsApplicantAbusePostController extends PostCont
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const dataToSave: Partial<Case> = {
       c1A_safteyConcerns: {
-        ...((req.session.userCase?.c1A_safteyConcerns ?? {}) as C1ASafteyConcerns),
+        ...(req.session.userCase?.c1A_safteyConcerns ?? {}),
         applicant: {
           ...((req.session.userCase?.c1A_safteyConcerns?.applicant ?? {}) as C1ASafteyConcerns['applicant']),
           [abuseType]: this.transformFormData(formData),
