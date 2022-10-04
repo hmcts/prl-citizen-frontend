@@ -241,10 +241,11 @@ export interface Case {
   hu_urgentHearingReasons?: YesOrNo;
   childern?: childernDetails[];
   tempChildernFormData?: {
-  children?: childrenDetails[];
-  tempchildrenFormData?: {
-    TempFirstName: string | unknown;
-    TempLastName: string | unknown;
+    children?: childrenDetails[];
+    tempchildrenFormData?: {
+      TempFirstName: string | unknown;
+      TempLastName: string | unknown;
+    };
   };
 }
 
