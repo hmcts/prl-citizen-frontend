@@ -30,7 +30,6 @@ const { Logger } = require('@hmcts/nodejs-logging');
 
 const { setupDev } = require('./development');
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const env = process.env.NODE_ENV || 'development';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
