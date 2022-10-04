@@ -10,9 +10,23 @@ export const getTokenFromApi = async (): Promise<string> => {
   logger.info('Refreshing service auth token');
 
   const url: string = config.get('services.authProvider.url') + '/lease';
+  console.log('url is:' + url);
   const microservice: string = config.get('services.authProvider.microservice');
+  console.log('microservice is:' + microservice);
   const secret: string = config.get('services.authProvider.secret');
+  console.log('secret is:' + secret);
+
+  const postcodeLookup: string = config.get('services.postcodeLookup.token');
+  console.log('postcodeLookup is:' + postcodeLookup);
+
+  const citizenClientSecret: string = config.get('services.idam.citizenClientSecret');
+  console.log('citizenClientSecret is:' + citizenClientSecret);
+
+  const cosApiClientSecret: string = config.get('services.idam.cosApiClientSecret');
+  console.log('cosApiClientSecret is:' + cosApiClientSecret);
+
   const oneTimePassword = authenticator.generate(secret);
+  console.log('oneTimePassword is:' + oneTimePassword);
   const body = { microservice, oneTimePassword };
 
   try {

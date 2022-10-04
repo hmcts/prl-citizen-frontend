@@ -2,14 +2,22 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
-import { Case, formFieldsToCaseMapping, formatCase } from './case';
-import { CaseData } from './definition';
+import { Case, CaseDate, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
+import { CaseData, YesOrNo } from './definition';
 import { fromApiApplicant1 as uploadedFilesFromApiApplicant1 } from './formatter/uploaded-files';
 
 dayjs.extend(advancedFormat);
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
+const checkboxConverter = (value: string | undefined) => {
+  if (!value) {
+    return undefined;
+  }
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
+};
+console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   orderCollection: uploadedFilesFromApiApplicant1,
@@ -81,5 +89,15 @@ const fields: FromApiConverters = {
   //   dueDate: dayjs(data.dueDate).format('D MMMM YYYY'),
   // }),
 };
+
+export const fromApiDate = (date: string | undefined): CaseDate => {
+  if (!date) {
+    return { year: '', month: '', day: '' };
+  }
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [y, m, d] = date.split('-');
+  return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
+};
+console.log(fromApiDate);
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
