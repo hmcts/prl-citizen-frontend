@@ -6,9 +6,9 @@ import { generateContent } from '../../miam/domestic-abuse/content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  section: 'Miam section',
+  serviceName: 'Child Arrangements',
   caption: 'MIAM exemptions',
-  headingTitle: 'Do you have any of the following evidence of domestic violence or abuse?',
+  title: 'Do you have any of the following evidence of domestic violence or abuse?',
   select_all_apply: 'Select all that apply to you',
   childrenInvolvedCourtCase: 'Do you have any of the following evidence of domestic violence or abuse?',
   courtOrderProtection: 'Have you had a court order made for your protection?',
@@ -81,7 +81,7 @@ const en = {
     'Financial abuse is a way of controlling someone being able to earn, spend or keep their own money. For example, preventing someone going to work, withholding money, or putting debts in someone else’s name. Evidence could include: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>a copy of a credit card account, loan document or bank statements</li><li>a letter from a domestic violence support organisation</li><li>emails, text messages or a diary kept by the victim</li> </ul>',
   noneOfOptions: 'None of the above',
   errors: {
-    miam_domesticabuse_involvement: {
+    miam_domesticabuse: {
       required: 'Select which of the following evidence of domestic violence or abuse you have.',
     },
     miam_domesticabuse_involvement_subfields: {
@@ -105,9 +105,9 @@ const en = {
 };
 
 const cy = {
-  section: 'Miam section',
+  serviceName: 'Child Arrangements',
   caption: 'MIAM exemption - welsh',
-  headingTitle: 'Do you have any of the following evidence of domestic violence or abuse?',
+  title: 'Do you have any of the following evidence of domestic violence or abuse?',
   select_all_apply: 'Select all that apply to you - welsh',
   childrenInvolvedCourtCase: 'Have the children been involved in a court case? - welsh',
   courtOrderProtection: 'Have you had a court order made for your protection? - welsh',
@@ -179,7 +179,7 @@ const cy = {
     'Financial abuse is a way of controlling someone being able to earn, spend or keep their own money. For example, preventing someone going to work, withholding money, or putting debts in someone else’s name. Evidence could include: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>a copy of a credit card account, loan document or bank statements</li><li>a letter from a domestic violence support organisation</li><li>emails, text messages or a diary kept by the victim</li> </ul>',
   noneOfOptions: 'None of the above - welsh',
   errors: {
-    miam_domesticabuse_involvement: {
+    miam_domesticabuse: {
       required: 'Select which of the following evidence of domestic violence or abuse you have - welsh',
     },
     miam_domesticabuse_involvement_subfields: {
@@ -223,7 +223,7 @@ describe('miam domestic abuse', () => {
   });
 
   test('should contain miam domesticabuse involvement field', () => {
-    const miam_domesticabuse_involvement_field = fields.miam_domesticabuse_involvement as FormOptions;
+    const miam_domesticabuse_involvement_field = fields.miam_domesticabuse as FormOptions;
     expect(miam_domesticabuse_involvement_field.type).toBe('checkboxes');
     expect((miam_domesticabuse_involvement_field.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((miam_domesticabuse_involvement_field.values[0].label as LanguageLookup)(generatedContent)).toBe(
