@@ -42,12 +42,3 @@ appInsights:
   instrumentationKey: false
 
 uploadTimeout: 60000
-useCSRFProtection: true
-featureToggles:
-  testFlag: false
-secrets:
-  prl:
-    launchDarkly-sdk-key: 'LAUNCH_DARKLY_SDK_KEY'
-    AppInsightsInstrumentationKey: 'app_insights_instrumental_key'
-launchDarkly:
-  offline: false

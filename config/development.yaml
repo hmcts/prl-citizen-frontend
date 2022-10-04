@@ -38,5 +38,3 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey: false
-featureToggles:
-  testFlag: false

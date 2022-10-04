@@ -23,6 +23,7 @@ nodejs:
 
   keyVaults:
     prl:
+      resourceGroup: prl
       secrets:
         - AppInsightsInstrumentationKey
         - prl-citizen-frontend-idam-client-secret

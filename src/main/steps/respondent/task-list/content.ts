@@ -233,6 +233,7 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
+
 const getC100Banners = (userCase, translations) => {
   const banners: Banner[] = [];
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
