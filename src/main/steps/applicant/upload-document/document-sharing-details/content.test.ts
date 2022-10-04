@@ -46,7 +46,6 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-
   test('should contain continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
