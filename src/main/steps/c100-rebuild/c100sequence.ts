@@ -57,6 +57,7 @@ import {
 
   /** @MIAM */
   C100_MIAM_MEDIATOR_DOCUMENT,
+  C100_MIAM_URGENCY,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -368,5 +369,11 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  },
+
+  {
+    url: C100_MIAM_URGENCY,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_URGENCY,
   },
 ];
