@@ -56,9 +56,6 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
     en: {},
     cy: {},
   };
-
-  console.log(applicantData);
-
   for (let index = 0; index < applicantData.length; index++) {
     const count = index + 1;
     const key = `fieldset${count}`;

@@ -60,6 +60,13 @@ export default class AddApplicantPostController extends PostController<AnyObject
           `?applicantId=${req.session.userCase?.appl_allApplicants?.[0].id}`;
         return super.redirect(req, res, redirectURI);
       } else {
+        if (
+          (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantFirstName'] === '') ||
+          (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantLastName'] === '')
+        ) {
+          req.session.errors = form.getErrors(formData);
+          return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+        }
         this.mapEnteriesToValuesAfterContinuing(req, res);
       }
     } else {
