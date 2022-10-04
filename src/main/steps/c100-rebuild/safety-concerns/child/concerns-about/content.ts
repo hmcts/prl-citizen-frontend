@@ -1,3 +1,4 @@
+import { C1AAbuseTypes } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
@@ -88,53 +89,53 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          id: 'c1A_concernAboutChild',
+          name: 'c1A_concernAboutChild',
           label: l => l.physicalAbuse,
           hint: l => l.physicalAbuseHint,
-          value: 'physicalAbuse',
+          value: C1AAbuseTypes.PHYSICAL_ABUSE,
         },
         {
-          id: 'c1A_concernAboutChild',
+          name: 'c1A_concernAboutChild',
           label: l => l.psychologicalAbuse,
           hint: l => l.psychologicalAbuseHint,
-          value: 'psychologicalAbuse',
+          value: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
         },
         {
-          id: 'c1A_concernAboutChild',
+          name: 'c1A_concernAboutChild',
           label: l => l.emotionalAbuse,
           hint: l => l.emotionalAbuseHint,
-          value: 'emotionalAbuse',
+          value: C1AAbuseTypes.EMOTIONAL_ABUSE,
         },
         {
-          id: 'c1A_concernAboutChild',
+          name: 'c1A_concernAboutChild',
           label: l => l.sexualAbuse,
           hint: l => l.sexualAbuseHint,
-          value: 'sexualAbuse',
+          value: C1AAbuseTypes.SEXUAL_ABUSE,
         },
 
         {
-          id: 'c1A_concernAboutChild',
+          name: 'c1A_concernAboutChild',
           label: l => l.financialAbuse,
           hint: l => l.financialAbuseHint,
-          value: 'financialAbuse',
+          value: C1AAbuseTypes.FINANCIAL_ABUSE,
         },
         {
-          id: 'c1A_concernAboutChild',
-          label: l => l.witnessingDomesticAbuse,
-          hint: l => l.witnessingDomesticAbuseHint,
-          value: 'witnessingDomesticAbuse',
-        },
-        {
-          id: 'c1A_concernAboutChild',
+          name: 'c1A_concernAboutChild',
           label: l => l.abductionAbuse,
           hint: l => l.abductionAbuseHint,
-          value: 'abductionAbuse',
+          value: C1AAbuseTypes.ABDUCTION,
         },
         {
-          id: 'c1A_concernAboutChild',
+          name: 'c1A_concernAboutChild',
+          label: l => l.witnessingDomesticAbuse,
+          hint: l => l.witnessingDomesticAbuseHint,
+          value: C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE,
+        },
+        {
+          name: 'c1A_concernAboutChild',
           label: l => l.somethingElse,
           hint: l => l.somethingElseHint,
-          value: 'somethingElse',
+          value: C1AAbuseTypes.SOMETHING_ELSE,
         },
       ],
     },
