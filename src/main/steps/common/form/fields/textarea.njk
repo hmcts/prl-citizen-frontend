@@ -10,7 +10,7 @@
   hint: {
     html: getContent(field.hint)
   },
-  value: userCase[fieldName],
+  value: field.value if field.value !== undefined else userCase[fieldName],
   rows: field.attributes.rows,
   attributes: field.attributes,
   errorMessage: null if field.hideError else getError(fieldName),
