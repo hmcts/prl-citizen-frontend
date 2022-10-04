@@ -70,7 +70,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/miam/miam-start',
+              href: '/tasklistresponse/miam/miam-start',
               id: 'check_the_application',
               status: 'IN_PROGRESS',
               text: 'Check the application (PDF)',
@@ -81,7 +81,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/international-factors/start',
+              href: '/tasklistresponse/international-factors/start',
               id: 'check_details_of_your_court_hearings',
               status: 'TO_DO',
               text: 'Check details of your court hearings',

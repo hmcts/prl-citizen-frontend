@@ -37,11 +37,12 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
+  RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
 } from '../urls';
 
-export const respondentCaseSequence: Step[] = [
+export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_TASK_LIST_URL,
     showInSection: Sections.AboutRespondentCase,
@@ -93,7 +94,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: MIAM_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS,
