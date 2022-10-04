@@ -101,6 +101,9 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynami
       label: l => l.behaviourDetailsLabel,
       hint: l => l.behaviourDetailsHintText,
       value: data.behaviourDetails,
+      attributes: {
+        rows: 4,
+      },
     },
     behaviourStartDate: {
       type: 'textarea',
@@ -108,6 +111,9 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynami
       label: l => l.behaviourStartDateLabel,
       hint: l => l.behaviourStartDateHintText,
       value: data.behaviourStartDate,
+      attributes: {
+        rows: 2,
+      },
     },
     isOngoingBehaviour: {
       type: 'radios',
