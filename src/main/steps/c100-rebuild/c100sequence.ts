@@ -362,11 +362,6 @@ export const C100Sequence: Step[] = [
       data.miam_haveDocSigned === YesOrNo.YES ? C100_CONFIDENTIALITY_DETAILS_KNOW : C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
   {
-    url: C100_MIAM_GENERAL_REASONS,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
-  },
-  {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
