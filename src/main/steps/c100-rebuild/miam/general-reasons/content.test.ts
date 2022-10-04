@@ -70,6 +70,8 @@ describe('citizen-home content', () => {
     expect((miamNonAttendanceReason.values[3].label as LanguageLookup)(generatedContent)).toBe(en.previousMIAMOrExempt);
     expect((miamNonAttendanceReason.values[4].label as LanguageLookup)(generatedContent)).toBe(en.validExemption);
     expect((miamNonAttendanceReason.values[6].label as LanguageLookup)(generatedContent)).toBe(en.noReason);
+
+    expect(miamNonAttendanceReason.values[6].behaviour).toBe('exclusive');
   });
 
   // eslint-disable-next-line jest/expect-expect

@@ -59,7 +59,6 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 export const MIAM: PageLink = `${RESPONDENT}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
-export const MIAM_NON_ATTEND_REASON: PageLink = `${MIAM}/miam-non-attendance-reason`;
 
 /* international-factors */
 export const INTERNATIONAL_FACTORS: PageLink = `${RESPONDENT}/international-factors`;
@@ -238,3 +237,4 @@ export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submissi
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;
 export const C100_MIAM_MEDIATOR_DOCUMENT: PageLink = `${C100_MIAM}/mediator-document`;
+export const C100_MIAM_GENERAL_REASONS: PageLink = `${C100_MIAM}/general-reasons`;

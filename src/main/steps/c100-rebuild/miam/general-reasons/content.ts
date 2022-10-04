@@ -84,13 +84,13 @@ export const form: FormContent = {
           value: MiamNonAttendReason.EXEMPT,
         },
         {
-          divider: true,
+          divider: 'or',
         },
         {
           name: 'miamNonAttendanceReason',
           label: l => l.noReason,
           value: MiamNonAttendReason.NO_REASON,
-          exclusive: true,
+          behaviour: 'exclusive',
         },
       ],
     },
