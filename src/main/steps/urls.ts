@@ -238,4 +238,5 @@ export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submissi
 
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;
+export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/other-proceedings`;
 export const C100_MIAM_MEDIATOR_DOCUMENT: PageLink = `${C100_MIAM}/mediator-document`;

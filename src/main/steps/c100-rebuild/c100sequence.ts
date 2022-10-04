@@ -54,8 +54,7 @@ import {
   C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   PageLink,
   C100_DOCUMENT_SUBMISSION,
-
-  /** @MIAM */
+  C100_MIAM_OTHER_PROCEEDINGS,
   C100_MIAM_MEDIATOR_DOCUMENT,
 } from '../urls';
 
@@ -368,5 +367,13 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  },
+  {
+    url: C100_MIAM_OTHER_PROCEEDINGS,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.miam_otherProceedings === YesOrNo.YES
+        ? C100_CONFIDENTIALITY_DETAILS_KNOW
+        : C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
