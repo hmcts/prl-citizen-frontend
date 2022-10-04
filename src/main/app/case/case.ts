@@ -116,7 +116,6 @@ export interface Case {
   injuctiveOrder?: orderInterface;
   underTakingOrderOptions?: YesOrNo;
   underTakingOrder?: orderInterface;
-  urgentHearingReasons?: YesOrNo;
 
   /***** Applicant1 *****/
   applicant1FullName?: string;
@@ -215,6 +214,7 @@ export interface Case {
   miam_haveDocSigned?: string;
   miam_attendance?: YesOrNo;
   miam_validReason?: YesOrNo;
+  urgentHearingReasons?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

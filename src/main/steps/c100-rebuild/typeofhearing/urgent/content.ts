@@ -56,9 +56,10 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    detailsKnown: {
+    urgentHearingReasons: {
       type: 'radios',
       classes: 'govuk-radios',
+      labelSize: 'm',
       label: l => l.label,
       section: l => l.section,
       values: [

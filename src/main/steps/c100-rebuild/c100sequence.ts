@@ -417,8 +417,8 @@ export const C100Sequence: Step[] = [
   },{
     url: C100_URGENT_HEARING,
     showInSection: Sections.C100,
-    // TODO: CHANGE BELOW TWO PAGE NAVIGATIONS TO APPROPRIATE ONES
-    getNextStep: data =>
-      data.urgentHearingReasons === YesOrNo.YES ? C100_CONFIDENTIALITY_DETAILS_KNOW : C100_CONFIDENTIALITY_START,
+    // TODO: change below two page navigations to appropriate ones, once instructed
+    getNextStep: (data: Partial<Case>) =>
+      data.urgentHearingReasons === YesOrNo.YES ? C100_URGENT_HEARING : C100_URGENT_HEARING,
   },
 ];

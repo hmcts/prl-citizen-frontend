@@ -65,11 +65,19 @@ describe('applicant personal details > applying-with > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.detailsKnown as FormOptions;
+    const applyingWithField = fields.urgentHearingReasons as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+  });
+
+  test('should contain Continue button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
+    expect(
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
   });
 
   test('should contain saveAndComeLater button', () => {
