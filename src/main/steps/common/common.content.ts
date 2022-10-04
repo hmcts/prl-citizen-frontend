@@ -27,9 +27,10 @@ const en = {
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
-  errorSummaryHeading: 'There is a problem',
+  errorSummaryHeading: 'There is a problem on this page',
   saveAndSignOut: 'Save and sign out',
   saveAsDraft: 'Save as draft',
+  onlyContinue: 'Continue',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -130,7 +131,7 @@ const cy: typeof en = {
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem (in welsh)',
+  errorSummaryHeading: 'There is a problem on this page (in welsh)',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
@@ -191,6 +192,11 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
+  userCaseList,
+  caption,
+  name,
+  byApplicant,
+  document_type,
   addresses = [],
 }: // eligibility,
 // fee,
@@ -199,7 +205,12 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  caption?: string;
+  document_type?: string;
+  userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
+  name?: string;
+  byApplicant?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -212,8 +223,14 @@ export const generatePageContent = ({
     language,
     userCase,
     userEmail,
+    name,
+    userCaseList,
     // contactEmail,
     addresses,
+    caption,
+    document_type,
+    byApplicant,
+    // contactEmail,
     // eligibility,
     // fee,
   };
@@ -235,10 +252,15 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  userCaseList?: Partial<CaseWithId>[];
+  name?: string;
+  caption?: string;
+  document_type?: string;
   // contactEmail?: string;
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
+  byApplicant?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 };

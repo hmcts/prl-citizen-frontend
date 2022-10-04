@@ -24,15 +24,23 @@ export class GetController {
       return;
     }
 
+    const name = this.getName(req) as string;
     const language = this.getPreferredLanguage(req) as Language;
-
+    const captionValue = this.getCaption(req) as string;
+    const document_type = this.getDocumentType(req) as string;
+    const byApplicant = req.query['byApplicant'] as string;
     const addresses = req.session?.addresses;
     const content = generatePageContent({
       language,
       pageContent: this.content,
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
+      caption: captionValue,
+      document_type,
+      userCaseList: req.session?.userCaseList,
       addresses,
+      name,
+      byApplicant,
     });
 
     const sessionErrors = req.session?.errors || [];
@@ -45,6 +53,9 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
+      caption: captionValue,
+      document_type,
+      name,
       // isDraft: req.session?.userCase?.state ? req.session.userCase.state === State.Draft : true,
       // getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
     });
@@ -65,6 +76,15 @@ export class GetController {
     // Browsers default language
     const negotiator = new Negotiator(req);
     return negotiator.language(LanguageToggle.supportedLanguages) || 'en';
+  }
+
+  private getCaption(req: AppRequest) {
+    const caption = req.query['caption'] as string;
+    return caption;
+  }
+  private getDocumentType(req: AppRequest) {
+    const caption = req.query['document_type'] as string;
+    return caption;
   }
 
   public parseAndSetReturnUrl(req: AppRequest): void {
@@ -92,5 +112,10 @@ export class GetController {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
+  }
+
+  private getName(req: AppRequest) {
+    const caption = req.query['name'] as string;
+    return caption;
   }
 }
