@@ -57,6 +57,7 @@ import {
   C100_MIAM_OTHER_PROCEEDINGS,
   C100_MIAM_MEDIATOR_DOCUMENT,
   C100_MIAM_ATTENDANCE,
+  C100_MIAM_MEDIATOR_CONFIRMAION,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -382,5 +383,10 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
       data.miam_attendance === YesOrNo.YES ? C100_MIAM_ATTENDANCE : C100_CONFIDENTIALITY_START,
+  },
+  {
+    url: C100_MIAM_MEDIATOR_CONFIRMAION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_MEDIATOR_CONFIRMAION,
   },
 ];
