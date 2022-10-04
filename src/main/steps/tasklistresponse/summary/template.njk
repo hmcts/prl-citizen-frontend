@@ -1,6 +1,9 @@
-{% extends "common/respondent-task-list/template.njk" %}
-{% block caseDetails %}
-    <div class="govuk-warning-text">
+{% extends "common/summary/template.njk" %}
+{% block page_content %}
+{% if section %}
+    <span class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</span>
+  {% endif %}
+      <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
         <strong class="govuk-warning-text__text">
             <span class="govuk-warning-text__assistive">Warning</span>
@@ -8,5 +11,7 @@
         </strong>
 
     </div>
-
+  {% if title %}
+    <p class="govuk-body-l">{{ title }}</p>
+  {% endif %}
 {% endblock %}
