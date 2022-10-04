@@ -9,8 +9,6 @@ const en = () => ({
     'You will need to upload this document to the application.',
     'When you have a document from the mediator, come back to this screen to proceed with your application.',
   ],
-  btnText: 'Save and come back later',
-  btnLinkText: 'Go back',
 });
 
 const cy = () => ({
@@ -21,8 +19,6 @@ const cy = () => ({
     'You will need to upload this document to the application. - welsh',
     'When you have a document from the mediator, come back to this screen to proceed with your application. - welsh',
   ],
-  btnText: 'Save and come back later - welsh',
-  btnLinkText: 'Go back - welsh',
 });
 
 const languages = {
@@ -34,10 +30,10 @@ export const form: FormContent = {
   fields: {},
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
+    classes: 'govuk-button',
   },
-  submit: {
-    text: l => l.onlycontinue,
-    classes: 'govuk-button--secondary',
+  goBack: {
+    text: l => l.goBack,
   },
 };
 

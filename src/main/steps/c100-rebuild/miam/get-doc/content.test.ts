@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { CommonContent } from '../../../common/common.content';
+import { FormContent, LanguageLookup } from '../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -13,8 +14,6 @@ const en = {
     'You will need to upload this document to the application.',
     'When you have a document from the mediator, come back to this screen to proceed with your application.',
   ],
-  btnText: 'Save and come back later',
-  btnLinkText: 'Go back',
 };
 
 const cy = {
@@ -25,12 +24,17 @@ const cy = {
     'You will need to upload this document to the application. - welsh',
     'When you have a document from the mediator, come back to this screen to proceed with your application. - welsh',
   ],
-  btnText: 'Save and come back later - welsh',
-  btnLinkText: 'Go back - welsh',
 };
 
 describe('miam -> get document from a mediator', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  const commonContent = { language: 'en' } as CommonContent;
+  let generatedContent;
+  let form;
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+  });
+
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -39,5 +43,17 @@ describe('miam -> get document from a mediator', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should contain Save and come back later button', () => {
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
+  });
+
+  test('should contain Go back button', () => {
+    expect(
+      (form?.goBack?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Go back');
   });
 });
