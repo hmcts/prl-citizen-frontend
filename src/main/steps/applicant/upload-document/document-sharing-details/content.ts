@@ -41,9 +41,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-
-  },
+  fields: {},
 
   onlyContinue: {
     text: l => l.continue,
