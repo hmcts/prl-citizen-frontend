@@ -12,6 +12,7 @@ import {
   INTERNATIONAL_FACTORS_START,
   INTERNATIONAL_FACTORS_SUMMARY,
   MIAM_ATTEND_WILLINGNESS,
+  MIAM_NON_ATTEND_REASON,
   MIAM_START,
   MIAM_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
@@ -81,6 +82,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: MIAM_ATTEND_WILLINGNESS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => MIAM_NON_ATTEND_REASON,
+  },
+  {
+    url: MIAM_NON_ATTEND_REASON,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => MIAM_SUMMARY,
   },

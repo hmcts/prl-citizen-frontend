@@ -59,6 +59,7 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 export const MIAM: PageLink = `${RESPONDENT}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
+export const MIAM_NON_ATTEND_REASON: PageLink = `${MIAM}/miam-non-attendance-reason`;
 
 /* international-factors */
 export const INTERNATIONAL_FACTORS: PageLink = `${RESPONDENT}/international-factors`;

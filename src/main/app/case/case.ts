@@ -5,6 +5,7 @@ import {
   C100OrderTypes,
   CaseData,
   ContactDetails,
+  MiamNonAttendReason,
   OtherName,
   OtherProceedings,
   State,
@@ -70,6 +71,7 @@ export interface Case {
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
+  miamNonAttendanceReason?: MiamNonAttendReason;
   doYouConsent?: YesOrNo;
   applicationReceivedDate?: CaseDate;
   courtPermission?: YesOrNo;
