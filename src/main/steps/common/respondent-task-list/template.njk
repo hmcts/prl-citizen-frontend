@@ -1,0 +1,118 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% macro taskName(item) %}
+  <span class="app-task-list__task-name">
+    {% if item.href %}
+      <a id="{{item.id}}" class="govuk-link" href="{{item.href}}" aria-describedby="{{item.id}}-status">
+        {{item.text}}
+      </a>
+    {% else %}
+      <p id="{{item.id}}" class="govuk-body govuk-!-margin-bottom-0" aria-describedby="{{item.id}}-status">
+        {{item.text}}
+      </p>
+    {% endif %}
+  </span>
+{% endmacro %}
+
+{% macro taskStatus(item) %}
+  {% set statusClass = "" %}
+  {%if item.status == 'IN_PROGRESS' or item.status == 'READY_TO_VIEW' %}
+    {% set statusClass = "govuk-tag--blue" %}
+  {% elif item.status == 'TO_DO' or item.status == 'CAN_NOT_START_YET' or item.status == 'NOT_AVAILABLE_YET' %}
+    {% set statusClass = "govuk-tag--grey"%}
+  {% elif item.status == 'COMPLETED' or item.status == 'DOWNLOAD' %}
+    {% set statusClass = "govuk-tag--green"%}
+  {% endif %}
+  <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
+{% endmacro %}
+
+{% macro taskListItem(item) %}
+  {% if item.id %}
+    <li class="app-task-list__item">
+      {{ taskName(item) }}
+      {{ taskStatus(item) }}
+    </li>
+  {% else %}
+    <p class="govuk-!-font-weight-bold govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{item.text}}</p>
+  {% endif %}
+{% endmacro %}
+
+{% macro taskListSection(section, index) %}
+  <li>
+    <h2 class="app-task-list__section">
+      {{section.title}}
+    </h2>
+    <ul class="app-task-list__items">
+      {% for item in section.items %}
+        {{ taskListItem(item) }}
+      {% endfor %}
+    </ul>
+  </li>
+{% endmacro %}
+
+{% block content %}
+  <div class="govuk-grid-column-full">
+    {% block columnFull %}{% endblock %}
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% block twoThird %}
+        <h1 class="govuk-heading-xl">
+          {{title}}
+        </h1>
+
+        {% block progressBar %}{% endblock %}
+        {% block notificationBanner %}{% endblock %}
+        {% block caseDetails %}{% endblock %}
+
+        <ol class="app-task-list">
+          {% for section in sections %}
+            {{ taskListSection(section, loop.index) }}
+          {% endfor %}
+        </ol>
+      {% endblock %}
+  {# <button value="true" type="submit" name="saveAndContinue" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button" id="main-form-submit">
+  {{respondToApplication}}
+    </button>
+          <button value="true" type="submit" name="cancel" data-prevent-double-click="true" class="govuk-button govuk-button--secondary" data-module="govuk-button" id="main-form-submit">
+  {{cancel}}
+    </button> #}
+    <form action="summary">
+    {{
+          govukButton({
+            text: 'Review and submit',
+            classes: "govuk-button",
+            preventDoubleClick: true,
+            type: "submit",
+            name: "onlyContinue",
+            value: true,
+            attributes: {
+              id: ''
+            }
+          })
+        }}
+
+        {{
+          govukButton({
+            text: 'Go back',
+            classes: "govuk-button--secondary",
+            preventDoubleClick: true,
+            type: "submit",
+            name: "Go back",
+            value: true,
+            attributes: {
+              id: 'main-form-cancel'
+            }
+          }) 
+        }}
+      </form>
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+      {% block oneThird %}
+           {% include "../contact-us.njk" %}
+      {% endblock %}
+    </div>
+
+  </div>
+{% endblock %}

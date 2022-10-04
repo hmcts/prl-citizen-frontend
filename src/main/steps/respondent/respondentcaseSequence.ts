@@ -28,6 +28,7 @@ import {
   PREVIOUS_ORDERS_SUBMITTED,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
+  RESPNDT_TO_APPLICATION_SUMMARY,
   RESPONDENT,
   RESPONDENT_ADDRESS_BLANK,
   RESPONDENT_ADDRESS_CONFIRMATION,
@@ -378,6 +379,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPNDT_TO_APPLICATION_SUMMARY,
+  },
+  {
+    url: RESPNDT_TO_APPLICATION_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

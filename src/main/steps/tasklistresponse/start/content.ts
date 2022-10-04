@@ -1,3 +1,4 @@
+import { FormContent } from 'app/form/Form';
 import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 
@@ -16,6 +17,9 @@ const en = () => ({
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
+  respondToApplication: 'Review and submit',
+  cancel: 'Go back',
+  continue: 'test'
 });
 
 const cy = () => ({
@@ -29,6 +33,9 @@ const cy = () => ({
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
+  respondToApplication: 'Review and submit',
+  cancel: 'Go back',
+  continue: 'test'
 });
 
 const languages = {
@@ -36,10 +43,18 @@ const languages = {
   cy,
 };
 
+
+export const form: FormContent = {
+  fields: {},
+  submit: {
+    text: l => l.continue,
+  },
+};
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
-    sections: generateRespondentTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
+    sections: generateRespondentTaskList(translations.sectionTitles, translations.taskListItems, content.userCase,),
+    form,
   };
 };
