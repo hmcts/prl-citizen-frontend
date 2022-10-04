@@ -45,15 +45,18 @@ export default class ParentResponsibility extends PostController<AnyObject> {
       res.render('error');
     }
   }
-  protected errorsAndRedirect(req: AppRequest<AnyObject>, res: Response, formData: Partial<Case>, form: Form) {
+  public errorsAndRedirect(req: AppRequest<AnyObject>, res: Response, formData: Partial<Case>, form: Form) {
     req.session.errors = form.getErrors(formData);
     if (req.session.errors.length) {
       const { childId } = req.query;
       const currentChild = req.session.userCase.children
         ? req.session.userCase.children.findIndex(childWithId => childWithId.id === childId)
         : 0;
-
-      console.log(currentChild);
+      if (req.session.userCase.children) {
+        req.session.userCase.children[currentChild].parentialResponsibility = {
+          statement: '',
+        };
+      }
       const redirectUri = C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
       return super.redirect(req, res, redirectUri);
     }

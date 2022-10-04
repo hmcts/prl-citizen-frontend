@@ -108,11 +108,11 @@ describe('PostController', () => {
 
   test('Parental responsibility controller without childId', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
-    const body = { applicant1PhoneNumber: 'invalid phone number' };
-    const mockPhoneNumberFormContent = {
+    const body = {};
+    const mockBodyResponse = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new ParentResponsibility(mockPhoneNumberFormContent.fields);
+    const controller = new ParentResponsibility(mockBodyResponse.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
@@ -126,6 +126,26 @@ describe('PostController', () => {
     req.session.settings = settings;
     await controller.post(req, res);
     expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
+    expect(req.originalUrl).not.toBe(req.redirectURI);
+    expect(req.session.lang).toBe(language);
+  });
+
+  test('errorsAndRedirect controller', async () => {
+    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = {};
+    const mockBodyResponse = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ParentResponsibility(mockBodyResponse.fields);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    req.query.childId = 'f817b708-977e-4ed1-b241-c9030a204312';
+    const language = 'en';
+    req.session.lang = language;
+    req.session.userCase.children = dummySessionData['ListOfChild'];
+    await controller.post(req, res);
+    expect(req.session.userCase.children).toEqual(dummySessionData.ListOfChild);
     expect(req.originalUrl).not.toBe(req.redirectURI);
     expect(req.session.lang).toBe(language);
   });
