@@ -246,6 +246,10 @@ export interface Case {
       TempFirstName: string | unknown;
       TempLastName: string | unknown;
     };
+  children?: childrenDetails[];
+  tempchildrenFormData?: {
+    TempFirstName: string | unknown;
+    TempLastName: string | unknown;
   };
 }
 
