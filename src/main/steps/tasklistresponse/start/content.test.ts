@@ -81,13 +81,13 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/miam/miam-start',
+              href: '/tasklistresponse/miam/miam-start',
               id: 'medation-miam',
               status: 'IN_PROGRESS',
               text: 'Mediation(MIAM)',
             },
             {
-              href: '/respondent/proceedings/start',
+              href: '/tasklistresponse/proceedings/start',
               id: 'current-or-previous-proceedings',
               status: 'TO_DO',
               text: 'Current or previous proceedings',
@@ -98,7 +98,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/safety_concerns/main_page',
+              href: '/tasklistresponse/safety_concerns/main_page',
               id: 'your-safety',
               status: 'TO_DO',
               text: 'Your safety',
@@ -109,7 +109,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/international-factors/start',
+              href: '/tasklistresponse/international-factors/start',
               id: 'international-factors',
               status: 'TO_DO',
               text: 'International element',

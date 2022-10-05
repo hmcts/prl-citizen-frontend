@@ -74,7 +74,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/miam/miam-start',
+              href: '/tasklistresponse/miam/miam-start',
               id: 'check_the_application',
               status: 'IN_PROGRESS',
               text: 'Check the application (PDF)',
