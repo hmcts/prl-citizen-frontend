@@ -1,9 +1,11 @@
-import { YesOrNo } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { generateContent } from '../../type-of-hearing/urgent-details/content';
 
-const en = () => ({
+jest.mock('../../../../app/form/validation');
+
+const en = {
   title: 'Tell us about your situation',
   reasonForUrgentHearing: 'Reason you are asking for an urgent hearing',
   riskOfSafety: "Risk to my safety or the children's safety",
@@ -38,9 +40,9 @@ const en = () => ({
       required: 'Provide details of what you have done to inform the respondents of you application',
     },
   },
-});
+};
 
-const cy = () => ({
+const cy = {
   title: 'Tell us about your situation - Welsh',
   reasonForUrgentHearing: 'Reason you are asking for an urgent hearing - Welsh',
   riskOfSafety: "Risk to my safety or the children's safety - Welsh",
@@ -75,95 +77,57 @@ const cy = () => ({
       required: 'Provide details of what you have done to inform the respondents of you application',
     },
   },
+};
+describe('Urgent Hearing', () => {
+  const commonContent = { language: 'en' } as CommonContent;
+  let generatedContent;
+  let form;
+  let fields;
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+  });
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct english content', () => {
+    languageAssertions('en', en, () => generateContent(commonContent));
+  });
+
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct welsh content', () => {
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should contain urgent hearing fields', () => {
+    const hearingUrgencyCheck = fields.hu_reasonOfUrgentHearing as FormOptions;
+    expect(hearingUrgencyCheck.type).toBe('checkboxes');
+    expect((hearingUrgencyCheck.values[0].label as LanguageLookup)(generatedContent)).toBe(en.riskOfSafety);
+    expect((hearingUrgencyCheck.values[1].label as LanguageLookup)(generatedContent)).toBe(en.riskOfChildAbduction);
+    expect((hearingUrgencyCheck.values[2].label as LanguageLookup)(generatedContent)).toBe(en.overseasLegalProceeding);
+    expect((hearingUrgencyCheck.values[3].label as LanguageLookup)(generatedContent)).toBe(en.otherRisks);
+
+    const hearingUrgencyRiskDetails = fields.hu_otherRiskDetails as FormOptions;
+    expect(hearingUrgencyRiskDetails.type).toBe('textarea');
+    expect((hearingUrgencyRiskDetails.label as LanguageLookup)(generatedContent)).toBe(en.giveDetailsOtherRisks);
+
+    const hearingUrgencytimeOfHearingDetails = fields.hu_timeOfHearingDetails as FormOptions;
+    expect(hearingUrgencytimeOfHearingDetails.type).toBe('text');
+    expect((hearingUrgencytimeOfHearingDetails.label as LanguageLookup)(generatedContent)).toBe(en.timeOfHearing);
+
+    const hu_hearingWithNext48HrsDetails = fields.hu_hearingWithNext48HrsDetails as FormOptions;
+    expect(hu_hearingWithNext48HrsDetails.type).toBe('radios');
+    expect((hu_hearingWithNext48HrsDetails.label as LanguageLookup)(generatedContent)).toBe(en.hearingWithNext48Hrs);
+  });
+
+  test('should contain Continue button', () => {
+    expect(
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
+  });
+
+  test('should contain SaveAndComeLater button', () => {
+    expect(
+      (form.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
+  });
 });
-
-const languages = {
-  en,
-  cy,
-};
-
-export const form: FormContent = {
-  fields: {
-    hu_reasonOfUrgentHearing: {
-      type: 'checkboxes',
-      labelHidden: true,
-      validator: atLeastOneFieldIsChecked,
-      values: [
-        {
-          name: 'hu_reasonOfUrgentHearing',
-          label: l => l.riskOfSafety,
-          value: 'risk of safety',
-        },
-        {
-          name: 'hu_reasonOfUrgentHearing',
-          label: l => l.riskOfChildAbduction,
-          value: 'risk of child abduction',
-        },
-        {
-          name: 'hu_reasonOfUrgentHearing',
-          label: l => l.overseasLegalProceeding,
-          value: 'overseas legal proceeding',
-        },
-        {
-          name: 'hu_reasonOfUrgentHearing',
-          label: l => l.otherRisks,
-          value: 'other risks',
-        },
-      ],
-    },
-    hu_otherRiskDetails: {
-      type: 'textarea',
-      name: 'hu_otherRiskDetails',
-      label: l => l.giveDetailsOtherRisks,
-      hint: l => l.giveDetailsOtherRisksHint,
-      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
-    },
-    hu_timeOfHearingDetails: {
-      type: 'text',
-      name: 'hu_timeOfHearingDetails',
-      classes: 'govuk-input',
-      label: l => l.timeOfHearing,
-      validator: value => isFieldFilledIn(value),
-    },
-    hu_hearingWithNext48HrsDetails: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.hearingWithNext48Hrs,
-      labelSize: 'm',
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-          subFields: {
-            hearingWithNext48HrsMsg: {
-              type: 'textarea',
-              label: l => l.hearingWithNext48HrsDetails,
-              hint: l => l.hearingWithNext48HrsDetailsHint,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
-            },
-          },
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-  },
-
-  submit: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
-};
-
-export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    form,
-  };
-};

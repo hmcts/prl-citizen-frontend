@@ -67,6 +67,11 @@ export interface Case {
   detailsKnown?: string;
   startAlternative?: string;
   contactDetailsPrivate?: string;
+  hu_reasonOfUrgentHearing?: string;
+  hu_otherRiskDetails?: string;
+  hu_timeOfHearingDetails?: string;
+  hu_hearingWithNext48HrsDetails?: string;
+  hu_hearingWithNext48HrsMsg?: string;
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
