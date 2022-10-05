@@ -52,21 +52,39 @@ export const getInternationalFactorsStatus = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string
 ): SectionStatus => {
-  if (
-    ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
-    ((userCase?.parents === YesOrNo.YES && userCase?.iFactorsParentsProvideDetails) ||
-      userCase?.parents === YesOrNo.NO) &&
-    ((userCase?.jurisdiction === YesOrNo.YES && userCase?.iFactorsJurisdictionProvideDetails) ||
-      userCase?.jurisdiction === YesOrNo.NO) &&
-    ((userCase?.request === YesOrNo.YES && userCase?.iFactorsRequestProvideDetails) || userCase?.request === YesOrNo.NO)
-  ) {
-    return SectionStatus.COMPLETED;
-  }
+  let statusFlag = SectionStatus.TO_DO;
 
-  if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
-    return SectionStatus.IN_PROGRESS;
-  }
-  return SectionStatus.TO_DO;
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (respondent?.value.user?.idamId === userIdamId) {
+      const internationalElements = respondent?.value?.response?.citizenInternationalElements;
+      if (
+        ((internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.YES &&
+          internationalElements?.childrenLiveOutsideOfEnWlDetails) ||
+          internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.NO) &&
+        ((internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES &&
+          internationalElements?.parentsAnyOneLiveOutsideEnWlDetails) ||
+          internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO) &&
+        ((internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.YES &&
+          internationalElements?.anotherPersonOrderOutsideEnWlDetails) ||
+          internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.NO) &&
+        ((internationalElements?.anotherCountryAskedInformation === YesOrNo.YES &&
+          internationalElements?.anotherCountryAskedInformationDetaails) ||
+          internationalElements?.anotherCountryAskedInformation === YesOrNo.NO)
+      ) {
+        statusFlag = SectionStatus.COMPLETED;
+      }
+
+      if (
+        internationalElements?.childrenLiveOutsideOfEnWl ||
+        internationalElements?.parentsAnyOneLiveOutsideEnWl ||
+        internationalElements?.anotherPersonOrderOutsideEnWl ||
+        internationalElements?.anotherCountryAskedInformation
+      ) {
+        statusFlag = SectionStatus.IN_PROGRESS;
+      }
+    }
+  });
+  return statusFlag;
 };
 
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
