@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { caseApi } from '../../../../app/case/C100CaseApi';
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
@@ -34,14 +33,17 @@ export default class DocumentUpload extends GetController {
 
   public removeExistingDocument = async (docId: string, req: AppRequest, res: Response): Promise<void> => {
     try {
-      const userDetails = req?.session?.user;
-      await caseApi(userDetails, req.locals.logger).deleteDocument(docId);
+      //const userDetails = req?.session?.user;
+      await req.locals.C100Api.deleteDocument(docId);
+
+      if (req.session.userCase?.miam_certificate) {
+        req.session.userCase.miam_certificate = undefined;
+      }
 
       req.session.save(err => {
         if (err) {
           throw err;
         }
-        console.log(`${C100_MIAM_UPLOAD}`);
         res.redirect(`${C100_MIAM_UPLOAD}`);
       });
     } catch (error) {

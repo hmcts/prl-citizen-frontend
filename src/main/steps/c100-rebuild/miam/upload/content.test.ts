@@ -1,7 +1,13 @@
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+//import { isFieldFilledIn } from '../../../../app/form/validation';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
-const en = () => ({
+import { generateContent } from './content';
+
+jest.mock('../../../../app/form/validation');
+
+const en = {
   serviceName: 'Child arrangements',
   title: 'Upload your MIAM certificate',
   youNeed: 'If you are uploading documents from a computer, name the files clearly. For example, miam-certificate.doc.',
@@ -24,9 +30,9 @@ const en = () => ({
             file and upload a new one`,
     },
   },
-});
+};
 
-const cy = () => ({
+const cy = {
   serviceName: 'Child arrangements - welsh',
   title: 'Upload your MIAM certificate - welsh',
   youNeed:
@@ -50,34 +56,41 @@ const cy = () => ({
             file and upload a new one - welsh`,
     },
   },
+};
+
+/* eslint-disable @typescript-eslint/ban-types */
+describe('applicant personal details > international elements > start', () => {
+  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct english content', () => {
+    languageAssertions('en', en, () => generateContent({ ...commonContent, language: 'en' }));
+  });
+
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct welsh content', () => {
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should contain miam document upload field', () => {
+    const generatedContent = generateContent(commonContent) as Record<string, never>;
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const miamUploadField = fields.miamUpload as FormOptions;
+    expect(miamUploadField.type).toBe('hidden');
+  });
+
+  test('should contain Continue button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
+    expect(
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
+  });
+  test('should contain SaveAndComeLater button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
+  });
 });
-
-const languages = {
-  en,
-  cy,
-};
-
-export const form: FormContent = {
-  fields: {
-    miamUpload: {
-      type: 'hidden',
-      //label: l => l.uploadFiles,
-      labelHidden: true,
-      value: 'true',
-    },
-  },
-  submit: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
-};
-
-export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    form,
-  };
-};
