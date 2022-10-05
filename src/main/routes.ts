@@ -11,16 +11,20 @@ import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsGetController';
+import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsPostController';
+import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
+import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
+import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/RespondentConfirmContactDetailsGetController';
+import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/RespondentConfirmContactDetailsPostController';
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
-import { KeepDetailsPrivateGetController } from './steps/respondent/keep-details-private/KeepDetailsPrivateGetController';
-import { KeepDetailsPrivatePostController } from './steps/respondent/keep-details-private/KeepDetailsPrivatePostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -29,6 +33,10 @@ import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
+  APPLICANT_CHECK_ANSWERS,
+  APPLICANT_CONTACT_DETAILS_SAVE,
+  APPLICANT_DETAILS_KNOWN,
+  APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASK_LIST_URL,
@@ -44,6 +52,8 @@ import {
   MANAGE_DOCUMENTS_DOWNLOAD,
   PRIVACY_POLICY,
   RESPONDENT,
+  RESPONDENT_CHECK_ANSWERS,
+  RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -94,6 +104,20 @@ export class Routes {
         `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
         errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
       );
+      app.get(
+        `${APPLICANT_DETAILS_KNOWN}/:caseId`,
+        errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
+      );
+
+      app.get(
+        `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
+        errorHandler(new RespondentConfirmContactDetailsGetController(step.view, step.generateContent).get)
+      );
+
+      app.get(
+        `${APPLICANT_CHECK_ANSWERS}/:caseId`,
+        errorHandler(new ApplicantConfirmContactDetailsGetController(step.view, step.generateContent).get)
+      );
 
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
@@ -126,6 +150,18 @@ export class Routes {
         app.get(
           `${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`,
           errorHandler(new KeepDetailsPrivatePostController(step.form.fields).post)
+        );
+        app.get(
+          `${APPLICANT_KEEP_DETAILS_PRIVATE_SAVE}`,
+          errorHandler(new KeepDetailsPrivatePostController(step.form.fields).post)
+        );
+        app.post(
+          `${RESPONDENT_CONTACT_DETAILS_SAVE}`,
+          errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.post(
+          `${APPLICANT_CONTACT_DETAILS_SAVE}`,
+          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
         );
       }
     }

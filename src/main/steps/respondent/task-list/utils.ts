@@ -6,28 +6,47 @@ export const getKeepYourDetailsPrivateStatus = (
   userIdamId: string
 ): SectionStatus => {
   let status = SectionStatus.TO_DO;
-  userCase?.respondents?.forEach((respondent: Respondent) => {
-    if (respondent?.value.user?.idamId === userIdamId) {
-      const keepDetailsPrivate = respondent?.value?.response?.keepDetailsPrivate;
-      if (keepDetailsPrivate?.confidentiality && keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
-        status = SectionStatus.COMPLETED;
-      } else if (keepDetailsPrivate?.confidentiality || keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
-        status = SectionStatus.IN_PROGRESS;
+  let keepDetailsPrivate;
+  if (userCase?.caseTypeOfApplication === 'C100') {
+    userCase?.respondents?.forEach((respondent: Respondent) => {
+      if (respondent?.value.user?.idamId === userIdamId) {
+        keepDetailsPrivate = respondent?.value?.response?.keepDetailsPrivate;
       }
-    }
-  });
-
+    });
+  } else {
+    keepDetailsPrivate = userCase?.respondentsFL401?.response?.keepDetailsPrivate;
+  }
+  if (keepDetailsPrivate?.confidentiality && keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+    status = SectionStatus.COMPLETED;
+  } else if (keepDetailsPrivate?.confidentiality || keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+    status = SectionStatus.IN_PROGRESS;
+  }
   return status;
 };
 
-export const getConfirmOrEditYourContactDetails = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (userCase?.applicant1FullName && userCase?.applicant1DateOfBirth && userCase?.applicant1PlaceOfBirth) {
+export const getConfirmOrEditYourContactDetails = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  const status = SectionStatus.TO_DO;
+  let resp;
+  if (userCase?.caseTypeOfApplication === 'C100') {
+    userCase?.respondents?.forEach((respondent: Respondent) => {
+      if (respondent?.value.user?.idamId === userIdamId) {
+        resp = respondent?.value;
+      }
+    });
+  } else {
+    resp = userCase?.respondentsFL401;
+  }
+
+  if (resp?.firstName && resp?.lastName && resp?.dateOfBirth && resp?.placeOfBirth) {
     return SectionStatus.COMPLETED;
   }
-  if (userCase?.applicant1FullName || userCase?.applicant1DateOfBirth || userCase?.applicant1PlaceOfBirth) {
+  if (resp?.firstName || resp?.lastName || resp?.dateOfBirth || resp?.placeOfBirth) {
     return SectionStatus.IN_PROGRESS;
   }
-  return SectionStatus.TO_DO;
+  return status;
 };
 
 export const getConsentToApplicationStatus = (

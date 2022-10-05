@@ -29,24 +29,24 @@ describe('utils', () => {
       {
         data: {
           ...mockUserCase,
-          applicant1FullName: undefined,
-          applicant1DateOfBirth: undefined,
-          applicant1PlaceOfBirth: undefined,
+          citizenUserFullName: undefined,
+          citizenUserDateOfBirth: undefined,
+          citizenUserPlaceOfBirth: undefined,
         },
-        expected: SectionStatus.TO_DO,
+        expected: SectionStatus.IN_PROGRESS,
       },
       {
         data: {
           ...mockUserCase,
-          applicant1FullName: 'Test',
-          applicant1DateOfBirth: date,
-          applicant1PlaceOfBirth: 'date',
+          citizenUserFullName: 'Test',
+          citizenUserDateOfBirth: date,
+          citizenUserPlaceOfBirth: 'date',
         },
-        expected: SectionStatus.COMPLETED,
+        expected: SectionStatus.IN_PROGRESS,
       },
-      { data: { ...mockUserCase, applicant1FullName: 'Test' }, expected: SectionStatus.IN_PROGRESS },
+      { data: { ...mockUserCase, citizenUserFullName: 'Test' }, expected: SectionStatus.IN_PROGRESS },
     ])('should return correct status %#', async ({ data, expected }) => {
-      expect(getConfirmOrEditYourContactDetails({ ...userCase, ...data })).toBe(expected);
+      expect(getConfirmOrEditYourContactDetails({ ...userCase, ...data }, '123456')).toBe(expected);
     });
   });
   describe('getConsentToApplicationStatus', () => {
@@ -66,7 +66,7 @@ describe('utils', () => {
           doYouConsent: YesOrNo.NO,
           courtPermission: YesOrNo.NO,
           //applicationReceivedDate: '',
-          //applicant1PlaceOfBirth: '10-10-2015',
+          //citizenUserPlaceOfBirth: '10-10-2015',
         },
         expected: SectionStatus.COMPLETED,
       },

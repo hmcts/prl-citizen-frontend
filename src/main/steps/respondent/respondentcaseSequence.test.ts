@@ -32,15 +32,15 @@ describe('respondent1Sequence', () => {
 
     expect(respondentCaseSequence[7].url).toBe('/respondent/confirm-contact-details/checkanswers');
     expect(respondentCaseSequence[7].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[7].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[7].getNextStep({})).toBe('/respondent/confirm-contact-details/save');
 
     expect(respondentCaseSequence[8].url).toBe('/respondent/confirm-contact-details/personaldetails');
     expect(respondentCaseSequence[8].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[8].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[8].getNextStep({})).toBe('/respondent/confirm-contact-details/checkanswers');
 
     expect(respondentCaseSequence[9].url).toBe('/respondent/confirm-contact-details/contactdetails');
     expect(respondentCaseSequence[9].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[9].getNextStep({})).toBe('/respondent/confirm-contact-details/checkanswers');
 
     expect(respondentCaseSequence[10].url).toBe('/respondent/confirm-contact-details/addressdetails');
     expect(respondentCaseSequence[10].showInSection).toBe('aboutRespondentCase');
