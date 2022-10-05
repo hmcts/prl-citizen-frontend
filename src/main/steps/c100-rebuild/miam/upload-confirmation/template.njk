@@ -1,8 +1,8 @@
 {% extends "common/template.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-          {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-                      {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 
 {% block page_content %}
@@ -17,23 +17,13 @@
   type: 'success'
 }) }}
 <h2 class="app-task-list__section govuk-heading-l">{{secondaryTitle}}</h2>
-
-<dl class="govuk-summary-list">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__value">
-      sam_richards__MIAM_certificate__date_submitted.pdf
-    </dt>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__value">
-      sam_richards__MIAM_certificate__date_submitted.pdf
-    </dt>
-  </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__value">
-      sam_richards__MIAM_certificate__date_submitted.pdf
-    </dt>
-  </div>
-</dl>
-
+{%if userCase['miam_certificate'] and userCase['miam_certificate']  === undefined %}
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__value">
+        {{userCase['miam_certificate'][filename]}}
+      </dt>
+    </div>
+  </dl>
+{%endif%}
 {% endblock %}
