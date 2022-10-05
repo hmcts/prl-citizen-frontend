@@ -68,6 +68,9 @@ export const form: FormContent = {
           value: 'childProtectionPlan',
         },
         {
+          divider: true,
+        },
+        {
           name: 'miam_childProtectionEvidence',
           label: l => l.none,
           value: 'none',

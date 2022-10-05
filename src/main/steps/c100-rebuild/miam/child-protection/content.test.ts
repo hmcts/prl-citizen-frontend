@@ -75,7 +75,7 @@ describe('miam child protection', () => {
     expect((miam_domesticabuse_involvement_field.values[1].label as LanguageLookup)(generatedContent)).toBe(
       en.childProtectionPlan
     );
-    expect((miam_domesticabuse_involvement_field.values[2].label as LanguageLookup)(generatedContent)).toBe(en.none);
+    expect((miam_domesticabuse_involvement_field.values[3].label as LanguageLookup)(generatedContent)).toBe(en.none);
   });
 
   test('should contain Continue button', () => {
