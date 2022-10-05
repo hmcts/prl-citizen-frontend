@@ -12,6 +12,9 @@ import {
   CA_DA_SPECIAL_ARRANGEMENTS,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   CA_DA_TRAVELLING_TO_COURT,
+  CONSENT_SAVE,
+  CONSENT_SUMMARY,
+  CONSENT_TO_APPLICATION,
   COURT_PROCEEDINGS_SUMMARY,
   DIGITAL_DOWNLOADS,
   DOMESTIC_ABUSE_RISK,
@@ -47,8 +50,10 @@ import {
   RESPONDENT_ADDRESS_LOOKUP_CONT,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
+  RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_FIND_ADDRESS,
+  RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
@@ -77,6 +82,16 @@ export const respondentCaseSequence: Step[] = [
   },
 
   {
+    url: CONSENT_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => CONSENT_SUMMARY,
+  },
+  {
+    url: CONSENT_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => CONSENT_SAVE,
+  },
+  {
     url: RESPONDENT_DETAILS_KNOWN,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_START_ALTERNATIVE,
@@ -84,10 +99,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_START_ALTERNATIVE,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.startAlternative === YesOrNo.YES
-        ? RESPONDENT_PRIVATE_DETAILS_CONFIRMED
-        : RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
+    getNextStep: () => RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
@@ -117,17 +129,17 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPONDENT_CONTACT_DETAILS_SAVE,
   },
   {
     url: RESPONDENT_PERSONAL_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPONDENT_CHECK_ANSWERS,
   },
   {
     url: RESPONDENT_CONTACT_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPONDENT_CHECK_ANSWERS,
   },
   {
     url: RESPONDENT_ADDRESS_DETAILS,

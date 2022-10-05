@@ -1,6 +1,5 @@
 import { Response } from 'express';
 
-import { getSystemUser } from '../../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
@@ -21,11 +20,11 @@ export class GetCaseController extends GetController {
       });
     }
     if (req.params?.caseId) {
-      const caseworkerUser = await getSystemUser();
+      const loggedInCitizen = req.session.user;
       const caseReference = req.params?.caseId;
 
-      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+      const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+      const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
     }
     req.session.save(() => res.redirect(APPLICANT_TASK_LIST_URL));

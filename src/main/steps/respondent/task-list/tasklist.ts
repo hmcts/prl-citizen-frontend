@@ -2,17 +2,18 @@ import { CaseWithId } from '../../../app/case/case';
 import * as URL from '../../urls';
 
 import {
+  getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
-  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
+  getYourSafetyStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   return [
     {
       title: sectionTitles.aboutYou,
@@ -20,26 +21,26 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'keep-your-details-private',
           text: taskListItems.keep_your_details_private,
-          status: getKeepYourDetailsPrivateStatus(userCase),
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
           href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
         },
         {
           id: 'confirm-or-edit-your-contact-details',
           text: taskListItems.confirm_or_edit_your_contact_details,
-          status: getConfirmOrEditYourContactDetails(userCase),
-          href: URL.RESPONDENT_CHECK_ANSWERS,
+          status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
+          href: URL.RESPONDENT_CHECK_ANSWERS + '/' + userCase.id,
         },
         {
           id: 'support_you_need_during_your_case',
           text: taskListItems.support_you_need_during_your_case,
-          status: getKeepYourDetailsPrivateStatus(userCase),
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
           href: URL.CA_DA_ATTENDING_THE_COURT,
         },
       ],
     },
     {
       title: sectionTitles.theApplication,
-      items: [...getTheApplicationSection(taskListItems, userCase)],
+      items: [...getTheApplicationSection(taskListItems, userCase, userIdamId)],
     },
     ...getYourResponseSection(sectionTitles, taskListItems, userCase),
     {
@@ -81,10 +82,21 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         },
       ],
     },
+    {
+      title: sectionTitles.respondentSafetyConcerns,
+      items: [
+        {
+          id: 'your-safety',
+          text: taskListItems.your_safety,
+          status: getYourSafetyStatus(userCase),
+          href: URL.SAFETY_MAIN_PAGE,
+        },
+      ],
+    },
   ];
 };
 
-const getTheApplicationSection = (taskListItems, userCase: CaseWithId) => {
+const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamId) => {
   const itemList: object[] = [];
   if (userCase?.caseTypeOfApplication === 'C100') {
     itemList.push(
@@ -97,8 +109,8 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId) => {
       {
         id: 'check_allegations_of_harm_and_violence',
         text: taskListItems.check_allegations_of_harm_and_violence,
-        status: getCurrentOrOtherProceedingsStatus(userCase),
-        href: URL.PROCEEDINGS_START,
+        status: getCheckAllegationOfHarmStatus(userCase, userIdamId),
+        href: URL.ALLEGATION_OF_HARM_VOILENCE + '?updateCase=Yes',
       }
     );
   } else {

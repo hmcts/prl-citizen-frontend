@@ -119,6 +119,13 @@ export interface Response {
   miam?: Miam;
   citizenInternationalElements?: CitizenInternationalElements;
   keepDetailsPrivate?: KeepDetailsPrivate;
+  citizenFlags?: CitizenFlags
+}
+
+
+export interface CitizenFlags {
+  isApplicationViewed?: string,
+  isAllegationOfHarmViewed?: string
 }
 
 export interface CitizenInternationalElements {
@@ -140,9 +147,16 @@ export interface Consent {
 }
 
 export interface KeepDetailsPrivate {
-  otherPeopleKnowYourContactDetails: string;
-  confidentiality: string;
+  otherPeopleKnowYourContactDetails?: string;
+  confidentiality?: string;
+  confidentialityList?: ConfidentialityList[];
 }
+
+ export enum ConfidentialityList{
+   phoneNumber = 'phoneNumber',
+   email = 'email',
+   address = 'address',
+ }
 
 export interface Applicant {
   id: string;
@@ -553,7 +567,7 @@ export const enum ContactDetails {
 
 export const enum ContactDetailsPrivate {
   EMAIL = 'email',
-  PHONE = 'phone',
+  PHONE = 'phoneNumber',
   ADDRESS = 'address'
 }
 
@@ -759,21 +773,21 @@ export interface CaseData {
   contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
-  applicant1FullName?: string;
-  applicant1FirstNames?: string;
-  applicant1LastNames?: string;
+  citizenUserFullName?: string;
+  citizenUserFirstNames?: string;
+  citizenUserLastNames?: string;
   applicant1HasOtherNames?: YesOrNo;
-  applicant1AdditionalName?: string;
+  citizenUserAdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
-  applicant1EmailAddress?: string;
+  citizenUserEmailAddress?: string;
   applicant1SafeToCall?: string;
-  applicant1PhoneNumber?: string;
-  applicant1DateOfBirth?: CaseDate;
-  applicant1DateOfBirthText?: string;
+  citizenUserPhoneNumber?: string;
+  citizenUserDateOfBirth?: CaseDate;
+  citizenUserDateOfBirthText?: string;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
-  applicant1PlaceOfBirth?: string;
-  applicant1PlaceOfBirthText?: string;
+  citizenUserPlaceOfBirth?: string;
+  citizenUserPlaceOfBirthText?: string;
   applicant1PlaceOfText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;

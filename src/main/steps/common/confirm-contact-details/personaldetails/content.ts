@@ -11,24 +11,24 @@ import {
 
 const en = {
   title: 'Your name and date of birth',
-  applicant1FirstNames: 'Your first name',
-  applicant1LastNames: 'Your last name',
+  citizenUserFirstNames: 'Your first name',
+  citizenUserLastNames: 'Your last name',
   previousName: 'Previous name(s), if any (optional)',
-  applicant1PlaceOfBirth: 'Place of birth',
-  applicant1DateOfBirth: 'Your date of birth',
+  citizenUserPlaceOfBirth: 'Place of birth',
+  citizenUserDateOfBirth: 'Your date of birth',
   hintDateOfBirth: 'For example - 31 3 1980',
   continue: 'Continue',
   errors: {
-    applicant1FirstNames: {
+    citizenUserFirstNames: {
       required: 'Enter Your first name',
     },
-    applicant1LastNames: {
+    citizenUserLastNames: {
       required: 'Enter Your last name',
     },
-    applicant1PlaceOfBirth: {
+    citizenUserPlaceOfBirth: {
       required: 'Enter Your Place of birth',
     },
-    applicant1DateOfBirth: {
+    citizenUserDateOfBirth: {
       required: 'Enter your date of birth',
       invalidDate: 'Date of birth must be a real date',
       incompleteDay: 'Your date of birth must include a day',
@@ -41,24 +41,24 @@ const en = {
 
 const cy: typeof en = {
   title: 'Eich enw a dyddiad geni',
-  applicant1FirstNames: 'Eich enw cyntaf',
-  applicant1LastNames: 'Eich enw olaf',
+  citizenUserFirstNames: 'Eich enw cyntaf',
+  citizenUserLastNames: 'Eich enw olaf',
   previousName: 'Enw(au) blaenorol, os o gwbl (dewisol)',
-  applicant1PlaceOfBirth: 'Man geni',
-  applicant1DateOfBirth: 'Eich dyddiad geni',
+  citizenUserPlaceOfBirth: 'Man geni',
+  citizenUserDateOfBirth: 'Eich dyddiad geni',
   hintDateOfBirth: 'Er enghraifft - 31 3 1980',
   continue: 'Continue',
   errors: {
-    applicant1FirstNames: {
+    citizenUserFirstNames: {
       required: 'Rhowch Eich enw cyntaf',
     },
-    applicant1LastNames: {
+    citizenUserLastNames: {
       required: 'Rhowch Eich Enw Diwethaf',
     },
-    applicant1PlaceOfBirth: {
+    citizenUserPlaceOfBirth: {
       required: 'Rhowch Eich Man Geni',
     },
-    applicant1DateOfBirth: {
+    citizenUserDateOfBirth: {
       required: 'Enter your date of birth',
       invalidDate: 'Date of birth must be a real date',
       incompleteDay: 'Your date of birth must include a day',
@@ -76,17 +76,17 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    applicant1FirstNames: {
+    citizenUserFirstNames: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.applicant1FirstNames,
+      label: l => l.citizenUserFirstNames,
       labelSize: null,
       validator: value => isFieldFilledIn(value),
     },
-    applicant1LastNames: {
+    citizenUserLastNames: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.applicant1LastNames,
+      label: l => l.citizenUserLastNames,
       labelSize: null,
       validator: value => isFieldFilledIn(value),
     },
@@ -96,10 +96,10 @@ export const form: FormContent = {
       label: l => l.previousName,
       labelSize: null,
     },
-    applicant1DateOfBirth: {
+    citizenUserDateOfBirth: {
       type: 'date',
       classes: 'govuk-date-input',
-      label: l => l.applicant1DateOfBirth,
+      label: l => l.citizenUserDateOfBirth,
       hint: l => l.hintDateOfBirth,
       values: [
         {
@@ -121,16 +121,16 @@ export const form: FormContent = {
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
         },
       ],
-      parser: body => covertToDateObject('applicant1DateOfBirth', body as Record<string, unknown>),
+      parser: body => covertToDateObject('citizenUserDateOfBirth', body as Record<string, unknown>),
       validator: value =>
         areDateFieldsFilledIn(value as CaseDate) ||
         isDateInputInvalid(value as CaseDate) ||
         isFutureDate(value as CaseDate),
     },
-    applicant1PlaceOfBirth: {
+    citizenUserPlaceOfBirth: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.applicant1PlaceOfBirth,
+      label: l => l.citizenUserPlaceOfBirth,
       labelSize: null,
       validator: value => isFieldFilledIn(value),
     },
