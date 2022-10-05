@@ -59,6 +59,7 @@ import {
   C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   C100_MIAM_ATTENDANCE,
   C100_MIAM_MEDIATOR_CONFIRMAION,
+  C100_MIAM_URGENCY,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -394,5 +395,10 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  },
+  {
+    url: C100_MIAM_URGENCY,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_URGENCY,
   },
 ];
