@@ -65,7 +65,6 @@ export interface Case {
   caseCode?: string;
   accessCode?: string;
   detailsKnown?: string;
-  miam_haveDocSigned?: string;
   startAlternative?: string;
   contactDetailsPrivate?: string;
   miamStart?: string;
@@ -210,6 +209,9 @@ export interface Case {
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
   c1A_safteyConcerns?: C1ASafteyConcerns;
+  miam_otherProceedings?: string;
+  miam_haveDocSigned?: string;
+  miam_attendance?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
