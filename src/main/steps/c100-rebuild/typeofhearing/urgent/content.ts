@@ -19,7 +19,7 @@ const en = () => ({
   one: 'Yes',
   two: 'No',
   errors: {
-    typeOfHearing_: {
+    hu_urgentHearingReasons: {
       required: 'Select yes if you have a good reason to request an urgent hearing',
     },
   },
@@ -41,7 +41,7 @@ const cy = () => ({
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    typeOfHearing_: {
+    hu_urgentHearingReasons: {
       required: 'Select yes if you have a good reason to request an urgent hearing - welsh',
     },
   },
@@ -55,7 +55,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    typeOfHearing_: {
+    hu_urgentHearingReasons: {
       type: 'radios',
       classes: 'govuk-radios',
       labelSize: 'm',

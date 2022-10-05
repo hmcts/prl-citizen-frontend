@@ -21,7 +21,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   errors: {
-    typeOfHearing_: {
+    hu_urgentHearingReasons: {
       required: 'Select yes if you have a good reason to request an urgent hearing',
     },
   },
@@ -43,7 +43,7 @@ const cy = {
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    typeOfHearing_: {
+    hu_urgentHearingReasons: {
       required: 'Select yes if you have a good reason to request an urgent hearing - welsh',
     },
   },
@@ -65,7 +65,7 @@ describe('applicant personal details > applying-with > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.typeOfHearing_ as FormOptions;
+    const applyingWithField = fields.hu_urgentHearingReasons as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);

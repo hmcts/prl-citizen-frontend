@@ -215,7 +215,7 @@ export interface Case {
   miam_attendance?: YesOrNo;
   miam_validReason?: YesOrNo;
   urgentHearingReasons?: YesOrNo;
-  typeOfHearing_?: YesOrNo;
+  hu_urgentHearingReasons?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

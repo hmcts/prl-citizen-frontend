@@ -414,11 +414,11 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
       data.miam_validReason === YesOrNo.YES ? C100_MIAM_VALID_REASON : C100_CONFIDENTIALITY_START,
-  },{
+  },
+  {
     url: C100_URGENT_HEARING,
     showInSection: Sections.C100,
-    // TODO: change below two page navigations to appropriate ones, once instructed
     getNextStep: (data: Partial<Case>) =>
-      data.typeOfHearing_ === YesOrNo.YES ? C100_URGENT_HEARING : C100_URGENT_HEARING,
+      data.hu_urgentHearingReasons === YesOrNo.YES ? C100_URGENT_HEARING : C100_URGENT_HEARING,
   },
 ];

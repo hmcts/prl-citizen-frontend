@@ -414,10 +414,9 @@ describe('C100Sequence', () => {
     expect(C100Sequence[54].showInSection).toBe('c100');
     expect(C100Sequence[54].getNextStep({ miam_validReason: YesOrNo.YES })).toBe('/c100-rebuild/miam/valid-reason');
     expect(C100Sequence[54].getNextStep({ miam_validReason: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/start');
-    
+
     expect(C100Sequence[55].url).toBe('/c100-rebuild/typeofhearing/urgent');
     expect(C100Sequence[55].showInSection).toBe('c100');
-    // TODO: update below getNextStep URI accordingly
     expect(C100Sequence[55].getNextStep({})).toBe('/c100-rebuild/typeofhearing/urgent');
   });
 });
