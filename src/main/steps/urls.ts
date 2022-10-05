@@ -243,4 +243,6 @@ export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/other-proceed
 export const C100_MIAM_MEDIATOR_DOCUMENT: PageLink = `${C100_MIAM}/mediator-document`;
 export const C100_MIAM_ATTENDANCE: PageLink = `${C100_MIAM}/attendance`;
 export const C100_MIAM_MEDIATOR_CONFIRMAION: PageLink = `${C100_MIAM}/mediator-confirmation`;
-export const C100_VALID_REASON: PageLink = `${C100_MIAM}/valid-reason`;
+export const C100_MIAM_URGENCY: PageLink = `${C100_MIAM}/urgency`;
+export const C100_MIAM_INFO: PageLink = `${C100_MIAM}/miam-info`;
+export const C100_MIAM_VALID_REASON: PageLink = `${C100_MIAM}/valid-reason`;

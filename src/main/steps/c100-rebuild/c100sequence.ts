@@ -30,8 +30,9 @@ import {
   C100_TYPE_ORDER_CAORDER,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   C100_TYPE_ORDER_SHORT_STATEMENT,
-  C100_VALID_REASON, // eslint-disable-next-line sort-imports
-  /** @C100 Help with Fees */ C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
+  /** @C100 Help with Fees */
+  // eslint-disable-next-line sort-imports
+  C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
   C100_HELP_WITH_FEES_FEES_APPLIED,
   C100_HELP_WITH_FEES_HWF_GUIDANCE,
   C100_CHILDERN_DETAILS_ADD,
@@ -58,6 +59,9 @@ import {
   C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   C100_MIAM_ATTENDANCE,
   C100_MIAM_MEDIATOR_CONFIRMAION,
+  C100_MIAM_URGENCY,
+  C100_MIAM_INFO,
+  C100_MIAM_VALID_REASON,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -395,9 +399,19 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   },
   {
-    url: C100_VALID_REASON,
+    url: C100_MIAM_URGENCY,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_URGENCY,
+  },
+  {
+    url: C100_MIAM_INFO,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_MIAM_VALID_REASON,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.miam_validReason === YesOrNo.YES ? C100_VALID_REASON : C100_CONFIDENTIALITY_START,
+      data.miam_validReason === YesOrNo.YES ? C100_MIAM_VALID_REASON : C100_CONFIDENTIALITY_START,
   },
 ];

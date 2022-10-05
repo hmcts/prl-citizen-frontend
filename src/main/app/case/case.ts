@@ -68,6 +68,7 @@ export interface Case {
   startAlternative?: string;
   contactDetailsPrivate?: string;
   miamStart?: string;
+  miam_consent?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
   doYouConsent?: YesOrNo;
