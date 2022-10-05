@@ -72,6 +72,20 @@ const en = {
   letterFromSupportService: 'A letter from a domestic violence or abuse support service, specialist or organisation',
   letterFromSupportService_hint:
     'This could be an independent domestic violence or abuse adviser confirming support to you or the other people in this application (the respondents). Select which evidence of this you can provide.',
+  letterFromSupportService_subFields: {
+    letterFromDomesticViolenceAdvisor:
+      'A letter from an independent domestic violence advisor confirming that they are providing support to a prospective party',
+    letterFromSexualViolenceAdvisor:
+      'A letter from an independent sexual violence advisor confirming that they are providing support to a prospective party relating to sexual violence by another prospective party',
+    letterFromOrgDomesticViolenceSupport:
+      'A letter from an organisation providing domestic violence support services, or a registered charity',
+    letterFromOrgDomesticViolenceInUk:
+      'A letter or report from an organisation providing domestic violence support services in the United Kingdom',
+  },
+  letterFromOrgDomesticViolenceSupportHint:
+    "The letter confirms all the following.<br/>The Organisation: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>is situated in England and Wales</li><li>has been operating for an uninterrupted period of six months or more/li><li>provided a prospective party with support in relation to that person’s needs as a victim, or a person at risk, of domestic violence</li></ul>The letter contains all the following: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>a statement to the effect that, in the reasonable professional judgment of the author of the letter, the prospective party is, or is at risk of being, a victim of domestic violence</li><li>a description of the specific matters relied upon to support that judgment</li><li>a description of the support provided to the prospective party</li><li>a statement of the reasons why the prospective party needed that support</li></ul>",
+  letterFromOrgDomesticViolenceInUkHint:
+    "The letter or report must confirm all the following: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>that a person with whom a prospective party is or was in a family relationship was refused admission to a refuge </li><li>the date on which they were refused admission to the refuge</li><li>they sought admission to the refuge becuase of allegations of domestic violence by the prospective party</li></ul>",
   ILRDuetoDomesticAbuse:
     'You or any of the other people in this application (the respondents) have been granted indefinite leave to remain in the UK as a victim of domestic violence or abuse',
   ILRDuetoDomesticAbuse_hint: 'A letter from the Home Office will have confirmed that leave was granted',
@@ -82,24 +96,24 @@ const en = {
   noneOfOptions: 'None of the above',
   errors: {
     miam_domesticabuse: {
-      required: 'Select which of the following evidence of domestic violence or abuse you have.',
+      required: 'Select which of the following evidence of domestic violence or abuse you have',
     },
     miam_domesticabuse_involvement_subfields: {
-      required: 'Select what evidence of police involvement you have.',
+      required: 'Select what evidence of police involvement you have',
     },
     miam_domesticabuse_courtInvolvement_subfields: {
       required: 'Select what evidence of court involvement you have',
     },
     miam_domesticabuse_letterOfBeingVictim_subfields: {
       required:
-        'Select what letter confirming that you or the other people in the application are (or have been) a victim of domestic violence or abuse you have. ',
+        'Select what letter confirming that you or the other people in the application are (or have been) a victim of domestic violence or abuse you have',
     },
     miam_domesticabuse_letterFromAuthority_subfields: {
-      required: 'Select what letter from a local authority or other agency confirming a risk of harm you have.',
+      required: 'Select what letter from a local authority or other agency confirming a risk of harm you have',
     },
     miam_domesticabuse_letterFromSupportService_subfields: {
       required:
-        'Select what letter from a domestic violence or abuse support service, specialist or organisation you have.',
+        'Select what letter from a domestic violence or abuse support service, specialist or organisation you have',
     },
   },
 };
@@ -170,6 +184,21 @@ const cy = {
     'A letter from a domestic violence or abuse support service, specialist or organisation - welsh',
   letterFromSupportService_hint:
     'This could be an independent domestic violence or abuse adviser confirming support to you or the other people in this application (the respondents). Select which evidence of this you can provide.',
+  letterFromSupportService_subFields: {
+    letterFromDomesticViolenceAdvisor:
+      'A letter from an independent domestic violence advisor confirming that they are providing support to a prospective party - welsh',
+    letterFromSexualViolenceAdvisor:
+      'A letter from an independent sexual violence advisor confirming that they are providing support to a prospective party relating to sexual violence by another prospective party - welsh',
+    letterFromOrgDomesticViolenceSupport:
+      'A letter from an organisation providing domestic violence support services, or a registered charity - welsh',
+    letterFromOrgDomesticViolenceInUk:
+      'A letter or report from an organisation providing domestic violence support services in the United Kingdom - welsh',
+  },
+  letterFromOrgDomesticViolenceSupportHint:
+    "The letter confirms all the following.<br/>The Organisation: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>is situated in England and Wales</li><li>has been operating for an uninterrupted period of six months or more/li><li>provided a prospective party with support in relation to that person’s needs as a victim, or a person at risk, of domestic violence</li></ul>The letter contains all the following: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>a statement to the effect that, in the reasonable professional judgment of the author of the letter, the prospective party is, or is at risk of being, a victim of domestic violence</li><li>a description of the specific matters relied upon to support that judgment</li><li>a description of the support provided to the prospective party</li><li>a statement of the reasons why the prospective party needed that support</li></ul>",
+  letterFromOrgDomesticViolenceInUkHint:
+    "The letter or report must confirm all the following: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>that a person with whom a prospective party is or was in a family relationship was refused admission to a refuge </li><li>the date on which they were refused admission to the refuge</li><li>they sought admission to the refuge becuase of allegations of domestic violence by the prospective party</li></ul>",
+
   ILRDuetoDomesticAbuse:
     'You or any of the other people in this application (the respondents) have been granted indefinite leave to remain in the UK as a victim of domestic violence or abuse - welsh',
   ILRDuetoDomesticAbuse_hint: 'A letter from the Home Office will have confirmed that leave was granted',
