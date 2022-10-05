@@ -1,3 +1,4 @@
+import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -10,7 +11,7 @@ const en = () => ({
   childrenInThisApplication: 'The children in this application',
   yourself: 'Yourself',
   errors: {
-    safetyConernAbout: {
+    c1A_safetyConernAbout: {
       required: 'Specify who you are concerned about',
     },
   },
@@ -24,7 +25,7 @@ const cy = () => ({
   childrenInThisApplication: 'The children in this application - welsh',
   yourself: 'Yourself - welsh',
   errors: {
-    safetyConernAbout: {
+    c1A_safetyConernAbout: {
       required: 'Specify who you are concerned about - welsh',
     },
   },
@@ -37,21 +38,21 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    safetyConernAbout: {
-      id: 'safetyConernAbout',
+    c1A_safetyConernAbout: {
+      id: 'c1A_safetyConernAbout',
       type: 'checkboxes',
       hint: l => l.select_all_relevant,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'safetyConernAbout',
+          name: 'c1A_safetyConernAbout',
           label: l => l.childrenInThisApplication,
-          value: 'children',
+          value: C1ASafteyConcernsAbout.CHILDREN,
         },
         {
-          name: 'safetyConernAbout',
+          name: 'c1A_safetyConernAbout',
           label: l => l.yourself,
-          value: 'applicant',
+          value: C1ASafteyConcernsAbout.APPLICANT,
         },
       ],
     },
