@@ -47,7 +47,7 @@ const otherProceedingsMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(55);
+    expect(C100Sequence).toHaveLength(56);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -414,5 +414,9 @@ describe('C100Sequence', () => {
     expect(C100Sequence[54].showInSection).toBe('c100');
     expect(C100Sequence[54].getNextStep({ miam_validReason: YesOrNo.YES })).toBe('/c100-rebuild/miam/valid-reason');
     expect(C100Sequence[54].getNextStep({ miam_validReason: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/start');
+
+    expect(C100Sequence[55].url).toBe('/c100-rebuild/miam/no-need');
+    expect(C100Sequence[55].showInSection).toBe('c100');
+    expect(C100Sequence[55].getNextStep({})).toBe('/c100-rebuild/miam/no-need');
   });
 });

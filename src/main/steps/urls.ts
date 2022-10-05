@@ -246,3 +246,4 @@ export const C100_MIAM_MEDIATOR_CONFIRMAION: PageLink = `${C100_MIAM}/mediator-c
 export const C100_MIAM_URGENCY: PageLink = `${C100_MIAM}/urgency`;
 export const C100_MIAM_INFO: PageLink = `${C100_MIAM}/miam-info`;
 export const C100_MIAM_VALID_REASON: PageLink = `${C100_MIAM}/valid-reason`;
+export const C100_MIAM_NONEED: PageLink = `${C100_MIAM}/no-need`;
