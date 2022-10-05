@@ -109,20 +109,20 @@ describe('safetyconcerns > child > concern about > content', () => {
     expect((childConcernAboutField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.emotionalAbuse);
     expect((childConcernAboutField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.sexualAbuse);
     expect((childConcernAboutField.values[4].label as LanguageLookup)(generatedContent)).toBe(en.financialAbuse);
-    expect((childConcernAboutField.values[5].label as LanguageLookup)(generatedContent)).toBe(
+    expect((childConcernAboutField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.abductionAbuse);
+    expect((childConcernAboutField.values[6].label as LanguageLookup)(generatedContent)).toBe(
       en.witnessingDomesticAbuse
     );
-    expect((childConcernAboutField.values[6].label as LanguageLookup)(generatedContent)).toBe(en.abductionAbuse);
     expect((childConcernAboutField.values[7].label as LanguageLookup)(generatedContent)).toBe(en.somethingElse);
     expect((childConcernAboutField.values[0].hint as LanguageLookup)(generatedContent)).toBe(en.physicalAbuseHint);
     expect((childConcernAboutField.values[1].hint as LanguageLookup)(generatedContent)).toBe(en.psychologicalAbuseHint);
     expect((childConcernAboutField.values[2].hint as LanguageLookup)(generatedContent)).toBe(en.emotionalAbuseHint);
     expect((childConcernAboutField.values[3].hint as LanguageLookup)(generatedContent)).toBe(en.sexualAbuseHint);
     expect((childConcernAboutField.values[4].hint as LanguageLookup)(generatedContent)).toBe(en.financialAbuseHint);
-    expect((childConcernAboutField.values[5].hint as LanguageLookup)(generatedContent)).toBe(
+    expect((childConcernAboutField.values[5].hint as LanguageLookup)(generatedContent)).toBe(en.abductionAbuseHint);
+    expect((childConcernAboutField.values[6].hint as LanguageLookup)(generatedContent)).toBe(
       en.witnessingDomesticAbuseHint
     );
-    expect((childConcernAboutField.values[6].hint as LanguageLookup)(generatedContent)).toBe(en.abductionAbuseHint);
     expect((childConcernAboutField.values[7].hint as LanguageLookup)(generatedContent)).toBe(en.somethingElseHint);
   });
 
