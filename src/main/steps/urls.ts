@@ -242,3 +242,7 @@ export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/other-proceed
 export const C100_MIAM_MEDIATOR_DOCUMENT: PageLink = `${C100_MIAM}/mediator-document`;
 export const C100_MIAM_ATTENDANCE: PageLink = `${C100_MIAM}/attendance`;
 export const C100_MIAM_MEDIATOR_CONFIRMAION: PageLink = `${C100_MIAM}/mediator-confirmation`;
+
+/** @C100 Hearing Urgency */
+export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/type-of-hearing`;
+export const C100_URGENT_DETAILS: PageLink = `${C100_HEARING_URGENCY}/urgent-details`;
