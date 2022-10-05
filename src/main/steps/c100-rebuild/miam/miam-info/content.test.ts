@@ -37,9 +37,9 @@ const en = {
   line4:
     'You should have a document signed by the mediator confirming this. You need to upload this document to your application.',
   line5:
-    'You do not have to attend a MIAM if you have a valid reason. For example, you or the children are at risk of harm.',
+    'You do not have to attend a <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> if you have a valid reason. For example, you or the children are at risk of harm.',
   line6Link:
-    '<a href="https://www.gov.uk/check-legal-aid" class="govuk-link" target="_blank" aria-label="List of valid reasons for not attending a MIAM">List of valid reasons for not attending a MIAM</a>',
+    '<a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label="List of valid reasons for not attending a MIAM">List of valid reasons for not attending a MIAM</a>',
   miamLabel: 'Attending a MIAM',
   miamConsentStatement: 'I understand that I have to attend a MIAM or provide a valid reason for not attending.',
   errors: {
@@ -83,9 +83,9 @@ const cy = {
   line4:
     'You should have a document signed by the mediator confirming this. You need to upload this document to your application. - welsh',
   line5:
-    'You do not have to attend a MIAM if you have a valid reason. For example, you or the children are at risk of harm. - welsh',
+    'You do not have to attend a <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> if you have a valid reason. For example, you or the children are at risk of harm. - welsh',
   line6Link:
-    '<a href="https://www.gov.uk/check-legal-aid" class="govuk-link" target="_blank" aria-label="List of valid reasons for not attending a MIAM">List of valid reasons for not attending a MIAM</a> - welsh',
+    '<a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label="List of valid reasons for not attending a MIAM">List of valid reasons for not attending a MIAM</a> - welsh',
   miamLabel: 'Attending a MIAM - welsh',
   miamConsentStatement:
     'I understand that I have to attend a MIAM or provide a valid reason for not attending. - welsh',
