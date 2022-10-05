@@ -81,9 +81,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/tasklistresponse/miam/miam-start',
+              href: '/tasklistresponse/miam/miam-start/1234567',
               id: 'medation-miam',
-              status: 'IN_PROGRESS',
+              status: 'TO_DO',
               text: 'Mediation(MIAM)',
             },
             {
@@ -109,7 +109,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/tasklistresponse/international-factors/start',
+              href: '/tasklistresponse/international-factors/start/1234567',
               id: 'international-factors',
               status: 'TO_DO',
               text: 'International element',

@@ -45,7 +45,6 @@ export class GetController {
       name,
       userIdamId: req.session?.user?.id,
       byApplicant,
-      userIdamId: req.session?.user?.id,
     });
 
     const sessionErrors = req.session?.errors || [];
