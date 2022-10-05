@@ -40,7 +40,7 @@ describe('Miam Document Upload controller', () => {
     };
 
     await controller.post(req, res);
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/documentUpload');
+    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -59,7 +59,7 @@ describe('Miam Document Upload controller', () => {
     const req = mockRequest({});
     const res = mockResponse();
     await controller.post(req, res);
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/documentUpload');
+    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
   });
 
   test('upload document and ended up in error', async () => {
@@ -79,7 +79,7 @@ describe('Miam Document Upload controller', () => {
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     const res = mockResponse();
     await controller.post(req, res);
-    expect(res.redirect).not.toBeCalledWith('/c100-rebuild/miam/documentUpload');
+    expect(res.redirect).not.toBeCalledWith('/c100-rebuild/miam/upload');
   });
 
   test('Should Upload document and direct to upload page', async () => {
@@ -111,6 +111,6 @@ describe('Miam Document Upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/documentUpload');
+    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
   });
 });

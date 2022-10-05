@@ -135,7 +135,7 @@ describe('DocumentUpload Get Controller', () => {
 
       await controller.get(req, res);
 
-      expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/documentUpload');
+      expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
     });
   });
 });
