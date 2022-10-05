@@ -17,7 +17,7 @@ const commonContent = {
 
 const enContent = {
   title: 'Transfer your case to your legal representative',
-  line1: 'To tranfer your case to your legal representative, provide them with your Case number.',
+  line1: 'To transfer your case to your legal representative, provide them with your Case number.',
   line2:
     "Once your case is passed to your representative, you won't be able to edit your response. They will handle your case and receive any updates from the court.",
   listItem: 'Your Case number is: ',
@@ -29,7 +29,7 @@ const enContent = {
 
 const cyContent = {
   title: 'Transfer your case to your legal representative - welsh',
-  line1: 'To tranfer your case to your legal representative, provide them with your Case number. - welsh',
+  line1: 'To transfer your case to your legal representative, provide them with your Case number. - welsh',
   line2:
     "Once your case is passed to your representative, you won't be able to edit your response. They will handle your case and receive any updates from the court. - welsh",
   listItem: 'Your Case number is:  - welsh',
