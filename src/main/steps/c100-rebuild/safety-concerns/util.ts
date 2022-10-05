@@ -1,5 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Case } from '../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
+import {
+  C1AAbuseTypes,
+  C1ASafteyConcernsAbout,
+  C1ASafteyConcernsAbuse,
+  YesNoEmpty,
+} from '../../../app/case/definition';
+
+export const getDataShape = (): Record<string, any> => ({
+  abuse: {
+    behaviourDetails: '',
+    behaviourStartDate: '',
+    isOngoingBehaviour: YesNoEmpty.EMPTY,
+    seekHelpFromPersonOrAgency: YesNoEmpty.EMPTY,
+    seekHelpDetails: '',
+  },
+});
 
 export const isValidAbuseType = (
   abuseType: C1AAbuseTypes,
@@ -23,4 +39,14 @@ export const isValidAbuseType = (
       ctx === C1ASafteyConcernsAbout.CHILDREN ? 'c1A_concernAboutChild' : 'c1A_concernAboutApplicant'
     ]?.includes(abuseType)
   );
+};
+
+export const transformAbuseFormData = (formData: Record<string, any>): C1ASafteyConcernsAbuse => {
+  return Object.keys(getDataShape().abuse).reduce((transformedData: C1ASafteyConcernsAbuse, fieldName) => {
+    if (fieldName in formData && !(fieldName in transformedData)) {
+      transformedData[fieldName] = formData[fieldName];
+    }
+
+    return transformedData;
+  }, {});
 };
