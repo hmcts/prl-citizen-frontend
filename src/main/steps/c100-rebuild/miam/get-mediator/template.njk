@@ -9,12 +9,12 @@
 <ol class="govuk-list govuk-list--number app-list--icon-steps ">
     <li class="govuk-!-padding-bottom-6">
     <form action="{{formActionUrl}}" target="_blank">
-        <input type="hidden" name="di" value="5">
+        <input type="hidden" name="di" value="{{minimumDistance}}">
         <div class="govuk-form-group govuk-!-margin-bottom-3">
             <label for="postcode-field" class="govuk-label">{{step1}}</label>
             <input id="postcode-field" class="govuk-input govuk-!-width-one-third" autocomplete="postal-code" type="text" value="" name="pc">
         </div>
-        <input type="submit" name="commit" value="Find a mediator" class="govuk-button govuk-!-margin-bottom-1" formnovalidate="formnovalidate">
+        <input type="submit" name="commit" value="{{findButtonText}}" class="govuk-button govuk-!-margin-bottom-1" formnovalidate="formnovalidate">
     </form>
     </li>
     {% for step in steps %}
