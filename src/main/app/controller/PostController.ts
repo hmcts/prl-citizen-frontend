@@ -40,7 +40,7 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else {
-      await this.getCaseList(req, res, form, formData);
+      //await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -93,9 +93,7 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    if (req?.session?.userCase) {
-      Object.assign(req.session.userCase, formData);
-    }
+    Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
     console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
@@ -118,8 +116,8 @@ export class PostController<T extends AnyObject> {
     //   isCaseUrgent: 'Yes',
     // };
     // const caseId = req.session?.caseId;
-    //await client.updateRespondentCase(caseworkerUser, req.session.userCase.id, req, data);
-    this.redirect(req, res);
+    // await client.updateRespondentCase(caseworkerUser, '1661181673014144', req, data);
+    // this.redirect(req, res);
 
     if (req.originalUrl.includes(UploadDocumentSucess)) {
       if (req?.session?.userCase?.applicantUploadFiles) {

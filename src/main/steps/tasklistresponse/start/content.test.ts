@@ -64,21 +64,21 @@ describe('task-list > content', () => {
             {
               id: 'consent-to-the-application',
               text: 'Do you consent to the application?',
-              status: 'IN_PROGRESS',
-              href: '/respondent/consent-to-application/consent',
+              status: 'TO_DO',
+              href: '/tasklistresponse/consent-to-application/consent/1234567',
             },
           ],
         },
         {
           items: [
             {
-              href: '/respondent/keep-details-private/details_known',
+              href: '/respondent/keep-details-private/details_known/1234567',
               id: 'keep-your-details-private',
               status: 'TO_DO',
               text: 'Keep your details private',
             },
             {
-              href: '/respondent/confirm-contact-details/checkanswers',
+              href: '/respondent/confirm-contact-details/checkanswers/1234567',
               id: 'confirm-or-edit-your-contact-details',
               status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
@@ -95,13 +95,13 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/miam/miam-start',
+              href: '/tasklistresponse/miam/miam-start',
               id: 'medation-miam',
               status: 'IN_PROGRESS',
               text: 'Mediation(MIAM)',
             },
             {
-              href: '/respondent/proceedings/start',
+              href: '/tasklistresponse/proceedings/start',
               id: 'current-or-previous-proceedings',
               status: 'TO_DO',
               text: 'Current or previous proceedings',
@@ -112,7 +112,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/safety_concerns/main_page',
+              href: '/tasklistresponse/safety_concerns/main_page',
               id: 'your-safety',
               status: 'TO_DO',
               text: 'Your safety',
@@ -134,6 +134,7 @@ describe('task-list > content', () => {
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {
+    userCase.id = '1234567';
     const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
     expect(taskListItems).toEqual(expected);
   });

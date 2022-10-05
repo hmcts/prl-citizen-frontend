@@ -10,7 +10,7 @@ import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
-import { tasklistresponseCaseSequence } from './tasklistresponse/tasklistresponseCaseSequence';
+import { responseCaseSequence } from './tasklistresponse/responseCaseSequence';
 import { CITIZEN_HOME_URL, PRL_CASE_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
@@ -75,7 +75,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...citizenSequence,
     ...respondentCaseSequence,
     ...applicantCaseSequence,
-    ...tasklistresponseCaseSequence,
+    ...responseCaseSequence,
   ].find(s => s.url === path);
 
   const url = nextStep ? nextStep.getNextStep(data) : CITIZEN_HOME_URL;
@@ -123,9 +123,11 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
 export const stepsWithContentEdgecase = getStepsWithContent(citizenSequence, PRL_CASE_URL);
 export const stepsWithContentRespondent = getStepsWithContent(respondentCaseSequence);
 export const stepsWithContentApplicant = getStepsWithContent(applicantCaseSequence);
+export const stepsWithContentC7response = getStepsWithContent(responseCaseSequence);
 
 export const stepsWithContent = [
   ...stepsWithContentEdgecase,
   ...stepsWithContentRespondent,
   ...stepsWithContentApplicant,
+  ...stepsWithContentC7response,
 ];

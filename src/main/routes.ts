@@ -5,20 +5,26 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
-import { ConsentGetController } from './app/controller/ConsentGetController';
 import { GetController } from './app/controller/GetController';
 import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
-import { SaveRespondentResponseController } from './app/controller/SaveRespondentResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsGetController';
+import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsPostController';
+import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
+import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
+import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/RespondentConfirmContactDetailsGetController';
+import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/RespondentConfirmContactDetailsPostController';
+import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
+import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -27,6 +33,10 @@ import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
+  APPLICANT_CHECK_ANSWERS,
+  APPLICANT_CONTACT_DETAILS_SAVE,
+  APPLICANT_DETAILS_KNOWN,
+  APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASK_LIST_URL,
@@ -42,6 +52,10 @@ import {
   MANAGE_DOCUMENTS_DOWNLOAD,
   PRIVACY_POLICY,
   RESPONDENT,
+  RESPONDENT_CHECK_ANSWERS,
+  RESPONDENT_CONTACT_DETAILS_SAVE,
+  RESPONDENT_DETAILS_KNOWN,
+  RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
   RESPOND_TO_APPLICATION,
@@ -69,7 +83,6 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
-    app.get(`${CONSENT_SAVE}`, errorHandler(new SaveRespondentResponseController().save));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
@@ -86,6 +99,29 @@ export class Routes {
       if (step && getController) {
         app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
       }
+      app.get(
+        `${CONSENT_TO_APPLICATION}/:caseId`,
+        errorHandler(new ConsentGetController(step.view, step.generateContent).get)
+      );
+      app.get(
+        `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
+        errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
+      );
+      app.get(
+        `${APPLICANT_DETAILS_KNOWN}/:caseId`,
+        errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
+      );
+
+      app.get(
+        `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
+        errorHandler(new RespondentConfirmContactDetailsGetController(step.view, step.generateContent).get)
+      );
+
+      app.get(
+        `${APPLICANT_CHECK_ANSWERS}/:caseId`,
+        errorHandler(new ApplicantConfirmContactDetailsGetController(step.view, step.generateContent).get)
+      );
+
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
@@ -113,6 +149,23 @@ export class Routes {
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${CONSENT_SAVE}`, errorHandler(new ConsentPostController(step.form.fields).post));
+        app.get(
+          `${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`,
+          errorHandler(new KeepDetailsPrivatePostController(step.form.fields).post)
+        );
+        app.get(
+          `${APPLICANT_KEEP_DETAILS_PRIVATE_SAVE}`,
+          errorHandler(new KeepDetailsPrivatePostController(step.form.fields).post)
+        );
+        app.post(
+          `${RESPONDENT_CONTACT_DETAILS_SAVE}`,
+          errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.post(
+          `${APPLICANT_CONTACT_DETAILS_SAVE}`,
+          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
+        );
       }
     }
   }
