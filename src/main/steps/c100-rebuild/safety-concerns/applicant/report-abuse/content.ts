@@ -1,6 +1,7 @@
 import { C1AAbuseTypes, C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
+import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
 
@@ -71,14 +72,6 @@ const languages = {
   en,
   cy,
 };
-
-export const getDataShape = (): C1ASafteyConcernsAbuse => ({
-  behaviourDetails: '',
-  behaviourStartDate: '',
-  isOngoingBehaviour: YesNoEmpty.EMPTY,
-  seekHelpFromPersonOrAgency: YesNoEmpty.EMPTY,
-  seekHelpDetails: '',
-});
 
 let updatedForm: FormContent;
 
@@ -201,7 +194,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const abuseType: C1AAbuseTypes = content.additionalData!.req.query.type;
   const sessionData: C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.applicant?.[abuseType];
-  const { fields } = generateFormFields(sessionData ?? getDataShape());
+  const { fields } = generateFormFields(sessionData ?? getDataShape().abuse);
 
   return {
     ...translations,
