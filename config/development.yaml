@@ -21,18 +21,11 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    #url: 'http://localhost:4452'
     url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
-    #url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    #checkDivCases: true
   cos:
-    #url: 'http://localhost:4044'
     url: 'https://prl-cos-pr-505.service.core-compute-preview.internal'
-    #url: 'https://prl-cos-aat.service.core-compute-aat.internal'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
-    #url: 'https://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
-    checkDivCases: true
 health:
   timeout: 5000
   deadline: 15000
@@ -45,5 +38,3 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey: false
-featureToggles:
-  testFlag: false
