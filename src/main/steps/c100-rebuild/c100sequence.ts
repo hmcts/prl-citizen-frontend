@@ -54,10 +54,11 @@ import {
   C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   PageLink,
   C100_DOCUMENT_SUBMISSION,
-
-  /** @MIAM */
+  C100_MIAM_OTHER_PROCEEDINGS,
   C100_MIAM_MEDIATOR_DOCUMENT,
   C100_MIAM_CHILD_PROTECTION,
+  C100_MIAM_ATTENDANCE,
+  C100_MIAM_MEDIATOR_CONFIRMAION,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -374,5 +375,24 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  },
+  {
+    url: C100_MIAM_OTHER_PROCEEDINGS,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.miam_otherProceedings === YesOrNo.YES
+        ? C100_CONFIDENTIALITY_DETAILS_KNOW
+        : C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_MIAM_ATTENDANCE,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.miam_attendance === YesOrNo.YES ? C100_MIAM_ATTENDANCE : C100_CONFIDENTIALITY_START,
+  },
+  {
+    url: C100_MIAM_MEDIATOR_CONFIRMAION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_MEDIATOR_CONFIRMAION,
   },
 ];
