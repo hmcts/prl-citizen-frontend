@@ -42,6 +42,11 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
-    sections: generateApplicantTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
+    sections: generateApplicantTaskList(
+      translations.sectionTitles,
+      translations.taskListItems,
+      content.userCase,
+      content.userIdamId
+    ),
   };
 };

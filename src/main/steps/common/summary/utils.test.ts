@@ -64,7 +64,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/respondent/consent-to-application',
+                    href: '/tasklistresponse/consent-to-application',
                     text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
                   },
@@ -77,7 +77,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/respondent/consent-to-application',
+                    href: '/tasklistresponse/consent-to-application',
                     text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
                   },

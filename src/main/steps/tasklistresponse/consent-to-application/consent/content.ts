@@ -176,8 +176,8 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  submit: {
-    text: l => l.continue,
+  onlyContinue: {
+    text: l => l.onlyContinue,
   },
 };
 

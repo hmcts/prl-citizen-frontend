@@ -34,6 +34,7 @@ export const FIND_ADDRESS: PageLink = `${ADDRESS_LOOKUP}`;
 export const ADDRESS_CONFIRMATION: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressconfirmation`;
 export const ADDRESS_BLANK: PageLink = `${CONFIRM_CONTACT_DETAILS}/addressblank`;
 export const ADDRESS_HISTORY: PageLink = `${CONFIRM_CONTACT_DETAILS}/addresshistory`;
+export const CONTACT_DETAILS_SAVE: PageLink = `${CONFIRM_CONTACT_DETAILS}/save`;
 /*confirm-contact-details-end */
 
 /* keep-details-private */
@@ -66,6 +67,7 @@ export const RESPONDENT: PageLink = '/respondent';
 export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;
 export const RESPONDENT_DETAILS_KNOWN: PageLink = `${RESPONDENT}${DETAILS_KNOWN}`;
 export const RESPONDENT_START_ALTERNATIVE: PageLink = `${RESPONDENT}${START_ALTERNATIVE}`;
+export const RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}/save`;
 export const RESPONDENT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${RESPONDENT}${PRIVATE_DETAILS_CONFIRMED}`;
 export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
 /* respondent-keep-details-private-end */
@@ -107,6 +109,7 @@ export const RESPONDENT_FIND_ADDRESS: PageLink = `${RESPONDENT_ADDRESS_LOOKUP}`;
 export const RESPONDENT_ADDRESS_CONFIRMATION: PageLink = `${RESPONDENT}${ADDRESS_CONFIRMATION}`;
 export const RESPONDENT_ADDRESS_BLANK: PageLink = `${RESPONDENT}${ADDRESS_BLANK}`;
 export const RESPONDENT_ADDRESS_HISTORY: PageLink = `${RESPONDENT}${ADDRESS_HISTORY}`;
+export const RESPONDENT_CONTACT_DETAILS_SAVE: PageLink = `${RESPONDENT}${CONTACT_DETAILS_SAVE}`;
 /* respondent-confirm-contact-details-end */
 
 /* Applicant-start */
@@ -126,6 +129,7 @@ export const APPLICANT_FIND_ADDRESS: PageLink = `${APPLICANT_ADDRESS_LOOKUP}`;
 export const APPLICANT_ADDRESS_CONFIRMATION: PageLink = `${APPLICANT}${ADDRESS_CONFIRMATION}`;
 export const APPLICANT_ADDRESS_BLANK: PageLink = `${APPLICANT}${ADDRESS_BLANK}`;
 export const APPLICANT_ADDRESS_HISTORY: PageLink = `${APPLICANT}${ADDRESS_HISTORY}`;
+export const APPLICANT_CONTACT_DETAILS_SAVE: PageLink = `${APPLICANT}${CONTACT_DETAILS_SAVE}`;
 export const APPLICANT_SELECT_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/select`;
 export const APPLICANT_MANUAL_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/manual`;
 /* applicant-confirm-contact-details-end */
@@ -134,6 +138,7 @@ export const APPLICANT_MANUAL_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_D
 export const APPLICANT_KEEP_DETAILS_PRIVATE: PageLink = `${APPLICANT}${KEEP_DETAILS_PRIVATE}`;
 export const APPLICANT_DETAILS_KNOWN: PageLink = `${APPLICANT}${DETAILS_KNOWN}`;
 export const APPLICANT_START_ALTERNATIVE: PageLink = `${APPLICANT}${START_ALTERNATIVE}`;
+export const APPLICANT_KEEP_DETAILS_PRIVATE_SAVE: PageLink = `${APPLICANT}${KEEP_DETAILS_PRIVATE}/save`;
 export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_CONFIRMED}`;
 export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
 /* applicant-keep-details-private-end */
@@ -141,7 +146,7 @@ export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${
 export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/orders`;
 
 /* consent-to-the-application */
-export const CONSENT: PageLink = `${RESPONDENT}/consent-to-application`;
+export const CONSENT: PageLink = '/tasklistresponse/consent-to-application';
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 export const CONSENT_SAVE: PageLink = `${CONSENT}/save`;

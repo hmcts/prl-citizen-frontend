@@ -185,6 +185,7 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  onlyContinue: 'Continue (in welsh)',
 };
 
 export const generatePageContent = ({
@@ -198,6 +199,7 @@ export const generatePageContent = ({
   byApplicant,
   document_type,
   addresses = [],
+  userIdamId,
 }: // eligibility,
 // fee,
 {
@@ -211,6 +213,7 @@ export const generatePageContent = ({
   addresses?: [];
   name?: string;
   byApplicant?: string;
+  userIdamId?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -230,6 +233,7 @@ export const generatePageContent = ({
     caption,
     document_type,
     byApplicant,
+    userIdamId,
     // contactEmail,
     // eligibility,
     // fee,
@@ -263,6 +267,7 @@ export type CommonContent = typeof en & {
   byApplicant?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
+  userIdamId?: string;
 };
 
 export type Language = 'en' | 'cy';
