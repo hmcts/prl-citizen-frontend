@@ -72,7 +72,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
 export const getCaseDetails = async (req: AppRequest): Promise<CaseWithId[]> => {
   const cosApiClient = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
   const response = await cosApiClient.retrieveCasesByUserId(req.session.user);
-  console.log('******* got the response for case details')
+  console.log('******* got the response for case details');
   return response;
 };
 
