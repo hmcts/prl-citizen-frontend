@@ -47,7 +47,7 @@ const otherProceedingsMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(51);
+    expect(C100Sequence).toHaveLength(52);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -385,6 +385,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[48].getNextStep({ miam_otherProceedings: YesOrNo.YES })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
+
     expect(C100Sequence[48].getNextStep({ miam_otherProceedings: YesOrNo.NO })).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
@@ -396,5 +397,9 @@ describe('C100Sequence', () => {
     expect(C100Sequence[50].url).toBe('/c100-rebuild/miam/mediator-confirmation');
     expect(C100Sequence[50].showInSection).toBe('c100');
     expect(C100Sequence[50].getNextStep({})).toBe('/c100-rebuild/miam/mediator-confirmation');
+
+    expect(C100Sequence[51].url).toBe('/c100-rebuild/safety-concerns/applicant/report-abuse');
+    expect(C100Sequence[51].showInSection).toBe('c100');
+    expect(C100Sequence[51].getNextStep({})).toBe('/c100-rebuild/safety-concerns/applicant/report-abuse');
   });
 });
