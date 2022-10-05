@@ -162,7 +162,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   public isFileSizeMoreThan20MB = (files: any): boolean => {
     const { documents }: AnyType = files;
-    return documents.size / 1024 ** 2 > 20;
+    return documents.size > 20000000;
   };
   /**
    * It's a function that handles errors that occur during the upload process
