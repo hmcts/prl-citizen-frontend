@@ -1,3 +1,4 @@
+import { C1AAbuseTypes } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
@@ -81,41 +82,41 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          id: 'c1A_concernAboutApplicant',
+          name: 'c1A_concernAboutApplicant',
           label: l => l.physicalAbuse,
           hint: l => l.physicalAbuseHint,
-          value: 'physicalAbuse',
+          value: C1AAbuseTypes.PHYSICAL_ABUSE,
         },
         {
-          id: 'c1A_concernAboutApplicant',
+          name: 'c1A_concernAboutApplicant',
           label: l => l.psychologicalAbuse,
           hint: l => l.psychologicalAbuseHint,
-          value: 'psychologicalAbuse',
+          value: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
         },
         {
-          id: 'c1A_concernAboutApplicant',
+          name: 'c1A_concernAboutApplicant',
           label: l => l.emotionalAbuse,
           hint: l => l.emotionalAbuseHint,
-          value: 'emotionalAbuse',
+          value: C1AAbuseTypes.EMOTIONAL_ABUSE,
         },
         {
-          id: 'c1A_concernAboutApplicant',
+          name: 'c1A_concernAboutApplicant',
           label: l => l.sexualAbuse,
           hint: l => l.sexualAbuseHint,
-          value: 'sexualAbuse',
+          value: C1AAbuseTypes.SEXUAL_ABUSE,
         },
 
         {
-          id: 'c1A_concernAboutApplicant',
+          name: 'c1A_concernAboutApplicant',
           label: l => l.financialAbuse,
           hint: l => l.financialAbuseHint,
-          value: 'financialAbuse',
+          value: C1AAbuseTypes.FINANCIAL_ABUSE,
         },
         {
-          id: 'c1A_concernAboutApplicant',
+          name: 'c1A_concernAboutApplicant',
           label: l => l.somethingElse,
           hint: l => l.somethingElseHint,
-          value: 'somethingElse',
+          value: C1AAbuseTypes.SOMETHING_ELSE,
         },
       ],
     },
