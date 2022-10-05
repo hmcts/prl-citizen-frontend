@@ -81,8 +81,7 @@ const cy: typeof en = (content: CommonContent) => {
   if (dob !== null && dob !== undefined && typeof dob !== 'string') {
     getFormattedDate(dob);
   }
-  //userCase.applicant1DateOfBirthText = getFormattedDate(userCase.applicant1DateOfBirth);
-  //console.log("userCase.applicant1DateOfBirthText====>"+userCase.applicant1DateOfBirthText);
+
   return {
     ...cyContent,
     language: content.language,

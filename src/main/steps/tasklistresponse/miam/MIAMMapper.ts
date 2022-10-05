@@ -4,7 +4,7 @@ import type { AppRequest } from '../../../app/controller/AppRequest';
 
 export const setMIAMDetails = (respondent: Respondent, req: AppRequest): Respondent => {
   let miamFromResponsent: Miam;
-  if (respondent?.value?.response && respondent?.value?.response?.miam) {
+  if (respondent?.value?.response?.miam) {
     miamFromResponsent = respondent?.value?.response?.miam;
     miamFromResponsent.attendedMiam = req.session.userCase.miamStart;
     miamFromResponsent.willingToAttendMiam = req.session.userCase.miamWillingness;

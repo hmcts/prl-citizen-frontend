@@ -3,42 +3,42 @@ import { CitizenInternationalElements, Respondent, YesOrNo } from '../../../app/
 import type { AppRequest } from '../../../app/controller/AppRequest';
 
 export const setInternationalFactorsDetails = (respondent: Respondent, req: AppRequest): Respondent => {
-  let internationaElementsFromRespondent: CitizenInternationalElements;
+  let internationalElementsFromRespondent: CitizenInternationalElements;
 
-  if (respondent?.value?.response && respondent?.value?.response?.citizenInternationalElements) {
-    internationaElementsFromRespondent = respondent?.value?.response?.citizenInternationalElements;
+  if (respondent?.value?.response?.citizenInternationalElements) {
+    internationalElementsFromRespondent = respondent?.value?.response?.citizenInternationalElements;
 
-    clearValuesFromRespondent(internationaElementsFromRespondent);
+    clearValuesFromRespondent(internationalElementsFromRespondent);
 
-    internationaElementsFromRespondent.childrenLiveOutsideOfEnWl = req.session.userCase.start;
+    internationalElementsFromRespondent.childrenLiveOutsideOfEnWl = req.session.userCase.start;
 
     if (req.session.userCase.start === YesOrNo.YES) {
-      internationaElementsFromRespondent.childrenLiveOutsideOfEnWlDetails =
+      internationalElementsFromRespondent.childrenLiveOutsideOfEnWlDetails =
         req.session.userCase.iFactorsStartProvideDetails;
     }
 
-    internationaElementsFromRespondent.parentsAnyOneLiveOutsideEnWl = req.session.userCase.parents;
+    internationalElementsFromRespondent.parentsAnyOneLiveOutsideEnWl = req.session.userCase.parents;
 
     if (req.session.userCase.parents === YesOrNo.YES) {
-      internationaElementsFromRespondent.parentsAnyOneLiveOutsideEnWlDetails =
+      internationalElementsFromRespondent.parentsAnyOneLiveOutsideEnWlDetails =
         req.session.userCase.iFactorsParentsProvideDetails;
     }
 
-    internationaElementsFromRespondent.anotherPersonOrderOutsideEnWl = req.session.userCase.jurisdiction;
+    internationalElementsFromRespondent.anotherPersonOrderOutsideEnWl = req.session.userCase.jurisdiction;
 
     if (req.session.userCase.jurisdiction === YesOrNo.YES) {
-      internationaElementsFromRespondent.anotherPersonOrderOutsideEnWlDetails =
+      internationalElementsFromRespondent.anotherPersonOrderOutsideEnWlDetails =
         req.session.userCase.iFactorsJurisdictionProvideDetails;
     }
 
-    internationaElementsFromRespondent.anotherCountryAskedInformation = req.session.userCase.request;
+    internationalElementsFromRespondent.anotherCountryAskedInformation = req.session.userCase.request;
 
     if (req.session.userCase.request === YesOrNo.YES) {
-      internationaElementsFromRespondent.anotherCountryAskedInformationDetaails =
+      internationalElementsFromRespondent.anotherCountryAskedInformationDetaails =
         req.session.userCase.iFactorsRequestProvideDetails;
     }
 
-    respondent.value.response.citizenInternationalElements = internationaElementsFromRespondent;
+    respondent.value.response.citizenInternationalElements = internationalElementsFromRespondent;
   } else {
     respondent.value.response = {
       citizenInternationalElements: {
@@ -108,9 +108,9 @@ export const getInternationalFactorsDetails = (respondent: Respondent, req: AppR
   return req.session.userCase;
 };
 
-function clearValuesFromRespondent(internationaElementsFromRespondent: CitizenInternationalElements) {
-  internationaElementsFromRespondent.childrenLiveOutsideOfEnWlDetails = '';
-  internationaElementsFromRespondent.parentsAnyOneLiveOutsideEnWlDetails = '';
-  internationaElementsFromRespondent.anotherPersonOrderOutsideEnWlDetails = '';
-  internationaElementsFromRespondent.anotherCountryAskedInformationDetaails = '';
+function clearValuesFromRespondent(internationalElementsFromRespondent: CitizenInternationalElements) {
+  internationalElementsFromRespondent.childrenLiveOutsideOfEnWlDetails = '';
+  internationalElementsFromRespondent.parentsAnyOneLiveOutsideEnWlDetails = '';
+  internationalElementsFromRespondent.anotherPersonOrderOutsideEnWlDetails = '';
+  internationalElementsFromRespondent.anotherCountryAskedInformationDetaails = '';
 }

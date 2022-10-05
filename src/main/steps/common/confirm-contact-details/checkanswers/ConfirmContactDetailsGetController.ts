@@ -46,8 +46,6 @@ export default class ConfirmContactDetailsGetController extends GetController {
       req.session.userCase.applicant1DateOfBirthText = getFormattedDate(req.session.userCase.applicant1DateOfBirth);
     }
 
-    //console.log("48 applicant1DateOfBirthText: "+ req.session.userCase.applicant1DateOfBirthText);
-
     req.session.userCase.applicant1Address1 = 'Flat 100';
     req.session.userCase.applicant1Address2 = 'Plashet Grove';
     req.session.userCase.applicant1AddressTown = 'London';
@@ -79,7 +77,7 @@ function validateDataCompletion(req: AppRequest<Partial<Case>>) {
   for (const key in req.session.userCase) {
     if (fieldsArray.includes(key)) {
       const value = req.session.userCase[`${key}`];
-      // console.log("key is: "+key+", value is : "+value+", type of value is: "+typeof(value));
+
       if (typeof value === 'string' && (value === null || value === undefined || value.trim() === '')) {
         req.session.userCase[`${key}`] = '<span class="govuk-error-message">Complete this section</span>';
       }
