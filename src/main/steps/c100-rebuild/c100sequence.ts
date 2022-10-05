@@ -419,6 +419,6 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     // TODO: change below two page navigations to appropriate ones, once instructed
     getNextStep: (data: Partial<Case>) =>
-      data.urgentHearingReasons === YesOrNo.YES ? C100_URGENT_HEARING : C100_URGENT_HEARING,
+      data.typeOfHearing_ === YesOrNo.YES ? C100_URGENT_HEARING : C100_URGENT_HEARING,
   },
 ];

@@ -8,11 +8,11 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Does your situation qualify for an urgent first hearing?    ',
-  firstHearing:
+  paragraph1:
     'In many cases the first hearing will take place within 2 months. But the court may agree to an earlier \
   first hearing (urgent hearing) if it is necessary.',
-  immediateRisk: 'For example, there may be an immediate risk of harm to you or the children.',
-  urgentHearing:
+  paragraph2: 'For example, there may be an immediate risk of harm to you or the children.',
+  paragraph3:
     'If you get an urgent hearing, this may not mean that your case will be over sooner, and you may not receive \
   a final decision on your case at this stage.',
   warning:
@@ -21,7 +21,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   errors: {
-    urgentHearingReasons: {
+    typeOfHearing_: {
       required: 'Select yes if you have a good reason to request an urgent hearing',
     },
   },
@@ -30,11 +30,11 @@ const en = {
 
 const cy = {
   title: 'Does your situation qualify for an urgent first hearing? - welsh  ',
-  firstHearing:
+  paragraph1:
     'In many cases the first hearing will take place within 2 months. But the court may agree to an earlier \
   first hearing (urgent hearing) if it is necessary. - welsh  ',
-  immediateRisk: 'For example, there may be an immediate risk of harm to you or the children.  - welsh  ',
-  urgentHearing:
+  paragraph2: 'For example, there may be an immediate risk of harm to you or the children.  - welsh  ',
+  paragraph3:
     'If you get an urgent hearing, this may not mean that your case will be over sooner, and you may not receive \
   a final decision on your case at this stage. - welsh  ',
   warning:
@@ -43,7 +43,7 @@ const cy = {
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    urgentHearingReasons: {
+    typeOfHearing_: {
       required: 'Select yes if you have a good reason to request an urgent hearing - welsh',
     },
   },
@@ -65,7 +65,7 @@ describe('applicant personal details > applying-with > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.urgentHearingReasons as FormOptions;
+    const applyingWithField = fields.typeOfHearing_ as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
