@@ -10,13 +10,13 @@ import { getInternationalFactorsDetails } from './InternationalFactorsMapper';
 export class InternationalFactorsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
-      const loggedInCitizen = req.session.user;
-      const caseReference = req.params?.caseId;
+      const citizenUser = req.session.user;
+      const caseId = req.params?.caseId;
 
-      const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
 
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
-      Object.assign(req.session.userCase, caseDataFromCos);
+      const caseDataFromCCD = await client.retrieveByCaseId(caseId, citizenUser);
+      Object.assign(req.session.userCase, caseDataFromCCD);
 
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (

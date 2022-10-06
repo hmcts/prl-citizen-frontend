@@ -18,12 +18,12 @@ export class InternationalFactorsPostController extends PostController<AnyObject
   }
   public async post(req: AppRequest, res: Response): Promise<void> {
     try {
-      const caseworkerUser = req.session.user;
-      const caseReference = req.session.userCase.id;
+      const loggedInUserFromSession = req.session.user;
+      const ccdCaseNumber = req.session.userCase.id;
 
-      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
+      const client = new CosApiClient(loggedInUserFromSession.accessToken, 'https://return-url');
 
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+      const caseDataFromCos = await client.retrieveByCaseId(ccdCaseNumber, loggedInUserFromSession);
       Object.assign(req.session.userCase, caseDataFromCos);
 
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
@@ -35,10 +35,10 @@ export class InternationalFactorsPostController extends PostController<AnyObject
       });
 
       const caseData = toApiFormat(req?.session?.userCase);
-      caseData.id = caseReference;
+      caseData.id = ccdCaseNumber;
       const updatedCaseDataFromCos = await client.updateCase(
-        caseworkerUser,
-        caseReference,
+        loggedInUserFromSession,
+        ccdCaseNumber,
         caseData,
         EVENT_INTERNATIONAL_ELEMENT
       );
