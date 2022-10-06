@@ -84,11 +84,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             propertyName: 'document',
             errorType: 'fileFormat',
           });
-        } else if (this.isFileSizeMoreThan20MB(files)) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
-            propertyName: 'document',
-            errorType: 'fileSize',
-          });
         } else {
           const { documents }: AnyType = files;
 
