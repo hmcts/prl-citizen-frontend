@@ -67,6 +67,7 @@ import {
   C100_MIAM_NONEED,
   C100_MIAM_OTHER,
   C100_MIAM_GENERAL_REASONS,
+  C100_MIAM_GET_MEDIATOR,
   PageLink,
 } from '../urls';
 
@@ -449,5 +450,10 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_GENERAL_REASONS,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_GENERAL_REASONS,
+  },
+  {
+    url: C100_MIAM_GET_MEDIATOR,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GET_MEDIATOR,
   },
 ];
