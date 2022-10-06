@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { YesOrNo } from '../../../../app/case/definition';
 import { childrenDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
@@ -70,7 +71,7 @@ export const generateContent: TranslationFn = content => {
     {
       name: 'isDecisionTaken',
       label: l => l.whoLiveWithChild,
-      value: 'isDecisionTaken',
+      value: YesOrNo.YES,
     },
   ];
   const newValueStorage: { name: string; label: (l: any) => any; value: string }[] = [] as [];

@@ -16,26 +16,27 @@ export default class AddchildrenMatter extends PostController<AnyObject> {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    console.log(req.body);
 
     req.session.errors = form.getErrors(formData);
 
-    if (req.query.hasOwnProperty('childId')) {
+    if (req.query.hasOwnProperty('childId') && req.session.userCase.children) {
       const { childId } = req.query;
-      const matchChildIndex = req.session.settings.ListOfChild.findIndex(child => child.id === childId);
+      const matchChildIndex = req.session.userCase.children.findIndex(child => child.id === childId);
       if (matchChildIndex > -1) {
         if (req.body['isDecisionTaken'] === undefined) {
           req.session.errors.push({
             propertyName: 'isDecisionTaken',
             errorType: 'required',
           });
-          req.session.settings.ListOfChild[matchChildIndex].childMatter = {
+          req.session.userCase.children[matchChildIndex].childMatter = {
             isDecisionTaken: YesOrNo.NO,
           };
           const redirectUrl = C100_children_DETAILS_CHILD_MATTERS + `?childId=${childId}`;
           super.redirect(req, res, redirectUrl);
         } else {
           const isDecisionTaken = req.body.isDecisionTaken !== '' ? YesOrNo.NO : YesOrNo.YES;
-          req.session.settings.ListOfChild[matchChildIndex].childMatter = {
+          req.session.userCase.children[matchChildIndex].childMatter = {
             isDecisionTaken,
           };
           const redirectUrl = C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
@@ -45,8 +46,10 @@ export default class AddchildrenMatter extends PostController<AnyObject> {
         res.render('error');
       }
     } else {
-      const redirectURI = `parental-responsibility?childId=${req.session.settings.ListOfChild[0].id}`;
-      super.redirect(req, res, redirectURI);
+      if (req.session.userCase.children) {
+        const redirectURI = `parental-responsibility?childId=${req.session.userCase.children[0].id}`;
+        super.redirect(req, res, redirectURI);
+      }
     }
   }
 }
