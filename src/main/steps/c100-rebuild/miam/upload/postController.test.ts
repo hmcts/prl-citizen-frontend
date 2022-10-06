@@ -2,11 +2,8 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-//import * as steps from '../../../../steps';
 
 import MiamUploadDocument from './postController';
-
-//const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -62,6 +59,13 @@ describe('Miam Document Upload controller', () => {
     expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
   });
 
+  test('Should throw error if file is in invald format', async () => {
+    const files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
+    const controller = new MiamUploadDocument({});
+    expect(controller.isValidFileFormat(files)).toBe(false);
+    expect(controller.isFileSizeMoreThan20MB(files)).toBe(false);
+  });
+
   test('upload document and ended up in error', async () => {
     const mockForm = {
       fields: {
@@ -76,10 +80,10 @@ describe('Miam Document Upload controller', () => {
 
     const controller = new MiamUploadDocument(mockForm.fields);
     const req = mockRequest({});
-    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
     const res = mockResponse();
     await controller.post(req, res);
-    expect(res.redirect).not.toBeCalledWith('/c100-rebuild/miam/upload');
+    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
   });
 
   test('Should Upload document and direct to upload page', async () => {
@@ -101,13 +105,13 @@ describe('Miam Document Upload controller', () => {
       document: {
         document_url:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-        document_filename: 'applicantname__miam_certificate__05102022.rtf',
+        document_filename: 'applicant__miam_certificate__05102022.rtf',
         document_binary_url:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
       },
     });
 
-    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.files = { documents: { name: 'test.pdf', size: '812300', data: '', mimetype: 'text' } };
 
     await controller.post(req, res);
 

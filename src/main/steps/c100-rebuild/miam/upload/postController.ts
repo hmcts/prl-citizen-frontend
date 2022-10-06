@@ -4,7 +4,7 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { DocumentUploadResponse } from '../../../../app/case/C100CaseApi';
-import { C100DocumentInfo } from '../../../../app/case/definition';
+import { AllowedFileExtentionList, C100DocumentInfo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -42,7 +42,20 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       });
     } else {
       if (isNull(files) || files === undefined) {
-        this.uploadFileError(req, res);
+        this.uploadFileError(req, res, {
+          propertyName: 'document',
+          errorType: 'required',
+        });
+      } else if (!this.isValidFileFormat(files)) {
+        this.uploadFileError(req, res, {
+          propertyName: 'document',
+          errorType: 'fileFormat',
+        });
+      } else if (this.isFileSizeMoreThan20MB(files)) {
+        this.uploadFileError(req, res, {
+          propertyName: 'document',
+          errorType: 'fileSize',
+        });
       } else {
         const { documents }: AnyType = files;
 
@@ -53,7 +66,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
         formData.append('file', documents.data, {
           contentType: documents.mimetype,
-          filename: `applicantname__miam_certificate__${dateOfSystem}.${extensionType}`,
+          filename: `applicant__miam_certificate__${dateOfSystem}.${extensionType}`,
         });
         try {
           const responseBody: DocumentUploadResponse = await req.locals.C100Api.uploadDocument(formData);
@@ -75,6 +88,17 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       }
     }
   }
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  public isValidFileFormat = (files: any): boolean => {
+    const { documents }: AnyType = files;
+    const extension = documents.name.split('.')[documents.name.split('.').length - 1];
+    return AllowedFileExtentionList.indexOf(extension) > -1;
+  };
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  public isFileSizeMoreThan20MB = (files: any): boolean => {
+    const { documents }: AnyType = files;
+    return documents.size > 20000000;
+  };
 
   public checkIfDocumentAlreadyExist = (document: C100DocumentInfo): boolean => {
     if (document?.id) {
@@ -89,11 +113,13 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    * @param res - Response<AnyType, Record<string, AnyType>>
    * @param {string} [errorMessage] - The error message to be displayed.
    */
-  private uploadFileError(req: AppRequest<AnyObject>, res: Response<AnyType, Record<string, AnyType>>) {
-    /**
-     * @Insert @Error @here
-     */
-    req.session.errors = [{ propertyName: 'document', errorType: 'required' }];
+  private uploadFileError(
+    req: AppRequest<AnyObject>,
+    res: Response<AnyType, Record<string, AnyType>>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    errObj: any
+  ) {
+    req.session.errors = [errObj];
     req.session.save(err => {
       if (err) {
         throw err;
