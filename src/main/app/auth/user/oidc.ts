@@ -24,6 +24,11 @@ export const getUserDetails = async (
   const secret: string = config.get('services.idam.citizenClientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
+  console.log('id is: ' + id);
+  console.log('secret is: ' + secret);
+  console.log('tokenUrl is: ' + tokenUrl);
+  console.log('callbackUrl is: ' + callbackUrl);
+
   const code = encodeURIComponent(rawCode);
   const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
@@ -44,6 +49,13 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const systemUsername: string = config.get('services.idam.systemUsername');
   const systemPassword: string = config.get('services.idam.systemPassword');
+
+  console.log('id is: ' + id);
+  console.log('secret is: ' + secret);
+  console.log('tokenUrl is: ' + tokenUrl);
+  console.log('systemUsername is: ' + systemUsername);
+  console.log('systemPassword is: ' + systemPassword);
+
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
@@ -60,6 +72,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
 export const getCaseDetails = async (req: AppRequest): Promise<CaseWithId[]> => {
   const cosApiClient = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
   const response = await cosApiClient.retrieveCasesByUserId(req.session.user);
+  console.log('******* got the response for case details');
   return response;
 };
 
