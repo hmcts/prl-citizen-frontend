@@ -65,6 +65,7 @@ export interface Case {
   caseCode?: string;
   accessCode?: string;
   detailsKnown?: string;
+  miam_childProtectionEvidence?: string;
   startAlternative?: string;
   contactDetailsPrivate?: string;
   hu_reasonOfUrgentHearing?: string;
