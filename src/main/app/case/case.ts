@@ -216,6 +216,8 @@ export interface Case {
   miam_validReason?: YesOrNo;
   miam_childProtectionEvidence?: string;
   miam_domesticabuse?: string;
+  otherConcernsDrugs?: string;
+  otherConcernsDrugs_description?: string;
 }
 
 export interface CaseWithId extends Case {
