@@ -68,36 +68,28 @@ describe('PostController', () => {
     const language = 'en';
     req.query.childId = dummySessionData.ListOfChild[0].id;
     req.session.lang = language;
-    const settings = {
-      toggleChild: 0,
-      ListOfChild: dummySessionData.ListOfChild,
-      childTemporaryFormData: {},
-    };
-    req.session.settings = settings;
+    req.session.userCase.children = dummySessionData.ListOfChild;
     await controller.post(req, res);
-    expect(req.session.settings).toBe(settings);
+    expect(req.session.userCase.children).toBe(dummySessionData.ListOfChild);
   });
 
-  test('Child matter else condition', async () => {
+  test('Child matter if isDecision not selected', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
     const body = {};
-    const mockPhoneNumberFormContent = {
+    const requestBody = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new Addchildrens(mockPhoneNumberFormContent.fields);
+    const controller = new Addchildrens(requestBody.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
+    req.query.childId = dummySessionData.ListOfChild[0].id;
     const language = 'en';
     req.session.lang = language;
-    const settings = {
-      toggleChild: 0,
-      ListOfChild: dummySessionData.ListOfChild,
-      childTemporaryFormData: {},
-    };
-    req.session.settings = settings;
+    req.session.userCase.children = dummySessionData.ListOfChild;
+    expect(req.session.userCase.children[0].childMatter.isDecision).toEqual(undefined);
     await controller.post(req, res);
-    expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
+    expect(req.session.userCase.children).toEqual(dummySessionData.ListOfChild);
   });
 
   test('isDecisionTaken - set as empty', async () => {
@@ -114,14 +106,9 @@ describe('PostController', () => {
     const res = mockResponse();
     const language = 'en';
     req.session.lang = language;
+    req.session.userCase.children = dummySessionData.ListOfChild;
     req.query.childId = dummySessionData.ListOfChild[0].id;
-    const settings = {
-      toggleChild: 0,
-      ListOfChild: dummySessionData.ListOfChild,
-      childTemporaryFormData: {},
-    };
-    req.session.settings = settings;
     await controller.post(req, res);
-    expect(req.session.settings.ListOfChild).toEqual(dummySessionData.ListOfChild);
+    expect(req.session.userCase.children).toEqual(dummySessionData.ListOfChild);
   });
 });
