@@ -40,19 +40,19 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[9].url).toBe('/tasklistresponse/miam/summary');
     expect(responseCaseSequence[9].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[9].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[9].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[10].url).toBe('/respondent/confirm-contact-details/checkanswers');
     expect(responseCaseSequence[10].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[10].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[10].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[11].url).toBe('/respondent/confirm-contact-details/personaldetails');
     expect(responseCaseSequence[11].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[11].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[11].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[12].url).toBe('/respondent/confirm-contact-details/contactdetails');
     expect(responseCaseSequence[12].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[12].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[12].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[13].url).toBe('/respondent/confirm-contact-details/addressdetails');
     expect(responseCaseSequence[13].showInSection).toBe('aboutRespondentCase');
@@ -72,15 +72,15 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[17].url).toBe('/respondent/confirm-contact-details/addressconfirmation');
     expect(responseCaseSequence[17].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[17].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[17].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[18].url).toBe('/respondent/confirm-contact-details/addressblank');
     expect(responseCaseSequence[18].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[18].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[18].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[19].url).toBe('/respondent/confirm-contact-details/addresshistory');
     expect(responseCaseSequence[19].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[19].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[19].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[20].url).toBe('/tasklistresponse/international-factors/start');
     expect(responseCaseSequence[20].showInSection).toBe('aboutRespondentCase');
@@ -100,7 +100,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[24].url).toBe('/tasklistresponse/international-factors/summary');
     expect(responseCaseSequence[24].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[24].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[24].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[25].url).toBe('/tasklistresponse/safety_concerns/main_page');
     expect(responseCaseSequence[25].showInSection).toBe('aboutRespondentCase');
@@ -116,7 +116,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[28].url).toBe('/tasklistresponse/safety_concerns/domestic_abuse_risk_no');
     expect(responseCaseSequence[28].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[28].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[28].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[29].url).toBe('/tasklistresponse/proceedings/start');
     expect(responseCaseSequence[29].showInSection).toBe('aboutRespondentCase');
@@ -127,7 +127,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[31].url).toBe('/tasklistresponse/proceedings/summary');
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[31].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[31].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[32].url).toBe('/respondent/upload-document');
     expect(responseCaseSequence[32].showInSection).toBe('aboutRespondentCase');
@@ -147,6 +147,6 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[36].url).toBe('/respondent/upload-document/upload-documents-success');
     expect(responseCaseSequence[36].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[36].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[36].getNextStep({})).toBe('/tasklistresponse/start');
   });
 });
