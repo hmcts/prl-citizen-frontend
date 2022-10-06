@@ -11,7 +11,7 @@ import { transformAbuseFormData } from '../../util';
 import { getFormFields } from './content';
 
 @autobind
-export default class SafteyConcernsAbusePostController extends PostController<AnyObject> {
+export default class SafteyConcernsApplicantAbusePostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
@@ -21,11 +21,11 @@ export default class SafteyConcernsAbusePostController extends PostController<An
     const form = new Form(getFormFields().fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const childAbuseData: Partial<Case> = {
+    const applicantAbuseData: Partial<Case> = {
       c1A_safteyConcerns: {
         ...(req.session.userCase?.c1A_safteyConcerns ?? {}),
-        child: {
-          ...((req.session.userCase?.c1A_safteyConcerns?.child ?? {}) as C1ASafteyConcerns['child']),
+        applicant: {
+          ...((req.session.userCase?.c1A_safteyConcerns?.applicant ?? {}) as C1ASafteyConcerns['applicant']),
           [abuseType]: transformAbuseFormData(formData),
         },
       },
@@ -33,13 +33,13 @@ export default class SafteyConcernsAbusePostController extends PostController<An
 
     req.session.userCase = {
       ...(req.session?.userCase ?? {}),
-      ...childAbuseData,
+      ...applicantAbuseData,
     };
 
     if (onlycontinue) {
       super.redirect(req, res);
     } else if (saveAndComeLater) {
-      super.saveAndComeLater(req, res, { ...childAbuseData });
+      super.saveAndComeLater(req, res, { ...applicantAbuseData });
     }
   }
 }

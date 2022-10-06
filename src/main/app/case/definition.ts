@@ -1474,6 +1474,7 @@ export const C100OrderTypeKeyMapper = {
   undertakingOrder: 'undertakingOrders',
   otherOrder: 'otherOrders'
 }
+export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png' , 'tif', 'tiff', 'pdf', 'doc', 'docx']
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface[],
   emergencyProtectionOrders?:C100OrderInterface[],

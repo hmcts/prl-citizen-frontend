@@ -69,6 +69,7 @@ export interface Case {
   startAlternative?: string;
   contactDetailsPrivate?: string;
   miamStart?: string;
+  miam_consent?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
   miamNonAttendanceReason?: MiamNonAttendReason;
@@ -214,6 +215,9 @@ export interface Case {
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_attendance?: YesOrNo;
+  miam_validReason?: YesOrNo;
+  miam_childProtectionEvidence?: string;
+  miam_domesticabuse?: string;
 }
 
 export interface CaseWithId extends Case {
