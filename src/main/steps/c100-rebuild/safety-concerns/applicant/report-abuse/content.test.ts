@@ -12,7 +12,7 @@ const en = {
   sexualAbusePageTitle: 'Briefly describe the sexual abuse if you feel able to',
   financialAbusePageTitle: 'Briefly describe the financial abuse if you feel able to',
   somethingElsePageTitle: 'Briefly describe the abuse if you feel able to',
-  introText: `<p class="govuk-body ">Complete this section as best you can. If you don't feel able to discuss the abuse at this stage, you can do so when you speak to Cafcass.</p><p class="govuk-body ">The information that you give will be used in the application. It is not a request for a domestic abuse injunction.</p>
+  introText: `<p class="govuk-body ">Complete this section as best you can. If you don't feel able to discuss the abuse at this stage, you can do so when you speak to Cafcass.</p>
   <p class="govuk-body ">The information that you give will be used in the application. It is not a request for a domestic abuse injunction.</p>
   <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately.</p>`,
   warningText:
@@ -43,7 +43,7 @@ const cy = {
   sexualAbusePageTitle: 'Briefly describe the sexual abuse if you feel able to - welsh',
   financialAbusePageTitle: 'Briefly describe the financial abuse if you feel able to - welsh',
   somethingElsePageTitle: 'Briefly describe the abuse if you feel able to - welsh',
-  introText: `<p class="govuk-body ">Complete this section as best you can. If you don't feel able to discuss the abuse at this stage, you can do so when you speak to Cafcass.</p><p class="govuk-body ">The information that you give will be used in the application. It is not a request for a domestic abuse injunction. - welsh</p>
+  introText: `<p class="govuk-body ">Complete this section as best you can. If you don't feel able to discuss the abuse at this stage, you can do so when you speak to Cafcass. - welsh</p>
   <p class="govuk-body ">The information that you give will be used in the application. It is not a request for a domestic abuse injunction. - welsh</p>
   <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - welsh</p>`,
   warningText:
