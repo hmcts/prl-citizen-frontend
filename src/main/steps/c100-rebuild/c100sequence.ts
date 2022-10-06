@@ -64,6 +64,7 @@ import {
   C100_MIAM_INFO,
   C100_MIAM_VALID_REASON,
   C100_MIAM_NONEED,
+  C100_MIAM_OTHER,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -425,5 +426,10 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_NONEED,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_NONEED,
+  },
+  {
+    url: C100_MIAM_OTHER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
