@@ -266,6 +266,17 @@ export const enum Nationality {
   NOT_SURE = 'Not sure',
 }
 
+export const enum MiamNonAttendReason {
+  DOMESTIC = 'domesticViolence',
+  CHILD_PROTECTION = 'childProtection',
+  URGENT = 'urgentHearing',
+  PREV_MIAM = 'previousMIAMOrExempt',
+  EXEMPT = 'validExemption',
+  NO_REASON = 'noReason',
+}
+
+
+
 export const enum ContactDetails {
   EMAIL = 'email',
   PHONE = 'phone',
@@ -1463,6 +1474,7 @@ export const C100OrderTypeKeyMapper = {
   undertakingOrder: 'undertakingOrders',
   otherOrder: 'otherOrders'
 }
+export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png' , 'tif', 'tiff', 'pdf', 'doc', 'docx']
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface[],
   emergencyProtectionOrders?:C100OrderInterface[],
