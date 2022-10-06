@@ -217,7 +217,6 @@ export interface Case {
   miam_haveDocSigned?: string;
   miam_attendance?: YesOrNo;
   miam_validReason?: YesOrNo;
-  miam_childProtectionEvidence?: string;
   miam_domesticabuse?: string;
   miam_nonAttendanceReason?: MiamNonAttendReason;
   miam_certificate?: C100DocumentInfo;

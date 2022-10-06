@@ -451,7 +451,7 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_GENERAL_REASONS,
   },
- {
+  {
     url: C100_MIAM_UPLOAD,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_UPLOAD,

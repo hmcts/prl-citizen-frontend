@@ -441,7 +441,5 @@ describe('C100Sequence', () => {
     expect(C100Sequence[61].url).toBe('/c100-rebuild/miam/upload');
     expect(C100Sequence[61].showInSection).toBe('c100');
     expect(C100Sequence[61].getNextStep({})).toBe('/c100-rebuild/miam/upload');
-
-
   });
 });
