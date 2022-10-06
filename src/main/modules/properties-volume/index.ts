@@ -30,7 +30,6 @@ export class PropertiesVolume {
   private setSecret(fromPath: string, toPath: string): void {
     if (config.has(fromPath)) {
       set(config, toPath, get(config, fromPath));
-      console.log('secret : ' + get(config, fromPath));
     }
   }
 
