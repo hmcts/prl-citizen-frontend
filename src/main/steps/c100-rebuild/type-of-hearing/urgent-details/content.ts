@@ -135,7 +135,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            hearingWithNext48HrsMsg: {
+            hu_hearingWithNext48HrsMsg: {
               type: 'textarea',
               label: l => l.hearingWithNext48HrsDetails,
               hint: l => l.hearingWithNext48HrsDetailsHint,
