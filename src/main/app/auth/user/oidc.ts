@@ -24,10 +24,6 @@ export const getUserDetails = async (
   const secret: string = config.get('services.idam.citizenClientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
-  console.log('id is: ' + id);
-  console.log('secret is: ' + secret);
-  console.log('tokenUrl is: ' + tokenUrl);
-  console.log('callbackUrl is: ' + callbackUrl);
 
   const code = encodeURIComponent(rawCode);
   const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
