@@ -2,17 +2,14 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { toApiFormat } from '../../app/case/to-api-format';
 import { getNextStepUrl } from '../../steps';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
-import { setInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
-import { setMIAMDetails } from '../../steps/tasklistresponse/miam/MIAMMapper';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, Respondent, State } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -250,39 +247,6 @@ export class PostController<T extends AnyObject> {
     }
 
     this.redirect(req, res);
-  }
-
-  public async updateCaseWithEventId(
-    req: AppRequest,
-    res: Response,
-    urlPattern: string,
-    eventId: string
-  ): Promise<void> {
-    const caseworkerUser = req.session.user;
-    const caseReference = req.session.userCase.id;
-
-    const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-
-    const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
-    Object.assign(req.session.userCase, caseDataFromCos);
-
-    req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-      if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        if (req.url.includes(urlPattern)) {
-          Object.assign(respondent, setInternationalFactorsDetails(respondent, req));
-        }
-        if (req.url.includes(urlPattern)) {
-          Object.assign(respondent, setMIAMDetails(respondent, req));
-        }
-      }
-    });
-
-    const caseData = toApiFormat(req?.session?.userCase);
-    caseData.id = caseReference;
-    const updatedCaseDataFromCos = await client.updateCase(caseworkerUser, caseReference, caseData, eventId);
-    Object.assign(req.session.userCase, updatedCaseDataFromCos);
-
-    req.session.save(() => res.redirect(RESPONDENT_TASK_LIST_URL));
   }
 
   private async getCaseList(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {

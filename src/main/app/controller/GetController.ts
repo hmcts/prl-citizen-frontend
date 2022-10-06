@@ -2,14 +2,10 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import Negotiator from 'negotiator';
 
-import { CosApiClient } from '../../app/case/CosApiClient';
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
-import { RESPONSE_CITIZEN_INTERNATIONAL_ELEMENTS, RESPONSE_MIAM_ELEMENTS } from '../../steps/constants';
-import { getInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
-import { getMIAMDetails } from '../../steps/tasklistresponse/miam/MIAMMapper';
 import * as Urls from '../../steps/urls';
-import { CITIZEN_UPDATE, Respondent } from '../case/definition';
+import { CITIZEN_UPDATE } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
 
@@ -114,37 +110,6 @@ export class GetController {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
-  }
-
-  public async getCaseDataFromCCDAndMapFields(
-    req: AppRequest,
-    res: Response,
-    element: string,
-    redirectUrl: string
-  ): Promise<void> {
-    const loggedInCitizen = req.session.user;
-    const caseReference = req.params?.caseId;
-
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
-
-    const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
-    Object.assign(req.session.userCase, caseDataFromCos);
-
-    req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-      if (
-        respondent?.value?.user?.idamId === req.session?.user.id &&
-        respondent?.value?.response &&
-        respondent?.value?.response[`${element}`]
-      ) {
-        if (element === RESPONSE_MIAM_ELEMENTS && redirectUrl === Urls.MIAM_START) {
-          Object.assign(req.session.userCase, getMIAMDetails(respondent, req));
-        }
-        if (element === RESPONSE_CITIZEN_INTERNATIONAL_ELEMENTS && redirectUrl === Urls.INTERNATIONAL_FACTORS_START) {
-          Object.assign(req.session.userCase, getInternationalFactorsDetails(respondent, req));
-        }
-      }
-    });
-    req.session.save(() => res.redirect(redirectUrl));
   }
 
   private getName(req: AppRequest) {
