@@ -67,8 +67,9 @@ import {
   C100_MIAM_NONEED,
   C100_MIAM_OTHER,
   C100_MIAM_GENERAL_REASONS,
-  PageLink,
+  C100_MIAM_GET_MEDIATOR,
   C100_MIAM_UPLOAD,
+  PageLink,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -450,6 +451,11 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_GENERAL_REASONS,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_GENERAL_REASONS,
+  },
+  {
+    url: C100_MIAM_GET_MEDIATOR,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GET_MEDIATOR,
   },
   {
     url: C100_MIAM_UPLOAD,
