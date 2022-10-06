@@ -46,17 +46,20 @@ export class OidcMiddleware {
         if (req.path.startsWith(CITIZEN_HOME_URL) && !req.session?.user) {
           return next();
         }
-
+        console.log('inside oidc, finding user');
         if (req.session?.user) {
           console.log('*****User login success');
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
           if (req.session.userCase) {
+            console.log('inside oidc, user case found');
             if (req.session.accessCodeLoginIn) {
               try {
+                console.log('access code login is valid');
                 const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
                 if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
+                  console.log('validating access code');
                   const caseReference = req.session.userCase.caseCode;
                   const accessCode = req.session.userCase.accessCode;
                   const data = { applicantCaseName: 'Tom Jerry - updated' };
@@ -68,6 +71,7 @@ export class OidcMiddleware {
                     accessCode as string,
                     data
                   );
+                  console.log('validating access code, link success');
                   req.session.accessCodeLoginIn = false;
                 }
               } catch (err) {
@@ -90,9 +94,11 @@ export class OidcMiddleware {
             // req.session['lang'] =
             // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
           }
+          console.log('inside oidc, trying to get the cases');
           req.session.userCaseList = await getCaseDetails(req);
           return next();
         } else {
+          console.log('login failed');
           res.redirect(SIGN_IN_URL);
         }
       })
