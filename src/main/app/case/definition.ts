@@ -2221,6 +2221,7 @@ export interface Value {
   dateCreated: string;
   documentDetails: DocumentDetails;
   citizenDocument: CitizenDocument;
+  documentRequestedByCourt: YesOrNo;
 }
 
 export interface UploadDocumentList {

@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
+import { ApplicantUploadFiles, RespondentUploadFiles, UploadDocumentSucess } from '../../steps/constants';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
@@ -16,7 +16,6 @@ import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
 
-const UploadDocumentSucess = 'upload-documents-success';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
@@ -40,7 +39,6 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else {
-      await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -103,23 +101,6 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-
-    //const data = toApiFormat(formData);
-
-    // if (Object.keys(data).length !== 0) {
-    //   req.session.userCase = await this.saveData(req, formData, this.getEventName(req), data);
-    // }
-
-    //const caseworkerUser = await getSystemUser();
-    //const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-    // const requestMappedCaseData = {
-    //   applicantCaseName: 'XYZ',
-    //   natureOfOrder: 'test',
-    //   isCaseUrgent: 'Yes',
-    // };
-    // const caseId = req.session?.caseId;
-    //await client.updateRespondentCase(caseworkerUser, req.session.userCase.id, req, data);
-    this.redirect(req, res);
 
     if (req.originalUrl.includes(UploadDocumentSucess)) {
       if (req?.session?.userCase?.applicantUploadFiles) {

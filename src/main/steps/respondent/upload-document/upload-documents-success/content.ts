@@ -46,7 +46,7 @@ export const form: FormContent = {
     },
   },
 
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };
