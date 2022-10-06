@@ -1,6 +1,13 @@
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
+export const getLegalRepresentationStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
+  if (userCase?.legalRepresentation) {
+    return SectionStatus.COMPLETED;
+  }
+  return SectionStatus.TO_DO;
+};
+
 export const getKeepYourDetailsPrivateStatus = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string

@@ -30,8 +30,8 @@ nodejs:
         - prl-citizen-frontend-idam-client-secret
         - postcode-lookup-token
         - prl-cos-idam-client-secret
-        - microservicekey-prl-cos-api
         - microservicekey-prl-citizen-frontend
+        - microservicekey-prl-cos-api
         - system-update-user-username
         - system-update-user-password
         - idam-solicitor-username
