@@ -13,6 +13,7 @@ import {
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { isFileSizeMoreThan20MB, isValidFileFormat } from '../../../../app/form/validation';
 import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 
 const C100OrderTypeNameMapper = {
@@ -79,12 +80,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             propertyName: 'document',
             errorType: 'required',
           });
-        } else if (!this.isValidFileFormat(files)) {
+        } else if (!isValidFileFormat(files)) {
           this.uploadFileError(req, res, orderType as string, orderId as string, {
             propertyName: 'document',
             errorType: 'fileFormat',
           });
-        } else if (this.isFileSizeMoreThan20MB(files)) {
+        } else if (isFileSizeMoreThan20MB(files)) {
           this.uploadFileError(req, res, orderType as string, orderId as string, {
             propertyName: 'document',
             errorType: 'fileSize',

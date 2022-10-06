@@ -24,6 +24,8 @@ const en = () => ({
             file and upload a new one`,
       fileSize: `There is a problem. The file you uploaded is too large.
             Maximum file size allowed is 20MB`,
+      fileFormat: `There is a problem. The file you uploaded is in the wrong format.
+            Upload your file again in the correct format`,
     },
   },
 });
@@ -52,6 +54,8 @@ const cy = () => ({
             file and upload a new one - welsh`,
       fileSize: `There is a problem. The file you uploaded is too large.
             Maximum file size allowed is 20MB - welsh`,
+      fileFormat: `There is a problem. The file you uploaded is in the wrong format.
+            Upload your file again in the correct format -welsh`,
     },
   },
 });
