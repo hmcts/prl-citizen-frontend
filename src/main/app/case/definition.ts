@@ -266,6 +266,17 @@ export const enum Nationality {
   NOT_SURE = 'Not sure',
 }
 
+export const enum MiamNonAttendReason {
+  DOMESTIC = 'domesticViolence',
+  CHILD_PROTECTION = 'childProtection',
+  URGENT = 'urgentHearing',
+  PREV_MIAM = 'previousMIAMOrExempt',
+  EXEMPT = 'validExemption',
+  NO_REASON = 'noReason',
+}
+
+
+
 export const enum ContactDetails {
   EMAIL = 'email',
   PHONE = 'phone',

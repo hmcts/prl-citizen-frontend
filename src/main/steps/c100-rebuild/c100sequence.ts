@@ -66,6 +66,7 @@ import {
   C100_MIAM_VALID_REASON,
   C100_MIAM_NONEED,
   C100_MIAM_OTHER,
+  C100_MIAM_GENERAL_REASONS,
   PageLink,
 } from '../urls';
 
@@ -443,5 +444,10 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_MIAM_DOMESTIC_ABUSE,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_MIAM_GENERAL_REASONS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GENERAL_REASONS,
   },
 ];
