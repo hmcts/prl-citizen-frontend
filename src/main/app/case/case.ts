@@ -6,6 +6,7 @@ import {
   C1ASafteyConcerns,
   CaseData,
   ContactDetails,
+  MiamNonAttendReason,
   OtherName,
   OtherProceedings,
   State,
@@ -65,10 +66,10 @@ export interface Case {
   caseCode?: string;
   accessCode?: string;
   detailsKnown?: string;
-  miam_haveDocSigned?: string;
   startAlternative?: string;
   contactDetailsPrivate?: string;
   miamStart?: string;
+  miam_consent?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
   doYouConsent?: YesOrNo;
@@ -210,6 +211,13 @@ export interface Case {
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
   c1A_safteyConcerns?: C1ASafteyConcerns;
+  miam_otherProceedings?: string;
+  miam_haveDocSigned?: string;
+  miam_attendance?: YesOrNo;
+  miam_validReason?: YesOrNo;
+  miam_childProtectionEvidence?: string;
+  miam_domesticabuse?: string;
+  miam_nonAttendanceReason?: MiamNonAttendReason;
 }
 
 export interface CaseWithId extends Case {
