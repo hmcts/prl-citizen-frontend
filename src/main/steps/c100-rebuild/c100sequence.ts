@@ -52,18 +52,20 @@ import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
-  PageLink,
+  C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   C100_DOCUMENT_SUBMISSION,
   C100_MIAM_OTHER_PROCEEDINGS,
   C100_MIAM_MEDIATOR_DOCUMENT,
   C100_MIAM_CHILD_PROTECTION,
   C100_MIAM_ATTENDANCE,
+  C100_MIAM_PREVIOUS_ATTENDANCE,
   C100_MIAM_MEDIATOR_CONFIRMAION,
   C100_MIAM_URGENCY,
   C100_MIAM_INFO,
   C100_MIAM_VALID_REASON,
   C100_MIAM_NONEED,
-  C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  C100_MIAM_OTHER,
+  PageLink,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -372,11 +374,6 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   },
   {
-    url: C100_MIAM_CHILD_PROTECTION,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
-  },
-  {
     url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
@@ -411,6 +408,11 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_MIAM_URGENCY,
   },
   {
+    url: C100_MIAM_PREVIOUS_ATTENDANCE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_PREVIOUS_ATTENDANCE,
+  },
+  {
     url: C100_MIAM_INFO,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
@@ -425,5 +427,15 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_NONEED,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_NONEED,
+  },
+  {
+    url: C100_MIAM_OTHER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_MIAM_CHILD_PROTECTION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];

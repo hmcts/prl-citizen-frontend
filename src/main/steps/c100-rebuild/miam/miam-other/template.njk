@@ -1,0 +1,10 @@
+{% extends "common/template.njk" %}
+{% block page_content %}
+<span class="govuk-caption-l">{{caption}}</span>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{title}}</h1>
+      <div class="govuk-inset-text">
+      {% for line in lines %}
+            <p class="govuk-body-m">{{line}}</p>
+      {% endfor %}
+      </div>
+{% endblock %}
