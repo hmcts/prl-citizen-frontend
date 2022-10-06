@@ -18,7 +18,7 @@ const en = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    miamNonAttendanceReason: {
+    miam_nonAttendanceReason: {
       required: 'Select your valid reasons for not attending a MIAM',
     },
   },
@@ -39,7 +39,7 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    miamNonAttendanceReason: {
+    miam_nonAttendanceReason: {
       required: 'Select your valid reasons for not attending a MIAM',
     },
   },
@@ -52,34 +52,34 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    miamNonAttendanceReason: {
+    miam_nonAttendanceReason: {
       type: 'checkboxes',
       hint: l => l.optionHint,
       section: l => l.section,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'miamNonAttendanceReason',
+          name: 'miam_nonAttendanceReason',
           label: l => l.domesticViolence,
           value: MiamNonAttendReason.DOMESTIC,
         },
         {
-          name: 'miamNonAttendanceReason',
+          name: 'miam_nonAttendanceReason',
           label: l => l.childProtection,
           value: MiamNonAttendReason.CHILD_PROTECTION,
         },
         {
-          name: 'miamNonAttendanceReason',
+          name: 'miam_nonAttendanceReason',
           label: l => l.urgentHearing,
           value: MiamNonAttendReason.URGENT,
         },
         {
-          name: 'miamNonAttendanceReason',
+          name: 'miam_nonAttendanceReason',
           label: l => l.previousMIAMOrExempt,
           value: MiamNonAttendReason.PREV_MIAM,
         },
         {
-          name: 'miamNonAttendanceReason',
+          name: 'miam_nonAttendanceReason',
           label: l => l.validExemption,
           value: MiamNonAttendReason.EXEMPT,
         },
@@ -87,7 +87,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'miamNonAttendanceReason',
+          name: 'miam_nonAttendanceReason',
           label: l => l.noReason,
           value: MiamNonAttendReason.NO_REASON,
           behaviour: 'exclusive',

@@ -72,7 +72,6 @@ export interface Case {
   miam_consent?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
-  miamNonAttendanceReason?: MiamNonAttendReason;
   doYouConsent?: YesOrNo;
   applicationReceivedDate?: CaseDate;
   courtPermission?: YesOrNo;
@@ -218,6 +217,7 @@ export interface Case {
   miam_validReason?: YesOrNo;
   miam_childProtectionEvidence?: string;
   miam_domesticabuse?: string;
+  miam_nonAttendanceReason?: MiamNonAttendReason;
 }
 
 export interface CaseWithId extends Case {
