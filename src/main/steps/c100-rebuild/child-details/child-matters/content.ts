@@ -77,19 +77,19 @@ export const generateContent: TranslationFn = content => {
   const newValueStorage: { name: string; label: (l: any) => any; value: string }[] = [] as [];
   values.forEach(value => {
     if (value['name'] === 'isDecisionTaken') {
+      const attributes = {};
+      if (parentialResponsibilityStatement === YesOrNo.YES) {
+        attributes['checked'] = true;
+      }
       const newValue = {
         ...value,
-        attributes: { checked: true },
+        attributes,
       };
       value = newValue;
     }
     newValueStorage.push(value);
   });
-
   form.fields['isDecisionTaken']['values'] = newValueStorage;
-  console.log(newValueStorage);
-  console.log(parentialResponsibilityStatement);
-
   const translations = languages[content.language]();
   const firstName = findChildData['firstname'];
   const lastName = findChildData['lastname'];
