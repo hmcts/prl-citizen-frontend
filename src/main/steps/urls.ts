@@ -250,6 +250,7 @@ export const C100_MIAM_INFO: PageLink = `${C100_MIAM}/miam-info`;
 export const C100_MIAM_VALID_REASON: PageLink = `${C100_MIAM}/valid-reason`;
 export const C100_MIAM_NONEED: PageLink = `${C100_MIAM}/no-need`;
 export const C100_MIAM_OTHER: PageLink = `${C100_MIAM}/miam-other`;
+export const C100_MIAM_MIAM_DOMESTIC_ABUSE = `${C100_MIAM}/domestic-abuse`;
 
 /** @C100 Hearing Urgency */
 export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/type-of-hearing`;
