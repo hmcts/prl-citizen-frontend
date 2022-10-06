@@ -14,7 +14,7 @@ const en = {
   localAuthority:
     'The children in the application, or another child in the household, is the subject of enquiries by a local authority under ',
   localAuthorityHint:
-    '<a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm.',
+    '<a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a><br/>This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm.',
   childProtectionPlan:
     'The children in the application, or another child in the household, is the subject of a child protection plan put in place by the local authority',
   none: 'None of the above',
@@ -34,7 +34,7 @@ const cy = {
   localAuthority:
     'The children in the application, or another child in the household, is the subject of enquiries by a local authority under',
   localAuthorityHint:
-    '<a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. - Welsh',
+    '<a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a><br/>This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. - Welsh',
   childProtectionPlan:
     'The children in the application, or another child in the household, is the subject of a child protection plan put in place by the local authority - Welsh',
   none: 'None of the above - Welsh',
