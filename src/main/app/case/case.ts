@@ -73,6 +73,7 @@ export interface Case {
   hu_hearingWithNext48HrsDetails?: string;
   hu_hearingWithNext48HrsMsg?: string;
   miamStart?: string;
+  miam_consent?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
   doYouConsent?: YesOrNo;
@@ -217,6 +218,7 @@ export interface Case {
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_attendance?: YesOrNo;
+  miam_validReason?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

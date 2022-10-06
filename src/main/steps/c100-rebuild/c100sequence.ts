@@ -56,9 +56,16 @@ import {
   C100_DOCUMENT_SUBMISSION,
   C100_MIAM_OTHER_PROCEEDINGS,
   C100_MIAM_MEDIATOR_DOCUMENT,
+  C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   C100_MIAM_ATTENDANCE,
+  C100_MIAM_PREVIOUS_ATTENDANCE,
   C100_MIAM_MEDIATOR_CONFIRMAION,
   C100_URGENT_DETAILS,
+  C100_MIAM_URGENCY,
+  C100_MIAM_INFO,
+  C100_MIAM_VALID_REASON,
+  C100_MIAM_NONEED,
+  C100_MIAM_OTHER,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -392,6 +399,42 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_URGENT_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  },
+  {
+    url: C100_MIAM_URGENCY,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_URGENCY,
+  },
+  {
+    url: C100_MIAM_PREVIOUS_ATTENDANCE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_PREVIOUS_ATTENDANCE,
+  },
+  {
+    url: C100_MIAM_INFO,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_MIAM_VALID_REASON,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.miam_validReason === YesOrNo.YES ? C100_MIAM_VALID_REASON : C100_CONFIDENTIALITY_START,
+  },
+  {
+    url: C100_MIAM_NONEED,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_NONEED,
+  },
+  {
+    url: C100_MIAM_OTHER,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
