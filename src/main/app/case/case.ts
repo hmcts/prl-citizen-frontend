@@ -65,7 +65,6 @@ export interface Case {
   caseCode?: string;
   accessCode?: string;
   detailsKnown?: string;
-  miam_childProtectionEvidence?: string;
   startAlternative?: string;
   contactDetailsPrivate?: string;
   miamStart?: string;
@@ -215,6 +214,8 @@ export interface Case {
   miam_haveDocSigned?: string;
   miam_attendance?: YesOrNo;
   miam_validReason?: YesOrNo;
+  miam_childProtectionEvidence?: string;
+  miam_domesticabuse?: string;
 }
 
 export interface CaseWithId extends Case {
