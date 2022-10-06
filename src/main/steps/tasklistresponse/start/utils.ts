@@ -119,44 +119,43 @@ export const getInternationalFactorsStatus = (
       let flagJurisdication = false;
       let flagRequest = false;
 
-      if(internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.NO){
+      if (internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.NO) {
         flagStart = true;
       }
-      if(internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO){
+      if (internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO) {
         flagParents = true;
       }
-      if(internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.NO){
+      if (internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.NO) {
         flagJurisdication = true;
       }
-      if(internationalElements?.anotherCountryAskedInformation === YesOrNo.NO){
+      if (internationalElements?.anotherCountryAskedInformation === YesOrNo.NO) {
         flagRequest = true;
       }
 
-      if(internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.YES){
-        if(internationalElements?.childrenLiveOutsideOfEnWlDetails){
+      if (internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.YES) {
+        if (internationalElements?.childrenLiveOutsideOfEnWlDetails) {
           flagStart = true;
         }
       }
-      if(internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES){
-        if(internationalElements?.parentsAnyOneLiveOutsideEnWlDetails){
+      if (internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES) {
+        if (internationalElements?.parentsAnyOneLiveOutsideEnWlDetails) {
           flagParents = true;
         }
       }
-      if(internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.YES){
-        if(internationalElements?.anotherPersonOrderOutsideEnWlDetails){
+      if (internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.YES) {
+        if (internationalElements?.anotherPersonOrderOutsideEnWlDetails) {
           flagJurisdication = true;
         }
       }
-      if(internationalElements?.anotherCountryAskedInformation === YesOrNo.YES){
-        if(internationalElements?.anotherCountryAskedInformationDetaails){
+      if (internationalElements?.anotherCountryAskedInformation === YesOrNo.YES) {
+        if (internationalElements?.anotherCountryAskedInformationDetaails) {
           flagRequest = true;
         }
       }
 
-      if(flagStart && flagParents && flagJurisdication && flagRequest) {
+      if (flagStart && flagParents && flagJurisdication && flagRequest) {
         statusFlag = SectionStatus.COMPLETED;
       }
-
     }
   });
 
