@@ -12,7 +12,7 @@ const en = {
   needMoreDetails2: 'The court needs this information to decide if you need to attend a MIAM.',
   optionHint: 'Select all that apply',
   localAuthority:
-    'The children in the application, or another child in the household, is the subject of enquiries by a local authority under ',
+    'The children in the application, or another child in the household, is the subject of enquiries by a local authority under section 47 of the Children Act 1989 Act',
   localAuthorityHint:
     'This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. See <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> for further details.',
   childProtectionPlan:
@@ -32,7 +32,7 @@ const cy = {
   needMoreDetails2: 'The court needs this information to decide if you need to attend a MIAM. - Welsh',
   optionHint: 'Select all that apply - Welsh',
   localAuthority:
-    'The children in the application, or another child in the household, is the subject of enquiries by a local authority under',
+    'The children in the application, or another child in the household, is the subject of enquiries by a local authority under section 47 of the Children Act 1989 Act - welsh',
   localAuthorityHint:
     'This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. See <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> for further details.',
   childProtectionPlan:
