@@ -85,7 +85,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/international-factors/start',
+              href: '/tasklistresponse/international-factors/start',
               id: 'check_details_of_your_court_hearings',
               status: 'TO_DO',
               text: 'Check details of your court hearings',
