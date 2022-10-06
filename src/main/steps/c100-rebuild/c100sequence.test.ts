@@ -428,7 +428,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[58].url).toBe('/c100-rebuild/miam/child-protection');
     expect(C100Sequence[58].showInSection).toBe('c100');
-    expect(C100Sequence[58].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[58].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know')
 
     expect(C100Sequence[59].url).toBe('/c100-rebuild/miam/domestic-abuse');
     expect(C100Sequence[59].showInSection).toBe('c100');
