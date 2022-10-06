@@ -70,7 +70,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             res.redirect(redirectURL);
           });
         } catch (error) {
-          console.log(error);
           res.json(error);
         }
       }

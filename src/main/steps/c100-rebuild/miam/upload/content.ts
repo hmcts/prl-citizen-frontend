@@ -61,7 +61,6 @@ export const form: FormContent = {
   fields: {
     miamUpload: {
       type: 'hidden',
-      //label: l => l.uploadFiles,
       labelHidden: true,
       value: 'true',
     },

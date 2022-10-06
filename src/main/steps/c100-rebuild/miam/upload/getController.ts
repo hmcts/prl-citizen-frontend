@@ -33,7 +33,6 @@ export default class DocumentUpload extends GetController {
 
   public removeExistingDocument = async (docId: string, req: AppRequest, res: Response): Promise<void> => {
     try {
-      //const userDetails = req?.session?.user;
       await req.locals.C100Api.deleteDocument(docId);
 
       if (req.session.userCase?.miam_certificate) {
