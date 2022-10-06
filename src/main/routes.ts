@@ -52,6 +52,7 @@ import {
   MANAGE_DOCUMENTS_DOWNLOAD,
   PRIVACY_POLICY,
   RESPONDENT,
+  RESPONDENT_ADDRESS_LOOKUP,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
@@ -64,6 +65,8 @@ import {
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
 } from './steps/urls';
+import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
+import { FieldPrefix } from './app/case/case';
 
 const handleUploads = multer();
 
@@ -162,6 +165,10 @@ export class Routes {
         app.post(
           `${APPLICANT_CONTACT_DETAILS_SAVE}`,
           errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.post(
+          `${RESPONDENT_ADDRESS_LOOKUP}`,
+          errorHandler(new AddressLookupPostControllerBase(step.form.fields, FieldPrefix.RESPONDENT).post)
         );
       }
     }

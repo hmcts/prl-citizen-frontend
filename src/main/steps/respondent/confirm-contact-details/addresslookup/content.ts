@@ -1,3 +1,4 @@
+import { RESPONDENT_ADDRESS_BLANK } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isInvalidPostcode } from '../../../../app/form/validation';
@@ -11,6 +12,7 @@ const en = {
       required: 'Enter UK Post Code',
     },
   },
+  addressOutsideUK: 'I live outside the UK'
 };
 
 const cy: typeof en = {
@@ -22,6 +24,7 @@ const cy: typeof en = {
       required: 'Enter UK Post Code',
     },
   },
+  addressOutsideUK: 'I live outside the UK (in Welsh)'
 };
 
 const languages = {
@@ -41,6 +44,12 @@ export const form: FormContent = {
       },
       validator: isInvalidPostcode,
     },
+    addressOutsideUKUrl: {
+            type: 'link',
+            label: l => l.addressOutsideUK,
+            labelSize: null,
+            link: RESPONDENT_ADDRESS_BLANK
+    }
   },
   submit: {
     text: l => l.continue,

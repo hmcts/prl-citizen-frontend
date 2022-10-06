@@ -23,6 +23,7 @@ export class PropertiesVolume {
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
       this.setLocalSecret('system-update-user-username', 'services.idam.systemUsername');
       this.setLocalSecret('system-update-user-password', 'services.idam.systemPassword');
+      this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
       //this.setLocalEndpoints();
     }
   }
