@@ -4,12 +4,7 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { DocumentUploadResponse, caseApi } from '../../../../app/case/C100CaseApi';
-import {
-  AllowedFileExtentionList,
-  C100OrderInterface,
-  C100OrderTypeKeyMapper,
-  C100OrderTypes,
-} from '../../../../app/case/definition';
+import { C100OrderInterface, C100OrderTypeKeyMapper, C100OrderTypes } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -136,7 +131,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               res.redirect(redirectURL);
             });
           } catch (error) {
-            console.log(error);
             res.json(error);
           }
         }
@@ -154,17 +148,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   public buildOrderTypeName(courtOrderType: C100OrderTypes): string {
     return C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();
   }
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  public isValidFileFormat = (files: any): boolean => {
-    const { documents }: AnyType = files;
-    const extension = documents.name.split('.')[documents.name.split('.').length - 1];
-    return AllowedFileExtentionList.indexOf(extension) > -1;
-  };
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  public isFileSizeMoreThan20MB = (files: any): boolean => {
-    const { documents }: AnyType = files;
-    return documents.size > 20000000;
-  };
+
   /**
    * It's a function that handles errors that occur during the upload process
    * @param req - AppRequest<AnyObject>

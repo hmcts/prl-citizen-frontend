@@ -48,11 +48,11 @@
   {% for error in sessionErrors %}
     {%- if  error.propertyName === 'document'  %}
     {%- if  error.errorType === 'required'  %}
-         <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
+         <span class="govuk-error-message" id="miam-file-upload-required-error">
     <span class="govuk-visually-hidden">Error: </span>{{errors['document'].required}}</span>
      {% endif %}
       {%- if  error.errorType === 'multipleFiles'  %}
-     <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
+     <span class="govuk-error-message" id="miam-file-upload-multiple-error">
     <span class="govuk-visually-hidden">Error: </span>{{errors['document'].multipleFiles}}</span>
      {% endif %}
      {% endif %}
