@@ -5,14 +5,17 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Does your situation qualify for an urgent first hearing?    ',
-  paragraph1:
-    '<p>In many cases the first hearing will take place within 2 months. But the court may agree to an earlier first hearing (urgent hearing) if it is necessary.</p>',
-  paragraph2: '<p>For example, there may be an immediate risk of harm to you or the children.</p>',
-  paragraph3:
-    '<p>If you get an urgent hearing, this may not mean that your case will be over sooner, and you may not receive a final decision on your case at this stage.</p>',
-  warningMessage:
-    'Only ask for an urgent hearing if you have a good reason. The court will only agree to an urgent hearing if they think the situation is critical.',
+  title: 'Does your situation qualify for an urgent first hearing?',
+  paragraphs: [
+    'In many cases the first hearing will take place within 2 months. But the court may agree to an earlier first hearing (urgent hearing) if it is necessary.',
+    'For example, there may be an immediate risk of harm to you or the children.',
+    'If you get an urgent hearing, this may not mean that your case will be over sooner, and you may not receive a final decision on your case at this stage.',
+  ],
+  warningText: {
+    text: 'Only ask for an urgent hearing if you have a good reason. The court will only agree to an urgent hearing if they think the situation is critical.',
+    iconFallbackText: 'Warning',
+  },
+  label: 'Do you have a good reason to request an urgent hearing?',
   one: 'Yes',
   two: 'No',
   errors: {
@@ -20,18 +23,20 @@ const en = () => ({
       required: 'Select yes if you have a good reason to request an urgent hearing',
     },
   },
-  label: 'Do you have a good reason to request an urgent hearing?',
 });
 
 const cy = () => ({
-  title: 'Does your situation qualify for an urgent first hearing? - welsh  ',
-  paragraph1:
-    '<p>In many cases the first hearing will take place within 2 months. But the court may agree to an earlier first hearing (urgent hearing) if it is necessary. - welsh </p>',
-  paragraph2: '<p>For example, there may be an immediate risk of harm to you or the children. - welsh </p>',
-  paragraph3:
-    '<p>If you get an urgent hearing, this may not mean that your case will be over sooner, and you may not receive a final decision on your case at this stage. - welsh </p>',
-  warningMessage:
-    'Only ask for an urgent hearing if you have a good reason. The court will only agree to an urgent hearing if they think the situation is critical.  - welsh  ',
+  title: 'Does your situation qualify for an urgent first hearing? - welsh',
+  paragraphs: [
+    'In many cases the first hearing will take place within 2 months. But the court may agree to an earlier first hearing (urgent hearing) if it is necessary. - welsh',
+    'For example, there may be an immediate risk of harm to you or the children. - welsh',
+    'If you get an urgent hearing, this may not mean that your case will be over sooner, and you may not receive a final decision on your case at this stage. - welsh',
+  ],
+  warningText: {
+    text: 'Only ask for an urgent hearing if you have a good reason. The court will only agree to an urgent hearing if they think the situation is critical. - welsh',
+    iconFallbackText: 'Warning',
+  },
+  label: 'Do you have a good reason to request an urgent hearing? - welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
@@ -39,7 +44,6 @@ const cy = () => ({
       required: 'Select yes if you have a good reason to request an urgent hearing - welsh',
     },
   },
-  label: 'Do you have a good reason to request an urgent hearing? - welsh',
 });
 
 const languages = {
@@ -49,22 +53,6 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    paragraph1: {
-      type: 'textAndHtml',
-      textAndHtml: l => l.paragraph1,
-    },
-    paragraph2: {
-      type: 'textAndHtml',
-      textAndHtml: l => l.paragraph2,
-    },
-    paragraph3: {
-      type: 'textAndHtml',
-      textAndHtml: l => l.paragraph3,
-    },
-    warningMessage: {
-      type: 'warning',
-      label: l => l.warningMessage,
-    },
     hu_urgentHearingReasons: {
       type: 'radios',
       classes: 'govuk-radios',
