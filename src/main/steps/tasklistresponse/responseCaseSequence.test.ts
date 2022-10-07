@@ -40,7 +40,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[9].url).toBe('/tasklistresponse/miam/summary');
     expect(responseCaseSequence[9].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[9].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[9].getNextStep({})).toBe('/tasklistresponse/miam/save');
 
     expect(responseCaseSequence[10].url).toBe('/respondent/confirm-contact-details/checkanswers');
     expect(responseCaseSequence[10].showInSection).toBe('aboutRespondentCase');
