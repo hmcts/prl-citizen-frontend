@@ -69,6 +69,8 @@ import {
   C100_MIAM_NONEED,
   C100_MIAM_OTHER,
   C100_MIAM_GENERAL_REASONS,
+  C100_MIAM_GET_MEDIATOR,
+  C100_MIAM_UPLOAD,
   PageLink,
 } from '../urls';
 
@@ -402,11 +404,6 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_MIAM_MEDIATOR_CONFIRMAION,
   },
   {
-    url: C100_MIAM_UPLOAD_CONFIRMATION,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_MIAM_UPLOAD_CONFIRMATION,
-  },
-  {
     url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
@@ -456,5 +453,20 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_GENERAL_REASONS,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_GENERAL_REASONS,
+  },
+  {
+    url: C100_MIAM_GET_MEDIATOR,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GET_MEDIATOR,
+  },
+  {
+    url: C100_MIAM_UPLOAD,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_UPLOAD,
+  },
+  {
+    url: C100_MIAM_UPLOAD_CONFIRMATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_UPLOAD_CONFIRMATION,
   },
 ];
