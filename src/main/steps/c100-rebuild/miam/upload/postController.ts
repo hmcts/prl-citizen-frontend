@@ -13,9 +13,6 @@ import { C100_MIAM_UPLOAD } from '../../../urls';
 
 import { AnyType } from './getController';
 
-// eslint-disable-next-line import/no-unresolved
-//import { AnyType } from '../getController';
-
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind

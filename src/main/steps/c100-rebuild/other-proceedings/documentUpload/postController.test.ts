@@ -306,7 +306,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    req.files = { documents: { name: 'test.png', size: '812300', data: '', mimetype: 'text' } };
+    req.files = { documents: { name: 'test.png', size: '1.23', data: '', mimetype: 'text' } };
     req.session.userCase = {
       op_otherProceedings: {
         order: {
