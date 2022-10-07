@@ -8,7 +8,7 @@ import { C100DocumentInfo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { isFileSizeMoreThan20MB, isValidFileFormat } from '../../../../app/form/validation';
+import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { C100_MIAM_UPLOAD } from '../../../urls';
 
 import { AnyType } from './getController';
@@ -52,7 +52,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           propertyName: 'document',
           errorType: 'fileFormat',
         });
-      } else if (isFileSizeMoreThan20MB(files)) {
+      } else if (isFileSizeGreaterThanMaxAllowed(files)) {
         this.uploadFileError(req, res, {
           propertyName: 'document',
           errorType: 'fileSize',

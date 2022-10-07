@@ -3,7 +3,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate } from '../case/case';
-import { AllowedFileExtentionList, OtherName } from '../case/definition';
+import { AllowedFileExtentionList, C100MaxFileSize, OtherName } from '../case/definition';
 
 dayjs.extend(customParseFormat);
 
@@ -227,9 +227,9 @@ export const isNumeric: Validator = value => {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-export const isFileSizeMoreThan20MB = (files: any): boolean => {
+export const isFileSizeGreaterThanMaxAllowed = (files: any): boolean => {
   const { documents }: AnyType = files;
-  return documents.size > 20000000;
+  return documents.size > C100MaxFileSize;
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
