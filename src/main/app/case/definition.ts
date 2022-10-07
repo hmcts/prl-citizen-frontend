@@ -819,7 +819,7 @@ export interface CaseData {
   iFactorsStartProvideDetails?: string;
   iFactorsRequestProvideDetails?: string;
   iFactorsParentsProvideDetails?: string;
-
+  legalRepresentation?: YesOrNo;
 }
 
 export interface ConfidentialDetails {

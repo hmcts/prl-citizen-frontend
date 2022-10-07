@@ -66,6 +66,7 @@ import {
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
+  RESPOND_TO_APPLICATION,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
   TIMED_OUT_URL,
@@ -92,9 +93,9 @@ export class Routes {
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
-    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
-
+    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get))
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
+    app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

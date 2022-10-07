@@ -463,6 +463,7 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
+  legalRepresentation?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
