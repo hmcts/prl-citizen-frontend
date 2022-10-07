@@ -6,6 +6,7 @@ import {
   C1ASafteyConcerns,
   CaseData,
   ContactDetails,
+  MiamNonAttendReason,
   OtherName,
   OtherProceedings,
   State,
@@ -216,6 +217,9 @@ export interface Case {
   miam_validReason?: YesOrNo;
   urgentHearingReasons?: YesOrNo;
   hu_urgentHearingReasons?: YesOrNo;
+  miam_childProtectionEvidence?: string;
+  miam_domesticabuse?: string;
+  miam_nonAttendanceReason?: MiamNonAttendReason;
 }
 
 export interface CaseWithId extends Case {
