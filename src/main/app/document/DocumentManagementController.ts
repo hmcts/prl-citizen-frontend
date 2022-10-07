@@ -98,7 +98,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
 
-  private async notifyBannerForNewDcoumentUploaded(
+  public async notifyBannerForNewDcoumentUploaded(
     req: AppRequest<Partial<CaseWithId>>,
     caseReference: string,
     client: CosApiClient,

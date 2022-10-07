@@ -14,6 +14,11 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
   }
   public async setAllDocumentsViewed(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const isRespondent = req.url.includes('respondent');
+
+    const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+    const caseDataFromCos = await client.retrieveByCaseId(req?.session?.userCase.id, req.session.user);
+    Object.assign(req.session.userCase, caseDataFromCos);
+
     if (req.session.userCase?.caseTypeOfApplication === 'C100') {
       if (isRespondent) {
         req.session.userCase.respondents?.forEach((respondent: Respondent) => {
@@ -52,7 +57,7 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
 
     const data = toApiFormat(req?.session?.userCase);
     data.id = req?.session?.userCase.id;
-    const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+
     const updatedCaseDataFromCos = await client.updateCase(
       req.session.user,
       req?.session?.userCase.id as string,
