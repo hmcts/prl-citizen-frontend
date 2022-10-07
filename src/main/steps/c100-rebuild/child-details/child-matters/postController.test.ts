@@ -110,5 +110,6 @@ describe('PostController', () => {
     req.query.childId = dummySessionData.ListOfChild[0].id;
     await controller.post(req, res);
     expect(req.session.userCase.children).toEqual(dummySessionData.ListOfChild);
+    expect(req.session.userCase.children[0].childMatter.isDecision).toEqual(undefined);
   });
 });
