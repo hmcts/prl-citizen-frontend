@@ -54,7 +54,7 @@ export default class AddchildrenPostController extends PostController<AnyObject>
           C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${req.session.userCase?.children?.[0].id}`;
         return super.redirect(req, res, redirectURI);
       } else {
-        this.mapEnteriesToValuesAfterContinuing(req, res);
+        return this.mapEnteriesToValuesAfterContinuing(req, res);
       }
     } else {
       const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
