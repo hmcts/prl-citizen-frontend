@@ -254,3 +254,4 @@ export const C100_MIAM_OTHER: PageLink = `${C100_MIAM}/miam-other`;
 export const C100_MIAM_MIAM_DOMESTIC_ABUSE = `${C100_MIAM}/domestic-abuse`;
 export const C100_MIAM_GENERAL_REASONS: PageLink = `${C100_MIAM}/general-reasons`;
 export const C100_MIAM_GET_MEDIATOR: PageLink = `${C100_MIAM}/get-mediator`;
+export const C100_MIAM_UPLOAD: PageLink = `${C100_MIAM}/upload`;
