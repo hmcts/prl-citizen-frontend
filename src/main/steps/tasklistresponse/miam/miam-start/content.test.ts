@@ -15,7 +15,7 @@ const enContent = {
   miamSubFields: miam_collapse_content_en,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  onlyContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     miamStart: {
       required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',
@@ -32,7 +32,7 @@ const cyContent = {
   miamSubFields: miam_collapse_content_cy,
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  onlyContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     miamStart: {
       required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',
@@ -79,8 +79,8 @@ describe('citizen-home content', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 
