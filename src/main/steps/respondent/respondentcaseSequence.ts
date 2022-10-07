@@ -14,6 +14,7 @@ import {
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   MIAM_SUMMARY,
+  OTHER_SAFETY_CONCERNS,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
   RESPONDENT_ADDRESS_BLANK,
@@ -181,6 +182,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: DOMESTIC_ABUSE_RISK_NO,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => OTHER_SAFETY_CONCERNS,
+  },
+  {
+    url: OTHER_SAFETY_CONCERNS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

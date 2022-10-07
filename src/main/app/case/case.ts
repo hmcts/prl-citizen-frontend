@@ -197,6 +197,8 @@ export interface Case {
   //applicant1LanguagePreference?: LanguagePreference;
 
   safetyConcerns?: string;
+  childSafetyConcerns?: YesOrNo;
+  childSafetyConcernsDetails?: string;
 
   citizenRole?: FieldPrefix;
   //C100 Rebuild
