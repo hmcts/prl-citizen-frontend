@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { C100OrderTypes } from '../../../../app/case/definition';
 import * as steps from '../../../../steps';
 
 import UploadDocumentController from './postController';
@@ -376,22 +375,6 @@ describe('Document upload controller', () => {
         //eslint-disable-next-line jest/no-conditional-expect
         expect(err).toBe('MOCK_ERROR');
       }
-    });
-  });
-
-  describe('Should check invalid file format present or not', () => {
-    test('should return an error', async () => {
-      const files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
-      const controller = new UploadDocumentController({});
-      expect(controller.isValidFileFormat(files)).toBe(false);
-      expect(controller.isFileSizeMoreThan20MB(files)).toBe(false);
-      expect(controller.buildOrderTypeName('childArrangementOrder' as C100OrderTypes)).toBe('child_arrangement_order');
-    });
-    test('should return an true', async () => {
-      const controller = new UploadDocumentController({});
-      const files = { documents: { name: 'test.png', size: '8123004466', data: '', mimetype: 'text' } };
-      expect(controller.isValidFileFormat(files)).toBe(true);
-      expect(controller.isFileSizeMoreThan20MB(files)).toBe(true);
     });
   });
 });
