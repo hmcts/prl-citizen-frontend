@@ -239,13 +239,6 @@ export interface Case {
   miam_nonAttendanceReason?: MiamNonAttendReason;
   miam_certificate?: C100DocumentInfo;
   hu_urgentHearingReasons?: YesOrNo;
-  childern?: childernDetails[];
-  tempChildernFormData?: {
-    children?: childrenDetails[];
-    tempchildrenFormData?: {
-      TempFirstName: string | unknown;
-      TempLastName: string | unknown;
-    };
   children?: childrenDetails[];
   tempchildrenFormData?: {
     TempFirstName: string | unknown;
