@@ -7,7 +7,7 @@ import { Case, childrenDetails } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { C100_children_DETAILS_ADD, C100_children_DETAILS_PARENTIAL_RESPONSIBILITY } from '../../../urls';
+import { C100_children_DETAILS_ADD, C100_children_DETAILS_PERSONAL_DETAILS } from '../../../urls';
 
 // eslint-disable-next-line import/no-unresolved
 
@@ -51,7 +51,7 @@ export default class AddchildrenPostController extends PostController<AnyObject>
         this.resetSessionTemporaryFormValues(req);
         req.session.userCase.tempchildrenFormData = undefined;
         const redirectURI =
-          C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${req.session.userCase?.children?.[0].id}`;
+          C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${req.session.userCase?.children?.[0].id}`;
         return super.redirect(req, res, redirectURI);
       } else {
         return this.mapEnteriesToValuesAfterContinuing(req, res);
@@ -177,8 +177,7 @@ export default class AddchildrenPostController extends PostController<AnyObject>
     if (errorMessageStorage.length === 0) {
       req.session.userCase.children = newApplicantStorage;
       req.session.userCase.tempchildrenFormData = undefined;
-      const redirectURI =
-        C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${req.session.userCase.children[0].id}`;
+      const redirectURI = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${req.session.userCase.children[0].id}`;
       return super.redirect(req, res, redirectURI);
     } else {
       req.session.userCase.children = newApplicantStorage;

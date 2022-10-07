@@ -15,6 +15,7 @@ export default class AddchildrenMatter extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const saveAndComeLater = req.body.saveAndComeLater !== undefined && req.body.saveAndComeLater === 'true';
     const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
@@ -30,8 +31,11 @@ export default class AddchildrenMatter extends PostController<AnyObject> {
           req.session.userCase.children[matchChildIndex].childMatter = {
             isDecisionTaken: YesOrNo.NO,
           };
+          if (saveAndComeLater) {
+            return super.saveAndComeLater(req, res, req.session.userCase);
+          }
           const redirectUrl = C100_children_DETAILS_CHILD_MATTERS + `?childId=${childId}`;
-          super.redirect(req, res, redirectUrl);
+          return super.redirect(req, res, redirectUrl);
         } else {
           const isDecisionTaken = isArray(req.body.isDecisionTaken)
             ? req.body.isDecisionTaken.some(val => val === YesOrNo.YES)
@@ -41,8 +45,11 @@ export default class AddchildrenMatter extends PostController<AnyObject> {
           req.session.userCase.children[matchChildIndex].childMatter = {
             isDecisionTaken,
           };
+          if (saveAndComeLater) {
+            return super.saveAndComeLater(req, res, req.session.userCase);
+          }
           const redirectUrl = C100_children_DETAILS_PARENTIAL_RESPONSIBILITY + `?childId=${childId}`;
-          super.redirect(req, res, redirectUrl);
+          return super.redirect(req, res, redirectUrl);
         }
       } else {
         res.render('error');
@@ -50,7 +57,7 @@ export default class AddchildrenMatter extends PostController<AnyObject> {
     } else {
       if (req.session.userCase.children) {
         const redirectURI = `parental-responsibility?childId=${req.session.userCase.children[0].id}`;
-        super.redirect(req, res, redirectURI);
+        return super.redirect(req, res, redirectURI);
       }
     }
   }

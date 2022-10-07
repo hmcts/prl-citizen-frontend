@@ -20,6 +20,7 @@ export default class ParentResponsibility extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const saveAndComeLater = req.body.saveAndComeLater !== undefined && req.body.saveAndComeLater === 'true';
     const form = new Form(<FormFields>this.fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
@@ -32,12 +33,15 @@ export default class ParentResponsibility extends PostController<AnyObject> {
         req.session.userCase.children[currentChild].parentialResponsibility = {
           statement: req.body.parentalResponsibility,
         };
+        if (saveAndComeLater) {
+          return super.saveAndComeLater(req, res, req.session.userCase);
+        }
         if (currentChild + 1 >= req.session.userCase.children.length) {
-          super.redirect(req, res, C100_children_FURTHER_INFORMATION);
+          return super.redirect(req, res, C100_children_FURTHER_INFORMATION);
         } else {
           const nextChildId = req.session.userCase['children'][currentChild + 1];
           const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${nextChildId.id}`;
-          super.redirect(req, res, redirectUrl);
+          return super.redirect(req, res, redirectUrl);
         }
       } else {
         res.render('error');
