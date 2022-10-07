@@ -198,6 +198,7 @@ export const generatePageContent = ({
   byApplicant,
   document_type,
   addresses = [],
+  userIdamId,
 }: // eligibility,
 // fee,
 {
@@ -211,6 +212,7 @@ export const generatePageContent = ({
   addresses?: [];
   name?: string;
   byApplicant?: string;
+  userIdamId?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -230,6 +232,7 @@ export const generatePageContent = ({
     caption,
     document_type,
     byApplicant,
+    userIdamId,
     // contactEmail,
     // eligibility,
     // fee,
@@ -261,6 +264,7 @@ export type CommonContent = typeof en & {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   byApplicant?: string;
+  userIdamId?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 };

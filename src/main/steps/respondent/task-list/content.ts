@@ -1,4 +1,4 @@
-import { Banner, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Banner, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import {
   APPLICANT,
@@ -6,6 +6,7 @@ import {
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPONDENT_ORDERS_FROM_THE_COURT,
+  RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   RESPOND_TO_APPLICATION,
 } from '../../../steps/urls';
 
@@ -84,6 +85,20 @@ const en = () => ({
       },
     ],
   },
+  viewDocumentBanner: {
+    bannerHeading: 'You have a new document to view',
+    bannerContent: [
+      {
+        line1: 'A new document has been added to your case.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
+        text: 'See all documents',
+      },
+    ],
+  },
 });
 
 const cy = () => ({
@@ -157,6 +172,20 @@ const cy = () => ({
       },
     ],
   },
+  viewDocumentBanner: {
+    bannerHeading: 'You have a new document to view (in Welsh)',
+    bannerContent: [
+      {
+        line1: 'A new document has been added to your case. (in Welsh)',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
+        text: 'See all documents',
+      },
+    ],
+  },
 });
 
 const languages = {
@@ -168,8 +197,8 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const banners: Banner[] =
     content.userCase?.caseTypeOfApplication === 'C100'
-      ? getC100Banners(translations)
-      : getFl401Banners(content.userCase, translations);
+      ? getC100Banners(content.userCase, translations, content.userIdamId)
+      : getFl401Banners(content.userCase, translations, content.userIdamId);
   return {
     ...translations,
     sections: generateRespondentTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
@@ -177,15 +206,29 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
-const getC100Banners = translations => {
+const getC100Banners = (userCase, translations, userIdamId) => {
   const banners: Banner[] = [];
   banners.push(translations.caRespondentServedBanner);
   banners.push(translations.cafcassBanner);
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (
+      respondent?.value.user?.idamId === userIdamId &&
+      YesOrNo.NO === respondent?.value.response?.citizenFlags?.isAllDocumentsViewed
+    ) {
+      banners.push(translations.viewDocumentBanner);
+    }
+  });
   return banners;
 };
 
-const getFl401Banners = (userCase, translations) => {
+const getFl401Banners = (userCase, translations, userIdamId) => {
   const banners: Banner[] = [];
+  if (
+    userCase?.respondentsFL401?.user?.idamId === userIdamId &&
+    YesOrNo.NO === userCase?.respondentsFL401?.response?.citizenFlags?.isAllDocumentsViewed
+  ) {
+    banners.push(translations.viewDocumentBanner);
+  }
   // please add all the banners before this if condition, the following banner is added only if no other is present
   if (banners.length === 0 && userCase.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES) {
     banners.push(translations.daRespondentBanner);

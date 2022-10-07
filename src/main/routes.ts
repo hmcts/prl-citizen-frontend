@@ -13,6 +13,7 @@ import { SaveRespondentResponseController } from './app/controller/SaveResponden
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
@@ -30,6 +31,7 @@ import {
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASK_LIST_URL,
+  APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   CONSENT_SAVE,
@@ -44,6 +46,7 @@ import {
   RESPONDENT,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
+  RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
   TIMED_OUT_URL,
@@ -113,6 +116,14 @@ export class Routes {
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
+        app.get(
+          `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
+          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
+        );
+        app.get(
+          `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
+          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
+        );
       }
     }
   }

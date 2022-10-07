@@ -112,6 +112,13 @@ export interface Response {
   legalRepresentation?: string;
   consent?: Consent;
   keepDetailsPrivate?: KeepDetailsPrivate;
+  citizenFlags?: CitizenFlags
+}
+
+export interface CitizenFlags {
+  isApplicationViewed?: string,
+  isAllegationOfHarmViewed?: string
+  isAllDocumentsViewed?: string
 }
 
 export interface Consent {
