@@ -69,6 +69,7 @@ import {
   C100_MIAM_OTHER,
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_GET_MEDIATOR,
+  C100_MIAM_UPLOAD,
   PageLink,
 } from '../urls';
 
@@ -458,6 +459,12 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_MIAM_GET_MEDIATOR,
   },
   {
+    url: C100_MIAM_UPLOAD,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_UPLOAD,
+  },
+  {
+    
     url: C100_HEARING_URGENCY,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>

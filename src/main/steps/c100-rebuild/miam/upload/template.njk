@@ -1,0 +1,98 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+
+{% extends "common/page.njk" %}
+
+
+{% block page_content %}
+
+{% if FileErrors.length > 0 %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: FileErrors
+}) }}
+
+{%endif%}
+
+
+  <h1 class="govuk-heading-xl">{{title}} </h1>
+  <p class="govuk-body">{{ youNeed }}</p>
+  <p class="govuk-body">{{ youNeed2 }}</p>
+
+
+
+{% set uploadReqTest = ""%}
+
+{% for item in uploadRequirement %}
+    {% set uploadReqTest = uploadReqTest + "<li>" + item + "</li>"%}
+{% endfor %}
+
+{% set requirementTest = "<ol class='govuk-list govuk-list--number'>" + uploadReqTest + "</ol>" %}
+
+{{ govukDetails({
+  summaryText: uploadDescription,
+  text: requirementTest  | safe
+}) }}
+
+ <div class="govuk-form-group govuk-inset-text">
+   {% for error in sessionErrors %}
+    {%- if  error.propertyName === 'document'  %}<div class="govuk-form-group--error">  {% endif %}
+    {% endfor %}
+ <form action="{{postURL}}" method="post" enctype="multipart/form-data">
+ <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+  {% for error in sessionErrors %}
+    {%- if  error.propertyName === 'document'  %}
+    {%- if  error.errorType === 'required'  %}
+         <span class="govuk-error-message" id="miam-file-upload-required-error">
+    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].required}}</span>
+     {% endif %}
+      {%- if  error.errorType === 'multipleFiles'  %}
+     <span class="govuk-error-message" id="miam-file-upload-multiple-error">
+    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].multipleFiles}}</span>
+     {% endif %}
+     {% endif %}
+    {% endfor %}
+      {{ govukFileUpload({
+  id: "document",
+  name: "documents",
+  classes: "govuk-!-margin-bottom-3",
+  label: {
+    classes: "govuk-!-font-weight-bold",
+    text: "Select documents to upload"
+  }
+}) }}
+  {{ govukButton({
+          text: uploadButton,
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
+        }) }}
+
+         {% for error in sessionErrors %}
+    {%- if  error.propertyName === 'document'  %}</div>  {% endif %}
+    {% endfor %}
+
+    </div>
+
+
+{% if userCase.miam_certificate.id !== undefined %}
+  <div id="uploadGroup" tabindex="0" class="uploadGroup">
+    <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+    <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <ul id="filesUploaded" class="govuk-list">
+        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
+          <dt class="govuk-summary-list__value"> {{ userCase.miam_certificate.filename }} </dt>
+          <dd class="govuk-summary-list__actions">
+          <a href="{{postURL}}?removeId={{userCase.miam_certificate.id}}" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
+        </dd>
+        </li>
+    </ul>
+  </div>   
+  {%endif%}
+
+  </form>  
+  
+{% endblock %}
