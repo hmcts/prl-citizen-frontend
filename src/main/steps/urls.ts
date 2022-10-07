@@ -248,4 +248,4 @@ export const C100_MIAM_INFO: PageLink = `${C100_MIAM}/miam-info`;
 export const C100_MIAM_VALID_REASON: PageLink = `${C100_MIAM}/valid-reason`;
 
 /** @C100 Urgency */
-export const C100_URGENT_HEARING: PageLink = `${C100_URL}/typeofhearing/urgent`;
+export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/hearing-urgency/urgent`;

@@ -62,7 +62,7 @@ import {
   C100_MIAM_URGENCY,
   C100_MIAM_INFO,
   C100_MIAM_VALID_REASON,
-  C100_URGENT_HEARING,
+  C100_HEARING_URGENCY,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -416,9 +416,9 @@ export const C100Sequence: Step[] = [
       data.miam_validReason === YesOrNo.YES ? C100_MIAM_VALID_REASON : C100_CONFIDENTIALITY_START,
   },
   {
-    url: C100_URGENT_HEARING,
+    url: C100_HEARING_URGENCY,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.hu_urgentHearingReasons === YesOrNo.YES ? C100_URGENT_HEARING : C100_URGENT_HEARING,
+      data.hu_urgentHearingReasons === YesOrNo.YES ? C100_HEARING_URGENCY : C100_HEARING_URGENCY,
   },
 ];
