@@ -47,7 +47,7 @@ const otherProceedingsMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(56);
+    expect(C100Sequence).toHaveLength(62);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -406,17 +406,40 @@ describe('C100Sequence', () => {
     expect(C100Sequence[52].showInSection).toBe('c100');
     expect(C100Sequence[52].getNextStep({})).toBe('/c100-rebuild/miam/urgency');
 
-    expect(C100Sequence[53].url).toBe('/c100-rebuild/miam/miam-info');
+    expect(C100Sequence[53].url).toBe('/c100-rebuild/miam/previous-attendance');
     expect(C100Sequence[53].showInSection).toBe('c100');
-    expect(C100Sequence[53].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
-
-    expect(C100Sequence[54].url).toBe('/c100-rebuild/miam/valid-reason');
+    expect(C100Sequence[53].getNextStep({})).toBe('/c100-rebuild/miam/previous-attendance');
+    expect(C100Sequence[54].url).toBe('/c100-rebuild/miam/miam-info');
     expect(C100Sequence[54].showInSection).toBe('c100');
-    expect(C100Sequence[54].getNextStep({ miam_validReason: YesOrNo.YES })).toBe('/c100-rebuild/miam/valid-reason');
-    expect(C100Sequence[54].getNextStep({ miam_validReason: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/start');
+    expect(C100Sequence[54].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
 
-    expect(C100Sequence[55].url).toBe('/c100-rebuild/miam/no-need');
+    expect(C100Sequence[55].url).toBe('/c100-rebuild/miam/valid-reason');
     expect(C100Sequence[55].showInSection).toBe('c100');
-    expect(C100Sequence[55].getNextStep({})).toBe('/c100-rebuild/miam/no-need');
+    expect(C100Sequence[55].getNextStep({ miam_validReason: YesOrNo.YES })).toBe('/c100-rebuild/miam/valid-reason');
+    expect(C100Sequence[55].getNextStep({ miam_validReason: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/start');
+
+    expect(C100Sequence[56].url).toBe('/c100-rebuild/miam/no-need');
+    expect(C100Sequence[56].showInSection).toBe('c100');
+    expect(C100Sequence[56].getNextStep({})).toBe('/c100-rebuild/miam/no-need');
+
+    expect(C100Sequence[57].url).toBe('/c100-rebuild/miam/miam-other');
+    expect(C100Sequence[57].showInSection).toBe('c100');
+    expect(C100Sequence[57].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+
+    expect(C100Sequence[58].url).toBe('/c100-rebuild/miam/child-protection');
+    expect(C100Sequence[58].showInSection).toBe('c100');
+    expect(C100Sequence[58].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+
+    expect(C100Sequence[59].url).toBe('/c100-rebuild/miam/domestic-abuse');
+    expect(C100Sequence[59].showInSection).toBe('c100');
+    expect(C100Sequence[59].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+
+    expect(C100Sequence[60].url).toBe('/c100-rebuild/miam/general-reasons');
+    expect(C100Sequence[60].showInSection).toBe('c100');
+    expect(C100Sequence[60].getNextStep({})).toBe('/c100-rebuild/miam/general-reasons');
+
+    expect(C100Sequence[61].url).toBe('/c100-rebuild/miam/get-mediator');
+    expect(C100Sequence[61].showInSection).toBe('c100');
+    expect(C100Sequence[61].getNextStep({})).toBe('/c100-rebuild/miam/get-mediator');
   });
 });
