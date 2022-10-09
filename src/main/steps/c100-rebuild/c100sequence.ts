@@ -54,6 +54,8 @@ import {
   C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   C100_DOCUMENT_SUBMISSION,
+  /** MIAM */
+  C100_MIAM_UPLOAD_CONFIRMATION,
   C100_MIAM_MIAM_DOMESTIC_ABUSE,
   C100_MIAM_OTHER_PROCEEDINGS,
   C100_MIAM_MEDIATOR_DOCUMENT,
@@ -69,6 +71,7 @@ import {
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_GET_MEDIATOR,
   C100_MIAM_UPLOAD,
+  C100_HEARING_URGENCY_URGENT,
   PageLink,
 } from '../urls';
 
@@ -461,5 +464,16 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_UPLOAD,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_UPLOAD,
+  },
+  {
+    url: C100_MIAM_UPLOAD_CONFIRMATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_UPLOAD_CONFIRMATION,
+  },
+  {
+    url: C100_HEARING_URGENCY_URGENT,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.hu_urgentHearingReasons === YesOrNo.YES ? C100_HEARING_URGENCY_URGENT : C100_HEARING_URGENCY_URGENT,
   },
 ];
