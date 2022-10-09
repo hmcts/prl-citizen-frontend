@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { generateContent } from '../../type-of-hearing/urgent-details/content';
+import { generateContent } from '../../hearing-urgency/urgent-details/content';
 
 jest.mock('../../../../app/form/validation');
 

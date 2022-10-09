@@ -2,6 +2,7 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
+  C100DocumentInfo,
   C100OrderTypes,
   C1ASafteyConcerns,
   CaseData,
@@ -223,6 +224,8 @@ export interface Case {
   miam_childProtectionEvidence?: string;
   miam_domesticabuse?: string;
   miam_nonAttendanceReason?: MiamNonAttendReason;
+  miam_certificate?: C100DocumentInfo;
+  hu_urgentHearingReasons?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
