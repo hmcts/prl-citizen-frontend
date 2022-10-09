@@ -33,7 +33,10 @@ export default class Personaldetails extends GetController {
       res.render('error');
     } else {
       const { childId } = req.query;
-      const childDetails = req.session.settings.ListOfChild.filter(child => child.id === childId)[0];
+      let childDetails;
+      if (req.session.userCase.children) {
+        childDetails = req.session.userCase.children.filter(child => child.id === childId)[0];
+      }
 
       const language = super.getPreferredLanguage(req) as Language;
 

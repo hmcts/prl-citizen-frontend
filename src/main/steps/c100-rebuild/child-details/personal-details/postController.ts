@@ -33,130 +33,140 @@ export default class Personaldetails extends PostController<AnyObject> {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
     const { childId } = req.query;
-    const matchChildIndex = req.session.settings.ListOfChild.findIndex(child => child.id === childId);
-    const childDetails = req.session.settings.ListOfChild[matchChildIndex].personalDetails;
+    if (req.session.userCase.children) {
+      const matchChildIndex = req.session.userCase.children.findIndex(child => child.id === childId);
+      const childDetails = req.session.userCase.children[matchChildIndex].personalDetails;
 
-    if (this.childSexValidation(req)) {
-      const amendChildData: AnyType = { ...childDetails, Sex: req['body']['Sex'] };
-      req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendChildData;
-    }
-
-    if (
-      !this.childSexValidation(req) ||
-      this.childDateValidations(req) ||
-      this.childDateValidDateValidations(req) ||
-      !this.childApproximatelyDateValidator(req)
-    ) {
-      if (!this.childSexValidation(req)) {
-        req.session.errors.push({
-          propertyName: 'childSex',
-          errorType: 'required',
-        });
+      if (this.childSexValidation(req)) {
+        const amendChildData: AnyType = { ...childDetails, Sex: req['body']['Sex'] };
+        req.session.userCase.children[matchChildIndex].personalDetails = amendChildData;
       }
-      const childApproxDateEnabled =
-        req.body['steps_children_personal_details'] !== undefined &&
-        req.body['steps_children_personal_details'] === 'true';
 
-      if (childApproxDateEnabled) {
-        const amendedChildData: AnyType = { ...childDetails, isDateOfBirthKnown: YesOrNo.YES, Sex: req['body']['Sex'] };
-        req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildData;
-
-        const checkIfDateEnabledAndApproxToggled =
-          req.body['child-dateOfBirth-day'] !== '' ||
-          req.body['child-dateOfBirth-month'] !== '' ||
-          req.body['child-dateOfBirth-year'] !== '';
-
-        if (childApproxDateEnabled && checkIfDateEnabledAndApproxToggled) {
+      if (
+        !this.childSexValidation(req) ||
+        this.childDateValidations(req) ||
+        this.childDateValidDateValidations(req) ||
+        !this.childApproximatelyDateValidator(req)
+      ) {
+        if (!this.childSexValidation(req)) {
           req.session.errors.push({
-            propertyName: 'cannotHaveBothApproxAndExact',
+            propertyName: 'childSex',
             errorType: 'required',
           });
+        }
+        const childApproxDateEnabled =
+          req.body['steps_children_personal_details'] !== undefined &&
+          req.body['steps_children_personal_details'] === 'true';
+
+        if (childApproxDateEnabled) {
+          const amendedChildData: AnyType = {
+            ...childDetails,
+            isDateOfBirthKnown: YesOrNo.YES,
+            Sex: req['body']['Sex'],
+          };
+          req.session.userCase.children[matchChildIndex].personalDetails = amendedChildData;
+
+          const checkIfDateEnabledAndApproxToggled =
+            req.body['child-dateOfBirth-day'] !== '' ||
+            req.body['child-dateOfBirth-month'] !== '' ||
+            req.body['child-dateOfBirth-year'] !== '';
+
+          if (childApproxDateEnabled && checkIfDateEnabledAndApproxToggled) {
+            req.session.errors.push({
+              propertyName: 'cannotHaveBothApproxAndExact',
+              errorType: 'required',
+            });
+            const amendedChildDataAfterToggledEnabled: AnyType = {
+              ...childDetails,
+              isDateOfBirthKnown: YesOrNo.YES,
+              ApproximateDateOfBirth: '//',
+            };
+            req.session.userCase.children[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
+            const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+            super.redirect(req, res, redirectUrl);
+          } else {
+            /* Checking if the date is valid and if it is not valid it is redirecting to the same page. */
+
+            if (!this.childApproximatelyDateValidator(req)) {
+              if (Number(req.body['child-approx-dateOfBirth-year']) > DateValidations.YEAR.MAX) {
+                req.session.errors.push({
+                  propertyName: 'childDateApproxFutureNotValid',
+                  errorType: 'required',
+                });
+                const amendedChildDataAfterToggledEnabled: AnyType = {
+                  ...childDetails,
+                  isDateOfBirthKnown: YesOrNo.YES,
+                  ApproximateDateOfBirth: '//',
+                };
+                req.session.userCase.children[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
+              } else {
+                req.session.errors.push({
+                  propertyName: 'childDateOfBirthNotValidSubField',
+                  errorType: 'required',
+                });
+              }
+              const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+              super.redirect(req, res, redirectUrl);
+            } else {
+              this.proceedWithoutError(req, res);
+            }
+          }
+        } else {
           const amendedChildDataAfterToggledEnabled: AnyType = {
             ...childDetails,
             isDateOfBirthKnown: YesOrNo.YES,
             ApproximateDateOfBirth: '//',
           };
-          req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
-          const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
-          super.redirect(req, res, redirectUrl);
-        } else {
-          /* Checking if the date is valid and if it is not valid it is redirecting to the same page. */
+          req.session.userCase.children[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
 
-          if (!this.childApproximatelyDateValidator(req)) {
-            if (Number(req.body['child-approx-dateOfBirth-year']) > DateValidations.YEAR.MAX) {
+          const amendedChildData: AnyType = {
+            ...childDetails,
+            isDateOfBirthKnown: YesOrNo.NO,
+            Sex: req['body']['Sex'],
+          };
+          req.session.userCase.children[matchChildIndex].personalDetails = amendedChildData;
+          if (this.childDateValidations(req)) {
+            req.session.errors.push({
+              propertyName: 'childDateOfBirth',
+              errorType: 'required',
+            });
+          } else if (this.childDateValidDateValidations(req)) {
+            if (Number(req.body['child-dateOfBirth-year']) > DateValidations.YEAR.MAX) {
               req.session.errors.push({
-                propertyName: 'childDateApproxFutureNotValid',
+                propertyName: 'childDateFutureNotValid',
                 errorType: 'required',
               });
-              const amendedChildDataAfterToggledEnabled: AnyType = {
-                ...childDetails,
-                isDateOfBirthKnown: YesOrNo.YES,
-                ApproximateDateOfBirth: '//',
-              };
-              req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
             } else {
               req.session.errors.push({
-                propertyName: 'childDateOfBirthNotValidSubField',
+                propertyName: 'childDateOfBirthNotValid',
                 errorType: 'required',
               });
             }
-            const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
-            super.redirect(req, res, redirectUrl);
           } else {
-            this.proceedWithoutError(req, res);
+            return;
           }
+          const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+          super.redirect(req, res, redirectUrl);
         }
       } else {
-        const amendedChildDataAfterToggledEnabled: AnyType = {
-          ...childDetails,
-          isDateOfBirthKnown: YesOrNo.YES,
-          ApproximateDateOfBirth: '//',
-        };
-        req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildDataAfterToggledEnabled;
-
-        const amendedChildData: AnyType = { ...childDetails, isDateOfBirthKnown: YesOrNo.NO, Sex: req['body']['Sex'] };
-        req.session.settings.ListOfChild[matchChildIndex].personalDetails = amendedChildData;
-        if (this.childDateValidations(req)) {
+        const childApproxDateEnabled =
+          req.body['steps_children_personal_details'] !== undefined &&
+          req.body['steps_children_personal_details'] === 'true';
+        const childOrignalDateField = 'child-dateOfBirth-';
+        if (
+          (req['body'][`${childOrignalDateField}day`] !== '' && childApproxDateEnabled) ||
+          (req['body'][`${childOrignalDateField}month`] !== '' && childApproxDateEnabled) ||
+          (req['body'][`${childOrignalDateField}year`] !== '' && childApproxDateEnabled)
+        ) {
           req.session.errors.push({
-            propertyName: 'childDateOfBirth',
+            propertyName: 'cannotHaveBothApproxAndExact',
             errorType: 'required',
           });
-        } else if (this.childDateValidDateValidations(req)) {
-          if (Number(req.body['child-dateOfBirth-year']) > DateValidations.YEAR.MAX) {
-            req.session.errors.push({
-              propertyName: 'childDateFutureNotValid',
-              errorType: 'required',
-            });
-          } else {
-            req.session.errors.push({
-              propertyName: 'childDateOfBirthNotValid',
-              errorType: 'required',
-            });
-          }
+          const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
+          super.redirect(req, res, redirectUrl);
         } else {
-          return;
+          this.proceedWithoutError(req, res);
         }
-        const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
-        super.redirect(req, res, redirectUrl);
-      }
-    } else {
-      const childApproxDateEnabled =
-        req.body['steps_children_personal_details'] !== undefined &&
-        req.body['steps_children_personal_details'] === 'true';
-      const childOrignalDateField = 'child-dateOfBirth-';
-      if (
-        (req['body'][`${childOrignalDateField}day`] !== '' && childApproxDateEnabled) ||
-        (req['body'][`${childOrignalDateField}month`] !== '' && childApproxDateEnabled) ||
-        (req['body'][`${childOrignalDateField}year`] !== '' && childApproxDateEnabled)
-      ) {
-        req.session.errors.push({
-          propertyName: 'cannotHaveBothApproxAndExact',
-          errorType: 'required',
-        });
-        const redirectUrl = C100_children_DETAILS_PERSONAL_DETAILS + `?childId=${childId}`;
-        super.redirect(req, res, redirectUrl);
-      } else {
-        this.proceedWithoutError(req, res);
       }
     }
   }
@@ -172,11 +182,11 @@ export default class Personaldetails extends PostController<AnyObject> {
    */
   public proceedWithoutError(req: AppRequest, res: Response): any {
     const { childId } = req.query;
-    if (req.query.hasOwnProperty('childId')) {
-      const checkIfChildIdMatches = req.session.settings.ListOfChild.filter(child => child.id === childId).length > 0;
+    if (req.query.hasOwnProperty('childId') && req.session.userCase.children) {
+      const checkIfChildIdMatches = req.session.userCase.children.filter(child => child.id === childId).length > 0;
       if (checkIfChildIdMatches) {
-        const matchChildIndex = req.session.settings.ListOfChild.findIndex(child => child.id === childId);
-        req.session.settings.ListOfChild[matchChildIndex].personalDetails = this.personalDetailsMapper(req);
+        const matchChildIndex = req.session.userCase.children.findIndex(child => child.id === childId);
+        req.session.userCase.children[matchChildIndex].personalDetails = this.personalDetailsMapper(req);
         const redirectUrl = C100_children_DETAILS_CHILD_MATTERS + `?childId=${childId}`;
         super.redirect(req, res, redirectUrl);
       } else {
@@ -184,9 +194,13 @@ export default class Personaldetails extends PostController<AnyObject> {
       }
     } else {
       // eslint-disable-next-line no-self-assign
-      req.session.settings.ListOfChild = req.session.settings.ListOfChild;
-      const redirectURI = `personal-details?childId=${req.session.settings.ListOfChild[0].id}`;
-      super.redirect(req, res, redirectURI);
+      req.session.userCase.children = req.session.userCase.children;
+      if(req.session.userCase.children){
+        const redirectURI = `personal-details?childId=${req.session.userCase.children[0].id}`;
+        super.redirect(req, res, redirectURI);
+      }
+      
+     
     }
   }
 
