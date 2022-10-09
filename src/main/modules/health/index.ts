@@ -4,11 +4,9 @@ import healthcheck from '@hmcts/nodejs-healthcheck';
 import config from 'config';
 import { Application } from 'express';
 
-/**
-* Sets up the HMCTS info and health endpoints
-*/
+// Sets up the HMCTS info and health endpoints
 export class HealthCheck {
-public enableFor(app: Application): void {
+  public enableFor(app: Application): void {
     const redis = app.locals.redisClient
       ? healthcheck.raw(() => (app.locals.redisClient.ping() ? healthcheck.up() : healthcheck.down()))
       : null;
