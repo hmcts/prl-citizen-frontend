@@ -23,7 +23,9 @@ export class SessionStorage {
         secret: config.get('session.secret'),
         cookie: {
           httpOnly: true,
+          ...(config.get('session.secureCookie') === 'true' ? { secure: true } : {}),
           maxAge: cookieMaxAge,
+          sameSite: 'lax', // required for the oauth2 redirect
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
         store: this.getStore(app),
@@ -32,6 +34,7 @@ export class SessionStorage {
   }
 
   private getStore(app: Application) {
+    console.log('********* getting the stored data************)
     const redisHost = config.get('session.redis.host');
     if (redisHost) {
       const client = redis.createClient({

@@ -38,6 +38,7 @@ nodejs:
         - idam-solicitor-password
         - launchDarkly-sdk-key
         - citizen-upload-docs-email
+        - redis-access-key
 idam-pr:
   enabled: true
   redirect_uris:
