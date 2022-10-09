@@ -72,6 +72,7 @@ import {
   C100_MIAM_GET_MEDIATOR,
   C100_MIAM_UPLOAD,
   C100_HEARING_URGENCY_URGENT,
+  C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
 } from '../urls';
 
@@ -474,6 +475,13 @@ export const C100Sequence: Step[] = [
     url: C100_HEARING_URGENCY_URGENT,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.hu_urgentHearingReasons === YesOrNo.YES ? C100_HEARING_URGENCY_URGENT : C100_HEARING_URGENCY_URGENT,
+      data.hu_urgentHearingReasons === YesOrNo.YES
+        ? C100_HEARING_URGENCY_URGENT_DETAILS
+        : C100_HEARING_WITHOUT_NOTICE_PART1,
+  },
+  {
+    url: C100_HEARING_URGENCY_URGENT_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART1,
   },
 ];

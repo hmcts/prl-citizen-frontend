@@ -259,3 +259,4 @@ export const C100_MIAM_UPLOAD: PageLink = `${C100_MIAM}/upload`;
 /** @C100 Urgency */
 export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/hearing-urgency`;
 export const C100_HEARING_URGENCY_URGENT: PageLink = `${C100_HEARING_URGENCY}/urgent`;
+export const C100_HEARING_URGENCY_URGENT_DETAILS: PageLink = `${C100_HEARING_URGENCY}/urgent-details`;
