@@ -26,8 +26,12 @@ const en = {
     'This may mean that you live further than 15 miles from a mediator, you are not able to get an appointment for a MIAM within 15 working days or you or the other people in this application (the respondents) have a disability and the mediator does not have disabled access. Select the specific reason why you cannot access a mediator.',
   mediatorDoesNotHaveDisabilityAccess:
     'You or the other person has a disability and the mediator does not have disabled access',
-  mediatorDoesNotHaveDisabilityAccessHint: `You will need to provide: <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
+  mediatorDoesNotHaveDisabilityAccessHint1: `You will need to provide: <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
   <li>evidence you’ve contacted 3 mediators within 15 miles who all state they do not have disabled access</li>
+  <li>names and contact details of the mediators, including dates of contact</li>
+        </ul>`,
+  mediatorDoesNotHaveDisabilityAccessHint2: `You will need to provide: <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
+  <li>evidence you’ve contacted 3 mediators within 15 miles who all state they cannot offer an appointment within 15 days</li>
   <li>names and contact details of the mediators, including dates of contact</li>
         </ul>`,
   noMediatorAppointment:
@@ -42,7 +46,7 @@ const en = {
   noneOfTheAbove: 'None of the above',
   errors: {
     miam_not_attending_reasons: {
-      required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case',
+      required: 'Confirm if any of the other valid reasons for not attending a MIAM apply in your case',
     },
     miam_no_mediator_access_subfields: {
       required: 'Select why you cannot access a mediator',
@@ -69,8 +73,12 @@ const cy = {
     'This may mean that you live further than 15 miles from a mediator, you are not able to get an appointment for a MIAM within 15 working days or you or the other people in this application (the respondents) have a disability and the mediator does not have disabled access. Select the specific reason why you cannot access a mediator. - welsh',
   mediatorDoesNotHaveDisabilityAccess:
     'You or the other person has a disability and the mediator does not have disabled access - welsh',
-  mediatorDoesNotHaveDisabilityAccessHint: `You will need to provide: - welsh <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
+  mediatorDoesNotHaveDisabilityAccessHint1: `You will need to provide: - welsh <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
   <li>evidence you’ve contacted 3 mediators within 15 miles who all state they do not have disabled access - welsh</li>
+  <li>names and contact details of the mediators, including dates of contact - welsh</li>
+        </ul>`,
+  mediatorDoesNotHaveDisabilityAccessHint2: `You will need to provide: <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
+  <li>evidence you’ve contacted 3 mediators within 15 miles who all state they cannot offer an appointment within 15 days - welsh</li>
   <li>names and contact details of the mediators, including dates of contact - welsh</li>
         </ul>`,
   noMediatorAppointment:
@@ -87,7 +95,7 @@ const cy = {
   noneOfTheAbove: 'None of the above - welsh',
   errors: {
     miam_not_attending_reasons: {
-      required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case - welsh',
+      required: 'Confirm if any of the other valid reasons for not attending a MIAM apply in your case - welsh',
     },
     miam_no_mediator_access_subfields: {
       required: 'Select why you cannot access a mediator - welsh',
@@ -151,13 +159,13 @@ describe('miam should contain miam other reasons content', () => {
       en.mediatorDoesNotHaveDisabilityAccess
     );
     expect((noMediatorAccessSubField.values[0].hint as LanguageLookup)(generatedContent)).toBe(
-      en.mediatorDoesNotHaveDisabilityAccessHint
+      en.mediatorDoesNotHaveDisabilityAccessHint1
     );
     expect((noMediatorAccessSubField.values[1].label as LanguageLookup)(generatedContent)).toBe(
       en.noMediatorAppointment
     );
     expect((noMediatorAccessSubField.values[1].hint as LanguageLookup)(generatedContent)).toBe(
-      en.mediatorDoesNotHaveDisabilityAccessHint
+      en.mediatorDoesNotHaveDisabilityAccessHint2
     );
     expect((noMediatorAccessSubField.values[2].label as LanguageLookup)(generatedContent)).toBe(
       en.noAuthorisedFamilyMediator
