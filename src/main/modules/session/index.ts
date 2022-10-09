@@ -34,7 +34,6 @@ export class SessionStorage {
   }
 
   private getStore(app: Application) {
-    console.log('********* getting the stored data ************');
     const redisHost = config.get('session.redis.host');
     if (redisHost) {
       const client = redis.createClient({
