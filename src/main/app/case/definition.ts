@@ -794,6 +794,7 @@ export interface CaseData {
   courtOrderDetails?: string;
   miamStart?: string;
   citizenUploadedDocumentList?: UploadDocumentList[];
+  legalRepresentation?: YesOrNo;
 }
 
 export interface ConfidentialDetails {

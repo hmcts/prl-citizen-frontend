@@ -93,7 +93,6 @@ export class CosApiClient {
     data: Partial<CaseData>,
     eventId: string
   ): Promise<CaseWithId> {
-    //data.applicantCaseName = 'Tom Jerry - updated';
     try {
       const headers = {
         Accept: 'application/json',
