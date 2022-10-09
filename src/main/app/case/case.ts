@@ -220,6 +220,7 @@ export interface Case {
   miam_domesticabuse?: string;
   miam_nonAttendanceReason?: MiamNonAttendReason;
   miam_certificate?: C100DocumentInfo;
+  miam_mediatorDocument?: YesOrNo;
   hu_urgentHearingReasons?: YesOrNo;
 }
 
