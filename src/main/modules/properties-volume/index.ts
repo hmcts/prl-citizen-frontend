@@ -17,6 +17,8 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.system-update-user-password', 'services.idam.systemPassword');
       this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
+      this.setSecret('secrets.prl.redis-access-key', 'session.redis.key');
+      this.setSecret('secrets.prl.redis-access-key', 'session.secret');
     } else {
       this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');

@@ -21,7 +21,7 @@ nodejs:
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     CDAM_API_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
     COS_URL: 'https://prl-cos-pr-505.service.core-compute-preview.internal'
-
+    REDIS_HOST: 'prl-citizen-frontend-session-storage-aat.redis.cache.windows.net'
   keyVaults:
     prl:
       resourceGroup: prl
@@ -38,6 +38,7 @@ nodejs:
         - idam-solicitor-password
         - launchDarkly-sdk-key
         - citizen-upload-docs-email
+        - redis-access-key
 idam-pr:
   enabled: true
   redirect_uris:
