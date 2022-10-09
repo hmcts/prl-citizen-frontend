@@ -195,12 +195,10 @@ export default class Personaldetails extends PostController<AnyObject> {
     } else {
       // eslint-disable-next-line no-self-assign
       req.session.userCase.children = req.session.userCase.children;
-      if(req.session.userCase.children){
+      if (req.session.userCase.children) {
         const redirectURI = `personal-details?childId=${req.session.userCase.children[0].id}`;
         super.redirect(req, res, redirectURI);
       }
-      
-     
     }
   }
 
