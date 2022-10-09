@@ -47,7 +47,7 @@ const otherProceedingsMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(62);
+    expect(C100Sequence).toHaveLength(67);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -409,6 +409,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[53].url).toBe('/c100-rebuild/miam/previous-attendance');
     expect(C100Sequence[53].showInSection).toBe('c100');
     expect(C100Sequence[53].getNextStep({})).toBe('/c100-rebuild/miam/previous-attendance');
+
     expect(C100Sequence[54].url).toBe('/c100-rebuild/miam/miam-info');
     expect(C100Sequence[54].showInSection).toBe('c100');
     expect(C100Sequence[54].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
@@ -438,8 +439,33 @@ describe('C100Sequence', () => {
     expect(C100Sequence[60].showInSection).toBe('c100');
     expect(C100Sequence[60].getNextStep({})).toBe('/c100-rebuild/miam/general-reasons');
 
-    expect(C100Sequence[61].url).toBe('/c100-rebuild/miam/get-doc');
+    expect(C100Sequence[61].url).toBe('/c100-rebuild/miam/get-mediator');
     expect(C100Sequence[61].showInSection).toBe('c100');
-    expect(C100Sequence[61].getNextStep({})).toBe('/c100-rebuild/miam/get-doc');
+    expect(C100Sequence[61].getNextStep({})).toBe('/c100-rebuild/miam/get-mediator');
+
+    expect(C100Sequence[62].url).toBe('/c100-rebuild/miam/upload');
+    expect(C100Sequence[62].showInSection).toBe('c100');
+    expect(C100Sequence[62].getNextStep({})).toBe('/c100-rebuild/miam/upload');
+
+    expect(C100Sequence[63].url).toBe('/c100-rebuild/miam/upload-confirmation');
+    expect(C100Sequence[63].showInSection).toBe('c100');
+    expect(C100Sequence[63].getNextStep({})).toBe('/c100-rebuild/miam/upload-confirmation');
+
+    expect(C100Sequence[64].url).toBe('/c100-rebuild/hearing-urgency/urgent');
+    expect(C100Sequence[64].showInSection).toBe('c100');
+    expect(C100Sequence[64].getNextStep({ hu_urgentHearingReasons: YesOrNo.YES })).toBe(
+      '/c100-rebuild/hearing-urgency/urgent-details'
+    );
+    expect(C100Sequence[64].getNextStep({ hu_urgentHearingReasons: YesOrNo.NO })).toBe(
+      '/c100-rebuild/hearing-without-notice/hearing-part1'
+    );
+
+    expect(C100Sequence[65].url).toBe('/c100-rebuild/hearing-urgency/urgent-details');
+    expect(C100Sequence[65].showInSection).toBe('c100');
+    expect(C100Sequence[65].getNextStep({})).toBe('/c100-rebuild/hearing-without-notice/hearing-part1');
+
+    expect(C100Sequence[66].url).toBe('/c100-rebuild/miam/get-doc');
+    expect(C100Sequence[66].showInSection).toBe('c100');
+    expect(C100Sequence[66].getNextStep({})).toBe('/c100-rebuild/miam/get-doc');
   });
 });
