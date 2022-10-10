@@ -72,6 +72,9 @@ import {
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_GET_MEDIATOR,
   C100_MIAM_UPLOAD,
+  C100_MIAM_GET_DOC,
+
+  /** Hearing Urgency */
   C100_HEARING_URGENCY_URGENT,
   C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
@@ -374,8 +377,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_MEDIATOR_DOCUMENT,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.miam_haveDocSigned === YesOrNo.YES ? C100_MIAM_UPLOAD : C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: data => (data.miam_haveDocSigned === YesOrNo.YES ? C100_MIAM_UPLOAD : C100_MIAM_GET_DOC),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
@@ -482,5 +484,10 @@ export const C100Sequence: Step[] = [
     url: C100_HEARING_URGENCY_URGENT_DETAILS,
     showInSection: Sections.C100,
     getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART1,
+  },
+  {
+    url: C100_MIAM_GET_DOC,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GET_DOC,
   },
 ];
