@@ -19,3 +19,5 @@ export interface Step {
 
 export const ApplicantUploadFiles = 'applicantUploadFiles';
 export const RespondentUploadFiles = 'respondentUploadFiles';
+export const UploadDocumentSucess = 'upload-documents-success';
+export const UploadDocument = 'upload-document';
