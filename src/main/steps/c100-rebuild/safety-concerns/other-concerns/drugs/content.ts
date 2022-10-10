@@ -52,7 +52,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    otherConcernsDrugs: {
+    c1A_otherConcernsDrugs: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -60,7 +60,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            otherConcernsDrugs_description: {
+            c1A_otherConcernsDrugsDetails: {
               type: 'textarea',
               label: l => l.description,
               labelSize: null,

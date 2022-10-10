@@ -65,12 +65,12 @@ describe('Safety concern > other-concerns> drugs', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.otherConcernsDrugs as FormOptions;
+    const applyingWithField = fields.c1A_otherConcernsDrugs as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    const field2 = applyingWithField.values[0].subFields!.otherConcernsDrugs_description;
+    const field2 = applyingWithField.values[0].subFields!.c1A_otherConcernsDrugsDetails;
     expect((field2?.label as Function)(generatedContent)).toBe(en.description);
     expect(field2.type).toBe('textarea');
     (field2.validator as Function)('Yes');
