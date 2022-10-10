@@ -50,6 +50,7 @@ import {
   UrgencyDetails,
   WelshLanguageRequirementsTable,
   WelshNeed,
+  WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
   orderInterface,
@@ -463,6 +464,7 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
+  orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;
 }
 
