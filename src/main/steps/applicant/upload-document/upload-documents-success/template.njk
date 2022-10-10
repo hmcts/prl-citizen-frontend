@@ -1,0 +1,36 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <div class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-29" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__header">
+      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            {{sucess}}
+          </h2>
+    </div>
+    <div class="govuk-notification-banner__content">
+      <h2 class="govuk-notification-banner__heading">
+        {{status}}
+      </h2>
+    </div>
+  </div>
+  <div class="uploadedfiles govuk-!-margin-bottom-3" style=" display: inline-block">
+
+    <h2 class="govuk-heading-s{% if userCase.applicantUploadFiles.length==0 %} hidden{% endif %}">{{documentDetails}}{{caption}}</h2>
+    <ul id="filesUploadedList" class="govuk-list">
+      <dl class="govuk-summary-list">
+        {% for file in userCase.applicantUploadFiles %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__value">
+              {{ file.name }}
+            </dt>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">
+                {{remove}}</span>
+            </a>
+          </dd>
+        </div>
+      {% endfor %}
+    </dl>
+  </ul>
+</div>
+{% endblock %}
