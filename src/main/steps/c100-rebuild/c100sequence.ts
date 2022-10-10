@@ -470,7 +470,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_UPLOAD_CONFIRMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_TYPE_ORDER_CAORDER,
+    getNextStep: () => C100_TYPE_ORDER_SELECT_COURT_ORDER,
   },
   {
     url: C100_HEARING_URGENCY_URGENT,
