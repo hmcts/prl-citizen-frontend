@@ -27,6 +27,24 @@ describe('other proceedings > documentSummary > content', () => {
         },
       },
     },
+    userCase: {
+      op_otherProceedings: {
+        order: {
+          otherOrders: [
+            {
+              orderDetail: 'OtherOrder1',
+              orderCopy: 'Yes',
+              orderDocument: {
+                id: '7a9092e3-69e0-43d6-9334-b63f6351b7c1',
+                url: '',
+                filename: '',
+                binaryUrl: '',
+              },
+            },
+          ],
+        },
+      },
+    },
   } as unknown as CommonContent;
 
   // eslint-disable-next-line jest/expect-expect
