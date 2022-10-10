@@ -7,10 +7,7 @@
 
 {% from "../../common/fileupload/macro.njk" import fileUpload %}
 
-
 {% extends "common/page.njk" %}
-
-
 {% block page_content %}
 
 {% if FileErrors.length > 0 %}
@@ -18,17 +15,11 @@
   titleText: "There is a problem",
   errorList: FileErrors
 }) }}
-
 {%endif%}
-
-
-
 
   <h1 class="govuk-heading-xl">{{title}} </h1>
   <p class="govuk-body">{{ youNeed }}</p>
   <p class="govuk-body">{{ youNeed2 }}</p>
-
-
 
 {% set uploadReqTest = ""%}
 {% for item in uploadRequirement %}
