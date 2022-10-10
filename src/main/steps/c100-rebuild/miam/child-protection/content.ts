@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+export * from './routeGuard';
 
 const en = () => ({
   section: 'MIAM exemptions',
