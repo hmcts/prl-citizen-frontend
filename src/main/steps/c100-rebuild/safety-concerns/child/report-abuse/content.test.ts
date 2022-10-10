@@ -73,11 +73,13 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
     userCase: {
       c1A_safteyConcerns: {
         child: {
-          behaviourDetails: '',
-          behaviourStartDate: '',
-          isOngoingBehaviour: YesNoEmpty.YES,
-          seekHelpFromPersonOrAgency: YesNoEmpty.EMPTY,
-          seekHelpDetails: '',
+          physicalAbuse: {
+            behaviourDetails: '',
+            behaviourStartDate: '',
+            isOngoingBehaviour: YesNoEmpty.YES,
+            seekHelpFromPersonOrAgency: YesNoEmpty.NO,
+            seekHelpDetails: '',
+          }
         },
       },
     },
