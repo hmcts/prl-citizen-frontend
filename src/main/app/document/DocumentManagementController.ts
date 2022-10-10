@@ -12,13 +12,13 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT,
 } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { getSystemUser } from '../auth/user/oidc';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { DocumentType, YesOrNo } from '../case/definition';
+import { DocumentType, Respondent, YesOrNo } from '../case/definition';
+import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../form/Form';
+import { FormFields, FormFieldsFn } from '../form/Form';
 
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
@@ -43,13 +43,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req?.session?.userCase?.respondentUploadFiles === undefined) {
       req.session.userCase[RespondentUploadFiles] = [];
     }
-
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const form = new Form(fields);
-
-    const { _csrf, ...formData } = form.getParsedBody(req.body);
-    const caseworkerUser = req.session.user;
-    req.session.errors = form.getErrors(formData);
+    const loggedInCitizen = req.session.user;
 
     const isApplicant = req.query.isApplicant;
     const partyName = this.getPartyName(isApplicant, req);
@@ -66,15 +60,16 @@ export class DocumentManagerController extends PostController<AnyObject> {
     };
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
 
-    console.log('Generate upload document request: ', generateAndUploadDocumentRequest);
-
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
     const uploadCitizenDocFromCos = await client.generateUserUploadedStatementDocument(
-      caseworkerUser,
+      loggedInCitizen,
       generateAndUploadDocumentRequest
     );
     if (uploadCitizenDocFromCos.status !== 200) {
-      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      if (!req.session.errors) {
+        req.session.errors = [];
+      }
+      req.session.errors?.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {
       const obj = {
         id: uploadCitizenDocFromCos.documentId as string,
@@ -85,7 +80,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
+      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
       req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     }
@@ -127,6 +122,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     let filename = '';
     let endPoint = '';
+    let client;
+    let caseReference;
+    let loggedInCitizen;
+    let isAllegationOfHarmViewed;
     try {
       const originalUrl = req.originalUrl;
 
@@ -136,12 +135,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
         endPoint = itemlist[itemlist.length - 2];
       }
 
-      const caseworkerUser = await getSystemUser();
-      req.session.user = caseworkerUser;
-      const caseReference = req.session.userCase.id;
+      loggedInCitizen = req.session.user;
+      caseReference = req.session.userCase.id;
 
-      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+      client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+      const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
     } catch (err) {
       console.log(err);
@@ -180,7 +178,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
       filename = req.session.userCase.miamCertificationDocumentUpload.document_filename;
       documentToGet = req.session.userCase.miamCertificationDocumentUpload.document_binary_url;
-
       uid = this.getUID(documentToGet);
     }
 
@@ -191,6 +188,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       filename = req.session.userCase.c1ADocument.document_filename;
       documentToGet = req.session.userCase.c1ADocument.document_binary_url;
       uid = this.getUID(documentToGet);
+      isAllegationOfHarmViewed = YesOrNo.YES;
     }
 
     if (endPoint === 'downloadCitizenDocument' && req.session.userCase?.citizenUploadedDocumentList) {
@@ -268,6 +266,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
       if (err) {
         throw err;
       } else if (generatedDocument) {
+        if (
+          isAllegationOfHarmViewed === YesOrNo.YES &&
+          req.query?.updateCase &&
+          req.query?.updateCase === YesOrNo.YES
+        ) {
+          this.setAllegationOfHarmViewed(req, caseReference, client, req.session.user);
+        }
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
         return res.end(generatedDocument.data);
@@ -283,6 +288,43 @@ export class DocumentManagerController extends PostController<AnyObject> {
     });
   }
 
+  private async setAllegationOfHarmViewed(
+    req: AppRequest<Partial<CaseWithId>>,
+    caseReference: string,
+    client: CosApiClient,
+    loggedInCitizen: UserDetails
+  ) {
+    let isAllegationOfHarmViewed;
+    req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
+      if (
+        respondent?.value?.user?.idamId === req.session?.user.id &&
+        !respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed
+      ) {
+        isAllegationOfHarmViewed = YesOrNo.YES;
+        if (respondent.value.response && respondent.value.response.citizenFlags) {
+          respondent.value.response.citizenFlags.isAllegationOfHarmViewed = YesOrNo.YES;
+        } else {
+          respondent.value.response = {
+            citizenFlags: {
+              isAllegationOfHarmViewed: 'Yes',
+            },
+          };
+        }
+      }
+    });
+    if (isAllegationOfHarmViewed) {
+      const data = toApiFormat(req?.session?.userCase);
+      data.id = caseReference;
+      const updatedCaseDataFromCos = await client.updateCase(
+        loggedInCitizen,
+        caseReference as string,
+        data,
+        'citizen-internal-case-update'
+      );
+      req.session.userCase = updatedCaseDataFromCos;
+    }
+  }
+
   private getUID(documentToGet: string) {
     const refinedUrl = documentToGet.replace('/binary', '');
     return refinedUrl.substring(refinedUrl.length - UID_LENGTH);
@@ -290,15 +332,15 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
   public async deleteDocument(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const isApplicant = req.query.isApplicant;
-    const caseworkerUser = req.session.user;
+    const loggedInCitizen = req.session.user;
     const documentIdToDelete = req.params.documentId;
     const deleteDocumentDetails = {
       caseId: req.session.userCase.id,
       documentId: documentIdToDelete,
     };
     const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-    const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(caseworkerUser, deleteDocumentRequest);
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
+    const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(loggedInCitizen, deleteDocumentRequest);
     if ('SUCCESS' === deleteCitizenDocFromCos) {
       if (isApplicant === YesOrNo.YES) {
         req.session.userCase.applicantUploadFiles?.forEach((document, index) => {
@@ -313,10 +355,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
           }
         });
       }
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
+      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
       req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     } else {
+      if (!req.session.errors) {
+        req.session.errors = [];
+      }
       req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
     }
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));

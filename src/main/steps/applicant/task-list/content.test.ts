@@ -50,13 +50,13 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/keep-details-private/details_known',
+              href: '/applicant/keep-details-private/details_known/1234567',
               id: 'keep-your-details-private',
               status: 'TO_DO',
               text: 'Keep your details private',
             },
             {
-              href: '/applicant/confirm-contact-details/checkanswers',
+              href: '/applicant/confirm-contact-details/checkanswers/1234567',
               id: 'confirm-or-edit-your-contact-details',
               status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
@@ -129,6 +129,7 @@ describe('task-list > content', () => {
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {
+    userCase.id = '1234567';
     const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
     expect(taskListItems).toEqual(expected);
   });
