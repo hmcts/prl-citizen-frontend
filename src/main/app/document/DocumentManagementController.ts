@@ -408,8 +408,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
           name: fileData[0]['originalname'],
         };
         req.session.userCase.applicantUploadFiles?.push(obj);
-
-        //return res.redirect(UPLOAD_DOCUMENT);
       }
     } else {
       const fileData = req.files || [];

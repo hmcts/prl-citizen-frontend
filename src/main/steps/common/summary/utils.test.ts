@@ -98,7 +98,7 @@ describe('common > summary > utils', () => {
         enContent.fieldType,
         'en'
       );
-      console.log(' result ======>' + JSON.stringify(result));
+      console.log(result);
       expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
         expected
       );
