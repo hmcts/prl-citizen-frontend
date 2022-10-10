@@ -53,9 +53,12 @@ import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
-  C100_DOCUMENT_SUBMISSION,
-  C100_MIAM_MIAM_DOMESTIC_ABUSE,
   C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+  C100_DOCUMENT_SUBMISSION,
+
+  /** @MIAM MIAM */
+  C100_MIAM_UPLOAD_CONFIRMATION,
+  C100_MIAM_MIAM_DOMESTIC_ABUSE,
   C100_MIAM_OTHER_PROCEEDINGS,
   C100_MIAM_MEDIATOR_DOCUMENT,
   C100_MIAM_CHILD_PROTECTION,
@@ -67,6 +70,14 @@ import {
   C100_MIAM_VALID_REASON,
   C100_MIAM_NONEED,
   C100_MIAM_OTHER,
+  C100_MIAM_GENERAL_REASONS,
+  C100_MIAM_GET_MEDIATOR,
+  C100_MIAM_UPLOAD,
+  C100_MIAM_GET_DOC,
+
+  /** Hearing Urgency */
+  C100_HEARING_URGENCY_URGENT,
+  C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
 } from '../urls';
 
@@ -367,8 +378,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_MEDIATOR_DOCUMENT,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.miam_haveDocSigned === YesOrNo.YES ? C100_CONFIDENTIALITY_DETAILS_KNOW : C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: data => (data.miam_haveDocSigned === YesOrNo.YES ? C100_MIAM_UPLOAD : C100_MIAM_GET_DOC),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
@@ -383,21 +393,19 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_OTHER_PROCEEDINGS,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.miam_otherProceedings === YesOrNo.YES
-        ? C100_CONFIDENTIALITY_DETAILS_KNOW
-        : C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: data => (data.miam_otherProceedings === YesOrNo.YES ? C100_MIAM_NONEED : C100_MIAM_INFO),
   },
   {
     url: C100_MIAM_ATTENDANCE,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.miam_attendance === YesOrNo.YES ? C100_MIAM_ATTENDANCE : C100_CONFIDENTIALITY_START,
+      data.miam_attendance === YesOrNo.YES ? C100_MIAM_MEDIATOR_DOCUMENT : C100_MIAM_MEDIATOR_CONFIRMAION,
   },
   {
     url: C100_MIAM_MEDIATOR_CONFIRMAION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_MIAM_MEDIATOR_CONFIRMAION,
+    getNextStep: (data: Partial<Case>) =>
+      data.miam_mediatorDocument === YesOrNo.YES ? C100_MIAM_MEDIATOR_DOCUMENT : C100_MIAM_VALID_REASON,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
@@ -417,18 +425,18 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_INFO,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_MIAM_ATTENDANCE,
   },
   {
     url: C100_MIAM_VALID_REASON,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.miam_validReason === YesOrNo.YES ? C100_MIAM_VALID_REASON : C100_CONFIDENTIALITY_START,
+      data.miam_validReason === YesOrNo.YES ? C100_MIAM_GENERAL_REASONS : C100_MIAM_GET_MEDIATOR,
   },
   {
     url: C100_MIAM_NONEED,
     showInSection: Sections.C100,
-    getNextStep: () => C100_MIAM_NONEED,
+    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   },
   {
     url: C100_MIAM_OTHER,
@@ -446,11 +454,46 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
   {
-    url: C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+    url: C100_MIAM_GENERAL_REASONS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GENERAL_REASONS,
+  },
+  {
+    url: C100_MIAM_GET_MEDIATOR,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GET_MEDIATOR,
+  },
+  {
+    url: C100_MIAM_UPLOAD,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_UPLOAD_CONFIRMATION,
+  },
+  {
+    url: C100_MIAM_UPLOAD_CONFIRMATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_TYPE_ORDER_SELECT_COURT_ORDER,
+  },
+  {
+    url: C100_HEARING_URGENCY_URGENT,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.otherConcernsDrugs === YesOrNo.YES
-        ? C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS
-        : C100_CONFIDENTIALITY_START,
+      data.hu_urgentHearingReasons === YesOrNo.YES
+        ? C100_HEARING_URGENCY_URGENT_DETAILS
+        : C100_HEARING_WITHOUT_NOTICE_PART1,
+  },
+  {
+    url: C100_HEARING_URGENCY_URGENT_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART1,
+  },
+  {
+    url: C100_MIAM_GET_DOC,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GET_DOC,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
   },
 ];
