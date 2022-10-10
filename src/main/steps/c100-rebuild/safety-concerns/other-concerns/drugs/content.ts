@@ -15,10 +15,10 @@ const en = () => ({
   description:
     'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
   errors: {
-    otherConcernsDrugs: {
+    c1A_otherConcernsDrugs: {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse',
     },
-    otherConcernsDrugs_description: {
+    c1A_otherConcernsDrugsDetails: {
       required: 'Describe the children have been impacted by drug, alcohol or substance abuse',
     },
   },
@@ -36,10 +36,10 @@ const cy = () => ({
   description:
     'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing. - Welsh',
   errors: {
-    otherConcernsDrugs: {
+    c1A_otherConcernsDrugs: {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse - Welsh',
     },
-    otherConcernsDrugs_description: {
+    c1A_otherConcernsDrugsDetails: {
       required: 'Describe the children have been impacted by drug, alcohol or substance abuse - Welsh',
     },
   },
