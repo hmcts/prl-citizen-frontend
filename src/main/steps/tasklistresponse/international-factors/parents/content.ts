@@ -5,7 +5,7 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 const en = {
   section: ' ',
-  title: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+  title: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
   hint: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
   one: 'Yes',
   two: 'No',
@@ -23,7 +23,7 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+  title: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
   hint: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
   one: 'Yes',
   two: 'No',
@@ -72,7 +72,7 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

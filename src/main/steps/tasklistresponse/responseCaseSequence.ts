@@ -13,6 +13,7 @@ import {
   INTERNATIONAL_FACTORS_START,
   INTERNATIONAL_FACTORS_SUMMARY,
   MIAM_ATTEND_WILLINGNESS,
+  MIAM_SAVE,
   MIAM_START,
   MIAM_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
@@ -92,7 +93,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: MIAM_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => MIAM_SAVE,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS,

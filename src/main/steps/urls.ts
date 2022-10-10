@@ -76,20 +76,25 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 /* respondent-keep-details-private-end */
 
 /* MIAM */
-export const MIAM: PageLink = `${RESPONSE_TASKLIST}/miam`;
+export const TASK_LIST_RESPONSE: PageLink = '/tasklistresponse';
+export const MIAM_HOME: PageLink = `${TASK_LIST_RESPONSE}`;
+export const MIAM: PageLink = `${MIAM_HOME}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
-export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
-/* MIAM */
 
 /* international-factors */
-export const INTERNATIONAL_FACTORS: PageLink = `${RESPONSE_TASKLIST}/international-factors`;
+export const INTERNATIONAL_FACTORS: PageLink = `${TASK_LIST_RESPONSE}/international-factors`;
 export const INTERNATIONAL_FACTORS_START: PageLink = `${INTERNATIONAL_FACTORS}/start`;
 export const INTERNATIONAL_FACTORS_PARENTS: PageLink = `${INTERNATIONAL_FACTORS}/parents`;
 export const INTERNATIONAL_FACTORS_JURISDICTION: PageLink = `${INTERNATIONAL_FACTORS}/jurisdiction`;
 export const INTERNATIONAL_FACTORS_REQUEST: PageLink = `${INTERNATIONAL_FACTORS}/request`;
 export const INTERNATIONAL_FACTORS_SUMMARY: PageLink = `${INTERNATIONAL_FACTORS}/summary`;
+export const INTERNATIONAL_FACTORS_SAVE: PageLink = `${INTERNATIONAL_FACTORS}/save`;
 /* international-factors */
+
+export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
+export const MIAM_SAVE: PageLink = `${MIAM}/save`;
+/* MIAM */
 
 /* safety concerns */
 export const SAFETY_CONCERNS: PageLink = `${RESPONSE_TASKLIST}/safety_concerns`;

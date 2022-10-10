@@ -73,8 +73,8 @@ const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId
           {
             id: 'medation-miam',
             text: taskListItems.mediation_miam,
-            status: getMiamStatus(userCase),
-            href: URL.MIAM_START,
+            status: getMiamStatus(userCase, userIdamId),
+            href: URL.MIAM_START + '/' + userCase.id,
           },
           {
             id: 'current-or-previous-proceedings',
@@ -101,8 +101,8 @@ const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId
           {
             id: 'international-factors',
             text: taskListItems.international_factors,
-            status: getInternationalFactorsStatus(userCase),
-            href: URL.INTERNATIONAL_FACTORS_START,
+            status: getInternationalFactorsStatus(userCase, userIdamId),
+            href: URL.INTERNATIONAL_FACTORS_START + '/' + userCase.id,
           },
         ],
       },
