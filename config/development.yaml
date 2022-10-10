@@ -34,6 +34,7 @@ session:
   redis:
     host:
     key:
+  secureCookie: false
 e2e:
   userTestPassword: ''
 appInsights:

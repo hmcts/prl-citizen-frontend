@@ -24,12 +24,16 @@ export const getUserDetails = async (
   const secret: string = config.get('services.idam.citizenClientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
+  console.log('******* Trying to get user details');
 
   const code = encodeURIComponent(rawCode);
   const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
+  console.log('******* Recieved response');
   const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
+  console.log('******* Recieved jwt');
+  console.log('******* Recieved user: ');
   return {
     accessToken: response.data.access_token,
     id: jwt.uid,
