@@ -9,9 +9,9 @@ import {
   C100_MIAM_MIAM_DOMESTIC_ABUSE,
   C100_MIAM_NO_NEED_WITH_REASONS,
   C100_MIAM_OTHER,
-  C100_MIAM_OTHER_PROCEEDINGS,
   C100_MIAM_PREVIOUS_ATTENDANCE,
   C100_MIAM_URGENCY,
+  C100_TYPE_ORDER_SELECT_COURT_ORDER,
   PageLink,
 } from '../../urls';
 
@@ -85,7 +85,7 @@ class MIAMNavigationController {
       case C100_MIAM_NO_NEED_WITH_REASONS: {
         url = this.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
           ? C100_HEARING_URGENCY_URGENT
-          : C100_MIAM_OTHER_PROCEEDINGS;
+          : C100_TYPE_ORDER_SELECT_COURT_ORDER;
         break;
       }
       default: {

@@ -474,7 +474,9 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[65].url).toBe('/c100-rebuild/miam/no-need-with-reasons');
     expect(C100Sequence[65].showInSection).toBe('c100');
-    expect(C100Sequence[65].getNextStep(miamMockData.session.userCase)).toBe('/c100-rebuild/miam/other-proceedings');
+    expect(C100Sequence[65].getNextStep(miamMockData.session.userCase)).toBe(
+      '/c100-rebuild/typeoforder/select-courtorder'
+    );
 
     expect(C100Sequence[66].url).toBe('/c100-rebuild/hearing-urgency/urgent');
     expect(C100Sequence[66].showInSection).toBe('c100');
