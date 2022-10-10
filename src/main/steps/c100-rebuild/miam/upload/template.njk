@@ -31,21 +31,21 @@
   summaryText: uploadDescription,
   text: requirementTest  | safe
 }) }}
-   {% for error in sessionErrors %}
-    {%- if  error.propertyName === 'document'  %}<div class="govuk-form-group--error">  {% endif %}
-    {% endfor %}
-  {% for error in sessionErrors %}
-    {%- if  error.propertyName === 'document'  %}
-    {%- if  error.errorType === 'required'  %}
-         <span class="govuk-error-message" id="miam-file-upload-required-error">
-    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].required}}</span>
-    {% endif %}
-    {%- if  error.errorType === 'multipleFiles'  %}
-     <span class="govuk-error-message" id="miam-file-upload-multiple-error">
-    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].multipleFiles}}</span>
-    {% endif %}
-    {% endif %}
-    {% endfor %}
+    {% for error in sessionErrors %}
+      {%- if  error.propertyName === 'document'  %}<div class="govuk-form-group--error">  {% endif %}
+      {% endfor %}
+    {% for error in sessionErrors %}
+      {%- if  error.propertyName === 'document'  %}
+      {%- if  error.errorType === 'required'  %}
+          <span class="govuk-error-message" id="miam-file-upload-required-error">
+      <span class="govuk-visually-hidden">Error: </span>{{errors['document'].required}}</span>
+      {% endif %}
+      {%- if  error.errorType === 'multipleFiles'  %}
+      <span class="govuk-error-message" id="miam-file-upload-multiple-error">
+      <span class="govuk-visually-hidden">Error: </span>{{errors['document'].multipleFiles}}</span>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
    {{ fileUpload(
         {
           uploadButtonText: uploadButton,
