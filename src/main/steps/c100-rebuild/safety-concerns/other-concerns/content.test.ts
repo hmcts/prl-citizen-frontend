@@ -12,10 +12,10 @@ const en = {
   two: 'No',
   summaryText: 'Contacts for help',
   errors: {
-    childSafetyConcerns: {
+    c1A_childSafetyConcerns: {
       required: 'Please select an answer',
     },
-    childSafetyConcernsDetails: {
+    c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
     },
   },
@@ -29,10 +29,10 @@ const cy = {
   two: 'No',
   summaryText: 'Contacts for help',
   errors: {
-    childSafetyConcerns: {
+    c1A_childSafetyConcerns: {
       required: 'Please select an answer',
     },
-    childSafetyConcernsDetails: {
+    c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
     },
   },
@@ -68,7 +68,7 @@ describe('safety_concerns > other_concerns > content', () => {
   });
 
   test('should contain childSafetyConcerns field', () => {
-    const childSafetyConcerns = fields.childSafetyConcerns as FormOptions;
+    const childSafetyConcerns = fields.c1A_childSafetyConcerns as FormOptions;
     expect(childSafetyConcerns.type).toBe('radios');
     expect(childSafetyConcerns.classes).toBe('govuk-radios');
     expect((childSafetyConcerns.section as Function)(generatedContent)).toBe(en.section);

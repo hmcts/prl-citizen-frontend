@@ -12,10 +12,10 @@ const en = {
   two: 'No',
   summaryText: 'Contacts for help',
   errors: {
-    childSafetyConcerns: {
+    c1A_childSafetyConcerns: {
       required: 'Please select an answer',
     },
-    childSafetyConcernsDetails: {
+    c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
     },
   },
@@ -29,10 +29,10 @@ const cy: typeof en = {
   two: 'No',
   summaryText: 'Contacts for help',
   errors: {
-    childSafetyConcerns: {
+    c1A_childSafetyConcerns: {
       required: 'Please select an answer',
     },
-    childSafetyConcernsDetails: {
+    c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
     },
   },
@@ -45,7 +45,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    childSafetyConcerns: {
+    c1A_childSafetyConcerns: {
+      id: 'c1A_childSafetyConcerns',
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.label,
@@ -56,7 +57,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            childSafetyConcernsDetails: {
+            c1A_childSafetyConcernsDetails: {
               type: 'textarea',
               label:
                 'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
