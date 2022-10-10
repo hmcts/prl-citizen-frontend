@@ -255,7 +255,9 @@ export const C100_MIAM_MIAM_DOMESTIC_ABUSE = `${C100_MIAM}/domestic-abuse`;
 export const C100_MIAM_GENERAL_REASONS: PageLink = `${C100_MIAM}/general-reasons`;
 export const C100_MIAM_GET_MEDIATOR: PageLink = `${C100_MIAM}/get-mediator`;
 export const C100_MIAM_UPLOAD: PageLink = `${C100_MIAM}/upload`;
+export const C100_MIAM_GET_DOC: PageLink = `${C100_MIAM}/get-doc`;
 
 /** @C100 Urgency */
 export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/hearing-urgency`;
 export const C100_HEARING_URGENCY_URGENT: PageLink = `${C100_HEARING_URGENCY}/urgent`;
+export const C100_HEARING_URGENCY_URGENT_DETAILS: PageLink = `${C100_HEARING_URGENCY}/urgent-details`;
