@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { CommonContent } from '../../../common/common.content';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -76,18 +76,24 @@ describe('citizen-home content', () => {
     expect(miam_nonAttendanceReason.values[6].behaviour).toBe('exclusive');
   });
 
-  // eslint-disable-next-line jest/expect-expect
   test('should return correct english content Data', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
   });
 
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  test('should return correct welsh content Data', () => {
+    languageAssertions('cy', cy, () => generateContent(commonContent));
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain continue button', () => {
+    expect(
+      (form?.onlycontinue.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
+  });
+
+  test('should contain saveAndComeLater button', () => {
+    expect(
+      (form?.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });
 
