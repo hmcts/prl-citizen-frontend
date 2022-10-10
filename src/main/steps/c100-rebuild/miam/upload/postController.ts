@@ -24,64 +24,67 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   /**
    * A recursive function that calls itself.
    * @param req - AppRequest<AnyObject>
-   * @param {Response} res - Response - This is the response object that will be sent back to the client.
+   * @param {Response} res - Response - This is the response object txhat will be sent back to the client.
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
     const miamCertificate = req.session.userCase?.miam_certificate as C100DocumentInfo;
-
-    if (this.checkIfDocumentAlreadyExist(miamCertificate)) {
-      req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
-      req.session.save(err => {
-        if (err) {
-          throw err;
-        }
-        res.redirect(`${C100_MIAM_UPLOAD}`);
-      });
+    if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(miamCertificate)) {
+      super.redirect(req, res, '');
     } else {
-      if (isNull(files) || files === undefined) {
-        this.uploadFileError(req, res, {
-          propertyName: 'document',
-          errorType: 'required',
-        });
-      } else if (!isValidFileFormat(files)) {
-        this.uploadFileError(req, res, {
-          propertyName: 'document',
-          errorType: 'fileFormat',
-        });
-      } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-        this.uploadFileError(req, res, {
-          propertyName: 'document',
-          errorType: 'fileSize',
+      if (this.checkIfDocumentAlreadyExist(miamCertificate)) {
+        req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
+        req.session.save(err => {
+          if (err) {
+            throw err;
+          }
+          res.redirect(`${C100_MIAM_UPLOAD}`);
         });
       } else {
-        const { documents }: AnyType = files;
-
-        const formData: FormData = new FormData();
-
-        const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
-        const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
-
-        formData.append('file', documents.data, {
-          contentType: documents.mimetype,
-          filename: `applicant__miam_certificate__${dateOfSystem}.${extensionType}`,
-        });
-        try {
-          const responseBody: DocumentUploadResponse = await req.locals.C100Api.uploadDocument(formData);
-          const { document_url, document_filename, document_binary_url } = responseBody['document'];
-          req.session.userCase['miam_certificate'] = {
-            id: document_url.split('/')[document_url.split('/').length - 1],
-            url: document_url,
-            filename: document_filename,
-            binaryUrl: document_binary_url,
-          };
-
-          req.session.save(() => {
-            const redirectURL = `${C100_MIAM_UPLOAD}`;
-            res.redirect(redirectURL);
+        if (isNull(files) || files === undefined) {
+          this.uploadFileError(req, res, {
+            propertyName: 'document',
+            errorType: 'required',
           });
-        } catch (error) {
-          res.json(error);
+        } else if (!isValidFileFormat(files)) {
+          this.uploadFileError(req, res, {
+            propertyName: 'document',
+            errorType: 'fileFormat',
+          });
+        } else if (isFileSizeGreaterThanMaxAllowed(files)) {
+          this.uploadFileError(req, res, {
+            propertyName: 'document',
+            errorType: 'fileSize',
+          });
+        } else {
+          const { documents }: AnyType = files;
+
+          const formData: FormData = new FormData();
+
+          const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
+          const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
+
+          formData.append('file', documents.data, {
+            contentType: documents.mimetype,
+            filename: `applicant__miam_certificate__${dateOfSystem}.${extensionType}`,
+          });
+          try {
+            const responseBody: DocumentUploadResponse = await req.locals.C100Api.uploadDocument(formData);
+            const { document_url, document_filename, document_binary_url } = responseBody['document'];
+            req.session.userCase['miam_certificate'] = {
+              id: document_url.split('/')[document_url.split('/').length - 1],
+              url: document_url,
+              filename: document_filename,
+              binaryUrl: document_binary_url,
+            };
+
+            req.session.save(() => {
+              const redirectURL = `${C100_MIAM_UPLOAD}`;
+              res.redirect(redirectURL);
+            });
+          } catch (error) {
+            res.json(error);
+          }
         }
       }
     }
