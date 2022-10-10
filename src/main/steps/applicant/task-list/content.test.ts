@@ -3,38 +3,22 @@ import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
-// eslint-disable-next-line import/namespace
 import { generateContent } from './content';
+import { applicant_en } from './section-titles';
+import { applicant_tasklist_items_en } from './tasklist-items';
 
 const enContent = {
-  title: 'DA Applicant',
+  title: 'Applicant',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'TO DO',
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
-  sectionTitles: {
-    aboutYou: 'About you',
-    yourApplication: 'Your application',
-    courtHearings: 'Your court hearings',
-    ordersFromCourt: 'Orders from the court',
-    yourDocuments: 'Your documents',
-    finalDecision: 'Final decision from the court',
-  },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    support_you_need_during_your_case: 'Support you need during your case',
-    application_submitted: 'Application submitted (FL401)',
-    witness_statement: 'Witness statement',
-    details_of_court_hearings: 'Check details of your court hearings',
-    orders: 'Orders',
-    upload_document: 'Upload a document',
-    see_all_documents: 'See all documents',
-    see_all_documents_alternative_view: 'See all documents ( alternate view )',
-    view_all_final_order: 'View your final order',
-  },
+  sectionTitles: applicant_en,
+  taskListItems: applicant_tasklist_items_en,
 };
 const cyContent = {
   title: ' ',
@@ -43,28 +27,11 @@ const cyContent = {
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'I WNEUD',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
   },
-  sectionTitles: {
-    aboutYou: 'About you',
-    yourApplication: 'Your application',
-    courtHearings: 'Your court hearings',
-    ordersFromCourt: 'Orders from the court',
-    yourDocuments: 'Your documents',
-    finalDecision: 'Final decision from the court',
-  },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    support_you_need_during_your_case: 'Support you need during your case',
-    application_submitted: 'Application submitted (FL401)',
-    witness_statement: 'Witness statement',
-    details_of_court_hearings: 'Check details of your court hearings',
-    orders: 'Orders',
-    upload_document: 'Upload a document',
-    see_all_documents: 'See all documents',
-    see_all_documents_alternative_view: 'See all documents ( alternate view )',
-    view_all_final_order: 'View your final order',
-  },
+  sectionTitles: applicant_en,
+  taskListItems: applicant_tasklist_items_en,
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
@@ -83,13 +50,13 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/keep-details-private/details_known',
+              href: '/applicant/keep-details-private/details_known/1234567',
               id: 'keep-your-details-private',
               status: 'TO_DO',
               text: 'Keep your details private',
             },
             {
-              href: '/applicant/confirm-contact-details/checkanswers',
+              href: '/applicant/confirm-contact-details/checkanswers/1234567',
               id: 'confirm-or-edit-your-contact-details',
               status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
@@ -106,27 +73,27 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/keep-details-private/details_known',
-              id: 'application-submitted',
-              text: 'Application submitted (FL401)',
-              status: 'TO_DO',
+              href: '/applicant/public/docs/FL401-Final-Document.pdf',
+              id: 'your-application',
+              status: 'DOWNLOAD',
+              text: 'Application submitted (PDF)',
             },
             {
-              href: '/applicant/confirm-contact-details/checkanswers',
-              id: 'witness-statement',
-              text: 'Witness statement',
-              status: 'IN_PROGRESS',
+              href: '/applicant/witnessstatements',
+              id: 'your-application-witness-statment',
+              status: 'DOWNLOAD',
+              text: 'Witness statement (PDF)',
             },
           ],
-          title: 'Your application',
+          title: applicant_en.yourApplication,
         },
         {
           items: [
             {
               href: '/applicant/keep-details-private/details_known',
               id: 'check-details-of-your-court-hearings',
+              status: SectionStatus.TO_DO,
               text: 'Check details of your court hearings',
-              status: 'TO_DO',
             },
           ],
           title: 'Your court hearings',
@@ -134,33 +101,16 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/keep-details-private/details_known',
-              id: 'orders',
-              text: 'Orders',
-              status: 'TO_DO',
-            },
-          ],
-          title: 'Orders from the court',
-        },
-        {
-          items: [
-            {
-              href: '/applicant/keep-details-private/details_known',
+              href: '/applicant/upload-document',
               id: 'upload-document',
-              text: 'Upload a document',
-              status: 'TO_DO',
+              status: SectionStatus.TO_DO,
+              text: 'Upload documents',
             },
             {
-              href: '/applicant/confirm-contact-details/checkanswers',
-              id: 'see-all-documents',
-              text: 'See all documents',
-              status: 'IN_PROGRESS',
-            },
-            {
-              href: '/applicant/confirm-contact-details/checkanswers',
-              id: 'see-all-documents-alternative-view',
-              text: 'See all documents ( alternate view )',
-              status: 'IN_PROGRESS',
+              href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'view-all-documents',
+              status: 'READY_TO_VIEW',
+              text: 'View all documents',
             },
           ],
           title: 'Your documents',
@@ -168,17 +118,18 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/keep-details-private/details_known',
-              id: 'view-all-final-order',
-              text: 'View your final order',
-              status: 'TO_DO',
+              href: '#',
+              id: 'view-all-orders-from-the-court',
+              status: SectionStatus.NOT_AVAILABLE_YET,
+              text: 'View all orders from the court',
             },
           ],
-          title: 'Final decision from the court',
+          title: applicant_en.ordersFromTheCourt,
         },
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {
+    userCase.id = '1234567';
     const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
     expect(taskListItems).toEqual(expected);
   });
