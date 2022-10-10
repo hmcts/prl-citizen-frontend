@@ -57,6 +57,8 @@ export class CaseApi {
         headers: {
           ...formdata.getHeaders(),
         },
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
       });
       return { document: response.data.document, status: response.data.status };
     } catch (err) {

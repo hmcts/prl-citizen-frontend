@@ -1,20 +1,76 @@
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+
+ {# Usage 
+
+   {{ fileUpload(
+        {
+          uploadButtonText: uploadButton,
+          fileuploadTitle: "Select documents to upload",
+          fileuploadTitleClass: "govuk-!-font-weight-bold",
+          formPostURL: postURL ,
+          sessionFilesArray: false,
+          sessionFiles: userCase.miam_certificate,
+          uploadFileHeading: '',
+          sessionNullFilesMessage: noFilesUploaded,
+          removeText: remove,
+          csrfToken: csrfToken
+        }
+      ) }}
+ 
+ #}
+
 {% macro fileUpload(params) %}           
 <div class="govuk-form-group govuk-inset-text">
- <form action="{{params.formPostEndpoint}}?_csrf={{ param.csrfToken }}" method="post" enctype="multipart/form-data">
-
-      {{ govukFileUpload({
+ {#This is the file upload section#}
+<form action="{{params.formPostURL}}" method="post" enctype="multipart/form-data">
+<input type="hidden" name="_csrf" id="csrfToken" value="{{ params.csrfToken }}">
+{{ govukFileUpload({
   id: "document",
   name: "documents",
-  classes: "govuk-!-margin-bottom-3",
+  classes: "govuk-!-margin-bottom-3 ",
   label: {
-    text: "Upload a file"
+    text: params.fileuploadTitle,
+    classes: params.fileuploadTitleClass
   }
-}) }}
+})}}
   {{ govukButton({
-          text: uploadButton,
-          type: "upload document",
-          classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
-        }) }}
-
+    text: params.uploadButtonText,
+    type: "upload document",
+    classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
+  }) }}
 </form>
+</div>
+
+{% if params.sessionFiles !== undefined and params.sessionFilesArray === true  %}
+  <div id="uploadGroup" tabindex="0" class="uploadGroup">
+    <h2 class="govuk-heading-s">{{ params.uploadFileHeading }}</h2>
+    <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if params.sessionFiles |length %} hidden{% endif %}" id="noFilesUploaded">{{ params.sessionNullFilesMessage }}</p>
+    <ul id="filesUploaded" class="govuk-list">
+      {% for files in params.sessionFiles %}
+        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
+          <dt class="govuk-summary-list__value"> {{ files.filename }} </dt>
+          <dd class="govuk-summary-list__actions">
+          <a href="{{postURL}}?removeId={{files.id}}" class="govuk-link--no-visited-state float-right ">{{ params.removeText }}</a>
+        </dd>
+        </li>
+       {%endfor%} 
+    </ul>
+  </div> 
+  {%else%}
+  {% if params.sessionFiles.id !== undefined %}
+  <ul id="filesUploaded" class="govuk-list">
+     <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
+          <dt class="govuk-summary-list__value"> {{ params.sessionFiles.filename }} </dt>
+          <dd class="govuk-summary-list__actions">
+          <a href="{{postURL}}?removeId={{params.sessionFiles.id}}" class="govuk-link--no-visited-state float-right ">{{ params.removeText }}</a>
+        </dd>
+        </li>
+    </ul>  
+   {%endif%}   
+{%endif%}
+
 {% endmacro %}
+
+
