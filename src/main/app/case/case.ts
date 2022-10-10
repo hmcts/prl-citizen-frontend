@@ -165,17 +165,17 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentLastName: 'respondentLastName',
   contactDetailsPrivate: 'contactDetailsPrivate',
 
-  applicant1FirstNames: 'applicant1FirstNames',
-  applicant1LastNames: 'applicant1LastNames',
-  applicant1FullName: 'applicant1FullName',
+  citizenUserFirstNames: 'citizenUserFirstNames',
+  citizenUserLastNames: 'citizenUserLastNames',
+  citizenUserFullName: 'citizenUserFullName',
   applicant1HasOtherNames: 'applicant1HasOtherNames',
   applicant1AdditionalNames: 'applicant1AdditionalNames',
-  applicant1DateOfBirth: 'applicant1DateOfBirth',
+  citizenUserDateOfBirth: 'citizenUserDateOfBirth',
   applicant1Occupation: 'applicant1Occupation',
-  applicant1EmailAddress: 'applicant1EmailAddress',
+  citizenUserEmailAddress: 'citizenUserEmailAddress',
   applicant1SafeToCall: 'applicant1SafeToCall',
-  applicant1PhoneNumber: 'applicant1PhoneNumber',
-  applicant1PlaceOfBirth: 'applicant1PlaceOfBirth',
+  citizenUserPhoneNumber: 'citizenUserPhoneNumber',
+  citizenUserPlaceOfBirth: 'citizenUserPlaceOfBirth',
   applicant1Address1: 'applicant1Address1',
   applicant1Address2: 'applicant1Address2',
   applicant1AddressTown: 'applicant1AddressTown',
@@ -186,6 +186,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
   miamStart: 'miamStart',
+
+  start: 'start',
+  iFactorsStartProvideDetails: 'iFactorsStartProvideDetails',
+  parents: 'parents',
+  iFactorsParentsProvideDetails: 'iFactorsParentsProvideDetails',
+  jurisdiction: 'jurisdiction',
+  iFactorsJurisdictionProvideDetails: 'iFactorsJurisdictionProvideDetails',
+  request: 'request',
+  iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -308,7 +317,7 @@ export interface Case {
   accessCode?: string;
   detailsKnown?: string;
   startAlternative?: string;
-  contactDetailsPrivate?: string;
+  contactDetailsPrivate?: string[];
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
@@ -372,21 +381,23 @@ export interface Case {
   underTakingOrder?: orderInterface;
 
   /***** Applicant1 *****/
-  applicant1FullName?: string;
-  applicant1FirstNames?: string;
-  applicant1LastNames?: string;
+  citizenUserFullName?: string;
+  citizenUserFirstNames?: string;
+  citizenUserLastNames?: string;
   applicant1HasOtherNames?: YesOrNo;
-  applicant1AdditionalName?: string;
+  citizenUserAdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
-  applicant1EmailAddress?: string;
+  citizenUserEmailAddress?: string;
+  citizenUserEmailAddressText?: string;
   applicant1SafeToCall?: string;
-  applicant1PhoneNumber?: string;
-  applicant1DateOfBirth?: CaseDate;
-  applicant1DateOfBirthText?: string;
+  citizenUserPhoneNumber?: string;
+  citizenUserPhoneNumberText?: string;
+  citizenUserDateOfBirth?: CaseDate;
+  citizenUserDateOfBirthText?: string;
   applicant1Occupation?: string;
   applicant1SelectAddress?: string;
-  applicant1PlaceOfBirth?: string;
-  applicant1PlaceOfBirthText?: string;
+  citizenUserPlaceOfBirth?: string;
+  citizenUserPlaceOfBirthText?: string;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1AddressTown?: string;
@@ -454,6 +465,7 @@ export interface Case {
 
   citizenRole?: FieldPrefix;
   orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
+  legalRepresentation?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
