@@ -1,6 +1,13 @@
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
+export const getLegalRepresentationStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
+  if (userCase?.legalRepresentation) {
+    return SectionStatus.COMPLETED;
+  }
+  return SectionStatus.TO_DO;
+};
+
 export const getKeepYourDetailsPrivateStatus = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string
@@ -67,32 +74,99 @@ export const getConsentToApplicationStatus = (
   return status;
 };
 
-export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (userCase?.miamStart && userCase?.miamWillingness) {
-    return SectionStatus.COMPLETED;
-  }
-  if (userCase?.miamStart || userCase?.miamWillingness) {
-    return SectionStatus.IN_PROGRESS;
-  }
-  return SectionStatus.TO_DO;
+export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined, userIdamId: string): SectionStatus => {
+  let status = SectionStatus.TO_DO;
+
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (respondent?.value.user?.idamId === userIdamId) {
+      const miam = respondent?.value?.response?.miam;
+      if (miam?.attendedMiam || miam?.willingToAttendMiam || miam?.reasonNotAttendingMiam) {
+        status = SectionStatus.IN_PROGRESS;
+      }
+
+      if (
+        miam?.attendedMiam === YesOrNo.YES ||
+        (miam?.attendedMiam === YesOrNo.NO && miam?.willingToAttendMiam === YesOrNo.YES) ||
+        (miam?.attendedMiam === YesOrNo.NO &&
+          miam?.willingToAttendMiam === YesOrNo.NO &&
+          miam?.reasonNotAttendingMiam !== '')
+      ) {
+        status = SectionStatus.COMPLETED;
+      }
+    }
+  });
+
+  return status;
 };
 
-export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (
-    ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
-    ((userCase?.parents === YesOrNo.YES && userCase?.iFactorsParentsProvideDetails) ||
-      userCase?.parents === YesOrNo.NO) &&
-    ((userCase?.jurisdiction === YesOrNo.YES && userCase?.iFactorsJurisdictionProvideDetails) ||
-      userCase?.jurisdiction === YesOrNo.NO) &&
-    ((userCase?.request === YesOrNo.YES && userCase?.iFactorsRequestProvideDetails) || userCase?.request === YesOrNo.NO)
-  ) {
-    return SectionStatus.COMPLETED;
-  }
+export const getInternationalFactorsStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  let statusFlag = SectionStatus.TO_DO;
 
-  if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
-    return SectionStatus.IN_PROGRESS;
-  }
-  return SectionStatus.TO_DO;
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (respondent?.value.user?.idamId === userIdamId) {
+      const internationalElements = respondent?.value?.response?.citizenInternationalElements;
+      if (
+        internationalElements?.childrenLiveOutsideOfEnWl ||
+        internationalElements?.childrenLiveOutsideOfEnWlDetails ||
+        internationalElements?.parentsAnyOneLiveOutsideEnWl ||
+        internationalElements?.parentsAnyOneLiveOutsideEnWlDetails ||
+        internationalElements?.anotherPersonOrderOutsideEnWl ||
+        internationalElements?.anotherPersonOrderOutsideEnWlDetails ||
+        internationalElements?.anotherCountryAskedInformation ||
+        internationalElements?.anotherCountryAskedInformationDetaails
+      ) {
+        statusFlag = SectionStatus.IN_PROGRESS;
+      }
+
+      let flagStart = false;
+      let flagParents = false;
+      let flagJurisdication = false;
+      let flagRequest = false;
+
+      if (internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.NO) {
+        flagStart = true;
+      }
+      if (internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO) {
+        flagParents = true;
+      }
+      if (internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.NO) {
+        flagJurisdication = true;
+      }
+      if (internationalElements?.anotherCountryAskedInformation === YesOrNo.NO) {
+        flagRequest = true;
+      }
+
+      if (internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.YES) {
+        if (internationalElements?.childrenLiveOutsideOfEnWlDetails) {
+          flagStart = true;
+        }
+      }
+      if (internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES) {
+        if (internationalElements?.parentsAnyOneLiveOutsideEnWlDetails) {
+          flagParents = true;
+        }
+      }
+      if (internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.YES) {
+        if (internationalElements?.anotherPersonOrderOutsideEnWlDetails) {
+          flagJurisdication = true;
+        }
+      }
+      if (internationalElements?.anotherCountryAskedInformation === YesOrNo.YES) {
+        if (internationalElements?.anotherCountryAskedInformationDetaails) {
+          flagRequest = true;
+        }
+      }
+
+      if (flagStart && flagParents && flagJurisdication && flagRequest) {
+        statusFlag = SectionStatus.COMPLETED;
+      }
+    }
+  });
+
+  return statusFlag;
 };
 
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {

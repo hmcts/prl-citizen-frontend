@@ -28,14 +28,19 @@ export interface Child {
 }
 
 export interface MiamTable {
-  soleTraderName: string;
-  familyMediatorMiam: string;
-  applicantAttendedMiam: string;
-  claimingExemptionMiam: string;
-  familyMediatorServiceName: string;
-  mediatorRegistrationNumber: string;
+  soleTraderName?: string;
+  familyMediatorMiam?: string;
+  applicantAttendedMiam?: string;
+  claimingExemptionMiam?: string;
+  familyMediatorServiceName?: string;
+  mediatorRegistrationNumber?: string;
 }
 
+export interface Miam {
+  attendedMiam?: string;
+  willingToAttendMiam?: string;
+  reasonNotAttendingMiam?: string;
+ }
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
@@ -111,6 +116,8 @@ export interface User {
 export interface Response {
   legalRepresentation?: string;
   consent?: Consent;
+  miam?: Miam;
+  citizenInternationalElements?: CitizenInternationalElements;
   keepDetailsPrivate?: KeepDetailsPrivate;
   citizenFlags?: CitizenFlags
 }
@@ -121,6 +128,16 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
 }
 
+export interface CitizenInternationalElements {
+  childrenLiveOutsideOfEnWl?: YesOrNo;
+  childrenLiveOutsideOfEnWlDetails?: string;
+  parentsAnyOneLiveOutsideEnWl?: YesOrNo;
+  parentsAnyOneLiveOutsideEnWlDetails?: string;
+  anotherPersonOrderOutsideEnWl?: YesOrNo;
+  anotherPersonOrderOutsideEnWlDetails?: string;
+  anotherCountryAskedInformation?: YesOrNo;
+  anotherCountryAskedInformationDetaails?: string;
+}
 export interface Consent {
   consentToTheApplication?: string;
   noConsentReason?: string;
@@ -663,10 +680,10 @@ export interface CaseData {
   applicantTable: ApplicantTable[];
   othersToNotify: OthersToNotify[];
   urgencyDetails: UrgencyDetails;
-  //respondentTable: RespondentTable[];
+  
   allegationOfHarm: AllegationOfHarm;
   dateOfSubmission: DateOfSubmission;
-  //declarationTable: DeclarationTable;
+  
   interpreterNeeds: InterpreterNeed[];
   childDetailsTable: ChildDetailsTable[];
   jurisdictionIssue: string;
@@ -711,7 +728,7 @@ export interface CaseData {
   jurisdictionIssueGiveReason: string;
   litigationCapacityReferrals: string;
   specialArrangementsRequired: string;
-  //allegationsOfHarmOrdersTable: AllegationsOfHarmOrdersTable;
+  
   habitualResidentInOtherState: string;
   otherProceedingsDetailsTable: OtherProceedingsDetailsTable[];
   summaryTabForOrderAppliedFor: SummaryTabForOrderAppliedFor;
@@ -752,7 +769,7 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  //contactDetailsPrivate: string;
+  
   contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
@@ -779,12 +796,12 @@ export interface CaseData {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
-  //applicant1LanguagePreference?: LanguagePreference;
+  
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
-  //applicant1LanguagePreference?: LanguagePreference;
+  
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   doYouConsent?: YesOrNo;
@@ -794,6 +811,15 @@ export interface CaseData {
   courtOrderDetails?: string;
   miamStart?: string;
   citizenUploadedDocumentList?: UploadDocumentList[];
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
+  legalRepresentation?: YesOrNo;
 }
 
 export interface ConfidentialDetails {
@@ -1546,39 +1572,14 @@ export interface OtherProceedingEmptyTable {
 
 // // eslint-disable-next-line @typescript-eslint/no-empty-interface
 
-// export interface OccupationOrder {
 
-// }
 
-// export interface RestrainingOrder {
-// }
 
-// export interface NonMolestationOrder {
-// }
 
-// export interface OtherInjunctiveOrder {
-// }
 
-// export interface UndertakingInPlaceOrder {
-// }
 
-// export interface ForcedMarriageProtectionOrder {
-// }
 
-// export interface AllegationsOfHarmOrdersTable {
-//   occupationOrder: OccupationOrder;
-//   ordersOccupation: string;
-//   restrainingOrder: RestrainingOrder;
-//   ordersRestraining: string;
-//   nonMolestationOrder: NonMolestationOrder;
-//   ordersNonMolestation: string;
-//   otherInjunctiveOrder: OtherInjunctiveOrder;
-//   ordersOtherInjunctive: string;
-//   undertakingInPlaceOrder: UndertakingInPlaceOrder;
-//   ordersUndertakingInPlace: string;
-//   forcedMarriageProtectionOrder: ForcedMarriageProtectionOrder;
-//   ordersForcedMarriageProtection: string;
-// }
+
 
 export interface Value13 {
   dateEnded: string;

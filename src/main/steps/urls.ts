@@ -76,20 +76,25 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 /* respondent-keep-details-private-end */
 
 /* MIAM */
-export const MIAM: PageLink = `${RESPONSE_TASKLIST}/miam`;
+export const TASK_LIST_RESPONSE: PageLink = '/tasklistresponse';
+export const MIAM_HOME: PageLink = `${TASK_LIST_RESPONSE}`;
+export const MIAM: PageLink = `${MIAM_HOME}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
-export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
-/* MIAM */
 
 /* international-factors */
-export const INTERNATIONAL_FACTORS: PageLink = `${RESPONSE_TASKLIST}/international-factors`;
+export const INTERNATIONAL_FACTORS: PageLink = `${TASK_LIST_RESPONSE}/international-factors`;
 export const INTERNATIONAL_FACTORS_START: PageLink = `${INTERNATIONAL_FACTORS}/start`;
 export const INTERNATIONAL_FACTORS_PARENTS: PageLink = `${INTERNATIONAL_FACTORS}/parents`;
 export const INTERNATIONAL_FACTORS_JURISDICTION: PageLink = `${INTERNATIONAL_FACTORS}/jurisdiction`;
 export const INTERNATIONAL_FACTORS_REQUEST: PageLink = `${INTERNATIONAL_FACTORS}/request`;
 export const INTERNATIONAL_FACTORS_SUMMARY: PageLink = `${INTERNATIONAL_FACTORS}/summary`;
+export const INTERNATIONAL_FACTORS_SAVE: PageLink = `${INTERNATIONAL_FACTORS}/save`;
 /* international-factors */
+
+export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
+export const MIAM_SAVE: PageLink = `${MIAM}/save`;
+/* MIAM */
 
 /* safety concerns */
 export const SAFETY_CONCERNS: PageLink = `${RESPONSE_TASKLIST}/safety_concerns`;
@@ -241,3 +246,11 @@ export const CA_DA_COURT_HEARING_SUPPORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_D
 export const CA_DA_COURT_HEARING_COMFORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-comfort`;
 export const CA_DA_TRAVELLING_TO_COURT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/travelling-to-court`;
 export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/summary`;
+
+/* Legal representation*/
+
+export const LEGAL_REPRESENTATION_START: PageLink = '/tasklistresponse/legalrepresentation/start';
+export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = '/tasklistresponse/legalrepresentation/solicitordirect';
+export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
+  '/tasklistresponse/legalrepresentation/solicitornotdirect';
+export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';

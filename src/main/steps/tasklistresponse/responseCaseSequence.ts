@@ -13,6 +13,7 @@ import {
   INTERNATIONAL_FACTORS_START,
   INTERNATIONAL_FACTORS_SUMMARY,
   MIAM_ATTEND_WILLINGNESS,
+  MIAM_SAVE,
   MIAM_START,
   MIAM_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
@@ -38,6 +39,7 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
+  RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
 } from '../urls';
@@ -91,22 +93,22 @@ export const responseCaseSequence: Step[] = [
   {
     url: MIAM_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => MIAM_SAVE,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_PERSONAL_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_CONTACT_DETAILS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_ADDRESS_DETAILS,
@@ -131,17 +133,17 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_ADDRESS_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_ADDRESS_BLANK,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_ADDRESS_HISTORY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: INTERNATIONAL_FACTORS_START,
@@ -166,7 +168,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: SAFETY_MAIN_PAGE,
@@ -186,7 +188,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: DOMESTIC_ABUSE_RISK_NO,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: PROCEEDINGS_START,
@@ -204,7 +206,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
@@ -229,6 +231,6 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
 ];

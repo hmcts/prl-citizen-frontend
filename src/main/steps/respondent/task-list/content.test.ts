@@ -51,7 +51,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/keep-details-private/details_known',
+              href: '/respondent/keep-details-private/details_known/' + mockUserCase.id,
               id: 'keep-your-details-private',
               status: 'TO_DO',
               text: 'Keep your details private',
@@ -85,7 +85,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/international-factors/start',
+              href: '/tasklistresponse/international-factors/start',
               id: 'check_details_of_your_court_hearings',
               status: 'TO_DO',
               text: 'Check details of your court hearings',

@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { SectionStatus } from '../../../app/case/definition';
+import { SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
@@ -42,8 +42,22 @@ describe('task-list > content', () => {
   });
   test.each([
     {
-      userCase: mockUserCase,
+      userCase: {
+        ...mockUserCase,
+        legalRepresentation: YesOrNo.NO,
+      },
       expected: [
+        {
+          title: 'Legal representation',
+          items: [
+            {
+              id: 'do_you_have_legal_representation',
+              text: 'Do you have a legal representative?',
+              status: 'COMPLETED',
+              href: '/tasklistresponse/legalrepresentation/start',
+            },
+          ],
+        },
         {
           title: 'Consent to the application',
           items: [
@@ -81,9 +95,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/tasklistresponse/miam/miam-start',
+              href: '/tasklistresponse/miam/miam-start/1234567',
               id: 'medation-miam',
-              status: 'IN_PROGRESS',
+              status: 'TO_DO',
               text: 'Mediation(MIAM)',
             },
             {
@@ -109,7 +123,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/tasklistresponse/international-factors/start',
+              href: '/tasklistresponse/international-factors/start/1234567',
               id: 'international-factors',
               status: 'TO_DO',
               text: 'International element',
@@ -121,6 +135,28 @@ describe('task-list > content', () => {
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {
     userCase.id = '1234567';
+    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
+    expect(taskListItems).toEqual(expected);
+  });
+
+  test.each([
+    {
+      userCase: mockUserCase,
+      expected: [
+        {
+          title: 'Legal representation',
+          items: [
+            {
+              id: 'do_you_have_legal_representation',
+              text: 'Do you have a legal representative?',
+              status: 'TO_DO',
+              href: '/tasklistresponse/legalrepresentation/start',
+            },
+          ],
+        },
+      ],
+    },
+  ])('should generate correct task list %#', ({ userCase, expected }) => {
     const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
     expect(taskListItems).toEqual(expected);
   });

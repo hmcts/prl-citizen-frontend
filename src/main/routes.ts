@@ -26,6 +26,10 @@ import RespondentConfirmContactDetailsPostController from './steps/respondent/co
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
+import { InternationalFactorsGetController } from './steps/tasklistresponse/international-factors/InternationalFactorsGetController';
+import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
+import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
+import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -49,7 +53,11 @@ import {
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
   HOME_URL,
+  INTERNATIONAL_FACTORS_SAVE,
+  INTERNATIONAL_FACTORS_START,
   MANAGE_DOCUMENTS_DOWNLOAD,
+  MIAM_SAVE,
+  MIAM_START,
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_CHECK_ANSWERS,
@@ -58,6 +66,7 @@ import {
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
+  RESPOND_TO_APPLICATION,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
   TIMED_OUT_URL,
@@ -85,6 +94,8 @@ export class Routes {
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
+    //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
+    app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -117,6 +128,12 @@ export class Routes {
       app.get(
         `${APPLICANT_CHECK_ANSWERS}/:caseId`,
         errorHandler(new ApplicantConfirmContactDetailsGetController(step.view, step.generateContent).get)
+      );
+
+      app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
+      app.get(
+        `${INTERNATIONAL_FACTORS_START}/:caseId`,
+        errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
       );
 
       if (step.form) {
@@ -162,6 +179,11 @@ export class Routes {
         app.post(
           `${APPLICANT_CONTACT_DETAILS_SAVE}`,
           errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.get(`${MIAM_SAVE}`, errorHandler(new MIAMPostController(step.form.fields).post));
+        app.get(
+          `${INTERNATIONAL_FACTORS_SAVE}`,
+          errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
       }
     }

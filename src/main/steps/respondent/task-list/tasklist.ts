@@ -9,7 +9,6 @@ import {
   getMiamStatus,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
-  getYourSafetyStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -79,17 +78,6 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.view_all_orders_from_the_court,
           status: getViewAllOrdersFromTheCourt(userCase),
           href: getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW' ? URL.RESPONDENT_ORDERS_FROM_THE_COURT : '#',
-        },
-      ],
-    },
-    {
-      title: sectionTitles.respondentSafetyConcerns,
-      items: [
-        {
-          id: 'your-safety',
-          text: taskListItems.your_safety,
-          status: getYourSafetyStatus(userCase),
-          href: URL.SAFETY_MAIN_PAGE,
         },
       ],
     },
