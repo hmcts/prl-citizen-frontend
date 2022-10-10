@@ -26,7 +26,9 @@ export const mockRequest: any = ({
       },
     },
     query: { ...query },
-    params: { ...params },
+    params: {
+      caseId: '1234244',
+    },
     session: {
       user: {
         accessToken: 'mock-user-access-token',
