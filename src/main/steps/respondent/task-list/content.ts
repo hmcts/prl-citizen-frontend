@@ -21,6 +21,8 @@ const en = () => ({
     [SectionStatus.TO_DO]: 'To Do',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
+    [SectionStatus.VIEW]: 'VIEW',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
@@ -122,6 +124,8 @@ const cy = () => ({
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: "barod i'w weld",
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
+    [SectionStatus.VIEW]: 'VIEW (in Welsh)',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
@@ -228,7 +232,12 @@ export const generateContent: TranslationFn = content => {
       : getFl401Banners(content.userCase, translations);
   return {
     ...translations,
-    sections: generateRespondentTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
+    sections: generateRespondentTaskList(
+      translations.sectionTitles,
+      translations.taskListItems,
+      content.userCase,
+      content.userIdamId
+    ),
     banners,
   };
 };

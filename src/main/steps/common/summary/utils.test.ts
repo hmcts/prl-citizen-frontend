@@ -51,7 +51,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/respondent/miam/miam-start',
+                    href: '/tasklistresponse/miam/miam-start',
                     text: 'Edit',
                     visuallyHiddenText: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
                   },
@@ -64,7 +64,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/respondent/consent-to-application',
+                    href: '/tasklistresponse/consent-to-application',
                     text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
                   },
@@ -77,7 +77,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/respondent/consent-to-application',
+                    href: '/tasklistresponse/consent-to-application',
                     text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
                   },
@@ -98,7 +98,7 @@ describe('common > summary > utils', () => {
         enContent.fieldType,
         'en'
       );
-      console.log(' result ======>' + JSON.stringify(result));
+      console.log(result);
       expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
         expected
       );
