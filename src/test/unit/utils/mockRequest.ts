@@ -9,7 +9,6 @@ export const mockRequest: any = ({
   userCase = {},
   appLocals = {},
   query = {},
-  params = {},
 } = {}): AppRequest =>
   ({
     headers: { 'accept-language': 'en', ...headers },
