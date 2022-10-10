@@ -17,6 +17,7 @@
           sessionNullFilesMessage: noFilesUploaded,
           removeText: remove,
           csrfToken: csrfToken
+          fileremoveURL : removeURL
         }
       ) }}
   -----------------------------------------------------------------------------------------
@@ -62,15 +63,15 @@
     </ul>
   </div> 
   {%else%}
-  {% if params.sessionFiles.id !== undefined %}
-  <ul id="filesUploaded" class="govuk-list">
-     <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
-          <dt class="govuk-summary-list__value"> {{ params.sessionFiles.filename }} </dt>
-          <dd class="govuk-summary-list__actions">
-          <a href="{{postURL}}?removeId={{params.sessionFiles.id}}" class="govuk-link--no-visited-state float-right ">{{ params.removeText }}</a>
-        </dd>
-        </li>
-    </ul>  
+  {% if params.sessionFiles.id !== undefined and params.sessionFiles.filename !== "" %}
+    <ul id="filesUploaded" class="govuk-list">
+      <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
+            <dt class="govuk-summary-list__value"> {{ params.sessionFiles.filename }} </dt>
+            <dd class="govuk-summary-list__actions">
+            <a href="{% if params.fileremoveURL != undefined %}{{params.fileremoveURL}}{% else %}{{postURL}}?removeId={{params.sessionFiles.id}}{% endif %}" class="govuk-link--no-visited-state float-right ">{{ params.removeText }}</a>
+          </dd>
+          </li>
+      </ul>  
    {%endif%}   
 {%endif%}
 
