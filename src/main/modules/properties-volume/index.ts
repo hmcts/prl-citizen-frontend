@@ -11,13 +11,14 @@ export class PropertiesVolume {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
-      this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
       this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
-      //this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
-      this.setSecret('secrets.prl.idam-solicitor-username', 'services.idam.systemUsername');
-      this.setSecret('secrets.prl.idam-solicitor-password', 'services.idam.systemPassword');
-      set(config, 'services.case.url', 'https://manage-case.aat.platform.hmcts.net/cases');
+      this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
+      this.setSecret('secrets.prl.system-update-user-password', 'services.idam.systemPassword');
+      this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
+      this.setSecret('secrets.prl.redis-access-key', 'session.redis.key');
+      this.setSecret('secrets.prl.redis-access-key', 'session.secret');
     } else {
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
       this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
@@ -32,9 +33,7 @@ export class PropertiesVolume {
       this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
       this.setLocalSecret('idam-solicitor-password', 'services.idam.systemPassword');
-      // this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
-      // this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
-      // this.setLocalEndpoints();
+      //this.setLocalEndpoints();
     }
   }
 
