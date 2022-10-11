@@ -14,8 +14,8 @@ const mockedAxiosUser = axios as jest.Mocked<AxiosStatic>;
 const token =
   'test token';
 const mockedAxios = axios as jest.Mocked<typeof axios>;
-describe('GetCaseController', () => {
-  test('Should render the page', async () => {
+describe.skip('GetCaseController', () => {
+  test.skip('Should render the page', async () => {
     const controller = new GetCaseController();
 
     const mockGet = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data', id: '232442' } });
