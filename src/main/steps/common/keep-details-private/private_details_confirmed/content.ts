@@ -6,7 +6,6 @@ const en = {
   line1: 'You have told us you want to keep these contact details private',
   address: 'Address',
   email: 'Email',
-  phoneNumber: 'Phone Number',
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
@@ -18,7 +17,6 @@ const cy: typeof en = {
   line1: 'You have told us you want to keep these contact details private',
   address: 'Address',
   email: 'Email',
-  phoneNumber: 'Phone Number',
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',

@@ -1,9 +1,0 @@
-{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
-
-{{ govukFileUpload({
-  id: field.id if field.id else fieldName,
-  name: fieldName,  
-  label: {
-    text: getContent(field.label) if not field.labelHidden else ""
-  },
-}) }}

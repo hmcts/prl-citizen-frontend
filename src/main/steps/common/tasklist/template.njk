@@ -16,12 +16,12 @@
 
 {% macro taskStatus(item) %}
   {% set statusClass = "" %}
-  {%if item.status == 'IN_PROGRESS' or item.status == 'READY_TO_VIEW' %}
+  {%if item.status == 'IN_PROGRESS' %}
     {% set statusClass = "govuk-tag--blue" %}
-  {% elif item.status == 'TO_DO' or item.status == 'CAN_NOT_START_YET' or item.status == 'NOT_AVAILABLE_YET' %}
-    {% set statusClass = "govuk-tag--grey"%}
-  {% elif item.status == 'COMPLETED' or item.status == 'DOWNLOAD' %}
+    {% elif item.status == 'COMPLETED' or item.status == 'DOWNLOAD' %}
     {% set statusClass = "govuk-tag--green"%}
+  {% elif item.status == 'TO_DO' or item.status == 'CAN_NOT_START_YET' %}
+    {% set statusClass = "govuk-tag--grey"%}
   {% endif %}
   <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
 {% endmacro %}
@@ -40,7 +40,7 @@
 {% macro taskListSection(section, index) %}
   <li>
     <h2 class="app-task-list__section">
-      {{section.title}}
+      <span class="app-task-list__section-number">{{index}}. </span>{{section.title}}
     </h2>
     <ul class="app-task-list__items">
       {% for item in section.items %}
@@ -51,32 +51,25 @@
 {% endmacro %}
 
 {% block content %}
-  <div class="govuk-grid-column-full">
-    {% block columnFull %}{% endblock %}
-  </div>
+  <div class="govuk-grid-column-full"></div>
   <div class="govuk-grid-row">
+
     <div class="govuk-grid-column-two-thirds">
-      {% block twoThird %}
-        <h1 class="govuk-heading-xl">
-          {{title}}
-        </h1>
+      <h1 class="govuk-heading-xl">
+        {{title}}
+      </h1>
 
-        {% block progressBar %}{% endblock %}
-        {% block notificationBanner %}{% endblock %}
-        {% block caseDetails %}{% endblock %}
+      {% block progressBar %}{% endblock %}
+      {% block notificationBanner %}{% endblock %}
 
-        <ol class="app-task-list">
-          {% for section in sections %}
-            {{ taskListSection(section, loop.index) }}
-          {% endfor %}
-        </ol>
-      {% endblock %}
-      
+      <ol class="app-task-list">
+        {% for section in sections %}
+          {{ taskListSection(section, loop.index) }}
+        {% endfor %}
+      </ol>
     </div>
     <div class="govuk-grid-column-one-third">
-      {% block oneThird %}
            {% include "../contact-us.njk" %}
-      {% endblock %}
     </div>
 
   </div>

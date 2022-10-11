@@ -10,21 +10,20 @@ export const enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    citizenUserFullName: 'Name',
-    citizenUserDateOfBirthText: 'Date of birth',
-    citizenUserPlaceOfBirthText: 'Place of birth',
+    applicant1FullName: 'Name',
+    applicant1DateOfBirthText: 'Date of birth',
+    applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
-    citizenUserPhoneNumberText: 'Phone number',
-    citizenUserEmailAddressText: 'Email',
-    applicant1SafeToCall: 'When it is safe to call you (optional)',
+    applicant1PhoneNumber: 'Phone number',
+    applicant1EmailAddress: 'Email',
   },
   errors: {},
 };
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const dob = userCase.citizenUserDateOfBirth;
+  const dob = userCase.applicant1DateOfBirth;
   if (typeof dob !== 'string') {
     getFormattedDate(dob);
   }
@@ -42,47 +41,44 @@ const cyContent: typeof enContent = {
     applicationDetails: 'Manylion y cais',
   },
   keys: {
-    citizenUserFullName: 'Name',
-    citizenUserDateOfBirthText: 'Date of birth',
-    citizenUserPlaceOfBirthText: 'Place of birth',
+    applicant1FullName: 'Name',
+    applicant1DateOfBirthText: 'Date of birth',
+    applicant1PlaceOfBirthText: 'Place of birth',
     address: 'Address',
     addressHistory: 'Address history',
-    citizenUserPhoneNumberText: 'Phone number',
-    citizenUserEmailAddressText: 'Email',
-    applicant1SafeToCall: 'When it is safe to call you (optional)',
+    applicant1PhoneNumber: 'Phone number',
+    applicant1EmailAddress: 'Email',
   },
   errors: {},
 };
 
 const urls = {
-  citizenUserFullName: 'personaldetails',
-  citizenUserDateOfBirthText: 'personaldetails',
-  citizenUserPlaceOfBirthText: 'personaldetails',
+  applicant1FullName: 'personaldetails',
+  applicant1DateOfBirthText: 'personaldetails',
+  applicant1PlaceOfBirthText: 'personaldetails',
   address: 'addressdetails',
   addressHistory: 'addresshistory',
-  citizenUserPhoneNumberText: 'contactdetails',
-  citizenUserEmailAddressText: 'contactdetails',
-  applicant1SafeToCall: 'contactdetails',
+  applicant1PhoneNumber: 'contactdetails',
+  applicant1EmailAddress: 'contactdetails',
 };
 const fieldType = {
-  citizenUserFullName: 'String',
-  citizenUserDateOfBirthText: 'String',
-  citizenUserPlaceOfBirthText: 'String',
+  applicant1FullName: 'String',
+  applicant1DateOfBirthText: 'String',
+  applicant1PlaceOfBirthText: 'String',
   address: 'String',
   addressHistory: 'String',
-  citizenUserPhoneNumberText: 'String',
-  citizenUserEmailAddressText: 'String',
-  applicant1SafeToCall: 'String',
+  applicant1PhoneNumber: 'String',
+  applicant1EmailAddress: 'String',
 };
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const dob = userCase.citizenUserDateOfBirth;
+  const dob = userCase.applicant1DateOfBirth;
   if (dob !== null && dob !== undefined && typeof dob !== 'string') {
     getFormattedDate(dob);
   }
-  //userCase.citizenUserDateOfBirthText = getFormattedDate(userCase.citizenUserDateOfBirth);
-  //console.log("userCase.citizenUserDateOfBirthText====>"+userCase.citizenUserDateOfBirthText);
+  //userCase.applicant1DateOfBirthText = getFormattedDate(userCase.applicant1DateOfBirth);
+  //console.log("userCase.applicant1DateOfBirthText====>"+userCase.applicant1DateOfBirthText);
   return {
     ...cyContent,
     language: content.language,

@@ -22,6 +22,7 @@ export const getTokenFromApi = async (): Promise<string> => {
   } catch (err) {
     logger.error('Error in refreshing service auth token ', err.message, err.response?.status, err.response?.data);
   }
+
   return token;
 };
 

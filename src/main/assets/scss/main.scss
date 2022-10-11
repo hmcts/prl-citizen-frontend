@@ -9,6 +9,14 @@
 .hmcts-button-link,
 .uppy-FileInput-btn {
   @extend %govuk-body-m;
+  @extend %govuk-link;
+  @include govuk-link-style-default;
+  background: none;
+  color: $govuk-link-colour;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
 }
 section {
   margin-bottom: 2em;
@@ -70,11 +78,6 @@ section {
   top: 13px;
   width: 100%;
 }
-
-.float-right {
-  float: right !important;
-}
-
 .app-inverted--card {
   margin-top: -15px;
   margin-left: 0;
@@ -119,4 +122,5 @@ section {
       font-size: 24px;
       font-size: 1.5rem;
   }
+
 }

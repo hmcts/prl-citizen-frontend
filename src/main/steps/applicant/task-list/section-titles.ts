@@ -1,10 +1,7 @@
 export const applicant_en = {
-  applicantYourDetails: 'About you',
+  aboutYou: 'About you',
   yourApplication: 'Your application',
-  applicationDetails: 'Application detail',
-  viewAllDocuments: 'Your documents',
-  ordersFromTheCourt: 'Orders from the court',
   courtHearings: 'Your court hearings',
+  ordersFromCourt: 'Orders from the court',
   yourDocuments: 'Your documents',
-  theResponse: 'response',
 };

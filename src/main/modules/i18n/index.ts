@@ -1,8 +1,4 @@
 import { Application } from 'express';
-export enum SupportedLanguages {
-  En = 'en',
-  Cy = 'cy',
-}
 
 /**
  * Module that enables toggling between languages
