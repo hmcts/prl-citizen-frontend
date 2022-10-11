@@ -80,6 +80,7 @@ import {
   C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
+  C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -502,5 +503,10 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+  },
+  {
+    url: C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
   },
 ];
