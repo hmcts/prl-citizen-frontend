@@ -69,6 +69,7 @@ import {
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_GET_MEDIATOR,
   PageLink,
+  C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -455,5 +456,10 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_GET_MEDIATOR,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_GET_MEDIATOR,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED,
   },
 ];

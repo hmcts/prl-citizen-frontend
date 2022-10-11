@@ -1,5 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -40,13 +42,23 @@ describe('miam->Are the children involved in any emergency protection, care or s
     const applyingWithField = fields.miam_otherProceedings as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
+    expect((applyingWithField.hint as LanguageLookup)(generatedContent)).toBe(en.localAuthority);
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
+    expect(applyingWithField.values[0].value).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    expect(applyingWithField.values[1].value).toBe(en.two);
+    (applyingWithField.validator as Validator)(YesOrNo.YES);
+    expect(isFieldFilledIn).toHaveBeenCalledWith(YesOrNo.YES);
   });
 
   test('should contain Continue button', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+  test('should contain SaveAndComeLater button', () => {
+    expect(
+      (form.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

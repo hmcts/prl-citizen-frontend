@@ -36,8 +36,6 @@ export const form: FormContent = {
     miam_mediatorDocument: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
-      section: l => l.section,
       values: [
         {
           label: l => l.one,

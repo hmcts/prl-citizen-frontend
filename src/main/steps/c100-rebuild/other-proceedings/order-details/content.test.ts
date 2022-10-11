@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { C100OrderTypes } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
-//import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent, generateFormFields, getOrderSessionDataShape } from './content';
@@ -169,25 +169,47 @@ describe('other proceedings > order-details > content', () => {
     } = fieldset.subFields as FormFields;
 
     expect(fieldset.type).toBe('fieldset');
+    expect(fieldset.classes).toBe('govuk-fieldset__legend--m');
     expect((fieldset.label as Function)(generatedContent)).toBe(`${en.careOrderLabel}`);
 
     expect(orderDetail.type).toBe('text');
     expect((orderDetail.label as Function)(generatedContent)).toBe(en.courtIssuedLabel);
 
     expect(caseNo.type).toBe('text');
+    expect(caseNo.classes).toBe('govuk-!-width-one-half');
     expect((caseNo.label as Function)(generatedContent)).toBe(en.caseNumberLabel);
+    expect((caseNo.hint as Function)(generatedContent)).toBe(en.caseNumberHint);
 
     expect(orderDate.type).toBe('date');
+    expect(orderDate.classes).toBe('govuk-date-input');
     expect((orderDate.label as Function)(generatedContent)).toBe(en.orderDateLabel);
+    expect((orderDate.hint as Function)(generatedContent)).toBe(en.orderDateHint);
+    (orderDate.validator as Validator)('localAuthority');
+    expect(areDateFieldsFilledIn).toHaveBeenCalledWith('localAuthority');
+
+    (orderDate.validator as Validator)('check');
+    expect(isDateInputInvalid).toHaveBeenCalledWith('check');
+
+    (orderDate.validator as Validator)('check');
+    expect(isFutureDate).toHaveBeenCalledWith('check');
 
     expect(currentOrder.type).toBe('radios');
     expect((currentOrder.label as Function)(generatedContent)).toBe(en.isCurrentOrderLabel);
 
     expect(orderEndDate.type).toBe('date');
+    expect(orderEndDate.classes).toBe('govuk-date-input');
     expect((orderEndDate.label as Function)(generatedContent)).toBe(en.orderEndDateLabel);
+    expect((orderEndDate.hint as Function)(generatedContent)).toBe(en.orderDateHint);
+
+    (orderEndDate.validator as Validator)('check');
+    expect(isDateInputInvalid).toHaveBeenCalledWith('check');
+    (orderEndDate.validator as Validator)('localAuthority');
+    expect(areDateFieldsFilledIn).toHaveBeenCalledWith('localAuthority');
 
     expect(orderCopy.type).toBe('radios');
-    expect((orderCopy.label as Function)(generatedContent)).toBe(en.copyOfOrderLabel);
+    expect(orderCopy.classes).toBe('govuk-radios--inline');
+    expect(orderCopy.labelSize).toBe('s');
+    expect((orderCopy?.label as Function)(generatedContent)).toBe(en.copyOfOrderLabel);
 
     expect(addOrder.type).toBe('button');
     expect((addOrder.label as Function)(generatedContent)).toBe(en.addOrderLabel);
