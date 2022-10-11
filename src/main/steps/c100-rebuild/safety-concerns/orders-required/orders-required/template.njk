@@ -1,0 +1,22 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block page_content %}
+<span class="govuk-caption-xl govuk-!-margin-top-7">{{caption}}</span>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{title}}</h1>
+<p class="govuk-body-l">{{paragraph}}</p>
+
+{% set descriptionSentence = ""%}
+
+{% for item in detailsParagraphs %}
+    {% set descriptionSentence = descriptionSentence + "<p>" + item + "</p>"%}
+{% endfor %}
+
+{% set descriptionParagraph = "<div class='govuk-body'>" + descriptionSentence + "</div>" %}
+
+{{ govukDetails({
+  summaryText: detailsDescription,
+  text: descriptionParagraph  | safe
+}) }}
+
+{% endblock %}
