@@ -134,10 +134,6 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
-  onlyContinue?: {
-    text: Label;
-    classes?: string;
-  };
   onlycontinue?: {
     text: Label;
     classes?: string;

@@ -7,7 +7,7 @@
 // import { AppRequest } from '../../../../app/controller/AppRequest';
 // import { CommonContent } from '../../../../steps/common/common.content';
 // import ConfirmContactDetailsGetController from '../../../../steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsGetController';
-import { RespondentConfirmContactDetailsGetController } from './RespondentConfirmContactDetailsGetController';
+import RespondentConfirmContactDetailsGetController from './RespondentConfirmContactDetailsGetController';
 jest.mock('autobind-decorator');
 jest.mock('express');
 jest.mock('../../../../app/case/case');
@@ -19,17 +19,7 @@ describe('RespondentConfirmContactDetailsGetController', () => {
   let controller;
 
   beforeEach(() => {
-    const languages = {
-      en: {
-        text: 'english',
-      },
-      cy: {
-        text: 'welsh',
-      },
-    };
-    //const userEmail = 'test@example.com';
-    const generateContent = content => languages[content.language];
-    controller = new RespondentConfirmContactDetailsGetController('page', generateContent);
+    controller = new RespondentConfirmContactDetailsGetController();
   });
 
   test('should extend RespondentConfirmContactDetailsGetController', async () => {

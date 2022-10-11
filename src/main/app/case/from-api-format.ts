@@ -2,9 +2,8 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
-import { Case, CaseDate, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, YesOrNo } from './definition';
-import { fromApiApplicant1 as uploadedFilesFromApiApplicant1 } from './formatter/uploaded-files';
 
 dayjs.extend(advancedFormat);
 
@@ -20,9 +19,8 @@ const checkboxConverter = (value: string | undefined) => {
 console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
-  orderCollection: uploadedFilesFromApiApplicant1,
-  // citizenUserDateOfBirth: data => ({
-  //   citizenUserDateOfBirth: fromApiDate(data.citizenUserDateOfBirth),
+  // applicant1DateOfBirth: data => ({
+  //   applicant1DateOfBirth: fromApiDate(data.applicant1DateOfBirth),
   // }),
   // applicant1AdditionalNames: data => ({
   //   applicant1AdditionalNames: data.applicant1AdditionalNames?.map(item => ({ id: item.id, ...item.value })),
@@ -63,8 +61,8 @@ const fields: FromApiConverters = {
   // dateChildMovedIn: data => ({
   //   dateChildMovedIn: fromApiDate(data.dateChildMovedIn),
   // }),
-  // citizenUserDateOfBirth: data => ({
-  //   citizenUserDateOfBirth: fromApiDate(data.citizenUserDateOfBirth),
+  // applicant1DateOfBirth: data => ({
+  //   applicant1DateOfBirth: fromApiDate(data.applicant1DateOfBirth),
   // }),
   // applicant2DateOfBirth: data => ({
   //   applicant2DateOfBirth: fromApiDate(data.applicant2DateOfBirth),
@@ -90,9 +88,9 @@ const fields: FromApiConverters = {
   // }),
 };
 
-export const fromApiDate = (date: string | undefined): CaseDate => {
+const fromApiDate = date => {
   if (!date) {
-    return { year: '', month: '', day: '' };
+    return;
   }
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [y, m, d] = date.split('-');

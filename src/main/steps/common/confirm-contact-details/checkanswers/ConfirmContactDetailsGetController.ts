@@ -1,94 +1,97 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { getCaseApi } from '../../../../app/case/CaseApi';
 import { Case } from '../../../../app/case/case';
-import { Applicant, CONFIDENTIAL_DETAILS, Respondent } from '../../../../app/case/definition';
+import { CONFIDENTIAL_DETAILS } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
-import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
+import { getFormattedDate } from '../../../common/summary/utils';
+import { CommonContent } from '../../common.content';
 
-import { getContactDetails } from './ContactDetailsMapper';
+import { generateContent } from './content';
 
+export type PageContent = Record<string, unknown>;
+export type TranslationFn = (content: CommonContent) => PageContent;
 @autobind
-export class ConfirmContactDetailsGetController extends GetController {
+export default class ConfirmContactDetailsGetController extends GetController {
+  constructor() {
+    super(__dirname + '/template', generateContent);
+  }
+
   public async get(req: AppRequest, res: Response): Promise<void> {
-    const loggedInCitizen = req.session.user;
-    const caseReference = req.session.userCase.id;
+    const redirect = false;
 
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
-
-    const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
-    Object.assign(req.session.userCase, caseDataFromCos);
-
-    if (req.session.userCase.caseTypeOfApplication === 'C100') {
-      if (req.url.includes('respondent')) {
-        req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-          if (respondent?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(req.session.userCase, getContactDetails(respondent.value, req));
-          }
-        });
-      } else {
-        req.session.userCase?.respondents?.forEach((applicant: Applicant) => {
-          if (applicant?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(req.session.userCase, getContactDetails(applicant.value, req));
-          }
-        });
-      }
-    } else {
-      if (req.url.includes('respondent')) {
-        Object.assign(req.session.userCase, getContactDetails(req.session.userCase.respondentsFL401!, req));
-      } else {
-        Object.assign(req.session.userCase, getContactDetails(req.session.userCase.applicantsFL401!, req));
-      }
+    if (req.session?.user) {
+      res.locals.isLoggedIn = true;
+      req.locals.api = getCaseApi(req.session.user, req.locals.logger);
     }
 
-    const redirectUrl = setRedirectUrl(req);
+    if (!req.session.userCase.applicant1FirstNames || !req.session.userCase.applicant1LastNames) {
+      req.session.userCase.applicant1FullName = '';
+    } else {
+      req.session.userCase.applicant1FullName =
+        req.session.userCase.applicant1FirstNames + ' ' + req.session.userCase.applicant1LastNames;
+    }
 
-    req.session.save(() => res.redirect(redirectUrl));
+    if (!req.session.userCase.applicant1PlaceOfBirth) {
+      req.session.userCase.applicant1PlaceOfBirthText = '';
+    } else {
+      req.session.userCase.applicant1PlaceOfBirthText = req.session.userCase.applicant1PlaceOfBirth;
+    }
+
+    if (!req.session.userCase.applicant1DateOfBirthText) {
+      req.session.userCase.applicant1DateOfBirthText = '';
+    } else {
+      req.session.userCase.applicant1DateOfBirthText = getFormattedDate(req.session.userCase.applicant1DateOfBirth);
+    }
+
+    //console.log("48 applicant1DateOfBirthText: "+ req.session.userCase.applicant1DateOfBirthText);
+
+    req.session.userCase.applicant1Address1 = 'Flat 100';
+    req.session.userCase.applicant1Address2 = 'Plashet Grove';
+    req.session.userCase.applicant1AddressTown = 'London';
+    req.session.userCase.applicant1PhoneNumber = '';
+    req.session.userCase.applicant1EmailAddress = '';
+
+    validateDataCompletion(req);
+
+    getConfidentialData(req);
+
+    const callback = redirect ? undefined : () => super.get(req, res);
+    super.saveSessionAndRedirect(req, res, callback);
   }
 }
 
 const fieldsArray: string[] = [
-  'citizenUserFullName',
-  'citizenUserPlaceOfBirthText',
+  'applicant1FullName',
+  'applicant1PlaceOfBirthText',
   'applicant1Address1',
   'applicant1Address2',
   'applicant1AddressTown',
-  'citizenUserPhoneNumberText',
-  'citizenUserEmailAddressText',
-  'applicant1SafeToCall',
-  'citizenUserDateOfBirthText',
+  'applicant1PhoneNumber',
+  'applicant1EmailAddress',
+  'applicant1DateOfBirthText',
 ];
 
-function setRedirectUrl(req: AppRequest<Partial<Case>>) {
-  let redirectUrl = '';
-
-  if (req.url.includes('respondent')) {
-    redirectUrl = RESPONDENT_CHECK_ANSWERS;
-  } else {
-    redirectUrl = APPLICANT_CHECK_ANSWERS;
-  }
-  return redirectUrl;
-}
-
-export const validateDataCompletion = (req: AppRequest<Partial<Case>>): void => {
+function validateDataCompletion(req: AppRequest<Partial<Case>>) {
   for (const key in req.session.userCase) {
     if (fieldsArray.includes(key)) {
       const value = req.session.userCase[`${key}`];
+      // console.log("key is: "+key+", value is : "+value+", type of value is: "+typeof(value));
       if (typeof value === 'string' && (value === null || value === undefined || value.trim() === '')) {
         req.session.userCase[`${key}`] = '<span class="govuk-error-message">Complete this section</span>';
       }
     }
   }
-};
+}
 
 const privateFieldsMap = new Map<string, string>([
-  ['email', 'citizenUserEmailAddressText'],
-  ['phoneNumber', 'citizenUserPhoneNumberText'],
+  ['email', 'applicant1EmailAddress'],
+  ['phone', 'applicant1PhoneNumber'],
 ]);
 
-export const getConfidentialData = (req: AppRequest<Partial<Case>>): void => {
+function getConfidentialData(req: AppRequest<Partial<Case>>) {
   for (const [key, value] of privateFieldsMap) {
     if (req.session.userCase?.detailsKnown && req.session.userCase?.startAlternative) {
       if (req.session.userCase.contactDetailsPrivate?.length !== 0) {
@@ -108,4 +111,4 @@ export const getConfidentialData = (req: AppRequest<Partial<Case>>): void => {
       );
     }
   }
-};
+}

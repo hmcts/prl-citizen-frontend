@@ -36,6 +36,7 @@ export const mockRequest: any = ({
     params: { ...params },
     session: {
       user: {
+        id: '123456',
         accessToken: 'mock-user-access-token',
         name: 'test',
         givenName: 'First name',

@@ -10,7 +10,7 @@ const en = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  onlyContinue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
@@ -26,7 +26,7 @@ const cy: typeof en = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  onlyContinue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
@@ -49,22 +49,22 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.one,
-          value: 'yes',
+          value: 'Yes',
         },
         {
           label: l => l.two,
-          value: 'no',
+          value: 'No',
         },
         {
           label: l => l.three,
-          value: 'dontKnow',
+          value: 'I',
         },
       ],
       validator: isFieldFilledIn,
     },
   },
-  onlyContinue: {
-    text: l => l.onlyContinue,
+  submit: {
+    text: l => l.continue,
   },
 };
 
