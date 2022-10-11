@@ -10,7 +10,7 @@ export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const CITIZEN_HOME_URL: PageLink = '/citizen-home';
 export const SERVICE_TYPE: PageLink = '/service-type';
-export const DASHBOARD_URL: PageLink = '/dashboard';
+export const DASHBOARD_URL: PageLink = '/dashboard-v1';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
 export const PRL_CASE_URL: PageLink = '/prl-cases';
 
@@ -254,3 +254,106 @@ export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = '/tasklistrespons
 export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
   '/tasklistresponse/legalrepresentation/solicitornotdirect';
 export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
+
+/**   @C100 features */
+/* This is a route for the C100 application. */
+export const C100_URL: PageLink = '/c100-rebuild';
+export const C100_START: PageLink = `${C100_URL}/start`;
+export const C100_CHILD_ADDRESS: PageLink = `${C100_URL}/childaddress`;
+
+export const C100_CREATE_APPLICATION: PageLink = `${C100_URL}/create-application`;
+export const C100_CONFIRMATIONPAGE: PageLink = `${C100_URL}/confirmation-page`;
+export const C100_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/confidentiality/details-know`;
+export const C100_CONFIDENTIALITY_START: PageLink = `${C100_URL}/confidentiality/start`;
+export const C100_CONFIDENTIALITY_START_ALTERNATIVE: PageLink = `${C100_URL}/confidentiality/start-alternative`;
+export const C100_CONFIDENTIALITY_FEEDBACK: PageLink = `${C100_URL}/confidentiality/feedback`;
+export const C100_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_URL}/confidentiality/feedbackno`;
+export const C100_INTERNATIONAL_ELEMENTS_START: PageLink = `${C100_URL}/international-elements/start`;
+export const C100_INTERNATIONAL_ELEMENTS_PARENTS: PageLink = `${C100_URL}/international-elements/parents`;
+export const C100_INTERNATIONAL_ELEMENTS_JURISDICTION: PageLink = `${C100_URL}/international-elements/jurisdiction`;
+export const C100_INTERNATIONAL_ELEMENTS_REQUEST: PageLink = `${C100_URL}/international-elements/request`;
+export const C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT: PageLink = `${C100_URL}/reasonable-adjustments/attending-court`;
+export const C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS: PageLink = `${C100_URL}/reasonable-adjustments/language-requirements`;
+export const C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS: PageLink = `${C100_URL}/reasonable-adjustments/special-arrangements`;
+export const C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements`;
+export const C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/support-court`;
+export const C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/document-information`;
+export const C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/communication-help`;
+export const C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/feel-comfortable`;
+export const C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/travelling-court`;
+
+/** @c100 Hearing without notice */
+export const C100_HEARING_WITHOUT_NOTICE_PART1: PageLink = `${C100_URL}/hearing-without-notice/hearing-part1`;
+export const C100_HEARING_WITHOUT_NOTICE_PART2: PageLink = `${C100_URL}/hearing-without-notice/hearing-part2`;
+
+/** @C100 Type of order */
+export const C100_TYPE_ORDER_SELECT_COURT_ORDER: PageLink = `${C100_URL}/typeoforder/select-courtorder`;
+export const C100_TYPE_ORDER_CAORDER: PageLink = `${C100_URL}/typeoforder/caorder`;
+export const C100_TYPE_ORDER_SHORT_STATEMENT: PageLink = `${C100_URL}/typeoforder/shortstatement`;
+
+/** @C100 Other proceedings */
+export const C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS: PageLink = `${C100_URL}/other-proceedings/current-previous-proceedings`;
+export const C100_OTHER_PROCEEDINGS_DETAILS: PageLink = `${C100_URL}/other-proceedings/proceeding-details`;
+export const C100_OTHER_PROCEEDINGS_ORDER_DETAILS: PageLink = `${C100_URL}/other-proceedings/order-details`;
+export const C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${C100_URL}/other-proceedings/documentUpload`;
+export const C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY: PageLink = `${C100_URL}/other-proceedings/document-summary`;
+
+/** @C100 Help with Fees */
+export const C100_HELP_WITH_FEES: PageLink = `${C100_URL}/help-with-fees`;
+export const C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES: PageLink = `${C100_HELP_WITH_FEES}/need-help-with-fees`;
+export const C100_HELP_WITH_FEES_FEES_APPLIED: PageLink = `${C100_HELP_WITH_FEES}/fees-applied`;
+export const C100_HELP_WITH_FEES_HWF_GUIDANCE: PageLink = `${C100_HELP_WITH_FEES}/hwf-guidance`;
+
+/** @C100 Children Details */
+export const C100_CHILDERN_DETAILS: PageLink = `${C100_URL}/child-details`;
+export const C100_CHILDERN_DETAILS_ADD: PageLink = `${C100_CHILDERN_DETAILS}/add-childern`;
+export const C100_CHILDERN_DETAILS_PERSONAL_DETAILS: PageLink = `${C100_CHILDERN_DETAILS}/personal-details`;
+export const C100_CHILDERN_DETAILS_CHILD_MATTERS: PageLink = `${C100_CHILDERN_DETAILS}/child-matters`;
+export const C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: PageLink = `${C100_CHILDERN_DETAILS}/parental-responsibility`;
+export const C100_CHILDERN_FURTHER_INFORMATION: PageLink = `${C100_CHILDERN_DETAILS}/further-information`;
+
+/** @C100  Payment Handler*/
+export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
+export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
+export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback/:paymentId/:status';
+
+/** @C100 Rebuild C1A Safety Concerns */
+export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
+export const C100_C1A_SAFETY_CONCERNS_CHILD: PageLink = `${C100_URL}/safety-concerns/child`;
+export const C100_C1A_SAFETY_CONCERNS_APPLICANT: PageLink = `${C100_URL}/safety-concerns/applicant`;
+export const C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-guidance`;
+export const C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-about`;
+export const C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concerns-for-safety`;
+export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink = `${C100_C1A_SAFETY_CONCERNS_CHILD}/concerns-about`;
+export const C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink = `${C100_C1A_SAFETY_CONCERNS_CHILD}/report-abuse`;
+export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: PageLink = `${C100_C1A_SAFETY_CONCERNS_APPLICANT}/concerns-about`;
+export const C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink = `${C100_C1A_SAFETY_CONCERNS_APPLICANT}/report-abuse`;
+export const C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/drugs`;
+/** @C100 Document Submission */
+export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
+
+/** @C100 MIAM */
+export const C100_MIAM: PageLink = `${C100_URL}/miam`;
+export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/other-proceedings`;
+export const C100_MIAM_MEDIATOR_DOCUMENT: PageLink = `${C100_MIAM}/mediator-document`;
+export const C100_MIAM_CHILD_PROTECTION: PageLink = `${C100_MIAM}/child-protection`;
+export const C100_MIAM_ATTENDANCE: PageLink = `${C100_MIAM}/attendance`;
+export const C100_MIAM_MEDIATOR_CONFIRMAION: PageLink = `${C100_MIAM}/mediator-confirmation`;
+export const C100_MIAM_UPLOAD_CONFIRMATION: PageLink = `${C100_MIAM}/upload-confirmation`;
+export const C100_MIAM_URGENCY: PageLink = `${C100_MIAM}/urgency`;
+export const C100_MIAM_PREVIOUS_ATTENDANCE: PageLink = `${C100_MIAM}/previous-attendance`;
+export const C100_MIAM_INFO: PageLink = `${C100_MIAM}/miam-info`;
+export const C100_MIAM_VALID_REASON: PageLink = `${C100_MIAM}/valid-reason`;
+export const C100_MIAM_NONEED: PageLink = `${C100_MIAM}/no-need`;
+export const C100_MIAM_OTHER: PageLink = `${C100_MIAM}/miam-other`;
+export const C100_MIAM_MIAM_DOMESTIC_ABUSE: PageLink = `${C100_MIAM}/domestic-abuse`;
+export const C100_MIAM_GENERAL_REASONS: PageLink = `${C100_MIAM}/general-reasons`;
+export const C100_MIAM_GET_MEDIATOR: PageLink = `${C100_MIAM}/get-mediator`;
+export const C100_MIAM_UPLOAD: PageLink = `${C100_MIAM}/upload`;
+export const C100_MIAM_GET_DOC: PageLink = `${C100_MIAM}/get-doc`;
+export const C100_MIAM_NO_NEED_WITH_REASONS: PageLink = `${C100_MIAM}/no-need-with-reasons`;
+
+/** @C100 Urgency */
+export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/hearing-urgency`;
+export const C100_HEARING_URGENCY_URGENT: PageLink = `${C100_HEARING_URGENCY}/urgent`;
+export const C100_HEARING_URGENCY_URGENT_DETAILS: PageLink = `${C100_HEARING_URGENCY}/urgent-details`;

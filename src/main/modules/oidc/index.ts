@@ -2,11 +2,13 @@ import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
 import { getCaseDetails, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { caseApi } from '../../app/case/C100CaseApi';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
+// eslint-disable-next-line sort-imports
+import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL, DASHBOARD_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -31,7 +33,7 @@ export class OidcMiddleware {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
           console.log('*****Logged in user is: ' + req.session.user.email);
           console.log('*****Redirecting to dashboard');
-          req.session.save(() => res.redirect('/dashboard'));
+          req.session.save(() => res.redirect(DASHBOARD_URL));
         } else {
           console.log('***** Finding path');
           if (!req.session?.accessCodeLoginIn) {
@@ -57,6 +59,7 @@ export class OidcMiddleware {
           console.log('***** User login success');
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
+          req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
 
           if (req.session.userCase) {
             console.log('****** inside oidc, user case found');
@@ -101,6 +104,17 @@ export class OidcMiddleware {
           }
           console.log('****** inside oidc, trying to get the cases');
           req.session.userCaseList = await getCaseDetails(req);
+          // TODO - TO BE REMOVED ONCE C100 CHILDREN REFACTORING IS COMPLETE
+          if (!req.session.settings) {
+            req.session.settings = {
+              toggleChild: 0,
+              ListOfChild: [],
+              childTemporaryFormData: {
+                TempFirstName: '',
+                TempLastName: '',
+              },
+            };
+          }
           return next();
         } else {
           console.log('****** login failed, no user details found');

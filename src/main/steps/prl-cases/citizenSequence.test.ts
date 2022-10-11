@@ -6,10 +6,10 @@ describe('applicant1Sequence', () => {
 
     expect(citizenSequence[0].url).toBe('/citizen-home');
     expect(citizenSequence[0].showInSection).toBe('aboutEdgeCase');
-    expect(citizenSequence[0].getNextStep({})).toBe('/dashboard');
+    expect(citizenSequence[0].getNextStep({})).toBe('/dashboard-v1');
 
-    expect(citizenSequence[1].url).toBe('/dashboard');
+    expect(citizenSequence[1].url).toBe('/dashboard-v1');
     expect(citizenSequence[1].showInSection).toBe('aboutEdgeCase');
-    expect(citizenSequence[1].getNextStep({})).toBe('/dashboard');
+    expect(citizenSequence[1].getNextStep({})).toBe('/dashboard-v1');
   });
 });

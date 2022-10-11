@@ -53,6 +53,13 @@ import {
   YesNoDontKnow,
   YesOrNo,
   orderInterface,
+  //C100 Rebuild
+  // eslint-disable-next-line sort-imports
+  C100DocumentInfo,
+  C100OrderTypes,
+  C1ASafteyConcerns,
+  MiamNonAttendReason,
+  OtherProceedings,
   //DocumentType,
 } from './definition';
 
@@ -464,9 +471,53 @@ export interface Case {
 
   citizenRole?: FieldPrefix;
   legalRepresentation?: YesOrNo;
+
+  //C100 Rebuild
+  contactDetailsPrivateAlternative?: string;
+  c100ApplicationFees?: string;
+  ra_disabilityRequirements?: string[];
+  needHelpWithFees?: YesOrNo;
+  feesAppliedDetails?: YesOrNo;
+  caseId?: string;
+  c1A_haveSafetyConcerns?: YesOrNo;
+  op_courtProceedingsOrders?: C100OrderTypes[];
+  op_otherProceedings?: OtherProceedings;
+  c1A_safteyConcerns?: C1ASafteyConcerns;
+  miam_otherProceedings?: string;
+  miam_haveDocSigned?: string;
+  miam_consent?: string;
+  miam_attendance?: YesOrNo;
+  miam_validReason?: YesOrNo;
+  miam_certificate?: C100DocumentInfo;
+  miam_mediatorDocument?: YesOrNo;
+  miam_nonAttendanceReasons?: MiamNonAttendReason[];
+  miam_domesticAbuse?: string[];
+  miam_childProtectionEvidence?: string[];
+  miam_urgency?: string[];
+  miam_previousAttendance?: string[];
+  miam_notAttendingReasons?: string[];
+  hu_urgentHearingReasons?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
+  paymentSuccessDetails?: {
+    amount: string;
+    reference: string;
+    ccd_case_number: string;
+    case_reference: string;
+    channel: string;
+    method: string;
+    status: string;
+    external_reference: string;
+    payment_group_reference: string;
+  };
+  paymentDetails?: {
+    payment_reference: string;
+    date_created: string;
+    external_reference: string;
+    next_url: string;
+    status: string;
+  };
   id: string;
   state: State;
 }

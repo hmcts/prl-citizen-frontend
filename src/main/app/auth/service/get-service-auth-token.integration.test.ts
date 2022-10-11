@@ -32,7 +32,7 @@ describe('initAuthToken', () => {
     mockedAxios.post.mockResolvedValue('token');
 
     initAuthToken();
-    expect(mockedAxios.post).toHaveBeenCalledWith('http://rpe-service-auth-provider/lease', {
+    expect(mockedAxios.post).toHaveBeenCalledWith('http://rpe-service-auth-provider/testing-support/lease', {
       microservice: 'prl_citizen_frontend',
       oneTimePassword: expect.anything(),
     });

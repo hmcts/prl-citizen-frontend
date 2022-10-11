@@ -29,8 +29,11 @@ const en = {
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
   errorSummaryHeading: 'There is a problem on this page',
   saveAndSignOut: 'Save and sign out',
+  saveAndComeLater: 'Save and come back later',
+  goBack: 'Go back',
   saveAsDraft: 'Save as draft',
   onlyContinue: 'Continue',
+  onlycontinue: 'Continue',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -133,6 +136,8 @@ const cy: typeof en = {
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   errorSummaryHeading: 'There is a problem on this page (in welsh)',
   saveAndSignOut: 'Cadw ac allgofnodi',
+  saveAndComeLater: 'Save and come back later - welsh',
+  goBack: 'Go back - welsh',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
   signIn: 'Sign in (in welsh)',
@@ -186,6 +191,7 @@ const cy: typeof en = {
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
   onlyContinue: 'Continue (in welsh)',
+  onlycontinue: 'Continue (in welsh)',
 };
 
 export const generatePageContent = ({
@@ -200,6 +206,7 @@ export const generatePageContent = ({
   document_type,
   addresses = [],
   userIdamId,
+  additionalData,
 }: // eligibility,
 // fee,
 {
@@ -214,6 +221,7 @@ export const generatePageContent = ({
   name?: string;
   byApplicant?: string;
   userIdamId?: string;
+  additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -235,6 +243,7 @@ export const generatePageContent = ({
     byApplicant,
     userIdamId,
     // contactEmail,
+    additionalData,
     // eligibility,
     // fee,
   };
@@ -248,6 +257,11 @@ export const generatePageContent = ({
 
 const getServiceName = (translations: typeof en): string => {
   return capitalize(translations.applyForChildArrangements);
+};
+
+type CommonContentAdditionalData = {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  [key: string]: any;
 };
 
 export type CommonContent = typeof en & {
@@ -265,6 +279,7 @@ export type CommonContent = typeof en & {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   byApplicant?: string;
+  additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
   userIdamId?: string;

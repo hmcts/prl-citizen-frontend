@@ -4,7 +4,7 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { C100_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
@@ -38,6 +38,8 @@ export class PostController<T extends AnyObject> {
       await this.getCaseList(req, res, form, formData);
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
+    } else if (req.body.saveAndComeLater) {
+      await this.saveAndComeLater(req, res, formData);
     } else {
       //await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
@@ -63,7 +65,10 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    Object.assign(req.session.userCase, formData);
+    req.session.userCase = {
+      ...(req.session.userCase ?? {}),
+      ...formData,
+    };
     req.session.errors = form.getErrors(formData);
     console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
@@ -265,6 +270,25 @@ export class PostController<T extends AnyObject> {
     console.log('retrieved casedata for case : ' + caseDataFromCos);
 
     this.redirect(req, res);
+  }
+
+  /** Added for C100 Rebuild */
+  protected async saveAndComeLater(
+    req: AppRequest<T>,
+    res: Response,
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
+    formData: Partial<CaseWithId> | any
+  ): Promise<void> {
+    if (req.path.startsWith(C100_URL)) {
+      try {
+        Object.assign(req.session.userCase, formData);
+        await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
+      } finally {
+        this.redirect(req, res);
+      }
+    } else {
+      this.redirect(req, res);
+    }
   }
 }
 

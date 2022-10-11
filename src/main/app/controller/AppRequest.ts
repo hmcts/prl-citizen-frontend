@@ -2,8 +2,10 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
+import { CaseApi as C100Api } from '../case/C100CaseApi';
 import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
+import { YesOrNo } from '../case/definition';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
@@ -13,11 +15,13 @@ export interface AppRequest<T = Partial<Case>> extends Request {
     lang: string;
     logger: LoggerInstance;
     api: CaseApi;
+    C100Api: C100Api;
   };
   body: T;
 }
 
 export interface AppSession extends Session {
+  paymentError: boolean;
   user: UserDetails;
   userCase: CaseWithId;
   userCaseList: CaseWithId[];
@@ -27,6 +31,34 @@ export interface AppSession extends Session {
   addresses: [];
   returnUrl?: string;
   accessCodeLoginIn: boolean;
+  settings: ApplicationSettings;
+}
+
+export type childernDetails = {
+  id: undefined | string;
+  firstname: string | unknown;
+  lastname: string | unknown;
+  personalDetails?: {
+    DateoBirth: string;
+    isDateOfBirthKnown: YesOrNo;
+    ApproximateDateOfBirth: string;
+    Sex: string | unknown;
+  };
+  childMatter?: {
+    isDecisionTaken: string | unknown;
+  };
+  parentialResponsibility?: {
+    statement: string | unknown;
+  };
+};
+
+export interface ApplicationSettings {
+  toggleChild: number;
+  childTemporaryFormData: {
+    TempFirstName: string | unknown;
+    TempLastName: string | unknown;
+  };
+  ListOfChild: childernDetails[];
 }
 
 export interface UserDetails {
