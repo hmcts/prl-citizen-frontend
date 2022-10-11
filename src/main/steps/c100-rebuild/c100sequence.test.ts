@@ -66,7 +66,7 @@ const miamMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(69);
+    expect(C100Sequence).toHaveLength(70);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -394,11 +394,13 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[47].url).toBe('/c100-rebuild/safety-concerns/child/report-abuse');
     expect(C100Sequence[47].showInSection).toBe('c100');
-    expect(C100Sequence[47].getNextStep({})).toBe('/c100-rebuild/safety-concerns/child/report-abuse');
+    expect(C100Sequence[47].getNextStep({})).toBe('/c100-rebuild/safety-concerns/abduction/passportofficenotified');
 
-    expect(C100Sequence[48].url).toBe('/c100-rebuild/miam/other-proceedings');
+    expect(C100Sequence[48].url).toBe('/c100-rebuild/safety-concerns/abduction/passportofficenotified');
     expect(C100Sequence[48].showInSection).toBe('c100');
-    expect(C100Sequence[48].getNextStep({ miam_otherProceedings: YesOrNo.YES })).toBe('/c100-rebuild/miam/no-need');
+    expect(C100Sequence[48].getNextStep({ miam_otherProceedings: YesOrNo.YES })).toBe(
+      '/c100-rebuild/safety-concerns/child/report-abuse'
+    );
     expect(C100Sequence[48].getNextStep({ miam_otherProceedings: YesOrNo.NO })).toBe('/c100-rebuild/miam/miam-info');
 
     expect(C100Sequence[49].url).toBe('/c100-rebuild/miam/attendance');

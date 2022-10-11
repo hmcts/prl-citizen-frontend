@@ -240,6 +240,8 @@ export const C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink = `${C100_C1A
 export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: PageLink = `${C100_C1A_SAFETY_CONCERNS_APPLICANT}/concerns-about`;
 export const C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink = `${C100_C1A_SAFETY_CONCERNS_APPLICANT}/report-abuse`;
 export const C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/drugs`;
+/***@C100 SafetyConcerns Abduction */
+export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION: PageLink = `${C100_C1A_SAFETY_CONCERNS}/abduction/passportofficenotified`;
 /** @C100 Document Submission */
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
 
