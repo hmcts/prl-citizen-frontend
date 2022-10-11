@@ -44,7 +44,6 @@ export default class AddApplicants extends GetController {
     if (req.session?.errors) {
       req.session.errors = undefined;
     }
-    super.clearConfidentialitySessionSaveData(req);
     const checkIFNotRemoveQuery = req.query.hasOwnProperty('action') && req.query.hasOwnProperty('applicantId');
     if (checkIFNotRemoveQuery) {
       this.removeApplicantUsingId(req, res);
