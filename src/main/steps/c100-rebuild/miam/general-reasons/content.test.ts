@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { CommonContent } from '../../../common/common.content';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -19,7 +19,7 @@ const en = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    miam_nonAttendanceReason: {
+    miam_nonAttendanceReasons: {
       required: 'Select your valid reasons for not attending a MIAM',
     },
   },
@@ -40,7 +40,7 @@ const cy = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    miam_nonAttendanceReason: {
+    miam_nonAttendanceReasons: {
       required: 'Select your valid reasons for not attending a MIAM',
     },
   },
@@ -60,34 +60,40 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    const miam_nonAttendanceReason = fields.miam_nonAttendanceReason as FormOptions;
+    const miam_nonAttendanceReasons = fields.miam_nonAttendanceReasons as FormOptions;
 
-    expect(miam_nonAttendanceReason.type).toBe('checkboxes');
-    expect((miam_nonAttendanceReason.hint as LanguageLookup)(generatedContent)).toBe(en.optionHint);
-    expect((miam_nonAttendanceReason.values[0].label as LanguageLookup)(generatedContent)).toBe(en.domesticViolence);
-    expect((miam_nonAttendanceReason.values[1].label as LanguageLookup)(generatedContent)).toBe(en.childProtection);
-    expect((miam_nonAttendanceReason.values[2].label as LanguageLookup)(generatedContent)).toBe(en.urgentHearing);
-    expect((miam_nonAttendanceReason.values[3].label as LanguageLookup)(generatedContent)).toBe(
+    expect(miam_nonAttendanceReasons.type).toBe('checkboxes');
+    expect((miam_nonAttendanceReasons.hint as LanguageLookup)(generatedContent)).toBe(en.optionHint);
+    expect((miam_nonAttendanceReasons.values[0].label as LanguageLookup)(generatedContent)).toBe(en.domesticViolence);
+    expect((miam_nonAttendanceReasons.values[1].label as LanguageLookup)(generatedContent)).toBe(en.childProtection);
+    expect((miam_nonAttendanceReasons.values[2].label as LanguageLookup)(generatedContent)).toBe(en.urgentHearing);
+    expect((miam_nonAttendanceReasons.values[3].label as LanguageLookup)(generatedContent)).toBe(
       en.previousMIAMOrExempt
     );
-    expect((miam_nonAttendanceReason.values[4].label as LanguageLookup)(generatedContent)).toBe(en.validExemption);
-    expect((miam_nonAttendanceReason.values[6].label as LanguageLookup)(generatedContent)).toBe(en.noReason);
+    expect((miam_nonAttendanceReasons.values[4].label as LanguageLookup)(generatedContent)).toBe(en.validExemption);
+    expect((miam_nonAttendanceReasons.values[6].label as LanguageLookup)(generatedContent)).toBe(en.noReason);
 
-    expect(miam_nonAttendanceReason.values[6].behaviour).toBe('exclusive');
+    expect(miam_nonAttendanceReasons.values[6].behaviour).toBe('exclusive');
   });
 
-  // eslint-disable-next-line jest/expect-expect
   test('should return correct english content Data', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
   });
 
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  test('should return correct welsh content Data', () => {
+    languageAssertions('cy', cy, () => generateContent(commonContent));
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain continue button', () => {
+    expect(
+      (form?.onlycontinue.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
+  });
+
+  test('should contain saveAndComeLater button', () => {
+    expect(
+      (form?.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });
 

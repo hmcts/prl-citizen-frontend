@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -110,7 +111,7 @@ export const form: FormContent = {
         {
           name: 'miam_previousAttendance',
           label: l => l.noneOfTheAbove,
-          value: 'noneOfTheAbove',
+          value: 'none',
           behaviour: 'exclusive',
         },
       ],

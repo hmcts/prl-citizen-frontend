@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -93,7 +94,7 @@ const en = () => ({
     'Financial abuse is a way of controlling someone being able to earn, spend or keep their own money. For example, preventing someone going to work, withholding money, or putting debts in someone else’s name. Evidence could include: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>a copy of a credit card account, loan document or bank statements</li><li>a letter from a domestic violence support organisation</li><li>emails, text messages or a diary kept by the victim</li> </ul>',
   noneOfOptions: 'None of the above',
   errors: {
-    miam_domesticabuse: {
+    miam_domesticAbuse: {
       required: 'Select which of the following evidence of domestic violence or abuse you have',
     },
     miam_domesticabuse_involvement_subfields: {
@@ -206,7 +207,7 @@ const cy = () => ({
     'Financial abuse is a way of controlling someone being able to earn, spend or keep their own money. For example, preventing someone going to work, withholding money, or putting debts in someone else’s name. Evidence could include: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>a copy of a credit card account, loan document or bank statements</li><li>a letter from a domestic violence support organisation</li><li>emails, text messages or a diary kept by the victim</li> </ul>',
   noneOfOptions: 'None of the above - welsh',
   errors: {
-    miam_domesticabuse: {
+    miam_domesticAbuse: {
       required: 'Select which of the following evidence of domestic violence or abuse you have - welsh',
     },
     miam_domesticabuse_involvement_subfields: {
@@ -236,7 +237,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    miam_domesticabuse: {
+    miam_domesticAbuse: {
       id: 'miam_domesticabuse_involvement',
       section: l => l.section,
       type: 'checkboxes',
@@ -244,7 +245,7 @@ export const form: FormContent = {
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'miam_domesticabuse',
+          name: 'miam_domesticAbuse',
           label: l => l.policeInvolvement,
           hint: l => l.policeInvolvement_hint,
           value: 'policeInvolvement',
@@ -283,7 +284,7 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'miam_domesticabuse',
+          name: 'miam_domesticAbuse',
           label: l => l.courtInvolvement,
           hint: l => l.courtInvolvement_hint,
           value: 'courtInvolvement',
@@ -322,7 +323,7 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'miam_domesticabuse',
+          name: 'miam_domesticAbuse',
           label: l => l.letterOfBeingVictim,
           hint: l => l.letterFromAuthority_hint,
           value: 'letterOfBeingVictim',
@@ -348,7 +349,7 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'miam_domesticabuse',
+          name: 'miam_domesticAbuse',
           label: l => l.letterFromAuthority,
           hint: l => l.letterFromAuthority_hint,
           value: 'letterFromAuthority',
@@ -378,7 +379,7 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'miam_domesticabuse',
+          name: 'miam_domesticAbuse',
           label: l => l.letterFromSupportService,
           hint: l => l.letterFromSupportService_hint,
           value: 'letterFromSupportService',
@@ -414,13 +415,13 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'miam_domesticabuse',
+          name: 'miam_domesticAbuse',
           label: l => l.ILRDuetoDomesticAbuse,
           hint: l => l.ILRDuetoDomesticAbuse_hint,
           value: 'ILRDuetoDomesticAbuse',
         },
         {
-          name: 'miam_domesticabuse',
+          name: 'miam_domesticAbuse',
           label: l => l.financiallyAbuse,
           hint: l => l.financiallyAbuse_hint,
           value: 'financiallyAbuse',
@@ -429,7 +430,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'miam_domesticabuse',
+          name: 'miam_domesticAbuse',
           label: l => l.noneOfOptions,
           value: 'none',
           behaviour: 'exclusive',

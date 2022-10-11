@@ -45,13 +45,13 @@ const en = {
   remove: 'Remove',
   errors: {
     document: {
-      required: 'There is a problem. Please choose a file.',
-      multipleFiles: `There is a problem. You can upload only one file. 
+      required: 'Please choose a file.',
+      multipleFiles: `You can upload only one file. 
             If you wish to upload a new file, delete the existing 
             file and upload a new one`,
-      fileFormat: `There is a problem. The file you uploaded is in the wrong format.
+      fileFormat: `The file you uploaded is in the wrong format.
                 Upload your file again in the correct format`,
-      fileSize: `There is a problem. The file you uploaded is too large.
+      fileSize: `The file you uploaded is too large.
                 Maximum file size allowed is 20MB`,
     },
   },
@@ -95,13 +95,13 @@ const cy = {
   remove: 'Remove - welsh',
   errors: {
     document: {
-      required: 'There is a problem. Please choose a file. - welsh',
-      multipleFiles: `There is a problem. You can upload only one file. 
+      required: 'Please choose a file. - welsh',
+      multipleFiles: `You can upload only one file. 
             If you wish to upload a new file, delete the existing 
             file and upload a new one - welsh`,
-      fileFormat: `There is a problem. The file you uploaded is in the wrong format.
+      fileFormat: `The file you uploaded is in the wrong format.
           Upload your file again in the correct format - welsh`,
-      fileSize: `There is a problem. The file you uploaded is too large.
+      fileSize: `The file you uploaded is too large.
            Maximum file size allowed is 20MB - welsh`,
     },
   },

@@ -73,7 +73,7 @@
          {{
           govukButton({
             text: getContent(form.saveAndComeLater.text),
-            classes: "govuk-button--secondary",
+            classes: form.saveAndComeLater.classes if form.saveAndComeLater.classes !== undefined else "govuk-button--secondary",
             preventDoubleClick: true,
             type: "submit",
             name: "saveAndComeLater",
@@ -117,12 +117,12 @@
             classes: "govuk-button--secondary",
             preventDoubleClick: true,
             type: "submit",
-            name: "Go back",
+            name: "goBack",
             value: true,
             attributes: {
-              id: 'main-form-cancel'
+              id: 'main-form-goBack'
             }
-          }) if getContent(form.cancel.text)
+          }) if getContent(form.goBack.text)
         }}
       </div>
     {% endblock %}
