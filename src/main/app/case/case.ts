@@ -3,9 +3,9 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   C100DocumentInfo,
+  C100ListOfApplicants,
   C100OrderTypes,
   C1ASafteyConcerns,
-  C100ListOfApplicants,
   CaseData,
   ContactDetails,
   MiamNonAttendReason,
