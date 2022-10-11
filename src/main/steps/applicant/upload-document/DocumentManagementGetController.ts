@@ -4,7 +4,6 @@ import { Response } from 'express';
 import { Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
-import { Language, generatePageContent } from '../../common/common.content';
 
 @autobind
 export default class DocumentManagementGetController extends GetController {
@@ -16,28 +15,12 @@ export default class DocumentManagementGetController extends GetController {
       return;
     }
 
-    const language = super.getPreferredLanguage(req) as Language;
-
-    const content = generatePageContent({
-      language,
-      pageContent: this.content,
-      userCase: req.session?.userCase,
-    });
-    const sessionErrors = req.session?.errors || [];
-    const formaction = '';
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
         req.session.userCase.start = undefined;
         req.session.userCase.applicantUploadFiles = undefined;
         req.session.userCase.declarationCheck = undefined;
       }
-    });
-    res.render(this.view, {
-      ...content,
-      sessionErrors,
-      htmlLang: language,
-      formaction,
-      userIdamId: req.session?.user?.id,
     });
   }
 }
