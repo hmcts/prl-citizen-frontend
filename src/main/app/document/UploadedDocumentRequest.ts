@@ -1,7 +1,4 @@
-import { YesOrNo } from '../../app/case/definition';
-
 export class UploadedDocumentRequest {
-  documentRequestedByCourt: YesOrNo;
   caseId: string;
   files: UploadedFiles;
   parentDocumentType: string;
@@ -11,7 +8,6 @@ export class UploadedDocumentRequest {
   isApplicant: string;
 
   constructor(
-    documentRequestedByCourt: YesOrNo,
     caseId: string,
     files: UploadedFiles,
     parentDocumentType: string,
@@ -20,7 +16,6 @@ export class UploadedDocumentRequest {
     partyId: string,
     isApplicant: string
   ) {
-    this.documentRequestedByCourt = documentRequestedByCourt;
     this.caseId = caseId;
     this.files = files;
     this.parentDocumentType = parentDocumentType;

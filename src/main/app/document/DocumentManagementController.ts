@@ -458,7 +458,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const partyId = req.session.user.id;
 
     const uploadedDocumentRequest = new UploadedDocumentRequest(
-      documentRequestedByCourt,
       caseId,
       files,
       parentDocumentType,
@@ -474,14 +473,14 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(
       caseworkerUser,
-      documentRequestedByCourt,
       caseId,
       parentDocumentType,
       documentType,
       partyId,
       partyName,
       isApplicant,
-      files
+      files,
+      documentRequestedByCourt
     );
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });

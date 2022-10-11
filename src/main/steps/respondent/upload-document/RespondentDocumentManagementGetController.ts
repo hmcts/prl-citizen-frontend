@@ -7,7 +7,7 @@ import { GetController, TranslationFn } from '../../../app/controller/GetControl
 import { Language, generatePageContent } from '../../common/common.content';
 
 @autobind
-export default class DocumentManagementGetController extends GetController {
+export default class RespondentDocumentManagementGetController extends GetController {
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {
     super(view, content);
   }

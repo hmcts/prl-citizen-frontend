@@ -142,14 +142,14 @@ export class CosApiClient {
 
   public async UploadDocumentListFromCitizen(
     user: UserDetails,
-    documentRequestedByCourt: YesOrNo,
     caseId: string,
     parentDocumentType: string,
     documentType: string,
     partyId: string,
     partyName: string,
     isApplicant: string,
-    files: UploadedFiles
+    files: UploadedFiles,
+    documentRequestedByCourt: YesOrNo
   ): Promise<DocumentDetail> {
     try {
       const headers = {
