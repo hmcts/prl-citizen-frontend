@@ -11,9 +11,27 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case } from './case';
-import { C100 } from './definition';
+import { C100, State } from './definition';
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
+
+  public async retrieveCase(userDetails: UserDetails): Promise<RetreiveDraftCase[]> {
+    try {
+      console.log('user token');
+      console.log(userDetails.accessToken);
+      const url: string = config.get('services.cos.url') + '/cases';
+      const response = await this.axios.get<RetreiveDraftCase[]>(url);
+      this.logger.info(response.data[0].id);
+      this.logger.info(response.data[0].state);
+      this.logger.info(response.data[0].c100RebuildReturnUrl);
+      deTransformCaseData(JSON.stringify(response.data[0].c100RebuildInternationalElements));
+      return response.data.filter(caseData => caseData.state === 'AWAITING_SUBMISSION_TO_HMCTS');
+      //return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be retreived.');
+    }
+  }
 
   public async createCase(): Promise<CreateCaseResponse> {
     const data = {
@@ -103,6 +121,13 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
   );
 };
 
+const deTransformCaseData = (caseDataString: string): string => {
+  const caseDataMapperKeys = Object.keys(deTransformCaseDataMapper);
+  console.log('caseDataMapperKeys' + caseDataMapperKeys);
+  console.log('caseDataString' + caseDataString);
+  return caseDataString;
+};
+
 const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
   const caseDataMapperKeys = Object.keys(updateCaseDataMapper);
   const transformedCaseData = Object.entries(caseData).reduce((transformedData: Record<string, any>, [field, data]) => {
@@ -135,6 +160,18 @@ interface UpdateCaseResponse {
   [key: string]: any;
 }
 
+export interface RetreiveDraftCase {
+  id: string;
+  state: State;
+  c100RebuildReturnUrl: string;
+  c100RebuildConfidentiality?: Record<string, string>;
+  c100RebuildInternationalElements?: Record<string, string>;
+  c100RebuildReasonableAdjustments?: Record<string, string>;
+  c100RebuildTypeOfOrder?: Record<string, string>;
+  c100RebuildHearingWithoutNotice?: Record<string, string>;
+  c100RebuildOtherProceedings?: Record<string, string>;
+}
+
 interface UpdateCase {
   c100RebuildConfidentiality?: Record<string, string>;
   c100RebuildInternationalElements?: Record<string, string>;
@@ -160,6 +197,15 @@ export interface DocumentUploadResponse {
 }
 
 const updateCaseDataMapper = {
+  appl: 'c100RebuildApplicants',
+  ie: 'c100RebuildInternationalElements',
+  ra: 'c100RebuildReasonableAdjustments',
+  too: 'c100RebuildTypeOfOrder',
+  hwn: 'c100RebuildHearingWithoutNotice',
+  op: 'c100RebuildOtherProceedings',
+};
+
+const deTransformCaseDataMapper = {
   appl: 'c100RebuildApplicants',
   ie: 'c100RebuildInternationalElements',
   ra: 'c100RebuildReasonableAdjustments',
