@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -67,6 +68,9 @@ describe('c100-rebuild > typeoforder > shortstatement', () => {
   test('should contain courtOrder short statement text area', () => {
     const courtOrderField = fields.too_shortStatement as FormOptions;
     expect(courtOrderField.type).toBe('textarea');
+    (courtOrderField.validator as Function)('Test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
+    expect(isTextAreaValid).toHaveBeenCalledWith('Test');
   });
 
   test('should contain Save and continue button', () => {

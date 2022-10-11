@@ -79,7 +79,7 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
             isOngoingBehaviour: YesNoEmpty.YES,
             seekHelpFromPersonOrAgency: YesNoEmpty.NO,
             seekHelpDetails: '',
-          }
+          },
         },
       },
     },
