@@ -25,7 +25,7 @@ services:
   cos:
     url: 'https://prl-cos-pr-513.service.core-compute-preview.internal'
   documentManagement:
-    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-543.service.core-compute-preview.internal'
   dgs:
     url: 'http://localhost:4007'
 health:
