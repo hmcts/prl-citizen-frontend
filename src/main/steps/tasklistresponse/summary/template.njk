@@ -1,4 +1,4 @@
-{% extends "common/summary/template.njk" %}
+{% extends "common/respondent-summary/template.njk" %}
 {% block page_content %}
 {% if section %}
     <span class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</span>
@@ -14,4 +14,5 @@
   {% if title %}
     <p class="govuk-body-l">{{ title }}</p>
   {% endif %}
+ 
 {% endblock %}

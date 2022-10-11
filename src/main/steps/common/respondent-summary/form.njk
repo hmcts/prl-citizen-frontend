@@ -1,0 +1,63 @@
+{% extends "common/form/form.njk"%}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block before_fields %}
+  {% if sections %}
+    {% for item in sections %}
+    {% if item %}
+        <h2 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h2>
+        {{ govukSummaryList({
+          classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
+          rows: item.rows
+        })
+      }}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block after_fields %}
+   <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h2 class="govuk-heading-l">
+                  {{statementOfTruth}}
+                </h2>
+                <h2 class="govuk-heading-m">
+                  Confirm before continuing
+                </h2>
+              </legend>
+              <div class="govuk-warning-text">
+                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                 <strong class="govuk-warning-text__text">
+                   <span class="govuk-warning-text__assistive">{{warning}}</span>
+                   {{warningText}}
+
+                 </strong>
+               </div>
+<div class="govuk-inset-text">
+          <p>Once you submit your response, you cannot make any further changes.
+            Please select 'Save and come back later' to save your answers or select 'Submit your response'
+            to complete your online response.</p>
+            <p>You can download a copy of your submitted response using the link below.</p>
+        </div>
+            <div class="govuk-!-padding-bottom-6"></div>
+            <div class="govuk-form-group">
+          <div class="govuk-checkboxes govuk-!-padding-bottom-2">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" style="background-color: white" id="statement-truth" name="statement-truth" type="checkbox" value="checked">
+              <label class="govuk-label govuk-checkboxes__label" for="statement-truth">
+                I believe that the facts stated in this response are true
+              </label>
+            </div>
+          </div>
+        </div>
+            <p class="govuk-body govuk-!-padding-bottom-4">
+          This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.
+        </p>
+            </fieldset>
+          </div>
+  <h2 class="govuk-heading-m govuk-!-margin-top-9">{{submitApplication}}</h2>
+  <p class="govuk-body">{{checkInfoBeforeSubmit}}</p>
+{% endblock %}

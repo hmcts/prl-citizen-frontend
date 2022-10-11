@@ -171,7 +171,16 @@ export const enConsentContent = {
   dependencies: {
     
   },
-  errors: {},
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
+  continue: 'Submit your response',
 };
 
 export const enKeepYourDetailsContent = {
@@ -188,7 +197,16 @@ export const enKeepYourDetailsContent = {
   dependencies: {
     
   },
-  errors: {},
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
+  continue: 'Submit your response',
 };
 
 export const enConfirmYourDetailsContent = {
@@ -211,7 +229,16 @@ export const enConfirmYourDetailsContent = {
   dependencies: {
     
   },
-  errors: {},
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
+  continue: 'Submit your response',
 };
 
 export const enContent = {
@@ -599,7 +626,16 @@ export const enContent = {
       display: true,
     },
   },
-  errors: {},
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
+  continue: 'Submit your response',
 };
 
 export const enSupportYouNeedContent = {
@@ -724,13 +760,32 @@ export const enSupportYouNeedContent = {
       display: true,
     },
   },
-  errors: {},
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
+  continue: 'Submit your response',
 };
 
 export const enInternationalContent = {
   section: 'Check your answers',
   title: 'Please review your answers before you complete your response.',
   title2: 'International element',
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
+  continue: 'Submit your response',
   sectionTitles: {
     respondentAdditionalInformation: 'International element',
   },
@@ -767,7 +822,6 @@ export const enInternationalContent = {
       display: true,
     },
   },
-  errors: {},
 };
 
 const en = (content: CommonContent) => {
@@ -796,6 +850,15 @@ const cyContent: typeof enContent = {
   title2: 'Current or previous court cases',
   sectionTitles: {
     applicationDetails: 'Application details',
+  },
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
   },
   keys: {
     proceedingsStart: 'Have the children been involved in a court case?',
@@ -1175,7 +1238,7 @@ const cyContent: typeof enContent = {
       display: true,
     },
   },
-  errors: {},
+  continue: 'Submit your response',
 };
 
 const urls = {
@@ -1241,6 +1304,15 @@ export const cyConsentContent = {
   section: 'Check your answers',
   title: 'Please review your answers before you complete your response.',
   title2: '',
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
   sectionTitles: {
     consentToTheApplication: 'Consent to the application',
   },
@@ -1252,7 +1324,7 @@ export const cyConsentContent = {
   dependencies: {
     
   },
-  errors: {},
+  continue: 'Submit your response',
 };
 
 
@@ -1278,6 +1350,7 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
+  
 };
 
 const languages = {
