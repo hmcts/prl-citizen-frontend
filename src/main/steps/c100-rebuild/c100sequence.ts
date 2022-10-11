@@ -79,9 +79,11 @@ import {
   C100_HEARING_URGENCY_URGENT,
   C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
+  C100_MIAM_NO_NEED_WITH_REASONS,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
+import MIAMNavigationController from './miam/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 
@@ -415,12 +417,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_URGENCY,
     showInSection: Sections.C100,
-    getNextStep: () => C100_MIAM_URGENCY,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_URGENCY, caseData),
   },
   {
     url: C100_MIAM_PREVIOUS_ATTENDANCE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_MIAM_PREVIOUS_ATTENDANCE,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_PREVIOUS_ATTENDANCE, caseData),
   },
   {
     url: C100_MIAM_INFO,
@@ -441,22 +443,22 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_OTHER,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_OTHER, caseData),
   },
   {
     url: C100_MIAM_CHILD_PROTECTION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_CHILD_PROTECTION, caseData),
   },
   {
     url: C100_MIAM_MIAM_DOMESTIC_ABUSE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE, caseData),
   },
   {
     url: C100_MIAM_GENERAL_REASONS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_MIAM_GENERAL_REASONS,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_GENERAL_REASONS, caseData),
   },
   {
     url: C100_MIAM_GET_MEDIATOR,
@@ -474,6 +476,16 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_TYPE_ORDER_SELECT_COURT_ORDER,
   },
   {
+    url: C100_MIAM_GET_DOC,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GET_DOC,
+  },
+  {
+    url: C100_MIAM_NO_NEED_WITH_REASONS,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_NO_NEED_WITH_REASONS, caseData),
+  },
+  {
     url: C100_HEARING_URGENCY_URGENT,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
@@ -485,11 +497,6 @@ export const C100Sequence: Step[] = [
     url: C100_HEARING_URGENCY_URGENT_DETAILS,
     showInSection: Sections.C100,
     getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART1,
-  },
-  {
-    url: C100_MIAM_GET_DOC,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_MIAM_GET_DOC,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,

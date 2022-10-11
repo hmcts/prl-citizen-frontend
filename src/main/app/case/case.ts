@@ -216,11 +216,14 @@ export interface Case {
   miam_haveDocSigned?: string;
   miam_attendance?: YesOrNo;
   miam_validReason?: YesOrNo;
-  miam_childProtectionEvidence?: string;
-  miam_domesticabuse?: string;
-  miam_nonAttendanceReason?: MiamNonAttendReason;
   miam_certificate?: C100DocumentInfo;
   miam_mediatorDocument?: YesOrNo;
+  miam_nonAttendanceReasons?: MiamNonAttendReason[];
+  miam_domesticAbuse?: string[];
+  miam_childProtectionEvidence?: string[];
+  miam_urgency?: string[];
+  miam_previousAttendance?: string[];
+  miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
 }
 
