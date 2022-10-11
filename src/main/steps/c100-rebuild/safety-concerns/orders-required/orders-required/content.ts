@@ -8,7 +8,7 @@ const en = () => ({
   title: 'What do you want the court to do to keep you and the children safe?',
   paragraph:
     'Describe what you want the court to do to keep you and the children safe. The court may be able to make a protective order.',
-  detailsDescription: 'Actions the court can take',
+  detailsSummary: 'Actions the court can take',
   detailsParagraphs: [
     '<strong>Non-molestation order:</strong> The court may decide to make a non-molestation order. This requires the person served with the order not to be violent, or threaten violence. They must not harass or pester the person who applied for the order in any way. This includes harassing them over messaging apps or social media (Facebook, Twitter and so on).',
     '<strong>Prohibited Steps:</strong> this order prevents a person from taking certain actions without the permission of the court.',
@@ -26,7 +26,7 @@ const cy = () => ({
   title: 'What do you want the court to do to keep you and the children safe? - welsh',
   paragraph:
     'Describe what you want the court to do to keep you and the children safe. The court may be able to make a protective order. - welsh',
-  detailsDescription: 'Actions the court can take - welsh',
+  detailsSummary: 'Actions the court can take - welsh',
   detailsParagraphs: [
     '<strong>Non-molestation order:</strong> The court may decide to make a non-molestation order. This requires the person served with the order not to be violent, or threaten violence. They must not harass or pester the person who applied for the order in any way. This includes harassing them over messaging apps or social media (Facebook, Twitter and so on). - welsh',
     '<strong>Prohibited Steps:</strong> this order prevents a person from taking certain actions without the permission of the court. - welsh',
