@@ -29,7 +29,7 @@ const en = () => ({
       required: 'Give details of the risk in your case that support your need for an urgent hearing',
     },
     hu_timeOfHearingDetails: {
-      required: 'How soon you need the hearing to take place',
+      required: 'Enter how soon you need the hearing to take place',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Select yes if you need a hearing within the next 48 hours',
@@ -66,7 +66,7 @@ const cy = () => ({
       required: 'Give details of the risk in your case that support your need for an urgent hearing',
     },
     hu_timeOfHearingDetails: {
-      required: 'How soon you need the hearing to take place',
+      required: 'Enter how soon you need the hearing to take place',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Select yes if you need a hearing within the next 48 hours',
