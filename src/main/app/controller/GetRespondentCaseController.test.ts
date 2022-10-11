@@ -11,8 +11,7 @@ jest.mock('axios');
 jest.mock('config');
 jest.mock('../auth/service/get-service-auth-token');
 const mockedAxiosUser = axios as jest.Mocked<AxiosStatic>;
-const token =
-  'token';
+const token = 'token';
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 describe('GetRespondentCaseController', () => {
   test('Should render the page', async () => {
