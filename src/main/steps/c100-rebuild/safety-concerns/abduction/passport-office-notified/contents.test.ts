@@ -10,7 +10,7 @@ jest.mock('../../../../../app/form/validation');
 const en = {
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
-  headingTitle: 'Has the passport office been notified? ',
+  title: 'Has the passport office been notified? ',
   Yes: 'Yes',
   No: 'No',
   errors: {
@@ -23,7 +23,7 @@ const en = {
 const cy = {
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
-  headingTitle: 'Has the passport office been notified? - welsh',
+  title: 'Has the passport office been notified? - welsh',
   Yes: 'Yes - welsh',
   No: 'No - welsh',
   errors: {
