@@ -114,7 +114,6 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynami
       classes: 'govuk-radios',
       label: l => l.isOngoingBehaviourLabel,
       labelSize: 's',
-      section: l => l.section,
       values: [
         {
           label: l => l.YesOptionLabel,
@@ -133,7 +132,6 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynami
       label: l => l.seekHelpFromPersonOrAgencyLabel,
       hint: l => l.seekHelpFromPersonOrAgencyHintText,
       labelSize: 's',
-      section: l => l.section,
       values: [
         {
           label: l => l.YesOptionLabel,

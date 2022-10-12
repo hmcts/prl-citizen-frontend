@@ -72,6 +72,9 @@ describe('applicant personal details > applying-with > content', () => {
 
     expect(typeOfHearingField.type).toBe('checkboxes');
     expect(noVideoAndPhoneHearingExplanationField.type).toBe('textarea');
+    expect((noVideoAndPhoneHearingExplanationField.label as LanguageLookup)(generatedContent)).toBe(
+      en.noVideoAndPhoneHearingExplanation
+    );
 
     expect((typeOfHearingField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((typeOfHearingField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.videoHearing);
