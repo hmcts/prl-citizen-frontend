@@ -22,9 +22,39 @@ const en = () => ({
     [SectionStatus.TO_DO]: 'To Do',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
+    [SectionStatus.VIEW]: 'VIEW',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
+  newOrderBanner: {
+    bannerHeading: 'You have a new order from the court',
+    bannerContent: [
+      {
+        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${RESPONDENT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the order (PDF)',
+      },
+    ],
+  },
+  finalOrderBanner: {
+    bannerHeading: 'You have a final order',
+    bannerContent: [
+      {
+        line1: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${RESPONDENT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the order (PDF)',
+      },
+    ],
+  },
   caRespondentServedBanner: {
     bannerHeading: 'Respond to an application about a child',
     bannerContent: [
@@ -109,9 +139,39 @@ const cy = () => ({
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: "barod i'w weld",
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
+    [SectionStatus.VIEW]: 'VIEW (in Welsh)',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
+  newOrderBanner: {
+    bannerHeading: 'You have a new order from the court',
+    bannerContent: [
+      {
+        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${RESPONDENT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the order (PDF)',
+      },
+    ],
+  },
+  finalOrderBanner: {
+    bannerHeading: 'You have a final order',
+    bannerContent: [
+      {
+        line1: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${RESPONDENT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the order (PDF)',
+      },
+    ],
+  },
   caRespondentServedBanner: {
     bannerHeading: 'Respond to an application about a child',
     bannerContent: [
@@ -201,7 +261,12 @@ export const generateContent: TranslationFn = content => {
       : getFl401Banners(content.userCase, translations, content.userIdamId);
   return {
     ...translations,
-    sections: generateRespondentTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
+    sections: generateRespondentTaskList(
+      translations.sectionTitles,
+      translations.taskListItems,
+      content.userCase,
+      content.userIdamId
+    ),
     banners,
   };
 };
@@ -218,6 +283,15 @@ const getC100Banners = (userCase, translations, userIdamId) => {
       banners.push(translations.viewDocumentBanner);
     }
   });
+  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+    if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
+      banners.push(translations.newOrderBanner);
+    } else {
+      banners.push(translations.finalOrderBanner);
+    }
+  }
+  banners.push(translations.caRespondentServedBanner);
+  banners.push(translations.cafcassBanner);
   return banners;
 };
 
@@ -229,7 +303,14 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
   ) {
     banners.push(translations.viewDocumentBanner);
   }
-  // please add all the banners before this if condition, the following banner is added only if no other is present
+  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+    if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
+      banners.push(translations.newOrderBanner);
+    } else {
+      banners.push(translations.finalOrderBanner);
+    }
+  }
+// please add all the banners before this if condition, the following banner is added only if no other is present
   if (banners.length === 0 && userCase.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES) {
     banners.push(translations.daRespondentBanner);
   }

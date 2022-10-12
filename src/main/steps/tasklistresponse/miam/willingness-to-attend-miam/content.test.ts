@@ -13,7 +13,7 @@ const enContent = {
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  onlyContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
       required: 'Select yes if you are willing to attend a MIAM',
@@ -32,7 +32,7 @@ const cyContent = {
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  onlyContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
       required: 'Select yes if you are willing to attend a MIAM',
@@ -82,8 +82,8 @@ describe('citizen-home content', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 

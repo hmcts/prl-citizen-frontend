@@ -10,7 +10,7 @@ import {
   getYourApplication,
 } from './utils';
 
-export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase) => {
+export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   return [
     {
       title: sectionTitles.applicantYourDetails,
@@ -18,14 +18,14 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'keep-your-details-private',
           text: taskListItems.keep_your_details_private,
-          status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.APPLICANT_DETAILS_KNOWN,
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+          href: URL.APPLICANT_DETAILS_KNOWN + '/' + userCase.id,
         },
         {
           id: 'confirm-or-edit-your-contact-details',
           text: taskListItems.confirm_or_edit_your_contact_details,
-          status: getConfirmOrEditYourContactDetails(userCase),
-          href: URL.APPLICANT_CHECK_ANSWERS,
+          status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
+          href: URL.APPLICANT_CHECK_ANSWERS + '/' + userCase.id,
         },
         {
           id: 'support-you-need-during-your-case',
@@ -39,14 +39,14 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
       title: sectionTitles.yourApplication,
       items: [...getTheApplication(taskListItems, userCase)],
     },
-    ...getYourResponse(sectionTitles, taskListItems, userCase),
+    ...getYourResponse(sectionTitles, taskListItems, userCase, userIdamId),
     {
       title: sectionTitles.courtHearings,
       items: [
         {
           id: 'check-details-of-your-court-hearings',
           text: taskListItems.details_of_court_hearings,
-          status: getKeepYourDetailsPrivateStatus(userCase),
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
           href: URL.APPLICANT_DETAILS_KNOWN,
         },
       ],
@@ -57,7 +57,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'upload-document',
           text: taskListItems.upload_document,
-          status: getKeepYourDetailsPrivateStatus(userCase),
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
           href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
         },
         {
@@ -122,7 +122,7 @@ const getTheApplication = (taskListItems, userCase) => {
   }
 };
 
-const getYourResponse = (sectionTitles, taskListItems, userCase) => {
+const getYourResponse = (sectionTitles, taskListItems, userCase, userIdamId) => {
   if (userCase?.caseTypeOfApplication === 'C100') {
     return [
       {
@@ -131,7 +131,7 @@ const getYourResponse = (sectionTitles, taskListItems, userCase) => {
           {
             id: 'response_to_your_application',
             text: taskListItems.response_to_your_application,
-            status: getKeepYourDetailsPrivateStatus(userCase),
+            status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
             href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
           },
           {

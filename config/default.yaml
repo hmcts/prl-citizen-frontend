@@ -21,11 +21,11 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-580.service.core-compute-preview.internal'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-565.service.core-compute-preview.internal'
   cos:
-    url: 'https://prl-cos-pr-578.service.core-compute-preview.internal'
+    url: 'https://prl-cos-pr-554.service.core-compute-preview.internal'
   documentManagement:
-    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-580.service.core-compute-preview.internal'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-565.service.core-compute-preview.internal'
   dgs:
     url: 'http://localhost:4007'
 health:
@@ -36,6 +36,7 @@ session:
   redis:
     host:
     key:
+  secureCookie: 'true'
 e2e:
   userTestPassword: ''
 appInsights:

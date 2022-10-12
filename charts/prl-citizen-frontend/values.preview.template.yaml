@@ -19,9 +19,9 @@ nodejs:
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
     CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-580.service.core-compute-preview.internal'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
-    CDAM_API_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-580.service.core-compute-preview.internal'
-    COS_URL: 'https://prl-cos-pr-578.service.core-compute-preview.internal'
-
+    CDAM_API_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
+    COS_URL: 'https://prl-cos-pr-505.service.core-compute-preview.internal'
+    REDIS_HOST: 'prl-citizen-frontend-redis-aat.redis.cache.windows.net'
   keyVaults:
     prl:
       resourceGroup: prl
@@ -30,14 +30,15 @@ nodejs:
         - prl-citizen-frontend-idam-client-secret
         - postcode-lookup-token
         - prl-cos-idam-client-secret
-        - microservicekey-prl-cos-api
         - microservicekey-prl-citizen-frontend
+        - microservicekey-prl-cos-api
         - system-update-user-username
         - system-update-user-password
         - idam-solicitor-username
         - idam-solicitor-password
         - launchDarkly-sdk-key
         - citizen-upload-docs-email
+        - redis-access-key
 idam-pr:
   enabled: true
   redirect_uris:
