@@ -6,9 +6,11 @@ import * as URL from '../../urls';
 import {
   getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
+  getCurrentOrOtherProceedingsStatus,
   getFinalApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
+  getMiamStatus,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
 } from './utils';
@@ -22,19 +24,19 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'keep-your-details-private',
           text: taskListItems.keep_your_details_private,
-          status: getKeepYourDetailsPrivateStatus(userCase),
-          href: URL.RESPONDENT_DETAILS_KNOWN,
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+          href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
         },
         {
           id: 'confirm-or-edit-your-contact-details',
           text: taskListItems.confirm_or_edit_your_contact_details,
-          status: getConfirmOrEditYourContactDetails(userCase),
-          href: URL.RESPONDENT_CHECK_ANSWERS,
+          status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
+          href: URL.RESPONDENT_CHECK_ANSWERS + '/' + userCase.id,
         },
         {
           id: 'support_you_need_during_your_case',
           text: taskListItems.support_you_need_during_your_case,
-          status: getKeepYourDetailsPrivateStatus(userCase),
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
           href: URL.CA_DA_ATTENDING_THE_COURT,
         },
       ],
