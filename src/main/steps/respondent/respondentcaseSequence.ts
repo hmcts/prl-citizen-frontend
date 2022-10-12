@@ -12,6 +12,8 @@ import {
   CA_DA_SPECIAL_ARRANGEMENTS,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   CA_DA_TRAVELLING_TO_COURT,
+  CA_RESPONDENT_RESPONSE_CONFIRMATION,
+  CA_RESPONDENT_RESPONSE_SUBMIT,
   COURT_PROCEEDINGS_SUMMARY,
   DIGITAL_DOWNLOADS,
   DOMESTIC_ABUSE_RISK,
@@ -384,6 +386,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPNDT_TO_APPLICATION_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => CA_RESPONDENT_RESPONSE_SUBMIT,
+  },
+  {
+    url: CA_RESPONDENT_RESPONSE_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
