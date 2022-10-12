@@ -9,6 +9,7 @@ jest.mock('../document/DocumentManagementClient');
 jest.mock('../../app/auth/user/oidc');
 
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCase');
+let partyDetails;
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 const generateUserUploadedStatementDocumentMock = jest.spyOn(
   CosApiClient.prototype,
@@ -31,6 +32,27 @@ describe('DocumentManagerController', () => {
     mockCreate.mockClear();
     mockDelete.mockClear();
     mockGet.mockClear();
+
+    //jest.mock('getSystemUser', () => jest.fn());
+    partyDetails = [
+      {
+        id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+        value: {
+          firstName: 'Sonali',
+          lastName: 'Citizen',
+          email: 'abc@example.net',
+          user: {
+            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            email: 'test@example.net',
+          },
+          response: {
+            citizenFlags: {
+              isAllegationOfHarmViewed: 'Yes',
+            },
+          },
+        },
+      },
+    ];
     updateCaserMock.mockClear();
     retrieveByCaseIdMock.mockClear();
   });
@@ -48,7 +70,7 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-565.service.core-compute-preview.internal/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
       });
     });
   });
@@ -94,7 +116,7 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
+        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-565.service.core-compute-preview.internal/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
       });
     });
   });
@@ -124,7 +146,60 @@ describe('DocumentManagerController', () => {
       expect(flag).toBe(true);
     });
   });
-
+  describe('test notifyBannerForNewDcoumentUploaded', () => {
+    test('notifyBannerForNewDcoumentUploaded for CA respondent', async () => {
+      req.session.userCase.caseTypeOfApplication = 'C100';
+      req.session.userCase.respondents = partyDetails;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+    test('notifyBannerForNewDcoumentUploaded for CA applicant', async () => {
+      req.session.userCase.caseTypeOfApplication = 'C100';
+      req.session.userCase.applicants = partyDetails;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.applicants[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+    test('notifyBannerForNewDcoumentUploaded for DA respondent', async () => {
+      req.session.userCase.caseTypeOfApplication = 'fl401';
+      req.session.userCase.respondentsFL401 = partyDetails[0].value;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+    test('notifyBannerForNewDcoumentUploaded for DA applicant', async () => {
+      req.session.userCase.caseTypeOfApplication = 'fl401';
+      req.session.userCase.applicantsFL401 = partyDetails[0].value;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+  });
   describe('check Allegation of Harm property saved without Response', () => {
     test('check Allegation of Harm property saved', async () => {
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
@@ -354,7 +429,6 @@ describe('DocumentManagerController', () => {
     });
   });
 });
-
 function getMockRequestResponse() {
   const req = mockRequest();
   const res = mockResponse();

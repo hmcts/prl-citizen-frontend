@@ -122,6 +122,12 @@ export interface Response {
   citizenFlags?: CitizenFlags
 }
 
+export interface CitizenFlags {
+  isApplicationViewed?: string,
+  isAllegationOfHarmViewed?: string
+  isAllDocumentsViewed?: string
+}
+
 
 export interface CitizenFlags {
   isApplicationViewed?: string,
@@ -811,6 +817,7 @@ export interface CaseData {
   courtOrderDetails?: string;
   miamStart?: string;
   citizenUploadedDocumentList?: UploadDocumentList[];
+  orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   start?: YesOrNo;
   parents?: YesOrNo;
   jurisdiction?: YesOrNo;
@@ -2235,6 +2242,7 @@ export interface Value {
   dateCreated: string;
   documentDetails: DocumentDetails;
   citizenDocument: CitizenDocument;
+  documentRequestedByCourt: YesOrNo;
 }
 
 export interface UploadDocumentList {
@@ -2257,3 +2265,23 @@ export const enum ThePrayer {
 
 export type RespondentCaseId = string | number | undefined;
 export type RespondentCaseData = object | [] | undefined;
+
+export interface Banner {
+  bannerHeading?: string;
+  bannerHeadingLink?: string;
+  bannerHeadingText?: string;
+  bannerContent?: Content[];
+  bannerLinks?: BannerLink[];
+}
+export interface Content {
+  line1?: string;
+  line2?: string;
+}
+export interface BannerLink {
+  href?: string;
+  text?: string;
+}
+
+export interface WithoutNoticeOrderDetails {
+  orderWithoutGivingNotice?: YesOrNo;
+}
