@@ -24,6 +24,7 @@ export interface AppSession extends Session {
   paymentError: boolean;
   user: UserDetails;
   userCase: CaseWithId;
+  userCaseList: CaseWithId[];
   eligibility: Eligibility;
   lang: string | undefined;
   errors: FormError[] | undefined;

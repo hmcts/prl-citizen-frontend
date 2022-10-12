@@ -1,7 +1,7 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
-import { summaryList } from './utils';
+import { SummaryList, summaryList } from './utils';
 
 const enContent = {
   section: 'Check your details',
@@ -51,7 +51,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/respondent/miam/miam-start',
+                    href: '/tasklistresponse/miam/miam-start',
                     text: 'Edit',
                     visuallyHiddenText: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
                   },
@@ -64,7 +64,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/respondent/consent-to-application',
+                    href: '/tasklistresponse/consent-to-application',
                     text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
                   },
@@ -77,7 +77,7 @@ describe('common > summary > utils', () => {
               actions: {
                 items: [
                   {
-                    href: '/respondent/consent-to-application',
+                    href: '/tasklistresponse/consent-to-application',
                     text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
                   },
@@ -90,6 +90,15 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      const result: SummaryList | undefined = summaryList(
+        enContent,
+        userCase,
+        urls,
+        'applicationDetails',
+        enContent.fieldType,
+        'en'
+      );
+      console.log(result);
       expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
         expected
       );
