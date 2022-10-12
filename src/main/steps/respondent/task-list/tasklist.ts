@@ -6,11 +6,9 @@ import * as URL from '../../urls';
 import {
   getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
-  getCurrentOrOtherProceedingsStatus,
   getFinalApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
-  getMiamStatus,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
 } from './utils';

@@ -77,22 +77,6 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
   return SectionStatus.TO_DO;
 };
 
-export const getCheckAllegationOfHarmStatus = (
-  userCase: Partial<CaseWithId> | undefined,
-  userIdamId: string
-): SectionStatus => {
-  let status = SectionStatus.DOWNLOAD;
-  userCase?.respondents?.forEach((respondent: Respondent) => {
-    if (
-      respondent?.value.user?.idamId === userIdamId &&
-      respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
-    ) {
-      status = SectionStatus.VIEW;
-    }
-  });
-  return status;
-};
-
 export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&

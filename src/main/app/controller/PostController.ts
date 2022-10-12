@@ -15,7 +15,6 @@ import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
 
-const UploadDocumentSucess = 'upload-documents-success';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];

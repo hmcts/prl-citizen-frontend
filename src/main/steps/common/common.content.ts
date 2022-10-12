@@ -237,7 +237,6 @@ export const generatePageContent = ({
     // contactEmail,
     // eligibility,
     // fee,
-    userIdamId,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -269,7 +268,6 @@ export type CommonContent = typeof en & {
   userIdamId?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
-  userIdamId?: string;
 };
 
 export type Language = 'en' | 'cy';

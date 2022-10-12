@@ -14,7 +14,14 @@ import {
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { Applicant, DocumentType, DownloadFileFieldFlag, FileProperties, Respondent, YesOrNo } from '../case/definition';
+import {
+  Applicant,
+  DocumentType,
+  DownloadFileFieldFlag,
+  FileProperties,
+  Respondent,
+  YesOrNo,
+} from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
@@ -112,8 +119,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
         req.session.user
       );
       Object.assign(req.session.userCase, caseDataFromCos);
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
-      req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
+      //const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
+      //req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     }
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
@@ -228,7 +235,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let client;
     let caseReference;
     let loggedInCitizen;
-    let isAllegationOfHarmViewed;
+
     try {
       const originalUrl = req.originalUrl;
 
@@ -441,39 +448,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
       Object.assign(respondent.value.response.citizenFlags, temp);
     }
-
-    //   if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && respondent?.value?.response?.citizenFlags) {
-    //     if (
-    //       cvIsAllegationOfHarmViewed === null ||
-    //       cvIsAllegationOfHarmViewed === undefined ||
-    //       cvIsAllegationOfHarmViewed === 'No'
-    //     ) {
-    //       respondent.value.response.citizenFlags = {
-    //         isAllegationOfHarmViewed: 'No',
-    //         isApplicationViewed: 'Yes',
-    //       };
-    //     } else {
-    //       respondent.value.response.citizenFlags = {
-    //         isAllegationOfHarmViewed: 'Yes',
-    //         isApplicationViewed: 'Yes',
-    //       };
-    //     }
-    //   } else if (
-    //     flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED &&
-    //     respondent?.value?.response?.citizenFlags
-    //   ) {
-    //     if (cvIsApplicationViewed === null || cvIsApplicationViewed === undefined || cvIsApplicationViewed === 'No') {
-    //       respondent.value.response.citizenFlags = {
-    //         isAllegationOfHarmViewed: 'Yes',
-    //         isApplicationViewed: 'No',
-    //       };
-    //     } else {
-    //       respondent.value.response.citizenFlags = {
-    //         isAllegationOfHarmViewed: 'Yes',
-    //         isApplicationViewed: 'Yes',
-    //       };
-    //     }
-    //   }
   }
 
   private getUID(documentToGet: string) {
@@ -565,14 +539,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
         req.session.userCase.applicantUploadFiles?.push(obj);
       }
     } else {
-      const fileData = req.files || [];
-
-      const obj = {
-        id: fileData[0]['originalname'],
-        name: fileData[0]['originalname'],
-      };
-
-
+      //const fileData = req.files || [];
+      // const obj = {
+      //   id: fileData[0]['originalname'],
+      //   name: fileData[0]['originalname'],
+      // };
     }
 
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
