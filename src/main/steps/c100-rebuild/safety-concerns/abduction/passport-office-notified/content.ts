@@ -1,30 +1,31 @@
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
 
 const en = () => ({
+  serviceName: 'Child arrangements',
   caption: 'Safety concerns',
-  title: 'Have the children been abducted or kept outside the UK without your consent before?',
-  one: 'Yes',
-  two: 'No',
+  title: 'Has the passport office been notified? ',
+  Yes: 'Yes',
+  No: 'No',
   errors: {
-    c1A_childAbductedBefore: {
-      required: 'Select yes if the children have been abducted or kept outside the UK without your consent before',
+    c1A_abductionPassportOfficeNotified: {
+      required: 'Select yes if the passport office has been notified',
     },
   },
 });
 
 const cy = () => ({
+  serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
-  title: 'Have the children been abducted or kept outside the UK without your consent before? - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
+  title: 'Has the passport office been notified? - welsh',
+  Yes: 'Yes - welsh',
+  No: 'No - welsh',
   errors: {
-    c1A_childAbductedBefore: {
-      required:
-        'Select yes if the children have been abducted or kept outside the UK without your consent before - welsh',
+    c1A_abductionPassportOfficeNotified: {
+      required: 'Select yes if the passport office has been notified - welsh',
     },
   },
 });
@@ -36,25 +37,26 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_childAbductedBefore: {
+    c1A_abductionPassportOfficeNotified: {
+      id: 'c1A_abductionPassportOfficeNotified',
       type: 'radios',
       classes: 'govuk-radios',
-
+      validator: atLeastOneFieldIsChecked,
       values: [
         {
-          label: l => l.one,
+          name: 'c1A_abductionPassportOfficeNotified',
+          label: l => l.Yes,
           value: YesOrNo.YES,
         },
         {
-          label: l => l.two,
+          name: 'c1A_abductionPassportOfficeNotified',
+          label: l => l.No,
           value: YesOrNo.NO,
         },
       ],
-      validator: isFieldFilledIn,
     },
   },
-
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {

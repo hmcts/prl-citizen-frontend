@@ -330,6 +330,10 @@ export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: PageLink = `${C1
 export const C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink = `${C100_C1A_SAFETY_CONCERNS_APPLICANT}/report-abuse`;
 export const C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/drugs`;
 export const C100_C1A_CHILD_ABDUCTION_THREATS: PageLink = `${C100_C1A_SAFETY_CONCERNS}/abduction/threats`;
+export const C100_C1A_SAFETY_CONCERNS_OTHER: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/other-issues`;
+/***@C100 SafetyConcerns Abduction */
+export const C100_C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = `${C100_C1A_SAFETY_CONCERNS}/abduction`;
+export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-office-notified`;
 /** @C100 Document Submission */
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
 
