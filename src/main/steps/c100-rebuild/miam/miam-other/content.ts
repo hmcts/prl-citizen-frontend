@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -41,10 +42,10 @@ const en = () => ({
   under18: 'You or the prospective respondents are under 18 years old',
   noneOfTheAbove: 'None of the above',
   errors: {
-    miam_not_attending_reasons: {
-      required: 'Confirm if any of the other valid reasons for not attending a MIAM apply in your case',
+    miam_notAttendingReasons: {
+      required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case',
     },
-    miam_no_mediator_access_subfields: {
+    miam_noMediatorAccessSubfields: {
       required: 'Select why you cannot access a mediator',
     },
   },
@@ -90,10 +91,10 @@ const cy = () => ({
   under18: 'You or the prospective respondents are under 18 years old - welsh',
   noneOfTheAbove: 'None of the above - welsh',
   errors: {
-    miam_not_attending_reasons: {
-      required: 'Confirm if any of the other valid reasons for not attending a MIAM apply in your case - welsh',
+    miam_notAttendingReasons: {
+      required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case - welsh',
     },
-    miam_no_mediator_access_subfields: {
+    miam_noMediatorAccessSubfields: {
       required: 'Select why you cannot access a mediator - welsh',
     },
   },
@@ -106,48 +107,48 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    miam_not_attending_reasons: {
-      id: 'miam_not_attending_reasons',
+    miam_notAttendingReasons: {
+      id: 'miam_notAttendingReasons',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'miam_not_attending_reasons',
+          name: 'miam_notAttendingReasons',
           label: l => l.noSufficientContactDetails,
           value: 'noSufficientContactDetails',
         },
         {
-          name: 'miam_not_attending_reasons',
+          name: 'miam_notAttendingReasons',
           label: l => l.applyingForWithoutNoticeHearing,
           hint: l => l.applyingForWithoutNoticeHearingHint,
           value: 'applyingForWithoutNoticeHearing',
         },
         {
-          name: 'miam_not_attending_reasons',
+          name: 'miam_notAttendingReasons',
           label: l => l.canNotAccessMediator,
           hint: l => l.canNotAccessMediatorHint,
           value: 'canNotAccessMediator',
           subFields: {
-            miam_no_mediator_access_subfields: {
-              id: 'miam_no_mediator_access_subfields',
+            miam_noMediatorAccessSubfields: {
+              id: 'miam_noMediatorAccessSubfields',
               type: 'checkboxes',
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'miam_no_mediator_access_subfields',
+                  name: 'miam_noMediatorAccessSubfields',
                   label: l => l.mediatorDoesNotHaveDisabilityAccess,
                   value: 'mediatorDoesNotHaveDisabilityAccess',
                   hint: l => l.mediatorDoesNotHaveDisabilityAccessHint1,
                 },
                 {
-                  name: 'miam_no_mediator_access_subfields',
+                  name: 'miam_noMediatorAccessSubfields',
                   label: l => l.noMediatorAppointment,
                   value: 'noMediatorAppointment',
                   hint: l => l.mediatorDoesNotHaveDisabilityAccessHint2,
                 },
                 {
-                  name: 'miam_no_mediator_access_subfields',
+                  name: 'miam_noMediatorAccessSubfields',
                   label: l => l.noAuthorisedFamilyMediator,
                   value: 'noAuthorisedFamilyMediator',
                 },
@@ -156,18 +157,18 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'miam_not_attending_reasons',
+          name: 'miam_notAttendingReasons',
           label: l => l.notAttendingAsInPrison,
           value: 'notAttendingAsInPrison',
         },
         {
-          name: 'miam_not_attending_reasons',
+          name: 'miam_notAttendingReasons',
           label: l => l.notHabituallyResident,
           hint: l => l.notHabituallyResidentHint,
           value: 'notHabituallyResident',
         },
         {
-          name: 'miam_not_attending_reasons',
+          name: 'miam_notAttendingReasons',
           label: l => l.under18,
           value: 'under18',
         },
@@ -175,9 +176,9 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'miam_not_attending_reasons',
+          name: 'miam_notAttendingReasons',
           label: l => l.noneOfTheAbove,
-          value: 'noneOfTheAbove',
+          value: 'none',
           behaviour: 'exclusive',
         },
       ],

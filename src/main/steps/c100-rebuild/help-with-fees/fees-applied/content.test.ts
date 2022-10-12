@@ -71,6 +71,8 @@ describe('help with fess > fees applied', () => {
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
     const applyTextField = applyingWithField.values[0].subFields!.hwfReferenceNumber;
     expect(applyTextField.type).toBe('text');
+    expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberLabel);
+    expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberHint);
     (applyTextField.validator as Function)('test text');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text');

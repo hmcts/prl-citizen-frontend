@@ -45,10 +45,10 @@ const en = {
   under18: 'You or the prospective respondents are under 18 years old',
   noneOfTheAbove: 'None of the above',
   errors: {
-    miam_not_attending_reasons: {
-      required: 'Confirm if any of the other valid reasons for not attending a MIAM apply in your case',
+    miam_notAttendingReasons: {
+      required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case',
     },
-    miam_no_mediator_access_subfields: {
+    miam_noMediatorAccessSubfields: {
       required: 'Select why you cannot access a mediator',
     },
   },
@@ -94,10 +94,10 @@ const cy = {
   under18: 'You or the prospective respondents are under 18 years old - welsh',
   noneOfTheAbove: 'None of the above - welsh',
   errors: {
-    miam_not_attending_reasons: {
-      required: 'Confirm if any of the other valid reasons for not attending a MIAM apply in your case - welsh',
+    miam_notAttendingReasons: {
+      required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case - welsh',
     },
-    miam_no_mediator_access_subfields: {
+    miam_noMediatorAccessSubfields: {
       required: 'Select why you cannot access a mediator - welsh',
     },
   },
@@ -120,7 +120,7 @@ describe('miam should contain miam other reasons content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const miamNotAttendingReasonsField = fields.miam_not_attending_reasons as FormOptions;
+    const miamNotAttendingReasonsField = fields.miam_notAttendingReasons as FormOptions;
     expect(miamNotAttendingReasonsField.type).toBe('checkboxes');
     expect((miamNotAttendingReasonsField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
 
@@ -153,7 +153,7 @@ describe('miam should contain miam other reasons content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('noSufficientContactDetails');
 
     const noMediatorAccessSubField = miamNotAttendingReasonsField.values[2].subFields
-      ?.miam_no_mediator_access_subfields as FormOptions;
+      ?.miam_noMediatorAccessSubfields as FormOptions;
     expect(noMediatorAccessSubField.type).toBe('checkboxes');
     expect((noMediatorAccessSubField.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.mediatorDoesNotHaveDisabilityAccess

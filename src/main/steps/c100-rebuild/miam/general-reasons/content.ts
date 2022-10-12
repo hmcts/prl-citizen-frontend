@@ -18,7 +18,7 @@ const en = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    miam_nonAttendanceReason: {
+    miam_nonAttendanceReasons: {
       required: 'Select your valid reasons for not attending a MIAM',
     },
   },
@@ -39,7 +39,7 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
-    miam_nonAttendanceReason: {
+    miam_nonAttendanceReasons: {
       required: 'Select your valid reasons for not attending a MIAM',
     },
   },
@@ -52,34 +52,34 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    miam_nonAttendanceReason: {
+    miam_nonAttendanceReasons: {
       type: 'checkboxes',
       hint: l => l.optionHint,
       section: l => l.section,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'miam_nonAttendanceReason',
+          name: 'miam_nonAttendanceReasons',
           label: l => l.domesticViolence,
           value: MiamNonAttendReason.DOMESTIC,
         },
         {
-          name: 'miam_nonAttendanceReason',
+          name: 'miam_nonAttendanceReasons',
           label: l => l.childProtection,
           value: MiamNonAttendReason.CHILD_PROTECTION,
         },
         {
-          name: 'miam_nonAttendanceReason',
+          name: 'miam_nonAttendanceReasons',
           label: l => l.urgentHearing,
           value: MiamNonAttendReason.URGENT,
         },
         {
-          name: 'miam_nonAttendanceReason',
+          name: 'miam_nonAttendanceReasons',
           label: l => l.previousMIAMOrExempt,
           value: MiamNonAttendReason.PREV_MIAM,
         },
         {
-          name: 'miam_nonAttendanceReason',
+          name: 'miam_nonAttendanceReasons',
           label: l => l.validExemption,
           value: MiamNonAttendReason.EXEMPT,
         },
@@ -87,16 +87,19 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'miam_nonAttendanceReason',
+          name: 'miam_nonAttendanceReasons',
           label: l => l.noReason,
-          value: MiamNonAttendReason.NO_REASON,
+          value: MiamNonAttendReason.NONE,
           behaviour: 'exclusive',
         },
       ],
     },
   },
-  submit: {
-    text: l => l.continue,
+  onlycontinue: {
+    text: l => l.onlycontinue,
+  },
+  saveAndComeLater: {
+    text: l => l.saveAndComeLater,
   },
 };
 

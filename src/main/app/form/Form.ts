@@ -134,6 +134,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  onlyContinue?: {
+    text: Label;
+    classes?: string;
+  };
   onlycontinue?: {
     text: Label;
     classes?: string;
@@ -151,6 +155,10 @@ export interface FormContent {
     classes?: string;
   };
   editAddress?: {
+    text: Label;
+    classes?: string;
+  };
+  goBack?: {
     text: Label;
     classes?: string;
   };

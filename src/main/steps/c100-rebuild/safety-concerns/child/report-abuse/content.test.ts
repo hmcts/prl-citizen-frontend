@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { YesNoEmpty } from '../../../../../app/case/definition';
 import { FormContent, FormFields, FormInput, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
@@ -69,6 +70,19 @@ const cy = {
 describe('C1A safetyconcerns > child > report abuse > content', () => {
   const commonContent = {
     language: 'en',
+    userCase: {
+      c1A_safteyConcerns: {
+        child: {
+          physicalAbuse: {
+            behaviourDetails: '',
+            behaviourStartDate: '',
+            isOngoingBehaviour: YesNoEmpty.YES,
+            seekHelpFromPersonOrAgency: YesNoEmpty.NO,
+            seekHelpDetails: '',
+          },
+        },
+      },
+    },
     additionalData: {
       req: {
         query: {

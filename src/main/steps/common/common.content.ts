@@ -15,7 +15,6 @@ const en = {
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Save and continue',
-  onlycontinue: 'Continue',
   next: 'Next',
   change: 'Change',
   upload: 'Upload',
@@ -28,10 +27,13 @@ const en = {
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
-  errorSummaryHeading: 'There is a problem',
+  errorSummaryHeading: 'There is a problem on this page',
   saveAndSignOut: 'Save and sign out',
   saveAndComeLater: 'Save and come back later',
+  goBack: 'Go back',
   saveAsDraft: 'Save as draft',
+  onlyContinue: 'Continue',
+  onlycontinue: 'Continue',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -122,7 +124,6 @@ const cy: typeof en = {
   govUk: 'GOV.UK',
   back: 'Back (in welsh)',
   continue: 'Save and continue (in welsh)',
-  onlycontinue: 'Continue (in welsh)',
   change: 'Change  (in welsh)',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',
@@ -133,9 +134,10 @@ const cy: typeof en = {
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem (in welsh)',
+  errorSummaryHeading: 'There is a problem on this page (in welsh)',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAndComeLater: 'Save and come back later - welsh',
+  goBack: 'Go back - welsh',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
   signIn: 'Sign in (in welsh)',
@@ -186,8 +188,10 @@ const cy: typeof en = {
   findOutCharges: 'Find out about call charges',
   openNewWindow: 'opens in a new window',
   telephone: 'Ffoniwch',
-  telephoneNumber: '0300 303 0742',
+  telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  onlyContinue: 'Continue (in welsh)',
+  onlycontinue: 'Continue (in welsh)',
 };
 
 export const generatePageContent = ({
@@ -195,7 +199,13 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
+  userCaseList,
+  caption,
+  name,
+  byApplicant,
+  document_type,
   addresses = [],
+  userIdamId,
   additionalData,
 }: // eligibility,
 // fee,
@@ -204,7 +214,13 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  caption?: string;
+  document_type?: string;
+  userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
+  name?: string;
+  byApplicant?: string;
+  userIdamId?: string;
   additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
@@ -218,8 +234,15 @@ export const generatePageContent = ({
     language,
     userCase,
     userEmail,
+    name,
+    userCaseList,
     // contactEmail,
     addresses,
+    caption,
+    document_type,
+    byApplicant,
+    userIdamId,
+    // contactEmail,
     additionalData,
     // eligibility,
     // fee,
@@ -247,13 +270,19 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  userCaseList?: Partial<CaseWithId>[];
+  name?: string;
+  caption?: string;
+  document_type?: string;
   // contactEmail?: string;
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
+  byApplicant?: string;
   additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
+  userIdamId?: string;
 };
 
 export type Language = 'en' | 'cy';
