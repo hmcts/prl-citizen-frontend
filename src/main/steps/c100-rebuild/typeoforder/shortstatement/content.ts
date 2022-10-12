@@ -47,9 +47,6 @@ export const form: FormContent = {
   fields: {
     too_shortStatement: {
       type: 'textarea',
-      //label: l => l.shortStatement,
-      //value : data.shortStatement ,
-      //labelSize: null,
       attributes: { rows: 10 },
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
