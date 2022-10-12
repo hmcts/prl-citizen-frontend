@@ -495,13 +495,13 @@ describe('C100Sequence', () => {
     expect(C100Sequence[68].showInSection).toBe('c100');
     expect(C100Sequence[68].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/drugs');
 
-    expect(C100Sequence[69].url).toBe('/c100-rebuild/c1A/child-abduction/threats');
+    expect(C100Sequence[69].url).toBe('/c100-rebuild/safety-concerns/abduction/threats');
     expect(C100Sequence[69].showInSection).toBe('c100');
     expect(C100Sequence[69].getNextStep({ c1A_childAbductedBefore: YesOrNo.YES })).toBe(
-      '/c100-rebuild/c1A/child-abduction/threats'
+      '/c100-rebuild/safety-concerns/abduction/threats'
     );
     expect(C100Sequence[69].getNextStep({ c1A_childAbductedBefore: YesOrNo.NO })).toBe(
-      '/c100-rebuild/c1A/child-abduction/threats'
+      '/c100-rebuild/safety-concerns/abduction/threats'
     );
   });
 });

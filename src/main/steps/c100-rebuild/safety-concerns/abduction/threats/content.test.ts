@@ -1,9 +1,8 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { Validator, isFieldFilledIn } from '../../../../../app/form/validation';
+import { generateContent } from '../../../../c100-rebuild/safety-concerns/abduction/threats/content';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
-
-import { generateContent } from './content';
 
 jest.mock('../../../../../app/form/validation');
 
