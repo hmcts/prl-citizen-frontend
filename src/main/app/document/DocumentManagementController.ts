@@ -14,7 +14,7 @@ import {
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { DocumentType, Respondent, YesOrNo } from '../case/definition';
+import { Applicant, DocumentType, Respondent, YesOrNo } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
@@ -80,11 +80,87 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
-      req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
+      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = [];
     }
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
+  }
+
+  public async notifyBannerForNewDcoumentUploaded(
+    req: AppRequest<Partial<CaseWithId>>,
+    caseReference: string,
+    client: CosApiClient,
+    loggedInCitizen: UserDetails
+  ): Promise<CaseWithId> {
+    if (req?.session?.userCase?.caseTypeOfApplication === 'C100') {
+      req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
+        if (respondent.value.response && respondent.value.response.citizenFlags) {
+          respondent.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+        } else {
+          respondent.value.response = {
+            citizenFlags: {
+              isAllDocumentsViewed: 'No',
+            },
+          };
+        }
+      });
+      req?.session?.userCase.applicants?.forEach((applicant: Applicant) => {
+        if (applicant.value.response && applicant.value.response.citizenFlags) {
+          applicant.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+        } else {
+          applicant.value.response = {
+            citizenFlags: {
+              isAllDocumentsViewed: 'No',
+            },
+          };
+        }
+      });
+    } else {
+      if (req?.session?.userCase.respondentsFL401) {
+        if (
+          req?.session?.userCase.respondentsFL401?.response &&
+          req?.session?.userCase.respondentsFL401?.response.citizenFlags
+        ) {
+          req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+        } else {
+          req.session.userCase.respondentsFL401.response = {
+            citizenFlags: {
+              isAllDocumentsViewed: 'No',
+            },
+          };
+        }
+      }
+      if (req?.session?.userCase.applicantsFL401) {
+        if (
+          req?.session?.userCase.applicantsFL401?.response &&
+          req?.session?.userCase.applicantsFL401?.response.citizenFlags
+        ) {
+          req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+        } else {
+          req.session.userCase.applicantsFL401.response = {
+            citizenFlags: {
+              isAllDocumentsViewed: 'No',
+            },
+          };
+        }
+      }
+    }
+
+    const data = toApiFormat(req?.session?.userCase);
+    data.id = caseReference;
+    const updatedCaseDataFromCos = await client.updateCase(
+      loggedInCitizen,
+      caseReference as string,
+      data,
+      'citizen-internal-case-update'
+    );
+    return updatedCaseDataFromCos;
   }
 
   private getPartyName(isApplicant, req: AppRequest<AnyObject>) {
@@ -494,8 +570,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
-      req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
+      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = [];
     }
 

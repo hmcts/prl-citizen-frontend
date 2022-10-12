@@ -122,6 +122,12 @@ export interface Response {
   citizenFlags?: CitizenFlags
 }
 
+export interface CitizenFlags {
+  isApplicationViewed?: string,
+  isAllegationOfHarmViewed?: string
+  isAllDocumentsViewed?: string
+}
+
 
 export interface CitizenFlags {
   isApplicationViewed?: string,
