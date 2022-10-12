@@ -11,7 +11,7 @@ const en = () => ({
   Yes: 'Yes',
   No: 'No',
   errors: {
-    c1A_safetyConern_passportOfficenotifications: {
+    c1A_abductionPassportOfficeNotified: {
       required: 'Select yes if the passport office has been notified',
     },
   },
@@ -24,7 +24,7 @@ const cy = () => ({
   Yes: 'Yes - welsh',
   No: 'No - welsh',
   errors: {
-    c1A_safetyConern_passportOfficenotifications: {
+    c1A_abductionPassportOfficeNotified: {
       required: 'Select yes if the passport office has been notified - welsh',
     },
   },
@@ -37,19 +37,19 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_safetyConern_passportOfficenotifications: {
-      id: 'c1A_safetyConern_passportOfficenotifications',
+    c1A_abductionPassportOfficeNotified: {
+      id: 'c1A_abductionPassportOfficeNotified',
       type: 'radios',
       classes: 'govuk-radios',
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'c1A_safetyConern_passportOfficenotifications',
+          name: 'c1A_abductionPassportOfficeNotified',
           label: l => l.Yes,
           value: YesOrNo.YES,
         },
         {
-          name: 'c1A_safetyConern_passportOfficenotifications',
+          name: 'c1A_abductionPassportOfficeNotified',
           label: l => l.No,
           value: YesOrNo.NO,
         },

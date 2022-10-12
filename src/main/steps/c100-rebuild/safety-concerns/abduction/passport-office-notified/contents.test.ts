@@ -14,7 +14,7 @@ const en = {
   Yes: 'Yes',
   No: 'No',
   errors: {
-    c1A_safetyConern_passportOfficenotifications: {
+    c1A_abductionPassportOfficeNotified: {
       required: 'Select yes if the passport office has been notified',
     },
   },
@@ -27,7 +27,7 @@ const cy = {
   Yes: 'Yes - welsh',
   No: 'No - welsh',
   errors: {
-    c1A_safetyConern_passportOfficenotifications: {
+    c1A_abductionPassportOfficeNotified: {
       required: 'Select yes if the passport office has been notified - welsh',
     },
   },
@@ -55,13 +55,13 @@ describe('Safety concern > abduction > passportofficenotified', () => {
   });
 
   test('should contain safety concern about field', () => {
-    const concernAboutField = fields.c1A_safetyConern_passportOfficenotifications as FormOptions;
+    const concernAboutField = fields.c1A_abductionPassportOfficeNotified as FormOptions;
     expect(concernAboutField.type).toBe('radios');
     expect((concernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.Yes);
     expect((concernAboutField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.No);
 
-    (concernAboutField.validator as Function)('c1A_safetyConern_passportOfficenotifications');
-    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('c1A_safetyConern_passportOfficenotifications');
+    (concernAboutField.validator as Function)('c1A_abductionPassportOfficeNotified');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('c1A_abductionPassportOfficeNotified');
   });
 
   test('should contain Save and continue button', () => {
