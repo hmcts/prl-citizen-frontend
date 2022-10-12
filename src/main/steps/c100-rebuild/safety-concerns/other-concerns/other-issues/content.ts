@@ -1,8 +1,8 @@
-import { YesOrNo } from '../../../../app/case/definition';
-import { PageContent } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-import { CommonContent } from '../../../common/common.content';
+import { YesOrNo } from '../../../../../app/case/definition';
+import { PageContent } from '../../../../../app/controller/GetController';
+import { FormContent } from '../../../../../app/form/Form';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
+import { CommonContent } from '../../../../common/common.content';
 
 const en = {
   section: 'Safety concerns',

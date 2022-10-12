@@ -1,6 +1,6 @@
-import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
+import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -38,7 +38,7 @@ const cy = {
   },
 };
 
-jest.mock('../../../../app/form/validation');
+jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('safety_concerns > other_concerns > content', () => {
   const commonContent = { language: 'en' } as CommonContent;
