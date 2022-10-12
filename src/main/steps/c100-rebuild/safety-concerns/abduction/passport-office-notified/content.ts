@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
+import { generateContent as parentContent } from '../content';
 
 const en = () => ({
   serviceName: 'Child arrangements',
@@ -67,6 +68,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
+    ...parentContent(content),
     form,
   };
 };
