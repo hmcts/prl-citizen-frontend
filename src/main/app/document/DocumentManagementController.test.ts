@@ -1,6 +1,5 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { APPLICANT_TASK_LIST_URL } from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
 
 import { DocumentManagerController } from './DocumentManagementController';
@@ -149,7 +148,6 @@ describe('DocumentManagerController', () => {
   });
   describe('test notifyBannerForNewDcoumentUploaded', () => {
     test('notifyBannerForNewDcoumentUploaded for CA respondent', async () => {
-      const { req } = getMockRequestResponse();
       req.session.userCase.caseTypeOfApplication = 'C100';
       req.session.userCase.respondents = partyDetails;
       updateCaserMock.mockResolvedValue(req.session.userCase);
@@ -163,7 +161,6 @@ describe('DocumentManagerController', () => {
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for CA applicant', async () => {
-      const { req } = getMockRequestResponse();
       req.session.userCase.caseTypeOfApplication = 'C100';
       req.session.userCase.applicants = partyDetails;
       updateCaserMock.mockResolvedValue(req.session.userCase);
@@ -177,7 +174,6 @@ describe('DocumentManagerController', () => {
       expect(req.session.userCase.applicants[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for DA respondent', async () => {
-      const { req } = getMockRequestResponse();
       req.session.userCase.caseTypeOfApplication = 'fl401';
       req.session.userCase.respondentsFL401 = partyDetails[0].value;
       updateCaserMock.mockResolvedValue(req.session.userCase);
@@ -191,7 +187,6 @@ describe('DocumentManagerController', () => {
       expect(req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for DA applicant', async () => {
-      const { req } = getMockRequestResponse();
       req.session.userCase.caseTypeOfApplication = 'fl401';
       req.session.userCase.applicantsFL401 = partyDetails[0].value;
       updateCaserMock.mockResolvedValue(req.session.userCase);
@@ -203,7 +198,8 @@ describe('DocumentManagerController', () => {
         req.session.user
       );
       expect(req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
-
+    });
+  });
   describe('check Allegation of Harm property saved without Response', () => {
     test('check Allegation of Harm property saved', async () => {
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
@@ -433,7 +429,6 @@ describe('DocumentManagerController', () => {
     });
   });
 });
-
 function getMockRequestResponse() {
   const req = mockRequest();
   const res = mockResponse();

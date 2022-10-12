@@ -310,7 +310,7 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
       banners.push(translations.finalOrderBanner);
     }
   }
-// please add all the banners before this if condition, the following banner is added only if no other is present
+  // please add all the banners before this if condition, the following banner is added only if no other is present
   if (banners.length === 0 && userCase.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES) {
     banners.push(translations.daRespondentBanner);
   }

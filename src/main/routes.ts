@@ -11,9 +11,9 @@ import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
-import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsPostController';
+import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -173,6 +173,8 @@ export class Routes {
         app.get(
           `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
+        );
+
         app.get(`${CONSENT_SAVE}`, errorHandler(new ConsentPostController(step.form.fields).post));
         app.get(
           `${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`,

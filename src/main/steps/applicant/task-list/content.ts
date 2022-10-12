@@ -1,7 +1,6 @@
-
 import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER, APPLICANT_ORDERS_FROM_THE_COURT} from '../../../steps/urls';
+import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER } from '../../../steps/urls';
 
 import { applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
@@ -25,13 +24,13 @@ const en = () => ({
     bannerContent: [
       {
         line1: 'A new document has been added to your case.',
-        },
+      },
     ],
     bannerLinks: [
       {
         href: APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
         text: 'See all documents',
-        },
+      },
     ],
   },
 
@@ -83,13 +82,13 @@ const cy = () => ({
     bannerContent: [
       {
         line1: 'A new document has been added to your case.',
-        },
+      },
     ],
     bannerLinks: [
       {
         href: APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
         text: 'See all documents',
-        },
+      },
     ],
   },
   newOrderBanner: {
@@ -135,7 +134,12 @@ export const generateContent: TranslationFn = content => {
       : getFl401Banners(content.userCase, translations, content.userIdamId);
   return {
     ...translations,
-    sections: generateApplicantTaskList(translations.sectionTitles, translations.taskListItems, content.userCase),
+    sections: generateApplicantTaskList(
+      translations.sectionTitles,
+      translations.taskListItems,
+      content.userCase,
+      content.userIdamId
+    ),
     banners,
   };
 };
@@ -166,10 +170,10 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
     userCase?.applicantsFL401?.user?.idamId === userIdamId &&
     YesOrNo.NO === userCase?.applicantsFL401?.response?.citizenFlags?.isAllDocumentsViewed
   ) {
-      banners.push(translations.viewDocumentBanner);
-    }
-   // please add all the banners before this if condition, the following banner is added only if no other is present
-   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+    banners.push(translations.viewDocumentBanner);
+  }
+  // please add all the banners before this if condition, the following banner is added only if no other is present
+  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push(translations.newOrderBanner);
     } else {
