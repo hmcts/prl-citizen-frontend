@@ -76,6 +76,7 @@ import {
   C100_MIAM_GET_MEDIATOR,
   C100_MIAM_UPLOAD,
   C100_MIAM_GET_DOC,
+  C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,
 
   /** Hearing Urgency */
   C100_HEARING_URGENCY_URGENT,
@@ -514,5 +515,14 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_OTHER,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER,
+  },
+
+  {
+    url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.passportOffice === YesOrNo.YES
+        ? C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE
+        : C100_CONFIDENTIALITY_START,
   },
 ];

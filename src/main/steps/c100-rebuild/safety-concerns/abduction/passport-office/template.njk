@@ -1,0 +1,14 @@
+{% extends "common/template.njk" %}
+{% block page_content %}
+<span class="govuk-caption-l">{{caption}}</span>
+<h1 class="govuk-heading-xl">{{title}}</h1>
+{% endblock %}
+{% block page_safetyConcerns %}
+<p class="govuk-body-m">
+<a href="{{guidanceParentalChildlink}}" id="guidanceParentalChild" target="_blank" class="govuk-link">{{ guidanceParentalChild }}</a>
+<br>
+<a href="{{getHelpChildtoReturnlink}}" id="getHelpChildtoReturn" target="_blank" class="govuk-link">{{ getHelpChildtoReturn }}</a>
+<br>
+<a href="{{stopChildgettingPassportlink}}" id="stopChildgettingPassport" target="_blank" class="govuk-link">{{ stopChildgettingPassport }}</a>
+</p>
+{% endblock %}
