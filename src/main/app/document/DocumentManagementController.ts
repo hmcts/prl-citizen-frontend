@@ -119,8 +119,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
         req.session.user
       );
       Object.assign(req.session.userCase, caseDataFromCos);
-      //const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
-      //req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     }
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));

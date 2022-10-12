@@ -273,8 +273,6 @@ export const generateContent: TranslationFn = content => {
 
 const getC100Banners = (userCase, translations, userIdamId) => {
   const banners: Banner[] = [];
-  banners.push(translations.caRespondentServedBanner);
-  banners.push(translations.cafcassBanner);
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (
       respondent?.value.user?.idamId === userIdamId &&
