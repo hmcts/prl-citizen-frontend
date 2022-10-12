@@ -18,19 +18,43 @@ export default class GetCaseDetails extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    //RetreiveDraftCase[] retreveDraftCase =
-    const responseBody: RetreiveDraftCase[] = await req.locals.C100Api.retrieveCase(req.session.user);
-    const returnURL = responseBody[0].c100RebuildReturnUrl;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    //const internationalElements = responseBody[0].c100RebuildInternationalElements;
+    const responseBody: RetreiveDraftCase[] = await req.locals.C100Api.retrieveCase();
+    const retreivedDraftCase = responseBody[0];
+    let c100RebuildInternationalElementsObj = retreivedDraftCase.c100RebuildInternationalElements;
+    let c100RebuildReasonableAdjustmentsObj = retreivedDraftCase.c100RebuildReasonableAdjustments;
+    let c100RebuildTypeOfOrderObj = retreivedDraftCase.c100RebuildTypeOfOrder;
+    let c100RebuildHearingWithoutNoticeObj = retreivedDraftCase.c100RebuildHearingWithoutNotice;
+    let c100RebuildOtherProceedingsObj = retreivedDraftCase.c100RebuildOtherProceedings;
+
+    c100RebuildInternationalElementsObj = {
+      ...(c100RebuildInternationalElementsObj ?? {}),
+    };
+    c100RebuildReasonableAdjustmentsObj = {
+      ...(c100RebuildReasonableAdjustmentsObj ?? {}),
+    };
+    c100RebuildTypeOfOrderObj = {
+      ...(c100RebuildTypeOfOrderObj ?? {}),
+    };
+    c100RebuildHearingWithoutNoticeObj = {
+      ...(c100RebuildHearingWithoutNoticeObj ?? {}),
+    };
+    c100RebuildOtherProceedingsObj = {
+      ...(c100RebuildOtherProceedingsObj ?? {}),
+    };
     req.session.userCase = {
       ...(req.session.userCase ?? {}),
     };
-    Object.assign(req.session.userCase, responseBody[0].c100RebuildInternationalElements);
-    console.log('return url' + returnURL);
-    //const returnURL = req.locals.C100Api.retrieveCase(req.session.user)[0].c100RebuildReturnUrl;
+    req.session.userCase.caseId = retreivedDraftCase.id;
+
+    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildInternationalElementsObj));
+    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildReasonableAdjustmentsObj));
+    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildTypeOfOrderObj));
+    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildHearingWithoutNoticeObj));
+    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildOtherProceedingsObj));
+
+    const returnURL = retreivedDraftCase.c100RebuildReturnUrl;
+
     if (returnURL !== null) {
-      // await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
       req.session.save(() => {
         res.redirect(returnURL);
       });
@@ -40,4 +64,18 @@ export default class GetCaseDetails extends GetController {
       });
     }
   }
+
+  public recoverJsonFromRecord(queryParams: Record<string, string>): string {
+    let str = '';
+    Object.entries(queryParams).forEach(([, value]) => {
+      str = str + value;
+    });
+    if (str !== '') {
+      str = JSON.parse(str);
+    }
+    return str;
+  }
+}
+export interface c100RebuildReasonableAdjustments {
+  ie_internationalStart: string;
 }

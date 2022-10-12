@@ -15,16 +15,13 @@ import { C100, State } from './definition';
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  public async retrieveCase(userDetails: UserDetails): Promise<RetreiveDraftCase[]> {
+  public async retrieveCase(): Promise<RetreiveDraftCase[]> {
     try {
-      console.log('user token');
-      console.log(userDetails.accessToken);
       const url: string = config.get('services.cos.url') + '/cases';
       const response = await this.axios.get<RetreiveDraftCase[]>(url);
       this.logger.info(response.data[0].id);
       this.logger.info(response.data[0].state);
       this.logger.info(response.data[0].c100RebuildReturnUrl);
-      deTransformCaseData(JSON.stringify(response.data[0].c100RebuildInternationalElements));
       return response.data.filter(caseData => caseData.state === 'AWAITING_SUBMISSION_TO_HMCTS');
       //return response.data;
     } catch (err) {
@@ -121,13 +118,6 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
   );
 };
 
-const deTransformCaseData = (caseDataString: string): string => {
-  const caseDataMapperKeys = Object.keys(deTransformCaseDataMapper);
-  console.log('caseDataMapperKeys' + caseDataMapperKeys);
-  console.log('caseDataString' + caseDataString);
-  return caseDataString;
-};
-
 const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
   const caseDataMapperKeys = Object.keys(updateCaseDataMapper);
   const transformedCaseData = Object.entries(caseData).reduce((transformedData: Record<string, any>, [field, data]) => {
@@ -197,15 +187,6 @@ export interface DocumentUploadResponse {
 }
 
 const updateCaseDataMapper = {
-  appl: 'c100RebuildApplicants',
-  ie: 'c100RebuildInternationalElements',
-  ra: 'c100RebuildReasonableAdjustments',
-  too: 'c100RebuildTypeOfOrder',
-  hwn: 'c100RebuildHearingWithoutNotice',
-  op: 'c100RebuildOtherProceedings',
-};
-
-const deTransformCaseDataMapper = {
   appl: 'c100RebuildApplicants',
   ie: 'c100RebuildInternationalElements',
   ra: 'c100RebuildReasonableAdjustments',
