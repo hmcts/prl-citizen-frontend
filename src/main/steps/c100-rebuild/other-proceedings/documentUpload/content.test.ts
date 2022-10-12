@@ -126,6 +126,7 @@ describe('applicant personal details > international elements > start', () => {
     const fields = form.fields as FormFields;
     const documentUploadProceedField = fields.documentUploadProceed as FormOptions;
     expect(documentUploadProceedField.type).toBe('hidden');
+    expect(documentUploadProceedField.labelHidden).toBe(true);
   });
 
   test('should contain Continue button', () => {

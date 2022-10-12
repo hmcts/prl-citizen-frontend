@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { generateContent } from '../../miam/domestic-abuse/content';
 
@@ -252,30 +253,166 @@ describe('miam domestic abuse', () => {
   });
 
   test('should contain miam domesticabuse involvement field', () => {
-    const miam_domesticabuse_involvement_field = fields.miam_domesticAbuse as FormOptions;
+    const miam_domesticabuse_involvement_field = fields?.miam_domesticAbuse as FormOptions;
+    const subFields0 = miam_domesticabuse_involvement_field.values[0].subFields
+      ?.miam_domesticabuse_involvement_subfields as FormOptions;
+    const subFields1 = miam_domesticabuse_involvement_field.values[1].subFields
+      ?.miam_domesticabuse_courtInvolvement_subfields as FormOptions;
+    const subFields2 = miam_domesticabuse_involvement_field.values[2].subFields
+      ?.miam_domesticabuse_letterOfBeingVictim_subfields as FormOptions;
+    const subFields3 = miam_domesticabuse_involvement_field.values[3].subFields
+      ?.miam_domesticabuse_letterFromAuthority_subfields as FormOptions;
+    const subFields4 = miam_domesticabuse_involvement_field.values[4].subFields
+      ?.miam_domesticabuse_letterFromSupportService_subfields as FormOptions;
     expect(miam_domesticabuse_involvement_field.type).toBe('checkboxes');
+
     expect((miam_domesticabuse_involvement_field.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
+    expect((miam_domesticabuse_involvement_field.values[0].hint as LanguageLookup)(generatedContent)).toBe(
+      en.policeInvolvement_hint
+    );
     expect((miam_domesticabuse_involvement_field.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.policeInvolvement
     );
+    expect((subFields0.values[0].label as LanguageLookup)(generatedContent)).toBe(
+      en.policeInvolvement_subFields['evidenceOfSomeoneArrest']
+    );
+    expect((subFields0.values[1].label as LanguageLookup)(generatedContent)).toBe(
+      en.policeInvolvement_subFields['evidenceOfPolice']
+    );
+    expect((subFields0.values[2].label as LanguageLookup)(generatedContent)).toBe(
+      en.policeInvolvement_subFields['evidenceOfOnGoingCriminalProceeding']
+    );
+    expect((subFields0.values[3].label as LanguageLookup)(generatedContent)).toBe(
+      en.policeInvolvement_subFields['evidenceOfConviction']
+    );
+    expect((subFields0.values[4].label as LanguageLookup)(generatedContent)).toBe(
+      en.policeInvolvement_subFields['evidenceOFProtectionNotice']
+    );
+    expect(subFields0.type).toBe('checkboxes');
+    expect(miam_domesticabuse_involvement_field.values[0].value).toBe('policeInvolvement');
     expect((miam_domesticabuse_involvement_field.values[1].label as LanguageLookup)(generatedContent)).toBe(
       en.courtInvolvement
+    );
+
+    expect((miam_domesticabuse_involvement_field.values[1].hint as LanguageLookup)(generatedContent)).toBe(
+      en.courtInvolvement_hint
+    );
+    expect(miam_domesticabuse_involvement_field.values[1].value).toBe('courtInvolvement');
+    expect((subFields1.values[0].label as LanguageLookup)(generatedContent)).toBe(
+      en.courtInvolvement_subFields['boundedByCourtAction']
+    );
+    expect((subFields1.values[1].label as LanguageLookup)(generatedContent)).toBe(
+      en.courtInvolvement_subFields['protectionInjuction']
+    );
+    expect((subFields1.values[2].label as LanguageLookup)(generatedContent)).toBe(
+      en.courtInvolvement_subFields['fmlAct1996']
+    );
+    expect((subFields1.values[3].label as LanguageLookup)(generatedContent)).toBe(
+      en.courtInvolvement_subFields['ukdomesticVoilcenceUK']
+    );
+    expect((subFields1.values[4].label as LanguageLookup)(generatedContent)).toBe(
+      en.courtInvolvement_subFields['ukPotentialVictim']
     );
     expect((miam_domesticabuse_involvement_field.values[2].label as LanguageLookup)(generatedContent)).toBe(
       en.letterOfBeingVictim
     );
+    expect((miam_domesticabuse_involvement_field.values[2].hint as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromAuthority_hint
+    );
+    expect(miam_domesticabuse_involvement_field.values[2].value).toBe('letterOfBeingVictim');
+    expect((subFields2.values[0].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterOfBeingVictim_subFields['letterFromHealthProfessional']
+    );
+    expect((subFields2.values[0].hint as LanguageLookup)(generatedContent)).toBe(
+      en.letterOfBeingVictim_subFields['letterFromHealthProfessional_hint']
+    );
+    expect((subFields2.values[1].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterOfBeingVictim_subFields['letterFromHPfromPerspectiveParty']
+    );
+    expect((subFields2.values[1].hint as LanguageLookup)(generatedContent)).toBe(
+      en.letterOfBeingVictim_subFields['letterFromHPfromPerspectiveParty_hint']
+    );
     expect((miam_domesticabuse_involvement_field.values[3].label as LanguageLookup)(generatedContent)).toBe(
       en.letterFromAuthority
+    );
+    expect((miam_domesticabuse_involvement_field.values[3].hint as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromAuthority_hint
+    );
+    expect(miam_domesticabuse_involvement_field.values[3].value).toBe('letterFromAuthority');
+    expect((subFields3.values[0].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromAuthority_subFields['letterFromMultiAgencyMember']
+    );
+    expect((subFields3.values[1].hint as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromAuthority_subFields['letterFromOfficer_hint']
+    );
+    expect((subFields3.values[1].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromAuthority_subFields['letterFromOfficer']
+    );
+    expect((subFields3.values[2].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromAuthority_subFields['letterFromPublicAuthority']
     );
     expect((miam_domesticabuse_involvement_field.values[4].label as LanguageLookup)(generatedContent)).toBe(
       en.letterFromSupportService
     );
+    expect((miam_domesticabuse_involvement_field.values[4].hint as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromSupportService_hint
+    );
+    expect(miam_domesticabuse_involvement_field.values[4].value).toBe('letterFromSupportService');
+    expect((subFields4.values[0].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromSupportService_subFields['letterFromDomesticViolenceAdvisor']
+    );
+    expect((subFields4.values[1].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromSupportService_subFields['letterFromSexualViolenceAdvisor']
+    );
+    expect((subFields4.values[2].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromSupportService_subFields['letterFromOrgDomesticViolenceSupport']
+    );
+    expect((subFields4.values[3].label as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromSupportService_subFields['letterFromOrgDomesticViolenceInUk']
+    );
+    expect((subFields4.values[2].hint as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromOrgDomesticViolenceSupportHint
+    );
+    expect((subFields4.values[3].hint as LanguageLookup)(generatedContent)).toBe(
+      en.letterFromOrgDomesticViolenceInUkHint
+    );
+
     expect((miam_domesticabuse_involvement_field.values[5].label as LanguageLookup)(generatedContent)).toBe(
       en.ILRDuetoDomesticAbuse
     );
+    expect((miam_domesticabuse_involvement_field.values[5].hint as LanguageLookup)(generatedContent)).toBe(
+      en.ILRDuetoDomesticAbuse_hint
+    );
+    expect(miam_domesticabuse_involvement_field.values[5].value).toBe('ILRDuetoDomesticAbuse');
     expect((miam_domesticabuse_involvement_field.values[6].label as LanguageLookup)(generatedContent)).toBe(
       en.financiallyAbuse
     );
+    expect((miam_domesticabuse_involvement_field.values[6].hint as LanguageLookup)(generatedContent)).toBe(
+      en.financiallyAbuse_hint
+    );
+    expect(miam_domesticabuse_involvement_field.values[6].value).toBe('financiallyAbuse');
+    expect((miam_domesticabuse_involvement_field.values[8].label as LanguageLookup)(generatedContent)).toBe(
+      en.noneOfOptions
+    );
+    expect(miam_domesticabuse_involvement_field.values[8].behaviour).toBe('exclusive');
+
+    (miam_domesticabuse_involvement_field.validator as Validator)('courtInvolvement');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('courtInvolvement');
+
+    (subFields0.validator as Validator)('evidenceOfSomeoneArrest');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('evidenceOfSomeoneArrest');
+
+    (subFields1.validator as Validator)('boundedByCourtAction');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('boundedByCourtAction');
+
+    (subFields2.validator as Validator)('letterFromHealthProfessional');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('letterFromHealthProfessional');
+
+    (subFields3.validator as Validator)('letterFromMultiAgencyMember');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('letterFromMultiAgencyMember');
+
+    (subFields4.validator as Validator)('letterFromDomesticViolenceAdvisor');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('letterFromDomesticViolenceAdvisor');
   });
 
   test('should contain Save and continue button', () => {
