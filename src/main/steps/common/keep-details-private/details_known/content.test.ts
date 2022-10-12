@@ -12,7 +12,7 @@ const enContent = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
@@ -28,7 +28,7 @@ const cyContent = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',
@@ -75,7 +75,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
