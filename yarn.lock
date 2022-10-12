@@ -1060,10 +1060,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@hmcts/cookie-manager@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@hmcts/cookie-manager/-/cookie-manager-0.0.4.tgz#dc7381fffd03616863d0549ae1c0169d7b0348fd"
-  integrity sha512-OScl6xMFmKyCR8b0ZJyJxYOp7pV8G492LencoTkLrw60Cd0uyKYbkR0ugffx0LyO28Tqo7yRM3aHUV9DjsErug==
+"@hmcts/cookie-manager@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@hmcts/cookie-manager/-/cookie-manager-1.0.0.tgz#06a850f3854aebccf3948081e2d7071b36c60cd5"
+  integrity sha512-NLG4OY41oXp4pNKNznmpRZ7nAvmavoaOAWrRN6er+i6lVoZFY7B1yWv2R80b5n7l6cGPpT7THNoC7FPFHRaFgg==
 
 "@hmcts/frontend@^0.0.50-alpha":
   version "0.0.50-alpha"
