@@ -37,7 +37,7 @@ describe('utils', () => {
           detailsKnown: 'undefined',
           startAlternative: 'undefined',
         },
-        expected: SectionStatus.COMPLETED,
+        expected: SectionStatus.TO_DO,
       },
       {
         data: {
@@ -45,10 +45,10 @@ describe('utils', () => {
           detailsKnown: 'undefined',
           startAlternative: undefined,
         },
-        expected: SectionStatus.IN_PROGRESS,
+        expected: SectionStatus.TO_DO,
       },
     ])('should return correct status %#', async ({ data, expected }) => {
-      expect(getKeepYourDetailsPrivateStatus({ ...userCase, ...data })).toBe(expected);
+      expect(getKeepYourDetailsPrivateStatus({ ...userCase, ...data }, '123456')).toBe(expected);
     });
   });
   describe('getConfirmOrEditYourContactDetails', () => {
@@ -56,33 +56,33 @@ describe('utils', () => {
       {
         data: {
           ...mockUserCase,
-          applicant1FullName: undefined,
-          applicant1DateOfBirth: undefined,
-        },
-        expected: SectionStatus.TO_DO,
-      },
-      {
-        data: {
-          ...mockUserCase,
-          applicant1FullName: YesOrNo.NO,
+          citizenUserFullName: undefined,
+          citizenUserDateOfBirth: undefined,
         },
         expected: SectionStatus.IN_PROGRESS,
       },
       {
         data: {
           ...mockUserCase,
-          applicant1FullName: 'Test',
-          applicant1DateOfBirth: {
+          citizenUserFullName: YesOrNo.NO,
+        },
+        expected: SectionStatus.IN_PROGRESS,
+      },
+      {
+        data: {
+          ...mockUserCase,
+          citizenUserFullName: 'Test',
+          citizenUserDateOfBirth: {
             year: 'string',
             month: 'string',
             day: 'string',
           },
-          applicant1PlaceOfBirth: 'string',
+          citizenUserPlaceOfBirth: 'string',
         },
-        expected: SectionStatus.COMPLETED,
+        expected: SectionStatus.IN_PROGRESS,
       },
     ])('should return correct status %#', async ({ data, expected }) => {
-      expect(getConfirmOrEditYourContactDetails({ ...userCase, ...data })).toBe(expected);
+      expect(getConfirmOrEditYourContactDetails({ ...userCase, ...data }, '123456')).toBe(expected);
     });
   });
   describe('getYourApplication', () => {
@@ -176,7 +176,8 @@ describe('utils', () => {
         },
         expected: SectionStatus.READY_TO_VIEW,
       },
-    ])('should return correct status %#', async ({ expected }) => {
+    ])('should return correct status %#', async ({ data, expected }) => {
+      console.log(data);
       expect(getViewAllDocuments()).toBe(expected);
     });
   });

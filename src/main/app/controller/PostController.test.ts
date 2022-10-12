@@ -215,11 +215,11 @@ describe('PostController', () => {
   // });
 
   test('Should redirect back to the current page with the form data on errors', async () => {
-    //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
-    const body = { applicant1PhoneNumber: 'invalid phone number' };
+    //const errors = [{ propertyName: 'citizenUserPhoneNumber', errorType: 'invalid' }];
+    const body = { citizenUserPhoneNumber: 'invalid phone number' };
     const mockPhoneNumberFormContent = {
       fields: {
-        applicant1PhoneNumber: {
+        citizenUserPhoneNumber: {
           type: 'tel',
           validator: isPhoneNoValid,
         },
@@ -233,7 +233,7 @@ describe('PostController', () => {
 
     /* expect(req.session.userCase).toEqual({
       id: '1234',
-      applicant1PhoneNumber: 'invalid phone number',
+      citizenUserPhoneNumber: 'invalid phone number',
     });
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();

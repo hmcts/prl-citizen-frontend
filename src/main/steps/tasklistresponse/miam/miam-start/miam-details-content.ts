@@ -12,7 +12,7 @@ export const miam_collapse_content_en = `<div>
               <li>less stress and a faster process than going to court</li>
               <li>help with making arrangements over parenting, property and money</li>
               <li>more control over your family's future</li>
-              <li>help with putting your childrens' interests first</li>
+              <li>help with putting your children's interests first</li>
               <li>help with moving on to the next stage of your lives</li>
             </ul><p></p>
             <p>The MIAM process works, with agreement reached in over 70% of cases.</p>
@@ -32,7 +32,7 @@ export const miam_collapse_content_cy = `<div>
               <li>less stress and a faster process than going to court</li>
               <li>help with making arrangements over parenting, property and money</li>
               <li>more control over your family's future</li>
-              <li>help with putting your childrens' interests first</li>
+              <li>help with putting your children's interests first</li>
               <li>help with moving on to the next stage of your lives</li>
             </ul><p></p>
             <p>The MIAM process works, with agreement reached in over 70% of cases.</p>
