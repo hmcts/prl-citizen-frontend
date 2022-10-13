@@ -260,6 +260,7 @@ export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
 export const C100_URL: PageLink = '/c100-rebuild';
 export const C100_START: PageLink = `${C100_URL}/start`;
 export const C100_CHILD_ADDRESS: PageLink = `${C100_URL}/childaddress`;
+export const C100_LEGAL_REPRESENTATION_APPLICATION: PageLink = `${C100_URL}/legal-representation-application`;
 
 export const C100_CREATE_APPLICATION: PageLink = `${C100_URL}/create-application`;
 export const C100_CONFIRMATIONPAGE: PageLink = `${C100_URL}/confirmation-page`;

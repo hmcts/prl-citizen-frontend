@@ -30,6 +30,7 @@ import {
   C100_TYPE_ORDER_CAORDER,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   C100_TYPE_ORDER_SHORT_STATEMENT,
+
   /** @C100 Help with Fees */
   // eslint-disable-next-line sort-imports
   C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
@@ -82,6 +83,7 @@ import {
   C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
+  C100_LEGAL_REPRESENTATION_APPLICATION,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -514,5 +516,13 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_OTHER,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER,
+  },
+  {
+    url: C100_LEGAL_REPRESENTATION_APPLICATION,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.c1A_legalRepresentationApplication === YesOrNo.YES
+        ? C100_LEGAL_REPRESENTATION_APPLICATION
+        : C100_CONFIDENTIALITY_START,
   },
 ];
