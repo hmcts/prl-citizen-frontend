@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
+import { generateContent as commonContent } from '../content';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -16,12 +17,6 @@ const en = () => ({
   option2: 'Father',
   option3: 'Other',
   otherDetails: 'Provide more details',
-  guidanceParentalChildHyperlink: 'https://www.gov.uk/government/collections/child-abduction',
-  guidanceParentalChildLabel: 'Guidance on parental child abduction',
-  helpForAbroadChildHyperlink: 'https://www.gov.uk/return-or-contact-abducted-child',
-  helpForAbroadChildLabel: 'Get help to return a child from abroad or arrange contact',
-  stopChildGettingPassportHyperlink: 'https://www.gov.uk/stop-child-passport',
-  stopChildGettingPassportLabel: 'Stop a child from getting a passport',
   errors: {
     c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport',
@@ -47,12 +42,6 @@ const cy = () => ({
   option2: 'Father - welsh',
   option3: 'Other - welsh',
   otherDetails: 'Provide more details - welsh',
-  guidanceParentalChildHyperlink: 'https://www.gov.uk/government/collections/child-abduction  - welsh',
-  guidanceParentalChildLabel: 'Guidance on parental child abduction  - welsh',
-  helpForAbroadChildHyperlink: 'https://www.gov.uk/return-or-contact-abducted-child  - welsh',
-  helpForAbroadChildLabel: 'Get help to return a child from abroad or arrange contact  - welsh',
-  stopChildGettingPassportHyperlink: 'https://www.gov.uk/stop-child-passport  - welsh',
-  stopChildGettingPassportLabel: 'Stop a child from getting a passport  - welsh',
   errors: {
     c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport - welsh',
@@ -135,6 +124,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
+    ...commonContent(content),
     ...translations,
     form,
   };
