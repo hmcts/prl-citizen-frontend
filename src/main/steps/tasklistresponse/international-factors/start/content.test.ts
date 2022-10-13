@@ -9,7 +9,7 @@ const enContent = {
   title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -27,7 +27,7 @@ const cyContent = {
   title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
