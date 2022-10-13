@@ -1,6 +1,9 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../../steps/common/common.content';
+import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
+import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
+import { cy as GeneralContentCy, en as GeneralContentEn } from '../miam/general-reasons/content';
 
 import {
   ChildernDetails,
@@ -104,6 +107,20 @@ export const enContent = {
     mediatorConfirmation: 'Has a mediator confirmed that you do not need to attend a MIAM?',
     reasonForNotAttendingMiam: 'Do you have valid reasons for not attending a MIAM?',
     validResonsNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
+    domesticViolence: GeneralContentEn.domesticViolence,
+    childProtection: GeneralContentEn.childProtection,
+    urgentHearing: GeneralContentEn.urgentHearing,
+    previousMIAMOrExempt: GeneralContentEn.previousMIAMOrExempt,
+    validExemption: GeneralContentEn.validExemption,
+    noReason: GeneralContentEn.noReason,
+    domesticVoilenceHeading: DomesticAbuseEn().title,
+    childProtectionHeading: ChildProtectionEn().title,
+    urgentHearingHeading:
+      'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
+    previousMIAMOrExemptHeading:
+      'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
+    validExemptionHeading:
+      'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
   },
 };
 const cyContent: typeof enContent = {
@@ -197,7 +214,21 @@ const cyContent: typeof enContent = {
     attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
     mediatorConfirmation: 'Has a mediator confirmed that you do not need to attend a MIAM?',
     reasonForNotAttendingMiam: 'Do you have valid reasons for not attending a MIAM?',
-    validResonsNotAttendingMiam : 'What are your valid reasons for not attending a MIAM?',
+    validResonsNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
+    domesticViolence: GeneralContentCy.domesticViolence,
+    childProtection: GeneralContentCy.childProtection,
+    urgentHearing: GeneralContentCy.urgentHearing,
+    previousMIAMOrExempt: GeneralContentCy.previousMIAMOrExempt,
+    validExemption: GeneralContentCy.validExemption,
+    noReason: GeneralContentCy.noReason,
+    domesticVoilenceHeading: DomesticAbuseCy().title,
+    childProtectionHeading: ChildProtectionCy().title,
+    urgentHearingHeading:
+      'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
+    previousMIAMOrExemptHeading:
+      'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
+    validExemptionHeading:
+      'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
   },
 };
 

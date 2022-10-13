@@ -2,6 +2,7 @@ import { CaseWithId } from '../../../app/case/case';
 import * as Urls from '../../../steps/urls';
 
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
+import { MiamHelper } from './helpers/miamHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 
 /* eslint-disable import/namespace */
@@ -211,8 +212,8 @@ export const MiamAttendance = (
   const SummaryData = [
     {
       key: keys['childInvolvementInSupervision'],
-      value: '',
-      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+      value: userCase['miam_attendance'],
+      changeUrl: Urls['C100_MIAM_ATTENDANCE'],
     },
     {
       key: keys['attendedMiamMidiation'],
@@ -241,14 +242,15 @@ export const MiamExemption = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
+  const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);
   const SummaryData = [
     {
       key: keys['validResonsNotAttendingMiam'],
-      value: userCase['childrenSubjectOfProtectionPlan'],
-      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+      valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
+      changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },
+    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, Urls),
   ];
-
   return {
     title: sectionTitles['MiamExemption'],
     rows: getSectionSummaryList(SummaryData, content),
