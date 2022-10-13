@@ -9,7 +9,7 @@ jest.mock('../../../app/form/validation');
 const enContent = {
   line1:
     "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-  postcode: 'Postcode',
+  postcode: 'Current postcode',
   selectAddress: 'Select an address',
   cannotFindAddress: 'I cannot find the address in the list',
   errors: {
@@ -24,7 +24,7 @@ const enContent = {
 const cyContent = {
   line1:
     "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-  postcode: 'Postcode (in welsh)',
+  postcode: 'Current postcode (in welsh)',
   selectAddress: 'Select an address (in welsh)',
   cannotFindAddress: 'I cannot find the address in the list (in welsh)',
   errors: {
@@ -46,7 +46,6 @@ describe('common > components > address-select', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.line1).toEqual(enContent.line1);
     expect(generatedContent.postcode).toEqual(enContent.postcode);
     expect(generatedContent.selectAddress).toEqual(enContent.selectAddress);
     expect(generatedContent.cannotFindAddress).toEqual(enContent.cannotFindAddress);
@@ -67,7 +66,6 @@ describe('common > components > address-select', () => {
 
   test('should return correct welsh content', () => {
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.line1).toEqual(cyContent.line1);
     expect(generatedContent.postcode).toEqual(cyContent.postcode);
     expect(generatedContent.selectAddress).toEqual(cyContent.selectAddress);
     expect(generatedContent.cannotFindAddress).toEqual(cyContent.cannotFindAddress);
@@ -131,7 +129,6 @@ describe('common > components > address-select', () => {
 
     expect(selectAddressField.type).toBe('select');
     expect((selectAddressField.label as Function)(generatedContent)).toBe('Select an address');
-    expect(selectAddressField.labelSize).toBe('m');
     expect(selectAddressField.validator).toBe(isAddressSelected);
   });
 });

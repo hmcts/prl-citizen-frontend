@@ -18,9 +18,7 @@ const en = content => {
   options.push(...getAddressItems(addresses));
 
   return {
-    line1:
-      "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-    postcode: 'Postcode',
+    postcode: 'Current postcode',
     selectAddress: 'Select an address',
     cannotFindAddress: 'I cannot find the address in the list',
     defaultPostcode: 'E14RRR',
@@ -50,9 +48,7 @@ const cy = content => {
   options.push(...getAddressItems(addresses));
 
   return {
-    line1:
-      "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-    postcode: 'Postcode (in welsh)',
+    postcode: 'Current postcode (in welsh)',
     selectAddress: 'Select an address (in welsh)',
     cannotFindAddress: 'I cannot find the address in the list (in welsh)',
     errors: {
@@ -71,7 +67,6 @@ export const form: FormContent = {
     selectAddress: {
       type: 'select',
       label: l => l.selectAddress,
-      labelSize: 'm',
       validator: isAddressSelected,
       options: l => l.options,
     },

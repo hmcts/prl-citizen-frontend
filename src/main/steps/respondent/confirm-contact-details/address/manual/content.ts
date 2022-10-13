@@ -14,11 +14,11 @@ export const form: FormContent = {
   ...manualAddressForm,
   fields: () => {
     return {
-      applicantAddress1: manualAddressFormFields.address1,
-      applicantAddress2: manualAddressFormFields.address2,
-      applicantAddressTown: manualAddressFormFields.addressTown,
-      applicantAddressCounty: manualAddressFormFields.addressCounty,
-      applicantAddressPostcode: manualAddressFormFields.addressPostcode,
+      citizenUserManualAddress1: manualAddressFormFields.address1,
+      citizenUserManualAddress2: manualAddressFormFields.address2,
+      citizenUserManualAddressTown: manualAddressFormFields.addressTown,
+      citizenUserManualAddressCounty: manualAddressFormFields.addressCounty,
+      citizenUserManualAddressPostcode: manualAddressFormFields.addressPostcode,
     };
   },
   submit: {

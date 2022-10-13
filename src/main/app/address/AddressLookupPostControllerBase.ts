@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import { RESPONDENT_ADDRESS_LOOKUP_CONT } from '../../steps/urls';
 
 import { FieldPrefix } from '../../app/case/case';
 import { AppRequest } from '../controller/AppRequest';
@@ -15,7 +14,7 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const postcode = req.body[`addressPostcode`] as string;
+    const postcode = req.body['citizenUserAddressPostcode'] as string;
 
     let addresses;
 
@@ -26,12 +25,13 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
     req.session.errors = form.getErrors(formData);
 
     Object.assign(req.session.userCase, formData);
+    req.session.errors = [];
 
-   // if (req.session.errors.length === 0) {
+    if (req.session.errors.length === 0) {
       addresses = await getAddressesFromPostcode(postcode, req.locals.logger);
-    //}
+    }
     req.session.addresses = addresses;
 
-    req.session.save(() => res.redirect(RESPONDENT_ADDRESS_LOOKUP_CONT));
+    this.redirect(req, res);
   }
 }

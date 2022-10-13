@@ -37,10 +37,10 @@ describe('applicant > address > select > content', () => {
     expect(generatedContent.section).toEqual(enContent.section);
     expect(generatedContent.title).toEqual(enContent.title);
     expect(generatedContent.errors).toEqual({
-      applicantSelectAddress: (selectAddressContent.errors as any).selectAddress,
+      citizenUserSelectAddress: (selectAddressContent.errors as any).selectAddress,
     });
-    expect(generatedContent.changePostCodeUrl).toEqual('/confirm-contact-details/addresslookup');
-    expect(generatedContent.cantFindAddressUrl).toEqual('/address/manual');
+    expect(generatedContent.changePostCodeUrl).toEqual('/respondent/confirm-contact-details/address/lookup');
+    expect(generatedContent.cantFindAddressUrl).toEqual('/respondent/confirm-contact-details/address/manual');
   });
 
   test('should return correct welsh content', () => {
@@ -49,26 +49,26 @@ describe('applicant > address > select > content', () => {
     expect(generatedContent.section).toEqual(cyContent.section);
     expect(generatedContent.title).toEqual(cyContent.title);
     expect(generatedContent.errors).toEqual({
-      applicantSelectAddress: (selectAddressContent.errors as any).selectAddress,
+      citizenUserSelectAddress: (selectAddressContent.errors as any).selectAddress,
     });
-    expect(generatedContent.changePostCodeUrl).toEqual('/confirm-contact-details/addresslookup');
-    expect(generatedContent.cantFindAddressUrl).toEqual('/address/manual');
+    expect(generatedContent.changePostCodeUrl).toEqual('/respondent/confirm-contact-details/address/lookup');
+    expect(generatedContent.cantFindAddressUrl).toEqual('/respondent/confirm-contact-details/address/manual');
   });
 
-  test('should contain applicantSelectAddress field', () => {
+  test('should contain citizenUserSelectAddress field', () => {
     const selectAddressFormFields = selectAddressForm.fields as FormFields;
     const fields = generatedContent.form.fields as FormFields;
-    expect(fields.applicantSelectAddress).toEqual(selectAddressFormFields.selectAddress);
+    expect(fields.citizenUserSelectAddress).toEqual(selectAddressFormFields.selectAddress);
   });
 
-  it('should have applicantSelectAddress label when language: en', () => {
+  it('should have citizenUserSelectAddress label when language: en', () => {
     const commonContent1 = { language: EN, userCase: {} } as CommonContent;
 
     const generatedContent1 = generateContent(commonContent1);
     expect(generatedContent1.section).toBe(enContent.section);
   });
 
-  it('should have applicantSelectAddress label when language: cy', () => {
+  it('should have citizenUserSelectAddress label when language: cy', () => {
     const commonContent1 = { language: CY, userCase: {} } as CommonContent;
 
     const generatedContent1 = generateContent(commonContent1);

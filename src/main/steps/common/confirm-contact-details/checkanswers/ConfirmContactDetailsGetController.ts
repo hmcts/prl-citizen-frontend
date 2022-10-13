@@ -52,9 +52,7 @@ export class ConfirmContactDetailsGetController extends GetController {
 const fieldsArray: string[] = [
   'citizenUserFullName',
   'citizenUserPlaceOfBirthText',
-  'applicant1Address1',
-  'applicant1Address2',
-  'applicant1AddressTown',
+  'citizenUserAddressText',
   'citizenUserPhoneNumberText',
   'citizenUserEmailAddressText',
   'applicant1SafeToCall',

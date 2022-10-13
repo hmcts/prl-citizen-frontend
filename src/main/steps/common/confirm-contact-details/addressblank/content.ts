@@ -9,9 +9,9 @@ const en = ({ manualAddressContent }) => {
   return {
     title: 'Your Address',
     errors: {
-      applicant1Address1: manualAddressContent.errors.address1,
-      applicant1AddressTown: manualAddressContent.errors.addressTown,
-      applicant1AddressPostcode: manualAddressContent.errors.addressPostcode,
+      citizenUserAddress1: manualAddressContent.errors.address1,
+      citizenUserAddressTown: manualAddressContent.errors.addressTown,
+      citizenUserAddressPostcode: manualAddressContent.errors.addressPostcode,
     },
   };
 };
@@ -20,9 +20,9 @@ const cy: typeof en = ({ manualAddressContent }) => {
   return {
     title: 'Beth yw eich cyfeiriad?',
     errors: {
-      applicant1Address1: manualAddressContent.errors.address1,
-      applicant1AddressTown: manualAddressContent.errors.addressTown,
-      applicant1AddressPostcode: manualAddressContent.errors.addressPostcode,
+      citizenUserAddress1: manualAddressContent.errors.address1,
+      citizenUserAddressTown: manualAddressContent.errors.addressTown,
+      citizenUserAddressPostcode: manualAddressContent.errors.addressPostcode,
     },
   };
 };
@@ -31,12 +31,12 @@ const manualAddressFormFields = manualAddressForm.fields as FormFields;
 export const form: FormContent = {
   ...manualAddressForm,
   fields: {
-    applicant1Address1: manualAddressFormFields.address1,
-    applicant1Address2: manualAddressFormFields.address2,
+    citizenUserAddress1: manualAddressFormFields.address1,
+    citizenUserAddress2: manualAddressFormFields.address2,
     applicant1Address3: manualAddressFormFields.address3,
-    applicant1AddressTown: manualAddressFormFields.addressTown,
-    applicant1AddressCounty: manualAddressFormFields.addressCounty,
-    applicant1AddressPostcode: manualAddressFormFields.addressPostcode,
+    citizenUserAddressTown: manualAddressFormFields.addressTown,
+    citizenUserAddressCounty: manualAddressFormFields.addressCounty,
+    citizenUserAddressPostcode: manualAddressFormFields.addressPostcode,
   },
 };
 

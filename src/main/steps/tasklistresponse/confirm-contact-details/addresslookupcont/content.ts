@@ -14,7 +14,7 @@ const en = ({ selectAddressContent }) => {
     changePostCodeUrlLink: 'Change postcode',
     selectAddress: 'Select an address',
     errors: {
-      applicant1SelectAddress: selectAddressContent.errors.selectAddress,
+      citizenUserSelectAddress: selectAddressContent.errors.selectAddress,
     },
     changePostCodeUrl: RESPONDENT_FIND_ADDRESS,
     continue: 'Continue',
@@ -29,7 +29,7 @@ const cy: typeof en = ({ selectAddressContent }) => {
     changePostCodeUrlLink: 'Change postcode',
     selectAddress: 'Select an address',
     errors: {
-      applicant1SelectAddress: selectAddressContent.errors.selectAddress,
+      citizenUserSelectAddress: selectAddressContent.errors.selectAddress,
     },
     changePostCodeUrl: RESPONDENT_FIND_ADDRESS,
     continue: 'Continue',
@@ -45,7 +45,7 @@ const selectAddressFormFields = selectAddressForm.fields as FormFields;
 export const form: FormContent = {
   ...selectAddressForm,
   fields: {
-    applicant1SelectAddress: selectAddressFormFields.selectAddress,
+    citizenUserSelectAddress: selectAddressFormFields.selectAddress,
   },
 };
 

@@ -5,6 +5,8 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
+import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
+import { FieldPrefix } from './app/case/case';
 import { GetController } from './app/controller/GetController';
 import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
@@ -65,8 +67,6 @@ import {
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
 } from './steps/urls';
-import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
-import { FieldPrefix } from './app/case/case';
 
 const handleUploads = multer();
 

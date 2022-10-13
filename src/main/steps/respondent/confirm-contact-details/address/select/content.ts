@@ -2,27 +2,30 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
 import {
-  form as addressLookupForm,
-  generateContent as addressLookupGenerateContent,
-} from '../../../../common/components/address-lookup';
-import { APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
+  form as selectAddressForm,
+  generateContent as selectAddressGenerateContent,
+} from '../../../../common/components/address-select';
+import { RESPONDENT_ADDRESS_MANUAL, RESPONDENT_FIND_ADDRESS } from '../../../../urls';
 
-const LOOKUP_ADDRESS = 'address-lookup';
+const selectAddressFormFields = selectAddressForm.fields as FormFields;
 
-const addressLookupFormFields = addressLookupForm.fields as FormFields;
+const SELECT_ADDRESS = 'select-address';
 
 export const form: FormContent = {
-  ...addressLookupForm,
+  ...selectAddressForm,
   fields: () => {
     return {
-      applicantAddressPostcode: addressLookupFormFields.addressPostcode,
+      citizenUserSelectAddress: selectAddressFormFields.selectAddress,
     };
+  },
+  submit: {
+    text: l => l.continue,
   },
 };
 
 export const generateContent: TranslationFn = content => {
   const resourceLoader = new ResourceReader();
-  resourceLoader.Loader(LOOKUP_ADDRESS);
+  resourceLoader.Loader(SELECT_ADDRESS);
   const translations = resourceLoader.getFileContents().translations;
   const errors = resourceLoader.getFileContents().errors;
 
@@ -32,7 +35,8 @@ export const generateContent: TranslationFn = content => {
       errors: {
         ...errors.en,
       },
-      manualAddressUrl: APPLICANT_MANUAL_ADDRESS,
+      changePostCodeUrl: RESPONDENT_FIND_ADDRESS,
+      cantFindAddressUrl: RESPONDENT_ADDRESS_MANUAL,
     };
   };
   const cy = () => {
@@ -41,7 +45,8 @@ export const generateContent: TranslationFn = content => {
       errors: {
         ...errors.cy,
       },
-      manualAddressUrl: APPLICANT_MANUAL_ADDRESS,
+      changePostCodeUrl: RESPONDENT_FIND_ADDRESS,
+      cantFindAddressUrl: RESPONDENT_ADDRESS_MANUAL,
     };
   };
 
@@ -50,11 +55,11 @@ export const generateContent: TranslationFn = content => {
     cy,
   };
 
-  const addressLookupContent = addressLookupGenerateContent(content);
+  const selectAddressContent = selectAddressGenerateContent(content);
   const translationContent = languages[content.language]();
 
   return {
-    ...addressLookupContent,
+    ...selectAddressContent,
     ...translationContent,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };

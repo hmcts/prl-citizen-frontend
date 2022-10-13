@@ -17,6 +17,7 @@ const en = {
   continue: 'Save and continue',
   next: 'Next',
   change: 'Change',
+  changePostCode: 'Change postcode',
   upload: 'Upload',
   download: 'Download',
   delete: 'Delete',

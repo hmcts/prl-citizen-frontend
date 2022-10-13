@@ -1,7 +1,7 @@
-import { Case } from '../../../app/case/case';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
+import { Case } from '../../../app/case/case';
 import { Applicant, Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';

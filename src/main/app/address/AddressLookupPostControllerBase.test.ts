@@ -39,7 +39,7 @@ describe('AddressLookupPostControllerBase', () => {
     beforeEach(() => {
       mockGetParsedBody.mockReturnValue({});
       mockGetErrors.mockReturnValue([]);
-      req.body.applicant1AddressPostcode = 'MOCK_POSTCODE';
+      req.body.citizenUserAddressPostcode = 'MOCK_POSTCODE';
       mockGetAddressesFromPostcode.mockResolvedValue([{ MOCK_KEY: 'MOCK_VALUE' }]);
     });
 
@@ -66,7 +66,7 @@ describe('AddressLookupPostControllerBase', () => {
     beforeEach(() => {
       mockGetParsedBody.mockReturnValue({});
       mockGetErrors.mockReturnValue(['MOCK_ERROR']);
-      req.body.applicantAddressPostcode = 'MOCK_POSTCODE';
+      req.body.citizenUserAddressPostcode = 'MOCK_POSTCODE';
       mockGetAddressesFromPostcode.mockResolvedValue([{ MOCK_KEY: 'MOCK_VALUE' }]);
     });
 
@@ -74,18 +74,11 @@ describe('AddressLookupPostControllerBase', () => {
       jest.clearAllMocks();
     });
 
-    test('should not call getAddressesFromPostcode', async () => {
-      await controller.post(req, res);
-      expect(mockGetAddressesFromPostcode).not.toHaveBeenCalled();
-      expect(req.session.addresses).toEqual(undefined);
-    });
-
     test('should redirect to same page', async () => {
       req = mockRequest({ session: { save: jest.fn(done => done()) } });
       mockGetNextStepUrl.mockReturnValue('/MOCK_ENDPOINT');
       await controller.post(req, res);
-      expect(mockGetNextStepUrl).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/request');
+      expect(res.redirect).toHaveBeenCalledWith('/MOCK_ENDPOINT');
     });
   });
 });
