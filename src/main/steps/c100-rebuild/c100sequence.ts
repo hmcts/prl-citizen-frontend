@@ -81,6 +81,7 @@ import {
   C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
+  C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -508,5 +509,10 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
   },
 ];

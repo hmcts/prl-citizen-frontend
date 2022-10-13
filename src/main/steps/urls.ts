@@ -332,6 +332,7 @@ export const C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = `${C100_C
 /***@C100 SafetyConcerns Abduction */
 export const C100_C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = `${C100_C1A_SAFETY_CONCERNS}/abduction`;
 export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-office-notified`;
+export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/child-location`;
 /** @C100 Document Submission */
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
 
