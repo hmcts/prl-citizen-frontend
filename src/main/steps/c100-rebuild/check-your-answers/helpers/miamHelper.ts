@@ -4,6 +4,7 @@ class MiamHelperDataParser<T> {
   [x: string]: T;
 }
 const InstanceOfMiamHelper = new MiamHelperDataParser<any>();
+
 type KeysType = {
   whoChildLiveWith?: string;
   childTimeSpents?: string;

@@ -195,6 +195,67 @@ export const ChildernDetailsAdditional = (
 };
 
 /* eslint-disable import/namespace */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const MiamTitle = ({ sectionTitles, keys, Yes, No, ...content }): SummaryList | undefined => {
+  return {
+    title: sectionTitles['Miam'],
+    rows: getSectionSummaryList([], content),
+  };
+};
+
+/* eslint-disable import/namespace */
+export const MiamAttendance = (
+  { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['childInvolvementInSupervision'],
+      value: '',
+      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+    },
+    {
+      key: keys['attendedMiamMidiation'],
+      value: userCase['childrenSubjectOfProtectionPlan'],
+      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+    },
+    {
+      key: keys['mediatorConfirmation'],
+      value: '',
+      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+    },
+    {
+      key: keys['reasonForNotAttendingMiam'],
+      value: '',
+      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+    },
+  ];
+
+  return {
+    title: sectionTitles['MiamAttendance'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+export const MiamExemption = (
+  { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['validResonsNotAttendingMiam'],
+      value: userCase['childrenSubjectOfProtectionPlan'],
+      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+    },
+  ];
+
+  return {
+    title: sectionTitles['MiamExemption'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+/* eslint-disable import/namespace */
 export const InternationalElement = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>

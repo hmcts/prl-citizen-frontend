@@ -6,6 +6,9 @@ import {
   ChildernDetails,
   ChildernDetailsAdditional,
   InternationalElement,
+  MiamAttendance,
+  MiamExemption,
+  MiamTitle,
   TypeOfOrder,
   WithoutNoticeHearing,
 } from './utils';
@@ -35,6 +38,9 @@ export const enContent = {
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
   },
   sectionTitles: {
+    Miam: '5. MIAM: Mediation Information and Assessment Meeting',
+    MiamAttendance: 'MIAM attendance',
+    MiamExemption: 'MIAM exemption',
     AdvisingCourt: "6. What you're asking the court to decide",
     WithoutNoticeHearing: '7. Hearing details',
     ChildernDetails: "8. Childen's details",
@@ -92,6 +98,12 @@ export const enContent = {
       'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
     returningChildrenToYourCare:
       'Returning the children to your care <div id="resolveSpecificIssueSubField-8-item-hint" class="govuk-hint govuk-checkboxes__hint">If the children have been abducted, unlawfully removed or unlawfully retained</div>',
+    childInvolvementInSupervision:
+      'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
+    attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
+    mediatorConfirmation: 'Has a mediator confirmed that you do not need to attend a MIAM?',
+    reasonForNotAttendingMiam: 'Do you have valid reasons for not attending a MIAM?',
+    validResonsNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
   },
 };
 const cyContent: typeof enContent = {
@@ -119,6 +131,9 @@ const cyContent: typeof enContent = {
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
   },
   sectionTitles: {
+    Miam: '5. MIAM: Mediation Information and Assessment Meeting',
+    MiamAttendance: 'MIAM attendance - welsh',
+    MiamExemption: 'MIAM exemption - welsh',
     AdvisingCourt: "6. What you're asking the court to decide - welsh",
     WithoutNoticeHearing: '7. Hearing details - welsh',
     ChildernDetails: "8. Childen's details - welsh",
@@ -177,6 +192,12 @@ const cyContent: typeof enContent = {
       'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
     returningChildrenToYourCare:
       'Returning the children to your care <div id="resolveSpecificIssueSubField-8-item-hint" class="govuk-hint govuk-checkboxes__hint">If the children have been abducted, unlawfully removed or unlawfully retained</div>',
+    childInvolvementInSupervision:
+      'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
+    attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
+    mediatorConfirmation: 'Has a mediator confirmed that you do not need to attend a MIAM?',
+    reasonForNotAttendingMiam: 'Do you have valid reasons for not attending a MIAM?',
+    validResonsNotAttendingMiam : 'What are your valid reasons for not attending a MIAM?',
   },
 };
 
@@ -187,6 +208,9 @@ const en = (content: CommonContent) => {
     ...enContent,
     language: content.language,
     sections: [
+      MiamTitle(enContent),
+      MiamAttendance(enContent, userCase),
+      MiamExemption(enContent, userCase),
       TypeOfOrder(enContent, userCase),
       WithoutNoticeHearing(enContent, userCase),
       ChildernDetails(enContent, userCase),
@@ -203,6 +227,9 @@ const cy: typeof en = (content: CommonContent) => {
     ...cyContent,
     language: content.language,
     sections: [
+      MiamTitle(enContent),
+      MiamAttendance(enContent, userCase),
+      MiamExemption(enContent, userCase),
       TypeOfOrder(cyContent, userCase),
       WithoutNoticeHearing(cyContent, userCase),
       ChildernDetails(cyContent, userCase),
