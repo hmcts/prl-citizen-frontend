@@ -466,8 +466,8 @@ describe('C100Sequence', () => {
     expect(C100Sequence[66].showInSection).toBe('c100');
     expect(C100Sequence[66].getNextStep({})).toBe('/c100-rebuild/miam/get-doc');
 
-    expect(C100Sequence[67].url).toBe('/c100-rebuild/safety-concerns/orders-required/orders-required');
+    expect(C100Sequence[67].url).toBe('/c100-rebuild/safety-concerns/orders-required');
     expect(C100Sequence[67].showInSection).toBe('c100');
-    expect(C100Sequence[67].getNextStep({})).toBe('/c100-rebuild/safety-concerns/orders-required/orders-required');
+    expect(C100Sequence[67].getNextStep({})).toBe('/c100-rebuild/safety-concerns/orders-required');
   });
 });
