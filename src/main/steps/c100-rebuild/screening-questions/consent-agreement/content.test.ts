@@ -16,7 +16,7 @@ const en = {
   two: 'No',
   infoDetail: 'You will be asked to upload the draft consent order later in the application.',
   errors: {
-    writtenAgreement: {
+    sq_writtenAgreement: {
       required:
         'Select yes if you have a written agreement with the other people in the case, that you want the court to review',
     },
@@ -33,7 +33,7 @@ const cy = {
   two: 'No - welsh',
   infoDetail: 'You will be asked to upload the draft consent order later in the application. - welsh',
   errors: {
-    writtenAgreement: {
+    sq_writtenAgreement: {
       required:
         'Select yes if you have a written agreement with the other people in the case, that you want the court to review - welsh',
     },
@@ -56,7 +56,7 @@ describe('screeing questions', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.writtenAgreement as FormOptions;
+    const applyingWithField = fields.sq_writtenAgreement as FormOptions;
     const applyingWithFieldLabel = applyingWithField.values[0].subFields?.infoText as FormInput;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');

@@ -12,7 +12,7 @@ const en = () => ({
   two: 'No',
   infoDetail: 'You will be asked to upload the draft consent order later in the application.',
   errors: {
-    writtenAgreement: {
+    sq_writtenAgreement: {
       required:
         'Select yes if you have a written agreement with the other people in the case, that you want the court to review',
     },
@@ -29,7 +29,7 @@ const cy = () => ({
   two: 'No - welsh',
   infoDetail: 'You will be asked to upload the draft consent order later in the application. - welsh',
   errors: {
-    writtenAgreement: {
+    sq_writtenAgreement: {
       required:
         'Select yes if you have a written agreement with the other people in the case, that you want the court to review - welsh',
     },
@@ -43,7 +43,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    writtenAgreement: {
+    sq_writtenAgreement: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [

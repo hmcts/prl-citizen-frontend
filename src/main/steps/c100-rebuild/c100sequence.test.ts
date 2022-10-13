@@ -497,10 +497,10 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[69].url).toBe('/c100-rebuild/screening-questions/consent-agreement');
     expect(C100Sequence[69].showInSection).toBe('c100');
-    expect(C100Sequence[69].getNextStep({ writtenAgreement: YesOrNo.YES })).toBe(
+    expect(C100Sequence[69].getNextStep({ sq_writtenAgreement: YesOrNo.YES })).toBe(
       '/c100-rebuild/screening-questions/consent-agreement'
     );
-    expect(C100Sequence[69].getNextStep({ writtenAgreement: YesOrNo.NO })).toBe(
+    expect(C100Sequence[69].getNextStep({ sq_writtenAgreement: YesOrNo.NO })).toBe(
       '/c100-rebuild/screening-questions/consent-agreement'
     );
   });
