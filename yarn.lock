@@ -1060,10 +1060,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@hmcts/cookie-manager@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@hmcts/cookie-manager/-/cookie-manager-0.0.4.tgz#dc7381fffd03616863d0549ae1c0169d7b0348fd"
-  integrity sha512-OScl6xMFmKyCR8b0ZJyJxYOp7pV8G492LencoTkLrw60Cd0uyKYbkR0ugffx0LyO28Tqo7yRM3aHUV9DjsErug==
+"@hmcts/cookie-manager@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@hmcts/cookie-manager/-/cookie-manager-1.0.0.tgz#06a850f3854aebccf3948081e2d7071b36c60cd5"
+  integrity sha512-NLG4OY41oXp4pNKNznmpRZ7nAvmavoaOAWrRN6er+i6lVoZFY7B1yWv2R80b5n7l6cGPpT7THNoC7FPFHRaFgg==
 
 "@hmcts/frontend@^0.0.50-alpha":
   version "0.0.50-alpha"
@@ -5252,10 +5252,10 @@ eslint-plugin-import@^2.26.0:
     resolve "^1.22.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-jest@^26.1.5:
-  version "26.8.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-26.8.3.tgz#f5d9bb162636491c8f6f0cd2743fe67c86569338"
-  integrity sha512-2roWu1MkEiihQ/qEszPPoaoqVI1x2D8Jtadk5AmoXTdEeNVPMu01Dtz7jIuTOAmdW3L+tSkPZOtEtQroYJDt0A==
+eslint-plugin-jest@^27.1.1:
+  version "27.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-27.1.1.tgz#60f68dee15d4ffd9cdff65158d7fa46a65dbaaf5"
+  integrity sha512-vuSuXGKHHi/UAffIM46QKm4g0tQP+6n52nRxUpMq6x6x9rhnv5WM7ktSu3h9cTnXE4b0Y0ODQTgRlCm9rdRLvg==
   dependencies:
     "@typescript-eslint/utils" "^5.10.0"
 
@@ -6526,10 +6526,10 @@ header-case@^2.0.4:
     capital-case "^1.0.4"
     tslib "^2.0.3"
 
-helmet@^4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/helmet/-/helmet-4.6.0.tgz#579971196ba93c5978eb019e4e8ec0e50076b4df"
-  integrity sha512-HVqALKZlR95ROkrnesdhbbZJFi/rIVSoNq6f3jA/9u6MIbTsPh3xZwihjeI5+DO/2sOV6HMHooXcEOuwskHpTg==
+helmet@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-6.0.0.tgz#8e183820ddccd7729a206ad73c577b264f495595"
+  integrity sha512-FO9RpR1wNJepH/GbLPQVtkE2eESglXL641p7SdyoT4LngHFJcZheHMoyUcjCZF4qpuMMO1u5q6RK0l9Ux8JBcg==
 
 hexoid@1.0.0:
   version "1.0.0"
