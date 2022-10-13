@@ -503,8 +503,8 @@ describe('C100Sequence', () => {
     expect(C100Sequence[70].showInSection).toBe('c100');
     expect(C100Sequence[70].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
 
-    expect(C100Sequence[70].url).toBe('/c100-rebuild/safety-concerns/abduction/child-location');
-    expect(C100Sequence[70].showInSection).toBe('c100');
-    expect(C100Sequence[70].getNextStep({})).toBe('/c100-rebuild/safety-concerns/abduction/child-location');
+    expect(C100Sequence[71].url).toBe('/c100-rebuild/safety-concerns/abduction/child-location');
+    expect(C100Sequence[71].showInSection).toBe('c100');
+    expect(C100Sequence[71].getNextStep({})).toBe('/c100-rebuild/safety-concerns/abduction/child-location');
   });
 });
