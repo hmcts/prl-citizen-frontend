@@ -168,7 +168,7 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId>
   if (
     userCase?.proceedingsStart ||
     userCase?.proceedingsStartOrder ||
-    userCase?.supervisionOrderOption ||
+    userCase?.emergencyOrderOptions ||
     userCase?.supervisionOrderOption ||
     userCase?.careOrderOptions ||
     userCase?.childAbductionOrderOption ||
