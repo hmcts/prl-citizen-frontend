@@ -148,25 +148,6 @@ export const getViewAllDocuments = (): SectionStatus => {
 
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
-    userCase?.proceedingsStart ||
-    userCase?.proceedingsStartOrder ||
-    userCase?.emergencyOrderOptions ||
-    userCase?.supervisionOrderOption ||
-    userCase?.careOrderOptions ||
-    userCase?.childAbductionOrderOption ||
-    userCase?.caOrderOption ||
-    userCase?.financialOrderOption ||
-    userCase?.nonmolestationOrderOption ||
-    userCase?.occupationalOrderOptions ||
-    userCase?.marraigeOrderOptions ||
-    userCase?.restrainingOrderOptions ||
-    userCase?.injuctiveOrderOptions ||
-    userCase?.underTakingOrderOptions
-  ) {
-    return SectionStatus.IN_PROGRESS;
-  }
-
-  if (
     ((userCase?.proceedingsStart === YesNoIDontKnow.NO || userCase?.proceedingsStart === YesNoIDontKnow.IDONTKNOW) &&
       userCase?.proceedingsStartOrder === YesNoIDontKnow.NO) ||
     (userCase?.proceedingsStart &&
@@ -185,6 +166,25 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId>
       userCase?.underTakingOrderOptions)
   ) {
     return SectionStatus.COMPLETED;
+  }
+
+  if (
+    userCase?.proceedingsStart ||
+    userCase?.proceedingsStartOrder ||
+    userCase?.emergencyOrderOptions ||
+    userCase?.supervisionOrderOption ||
+    userCase?.careOrderOptions ||
+    userCase?.childAbductionOrderOption ||
+    userCase?.caOrderOption ||
+    userCase?.financialOrderOption ||
+    userCase?.nonmolestationOrderOption ||
+    userCase?.occupationalOrderOptions ||
+    userCase?.marraigeOrderOptions ||
+    userCase?.restrainingOrderOptions ||
+    userCase?.injuctiveOrderOptions ||
+    userCase?.underTakingOrderOptions
+  ) {
+    return SectionStatus.IN_PROGRESS;
   }
 
   return SectionStatus.TO_DO;
