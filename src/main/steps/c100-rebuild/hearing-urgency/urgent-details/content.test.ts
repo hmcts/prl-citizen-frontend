@@ -28,16 +28,16 @@ const en = {
       required: 'Select the reason why you are asking for an urgent hearing',
     },
     hu_otherRiskDetails: {
-      required: 'Give details of the risk in your ask that support your need for an urgent hearing',
+      required: 'Give details of the risk in your case that support your need for an urgent hearing',
     },
     hu_timeOfHearingDetails: {
-      required: 'How soon you need the hearing to take place',
+      required: 'Enter how soon you need the hearing to take place',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Select yes if you need a hearing within the next 48 hours',
     },
     hu_hearingWithNext48HrsMsg: {
-      required: 'Provide details of what you have done to inform the respondents of you application',
+      required: 'Provide details of what you have done to inform the respondents of your application',
     },
   },
 };
@@ -65,16 +65,16 @@ const cy = {
       required: 'Select the reason why you are asking for an urgent hearing',
     },
     hu_otherRiskDetails: {
-      required: 'Give details of the risk in your ask that support your need for an urgent hearing',
+      required: 'Give details of the risk in your case that support your need for an urgent hearing',
     },
     hu_timeOfHearingDetails: {
-      required: 'How soon you need the hearing to take place',
+      required: 'Enter how soon you need the hearing to take place',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Select yes if you need a hearing within the next 48 hours',
     },
     hu_hearingWithNext48HrsMsg: {
-      required: 'Provide details of what you have done to inform the respondents of you application',
+      required: 'Provide details of what you have done to inform the respondents of your application',
     },
   },
 };

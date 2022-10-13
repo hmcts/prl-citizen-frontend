@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { generateContent } from '../../miam/child-protection/content';
 
@@ -69,13 +70,20 @@ describe('miam child protection', () => {
     const miam_domesticabuse_involvement_field = fields.miam_childProtectionEvidence as FormOptions;
     expect(miam_domesticabuse_involvement_field.type).toBe('checkboxes');
     expect((miam_domesticabuse_involvement_field.hint as LanguageLookup)(generatedContent)).toBe(en.optionHint);
+    expect((miam_domesticabuse_involvement_field.section as LanguageLookup)(generatedContent)).toBe(en.section);
     expect((miam_domesticabuse_involvement_field.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.localAuthority
+    );
+    expect((miam_domesticabuse_involvement_field.values[0].hint as LanguageLookup)(generatedContent)).toBe(
+      en.localAuthorityHint
     );
     expect((miam_domesticabuse_involvement_field.values[1].label as LanguageLookup)(generatedContent)).toBe(
       en.childProtectionPlan
     );
     expect((miam_domesticabuse_involvement_field.values[3].label as LanguageLookup)(generatedContent)).toBe(en.none);
+
+    (miam_domesticabuse_involvement_field.validator as Validator)('localAuthority');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('localAuthority');
   });
 
   test('should contain Continue button', () => {
