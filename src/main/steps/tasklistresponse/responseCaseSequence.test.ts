@@ -100,7 +100,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[24].url).toBe('/tasklistresponse/international-factors/summary');
     expect(responseCaseSequence[24].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[24].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[24].getNextStep({})).toBe('/tasklistresponse/international-factors/save');
 
     expect(responseCaseSequence[25].url).toBe('/tasklistresponse/safety_concerns/main_page');
     expect(responseCaseSequence[25].showInSection).toBe('aboutRespondentCase');
