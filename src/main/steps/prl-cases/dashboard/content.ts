@@ -134,10 +134,10 @@ function isLinkedToRespondent(userCase: Partial<CaseWithId>): boolean {
 }
 function isLinkedToRespondentFl401(userCase: Partial<CaseWithId>): boolean {
   for (const caseInviteEmail of userCase.caseInvites || []) {
-    console.log(caseInviteEmail.value.isApplicant);
-    if (userCase.respondentsFL401?.user?.idamId
-      === caseInviteEmail.value.invitedUserId
-      && caseInviteEmail.value.isApplicant === YesOrNo.NO) {
+    if (
+      userCase.respondentsFL401?.user?.idamId === caseInviteEmail.value.invitedUserId &&
+      caseInviteEmail.value.isApplicant === YesOrNo.NO
+    ) {
       return true;
     }
   }
