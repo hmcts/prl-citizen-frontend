@@ -185,6 +185,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
   miamStart: 'miamStart',
+
+  start: 'start',
+  iFactorsStartProvideDetails: 'iFactorsStartProvideDetails',
+  parents: 'parents',
+  iFactorsParentsProvideDetails: 'iFactorsParentsProvideDetails',
+  jurisdiction: 'jurisdiction',
+  iFactorsJurisdictionProvideDetails: 'iFactorsJurisdictionProvideDetails',
+  request: 'request',
+  iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -457,6 +466,7 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
+  legalRepresentation?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

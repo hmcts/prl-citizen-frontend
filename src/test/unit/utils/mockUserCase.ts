@@ -2,7 +2,6 @@ import { CaseWithId } from '../../../main/app/case/case';
 import { YesNoNotsure, YesOrNo } from '../../../main/app/case/definition';
 
 export default {
-  //applyingWith: ApplyingWith.ALONE,
   dateChildMovedIn: { day: 12, month: 10, year: '2020' },
   adopAgencyOrLAs: [
     {
@@ -58,8 +57,7 @@ export default {
   childrenFirstName: 'CHILDREN_FIRST_NAMES',
   childrenLastName: 'CHILDREN_LAST_NAMES',
   childrenDateOfBirth: { day: 9, month: 8, year: 2020 },
-  //childrenSexAtBirth: Gender.MALE,
-  //childrenNationality: [Nationality.BRITHISH, Nationality.OTHER],
+
   childrenAdditionalNationalities: ['MOCK_COUNTRY'],
   childrenFirstNameAfterAdoption: 'MOCK_FIRST_NAME_AFTER_ADOPTION',
   childrenLastNameAfterAdoption: 'MOCK_LAST_NAME_AFTER_ADOPTION',
@@ -83,7 +81,7 @@ export default {
   birthMotherFirstNames: 'BIRTH_MOTHER_FIRST_NAMES',
   birthMotherLastNames: 'BIRTH_MOTHER_LAST_NAMES',
   birthMotherStillAlive: YesNoNotsure.YES,
-  //birthMotherNationality: [Nationality.BRITHISH, Nationality.OTHER],
+
   birthMotherAdditionalNationalities: ['MOCK_COUNTRY'],
   birthMotherOccupation: 'MOCK_OCCUPATION',
   birthMotherAddressKnown: YesOrNo.YES,
@@ -99,7 +97,7 @@ export default {
   birthFatherFirstNames: 'BIRTH_FATHER_FIRST_NAMES',
   birthFatherLastNames: 'BIRTH_FATHER_LAST_NAMES',
   birthFatherStillAlive: YesNoNotsure.YES,
-  //birthFatherNationality: [Nationality.BRITHISH],
+
   birthFatherOccupation: 'MOCK_OCCUPATION',
   birthFatherAddressKnown: YesOrNo.YES,
   birthFatherAddress1: 'MOCK_ADDRESS_LINE1',
@@ -148,4 +146,5 @@ export default {
     firstName: test,
     lastName: test,
   },
+  id: '1234',
 } as unknown as CaseWithId;
