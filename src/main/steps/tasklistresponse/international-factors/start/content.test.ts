@@ -14,7 +14,7 @@ const enContent = {
   continue: 'Continue',
   errors: {
     start: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Select yes if the children live outside of England or Wales',
     },
     iFactorsStartProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
@@ -32,7 +32,7 @@ const cyContent = {
   continue: 'Continue',
   errors: {
     start: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Select yes if the children live outside of England or Wales',
     },
     iFactorsStartProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
