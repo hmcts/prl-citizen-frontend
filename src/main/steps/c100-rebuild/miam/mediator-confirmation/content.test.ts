@@ -1,5 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -48,6 +50,8 @@ describe('applicant personal details > applying-with > content', () => {
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    (applyingWithField.validator as Validator)(YesOrNo.YES);
+    expect(isFieldFilledIn).toHaveBeenCalledWith(YesOrNo.YES);
   });
 
   test('should contain saveAndComeLater button', () => {

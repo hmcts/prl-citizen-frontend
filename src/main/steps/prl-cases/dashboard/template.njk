@@ -1,0 +1,22 @@
+{% extends "../../common/page.njk" %}
+
+{% block page_content %}
+  {% if section %}
+    <span class="govuk-heading-l">{{ section }}</span>
+  
+  {% endif %}
+  {% if title %}
+    <h1>{{ title }}</h1>
+  {% endif %}
+  {% if line1 %}
+    <div class="govuk-hint">{{ line1 }}</div>
+  {% endif %}
+  {% if line2 %}
+    <p class="govuk-body">{{ line2 }}</p>
+  {% endif %}
+
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk"%}
+{% endblock %}

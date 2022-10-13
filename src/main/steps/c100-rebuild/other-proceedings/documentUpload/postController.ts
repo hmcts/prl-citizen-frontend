@@ -12,7 +12,7 @@ import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../
 import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 
 const C100OrderTypeNameMapper = {
-  childArrangementOrder: 'Child Arrangement Order',
+  childArrangementOrder: 'Child Arrangements Order',
   emergencyProtectionOrder: 'Emergency Protection Order',
   supervisionOrder: 'Supervision Order',
   careOrder: 'Care Order',
