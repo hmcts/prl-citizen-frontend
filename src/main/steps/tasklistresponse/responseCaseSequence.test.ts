@@ -28,7 +28,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[6].url).toBe('/respondent/keep-details-private/private_details_not_confirmed');
     expect(responseCaseSequence[6].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[6].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[6].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[7].url).toBe('/tasklistresponse/miam/miam-start');
     expect(responseCaseSequence[7].showInSection).toBe('aboutRespondentCase');
