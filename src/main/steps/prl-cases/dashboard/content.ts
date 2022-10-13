@@ -20,7 +20,7 @@ export const enContent = {
 };
 
 export const cyContent = {
-  title: 'Your private law account',
+  title: 'Your private law account (welsh)',
   sectionTitles: {
     yourCAapplication: 'C100 applications where you are an applicant',
     youtCArespondentApplication: 'C100 applications where you are an respondent',
