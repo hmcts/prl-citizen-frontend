@@ -8,17 +8,11 @@ jest.mock('../../../../../app/form/validation');
 
 const en = {
   title: 'Do any of the children have a passport?',
-  guidanceParentalChildlink: 'https://www.gov.uk/government/collections/child-abduction',
-  guidanceParentalChild: 'Guidance on parental child abduction',
-  getHelpChildtoReturnlink: 'https://www.gov.uk/return-or-contact-abducted-child',
-  getHelpChildtoReturn: 'Get help to return a child from abroad or arrange contact',
-  stopChildgettingPassportlink: 'https://www.gov.uk/stop-child-passport',
-  stopChildgettingPassport: 'Stop a child from getting a passport',
   caption: 'Safety concerns',
   one: 'Yes',
   two: 'No',
   errors: {
-    passportOffice: {
+    c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport',
     },
   },
@@ -26,17 +20,12 @@ const en = {
 
 const cy = {
   title: 'Do any of the children have a passport? - welsh',
-  guidanceParentalChildlink: 'https://www.gov.uk/government/collections/child-abduction',
-  guidanceParentalChild: 'Guidance on parental child abduction',
-  getHelpChildtoReturnlink: 'https://www.gov.uk/return-or-contact-abducted-child',
-  getHelpChildtoReturn: 'Get help to return a child from abroad or arrange contact',
-  stopChildgettingPassportlink: 'https://www.gov.uk/stop-child-passport',
-  stopChildgettingPassport: 'Stop a child from getting a passport',
+
   caption: 'Safety concerns - welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    passportOffice: {
+    c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport - welsh',
     },
   },
@@ -57,7 +46,7 @@ describe('safetyconcerns > abduction > passport-office', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.passportOffice as FormOptions;
+    const applyingWithField = fields.c1A_passportOffice as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);

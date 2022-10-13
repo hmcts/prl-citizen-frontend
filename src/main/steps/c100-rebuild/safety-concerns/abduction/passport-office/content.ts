@@ -2,22 +2,16 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
-
+import { generateContent as parentContent } from '../content';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   serviceName: 'Child arrangements',
   title: 'Do any of the children have a passport?',
-  guidanceParentalChildlink: 'https://www.gov.uk/government/collections/child-abduction',
-  guidanceParentalChild: 'Guidance on parental child abduction',
-  getHelpChildtoReturnlink: 'https://www.gov.uk/return-or-contact-abducted-child',
-  getHelpChildtoReturn: 'Get help to return a child from abroad or arrange contact',
-  stopChildgettingPassportlink: 'https://www.gov.uk/stop-child-passport',
-  stopChildgettingPassport: 'Stop a child from getting a passport',
   caption: 'Safety concerns',
   one: 'Yes',
   two: 'No',
   errors: {
-    passportOffice: {
+    c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport',
     },
   },
@@ -26,17 +20,11 @@ const en = () => ({
 const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   title: 'Do any of the children have a passport? - welsh',
-  guidanceParentalChildlink: 'https://www.gov.uk/government/collections/child-abduction',
-  guidanceParentalChild: 'Guidance on parental child abduction',
-  getHelpChildtoReturnlink: 'https://www.gov.uk/return-or-contact-abducted-child',
-  getHelpChildtoReturn: 'Get help to return a child from abroad or arrange contact',
-  stopChildgettingPassportlink: 'https://www.gov.uk/stop-child-passport',
-  stopChildgettingPassport: 'Stop a child from getting a passport',
   caption: 'Safety concerns - welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    passportOffice: {
+    c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport - welsh',
     },
   },
@@ -49,7 +37,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    passportOffice: {
+    c1A_passportOffice: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -77,6 +65,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
+    ...parentContent(content),
     form,
   };
 };
