@@ -7,9 +7,11 @@ import {
   APPLICANT,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT,
+  RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
 } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CosApiClient } from '../case/CosApiClient';
@@ -589,4 +591,51 @@ export class DocumentManagerController extends PostController<AnyObject> {
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
 
+  public async clearUploadDocumentFormData(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    let isApplicant;
+    let isContinue;
+    if (req.query && req.query.isApplicant) {
+      isApplicant = req.query.isApplicant;
+    }
+
+    if (req.query && req.query.isContinue) {
+      isContinue = req.query.isContinue;
+    }
+
+    if (YesOrNo.YES === isApplicant) {
+      req.session.userCase.start = undefined;
+      req.session.userCase.applicantUploadFiles = undefined;
+      req.session.userCase.declarationCheck = undefined;
+    } else {
+      req.session.userCase.start = undefined;
+      req.session.userCase.respondentUploadFiles = undefined;
+      req.session.userCase.declarationCheck = undefined;
+    }
+
+    if (YesOrNo.YES === isContinue) {
+      this.redirect(req, res, this.setTaskListURL(isApplicant, isContinue));
+    } else {
+      this.redirect(req, res, this.setUploadDocumentListURL(isApplicant));
+    }
+  }
+
+  private setUploadDocumentListURL(isApplicant) {
+    let redirectUrl = '';
+    if (YesOrNo.YES === isApplicant) {
+      redirectUrl = APPLICANT_UPLOAD_DOCUMENT_LIST_URL;
+    } else {
+      redirectUrl = RESPONDENT_UPLOAD_DOCUMENT_LIST_URL;
+    }
+    return redirectUrl;
+  }
+
+  private setTaskListURL(isApplicant, isContinue) {
+    let redirectUrl = '';
+    if (YesOrNo.YES === isApplicant && YesOrNo.YES === isContinue) {
+      redirectUrl = APPLICANT_TASK_LIST_URL;
+    } else {
+      redirectUrl = RESPONDENT_TASK_LIST_URL;
+    }
+    return redirectUrl;
+  }
 }
