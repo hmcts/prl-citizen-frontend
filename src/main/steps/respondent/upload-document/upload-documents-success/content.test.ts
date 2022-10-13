@@ -41,6 +41,5 @@ describe('citizen-home content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-
 });
 /* eslint-enable @typescript-eslint/ban-types */
