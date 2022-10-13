@@ -10,7 +10,7 @@ const en = {
   two: 'No',
   hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     start: {
       required: 'Select yes if the children live outside of England or Wales',
@@ -28,7 +28,7 @@ const cy: typeof en = {
   two: 'No',
   hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     start: {
       required: 'Select yes if the children live outside of England or Wales',
