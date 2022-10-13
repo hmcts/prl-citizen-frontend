@@ -588,5 +588,4 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
-
 }
