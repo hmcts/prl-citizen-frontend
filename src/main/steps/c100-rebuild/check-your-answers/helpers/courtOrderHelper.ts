@@ -72,7 +72,5 @@ export const CourtOrderParserHelper = (
       html += '';
     }
   });
-  console.log(html, resolveSpecificIssueSubField, courtOrder);
-
   return html;
 };
