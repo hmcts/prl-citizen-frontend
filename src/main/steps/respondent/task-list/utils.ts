@@ -165,31 +165,28 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId>
   ) {
     return SectionStatus.IN_PROGRESS;
   }
-  
+
   if (
-    ((userCase?.proceedingsStart === YesNoIDontKnow.NO || userCase?.proceedingsStart === YesNoIDontKnow.IDONTKNOW)
-    &&
-    userCase?.proceedingsStartOrder === YesNoIDontKnow.NO
-    )
-    ||
+    ((userCase?.proceedingsStart === YesNoIDontKnow.NO || userCase?.proceedingsStart === YesNoIDontKnow.IDONTKNOW) &&
+      userCase?.proceedingsStartOrder === YesNoIDontKnow.NO) ||
     (userCase?.proceedingsStart &&
-    userCase?.proceedingsStartOrder &&
-    userCase?.emergencyOrderOptions &&
-    userCase?.supervisionOrderOption &&
-    userCase?.careOrderOptions &&
-    userCase?.childAbductionOrderOption &&
-    userCase?.caOrderOption &&
-    userCase?.financialOrderOption &&
-    userCase?.nonmolestationOrderOption &&
-    userCase?.occupationalOrderOptions &&
-    userCase?.marraigeOrderOptions &&
-    userCase?.restrainingOrderOptions &&
-    userCase?.injuctiveOrderOptions &&
-    userCase?.underTakingOrderOptions)
+      userCase?.proceedingsStartOrder &&
+      userCase?.emergencyOrderOptions &&
+      userCase?.supervisionOrderOption &&
+      userCase?.careOrderOptions &&
+      userCase?.childAbductionOrderOption &&
+      userCase?.caOrderOption &&
+      userCase?.financialOrderOption &&
+      userCase?.nonmolestationOrderOption &&
+      userCase?.occupationalOrderOptions &&
+      userCase?.marraigeOrderOptions &&
+      userCase?.restrainingOrderOptions &&
+      userCase?.injuctiveOrderOptions &&
+      userCase?.underTakingOrderOptions)
   ) {
     return SectionStatus.COMPLETED;
   }
- 
+
   return SectionStatus.TO_DO;
 };
 export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
