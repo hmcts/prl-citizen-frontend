@@ -1,0 +1,24 @@
+{% extends "common/template.njk" %}
+{% block page_content %}
+<h1 class="govuk-heading-xl">{{title}}</h1>
+<p class="govuk-body">{{titleDetail}}</p>
+<div class="govuk-inset-text"> {{insetText}}</div>
+<h1 class="govuk-heading-l">{{secondTitle}}</h1>
+<p class="govuk-body">{{para2FirstLine}} {{para2FirstLink|safe}} {{para2SecondLine}} {{para2SecondLink|safe}}</p>
+<p class="govuk-body">{{para3}}</p>
+<p class="govuk-body">{{para4}}</p>
+<p class="govuk-body">{{para5Link|safe}}</p>
+<h1 class="govuk-heading-l">{{thirdTitle}}</h1>
+<p class="govuk-body">{{para6}}</p>
+<p class="govuk-body">{{para7}}</p>
+<h1 class="govuk-heading-l">{{fourthTitle}}</h1>
+<p class="govuk-body">{{para8}}</p>
+<p class="govuk-body">{{para9}}</p>
+ <ul class="govuk-list govuk-list--bullet">
+      <li>{{para9list1}}</li>
+      <li>{{para9list2}}</li>
+</ul>
+<p class="govuk-body">{{para10}} {{para10Link|safe}}</p>
+<h1 class="govuk-heading-l">{{fifthTitle}}</h1>
+<p class="govuk-body">{{para11}} {{para11Link|safe}}</p>
+{% endblock %}
