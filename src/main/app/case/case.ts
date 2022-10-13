@@ -497,7 +497,7 @@ export interface Case {
   miam_previousAttendance?: string[];
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
-  passportOffice?: YesOrNo;
+  c1A_passportOffice?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

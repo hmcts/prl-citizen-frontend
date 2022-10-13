@@ -520,9 +520,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<Case>) =>
-      data.passportOffice === YesOrNo.YES
-        ? C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE
-        : C100_CONFIDENTIALITY_START,
+    getNextStep: data =>
+      data.c1A_passportOffice === YesOrNo.YES ? C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE : C100_CONFIDENTIALITY_START,
   },
+ 
 ];
