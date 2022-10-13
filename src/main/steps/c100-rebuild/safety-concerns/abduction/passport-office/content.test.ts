@@ -38,7 +38,7 @@ describe('safetyconcerns > abduction > passport-office', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
   });
 
-  // eslint-disable-next-line jest/expect-expect
+  //eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });

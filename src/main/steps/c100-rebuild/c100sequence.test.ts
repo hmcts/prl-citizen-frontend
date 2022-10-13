@@ -508,6 +508,8 @@ describe('C100Sequence', () => {
     expect(C100Sequence[71].getNextStep({ c1A_passportOffice: YesOrNo.YES })).toBe(
       '/c100-rebuild/safety-concerns/abduction/passport-office'
     );
-    expect(C100Sequence[71].getNextStep({ c1A_passportOffice: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/start');
+    expect(C100Sequence[71].getNextStep({ c1A_passportOffice: YesOrNo.NO })).toBe(
+      '/c100-rebuild/confidentiality/start'
+    );
   });
 });
