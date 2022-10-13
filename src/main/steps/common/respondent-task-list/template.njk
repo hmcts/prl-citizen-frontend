@@ -1,5 +1,17 @@
 {% extends "common/template.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% set buttonStatusFinal  = false %}
+{% set completedCount =0 %}
+
+          {% for section in sections %}
+                  {% for item in section.items %}
+          {%if (item.status == 'IN_PROGRESS' or item.status == 'READY_TO_VIEW' or item.status=='TO_DO') and completedCount==0 %}
+            {% set buttonStatusFinal = true %}
+            {% set completedCount =1%}
+          {% endif %}
+      {% endfor %}
+          {% endfor %}
+
 {% macro taskName(item) %}
   <span class="app-task-list__task-name">
     {% if item.href %}
@@ -70,6 +82,10 @@
             {{ taskListSection(section, loop.index) }}
           {% endfor %}
         </ol>
+            <div class="govuk-button-group">
+
+
+    </div>
       {% endblock %}
   {# <button value="true" type="submit" name="saveAndContinue" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button" id="main-form-submit">
   {{respondToApplication}}
@@ -77,7 +93,7 @@
           <button value="true" type="submit" name="cancel" data-prevent-double-click="true" class="govuk-button govuk-button--secondary" data-module="govuk-button" id="main-form-submit">
   {{cancel}}
     </button> #}
-    <form action="summary">
+<form action="summary">
     {{
           govukButton({
             text: 'Review and submit',
@@ -85,29 +101,15 @@
             preventDoubleClick: true,
             type: "submit",
             name: "onlyContinue",
+            disabled: buttonStatusFinal,
             value: true,
             attributes: {
               id: ''
             }
           })
         }}
-
-        {{
-          govukButton({
-            text: 'Go back',
-            classes: "govuk-button--secondary",
-            preventDoubleClick: true,
-            type: "submit",
-            name: "Go back",
-            value: true,
-            attributes: {
-              id: 'main-form-cancel'
-            }
-          }) 
-        }}
+      </div>
       </form>
-    </div>
-
     <div class="govuk-grid-column-one-third">
       {% block oneThird %}
            {% include "../contact-us.njk" %}

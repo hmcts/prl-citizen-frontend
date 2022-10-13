@@ -169,8 +169,7 @@ export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments';
 export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 
-export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
-export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary'
+export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 
 export const APPLICANT_WITNESS_STATEMENTS_DA: PageLink = `${APPLICANT}/witnessstatements`;
 /* view all documents */
@@ -251,7 +250,7 @@ export const CA_DA_TRAVELLING_TO_COURT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DUR
 export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/summary`;
 
 /* Respondent respnse */
-export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = `/tasklistresponse/summary-confirmation`;
+export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/summary-confirmation';
 export const CA_RESPONDENT_RESPONSE_SUBMIT: PageLink = `${CA_RESPONDENT_RESPONSE_CONFIRMATION}/submit`;
 
 /* Legal representation*/

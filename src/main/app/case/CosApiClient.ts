@@ -125,9 +125,13 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/respondent-submit-response`, data, {
-        headers,
-      });
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/${caseId}/${eventId}/respondent-submit-response`,
+        data,
+        {
+          headers,
+        }
+      );
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {

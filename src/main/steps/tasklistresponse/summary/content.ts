@@ -1,7 +1,31 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
-import { ADDRESS_DETAILS, ADDRESS_HISTORY, CA_DA_ATTENDING_THE_COURT, CA_DA_COMMUNICATION_HELP, CA_DA_COURT_HEARING_COMFORT, CA_DA_COURT_HEARING_SUPPORT, CA_DA_DOCUMENTS_SUPPORT, CA_DA_LANGUAGE_REQUIREMENTS, CA_DA_REASONABLE_ADJUSTMENTS, CA_DA_SPECIAL_ARRANGEMENTS, CA_DA_TRAVELLING_TO_COURT, CONSENT_TO_APPLICATION, CONTACT_DETAILS, DETAILS_KNOWN, INTERNATIONAL_FACTORS_JURISDICTION, INTERNATIONAL_FACTORS_PARENTS, INTERNATIONAL_FACTORS_REQUEST, INTERNATIONAL_FACTORS_START, PERSONAL_DETAILS, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START, START_ALTERNATIVE } from '../../../steps/urls';
+import {
+  ADDRESS_DETAILS,
+  ADDRESS_HISTORY,
+  CA_DA_ATTENDING_THE_COURT,
+  CA_DA_COMMUNICATION_HELP,
+  CA_DA_COURT_HEARING_COMFORT,
+  CA_DA_COURT_HEARING_SUPPORT,
+  CA_DA_DOCUMENTS_SUPPORT,
+  CA_DA_LANGUAGE_REQUIREMENTS,
+  CA_DA_REASONABLE_ADJUSTMENTS,
+  CA_DA_SPECIAL_ARRANGEMENTS,
+  CA_DA_TRAVELLING_TO_COURT,
+  CONSENT_TO_APPLICATION,
+  CONTACT_DETAILS,
+  DETAILS_KNOWN,
+  INTERNATIONAL_FACTORS_JURISDICTION,
+  INTERNATIONAL_FACTORS_PARENTS,
+  INTERNATIONAL_FACTORS_REQUEST,
+  INTERNATIONAL_FACTORS_START,
+  PERSONAL_DETAILS,
+  PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_START,
+  START_ALTERNATIVE,
+} from '../../../steps/urls';
 import { summaryList } from '../../common/summary/utils';
 
 const applicationDetailsfieldType = {
@@ -92,7 +116,6 @@ const keepYourDetailsfieldType = {
   startAlternative: 'String',
 };
 
-
 const confirmYourDetailsfieldType = {
   applicant1FullName: 'String',
   applicant1DateOfBirthText: 'String',
@@ -105,15 +128,13 @@ const confirmYourDetailsfieldType = {
 };
 
 const supportYouNeedFieldType = {
-
   respondentAttendingToCourt: 'String',
   respondentHearingDetails: 'String',
   respondentLangRequirements: 'String',
   respondentLangDetails: 'String',
   respondentSpecialArrangements: 'String',
   respondentSpecialArrangementsDetails: 'String',
-  respondentReasonableAdjustments:
-    'String',
+  respondentReasonableAdjustments: 'String',
   respondentDocsSupport: 'String',
   respondentDocsDetails: 'String',
   respondentLargePrintDetails: 'String',
@@ -140,19 +161,17 @@ const inetnationlFactorFieldType = {
   iFactorsStartProvideDetails: 'String',
   parents: 'String',
   iFactorsParentsProvideDetails: 'String',
-  jurisdiction:
-    'String',
+  jurisdiction: 'String',
   iFactorsJurisdictionProvideDetails: 'String',
   request: 'String',
   iFactorsRequestProvideDetails: 'String',
 };
 
-
 const safetyConcernsfieldType = {
   proceedingsStart: 'String',
 };
 
-const additionalInformationfieldType= {
+const additionalInformationfieldType = {
   proceedingsStart: 'String',
 };
 
@@ -168,9 +187,7 @@ export const enConsentContent = {
     applicationReceivedDate: 'When did you receive the application?',
     courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
   },
-  dependencies: {
-    
-  },
+  dependencies: {},
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
   warningText:
@@ -192,11 +209,10 @@ export const enKeepYourDetailsContent = {
   },
   keys: {
     detailsKnown: 'Do the other people named in this application (the applicants) know any of your contact details?',
-    startAlternative: 'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
+    startAlternative:
+      'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
   },
-  dependencies: {
-    
-  },
+  dependencies: {},
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
   warningText:
@@ -226,9 +242,7 @@ export const enConfirmYourDetailsContent = {
     applicant1EmailAddress: 'Email',
     applicant1SafeToCall: 'When it is safe to call you (optional)',
   },
-  dependencies: {
-    
-  },
+  dependencies: {},
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
   warningText:
@@ -833,13 +847,54 @@ const en = (content: CommonContent) => {
     ...enContent,
     language: content.language,
     sections: [
-      summaryList(enConsentContent, userCase, urls, enConsentContent.sectionTitles.consentToTheApplication, consentFieldType, content.language),
-      summaryList(enKeepYourDetailsContent, userCase, urls, enKeepYourDetailsContent.sectionTitles.keepYourDetailsPrivate, keepYourDetailsfieldType, content.language),
-      summaryList(enConfirmYourDetailsContent, userCase, urls, enConfirmYourDetailsContent.sectionTitles.confirmYourDetails, confirmYourDetailsfieldType, content.language),
-      summaryList(enContent, userCase, urls, enContent.sectionTitles.applicationDetails,applicationDetailsfieldType,content.language),
-      summaryList(enSupportYouNeedContent, userCase, urls, enSupportYouNeedContent.sectionTitles.aboutYou,supportYouNeedFieldType,content.language),
-      summaryList(enInternationalContent, userCase, urls, enInternationalContent.sectionTitles.respondentAdditionalInformation, inetnationlFactorFieldType, content.language),
-      
+      summaryList(
+        enConsentContent,
+        userCase,
+        urls,
+        enConsentContent.sectionTitles.consentToTheApplication,
+        consentFieldType,
+        content.language
+      ),
+      summaryList(
+        enKeepYourDetailsContent,
+        userCase,
+        urls,
+        enKeepYourDetailsContent.sectionTitles.keepYourDetailsPrivate,
+        keepYourDetailsfieldType,
+        content.language
+      ),
+      summaryList(
+        enConfirmYourDetailsContent,
+        userCase,
+        urls,
+        enConfirmYourDetailsContent.sectionTitles.confirmYourDetails,
+        confirmYourDetailsfieldType,
+        content.language
+      ),
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.applicationDetails,
+        applicationDetailsfieldType,
+        content.language
+      ),
+      summaryList(
+        enSupportYouNeedContent,
+        userCase,
+        urls,
+        enSupportYouNeedContent.sectionTitles.aboutYou,
+        supportYouNeedFieldType,
+        content.language
+      ),
+      summaryList(
+        enInternationalContent,
+        userCase,
+        urls,
+        enInternationalContent.sectionTitles.respondentAdditionalInformation,
+        inetnationlFactorFieldType,
+        content.language
+      ),
     ],
   };
 };
@@ -1321,13 +1376,9 @@ export const cyConsentContent = {
     applicationReceivedDate: 'When did you receive the application?',
     courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
   },
-  dependencies: {
-    
-  },
+  dependencies: {},
   continue: 'Submit your response',
 };
-
-
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
@@ -1335,22 +1386,90 @@ const cy: typeof en = (content: CommonContent) => {
     ...cyContent,
     language: content.language,
     sections: [
-      summaryList(cyConsentContent, userCase, urls, enContent.sectionTitles.applicationDetails, consentFieldType, content.language),
-      summaryList(enKeepYourDetailsContent, userCase, urls, enKeepYourDetailsContent.sectionTitles.keepYourDetailsPrivate, keepYourDetailsfieldType, content.language),
-      summaryList(enConfirmYourDetailsContent, userCase, urls, enConfirmYourDetailsContent.sectionTitles.confirmYourDetails, confirmYourDetailsfieldType, content.language),
-      summaryList(enContent, userCase, urls, enContent.sectionTitles.applicationDetails, applicationDetailsfieldType, content.language),
-      summaryList(enContent, userCase, urls, enContent.sectionTitles.applicationDetails, safetyConcernsfieldType, content.language),
-      summaryList(enContent, userCase, urls, enContent.sectionTitles.applicationDetails, additionalInformationfieldType, content.language),
+      summaryList(
+        cyConsentContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.applicationDetails,
+        consentFieldType,
+        content.language
+      ),
+      summaryList(
+        enKeepYourDetailsContent,
+        userCase,
+        urls,
+        enKeepYourDetailsContent.sectionTitles.keepYourDetailsPrivate,
+        keepYourDetailsfieldType,
+        content.language
+      ),
+      summaryList(
+        enConfirmYourDetailsContent,
+        userCase,
+        urls,
+        enConfirmYourDetailsContent.sectionTitles.confirmYourDetails,
+        confirmYourDetailsfieldType,
+        content.language
+      ),
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.applicationDetails,
+        applicationDetailsfieldType,
+        content.language
+      ),
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.applicationDetails,
+        safetyConcernsfieldType,
+        content.language
+      ),
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.applicationDetails,
+        additionalInformationfieldType,
+        content.language
+      ),
     ],
   };
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: () => {
+    const checkboxes: { id: string; value: string }[] = [];
+
+    checkboxes.push({
+      id: 'sot',
+      value: 'StatementOfTruth',
+    });
+
+    return {
+      declarationCheck: {
+        type: 'checkboxes',
+        values: [
+          {
+            name: 'declarationCheck',
+            label: l => l.declaration,
+            value: 'declaration',
+          },
+        ],
+        validator: atLeastOneFieldIsChecked,
+      },
+      consentConfirm: {
+        type: 'label',
+        classes: 'govuk-label',
+        label: l => l.consent,
+        labelSize: 'm',
+      },
+    };
+  },
   submit: {
     text: l => l.continue,
   },
-  
 };
 
 const languages = {

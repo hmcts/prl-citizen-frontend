@@ -1,7 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 
-
 const en = {
   saveAndContinue: 'Continue',
 };
@@ -20,7 +19,6 @@ export const form: FormContent = {
   submit: {
     text: l => l.saveAndContinue,
   },
-  
 };
 
 export const generateContent: TranslationFn = content => {
