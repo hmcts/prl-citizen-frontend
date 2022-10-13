@@ -81,6 +81,7 @@ import {
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
   C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
+  C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -508,5 +509,10 @@ export const C100Sequence: Step[] = [
     url: C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
     showInSection: Sections.C100,
     getNextStep: () => C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
+  },
+  {
+    url: C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION,
   },
 ];

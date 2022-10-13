@@ -1,0 +1,11 @@
+{% extends "common/template.njk" %}
+{% block page_content %}
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{title}}</h1>
+{% endblock %}
+{% block page_legalRepresentation %}
+<p class="govuk-body-m">
+<a href="{{findLegalRepresentationLink}}" id="findLegalRepresentationLabel" target="_blank" class="govuk-link">{{ findLegalRepresentationLabel }}</a>
+<br><br>
+<a href="{{legalAidLink}}" id="legalAidLabel" target="_blank" class="govuk-link">{{ legalAidLabel }}</a>
+</p>
+{% endblock %}
