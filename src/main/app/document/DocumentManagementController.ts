@@ -80,6 +80,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
+      const caseDetailsFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
+
+      Object.assign(req.session.userCase, caseDetailsFromCos);
       const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
         req,
         req.session.userCase.id,
@@ -570,6 +573,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
+      const caseDetailsFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
+
+      Object.assign(req.session.userCase, caseDetailsFromCos);
       const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
         req,
         req.session.userCase.id,
@@ -582,4 +588,5 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
+
 }
