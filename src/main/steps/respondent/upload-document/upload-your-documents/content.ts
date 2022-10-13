@@ -7,7 +7,7 @@ const en = {
   title: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
-  continue: 'Save and continue',
+  continue: 'Continue',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
@@ -41,7 +41,7 @@ const cy: typeof en = {
   title: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
-  continue: 'Save and continue',
+  continue: 'Continue',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
@@ -104,7 +104,7 @@ export const form: FormContent = {
       },
     };
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

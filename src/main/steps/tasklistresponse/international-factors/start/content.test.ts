@@ -11,7 +11,7 @@ const enContent = {
   two: 'No',
   hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     start: {
       required: 'Select yes if the children live outside of England or Wales',
@@ -29,7 +29,7 @@ const cyContent = {
   two: 'No',
   hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     start: {
       required: 'Select yes if the children live outside of England or Wales',
@@ -76,8 +76,8 @@ describe('citizen-home content', () => {
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
   });
 
-  test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should onlyContinue continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

@@ -80,7 +80,7 @@ describe('citizen-home content', () => {
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
   });
 
-  test('should contain continue button', () => {
+  test('should contain onlyContinue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
