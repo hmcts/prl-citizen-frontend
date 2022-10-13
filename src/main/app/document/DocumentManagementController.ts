@@ -14,15 +14,16 @@ import {
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
-import { DocumentType, Respondent, YesOrNo } from '../case/definition';
+import { Applicant, DocumentType, Respondent, YesOrNo } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
-import { FormFields, FormFieldsFn } from '../form/Form';
+import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentRequest';
+import { UploadedDocumentRequest } from './UploadedDocumentRequest';
 
 const UID_LENGTH = 36;
 @autobind
@@ -48,6 +49,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const partyName = this.getPartyName(isApplicant, req);
 
     const uploadDocumentDetails = {
+      documentRequestedByCourt: req.session.userCase.start,
       caseId: req.session.userCase.id,
       freeTextUploadStatements: req.body.freeTextAreaForUpload,
       parentDocumentType: req.query.parentDocumentType,
@@ -78,11 +80,87 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
-      req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
+      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = [];
     }
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
+  }
+
+  public async notifyBannerForNewDcoumentUploaded(
+    req: AppRequest<Partial<CaseWithId>>,
+    caseReference: string,
+    client: CosApiClient,
+    loggedInCitizen: UserDetails
+  ): Promise<CaseWithId> {
+    if (req?.session?.userCase?.caseTypeOfApplication === 'C100') {
+      req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
+        if (respondent.value.response && respondent.value.response.citizenFlags) {
+          respondent.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+        } else {
+          respondent.value.response = {
+            citizenFlags: {
+              isAllDocumentsViewed: 'No',
+            },
+          };
+        }
+      });
+      req?.session?.userCase.applicants?.forEach((applicant: Applicant) => {
+        if (applicant.value.response && applicant.value.response.citizenFlags) {
+          applicant.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+        } else {
+          applicant.value.response = {
+            citizenFlags: {
+              isAllDocumentsViewed: 'No',
+            },
+          };
+        }
+      });
+    } else {
+      if (req?.session?.userCase.respondentsFL401) {
+        if (
+          req?.session?.userCase.respondentsFL401?.response &&
+          req?.session?.userCase.respondentsFL401?.response.citizenFlags
+        ) {
+          req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+        } else {
+          req.session.userCase.respondentsFL401.response = {
+            citizenFlags: {
+              isAllDocumentsViewed: 'No',
+            },
+          };
+        }
+      }
+      if (req?.session?.userCase.applicantsFL401) {
+        if (
+          req?.session?.userCase.applicantsFL401?.response &&
+          req?.session?.userCase.applicantsFL401?.response.citizenFlags
+        ) {
+          req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+        } else {
+          req.session.userCase.applicantsFL401.response = {
+            citizenFlags: {
+              isAllDocumentsViewed: 'No',
+            },
+          };
+        }
+      }
+    }
+
+    const data = toApiFormat(req?.session?.userCase);
+    data.id = caseReference;
+    const updatedCaseDataFromCos = await client.updateCase(
+      loggedInCitizen,
+      caseReference as string,
+      data,
+      'citizen-internal-case-update'
+    );
+    return updatedCaseDataFromCos;
   }
 
   private getPartyName(isApplicant, req: AppRequest<AnyObject>) {
@@ -388,21 +466,25 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
-    const isApplicant = req.query.isApplicant;
-
+    let isApplicant;
+    if (req.query && req.query.isApplicant) {
+      isApplicant = req.query.isApplicant;
+    }
     if (req?.session?.userCase?.applicantUploadFiles === undefined) {
-      req.session.userCase['applicantUploadFiles'] = [];
+      req.session.userCase[ApplicantUploadFiles] = [];
     }
 
     if (req?.session?.userCase?.respondentUploadFiles === undefined) {
-      req.session.userCase['respondentUploadFiles'] = [];
+      req.session.userCase[RespondentUploadFiles] = [];
     }
 
     if (!req.files?.length) {
       if (req.headers.accept?.includes('application/json')) {
         throw new Error('No files were uploaded');
       } else {
+        console.log('test.....');
         const fileData = req.files || [];
+        console.log('File data... : ', fileData);
         const obj = {
           id: fileData[0]['originalname'],
           name: fileData[0]['originalname'],
@@ -417,32 +499,87 @@ export class DocumentManagerController extends PostController<AnyObject> {
         name: fileData[0]['originalname'],
       };
 
-      if (isApplicant === YesOrNo.YES) {
+      console.log('ID details: ', obj.id);
+      console.log('name details: ', obj.name);
+    }
+
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
+    const caseworkerUser = req.session.user;
+    req.session.errors = form.getErrors(formData);
+
+    const partyName = this.getPartyName(isApplicant, req);
+
+    const files = req.files || [];
+
+    let documentRequestedByCourt;
+
+    if (req.session.userCase && req.session.userCase.start) {
+      documentRequestedByCourt = req.session.userCase.start;
+    }
+
+    console.log('documentRequestedByCourt option: ', documentRequestedByCourt);
+
+    let parentDocumentType;
+    let documentType;
+    const caseId = req.session.userCase.id;
+    if (req.query && req.query.parentDocumentType) {
+      parentDocumentType = req.query.parentDocumentType;
+    }
+    if (req.query && req.query.documentType) {
+      documentType = req.query.documentType;
+    }
+    const partyId = req.session.user.id;
+
+    const uploadedDocumentRequest = new UploadedDocumentRequest(
+      caseId,
+      files,
+      parentDocumentType,
+      documentType,
+      partyName,
+      partyId,
+      isApplicant
+    );
+
+    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+
+    console.log('Calling upload request: ', uploadedDocumentRequest);
+
+    const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(
+      caseworkerUser,
+      caseId,
+      parentDocumentType,
+      documentType,
+      partyId,
+      partyName,
+      isApplicant,
+      files,
+      documentRequestedByCourt
+    );
+    if (citizenDocumentListFromCos.status !== 200) {
+      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+    } else {
+      const obj = {
+        id: citizenDocumentListFromCos.documentId as string,
+        name: citizenDocumentListFromCos.documentName as string,
+      };
+      if (YesOrNo.YES === isApplicant) {
         req.session.userCase.applicantUploadFiles?.push(obj);
       } else {
         req.session.userCase.respondentUploadFiles?.push(obj);
       }
+      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      Object.assign(req.session.userCase, caseDataFromCos);
+      req.session.errors = [];
     }
 
-    let redirectUrl;
-
-    if (isApplicant === YesOrNo.YES) {
-      redirectUrl =
-        APPLICANT_UPLOAD_DOCUMENT +
-        '?' +
-        'caption=' +
-        req.query.parentDocumentType +
-        '&document_type=' +
-        req.query.documentType;
-    } else {
-      redirectUrl =
-        RESPONDENT_UPLOAD_DOCUMENT +
-        '?' +
-        'caption=' +
-        req.query.parentDocumentType +
-        '&document_type=' +
-        req.query.documentType;
-    }
-    this.redirect(req, res, redirectUrl);
+    this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
 }

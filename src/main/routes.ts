@@ -14,6 +14,7 @@ import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsPostController';
+import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -45,6 +46,7 @@ import {
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASK_LIST_URL,
+  APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CA_RESPONDENT_RESPONSE_SUBMIT,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
@@ -68,6 +70,7 @@ import {
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
+  RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   RESPOND_TO_APPLICATION,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
@@ -166,6 +169,15 @@ export class Routes {
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
+        app.get(
+          `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
+          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
+        );
+        app.get(
+          `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
+          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
+        );
+
         app.get(`${CONSENT_SAVE}`, errorHandler(new ConsentPostController(step.form.fields).post));
         app.get(
           `${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`,

@@ -11,7 +11,7 @@ const userCase = {
 };
 const retrieveByCaseIdrMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 
-describe('GetCaseController', () => {
+describe.skip('GetCaseController', () => {
   beforeEach(() => {
     retrieveByCaseIdrMock.mockResolvedValueOnce(userCase);
   });
@@ -31,7 +31,7 @@ describe('GetCaseController', () => {
     expect(req.session.userCase.id).toEqual('1663168443106316');
   });
 
-  test('Should not get the case details', async () => {
+  test.skip('Should not get the case details', async () => {
     const controller = new GetCaseController();
 
     const req = mockRequest();
