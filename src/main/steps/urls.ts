@@ -319,8 +319,9 @@ export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback
 
 /** @C100 Rebuild C1A Safety Concerns */
 export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
-export const C100_C1A_SAFETY_CONCERNS_CHILD: PageLink = `${C100_URL}/safety-concerns/child`;
-export const C100_C1A_SAFETY_CONCERNS_APPLICANT: PageLink = `${C100_URL}/safety-concerns/applicant`;
+export const C100_C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = `${C100_C1A_SAFETY_CONCERNS}/abduction`;
+export const C100_C1A_SAFETY_CONCERNS_CHILD: PageLink = `${C100_C1A_SAFETY_CONCERNS}/child`;
+export const C100_C1A_SAFETY_CONCERNS_APPLICANT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/applicant`;
 export const C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-guidance`;
 export const C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-about`;
 export const C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concerns-for-safety`;
@@ -331,8 +332,10 @@ export const C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink = `${C100
 export const C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/drugs`;
 export const C100_C1A_SAFETY_CONCERNS_OTHER: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/other-issues`;
 /***@C100 SafetyConcerns Abduction */
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = `${C100_C1A_SAFETY_CONCERNS}/abduction`;
 export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-office-notified`;
+export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-amount`;
+export const C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/previousabductions`;
+
 /** @C100 Document Submission */
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
 
