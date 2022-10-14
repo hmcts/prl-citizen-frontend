@@ -50,6 +50,8 @@ export const setContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
       req.session.userCase.citizenUserAddressHistory
     ) {
       partyDetails.addressLivedLessThan5YearsDetails = req.session.userCase.citizenUserAddressHistory;
+    } else {
+      partyDetails.addressLivedLessThan5YearsDetails = '';
     }
   }
 
@@ -107,6 +109,10 @@ export const getContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
 };
 
 export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
+  if (req.session.userCase.citizenUserFirstNames && req.session.userCase.citizenUserLastNames) {
+    req.session.userCase.citizenUserFullName =
+      req.session.userCase.citizenUserFirstNames + ' ' + req.session.userCase.citizenUserLastNames;
+  }
   if (!req.session.userCase.citizenUserPlaceOfBirth) {
     req.session.userCase.citizenUserPlaceOfBirthText = '';
   } else {
@@ -148,7 +154,9 @@ export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
         req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddressPostcode;
     }
   }
-
+  if (YesOrNo.YES === req.session.userCase.isAtAddressLessThan5Years) {
+    req.session.userCase.citizenUserAddressHistory = '';
+  }
   return req.session.userCase;
 };
 function clearSessionData(req: AppRequest) {

@@ -35,7 +35,7 @@ describe('applicant1 > address > lookup > content', () => {
     expect(generatedContent.section).toEqual(enContent.section);
     expect(generatedContent.title).toEqual(enContent.title);
     expect(generatedContent.errors).toEqual({
-      citizenUserAddressPostcode: (addressLookupContent.errors as any).addressPostcode,
+      citizenUserAddressPostcode: (addressLookupContent.errors as any).citizenUserAddressPostcode,
     });
     expect(generatedContent.manualAddressUrl).toEqual(RESPONDENT_ADDRESS_MANUAL);
   });
@@ -46,7 +46,7 @@ describe('applicant1 > address > lookup > content', () => {
     expect(generatedContent.section).toEqual(cyContent.section);
     expect(generatedContent.title).toEqual(cyContent.title);
     expect(generatedContent.errors).toEqual({
-      citizenUserAddressPostcode: (addressLookupContent.errors as any).addressPostcode,
+      citizenUserAddressPostcode: (addressLookupContent.errors as any).citizenUserAddressPostcode,
     });
     expect(generatedContent.manualAddressUrl).toEqual(RESPONDENT_ADDRESS_MANUAL);
   });
@@ -68,7 +68,7 @@ describe('applicant1 > address > lookup > content', () => {
   test('should contain citizenUserAddressPostcode field', () => {
     const addressLookupFormFields = addressLookupForm.fields as FormFields;
     const fields = generatedContent.form.fields as FormFields;
-    expect(fields.citizenUserAddressPostcode).toEqual(addressLookupFormFields.addressPostcode);
+    expect(fields.citizenUserAddressPostcode).toEqual(addressLookupFormFields.citizenUserAddressPostcode);
   });
 });
 /* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */

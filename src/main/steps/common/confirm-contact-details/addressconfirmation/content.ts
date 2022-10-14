@@ -1,7 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
-import { form as manualAddressForm } from '../../../common/components/address-manual';
 
 const en = {
   title: 'Your Address',
@@ -44,7 +43,6 @@ const cy: typeof en = {
 };
 
 export const form: FormContent = {
-  ...manualAddressForm,
   fields: {
     citizenUserAddress1: {
       type: 'text',
@@ -82,6 +80,9 @@ export const form: FormContent = {
       },
       validator: isInvalidPostcode,
     },
+  },
+  submit: {
+    text: l => l.onlyContinue,
   },
 };
 

@@ -10,10 +10,10 @@ const enContent = {
   line1:
     "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
   postcode: 'Postcode',
-  selectAddress: 'Select an address',
+  citizenUserSelectAddress: 'Select an address',
   cannotFindAddress: 'Or enter address manually',
   errors: {
-    selectAddress: {
+    citizenUserSelectAddress: {
       notSelected: 'Select an address',
     },
   },
@@ -25,10 +25,10 @@ const cyContent = {
   line1:
     'Byddwn yn anfon yr holl bapurau llys i’r cyfeiriad hwn oni bai eich bod yn ein cynghori eich bod yn hapus i’r gorchmynion llys gael eu cyflwyno arnoch trwy e-bost.',
   postcode: 'Cod post',
-  selectAddress: 'Dewiswch gyfeiriad',
+  citizenUserSelectAddress: 'Dewiswch gyfeiriad',
   cannotFindAddress: 'Neu nodwch y cyfeiriad â llaw',
   errors: {
-    selectAddress: {
+    citizenUserSelectAddress: {
       notSelected: 'Dewiswch gyfeiriad',
     },
   },
@@ -48,11 +48,11 @@ describe('common > components > address-select', () => {
   test('should return correct english content', () => {
     //expect(generatedContent.line1).toEqual(enContent.line1);
     expect(generatedContent.postcode).toEqual(enContent.postcode);
-    expect(generatedContent.selectAddress).toEqual(enContent.selectAddress);
+    expect(generatedContent.citizenUserSelectAddress).toEqual(enContent.citizenUserSelectAddress);
     expect(generatedContent.cannotFindAddress).toEqual(enContent.cannotFindAddress);
 
     expect(generatedContent.errors).toEqual({
-      selectAddress: {
+      citizenUserSelectAddress: {
         notSelected: 'Select an address',
       },
     });
@@ -69,11 +69,11 @@ describe('common > components > address-select', () => {
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
     //expect(generatedContent.line1).toEqual(cyContent.line1);
     expect(generatedContent.postcode).toEqual(cyContent.postcode);
-    expect(generatedContent.selectAddress).toEqual(cyContent.selectAddress);
+    expect(generatedContent.citizenUserSelectAddress).toEqual(cyContent.citizenUserSelectAddress);
     expect(generatedContent.cannotFindAddress).toEqual(cyContent.cannotFindAddress);
 
     expect(generatedContent.errors).toEqual({
-      selectAddress: {
+      citizenUserSelectAddress: {
         notSelected: 'Dewiswch gyfeiriad',
       },
     });
@@ -87,7 +87,7 @@ describe('common > components > address-select', () => {
   });
 
   // describe('when there is one address in session', () => {
-  //   test('should create correct options for selectAddress field', () => {
+  //   test('should create correct options for citizenUserSelectAddress field', () => {
   //     generatedContent = generateContent({ ...commonContent, addresses: [{ fullAddress: 'MOCK_FULL_ADDRESS_1' }] });
   //     expect(generatedContent.options).toEqual([
   //       { attributes: { id: 'totalAddressesFound' }, selected: true, text: '1 address found', value: -1 },
@@ -95,7 +95,7 @@ describe('common > components > address-select', () => {
   //     ]);
   //   });
 
-  //   test('should create correct options for selectAddress field (welsh)', () => {
+  //   test('should create correct options for citizenUserSelectAddress field (welsh)', () => {
   //     generatedContent = generateContent({
   //       ...commonContent,
   //       language: 'cy',
@@ -109,14 +109,14 @@ describe('common > components > address-select', () => {
   // });
 
   // describe('when there addresses is undefined in session', () => {
-  //   test('should create correct options for selectAddress field', () => {
+  //   test('should create correct options for citizenUserSelectAddress field', () => {
   //     generatedContent = generateContent({ ...commonContent, addresses: undefined });
   //     expect(generatedContent.options).toEqual([
   //       { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 addresses found', value: -1 },
   //     ]);
   //   });
 
-  //   test('should create correct options for selectAddress field (welsh)', () => {
+  //   test('should create correct options for citizenUserSelectAddress field (welsh)', () => {
   //     generatedContent = generateContent({ ...commonContent, language: 'cy', addresses: undefined });
   //     expect(generatedContent.options).toEqual([
   //       {
@@ -129,10 +129,10 @@ describe('common > components > address-select', () => {
   //   });
   // });
 
-  test('should contain selectAddress field', () => {
+  test('should contain citizenUserSelectAddress field', () => {
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const selectAddressField = fields.selectAddress as FormOptions;
+    const selectAddressField = fields.citizenUserSelectAddress as FormOptions;
 
     expect(selectAddressField.type).toBe('select');
     expect((selectAddressField.label as Function)(generatedContent)).toBe('Select an address');

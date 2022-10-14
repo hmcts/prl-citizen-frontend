@@ -1,11 +1,11 @@
 import autobind from 'autobind-decorator';
 
-import AddressLookupPostControllerBase from '../../../../../app/address/AddressLookupPostControllerBase';
+import ManualAddressPostControllerBase from '../../../../../app/address/ManualAddressPostControllerBase';
 import { FieldPrefix } from '../../../../../app/case/case';
 import { FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 
 @autobind
-export default class AddressLookupPostController extends AddressLookupPostControllerBase {
+export default class ManualAddressPostController extends ManualAddressPostControllerBase {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields, FieldPrefix.APPLICANT);
   }

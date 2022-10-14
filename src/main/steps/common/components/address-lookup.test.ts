@@ -8,11 +8,11 @@ jest.mock('../../../app/form/validation');
 
 const enContent = {
   line1: 'Your current postcode',
-  addressPostcode: 'Postcode',
+  citizenUserAddressPostcode: 'Postcode',
   findAddress: 'Find address',
   enterAddressManually: 'I live outisde the UK',
   errors: {
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       required: 'Enter a real postcode',
       invalid: 'Enter a real postcode',
     },
@@ -21,11 +21,11 @@ const enContent = {
 
 const cyContent = {
   line1: 'Your current postcode (in welsh)',
-  addressPostcode: 'Postcode (in welsh)',
+  citizenUserAddressPostcode: 'Postcode (in welsh)',
   findAddress: 'Find address (in welsh)',
   enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       required: 'Enter a real postcode (in welsh)',
       invalid: 'Enter a real postcode (in welsh)',
     },
@@ -56,10 +56,10 @@ describe('common > components > address-lookup > content', () => {
     expect(generatedContent.manualAddressUrl).toEqual('#');
   });
 
-  test('should contain addressPostcode field', () => {
+  test('should contain citizenUserAddressPostcode field', () => {
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const addressPostcodeField = fields.addressPostcode as FormOptions;
+    const addressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
 
     expect(addressPostcodeField.type).toBe('text');
     expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');

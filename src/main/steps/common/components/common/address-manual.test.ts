@@ -15,13 +15,13 @@ const enContent = {
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
   errors: {
-    address1: {
+    citizenUserManualAddress1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    citizenUserManualAddressTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       required: 'Enter the postcode',
       invalid: 'Enter a real postcode',
     },
@@ -36,13 +36,13 @@ const enContent = {
 //   postcode: 'Cod post',
 //   enterInternationalAddress: 'Nac ydwdwch gyfeiriad rhyngwladol',
 //   errors: {
-//     address1: {
+//     citizenUserManualAddress1: {
 //       required: 'Nac ydwdwch linell gyntaf y cyfeiriad',
 //     },
-//     addressTown: {
+//     citizenUserManualAddressTown: {
 //       required: 'Nac ydwdwch y dref neu ddinas',
 //     },
-//     addressPostcode: {
+//     citizenUserAddressPostcode: {
 //       required: 'Nac ydwdwch y cod post',
 //       invalid: 'Nac ydwdwch god post dilys',
 //     },
@@ -70,8 +70,8 @@ describe('common > components > manual-address > content', () => {
   //   languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   // });
 
-  test('should contain address1 field', () => {
-    const address1Field = fields.address1 as FormOptions;
+  test('should contain citizenUserManualAddress1 field', () => {
+    const address1Field = fields.citizenUserManualAddress1 as FormOptions;
     expect(address1Field.type).toBe('text');
     expect(address1Field.classes).toBe('govuk-label');
     expect((address1Field.label as Function)(generatedContent)).toBe(enContent.addressLine1);
@@ -79,16 +79,16 @@ describe('common > components > manual-address > content', () => {
     expect(address1Field.validator).toBe(isFieldFilledIn);
   });
 
-  // test('should contain address2 field', () => {
-  //   const address2Field = fields.address2 as FormOptions;
+  // test('should contain citizenUserManualAddress2 field', () => {
+  //   const address2Field = fields.citizenUserManualAddress2 as FormOptions;
   //   expect(address2Field.type).toBe('text');
   //   expect(address2Field.classes).toBe('govuk-label');
   //   expect((address2Field.label as Function)(generatedContent)).toBe(enContent.addressLine2);
   //   expect(address2Field.labelSize).toBe(null);
   // });
 
-  test('should contain addressTown field', () => {
-    const addressTownField = fields.addressTown as FormOptions;
+  test('should contain citizenUserManualAddressTown field', () => {
+    const addressTownField = fields.citizenUserManualAddressTown as FormOptions;
     expect(addressTownField.type).toBe('text');
     expect(addressTownField.classes).toBe('govuk-label govuk-!-width-two-thirds');
     expect((addressTownField.label as Function)(generatedContent)).toBe(enContent.town);
@@ -96,16 +96,16 @@ describe('common > components > manual-address > content', () => {
     expect(addressTownField.validator).toBe(isFieldFilledIn);
   });
 
-  test('should contain addressCounty field', () => {
-    const addressCountyField = fields.addressCounty as FormOptions;
+  test('should contain citizenUserManualAddressCounty field', () => {
+    const addressCountyField = fields.citizenUserManualAddressCounty as FormOptions;
     expect(addressCountyField.type).toBe('text');
     expect(addressCountyField.classes).toBe('govuk-label govuk-!-width-two-thirds');
     expect((addressCountyField.label as Function)(generatedContent)).toBe(enContent.county);
     expect(addressCountyField.labelSize).toBe(null);
   });
 
-  test('should contain addressPostcode field', () => {
-    const addressPostcodeField = fields.addressPostcode as FormOptions;
+  test('should contain citizenUserAddressPostcode field', () => {
+    const addressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
     expect(addressPostcodeField.type).toBe('text');
     expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
     expect((addressPostcodeField.label as Function)(generatedContent)).toBe(enContent.postcode);

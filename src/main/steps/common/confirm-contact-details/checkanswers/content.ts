@@ -28,6 +28,11 @@ const en = (content: CommonContent) => {
   if (typeof dob !== 'string') {
     getFormattedDate(dob);
   }
+  if (!userCase.citizenUserAddressPostcode) {
+    urls.citizenUserAddressText = 'address/lookup';
+  } else {
+    urls.citizenUserAddressText = 'addressdetails';
+  }
   return {
     ...enContent,
     language: content.language,
@@ -80,6 +85,11 @@ const cy: typeof en = (content: CommonContent) => {
   const dob = userCase.citizenUserDateOfBirth;
   if (dob !== null && dob !== undefined && typeof dob !== 'string') {
     getFormattedDate(dob);
+  }
+  if (!userCase.citizenUserAddressPostcode) {
+    urls.citizenUserAddressText = 'address/lookup';
+  } else {
+    urls.citizenUserAddressText = 'addressdetails';
   }
   //userCase.citizenUserDateOfBirthText = getFormattedDate(userCase.citizenUserDateOfBirth);
   //console.log("userCase.citizenUserDateOfBirthText====>"+userCase.citizenUserDateOfBirthText);

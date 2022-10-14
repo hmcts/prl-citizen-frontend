@@ -88,22 +88,24 @@ const privateFieldsMap = new Map<string, string>([
 
 export const getConfidentialData = (req: AppRequest<Partial<Case>>): void => {
   for (const [key, value] of privateFieldsMap) {
-    if (req.session.userCase?.detailsKnown && req.session.userCase?.startAlternative) {
-      if (req.session.userCase.contactDetailsPrivate?.length !== 0) {
-        if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
-          req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-            '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PRIVATE + '</span>'
-          );
-        } else {
-          req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-            '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
-          );
+    if (!req.session.userCase[`${value}`].includes('span')) {
+      if (req.session.userCase?.detailsKnown && req.session.userCase?.startAlternative) {
+        if (req.session.userCase.contactDetailsPrivate?.length !== 0) {
+          if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
+            req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
+              '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PRIVATE + '</span>'
+            );
+          } else {
+            req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
+              '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
+            );
+          }
         }
+      } else {
+        req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
+          '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
+        );
       }
-    } else {
-      req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-        '<span class="govuk-hint">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
-      );
     }
   }
 };

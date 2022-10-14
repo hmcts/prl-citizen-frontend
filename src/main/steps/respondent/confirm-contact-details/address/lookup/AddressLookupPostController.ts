@@ -7,6 +7,6 @@ import { FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 @autobind
 export default class AddressLookupPostController extends AddressLookupPostControllerBase {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    super(fields, FieldPrefix.APPLICANT1);
+    super(fields, FieldPrefix.RESPONDENT);
   }
 }

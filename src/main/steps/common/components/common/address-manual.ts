@@ -9,13 +9,13 @@ const en = () => ({
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
   errors: {
-    address1: {
+    citizenUserManualAddress1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    citizenUserManualAddressTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       required: 'Enter the postcode',
       invalid: 'Enter a real postcode',
     },
@@ -29,13 +29,13 @@ const cy = () => ({
   postcode: 'Cod post',
   enterInternationalAddress: 'Nac ydwdwch gyfeiriad rhyngwladol',
   errors: {
-    address1: {
+    citizenUserManualAddress1: {
       required: 'Nac ydwdwch linell gyntaf y cyfeiriad',
     },
-    addressTown: {
+    citizenUserManualAddressTown: {
       required: 'Nac ydwdwch y dref neu ddinas',
     },
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       required: 'Nac ydwdwch y cod post',
       invalid: 'Nac ydwdwch god post dilys',
     },
@@ -44,14 +44,14 @@ const cy = () => ({
 
 export const form: FormContent = {
   fields: {
-    address1: {
+    citizenUserManualAddress1: {
       type: 'text',
       classes: 'govuk-label',
       label: l => l.addressLine1,
       labelSize: null,
       validator: isFieldFilledIn,
     },
-    address2: {
+    citizenUserManualAddress2: {
       type: 'text',
       classes: 'govuk-label',
       labelSize: null,
@@ -61,20 +61,20 @@ export const form: FormContent = {
       classes: 'govuk-label',
       labelSize: null,
     },
-    addressTown: {
+    citizenUserManualAddressTown: {
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.town,
       labelSize: null,
       validator: isFieldFilledIn,
     },
-    addressCounty: {
+    citizenUserManualAddressCounty: {
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.county,
       labelSize: null,
     },
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
       label: l => l.postcode,

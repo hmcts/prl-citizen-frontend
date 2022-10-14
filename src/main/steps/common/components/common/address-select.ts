@@ -19,10 +19,10 @@ const en = content => {
 
   return {
     postcode: 'Postcode',
-    selectAddress: 'Select an address',
+    citizenUserSelectAddress: 'Select an address',
     cannotFindAddress: 'Or enter address manually',
     errors: {
-      selectAddress: {
+      citizenUserSelectAddress: {
         notSelected: 'Select an address',
       },
     },
@@ -47,10 +47,10 @@ const cy = content => {
 
   return {
     postcode: 'Cod post',
-    selectAddress: 'Dewiswch gyfeiriad',
+    citizenUserSelectAddress: 'Dewiswch gyfeiriad',
     cannotFindAddress: 'Neu nodwch y cyfeiriad â llaw',
     errors: {
-      selectAddress: {
+      citizenUserSelectAddress: {
         notSelected: 'Dewiswch gyfeiriad',
       },
     },
@@ -62,9 +62,9 @@ const cy = content => {
 
 export const form: FormContent = {
   fields: {
-    selectAddress: {
+    citizenUserSelectAddress: {
       type: 'select',
-      label: l => l.selectAddress,
+      label: l => l.citizenUserSelectAddress,
       labelSize: 'm',
       validator: isAddressSelected,
       options: l => l.options,

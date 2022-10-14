@@ -6,7 +6,7 @@ const en = () => ({
   line1: 'Your current postcode',
   enterAddressManually: 'I live outisde the UK',
   errors: {
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       required: 'Enter a real postcode',
       invalid: 'Enter a real postcode',
     },
@@ -18,7 +18,7 @@ const cy = () => ({
   line1: 'Your current postcode (in welsh)',
   enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       required: 'Enter a real postcode (in welsh)',
       invalid: 'Enter a real postcode (in welsh)',
     },
@@ -28,7 +28,7 @@ const cy = () => ({
 
 export const form: FormContent = {
   fields: {
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
       labelSize: 'm',
@@ -39,7 +39,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.onlyContinue,
   },
 };
 

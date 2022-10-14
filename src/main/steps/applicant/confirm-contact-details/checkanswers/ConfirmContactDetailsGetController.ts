@@ -9,6 +9,7 @@ import {
   getConfidentialData,
   validateDataCompletion,
 } from './../../../../steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsGetController';
+
 @autobind
 export default class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {

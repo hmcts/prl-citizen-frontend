@@ -37,7 +37,7 @@ describe('applicant > address > select > content', () => {
     expect(generatedContent.section).toEqual(enContent.section);
     expect(generatedContent.title).toEqual(enContent.title);
     expect(generatedContent.errors).toEqual({
-      citizenUserSelectAddress: (selectAddressContent.errors as any).selectAddress,
+      citizenUserSelectAddress: (selectAddressContent.errors as any).citizenUserSelectAddress,
     });
     expect(generatedContent.changePostCodeUrl).toEqual('/respondent/confirm-contact-details/address/lookup');
     expect(generatedContent.cantFindAddressUrl).toEqual('/respondent/confirm-contact-details/address/manual');
@@ -49,7 +49,7 @@ describe('applicant > address > select > content', () => {
     expect(generatedContent.section).toEqual(cyContent.section);
     expect(generatedContent.title).toEqual(cyContent.title);
     expect(generatedContent.errors).toEqual({
-      citizenUserSelectAddress: (selectAddressContent.errors as any).selectAddress,
+      citizenUserSelectAddress: (selectAddressContent.errors as any).citizenUserSelectAddress,
     });
     expect(generatedContent.changePostCodeUrl).toEqual('/respondent/confirm-contact-details/address/lookup');
     expect(generatedContent.cantFindAddressUrl).toEqual('/respondent/confirm-contact-details/address/manual');
@@ -58,7 +58,7 @@ describe('applicant > address > select > content', () => {
   test('should contain citizenUserSelectAddress field', () => {
     const selectAddressFormFields = selectAddressForm.fields as FormFields;
     const fields = generatedContent.form.fields as FormFields;
-    expect(fields.citizenUserSelectAddress).toEqual(selectAddressFormFields.selectAddress);
+    expect(fields.citizenUserSelectAddress).toEqual(selectAddressFormFields.citizenUserSelectAddress);
   });
 
   it('should have citizenUserSelectAddress label when language: en', () => {

@@ -25,9 +25,10 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
     req.session.errors = form.getErrors(formData);
 
     Object.assign(req.session.userCase, formData);
+
     req.session.errors = [];
 
-    if (req.session.errors.length === 0) {
+    if (postcode) {
       addresses = await getAddressesFromPostcode(postcode, req.locals.logger);
     }
     req.session.addresses = addresses;

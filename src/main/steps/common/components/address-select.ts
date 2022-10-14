@@ -19,12 +19,12 @@ const en = content => {
 
   return {
     postcode: 'Current postcode',
-    selectAddress: 'Select an address',
+    citizenUserSelectAddress: 'Select an address',
     cannotFindAddress: 'I cannot find the address in the list',
     defaultPostcode: 'E14RRR',
     enterAddressManually: 'Or enter address manually',
     errors: {
-      selectAddress: {
+      citizenUserSelectAddress: {
         notSelected: 'Select an address',
       },
     },
@@ -49,10 +49,10 @@ const cy = content => {
 
   return {
     postcode: 'Current postcode (in welsh)',
-    selectAddress: 'Select an address (in welsh)',
+    citizenUserSelectAddress: 'Select an address (in welsh)',
     cannotFindAddress: 'I cannot find the address in the list (in welsh)',
     errors: {
-      selectAddress: {
+      citizenUserSelectAddress: {
         notSelected: 'Select an address (in welsh)',
       },
     },
@@ -64,9 +64,9 @@ const cy = content => {
 
 export const form: FormContent = {
   fields: {
-    selectAddress: {
+    citizenUserSelectAddress: {
       type: 'select',
-      label: l => l.selectAddress,
+      label: l => l.citizenUserSelectAddress,
       validator: isAddressSelected,
       options: l => l.options,
     },
