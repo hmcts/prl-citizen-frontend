@@ -153,6 +153,10 @@ export class Routes {
           errorHandler(documentManagerController.deleteDocument)
         );
         app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
+        app.post(
+          `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
+          errorHandler(documentManagerController.clearUploadDocumentFormData)
+        );
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
