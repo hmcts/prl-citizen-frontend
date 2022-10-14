@@ -243,6 +243,10 @@ export const C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = `${C100_C
 /** @C100 Document Submission */
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
 
+/** @C100 Alternative Rsesolution */
+export const C100_ALTERNATIVE_RESOLUTION: PageLink = `${C100_URL}/alternative-resolution`;
+export const C100_ALTERNATIVE_RESOLUTION_ALTERNATIVE_ROUTES: PageLink = `${C100_ALTERNATIVE_RESOLUTION}/alternative-routes`;
+
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;
 export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/other-proceedings`;
