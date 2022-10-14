@@ -126,11 +126,3 @@ export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus 
   }
   return SectionStatus.TO_DO;
 };
-
-// export const getOrderDetailsStatus = (userCase: CaseWithId): SectionStatus => {
-//   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
-//     return SectionStatus.READY_TO_VIEW;
-//   } else {
-//     return SectionStatus.NOT_AVAILABLE_YET;
-//   }
-// };

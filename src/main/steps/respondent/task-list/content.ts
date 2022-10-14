@@ -290,8 +290,6 @@ const getC100Banners = (userCase, translations, userIdamId) => {
       banners.push(translations.finalOrderBanner);
     }
   }
-  banners.push(translations.caRespondentServedBanner);
-  banners.push(translations.cafcassBanner);
   return banners;
 };
 

@@ -30,9 +30,16 @@
     </ul>
   </div>
   <div class="govuk-button-group">
-    <form action="/applicant/upload-document" >
+    <form action="/document-manager/clearUploadDocumentFormData?_csrf={{ csrfToken }}&isApplicant=Yes" method="post">
       <input type="hidden" name="answers-checked" value="true">
       <button class="govuk-button govuk-button--secondary" data-module="govuk-button" value="Save and come back later">Upload another document</button>
     </form>
+    <form action="/document-manager/clearUploadDocumentFormData?_csrf={{ csrfToken }}&isApplicant=Yes&isContinue=Yes" method="post" novalidate="">
+
+              <button class="govuk-button" data-module="govuk-button" value="Continue">
+                Continue
+              </button>
+
+            </form>
   </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
@@ -44,6 +44,19 @@ describe('task-list > content', () => {
     {
       userCase: {
         ...mockUserCase,
+        respondents: [
+          {
+            id: '123',
+            value: {
+              user: {
+                idamId: '',
+              },
+              response: {
+                legalRepresentation: 'No',
+              },
+            },
+          },
+        ] as Respondent[],
         legalRepresentation: YesOrNo.NO,
       },
       expected: [

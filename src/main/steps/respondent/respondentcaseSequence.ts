@@ -17,17 +17,8 @@ import {
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
-  COURT_PROCEEDINGS_SUMMARY,
   DIGITAL_DOWNLOADS,
-  DOMESTIC_ABUSE_RISK,
-  DOMESTIC_ABUSE_RISK_NO,
   DRUG_ALCOHOL_TESTS,
-  INTERNATIONAL_FACTORS_JURISDICTION,
-  INTERNATIONAL_FACTORS_PARENTS,
-  INTERNATIONAL_FACTORS_REQUEST,
-  INTERNATIONAL_FACTORS_SAVE,
-  INTERNATIONAL_FACTORS_START,
-  INTERNATIONAL_FACTORS_SUMMARY,
   LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
   LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
   LEGAL_REPRESENTATION_START,
@@ -73,10 +64,8 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
-  SAFETY_MAIN_PAGE,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   WITNESS_AVAILABILITY,
-  YOUR_SAFETY,
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
 
@@ -183,31 +172,6 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: INTERNATIONAL_FACTORS_START,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_PARENTS,
-  },
-  {
-    url: INTERNATIONAL_FACTORS_PARENTS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_JURISDICTION,
-  },
-  {
-    url: INTERNATIONAL_FACTORS_JURISDICTION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_REQUEST,
-  },
-  {
-    url: INTERNATIONAL_FACTORS_REQUEST,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_SUMMARY,
-  },
-  {
-    url: INTERNATIONAL_FACTORS_SUMMARY,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_SAVE,
-  },
-  {
     url: RESPONDENT_TASK_LIST_URL,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -224,44 +188,6 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
-  {
-    url: SAFETY_MAIN_PAGE,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => YOUR_SAFETY,
-  },
-  {
-    url: YOUR_SAFETY,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => DOMESTIC_ABUSE_RISK,
-  },
-  {
-    url: DOMESTIC_ABUSE_RISK,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => DOMESTIC_ABUSE_RISK_NO,
-  },
-  {
-    url: DOMESTIC_ABUSE_RISK_NO,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
-  {
-    url: PROCEEDINGS_START,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
-        ? PROCEEDINGS_COURT_PROCEEDINGS
-        : COURT_PROCEEDINGS_SUMMARY,
-  },
-  {
-    url: PROCEEDINGS_COURT_PROCEEDINGS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => COURT_PROCEEDINGS_SUMMARY,
-  },
-  {
-    url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
@@ -544,31 +470,5 @@ export const respondentCaseSequence: Step[] = [
     url: LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
-  },
-
-  {
-    url: INTERNATIONAL_FACTORS_START,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_PARENTS,
-  },
-  {
-    url: INTERNATIONAL_FACTORS_PARENTS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_JURISDICTION,
-  },
-  {
-    url: INTERNATIONAL_FACTORS_JURISDICTION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_REQUEST,
-  },
-  {
-    url: INTERNATIONAL_FACTORS_REQUEST,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_SUMMARY,
-  },
-  {
-    url: INTERNATIONAL_FACTORS_SUMMARY,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
 ];

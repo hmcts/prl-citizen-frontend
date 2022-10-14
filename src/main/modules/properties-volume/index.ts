@@ -20,12 +20,13 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.prl.redis-access-key', 'session.secret');
     } else {
-      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
+      this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
+      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
       this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
       this.setLocalSecret('system-update-user-username', 'services.idam.systemUsername');
       this.setLocalSecret('system-update-user-password', 'services.idam.systemPassword');
-      //this.setLocalEndpoints();
+      this.setLocalSecret('citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
     }
   }
 

@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../../app/case/definition';
+import { Respondent, YesOrNo } from '../../../app/case/definition';
 import * as URL from '../../urls';
 
 import {
@@ -14,6 +14,15 @@ import {
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (respondent?.value?.user?.idamId === userIdamId) {
+      if (respondent.value.response.legalRepresentation || userCase.legalRepresentation) {
+        if (!userCase.legalRepresentation) {
+          userCase.legalRepresentation = respondent.value.response.legalRepresentation;
+        }
+      }
+    }
+  });
   return [
     {
       title: sectionTitles.legalrepresentation,
