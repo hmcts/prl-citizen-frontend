@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
+import { ApplicantUploadFiles, RespondentUploadFiles, UploadDocumentSucess } from '../../steps/constants';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
@@ -15,7 +15,6 @@ import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
 
-const UploadDocumentSucess = 'upload-documents-success';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
@@ -39,7 +38,6 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else {
-      //await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
