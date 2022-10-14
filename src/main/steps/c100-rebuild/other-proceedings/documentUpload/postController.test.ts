@@ -235,7 +235,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
     req.session.userCase = {
       op_otherProceedings: {
         order: {
@@ -264,6 +264,76 @@ describe('Document upload controller', () => {
     );
   });
 
+  test('Should upload document for first order and redirect back to current page', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+    const QUERY = {
+      orderType: 'otherOrder',
+      orderId: '1',
+    };
+
+    mockedAxios.post.mockImplementation(url => {
+      switch (url) {
+        case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
+          return Promise.resolve({ data: 'Test S2S Token' });
+        case '/upload-citizen-document':
+          return Promise.resolve({
+            data: {
+              status: 'Success',
+              document: {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_filename: 'applicant_emergency_protection_order10_12092022.rtf',
+                document_binary_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          });
+        default:
+          return Promise.reject(new Error('not found'));
+      }
+    });
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    req.files = { documents: { name: 'test.png', size: '812300', data: '', mimetype: 'text' } };
+    req.session.userCase = {
+      op_otherProceedings: {
+        order: {
+          otherOrders: [
+            {
+              orderDetail: 'OtherOrder1',
+              orderCopy: 'Yes',
+              orderDocument: {
+                id: '',
+                url: '',
+                filename: '',
+                binaryUrl: '',
+              },
+            },
+          ],
+        },
+      },
+    };
+
+    req.query = QUERY;
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toBeCalledWith(
+      '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
+    );
+  });
+
   describe('when there is an error in saving session', () => {
     test('should throw an error', async () => {
       const controller = new UploadDocumentController({});
@@ -275,6 +345,7 @@ describe('Document upload controller', () => {
           save: jest.fn(done => done('MOCK_ERROR')),
         },
       });
+      req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
       const QUERY = {
         orderType: 'otherOrder',
         orderId: '1',

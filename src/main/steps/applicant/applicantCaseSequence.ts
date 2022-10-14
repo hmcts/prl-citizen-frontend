@@ -1,6 +1,6 @@
-import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  APPLICANT,
   APPLICANT_ADDRESS_BLANK,
   APPLICANT_ADDRESS_CONFIRMATION,
   APPLICANT_ADDRESS_DETAILS,
@@ -9,25 +9,51 @@ import {
   APPLICANT_ADDRESS_LOOKUP_CONT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
+  APPLICANT_CONTACT_DETAILS_SAVE,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_FIND_ADDRESS,
+  APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
+  APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_PERSONAL_DETAILS,
   APPLICANT_POSTAL_ADDRESS_DETAILS,
   APPLICANT_PRIVATE_DETAILS_CONFIRMED,
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_START_ALTERNATIVE,
   APPLICANT_TASK_LIST_URL,
+  APPLICANT_UPLOAD_DOCUMENT,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+  APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
+  // APPLICANT_START_ALTERNATIVE,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+  APPLICANT_WITNESS_STATEMENTS_DA,
+  APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
   COURT_HEARING_SUPPORT,
+  DIGITAL_DOWNLOADS,
   DOCUMENTS_SUPPORT,
+  DRUG_ALCOHOL_TESTS,
   LANGUAGE_REQUIREMENTS,
+  LETTER_FROM_SCHOOL,
+  MEDICAL_RECORDS,
+  MEDICAL_REPORTS,
+  OTHER_DOCUMENTS,
+  OTHER_PEOPLE_WITNESS_STATEMENTS,
+  PATERNITY_TEST_REPORTS,
+  POLICE_DISCLOSURE,
+  POSITION_STATEMENTS,
+  PREVIOUS_ORDERS_SUBMITTED,
   REASONABLE_ADJUSTMENTS,
   SAFETY_ARRANGEMENTS,
   SUPPORT_YOU_NEED_DURING_CASE,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  TENANCY_AND_MORTGAGE_AVAILABILITY,
   TRAVELLING_TO_COURT,
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
+  WITNESS_AVAILABILITY,
+  YOUR_WITNESS_STATEMENTS,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -44,10 +70,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_START_ALTERNATIVE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: data =>
-      data.startAlternative === YesOrNo.YES
-        ? APPLICANT_PRIVATE_DETAILS_CONFIRMED
-        : APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
+    getNextStep: () => APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
   },
   {
     url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
@@ -62,17 +85,17 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_CHECK_ANSWERS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => APPLICANT_CONTACT_DETAILS_SAVE,
   },
   {
     url: APPLICANT_PERSONAL_DETAILS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => APPLICANT_CHECK_ANSWERS,
   },
   {
     url: APPLICANT_CONTACT_DETAILS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => APPLICANT_CHECK_ANSWERS,
   },
   {
     url: APPLICANT_ADDRESS_DETAILS,
@@ -166,6 +189,216 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${YOUR_WITNESS_STATEMENTS}`,
+  },
+  {
+    url: `${APPLICANT}${YOUR_WITNESS_STATEMENTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_ORDERS_FROM_THE_COURT,
+  },
+  {
+    url: APPLICANT_ORDERS_FROM_THE_COURT,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${POSITION_STATEMENTS}`,
+  },
+  {
+    url: `${APPLICANT}${POSITION_STATEMENTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${OTHER_PEOPLE_WITNESS_STATEMENTS}`,
+  },
+  {
+    url: `${APPLICANT}${OTHER_PEOPLE_WITNESS_STATEMENTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${YOUR_WITNESS_STATEMENTS}`,
+  },
+  {
+    url: `${APPLICANT}${YOUR_WITNESS_STATEMENTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${MEDICAL_REPORTS}`,
+  },
+  {
+    url: `${APPLICANT}${MEDICAL_REPORTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${DIGITAL_DOWNLOADS}`,
+  },
+  {
+    url: `${APPLICANT}${DIGITAL_DOWNLOADS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${LETTER_FROM_SCHOOL}`,
+  },
+  {
+    url: `${APPLICANT}${LETTER_FROM_SCHOOL}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${MEDICAL_RECORDS}`,
+  },
+  {
+    url: `${APPLICANT}${MEDICAL_RECORDS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${PREVIOUS_ORDERS_SUBMITTED}`,
+  },
+  {
+    url: `${APPLICANT}${PREVIOUS_ORDERS_SUBMITTED}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${WITNESS_AVAILABILITY}`,
+  },
+  {
+    url: `${APPLICANT}${WITNESS_AVAILABILITY}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${PATERNITY_TEST_REPORTS}`,
+  },
+  {
+    url: `${APPLICANT}${PATERNITY_TEST_REPORTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${DRUG_ALCOHOL_TESTS}`,
+  },
+  {
+    url: `${APPLICANT}${DRUG_ALCOHOL_TESTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${POLICE_DISCLOSURE}`,
+  },
+  {
+    url: `${APPLICANT}${POLICE_DISCLOSURE}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
+  },
+  {
+    url: `${APPLICANT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${APPLICATION_MADE_IN_THESE_PRCEEDINGS}`,
+  },
+  {
+    url: `${APPLICANT}${APPLICATION_MADE_IN_THESE_PRCEEDINGS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${OTHER_DOCUMENTS}`,
+  },
+  {
+    url: `${APPLICANT}${OTHER_DOCUMENTS}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_WITNESS_STATEMENTS_DA,
+  },
+  {
+    url: APPLICANT_WITNESS_STATEMENTS_DA,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },

@@ -75,7 +75,6 @@ export const form: FormContent = {
     c1A_haveSafetyConcerns: {
       type: 'radios',
       classes: 'govuk-radios',
-      section: l => l.section,
       values: [
         {
           label: l => l.yesHaveSafetyConcerns,

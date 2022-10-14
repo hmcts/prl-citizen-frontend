@@ -24,6 +24,8 @@ export const mockRequest: any = ({
         caseApi: jest.fn(),
         createCase: jest.fn(),
         updateCase: jest.fn(),
+        deleteDocument: jest.fn(),
+        uploadDocument: jest.fn(),
         retrieveCase: jest.fn(),
       },
       logger: {
@@ -35,7 +37,6 @@ export const mockRequest: any = ({
     params: { ...params },
     session: {
       user: {
-        id: '123456',
         accessToken: 'mock-user-access-token',
         name: 'test',
         givenName: 'First name',

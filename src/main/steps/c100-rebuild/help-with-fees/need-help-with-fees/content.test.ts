@@ -73,7 +73,6 @@ describe('help-with-fees > need-help-with-fees', () => {
     expect(needHelpWithFees.classes).toBe('govuk-radios');
     expect((needHelpWithFees.values[0].label as LanguageLookup)(generatedContent)).toBe(en.yesNeedHelpWithFeesPaying);
     expect((needHelpWithFees.values[1].label as LanguageLookup)(generatedContent)).toBe(en.noNeedHelpWithFeesPaying);
-
     // eslint-disable-next-line @typescript-eslint/ban-types
     (needHelpWithFees.validator as Function)();
     expect(isFieldFilledIn).toHaveBeenCalledWith();

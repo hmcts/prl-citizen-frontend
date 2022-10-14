@@ -63,7 +63,7 @@ class PageStepConfigurator {
     return this.pageSteps[mainPageId] || null;
   }
 
-  getNextPage(mainPageId: string, stepPageId?: string, selectedPageSteps?: string[]) {
+  getNextPage(mainPageId: string, stepPageId?: string | null, selectedPageSteps?: string[]) {
     const pageSteps = this.getSteps(mainPageId, selectedPageSteps);
     return pageSteps
       ? mainPageId && stepPageId

@@ -4,7 +4,7 @@ import { FormContent } from '../../../../app/form/Form';
 const en = () => ({
   serviceName: 'Application upload',
   titleList: {
-    childArrangementOrder: 'Upload Child Arrangement Order',
+    childArrangementOrder: 'Upload Child Arrangements Order',
     emergencyProtectionOrder: 'Upload Emergency Protection Order',
     supervisionOrder: 'Upload Supervision Order',
     careOrder: 'Upload Care Order',
@@ -39,10 +39,14 @@ const en = () => ({
   remove: 'Remove',
   errors: {
     document: {
-      required: 'There is a problem. Please choose a file.',
-      multipleFiles: `There is a problem. You can upload only one file. 
+      required: 'Please choose a file.',
+      multipleFiles: `You can upload only one file. 
             If you wish to upload a new file, delete the existing 
             file and upload a new one`,
+      fileFormat: `The file you uploaded is in the wrong format.
+                Upload your file again in the correct format`,
+      fileSize: `The file you uploaded is too large.
+                Maximum file size allowed is 20MB`,
     },
   },
 });
@@ -50,7 +54,7 @@ const en = () => ({
 const cy = () => ({
   serviceName: 'Application upload - welsh',
   titleList: {
-    childArrangementOrder: 'Upload Child Arrangement Order - welsh',
+    childArrangementOrder: 'Upload Child Arrangements Order - welsh',
     emergencyProtectionOrder: 'Upload Emergency Protection Order - welsh',
     supervisionOrder: 'Upload Supervision Order -  welsh',
     careOrder: 'Upload Care Order - welsh',
@@ -85,10 +89,14 @@ const cy = () => ({
   remove: 'Remove - welsh',
   errors: {
     document: {
-      required: 'There is a problem. Please choose a file. - welsh',
-      multipleFiles: `There is a problem. You can upload only one file. 
+      required: 'Please choose a file. - welsh',
+      multipleFiles: `You can upload only one file. 
             If you wish to upload a new file, delete the existing 
             file and upload a new one - welsh`,
+      fileFormat: `The file you uploaded is in the wrong format.
+          Upload your file again in the correct format - welsh`,
+      fileSize: `The file you uploaded is too large.
+           Maximum file size allowed is 20MB - welsh`,
     },
   },
 });
