@@ -8,13 +8,9 @@ export const enContent = {
   section: 'Check your answers',
   title: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    MIAMDetails: '',
   },
-  keys: {
-    //miamStart: 'Have you attended a MIAM?',
-    //miamWillingness: 'Would you be willing to attend a MIAM?',
-    //miamNotWillingExplnation: 'Explain why you are not willing to attend a MIAM',
-  },
+  keys: {},
   errors: {},
 };
 
@@ -27,7 +23,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, 'applicationDetails', fieldType, content.language)],
+    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language)],
   };
 };
 
@@ -35,21 +31,13 @@ const cyContent: typeof enContent = {
   section: 'Check your answers',
   title: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    MIAMDetails: '',
   },
-  keys: {
-    //miamStart: 'Have you attended a MIAM?',
-    //miamWillingness: 'Would you be willing to attend a MIAM?',
-    //miamNotWillingExplnation: 'Explain why you are not willing to attend a MIAM',
-  },
+  keys: {},
   errors: {},
 };
 
-const urls = {
-  //miamStart: MIAM_START,
-  //miamWillingness: MIAM_ATTEND_WILLINGNESS,
-  //miamNotWillingExplnation: MIAM_ATTEND_WILLINGNESS,
-};
+const urls = {};
 
 const fieldType = {
   miamStart: 'String',
@@ -66,7 +54,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, 'applicationDetails', fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
   };
 };
 
