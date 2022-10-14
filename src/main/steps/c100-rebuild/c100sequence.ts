@@ -521,7 +521,7 @@ export const C100Sequence: Step[] = [
     url: C100_LEGAL_REPRESENTATION_APPLICATION,
     showInSection: Sections.C100,
     getNextStep: data =>
-      data.c1A_legalRepresentationApplication === YesOrNo.YES
+      data.sq_legalRepresentationApplication === YesOrNo.YES
         ? C100_LEGAL_REPRESENTATION_APPLICATION
         : C100_CONFIDENTIALITY_START,
   },

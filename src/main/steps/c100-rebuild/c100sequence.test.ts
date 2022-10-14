@@ -503,12 +503,12 @@ describe('C100Sequence', () => {
     expect(C100Sequence[70].showInSection).toBe('c100');
     expect(C100Sequence[70].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
 
-    expect(C100Sequence[71].url).toBe('/c100-rebuild/legal-representation-application');
+    expect(C100Sequence[71].url).toBe('/c100-rebuild/screening-questions/legal-representation-application');
     expect(C100Sequence[71].showInSection).toBe('c100');
-    expect(C100Sequence[71].getNextStep({ c1A_legalRepresentationApplication: YesOrNo.YES })).toBe(
-      '/c100-rebuild/legal-representation-application'
+    expect(C100Sequence[71].getNextStep({ sq_legalRepresentationApplication: YesOrNo.YES })).toBe(
+      '/c100-rebuild/screening-questions/legal-representation-application'
     );
-    expect(C100Sequence[71].getNextStep({ c1A_legalRepresentationApplication: YesOrNo.NO })).toBe(
+    expect(C100Sequence[71].getNextStep({ sq_legalRepresentationApplication: YesOrNo.NO })).toBe(
       '/c100-rebuild/confidentiality/start'
     );
   });

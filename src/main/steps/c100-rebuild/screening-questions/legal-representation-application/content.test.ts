@@ -1,10 +1,10 @@
-import languageAssertions from '../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../common/common.content';
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-jest.mock('../../../app/form/validation');
+jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Do you want your legal representative to complete the application for you?',
@@ -28,7 +28,7 @@ const cy = {
   },
 };
 
-describe('C100-Rebuild > legal-representation-application > content', () => {
+describe('C100-Rebuild > screening-questions >legal-representation-application > content', () => {
   const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
