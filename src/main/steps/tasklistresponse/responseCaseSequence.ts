@@ -10,6 +10,7 @@ import {
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
+  INTERNATIONAL_FACTORS_SAVE,
   INTERNATIONAL_FACTORS_START,
   INTERNATIONAL_FACTORS_SUMMARY,
   MIAM_ATTEND_WILLINGNESS,
@@ -73,12 +74,12 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: MIAM_START,
@@ -168,7 +169,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => INTERNATIONAL_FACTORS_SAVE,
   },
   {
     url: SAFETY_MAIN_PAGE,

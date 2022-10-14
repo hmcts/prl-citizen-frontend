@@ -10,6 +10,7 @@ import { FieldPrefix } from './app/case/case';
 import { GetController } from './app/controller/GetController';
 import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
+import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -49,6 +50,7 @@ import {
   APPLICANT_TASK_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
+  CA_RESPONDENT_RESPONSE_SUBMIT,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   CONSENT_SAVE,
   CONSENT_TO_APPLICATION,
@@ -97,6 +99,7 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
+    app.get(`${CA_RESPONDENT_RESPONSE_SUBMIT}`, errorHandler(new RespondentSubmitResponseController().save));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
@@ -156,6 +159,10 @@ export class Routes {
           errorHandler(documentManagerController.deleteDocument)
         );
         app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
+        app.post(
+          `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
+          errorHandler(documentManagerController.clearUploadDocumentFormData)
+        );
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));

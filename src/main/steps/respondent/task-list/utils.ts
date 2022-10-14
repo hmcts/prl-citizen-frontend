@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesNoIDontKnow, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (
   userCase: Partial<CaseWithId> | undefined,
@@ -148,27 +148,30 @@ export const getViewAllDocuments = (): SectionStatus => {
 
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
-    userCase?.proceedingsStart &&
-    userCase?.proceedingsStartOrder &&
-    userCase?.emergencyOrderOptions &&
-    userCase?.supervisionOrderOption &&
-    userCase?.careOrderOptions &&
-    userCase?.childAbductionOrderOption &&
-    userCase?.caOrderOption &&
-    userCase?.financialOrderOption &&
-    userCase?.nonmolestationOrderOption &&
-    userCase?.occupationalOrderOptions &&
-    userCase?.marraigeOrderOptions &&
-    userCase?.restrainingOrderOptions &&
-    userCase?.injuctiveOrderOptions &&
-    userCase?.underTakingOrderOptions
+    ((userCase?.proceedingsStart === YesNoIDontKnow.NO || userCase?.proceedingsStart === YesNoIDontKnow.IDONTKNOW) &&
+      userCase?.proceedingsStartOrder === YesNoIDontKnow.NO) ||
+    (userCase?.proceedingsStart &&
+      userCase?.proceedingsStartOrder &&
+      userCase?.emergencyOrderOptions &&
+      userCase?.supervisionOrderOption &&
+      userCase?.careOrderOptions &&
+      userCase?.childAbductionOrderOption &&
+      userCase?.caOrderOption &&
+      userCase?.financialOrderOption &&
+      userCase?.nonmolestationOrderOption &&
+      userCase?.occupationalOrderOptions &&
+      userCase?.marraigeOrderOptions &&
+      userCase?.restrainingOrderOptions &&
+      userCase?.injuctiveOrderOptions &&
+      userCase?.underTakingOrderOptions)
   ) {
     return SectionStatus.COMPLETED;
   }
+
   if (
     userCase?.proceedingsStart ||
     userCase?.proceedingsStartOrder ||
-    userCase?.supervisionOrderOption ||
+    userCase?.emergencyOrderOptions ||
     userCase?.supervisionOrderOption ||
     userCase?.careOrderOptions ||
     userCase?.childAbductionOrderOption ||
@@ -183,6 +186,7 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId>
   ) {
     return SectionStatus.IN_PROGRESS;
   }
+
   return SectionStatus.TO_DO;
 };
 export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
