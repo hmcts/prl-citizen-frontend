@@ -121,6 +121,72 @@ export const enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
+    policeInvolvement: 'The police have been involved',
+    policeInvolvement_hint:
+      'This may mean that someone in the application (you or the respondents) have been arrested, cautioned, charged or convicted for domestic or child abuse offences. Select all evidence you have to support your claim.',
+    evidenceOfSomeoneArrest:
+      'Evidence that someone in the application has been arrested for a domestic violence offence',
+    evidenceOfPolice: 'Evidence of a police caution for a domestic violence offence',
+    evidenceOfOnGoingCriminalProceeding: 'Evidence of ongoing criminal proceedings for a domestic violence offence',
+    evidenceOfConviction: 'Evidence of a conviction for a domestic violence offence',
+    evidenceOFProtectionNotice: 'A domestic violence protection notice issued against someone in the application',
+    courtInvolvement: 'A court has already been involved',
+    boundedByCourtAction:
+      'Someone in the case is bound by a court order in connection with a domestic violence offence',
+    protectionInjuction: ' protective injunction is in place',
+    fmlAct1996:
+      'An undertaking given in England and Wales under section 46 or 63E of the Family Law Act 1996 (or given in Scotland or Northern Ireland in place of a protective injunction) by a prospective party, provided that a cross-undertaking relating to domestic violence was not given by another prospective party',
+    ukdomesticVoilcenceUK:
+      'There has been a finding of fact in proceedings in the United Kingdom, that proves that someone in the case has committed domestic violence',
+    ukPotentialVictim:
+      'An expert report was produced as evidence in proceedings in the United Kingdom, and it showed that a person with whom a prospective party is or was in a family relationship was a victim (or potential victim) of domestic abuse by that person',
+    courtInvolvement_hint:
+      'A court has made an order against you or the other people in the application (or someone close to you, or them) in connection to domestic violence and abuse. Select all evidence you have to support your claim.',
+    letterOfBeingVictim:
+      'A letter confirms that you or the other people in the application are (or have been) a victim of domestic violence or abuse',
+    letterFromHealthProfessional: 'A letter or report from an appropriate health professional',
+    letterFromHealthProfessional_hint:
+      'The letter or report must confirm that an appropriate health professional has examined the person directly - and in their professional judgement, the person has (or has had) injuries that are consistent with being a victim of domestic violence',
+    letterFromHPfromPerspectiveParty:
+      'A letter or report confirming that there was a referral by an appropriate health professional of a prospective party to a person who provides specialist support or assistance for victims of, or those at risk of, domestic violence',
+    letterFromHPfromPerspectiveParty_hint:
+      '<div class="govuk-hint govuk-checkboxes__hint" id="sletterconfirmation-hint">The letter or report must be from: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>the appropriate health professional who made the referral</li> <li>an appropriate health professional who has access to the medical records of the prospective party referred to</li> <li>or the person to whom the referral was made</li> </ul> </div>',
+    letterFromPublicAuthority:
+      'A letter from a public authority confirming that a person with whom a prospective party is or was in a family relationship, was assessed as being, or at risk of being, a victim of domestic violence by that prospective party (or a copy of that assessment)',
+    letterOfBeingVictim_hint:
+      'This may mean that a health professional has confirmed injuries that are (or were) a result of domestic violence and abuse. Select which evidence of this you can provide.',
+    letterFromAuthority: 'A letter from a local authority or other agency confirms a risk of harm',
+    letterFromMultiAgencyMember:
+      "A letter from any person who is a member of a multi-agency risk assessment conference, or local safeguarding forum. The letter confirms that one of the people in the application, or someone in that person's family, are (or have been) at risk of harm from domestic violence from a prospective party.",
+    letterFromOfficer:
+      'A letter from an officer employed by a local authority or housing association, for the purpose of supporting tenants.',
+    letterFromOfficer_hint:
+      "<div class='govuk-hint govuk-checkboxes__hint' id='authorityletter-hint'>The letter must contain: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'> <li>a statement that says that in their professional judgement, a prospective party poses an actual or potential risk of domestic violence towards someone else who they are (or have been) in a family relationship with.</li> <li>a description of the specific information they relied on to support this judgement</li> <li>a description of the support that they provided to the victim (or potential victim) of domestic violence from the prospective party</li> </ul> </div>",
+    letterFromAuthority_hint:
+      'For example, a local authority or housing association has confirmed there is or has been a risk of domestic violence or abuse. Select which evidence of this you can provide.',
+    letterFromSupportService: 'A letter from a domestic violence or abuse support service, specialist or organisation',
+    letterFromSupportService_hint:
+      'This could be an independent domestic violence or abuse adviser confirming support to you or the other people in this application (the respondents). Select which evidence of this you can provide.',
+    letterFromDomesticViolenceAdvisor:
+      'A letter from an independent domestic violence advisor confirming that they are providing support to a prospective party',
+    letterFromSexualViolenceAdvisor:
+      'A letter from an independent sexual violence advisor confirming that they are providing support to a prospective party relating to sexual violence by another prospective party',
+    letterFromOrgDomesticViolenceSupport:
+      'A letter from an organisation providing domestic violence support services, or a registered charity',
+    letterFromOrgDomesticViolenceInUk:
+      'A letter or report from an organisation providing domestic violence support services in the United Kingdom',
+    letterFromOrgDomesticViolenceSupportHint:
+      "The letter confirms all the following.<br/>The Organisation: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>is situated in England and Wales</li><li>has been operating for an uninterrupted period of six months or more</li><li>provided a prospective party with support in relation to that person’s needs as a victim, or a person at risk, of domestic violence</li></ul>The letter contains all the following: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>a statement to the effect that, in the reasonable professional judgment of the author of the letter, the prospective party is, or is at risk of being, a victim of domestic violence</li><li>a description of the specific matters relied upon to support that judgment</li><li>a description of the support provided to the prospective party</li><li>a statement of the reasons why the prospective party needed that support</li></ul>",
+    letterFromOrgDomesticViolenceInUkHint:
+      "The letter or report must confirm all the following: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>that a person with whom a prospective party is or was in a family relationship was refused admission to a refuge </li><li>the date on which they were refused admission to the refuge</li><li>they sought admission to the refuge becuase of allegations of domestic violence by the prospective party</li></ul>",
+    ILRDuetoDomesticAbuse:
+      'You or any of the other people in this application (the respondents) have been granted indefinite leave to remain in the UK as a victim of domestic violence or abuse',
+    ILRDuetoDomesticAbuse_hint: 'A letter from the Home Office will have confirmed that leave was granted',
+    financiallyAbuse:
+      'You have evidence that you or the other people in the application (the respondents) have been (or are at risk of being) financially abused by the other party',
+    financiallyAbuse_hint:
+      'Financial abuse is a way of controlling someone being able to earn, spend or keep their own money. For example, preventing someone going to work, withholding money, or putting debts in someone else’s name. Evidence could include: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>a copy of a credit card account, loan document or bank statements</li><li>a letter from a domestic violence support organisation</li><li>emails, text messages or a diary kept by the victim</li> </ul>',
+    noneOfOptions: 'None of the above',
   },
 };
 const cyContent: typeof enContent = {
@@ -229,6 +295,72 @@ const cyContent: typeof enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
+    policeInvolvement: 'The police have been involved',
+    policeInvolvement_hint:
+      'This may mean that someone in the application (you or the respondents) have been arrested, cautioned, charged or convicted for domestic or child abuse offences. Select all evidence you have to support your claim.',
+    evidenceOfSomeoneArrest:
+      'Evidence that someone in the application has been arrested for a domestic violence offence',
+    evidenceOfPolice: 'Evidence of a police caution for a domestic violence offence',
+    evidenceOfOnGoingCriminalProceeding: 'Evidence of ongoing criminal proceedings for a domestic violence offence',
+    evidenceOfConviction: 'Evidence of a conviction for a domestic violence offence',
+    evidenceOFProtectionNotice: 'A domestic violence protection notice issued against someone in the application',
+    courtInvolvement: 'A court has already been involved',
+    boundedByCourtAction:
+      'Someone in the case is bound by a court order in connection with a domestic violence offence',
+    protectionInjuction: ' protective injunction is in place',
+    fmlAct1996:
+      'An undertaking given in England and Wales under section 46 or 63E of the Family Law Act 1996 (or given in Scotland or Northern Ireland in place of a protective injunction) by a prospective party, provided that a cross-undertaking relating to domestic violence was not given by another prospective party',
+    ukdomesticVoilcenceUK:
+      'There has been a finding of fact in proceedings in the United Kingdom, that proves that someone in the case has committed domestic violence',
+    ukPotentialVictim:
+      'An expert report was produced as evidence in proceedings in the United Kingdom, and it showed that a person with whom a prospective party is or was in a family relationship was a victim (or potential victim) of domestic abuse by that person',
+    courtInvolvement_hint:
+      'A court has made an order against you or the other people in the application (or someone close to you, or them) in connection to domestic violence and abuse. Select all evidence you have to support your claim.',
+    letterOfBeingVictim:
+      'A letter confirms that you or the other people in the application are (or have been) a victim of domestic violence or abuse',
+    letterFromHealthProfessional: 'A letter or report from an appropriate health professional',
+    letterFromHealthProfessional_hint:
+      'The letter or report must confirm that an appropriate health professional has examined the person directly - and in their professional judgement, the person has (or has had) injuries that are consistent with being a victim of domestic violence',
+    letterFromHPfromPerspectiveParty:
+      'A letter or report confirming that there was a referral by an appropriate health professional of a prospective party to a person who provides specialist support or assistance for victims of, or those at risk of, domestic violence',
+    letterFromHPfromPerspectiveParty_hint:
+      '<div class="govuk-hint govuk-checkboxes__hint" id="sletterconfirmation-hint">The letter or report must be from: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>the appropriate health professional who made the referral</li> <li>an appropriate health professional who has access to the medical records of the prospective party referred to</li> <li>or the person to whom the referral was made</li> </ul> </div>',
+    letterFromPublicAuthority:
+      'A letter from a public authority confirming that a person with whom a prospective party is or was in a family relationship, was assessed as being, or at risk of being, a victim of domestic violence by that prospective party (or a copy of that assessment)',
+    letterOfBeingVictim_hint:
+      'This may mean that a health professional has confirmed injuries that are (or were) a result of domestic violence and abuse. Select which evidence of this you can provide.',
+    letterFromAuthority: 'A letter from a local authority or other agency confirms a risk of harm',
+    letterFromMultiAgencyMember:
+      "A letter from any person who is a member of a multi-agency risk assessment conference, or local safeguarding forum. The letter confirms that one of the people in the application, or someone in that person's family, are (or have been) at risk of harm from domestic violence from a prospective party.",
+    letterFromOfficer:
+      'A letter from an officer employed by a local authority or housing association, for the purpose of supporting tenants.',
+    letterFromOfficer_hint:
+      "<div class='govuk-hint govuk-checkboxes__hint' id='authorityletter-hint'>The letter must contain: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'> <li>a statement that says that in their professional judgement, a prospective party poses an actual or potential risk of domestic violence towards someone else who they are (or have been) in a family relationship with.</li> <li>a description of the specific information they relied on to support this judgement</li> <li>a description of the support that they provided to the victim (or potential victim) of domestic violence from the prospective party</li> </ul> </div>",
+    letterFromAuthority_hint:
+      'For example, a local authority or housing association has confirmed there is or has been a risk of domestic violence or abuse. Select which evidence of this you can provide.',
+    letterFromSupportService: 'A letter from a domestic violence or abuse support service, specialist or organisation',
+    letterFromSupportService_hint:
+      'This could be an independent domestic violence or abuse adviser confirming support to you or the other people in this application (the respondents). Select which evidence of this you can provide.',
+    letterFromDomesticViolenceAdvisor:
+      'A letter from an independent domestic violence advisor confirming that they are providing support to a prospective party',
+    letterFromSexualViolenceAdvisor:
+      'A letter from an independent sexual violence advisor confirming that they are providing support to a prospective party relating to sexual violence by another prospective party',
+    letterFromOrgDomesticViolenceSupport:
+      'A letter from an organisation providing domestic violence support services, or a registered charity',
+    letterFromOrgDomesticViolenceInUk:
+      'A letter or report from an organisation providing domestic violence support services in the United Kingdom',
+    letterFromOrgDomesticViolenceSupportHint:
+      "The letter confirms all the following.<br/>The Organisation: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>is situated in England and Wales</li><li>has been operating for an uninterrupted period of six months or more</li><li>provided a prospective party with support in relation to that person’s needs as a victim, or a person at risk, of domestic violence</li></ul>The letter contains all the following: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>a statement to the effect that, in the reasonable professional judgment of the author of the letter, the prospective party is, or is at risk of being, a victim of domestic violence</li><li>a description of the specific matters relied upon to support that judgment</li><li>a description of the support provided to the prospective party</li><li>a statement of the reasons why the prospective party needed that support</li></ul>",
+    letterFromOrgDomesticViolenceInUkHint:
+      "The letter or report must confirm all the following: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'><li>that a person with whom a prospective party is or was in a family relationship was refused admission to a refuge </li><li>the date on which they were refused admission to the refuge</li><li>they sought admission to the refuge becuase of allegations of domestic violence by the prospective party</li></ul>",
+    ILRDuetoDomesticAbuse:
+      'You or any of the other people in this application (the respondents) have been granted indefinite leave to remain in the UK as a victim of domestic violence or abuse',
+    ILRDuetoDomesticAbuse_hint: 'A letter from the Home Office will have confirmed that leave was granted',
+    financiallyAbuse:
+      'You have evidence that you or the other people in the application (the respondents) have been (or are at risk of being) financially abused by the other party',
+    financiallyAbuse_hint:
+      'Financial abuse is a way of controlling someone being able to earn, spend or keep their own money. For example, preventing someone going to work, withholding money, or putting debts in someone else’s name. Evidence could include: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>a copy of a credit card account, loan document or bank statements</li><li>a letter from a domestic violence support organisation</li><li>emails, text messages or a diary kept by the victim</li> </ul>',
+    noneOfOptions: 'None of the above',
   },
 };
 

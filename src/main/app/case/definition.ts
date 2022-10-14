@@ -569,6 +569,23 @@ export enum MiamNonAttendReason {
   NONE = 'none',
 }
 
+export enum MiamDomesticAbuse {
+  POLICE_INVOLVEMENT = "policeInvolvement",
+COURT_INVOLVEMENT = "courtInvolvement",
+LETTER_OF_BEING_VICTIM = "letterOfBeingVictim",
+LETTER_FROM_AUTHORITY = "letterFromAuthority",
+LETTER_FROM_SUPPORT_SERVICE= "letterFromSupportService",
+ILR_DUE_TO_DOMESTICABUSE= "ILRDuetoDomesticAbuse",
+FINANCIALLY_ABUSE = "financiallyAbuse"
+}
+
+export enum MiamDomesticAbuse_PoliceInvolevment {
+EVIDENCE_OF_SOMEONE = "evidenceOfSomeoneArrest",
+EVIDENCE_OF_POLICE = "evidenceOfPolice",
+EVIDENCE_OF_ON_GOING_CRIMINAL_PROCEEDING = "evidenceOfOnGoingCriminalProceeding",
+EVIDENCE_OF_CONVICTION= "evidenceOfConviction",
+EVIDENCE_OF_PROTECTION_NOTICE = "evidenceOFProtectionNotice"
+}
 
 
 export const enum ContactDetails {
