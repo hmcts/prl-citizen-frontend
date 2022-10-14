@@ -1432,6 +1432,12 @@ export const enum YesNoDontKnow {
   dontKnow = 'dontKnow',
 }
 
+export const enum YesNoIDontKnow {
+  YES = 'Yes',
+  NO = 'No',
+  IDONTKNOW = 'I'
+}
+
 export const enum SectionStatus {
   TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
