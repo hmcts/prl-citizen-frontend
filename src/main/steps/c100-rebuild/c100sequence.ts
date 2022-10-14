@@ -82,6 +82,9 @@ import {
   C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
+
+  /** Screening Questions */
+  C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -514,5 +517,11 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_OTHER,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER,
+  },
+
+  {
+    url: C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
   },
 ];

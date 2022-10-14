@@ -357,6 +357,10 @@ export const C100_MIAM_UPLOAD: PageLink = `${C100_MIAM}/upload`;
 export const C100_MIAM_GET_DOC: PageLink = `${C100_MIAM}/get-doc`;
 export const C100_MIAM_NO_NEED_WITH_REASONS: PageLink = `${C100_MIAM}/no-need-with-reasons`;
 
+/**@C100 Screening */
+export const C100_SCREENING_QUESTIONS: PageLink = `${C100_URL}/screening-questions`;
+export const C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST: PageLink = `${C100_SCREENING_QUESTIONS}/permissions-request`;
+
 /** @C100 Urgency */
 export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/hearing-urgency`;
 export const C100_HEARING_URGENCY_URGENT: PageLink = `${C100_HEARING_URGENCY}/urgent`;
