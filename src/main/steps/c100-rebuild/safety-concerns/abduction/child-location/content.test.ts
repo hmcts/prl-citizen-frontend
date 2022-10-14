@@ -9,8 +9,10 @@ jest.mock('../../../../../app/form/validation');
 const en = {
   section: 'Safety concerns',
   title: 'Why do you think the children may be abducted or kept outside the UK without your consent?',
-  warningText:
-    'Contact the police or social services if a child you’re responsible for is at risk of being taken out of the UK without your consent.',
+  warningText: {
+    text: 'Contact the police or social services if a child you’re responsible for is at risk of being taken out of the UK without your consent.',
+    iconFallbackText: 'Warning',
+  },
   safetyConcernsText: 'Briefly explain your concerns, including:',
   safetyConcernsBullet1: 'Who might take them',
   safetyConcernsBullet2: 'Where they might be taken or kept',
@@ -30,8 +32,10 @@ const en = {
 const cy = {
   section: 'Safety concerns',
   title: 'Why do you think the children may be abducted or kept outside the UK without your consent?',
-  warningText:
-    'Contact the police or social services if a child you’re responsible for is at risk of being taken out of the UK without your consent.',
+  warningText: {
+    text: 'Contact the police or social services if a child you’re responsible for is at risk of being taken out of the UK without your consent.',
+    iconFallbackText: 'Warning',
+  },
   safetyConcernsText: 'Briefly explain your concerns, including:',
   safetyConcernsBullet1: 'Who might take them',
   safetyConcernsBullet2: 'Where they might be taken or kept',
