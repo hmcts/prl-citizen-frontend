@@ -1,21 +1,21 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 
 const en = () => ({
-  guidanceParentalChildHyperlink: 'https://www.gov.uk/government/collections/child-abduction',
-  guidanceParentalChildLabel: 'Guidance on parental child abduction',
-  helpForAbroadChildHyperlink: 'https://www.gov.uk/return-or-contact-abducted-child',
-  helpForAbroadChildLabel: 'Get help to return a child from abroad or arrange contact',
-  stopChildGettingPassportHyperlink: 'https://www.gov.uk/stop-child-passport',
-  stopChildGettingPassportLabel: 'Stop a child from getting a passport',
+  guidanceOnAbductionLabel: 'Guidance on parental child abduction',
+  guidanceOnAbductionLink: 'https://www.gov.uk/government/collections/child-abduction',
+  getHelpOnReturningChildAbroadLabel: 'Get help to return a child from abroad or arrange contact',
+  getHelponReturningChildAbroadLink: 'https://www.gov.uk/return-or-contact-abducted-child',
+  preventChildFromObtainingPassportLabel: 'Stop a child from getting a passport',
+  preventChildFromObtainingPassportLink: 'https://www.gov.uk/stop-child-passport',
 });
 
 const cy = () => ({
-  guidanceParentalChildHyperlink: 'https://www.gov.uk/government/collections/child-abduction  - welsh',
-  guidanceParentalChildLabel: 'Guidance on parental child abduction  - welsh',
-  helpForAbroadChildHyperlink: 'https://www.gov.uk/return-or-contact-abducted-child  - welsh',
-  helpForAbroadChildLabel: 'Get help to return a child from abroad or arrange contact  - welsh',
-  stopChildGettingPassportHyperlink: 'https://www.gov.uk/stop-child-passport  - welsh',
-  stopChildGettingPassportLabel: 'Stop a child from getting a passport  - welsh',
+  guidanceOnAbductionLabel: 'Guidance on parental child abduction - welsh',
+  guidanceOnAbductionLink: 'https://www.gov.uk/government/collections/child-abduction',
+  getHelpOnReturningChildAbroadLabel: 'Get help to return a child from abroad or arrange contact - welsh',
+  getHelponReturningChildAbroadLink: 'https://www.gov.uk/return-or-contact-abducted-child',
+  preventChildFromObtainingPassportLabel: 'Stop a child from getting a passport - welsh',
+  preventChildFromObtainingPassportLink: 'https://www.gov.uk/stop-child-passport',
 });
 
 const languages = {
