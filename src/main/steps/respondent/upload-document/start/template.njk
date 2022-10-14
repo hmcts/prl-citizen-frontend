@@ -9,14 +9,11 @@
         <span class="govuk-caption-l">{{caption}}</span>
         {{document_type}}
     </h1>
+    {% if line1 %}
+    <p class="govuk-body">{{ line1 }}</p>
+    {% endif %}
   {% if title %}
-    <h1 class="govuk-heading-l">{{ title }}</h1>
-  {% endif %}
-  {% if line1 %}
-    <div class="govuk-hint">{{ line1 }}</div>
-  {% endif %}
-  {% if line2 %}
-    <p class="govuk-body">{{ line2 }}</p>
+    <h1 class="govuk-heading-m">{{ title }}</h1>
   {% endif %}
     </div>
 {% endblock %}
