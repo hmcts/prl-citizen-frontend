@@ -19,11 +19,7 @@ export class CaseApi {
     try {
       const url: string = config.get('services.cos.url') + '/cases';
       const response = await this.axios.get<RetreiveDraftCase[]>(url);
-      this.logger.info(response.data[0].id);
-      this.logger.info(response.data[0].state);
-      this.logger.info(response.data[0].c100RebuildReturnUrl);
       return response.data.filter(caseData => caseData.state === 'AWAITING_SUBMISSION_TO_HMCTS');
-      //return response.data;
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retreived.');
@@ -150,16 +146,10 @@ interface UpdateCaseResponse {
   [key: string]: any;
 }
 
-export interface RetreiveDraftCase {
+export interface RetreiveDraftCase extends UpdateCase {
   id: string;
   state: State;
   c100RebuildReturnUrl: string;
-  c100RebuildConfidentiality?: Record<string, string>;
-  c100RebuildInternationalElements?: Record<string, string>;
-  c100RebuildReasonableAdjustments?: Record<string, string>;
-  c100RebuildTypeOfOrder?: Record<string, string>;
-  c100RebuildHearingWithoutNotice?: Record<string, string>;
-  c100RebuildOtherProceedings?: Record<string, string>;
 }
 
 interface UpdateCase {

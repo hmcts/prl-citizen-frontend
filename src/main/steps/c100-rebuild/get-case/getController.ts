@@ -18,50 +18,55 @@ export default class GetCaseDetails extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    const responseBody: RetreiveDraftCase[] = await req.locals.C100Api.retrieveCase();
-    const retreivedDraftCase = responseBody[0];
-    let c100RebuildInternationalElementsObj = retreivedDraftCase.c100RebuildInternationalElements;
-    let c100RebuildReasonableAdjustmentsObj = retreivedDraftCase.c100RebuildReasonableAdjustments;
-    let c100RebuildTypeOfOrderObj = retreivedDraftCase.c100RebuildTypeOfOrder;
-    let c100RebuildHearingWithoutNoticeObj = retreivedDraftCase.c100RebuildHearingWithoutNotice;
-    let c100RebuildOtherProceedingsObj = retreivedDraftCase.c100RebuildOtherProceedings;
+    try {
+      const responseBody: RetreiveDraftCase[] = await req.locals.C100Api.retrieveCase();
+      if (responseBody.length) {
+        const retreivedDraftCase = responseBody[0];
+        let c100RebuildInternationalElementsObj = retreivedDraftCase.c100RebuildInternationalElements;
+        let c100RebuildReasonableAdjustmentsObj = retreivedDraftCase.c100RebuildReasonableAdjustments;
+        let c100RebuildTypeOfOrderObj = retreivedDraftCase.c100RebuildTypeOfOrder;
+        let c100RebuildHearingWithoutNoticeObj = retreivedDraftCase.c100RebuildHearingWithoutNotice;
+        let c100RebuildOtherProceedingsObj = retreivedDraftCase.c100RebuildOtherProceedings;
 
-    c100RebuildInternationalElementsObj = {
-      ...(c100RebuildInternationalElementsObj ?? {}),
-    };
-    c100RebuildReasonableAdjustmentsObj = {
-      ...(c100RebuildReasonableAdjustmentsObj ?? {}),
-    };
-    c100RebuildTypeOfOrderObj = {
-      ...(c100RebuildTypeOfOrderObj ?? {}),
-    };
-    c100RebuildHearingWithoutNoticeObj = {
-      ...(c100RebuildHearingWithoutNoticeObj ?? {}),
-    };
-    c100RebuildOtherProceedingsObj = {
-      ...(c100RebuildOtherProceedingsObj ?? {}),
-    };
-    req.session.userCase = {
-      ...(req.session.userCase ?? {}),
-    };
-    req.session.userCase.caseId = retreivedDraftCase.id;
+        c100RebuildInternationalElementsObj = {
+          ...(c100RebuildInternationalElementsObj ?? {}),
+        };
+        c100RebuildReasonableAdjustmentsObj = {
+          ...(c100RebuildReasonableAdjustmentsObj ?? {}),
+        };
+        c100RebuildTypeOfOrderObj = {
+          ...(c100RebuildTypeOfOrderObj ?? {}),
+        };
+        c100RebuildHearingWithoutNoticeObj = {
+          ...(c100RebuildHearingWithoutNoticeObj ?? {}),
+        };
+        c100RebuildOtherProceedingsObj = {
+          ...(c100RebuildOtherProceedingsObj ?? {}),
+        };
+        req.session.userCase = {
+          ...(req.session.userCase ?? {}),
+        };
+        req.session.userCase.caseId = retreivedDraftCase.id;
 
-    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildInternationalElementsObj));
-    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildReasonableAdjustmentsObj));
-    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildTypeOfOrderObj));
-    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildHearingWithoutNoticeObj));
-    Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildOtherProceedingsObj));
+        Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildInternationalElementsObj));
+        Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildReasonableAdjustmentsObj));
+        Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildTypeOfOrderObj));
+        Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildHearingWithoutNoticeObj));
+        Object.assign(req.session.userCase, this.recoverJsonFromRecord(c100RebuildOtherProceedingsObj));
 
-    const returnURL = retreivedDraftCase.c100RebuildReturnUrl;
+        const returnURL = retreivedDraftCase.c100RebuildReturnUrl;
 
-    if (returnURL !== null) {
-      req.session.save(() => {
-        res.redirect(returnURL);
-      });
-    } else {
-      req.session.save(() => {
-        res.redirect(DASHBOARD_URL);
-      });
+        req.session.save(() => {
+          res.redirect(returnURL);
+        });
+      } else {
+        req.session.save(() => {
+          console.info('No case is present for this user');
+          res.redirect(DASHBOARD_URL);
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -75,7 +80,4 @@ export default class GetCaseDetails extends GetController {
     }
     return str;
   }
-}
-export interface c100RebuildReasonableAdjustments {
-  ie_internationalStart: string;
 }
