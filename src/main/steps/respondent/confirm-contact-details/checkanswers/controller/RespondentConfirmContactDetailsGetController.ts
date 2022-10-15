@@ -1,9 +1,9 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { FieldPrefix } from '../../../../app/case/case';
-import { AppRequest } from '../../../../app/controller/AppRequest';
-import { ConfirmContactDetailsGetController } from '../../../../steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsGetController';
+import { FieldPrefix } from '../../../../../app/case/case';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
+import { ConfirmContactDetailsGetController } from '../../../../../steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsGetController';
 
 @autobind
 export class RespondentConfirmContactDetailsGetController extends ConfirmContactDetailsGetController {
