@@ -18,6 +18,9 @@ export const form: FormContent = {
       citizenUserAddressPostcode: addressLookupFormFields.citizenUserAddressPostcode,
     };
   },
+  submit: {
+    text: l => l.onlyContinue,
+  },
 };
 
 export const generateContent: TranslationFn = content => {

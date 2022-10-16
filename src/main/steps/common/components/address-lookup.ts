@@ -3,7 +3,7 @@ import { FormContent } from '../../../app/form/Form';
 import { isInvalidPostcode } from '../../../app/form/validation';
 
 const en = () => ({
-  line1: 'Your current postcode',
+  citizenUserAddressPostcode: 'Your current postcode',
   enterAddressManually: 'I live outisde the UK',
   errors: {
     citizenUserAddressPostcode: {
@@ -15,7 +15,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  line1: 'Your current postcode (in welsh)',
+  citizenUserAddressPostcode: 'Your current postcode (in welsh)',
   enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {
     citizenUserAddressPostcode: {
@@ -31,6 +31,7 @@ export const form: FormContent = {
     citizenUserAddressPostcode: {
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
+      label: l => l.citizenUserAddressPostcode,
       labelSize: 'm',
       attributes: {
         maxLength: 14,

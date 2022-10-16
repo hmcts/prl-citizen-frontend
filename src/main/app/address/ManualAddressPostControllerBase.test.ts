@@ -17,6 +17,8 @@ describe('ManualAddressPostControllerBase', () => {
   });
   test('ManualAddressPostControllerBase', async () => {
     req.body.citizenUserManualAddress1 = 'aaaa';
+    req.body.citizenUserManualAddressTown = 'aaaa';
+    req.body.citizenUserManualAddressPostcode = 'NE65LA';
     await controller.post(req, res);
     expect(req.session.userCase.citizenUserAddress1).toEqual('aaaa');
   });

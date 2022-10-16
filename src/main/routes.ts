@@ -112,7 +112,12 @@ export class Routes {
       const getController = getControllerFileName
         ? require(`${step.stepDir}/${getControllerFileName}`).default
         : GetController;
-
+      if (step.url === '/respondent/confirm-contact-details/address/lookup') {
+        console.log(step.url);
+      }
+      if (step.url === '/respondent/confirm-contact-details/address/select') {
+        console.log(step.url);
+      }
       if (step && getController) {
         app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
       }

@@ -802,6 +802,11 @@ export interface CaseData {
   citizenUserAddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  citizenUserManualAddress1?: string;
+  citizenUserManualAddress2?: string;
+  citizenUserManualAddressTown?: string;
+  citizenUserManualAddressCounty?: string;
+  citizenUserManualAddressPostcode?: string;
   
   accessCode: string;
   caseInvites: CaseInvite[]

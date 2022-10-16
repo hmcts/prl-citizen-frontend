@@ -408,12 +408,11 @@ export interface Case {
   isAtAddressLessThan5Years?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
-  applicant1PostalAddress1?: string;
-  applicant1PostalAddress2?: string;
-  applicant1PostalAddress3?: string;
-  applicant1PostalAddressTown?: string;
-  applicant1PostalAddressCounty?: string;
-  applicant1PostalAddressPostcode?: string;
+  citizenUserManualAddress1?: string;
+  citizenUserManualAddress2?: string;
+  citizenUserManualAddressTown?: string;
+  citizenUserManualAddressCounty?: string;
+  citizenUserManualAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case

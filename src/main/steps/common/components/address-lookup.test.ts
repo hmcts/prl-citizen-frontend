@@ -7,8 +7,7 @@ import { generateContent } from './address-lookup';
 jest.mock('../../../app/form/validation');
 
 const enContent = {
-  line1: 'Your current postcode',
-  citizenUserAddressPostcode: 'Postcode',
+  citizenUserAddressPostcode: 'Your current postcode',
   findAddress: 'Find address',
   enterAddressManually: 'I live outisde the UK',
   errors: {
@@ -20,8 +19,7 @@ const enContent = {
 };
 
 const cyContent = {
-  line1: 'Your current postcode (in welsh)',
-  citizenUserAddressPostcode: 'Postcode (in welsh)',
+  citizenUserAddressPostcode: 'Your current postcode (in welsh)',
   findAddress: 'Find address (in welsh)',
   enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {
@@ -42,7 +40,7 @@ describe('common > components > address-lookup > content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.line1).toEqual(enContent.line1);
+    expect(generatedContent.citizenUserAddressPostcode).toEqual(enContent.citizenUserAddressPostcode);
     expect(generatedContent.enterAddressManually).toEqual(enContent.enterAddressManually);
     expect(generatedContent.errors).toEqual(enContent.errors);
     expect(generatedContent.manualAddressUrl).toEqual('#');
@@ -50,7 +48,7 @@ describe('common > components > address-lookup > content', () => {
 
   test('should return correct welsh content', () => {
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.line1).toEqual(cyContent.line1);
+    expect(generatedContent.citizenUserAddressPostcode).toEqual(cyContent.citizenUserAddressPostcode);
     expect(generatedContent.enterAddressManually).toEqual(cyContent.enterAddressManually);
     expect(generatedContent.errors).toEqual(cyContent.errors);
     expect(generatedContent.manualAddressUrl).toEqual('#');
