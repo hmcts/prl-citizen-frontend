@@ -586,7 +586,32 @@ EVIDENCE_OF_ON_GOING_CRIMINAL_PROCEEDING = "evidenceOfOnGoingCriminalProceeding"
 EVIDENCE_OF_CONVICTION= "evidenceOfConviction",
 EVIDENCE_OF_PROTECTION_NOTICE = "evidenceOFProtectionNotice"
 }
+export enum MiamDomesticAbuse_letterFromSupportService {
+LETTER_FROM_DV_ADVISOR = "letterFromDomesticViolenceAdvisor",
+LETTER_FROM_SEXUAL_VOILENCE_ADVISOR = "letterFromSexualViolenceAdvisor",
+LETTER_FROM_DOMESTIC_VOILENCE_SUPPORT = "letterFromOrgDomesticViolenceSupport",
+LETTER_FROM_DOMENSTIC_VOILENCE_IN_UK = "letterFromOrgDomesticViolenceInUk"
+}
 
+export enum MiamDomesticAbuse_courtInvolment{
+BOUNDED_BY_COURT_ACTION =  "boundedByCourtAction",
+PROTECTION_INJUCTION = "protectionInjuction",
+FML_ACT_1996 = "fmlAct1996",
+UK_DOMESTIC_VOILENCE = "ukdomesticVoilcenceUK",
+UK_POTENTIAL_VICTIM = "ukPotentialVictim"
+}
+
+export enum MiamDomesticAbuse_letterOfBeingVictim{
+  LETTER_FROM_HEALTH_PROFESSIONAL =  "letterFromHealthProfessional",
+  LETTER_FROM_HP_FROM_PERSPECTIVE_PARTY = "letterFromHPfromPerspectiveParty",
+  }
+
+export enum MiamDomesticAbuse_miam_letterFromAuthority{
+  LETTER_FROM_MULTIAGENCY_MEMBER = "letterFromMultiAgencyMember",
+  LETTER_FROM_OFFICER = "letterFromOfficer",
+  LETTER_FROM_PUBLIC_AUTHORITY ="letterFromPublicAuthority"
+    }
+  
 
 export const enum ContactDetails {
   EMAIL = 'email',
