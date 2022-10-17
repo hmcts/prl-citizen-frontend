@@ -22,4 +22,9 @@ describe('ManualAddressPostControllerBase', () => {
     await controller.post(req, res);
     expect(req.session.userCase.citizenUserAddress1).toEqual('aaaa');
   });
+
+  test('Should redirect to same page on error', async () => {
+    await controller.post(req, res);
+      expect(res.redirect).toHaveBeenCalledWith('/applicant/confirm-contact-details/address/manual');
+  });
 });
