@@ -105,7 +105,7 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
       baseURL: config.get('services.cos.url'),
       headers: {
         Authorization: `Bearer ${userDetails.accessToken}`,
-        serviceAuthorization: `Bearer ${getServiceAuthToken()}`,
+        ServiceAuthorization: `Bearer ${getServiceAuthToken()}`,
         'Content-Type': 'application/json',
       },
       httpsAgent: new https.Agent({
