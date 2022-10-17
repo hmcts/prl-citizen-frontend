@@ -610,7 +610,17 @@ export enum MiamDomesticAbuse_miam_letterFromAuthority{
   LETTER_FROM_MULTIAGENCY_MEMBER = "letterFromMultiAgencyMember",
   LETTER_FROM_OFFICER = "letterFromOfficer",
   LETTER_FROM_PUBLIC_AUTHORITY ="letterFromPublicAuthority"
-    }
+}
+  
+export enum MiamChildProtection{
+LOCAL_AUTHORITY = "localAuthority",
+CHILD_PROTECTION_PLAN = "childProtectionPlan"
+}
+
+export enum MiamUrgency{
+  LOCAL_AUTHORITY = "localAuthority",
+  CHILD_PROTECTION_PLAN = "childProtectionPlan"
+  }
   
 
 export const enum ContactDetails {
