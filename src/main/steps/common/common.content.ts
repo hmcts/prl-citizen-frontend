@@ -27,7 +27,7 @@ const en = {
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
-  errorSummaryHeading: 'There is a problem on this page',
+  errorSummaryHeading: 'There is a problem',
   saveAndSignOut: 'Save and sign out',
   saveAsDraft: 'Save as draft',
   onlyContinue: 'Continue',
@@ -131,7 +131,7 @@ const cy: typeof en = {
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem on this page (in welsh)',
+  errorSummaryHeading: 'There is a problem (in welsh)',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
