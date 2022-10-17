@@ -25,6 +25,6 @@ describe('ManualAddressPostControllerBase', () => {
 
   test('Should redirect to same page on error', async () => {
     await controller.post(req, res);
-      expect(res.redirect).toHaveBeenCalledWith('/applicant/confirm-contact-details/address/manual');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/confirm-contact-details/address/manual');
   });
 });
