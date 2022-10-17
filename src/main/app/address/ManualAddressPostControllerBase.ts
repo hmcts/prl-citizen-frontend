@@ -73,7 +73,7 @@ function validateFields(req: AppRequest<AnyObject>) {
   if (!req.body.citizenUserManualAddressTown) {
     req.session.errors?.push({
       propertyName: 'citizenUserManualAddressTown',
-      errorType: 'invalid',
+      errorType: 'required',
     });
     errorOnPage = true;
   }
