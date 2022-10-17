@@ -82,7 +82,9 @@ import {
   C100_HEARING_URGENCY_URGENT_DETAILS,
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
-  C100_COURT_PERMISSION,
+
+  /** Screening questions */
+  C100_SCREENING_QUESTIONS_COURT_PERMISSION,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -517,8 +519,9 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER,
   },
   {
-    url: C100_COURT_PERMISSION,
+    url: C100_SCREENING_QUESTIONS_COURT_PERMISSION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_COURT_PERMISSION,
+    getNextStep: (data: Partial<Case>) =>
+      data.sq_courtPermissionRequired === YesOrNo.YES ? C100_SCREENING_QUESTIONS_COURT_PERMISSION : C100_MIAM_INFO,
   },
 ];

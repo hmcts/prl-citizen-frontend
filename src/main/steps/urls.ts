@@ -281,7 +281,9 @@ export const C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION: PageLink = `${C10
 export const C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/communication-help`;
 export const C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/feel-comfortable`;
 export const C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/travelling-court`;
-export const C100_COURT_PERMISSION: PageLink = `${C100_URL}/permission`;
+
+/** @c100 Screening questions */
+export const C100_SCREENING_QUESTIONS_COURT_PERMISSION: PageLink = `${C100_URL}/screening-questions/permission`;
 
 /** @c100 Hearing without notice */
 export const C100_HEARING_WITHOUT_NOTICE_PART1: PageLink = `${C100_URL}/hearing-without-notice/hearing-part1`;
