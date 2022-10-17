@@ -791,17 +791,22 @@ export interface CaseData {
   citizenUserDateOfBirth?: CaseDate;
   citizenUserDateOfBirthText?: string;
   applicant1Occupation?: string;
-  applicant1SelectAddress?: string;
+  citizenUserSelectAddress?: string;
   citizenUserPlaceOfBirth?: string;
   citizenUserPlaceOfBirthText?: string;
   applicant1PlaceOfText?: string;
-  applicant1Address1?: string;
-  applicant1Address2?: string;
-  applicant1AddressTown?: string;
-  applicant1AddressCounty?: string;
-  applicant1AddressPostcode?: string;
+  citizenUserAddress1?: string;
+  citizenUserAddress2?: string;
+  citizenUserAddressTown?: string;
+  citizenUserAddressCounty?: string;
+  citizenUserAddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  citizenUserManualAddress1?: string;
+  citizenUserManualAddress2?: string;
+  citizenUserManualAddressTown?: string;
+  citizenUserManualAddressCounty?: string;
+  citizenUserManualAddressPostcode?: string;
   
   accessCode: string;
   caseInvites: CaseInvite[]

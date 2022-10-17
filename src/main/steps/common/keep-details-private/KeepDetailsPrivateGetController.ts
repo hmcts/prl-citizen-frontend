@@ -1,10 +1,11 @@
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
+import { Case } from '../../../app/case/case';
 import { Applicant, Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
-import { RESPONDENT_DETAILS_KNOWN } from '../../urls';
+import { APPLICANT_DETAILS_KNOWN, RESPONDENT_DETAILS_KNOWN } from '../../urls';
 
 import { getKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
@@ -63,6 +64,18 @@ export class KeepDetailsPrivateGetController extends GetController {
         }
       }
     }
-    req.session.save(() => res.redirect(RESPONDENT_DETAILS_KNOWN));
+
+    const redirectUrl = setRedirectUrl(req);
+    req.session.save(() => res.redirect(redirectUrl));
   }
+}
+function setRedirectUrl(req: AppRequest<Partial<Case>>) {
+  let redirectUrl = '';
+
+  if (req.url.includes('respondent')) {
+    redirectUrl = RESPONDENT_DETAILS_KNOWN;
+  } else {
+    redirectUrl = APPLICANT_DETAILS_KNOWN;
+  }
+  return redirectUrl;
 }
