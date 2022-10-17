@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -49,7 +49,7 @@ export const form: FormContent = {
     c1A_keepingSafeStatement: {
       type: 'textarea',
       attributes: { rows: 10 },
-      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+      validator: value => isFieldFilledIn(value),
     },
   },
   submit: {
