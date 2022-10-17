@@ -10,6 +10,7 @@ const en = {
   serviceName: 'Child arrangements',
   title: 'Contact your legal representative',
   paragraph: 'If you have a legal representative and want them to complete the application for you:',
+  buttonText: 'Close the application',
   bulletPoints: [
     'get in touch with your legal representative',
     'ask them what information they need from you to complete the application',
@@ -25,6 +26,7 @@ const cy = {
   serviceName: 'Child arrangements - welsh',
   title: 'Contact your legal representative - welsh',
   paragraph: 'If you have a legal representative and want them to complete the application for you: - welsh',
+  buttonText: 'Close the application - welsh',
   bulletPoints: [
     'get in touch with your legal representative - welsh',
     'ask them what information they need from you to complete the application - welsh',
@@ -42,7 +44,7 @@ describe('c100-rebuild/contact-representative page content', () => {
   let form;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
-    form = generatedContent.form as FormContent;
+    form = generatedContent.form as FormContent | undefined;
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
@@ -55,9 +57,9 @@ describe('c100-rebuild/contact-representative page content', () => {
   });
 
   test("should contain 'Close the application' button", () => {
-    expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Close the application');
+    expect((form?.submit?.text as LanguageLookup)(generatedContent as Record<string, never>)).toBe(
+      'Close the application'
+    );
   });
 
   test('should contain Go back button', () => {

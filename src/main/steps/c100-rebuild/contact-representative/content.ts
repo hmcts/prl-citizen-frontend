@@ -11,6 +11,7 @@ const en = () => ({
     'ask them what information they need from you to complete the application',
     'ask them to explain the next steps',
   ],
+  buttonText: 'Close the application',
   warningText: {
     text: 'Do not complete the application yourself if you plan to have a legal representative fill it in.',
     iconFallbackText: 'Warning',
@@ -21,6 +22,7 @@ const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   title: 'Contact your legal representative - welsh',
   paragraph: 'If you have a legal representative and want them to complete the application for you: - welsh',
+  buttonText: 'Close the application - welsh',
   bulletPoints: [
     'get in touch with your legal representative - welsh',
     'ask them what information they need from you to complete the application - welsh',
@@ -40,7 +42,7 @@ const languages = {
 export const form: FormContent = {
   fields: {},
   submit: {
-    text: () => 'Close the application',
+    text: l => l.buttonText,
   },
   goBack: {
     text: l => l.goBack,
