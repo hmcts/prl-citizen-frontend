@@ -1,0 +1,42 @@
+{% extends "../page.njk" %}
+
+{% block page_content %}
+  {% if section %}
+    <span class="govuk-heading-l">{{ section }}</span>
+  
+  {% endif %}
+  {% if title %}
+    <h1 class="govuk-caption-m govuk-!-margin-bottom-2">{{ title }}</h1>
+  {% endif %}
+  {% if line1 %}
+    <div class="govuk-hint">{{ line1 }}</div>
+  {% endif %}
+  {% if line2 %}
+    <p class="govuk-body">{{ line2 }}</p>
+  {% endif %}
+
+{% endblock %}
+
+
+{% block form %}
+  {% include "./form.njk"%}
+  <details class="govuk-details" data-module="govuk-details" open="">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text" data-ga-category="explanations" data-ga-label="cya download draft">
+            Download a draft of your response (PDF)
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p class="govuk-body">
+            If you cannot open the PDF file on your device, download and install
+            <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> and try again.
+          </p>
+          <p class="govuk-body">
+            Please note this draft is for your records. Only the completed response will be admitted in court.
+          </p>
+
+          <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/steps/completion/summary.pdf">Download draft response</a>
+
+        </div>
+      </details>
+{% endblock %}

@@ -2,38 +2,36 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "section": "Applicant",
-            "serviceName": "Enter Address",
-            "title": "What's your home address?"
+            "section": "Your address",
+            "serviceName": "Enter Address"
         },
         "cy": {
             "continue": "Continue",
-            "section": "Applicant (in welsh)",
-            "serviceName": "Enter Address (in welsh)",
-            "title": "What's your home address? (in welsh)"
+            "section": "Your address (in welsh)",
+            "serviceName": "Enter Address (in welsh)"
         }
     },
     "errors":{
         "en": {
-            "applicantAddress1": {
+            "citizenUserManualAddress1": {
                 "required": "Enter the first line of the address"
             },
-            "applicantAddressTown": {
+            "citizenUserManualAddressTown": {
                 "required": "Enter the town or city"
             },
-            "applicantAddressPostcode": {
+            "citizenUserManualAddressPostcode": {
                 "required": "Enter a real postcode",
                 "invalid": "Enter a real postcode"
             }
         },
         "cy": {
-            "applicantAddress1": {
+            "citizenUserManualAddress1": {
                 "required": "Enter the first line of the address (in welsh)"
             },
-            "applicantAddressTown": {
+            "citizenUserManualAddressTown": {
                 "required": "Enter the town or city (in welsh)"
             },
-            "applicantAddressPostcode": {
+            "citizenUserManualAddressPostcode": {
                 "required": "Enter a real postcode (in welsh)",
                 "invalid": "Enter a real postcode (in welsh)"
             }

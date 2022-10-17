@@ -13,13 +13,13 @@ const enContent = {
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
   errors: {
-    address1: {
+    citizenUserManualAddress1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    citizenUserManualAddressTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
+    citizenUserManualAddressPostcode: {
       required: 'Enter a real postcode',
       invalid: 'Enter a real postcode',
     },
@@ -33,13 +33,13 @@ const cyContent = {
   postcode: 'Postcode (in welsh)',
   enterInternationalAddress: 'Enter an international address (in welsh)',
   errors: {
-    address1: {
+    citizenUserManualAddress1: {
       required: 'Enter the first line of the address (in welsh)',
     },
-    addressTown: {
+    citizenUserManualAddressTown: {
       required: 'Enter the town or city (in welsh)',
     },
-    addressPostcode: {
+    citizenUserManualAddressPostcode: {
       required: 'Enter a real postcode (in welsh)',
       invalid: 'Enter a real postcode (in welsh)',
     },
@@ -60,26 +60,26 @@ describe('common > components > manual-address > content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.addressLine1).toEqual(enContent.addressLine1);
-    expect(generatedContent.town).toEqual(enContent.town);
-    expect(generatedContent.county).toEqual(enContent.county);
-    expect(generatedContent.postcode).toEqual(enContent.postcode);
+    expect(generatedContent.citizenUserManualAddress1).toEqual(enContent.addressLine1);
+    expect(generatedContent.citizenUserManualAddressTown).toEqual(enContent.town);
+    expect(generatedContent.citizenUserManualAddressCounty).toEqual(enContent.county);
+    expect(generatedContent.citizenUserManualAddressPostcode).toEqual(enContent.postcode);
     expect(generatedContent.enterInternationalAddress).toEqual(enContent.enterInternationalAddress);
     expect(generatedContent.errors).toEqual(enContent.errors);
   });
 
   test('should return correct welsh content', () => {
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.addressLine1).toEqual(cyContent.addressLine1);
-    expect(generatedContent.town).toEqual(cyContent.town);
-    expect(generatedContent.county).toEqual(cyContent.county);
-    expect(generatedContent.postcode).toEqual(cyContent.postcode);
+    expect(generatedContent.citizenUserManualAddress1).toEqual(cyContent.addressLine1);
+    expect(generatedContent.citizenUserManualAddressTown).toEqual(cyContent.town);
+    expect(generatedContent.citizenUserManualAddressCounty).toEqual(cyContent.county);
+    expect(generatedContent.citizenUserManualAddressPostcode).toEqual(cyContent.postcode);
     expect(generatedContent.enterInternationalAddress).toEqual(cyContent.enterInternationalAddress);
     expect(generatedContent.errors).toEqual(cyContent.errors);
   });
 
-  test('should contain address1 field', () => {
-    const address1Field = fields.address1 as FormOptions;
+  test('should contain citizenUserManualAddress1 field', () => {
+    const address1Field = fields.citizenUserManualAddress1 as FormOptions;
     expect(address1Field.type).toBe('text');
     expect(address1Field.classes).toBe('govuk-label');
     expect((address1Field.label as Function)(generatedContent)).toBe(enContent.addressLine1);
@@ -87,16 +87,16 @@ describe('common > components > manual-address > content', () => {
     expect(address1Field.validator).toBe(isFieldFilledIn);
   });
 
-  test('should contain address2 field', () => {
-    const address2Field = fields.address2 as FormOptions;
+  test('should contain citizenUserManualAddress2 field', () => {
+    const address2Field = fields.citizenUserManualAddress2 as FormOptions;
     expect(address2Field.type).toBe('text');
     expect(address2Field.classes).toBe('govuk-label');
     expect((address2Field.label as Function)(generatedContent)).toBeUndefined();
     expect(address2Field.labelSize).toBe(null);
   });
 
-  test('should contain addressTown field', () => {
-    const addressTownField = fields.addressTown as FormOptions;
+  test('should contain citizenUserManualAddressTown field', () => {
+    const addressTownField = fields.citizenUserManualAddressTown as FormOptions;
     expect(addressTownField.type).toBe('text');
     expect(addressTownField.classes).toBe('govuk-label govuk-!-width-two-thirds');
     expect((addressTownField.label as Function)(generatedContent)).toBe(enContent.town);
@@ -104,16 +104,16 @@ describe('common > components > manual-address > content', () => {
     // expect(addressTownField.validator).toBe(isFieldFilledIn);
   });
 
-  test('should contain addressCounty field', () => {
-    const addressCountyField = fields.addressCounty as FormOptions;
+  test('should contain citizenUserManualAddressCounty field', () => {
+    const addressCountyField = fields.citizenUserManualAddressCounty as FormOptions;
     expect(addressCountyField.type).toBe('text');
     expect(addressCountyField.classes).toBe('govuk-label govuk-!-width-two-thirds');
     expect((addressCountyField.label as Function)(generatedContent)).toBe(enContent.county);
     expect(addressCountyField.labelSize).toBe(null);
   });
 
-  test('should contain addressPostcode field', () => {
-    const addressPostcodeField = fields.addressPostcode as FormOptions;
+  test('should contain citizenUserAddressPostcode field', () => {
+    const addressPostcodeField = fields.citizenUserManualAddressPostcode as FormOptions;
     expect(addressPostcodeField.type).toBe('text');
     expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
     expect((addressPostcodeField.label as Function)(generatedContent)).toBe(enContent.postcode);
@@ -122,7 +122,7 @@ describe('common > components > manual-address > content', () => {
   });
 
   test('should contain submit button', () => {
-    expect((form.submit.text as Function)(generatePageContent({ language: 'en' }))).toBe('Save and continue');
+    expect((form.submit.text as Function)(generatePageContent({ language: 'en' }))).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

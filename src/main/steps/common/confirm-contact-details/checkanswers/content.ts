@@ -10,13 +10,13 @@ export const enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    applicant1FullName: 'Name',
-    applicant1DateOfBirthText: 'Date of birth',
-    applicant1PlaceOfBirthText: 'Place of birth',
-    address: 'Address',
-    addressHistory: 'Address history',
-    applicant1PhoneNumber: 'Phone number',
-    applicant1EmailAddress: 'Email',
+    citizenUserFullName: 'Name',
+    citizenUserDateOfBirthText: 'Date of birth',
+    citizenUserPlaceOfBirthText: 'Place of birth',
+    citizenUserAddressText: 'Address',
+    citizenUserAddressHistory: 'Address history',
+    citizenUserPhoneNumberText: 'Phone number',
+    citizenUserEmailAddressText: 'Email',
     applicant1SafeToCall: 'When it is safe to call you (optional)',
   },
   errors: {},
@@ -24,9 +24,14 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const dob = userCase.applicant1DateOfBirth;
+  const dob = userCase.citizenUserDateOfBirth;
   if (typeof dob !== 'string') {
     getFormattedDate(dob);
+  }
+  if (!userCase.citizenUserAddressPostcode) {
+    urls.citizenUserAddressText = 'address/lookup';
+  } else {
+    urls.citizenUserAddressText = 'addressdetails';
   }
   return {
     ...enContent,
@@ -42,47 +47,52 @@ const cyContent: typeof enContent = {
     applicationDetails: 'Manylion y cais',
   },
   keys: {
-    applicant1FullName: 'Name',
-    applicant1DateOfBirthText: 'Date of birth',
-    applicant1PlaceOfBirthText: 'Place of birth',
-    address: 'Address',
-    addressHistory: 'Address history',
-    applicant1PhoneNumber: 'Phone number',
-    applicant1EmailAddress: 'Email',
+    citizenUserFullName: 'Name',
+    citizenUserDateOfBirthText: 'Date of birth',
+    citizenUserPlaceOfBirthText: 'Place of birth',
+    citizenUserAddressText: 'Address',
+    citizenUserAddressHistory: 'Address history',
+    citizenUserPhoneNumberText: 'Phone number',
+    citizenUserEmailAddressText: 'Email',
     applicant1SafeToCall: 'When it is safe to call you (optional)',
   },
   errors: {},
 };
 
 const urls = {
-  applicant1FullName: 'personaldetails',
-  applicant1DateOfBirthText: 'personaldetails',
-  applicant1PlaceOfBirthText: 'personaldetails',
-  address: 'addressdetails',
-  addressHistory: 'addresshistory',
-  applicant1PhoneNumber: 'contactdetails',
-  applicant1EmailAddress: 'contactdetails',
+  citizenUserFullName: 'personaldetails',
+  citizenUserDateOfBirthText: 'personaldetails',
+  citizenUserPlaceOfBirthText: 'personaldetails',
+  citizenUserAddressText: 'addressdetails',
+  citizenUserAddressHistory: 'addresshistory',
+  citizenUserPhoneNumberText: 'contactdetails',
+  citizenUserEmailAddressText: 'contactdetails',
   applicant1SafeToCall: 'contactdetails',
 };
 const fieldType = {
-  applicant1FullName: 'String',
-  applicant1DateOfBirthText: 'String',
-  applicant1PlaceOfBirthText: 'String',
-  address: 'String',
-  addressHistory: 'String',
-  applicant1PhoneNumber: 'String',
-  applicant1EmailAddress: 'String',
+  citizenUserFullName: 'String',
+  citizenUserDateOfBirthText: 'String',
+  citizenUserPlaceOfBirthText: 'String',
+  citizenUserAddressText: 'String',
+  citizenUserAddressHistory: 'String',
+  citizenUserPhoneNumberText: 'String',
+  citizenUserEmailAddressText: 'String',
   applicant1SafeToCall: 'String',
 };
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const dob = userCase.applicant1DateOfBirth;
+  const dob = userCase.citizenUserDateOfBirth;
   if (dob !== null && dob !== undefined && typeof dob !== 'string') {
     getFormattedDate(dob);
   }
-  //userCase.applicant1DateOfBirthText = getFormattedDate(userCase.applicant1DateOfBirth);
-  //console.log("userCase.applicant1DateOfBirthText====>"+userCase.applicant1DateOfBirthText);
+  if (!userCase.citizenUserAddressPostcode) {
+    urls.citizenUserAddressText = 'address/lookup';
+  } else {
+    urls.citizenUserAddressText = 'addressdetails';
+  }
+  //userCase.citizenUserDateOfBirthText = getFormattedDate(userCase.citizenUserDateOfBirth);
+  //console.log("userCase.citizenUserDateOfBirthText====>"+userCase.citizenUserDateOfBirthText);
   return {
     ...cyContent,
     language: content.language,
