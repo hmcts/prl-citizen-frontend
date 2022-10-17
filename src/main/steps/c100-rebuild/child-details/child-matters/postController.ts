@@ -11,7 +11,7 @@ import { getChildDetails, transformFormData, updateChildDetails } from '../util'
 import { getFormFields } from './content';
 
 @autobind
-export default class ParentalResponsibilityPostController extends PostController<AnyObject> {
+export default class ChildMattersPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
@@ -23,7 +23,7 @@ export default class ParentalResponsibilityPostController extends PostController
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const childDetails = getChildDetails(req.session.userCase.cd_children!, childId) as ChildrenDetails;
 
-    Object.assign(childDetails.parentialResponsibility, transformFormData('parentialResponsibility', formData));
+    Object.assign(childDetails.childMatters, transformFormData('childMatters', formData));
     req.session.userCase.cd_children = updateChildDetails(req.session.userCase.cd_children!, childDetails);
 
     if (onlycontinue) {

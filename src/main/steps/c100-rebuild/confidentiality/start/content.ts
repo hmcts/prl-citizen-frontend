@@ -128,5 +128,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form,
+    newTitle: 'adfdsffs',
   };
 };

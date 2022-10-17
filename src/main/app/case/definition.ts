@@ -2183,6 +2183,8 @@ export const enum Gender {
   MALE = 'Male',
   FEMALE = 'Female',
   OTHER = 'Other',
+  UNSPECIFIED = 'Unspecified',
+  EMPTY = ''
 }
 
 export interface PRLDocument {
@@ -2397,3 +2399,21 @@ export interface C1ASafteyConcerns {
     somethingElse?: C1ASafteyConcernsAbuse;
   },
   }
+
+  export type ChildrenDetails = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    personalDetails: {
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      approxDateOfBirth?: CaseDate;
+      sex: Gender;
+    };
+    childMatters: {
+      needsResolution: string[];
+    };
+    parentialResponsibility: {
+      statement: string;
+    };
+  };
