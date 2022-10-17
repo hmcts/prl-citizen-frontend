@@ -17,7 +17,7 @@ const en = () => ({
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses.',
   errors: {
-    c1A_safetyConcerns: {
+    c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
     },
     c1A_childsCurrentLocation: {
@@ -40,7 +40,7 @@ const cy = () => ({
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses.',
   errors: {
-    c1A_safetyConcerns: {
+    c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
     },
     c1A_childsCurrentLocation: {
@@ -56,7 +56,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_safetyConcerns: {
+    c1A_abductionReasonOutsideUk: {
       type: 'textarea',
       labelSize: 's',
       attributes: {

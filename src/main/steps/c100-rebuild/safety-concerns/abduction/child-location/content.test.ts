@@ -20,7 +20,7 @@ const en = {
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses.',
   errors: {
-    c1A_safetyConcerns: {
+    c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
     },
     c1A_childsCurrentLocation: {
@@ -43,7 +43,7 @@ const cy = {
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses.',
   errors: {
-    c1A_safetyConcerns: {
+    c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
     },
     c1A_childsCurrentLocation: {
@@ -74,9 +74,9 @@ describe('Safety concern > abduction > child-location', () => {
   });
 
   test('should contain safety concerns > abduction > child-location fields', () => {
-    const c1A_safetyConcerns = fields.c1A_safetyConcerns as FormOptions;
-    expect(c1A_safetyConcerns.type).toBe('textarea');
-    (c1A_safetyConcerns.validator as Function)('c1A_safetyConcerns');
+    const c1A_abductionReasonOutsideUk = fields.c1A_abductionReasonOutsideUk as FormOptions;
+    expect(c1A_abductionReasonOutsideUk.type).toBe('textarea');
+    (c1A_abductionReasonOutsideUk.validator as Function)('c1A_safetyConcerns');
 
     const c1A_childsCurrentLocation = fields.c1A_childsCurrentLocation as FormOptions;
     expect(c1A_childsCurrentLocation.type).toBe('textarea');
