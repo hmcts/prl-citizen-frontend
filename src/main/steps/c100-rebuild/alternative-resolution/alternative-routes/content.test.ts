@@ -83,9 +83,6 @@ const en = {
   two: 'No',
   otherDetails: 'Provide details',
   errors: {
-    alternativeRoutes: {
-      required: 'Select yes if you want agreement',
-    },
     agreementReason: {
       required: 'Please provide details',
     },
@@ -163,9 +160,6 @@ const cy = {
   two: 'No - walsh',
   otherDetails: 'Provide details - walsh',
   errors: {
-    alternativeRoutes: {
-      required: 'Select yes if you want agreement - walsh',
-    },
     agreementReason: {
       required: 'Please provide details - walsh',
     },
