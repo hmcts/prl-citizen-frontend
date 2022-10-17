@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -9,8 +9,6 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Explain why the court should grant you permission to submit this application',
-  subHeading:
-    'Give your answer in bullet points and short sentences. Explain your relationship to the children in the case and why you should be allowed to make the application.',
   errors: {
     sq_permissionsRequest: {
       required: 'Explain why the court should grant you permission to submit this application',
@@ -20,7 +18,6 @@ const en = {
 
 const cy = {
   title: 'Explain why the court should grant you permission to submit this application - welsh',
-  subHeading: 'Explain why the court should grant you permission to submit this application - welsh',
   errors: {
     sq_permissionsRequest: {
       required: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -54,7 +51,6 @@ describe('c100-rebuild > screening-question > permission-request', () => {
     expect(permissionRequestField.type).toBe('textarea');
     (permissionRequestField.validator as Function)('Test');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
-    expect(isTextAreaValid).toHaveBeenCalledWith('Test');
   });
 
   test('should contain Save and continue button', () => {
