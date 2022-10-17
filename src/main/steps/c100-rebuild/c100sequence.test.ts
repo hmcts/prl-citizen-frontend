@@ -66,7 +66,7 @@ const miamMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(71);
+    expect(C100Sequence).toHaveLength(72);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -502,5 +502,14 @@ describe('C100Sequence', () => {
     expect(C100Sequence[70].url).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
     expect(C100Sequence[70].showInSection).toBe('c100');
     expect(C100Sequence[70].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
+
+    expect(C100Sequence[71].url).toBe('/c100-rebuild/screening-questions/legal-representation');
+    expect(C100Sequence[71].showInSection).toBe('c100');
+    expect(C100Sequence[71].getNextStep({ sq_legalRepresentation: YesOrNo.YES })).toBe(
+      '/c100-rebuild/screening-questions/legal-representation'
+    );
+    expect(C100Sequence[71].getNextStep({ sq_legalRepresentation: YesOrNo.NO })).toBe(
+      '/c100-rebuild/screening-questions/legal-representation'
+    );
   });
 });
