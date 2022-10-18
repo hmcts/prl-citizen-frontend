@@ -4,6 +4,8 @@ import { MiamNonAttendReason } from '../../../../app/case/definition';
 
 import { miamChildProtection } from './childProtection.Helper';
 import { miamExemptionDomesticVoilenceMapper } from './domesticVoilence.Helper';
+import { miamUrgencyHearing } from './urgency.Helper';
+import {miamPreviousAttendance} from './previousAttendance.Helper';
 //import {Urgency} from './urgency.Helper';
 class MiamHelperDataParser<T> {
   [x: string]: T;
@@ -63,12 +65,12 @@ export const MiamHelperDynamicEnteriesMapper =
       },
       [MiamNonAttendReason.URGENT]: {
         key: keys['urgentHearingHeading'],
-        valueHtml: '',
+        valueHtml: miamUrgencyHearing(userCase, keys),
         changeUrl: URLS['C100_HEARING_URGENCY'],
       },
       [MiamNonAttendReason.PREV_MIAM]: {
         key: keys['previousMIAMOrExemptHeading'],
-        valueHtml: 'Yes',
+        valueHtml: miamPreviousAttendance(userCase, keys),
         changeUrl: URLS['C100_MIAM_VALID_REASON'],
       },
       [MiamNonAttendReason.EXEMPT]: {

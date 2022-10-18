@@ -193,6 +193,35 @@ export const enContent = {
       'This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. See <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> for further details.',
     childProtectionPlan:
       'The children in the application, or another child in the household, is the subject of a child protection plan put in place by the local authority',
+    freedomPhysicalSafety: 'There is a risk to your life, freedom or physical safety',
+    freedomPhysicalSafetyInFamily: 'There is a risk to the life, freedom or physical safety of someone in your family',
+    riskSafetyInHome: 'There is a risk to the safety of your home',
+    riskUnreasonableFinancialHardship:
+      'Any delay caused by attending a MIAM would cause a risk of unreasonable financial hardship',
+    riskOfHarmToChildren: 'Any delay caused by attending a MIAM would cause a risk of harm to the children',
+    unlawfullyRemovedFromUK:
+      'Any delay caused by attending a MIAM would cause a risk that the children will be unlawfully removed from the UK or unlawfully kept overseas',
+    riskOfUnfairCourtDecision:
+      'Any delay caused by attending a MIAM would cause a significant risk of an unfair court decision (miscarriage of justice)',
+    riskOfIrretrievableProblems:
+      'Any delay caused by attending a MIAM would cause a risk of irretrievable problems, including irretrievable loss of evidence in the case',
+    riskOfCourtProceedingsDispute:
+      'There is a risk of court proceedings related to the dispute starting or taking place in a country other than England or Wales',
+    fourMonthsPriorAttended: `In the 4 months prior to making the application, you attended 
+                            a MIAM or participated in another form of non-court dispute resolution relating 
+                            to the same or substantially the same dispute`,
+    onTimeParticipation: `At the time of making the application, you are participating in another
+                        form of non-court dispute resolution relating to the same or 
+                        substantially the same dispute`,
+    beforeInitiationProceeding: `This application would be made in existing proceedings which are continuing 
+                               and you attended a MIAM before initiating those proceedings`,
+    fourMonthsPriorFiled: `In the 4 months prior to making the application, you filed a relevant
+                        family application confirming that a MIAM exemption applied and that application
+                        related to the same or substantially the same dispute`,
+    miamExamptionApplied: `The application would be made in existing proceedings which are continuing
+                         and a MIAM exemption applied to the application for those proceedings`,
+    beforStatingApplication: `The application would be made in existing proceedings which 
+                            are continuing and and the applicant attended a MIAM before starting those proceedings`,
   },
 };
 const cyContent: typeof enContent = {
@@ -373,6 +402,36 @@ const cyContent: typeof enContent = {
       'This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. See <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> for further details.',
     childProtectionPlan:
       'The children in the application, or another child in the household, is the subject of a child protection plan put in place by the local authority',
+    freedomPhysicalSafety: 'There is a risk to your life, freedom or physical safety - welsh',
+    freedomPhysicalSafetyInFamily:
+      'There is a risk to the life, freedom or physical safety of someone in your family - welsh',
+    riskSafetyInHome: 'There is a risk to the safety of your home - welsh',
+    riskUnreasonableFinancialHardship:
+      'Any delay caused by attending a MIAM would cause a risk of unreasonable financial hardship - welsh',
+    riskOfHarmToChildren: 'Any delay caused by attending a MIAM would cause a risk of harm to the children - welsh',
+    unlawfullyRemovedFromUK:
+      'Any delay caused by attending a MIAM would cause a risk that the children will be unlawfully removed from the UK or unlawfully kept overseas - welsh',
+    riskOfUnfairCourtDecision:
+      'Any delay caused by attending a MIAM would cause a significant risk of an unfair court decision (miscarriage of justice) - welsh',
+    riskOfIrretrievableProblems:
+      'Any delay caused by attending a MIAM would cause a risk of irretrievable problems, including irretrievable loss of evidence in the case - welsh',
+    riskOfCourtProceedingsDispute:
+      'There is a risk of court proceedings related to the dispute starting or taking place in a country other than England or Wales - welsh',
+    fourMonthsPriorAttended: `In the 4 months prior to making the application, you attended 
+                            a MIAM or participated in another form of non-court dispute resolution relating 
+                            to the same or substantially the same dispute`,
+    onTimeParticipation: `At the time of making the application, you are participating in another
+                        form of non-court dispute resolution relating to the same or 
+                        substantially the same dispute`,
+    beforeInitiationProceeding: `This application would be made in existing proceedings which are continuing 
+                               and you attended a MIAM before initiating those proceedings`,
+    fourMonthsPriorFiled: `In the 4 months prior to making the application, you filed a relevant
+                        family application confirming that a MIAM exemption applied and that application
+                        related to the same or substantially the same dispute`,
+    miamExamptionApplied: `The application would be made in existing proceedings which are continuing
+                         and a MIAM exemption applied to the application for those proceedings`,
+    beforStatingApplication: `The application would be made in existing proceedings which 
+                            are continuing and and the applicant attended a MIAM before starting those proceedings`,
   },
 };
 
