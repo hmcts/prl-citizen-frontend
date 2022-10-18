@@ -99,20 +99,20 @@ const en = {
     miam_domesticAbuse: {
       required: 'Select which of the following evidence of domestic violence or abuse you have',
     },
-    miam_domesticabuse_involvement_subfields: {
+    miam_domesticAbuse_policeInvolvement: {
       required: 'Select what evidence of police involvement you have',
     },
-    miam_domesticabuse_courtInvolvement_subfields: {
+    miam_domesticAbuse_courtInvolvement: {
       required: 'Select what evidence of court involvement you have',
     },
-    miam_domesticabuse_letterOfBeingVictim_subfields: {
+    miam_domesticAbuse_letterOfBeingVictim: {
       required:
         'Select what letter confirming that you or the other people in the application are (or have been) a victim of domestic violence or abuse you have',
     },
-    miam_domesticabuse_letterFromAuthority_subfields: {
+    miam_domesticAbuse_letterFromAuthority: {
       required: 'Select what letter from a local authority or other agency confirming a risk of harm you have',
     },
-    miam_domesticabuse_letterFromSupportService_subfields: {
+    miam_domesticAbuse_letterFromSupportService: {
       required:
         'Select what letter from a domestic violence or abuse support service, specialist or organisation you have',
     },
@@ -212,20 +212,20 @@ const cy = {
     miam_domesticAbuse: {
       required: 'Select which of the following evidence of domestic violence or abuse you have - welsh',
     },
-    miam_domesticabuse_involvement_subfields: {
+    miam_domesticAbuse_policeInvolvement: {
       required: 'Select what evidence of police involvement you have- welsh',
     },
-    miam_domesticabuse_courtInvolvement_subfields: {
+    miam_domesticAbuse_courtInvolvement: {
       required: 'Select what evidence of court involvement you have',
     },
-    miam_domesticabuse_letterOfBeingVictim_subfields: {
+    miam_domesticAbuse_letterOfBeingVictim: {
       required:
         'Select what letter confirming that you or the other people in the application are (or have been) a victim of domestic violence or abuse you have - welsh',
     },
-    miam_domesticabuse_letterFromAuthority_subfields: {
+    miam_domesticAbuse_letterFromAuthority: {
       required: 'Select what letter from a local authority or other agency confirming a risk of harm you have - welsh',
     },
-    miam_domesticabuse_letterFromSupportService_subfields: {
+    miam_domesticAbuse_letterFromSupportService: {
       required:
         'Select what letter from a domestic violence or abuse support service, specialist or organisation you have - welsh',
     },
@@ -255,15 +255,15 @@ describe('miam domestic abuse', () => {
   test('should contain miam domesticabuse involvement field', () => {
     const miam_domesticabuse_involvement_field = fields?.miam_domesticAbuse as FormOptions;
     const subFields0 = miam_domesticabuse_involvement_field.values[0].subFields
-      ?.miam_domesticabuse_involvement_subfields as FormOptions;
+      ?.miam_domesticAbuse_policeInvolvement as FormOptions;
     const subFields1 = miam_domesticabuse_involvement_field.values[1].subFields
-      ?.miam_domesticabuse_courtInvolvement_subfields as FormOptions;
+      ?.miam_domesticAbuse_courtInvolvement as FormOptions;
     const subFields2 = miam_domesticabuse_involvement_field.values[2].subFields
-      ?.miam_domesticabuse_letterOfBeingVictim_subfields as FormOptions;
+      ?.miam_domesticAbuse_letterOfBeingVictim as FormOptions;
     const subFields3 = miam_domesticabuse_involvement_field.values[3].subFields
-      ?.miam_domesticabuse_letterFromAuthority_subfields as FormOptions;
+      ?.miam_domesticAbuse_letterFromAuthority as FormOptions;
     const subFields4 = miam_domesticabuse_involvement_field.values[4].subFields
-      ?.miam_domesticabuse_letterFromSupportService_subfields as FormOptions;
+      ?.miam_domesticAbuse_letterFromSupportService as FormOptions;
     expect(miam_domesticabuse_involvement_field.type).toBe('checkboxes');
 
     expect((miam_domesticabuse_involvement_field.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
