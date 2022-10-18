@@ -9,6 +9,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Explain why the court should grant you permission to submit this application',
+  line: 'Give your answer in bullet points and short sentences. Explain your relationship to the children in the case and why you should be allowed to make the application.',
   errors: {
     sq_permissionsRequest: {
       required: 'Explain why the court should grant you permission to submit this application',
@@ -18,6 +19,7 @@ const en = {
 
 const cy = {
   title: 'Explain why the court should grant you permission to submit this application - welsh',
+  line: 'Give your answer in bullet points and short sentences. Explain your relationship to the children in the case and why you should be allowed to make the application. - welsh',
   errors: {
     sq_permissionsRequest: {
       required: 'Describe what you want the court to do regarding the children in this application - welsh',
