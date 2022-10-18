@@ -2183,7 +2183,6 @@ export const enum Gender {
   MALE = 'Male',
   FEMALE = 'Female',
   OTHER = 'Other',
-  UNSPECIFIED = 'Unspecified',
   EMPTY = ''
 }
 
@@ -2408,7 +2407,8 @@ export interface C1ASafteyConcerns {
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
       approxDateOfBirth?: CaseDate;
-      sex: Gender;
+      gender: Gender;
+      otherGenderDetails?: string;
     };
     childMatters: {
       needsResolution: string[];

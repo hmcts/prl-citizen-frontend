@@ -19,7 +19,8 @@ export const getDataShape = (): ChildrenDetails => ({
       month: '',
       year: '',
     },
-    sex: Gender.EMPTY,
+    gender: Gender.EMPTY,
+    otherGenderDetails: '',
   },
   childMatters: {
     needsResolution: [],
@@ -43,7 +44,10 @@ export const transformFormData = (
 
   return Object.entries(dataShape).reduce((transformedData: Partial<ChildrenDetails>, [fieldName, defaultValue]) => {
     if (fieldName in formData && !(fieldName in transformedData)) {
-      if (fieldName === 'approxDateOfBirth' && formData.isDateOfBirthUnknown !== YesNoEmpty.YES) {
+      if (
+        (fieldName === 'approxDateOfBirth' && formData.isDateOfBirthUnknown !== YesNoEmpty.YES) ||
+        (fieldName === 'otherGenderDetails' && formData.gender !== Gender.OTHER)
+      ) {
         formData[fieldName] = defaultValue;
       }
       transformedData[fieldName] = formData[fieldName] ?? dataShape[fieldName];

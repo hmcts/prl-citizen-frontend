@@ -19,10 +19,11 @@ const en = () => ({
   dateHint: 'For example, 31 3 2016',
   approxCheckboxLabel: 'I don’t know their date of birth',
   approxDobLabel: 'Approximate date of birth',
-  childSexLabel: 'Sex',
+  childGenderLabel: 'Gender',
   male: 'Male',
   female: 'Female',
-  unspecified: 'Unspecified',
+  other: 'They identify in another way',
+  otherGenderDetailsLabel: "Child's gender (Optional)",
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -41,8 +42,8 @@ const en = () => ({
       incompleteYear: 'Approx date of birth must include a year',
       invalidDateInFuture: 'Approx date of birth must be in the past',
     },
-    sex: {
-      required: 'Select the sex',
+    gender: {
+      required: 'Select the gender',
     },
   },
 });
@@ -53,10 +54,11 @@ const cy = () => ({
   dateHint: 'For example, 31 3 2016 - welsh',
   approxCheckboxLabel: 'I don’t know their date of birth - welsh',
   approxDobLabel: 'Approximate date of birth - welsh',
-  childSexLabel: 'Sex - welsh',
+  childGenderLabel: 'Gender - welsh',
   male: 'Male - welsh',
   female: 'Female - welsh',
-  unspecified: 'Unspecified - welsh',
+  other: 'They identify in another way - welsh',
+  otherGenderDetailsLabel: "Child's gender (Optional) - welsh",
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth - welsh',
@@ -75,8 +77,8 @@ const cy = () => ({
       incompleteYear: 'Approx date of birth must include a year - welsh',
       invalidDateInFuture: 'Approx date of birth must be in the past - welsh',
     },
-    sex: {
-      required: 'Select the sex - welsh',
+    gender: {
+      required: 'Select the gender - welsh',
     },
   },
 });
@@ -101,7 +103,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 };
 
 export const generateFormFields = (personalDetails: ChildrenDetails['personalDetails']): GenerateDynamicFormFields => {
-  const { dateOfBirth, isDateOfBirthUnknown, approxDateOfBirth, sex } = personalDetails;
+  const { dateOfBirth, isDateOfBirthUnknown, approxDateOfBirth, gender, otherGenderDetails } = personalDetails;
   const errors = {
     en: {},
     cy: {},
@@ -197,10 +199,10 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         },
       ],
     },
-    sex: {
+    gender: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.childSexLabel,
+      label: l => l.childGenderLabel,
       labelSize: 's',
       values: [
         {
@@ -212,8 +214,16 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
           value: Gender.MALE,
         },
         {
-          label: l => l.unspecified,
-          value: Gender.UNSPECIFIED,
+          label: l => l.other,
+          value: Gender.OTHER,
+          subFields: {
+            otherGenderDetails: {
+              type: 'text',
+              label: l => l.otherGenderDetailsLabel,
+              labelSize: null,
+              value: otherGenderDetails,
+            },
+          },
         },
       ],
       validator: isFieldFilledIn,
@@ -222,7 +232,9 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
 
   // mark the selection for the radio buttons based on the option chosen
 
-  fields.sex.values = fields.sex.values.map(config => (config.value === sex ? { ...config, selected: true } : config));
+  fields.gender.values = fields.gender.values.map(config =>
+    config.value === gender ? { ...config, selected: true } : config
+  );
 
   return { fields, errors };
 };

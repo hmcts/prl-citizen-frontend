@@ -26,7 +26,8 @@ const dummyRequest = mockRequest({
               month: '12',
               day: '12',
             },
-            sex: 'Male',
+            gender: 'Male',
+            otherGenderDetails: '',
           },
           childMatters: {
             needsResolution: [],
@@ -58,7 +59,8 @@ describe('Add Children util', () => {
             month: '',
             year: '',
           },
-          sex: '',
+          gender: '',
+          otherGenderDetails: '',
         },
         childMatters: {
           needsResolution: [],

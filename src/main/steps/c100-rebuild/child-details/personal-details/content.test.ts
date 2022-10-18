@@ -14,10 +14,11 @@ const en = {
   dateHint: 'For example, 31 3 2016',
   approxCheckboxLabel: 'I don’t know their date of birth',
   approxDobLabel: 'Approximate date of birth',
-  childSexLabel: 'Sex',
+  childGenderLabel: 'Gender',
   male: 'Male',
   female: 'Female',
-  unspecified: 'Unspecified',
+  other: 'They identify in another way',
+  otherGenderDetailsLabel: "Child's gender (Optional)",
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -36,8 +37,8 @@ const en = {
       incompleteYear: 'Approx date of birth must include a year',
       invalidDateInFuture: 'Approx date of birth must be in the past',
     },
-    sex: {
-      required: 'Select the sex',
+    gender: {
+      required: 'Select the gender',
     },
   },
 };
@@ -48,10 +49,11 @@ const cy = {
   dateHint: 'For example, 31 3 2016 - welsh',
   approxCheckboxLabel: 'I don’t know their date of birth - welsh',
   approxDobLabel: 'Approximate date of birth - welsh',
-  childSexLabel: 'Sex - welsh',
+  childGenderLabel: 'Gender - welsh',
   male: 'Male - welsh',
   female: 'Female - welsh',
-  unspecified: 'Unspecified - welsh',
+  other: 'They identify in another way - welsh',
+  otherGenderDetailsLabel: "Child's gender (Optional) - welsh",
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth - welsh',
@@ -70,8 +72,8 @@ const cy = {
       incompleteYear: 'Approx date of birth must include a year - welsh',
       invalidDateInFuture: 'Approx date of birth must be in the past - welsh',
     },
-    sex: {
-      required: 'Select the sex - welsh',
+    gender: {
+      required: 'Select the gender - welsh',
     },
   },
 };
@@ -103,7 +105,7 @@ describe('child details > personal details', () => {
               month: '',
               day: '',
             },
-            sex: 'Male',
+            gender: 'Male',
           },
           childMatters: {
             needsResolution: [],
@@ -165,7 +167,7 @@ describe('child details > personal details', () => {
   });
 
   test('should contain personal details form fields', () => {
-    const { dateOfBirth, isDateOfBirthUnknown, sex } = fields as Record<string, FormFields>;
+    const { dateOfBirth, isDateOfBirthUnknown, gender } = fields as Record<string, FormFields>;
 
     expect(dateOfBirth.type).toBe('date');
     expect(dateOfBirth.classes).toBe('govuk-date-input');
@@ -215,15 +217,19 @@ describe('child details > personal details', () => {
       year: '1987',
     });
 
-    expect(sex.type).toBe('radios');
-    expect(sex.classes).toBe('govuk-radios');
-    expect((sex.label as Function)(generatedContent)).toBe(en.childSexLabel);
-    expect((sex.values[0].label as Function)(generatedContent)).toBe(en.female);
-    expect(sex.values[0].value).toBe('Female');
-    expect((sex.values[1].label as Function)(generatedContent)).toBe(en.male);
-    expect(sex.values[1].value).toBe('Male');
-    expect((sex.values[2].label as Function)(generatedContent)).toBe(en.unspecified);
-    expect(sex.values[2].value).toBe('Unspecified');
+    expect(gender.type).toBe('radios');
+    expect(gender.classes).toBe('govuk-radios');
+    expect((gender.label as Function)(generatedContent)).toBe(en.childGenderLabel);
+    expect((gender.values[0].label as Function)(generatedContent)).toBe(en.female);
+    expect(gender.values[0].value).toBe('Female');
+    expect((gender.values[1].label as Function)(generatedContent)).toBe(en.male);
+    expect(gender.values[1].value).toBe('Male');
+    expect((gender.values[2].label as Function)(generatedContent)).toBe(en.other);
+    expect(gender.values[2].value).toBe('Other');
+    expect(gender.values[2].subFields.otherGenderDetails.type).toBe('text');
+    expect((gender.values[2].subFields.otherGenderDetails.label as Function)(generatedContent)).toBe(
+      en.otherGenderDetailsLabel
+    );
   });
 
   test('should contain Save and continue button', () => {
