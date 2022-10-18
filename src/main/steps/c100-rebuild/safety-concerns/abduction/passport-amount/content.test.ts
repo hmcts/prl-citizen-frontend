@@ -24,7 +24,7 @@ const en = {
       required: 'Select yes if the children have more than one passport',
     },
     c1A_possessionChildrenPassport: {
-      required: "Specify who is in possession of the Children's passports",
+      required: "Specify who is in possession of the children's passports",
     },
     c1A_provideOtherDetails: {
       required: 'Please provide the details',
@@ -49,7 +49,7 @@ const cy = {
       required: 'Select yes if the children have more than one passport - welsh',
     },
     c1A_possessionChildrenPassport: {
-      required: "Specify who is in possession of the Children's passports - welsh",
+      required: "Specify who is in possession of the children's passports - welsh",
     },
     c1A_provideOtherDetails: {
       required: 'Please provide the details - welsh',
