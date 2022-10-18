@@ -300,11 +300,6 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_FURTHER_INFORMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CHECK_YOUR_ANSWER,
-  },
-  {
-    url: C100_CHECK_YOUR_ANSWER,
-    showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
   {
@@ -520,5 +515,10 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_OTHER,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER,
+  },
+  {
+    url: C100_CHECK_YOUR_ANSWER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
 ];
