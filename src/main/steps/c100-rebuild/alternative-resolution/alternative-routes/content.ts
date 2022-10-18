@@ -1,7 +1,6 @@
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -79,11 +78,6 @@ const en = () => ({
   one: 'Yes',
   two: 'No',
   otherDetails: 'Provide details',
-  errors: {
-    agreementReason: {
-      required: 'Please provide details',
-    },
-  },
 });
 
 const cy = () => ({
@@ -156,11 +150,6 @@ const cy = () => ({
   one: 'Yes - walsh',
   two: 'No - walsh',
   otherDetails: 'Provide details - walsh',
-  errors: {
-    agreementReason: {
-      required: 'Please provide details - walsh',
-    },
-  },
 });
 
 const languages = {
@@ -170,7 +159,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    alternativeRoutes: {
+    sq_alternativeRoutes: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -178,11 +167,10 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            agreementReason: {
+            sq_agreementReason: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -191,7 +179,6 @@ export const form: FormContent = {
           value: YesOrNo.NO,
         },
       ],
-      validator: isFieldFilledIn,
     },
   },
   submit: {

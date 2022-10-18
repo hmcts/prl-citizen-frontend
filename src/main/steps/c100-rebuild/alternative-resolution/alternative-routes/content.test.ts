@@ -1,6 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -82,11 +81,6 @@ const en = {
   one: 'Yes',
   two: 'No',
   otherDetails: 'Provide details',
-  errors: {
-    agreementReason: {
-      required: 'Please provide details',
-    },
-  },
 };
 
 const cy = {
@@ -159,11 +153,6 @@ const cy = {
   one: 'Yes - walsh',
   two: 'No - walsh',
   otherDetails: 'Provide details - walsh',
-  errors: {
-    agreementReason: {
-      required: 'Please provide details - walsh',
-    },
-  },
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
@@ -189,18 +178,14 @@ describe('help with fess > fees applied', () => {
   });
 
   test('should contain applyingWith field', () => {
-    const applyingWithField = fields.alternativeRoutes as FormOptions;
+    const applyingWithField = fields.sq_alternativeRoutes as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    const applyTextField = applyingWithField.values[0].subFields!.agreementReason;
+    const applyTextField = applyingWithField.values[0].subFields!.sq_agreementReason;
     expect(applyTextField.type).toBe('textarea');
     expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe(en.otherDetails);
-
-    (applyTextField.validator as Function)('test text');
-    expect(isFieldFilledIn).toHaveBeenCalledWith('test text');
-    expect(isTextAreaValid).toHaveBeenCalledWith('test text');
   });
 
   test('should contain onlycontinue button', () => {
