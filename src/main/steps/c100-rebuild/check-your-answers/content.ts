@@ -222,6 +222,33 @@ export const enContent = {
                          and a MIAM exemption applied to the application for those proceedings`,
     beforStatingApplication: `The application would be made in existing proceedings which 
                             are continuing and and the applicant attended a MIAM before starting those proceedings`,
+    noSufficientContactDetails:
+      'You do not have sufficient contact details for the other people in this application (the respondents) to enable a family mediator to contact any of them for the purpose of scheduling the MIAM',
+    applyingForWithoutNoticeHearing: 'You’re applying for a without notice hearing',
+    applyingForWithoutNoticeHearingHint:
+      'Hearings which take place without notice to the other people will only be justified where your case is exceptionally urgent or there is good reason not to tell the other people about your application (either because they could take steps to obstruct the application or because doing so may expose you or the children to a risk of harm)',
+    canNotAccessMediator: 'You cannot access a mediator',
+    canNotAccessMediatorHint:
+      'This may mean that you live further than 15 miles from a mediator, you are not able to get an appointment for a MIAM within 15 working days or you or the other people in this application (the respondents) have a disability and the mediator does not have disabled access. Select the specific reason why you cannot access a mediator.',
+    mediatorDoesNotHaveDisabilityAccess:
+      'You or the other person has a disability and the mediator does not have disabled access',
+    mediatorDoesNotHaveDisabilityAccessHint1: `You will need to provide: <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
+                          <li>evidence you’ve contacted 3 mediators within 15 miles who all state they do not have disabled access</li>
+                          <li>names and contact details of the mediators, including dates of contact</li>
+                                </ul>`,
+    mediatorDoesNotHaveDisabilityAccessHint2: `You will need to provide: <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
+                          <li>evidence you’ve contacted 3 mediators within 15 miles who all state they cannot offer an appointment within 15 days</li>
+                          <li>names and contact details of the mediators, including dates of contact</li>
+                                </ul>`,
+    noMediatorAppointment:
+      'You or the other person has contacted 3 mediators within 15 miles and cannot get an appointment within 15 working days',
+    noAuthorisedFamilyMediator: 'There is no authorised family mediator with an office within 15 miles of your home',
+    notAttendingAsInPrison:
+      'You or all of the prospective respondents cannot attend a MIAM because one of you is in prison or any other institution; subject to bail conditions that prevent contact with each other; or subject to a licence with a prohibited contact with each other',
+    notHabituallyResident: 'You or all of the prospective respondents are not habitually resident in England and Wales',
+    notHabituallyResidentHint:
+      'This may include working, owning property, having children in school or if family life mainly takes place outside England or Wales',
+    under18: 'You or the prospective respondents are under 18 years old',
   },
 };
 const cyContent: typeof enContent = {
@@ -432,6 +459,33 @@ const cyContent: typeof enContent = {
                          and a MIAM exemption applied to the application for those proceedings`,
     beforStatingApplication: `The application would be made in existing proceedings which 
                             are continuing and and the applicant attended a MIAM before starting those proceedings`,
+    noSufficientContactDetails:
+      'You do not have sufficient contact details for the other people in this application (the respondents) to enable a family mediator to contact any of them for the purpose of scheduling the MIAM',
+    applyingForWithoutNoticeHearing: 'You’re applying for a without notice hearing',
+    applyingForWithoutNoticeHearingHint:
+      'Hearings which take place without notice to the other people will only be justified where your case is exceptionally urgent or there is good reason not to tell the other people about your application (either because they could take steps to obstruct the application or because doing so may expose you or the children to a risk of harm)',
+    canNotAccessMediator: 'You cannot access a mediator',
+    canNotAccessMediatorHint:
+      'This may mean that you live further than 15 miles from a mediator, you are not able to get an appointment for a MIAM within 15 working days or you or the other people in this application (the respondents) have a disability and the mediator does not have disabled access. Select the specific reason why you cannot access a mediator.',
+    mediatorDoesNotHaveDisabilityAccess:
+      'You or the other person has a disability and the mediator does not have disabled access',
+    mediatorDoesNotHaveDisabilityAccessHint1: `You will need to provide: <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
+                          <li>evidence you’ve contacted 3 mediators within 15 miles who all state they do not have disabled access</li>
+                          <li>names and contact details of the mediators, including dates of contact</li>
+                                </ul>`,
+    mediatorDoesNotHaveDisabilityAccessHint2: `You will need to provide: <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-2 govuk-hint">
+                          <li>evidence you’ve contacted 3 mediators within 15 miles who all state they cannot offer an appointment within 15 days</li>
+                          <li>names and contact details of the mediators, including dates of contact</li>
+                                </ul>`,
+    noMediatorAppointment:
+      'You or the other person has contacted 3 mediators within 15 miles and cannot get an appointment within 15 working days',
+    noAuthorisedFamilyMediator: 'There is no authorised family mediator with an office within 15 miles of your home',
+    notAttendingAsInPrison:
+      'You or all of the prospective respondents cannot attend a MIAM because one of you is in prison or any other institution; subject to bail conditions that prevent contact with each other; or subject to a licence with a prohibited contact with each other',
+    notHabituallyResident: 'You or all of the prospective respondents are not habitually resident in England and Wales',
+    notHabituallyResidentHint:
+      'This may include working, owning property, having children in school or if family life mainly takes place outside England or Wales',
+    under18: 'You or the prospective respondents are under 18 years old',
   },
 };
 
