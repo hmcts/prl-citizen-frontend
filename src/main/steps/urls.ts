@@ -337,8 +337,8 @@ export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION: Pa
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
 
 /** @C100 Alternative Rsesolution */
-export const C100_ALTERNATIVE_RESOLUTION: PageLink = `${C100_URL}/alternative-resolution`;
-export const C100_ALTERNATIVE_RESOLUTION_ALTERNATIVE_ROUTES: PageLink = `${C100_ALTERNATIVE_RESOLUTION}/alternative-routes`;
+export const C100_SCREENING_QUESTIONS: PageLink = `${C100_URL}/screening-questions`;
+export const C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES: PageLink = `${C100_SCREENING_QUESTIONS}/alternative-routes`;
 
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;
