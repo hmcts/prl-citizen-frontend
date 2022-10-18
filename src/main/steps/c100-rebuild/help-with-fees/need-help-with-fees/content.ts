@@ -53,7 +53,6 @@ export const form: FormContent = {
     needHelpWithFees: {
       type: 'radios',
       classes: 'govuk-radios',
-      section: l => l.section,
       values: [
         {
           label: l => l.yesNeedHelpWithFeesPaying,

@@ -15,7 +15,6 @@ const en = {
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Save and continue',
-  onlycontinue: 'Continue',
   next: 'Next',
   change: 'Change',
   upload: 'Upload',
@@ -33,6 +32,8 @@ const en = {
   saveAndComeLater: 'Save and come back later',
   goBack: 'Go back',
   saveAsDraft: 'Save as draft',
+  onlyContinue: 'Continue',
+  onlycontinue: 'Continue',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -123,7 +124,6 @@ const cy: typeof en = {
   govUk: 'GOV.UK',
   back: 'Back (in welsh)',
   continue: 'Save and continue (in welsh)',
-  onlycontinue: 'Continue (in welsh)',
   change: 'Change  (in welsh)',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',
@@ -188,8 +188,10 @@ const cy: typeof en = {
   findOutCharges: 'Find out about call charges',
   openNewWindow: 'opens in a new window',
   telephone: 'Ffoniwch',
-  telephoneNumber: '0300 303 0742',
+  telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  onlyContinue: 'Continue (in welsh)',
+  onlycontinue: 'Continue (in welsh)',
 };
 
 export const generatePageContent = ({
@@ -197,7 +199,13 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
+  userCaseList,
+  caption,
+  name,
+  byApplicant,
+  document_type,
   addresses = [],
+  userIdamId,
   additionalData,
 }: // eligibility,
 // fee,
@@ -206,7 +214,13 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  caption?: string;
+  document_type?: string;
+  userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
+  name?: string;
+  byApplicant?: string;
+  userIdamId?: string;
   additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
@@ -220,8 +234,15 @@ export const generatePageContent = ({
     language,
     userCase,
     userEmail,
+    name,
+    userCaseList,
     // contactEmail,
     addresses,
+    caption,
+    document_type,
+    byApplicant,
+    userIdamId,
+    // contactEmail,
     additionalData,
     // eligibility,
     // fee,
@@ -249,13 +270,19 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  userCaseList?: Partial<CaseWithId>[];
+  name?: string;
+  caption?: string;
+  document_type?: string;
   // contactEmail?: string;
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
+  byApplicant?: string;
   additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
+  userIdamId?: string;
 };
 
 export type Language = 'en' | 'cy';

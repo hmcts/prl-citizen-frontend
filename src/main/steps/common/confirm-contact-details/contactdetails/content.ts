@@ -4,15 +4,17 @@ import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/f
 
 const en = {
   title: 'Your contact details',
-  phoneNumber: 'UK telephone number',
-  email: 'Email address',
+  citizenUserPhoneNumber: 'UK telephone number',
+  citizenUserEmailAddress: 'Email address',
+  applicant1SafeToCall: 'When it is safe to call you (optional)',
+  safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',
   errors: {
-    phoneNumber: {
+    citizenUserPhoneNumber: {
       required: 'Enter UK telephone number',
       invalid: 'Enter a valid UK telephone number',
     },
-    email: {
+    citizenUserEmailAddress: {
       required: 'Enter Email address',
       invalid: 'Enter an email address in the correct format, like name@example.com',
     },
@@ -21,15 +23,17 @@ const en = {
 
 const cy: typeof en = {
   title: 'Eich manylion cyswllt',
-  phoneNumber: 'Rhif ffôn y DU',
-  email: 'Cyfeiriad ebost',
+  citizenUserPhoneNumber: 'Rhif ffôn y DU',
+  citizenUserEmailAddress: 'Cyfeiriad ebost',
+  applicant1SafeToCall: 'When it is safe to call you (optional)',
+  safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',
   errors: {
-    phoneNumber: {
+    citizenUserPhoneNumber: {
       required: 'Rhowch rif ffôn y DU',
       invalid: 'Rhowch rif ffôn dilys yn y DU',
     },
-    email: {
+    citizenUserEmailAddress: {
       required: 'Rhowch gyfeiriad e-bost',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, fel name@example.com',
     },
@@ -43,19 +47,26 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    phoneNumber: {
+    citizenUserPhoneNumber: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.phoneNumber,
+      label: l => l.citizenUserPhoneNumber,
       labelSize: null,
       validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
     },
-    email: {
+    citizenUserEmailAddress: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.email,
+      label: l => l.citizenUserEmailAddress,
       labelSize: null,
       validator: value => isFieldFilledIn(value) || isEmailValid(value),
+    },
+    applicant1SafeToCall: {
+      type: 'text',
+      classes: 'govuk-input--width-20',
+      hint: l => l.safeToCallHint,
+      label: l => l.applicant1SafeToCall,
+      labelSize: null,
     },
   },
   submit: {

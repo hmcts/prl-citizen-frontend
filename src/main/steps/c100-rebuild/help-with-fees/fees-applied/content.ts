@@ -48,7 +48,6 @@ export const form: FormContent = {
     feesAppliedDetails: {
       type: 'radios',
       classes: 'govuk-radios',
-      section: l => l.section,
       values: [
         {
           label: l => l.one,

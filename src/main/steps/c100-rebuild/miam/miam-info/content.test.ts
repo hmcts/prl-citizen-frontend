@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -117,6 +118,9 @@ describe('miam should contain miam info', () => {
     expect(miamConsentField.type).toBe('checkboxes');
     expect(miamConsentField.classes).toBe('govuk-checkboxes');
     expect((miamConsentField.label as LanguageLookup)(generatedContent)).toBe(en.miamLabel);
+    expect((miamConsentField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.miamConsentStatement);
+    (miamConsentField.validator as Validator)('Yes');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
   });
 
   test('should contain Continue and save and comeback later button', () => {

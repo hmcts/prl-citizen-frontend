@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { YesOrNo } from '../../../../app/case/definition';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+//import { YesOrNo } from '../../../../app/case/definition';
+import { FormContent, FormFields, FormInput, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+//import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -58,17 +58,8 @@ const cy = {
   },
 };
 
-/* eslint-disable @typescript-eslint/ban-types */
 describe('Safety concern about > applying-with > content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
-  let generatedContent;
-  let form;
-  let fields;
-  beforeEach(() => {
-    generatedContent = generateContent(commonContent);
-    form = generatedContent.form as FormContent;
-    fields = form.fields as FormFields;
-  });
+  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -78,26 +69,44 @@ describe('Safety concern about > applying-with > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-
-  test('should select if they have safety concerns field', () => {
-    const doYouHaveSafetyConcerns = fields.c1A_haveSafetyConcerns as FormOptions;
-    expect(doYouHaveSafetyConcerns.type).toBe('radios');
-    expect((doYouHaveSafetyConcerns.values[0].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.YES);
-    expect((doYouHaveSafetyConcerns.values[1].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.NO);
-
-    (doYouHaveSafetyConcerns.validator as Function)('c1A_haveSafetyConcerns');
-    expect(isFieldFilledIn).toHaveBeenCalledWith('c1A_haveSafetyConcerns');
+  test('should contain applyingWith field', () => {
+    const generatedContent = generateContent(commonContent) as Record<string, never>;
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const applyingWithField = fields.c1A_haveSafetyConcerns as FormOptions;
+    const applyingWithFieldParagraph1 = fields.paragraph1 as FormInput;
+    const applyingWithFieldParagraph2 = fields.paragraph2 as FormInput;
+    const applyingWithFieldWarningMessage = fields.warningMessage as FormInput;
+    const subFields = applyingWithField.values[0].subFields?.doYouHaveSafetyConcernsYesInfo as FormInput;
+    expect(applyingWithField.type).toBe('radios');
+    expect(applyingWithField.classes).toBe('govuk-radios');
+    expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.yesHaveSafetyConcerns);
+    expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.noHaveSafetyConcerns);
+    expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.noHaveSafetyConcerns);
+    expect(applyingWithFieldParagraph1.type).toBe('textAndHtml');
+    expect((applyingWithFieldParagraph1.textAndHtml as LanguageLookup)(generatedContent)).toBe(en.paragraph1);
+    expect(applyingWithFieldParagraph2.type).toBe('textAndHtml');
+    expect((applyingWithFieldParagraph2.textAndHtml as LanguageLookup)(generatedContent)).toBe(en.paragraph2);
+    expect(applyingWithFieldWarningMessage.type).toBe('warning');
+    expect((applyingWithFieldWarningMessage.label as LanguageLookup)(generatedContent)).toBe(en.warningMessage);
+    expect(subFields.type).toBe('textAndHtml');
+    expect((subFields.textAndHtml as LanguageLookup)(generatedContent)).toBe(en.infoSafetyConcernsYes);
   });
 
-  test('should contain onlycontinue button', () => {
+  test('should contain Continue button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
   });
-
   test('should contain saveAndComeLater button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
     expect(
       (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
   });
+
+  /* eslint-disable @typescript-eslint/ban-types */
 });

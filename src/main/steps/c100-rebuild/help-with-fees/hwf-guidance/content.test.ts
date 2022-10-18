@@ -68,6 +68,11 @@ describe('help with fess > hwf guidance', () => {
   test('should contain applyingWith field', () => {
     const applyingWithField = fields.hwfGuidanceRefNumber as FormOptions;
     expect(applyingWithField.type).toBe('text');
+    expect(applyingWithField.classes).toBe('govuk-input--width-10');
+    expect(applyingWithField.labelSize).toBe('m');
+    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberLabel);
+    expect((applyingWithField.hint as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberHint);
+
     (applyingWithField.validator as Function)('test text');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text');
