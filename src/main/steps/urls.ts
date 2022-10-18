@@ -361,3 +361,6 @@ export const C100_MIAM_NO_NEED_WITH_REASONS: PageLink = `${C100_MIAM}/no-need-wi
 export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/hearing-urgency`;
 export const C100_HEARING_URGENCY_URGENT: PageLink = `${C100_HEARING_URGENCY}/urgent`;
 export const C100_HEARING_URGENCY_URGENT_DETAILS: PageLink = `${C100_HEARING_URGENCY}/urgent-details`;
+
+/**@C100 check you answers */
+export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
