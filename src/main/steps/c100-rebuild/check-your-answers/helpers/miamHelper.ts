@@ -2,11 +2,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { MiamNonAttendReason } from '../../../../app/case/definition';
 
-import { miamChildProtection } from './childProtection.Helper';
-import { miamExemptionDomesticVoilenceMapper } from './domesticVoilence.Helper';
-import { miamNonAttendanceReasonMapper } from './miam-other.Helper';
-import { miamPreviousAttendance } from './previousAttendance.Helper';
-import { miamUrgencyHearing } from './urgency.Helper';
+import { miamChildProtection } from './miam-root-helpers/childProtection.Helper';
+import { miamExemptionDomesticVoilenceMapper } from './miam-root-helpers/domesticVoilence.Helper';
+import { miamNonAttendanceReasonMapper } from './miam-root-helpers/miam-other.Helper';
+import { miamPreviousAttendance } from './miam-root-helpers/previousAttendance.Helper';
+import { miamUrgencyHearing } from './miam-root-helpers/urgency.Helper';
 //import {Urgency} from './urgency.Helper';
 class MiamHelperDataParser<T> {
   [x: string]: T;
