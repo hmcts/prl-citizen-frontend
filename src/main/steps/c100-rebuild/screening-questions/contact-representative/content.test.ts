@@ -1,10 +1,10 @@
-import languageAssertions from '../../../../test/unit/utils/languageAssertions';
-import { FormContent, LanguageLookup } from '../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../common/common.content';
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, LanguageLookup } from '../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-jest.mock('../../../app/form/validation');
+jest.mock('../../../../app/form/validation');
 
 const en = {
   serviceName: 'Child arrangements',
