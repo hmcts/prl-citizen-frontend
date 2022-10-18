@@ -85,6 +85,9 @@ import {
 
   /** Screening Questions */
   C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION,
+  C100_APPLICANT_ADDRESS_LOOKUP,
+  C100_APPLICANT_ADDRESS_SELECT,
+  C100_APPLICANT_ADDRESS_MANUAL,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -522,5 +525,20 @@ export const C100Sequence: Step[] = [
     url: C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION,
     showInSection: Sections.C100,
     getNextStep: () => C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION,
+  },
+  {
+    url: C100_APPLICANT_ADDRESS_LOOKUP,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADDRESS_SELECT,
+  },
+  {
+    url: C100_APPLICANT_ADDRESS_SELECT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADDRESS_MANUAL,
+  },
+  {
+    url: C100_APPLICANT_ADDRESS_MANUAL,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADDRESS_LOOKUP,
   },
 ];

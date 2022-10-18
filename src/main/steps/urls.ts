@@ -365,3 +365,9 @@ export const C100_HEARING_URGENCY_URGENT_DETAILS: PageLink = `${C100_HEARING_URG
 /**@C100 Screening Questions */
 export const C100_SCREENING_QUESTIONS: PageLink = `${C100_URL}/screening-questions`;
 export const C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION: PageLink = `${C100_SCREENING_QUESTIONS}/legal-representation`;
+
+/**@C100 applicant address */
+export const C100_APPLICANT_ADDRESS: PageLink = `${C100_URL}/applicant/address`;
+export const C100_APPLICANT_ADDRESS_LOOKUP: PageLink = `${C100_APPLICANT_ADDRESS}/lookup`;
+export const C100_APPLICANT_ADDRESS_SELECT: PageLink = `${C100_APPLICANT_ADDRESS}/select`;
+export const C100_APPLICANT_ADDRESS_MANUAL: PageLink = `${C100_APPLICANT_ADDRESS}/manual`;
