@@ -11,6 +11,7 @@ import { miamUrgencyHearing } from './urgency.Helper';
 class MiamHelperDataParser<T> {
   [x: string]: T;
 }
+//eslint @typescript-eslint/no-explicit-any
 const InstanceOfMiamHelper = new MiamHelperDataParser<any>();
 
 type KeysType = {
