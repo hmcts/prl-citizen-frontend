@@ -509,7 +509,7 @@ describe('C100Sequence', () => {
       '/c100-rebuild/screening-questions/permission'
     );
     expect(C100Sequence[71].getNextStep({ sq_courtPermissionRequired: YesOrNo.NO })).toBe(
-      '/c100-rebuild/miam/miam-info'
+      '/c100-rebuild/screening-questions/permission'
     );
   });
 });

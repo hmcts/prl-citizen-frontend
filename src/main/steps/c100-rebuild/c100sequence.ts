@@ -522,6 +522,8 @@ export const C100Sequence: Step[] = [
     url: C100_SCREENING_QUESTIONS_COURT_PERMISSION,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.sq_courtPermissionRequired === YesOrNo.YES ? C100_SCREENING_QUESTIONS_COURT_PERMISSION : C100_MIAM_INFO,
+      data.sq_courtPermissionRequired === YesOrNo.YES
+        ? C100_SCREENING_QUESTIONS_COURT_PERMISSION
+        : C100_SCREENING_QUESTIONS_COURT_PERMISSION,
   },
 ];
