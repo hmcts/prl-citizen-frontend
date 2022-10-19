@@ -528,14 +528,6 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER,
   },
   {
-    url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,
-    showInSection: Sections.C100,
-    getNextStep: data =>
-      data.c1A_passportOffice === YesOrNo.YES
-        ? C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE
-        : C100_CONFIDENTIALITY_START,
-  },
-  {
     url: C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
@@ -549,5 +541,13 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.c1A_passportOffice === YesOrNo.YES
+        ? C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE
+        : C100_CONFIDENTIALITY_START,
   },
 ];
