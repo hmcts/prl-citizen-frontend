@@ -87,7 +87,6 @@ import {
   C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES,
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
-
   C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
 
   /** Screening Questions */
@@ -104,6 +103,7 @@ import ChildrenDetailsNavigationController from './child-details/navigationContr
 import MIAMNavigationController from './miam/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
+import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 
 export const C100Sequence: Step[] = [
   {
@@ -374,7 +374,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT, caseData, req?.params),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
@@ -395,7 +396,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
@@ -415,7 +421,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, req?.params),
   },
   {
     url: C100_MIAM_OTHER_PROCEEDINGS,
@@ -546,7 +553,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED,
@@ -556,7 +568,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,

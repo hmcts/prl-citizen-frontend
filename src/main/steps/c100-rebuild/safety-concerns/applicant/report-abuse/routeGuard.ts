@@ -7,11 +7,10 @@ import { isValidAbuseType } from '../../util';
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   get: (req: AppRequest, res: Response, next: NextFunction) => {
-    const abuseType = req.query?.type as C1AAbuseTypes;
+    const abuseType = req.params?.abuseType as C1AAbuseTypes;
 
     if (!isValidAbuseType(abuseType, C1ASafteyConcernsAbout.APPLICANT, req.session.userCase)) {
-      res.redirect('error');
-      return;
+      return res.redirect('/error');
     }
     next();
   },
