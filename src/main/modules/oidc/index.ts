@@ -113,17 +113,6 @@ export class OidcMiddleware {
 
             return next();
           }
-          // TODO - TO BE REMOVED ONCE C100 CHILDREN REFACTORING IS COMPLETE
-          if (!req.session.settings) {
-            req.session.settings = {
-              toggleChild: 0,
-              ListOfChild: [],
-              childTemporaryFormData: {
-                TempFirstName: '',
-                TempLastName: '',
-              },
-            };
-          }
           return next();
         } else {
           console.log('****** login failed, no user details found');

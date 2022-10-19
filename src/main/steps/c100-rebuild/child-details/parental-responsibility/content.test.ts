@@ -1,60 +1,137 @@
-//import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { CommonContent } from '../../../common/common.content';
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../app/form/validation';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { getDataShape } from '../util';
 
-import { generateContent } from './content';
+import { generateContent, generateFormFields } from './content';
 
 jest.mock('../../../../app/form/validation');
 
-const LanguageAssertionForChild = (
-  language: 'en' | 'cy',
-  languageContent: Record<string, unknown>,
-  generateFn: TranslationFn
-): void => {
-  const generatedContent = generateFn({ language } as CommonContent);
-
-  Object.entries(languageContent).forEach(([key, value]) => {
-    if (key !== 'hintText') {
-      expect(generatedContent[key]).toEqual(value);
-    }
-  });
-};
-
 const en = {
-  pageTitle: 'Parental responsibility for',
-  labelText: 'State everyone who has parental responsibility for  and how they have parental responsibility.',
-  hintText: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
-   <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p>`,
+  title: 'Parental responsibility for',
+  subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility.',
+  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
+ <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p>`,
   errors: {
-    parentalResponsibility: {
+    statement: {
       required: 'Enter an answer',
     },
   },
 };
 
 const cy = {
-  pageTitle: 'Parental responsibility for  - welsh',
-  labelText: 'State everyone who has parental responsibility for  and how they have parental responsibility. - welsh',
-  hintText: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
-    <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p> - welsh`,
+  title: 'Parental responsibility for - welsh',
+  subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility. - welsh',
+  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
+  <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p> - welsh`,
   errors: {
-    parentalResponsibility: {
+    statement: {
       required: 'Enter an answer  - welsh',
     },
   },
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
-describe('child details > parental-responsibility', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
-
+describe('child details > parental responsibility', () => {
+  const commonContent = {
+    language: 'en',
+    userCase: {
+      cd_children: [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          firstName: 'Bob',
+          lastName: 'Silly',
+          personalDetails: {
+            dateOfBirth: {
+              year: '',
+              month: '',
+              day: '',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            approxDateOfBirth: {
+              year: '1987',
+              month: '12',
+              day: '12',
+            },
+            sex: 'Male',
+          },
+          childMatters: {
+            needsResolution: [],
+          },
+          parentialResponsibility: {
+            statement: 'fgfdgfg',
+          },
+        },
+      ],
+    },
+    additionalData: {
+      req: {
+        params: {
+          childId: '7483640e-0817-4ddc-b709-6723f7925474',
+        },
+      },
+    },
+  } as unknown as CommonContent;
+  let generatedContent;
+  let form;
+  let fields;
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+  });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    LanguageAssertionForChild('en', en, () => generateContent(commonContent));
+    const { errors } = generateFormFields(getDataShape().parentialResponsibility);
+    languageAssertions(
+      'en',
+      {
+        ...en,
+        title: `${en.title} Bob Silly`,
+        errors: {
+          ...en.errors,
+          ...errors.en,
+        },
+      },
+      () => generateContent(commonContent)
+    );
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    LanguageAssertionForChild('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+    const { errors } = generateFormFields(getDataShape().parentialResponsibility);
+    languageAssertions(
+      'cy',
+      {
+        ...cy,
+        title: `${cy.title} Bob Silly`,
+        errors: {
+          ...cy.errors,
+          ...errors.cy,
+        },
+      },
+      () => generateContent({ ...commonContent, language: 'cy' })
+    );
+  });
+
+  test('should contain parental responsibility form fields', () => {
+    const { statement } = fields as Record<string, FormFields>;
+
+    expect(statement.type).toBe('text');
+    (statement.validator as Function)('Parental responsibility for Bob Silly');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('Parental responsibility for Bob Silly');
+  });
+
+  test('should contain Save and continue button', () => {
+    expect(
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
+  });
+
+  test('should contain saveAndComeLater button', () => {
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });
