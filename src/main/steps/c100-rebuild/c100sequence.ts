@@ -93,6 +93,7 @@ import {
   C100_SCREENING_QUESTIONS_ALTERNATIVE_SOLUTIONS,
   C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION,
   C100_LEGAL_REPRESENTATION_APPLICATION,
+  C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -587,5 +588,10 @@ export const C100Sequence: Step[] = [
       data.sq_legalRepresentationApplication === YesOrNo.YES
         ? C100_LEGAL_REPRESENTATION_APPLICATION
         : C100_CONFIDENTIALITY_START,
+  },
+  {
+    url: C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
   },
 ];
