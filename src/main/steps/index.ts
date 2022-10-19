@@ -104,7 +104,8 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
 };
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
-  const [path, searchParams] = req.originalUrl.split('?');
+  const path = req.route.path;
+  const [, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
 };
@@ -139,7 +140,8 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
 
   const results: StepWithContent[] = [];
   for (const step of sequence) {
-    const stepDir = `${dir}${step.url.startsWith(subDir) ? step.url : `${subDir}${step.url}`}`;
+    const url = step.url.split('/:')[0];
+    const stepDir = `${dir}${url.startsWith(subDir) ? url : `${subDir}${url}`}`;
     const { content, view } = getStepFiles(stepDir);
     results.push({ stepDir, ...step, ...content, view });
   }
