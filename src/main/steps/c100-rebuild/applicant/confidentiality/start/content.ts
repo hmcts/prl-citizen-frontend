@@ -8,16 +8,16 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/fo
 const en = () => ({
   caption: 'Keeping your contact details private',
   headingTitle: `Do you want to keep your contact details private from 
-  the other people named in the application (the applicants)?`,
+  the other people named in the application (the respondents)?`,
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
   paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
   you can ask the court to keep your contact details private.`,
   one: 'Yes',
   two: 'No',
-  contact_details_private: 'Specify which contact details you want to keep private.',
+  contact_details_private:
+    'Specify which contact details you want to keep private.\n Make sure you only select details the respondents do not know already',
   address: 'Address',
-  homePhoneNumber: 'Home phone number',
-  mobilePhoneNumber: 'Mobile phone number',
+  telephoneNumber: 'Telephone number',
   Email: 'Email',
   errors: {
     start: {
@@ -32,18 +32,18 @@ const en = () => ({
 const cy = () => ({
   caption: 'Keeping your contact details private  - welsh',
   headingTitle: `Do you want to keep your contact details private from 
-  the other people named in the application (the applicants)? - welsh`,
+  the other people named in the application (the respondents)? - welsh`,
   paragraph1: `The information you give us will be shared with the respondents. 
   This includes your contact details. - welsh`,
   paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
   you can ask the court to keep your contact details private. - welsh`,
   one: 'Yes - Welsh',
   two: 'No - Welsh',
-  contact_details_private: 'Specify which contact details you want to keep private. - Welsh',
-  address: 'Address - Welsh',
-  homePhoneNumber: 'Home phone number - Welsh',
-  mobilePhoneNumber: 'Mobile phone number - Welsh',
-  Email: 'Email - Welsh',
+  contact_details_private:
+    'Specify which contact details you want to keep private.\n Make sure you only select details the respondents do not know already - welsh',
+  address: 'Address - welsh',
+  telephoneNumber: 'Telephone number - welsh',
+  Email: 'Email - welsh',
   errors: {
     start: {
       required: 'Select yes if you want to keep your details private - Welsh',
@@ -106,7 +106,7 @@ export const generateContent: TranslationFn = content => {
       subFields: {
         contactDetailsPrivate: {
           type: 'checkboxes',
-          label: l => l.contact_details_private,
+          hint: l => l.contact_details_private,
           // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
           validator: (value, formData: Partial<Case>) => {
             if (formData.start === 'Yes') {
@@ -122,13 +122,8 @@ export const generateContent: TranslationFn = content => {
             },
             {
               name: 'contactDetailsPrivate',
-              label: l => l.homePhoneNumber,
-              value: 'homephone',
-            },
-            {
-              name: 'contactDetailsPrivate',
-              label: l => l.mobilePhoneNumber,
-              value: 'mobilephone',
+              label: l => l.telephoneNumber,
+              value: 'telephone',
             },
             {
               name: 'contactDetailsPrivate',

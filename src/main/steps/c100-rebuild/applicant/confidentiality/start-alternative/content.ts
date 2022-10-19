@@ -14,19 +14,16 @@ const en = () => ({
   you can ask the court to keep your contact details private.`,
   one: 'Yes',
   two: 'No',
-  contact_details_private: `Specify which contact details you want to keep private.
-  Make sure you only select details the applicants do not already know.`,
+  contact_details_private: 'Specify which contact details you want to keep private.',
   address: 'Address',
-  homePhoneNumber: 'Home phone number',
-  mobilePhoneNumber: 'Mobile phone number',
+  telephoneNumber: 'Telephone number',
   Email: 'Email',
   errors: {
     startAlternative: {
       required: 'Select yes if you want to keep your details private',
     },
     contactDetailsPrivateAlternative: {
-      required: `Select which contact details you want to keep private.
-      Make sure you only select details the applicants do not already know.`,
+      required: 'Select which contact details you want to keep private.',
     },
   },
 });
@@ -41,19 +38,16 @@ const cy = () => ({
   you can ask the court to keep your contact details private. - welsh`,
   one: 'Yes - Welsh',
   two: 'No - Welsh',
-  contact_details_private: `Specify which contact details you want to keep private.
-  Make sure you only select details the applicants do not already know. - welsh`,
-  address: 'Address - Welsh',
-  homePhoneNumber: 'Home phone number - Welsh',
-  mobilePhoneNumber: 'Mobile phone number - Welsh',
-  Email: 'Email - Welsh',
+  contact_details_private: 'Specify which contact details you want to keep private. - welsh',
+  address: 'Address - welsh',
+  telephoneNumber: 'Telephone number - welsh',
+  Email: 'Email - welsh',
   errors: {
     startAlternative: {
       required: 'Select yes if you want to keep your details private',
     },
     contactDetailsPrivateAlternative: {
-      required: `Select which contact details you want to keep private.
-      Make sure you only select details the applicants do not already know. - welsh`,
+      required: 'Select which contact details you want to keep private. - welsh',
     },
   },
 });
@@ -115,7 +109,7 @@ export const generateContent: TranslationFn = content => {
       subFields: {
         contactDetailsPrivateAlternative: {
           type: 'checkboxes',
-          label: l => l.contact_details_private,
+          hint: l => l.contact_details_private,
           // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
           validator: (value, formData: Partial<Case>) => {
             if (formData.startAlternative === 'Yes') {
@@ -131,13 +125,8 @@ export const generateContent: TranslationFn = content => {
             },
             {
               name: 'contactDetailsPrivateAlternative',
-              label: l => l.homePhoneNumber,
-              value: 'homephone',
-            },
-            {
-              name: 'contactDetailsPrivateAlternative',
-              label: l => l.mobilePhoneNumber,
-              value: 'mobilephone',
+              label: l => l.telephoneNumber,
+              value: 'telephone',
             },
             {
               name: 'contactDetailsPrivateAlternative',

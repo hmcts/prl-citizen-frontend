@@ -15,11 +15,9 @@ const en = {
   you can ask the court to keep your contact details private.`,
   one: 'Yes',
   two: 'No',
-  contact_details_private: `Specify which contact details you want to keep private.
-  Make sure you only select details the applicants do not already know.`,
+  contact_details_private: 'Specify which contact details you want to keep private.',
   address: 'Address',
-  homePhoneNumber: 'Home phone number',
-  mobilePhoneNumber: 'Mobile phone number',
+  telephoneNumber: 'Telephone number',
   Email: 'Email',
 };
 
@@ -33,12 +31,10 @@ const cy = {
   you can ask the court to keep your contact details private. - welsh`,
   one: 'Yes - Welsh',
   two: 'No - Welsh',
-  contact_details_private: `Specify which contact details you want to keep private.
-  Make sure you only select details the applicants do not already know. - welsh`,
-  address: 'Address - Welsh',
-  homePhoneNumber: 'Home phone number - Welsh',
-  mobilePhoneNumber: 'Mobile phone number - Welsh',
-  Email: 'Email - Welsh',
+  contact_details_private: 'Specify which contact details you want to keep private. - welsh',
+  address: 'Address - welsh',
+  telephoneNumber: 'Telephone number - welsh',
+  Email: 'Email - welsh',
 };
 describe('applicant personal details > applying-with > content', () => {
   const commonContent = {
@@ -100,11 +96,10 @@ describe('applicant personal details > applying-with > content', () => {
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect(subFields.type).toBe('checkboxes');
-    expect((subFields.label as LanguageLookup)(generatedContent)).toBe(en.contact_details_private);
+    expect((subFields.hint as LanguageLookup)(generatedContent)).toBe(en.contact_details_private);
     expect((subFields.values[0].label as LanguageLookup)(generatedContent)).toBe(en.address);
-    expect((subFields.values[1].label as LanguageLookup)(generatedContent)).toBe(en.homePhoneNumber);
-    expect((subFields.values[2].label as LanguageLookup)(generatedContent)).toBe(en.mobilePhoneNumber);
-    expect((subFields.values[3].label as LanguageLookup)(generatedContent)).toBe(en.Email);
+    expect((subFields.values[1].label as LanguageLookup)(generatedContent)).toBe(en.telephoneNumber);
+    expect((subFields.values[2].label as LanguageLookup)(generatedContent)).toBe(en.Email);
   });
   test('should contain Continue button', () => {
     expect(

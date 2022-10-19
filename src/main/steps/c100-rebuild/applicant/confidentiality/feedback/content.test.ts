@@ -36,8 +36,7 @@ const enLanguageContent = {
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
   listOfCofidentialInfromations: [
     { key: 'address', value: 'Address' },
-    { key: 'homephone', value: 'Home phone number' },
-    { key: 'mobilephone', value: 'Mobile phone number' },
+    { key: 'telephone', value: 'Telephone number' },
     { key: 'email', value: 'Email' },
   ],
 };
@@ -50,8 +49,7 @@ const cyLanguageContent = {
   p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court. - welsh',
   listOfCofidentialInfromations: [
     { key: 'address', value: 'Address - welsh' },
-    { key: 'homephone', value: 'Home phone number - welsh' },
-    { key: 'mobilephone', value: 'Mobile phone number - welsh' },
+    { key: 'telephone', value: 'Telephone number - welsh' },
     { key: 'email', value: 'Email - welsh' },
   ],
 };
