@@ -372,3 +372,4 @@ export const C100_HEARING_URGENCY_URGENT_DETAILS: PageLink = `${C100_HEARING_URG
 /**@C100 Screening Questions */
 export const C100_SCREENING_QUESTIONS: PageLink = `${C100_URL}/screening-questions`;
 export const C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT: PageLink = `${C100_SCREENING_QUESTIONS}/consent-agreement`;
+export const C100_SCREENING_QUESTIONS_ALTERNATIVE_SOLUTIONS: PageLink = `${C100_SCREENING_QUESTIONS}/alternative-resolution/going-to-court`;
