@@ -103,7 +103,7 @@ const childrenMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(79);
+    expect(C100Sequence).toHaveLength(80);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -595,6 +595,15 @@ describe('C100Sequence', () => {
     );
     expect(C100Sequence[78].getNextStep({ sq_legalRepresentation: YesOrNo.NO })).toBe(
       '/c100-rebuild/screening-questions/legal-representation'
+    );
+
+    expect(C100Sequence[79].url).toBe('/c100-rebuild/screening-questions/legal-representation-application');
+    expect(C100Sequence[79].showInSection).toBe('c100');
+    expect(C100Sequence[79].getNextStep({ sq_legalRepresentationApplication: YesOrNo.YES })).toBe(
+      '/c100-rebuild/screening-questions/legal-representation-application'
+    );
+    expect(C100Sequence[79].getNextStep({ sq_legalRepresentationApplication: YesOrNo.NO })).toBe(
+      '/c100-rebuild/confidentiality/start'
     );
   });
 });

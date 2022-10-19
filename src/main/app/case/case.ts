@@ -504,6 +504,7 @@ export interface Case {
   childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
   sq_legalRepresentation?: YesOrNo;
+  sq_legalRepresentationApplication?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
