@@ -5,8 +5,8 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  headingTitle: 'Further Information',
-  childrenKnownToSocialServicesLable: 'Are any of the childern known to social service?',
+  title: 'Further Information',
+  childrenKnownToSocialServicesLabel: 'Are any of the childern known to social service?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan?',
@@ -16,21 +16,21 @@ const en = () => ({
   two: 'No',
   three: "Don't know",
   errors: {
-    childrenKnownToSocialServices: {
+    cd_childrenKnownToSocialServices: {
       required: 'Select if any of the children are known to social services',
     },
-    childrenKnownToSocialServicesDetails: {
+    cd_childrenKnownToSocialServicesDetails: {
       required: 'Enter details',
     },
-    childrenSubjectOfProtectionPlan: {
+    cd_childrenSubjectOfProtectionPlan: {
       required: 'Select if any of the children are the subject of a child protection plan',
     },
   },
 });
 
 const cy = () => ({
-  headingTitle: 'Further Information - welsh',
-  childrenKnownToSocialServicesLable: 'Are any of the childern known to social service - welsh?',
+  title: 'Further Information - welsh',
+  childrenKnownToSocialServicesLabel: 'Are any of the childern known to social service - welsh?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known - welsh',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan - welsh?',
@@ -40,13 +40,13 @@ const cy = () => ({
   two: 'No - Welsh',
   three: "Don't know - Welsh",
   errors: {
-    childrenKnownToSocialServices: {
+    cd_childrenKnownToSocialServices: {
       required: 'Select if any of the children are known to social services - welsh',
     },
-    childrenKnownToSocialServicesDetails: {
+    cd_childrenKnownToSocialServicesDetails: {
       required: 'Enter details - welsh',
     },
-    childrenSubjectOfProtectionPlan: {
+    cd_childrenSubjectOfProtectionPlan: {
       required: 'Select if any of the children are the subject of a child protection plan - welsh',
     },
   },
@@ -59,18 +59,17 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    childrenKnownToSocialServices: {
+    cd_childrenKnownToSocialServices: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.childrenKnownToSocialServicesLable,
+      label: l => l.childrenKnownToSocialServicesLabel,
       labelSize: 'm',
-      section: l => l.section,
       values: [
         {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            childrenKnownToSocialServicesDetails: {
+            cd_childrenKnownToSocialServicesDetails: {
               type: 'textarea',
               hint: l => l.childrenKnownToSocialServicesHint,
               labelSize: null,
@@ -89,13 +88,12 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-    childrenSubjectOfProtectionPlan: {
+    cd_childrenSubjectOfProtectionPlan: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.childrenSubjectOfProtectionPlanLabel,
       labelSize: 'm',
       hint: l => l.childrenProtectionPlanHint,
-      section: l => l.section,
       values: [
         {
           label: l => l.one,
