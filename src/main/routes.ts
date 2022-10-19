@@ -3,12 +3,12 @@ import fs from 'fs';
 import { Application } from 'express';
 import multer from 'multer';
 
+import { GetCaseController } from '../main/app/controller/GetCaseController';
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
 import { GetController } from './app/controller/GetController';
-import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
@@ -24,7 +24,6 @@ import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsGetController';
 import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsPostController';
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
@@ -97,8 +96,8 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
-    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
+    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getApplicantCase));
+    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getRespondentCase));
     app.get(`${CA_RESPONDENT_RESPONSE_SUBMIT}`, errorHandler(new RespondentSubmitResponseController().save));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));

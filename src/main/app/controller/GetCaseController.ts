@@ -27,6 +27,16 @@ export class GetCaseController {
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       req.session.userCase = caseDataFromCos;
     }
+    if (!req.session?.userCase) {
+      req.session?.userCaseList.forEach((element: CaseWithId) => {
+        if (element?.id.toString() === req.params?.caseId) {
+          req.session.userCase = element;
+        }
+      });
+    }
+    if (req.session?.userCase) {
+      req.session.userCaseList = [];
+    }
     return req.session.userCase;
   }
 }
