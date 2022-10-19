@@ -361,3 +361,8 @@ export const C100_MIAM_NO_NEED_WITH_REASONS: PageLink = `${C100_MIAM}/no-need-wi
 export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/hearing-urgency`;
 export const C100_HEARING_URGENCY_URGENT: PageLink = `${C100_HEARING_URGENCY}/urgent`;
 export const C100_HEARING_URGENCY_URGENT_DETAILS: PageLink = `${C100_HEARING_URGENCY}/urgent-details`;
+
+/** @C100 Consent Order */
+export const C100_CONSENT_ORDER: PageLink = `${C100_URL}/consent-order`;
+export const C100_CONSENT_ORDER_UPLOAD: PageLink = `${C100_CONSENT_ORDER}/upload`;
+export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_ORDER}/upload-confirmation`;
