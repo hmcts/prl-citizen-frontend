@@ -60,17 +60,24 @@ export class GetController {
     if (!req.session.hasOwnProperty('paymentError')) {
       req.session.paymentError = false;
     }
-
-    res.render(this.view, {
+    /**
+     * Added for C100 Rebuild
+     * Handled scenario where caption is not present as query param
+     */
+    const viewData = {
       ...content,
       sessionErrors,
       htmlLang: language,
       caseId: req.session.userCase?.caseId,
       paymentError: req.session.paymentError,
-      caption: captionValue,
       document_type,
       name,
-    });
+    };
+    //Add caption only if it exists else it will be rendered by specific page
+    if (captionValue) {
+      Object.assign(viewData, { caption: captionValue });
+    }
+    res.render(this.view, viewData);
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -1,0 +1,19 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+
+    <span class="govuk-caption-l">{{section}}</span>
+    <h1 class="govuk-heading-xl">{{title}}</h1>
+    {{ govukWarningText(getContent(warningText)) }}
+    <p class="govuk-heading-s">{{safetyConcernsText}}</p>
+    <ul class="govuk-list govuk-list--bullet govuk-!-margin-left-7 govuk-!-margin-bottom-6">
+        <li>{{safetyConcernsBullet1}}</li>
+        <li>{{safetyConcernsBullet2}}</li>
+    </ul>
+
+{% endblock %}
+
+{% block page_safetyConcerns %}
+    {% include "../template.njk"%}
+{% endblock %}
