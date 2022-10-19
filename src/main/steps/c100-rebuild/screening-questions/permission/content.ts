@@ -11,14 +11,14 @@ const en = () => ({
   ],
   bulletPoints: ['parent', 'guardian', 'special guardian'],
   paragraphsTwo: [
-    'If you are not sure if you need permission, <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">see Section C of the Form CB1 guidance on GOV.UK</a>',
+    'If you are not sure if you need permission, see <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Section C of the Form CB1 guidance on GOV.UK</a>',
   ],
   one: 'Yes',
   two: 'No',
   errors: {
     sq_courtPermissionRequired: {
       required:
-        'Select yes if there is any reason why you would need permission from the court to make this application',
+        'Select yes if there is any reason that you would need permission from the court to make this application',
     },
   },
 });
@@ -31,14 +31,14 @@ const cy = () => ({
   ],
   bulletPoints: ['parent - welsh', 'guardian - welsh', 'special guardian - welsh'],
   paragraphsTwo: [
-    'If you are not sure if you need permission, <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">see Section C of the Form CB1 guidance on GOV.UK</a> - welsh',
+    'If you are not sure if you need permission, see <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Section C of the Form CB1 guidance on GOV.UK</a> - welsh',
   ],
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {
     sq_courtPermissionRequired: {
       required:
-        'Select yes if there is any reason why you would need permission from the court to make this application - welsh',
+        'Select yes if there is any reason that you would need permission from the court to make this application - welsh',
     },
   },
 });
