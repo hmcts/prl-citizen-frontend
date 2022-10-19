@@ -81,18 +81,18 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Other ways to reach an agreement - walsh',
-  secondaryTitle: 'Options to consider - walsh',
-  thirdTitle: 'Negotiation tools and services - walsh',
-  fourthTitle: 'Mediation - walsh',
-  fifthTitle: 'Lawyer negotiation - walsh',
-  sixthTitle: 'Collaborative law - walsh',
-  paragraph: 'It is usually better for the children if you reach an agreement outside of court. - walsh',
-  secondaryLabel: 'This could: - walsh',
+  title: 'Other ways to reach an agreement - welsh',
+  secondaryTitle: 'Options to consider - welsh',
+  thirdTitle: 'Negotiation tools and services - welsh',
+  fourthTitle: 'Mediation - welsh',
+  fifthTitle: 'Lawyer negotiation - welsh',
+  sixthTitle: 'Collaborative law - welsh',
+  paragraph: 'It is usually better for the children if you reach an agreement outside of court. - welsh',
+  secondaryLabel: 'This could: - welsh',
   firstList: [
-    'make the situation less stressful for the children - walsh',
-    'help the children to maintain contact with family members - walsh',
-    'save time and money - walsh',
+    'make the situation less stressful for the children - welsh',
+    'help the children to maintain contact with family members - welsh',
+    'save time and money - welsh',
   ],
   paragraph1: `If you still communicate with the other people in the case,
     and there are no safety concerns, you could try to negotiate with each other.
@@ -102,7 +102,7 @@ const cy = () => ({
     There are free tools and services such as 
     <a href="https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/parenting-together/parenting-plan/" 
     class="govuk-link" rel="external" target="_blank">parenting plans</a>
-    that can help you reach an agreement. - walsh`,
+    that can help you reach an agreement. - welsh`,
 
   paragraph2: `Mediation sessions are run by professionals who help you try 
     to reach an agreement without going to court.
@@ -115,7 +115,7 @@ const cy = () => ({
     <br/><br/>
     <a href="https://helpwithchildarrangements.service.justice.gov.uk/professional-mediation" 
     class="govuk-link" rel="external" target="_blank">
-    Find out more about professional mediation</a> - walsh`,
+    Find out more about professional mediation</a> - welsh`,
   paragraph3: `With lawyer negotiation you don't deal directly with the other people in the case.
   You hire a lawyer to negotiate arrangements for you.
   <br/><br/>
@@ -126,7 +126,7 @@ const cy = () => ({
   relationship is still difficult, or because there’s a lack of trust.
   <br/><br/>
   <a href="https://helpwithchildarrangements.service.justice.gov.uk/lawyer-negotiation" 
-  class="govuk-link" rel="external" target="_blank">Find out more about lawyer negotiation</a> - walsh`,
+  class="govuk-link" rel="external" target="_blank">Find out more about lawyer negotiation</a> - welsh`,
   paragraph4: `Collaborative lawyers work with you and the other people in the case to resolve your 
   issues out of court. You each hire a lawyer, then all meet to negotiate in person.
   <br/><br/>
@@ -136,7 +136,7 @@ const cy = () => ({
   but have complex legal issues to resolve.
   <br/><br/>
   <a href="https://helpwithchildarrangements.service.justice.gov.uk/collaborative-law"
-  class="govuk-link" rel="external" target="_blank">Find out more about collaborative law</a> - walsh`,
+  class="govuk-link" rel="external" target="_blank">Find out more about collaborative law</a> - welsh`,
   insetText: {
     html: `<p class="govuk-body govuk-!-font-weight-bold">You could get up to £500 towards family mediation</p>
   <p class="govuk-body">
@@ -144,12 +144,12 @@ const cy = () => ({
     <a href="https://www.gov.uk/guidance/family-mediation-voucher-scheme?utm_source=C100&amp;utm_campaign=mediation_vouchers" 
     class="govuk-link" rel="external" target="_blank">family
       mediation voucher scheme</a>.
-  </p> - walsh`,
+  </p> - welsh`,
   },
-  formTitle: 'Have you considered any alternative options to reach an agreement? - walsh',
-  one: 'Yes - walsh',
-  two: 'No - walsh',
-  otherDetails: 'Provide details - walsh',
+  formTitle: 'Have you considered any alternative options to reach an agreement? - welsh',
+  one: 'Yes - welsh',
+  two: 'No - welsh',
+  otherDetails: 'Provide details - welsh',
 });
 
 const languages = {
