@@ -1,7 +1,8 @@
 export const respondent_en = {
-  respondentYourDetails: 'Your details',
-  applicationDetails: 'Application details',
-  consentToTheApplication: 'Consent to the application',
-  respondentAdditionalInformation: 'Additional information',
-  respondentSafetyConcerns: 'Safety concerns',
+  yourDocuments: 'Your documents',
+  ordersFromTheCourt: 'Orders from the court',
+  yourResponse: 'Your response',
+  yourcourtHearings: 'Your court hearings',
+  theApplication: 'The application',
+  aboutYou: 'About you',
 };

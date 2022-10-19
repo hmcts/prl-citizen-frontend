@@ -12,16 +12,16 @@ import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
-import { cAdARespondentCaseSequence } from './ca-da-respondent/ca-da-respondentcaseSequence';
 import { Step } from './constants';
-import { edgecaseSequence } from './edge-case/edgecaseSequence';
+import { citizenSequence } from './prl-cases/citizenSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
+import { responseCaseSequence } from './tasklistresponse/responseCaseSequence';
 // eslint-disable-next-line import/no-unresolved
-import { C100_URL, CITIZEN_HOME_URL, EDGE_CASE_URL, PageLink } from './urls';
+import { C100_URL, CITIZEN_HOME_URL, PRL_CASE_URL, PageLink } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
-[edgecaseSequence].forEach((sequence: Step[], i: number) => {
+[citizenSequence].forEach((sequence: Step[], i: number) => {
   const dir = __dirname + (i === 0 ? '/edge-case' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content.ts`;
@@ -78,10 +78,10 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
   }
   const { path, queryString: queryStr } = getPathAndQueryString(req);
   const nextStep = [
-    ...edgecaseSequence,
+    ...citizenSequence,
     ...respondentCaseSequence,
     ...applicantCaseSequence,
-    ...cAdARespondentCaseSequence,
+    ...responseCaseSequence,
     ...C100Sequence,
   ].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : CITIZEN_HOME_URL;
@@ -104,7 +104,8 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
 };
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
-  const [path, searchParams] = req.originalUrl.split('?');
+  const path = req.route.path;
+  const [, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
 };
@@ -139,24 +140,25 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
 
   const results: StepWithContent[] = [];
   for (const step of sequence) {
-    const stepDir = `${dir}${step.url.startsWith(subDir) ? step.url : `${subDir}${step.url}`}`;
+    const url = step.url.split('/:')[0];
+    const stepDir = `${dir}${url.startsWith(subDir) ? url : `${subDir}${url}`}`;
     const { content, view } = getStepFiles(stepDir);
     results.push({ stepDir, ...step, ...content, view });
   }
   return results;
 };
 
-export const stepsWithContentEdgecase = getStepsWithContent(edgecaseSequence, EDGE_CASE_URL);
+export const stepsWithContentEdgecase = getStepsWithContent(citizenSequence, PRL_CASE_URL);
 export const stepsWithContentRespondent = getStepsWithContent(respondentCaseSequence);
 export const stepsWithContentApplicant = getStepsWithContent(applicantCaseSequence);
-export const stepsWithContentCaDaRespondent = getStepsWithContent(cAdARespondentCaseSequence);
+export const stepsWithContentC7response = getStepsWithContent(responseCaseSequence);
 export const c100CaseSequence = getStepsWithContent(C100Sequence, C100_URL);
 
 export const stepsWithContent = [
   ...stepsWithContentEdgecase,
   ...stepsWithContentRespondent,
   ...stepsWithContentApplicant,
-  ...stepsWithContentCaDaRespondent,
+  ...stepsWithContentC7response,
   ...c100CaseSequence,
 ];
 

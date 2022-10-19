@@ -84,6 +84,9 @@ describe('Language requirements content', () => {
 
     expect(languageNeedsField.type).toBe('checkboxes');
     expect(needInterpreterInCertainLanguageDetailsField.type).toBe('textarea');
+    expect((needInterpreterInCertainLanguageDetailsField.label as LanguageLookup)(generatedContent)).toBe(
+      en.needInterpreterInCertainLanguageDetailsLabel
+    );
 
     expect((languageNeedsField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((languageNeedsField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.speakInWelsh);

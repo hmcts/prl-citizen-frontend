@@ -40,8 +40,6 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       hint: l => l.docSigned,
-      label: l => l.label,
-      section: l => l.section,
       values: [
         {
           label: l => l.one,
