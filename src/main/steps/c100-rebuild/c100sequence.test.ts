@@ -103,7 +103,8 @@ const childrenMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(76);
+  
+    expect(C100Sequence).toHaveLength(83);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -572,5 +573,50 @@ describe('C100Sequence', () => {
     expect(C100Sequence[75].getNextStep({ c1A_passportOffice: YesOrNo.NO })).toBe(
       '/c100-rebuild/confidentiality/start'
     );
+
+    expect(C100Sequence[76].url).toBe('/c100-rebuild/screening-questions/consent-agreement');
+    expect(C100Sequence[76].showInSection).toBe('c100');
+    expect(C100Sequence[76].getNextStep({ sq_writtenAgreement: YesOrNo.YES })).toBe(
+      '/c100-rebuild/screening-questions/consent-agreement'
+    );
+    expect(C100Sequence[76].getNextStep({ sq_writtenAgreement: YesOrNo.NO })).toBe(
+      '/c100-rebuild/screening-questions/consent-agreement'
+    );
+
+    expect(C100Sequence[77].url).toBe('/c100-rebuild/screening-questions/alternative-resolution/going-to-court');
+    expect(C100Sequence[77].showInSection).toBe('c100');
+    expect(C100Sequence[77].getNextStep({})).toBe(
+      '/c100-rebuild/screening-questions/alternative-resolution/going-to-court'
+    );
+
+    expect(C100Sequence[78].url).toBe('/c100-rebuild/screening-questions/legal-representation');
+    expect(C100Sequence[78].showInSection).toBe('c100');
+    expect(C100Sequence[78].getNextStep({ sq_legalRepresentation: YesOrNo.YES })).toBe(
+      '/c100-rebuild/screening-questions/legal-representation'
+    );
+    expect(C100Sequence[78].getNextStep({ sq_legalRepresentation: YesOrNo.NO })).toBe(
+      '/c100-rebuild/screening-questions/legal-representation'
+    );
+
+    expect(C100Sequence[79].url).toBe('/c100-rebuild/screening-questions/legal-representation-application');
+    expect(C100Sequence[79].showInSection).toBe('c100');
+    expect(C100Sequence[79].getNextStep({ sq_legalRepresentationApplication: YesOrNo.YES })).toBe(
+      '/c100-rebuild/screening-questions/legal-representation-application'
+    );
+    expect(C100Sequence[79].getNextStep({ sq_legalRepresentationApplication: YesOrNo.NO })).toBe(
+      '/c100-rebuild/confidentiality/start'
+    );
+
+    expect(C100Sequence[80].url).toBe('/c100-rebuild/screening-questions/permissions-request');
+    expect(C100Sequence[80].showInSection).toBe('c100');
+    expect(C100Sequence[80].getNextStep({})).toBe('/c100-rebuild/screening-questions/permissions-request');
+
+    expect(C100Sequence[81].url).toBe('/c100-rebuild/screening-questions/alternative-routes');
+    expect(C100Sequence[81].showInSection).toBe('c100');
+    expect(C100Sequence[81].getNextStep({})).toBe('/c100-rebuild/screening-questions/alternative-routes');
+
+    expect(C100Sequence[82].url).toBe('/c100-rebuild/screening-questions/permissions-why');
+    expect(C100Sequence[82].showInSection).toBe('c100');
+    expect(C100Sequence[82].getNextStep({})).toBe('/c100-rebuild/screening-questions/permissions-why');
   });
 });

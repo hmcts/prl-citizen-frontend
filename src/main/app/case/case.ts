@@ -328,6 +328,7 @@ export interface Case {
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
+  sq_writtenAgreement?: string;
   doYouConsent?: YesOrNo;
   applicationReceivedDate?: CaseDate;
   courtPermission?: YesOrNo;
@@ -502,6 +503,8 @@ export interface Case {
   childFirstName?: ChildrenDetails['firstName'];
   childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
+  sq_legalRepresentation?: YesOrNo;
+  sq_legalRepresentationApplication?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
