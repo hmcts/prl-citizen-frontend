@@ -61,6 +61,7 @@ import {
   MiamNonAttendReason,
   OtherProceedings,
   //DocumentType,
+  ChildrenDetails,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -497,6 +498,10 @@ export interface Case {
   miam_previousAttendance?: string[];
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
+  c1A_passportOffice?: YesOrNo;
+  childFirstName?: ChildrenDetails['firstName'];
+  childLastName?: ChildrenDetails['lastName'];
+  cd_children?: ChildrenDetails[];
   co_certificate?: C100DocumentInfo;
 }
 
