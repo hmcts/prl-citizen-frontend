@@ -87,6 +87,9 @@ import {
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
   C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+
+  /** Screening Questions */
+  C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -555,5 +558,10 @@ export const C100Sequence: Step[] = [
       data.c1A_passportOffice === YesOrNo.YES
         ? C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE
         : C100_CONFIDENTIALITY_START,
+  },
+  {
+    url: C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
   },
 ];
