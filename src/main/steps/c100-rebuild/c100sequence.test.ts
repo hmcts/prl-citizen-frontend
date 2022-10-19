@@ -103,8 +103,8 @@ const childrenMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(75);
 
+    expect(C100Sequence).toHaveLength(76);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -541,32 +541,36 @@ describe('C100Sequence', () => {
     expect(C100Sequence[68].showInSection).toBe('c100');
     expect(C100Sequence[68].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/drugs');
 
-    expect(C100Sequence[69].url).toBe('/c100-rebuild/safety-concerns/abduction/passport-office-notified');
+    expect(C100Sequence[69].url).toBe('/c100-rebuild/safety-concerns/abduction/passport-amount');
     expect(C100Sequence[69].showInSection).toBe('c100');
-    expect(C100Sequence[69].getNextStep({})).toBe('/c100-rebuild/safety-concerns/abduction/passport-office-notified');
-
-    expect(C100Sequence[70].url).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
+    expect(C100Sequence[69].getNextStep({})).toBe('/c100-rebuild/safety-concerns/abduction/passport-amount');
+    
+    expect(C100Sequence[70].url).toBe('/c100-rebuild/safety-concerns/abduction/passport-office-notified');
     expect(C100Sequence[70].showInSection).toBe('c100');
-    expect(C100Sequence[70].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
+    expect(C100Sequence[70].getNextStep({})).toBe('/c100-rebuild/safety-concerns/abduction/passport-office-notified');
 
-    expect(C100Sequence[71].url).toBe('/c100-rebuild/safety-concerns/abduction/previousabductions');
+    expect(C100Sequence[71].url).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
     expect(C100Sequence[71].showInSection).toBe('c100');
-    expect(C100Sequence[71].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[71].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
 
-    expect(C100Sequence[72].url).toBe('/c100-rebuild/safety-concerns/orders-required');
+    expect(C100Sequence[72].url).toBe('/c100-rebuild/safety-concerns/abduction/previousabductions');
     expect(C100Sequence[72].showInSection).toBe('c100');
-    expect(C100Sequence[72].getNextStep({})).toBe('/c100-rebuild/safety-concerns/orders-required');
+    expect(C100Sequence[72].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
 
-    expect(C100Sequence[73].url).toBe('/c100-rebuild/safety-concerns/abduction/child-location');
+    expect(C100Sequence[73].url).toBe('/c100-rebuild/safety-concerns/orders-required');
     expect(C100Sequence[73].showInSection).toBe('c100');
-    expect(C100Sequence[73].getNextStep({})).toBe('/c100-rebuild/safety-concerns/abduction/child-location');
+    expect(C100Sequence[73].getNextStep({})).toBe('/c100-rebuild/safety-concerns/orders-required');
 
-    expect(C100Sequence[74].url).toBe('/c100-rebuild/safety-concerns/abduction/passport-office');
+    expect(C100Sequence[74].url).toBe('/c100-rebuild/safety-concerns/abduction/child-location');
     expect(C100Sequence[74].showInSection).toBe('c100');
-    expect(C100Sequence[74].getNextStep({ c1A_passportOffice: YesOrNo.YES })).toBe(
+    expect(C100Sequence[74].getNextStep({})).toBe('/c100-rebuild/safety-concerns/abduction/child-location');
+
+    expect(C100Sequence[75].url).toBe('/c100-rebuild/safety-concerns/abduction/passport-office');
+    expect(C100Sequence[75].showInSection).toBe('c100');
+    expect(C100Sequence[75].getNextStep({ c1A_passportOffice: YesOrNo.YES })).toBe(
       '/c100-rebuild/safety-concerns/abduction/passport-office'
     );
-    expect(C100Sequence[74].getNextStep({ c1A_passportOffice: YesOrNo.NO })).toBe(
+    expect(C100Sequence[75].getNextStep({ c1A_passportOffice: YesOrNo.NO })).toBe(
       '/c100-rebuild/confidentiality/start'
     );
   });
