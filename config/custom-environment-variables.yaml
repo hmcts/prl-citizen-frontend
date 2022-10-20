@@ -33,3 +33,6 @@ e2e:
   userTestPassword: TEST_PASSWORD
 appInsights:
   instrumentationKey: APPINSIGHTS_KEY
+featureToggles:
+  enabled: false
+  c100_rebuild: 'c100_rebuild'
