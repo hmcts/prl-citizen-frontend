@@ -61,6 +61,7 @@ import {
   C100_C1A_SAFETY_CONCERNS_OTHER,
   C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,
   C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED,
+  C100_C1A_CHILD_ABDUCTION_THREATS,
 
   /** @MIAM MIAM */
   C100_MIAM_UPLOAD_CONFIRMATION,
@@ -104,6 +105,7 @@ import ChildrenDetailsNavigationController from './child-details/navigationContr
 import MIAMNavigationController from './miam/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
+import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 
 export const C100Sequence: Step[] = [
   {
@@ -374,7 +376,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT, caseData, req?.params),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
@@ -395,7 +398,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
@@ -415,7 +423,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, req?.params),
   },
   {
     url: C100_MIAM_OTHER_PROCEEDINGS,
@@ -531,12 +540,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION,
+    getNextStep: () => C100_C1A_CHILD_ABDUCTION_THREATS,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_OTHER,
@@ -546,7 +555,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED,
@@ -556,15 +570,15 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,
     showInSection: Sections.C100,
     getNextStep: data =>
       data.c1A_passportOffice === YesOrNo.YES
-        ? C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE
-        : C100_CONFIDENTIALITY_START,
+        ? C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT
+        : C100_C1A_CHILD_ABDUCTION_THREATS,
   },
   {
     url: C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
@@ -614,5 +628,13 @@ export const C100Sequence: Step[] = [
       data.sq_courtPermissionRequired === YesOrNo.YES
         ? C100_SCREENING_QUESTIONS_COURT_PERMISSION
         : C100_SCREENING_QUESTIONS_COURT_PERMISSION,
+  },
+  {
+    url: C100_C1A_CHILD_ABDUCTION_THREATS,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.c1A_childAbductedBefore === YesOrNo.YES
+        ? C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS
+        : C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
   },
 ];

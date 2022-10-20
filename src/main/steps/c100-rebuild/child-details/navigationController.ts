@@ -1,5 +1,6 @@
 import { Case } from '../../../app/case/case';
 import { ChildrenDetails } from '../../../app/case/definition';
+import { applyParms } from '../../common/url-parser';
 import {
   C100_CHILDERN_DETAILS_ADD,
   C100_CHILDERN_DETAILS_CHILD_MATTERS,
@@ -25,25 +26,25 @@ class ChildrenDetailsNavigationController {
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
     this.childrenDetails = caseData?.cd_children as ChildrenDetails[];
     this.childId = params?.childId;
-    let nextUrl: PageLink;
+    let nextUrl;
 
     switch (currentPageUrl) {
       case C100_CHILDERN_DETAILS_ADD: {
-        nextUrl = `${this.extractUrl(C100_CHILDERN_DETAILS_PERSONAL_DETAILS)}/${this.childrenDetails[0].id}`;
+        nextUrl = applyParms(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, { childId: this.childrenDetails[0].id });
         break;
       }
       case C100_CHILDERN_DETAILS_PERSONAL_DETAILS: {
-        nextUrl = `${this.extractUrl(C100_CHILDERN_DETAILS_CHILD_MATTERS)}/${this.childId}`;
+        nextUrl = applyParms(C100_CHILDERN_DETAILS_CHILD_MATTERS, { childId: this.childId });
         break;
       }
       case C100_CHILDERN_DETAILS_CHILD_MATTERS: {
-        nextUrl = `${this.extractUrl(C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY)}/${this.childId}`;
+        nextUrl = applyParms(C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY, { childId: this.childId });
         break;
       }
       case C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: {
         const nextChild = this.getNextChild();
         nextUrl = nextChild
-          ? `${this.extractUrl(C100_CHILDERN_DETAILS_PERSONAL_DETAILS)}/${nextChild.id}`
+          ? applyParms(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, { childId: nextChild.id })
           : C100_CHILDERN_FURTHER_INFORMATION;
         break;
       }
@@ -54,10 +55,6 @@ class ChildrenDetailsNavigationController {
     }
 
     return nextUrl;
-  }
-
-  private extractUrl(pageUrl: PageLink): PageLink {
-    return pageUrl.split('/:')[0] as PageLink;
   }
 }
 
