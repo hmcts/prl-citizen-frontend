@@ -39,14 +39,14 @@ export default class DocumentUpload extends GetController {
         req.session.userCase.co_certificate = undefined;
       }
 
-      req.session.save(err => {
-        if (err) {
-          throw err;
+      req.session.save(error => {
+        if (error) {
+          throw error;
         }
         res.redirect(`${C100_CONSENT_ORDER_UPLOAD}`);
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 }

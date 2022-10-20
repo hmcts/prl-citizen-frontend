@@ -41,6 +41,36 @@ describe('Consent Order Document Upload controller', () => {
     expect(req.session.errors).toEqual(errors);
   });
 
+  test('Should should proceed to next page req.body.saveAndContinue and document exists', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new ConsentOrderDocumentUpload(mockForm.fields);
+    const req = mockRequest({});
+    const res = mockResponse();
+    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.body.saveAndContinue = true;
+    req.session.userCase = {
+      co_certificate: {
+        id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+        url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        filename: 'applicantname_consent_order_draft_05102022.rtf',
+        binaryUrl:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+      },
+    };
+
+    await controller.post(req, res);
+    expect(res.redirect).toBeCalledWith('/citizen-home');
+  });
+
   test('Should throw error if file is null', async () => {
     const mockForm = {
       fields: {
@@ -113,20 +143,58 @@ describe('Consent Order Document Upload controller', () => {
     const controller = new ConsentOrderDocumentUpload(mockForm.fields);
     const req = mockRequest({});
     const res = mockResponse();
+
+    req.files = { documents: { name: 'test.pdf', size: '812300', data: '', mimetype: 'text' } };
+    const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
+    const extensionType = req.files.documents.name.split('.')[req.files.documents.name.split('.').length - 1];
+
     req.locals.C100Api.uploadDocument.mockResolvedValue({
       document: {
         document_url:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-        document_filename: 'applicantname_consent_order_draft_05102022.rtf',
+        document_filename: `applicantname_consent_order_draft_${dateOfSystem}.${extensionType}`,
         document_binary_url:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
       },
     });
 
-    req.files = { documents: { name: 'test.pdf', size: '812300', data: '', mimetype: 'text' } };
-
     await controller.post(req, res);
 
     expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+  });
+});
+
+describe('when there is an error in saving session', () => {
+  test('should throw an error', async () => {
+    const controller = new ConsentOrderDocumentUpload({});
+    const res = mockResponse();
+    const req = mockRequest({
+      session: {
+        user: { email: 'test@example.com' },
+
+        save: jest.fn(done => done('MOCK_ERROR')),
+      },
+    });
+    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    // const QUERY = {
+    //   orderType: 'otherOrder',
+    //   orderId: '1',
+    // };
+    // req.query = QUERY;
+    req.session.userCase = {
+      co_certificate: {
+        id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+        url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        filename: 'applicantname_consent_order_draft_05102022.rtf',
+        binaryUrl:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+      },
+    };
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
   });
 });

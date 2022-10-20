@@ -108,6 +108,28 @@ describe('DocumentUpload Get Controller', () => {
       expect(res.redirect).not.toBeCalledWith('error');
     });
 
+    test("Doesn't call render if an error page has already been rendered upstream", async () => {
+      const controller = new ConsentOrderDocumentUpload('page', () => ({}), FieldPrefix.APPLICANT);
+
+      const req = mockRequest();
+      const res = mockResponse();
+      res.locals.isError = true;
+      await controller.get(req, res);
+
+      expect(res.render).not.toHaveBeenCalled();
+    });
+
+    test("Doesn't call render if headers have already been sent already upstream", async () => {
+      const controller = new ConsentOrderDocumentUpload('page', () => ({}), FieldPrefix.APPLICANT);
+
+      const req = mockRequest();
+      const res = mockResponse();
+      res.headersSent = true;
+      await controller.get(req, res);
+
+      expect(res.render).not.toHaveBeenCalled();
+    });
+
     test('should throw error when document ID is not proper', async () => {
       const controller = new ConsentOrderDocumentUpload('page', () => ({}), FieldPrefix.APPLICANT);
       const language = 'en';
