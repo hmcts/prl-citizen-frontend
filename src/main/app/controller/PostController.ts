@@ -98,7 +98,7 @@ export class PostController<T extends AnyObject> {
     try {
       Object.assign(req.session.userCase, formData);
       // call here to get the case details //
-      const caseworkerUser = await getSystemUser();
+      const caseworkerUser = req.session.user;
       req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
       const caseReference = req.session.userCase.caseCode;
       const caseData = await req.locals.api.getCaseById(caseReference as string);
@@ -256,7 +256,7 @@ export class PostController<T extends AnyObject> {
       return this.redirect(req, res);
     }
 
-    const caseworkerUser = await getSystemUser();
+    const caseworkerUser = req.session.user;
 
     const cosApiClient = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
     const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
