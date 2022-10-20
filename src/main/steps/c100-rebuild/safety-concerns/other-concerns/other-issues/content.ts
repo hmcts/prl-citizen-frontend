@@ -1,10 +1,9 @@
 import { YesOrNo } from '../../../../../app/case/definition';
-import { PageContent } from '../../../../../app/controller/GetController';
+import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
 
-const en = {
+const en = () => ({
   section: 'Safety concerns',
   title: 'Do you have any other concerns about the children’s safety and wellbeing?',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with.',
@@ -19,9 +18,9 @@ const en = {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
     },
   },
-};
+});
 
-const cy: typeof en = {
+const cy = () => ({
   section: 'Safety concerns - welsh',
   title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',
@@ -36,7 +35,7 @@ const cy: typeof en = {
       required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
     },
   },
-};
+});
 
 const languages = {
   en,
@@ -82,7 +81,10 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent = (content: CommonContent): PageContent => ({
-  ...languages[content.language],
-  form,
-});
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language]();
+  return {
+    ...translations,
+    form,
+  };
+};
