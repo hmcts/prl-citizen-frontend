@@ -21,6 +21,7 @@ nodejs:
     CDAM_API_URL: 'http://ccd-case-document-am-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     COS_URL: 'http://prl-cos-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
+    C100_REBUILD_FLAG: false
   keyVaults:
     prl:
       resourceGroup: prl
