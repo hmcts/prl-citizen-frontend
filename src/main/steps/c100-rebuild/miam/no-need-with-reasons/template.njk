@@ -9,8 +9,8 @@
 
 {%if userCase.miam_nonAttendanceReasons !== undefined %}
     {% for details in userCase.miam_nonAttendanceReasons %}
-        <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
-        {%if details === "domesticViolence" and userCase['miam_domesticAbuse'] !== undefined%}
+        {%if details === "domesticViolence" and userCase['miam_domesticAbuse'].indexOf("none") === -1 %}
+            <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
               <ul class="govuk-list govuk-list--bullet">
                 {%if userCase['miam_domesticAbuse'].indexOf("policeInvolvement") > -1%}
                     {% for policeField in userCase.miam_domesticabuse_involvement_subfields %}
@@ -56,7 +56,8 @@
             </ul>
         {%endif%}
 
-        {%if details === "childProtection" and userCase['miam_childProtectionEvidence'] !== undefined%}
+        {%if details === "childProtection" and userCase['miam_childProtectionEvidence'].indexOf("none") === -1 %}
+        <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
         <ul class="govuk-list govuk-list--bullet">
             {% for protectionEvidence in userCase.miam_childProtectionEvidence %}
                 {% if protectionEvidence !== ''  %}
@@ -66,7 +67,8 @@
         </ul>
         {%endif%}
 
-        {%if details === "urgentHearing" and userCase['miam_urgency'] !== undefined%}
+        {%if details === "urgentHearing" and userCase['miam_urgency'].indexOf("none") === -1 %}
+            <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
             <ul class="govuk-list govuk-list--bullet">
                 {% for urgency in userCase.miam_urgency %}
                     {% if urgency !== ''  %}
@@ -75,7 +77,8 @@
                 {% endfor %}
             </ul>
         {%endif%}
-        {%if details === "previousMIAMOrExempt" and userCase['miam_previousAttendance'] !== undefined%}
+        {%if details === "previousMIAMOrExempt" and userCase['miam_previousAttendance'].indexOf("none") === -1 %}
+            <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
             <ul class="govuk-list govuk-list--bullet">
                 {% for attendance in userCase.miam_previousAttendance %}
                     {% if attendance !== ''  %}
@@ -84,7 +87,8 @@
                 {% endfor %}
             </ul>
         {%endif%}
-        {%if details === "validExemption" and userCase['miam_notAttendingReasons'] !== undefined%}
+        {%if details === "validExemption" and userCase['miam_notAttendingReasons'].indexOf("none") === -1 %}
+            <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
             <ul class="govuk-list govuk-list--bullet">
                 {% for notAttendingReason in userCase.miam_notAttendingReasons %}
                     {% if notAttendingReason !== ''  %}
