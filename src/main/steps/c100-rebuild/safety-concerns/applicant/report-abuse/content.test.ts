@@ -86,8 +86,8 @@ describe('C1A safetyconcerns > applicant > report abuse > content', () => {
     },
     additionalData: {
       req: {
-        query: {
-          type: 'physicalAbuse',
+        params: {
+          abuseType: 'physicalAbuse',
         },
       },
     },
