@@ -1,7 +1,105 @@
 {% extends "common/template.njk" %}
-
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block page_content %}
-<h1 class="govuk-heading-xl govuk-!-margin-top-7">{{title}}</h1>
-<p class="govuk-body-l">{{body}}</p>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
+
+<p class="govuk-body-l">{{paragraph1}} </p>
+<p class="govuk-body-m">{{paragraph2}} </p>
+
+{%if userCase.miam_nonAttendanceReasons !== undefined %}
+    {% for details in userCase.miam_nonAttendanceReasons %}
+        <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
+        {%if details === "domesticViolence" and userCase['miam_domesticAbuse'] !== undefined%}
+              <ul class="govuk-list govuk-list--bullet">
+                {%if userCase['miam_domesticAbuse'].indexOf("policeInvolvement") > -1%}
+                    {% for policeField in userCase.miam_domesticabuse_involvement_subfields %}
+                        {% if policeField !== ''  %}
+                            <li>{{policeInvolvement[policeField]}}</li>
+                        {%endif%}
+                    {% endfor %}
+                {%endif%}
+                {%if userCase['miam_domesticAbuse'].indexOf("courtInvolvement") > -1%}
+                    {% for courtField in userCase.miam_domesticabuse_courtInvolvement_subfields %}
+                        {% if courtField !== ''  %}
+                             <li>{{courtInvolvement[courtField]}}</li>
+                        {%endif%}
+                    {% endfor %}
+                {%endif%}
+                {%if userCase['miam_domesticAbuse'].indexOf("letterOfBeingVictim") > -1%}
+                    {% for victimField in userCase.miam_domesticabuse_letterOfBeingVictim_subfields %}
+                        {% if victimField !== ''  %}
+                             <li>{{letterOfBeingVictim[victimField]}}</li>
+                        {%endif%}
+                    {% endfor %}
+                {%endif%}
+                {%if userCase['miam_domesticAbuse'].indexOf("letterFromAuthority") > -1%}
+                    {% for authorityField in userCase.miam_domesticabuse_letterFromAuthority_subfields %}
+                        {% if authorityField !== ''  %}
+                             <li>{{letterFromAuthority[authorityField]}}</li>
+                        {%endif%}
+                    {% endfor %}
+                {%endif%}
+                {%if userCase['miam_domesticAbuse'].indexOf("letterFromSupportService") > -1%}
+                    {% for supportServiceField in userCase.miam_domesticabuse_letterFromSupportService_subfields %}
+                        {% if supportServiceField !== ''  %}
+                             <li>{{letterFromSupportService[supportServiceField]}}</li>
+                        {%endif%}
+                    {% endfor %}
+                {%endif%}
+                {%if userCase['miam_domesticAbuse'].indexOf("ILRDuetoDomesticAbuse") > -1%}
+                        <li>{{ILRDuetoDomesticAbuse}}</li>
+                {%endif%}
+                {%if userCase['miam_domesticAbuse'].indexOf("financiallyAbuse") > -1%}
+                        <li>{{financiallyAbuse}}</li>
+                {%endif%}
+            </ul>
+        {%endif%}
+
+        {%if details === "childProtection" and userCase['miam_childProtectionEvidence'] !== undefined%}
+        <ul class="govuk-list govuk-list--bullet">
+            {% for protectionEvidence in userCase.miam_childProtectionEvidence %}
+                {% if protectionEvidence !== ''  %}
+                    <li>{{childProtection[protectionEvidence]}}</li>
+                {%endif%}
+            {% endfor %}
+        </ul>
+        {%endif%}
+
+        {%if details === "urgentHearing" and userCase['miam_urgency'] !== undefined%}
+            <ul class="govuk-list govuk-list--bullet">
+                {% for urgency in userCase.miam_urgency %}
+                    {% if urgency !== ''  %}
+                        <li>{{urgentHearing[urgency]}}</li>
+                    {%endif%}
+                {% endfor %}
+            </ul>
+        {%endif%}
+        {%if details === "previousMIAMOrExempt" and userCase['miam_previousAttendance'] !== undefined%}
+            <ul class="govuk-list govuk-list--bullet">
+                {% for attendance in userCase.miam_previousAttendance %}
+                    {% if attendance !== ''  %}
+                        <li>{{previousMIAMOrExempt[attendance]}}</li>
+                    {%endif%}
+                {% endfor %}
+            </ul>
+        {%endif%}
+        {%if details === "validExemption" and userCase['miam_notAttendingReasons'] !== undefined%}
+            <ul class="govuk-list govuk-list--bullet">
+                {% for notAttendingReason in userCase.miam_notAttendingReasons %}
+                    {% if notAttendingReason !== ''  %}
+                        {% if notAttendingReason === 'canNotAccessMediator'  %}
+                            {% for option in userCase.miam_noMediatorAccessSubfields %}
+                                <li>{{validExemption.canNotAccessMediator[option]}}</li>
+                            {% endfor %}
+                        {%else%}
+                            <li>{{validExemption[notAttendingReason]}}</li>
+                        {%endif%}
+                    {%endif%}
+                {% endfor %}
+            </ul>
+        {%endif%}
+    {% endfor %}
+{%endif%}
+{{ govukInsetText(insetText) }}
 {% endblock %}
