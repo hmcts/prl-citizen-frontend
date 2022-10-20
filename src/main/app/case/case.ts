@@ -510,6 +510,7 @@ export interface Case {
   sq_legalRepresentationApplication?: YesOrNo;
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_childAbductedBefore?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
