@@ -40,5 +40,4 @@ e2e:
 appInsights:
   instrumentationKey: false
 featureToggles:
-  enabled: false
-  c100_rebuild: 'c100_rebuild'
+  c100_rebuild: false

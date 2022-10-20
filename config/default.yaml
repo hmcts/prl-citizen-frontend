@@ -45,3 +45,5 @@ payments:
   url: 'http://prl-cos-demo.service.core-compute-demo.internal'
 
 uploadTimeout: 60000
+featureToggles:
+  c100_rebuild: false
