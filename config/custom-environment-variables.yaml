@@ -36,3 +36,4 @@ appInsights:
 
 featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
+  c100_rebuild: 'c100_rebuild'
