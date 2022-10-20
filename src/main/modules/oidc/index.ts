@@ -58,9 +58,12 @@ export class OidcMiddleware {
         console.log('inside oidc, finding user');
         if (req.session?.user) {
           if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {
+            console.log('inside if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {');
             if (FeatureToggles.isEnabled('c100-rebuild')) {
+              console.log('inside if');
               return next();
             } else {
+              console.log('inside else');
               res.redirect(CITIZEN_HOME_URL);
             }
           }
