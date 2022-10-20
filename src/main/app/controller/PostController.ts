@@ -287,7 +287,7 @@ export class PostController<T extends AnyObject> {
         this.redirect(req, res, DASHBOARD_URL);
       }
     } else {
-      this.redirect(req, res);
+      this.redirect(req, res, req.originalUrl);
     }
   }
 }

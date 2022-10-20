@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
@@ -8,8 +8,8 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  headingTitle: 'Further Information',
-  childrenKnownToSocialServicesLable: 'Are any of the childern known to social service?',
+  title: 'Further Information',
+  childrenKnownToSocialServicesLabel: 'Are any of the childern known to social service?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan?',
@@ -19,21 +19,21 @@ const en = {
   two: 'No',
   three: "Don't know",
   errors: {
-    childrenKnownToSocialServices: {
+    cd_childrenKnownToSocialServices: {
       required: 'Select if any of the children are known to social services',
     },
-    childrenKnownToSocialServicesDetails: {
+    cd_childrenKnownToSocialServicesDetails: {
       required: 'Enter details',
     },
-    childrenSubjectOfProtectionPlan: {
+    cd_childrenSubjectOfProtectionPlan: {
       required: 'Select if any of the children are the subject of a child protection plan',
     },
   },
 };
 
 const cy = {
-  headingTitle: 'Further Information - welsh',
-  childrenKnownToSocialServicesLable: 'Are any of the childern known to social service - welsh?',
+  title: 'Further Information - welsh',
+  childrenKnownToSocialServicesLabel: 'Are any of the childern known to social service - welsh?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known - welsh',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan - welsh?',
@@ -43,13 +43,13 @@ const cy = {
   two: 'No - Welsh',
   three: "Don't know - Welsh",
   errors: {
-    childrenKnownToSocialServices: {
+    cd_childrenKnownToSocialServices: {
       required: 'Select if any of the children are known to social services - welsh',
     },
-    childrenKnownToSocialServicesDetails: {
+    cd_childrenKnownToSocialServicesDetails: {
       required: 'Enter details - welsh',
     },
-    childrenSubjectOfProtectionPlan: {
+    cd_childrenSubjectOfProtectionPlan: {
       required: 'Select if any of the children are the subject of a child protection plan - welsh',
     },
   },
@@ -78,24 +78,45 @@ describe('child details > further information', () => {
   });
 
   test('should contain applyingWith field', () => {
-    const applyingWithField1 = fields.childrenKnownToSocialServices as FormOptions;
-    expect(applyingWithField1.type).toBe('radios');
-    expect(applyingWithField1.classes).toBe('govuk-radios');
-    expect((applyingWithField1.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
-    expect((applyingWithField1.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    expect((applyingWithField1.values[2].label as LanguageLookup)(generatedContent)).toBe(en.three);
-    const applyTextField = applyingWithField1.values[0].subFields!.childrenKnownToSocialServicesDetails;
-    expect(applyTextField.type).toBe('textarea');
-    (applyTextField.validator as Function)('test text area');
+    const {
+      cd_childrenKnownToSocialServices: childrenKnownToSocialServices,
+      cd_childrenSubjectOfProtectionPlan: childrenSubjectOfProtectionPlan,
+    } = fields as Record<string, FormFields>;
+    const { cd_childrenKnownToSocialServicesDetails: childrenKnownToSocialServicesDetails } =
+      childrenKnownToSocialServices.values[0].subFields;
+
+    expect(childrenKnownToSocialServices.type).toBe('radios');
+    expect(childrenKnownToSocialServices.classes).toBe('govuk-radios');
+    expect((childrenKnownToSocialServices.label as LanguageLookup)(generatedContent)).toBe(
+      en.childrenKnownToSocialServicesLabel
+    );
+    expect((childrenKnownToSocialServices.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
+    expect((childrenKnownToSocialServices.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    expect((childrenKnownToSocialServices.values[2].label as LanguageLookup)(generatedContent)).toBe(en.three);
+    (childrenKnownToSocialServices.validator as Function)('Yes');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
+
+    expect(childrenKnownToSocialServicesDetails.type).toBe('textarea');
+    expect((childrenKnownToSocialServicesDetails.hint as LanguageLookup)(generatedContent)).toBe(
+      en.childrenKnownToSocialServicesHint
+    );
+    (childrenKnownToSocialServicesDetails.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
 
-    const applyingWithField2 = fields.childrenSubjectOfProtectionPlan as FormOptions;
-    expect(applyingWithField2.type).toBe('radios');
-    expect(applyingWithField2.classes).toBe('govuk-radios');
-    expect((applyingWithField2.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
-    expect((applyingWithField2.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    expect((applyingWithField2.values[2].label as LanguageLookup)(generatedContent)).toBe(en.three);
+    expect(childrenSubjectOfProtectionPlan.type).toBe('radios');
+    expect(childrenSubjectOfProtectionPlan.classes).toBe('govuk-radios');
+    expect((childrenSubjectOfProtectionPlan.label as LanguageLookup)(generatedContent)).toBe(
+      en.childrenSubjectOfProtectionPlanLabel
+    );
+    expect((childrenSubjectOfProtectionPlan.hint as LanguageLookup)(generatedContent)).toBe(
+      en.childrenProtectionPlanHint
+    );
+    expect((childrenSubjectOfProtectionPlan.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
+    expect((childrenSubjectOfProtectionPlan.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    expect((childrenSubjectOfProtectionPlan.values[2].label as LanguageLookup)(generatedContent)).toBe(en.three);
+    (childrenSubjectOfProtectionPlan.validator as Function)('Yes');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
   });
 
   test('should contain onlycontinue button', () => {

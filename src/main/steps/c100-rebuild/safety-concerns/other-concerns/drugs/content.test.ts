@@ -22,7 +22,7 @@ const en = {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse',
     },
     c1A_otherConcernsDrugsDetails: {
-      required: 'Describe the children have been impacted by drug, alcohol or substance abuse',
+      required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
     },
   },
 };
@@ -43,7 +43,7 @@ const cy = {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse - Welsh',
     },
     c1A_otherConcernsDrugsDetails: {
-      required: 'Describe the children have been impacted by drug, alcohol or substance abuse - Welsh',
+      required: 'Describe how the children have been impacted by drug, alcohol or substance abuse - Welsh',
     },
   },
 };
