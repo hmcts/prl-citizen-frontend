@@ -13,7 +13,7 @@ const en = {
   ],
   bulletPoints: ['parent', 'guardian', 'special guardian'],
   paragraphsTwo: [
-    'If you are not sure if you need permission, see <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Section C of the Form CB1 guidance on GOV.UK</a>',
+    'If you are not sure if you need permission, see <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Section C of the Form CB1 guidance</a>',
   ],
   one: 'Yes',
   two: 'No',
@@ -33,7 +33,7 @@ const cy = {
   ],
   bulletPoints: ['parent - welsh', 'guardian - welsh', 'special guardian - welsh'],
   paragraphsTwo: [
-    'If you are not sure if you need permission, see <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Section C of the Form CB1 guidance on GOV.UK</a> - welsh',
+    'If you are not sure if you need permission, see <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Section C of the Form CB1 guidance</a> - welsh',
   ],
   one: 'Yes - welsh',
   two: 'No - welsh',
