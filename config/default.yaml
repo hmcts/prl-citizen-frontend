@@ -46,4 +46,4 @@ payments:
 
 uploadTimeout: 60000
 featureToggles:
-  c100_rebuild: 'c100_rebuild'
+  c100-rebuild: 'c100-rebuild'
