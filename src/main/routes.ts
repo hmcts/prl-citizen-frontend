@@ -193,7 +193,7 @@ export class Routes {
           `${APPLICANT_KEEP_DETAILS_PRIVATE_SAVE}`,
           errorHandler(new KeepDetailsPrivatePostController(step.form.fields).post)
         );
-        app.post(
+        app.get(
           `${RESPONDENT_CONTACT_DETAILS_SAVE}`,
           errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
         );
