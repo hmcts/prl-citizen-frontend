@@ -20,7 +20,7 @@ const en = {
   errors: {
     sq_courtPermissionRequired: {
       required:
-        'Select yes if there is any reason that you would need permission from the court to make this application',
+        'Select yes if there is any reason why you would need permission from the court to make this application',
     },
   },
 };
@@ -40,7 +40,7 @@ const cy = {
   errors: {
     sq_courtPermissionRequired: {
       required:
-        'Select yes if there is any reason that you would need permission from the court to make this application - welsh',
+        'Select yes if there is any reason why you would need permission from the court to make this application - welsh',
     },
   },
 };
