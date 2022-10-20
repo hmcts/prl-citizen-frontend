@@ -22,7 +22,6 @@ import { KeepDetailsPrivatePostController } from './steps/common/keep-details-pr
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
-import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsGetController';
 import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsPostController';
@@ -56,6 +55,7 @@ import {
   CONTACT_US,
   COOKIES_PAGE,
   CSRF_TOKEN_ERROR_URL,
+  DASHBOARD_URL,
   DOCUMENT_MANAGER,
   HOME_URL,
   INTERNATIONAL_FACTORS_SAVE,
@@ -89,8 +89,7 @@ export class Routes {
     const errorController = new ErrorController();
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
-    app.get(HOME_URL, errorHandler(new HomeGetController().get));
-
+    app.get(HOME_URL, (req, res) => res.redirect(DASHBOARD_URL));
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
