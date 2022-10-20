@@ -2,7 +2,7 @@ import { Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
 import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
-//import { CosApiClient } from '../case/CosApiClient';
+import { CosApiClient } from '../case/CosApiClient';
 
 import { AppRequest } from './AppRequest';
 
@@ -20,13 +20,13 @@ export class GetCaseController {
   }
 
   private static async assignUserCase(req: AppRequest): Promise<CaseWithId> {
-    // if (req.params?.caseId) {
-    //   const caseworkerUser = req.session.user;
-    //   const caseReference = req.params?.caseId;
-    //   const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-    //   const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
-    //   req.session.userCase = caseDataFromCos;
-    // }
+    if (req.params?.caseId) {
+      const caseworkerUser = req.session.user;
+      const caseReference = req.params?.caseId;
+      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
+      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+      req.session.userCase = caseDataFromCos;
+    }
     if (!req.session?.userCase) {
       req.session?.userCaseList.forEach((element: CaseWithId) => {
         if (element?.id.toString() === req.params?.caseId) {
