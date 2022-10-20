@@ -56,4 +56,23 @@ withPipeline(type, product, component) {
   after('smoketest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
+
+  before('functionalTest:preview') {
+    env.PRL_CITIZEN_WEB_URLL = "https://prl-citizen-frontend-${CHANGE_ID}.service.core-compute-preview.internal/"
+    yarnBuilder.yarn('test:pa11y')
+  }
+
+  after('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+
+  before('functionalTest:aat') {
+    env.PRL_CITIZEN_WEB_URLL = "https://privatelaw.aat.platform.hmcts.net/"
+    yarnBuilder.yarn('test:functional:skip')
+  }
+
+  after('functionalTest:aat') {
+    yarnBuilder.yarn('test:pa11y')
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
 }

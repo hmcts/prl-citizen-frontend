@@ -94,10 +94,7 @@ describe('Accessibility', () => {
     await browser.close();
   });
 
-  const IGNORED_URLS = [
-    urls.SIGN_IN_URL,
-    urls.SIGN_OUT_URL,
-  ];
+  const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
 
   const urlsToTest = Object.values(urls).filter(url => !IGNORED_URLS.includes(url));
 
