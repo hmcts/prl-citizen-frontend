@@ -1,4 +1,5 @@
 import axios from 'axios';
+import FormData from 'form-data';
 
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
@@ -160,10 +161,30 @@ describe('Consent Order Document Upload controller', () => {
     const res = mockResponse();
 
     req.files = { documents: { name: 'test.pdf', size: '812300', data: '', mimetype: 'text' } };
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+  });
+
+  test('Should call document upload function', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+
+    const controller = new ConsentOrderDocumentUpload(mockForm.fields);
+    const req = mockRequest({});
+    req.files = { documents: { name: 'test.pdf', size: '812300', data: '', mimetype: 'text' } };
     const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
     const extensionType = req.files.documents.name.split('.')[req.files.documents.name.split('.').length - 1];
-
-    req.locals.C100Api.uploadDocument.mockResolvedValue({
+    (req.locals.C100Api.uploadDocument as jest.Mock).mockResolvedValue({
       document: {
         document_url:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
@@ -172,10 +193,23 @@ describe('Consent Order Document Upload controller', () => {
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
       },
     });
+    const res = mockResponse();
+    const formData: FormData = new FormData();
 
+    formData.append('file', req.files.documents.data, {
+      contentType: req.files.documents.mimetype,
+      filename: `applicant__consent_order_draft__${dateOfSystem}.${extensionType}`,
+    });
+
+    await req.locals.C100Api.uploadDocument(formData);
     await controller.post(req, res);
 
+    console.log(await req.locals.C100Api.uploadDocument(), 'check response');
+
     expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+    expect(req.locals.C100Api.uploadDocument).toBeCalled();
+    expect(req.locals.C100Api.uploadDocument).toHaveBeenCalledWith(formData);
+    expect(req.session.userCase).toEqual({ id: '1234' });
   });
 });
 
@@ -191,11 +225,7 @@ describe('when there is an error in saving session', () => {
       },
     });
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
-    // const QUERY = {
-    //   orderType: 'otherOrder',
-    //   orderId: '1',
-    // };
-    // req.query = QUERY;
+
     req.session.userCase = {
       co_certificate: {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
