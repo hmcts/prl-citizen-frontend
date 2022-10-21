@@ -684,6 +684,13 @@ export type C100Applicant = {
   start?: string | unknown,
   contactDetailsPrivate?: unknown | [],
   contactDetailsPrivateAlternative?: unknown | [],
+  applicantAddressPostcode?: string,
+  applicantAddress1?: string,
+  applicantAddress2?: string,
+  applicantAddressTown?: string,
+  applicantAddressCounty?: string,
+  applicantAddressHistory?: YesOrNo,
+  applicantProvideDetailsOfPreviousAddresses?: string
 }
 
 export type C100ListOfApplicants = C100Applicant[];

@@ -1,0 +1,53 @@
+import { AppRequest } from '../../../../../app/controller/AppRequest';
+import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import autobind from 'autobind-decorator';
+import { Response } from 'express';
+import { AnyType } from 'app/form/validation';
+import { C100Applicant } from 'app/case/definition';
+
+
+@autobind
+export default class SelectAddressPostController extends PostController<AnyObject> {
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+    super(fields);
+  }
+
+  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const {applicantId} = req.query;
+
+    req.session.errors = form.getErrors(formData);
+
+    if (req.session.errors.length === 0) {
+      const selectedAddressIndex = Number(formData['applicantSelectAddress']);
+      if (selectedAddressIndex >= 0) {
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const selectedAddress = req.session.addresses[selectedAddressIndex] as any;
+
+        const applicantId1: AnyType | undefined = applicantId;
+        const applicantAddressData = req.session.userCase?.appl_allApplicants?.find(i => i.id === applicantId1) as C100Applicant;
+        applicantAddressData.applicantAddressPostcode = selectedAddress.postcode as string;
+        applicantAddressData.applicantAddress1 = selectedAddress.street1 as string;
+        applicantAddressData.applicantAddress2 = selectedAddress.street2 as string;
+        applicantAddressData.applicantAddressTown = selectedAddress.town as string;
+        applicantAddressData.applicantAddressCounty = selectedAddress.county as string;
+
+        formData['applicantAddress1'] = selectedAddress.street1;
+        formData['applicantAddress2'] = selectedAddress.street2;
+        formData['applicantAddressTown'] = selectedAddress.town;
+        formData['applicantAddressCounty'] = selectedAddress.county;
+        formData['applicantAddressPostcode'] = selectedAddress.postcode;
+
+      //  Object.assign(req.session.userCase, formData);
+
+        req.session.userCase?.appl_allApplicants?.find(i => i.id === applicantId1) as C100Applicant 
+          == applicantAddressData;
+      }
+    }
+
+    this.redirect(req, res);
+  }
+}

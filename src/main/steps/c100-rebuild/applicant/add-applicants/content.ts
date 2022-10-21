@@ -190,7 +190,7 @@ export const generateContent: TranslationFn = content => {
   };
 
   return {
-    ...translations,
+  ...translations,
     form: updateFormFields(
       updatedSessionValue(form, content.additionalData?.req.session.userCase?.applicantTemporaryFormData),
       fields
