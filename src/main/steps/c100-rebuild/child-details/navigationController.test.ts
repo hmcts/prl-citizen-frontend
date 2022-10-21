@@ -78,7 +78,7 @@ describe('ChildrenDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/child-details/personal-details/7483640e-0817-4ddc-b709-6723f7925474');
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/personal-details');
   });
 
   test('From child 1 personal details screen -> navigate to child 1 child matters screen', async () => {
@@ -88,7 +88,7 @@ describe('ChildrenDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/child-details/child-matters/7483640e-0817-4ddc-b709-6723f7925474');
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/child-matters');
   });
 
   test('From child 1 child matters screen -> navigate to child 1 parental responsibility screen', async () => {
@@ -98,7 +98,7 @@ describe('ChildrenDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/child-details/parental-responsibility/7483640e-0817-4ddc-b709-6723f7925474');
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/parental-responsibility');
   });
 
   test('From child 1 parental responsibility screen -> navigate to child 2 personal details screen', async () => {
@@ -108,7 +108,7 @@ describe('ChildrenDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/child-details/personal-details/7483640e-0817-4ddc-b709-6723f7925635');
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925635/personal-details');
     dummyRequest.params.childId = '7483640e-0817-4ddc-b709-6723f7925635';
   });
 
@@ -119,7 +119,7 @@ describe('ChildrenDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/child-details/child-matters/7483640e-0817-4ddc-b709-6723f7925635');
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925635/child-matters');
   });
 
   test('From child 2 child matters screen -> navigate to parental responsibility screen', async () => {
@@ -129,7 +129,7 @@ describe('ChildrenDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/child-details/parental-responsibility/7483640e-0817-4ddc-b709-6723f7925635');
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925635/parental-responsibility');
   });
 
   test('From child 2 parental responsibility screen -> navigate to further information screen', async () => {

@@ -17,7 +17,7 @@ export default class SafteyConcernsApplicantAbusePostController extends PostCont
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const abuseType = req.query.type as C1AAbuseTypes;
+    const abuseType = req.params.abuseType as C1AAbuseTypes;
     const form = new Form(getFormFields().fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);

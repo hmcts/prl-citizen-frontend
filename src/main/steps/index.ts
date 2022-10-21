@@ -12,6 +12,7 @@ import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
+import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
@@ -140,7 +141,7 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
 
   const results: StepWithContent[] = [];
   for (const step of sequence) {
-    const url = step.url.split('/:')[0];
+    const { url } = parseUrl(step.url);
     const stepDir = `${dir}${url.startsWith(subDir) ? url : `${subDir}${url}`}`;
     const { content, view } = getStepFiles(stepDir);
     results.push({ stepDir, ...step, ...content, view });
