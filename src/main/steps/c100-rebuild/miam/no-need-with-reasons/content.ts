@@ -23,13 +23,16 @@ const en = () => ({
     previousMIAMOrExempt: 'Previous MIAM attendance or MIAM exemption',
     validExemption: 'Other exemptions',
   },
-  policeInvolvement: DomesticAbuseEn().policeInvolvement_subFields,
-  courtInvolvement: DomesticAbuseEn().courtInvolvement_subFields,
-  letterOfBeingVictim: DomesticAbuseEn().letterOfBeingVictim_subFields,
-  letterFromAuthority: DomesticAbuseEn().letterFromAuthority_subFields,
-  letterFromSupportService: DomesticAbuseEn().letterFromSupportService_subFields,
-  ILRDuetoDomesticAbuse: DomesticAbuseEn().ILRDuetoDomesticAbuse,
-  financiallyAbuse: DomesticAbuseEn().financiallyAbuse,
+  abuseList: {
+    policeInvolvement: DomesticAbuseEn().policeInvolvement_subFields,
+    courtInvolvement: DomesticAbuseEn().courtInvolvement_subFields,
+    letterOfBeingVictim: DomesticAbuseEn().letterOfBeingVictim_subFields,
+    letterFromAuthority: DomesticAbuseEn().letterFromAuthority_subFields,
+    letterFromSupportService: DomesticAbuseEn().letterFromSupportService_subFields,
+    ILRDuetoDomesticAbuse: DomesticAbuseEn().ILRDuetoDomesticAbuse,
+    financiallyAbuse: DomesticAbuseEn().financiallyAbuse,
+  },
+
   childProtection: {
     localAuthority: ChildProtectionEn().localAuthority,
     childProtectionPlan: ChildProtectionEn().childProtectionPlan,
@@ -83,13 +86,15 @@ const cy = () => ({
     previousMIAMOrExempt: 'Previous MIAM attendance or MIAM exemption - welsh',
     validExemption: 'Other exemptions - welsh',
   },
-  policeInvolvement: DomesticAbuseCy().policeInvolvement_subFields,
-  courtInvolvement: DomesticAbuseCy().courtInvolvement_subFields,
-  letterOfBeingVictim: DomesticAbuseCy().letterOfBeingVictim_subFields,
-  letterFromAuthority: DomesticAbuseCy().letterFromAuthority_subFields,
-  letterFromSupportService: DomesticAbuseCy().letterFromSupportService_subFields,
-  ILRDuetoDomesticAbuse: DomesticAbuseCy().ILRDuetoDomesticAbuse,
-  financiallyAbuse: DomesticAbuseCy().financiallyAbuse,
+  abuseList: {
+    policeInvolvement: DomesticAbuseCy().policeInvolvement_subFields,
+    courtInvolvement: DomesticAbuseCy().courtInvolvement_subFields,
+    letterOfBeingVictim: DomesticAbuseCy().letterOfBeingVictim_subFields,
+    letterFromAuthority: DomesticAbuseCy().letterFromAuthority_subFields,
+    letterFromSupportService: DomesticAbuseCy().letterFromSupportService_subFields,
+    ILRDuetoDomesticAbuse: DomesticAbuseCy().ILRDuetoDomesticAbuse,
+    financiallyAbuse: DomesticAbuseCy().financiallyAbuse,
+  },
   childProtection: {
     localAuthority: ChildProtectionCy().localAuthority,
     childProtectionPlan: ChildProtectionCy().childProtectionPlan,
@@ -126,7 +131,6 @@ const cy = () => ({
     under18: OtherCy().under18,
   },
 });
-
 const languages = {
   en,
   cy,
