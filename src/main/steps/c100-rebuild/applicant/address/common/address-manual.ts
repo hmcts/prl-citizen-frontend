@@ -1,3 +1,4 @@
+import { C100Applicant } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
@@ -28,19 +29,24 @@ const cy = () => ({
   explainNoHint: 'Start with your most recent - welsh',
 });
 
-export const form: FormContent = {
-  fields: {
+export const form = (caseData:Partial<C100Applicant>):FormContent => {
+  const { applicantAddress1, applicantAddress2, applicantAddressTown,applicantAddressCounty,applicantAddressPostcode} = caseData;
+  
+  return {
+    fields: {
     address1: {
       type: 'text',
       classes: 'govuk-label',
       label: l => l.addressLine1,
       labelSize: null,
+      value: applicantAddress1,
       validator: isFieldFilledIn,
     },
     address2: {
       type: 'text',
       classes: 'govuk-label',
       label: l => l.addressLine2,
+      value: applicantAddress2,
       labelSize: null,
     },
     addressTown: {
@@ -48,12 +54,14 @@ export const form: FormContent = {
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.town,
       labelSize: null,
+      value: applicantAddressTown,
       validator: isFieldFilledIn,
     },
     addressCounty: {
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.county,
+      value: applicantAddressCounty,
       labelSize: null,
     },
     addressPostcode: {
@@ -61,6 +69,7 @@ export const form: FormContent = {
       classes: 'govuk-label govuk-input--width-10',
       label: l => l.postcode,
       labelSize: null,
+      value: applicantAddressPostcode,
       attributes: {
         maxLength: 14,
       },
@@ -94,10 +103,11 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-  
+    }
+  }
 };
 
-const languages = {
+export const languages = {
   en,
   cy,
 };

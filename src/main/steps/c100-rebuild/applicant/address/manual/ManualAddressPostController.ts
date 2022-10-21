@@ -5,7 +5,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { AnyType } from 'app/form/validation';
-import { C100Applicant, YesOrNo } from 'app/case/definition';
+import { C100Applicant } from 'app/case/definition';
 
 @autobind
 export default class ManualAddressPostController extends PostController<AnyObject> {
@@ -27,7 +27,7 @@ export default class ManualAddressPostController extends PostController<AnyObjec
     applicantAddressData.applicantAddress2 = req.body['applicantAddress2'] as string;
     applicantAddressData.applicantAddressTown = req.body['applicantAddressTown'] as string;
     applicantAddressData.applicantAddressCounty = req.body['applicantAddressCounty'] as string;
-applicantProvideDetailsOfPreviousAddresses = req.body['applicantProvideDetailsOfPreviousAddresses'] as YesOrNo;
+//applicantProvideDetailsOfPreviousAddresses = req.body['applicantProvideDetailsOfPreviousAddresses'] as YesOrNo;
 
     req.session.userCase?.appl_allApplicants?.find(i => i.id === applicantId1) as C100Applicant 
     == applicantAddressData;
