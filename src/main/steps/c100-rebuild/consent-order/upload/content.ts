@@ -70,7 +70,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    co_Upload: {
+    co_upload: {
       type: 'hidden',
       labelHidden: true,
       value: 'true',

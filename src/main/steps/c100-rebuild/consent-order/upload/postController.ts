@@ -66,7 +66,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
           formData.append('file', documents.data, {
             contentType: documents.mimetype,
-            filename: `applicantname_consent_order_draft_${dateOfSystem}.${extensionType}`,
+            filename: `applicant__consent_order_draft__${dateOfSystem}.${extensionType}`,
           });
           try {
             const responseBody: DocumentUploadResponse = await req.locals.C100Api.uploadDocument(formData);

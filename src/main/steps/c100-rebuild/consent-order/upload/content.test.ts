@@ -86,7 +86,7 @@ describe('Consent-Order Upload-should return english content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const coUploadField = fields.co_Upload as FormOptions;
+    const coUploadField = fields.co_upload as FormOptions;
     expect(coUploadField.type).toBe('hidden');
   });
 

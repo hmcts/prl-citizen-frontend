@@ -30,7 +30,7 @@ describe('Consent Order Document Upload controller', () => {
       co_certificate: {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-        filename: 'applicantname_consent_order_draft_05102022.rtf',
+        filename: 'applicant__consent_order_draft__05102022.rtf',
         binaryUrl:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
       },
@@ -61,7 +61,7 @@ describe('Consent Order Document Upload controller', () => {
       co_certificate: {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-        filename: 'applicantname_consent_order_draft_05102022.rtf',
+        filename: 'applicant__consent_order_draft__05102022.rtf',
         binaryUrl:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
       },
@@ -104,7 +104,14 @@ describe('Consent Order Document Upload controller', () => {
     const req = mockRequest({});
     req.files = { documents: { name: 'test.rtf', size: '8123000098098', data: '', mimetype: 'text' } };
     const res = mockResponse();
-    await controller.post(req, res);
+    // await controller.post(req, res);
+
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
     expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
   });
 
@@ -124,7 +131,15 @@ describe('Consent Order Document Upload controller', () => {
     const req = mockRequest({});
     req.files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
     const res = mockResponse();
-    await controller.post(req, res);
+    // await controller.post(req, res);
+
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
+
     expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
   });
 
@@ -152,7 +167,7 @@ describe('Consent Order Document Upload controller', () => {
       document: {
         document_url:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-        document_filename: `applicantname_consent_order_draft_${dateOfSystem}.${extensionType}`,
+        document_filename: `applicant__consent_order_draft__${dateOfSystem}.${extensionType}`,
         document_binary_url:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
       },
@@ -185,7 +200,7 @@ describe('when there is an error in saving session', () => {
       co_certificate: {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-        filename: 'applicantname_consent_order_draft_05102022.rtf',
+        filename: 'applicant__consent_order_draft__05102022.rtf',
         binaryUrl:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
       },
