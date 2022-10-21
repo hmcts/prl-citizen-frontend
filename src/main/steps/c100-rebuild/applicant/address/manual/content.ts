@@ -1,88 +1,107 @@
 import { C100Applicant } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { FormContent, FormField, FormFields, FormFieldsFn, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { form as manualAddressForm, generateContent as manualAddressGenerateContent } from '../common/address-manual';
 
-const manualAddressFormFields = manualAddressForm.fields as FormFields;
- 
-export const form: FormContent = {
-  ...manualAddressForm,
-  fields: () => {
-    return {
-      applicantAddress1: manualAddressFormFields.address1,
-      // applicantAddress2: manualAddressFormFields.address2,
-      // applicantAddressTown: manualAddressFormFields.addressTown,
-      // applicantAddressCounty: manualAddressFormFields.addressCounty,
-      // applicantAddressPostcode: manualAddressFormFields.addressPostcode,
-      // applicantAddressHistory: manualAddressFormFields.addressHistory,
-    };
-  }
+let updatedForm: FormContent;
+
+const en = () => ({
+    title: 'Address of',
+    errors: {
+      address1: {
+        required: 'Enter the first line of the address',
+      },
+      addressTown: {
+        required: 'Enter the town or city',
+      },
+      addressPostcode: {
+        required: 'Enter a real postcode',
+        invalid: 'Enter a real postcode',
+      },
+      addressHistory: {
+        required: 'Enter your details known',
+      },
+      provideDetailsOfPreviousAddresses: {
+        required:
+          'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+      },
+    },
+});
+
+const cy = () => ({
+  title: 'Address of - welsh',
+  errors: {
+    address1: {
+      required: 'Enter the first line of the address - welsh',
+    },
+    addressTown: {
+      required: 'Enter the town or city - welsh',
+    },
+    addressPostcode: {
+      required: 'Enter a real postcode - welsh',
+      invalid: 'Enter a real postcode - welsh',
+    },
+    addressHistory: {
+      required: 'Enter your details known - welsh',
+    },
+    provideDetailsOfPreviousAddresses: {
+      required:
+        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
+    },
+  },
+});
+
+const languages = {
+  en,
+  cy,
 };
 
+export const form: FormContent = {
+  fields: {},
+  submit: {
+    text: l => l.onlycontinue,
+  },
+  saveAndComeLater: {
+    text: l => l.saveAndComeLater,
+  },
+};
+
+const updatedFormFields=(form: FormContent, formFields:FormContent['fields']):FormContent=>{
+  updatedForm={
+    ...form,
+    fields:{
+      ...formFields,
+      ...form.fields ?? {},
+    }
+  }
+
+  return updatedForm
+}
+
+export const generateFormFields = (caseData:Partial<C100Applicant>): GenerateDynamicFormFields=>{
+  const { applicantAddressPostcode, applicantAddress1, applicantAddress2, applicantAddressTown,applicantAddressCounty} = caseData;
+    const errors = {en:{}, cy:{}}
+  const fields = manualAddressForm.fields;
+  const {address1,address2, addressTown, addressCounty, addressPostcode } = fields as FormFields
+  address1.value = applicantAddress1
+address2.value= applicantAddress2;
+addressTown.value = applicantAddressTown
+addressCounty.value = applicantAddressCounty
+addressPostcode.value = applicantAddressPostcode
+  return {fields, errors}
+}
+
 export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language]();
   const applicantId = content?.additionalData?.req?.query?.applicantId as string;
   const applicantData = content.userCase?.appl_allApplicants?.find(i => i.id === applicantId) as C100Applicant;
- // const { fields } = generateFormFields(applicantData);
-  const en = () => {
-    return {
-      title: `Address of ` + applicantData.applicantFirstName + ' ' + applicantData.applicantLastName,
-      errors: {
-        applicantAddress1: {
-          required: 'Enter the first line of the address',
-        },
-        applicantAddressTown: {
-          required: 'Enter the town or city',
-        },
-        applicantAddressPostcode: {
-          required: 'Enter a real postcode',
-          invalid: 'Enter a real postcode',
-        },
-        applicantAddressHistory: {
-          required: 'Enter your details known',
-        },
-        applicantProvideDetailsOfPreviousAddresses: {
-          required:
-            'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
-        },
-      },
-    };
-  };
-  const cy = () => {
-    return {
-      title: `Address of ` + applicantData.applicantFirstName + ' ' + applicantData.applicantLastName + ' - welsh',
-      errors: {
-        applicantAddress1: {
-          required: 'Enter the first line of the address - welsh',
-        },
-        applicantAddressTown: {
-          required: 'Enter the town or city - welsh',
-        },
-        applicantAddressPostcode: {
-          required: 'Enter a real postcode - welsh',
-          invalid: 'Enter a real postcode - welsh',
-        },
-        applicantAddressHistory: {
-          required: 'Enter your details known - welsh',
-        },
-        applicantProvideDetailsOfPreviousAddresses: {
-          required:
-            'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
-        },
-      },
-    };
-  };
-
-  const languages = {
-    en,
-    cy,
-  };
 
   const manualAddressContent = manualAddressGenerateContent(content);
   const translationContent = languages[content.language]();
 
   return {
-    ...manualAddressContent,
-    ...translationContent,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    ...translations,
+    title: `${translations.title} `,
+    form: ,
   };
 };

@@ -27,8 +27,7 @@ export default class ManualAddressPostController extends PostController<AnyObjec
     applicantAddressData.applicantAddress2 = req.body['applicantAddress2'] as string;
     applicantAddressData.applicantAddressTown = req.body['applicantAddressTown'] as string;
     applicantAddressData.applicantAddressCounty = req.body['applicantAddressCounty'] as string;
-    applicantAddressData.applicantAddressHistory = req.body['applicantAddressHistory'] as YesOrNo;
-    applicantAddressData.applicantProvideDetailsOfPreviousAddresses = req.body['applicantProvideDetailsOfPreviousAddresses'] as YesOrNo;
+applicantProvideDetailsOfPreviousAddresses = req.body['applicantProvideDetailsOfPreviousAddresses'] as YesOrNo;
 
     req.session.userCase?.appl_allApplicants?.find(i => i.id === applicantId1) as C100Applicant 
     == applicantAddressData;

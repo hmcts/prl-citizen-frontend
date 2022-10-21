@@ -4,8 +4,6 @@ import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { AnyType } from 'app/form/validation';
-import { C100Applicant } from 'app/case/definition';
-
 
 @autobind
 export default class SelectAddressPostController extends PostController<AnyObject> {
@@ -28,13 +26,18 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         const selectedAddress = req.session.addresses[selectedAddressIndex] as any;
 
         const applicantId1: AnyType | undefined = applicantId;
-        const applicantAddressData = req.session.userCase?.appl_allApplicants?.find(i => i.id === applicantId1) as C100Applicant;
-        applicantAddressData.applicantAddressPostcode = selectedAddress.postcode as string;
-        applicantAddressData.applicantAddress1 = selectedAddress.street1 as string;
-        applicantAddressData.applicantAddress2 = selectedAddress.street2 as string;
-        applicantAddressData.applicantAddressTown = selectedAddress.town as string;
-        applicantAddressData.applicantAddressCounty = selectedAddress.county as string;
-
+        const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
+        if(applicantIndex >= 0) {
+          req.session.userCase!.appl_allApplicants![applicantIndex] = {
+            ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
+            applicantAddressPostcode: selectedAddress.postcode as string,
+            applicantAddress1: selectedAddress.street1 as string,
+            applicantAddress2: selectedAddress.street2 as string,
+            applicantAddressTown: selectedAddress.town as string,
+            applicantAddressCounty: selectedAddress.county as string,
+          }
+        }
+    
         formData['applicantAddress1'] = selectedAddress.street1;
         formData['applicantAddress2'] = selectedAddress.street2;
         formData['applicantAddressTown'] = selectedAddress.town;
@@ -42,11 +45,8 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         formData['applicantAddressPostcode'] = selectedAddress.postcode;
 
       //  Object.assign(req.session.userCase, formData);
-
-        req.session.userCase?.appl_allApplicants?.find(i => i.id === applicantId1) as C100Applicant 
-          == applicantAddressData;
-      }
     }
+  }
 
     this.redirect(req, res);
   }
