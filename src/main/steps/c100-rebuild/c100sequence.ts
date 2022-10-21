@@ -145,6 +145,7 @@ import {
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
   C100_APPLICANTS_PERSONAL_DETAILS,
   C100_APPLICANT_CONTACT_DETAIL,
+  C100_CHECK_YOUR_ANSWER,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';

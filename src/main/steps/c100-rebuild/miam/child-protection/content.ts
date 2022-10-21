@@ -10,11 +10,11 @@ export const en = () => ({
   needMoreDetails1: 'If you are seeking a MIAM exemption, you will need to give more details.',
   needMoreDetails2: 'The court needs this information to decide if you need to attend a MIAM.',
   optionHint: 'Select all that apply',
-  localAuthority:
+  localAuthorityCp:
     'The children in the application, or another child in the household, is the subject of enquiries by a local authority under section 47 of the Children Act 1989 Act',
-  localAuthorityHint:
+  localAuthorityCpHint:
     'This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. See <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> for further details.',
-  childProtectionPlan:
+  childProtectionCpPlan:
     'The children in the application, or another child in the household, is the subject of a child protection plan put in place by the local authority',
   none: 'None of the above',
   errors: {
@@ -31,11 +31,11 @@ export const cy = () => ({
   needMoreDetails1: 'If you are seeking a MIAM exemption, you will need to give more details. - Welsh',
   needMoreDetails2: 'The court needs this information to decide if you need to attend a MIAM. - Welsh',
   optionHint: 'Select all that apply - Welsh',
-  localAuthority:
+  localAuthorityCp:
     'The children in the application, or another child in the household, is the subject of enquiries by a local authority under section 47 of the Children Act 1989 Act - welsh',
-  localAuthorityHint:
+  localAuthorityCpHint:
     'This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. See <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> for further details.',
-  childProtectionPlan:
+  childProtectionCpPlan:
     'The children in the application, or another child in the household, is the subject of a child protection plan put in place by the local authority - Welsh',
   none: 'None of the above - Welsh',
   errors: {
@@ -61,14 +61,14 @@ export const form: FormContent = {
       values: [
         {
           name: 'miam_childProtectionEvidence',
-          label: l => l.localAuthority,
-          hint: l => l.localAuthorityHint,
-          value: 'localAuthority',
+          label: l => l.localAuthorityCp,
+          hint: l => l.localAuthorityCpHint,
+          value: 'localAuthorityCp',
         },
         {
           name: 'miam_childProtectionEvidence',
-          label: l => l.childProtectionPlan,
-          value: 'childProtectionPlan',
+          label: l => l.childProtectionCpPlan,
+          value: 'childProtectionCpPlan',
         },
         {
           divider: true,
