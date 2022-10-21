@@ -15,11 +15,16 @@ import { C100, State } from './definition';
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  public async retrieveCase(): Promise<RetreiveDraftCase[]> {
+  public async retrieveCase(): Promise<RetreiveDraftCase> {
     try {
       const url: string = config.get('services.cos.url') + '/cases';
       const response = await this.axios.get<RetreiveDraftCase[]>(url);
-      return response.data.filter(caseData => caseData.state === 'AWAITING_SUBMISSION_TO_HMCTS');
+
+      const retreivedDraftCase = response.data.filter(
+        caseData => caseData.state === 'AWAITING_SUBMISSION_TO_HMCTS'
+      )[0] as RetreiveDraftCase;
+
+      return detransformCaseData(retreivedDraftCase);
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retreived.');
@@ -139,6 +144,19 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
       return data;
     }, {}) ?? {}
   );
+};
+
+const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => {
+  let detransformedCaseData = { ...caseData };
+
+  Object.values(updateCaseDataMapper).forEach(field => {
+    if (field in caseData) {
+      detransformedCaseData = { ...detransformedCaseData, ...JSON.parse(caseData[field]) };
+      delete detransformedCaseData[field];
+    }
+  });
+
+  return detransformedCaseData;
 };
 
 interface CreateCaseResponse {
