@@ -4,7 +4,7 @@ import { LDFlagValue } from 'ldclient-node';
 
 const sdkKey: string = config.get<string>('secrets.prl.launchDarkly-sdk-key');
 const ldConfig = {
-  offline: config.get<boolean>('launchDarkly.offline'),
+  offline: false,
 };
 
 export class LaunchDarklyClient {
