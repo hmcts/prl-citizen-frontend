@@ -70,7 +70,7 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents//binary',
+        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
       });
     });
   });
@@ -91,7 +91,7 @@ describe('DocumentManagerController', () => {
       } catch (err) {
         flag = true;
       }
-      expect(flag).toBe(false);
+      expect(flag).toBe(true);
     });
   });
 
@@ -225,48 +225,51 @@ describe('DocumentManagerController', () => {
         document_filename: 'C100.pdf',
         document_hash: null,
       };
-    });
 
-    describe('check Allegation of Harm property saved without Response', () => {
-      test('check Allegation of Harm property saved', async () => {
-        req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-        req.session.userCase.respondents = [
-          {
-            id: '9813df99-41bf-4b46-a602-86676b5e3547',
-            value: {
-              user: {
-                idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-                email: 'test@example.net',
-              },
+      await documentManagerController.get(req, res);
+
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
+    });
+  });
+
+  describe('check Allegation of Harm property saved with Response', () => {
+    test('check Allegation of Harm property saved', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
             },
             response: {
               citizenFlags: {
-                isAllegationOfHarmViewed: null,
+                isApplicationViewed: 'Yes',
               },
             },
           },
-        ];
-        req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
-        req.headers.accept = 'application/pdf';
-        req.query.updateCase = 'Yes';
-        req.session.userCase.c1ADocument = {
-          document_url:
-            'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
-          document_binary_url:
-            'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
-          document_filename: 'C100.pdf',
-          document_hash: null,
-        };
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
+      req.headers.accept = 'application/pdf';
+      req.query.updateCase = 'Yes';
+      req.session.userCase.c1ADocument = {
+        document_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
 
-        await documentManagerController.get(req, res);
+      await documentManagerController.get(req, res);
 
-        expect(req.session.userCase.respondents[0].value.response?.citizenFlags?.isAllegationOfHarmViewed).toEqual(
-          undefined
-        );
-      });
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
     });
+  });
 
-    describe('check isApplicationViewed property saved with Response - value is No', () => {
+ describe('check isApplicationViewed property saved with Response - value is No', () => {
       test('check isApplicationViewed property saved', async () => {
         req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
         req.session.userCase.respondents = [
@@ -340,204 +343,7 @@ describe('DocumentManagerController', () => {
       });
     });
 
-    describe('check document uploaded sucesfully from text area respondent', () => {
-      test('check document uploaded sucesfully from text area for respondent', async () => {
-        req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-        req.session.userCase.respondents = [
-          {
-            id: '9813df99-41bf-4b46-a602-86676b5e3547',
-            value: {
-              user: {
-                idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-                email: 'test@example.net',
-              },
-            },
-          },
-        ];
-        const documentDetail = {
-          status: 200,
-          documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-          documentName: 'uploaded.pdf',
-        };
-        req.query.isApplicant = 'No';
-        generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
-        await documentManagerController.generatePdf(req, res);
-
-        expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
-      });
-    });
-
-    describe('check citizen document uploaded', () => {
-      test('check document uploaded sucesfully from text area for respondent', async () => {
-        req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-        req.session.userCase.respondents = [
-          {
-            id: '9813df99-41bf-4b46-a602-86676b5e3547',
-            value: {
-              user: {
-                idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-                email: 'test@example.net',
-              },
-            },
-          },
-        ];
-        const documentDetail = {
-          status: 200,
-          documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-          documentName: 'uploaded.pdf',
-        };
-        req.query.isApplicant = 'No';
-        generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
-        await documentManagerController.generatePdf(req, res);
-
-        expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
-      });
-      test('check document uploaded sucesfully from text area for applicant', async () => {
-        req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-        req.session.userCase.applicants = [
-          {
-            id: '9813df99-41bf-4b46-a602-86676b5e3547',
-            value: {
-              user: {
-                idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-                email: 'test@example.net',
-              },
-            },
-          },
-        ];
-        const documentDetail = {
-          status: 200,
-          documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-          documentName: 'uploaded.pdf',
-        };
-        req.query.isApplicant = 'Yes';
-        generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
-        await documentManagerController.generatePdf(req, res);
-
-        expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded.pdf');
-      });
-      test('failed to uploaded document from text area', async () => {
-        req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-        req.session.userCase.applicants = [
-          {
-            id: '9813df99-41bf-4b46-a602-86676b5e3547',
-            value: {
-              user: {
-                idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-                email: 'test@example.net',
-              },
-            },
-          },
-        ];
-        const documentDetail = {
-          status: 400,
-        };
-        req.query.isApplicant = 'Yes';
-        generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
-        await documentManagerController.generatePdf(req, res);
-        expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
-      });
-    });
-
-    describe('check delete document feature', () => {
-      test('check delete document feature for applicant', async () => {
-        const uploadedFiles = [
-          {
-            id: '9813df11-41bf-4b46-a602-86766b5e3547',
-            documentName: 'uploaded1.pdf',
-          },
-          {
-            id: '9813df11-41bf-4aaa-a602-86766b5e3547',
-            documentName: 'uploaded2.pdf',
-          },
-        ];
-        req.query.isApplicant = 'Yes';
-        req.session.userCase.applicantUploadFiles = uploadedFiles;
-        req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
-        deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
-        await documentManagerController.deleteDocument(req, res);
-
-        expect(req.session.userCase.applicantUploadFiles).toHaveLength(1);
-      });
-      test('check delete document feature for respondent', async () => {
-        const uploadedFiles = [
-          {
-            id: '9813df11-41bf-4b46-a602-86766b5e3547',
-            documentName: 'uploaded1.pdf',
-          },
-          {
-            id: '9813df11-41bf-4aaa-a602-86766b5e3547',
-            documentName: 'uploaded2.pdf',
-          },
-        ];
-        req.query.isApplicant = 'No';
-        req.session.userCase.respondentUploadFiles = uploadedFiles;
-        req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
-        deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
-        await documentManagerController.deleteDocument(req, res);
-
-        expect(req.session.userCase.respondentUploadFiles).toHaveLength(1);
-      });
-      test('fail to delete citizen document', async () => {
-        const uploadedFiles = [
-          {
-            id: '9813df11-41bf-4b46-a602-86766b5e3547',
-            documentName: 'uploaded1.pdf',
-          },
-          {
-            id: '9813df11-41bf-4aaa-a602-86766b5e3547',
-            documentName: 'uploaded2.pdf',
-          },
-        ];
-        req.query.isApplicant = 'No';
-        req.session.userCase.respondentUploadFiles = uploadedFiles;
-        req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
-        deleteCitizenStatementDocumentMock.mockResolvedValue('FAILURE');
-        await documentManagerController.deleteDocument(req, res);
-
-        expect(req.session.errors[0].errorType).toEqual('Document could not be deleted');
-      });
-    });
-  });
-
-  describe('check Allegation of Harm property saved with Response', () => {
-    test('check Allegation of Harm property saved', async () => {
-      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-      req.session.userCase.respondents = [
-        {
-          id: '9813df99-41bf-4b46-a602-86676b5e3547',
-          value: {
-            user: {
-              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-              email: 'test@example.net',
-            },
-            response: {
-              citizenFlags: {
-                isApplicationViewed: 'Yes',
-              },
-            },
-          },
-        },
-      ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
-      req.headers.accept = 'application/pdf';
-      req.query.updateCase = 'Yes';
-      req.session.userCase.c1ADocument = {
-        document_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
-        document_binary_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
-        document_filename: 'C100.pdf',
-        document_hash: null,
-      };
-
-      await documentManagerController.get(req, res);
-
-      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
-    });
-  });
-
-  describe('check document uploaded sucesfully from text area for respondent', () => {
+  describe('check document uploaded sucesfully from text area', () => {
     test('check document uploaded sucesfully from text area for respondent', async () => {
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
       req.session.userCase.respondents = [
@@ -560,11 +366,11 @@ describe('DocumentManagerController', () => {
       generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
       await documentManagerController.generatePdf(req, res);
 
-      expect(req.session.userCase.respondentUploadFiles[0].name).toEqual(undefined);
+      expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
     });
   });
 
-  describe('check citizen document uploaded for respondent', () => {
+  describe('check citizen document uploaded', () => {
     test('check document uploaded sucesfully from text area for respondent', async () => {
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
       req.session.userCase.respondents = [
@@ -587,7 +393,7 @@ describe('DocumentManagerController', () => {
       generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
       await documentManagerController.generatePdf(req, res);
 
-      expect(req.session.userCase.respondentUploadFiles[0].name).toEqual(undefined);
+      expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
     });
     test('check document uploaded sucesfully from text area for applicant', async () => {
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
@@ -611,7 +417,7 @@ describe('DocumentManagerController', () => {
       generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
       await documentManagerController.generatePdf(req, res);
 
-      expect(req.session.userCase.applicantUploadFiles[0].name).toEqual(undefined);
+      expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded.pdf');
     });
     test('failed to uploaded document from text area', async () => {
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
@@ -637,7 +443,7 @@ describe('DocumentManagerController', () => {
     });
   });
 
-  describe('check delete document feature for applicant', () => {
+  describe('check delete document feature', () => {
     test('check delete document feature for applicant', async () => {
       const uploadedFiles = [
         {
@@ -697,7 +503,6 @@ describe('DocumentManagerController', () => {
     });
   });
 });
-
 function getMockRequestResponse() {
   const req = mockRequest();
   const res = mockResponse();
