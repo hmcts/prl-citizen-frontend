@@ -141,6 +141,9 @@ export const form: FormContent = {
   submit: {
     text: l => l.onlycontinue,
   },
+  saveAndComeLater: {
+    text: l => l.saveAndComeLater,
+  },
 };
 
 export const generateContent: TranslationFn = content => {
