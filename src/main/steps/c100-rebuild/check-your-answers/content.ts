@@ -2,6 +2,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../../steps/common/common.content';
+import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
@@ -110,6 +111,7 @@ export const enContent = {
     validResonsNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
     domesticVoilenceHeading: DomesticAbuseEn().title,
     childProtectionHeading: ChildProtectionEn().title,
+    midatatorDocumentTitle: EnMidiationDocument().title,
     urgentHearingHeading:
       'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
     previousMIAMOrExemptHeading:
@@ -118,7 +120,7 @@ export const enContent = {
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
   },
 };
-const cyContent: typeof enContent = {
+export const cyContent: typeof enContent = {
   serviceName: 'Check your answers - welsh ',
   section: '',
   title: 'Check your Answers -welsh',
@@ -212,6 +214,7 @@ const cyContent: typeof enContent = {
     validResonsNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
     domesticVoilenceHeading: DomesticAbuseCy().title,
     childProtectionHeading: ChildProtectionCy().title,
+    midatatorDocumentTitle: CyMidiationDocument().title,
     urgentHearingHeading:
       'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
     previousMIAMOrExemptHeading:

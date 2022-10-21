@@ -48,21 +48,6 @@ export class CommonDataLoader {
   };
 }
 
-export const miamDataContentLoader = (userCase, key, enContent, cyContent) => {
-  if (userCase.hasOwnProperty(key)) {
-    return {
-      en: () => {
-        const data = { ...enContent } as any;
-        return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, userCase)) };
-      },
-      cy: () => {
-        const data = { ...cyContent } as any;
-        return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, userCase)) };
-      },
-    };
-  }
-}
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const MiamContentsForGeneralReasons = UserCase => {
   const key = 'miam_nonAttendanceReasons';

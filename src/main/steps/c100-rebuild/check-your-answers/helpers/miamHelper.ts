@@ -88,42 +88,41 @@ export const miamParentAndChildFieldParser = (userCase, keys, sessionKey) => {
 };
 
 /* A function that is being assigned to a variable. */
-export const MiamHelperDynamicEnteriesMapper =
-  (InstanceOfMiamHelper.__proto__.miamExemptionParserDynamicEnteriesMapper = (key, keys, URLS, userCase) => {
-    const mapper = {
-      [MiamNonAttendReason.DOMESTIC]: {
-        key: keys['domesticVoilenceHeading'],
-        valueHtml: miamParentAndChildFieldParser(userCase, keys, 'miam_domesticAbuse'),
-        changeUrl: URLS['C100_MIAM_MIAM_DOMESTIC_ABUSE'],
-      },
-      [MiamNonAttendReason.CHILD_PROTECTION]: {
-        key: keys['childProtectionHeading'],
-        valueHtml: miamOnlyParentFieldParser(userCase, keys, 'miam_childProtectionEvidence'),
-        changeUrl: URLS['C100_MIAM_CHILD_PROTECTION'],
-      },
-      [MiamNonAttendReason.URGENT]: {
-        key: keys['urgentHearingHeading'],
-        valueHtml: miamOnlyParentFieldParser(userCase, keys, 'miam_urgency'),
-        changeUrl: URLS['C100_MIAM_URGENCY'],
-      },
-      [MiamNonAttendReason.PREV_MIAM]: {
-        key: keys['previousMIAMOrExemptHeading'],
-        valueHtml: miamOnlyParentFieldParser(userCase, keys, 'miam_previousAttendance'),
-        changeUrl: URLS['C100_MIAM_PREVIOUS_ATTENDANCE'],
-      },
-      [MiamNonAttendReason.EXEMPT]: {
-        key: keys['validExemptionHeading'],
-        valueHtml: miamParentAndChildFieldParser(userCase, keys, 'miam_notAttendingReasons'),
-        changeUrl: URLS['C100_MIAM_OTHER'],
-      },
-      [MiamNonAttendReason.NONE]: {
-        key: keys['domesticVoilenceHeading'],
-        valueHtml: 'Yes',
-        changeUrl: URLS[''],
-      },
-    };
-    return mapper[key];
-  });
+export const MiamHelperDynamicEnteriesMapper = (key, keys, URLS, userCase) => {
+  const mapper = {
+    [MiamNonAttendReason.DOMESTIC]: {
+      key: keys['domesticVoilenceHeading'],
+      valueHtml: miamParentAndChildFieldParser(userCase, keys, 'miam_domesticAbuse'),
+      changeUrl: URLS['C100_MIAM_MIAM_DOMESTIC_ABUSE'],
+    },
+    [MiamNonAttendReason.CHILD_PROTECTION]: {
+      key: keys['childProtectionHeading'],
+      valueHtml: miamOnlyParentFieldParser(userCase, keys, 'miam_childProtectionEvidence'),
+      changeUrl: URLS['C100_MIAM_CHILD_PROTECTION'],
+    },
+    [MiamNonAttendReason.URGENT]: {
+      key: keys['urgentHearingHeading'],
+      valueHtml: miamOnlyParentFieldParser(userCase, keys, 'miam_urgency'),
+      changeUrl: URLS['C100_MIAM_URGENCY'],
+    },
+    [MiamNonAttendReason.PREV_MIAM]: {
+      key: keys['previousMIAMOrExemptHeading'],
+      valueHtml: miamOnlyParentFieldParser(userCase, keys, 'miam_previousAttendance'),
+      changeUrl: URLS['C100_MIAM_PREVIOUS_ATTENDANCE'],
+    },
+    [MiamNonAttendReason.EXEMPT]: {
+      key: keys['validExemptionHeading'],
+      valueHtml: miamParentAndChildFieldParser(userCase, keys, 'miam_notAttendingReasons'),
+      changeUrl: URLS['C100_MIAM_OTHER'],
+    },
+    [MiamNonAttendReason.NONE]: {
+      key: keys['domesticVoilenceHeading'],
+      valueHtml: 'Yes',
+      changeUrl: URLS[''],
+    },
+  };
+  return mapper[key];
+};
 
 InstanceOfMiamHelper.__proto__.miamExemptionParserDynamicEnteries = (userCase, keys, URLS): IMiamScreenData => {
   return userCase['miam_nonAttendanceReasons'].flatMap(reason => {

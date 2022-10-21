@@ -221,6 +221,11 @@ export const MiamAttendance = (
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
     {
+      key: keys['midatatorDocumentTitle'],
+      value: userCase['miam_haveDocSigned'],
+      changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
+    },
+    {
       key: keys['mediatorConfirmation'],
       value: userCase['miam_mediatorDocument'],
       changeUrl: Urls['C100_MIAM_MEDIATOR_CONFIRMAION'],
