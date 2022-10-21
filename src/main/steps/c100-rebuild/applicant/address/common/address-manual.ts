@@ -1,4 +1,4 @@
-import { C100Applicant } from '../../../../../app/case/definition';
+import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
@@ -30,7 +30,7 @@ const cy = () => ({
 });
 
 export const form = (caseData:Partial<C100Applicant>):FormContent => {
-  const { applicantAddress1, applicantAddress2, applicantAddressTown,applicantAddressCounty,applicantAddressPostcode} = caseData;
+  const { applicantAddress1, applicantAddress2, applicantAddressTown,applicantAddressCounty,applicantAddressPostcode, applicantAddressHistory, applicantProvideDetailsOfPreviousAddresses} = caseData;
   
   return {
     fields: {
@@ -84,18 +84,21 @@ export const form = (caseData:Partial<C100Applicant>):FormContent => {
       values: [
         {
           label: l => l.one,
-          value: 'Yes',
+          selected: applicantAddressHistory === YesOrNo.YES,
+          value: YesOrNo.YES,
         },
         {
           label: l => l.two,
-          value: 'No',
+          value: YesOrNo.NO,
+          selected: applicantAddressHistory === YesOrNo.NO,
           subFields: {
-            applicantProvideDetailsOfPreviousAddresses: {
+            provideDetailsOfPreviousAddresses: {
               type: 'textarea',
               label: l => l.explainNoLabel,
+              value: applicantProvideDetailsOfPreviousAddresses,
               labelSize: null,
               hint: l => l.explainNoHint,
-              id: 'applicantProvideDetailsOfPreviousAddresses',
+              id: 'provideDetailsOfPreviousAddresses',
               validator: value => isFieldFilledIn(value),
             },
           },

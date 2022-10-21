@@ -78,6 +78,8 @@ const updatedFormFields=(form: FormContent, formFields:FormContent['fields']):Fo
   return updatedForm
 }
 
+export const getUpdatedForm = ():FormContent => updatedForm
+
 export const generateFormFields = (caseData:Partial<C100Applicant>): GenerateDynamicFormFields=>{
   return {fields:manualAddressForm(caseData).fields, errors:{en:{}, cy:{}}}
 }

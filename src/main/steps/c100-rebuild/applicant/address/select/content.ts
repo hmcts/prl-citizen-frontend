@@ -23,6 +23,7 @@ export const generateContent: TranslationFn = content => {
     return {
       title: `Select Address of ` + applicantData.applicantFirstName + ' ' + applicantData.applicantLastName,
       changePostCodeLabel: 'Change postcode',
+      adddressPostCode: applicantData.applicantAddressPostcode,
       changePostCodeUrl: lookupAddressUrlLink,
       cantFindAddressUrl: manualAddressUrlLink,
       errors: {
@@ -36,6 +37,7 @@ export const generateContent: TranslationFn = content => {
     return {
       title: `Select Address of ` + applicantData.applicantFirstName + ' ' + applicantData.applicantLastName,
       changePostCodeLabel: 'Change postcode',
+      adddressPostCode: applicantData.applicantAddressPostcode,
       changePostCodeUrl: lookupAddressUrlLink,
       cantFindAddressUrl: manualAddressUrlLink,
       errors: {

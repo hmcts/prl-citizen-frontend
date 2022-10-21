@@ -5,7 +5,8 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { AnyType } from 'app/form/validation';
-import { C100Applicant } from 'app/case/definition';
+import { YesOrNo } from 'app/case/definition';
+import { getUpdatedForm } from './content';
 
 @autobind
 export default class ManualAddressPostController extends PostController<AnyObject> {
@@ -16,26 +17,24 @@ export default class ManualAddressPostController extends PostController<AnyObjec
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const {applicantId} = req.query;
 
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const form = new Form(fields);
+    const form = new Form(getUpdatedForm().fields as FormFields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     const applicantId1: AnyType | undefined = applicantId;
-    const applicantAddressData = req.session.userCase?.appl_allApplicants?.find(i => i.id === applicantId1) as C100Applicant;
-    applicantAddressData.applicantAddressPostcode = req.body['applicantAddressPostcode'] as string;
-    applicantAddressData.applicantAddress1 = req.body['applicantAddress1'] as string;
-    applicantAddressData.applicantAddress2 = req.body['applicantAddress2'] as string;
-    applicantAddressData.applicantAddressTown = req.body['applicantAddressTown'] as string;
-    applicantAddressData.applicantAddressCounty = req.body['applicantAddressCounty'] as string;
-//applicantProvideDetailsOfPreviousAddresses = req.body['applicantProvideDetailsOfPreviousAddresses'] as YesOrNo;
+   
 
-    req.session.userCase?.appl_allApplicants?.find(i => i.id === applicantId1) as C100Applicant 
-    == applicantAddressData;
-
+    const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
+    req.session.userCase!.appl_allApplicants![applicantIndex] = {
+        ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
+        applicantAddressPostcode: req.body['addressPostcode'] as string,
+        applicantAddress1: req.body['address1'] as string,
+        applicantAddress2: req.body['address2'] as string,
+        applicantAddressTown: req.body['addressTown'] as string,
+        applicantAddressCounty: req.body['addressCounty'] as string,
+        applicantAddressHistory: req.body['addressHistory'] as YesOrNo,
+        applicantProvideDetailsOfPreviousAddresses: req.body['provideDetailsOfPreviousAddresses'] as string
+    }
     req.session.errors = form.getErrors(formData);
-
-    //Object.assign(req.session.userCase, formData);
-
     this.redirect(req, res);
   }
 }

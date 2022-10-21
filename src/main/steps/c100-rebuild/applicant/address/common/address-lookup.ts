@@ -1,3 +1,4 @@
+import { C100Applicant } from 'app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isInvalidPostcode } from '../../../../../app/form/validation';
@@ -14,28 +15,26 @@ const cy = () => ({
   manualAddressUrl: '#',
 });
 
-export const form: FormContent = {
-  fields: {
-    addressPostcode: {
-      type: 'text',
-      classes: 'govuk-label govuk-input--width-10',
-      label: l => l.postcode,
-      labelSize: null,
-      attributes: {
-        maxLength: 14,
+export const form = (caseData:Partial<C100Applicant>):FormContent => {
+  const { applicantAddressPostcode } = caseData;
+  return {
+    fields: {
+      addressPostcode: {
+        type: 'text',
+        classes: 'govuk-label govuk-input--width-10',
+        label: l => l.postcode,
+        labelSize: null,
+        value: applicantAddressPostcode,
+        attributes: {
+          maxLength: 14,
+        },
+        validator: isInvalidPostcode,
       },
-      validator: isInvalidPostcode,
-    },
-  },
-  submit: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
+    }
+  }
 };
 
-const languages = {
+export const languages = {
   en,
   cy,
 };
