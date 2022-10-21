@@ -134,6 +134,15 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
 }
 
+export const enum DownloadFileFieldFlag {
+  IS_APPLICATION_VIEWED = 'isApplicationViewed',
+  IS_ALLEGATION_OF_HARM_VIEWED = 'isAllegationOfHarmViewed',
+
+}
+export interface FileProperties {
+  elements?: string[],
+  downloadFileFieldFlag?: string | DownloadFileFieldFlag
+}
 export interface CitizenInternationalElements {
   childrenLiveOutsideOfEnWl?: YesOrNo;
   childrenLiveOutsideOfEnWlDetails?: string;
@@ -686,10 +695,10 @@ export interface CaseData {
   applicantTable: ApplicantTable[];
   othersToNotify: OthersToNotify[];
   urgencyDetails: UrgencyDetails;
-  
+
   allegationOfHarm: AllegationOfHarm;
   dateOfSubmission: DateOfSubmission;
-  
+
   interpreterNeeds: InterpreterNeed[];
   childDetailsTable: ChildDetailsTable[];
   jurisdictionIssue: string;
@@ -734,7 +743,7 @@ export interface CaseData {
   jurisdictionIssueGiveReason: string;
   litigationCapacityReferrals: string;
   specialArrangementsRequired: string;
-  
+
   habitualResidentInOtherState: string;
   otherProceedingsDetailsTable: OtherProceedingsDetailsTable[];
   summaryTabForOrderAppliedFor: SummaryTabForOrderAppliedFor;
@@ -775,7 +784,7 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  
+
   contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
@@ -807,12 +816,12 @@ export interface CaseData {
   citizenUserManualAddressTown?: string;
   citizenUserManualAddressCounty?: string;
   citizenUserManualAddressPostcode?: string;
-  
+
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
-  
+
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   doYouConsent?: YesOrNo;
@@ -2296,3 +2305,4 @@ export interface BannerLink {
 export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
+

@@ -1,13 +1,15 @@
 import { CaseWithId } from '../../../app/case/case';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
+import { SectionStatus } from '../../../app/case/definition';
+import { UPDATE_CASE_YES } from '../../../steps/constants';
 import * as URL from '../../urls';
 
 import {
   getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
+  getFinalApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
-  getMiamStatus,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
 } from './utils';
@@ -93,22 +95,31 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
       {
         id: 'check_the_application',
         text: taskListItems.check_the_application,
-        status: getMiamStatus(userCase),
-        href: `${URL.APPLICANT}${URL.APPLICANT_CA_DA_REQUEST}`,
+        status: getFinalApplicationStatus(userCase, userIdamId),
+        href:
+          getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
+            ? '#'
+            : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
       },
       {
         id: 'check_allegations_of_harm_and_violence',
         text: taskListItems.check_allegations_of_harm_and_violence,
         status: getCheckAllegationOfHarmStatus(userCase, userIdamId),
-        href: URL.ALLEGATION_OF_HARM_VOILENCE + '?updateCase=Yes',
+        href:
+          getCheckAllegationOfHarmStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
+            ? '#'
+            : URL.ALLEGATION_OF_HARM_VOILENCE + UPDATE_CASE_YES,
       }
     );
   } else {
     itemList.push({
       id: 'check_the_application',
       text: taskListItems.check_the_application,
-      status: getMiamStatus(userCase),
-      href: URL.MIAM_START,
+      status: getFinalApplicationStatus(userCase, userIdamId),
+      href:
+        getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
+          ? '#'
+          : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
     });
   }
 
