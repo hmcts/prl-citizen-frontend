@@ -1,6 +1,6 @@
 import { CaseWithId } from '../../../app/case/case';
-import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
 import { SectionStatus } from '../../../app/case/definition';
+import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
 import { UPDATE_CASE_YES } from '../../../steps/constants';
 import * as URL from '../../urls';
 
