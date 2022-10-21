@@ -8,6 +8,7 @@ import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { FeatureToggles } from '../../app/utils/featureToggles';
+import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 // eslint-disable-next-line sort-imports
 import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL, DASHBOARD_URL, C100_URL } from '../../steps/urls';
 
@@ -19,7 +20,7 @@ export class OidcMiddleware {
     const protocol = app.locals.developmentMode ? 'http://' : 'https://';
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
-
+    const featureToggles: FeatureToggles = new FeatureToggles(new LaunchDarklyClient());
     app.get(SIGN_IN_URL, (req, res) =>
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL))
     );
@@ -60,7 +61,8 @@ export class OidcMiddleware {
           console.log(config);
           if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {
             console.log('inside if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {');
-            if (FeatureToggles.isEnabled('c100-rebuild')) {
+
+            if (await featureToggles.isC100reBuildEnabled()) {
               console.log('inside if');
               return next();
             } else {

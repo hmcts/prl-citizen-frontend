@@ -36,4 +36,7 @@ appInsights:
 
 featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
-  c100-rebuild: 'C100_REBUILD_FLAG'
+  c100Rebuild: 'C100_REBUILD_FLAG'
+
+launchDarkly:
+  offline: LAUNCH_DARKLY_OFFLINE_MODE

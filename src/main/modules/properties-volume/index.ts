@@ -19,6 +19,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
       this.setSecret('secrets.prl.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.prl.redis-access-key', 'session.secret');
+      this.setSecret('secrets.prl.launchDarkly-sdk-key', 'featureToggles.launchDarklyKey');
     } else {
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
       this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
@@ -26,6 +27,7 @@ export class PropertiesVolume {
       this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
       this.setLocalSecret('idam-solicitor-password', 'services.idam.systemPassword');
+      this.setLocalSecret('launchDarkly-sdk-key', 'featureToggles.launchDarklyKey');
       //this.setLocalSecret('adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
@@ -33,6 +35,7 @@ export class PropertiesVolume {
       this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
       this.setLocalSecret('idam-solicitor-password', 'services.idam.systemPassword');
+      this.setSecret('secrets.prl.launchDarkly-sdk-key', 'featureToggles.launchDarklyKey');
       //this.setLocalEndpoints();
     }
   }

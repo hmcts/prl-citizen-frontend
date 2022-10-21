@@ -46,5 +46,9 @@ payments:
 
 uploadTimeout: 60000
 featureToggles:
-  c100-rebuild: 'C100_REBUILD_FLAG'
+  c100Rebuild: 'C100_REBUILD_FLAG'
+  launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
+
+launchDarkly:
   offline: false
+  

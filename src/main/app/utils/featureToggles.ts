@@ -32,4 +32,11 @@ export class FeatureToggles {
     }
     return featureNames.some(featureName => toBoolean(config.get<boolean>(`featureToggles.${featureName}`)));
   }
+
+  async isC100reBuildEnabled(): Promise<boolean> {
+    return this.launchDarklyClient.serviceVariation(
+      'c100-rebuild',
+      toBoolean(config.get<boolean>('featureToggles.c100Rebuild'))
+    );
+  }
 }
