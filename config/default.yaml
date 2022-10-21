@@ -25,7 +25,7 @@ services:
   cos:
     url: 'http://prl-cos-aat.service.core-compute-aat.internal'
   documentManagement:
-    url: 'https://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
+    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
 health:
   timeout: 5000
   deadline: 15000
