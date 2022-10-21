@@ -180,7 +180,7 @@ describe('Consent Order Document Upload controller', () => {
     };
 
     const controller = new ConsentOrderDocumentUpload(mockForm.fields);
-    const req = mockRequest({});
+    const req = mockRequest();
     req.files = { documents: { name: 'test.pdf', size: '812300', data: '', mimetype: 'text' } };
     const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
     const extensionType = req.files.documents.name.split('.')[req.files.documents.name.split('.').length - 1];
@@ -201,15 +201,34 @@ describe('Consent Order Document Upload controller', () => {
       filename: `applicant__consent_order_draft__${dateOfSystem}.${extensionType}`,
     });
 
-    await req.locals.C100Api.uploadDocument(formData);
+    const uploader = await req.locals.C100Api.uploadDocument(formData);
+    const { document_url, document_filename, document_binary_url } = uploader.document;
+    const expected = {
+      id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+      url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+      filename: `applicant__consent_order_draft__${dateOfSystem}.pdf`,
+      binaryUrl:
+        'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+    };
+
+    req.session.userCase = {
+      co_certificate: {
+        id: document_url.split('/')[document_url.split('/').length - 1],
+        url: document_url,
+        filename: document_filename,
+        binaryUrl: document_binary_url,
+      },
+    };
+
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expected);
     await controller.post(req, res);
 
-    console.log(await req.locals.C100Api.uploadDocument(), 'check response');
+    console.log(expected, 'check response');
 
     expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
     expect(req.locals.C100Api.uploadDocument).toBeCalled();
     expect(req.locals.C100Api.uploadDocument).toHaveBeenCalledWith(formData);
-    expect(req.session.userCase).toEqual({ id: '1234' });
+    expect(req.session.userCase).toEqual({ co_certificate: expected });
   });
 });
 
@@ -241,5 +260,25 @@ describe('when there is an error in saving session', () => {
       //eslint-disable-next-line jest/no-conditional-expect
       expect(err).toBe('MOCK_ERROR');
     }
+  });
+
+  test('rejects with an error when unable to save session data', async () => {
+    // getNextStepUrlMock.mockReturnValue('/next-step-url');
+    // const body = { gender: Gender.FEMALE };
+    const errors = [{ errorType: 'required', propertyName: 'document' }];
+    const controller = new ConsentOrderDocumentUpload({});
+
+    const mockSave = jest.fn(done => done('An error while saving session'));
+    const req = mockRequest({ session: { save: mockSave } });
+    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({});
+    const res = mockResponse();
+    await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
+
+    // const userCase = {
+    //   ...req.session.userCase,
+    // };
+    expect(mockSave).toHaveBeenCalled();
+    expect(res.redirect).not.toHaveBeenCalled();
+    expect(req.session.errors).toStrictEqual(errors);
   });
 });
