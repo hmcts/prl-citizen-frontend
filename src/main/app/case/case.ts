@@ -61,6 +61,9 @@ import {
   MiamNonAttendReason,
   OtherProceedings,
   //DocumentType,
+  ChildrenDetails,
+  C1ASafteyConcernsAbout,
+  C1AAbuseTypes,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -327,6 +330,7 @@ export interface Case {
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
+  sq_writtenAgreement?: string;
   doYouConsent?: YesOrNo;
   applicationReceivedDate?: CaseDate;
   courtPermission?: YesOrNo;
@@ -482,6 +486,7 @@ export interface Case {
   c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
+  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
   c1A_safteyConcerns?: C1ASafteyConcerns;
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
@@ -497,6 +502,15 @@ export interface Case {
   miam_previousAttendance?: string[];
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
+  c1A_passportOffice?: YesOrNo;
+  childFirstName?: ChildrenDetails['firstName'];
+  childLastName?: ChildrenDetails['lastName'];
+  cd_children?: ChildrenDetails[];
+  sq_legalRepresentation?: YesOrNo;
+  sq_legalRepresentationApplication?: YesOrNo;
+  c1A_concernAboutChild?: C1AAbuseTypes[];
+  c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_childAbductedBefore?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
