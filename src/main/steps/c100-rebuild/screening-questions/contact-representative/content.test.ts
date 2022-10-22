@@ -10,7 +10,7 @@ const en = {
   serviceName: 'Child arrangements',
   title: 'Contact your legal representative',
   paragraph: 'If you have a legal representative and want them to complete the application for you:',
-  buttonText: 'Close the application',
+  closeApplication: 'Close the application',
   bulletPoints: [
     'get in touch with your legal representative',
     'ask them what information they need from you to complete the application',
@@ -26,7 +26,7 @@ const cy = {
   serviceName: 'Child arrangements - welsh',
   title: 'Contact your legal representative - welsh',
   paragraph: 'If you have a legal representative and want them to complete the application for you: - welsh',
-  buttonText: 'Close the application - welsh',
+  closeApplication: 'Close the application - welsh',
   bulletPoints: [
     'get in touch with your legal representative - welsh',
     'ask them what information they need from you to complete the application - welsh',

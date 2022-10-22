@@ -260,7 +260,6 @@ export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
 export const C100_URL: PageLink = '/c100-rebuild';
 export const C100_START: PageLink = `${C100_URL}/start`;
 export const C100_CHILD_ADDRESS: PageLink = `${C100_URL}/childaddress`;
-export const C100_LEGAL_REPRESENTATION_APPLICATION: PageLink = `${C100_URL}/screening-questions/legal-representation-application`;
 
 export const C100_CREATE_APPLICATION: PageLink = `${C100_URL}/create-application`;
 export const C100_CONFIRMATIONPAGE: PageLink = `${C100_URL}/confirmation-page`;
@@ -381,3 +380,4 @@ export const C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST: PageLink = `${C100_SC
 export const C100_SCREENING_QUESTIONS_PERMISSIONS_WHY: PageLink = `${C100_SCREENING_QUESTIONS}/permissions-why`;
 export const C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES: PageLink = `${C100_SCREENING_QUESTIONS}/alternative-routes`;
 export const C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE: PageLink = `${C100_SCREENING_QUESTIONS}/contact-representative`;
+export const C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION: PageLink = `${C100_SCREENING_QUESTIONS}/legal-representation-application`;
