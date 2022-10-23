@@ -21,10 +21,10 @@ export class GetCaseController {
 
   private static async assignUserCase(req: AppRequest): Promise<CaseWithId> {
     if (req.params?.caseId) {
-      const caseworkerUser = req.session.user;
+      const citizenUser = req.session.user;
       const caseReference = req.params?.caseId;
-      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
+      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
+      const caseDataFromCos = await client.retrieveByCaseId(caseReference, citizenUser);
       req.session.userCase = caseDataFromCos;
     }
     if (!req.session?.userCase) {

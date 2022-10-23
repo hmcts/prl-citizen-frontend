@@ -98,8 +98,8 @@ export class PostController<T extends AnyObject> {
     try {
       Object.assign(req.session.userCase, formData);
       // call here to get the case details //
-      const caseworkerUser = req.session.user;
-      req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+      const citizenUser = req.session.user;
+      req.locals.api = getCaseApi(citizenUser, req.locals.logger);
       const caseReference = req.session.userCase.caseCode;
       const caseData = await req.locals.api.getCaseById(caseReference as string);
       console.log('Saving data for case : ' + JSON.stringify(caseData.id));
@@ -256,9 +256,9 @@ export class PostController<T extends AnyObject> {
       return this.redirect(req, res);
     }
 
-    const caseworkerUser = req.session.user;
+    const citizenUser = req.session.user;
 
-    const cosApiClient = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const cosApiClient = new CosApiClient(citizenUser.accessToken, 'http://localhost:3001');
     const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
     console.log('retrieved casedata for case : ' + caseDataFromCos);
 
