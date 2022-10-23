@@ -635,5 +635,9 @@ describe('C100Sequence', () => {
     expect(C100Sequence[84].getNextStep({ c1A_childAbductedBefore: YesOrNo.NO })).toBe(
       '/c100-rebuild/safety-concerns/other-concerns/drugs'
     );
+
+    expect(C100Sequence[84].url).toBe('/c100-rebuild/safety-concerns/no-feedback');
+    expect(C100Sequence[84].showInSection).toBe('c100');
+    expect(C100Sequence[84].getNextStep({})).toBe('/c100-rebuild/safety-concerns/no-feedback');
   });
 });
