@@ -1,0 +1,117 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block page_content %}
+<h1 class="govuk-heading-xl">{{title}}</h1>
+{{ govukInsetText({
+  text: insetText
+}) }}
+<main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+  <form action="" method="post" novalidate="" type="submit">
+      {% for error in sessionErrors %}
+        <div class=" {%- if error.propertyName === 'legalRepresentation' %}  govuk-form-group--error  {% endif %}">
+          {%- if error.propertyName == 'legalRepresentation' %}
+            <span class="govuk-error-message" id="steps-legalRepresentationerror"><span class="govuk-visually-hidden">Error: </span>{{errors.legalRepresentation.required}}</span>
+            {%set errorTypeClassInput = " govuk-input--error"%}
+        {% endif %}
+      {% endfor %}
+    <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+
+    {% if formaction == 'Yes' %}
+    {{ govukRadios({
+    idPrefix: "legalRepresentation",
+    name: "legalRepresentation",
+    fieldset: {
+      legend: {
+        text: "",
+        isPageHeading: true if not title,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    items: [
+    {
+      value: "Yes",
+      text: "Yes",
+      checked: true
+    },
+    {
+      value: "No",
+      text: "No"
+    }
+  ],
+    formGroup: {
+      classes: "govuk-fieldset__legend--l"
+    }
+  }) }}
+
+    {% elif formaction == 'No' %}
+    {{ govukRadios({
+    idPrefix: "legalRepresentation",
+    name: "legalRepresentation",
+    fieldset: {
+      legend: {
+        text: "",
+        isPageHeading: true if not title,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    items: [
+    {
+      value: "Yes",
+      text: "Yes"
+    },
+    {
+      value: "No",
+      text: "No",
+      checked: true
+    }
+  ],
+    formGroup: {
+      classes: "govuk-fieldset__legend--l"
+    }
+  }) }}
+  
+    {% else %}
+
+    {{ govukRadios({
+    idPrefix: "legalRepresentation",
+    name: "legalRepresentation",
+    fieldset: {
+      legend: {
+        text: "",
+        isPageHeading: true if not title,
+        classes: "govuk-fieldset__legend--l" + errorTypeClassInput
+      }
+    },
+    items: [
+    {
+      value: "Yes",
+      text: "Yes"
+    },
+    {
+      value: "No",
+      text: "No"
+    }
+  ],
+    formGroup: {
+      classes: "govuk-fieldset__legend--l" + errorTypeClassInput
+    }
+  }) }}
+{% endif %}
+{% for error in sessionErrors %}
+          {%- if error.propertyName == 'legalRepresentation' %}
+           </div>
+        {% endif %}
+      {% endfor %}
+    <button type="submit" formnovalidate="formnovalidate" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">
+      Save and continue
+    </button>
+  </form>
+  <p class="govuk-body"><a href="https://www.gov.uk/find-legal-advice/find-legal-adviser" class="govuk-link" rel="external" target="_blank">Find legal representation</a></p>
+  <p class="govuk-body"><a href="https://www.gov.uk/legal-aid" class="govuk-link" rel="external" target="_blank">Do you need legal aid?</a></p>
+</main>
+{% endblock %}

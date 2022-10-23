@@ -1,0 +1,28 @@
+{
+    "translations": {
+        "en": {
+            "continue": "Continue",
+            "section": "Applicant",
+            "serviceName": "Select Address",
+            "title": "What's your home address?"
+        },
+        "cy": {
+            "continue": "Continue",
+            "section": "Applicant (in welsh)",
+            "serviceName": "Select Address (in welsh)",
+            "title": "What's your home address? (in welsh)"
+        }
+    },
+    "errors":{
+        "en": {
+            "applicantSelectAddress": {
+                "notSelected": "Select an address"
+            }
+        },
+        "cy": {
+            "applicantSelectAddress": {
+                "notSelected": "Select an address (in welsh)"
+            }
+        }
+    }
+}

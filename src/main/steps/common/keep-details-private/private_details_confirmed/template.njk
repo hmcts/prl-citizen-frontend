@@ -1,0 +1,33 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+    <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <h1 class="govuk-fieldset__heading">
+                        {{title}}
+                      </h1>
+            </legend>
+            <div class="govuk-!-padding-bottom-4"></div>
+            <p class="govuk-body-m">{{line1}}:</p>
+
+            <ul class="govuk-list govuk-list--bullet">
+            {% for element in userCase.contactDetailsPrivate %}
+            {% if element === 'address' %}
+                <li>{{address}}</li>
+            {% endif %}
+            {% if element === 'phoneNumber' %}
+                <li>{{phoneNumber}}</li>
+            {% endif %}
+            {% if element === 'email' %}
+                <li>{{email}}</li>
+            {% endif %}
+            {% endfor %}
+            </ul>
+
+            <h2 class="govuk-heading-m">{{line2}}</h2>
+            <p class="govuk-body-m">{{line3}}</p>
+
+        </fieldset>
+    </div>
+{% endblock %}

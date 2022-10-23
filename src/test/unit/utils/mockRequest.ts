@@ -1,6 +1,7 @@
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = ({
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const mockRequest: any = ({
   headers = {},
   body = {},
   session = {},
@@ -8,6 +9,7 @@ export const mockRequest = ({
   userCase = {},
   appLocals = {},
   query = {},
+  params = {},
 } = {}): AppRequest =>
   ({
     headers: { 'accept-language': 'en', ...headers },
@@ -24,9 +26,9 @@ export const mockRequest = ({
       },
     },
     query: { ...query },
+    params: { ...params },
     session: {
       user: {
-        id: '123456',
         accessToken: 'mock-user-access-token',
         name: 'test',
         givenName: 'First name',

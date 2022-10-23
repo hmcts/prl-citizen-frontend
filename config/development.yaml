@@ -3,19 +3,29 @@ security:
 port: 3001
 timeout: 30000
 services:
+  postcodeLookup:
+    url: 'https://api.os.uk/search/places/v1'
+    token: POSTCODE_TOKEN
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'prl_citizen_frontend'
+    microservice: 'prl_cos_api'
     secret: 'NEED TO INSERT SECRET'
-  case:
-    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'  
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
-    clientSecret: 'NEED TO INSERT SECRET'
+    citizenClientSecret: 'NEED TO INSERT SECRET'
+    cosApiClientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
+  citizen:
+    uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
+  case:
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
+  cos:
+    url: 'https://prl-cos-pr-505.service.core-compute-preview.internal'
+  documentManagement:
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
 health:
   timeout: 5000
   deadline: 15000
@@ -24,7 +34,8 @@ session:
   redis:
     host:
     key:
+  secureCookie: false
 e2e:
   userTestPassword: ''
 appInsights:
-  instrumentationKey:
+  instrumentationKey: false

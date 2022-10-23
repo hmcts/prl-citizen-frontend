@@ -6,19 +6,5 @@ nodejs:
   devmemoryRequests: 512Mi
   devcpuLimits: 1000m
   devcpuRequests: 500m
-  keyVaults:
-     prl:
-       resourceGroup: prl
-       secrets:
-         - AppInsightsInstrumentationKey
-         - prl-citizen-frontend-idam-client-secret
-         - microservicekey-prl-citizen-frontend
-         - system-update-user-username
-         - system-update-user-password
-         - idam-solicitor-username
-         - idam-solicitor-password
 idam-pr:
-  enabled: true
-  redirect_uris:
-    prl-citizen-frontend:
-      - https://${SERVICE_FQDN}/receiver
+  enabled: false

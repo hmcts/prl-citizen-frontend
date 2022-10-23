@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-
+import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -35,9 +35,10 @@ interface SummaryListRow {
   valueHtml?: string;
   changeUrl?: string;
   classes?: string;
+  caseLink?: string;
 }
 
-interface SummaryList {
+export interface SummaryList {
   title: string;
   rows: GovUkNunjucksSummary[];
 }
@@ -48,12 +49,12 @@ type SummaryListContent = PageContent & {
 };
 
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
-  console.log(content);
+  console.log(content.title);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {
       key: { ...(item.key ? { text: item.key } : {}) },
-      value: { ...(item.value ? { text: item.value } : { html: item.valueHtml }) },
+      value: { ...(item.value ? { html: item.value } : {}) },
       ...(changeUrl
         ? {
             actions: {
@@ -88,8 +89,50 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      valueHtml: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
+    };
+    if (key !== 'applicant1SafeToCall') {
+      summaryData.push(row);
+    }
+  }
+
+  return {
+    title: sectionTitle || '',
+    rows: getSectionSummaryList(summaryData, content),
+  };
+};
+
+export const summaryCaseList = (
+  userCaseList: Partial<CaseWithId>[],
+  sectionTitle?: string,
+  isRespondent?: boolean
+): SummaryList | undefined => {
+  const summaryData: SummaryListRow[] = [];
+  summaryData.push({ key: 'Case Name', value: '<h4>Case Status</h4>' });
+  for (const userCase of userCaseList) {
+    const id = userCase.id;
+    const name = userCase.applicantCaseName;
+    const state = userCase.state;
+    let caseUrl = '#';
+    if (userCase.caseTypeOfApplication === 'C100') {
+      if (!isRespondent) {
+        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
+      } else {
+        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
+      }
+    } else if (userCase.caseTypeOfApplication === 'FL401') {
+      if (!isRespondent) {
+        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
+      } else {
+        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
+      }
+    }
+    const row = {
+      key: name,
+      value: state,
+      changeUrl: id,
+      caseLink: caseUrl,
     };
 
     summaryData.push(row);
@@ -97,8 +140,32 @@ export const summaryList = (
 
   return {
     title: sectionTitle || '',
-    rows: getSectionSummaryList(summaryData, content),
+    rows: getSectionCaseList(summaryData),
   };
+};
+
+const getSectionCaseList = (rows: SummaryListRow[]): GovUkNunjucksSummary[] => {
+  return rows.map(item => {
+    const changeUrl = item.changeUrl;
+    return {
+      key: { ...(item.key ? { text: item.key } : {}) },
+      value: { ...(item.value ? { html: item.value } : {}) },
+      ...(changeUrl
+        ? {
+            actions: {
+              items: [
+                {
+                  href: `${item.caseLink}`,
+                  text: `${item.changeUrl}`,
+                  visuallyHiddenText: `${item.changeUrl}`,
+                },
+              ],
+            },
+          }
+        : {}),
+      ...(item.classes ? { classes: item.classes } : {}),
+    };
+  });
 };
 
 export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>

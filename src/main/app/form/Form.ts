@@ -127,6 +127,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  onlyContinue?: {
+    text: Label;
+    classes?: string;
+  };
   saveAsDraft?: {
     text: Label;
     classes?: string;
@@ -182,12 +186,13 @@ export interface FormInput {
   warning?: Warning;
   conditionalText?: Label;
   subFields?: Record<string, FormField>;
-  divider?: Label; //Required for divider between checkbox options
   open?: boolean;
   options?: DropdownOptionsLookup;
   disabled?: boolean;
   detailsHtml?: Label;
   link?: string;
+  divider?: boolean;
+  exclusive?: boolean;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
