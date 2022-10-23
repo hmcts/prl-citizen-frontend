@@ -95,7 +95,8 @@ pactWith(
           state: 'prl-citizen-frontend makes request to get cases',
           ...createCasesRequest,
           ...getCasesRequest,
-          willRespondWith: createCasesSuccessResponse,getCasesSuccessResponse,
+          willRespondWith: createCasesSuccessResponse,
+          getCasesSuccessResponse,
         };
         return provider.addInteraction(interaction);
       });
@@ -105,6 +106,5 @@ pactWith(
         expect(cases).toEqual(CASES);
       });
     });
-  
   }
 );

@@ -28,7 +28,7 @@
     "test:crossbrowser-e2e": "echo 'nope' && exit 0",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "test:local": "codeceptjs run-multiple parallel",
-    "test:pact": "jest -c jest.pact.config.js --runInBand"
+    "test:pact": "jest -c jest.pact.config.js --runInBand",
     "codeceptjs": "node $NODE_DEBUG_OPTION ./node_modules/.bin/codeceptjs --verbose",
     "test:uploadFile": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run --steps -c test/functional/codecept.conf.js --reporter mocha-multi"
   },
