@@ -1,11 +1,12 @@
 import fs from 'fs';
 
 import Axios from 'axios';
-import htmlReporter from 'pa11y/lib/reporters/html';
 import puppeteer from 'puppeteer';
 
 import * as urls from '../../main/steps/urls';
 import { config } from '../config';
+
+const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
 
 const pa11y = require('pa11y');
 const axios = Axios.create({ baseURL: config.TEST_URL });
@@ -25,26 +26,21 @@ interface PallyIssue {
   typeCode: number;
 }
 
-const ignoredA11yErrors = [];
-
 function ensurePageCallWillSucceed(url: string): Promise<void> {
   return axios.get(url);
 }
 
-function runPally(url: string, browser, page): Promise<Pa11yResult> {
+function runPally(url: string, browser): Promise<Pa11yResult> {
   let screenCapture: string | boolean = false;
   if (!config.TestHeadlessBrowser) {
-    const screenshotDir = `${__dirname}/../../../output/pa11y`;
+    const screenshotDir = `${__dirname}/../../../functional-output/pa11y`;
     fs.mkdirSync(screenshotDir, { recursive: true });
     screenCapture = `${screenshotDir}/${url.replace(/^\/$/, 'home').replace('/', '')}.png`;
   }
 
-  const { TEST_URL } = config;
-  const fullUrl = `${TEST_URL.endsWith('/') ? TEST_URL.slice(0, TEST_URL.length - 1) : TEST_URL}${url}`;
+  const fullUrl = `${config.TEST_URL}${url}`;
   return pa11y(fullUrl, {
-    ignore: ignoredA11yErrors,
     browser,
-    page,
     screenCapture,
     hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
   });
@@ -85,36 +81,29 @@ describe('Accessibility', () => {
     await page.type('#password', process.env.CITIZEN_PASSWORD);
     await page.click('input[type="submit"]');
     cookies = await page.cookies(config.TEST_URL);
+    await page.close();
   };
 
   beforeAll(setup);
+
+  beforeEach(async () => {
+    const page = await browser.newPage();
+    await page.goto(config.TEST_URL);
+    await page.setCookie(...cookies);
+    await page.goto(`${config.TEST_URL}/info`);
+    await page.close();
+  });
 
   afterAll(async () => {
     hasAfterAllRun = true;
     await browser.close();
   });
 
-  const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
-
-  const urlsToTest = Object.values(urls).filter(url => !IGNORED_URLS.includes(url));
-
-  describe.each(urlsToTest)('Page %s', url => {
-    let page;
-
-    test(`Page ${url} should have no accessibility errors`, async () => {
-      page = await browser.newPage();
-      await page.goto(config.TEST_URL);
-      await page.setCookie(...cookies);
-
+  const urlsNoSignOut = Object.values(urls).filter(url => !IGNORED_URLS.includes(url));
+  describe.each(urlsNoSignOut)('Page %s', url => {
+    test('should have no accessibility errors', async () => {
       await ensurePageCallWillSucceed(url);
-
-      const result = await runPally(url, browser, page);
-      const html = await htmlReporter.results(result);
-
-      const reportsDir = `${__dirname}/../../../output/pa11y${url.slice(0, url.lastIndexOf('/'))}`;
-      fs.mkdirSync(reportsDir, { recursive: true });
-      fs.writeFileSync(`${reportsDir}${url.slice(url.lastIndexOf('/'))}.html`, html);
-
+      const result = await runPally(url, browser);
       expect(result.issues).toEqual(expect.any(Array));
       expectNoErrors(result.issues);
     });
