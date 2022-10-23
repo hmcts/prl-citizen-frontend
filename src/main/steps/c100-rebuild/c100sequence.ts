@@ -98,6 +98,7 @@ import {
   C100_LEGAL_REPRESENTATION_APPLICATION,
   C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
   C100_SCREENING_QUESTIONS_PERMISSIONS_WHY,
+  C100_SCREENING_QUESTIONS_COURT_PERMISSION,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -633,5 +634,13 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+  },
+  {
+    url: C100_SCREENING_QUESTIONS_COURT_PERMISSION,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.sq_courtPermissionRequired === YesOrNo.YES
+        ? C100_SCREENING_QUESTIONS_COURT_PERMISSION
+        : C100_SCREENING_QUESTIONS_COURT_PERMISSION,
   },
 ];

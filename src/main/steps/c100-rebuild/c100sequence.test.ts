@@ -103,7 +103,7 @@ const childrenMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(85);
+    expect(C100Sequence).toHaveLength(86);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -630,5 +630,14 @@ describe('C100Sequence', () => {
     expect(C100Sequence[84].url).toBe('/c100-rebuild/safety-concerns/no-feedback');
     expect(C100Sequence[84].showInSection).toBe('c100');
     expect(C100Sequence[84].getNextStep({})).toBe('/c100-rebuild/safety-concerns/no-feedback');
+
+    expect(C100Sequence[85].url).toBe('/c100-rebuild/screening-questions/permission');
+    expect(C100Sequence[85].showInSection).toBe('c100');
+    expect(C100Sequence[85].getNextStep({ sq_courtPermissionRequired: YesOrNo.YES })).toBe(
+      '/c100-rebuild/screening-questions/permission'
+    );
+    expect(C100Sequence[85].getNextStep({ sq_courtPermissionRequired: YesOrNo.NO })).toBe(
+      '/c100-rebuild/screening-questions/permission'
+    );
   });
 });
