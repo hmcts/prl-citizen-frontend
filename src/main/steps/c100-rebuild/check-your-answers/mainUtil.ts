@@ -4,6 +4,7 @@ import * as Urls from '../../urls';
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
 import { MiamHelper } from './helpers/miamHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
+import { OPotherProceedingsSessionParserUtil } from './util/currentandprevious-proceedings.util';
 
 /* eslint-disable import/namespace */
 export const TypeOfOrder = (
@@ -322,6 +323,40 @@ export const InternationalElement = (
 
   return {
     title: sectionTitles['InternationalElement'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+export const PastAndCurrentProceedings = (
+  { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const courtOrderDetails =
+    '<ul>' +
+    userCase['op_courtProceedingsOrders']?.map(
+      order => '<li class="govuk-!-padding-bottom-2">' + keys[`${order}Label`] + '</li>'
+    ) +
+    '</ul>';
+  const SummaryData = [
+    {
+      key: keys['childrenInvolvedCourtCase'],
+      value: userCase['op_childrenInvolvedCourtCase'],
+      changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
+    },
+    {
+      key: keys['courtOrderProtection'],
+      value: userCase['op_courtOrderProtection'],
+      changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
+    },
+    {
+      key: keys['caseDetails'],
+      valueHtml: courtOrderDetails?.split(',').join(''),
+      changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
+    },
+    ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'op_courtProceedingsOrders'),
+  ];
+  return {
+    title: sectionTitles['otherProceedings'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
