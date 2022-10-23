@@ -623,14 +623,6 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_SCREENING_QUESTIONS_PERMISSIONS_WHY,
   },
   {
-    url: C100_SCREENING_QUESTIONS_COURT_PERMISSION,
-    showInSection: Sections.C100,
-    getNextStep: (data: Partial<Case>) =>
-      data.sq_courtPermissionRequired === YesOrNo.YES
-        ? C100_SCREENING_QUESTIONS_COURT_PERMISSION
-        : C100_SCREENING_QUESTIONS_COURT_PERMISSION,
-  },
-  {
     url: C100_C1A_CHILD_ABDUCTION_THREATS,
     showInSection: Sections.C100,
     getNextStep: data =>
@@ -642,5 +634,13 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+  },
+  {
+    url: C100_SCREENING_QUESTIONS_COURT_PERMISSION,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.sq_courtPermissionRequired === YesOrNo.YES
+        ? C100_SCREENING_QUESTIONS_COURT_PERMISSION
+        : C100_SCREENING_QUESTIONS_COURT_PERMISSION,
   },
 ];
