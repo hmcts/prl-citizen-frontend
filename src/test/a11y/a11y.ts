@@ -56,7 +56,7 @@ function expectNoErrors(messages: PallyIssue[]): void {
 }
 
 jest.retryTimes(3);
-jest.setTimeout(15000);
+jest.setTimeout(30000);
 
 describe('Accessibility', () => {
   let browser;

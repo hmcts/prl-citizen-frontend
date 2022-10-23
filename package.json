@@ -134,6 +134,7 @@
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
+    "jest-extended": "^1.2.0",
     "ts-jest": "^27.1.4",
     "lint-staged": "^12.4.1",
     "mini-css-extract-plugin": "^2.5.3",
