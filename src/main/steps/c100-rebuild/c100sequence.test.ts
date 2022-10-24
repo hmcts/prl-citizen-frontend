@@ -103,7 +103,7 @@ const childrenMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(87);
+    expect(C100Sequence).toHaveLength(88);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -631,12 +631,21 @@ describe('C100Sequence', () => {
     expect(C100Sequence[84].showInSection).toBe('c100');
     expect(C100Sequence[84].getNextStep({})).toBe('/c100-rebuild/safety-concerns/no-feedback');
 
-    expect(C100Sequence[85].url).toBe('/c100-rebuild/consent-order/upload');
+    expect(C100Sequence[85].url).toBe('/c100-rebuild/screening-questions/permission');
     expect(C100Sequence[85].showInSection).toBe('c100');
-    expect(C100Sequence[85].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[85].getNextStep({ sq_courtPermissionRequired: YesOrNo.YES })).toBe(
+      '/c100-rebuild/screening-questions/permission'
+    );
+    expect(C100Sequence[85].getNextStep({ sq_courtPermissionRequired: YesOrNo.NO })).toBe(
+      '/c100-rebuild/screening-questions/permission'
+    );
 
-    expect(C100Sequence[86].url).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[86].url).toBe('/c100-rebuild/consent-order/upload');
     expect(C100Sequence[86].showInSection).toBe('c100');
     expect(C100Sequence[86].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
+
+    expect(C100Sequence[87].url).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[87].showInSection).toBe('c100');
+    expect(C100Sequence[87].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
   });
 });
