@@ -13,8 +13,8 @@ export const enContent = {
     citizenUserFullName: 'Name',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
-    address: 'Address',
-    addressHistory: 'Address history',
+    citizenUserAddressText: 'Address',
+    citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
     citizenUserEmailAddressText: 'Email',
     applicant1SafeToCall: 'When it is safe to call you (optional)',
@@ -27,6 +27,11 @@ const en = (content: CommonContent) => {
   const dob = userCase.citizenUserDateOfBirth;
   if (typeof dob !== 'string') {
     getFormattedDate(dob);
+  }
+  if (!userCase.citizenUserAddressPostcode) {
+    urls.citizenUserAddressText = 'address/lookup';
+  } else {
+    urls.citizenUserAddressText = 'addressdetails';
   }
   return {
     ...enContent,
@@ -45,8 +50,8 @@ const cyContent: typeof enContent = {
     citizenUserFullName: 'Name',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
-    address: 'Address',
-    addressHistory: 'Address history',
+    citizenUserAddressText: 'Address',
+    citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
     citizenUserEmailAddressText: 'Email',
     applicant1SafeToCall: 'When it is safe to call you (optional)',
@@ -58,8 +63,8 @@ const urls = {
   citizenUserFullName: 'personaldetails',
   citizenUserDateOfBirthText: 'personaldetails',
   citizenUserPlaceOfBirthText: 'personaldetails',
-  address: 'addressdetails',
-  addressHistory: 'addresshistory',
+  citizenUserAddressText: 'addressdetails',
+  citizenUserAddressHistory: 'addresshistory',
   citizenUserPhoneNumberText: 'contactdetails',
   citizenUserEmailAddressText: 'contactdetails',
   applicant1SafeToCall: 'contactdetails',
@@ -68,8 +73,8 @@ const fieldType = {
   citizenUserFullName: 'String',
   citizenUserDateOfBirthText: 'String',
   citizenUserPlaceOfBirthText: 'String',
-  address: 'String',
-  addressHistory: 'String',
+  citizenUserAddressText: 'String',
+  citizenUserAddressHistory: 'String',
   citizenUserPhoneNumberText: 'String',
   citizenUserEmailAddressText: 'String',
   applicant1SafeToCall: 'String',
@@ -80,6 +85,11 @@ const cy: typeof en = (content: CommonContent) => {
   const dob = userCase.citizenUserDateOfBirth;
   if (dob !== null && dob !== undefined && typeof dob !== 'string') {
     getFormattedDate(dob);
+  }
+  if (!userCase.citizenUserAddressPostcode) {
+    urls.citizenUserAddressText = 'address/lookup';
+  } else {
+    urls.citizenUserAddressText = 'addressdetails';
   }
   //userCase.citizenUserDateOfBirthText = getFormattedDate(userCase.citizenUserDateOfBirth);
   //console.log("userCase.citizenUserDateOfBirthText====>"+userCase.citizenUserDateOfBirthText);

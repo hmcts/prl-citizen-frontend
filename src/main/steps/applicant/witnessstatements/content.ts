@@ -1,5 +1,3 @@
-//import config from 'config';
-//import { getSystemUser } from 'app/auth/user/oidc';
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../main/steps/urls';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
