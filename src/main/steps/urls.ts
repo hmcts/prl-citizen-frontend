@@ -380,5 +380,6 @@ export const C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION: PageLink = `${C100_
 export const C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST: PageLink = `${C100_SCREENING_QUESTIONS}/permissions-request`;
 export const C100_SCREENING_QUESTIONS_PERMISSIONS_WHY: PageLink = `${C100_SCREENING_QUESTIONS}/permissions-why`;
 export const C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES: PageLink = `${C100_SCREENING_QUESTIONS}/alternative-routes`;
+export const C100_SCREENING_QUESTIONS_COURT_PERMISSION: PageLink = `${C100_URL}/screening-questions/permission`;
 
 export const C100_GET_CASE: PageLink = `${C100_URL}/get-case`;
