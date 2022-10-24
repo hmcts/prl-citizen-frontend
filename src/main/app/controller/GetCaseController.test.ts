@@ -29,7 +29,7 @@ describe.skip('GetCaseController', () => {
     });
     let flag = false;
     try {
-      await controller.getCase(req, res);
+      await controller.getApplicantCase(req, res);
     } catch (err) {
       flag = true;
     }
