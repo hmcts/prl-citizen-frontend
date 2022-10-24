@@ -816,12 +816,10 @@ export interface CaseData {
   citizenUserManualAddressTown?: string;
   citizenUserManualAddressCounty?: string;
   citizenUserManualAddressPostcode?: string;
-
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
-
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   doYouConsent?: YesOrNo;

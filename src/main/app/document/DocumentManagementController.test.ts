@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../case/CosApiClient';
@@ -68,7 +70,11 @@ describe('DocumentManagerController', () => {
       };
 
       await documentManagerController.get(req, res);
-      expect(mockGet).toHaveBeenCalledWith(expect.anything());
+      expect(mockGet).toHaveBeenCalledWith({
+        url:
+          config.get('services.documentManagement.url') +
+          '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+      });
     });
   });
 
@@ -111,7 +117,11 @@ describe('DocumentManagerController', () => {
       ];
 
       await documentManagerController.get(req, res);
-      expect(mockGet).toHaveBeenCalledWith(expect.anything());
+      expect(mockGet).toHaveBeenCalledWith({
+        url:
+          config.get('services.documentManagement.url') +
+          '/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
+      });
     });
   });
 

@@ -1,7 +1,7 @@
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getCaseDetails, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
@@ -85,22 +85,6 @@ export class OidcMiddleware {
               }
             }
           }
-
-          if (!req.session.userCase) {
-            //This language preference will be used while creating a case
-            // const languagePreference =
-            //   req.session['lang'] === 'cy' ? LanguagePreference.WELSH : LanguagePreference.ENGLISH;
-            // req.session.userCase = await req.locals.api.getOrCreateCase(
-            //   res.locals.serviceType,
-            //   req.session.user,
-            //   languagePreference
-            // );
-            //setting the applicant's preferred language in session
-            // req.session['lang'] =
-            // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
-          }
-          console.log('****** inside oidc, trying to get the cases');
-          req.session.userCaseList = await getCaseDetails(req);
           return next();
         } else {
           console.log('****** login failed, no user details found');
