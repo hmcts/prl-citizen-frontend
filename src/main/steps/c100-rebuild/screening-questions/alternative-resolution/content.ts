@@ -1,9 +1,7 @@
-import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { FormContent, LanguageLookup } from '../../../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../../../common/common.content';
-import { generateContent } from '../../../screening-questions/alternative-resolution/going-to-court/content';
+import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent } from '../../../../app/form/Form';
 
-const en = {
+const en = () => ({
   title: 'Before you go to court',
   titleDetail:
     'Before you continue with the application, think about what the court process involves and whether you need to go to court.',
@@ -39,9 +37,9 @@ const en = {
   para11: 'If you do not have a legal representative, you can find information about',
   para11Link:
     '<a href="https://www.gov.uk/represent-yourself-in-court" class="govuk-link" rel="external" target="_blank">how to represent yourself in court</a>',
-};
+});
 
-const cy = {
+const cy = () => ({
   title: 'Before you go to court - welsh',
   titleDetail:
     'Before you continue with the application, think about what the court process involves and whether you need to go to court. - welsh',
@@ -77,30 +75,27 @@ const cy = {
   para11: 'If you do not have a legal representative, you can find information about',
   para11Link:
     '<a href="https://www.gov.uk/represent-yourself-in-court" class="govuk-link" rel="external" target="_blank">how to represent yourself in court</a>',
+});
+
+const languages = {
+  en,
+  cy,
 };
 
-describe('miam->have document signed by mediator or not', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
-  const generatedContent = generateContent(commonContent) as Record<string, never>;
-  const form = generatedContent.form as FormContent;
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct english content', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
-  });
+export const form: FormContent = {
+  fields: {},
+  submit: {
+    text: l => l.onlycontinue,
+  },
+  saveAndComeLater: {
+    text: l => l.saveAndComeLater,
+  },
+};
 
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
-  });
-
-  test('should contain Continue button', () => {
-    expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Continue');
-  });
-  test('should contain SaveAndComeLater button', () => {
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
-  });
-});
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language]();
+  return {
+    ...translations,
+    form,
+  };
+};
