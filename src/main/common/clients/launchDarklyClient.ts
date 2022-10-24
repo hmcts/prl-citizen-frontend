@@ -3,7 +3,7 @@ import * as ld from 'ldclient-node';
 import { LDFlagValue } from 'ldclient-node';
 
 const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
-console.log('sdkkey ' + sdkKey);
+console.log('sdkkey --' + sdkKey);
 const ldConfig = {
   offline: false,
 };
