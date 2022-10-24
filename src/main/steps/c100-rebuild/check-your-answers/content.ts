@@ -284,7 +284,6 @@ export const SystemLanguageContent = (content, Function) => {
 };
 
 export const generateContent: TranslationFn = content => {
-  console.log({ ...otherProceedingsContents[content.language] });
   const newContents = content['language'] === 'en' ? enContent : cyContent;
   newContents['keys'] = {
     ...newContents.keys,

@@ -2,12 +2,7 @@
 import * as Urls from '../../../urls';
 import { enContent } from '../content';
 
-import {
-  MiamHelperDynamicEnteriesMapper,
-  miamOnlyChildFieldParser,
-  miamOnlyParentFieldParser,
-  miamParentAndChildFieldParser,
-} from './miamHelper';
+import { MiamHelperDynamicEnteriesMapper, miamOnlyChildFieldParser } from './miamHelper';
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('MiamHelperDynamicEnteriesMapper Test cases', () => {
