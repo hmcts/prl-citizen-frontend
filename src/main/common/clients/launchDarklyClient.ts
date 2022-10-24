@@ -2,7 +2,7 @@ import config = require('config');
 import * as ld from 'ldclient-node';
 import { LDFlagValue } from 'ldclient-node';
 
-const sdkKey: string = config.get('secrets.prl.launchDarkly-sdk-key');
+const sdkKey: string = config.get('featureToggles.launchDarklyKey');
 console.log('--sdkkey --' + sdkKey);
 console.log('print config---' + config);
 const ldConfig = {
