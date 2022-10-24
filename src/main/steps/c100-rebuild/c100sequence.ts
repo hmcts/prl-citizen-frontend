@@ -99,6 +99,7 @@ import {
   C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
   C100_SCREENING_QUESTIONS_PERMISSIONS_WHY,
   C100_SCREENING_QUESTIONS_COURT_PERMISSION,
+  C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -607,7 +608,7 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: data =>
       data.sq_legalRepresentationApplication === YesOrNo.YES
-        ? C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION
+        ? C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE
         : C100_SCREENING_QUESTIONS_COURT_PERMISSION,
   },
   {
@@ -645,5 +646,10 @@ export const C100Sequence: Step[] = [
       data.sq_courtPermissionRequired === YesOrNo.YES
         ? C100_SCREENING_QUESTIONS_PERMISSIONS_WHY
         : C100_MIAM_OTHER_PROCEEDINGS,
+  },
+  {
+    url: C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
   },
 ];
