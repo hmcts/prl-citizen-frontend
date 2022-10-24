@@ -55,6 +55,6 @@ describe('Miam Fields parser', () => {
       miam_childProtectionEvidence: ['localAuthorityCp', 'childProtectionCpPlan'],
     };
     const fields = miamOnlyChildFieldParser(userCase, enContent.keys, 'miam_childProtectionEvidence');
-    expect(fields).toBe(1);
+    expect(fields).not.toBe(undefined);
   });
 });
