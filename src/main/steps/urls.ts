@@ -260,7 +260,6 @@ export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
 export const C100_URL: PageLink = '/c100-rebuild';
 export const C100_START: PageLink = `${C100_URL}/start`;
 export const C100_CHILD_ADDRESS: PageLink = `${C100_URL}/childaddress`;
-export const C100_LEGAL_REPRESENTATION_APPLICATION: PageLink = `${C100_URL}/screening-questions/legal-representation-application`;
 
 export const C100_CREATE_APPLICATION: PageLink = `${C100_URL}/create-application`;
 export const C100_CONFIRMATIONPAGE: PageLink = `${C100_URL}/confirmation-page`;
@@ -375,11 +374,13 @@ export const C100_HEARING_URGENCY_URGENT_DETAILS: PageLink = `${C100_HEARING_URG
 /**@C100 Screening Questions */
 export const C100_SCREENING_QUESTIONS: PageLink = `${C100_URL}/screening-questions`;
 export const C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT: PageLink = `${C100_SCREENING_QUESTIONS}/consent-agreement`;
-export const C100_SCREENING_QUESTIONS_ALTERNATIVE_SOLUTIONS: PageLink = `${C100_SCREENING_QUESTIONS}/alternative-resolution/going-to-court`;
+export const C100_SCREENING_QUESTIONS_ALTERNATIVE_RESOLUTION: PageLink = `${C100_SCREENING_QUESTIONS}/alternative-resolution`;
 export const C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION: PageLink = `${C100_SCREENING_QUESTIONS}/legal-representation`;
 export const C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST: PageLink = `${C100_SCREENING_QUESTIONS}/permissions-request`;
 export const C100_SCREENING_QUESTIONS_PERMISSIONS_WHY: PageLink = `${C100_SCREENING_QUESTIONS}/permissions-why`;
 export const C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES: PageLink = `${C100_SCREENING_QUESTIONS}/alternative-routes`;
-export const C100_SCREENING_QUESTIONS_COURT_PERMISSION: PageLink = `${C100_URL}/screening-questions/permission`;
+export const C100_SCREENING_QUESTIONS_COURT_PERMISSION: PageLink = `${C100_SCREENING_QUESTIONS}/permission`;
+export const C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION: PageLink = `${C100_SCREENING_QUESTIONS}/legal-representation-application`;
+export const C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE: PageLink = `${C100_SCREENING_QUESTIONS}/contact-representative`;
 
 export const C100_GET_CASE: PageLink = `${C100_URL}/get-case`;

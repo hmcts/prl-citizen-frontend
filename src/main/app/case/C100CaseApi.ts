@@ -10,7 +10,7 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-import { Case } from './case';
+import { Case, CaseWithId } from './case';
 import { C100, State } from './definition';
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
@@ -64,6 +64,29 @@ export class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');
+    }
+  }
+
+  /**
+   * Delete Case
+   * State: DELETED
+   * Event: C100.DELETE_CASE
+   * @param caseId
+   * @param caseData
+   * @returns
+   */
+  public async deleteCase(caseId: string, caseData: Partial<CaseWithId>): Promise<void> {
+    console.info(caseData);
+    try {
+      caseData = { ...caseData, state: State.Deleted };
+      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100.DELETE_CASE}/update-case`, caseData, {
+        headers: {
+          accessCode: '12345678',
+        },
+      });
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be deleted.');
     }
   }
 
