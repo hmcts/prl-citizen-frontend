@@ -58,7 +58,7 @@ export class OidcMiddleware {
         }
         console.log('inside oidc, finding user');
         if (req.session?.user) {
-          console.log(config);
+          //console.log(config);
           if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {
             console.log('inside if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {');
 

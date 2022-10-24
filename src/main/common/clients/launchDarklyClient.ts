@@ -2,8 +2,9 @@ import config = require('config');
 import * as ld from 'ldclient-node';
 import { LDFlagValue } from 'ldclient-node';
 
-const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
+const sdkKey: string = config.get('secrets.prl.launchDarkly-sdk-key');
 console.log('--sdkkey --' + sdkKey);
+console.log('print config---' + config);
 const ldConfig = {
   offline: false,
 };
