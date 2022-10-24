@@ -46,6 +46,3 @@ featureToggles:
 launchDarkly:
   offline: false
 
-secrets:
-  prl:
-    launchDarkly-sdk-key: LAUNCH_DARKLY_SDK_KEY
