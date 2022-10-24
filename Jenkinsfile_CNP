@@ -21,7 +21,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 def secrets = [
   'prl-${env}': [
-    secret('AppInsightsInstrumentationKey', 'APP_INSIGHTS_INSTRUMENTATION_KEY'),
+    secret('AppInsightsInstrumentationKey-Preview', 'APP_INSIGHTS_INSTRUMENTATION_KEY'),
     secret('prl-citizen-frontend-idam-client-secret', 'CITIZEN_IDAM_SECRET'),
     secret('prl-cos-idam-client-secret', 'COS_API_IDAM_SECRET'),
     secret('postcode-lookup-token', 'POSTCODE_TOKEN'),
