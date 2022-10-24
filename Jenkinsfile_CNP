@@ -51,8 +51,7 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:preview') {
-    env.PRL_CITIZEN_WEB_URLL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
-    env.PRL_CITIZEN_URL="https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
   }
 
   after('smoketest:preview') {
@@ -60,7 +59,7 @@ withPipeline(type, product, component) {
   }
 
   before('functionalTest:preview') {
-    env.PRL_CITIZEN_WEB_URLL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
     yarnBuilder.yarn('test:pa11y')
   }
 
@@ -69,7 +68,7 @@ withPipeline(type, product, component) {
   }
 
   before('functionalTest:aat') {
-    env.PRL_CITIZEN_WEB_URLL = "https://privatelaw.aat.platform.hmcts.net/"
+    env.PRL_CITIZEN_URL = "https://privatelaw.aat.platform.hmcts.net/"
     yarnBuilder.yarn('test:functional:skip')
   }
 

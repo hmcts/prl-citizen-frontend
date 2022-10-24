@@ -6,7 +6,12 @@ import puppeteer from 'puppeteer';
 import * as urls from '../../main/steps/urls';
 import { config } from '../config';
 
-const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
+const IGNORED_URLS = [
+  urls.SIGN_IN_URL,
+  urls.SIGN_OUT_URL,
+  urls.FIND_OUT_ABOUT_CAFCASS,
+  urls.FIND_OUT_ABOUT_CAFCASS_CYMRU,
+];
 
 const pa11y = require('pa11y');
 const axios = Axios.create({ baseURL: config.TEST_URL });
