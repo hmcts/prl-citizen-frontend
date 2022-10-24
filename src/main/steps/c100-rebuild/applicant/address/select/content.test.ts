@@ -4,29 +4,27 @@ import { CommonContent, generatePageContent } from '../../../../common/common.co
 import { generateContent } from './content';
 
 const en = {
-    title: 'Address of firstName lastName',
-    manualAddressUrl: '#',
-    errors: {
-      addressPostcode: {
-        required: 'Enter a real postcode',
-        invalid: 'Enter a real postcode',
-      },
+  title: 'Select Address of',
+  changePostCodeLabel: 'Change postcode',
+  errors: {
+    selectAddress: {
+      notSelected: 'Select an address',
     },
-};
+  },
+}
 
 const cy = {
-    title: 'Address of - welsh firstName lastName',
-    manualAddressUrl: '#',
-    errors: {
-      addressPostcode: {
-        required: 'Enter a real postcode - welsh',
-        invalid: 'Enter a real postcode - welsh',
-      },
+  title: 'Select Address of - welsh firstName lastName',
+  changePostCodeLabel: 'Change postcode - welsh',
+  errors: {
+    selectAddress: {
+      notSelected: 'Select an address - welsh',
     },
-};
+  },
+}
 
 /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
-describe('applicant > address > lookup > content', () => {
+describe('applicant > address > select > content', () => {
    const commonContent = {
     language: 'en',
     userCase: {
@@ -72,4 +70,5 @@ describe('applicant > address > lookup > content', () => {
       (generatedContent.form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
   });
+
 });

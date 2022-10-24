@@ -4,6 +4,7 @@ import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { AnyType } from 'app/form/validation';
+import { getUpdatedForm } from './content';
 
 @autobind
 export default class SelectAddressPostController extends PostController<AnyObject> {
@@ -12,15 +13,14 @@ export default class SelectAddressPostController extends PostController<AnyObjec
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const form = new Form(fields);
+    const form = new Form(getUpdatedForm().fields as FormFields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     const {applicantId} = req.query;
 
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length === 0) {
-      const selectedAddressIndex = Number(formData['applicantSelectAddress']);
+      const selectedAddressIndex = Number(formData['selectAddress']);
       if (selectedAddressIndex >= 0) {
         //eslint-disable-next-line @typescript-eslint/no-explicit-any
         const selectedAddress = req.session.addresses[selectedAddressIndex] as any;
@@ -35,6 +35,7 @@ export default class SelectAddressPostController extends PostController<AnyObjec
             applicantAddress2: selectedAddress.street2 as string,
             applicantAddressTown: selectedAddress.town as string,
             applicantAddressCounty: selectedAddress.county as string,
+            applicantSelectedAddress: selectedAddressIndex as number
           }
         }
     
@@ -43,11 +44,8 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         formData['applicantAddressTown'] = selectedAddress.town;
         formData['applicantAddressCounty'] = selectedAddress.county;
         formData['applicantAddressPostcode'] = selectedAddress.postcode;
-
-      //  Object.assign(req.session.userCase, formData);
     }
   }
-
-    this.redirect(req, res);
+  this.redirect(req, res);
   }
 }

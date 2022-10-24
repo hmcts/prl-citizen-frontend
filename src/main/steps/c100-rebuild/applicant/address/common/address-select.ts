@@ -1,3 +1,4 @@
+import { C100Applicant } from 'app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isAddressSelected } from '../../../../../app/form/validation';
@@ -52,25 +53,23 @@ const cy = content => {
   };
 };
 
-export const form: FormContent = {
-  fields: {
-    selectAddress: {
-      type: 'select',
-      label: l => l.selectAddress,
-      labelSize: null,
-      validator: isAddressSelected,
-      options: l => l.options,
+export const form = (caseData:Partial<C100Applicant>):FormContent => {
+  const { applicantSelectedAddress } = caseData;
+  return {
+    fields: {
+      selectAddress: {
+        type: 'select',
+        label: l => l.selectAddress,
+        labelSize: null,
+        validator: isAddressSelected,
+        value: applicantSelectedAddress,
+        options: l => l.options,
+      },
     },
-  },
-  submit: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
+  }
 };
 
-const languages = {
+export const languages = {
   en,
   cy,
 };

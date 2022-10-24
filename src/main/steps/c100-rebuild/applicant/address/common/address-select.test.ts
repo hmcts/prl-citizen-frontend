@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormInput, FormOptions } from '../../../../../app/form/Form';
 import { isAddressSelected } from '../../../../../app/form/validation';
-import { CommonContent, generatePageContent } from '../../../../common/common.content';
+import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './address-select';
 
@@ -108,12 +108,4 @@ describe('common > components > address-select', () => {
     expect(selectAddressField.validator).toBe(isAddressSelected);
   });
 
-  test('should contain submit button', () => {
-    expect((form.submit.text as Function)(generatePageContent({ language: 'en' }))).toBe('Continue');
-  });
-
-  test('should contain saveAndComeBackLatter button', () => {
-    expect((form.saveAndComeLater.text as Function)(generatePageContent({ language: 'en' }))).toBe('Save and come back later');
-  });
 });
-/* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */

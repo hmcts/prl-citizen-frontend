@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
-import { CommonContent, generatePageContent } from '../../../../common/common.content';
+import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './address-manual';
 
@@ -97,12 +97,4 @@ describe('common > components > manual-address > content', () => {
     expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
   });
 
-  test('should contain submit button', () => {
-    expect((form.submit.text as Function)(generatePageContent({ language: 'en' }))).toBe('Continue');
-  });
-
-  test('should contain saveAndComeBackLatter button', () => {
-    expect((form.saveAndComeLater.text as Function)(generatePageContent({ language: 'en' }))).toBe('Save and come back later');
-  });
 });
-/* eslint-enable @typescript-eslint/ban-types */
