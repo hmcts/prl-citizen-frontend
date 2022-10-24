@@ -584,7 +584,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[77].url).toBe('/c100-rebuild/screening-questions/alternative-resolution');
     expect(C100Sequence[77].showInSection).toBe('c100');
-    expect(C100Sequence[77].getNextStep({})).toBe('/c100-rebuild/screening-questions/legal-representation');
+    expect(C100Sequence[77].getNextStep({})).toBe('/c100-rebuild/screening-questions/alternative-routes');
 
     expect(C100Sequence[78].url).toBe('/c100-rebuild/screening-questions/legal-representation');
     expect(C100Sequence[78].showInSection).toBe('c100');
@@ -610,7 +610,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[81].url).toBe('/c100-rebuild/screening-questions/alternative-routes');
     expect(C100Sequence[81].showInSection).toBe('c100');
-    expect(C100Sequence[81].getNextStep({})).toBe('/c100-rebuild/screening-questions/alternative-routes');
+    expect(C100Sequence[81].getNextStep({})).toBe('/c100-rebuild/screening-questions/legal-representation');
 
     expect(C100Sequence[82].url).toBe('/c100-rebuild/screening-questions/permissions-why');
     expect(C100Sequence[82].showInSection).toBe('c100');
