@@ -508,6 +508,7 @@ export interface Case {
   cd_children?: ChildrenDetails[];
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
+  sq_courtPermissionRequired?: YesOrNo;
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
