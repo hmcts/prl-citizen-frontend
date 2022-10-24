@@ -78,7 +78,7 @@ describe('Accessibility', () => {
     const page = await browser.newPage();
     await page.goto(config.TEST_URL);
     await page.type('#username', 'familyprivatelaw@gmail.com');
-    await page.type('#password', process.env.TEST_PASSWORD);
+    await page.type('#password', 'Password12');
     await page.click('input[type="submit"]');
     cookies = await page.cookies(config.TEST_URL);
     await page.close();
