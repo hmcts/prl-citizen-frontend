@@ -17,6 +17,7 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
 } from './mainUtil';
+import { otherProceedingsContents } from './util/currentandprevious-proceedings.util';
 import { MiamFieldsLoader } from './util/miam.util';
 
 export const enContent = {
@@ -120,35 +121,6 @@ export const enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
-    childrenInvolvedCourtCase: 'Have the children been involved in a court case?',
-    courtOrderProtection: 'Have you had a court order made for your protection?',
-    caseDetails: 'Provide details of court cases you or the children have been involved in ',
-    emergencyProtectionOrderLabel: 'Emergency Protection Order',
-    childArrangementOrderLabel: 'Child Arrangements Order',
-    supervisionOrderLabel: 'Supervision Order',
-    careOrderLabel: 'Care Order',
-    childAbductionOrderLabel: 'Child Abduction Order',
-    contactOrderForDivorceLabel:
-      'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership',
-    contactOrderForAdoptionLabel:
-      'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order',
-    childMaintenanceOrderLabel: 'Child Maintenance Order',
-    financialOrderLabel: 'Financial Order',
-    nonMolestationOrderLabel: 'Non-molestation Order',
-    occupationOrderLabel: 'Occupation Order',
-    forcedMarriageProtectionOrderLabel: 'Forced Marriage Protection Order',
-    restrainingOrderLabel: 'Restraining Order',
-    otherInjuctionOrderLabel: 'Other Injunction Order',
-    undertakingOrderLabel: 'Undertaking Order',
-    otherOrderLabel: 'Other Order',
-    courtIssuedLabel: 'Which court issued the order? (optional)',
-    caseNumberLabel: 'Case number (optional)',
-    caseNumberHint: 'For example, BS19F99999',
-    orderDateLabel: 'What date was it made? (optional)',
-    orderEndDateLabel: 'What date did it end? (optional)',
-    orderDateHint: 'For example, 31 3 2015',
-    isCurrentOrderLabel: 'Is this a current order? (optional)',
-    copyOfOrderLabel: 'Do you have a copy of the order? (optional)',
   },
 };
 export const cyContent: typeof enContent = {
@@ -253,35 +225,6 @@ export const cyContent: typeof enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
-    childrenInvolvedCourtCase: 'Have the children been involved in a court case?',
-    courtOrderProtection: 'Have you had a court order made for your protection?',
-    caseDetails: 'Provide details of court cases you or the children have been involved in - welsh',
-    emergencyProtectionOrderLabel: 'Emergency Protection Order - welsh',
-    childArrangementOrderLabel: 'Child Arrangements Order - welsh',
-    supervisionOrderLabel: 'Supervision Order - welsh',
-    careOrderLabel: 'Care Order - welsh',
-    childAbductionOrderLabel: 'Child Abduction Order - welsh',
-    contactOrderForDivorceLabel:
-      'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership - welsh',
-    contactOrderForAdoptionLabel:
-      'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order - welsh',
-    childMaintenanceOrderLabel: 'Child Maintenance Order - welsh',
-    financialOrderLabel: 'Financial Order - welsh',
-    nonMolestationOrderLabel: 'Non-molestation Order - welsh',
-    occupationOrderLabel: 'Occupation Order - welsh',
-    forcedMarriageProtectionOrderLabel: 'Forced Marriage Protection Order - welsh',
-    restrainingOrderLabel: 'Restraining Order - welsh',
-    otherInjuctionOrderLabel: 'Other Injunction Order - welsh',
-    undertakingOrderLabel: 'Undertaking Order - welsh',
-    otherOrderLabel: 'Other Order - welsh',
-    courtIssuedLabel: 'Which court issued the order? (optional) - welsh',
-    caseNumberLabel: 'Case number (optional) - welsh',
-    caseNumberHint: 'For example, BS19F99999 - welsh',
-    orderDateLabel: 'What date was it made? (optional) - welsh',
-    orderEndDateLabel: 'What date did it end? (optional) - welsh',
-    orderDateHint: 'For example, 31 3 2015 - welsh',
-    isCurrentOrderLabel: 'Is this a current order? (optional) - welsh',
-    copyOfOrderLabel: 'Do you have a copy of the order? (optional) - welsh',
   },
 };
 
@@ -341,10 +284,12 @@ export const SystemLanguageContent = (content, Function) => {
 };
 
 export const generateContent: TranslationFn = content => {
+  console.log({ ...otherProceedingsContents[content.language] });
   const newContents = content['language'] === 'en' ? enContent : cyContent;
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
+    ...otherProceedingsContents(content['language']),
   };
   const translations = languages[content.language](content, newContents);
   return {
