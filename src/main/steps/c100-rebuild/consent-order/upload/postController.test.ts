@@ -83,11 +83,20 @@ describe('Consent Order Document Upload controller', () => {
         text: l => l.continue,
       },
     };
+    const errors = [{ errorType: 'required', propertyName: 'document' }];
     const controller = new ConsentOrderDocumentUpload(mockForm.fields);
     const req = mockRequest({});
     const res = mockResponse();
-    await controller.post(req, res);
+
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
+
     expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+    expect(req.session.errors).toEqual(errors);
   });
 
   test('Should throw error if file is more than 20 MB', async () => {
@@ -102,8 +111,9 @@ describe('Consent Order Document Upload controller', () => {
       },
     };
     const controller = new ConsentOrderDocumentUpload(mockForm.fields);
+    const errors = [{ errorType: 'fileSize', propertyName: 'document' }];
     const req = mockRequest({});
-    req.files = { documents: { name: 'test.rtf', size: '8123000098098', data: '', mimetype: 'text' } };
+    req.files = { documents: { name: 'test.pdf', size: '8123000098098', data: '', mimetype: 'text' } };
     const res = mockResponse();
     // await controller.post(req, res);
 
@@ -114,6 +124,7 @@ describe('Consent Order Document Upload controller', () => {
       expect(err).toBe('MOCK_ERROR');
     }
     expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+    expect(req.session.errors).toEqual(errors);
   });
 
   test('Should throw error if file is in invalid format', async () => {
@@ -128,11 +139,11 @@ describe('Consent Order Document Upload controller', () => {
       },
     };
 
+    const errors = [{ errorType: 'fileFormat', propertyName: 'document' }];
     const controller = new ConsentOrderDocumentUpload(mockForm.fields);
     const req = mockRequest({});
     req.files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
     const res = mockResponse();
-    // await controller.post(req, res);
 
     try {
       await controller.post(req, res);
@@ -142,6 +153,7 @@ describe('Consent Order Document Upload controller', () => {
     }
 
     expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+    expect(req.session.errors).toEqual(errors);
   });
 
   test('Should Upload document and direct to upload page', async () => {
@@ -223,8 +235,6 @@ describe('Consent Order Document Upload controller', () => {
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expected);
     await controller.post(req, res);
 
-    console.log(expected, 'check response');
-
     expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
     expect(req.locals.C100Api.uploadDocument).toBeCalled();
     expect(req.locals.C100Api.uploadDocument).toHaveBeenCalledWith(formData);
@@ -263,20 +273,19 @@ describe('when there is an error in saving session', () => {
   });
 
   test('rejects with an error when unable to save session data', async () => {
-    // getNextStepUrlMock.mockReturnValue('/next-step-url');
-    // const body = { gender: Gender.FEMALE };
     const errors = [{ errorType: 'required', propertyName: 'document' }];
     const controller = new ConsentOrderDocumentUpload({});
 
     const mockSave = jest.fn(done => done('An error while saving session'));
+
     const req = mockRequest({ session: { save: mockSave } });
+
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({});
+
     const res = mockResponse();
+
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
 
-    // const userCase = {
-    //   ...req.session.userCase,
-    // };
     expect(mockSave).toHaveBeenCalled();
     expect(res.redirect).not.toHaveBeenCalled();
     expect(req.session.errors).toStrictEqual(errors);
