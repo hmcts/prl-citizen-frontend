@@ -35,7 +35,7 @@ appInsights:
   instrumentationKey: APP_INSIGHTS_INSTRUMENTATION_KEY
 
 featureToggles:
-  launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
+  launchDarklyKey: 'LAUNCH_DARKLY_SDK_KEY'
   c100Rebuild: 'C100_REBUILD_FLAG'
 
 launchDarkly:
