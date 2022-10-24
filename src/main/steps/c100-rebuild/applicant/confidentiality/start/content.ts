@@ -151,7 +151,7 @@ export const generateContent: TranslationFn = content => {
           const subFields = fieldSet['subFields']?.['contactDetailsPrivate']['values'] as [];
           for (const subValue of subFields) {
             for (const bodyVal of contactDetailsPrivate) {
-              const field: FieldLabel = subValue as never;
+              const field: FieldLabel = subValue;
               if (subValue['value'] === bodyVal) {
                 field['attributes'] = { checked: true };
               }

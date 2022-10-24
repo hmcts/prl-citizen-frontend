@@ -31,6 +31,7 @@ export default class StartAlternativePostController extends CommonConfidentialit
           const applicantInformation = applicant;
           if (applicant['id'] === applicantId) {
             applicantInformation['startAlternative'] = req['body']['startAlternative'] as string;
+            applicantInformation['contactDetailsPrivate'] = [] as string[];
             if (req.body['startAlternative'] === YesOrNo.NO) {
               applicantInformation['contactDetailsPrivateAlternative'] = [] as [];
             } else {

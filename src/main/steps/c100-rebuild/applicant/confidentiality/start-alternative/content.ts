@@ -93,7 +93,7 @@ type FieldLabelArray = FieldLabel[];
 export const generateContent: TranslationFn = content => {
   const applicantId = content.additionalData?.req.query.applicantId ? content.additionalData.req.query.applicantId : '';
   const userId = applicantId;
-  const startOption = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0]?.[
+  const startOption = content.userCase!.appl_allApplicants?.filter(user => user['id'] === userId)[0]?.[
     'startAlternative'
   ];
   const contactDetailsPrivateAlternative = content.userCase?.appl_allApplicants?.filter(
@@ -115,7 +115,6 @@ export const generateContent: TranslationFn = content => {
             if (formData.startAlternative === 'Yes') {
               return atLeastOneFieldIsChecked(formData?.contactDetailsPrivateAlternative);
             }
-            return '';
           },
           values: [
             {
@@ -150,7 +149,7 @@ export const generateContent: TranslationFn = content => {
         const { value } = fieldSet;
         if (value === YesOrNo.YES) {
           fieldSet['attributes'] = { checked: true };
-          const subFields = fieldSet['subFields']?.['contactDetailsPrivateAlternative']['values'] as [];
+          const subFields = fieldSet['subFields']!['contactDetailsPrivateAlternative']['values'] as [];
           for (const subValue of subFields) {
             for (const bodyVal of contactDetailsPrivateAlternative) {
               const field: FieldLabel = subValue as never;
