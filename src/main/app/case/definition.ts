@@ -122,6 +122,12 @@ export interface Response {
   citizenFlags?: CitizenFlags
 }
 
+export interface CitizenFlags {
+  isApplicationViewed?: string,
+  isAllegationOfHarmViewed?: string
+  isAllDocumentsViewed?: string
+}
+
 
 export interface CitizenFlags {
   isApplicationViewed?: string,
@@ -785,23 +791,26 @@ export interface CaseData {
   citizenUserDateOfBirth?: CaseDate;
   citizenUserDateOfBirthText?: string;
   applicant1Occupation?: string;
-  applicant1SelectAddress?: string;
+  citizenUserSelectAddress?: string;
   citizenUserPlaceOfBirth?: string;
   citizenUserPlaceOfBirthText?: string;
   applicant1PlaceOfText?: string;
-  applicant1Address1?: string;
-  applicant1Address2?: string;
-  applicant1AddressTown?: string;
-  applicant1AddressCounty?: string;
-  applicant1AddressPostcode?: string;
+  citizenUserAddress1?: string;
+  citizenUserAddress2?: string;
+  citizenUserAddressTown?: string;
+  citizenUserAddressCounty?: string;
+  citizenUserAddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
-  
+  citizenUserManualAddress1?: string;
+  citizenUserManualAddress2?: string;
+  citizenUserManualAddressTown?: string;
+  citizenUserManualAddressCounty?: string;
+  citizenUserManualAddressPostcode?: string;
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
-  
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   doYouConsent?: YesOrNo;
@@ -811,6 +820,7 @@ export interface CaseData {
   courtOrderDetails?: string;
   miamStart?: string;
   citizenUploadedDocumentList?: UploadDocumentList[];
+  orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   start?: YesOrNo;
   parents?: YesOrNo;
   jurisdiction?: YesOrNo;
@@ -1423,6 +1433,12 @@ export const enum YesNoDontKnow {
   yes = 'yes',
   no = 'no',
   dontKnow = 'dontKnow',
+}
+
+export const enum YesNoIDontKnow {
+  YES = 'Yes',
+  NO = 'No',
+  IDONTKNOW = 'I'
 }
 
 export const enum SectionStatus {
@@ -2235,6 +2251,7 @@ export interface Value {
   dateCreated: string;
   documentDetails: DocumentDetails;
   citizenDocument: CitizenDocument;
+  documentRequestedByCourt: YesOrNo;
 }
 
 export interface UploadDocumentList {
@@ -2257,3 +2274,23 @@ export const enum ThePrayer {
 
 export type RespondentCaseId = string | number | undefined;
 export type RespondentCaseData = object | [] | undefined;
+
+export interface Banner {
+  bannerHeading?: string;
+  bannerHeadingLink?: string;
+  bannerHeadingText?: string;
+  bannerContent?: Content[];
+  bannerLinks?: BannerLink[];
+}
+export interface Content {
+  line1?: string;
+  line2?: string;
+}
+export interface BannerLink {
+  href?: string;
+  text?: string;
+}
+
+export interface WithoutNoticeOrderDetails {
+  orderWithoutGivingNotice?: YesOrNo;
+}

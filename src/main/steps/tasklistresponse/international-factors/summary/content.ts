@@ -16,7 +16,7 @@ export const enContent = {
   title: 'Check your answers',
   title2: 'International element',
   sectionTitles: {
-    respondentAdditionalInformation: 'Additional information',
+    respondentAdditionalInformation: 'International elements',
   },
   keys: {},
   dependencies: {
@@ -69,7 +69,7 @@ const cyContent: typeof enContent = {
   title: 'Check your answers',
   title2: 'International element',
   sectionTitles: {
-    respondentAdditionalInformation: 'Additional information',
+    respondentAdditionalInformation: 'International elements',
   },
   keys: {},
   dependencies: {

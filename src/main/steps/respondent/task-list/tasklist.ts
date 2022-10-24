@@ -1,4 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
+import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
 import * as URL from '../../urls';
 
 import {
@@ -10,6 +11,7 @@ import {
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
 } from './utils';
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
@@ -32,7 +34,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'support_you_need_during_your_case',
           text: taskListItems.support_you_need_during_your_case,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+          status: getSupportYourNeedsDetails(userCase),
           href: URL.CA_DA_ATTENDING_THE_COURT,
         },
       ],
@@ -92,7 +94,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
         id: 'check_the_application',
         text: taskListItems.check_the_application,
         status: getMiamStatus(userCase),
-        href: URL.MIAM_START,
+        href: `${URL.APPLICANT}${URL.APPLICANT_CA_DA_REQUEST}`,
       },
       {
         id: 'check_allegations_of_harm_and_violence',

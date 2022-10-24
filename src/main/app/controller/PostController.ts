@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
+import { ApplicantUploadFiles, RespondentUploadFiles, UploadDocumentSucess } from '../../steps/constants';
 import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
@@ -15,7 +15,6 @@ import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
 
-const UploadDocumentSucess = 'upload-documents-success';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
@@ -39,7 +38,6 @@ export class PostController<T extends AnyObject> {
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else {
-      //await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -100,8 +98,8 @@ export class PostController<T extends AnyObject> {
     try {
       Object.assign(req.session.userCase, formData);
       // call here to get the case details //
-      const caseworkerUser = await getSystemUser();
-      req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
+      const citizenUser = req.session.user;
+      req.locals.api = getCaseApi(citizenUser, req.locals.logger);
       const caseReference = req.session.userCase.caseCode;
       const caseData = await req.locals.api.getCaseById(caseReference as string);
       console.log('Saving data for case : ' + JSON.stringify(caseData.id));
@@ -258,9 +256,9 @@ export class PostController<T extends AnyObject> {
       return this.redirect(req, res);
     }
 
-    const caseworkerUser = await getSystemUser();
+    const citizenUser = req.session.user;
 
-    const cosApiClient = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const cosApiClient = new CosApiClient(citizenUser.accessToken, 'http://localhost:3001');
     const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
     console.log('retrieved casedata for case : ' + caseDataFromCos);
 

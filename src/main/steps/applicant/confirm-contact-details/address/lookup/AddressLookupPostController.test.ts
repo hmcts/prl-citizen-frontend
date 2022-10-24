@@ -14,6 +14,6 @@ describe('applicant1 > address > lookup > AddressLookupPostController', () => {
   });
 
   test('should call super constructor with correct params', async () => {
-    expect(controller.fieldPrefix).toBe('applicant1');
+    expect(controller.fieldPrefix).toBe('APPLICANT');
   });
 });

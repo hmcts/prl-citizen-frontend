@@ -1,5 +1,6 @@
 import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
+import FormData from 'form-data';
 
 import { DeleteDocumentRequest } from '../../app/document/DeleteDocumentRequest';
 import { DocumentDetail } from '../../app/document/DocumentDetail';
@@ -8,7 +9,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData, RespondentCaseData, RespondentCaseId } from './definition';
+import { CaseData, RespondentCaseData, RespondentCaseId, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -111,6 +112,34 @@ export class CosApiClient {
     }
   }
 
+  /**  submit respondent response*/
+  public async submitRespondentResponse(
+    user: UserDetails,
+    caseId: string,
+    data: Partial<CaseData>,
+    eventId: string
+  ): Promise<CaseWithId> {
+    try {
+      const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
+      };
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/${caseId}/${eventId}/respondent-submit-response`,
+        data,
+        {
+          headers,
+        }
+      );
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+    } catch (err) {
+      throw new Error('Case could not be updated.');
+    }
+  }
+
   public async generateUserUploadedStatementDocument(
     user: UserDetails,
     generateAndUploadDocumentRequest: GenerateAndUploadDocumentRequest
@@ -123,6 +152,7 @@ export class CosApiClient {
         serviceAuthorization: getServiceAuthToken(),
       };
 
+      console.log('Generated document request: ', generateAndUploadDocumentRequest);
       const response = await Axios.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',
         generateAndUploadDocumentRequest,
@@ -135,6 +165,55 @@ export class CosApiClient {
       };
     } catch (err) {
       throw new Error('Case could not be updated.');
+    }
+  }
+
+  public async UploadDocumentListFromCitizen(
+    user: UserDetails,
+    caseId: string,
+    parentDocumentType: string,
+    documentType: string,
+    partyId: string,
+    partyName: string,
+    isApplicant: string,
+    files: UploadedFiles,
+    documentRequestedByCourt: YesOrNo
+  ): Promise<DocumentDetail> {
+    try {
+      const headers = {
+        Accept: '*/*',
+        'Content-Type': '*',
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
+      };
+
+      const formData = new FormData();
+
+      for (const [, file] of Object.entries(files)) {
+        formData.append('files', file.buffer, file.originalname);
+      }
+
+      formData.append('documentRequestedByCourt', documentRequestedByCourt);
+      formData.append('caseId', caseId);
+      formData.append('parentDocumentType', parentDocumentType);
+      formData.append('documentType', documentType);
+      formData.append('partyId', partyId);
+      formData.append('partyName', partyName);
+      formData.append('isApplicant', isApplicant);
+
+      const response = await Axios.post(
+        config.get('services.cos.url') + '/upload-citizen-statement-document',
+        formData,
+        { headers }
+      );
+      return {
+        status: response.status,
+        documentId: response.data?.documentId,
+        documentName: response.data?.documentName,
+      };
+    } catch (err) {
+      console.log('Error: ', err);
+      throw new Error('Case document is not updting.');
     }
   }
 
@@ -261,3 +340,9 @@ export class CosApiClient {
     return response.data;
   }
 }
+
+export type UploadedFiles =
+  | {
+      [fieldname: string]: Express.Multer.File[];
+    }
+  | Express.Multer.File[];

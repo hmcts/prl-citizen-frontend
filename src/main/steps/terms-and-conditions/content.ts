@@ -12,7 +12,7 @@ const en = {
     "This service is managed by HM Courts and Tribunals Service (referred to as 'us' or 'we' from now on). You should check these terms and conditions regularly. We may update them at any time without notice. If you continue to use this service after the terms and conditions have changed, you are deemed to have agreed to the changes.",
   info: 'Information provided by this service',
   service:
-    'This service provides information to support your claim or application. We cannot give legal advice on individual cases. You should answer the questions in the service based on your circumstances and seek legal advice if you need it.',
+    'This service provides information to support your case or application. We cannot give legal advice on individual cases. You should answer the questions in the service based on your circumstances and seek legal advice if you need it.',
   stored: 'Sharing and storing data',
   dataStored:
     'Our <a class="govuk-link" href="/privacy-policy">privacy policy</a> explains where your data is stored, and who it is shared with. Our cookie policy explains how this service uses and stores cookies.',

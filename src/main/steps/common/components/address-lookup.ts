@@ -3,13 +3,10 @@ import { FormContent } from '../../../app/form/Form';
 import { isInvalidPostcode } from '../../../app/form/validation';
 
 const en = () => ({
-  line1:
-    "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-  postcode: 'Postcode',
-  findAddress: 'Find address',
-  enterAddressManually: 'Or enter address manually',
+  citizenUserAddressPostcode: 'Your current postcode',
+  enterAddressManually: 'I live outisde the UK',
   errors: {
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       required: 'Enter a real postcode',
       invalid: 'Enter a real postcode',
     },
@@ -18,13 +15,10 @@ const en = () => ({
 });
 
 const cy = () => ({
-  line1:
-    "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-  postcode: 'Postcode (in welsh)',
-  findAddress: 'Find address (in welsh)',
-  enterAddressManually: 'Or enter address manually (in welsh)',
+  citizenUserAddressPostcode: 'Your current postcode (in welsh)',
+  enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       required: 'Enter a real postcode (in welsh)',
       invalid: 'Enter a real postcode (in welsh)',
     },
@@ -34,10 +28,10 @@ const cy = () => ({
 
 export const form: FormContent = {
   fields: {
-    addressPostcode: {
+    citizenUserAddressPostcode: {
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
-      label: l => l.postcode,
+      label: l => l.citizenUserAddressPostcode,
       labelSize: 'm',
       attributes: {
         maxLength: 14,
@@ -46,7 +40,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.findAddress,
+    text: l => l.onlyContinue,
   },
 };
 

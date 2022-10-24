@@ -7,7 +7,7 @@ import { generateContent } from './content';
 const en = {
   section: 'Provide the document',
   title: 'Provide the documents',
-  continue: 'Save and continue',
+  continue: 'Continue',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
@@ -16,7 +16,7 @@ const en = {
 const cy: typeof en = {
   section: 'Provide the document',
   title: 'Provide the documents',
-  continue: 'Save and continue',
+  continue: 'Continue',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
@@ -52,7 +52,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
