@@ -17,8 +17,8 @@ const en = {
   paragraph2: 'The reasons you’ve given are:',
   insetText: {
     text: `You’ll be asked to provide more information about your circumstances at the first court hearing.
-            Whereevidence is needed to support an exemption, this should be taken to the hearing.
-            If the court is not satisfiedthat you’re exempt, you may be directed to attend a MIAM.`,
+            Where evidence is needed to support an exemption, this should be taken to the hearing.
+            If the court is not satisfied that you’re exempt, you may be directed to attend a MIAM.`,
   },
   nonAttendanceReasons: {
     domesticViolence: 'Domestic violence or abuse evidence',
@@ -67,8 +67,8 @@ const en = {
       noMediatorAppointment: OtherEn().noMediatorAppointment,
       noAuthorisedFamilyMediator: OtherEn().noAuthorisedFamilyMediator,
     },
-    notAttendingAsInPrison: OtherEn().applyingForWithoutNoticeHearing,
-    notHabituallyResident: OtherEn().applyingForWithoutNoticeHearing,
+    notAttendingAsInPrison: OtherEn().notAttendingAsInPrison,
+    notHabituallyResident: OtherEn().notHabituallyResident,
     under18: OtherEn().under18,
   },
 };
@@ -79,8 +79,8 @@ const cy = {
   paragraph2: 'The reasons you’ve given are: - welsh',
   insetText: {
     text: `You’ll be asked to provide more information about your circumstances at the first court hearing.
-            Whereevidence is needed to support an exemption, this should be taken to the hearing.
-            If the court is not satisfiedthat you’re exempt, you may be directed to attend a MIAM. - welsh`,
+            Where evidence is needed to support an exemption, this should be taken to the hearing.
+            If the court is not satisfied that you’re exempt, you may be directed to attend a MIAM. - welsh`,
   },
   nonAttendanceReasons: {
     domesticViolence: 'Domestic violence or abuse evidence - welsh',
@@ -129,8 +129,8 @@ const cy = {
       noMediatorAppointment: OtherCy().noMediatorAppointment,
       noAuthorisedFamilyMediator: OtherCy().noAuthorisedFamilyMediator,
     },
-    notAttendingAsInPrison: OtherCy().applyingForWithoutNoticeHearing,
-    notHabituallyResident: OtherCy().applyingForWithoutNoticeHearing,
+    notAttendingAsInPrison: OtherCy().notAttendingAsInPrison,
+    notHabituallyResident: OtherCy().notHabituallyResident,
     under18: OtherCy().under18,
   },
 };
