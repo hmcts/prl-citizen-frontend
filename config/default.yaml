@@ -23,7 +23,7 @@ services:
   case:
     url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
   cos:
-    url: 'https://prl-cos-pr-505.service.core-compute-preview.internal'
+    url: 'https://prl-cos-pr-604.service.core-compute-preview.internal'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-541.service.core-compute-preview.internal'
   dgs:
