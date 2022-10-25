@@ -24,6 +24,7 @@ nodejs:
     REDIS_HOST: 'prl-citizen-frontend-redis-aat.redis.cache.windows.net'
     ALLOW_CONFIG_MUTATIONS: true
     LAUNCH_DARKLY_OFFLINE_MODE: false
+    C100_REBUILD_FLAG: true
   keyVaults:
     prl:
       resourceGroup: prl
