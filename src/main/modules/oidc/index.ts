@@ -59,6 +59,9 @@ export class OidcMiddleware {
         console.log('inside oidc, finding user');
         if (req.session?.user) {
           //console.log(config);
+          console.log('***** User login success');
+          res.locals.isLoggedIn = true;
+          req.locals.api = getCaseApi(req.session.user, req.locals.logger);
           const featureToggles: FeatureToggles = new FeatureToggles(new LaunchDarklyClient());
           if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {
             console.log('inside if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {');
@@ -71,9 +74,6 @@ export class OidcMiddleware {
               res.redirect(CITIZEN_HOME_URL);
             }
           }
-          console.log('***** User login success');
-          res.locals.isLoggedIn = true;
-          req.locals.api = getCaseApi(req.session.user, req.locals.logger);
           req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
 
           if (req.session.userCase) {
