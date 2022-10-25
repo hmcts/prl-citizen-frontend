@@ -832,6 +832,7 @@ export interface CaseData {
   iFactorsRequestProvideDetails?: string;
   iFactorsParentsProvideDetails?: string;
   legalRepresentation?: YesOrNo;
+  citizenResponseC7DocumentList?: ResponseDocumentList[];
 }
 
 export interface ConfidentialDetails {

@@ -196,6 +196,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   iFactorsJurisdictionProvideDetails: 'iFactorsJurisdictionProvideDetails',
   request: 'request',
   iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
+  citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {

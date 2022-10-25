@@ -14,7 +14,12 @@ const UID_LENGTH = 36;
 export class RespondentSubmitResponseController {
   public async save(req: AppRequest, res: Response): Promise<void> {
     const caseReference = req.session.userCase.id;
-    const partyId = req.session.user.id;
+    let partyId;
+    req.session.userCase.respondents?.forEach(respondent => {
+      if (respondent.value.user.idamId === req.session.user.id) {
+        partyId = respondent.id;
+      }
+    });
     const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
     const caseData = toApiFormat(req?.session?.userCase);
 
@@ -31,7 +36,12 @@ export class RespondentSubmitResponseController {
 
   public async getDraftDocument(req: AppRequest, res: Response): Promise<void> {
     const caseReference = req.session.userCase.id;
-    const partyId = req.session.user.id;
+    let partyId;
+    req.session.userCase.respondents?.forEach(respondent => {
+      if (respondent.value.user.idamId === req.session.user.id) {
+        partyId = respondent.id;
+      }
+    });
     const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
     const caseData = toApiFormat(req?.session?.userCase);
 
