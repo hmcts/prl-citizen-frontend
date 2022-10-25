@@ -90,7 +90,7 @@ describe('AddChildernMatterGetController', () => {
       const postURL = '';
       const listOfItems = [];
 
-      expect(res.render).not.toBeCalledWith('page', {
+      expect(res.render).not.toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
@@ -126,7 +126,7 @@ describe('AddChildernMatterGetController', () => {
       const postURL = '';
       const listOfItems = [];
 
-      expect(res.render).not.toBeCalledWith('page', {
+      expect(res.render).not.toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,

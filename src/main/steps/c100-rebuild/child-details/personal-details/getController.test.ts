@@ -88,7 +88,7 @@ describe('AddChildernMatterGetController', () => {
 
       const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
 
-      expect(res.render).not.toBeCalledWith('page', {
+      expect(res.render).not.toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
@@ -126,7 +126,7 @@ describe('AddChildernMatterGetController', () => {
 
       const childDetails = req.session.settings.ListOfChild.filter(child => child.id === childId)[0];
 
-      expect(res.render).not.toBeCalledWith('page', {
+      expect(res.render).not.toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,

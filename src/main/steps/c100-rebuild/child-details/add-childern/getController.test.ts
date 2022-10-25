@@ -81,7 +81,7 @@ describe('Add Childern Controller', () => {
 
       // const childId = 'f817b708-977e-4ed1-b241-c9030a204312';
 
-      expect(res.render).not.toBeCalledWith('page', {
+      expect(res.render).not.toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
@@ -109,7 +109,7 @@ describe('Add Childern Controller', () => {
       req.query.childId = childId;
       await controller.get(req, res);
 
-      expect(res.render).not.toBeCalledWith('page', {
+      expect(res.render).not.toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,

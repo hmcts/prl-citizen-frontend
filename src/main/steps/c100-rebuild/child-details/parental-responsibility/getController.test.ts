@@ -90,7 +90,7 @@ describe('AddChildernMatterGetController', () => {
       const checkIfDecisionMade = 'Yes';
       const childDetails = req.session.settings.ListOfChild.filter(child => child.id === childId)[0];
 
-      expect(res.render).not.toBeCalledWith('page', {
+      expect(res.render).not.toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,
@@ -126,7 +126,7 @@ describe('AddChildernMatterGetController', () => {
 
       const childDetails = req.session.settings.ListOfChild.filter(child => child.id === childId)[0];
 
-      expect(res.render).not.toBeCalledWith('page', {
+      expect(res.render).not.toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         sessionErrors: req.session.errors,
         htmlLang: language,

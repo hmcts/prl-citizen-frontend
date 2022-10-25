@@ -46,7 +46,7 @@ describe('DocumentUpload Get Controller', () => {
 
     await controller.get(req, res);
 
-    expect(res.redirect).not.toBeCalledWith('error');
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
   });
 
   test('should remove document when removedId is passed', async () => {
@@ -78,7 +78,7 @@ describe('DocumentUpload Get Controller', () => {
 
     await controller.get(req, res);
 
-    expect(res.redirect).not.toBeCalledWith('error');
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
   });
 
   describe('when there is an error in saving session', () => {

@@ -37,7 +37,7 @@ describe('Miam Document Upload controller', () => {
     };
 
     await controller.post(req, res);
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/upload');
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -56,7 +56,7 @@ describe('Miam Document Upload controller', () => {
     const req = mockRequest({});
     const res = mockResponse();
     await controller.post(req, res);
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/upload');
   });
 
   test('Should throw error if file is more than 20 MB', async () => {
@@ -75,7 +75,7 @@ describe('Miam Document Upload controller', () => {
     req.files = { documents: { name: 'test.rtf', size: '8123000098098', data: '', mimetype: 'text' } };
     const res = mockResponse();
     await controller.post(req, res);
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/upload');
   });
 
   test('Should throw error if file is in invalid format', async () => {
@@ -95,7 +95,7 @@ describe('Miam Document Upload controller', () => {
     req.files = { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } };
     const res = mockResponse();
     await controller.post(req, res);
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/upload');
   });
 
   test('Should Upload document and direct to upload page', async () => {
@@ -127,6 +127,6 @@ describe('Miam Document Upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/upload');
   });
 });
