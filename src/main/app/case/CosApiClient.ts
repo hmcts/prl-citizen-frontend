@@ -113,7 +113,12 @@ export class CosApiClient {
   }
 
   /**  submit respondent response*/
-  public async submitRespondentResponse(user: UserDetails, caseId: string, partyId: string): Promise<CaseWithId> {
+  public async submitRespondentResponse(
+    user: UserDetails,
+    caseId: string,
+    partyId: string,
+    data: Partial<CaseData>
+  ): Promise<CaseWithId> {
     try {
       const headers = {
         Accept: 'application/json',
@@ -123,6 +128,7 @@ export class CosApiClient {
       };
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
+        data,
         {
           headers,
         }
@@ -135,7 +141,12 @@ export class CosApiClient {
   }
 
   /**  generate c7 draft document*/
-  public async generateC7DraftDocument(user: UserDetails, caseId: string, partyId: string): Promise<CaseWithId> {
+  public async generateC7DraftDocument(
+    user: UserDetails,
+    caseId: string,
+    partyId: string,
+    data: Partial<CaseData>
+  ): Promise<DocumentDetail> {
     try {
       const headers = {
         Accept: 'application/json',
@@ -143,11 +154,19 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         serviceAuthorization: getServiceAuthToken(),
       };
-      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`, {
-        headers,
-      });
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,
+        data,
+        {
+          headers,
+        }
+      );
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+      return {
+        status: response.status,
+        documentId: response.data?.document_binary_url,
+        documentName: response.data?.document_filename,
+      };
     } catch (err) {
       throw new Error('Case could not be updated.');
     }
