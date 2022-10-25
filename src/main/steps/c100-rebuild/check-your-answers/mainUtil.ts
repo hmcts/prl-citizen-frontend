@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import * as Urls from '../../urls';
 
+import { InternationElementHelper } from './helpers/InternationElementsHelper';
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
@@ -229,59 +230,12 @@ export const InternationalElement = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  let childLiveOutSideUK = userCase['internationalStart'] === 'Yes' ? Yes : No;
-  if (userCase['internationalStart'] === 'Yes') {
-    childLiveOutSideUK += '<br><br>';
-    childLiveOutSideUK += userCase['provideDetailsStart'];
-  }
-
-  let htmlbasedOutSideEnglandOrWales = userCase['internationalParents'] === 'Yes' ? Yes : No;
-  if (userCase['internationalParents'] === 'Yes') {
-    htmlbasedOutSideEnglandOrWales += '<br><br>';
-    htmlbasedOutSideEnglandOrWales += userCase['provideDetailsParents'];
-  }
-
-  let htmlanotherPersonSameOrder = userCase['internationalJurisdiction'] === 'Yes' ? Yes : No;
-  if (userCase['internationalJurisdiction'] === 'Yes') {
-    htmlanotherPersonSameOrder += '<br><br>';
-    htmlanotherPersonSameOrder += userCase['provideDetailsJurisdiction'];
-  }
-
-  let htmlotherCountryRequestInfo = userCase['internationalRequest'] === 'Yes' ? Yes : No;
-  if (userCase['internationalRequest'] === 'Yes') {
-    htmlotherCountryRequestInfo += '<br><br>';
-    htmlotherCountryRequestInfo += userCase['provideDetailsRequest'];
-  }
-
-  const SummaryData = [
-    {
-      key: keys['liveOutSideUk'],
-      value: '',
-      valueHtml: childLiveOutSideUK,
-      changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_START'],
-    },
-    {
-      key: keys['basedOutSideEnglandOrWales'],
-      value: '',
-      valueHtml: htmlbasedOutSideEnglandOrWales,
-      changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_PARENTS'],
-    },
-    {
-      key: keys['anotherPersonSameOrder'],
-      value: '',
-      valueHtml: htmlanotherPersonSameOrder,
-      changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_JURISDICTION'],
-    },
-    {
-      key: keys['otherCountryRequestInfo'],
-      value: '',
-      valueHtml: htmlotherCountryRequestInfo,
-      changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_REQUEST'],
-    },
-  ];
-
-  /** Removes entry in @summarydata if user is not a named user */
-
+  const SummaryData = InternationElementHelper(userCase, keys, Urls) as {
+    key: string;
+    value: string;
+    valueHtml: string;
+    changeUrl: string;
+  }[];
   return {
     title: sectionTitles['InternationalElement'],
     rows: getSectionSummaryList(SummaryData, content),

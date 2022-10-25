@@ -94,6 +94,7 @@ export const enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
+    none: 'none',
   },
 };
 export const cyContent: typeof enContent = {
@@ -169,6 +170,7 @@ export const cyContent: typeof enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
+    none: 'none',
   },
 };
 
@@ -236,6 +238,7 @@ export const generateContent: TranslationFn = content => {
     ...hearingDetailsContents(content['language']),
     ...typeOfCourtOrderContents(content['language']),
     ...hearingDetailsContents(content['language']),
+    ...{ none: 'none' },
   };
   const translations = languages[content.language](content, newContents);
   return {

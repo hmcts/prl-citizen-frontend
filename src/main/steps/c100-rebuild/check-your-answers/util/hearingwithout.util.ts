@@ -14,12 +14,11 @@ import {
 export const hearingDetailsContents = SystemLanguage => {
   const opContents = {
     en: () => {
-      delete contentHearingWithoutEn['errors'];
-      return { ...contentHearingWithoutEn() };
+      return { ...contentHearingWithoutEn(), errors: '' };
     },
     cy: () => {
       delete contentHearingWithoutCy['errors'];
-      return { ...contentHearingWithoutCy() };
+      return { ...contentHearingWithoutCy(), errors: '' };
     },
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
