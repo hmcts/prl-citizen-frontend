@@ -20,7 +20,7 @@ export class OidcMiddleware {
     const protocol = app.locals.developmentMode ? 'http://' : 'https://';
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
-    const featureToggles: FeatureToggles = new FeatureToggles(new LaunchDarklyClient());
+
     app.get(SIGN_IN_URL, (req, res) =>
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL))
     );
@@ -59,6 +59,7 @@ export class OidcMiddleware {
         console.log('inside oidc, finding user');
         if (req.session?.user) {
           //console.log(config);
+          const featureToggles: FeatureToggles = new FeatureToggles(new LaunchDarklyClient());
           if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {
             console.log('inside if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {');
 

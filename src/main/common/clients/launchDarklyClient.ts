@@ -1,4 +1,4 @@
-import config = require('config');
+import config from 'config';
 import * as ld from 'ldclient-node';
 import { LDFlagValue } from 'ldclient-node';
 
