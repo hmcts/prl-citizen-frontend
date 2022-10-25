@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
-  title: 'What are you asking the court to do?',
+export const en = () => ({
+  whatAreYouAsking: 'What are you asking the court to do?',
   select_all_apply: 'Select all that apply',
   whoChildLiveWith: 'Decide who the children live with and when',
   childTimeSpent: 'Decide how much time the children spend with each person',
@@ -13,11 +14,11 @@ const en = () => ({
   resolveSpecificIssue: 'Resolve a specific issue you are concerned about',
   resolveSpecificIssueHint: 'For example, what school the children will go to',
   changeChildrenNameSurname: "Changing the children's names or surname",
-  changeChildrenNameSurname1: "Changing the children's names or surname",
+  changeChildrenNameSurnameA: "Changing the children's names or surname",
   allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children',
   takingChildOnHoliday: 'Taking the children on holiday',
   relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales',
-  relocateChildrenOutsideUk:
+  relocateChildrenOutsideUkCo:
     'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
   relocateChildrenDifferentUkArea1: 'Relocating the children to a different area in England and Wales',
   relocateChildrenOutsideUk1:
@@ -32,17 +33,17 @@ const en = () => ({
     too_courtOrder: {
       required: 'Select  what you are asking the court to do',
     },
-    too_stopOtherPeopleDoingSomethingSubField: {
+    too_stopOtherPeopleDoingSomething_subfields: {
       required: 'Specify what you want the court to stop the other people in the application doing',
     },
-    too_resolveSpecificIssueSubField: {
+    too_resolveSpecificIssue_subfields: {
       required: 'Specify what issue you want the court to resolve',
     },
   },
 });
 
-const cy = () => ({
-  title: 'What are you asking the court to do? - welsh',
+export const cy = () => ({
+  whatAreYouAsking: 'What are you asking the court to do? - welsh',
   select_all_apply: 'Select all that apply - welsh',
   whoChildLiveWith: 'Decide who the children live with and when - welsh',
   childTimeSpent: 'Decide how much time the children spend with each person - welsh',
@@ -51,11 +52,11 @@ const cy = () => ({
   resolveSpecificIssue: 'Resolve a specific issue you are concerned about - welsh',
   resolveSpecificIssueHint: 'For example, what school the children will go to - welsh',
   changeChildrenNameSurname: "Changing the children's names or surname - welsh",
-  changeChildrenNameSurname1: "Changing the children's names or surname - welsh",
+  changeChildrenNameSurnameA: "Changing the children's names or surname - welsh",
   allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
   takingChildOnHoliday: 'Taking the children on holiday - welsh',
   relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
-  relocateChildrenOutsideUk:
+  relocateChildrenOutsideUkCo:
     'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
   relocateChildrenDifferentUkArea1: 'Relocating the children to a different area in England and Wales - welsh',
   relocateChildrenOutsideUk1:
@@ -71,10 +72,10 @@ const cy = () => ({
     too_courtOrder: {
       required: 'Select  what you are asking the court to do - welsh',
     },
-    too_stopOtherPeopleDoingSomethingSubField: {
+    too_stopOtherPeopleDoingSomething_subfields: {
       required: 'Specify what you want the court to stop the other people in the application doing - welsh',
     },
-    too_resolveSpecificIssueSubField: {
+    too_resolveSpecificIssue_subfields: {
       required: 'Specify what issue you want the court to resolve - welsh',
     },
   },
@@ -109,35 +110,35 @@ export const form: FormContent = {
           value: 'stopOtherPeopleDoingSomething',
           hint: l => l.stopOtherPeopleDoingSomethingHint,
           subFields: {
-            too_stopOtherPeopleDoingSomethingSubField: {
-              id: 'too_stopOtherPeopleDoingSomethingSubField',
+            too_stopOtherPeopleDoingSomething_subfields: {
+              id: 'too_stopOtherPeopleDoingSomething_subfields',
               type: 'checkboxes',
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'too_stopOtherPeopleDoingSomethingSubField',
+                  name: 'too_stopOtherPeopleDoingSomething_subfields',
                   label: l => l.changeChildrenNameSurname,
                   value: 'changeChildrenNameSurname',
                 },
                 {
-                  name: 'too_stopOtherPeopleDoingSomethingSubField',
+                  name: 'too_stopOtherPeopleDoingSomething_subfields',
                   label: l => l.allowMedicalTreatment,
                   value: 'allowMedicalTreatment',
                 },
                 {
-                  name: 'too_stopOtherPeopleDoingSomethingSubField',
+                  name: 'too_stopOtherPeopleDoingSomething_subfields',
                   label: l => l.takingChildOnHoliday,
                   value: 'takingChildOnHoliday',
                 },
                 {
-                  name: 'too_stopOtherPeopleDoingSomethingSubField',
+                  name: 'too_stopOtherPeopleDoingSomething_subfields',
                   label: l => l.relocateChildrenDifferentUkArea,
                   value: 'relocateChildrenDifferentUkArea',
                 },
                 {
-                  name: 'too_stopOtherPeopleDoingSomethingSubField',
-                  label: l => l.relocateChildrenOutsideUk,
-                  value: 'relocateChildrenOutsideUk',
+                  name: 'too_stopOtherPeopleDoingSomething_subfields',
+                  label: l => l.relocateChildrenOutsideUkCo,
+                  value: 'relocateChildrenOutsideUkCo',
                 },
               ],
             },
@@ -149,48 +150,48 @@ export const form: FormContent = {
           value: 'resolveSpecificIssue',
           hint: l => l.resolveSpecificIssueHint,
           subFields: {
-            too_resolveSpecificIssueSubField: {
-              id: 'too_resolveSpecificIssueSubField',
+            too_resolveSpecificIssue_subfields: {
+              id: 'too_resolveSpecificIssue_subfields',
               type: 'checkboxes',
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'too_resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssue_subfields',
                   label: l => l.specificHoliday,
                   value: 'specificHoliday',
                 },
                 {
-                  name: 'too_resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssue_subfields',
                   label: l => l.whatSchoolChildrenWillGoTo,
                   value: 'whatSchoolChildrenWillGoTo',
                 },
                 {
-                  name: 'too_resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssue_subfields',
                   label: l => l.religiousIssue,
                   value: 'religiousIssue',
                 },
                 {
-                  name: 'too_resolveSpecificIssueSubField',
-                  label: l => l.changeChildrenNameSurname1,
+                  name: 'too_resolveSpecificIssue_subfields',
+                  label: l => l.changeChildrenNameSurnameA,
                   value: 'changeChildrenNameSurnameA',
                 },
                 {
-                  name: 'too_resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssue_subfields',
                   label: l => l.medicalTreatment,
                   value: 'medicalTreatment',
                 },
                 {
-                  name: 'too_resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssue_subfields',
                   label: l => l.relocateChildrenDifferentUkArea1,
-                  value: 'relocateChildrenDifferentUkAreaA',
+                  value: 'relocateChildrenDifferentUkArea1',
                 },
                 {
-                  name: 'too_resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssue_subfields',
                   label: l => l.relocateChildrenOutsideUk1,
-                  value: 'relocateChildrenOutsideUkA',
+                  value: 'relocateChildrenOutsideUk1',
                 },
                 {
-                  name: 'too_resolveSpecificIssueSubField',
+                  name: 'too_resolveSpecificIssue_subfields',
                   label: l => l.returningChildrenToYourCare,
                   value: 'returningChildrenToYourCare',
                   hint: l => l.returningChildrenToYourCareHint,

@@ -17,8 +17,10 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
 } from './mainUtil';
-import { otherProceedingsContents } from './util/currentandprevious-proceedings.util';
+import { hearingDetailsContents } from './util/hearingwithout.util';
 import { MiamFieldsLoader } from './util/miam.util';
+import { otherProceedingsContents } from './util/otherProceeding.util';
+import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
 
 export const enContent = {
   serviceName: 'Check your answers ',
@@ -52,11 +54,10 @@ export const enContent = {
     WithoutNoticeHearing: '7. Hearing details',
     ChildernDetails: "8. Childen's details",
     InternationalElement: '11. International elements',
-    otherProceedings: '9. Past and current proceeding - welsh',
+    otherProceedings: '9. Past and current proceeding',
     additionationDetailsAboutChildern: 'Additional details about the children',
   },
   keys: {
-    whatAreYouAsking: 'What are you asking the court to do?',
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
     qualifyForUrgentHearing: 'Does your situation qualify for an urgent first hearing?',
     askingNoHearing: 'Are you asking for a without notice hearing?',
@@ -86,26 +87,6 @@ export const enContent = {
       'Are you asking for a without notice hearing because there is literally no time to give notice of the application to the other person or people?',
     areAskingDuetoNoTimeGrantDetails: 'Details',
     doYouNeedAWithoutNoticeHearingDetails: 'Details',
-    whoChildLiveWith: 'Decide who the children live with and when',
-    childTimeSpent: 'Decide how much time the children spend with each person',
-    stopOtherPeopleDoingSomething: 'Stop the other people in the application doing something',
-    resolveSpecificIssue: 'Resolve a specific issue you are concerned about',
-    changeChildrenNameSurname: "Changing the children's names or surname",
-    allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children',
-    takingChildOnHoliday: 'Taking the children on holiday',
-    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales',
-    relocateChildrenOutsideUk:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
-    specificHoliday: 'A specific holiday or arrangement',
-    whatSchoolChildrenWillGoTo: 'What school the children will go to',
-    religiousIssue: 'A religious issue',
-    changeChildrenNameSurnameA: "Changing the children's names or surname",
-    medicalTreatment: 'Medical treatment',
-    relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales',
-    relocateChildrenOutsideUkA:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
-    returningChildrenToYourCare:
-      'Returning the children to your care <div id="resolveSpecificIssueSubField-8-item-hint" class="govuk-hint govuk-checkboxes__hint">If the children have been abducted, unlawfully removed or unlawfully retained</div>',
     childInvolvementInSupervision:
       'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
     attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
@@ -159,7 +140,6 @@ export const cyContent: typeof enContent = {
     additionationDetailsAboutChildern: 'Additional details about the children - welsh',
   },
   keys: {
-    whatAreYouAsking: 'What are you asking the court to do? - welsh',
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
     qualifyForUrgentHearing: 'Does your situation qualify for an urgent first hearing? - welsh',
     askingNoHearing: 'Are you asking for a without notice hearing? - welsh',
@@ -190,26 +170,6 @@ export const cyContent: typeof enContent = {
       'Are you asking for a without notice hearing because there is literally no time to give notice of the application to the other person or people?',
     areAskingDuetoNoTimeGrantDetails: 'Details',
     doYouNeedAWithoutNoticeHearingDetails: 'Details - welsh',
-    whoChildLiveWith: 'Decide who the children live with and when - welsh',
-    childTimeSpent: 'Decide how much time the children spend with each person - welsh',
-    stopOtherPeopleDoingSomething: 'Stop the other people in the application doing something - welsh',
-    resolveSpecificIssue: 'Resolve a specific issue you are concerned about - welsh',
-    changeChildrenNameSurname: "Changing the children's names or surname - welsh",
-    allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
-    takingChildOnHoliday: 'Taking the children on holiday - welsh',
-    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
-    relocateChildrenOutsideUk:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
-    specificHoliday: 'A specific holiday or arrangement',
-    whatSchoolChildrenWillGoTo: 'What school the children will go to',
-    religiousIssue: 'A religious issue',
-    changeChildrenNameSurnameA: "Changing the children's names or surname",
-    medicalTreatment: 'Medical treatment',
-    relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales',
-    relocateChildrenOutsideUkA:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
-    returningChildrenToYourCare:
-      'Returning the children to your care <div id="resolveSpecificIssueSubField-8-item-hint" class="govuk-hint govuk-checkboxes__hint">If the children have been abducted, unlawfully removed or unlawfully retained</div>',
     childInvolvementInSupervision:
       'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
     attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
@@ -289,6 +249,8 @@ export const generateContent: TranslationFn = content => {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
     ...otherProceedingsContents(content['language']),
+    ...hearingDetailsContents(content['language']),
+    ...typeOfCourtOrderContents(content['language']),
   };
   const translations = languages[content.language](content, newContents);
   return {

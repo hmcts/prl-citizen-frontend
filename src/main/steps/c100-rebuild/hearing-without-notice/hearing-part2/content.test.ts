@@ -8,7 +8,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Details of without notice hearing',
+  hearing2title: 'Details of without notice hearing',
   line1: 'Give details of why you’re asking for a without notice hearing',
   hint: 'A judge will need to be sure that there is a good reason why the other people in the application should not be told about the application before the hearing takes place.',
   doYouNeedAWithoutNoticeHearingLabel:
@@ -40,7 +40,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Details of without notice hearing - welsh',
+  hearing2title: 'Details of without notice hearing - welsh',
   line1: 'Give details of why you’re asking for a without notice hearing - welsh',
   hint: 'A judge will need to be sure that there is a good reason why the other people in the application should not be told about the application before the hearing takes place. - welsh',
   doYouNeedAWithoutNoticeHearingLabel:

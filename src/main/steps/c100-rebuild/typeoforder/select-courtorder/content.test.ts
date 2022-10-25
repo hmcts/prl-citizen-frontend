@@ -8,7 +8,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'What are you asking the court to do?',
+  selectCourtTitle: 'What are you asking the court to do?',
   select_all_apply: 'Select all that apply',
   whoChildLiveWith: 'Decide who the children live with and when',
   childTimeSpent: 'Decide how much time the children spend with each person',
@@ -46,7 +46,7 @@ const en = {
 };
 
 const cy = {
-  title: 'What are you asking the court to do? - welsh',
+  selectCourtTitle: 'What are you asking the court to do? - welsh',
   select_all_apply: 'Select all that apply - welsh',
   whoChildLiveWith: 'Decide who the children live with and when - welsh',
   childTimeSpent: 'Decide how much time the children spend with each person - welsh',

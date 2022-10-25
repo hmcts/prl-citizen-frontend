@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { MiamNonAttendReason } from '../../../../app/case/definition';
+import { HTML } from '../common/htmlSelectors';
+
 class MiamHelperDataParser<T> {
   [x: string]: T;
 }
@@ -38,9 +40,9 @@ InstanceOfMiamHelper.__proto__.miamExemptionParser = (userCase, keys) => {
       }
     })
     .map(element => {
-      return '<li class="govuk-!-padding-bottom-1">' + element + '</li>';
+      return HTML.NESTED_LIST_ITEM + element + HTML.LIST_ITEM_END;
     });
-  const listOfReasons = ('<ul>' + nonAttenDanceReaseons + '</ul>').split(',').join(' ');
+  const listOfReasons = (HTML.UNORDER_LIST + nonAttenDanceReaseons + HTML.UNORDER_LIST_END).split(',').join(' ');
   return { listOfReasons };
 };
 
@@ -53,9 +55,9 @@ export const miamOnlyParentFieldParser = (userCase, keys, sessionKey) => {
       userCase[sessionKey]
         .filter(evidences => evidences !== '')
         .map(evidences => {
-          return '<li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">' + keys[evidences] + '</li>';
+          return HTML.NESTED_LIST_ITEM + keys[evidences] + HTML.NESTED_LIST_ITEM_END;
         }) +
-      '</ul>'
+      HTML.UNORDER_LIST_END
     )
       .split(',')
       .join('');
@@ -69,7 +71,7 @@ export const miamOnlyChildFieldParser = (userCase, keys, userKey) => {
     return userCase[userKey]
       .filter(field => field !== '')
       .map(item => {
-        return '<li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">' + keys[item] + '</li>';
+        return HTML.NESTED_LIST_ITEM + keys[item] + HTML.NESTED_LIST_ITEM_END;
       });
   }
 };
@@ -80,10 +82,10 @@ export const miamParentAndChildFieldParser = (userCase, keys, sessionKey) => {
       if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}`)) {
         return miamOnlyChildFieldParser(userCase, keys, `${sessionKey}_${nonAttendance}`);
       } else {
-        return '<li>' + keys[nonAttendance] + '</li>';
+        return HTML.LIST_ITEM + keys[nonAttendance] + HTML.LIST_ITEM_END;
       }
     });
-    return ('<ul>' + mappedVals + '</ul>').split(',').join('');
+    return (HTML.UNORDER_LIST + mappedVals + HTML.UNORDER_LIST_END).split(',').join('');
   }
 };
 

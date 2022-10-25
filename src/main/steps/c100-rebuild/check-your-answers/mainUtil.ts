@@ -4,29 +4,23 @@ import * as Urls from '../../urls';
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
 import { MiamHelper } from './helpers/miamHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
-import { OPotherProceedingsSessionParserUtil } from './util/currentandprevious-proceedings.util';
+import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
 
 /* eslint-disable import/namespace */
 export const TypeOfOrder = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const html = CourtOrderParserHelper(
-    keys,
-    userCase['courtOrder'],
-    userCase['stopOtherPeopleDoingSomethingSubField'],
-    userCase['resolveSpecificIssueSubField']
-  );
   const SummaryData = [
     {
       key: keys['whatAreYouAsking'],
       value: '',
-      valueHtml: html,
+      valueHtml: CourtOrderParserHelper(userCase, keys, 'too_courtOrder'),
       changeUrl: Urls['C100_TYPE_ORDER_SELECT_COURT_ORDER'],
     },
     {
       key: keys['wantingCourtToDo'],
-      value: userCase['shortStatement'],
+      value: userCase['too_shortStatement'],
       changeUrl: Urls['C100_TYPE_ORDER_SHORT_STATEMENT'],
     },
   ];
@@ -341,17 +335,17 @@ export const PastAndCurrentProceedings = (
     {
       key: keys['childrenInvolvedCourtCase'],
       value: userCase['op_childrenInvolvedCourtCase'],
-      changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
+      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
     },
     {
       key: keys['courtOrderProtection'],
       value: userCase['op_courtOrderProtection'],
-      changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
+      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
     },
     {
       key: keys['caseDetails'],
       valueHtml: courtOrderDetails?.split(',').join(''),
-      changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
+      changeUrl: Urls['C100_OTHER_PROCEEDINGS_DETAILS'],
     },
     ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'op_courtProceedingsOrders'),
   ];

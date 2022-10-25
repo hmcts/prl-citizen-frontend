@@ -85,21 +85,24 @@ export const IndividualOrderFieldsParser = (keys, order) => {
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessionKey) => {
-  const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
-  UserCase[sessionKey].forEach(order => {
-    if (UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
-      const orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
-      orderDetails.forEach((nestedOrder, index) => {
-        const IndexNumber = index > 0 ? index + 1 : '';
-        orderSessionStorage.push({
-          key: `${keys[`${order}Label`]} ${IndexNumber}`,
-          valueHtml: IndividualOrderFieldsParser(keys, nestedOrder),
-          changeUrl: URLS['C100_OTHER_PROCEEDINGS_ORDER_DETAILS'] + `?orderType=${order}`,
+  if (UserCase.hasOwnProperty(sessionKey)) {
+    const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
+    UserCase[sessionKey].forEach(order => {
+      if (UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
+        const orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
+        orderDetails.forEach((nestedOrder, index) => {
+          const IndexNumber = index > 0 ? index + 1 : '';
+          orderSessionStorage.push({
+            key: `${keys[`${order}Label`]} ${IndexNumber}`,
+            valueHtml: IndividualOrderFieldsParser(keys, nestedOrder),
+            changeUrl: URLS['C100_OTHER_PROCEEDINGS_ORDER_DETAILS'] + `?orderType=${order}`,
+          });
         });
-      });
-    }
-  });
-  return UserCase.hasOwnProperty(sessionKey) ? orderSessionStorage : [{}];
+      }
+    });
+    return orderSessionStorage;
+  }
+  return [{}];
 };
 
 /**
