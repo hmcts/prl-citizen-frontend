@@ -14,22 +14,22 @@ import { cy as contentStartCy, en as contentStartEn } from '../../international-
  * depending on the language selected
  * @returns A function that returns an object.
  */
-export const internationElements = SystemLanguage => {
+export const InternationElements = SystemLanguage => {
   const opContents = {
     en: () => {
       return {
         liveOutSideUk: '',
-        basedOutSideEnglandOrWales: contentRequestEn.liveOutSideUk,
-        anotherPersonSameOrder: '',
-        otherCountryRequestInfo: '',
+        basedOutSideEnglandOrWales: contentRequestEn().title,
+        anotherPersonSameOrder: contentStartEn().title,
+        otherCountryRequestInfo: contentParentEn().title,
       };
     },
     cy: () => {
       return {
         liveOutSideUk: '',
-        basedOutSideEnglandOrWales: '',
-        anotherPersonSameOrder: contentRequestCy.liveOutSideUk,
-        otherCountryRequestInfo: '',
+        basedOutSideEnglandOrWales: contentRequestCy().title,
+        anotherPersonSameOrder: contentStartCy().title,
+        otherCountryRequestInfo: contentRequestCy().title,
       };
     },
   };

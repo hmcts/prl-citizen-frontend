@@ -5,6 +5,7 @@ import { CommonContent } from '../../../steps/common/common.content';
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
+import {InternationElements} from './util/InternationElement.util';
 
 import {
   ChildernDetails,
@@ -73,12 +74,6 @@ export const enContent = {
     socialServiceLink: 'Are any of the children known to social services?',
     subjectToChildProtection: 'Are any of the children the subject of a child protection plan?',
     haveOtherChildern: "Do you or the respondents have other children who aren't part of this application?",
-    liveOutSideUk: "Are the children's lives mainly based outside of England and Wales?",
-    basedOutSideEnglandOrWales:
-      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
-    anotherPersonSameOrder:
-      'Could another person in the application apply for a similar order in a country outside England or Wales?',
-    otherCountryRequestInfo: 'Has another country asked (or been asked) for information or help for the children?',
     childInvolvementInSupervision:
       'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
     attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
@@ -148,13 +143,6 @@ export const cyContent: typeof enContent = {
     socialServiceLink: 'Are any of the children known to social services? - welsh',
     subjectToChildProtection: 'Are any of the children the subject of a child protection plan? - welsh',
     haveOtherChildern: "Do you or the respondents have other children who aren't part of this application? - welsh",
-    liveOutSideUk: "Are the children's lives mainly based outside of England and Wales?",
-    basedOutSideEnglandOrWales:
-      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales? - welsh",
-    anotherPersonSameOrder:
-      'Could another person in the application apply for a similar order in a country outside England or Wales? - welsh',
-    otherCountryRequestInfo:
-      'Has another country asked (or been asked) for information or help for the children? - welsh',
     childInvolvementInSupervision:
       'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
     attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
@@ -238,6 +226,7 @@ export const generateContent: TranslationFn = content => {
     ...hearingDetailsContents(content['language']),
     ...typeOfCourtOrderContents(content['language']),
     ...hearingDetailsContents(content['language']),
+    ...InternationElements(content['language']),
     ...{ none: 'none' },
   };
   const translations = languages[content.language](content, newContents);
