@@ -36,6 +36,7 @@ export class LaunchDarklyClient {
         roles,
       },
     };
+    await LaunchDarklyClient.client.waitForInitialization();
     return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
   }
 }
