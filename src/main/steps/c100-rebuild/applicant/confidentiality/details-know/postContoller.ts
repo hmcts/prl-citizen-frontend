@@ -45,7 +45,7 @@ export default class DetailKnownController extends CommonConfidentialityControll
             redirectURIBasedOnSelection = C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE;
             break;
           default:
-            redirectURIBasedOnSelection = C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START;
+            redirectURIBasedOnSelection = C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE;
         }
         redirectURI = redirectURIBasedOnSelection + `?applicantId=${applicantId}`;
       }
