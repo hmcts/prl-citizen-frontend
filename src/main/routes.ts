@@ -68,6 +68,7 @@ import {
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ADDRESS_LOOKUP,
+  RESPONDENT_CA_RESPONSE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
@@ -181,6 +182,7 @@ export class Routes {
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${APPLICANT}${RESPONDENT_CA_RESPONSE}/:uid`, errorHandler(documentManagerController.get));
         app.get(
           `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)

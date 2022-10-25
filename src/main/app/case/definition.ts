@@ -1590,14 +1590,17 @@ export interface OtherProceedingEmptyTable {
 
 // // eslint-disable-next-line @typescript-eslint/no-empty-interface
 
+export interface ResponseDocumentList {
+  id: string;
+  value: ResponseDocuments;
+}
 
-
-
-
-
-
-
-
+export interface ResponseDocuments {
+  partyName: string;
+  createdBy: string;
+  dateCreated: Date;
+  citizenDocument: Document;
+}
 
 export interface Value13 {
   dateEnded: string;

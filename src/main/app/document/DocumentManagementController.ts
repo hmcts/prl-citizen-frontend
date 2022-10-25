@@ -229,6 +229,19 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let documentToGet;
     let uid;
 
+    if (endPoint === 'caresponse') {
+      req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
+        if (document.value.createdBy === filename) {
+          if (!document.value.citizenDocument.document_binary_url) {
+            throw new Error('CA_RESPONSE binary url is not found');
+          }
+          filename = 'C7_Document.pdf';
+          documentToGet = document.value.citizenDocument.document_binary_url;
+          uid = this.getUID(documentToGet);
+        }
+      });
+    }
+
     if (filename === 'cadafinaldocumentrequest') {
       if (!req.session.userCase.finalDocument?.document_binary_url) {
         throw new Error('APPLICANT_CA_REQUEST binary url is not found');

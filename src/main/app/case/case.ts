@@ -42,6 +42,7 @@ import {
   PRLDocument,
   PartyDetails,
   Respondent,
+  ResponseDocumentList,
   SpecialArrangement,
   State,
   SummaryTabForOrderAppliedFor,
@@ -468,6 +469,7 @@ export interface Case {
   citizenRole?: FieldPrefix;
   orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;
+  citizenResponseC7DocumentList?: ResponseDocumentList[];
 }
 
 export interface CaseWithId extends Case {
