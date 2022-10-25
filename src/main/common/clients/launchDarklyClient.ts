@@ -2,8 +2,6 @@ import config from 'config';
 import * as ld from 'ldclient-node';
 import { LDFlagValue } from 'ldclient-node';
 
-const sdkKey: string = config.get('featureToggles.launchDarklyKey');
-console.log('--sdkkey --' + sdkKey);
 console.log('print config---' + config);
 const ldConfig = {
   offline: false,
@@ -14,6 +12,7 @@ export class LaunchDarklyClient {
 
   constructor() {
     if (!LaunchDarklyClient.client) {
+      const sdkKey: string = config.get('featureToggles.launchDarklyKey');
       console.log('sdkKeysdkKey' + sdkKey);
       LaunchDarklyClient.client = ld.init(sdkKey, ldConfig);
     }
