@@ -187,7 +187,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
   miamStart: 'miamStart',
-
+  orderWithoutGivingNoticeToRespondent: 'orderWithoutGivingNoticeToRespondent',
   start: 'start',
   iFactorsStartProvideDetails: 'iFactorsStartProvideDetails',
   parents: 'parents',
