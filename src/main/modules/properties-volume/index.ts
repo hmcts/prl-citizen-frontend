@@ -9,7 +9,7 @@ export class PropertiesVolume {
   enableFor(app: Application): void {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
-      this.setSecret('secrets.prl.AppInsightsInstrumentationKey-Preview', 'appInsights.instrumentationKey');
+      this.setSecret('secrets.prl.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
       this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
       this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');

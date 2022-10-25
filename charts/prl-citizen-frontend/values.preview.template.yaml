@@ -29,7 +29,7 @@ nodejs:
     prl:
       resourceGroup: prl
       secrets:
-        - AppInsightsInstrumentationKey-Preview
+        - AppInsightsInstrumentationKey
         - prl-citizen-frontend-idam-client-secret
         - postcode-lookup-token
         - prl-cos-idam-client-secret
