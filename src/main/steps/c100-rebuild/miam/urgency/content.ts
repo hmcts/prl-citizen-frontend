@@ -4,7 +4,7 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'MIAM exemptions',
   title: 'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
@@ -37,7 +37,8 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'MIAM exemptions - welsh',
   title:
