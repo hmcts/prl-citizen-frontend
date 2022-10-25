@@ -63,7 +63,11 @@ export class OidcMiddleware {
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
           const featureToggles: FeatureToggles = new FeatureToggles(new LaunchDarklyClient());
           if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {
-            if (await featureToggles.isC100reBuildEnabled()) {
+            const c100RebuildLdFlag =
+              req.session.c100RebuildLdFlag === undefined
+                ? await featureToggles.isC100reBuildEnabled()
+                : req.session.c100RebuildLdFlag;
+            if (c100RebuildLdFlag) {
               return next();
             } else {
               res.redirect(CITIZEN_HOME_URL);
