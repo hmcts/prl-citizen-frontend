@@ -5,4 +5,11 @@ export enum HTML {
   UNORDER_LIST_END = '</ul>',
   NESTED_LIST_ITEM = '<li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">',
   NESTED_LIST_ITEM_END = '</li>',
+  H4 = '<h4>',
+  H3 = '<h3>',
+  P = '<p>',
+  H4_CLOSE = '</h4>',
+  H3_CLOSE = '</h3>',
+  P_CLOSE = '</p>',
+  RULER = '<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">',
 }

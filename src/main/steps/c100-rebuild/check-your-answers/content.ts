@@ -79,14 +79,6 @@ export const enContent = {
     anotherPersonSameOrder:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
     otherCountryRequestInfo: 'Has another country asked (or been asked) for information or help for the children?',
-    detailOfWhyWithoutNotice: 'Give details of why you’re asking for a without notice hearing',
-    areAskingwithoutNoticeHearing:
-      'Are you asking for a without notice hearing because the other person or people may do something that would obstruct the order you are asking for if they knew about the application?',
-    areAskingwithoutNoticeHearingDetails: 'Details',
-    areAskingDuetoNoTimeGrant:
-      'Are you asking for a without notice hearing because there is literally no time to give notice of the application to the other person or people?',
-    areAskingDuetoNoTimeGrantDetails: 'Details',
-    doYouNeedAWithoutNoticeHearingDetails: 'Details',
     childInvolvementInSupervision:
       'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
     attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
@@ -162,14 +154,6 @@ export const cyContent: typeof enContent = {
       'Could another person in the application apply for a similar order in a country outside England or Wales? - welsh',
     otherCountryRequestInfo:
       'Has another country asked (or been asked) for information or help for the children? - welsh',
-    detailOfWhyWithoutNotice: 'Give details of why you’re asking for a without notice hearing - welsh',
-    areAskingwithoutNoticeHearing:
-      'Are you asking for a without notice hearing because the other person or people may do something that would obstruct the order you are asking for if they knew about the application?',
-    areAskingwithoutNoticeHearingDetails: 'Details - welsh',
-    areAskingDuetoNoTimeGrant:
-      'Are you asking for a without notice hearing because there is literally no time to give notice of the application to the other person or people?',
-    areAskingDuetoNoTimeGrantDetails: 'Details',
-    doYouNeedAWithoutNoticeHearingDetails: 'Details - welsh',
     childInvolvementInSupervision:
       'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
     attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
@@ -251,6 +235,7 @@ export const generateContent: TranslationFn = content => {
     ...otherProceedingsContents(content['language']),
     ...hearingDetailsContents(content['language']),
     ...typeOfCourtOrderContents(content['language']),
+    ...hearingDetailsContents(content['language']),
   };
   const translations = languages[content.language](content, newContents);
   return {

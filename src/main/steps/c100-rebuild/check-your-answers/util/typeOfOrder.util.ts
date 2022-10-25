@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { cy as contentTypeOfOrderCy, en as contentTypeOfOrderEn } from '../../typeoforder/select-courtorder/content';
+import { cy as contentHearing2Cy, en as contentHearing2En } from '../../typeoforder/select-courtorder/content';
 
 /**
  * It returns an object containing the contents of the English and Welsh versions of the page,
@@ -11,12 +11,12 @@ import { cy as contentTypeOfOrderCy, en as contentTypeOfOrderEn } from '../../ty
 export const typeOfCourtOrderContents = SystemLanguage => {
   const opContents = {
     en: () => {
-      delete contentTypeOfOrderEn['errors'];
-      return { ...contentTypeOfOrderEn() };
+      delete contentHearing2En['errors'];
+      return { ...contentHearing2En() };
     },
     cy: () => {
-      delete contentTypeOfOrderCy['errors'];
-      return { ...contentTypeOfOrderCy() };
+      delete contentHearing2Cy['errors'];
+      return { ...contentHearing2Cy() };
     },
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
