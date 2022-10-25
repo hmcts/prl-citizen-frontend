@@ -61,7 +61,7 @@ describe('DocumentManagerController', () => {
 
   describe('fetch file FL401-Final-Document for applicant', () => {
     test('fetch an existing file - %o', async () => {
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/finalDocument.pdf';
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
       req.headers.accept = 'application/pdf';
       req.session.userCase.finalDocument = {
         document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
