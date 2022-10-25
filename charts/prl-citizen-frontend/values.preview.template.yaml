@@ -23,6 +23,7 @@ nodejs:
     COS_URL: 'https://prl-cos-pr-513.service.core-compute-preview.internal'
     REDIS_HOST: 'prl-citizen-frontend-redis-aat.redis.cache.windows.net'
     ALLOW_CONFIG_MUTATIONS: true
+    LAUNCH_DARKLY_OFFLINE_MODE: false
   keyVaults:
     prl:
       resourceGroup: prl

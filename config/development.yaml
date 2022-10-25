@@ -40,7 +40,7 @@ e2e:
 appInsights:
   instrumentationKey: false
 featureToggles:
-  c100Rebuild: 'C100_REBUILD_FLAG'
+  c100Rebuild: C100_REBUILD_FLAG
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
 
 launchDarkly:

@@ -32,11 +32,11 @@ session:
 e2e:
   userTestPassword: TEST_PASSWORD
 appInsights:
-  instrumentationKey: APP_INSIGHTS_INSTRUMENTATION_KEY
+  instrumentationKey: APPINSIGHTS_KEY
 
 featureToggles:
-  launchDarklyKey: 'LAUNCH_DARKLY_SDK_KEY'
-  c100Rebuild: 'C100_REBUILD_FLAG'
+  launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
+  c100Rebuild: C100_REBUILD_FLAG
 
 launchDarkly:
   offline: LAUNCH_DARKLY_OFFLINE_MODE

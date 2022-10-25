@@ -25,8 +25,6 @@ export const getUserDetails = async (
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
   console.log('******* Trying to get user details');
-  const ldflag: string = config.get('featureToggles.launchDarklyKey');
-  console.log('ldflag instance - ' + ldflag);
 
   const code = encodeURIComponent(rawCode);
   const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
