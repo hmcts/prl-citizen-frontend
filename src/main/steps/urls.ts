@@ -259,7 +259,7 @@ export const FIND_OUT_ABOUT_CAFCASS_CYMRU = 'https://gov.wales/cafcass-cymru/wha
 export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/summary-confirmation';
 export const CA_RESPONDENT_RESPONSE_SUBMIT: PageLink = `${CA_RESPONDENT_RESPONSE_CONFIRMATION}/submit`;
 export const CA_RESPONDENT_GENERATE_C7_DRAFT: PageLink = '/tasklistresponse/generate-c7-draft';
-
+export const CA_RESPONDENT_GENERATE_C7_Final: PageLink = '/tasklistresponse/generate-c7-final';
 /* Legal representation*/
 
 export const LEGAL_REPRESENTATION_START: PageLink = '/tasklistresponse/legalrepresentation/start';

@@ -229,6 +229,15 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let documentToGet;
     let uid;
 
+    if (filename === 'generate-c7-final') {
+      endPoint = 'caresponse';
+      req.session.userCase.respondents?.forEach(respondent => {
+        if (respondent.value.user.idamId === req.session.user.id) {
+          filename = respondent.id;
+        }
+      });
+    }
+
     if (endPoint === 'caresponse') {
       req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
         if (document.value.createdBy === filename) {

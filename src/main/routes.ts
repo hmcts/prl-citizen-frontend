@@ -51,6 +51,7 @@ import {
   APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
+  CA_RESPONDENT_GENERATE_C7_Final,
   CA_RESPONDENT_RESPONSE_SUBMIT,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   CONSENT_SAVE,
@@ -165,6 +166,7 @@ export class Routes {
           errorHandler(documentManagerController.deleteDocument)
         );
         app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
+        app.get(`${CA_RESPONDENT_GENERATE_C7_Final}`, errorHandler(documentManagerController.get));
         app.post(
           `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
           errorHandler(documentManagerController.clearUploadDocumentFormData)
