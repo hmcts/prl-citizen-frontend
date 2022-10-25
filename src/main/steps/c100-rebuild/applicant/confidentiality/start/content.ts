@@ -97,7 +97,7 @@ export const generateContent: TranslationFn = content => {
     'contactDetailsPrivate'
   ] as [];
   console.log({ contactDetailsPrivate });
-  let detailKnownFormField = form.fields['start']?.['values'];
+  let detailKnownFormField = form.fields['start']['values']!;
 
   const formFieldValues = [
     {
@@ -160,10 +160,6 @@ export const generateContent: TranslationFn = content => {
                 field as FieldLabel,
               ];
             }
-          }
-          if (fieldSet.subFields?.contactDetailsPrivate.values) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            fieldSet.subFields.contactDetailsPrivate.values = subFieldValueStorage as any;
           }
         }
         return fieldSet;

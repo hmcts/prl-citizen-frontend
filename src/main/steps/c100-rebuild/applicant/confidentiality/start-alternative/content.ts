@@ -152,7 +152,7 @@ export const generateContent: TranslationFn = content => {
           const subFields = fieldSet['subFields']!['contactDetailsPrivateAlternative']['values'] as [];
           for (const subValue of subFields) {
             for (const bodyVal of contactDetailsPrivateAlternative) {
-              const field: FieldLabel = subValue as never;
+              const field: FieldLabel = subValue;
               if (subValue['value'] === bodyVal) {
                 field['attributes'] = { checked: true };
               }
@@ -161,10 +161,6 @@ export const generateContent: TranslationFn = content => {
                 field as FieldLabel,
               ];
             }
-          }
-          if (fieldSet.subFields?.contactDetailsPrivateAlternative.values) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            fieldSet.subFields.contactDetailsPrivateAlternative.values = subFieldValueStorage as any;
           }
         }
         return fieldSet;
