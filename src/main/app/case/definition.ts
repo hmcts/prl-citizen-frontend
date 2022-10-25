@@ -1824,8 +1824,8 @@ export const enum State {
   PendingDispute = 'PendingDispute',
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
-  successAuthentication = 'SuccessAuthentication'
-
+  successAuthentication = 'SuccessAuthentication',
+  Deleted = 'DELETED'
 }
 
 export const enum UserRole {
@@ -2183,6 +2183,7 @@ export const enum Gender {
   MALE = 'Male',
   FEMALE = 'Female',
   OTHER = 'Other',
+  EMPTY = ''
 }
 
 export interface PRLDocument {
@@ -2271,7 +2272,8 @@ export type RespondentCaseData = object | [] | undefined;
 
 export const enum C100 {
   CASE_TYPE_OF_APPLICATION = 'C100',
-  CASE_UPDATE = 'citizen-case-update'
+  CASE_UPDATE = 'citizen-case-update',
+  DELETE_CASE = 'deleteApplication',
 }
 
 export enum C100OrderTypes {
@@ -2397,3 +2399,22 @@ export interface C1ASafteyConcerns {
     somethingElse?: C1ASafteyConcernsAbuse;
   },
   }
+
+  export type ChildrenDetails = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    personalDetails: {
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      approxDateOfBirth?: CaseDate;
+      gender: Gender;
+      otherGenderDetails?: string;
+    };
+    childMatters: {
+      needsResolution: string[];
+    };
+    parentialResponsibility: {
+      statement: string;
+    };
+  };

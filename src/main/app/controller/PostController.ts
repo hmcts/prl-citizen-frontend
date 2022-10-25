@@ -284,10 +284,10 @@ export class PostController<T extends AnyObject> {
         Object.assign(req.session.userCase, formData);
         await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
       } finally {
-        this.redirect(req, res);
+        this.redirect(req, res, req.originalUrl);
       }
     } else {
-      this.redirect(req, res);
+      this.redirect(req, res, req.originalUrl);
     }
   }
 }

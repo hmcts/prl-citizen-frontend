@@ -12,6 +12,7 @@ import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
+import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
@@ -104,7 +105,8 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
 };
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
-  const [path, searchParams] = req.originalUrl.split('?');
+  const path = req.route.path;
+  const [, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
 };
@@ -139,7 +141,8 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
 
   const results: StepWithContent[] = [];
   for (const step of sequence) {
-    const stepDir = `${dir}${step.url.startsWith(subDir) ? step.url : `${subDir}${step.url}`}`;
+    const { url } = parseUrl(step.url);
+    const stepDir = `${dir}${url.startsWith(subDir) ? url : `${subDir}${url}`}`;
     const { content, view } = getStepFiles(stepDir);
     results.push({ stepDir, ...step, ...content, view });
   }

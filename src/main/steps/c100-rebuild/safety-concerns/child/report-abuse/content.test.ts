@@ -85,8 +85,8 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
     },
     additionalData: {
       req: {
-        query: {
-          type: 'physicalAbuse',
+        params: {
+          abuseType: 'physicalAbuse',
         },
       },
     },
