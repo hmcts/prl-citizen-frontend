@@ -410,7 +410,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[40].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.YES })).toBe(
       '/c100-rebuild/safety-concerns/concern-about'
     );
-    expect(C100Sequence[40].getNextStep({ needHelpWithFees: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/start');*/
+    expect(C100Sequence[40].getNextStep({ needHelpWithFees: YesOrNo.NO })).toBe('/c100-rebuild/international-elements/start');*/
 
     expect(C100Sequence[41].url).toBe('/c100-rebuild/childaddress');
     expect(C100Sequence[41].showInSection).toBe('c100');
@@ -433,11 +433,11 @@ describe('C100Sequence', () => {
     expect(C100Sequence[45].getNextStep({ miam_haveDocSigned: YesOrNo.YES })).toBe('/c100-rebuild/miam/upload');
     expect(C100Sequence[45].getNextStep({ miam_haveDocSigned: YesOrNo.NO })).toBe('/c100-rebuild/miam/get-doc');
 
-    expect(C100Sequence[46].url).toBe('/c100-rebuild/safety-concerns/applicant/concerns-about');
+    /*expect(C100Sequence[46].url).toBe('/c100-rebuild/safety-concerns/applicant/concerns-about');
     expect(C100Sequence[46].showInSection).toBe('c100');
     expect(C100Sequence[46].getNextStep({})).toBe('/c100-rebuild/safety-concerns/applicant/concerns-about');
 
-    /*expect(C100Sequence[47].url).toBe('/c100-rebuild/safety-concerns/child/report-abuse');
+    expect(C100Sequence[47].url).toBe('/c100-rebuild/safety-concerns/child/report-abuse');
     expect(C100Sequence[47].showInSection).toBe('c100');
     expect(C100Sequence[47].getNextStep({})).toBe('/c100-rebuild/safety-concerns/child/report-abuse');*/
 
@@ -536,7 +536,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[68].url).toBe('/c100-rebuild/safety-concerns/other-concerns/drugs');
     expect(C100Sequence[68].showInSection).toBe('c100');
-    expect(C100Sequence[68].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/drugs');
+    expect(C100Sequence[68].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
 
     expect(C100Sequence[69].url).toBe('/c100-rebuild/safety-concerns/abduction/passport-amount');
     expect(C100Sequence[69].showInSection).toBe('c100');
@@ -548,7 +548,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[71].url).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
     expect(C100Sequence[71].showInSection).toBe('c100');
-    expect(C100Sequence[71].getNextStep({})).toBe('/c100-rebuild/safety-concerns/other-concerns/other-issues');
+    expect(C100Sequence[71].getNextStep({})).toBe('/c100-rebuild/safety-concerns/orders-required/court-action');
 
     /*expect(C100Sequence[72].url).toBe('/c100-rebuild/safety-concerns/abduction/previousabductions');
     expect(C100Sequence[72].showInSection).toBe('c100');
@@ -556,7 +556,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[73].url).toBe('/c100-rebuild/safety-concerns/orders-required/court-action');
     expect(C100Sequence[73].showInSection).toBe('c100');
-    expect(C100Sequence[73].getNextStep({})).toBe('/c100-rebuild/safety-concerns/orders-required/court-action');
+    expect(C100Sequence[73].getNextStep({})).toBe('/c100-rebuild/safety-concerns/orders-required/unsupervised');
 
     expect(C100Sequence[74].url).toBe('/c100-rebuild/safety-concerns/abduction/child-location');
     expect(C100Sequence[74].showInSection).toBe('c100');
@@ -619,13 +619,13 @@ describe('C100Sequence', () => {
     expect(C100Sequence[83].getNextStep({ c1A_childAbductedBefore: YesOrNo.YES })).toBe(
       '/c100-rebuild/safety-concerns/abduction/previousabductions'
     );
-    expect(C100Sequence[83].getNextStep({ c1A_childAbductedBefore: YesOrNo.NO })).toBe(
+    /*expect(C100Sequence[83].getNextStep({ c1A_childAbductedBefore: YesOrNo.NO })).toBe(
       '/c100-rebuild/safety-concerns/other-concerns/drugs'
-    );
+    );*/
 
     expect(C100Sequence[84].url).toBe('/c100-rebuild/safety-concerns/no-feedback');
     expect(C100Sequence[84].showInSection).toBe('c100');
-    expect(C100Sequence[84].getNextStep({})).toBe('/c100-rebuild/safety-concerns/no-feedback');
+    expect(C100Sequence[84].getNextStep({})).toBe('/c100-rebuild/safety-concerns/child/concerns-about');
 
     expect(C100Sequence[85].url).toBe('/c100-rebuild/screening-questions/permission');
     expect(C100Sequence[85].showInSection).toBe('c100');
@@ -642,6 +642,6 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[87].url).toBe('/c100-rebuild/safety-concerns/orders-required/unsupervised');
     expect(C100Sequence[87].showInSection).toBe('c100');
-    expect(C100Sequence[87].getNextStep({})).toBe('/c100-rebuild/safety-concerns/orders-required/unsupervised');
+    expect(C100Sequence[87].getNextStep({})).toBe('/c100-rebuild/international-elements/start');
   });
 });

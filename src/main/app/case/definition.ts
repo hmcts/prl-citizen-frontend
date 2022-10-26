@@ -2372,6 +2372,7 @@ export enum C1AAbuseTypes {
 export enum C1ASafteyConcernsAbout{
   CHILDREN = 'children',
   APPLICANT = 'applicant',
+  OTHER = 'otherConcerns',
 }
 
 export interface C1ASafteyConcernsAbuse{
