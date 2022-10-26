@@ -10,7 +10,7 @@ describe('AccessibilityStatementGetController', () => {
   const controller = new AccessibilityStatementGetController();
   const language = 'en';
 
-  test('Should render the accessibility statement page for adoption service', async () => {
+  test('Should render the accessibility statement page for private law service', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
