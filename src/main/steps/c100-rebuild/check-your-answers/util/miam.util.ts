@@ -14,6 +14,11 @@ import {
 } from '../../miam/previous-attendance/content';
 import { cy as UrgentHearingContentCy, en as UrgentHearingContentEn } from '../../miam/urgency/content';
 
+import {} from '../../miam/mediator-document/content';
+import {} from '../../miam/mediator-confirmation/content';
+import {} from '../../miam/valid-reason/content';
+import {} from '../../miam/other-proceedings/content';
+
 /**
  *   it take all files -> ...keys -> but section doesn't -> nested object ->
  * @returns

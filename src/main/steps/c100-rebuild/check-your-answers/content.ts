@@ -74,12 +74,6 @@ export const enContent = {
     domesticVoilenceHeading: DomesticAbuseEn().title,
     childProtectionHeading: ChildProtectionEn().title,
     midatatorDocumentTitle: EnMidiationDocument().title,
-    urgentHearingHeading:
-      'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
-    previousMIAMOrExemptHeading:
-      'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
-    validExemptionHeading:
-      'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
     none: 'none',
     details: 'Details',
     fullName: 'Full name',
@@ -138,12 +132,6 @@ export const cyContent: typeof enContent = {
     domesticVoilenceHeading: DomesticAbuseCy().title,
     childProtectionHeading: ChildProtectionCy().title,
     midatatorDocumentTitle: CyMidiationDocument().title,
-    urgentHearingHeading:
-      'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
-    previousMIAMOrExemptHeading:
-      'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
-    validExemptionHeading:
-      'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
     none: 'none',
     details: 'Details',
     fullName: 'Full name - welsh',
@@ -155,7 +143,6 @@ export const cyContent: typeof enContent = {
 
 const en = (content: CommonContent, newEnContents?: any) => {
   const userCase = content.userCase!;
-
   return {
     ...enContent,
     language: content.language,

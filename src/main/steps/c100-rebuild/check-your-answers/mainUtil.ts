@@ -175,13 +175,13 @@ export const MiamAttendance = (
   const SummaryData = [
     {
       key: keys['childInvolvementInSupervision'],
-      value: userCase['miam_attendance'],
-      changeUrl: Urls['C100_MIAM_ATTENDANCE'],
+      value: userCase['miam_otherProceedings'],
+      changeUrl: Urls['C100_MIAM_OTHER_PROCEEDINGS'],
     },
     {
       key: keys['attendedMiamMidiation'],
       value: userCase['childrenSubjectOfProtectionPlan'],
-      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
+      changeUrl: Urls['C100_MIAM_PREVIOUS_ATTENDANCE'],
     },
     {
       key: keys['midatatorDocumentTitle'],
