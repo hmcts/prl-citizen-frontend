@@ -39,7 +39,7 @@ export class LaunchDarklyClient {
     console.log('offlineDefault' + offlineDefault);
     console.log('ldConfig.offline ' + ldConfig.offline);
     await LaunchDarklyClient.client.waitForInitialization();
-    console.log(LaunchDarklyClient.client.allFlags.toString);
+    //console.log(LaunchDarklyClient.client.allFlagsState.toString);
     return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
   }
 }
