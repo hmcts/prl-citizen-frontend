@@ -21,14 +21,14 @@ export default class postController extends PostController<AnyObject> {
     try {
       console.log(req.body);
       if (req.body.goBack) {
-        this.redirect(req, res, C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION);
+        res.redirect(C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION);
       } else {
         console.log('Inside close application block');
         await req.locals.C100Api.deleteCase(req.session.userCase!.caseId!, req.session.userCase);
-        this.redirect(req, res, DASHBOARD_URL);
+        res.redirect(DASHBOARD_URL);
       }
     } finally {
-      this.redirect(req, res, DASHBOARD_URL);
+      res.redirect(DASHBOARD_URL);
     }
   }
 }
