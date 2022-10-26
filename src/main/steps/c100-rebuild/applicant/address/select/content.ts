@@ -16,7 +16,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Select Address of',
+  title: 'Select Address of -welsh',
   changePostCodeLabel: 'Change postcode - welsh',
     errors: {
       selectAddress: {

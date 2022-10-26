@@ -1,6 +1,4 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormInput, FormOptions } from '../../../../../app/form/Form';
-import { isAddressSelected } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './address-select';
@@ -29,11 +27,11 @@ const cyContent = {
 describe('common > components > address-select', () => {
   const commonContent = { language: 'en', userCase: {}, addresses: [] as any[] } as CommonContent;
   let generatedContent;
-  let form;
+  //let form;
 
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
-    form = generatedContent.form as FormContent;
+    //  form = generatedContent.form as FormContent;
   });
 
   test('should return correct english content', () => {
@@ -96,16 +94,4 @@ describe('common > components > address-select', () => {
       ]);
     });
   });
-
-  test('should contain selectAddress field', () => {
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
-    const selectAddressField = fields.selectAddress as FormOptions;
-
-    expect(selectAddressField.type).toBe('select');
-    expect((selectAddressField.label as Function)(generatedContent)).toBe('Select an address');
-    expect(selectAddressField.labelSize).toBe(null);
-    expect(selectAddressField.validator).toBe(isAddressSelected);
-  });
-
 });

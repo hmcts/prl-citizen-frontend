@@ -1,6 +1,4 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './address-manual';
@@ -17,7 +15,7 @@ const enContent = {
   one: 'Yes',
   two: 'No',
   explainNoLabel: 'Provide details of previous addresses you have lived at in the last 5 years',
-  explainNoHint: 'Start with your most recent'
+  explainNoHint: 'Start with your most recent',
 };
 
 const cyContent = {
@@ -30,21 +28,12 @@ const cyContent = {
   one: 'Yes - welsh',
   two: 'No - welsh',
   explainNoLabel: 'Provide details of previous addresses you have lived at in the last 5 years - welsh',
-  explainNoHint: 'Start with your most recent - welsh'
+  explainNoHint: 'Start with your most recent - welsh',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('common > components > manual-address > content', () => {
   const commonContent = { language: 'en', userCase: {} } as CommonContent;
-  let generatedContent;
-  let form;
-  let fields;
-
-  beforeEach(() => {
-    generatedContent = generateContent(commonContent);
-    form = generatedContent.form as FormContent;
-    fields = form.fields as FormFields;
-  });
 
   test('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
@@ -53,48 +42,5 @@ describe('common > components > manual-address > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-
-  test('should contain address1 field', () => {
-    const address1Field = fields.address1 as FormOptions;
-    expect(address1Field.type).toBe('text');
-    expect(address1Field.classes).toBe('govuk-label');
-    expect((address1Field.label as Function)(generatedContent)).toBe(enContent.addressLine1);
-    expect(address1Field.labelSize).toBe(null);
-    expect(address1Field.validator).toBe(isFieldFilledIn);
-  });
-
-  test('should contain address2 field', () => {
-    const address2Field = fields.address2 as FormOptions;
-    expect(address2Field.type).toBe('text');
-    expect(address2Field.classes).toBe('govuk-label');
-    expect((address2Field.label as Function)(generatedContent)).toBeUndefined();
-    expect(address2Field.labelSize).toBe(null);
-  });
-
-  test('should contain addressTown field', () => {
-    const addressTownField = fields.addressTown as FormOptions;
-    expect(addressTownField.type).toBe('text');
-    expect(addressTownField.classes).toBe('govuk-label govuk-!-width-two-thirds');
-    expect((addressTownField.label as Function)(generatedContent)).toBe(enContent.town);
-    expect(addressTownField.labelSize).toBe(null);
-    // expect(addressTownField.validator).toBe(isFieldFilledIn);
-  });
-
-  test('should contain addressCounty field', () => {
-    const addressCountyField = fields.addressCounty as FormOptions;
-    expect(addressCountyField.type).toBe('text');
-    expect(addressCountyField.classes).toBe('govuk-label govuk-!-width-two-thirds');
-    expect((addressCountyField.label as Function)(generatedContent)).toBe(enContent.county);
-    expect(addressCountyField.labelSize).toBe(null);
-  });
-
-  test('should contain addressPostcode field', () => {
-    const addressPostcodeField = fields.addressPostcode as FormOptions;
-    expect(addressPostcodeField.type).toBe('text');
-    expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
-    expect((addressPostcodeField.label as Function)(generatedContent)).toBe(enContent.postcode);
-    expect(addressPostcodeField.labelSize).toBe(null);
-    expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
-  });
-
+  
 });

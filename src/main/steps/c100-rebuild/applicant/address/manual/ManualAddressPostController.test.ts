@@ -3,10 +3,10 @@ import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
-import SelectAddressPostController from './SelectAddressPostController';
+import ManualAddressPostController from './ManualAddressPostController';
 import { generateContent } from './content';
 
-describe('applicant1 > address > lookup > SelectAddressPostController', () => {
+describe('applicant1 > address > lookup > ManualAddressPostController', () => {
   const commonContent = {
     language: 'en',
     additionalData: {
@@ -16,25 +16,6 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
         },
       },
     },
-    selectAddress :  0,
-    addresses: [
-      {
-        fullAddress: 'FLAT 20, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
-        street1: 'FLAT 20, THAMES VIEW, AXON PLACE',
-        street2: 'CENTREWAY APARTMENTS',
-        town: 'ILFORD',
-        county: 'REDBRIDGE',
-        postcode: 'IG1 1NB',
-      },
-      {
-        fullAddress: 'FLAT 21, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
-        street1: 'FLAT 21, THAMES VIEW, AXON PLACE',
-        street2: 'CENTREWAY APARTMENTS',
-        town: 'ILFORD',
-        county: 'REDBRIDGE',
-        postcode: 'IG1 1NB',
-      },
-    ],
     userCase: {
       appl_allApplicants: [
         {
@@ -48,7 +29,6 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
           addressCounty: 'UK',
           addressHistory: 'Yes',
           provideDetailsOfPreviousAddresses: 'NA',
-          applicantSelectedAddress: 2,
         },
       ],
     },
@@ -58,7 +38,7 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
     const mockFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new SelectAddressPostController(mockFormContent.fields);
+    const controller = new ManualAddressPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       query: {
@@ -75,48 +55,10 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
         addressCounty: 'UK',
         addressHistory: 'Yes',
         provideDetailsOfPreviousAddresses: 'NA',
-        applicantSelectedAddress: 2,
-        selectAddress :  '0',
-        addresses: [
-          {
-            fullAddress: 'FLAT 20, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
-            street1: 'FLAT 20, THAMES VIEW, AXON PLACE',
-            street2: 'CENTREWAY APARTMENTS',
-            town: 'ILFORD',
-            county: 'REDBRIDGE',
-            postcode: 'IG1 1NB',
-          },
-          {
-            fullAddress: 'FLAT 21, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
-            street1: 'FLAT 21, THAMES VIEW, AXON PLACE',
-            street2: 'CENTREWAY APARTMENTS',
-            town: 'ILFORD',
-            county: 'REDBRIDGE',
-            postcode: 'IG1 1NB',
-          },
-        ],
         saveAndComeLater: true,
       },
       session: {
         lang: language,
-        addresses: [
-          {
-            fullAddress: 'FLAT 20, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
-            street1: 'FLAT 20, THAMES VIEW, AXON PLACE',
-            street2: 'CENTREWAY APARTMENTS',
-            town: 'ILFORD',
-            county: 'REDBRIDGE',
-            postcode: 'IG1 1NB',
-          },
-          {
-            fullAddress: 'FLAT 21, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
-            street1: 'FLAT 21, THAMES VIEW, AXON PLACE',
-            street2: 'CENTREWAY APARTMENTS',
-            town: 'ILFORD',
-            county: 'REDBRIDGE',
-            postcode: 'IG1 1NB',
-          },
-        ],
         userCase: {
           appl_allApplicants: [
             {
@@ -129,7 +71,6 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
               addressCounty: 'UK',
               addressHistory: 'Yes',
               provideDetailsOfPreviousAddresses: 'NA',
-              applicantSelectedAddress: 2,
             },
           ],
         },

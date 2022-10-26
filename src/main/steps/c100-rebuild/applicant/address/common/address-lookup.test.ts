@@ -1,6 +1,4 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../../app/form/Form';
-import { isInvalidPostcode } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './address-lookup';
@@ -22,7 +20,6 @@ const cy = {
 /* eslint-disable @typescript-eslint/ban-types */
 describe('common > components > address-lookup > content', () => {
   const commonContent = { language: 'en', userCase: {} } as CommonContent;
- 
 
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -30,20 +27,6 @@ describe('common > components > address-lookup > content', () => {
 
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
-  });
-
-  test('should contain addressPostcode field', () => {
-    const generatedContent = generateContent(commonContent) as Record<string, never>;
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
-    const addressPostcodeField = fields.addressPostcode as FormOptions;
-
-    expect(addressPostcodeField.type).toBe('text');
-    expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
-    expect(addressPostcodeField.label).toBe(en.postcode);
-    expect(addressPostcodeField.labelSize).toBe(null);
-   // expect(addressPostcodeField.attributes!.maxLength).toBe(14);
-    expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
   });
 
 });
