@@ -49,8 +49,10 @@ pipelineConf.vaultSecrets = secrets
 withNightlyPipeline(type, product, component) {
 
   loadVaultSecrets(secrets)
+  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
   enableFortifyScan()
   enableFullFunctionalTest(120)
+
 
   after('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
