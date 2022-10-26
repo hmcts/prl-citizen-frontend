@@ -2379,13 +2379,7 @@ export interface C1ASafteyConcernsAbuse{
   isOngoingBehaviour?:YesNoEmpty;
   seekHelpFromPersonOrAgency?: YesNoEmpty;
   seekHelpDetails?: string;
-  childrenConcernedAbout?: C1AChildrenConcernedAbout[];
-}
-
-export interface C1AChildrenConcernedAbout{
-  id: string;
-  firstName: string;
-  lastName: string;
+  childrenConcernedAbout?: string;
 }
 
 export interface C1ASafteyConcerns {

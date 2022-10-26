@@ -94,20 +94,6 @@ export const generateFormFields = (
   data: C1ASafteyConcernsAbuse,
   childrenData: ChildrenDetails[]
 ): GenerateDynamicFormFields => {
-  let combinedChildren;
-  if (childrenData instanceof Array) {
-    combinedChildren = childrenData.map(childObj => {
-      return {
-        name: 'childrenConcernedAbout',
-        label: `${childObj.firstName} ${childObj.lastName}`,
-        value: JSON.stringify({
-          id: `${childObj.id}`,
-          firstName: `${childObj.firstName.trim()}`,
-          lastName: `${childObj.lastName.trim()}`,
-        }),
-      };
-    });
-  }
   const fields = {
     childrenConcernedAbout: {
       type: 'checkboxes',
@@ -119,9 +105,15 @@ export const generateFormFields = (
           name: 'childrenConcernedAbout',
           label: l => l.allChildrenLabel,
           exclusive: true,
-          value: combinedChildren.map(childObj => childObj.value),
+          value: childrenData.map(childObj => childObj.id).join(''),
         },
-        ...combinedChildren,
+        ...childrenData.map(childObj => {
+          return {
+            name: 'childrenConcernedAbout',
+            label: `${childObj.firstName} ${childObj.lastName}`,
+            value: `${childObj.id}`,
+          };
+        }),
       ],
     },
     behaviourDetails: {
@@ -187,6 +179,7 @@ export const generateFormFields = (
       ],
     },
   };
+
   const errors = {
     en: {},
     cy: {},
@@ -199,6 +192,12 @@ export const generateFormFields = (
   );
   fields.seekHelpFromPersonOrAgency.values = fields.seekHelpFromPersonOrAgency.values.map(config =>
     config.value === data.seekHelpFromPersonOrAgency ? { ...config, selected: true } : config
+  );
+
+  // mark the selection for the children checkboxes based on the option chosen
+  fields.childrenConcernedAbout.values = fields.childrenConcernedAbout.values.map(config =>
+    // Checking if the data.childrenConcernedAbout has been prefilled, if YES, data will be fetched from userCase. If NOT, checkboxes are made fresh and untouched
+    data.childrenConcernedAbout?.includes(config.value as string) ? { ...config, selected: true } : config
   );
 
   return { fields, errors };
