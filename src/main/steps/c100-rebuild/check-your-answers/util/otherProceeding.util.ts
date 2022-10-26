@@ -3,7 +3,7 @@
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 import { DATE_FORMATTOR } from '../common/dateformatter';
-import {HTML} from '../common/htmlSelectors';
+import { HTML } from '../common/htmlSelectors';
 
 /**
  * It takes in an object and returns a string

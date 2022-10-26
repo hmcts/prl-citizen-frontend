@@ -3,6 +3,7 @@ import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
 
 import { DATE_FORMATTOR } from './common/dateformatter';
+import { HTML } from './common/htmlSelectors';
 import { InternationElementHelper } from './helpers/InternationElementsHelper';
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
@@ -28,9 +29,6 @@ export const TypeOfOrder = (
       changeUrl: Urls['C100_TYPE_ORDER_SHORT_STATEMENT'],
     },
   ];
-
-  /** Removes entry in @summarydata if user is not a named user */
-
   return {
     title: sectionTitles['AdvisingCourt'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -43,7 +41,6 @@ export const WithoutNoticeHearing = (
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
   const SummaryData = [
-    //qualifyForUrgentHearing
     {
       key: keys['qualifyForUrgentHearing'],
       value: userCase['hwn_hearingPart1'],
@@ -56,9 +53,6 @@ export const WithoutNoticeHearing = (
       changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART2'],
     },
   ];
-
-  /** Removes entry in @summarydata if user is not a named user */
-
   return {
     title: sectionTitles['WithoutNoticeHearing'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -71,7 +65,8 @@ export const ChildernDetails = (
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
   const sessionChildData = userCase['cd_children'];
-  const newChildDataStorage: { key: string; keyHtml?: string; value: string; changeUrl: string }[] = [];
+  const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
+    [];
   for (const child in sessionChildData) {
     const firstname = sessionChildData[child]['firstName'],
       lastname = sessionChildData[child]['lastName'],
@@ -93,22 +88,31 @@ export const ChildernDetails = (
         changeUrl: Urls['C100_CHILDERN_DETAILS_ADD'],
       },
       {
-        key: keys['dateOfBirth'],
+        key: keys['dobLabel'],
         value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
-        key: keys['gender'],
+        key: keys['childGenderLabel'],
         value: personalDetails?.['gender'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
         key: keys['ordersAppliedFor'],
-        value: childMatters['needsResolution'],
+        value: '',
+        valueHtml: (
+          HTML.UNORDER_LIST +
+          Object.values(childMatters['needsResolution']).map(
+            (field: any) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
+          ) +
+          HTML.UNORDER_LIST_END
+        )
+          .split(',')
+          .join(''),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
-        key: keys['isDecisionTaken'],
+        key: keys['isDecisionTaken'].split('**').join(`${Number(child) + 1}`),
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       }
@@ -132,23 +136,22 @@ export const ChildernDetailsAdditional = (
 
   const SummaryData = [
     {
-      key: keys['socialServiceLink'],
+      key: keys['childrenKnownToSocialServicesHint'],
       value: '',
       valueHtml: htmlForAdditionalText,
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
     {
-      key: keys['subjectToChildProtection'],
+      key: keys['childrenSubjectOfProtectionPlanLabel'],
       value: userCase['childrenSubjectOfProtectionPlan'],
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
     {
-      key: keys['haveOtherChildern'],
+      key: keys['childrenProtectionPlanHint'],
       value: '',
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
   ];
-
   return {
     title: sectionTitles['additionationDetailsAboutChildern'],
     rows: getSectionSummaryList(SummaryData, content),

@@ -18,6 +18,7 @@ import {
   WithoutNoticeHearing,
 } from './mainUtil';
 import { InternationElements } from './util/InternationElement.util';
+import { childDetailsContents } from './util/childDetails.util';
 import { hearingDetailsContents } from './util/hearingwithout.util';
 import { MiamFieldsLoader } from './util/miam.util';
 import { otherProceedingsContents } from './util/otherProceeding.util';
@@ -64,17 +65,6 @@ export const enContent = {
     askingNoHearing: 'Are you asking for a without notice hearing?',
     phoneNumber: 'Phone number',
     emailAddress: 'Contact number of the person named on the application',
-    fullName: 'Full name',
-    dateOfBirth: 'Date of birth',
-    gender: 'Gender',
-    details: 'Details',
-    address: 'Address',
-    ordersAppliedFor: 'Orders applied for',
-    isDecisionTaken:
-      'State everyone who has parental responsibility for child 2 and how they have parental responsibility',
-    socialServiceLink: 'Are any of the children known to social services?',
-    subjectToChildProtection: 'Are any of the children the subject of a child protection plan?',
-    haveOtherChildern: "Do you or the respondents have other children who aren't part of this application?",
     childInvolvementInSupervision:
       'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
     attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
@@ -91,6 +81,11 @@ export const enContent = {
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
     none: 'none',
+    details: 'Details',
+    fullName: 'Full name',
+    isDecisionTaken:
+      'State everyone who has parental responsibility for child ** and how they have parental responsibility',
+    ordersAppliedFor: 'Orders applied for',
   },
 };
 export const cyContent: typeof enContent = {
@@ -134,17 +129,6 @@ export const cyContent: typeof enContent = {
     askingNoHearing: 'Are you asking for a without notice hearing? - welsh',
     phoneNumber: 'Phone number -welsh',
     emailAddress: 'Contact number of the person named on the application - welsh',
-    fullName: 'Full name - welsh',
-    dateOfBirth: 'Date of birth - welsh',
-    gender: 'Gender - welsh',
-    details: 'Details - welsh',
-    address: 'Address - welsh',
-    ordersAppliedFor: 'Orders applied for - welsh',
-    isDecisionTaken:
-      'State everyone who has parental responsibility for child 2 and how they have parental responsibility - welsh',
-    socialServiceLink: 'Are any of the children known to social services? - welsh',
-    subjectToChildProtection: 'Are any of the children the subject of a child protection plan? - welsh',
-    haveOtherChildern: "Do you or the respondents have other children who aren't part of this application? - welsh",
     childInvolvementInSupervision:
       'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
     attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
@@ -161,6 +145,11 @@ export const cyContent: typeof enContent = {
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
     none: 'none',
+    details: 'Details',
+    fullName: 'Full name - welsh',
+    isDecisionTaken:
+      'State everyone who has parental responsibility for child ** and how they have parental responsibility - welsh',
+    ordersAppliedFor: 'Orders applied for',
   },
 };
 
@@ -229,6 +218,7 @@ export const generateContent: TranslationFn = content => {
     ...typeOfCourtOrderContents(content['language']),
     ...hearingDetailsContents(content['language']),
     ...InternationElements(content['language']),
+    ...childDetailsContents(content['language']),
     ...{ none: 'none' },
   };
   const translations = languages[content.language](content, newContents);
