@@ -295,13 +295,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
-    if(cdamUrl && this.getFlagViewed(req,fieldFlag)){
+    if (cdamUrl && this.getFlagViewed(req, fieldFlag)) {
       window.open(cdamUrl, '_blank');
     }
 
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
-    
+
     req.session.save(err => {
       if (err) {
         throw err;
@@ -425,11 +425,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
   }
 
-  private getFlagViewed(
-    req: AppRequest<Partial<CaseWithId>>,
-    flag: string
-  ): boolean {
-    let downloadedAlready: boolean = false;
+  private getFlagViewed(req: AppRequest<Partial<CaseWithId>>, flag: string): boolean {
+    let downloadedAlready = false;
     req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
       const cvIsApplicationViewed = respondent?.value?.response?.citizenFlags?.isApplicationViewed;
       const cvIsAllegationOfHarmViewed = respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed;
