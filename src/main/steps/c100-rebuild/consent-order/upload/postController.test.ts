@@ -38,7 +38,7 @@ describe('Consent Order Document Upload controller', () => {
     };
 
     await controller.post(req, res);
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/consent-order/upload');
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -69,7 +69,7 @@ describe('Consent Order Document Upload controller', () => {
     };
 
     await controller.post(req, res);
-    expect(res.redirect).toBeCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
   });
 
   test('Should throw error if file is null', async () => {
@@ -95,7 +95,7 @@ describe('Consent Order Document Upload controller', () => {
       expect(err).toBe('MOCK_ERROR');
     }
 
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/consent-order/upload');
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -123,7 +123,7 @@ describe('Consent Order Document Upload controller', () => {
       //eslint-disable-next-line jest/no-conditional-expect
       expect(err).toBe('MOCK_ERROR');
     }
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/consent-order/upload');
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -152,7 +152,7 @@ describe('Consent Order Document Upload controller', () => {
       expect(err).toBe('MOCK_ERROR');
     }
 
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/consent-order/upload');
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -176,7 +176,7 @@ describe('Consent Order Document Upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/consent-order/upload');
   });
 
   test('Should call document upload function', async () => {
@@ -235,8 +235,8 @@ describe('Consent Order Document Upload controller', () => {
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expected);
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith('/c100-rebuild/consent-order/upload');
-    expect(req.locals.C100Api.uploadDocument).toBeCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/consent-order/upload');
+    expect(req.locals.C100Api.uploadDocument).toHaveBeenCalled();
     expect(req.locals.C100Api.uploadDocument).toHaveBeenCalledWith(formData);
     expect(req.session.userCase).toEqual({ co_certificate: expected });
   });

@@ -635,7 +635,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[85].getNextStep({ sq_courtPermissionRequired: YesOrNo.NO })).toBe(
       '/c100-rebuild/miam/other-proceedings'
     );
-    
+
     expect(C100Sequence[86].url).toBe('/c100-rebuild/screening-questions/contact-representative');
     expect(C100Sequence[86].showInSection).toBe('c100');
     expect(C100Sequence[86].getNextStep({})).toBe('/c100-rebuild/screening-questions/contact-representative');
@@ -643,7 +643,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[87].url).toBe('/c100-rebuild/safety-concerns/orders-required/unsupervised');
     expect(C100Sequence[87].showInSection).toBe('c100');
     expect(C100Sequence[87].getNextStep({})).toBe('/c100-rebuild/international-elements/start');
-    
+
     expect(C100Sequence[88].url).toBe('/c100-rebuild/consent-order/upload');
     expect(C100Sequence[88].showInSection).toBe('c100');
     expect(C100Sequence[88].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
