@@ -65,21 +65,18 @@ export const enContent = {
     askingNoHearing: 'Are you asking for a without notice hearing?',
     phoneNumber: 'Phone number',
     emailAddress: 'Contact number of the person named on the application',
-    childInvolvementInSupervision:
-      'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
-    attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
-    mediatorConfirmation: 'Has a mediator confirmed that you do not need to attend a MIAM?',
-    reasonForNotAttendingMiam: 'Do you have valid reasons for not attending a MIAM?',
-    validResonsNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
     domesticVoilenceHeading: DomesticAbuseEn().title,
     childProtectionHeading: ChildProtectionEn().title,
     midatatorDocumentTitle: EnMidiationDocument().title,
     none: 'none',
     details: 'Details',
     fullName: 'Full name',
-    isDecisionTaken:
-      'State everyone who has parental responsibility for child ** and how they have parental responsibility',
-    ordersAppliedFor: 'Orders applied for',
+    urgentHearingHeading:
+      'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
+    previousMIAMOrExemptHeading:
+      'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
+    validExemptionHeading:
+      'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
   },
 };
 export const cyContent: typeof enContent = {
@@ -123,21 +120,18 @@ export const cyContent: typeof enContent = {
     askingNoHearing: 'Are you asking for a without notice hearing? - welsh',
     phoneNumber: 'Phone number -welsh',
     emailAddress: 'Contact number of the person named on the application - welsh',
-    childInvolvementInSupervision:
-      'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
-    attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
-    mediatorConfirmation: 'Has a mediator confirmed that you do not need to attend a MIAM?',
-    reasonForNotAttendingMiam: 'Do you have valid reasons for not attending a MIAM?',
-    validResonsNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
     domesticVoilenceHeading: DomesticAbuseCy().title,
     childProtectionHeading: ChildProtectionCy().title,
     midatatorDocumentTitle: CyMidiationDocument().title,
     none: 'none',
     details: 'Details',
     fullName: 'Full name - welsh',
-    isDecisionTaken:
-      'State everyone who has parental responsibility for child ** and how they have parental responsibility - welsh',
-    ordersAppliedFor: 'Orders applied for',
+    urgentHearingHeading:
+      'Do you require an urgent hearing because you or the children are at risk for any of the following reasons? - welsh',
+    previousMIAMOrExemptHeading:
+      'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend? - welsh',
+    validExemptionHeading:
+      'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case? - welsh',
   },
 };
 

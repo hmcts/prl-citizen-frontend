@@ -7,11 +7,12 @@ export * from './routeGuard';
 export const en = () => ({
   caption: 'MIAM exemptions',
   title: 'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
+  attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
   insetHtml: `<p class="govuk-body">If you are seeking a MIAM exemption, you will need to give more details. </p>
               <p class="govuk-body">The court needs this information to decide if you need to attend a MIAM.</p>`,
   select_all_apply: 'Select all that apply to you',
   fourMonthsPriorAttended: `In the 4 months prior to making the application, you attended 
-                            a MIAM or participated in another form of non-court dispute resolution relating 
+                            a MIAM or participated in another form of non-court dispute resolution relating Have you attended a Mediation Information and Assessment Meeting (MIAM)
                             to the same or substantially the same dispute`,
   onTimeParticipation: `At the time of making the application, you are participating in another
                         form of non-court dispute resolution relating to the same or 
@@ -37,6 +38,7 @@ export const en = () => ({
 export const cy = () => ({
   caption: 'MIAM exemptions - welsh',
   title: 'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend? - welsh',
+  attendedMiamMidiation: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
   insetHtml: `<p class="govuk-body">If you are seeking a MIAM exemption, you will need to give more details. </p>
              <p class="govuk-body">The court needs this information to decide if you need to attend a MIAM.</p> - welsh`,
   select_all_apply: 'Select all that apply to you - welsh',

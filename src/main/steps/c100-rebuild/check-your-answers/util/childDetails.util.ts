@@ -26,7 +26,6 @@ const personalDetails_welsh = contentPersonalDetailsCy(),
 
 const childMatters_welsh = contentChildMatterCy(),
   childMatters_english = contentChildMatterEn();
-  
 export const childDetailsContents = SystemLanguage => {
   const opContents = {
     en: () => {

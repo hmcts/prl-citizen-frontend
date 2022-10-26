@@ -7,17 +7,15 @@ import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domesti
 import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/content';
 import { cy as GeneralContentCy, en as GeneralContentEn } from '../../miam/general-reasons/content';
+import { cy as mcCy, en as mcEn } from '../../miam/mediator-confirmation/content';
 import { cy as MiamOtherContentCy, en as MiamOtherContentEn } from '../../miam/miam-other/content';
+import { cy as opCy, en as opEn } from '../../miam/other-proceedings/content';
 import {
   cy as PreviousAttendanceContentCy,
   en as PreviousAttendanceContentEn,
 } from '../../miam/previous-attendance/content';
 import { cy as UrgentHearingContentCy, en as UrgentHearingContentEn } from '../../miam/urgency/content';
-
-import {} from '../../miam/mediator-document/content';
-import {} from '../../miam/mediator-confirmation/content';
-import {} from '../../miam/valid-reason/content';
-import {} from '../../miam/other-proceedings/content';
+import { cy as vrCy, en as vrEn } from '../../miam/valid-reason/content';
 
 /**
  *   it take all files -> ...keys -> but section doesn't -> nested object ->
@@ -172,14 +170,43 @@ export const MiamContentForOtherFeatureSubFields = UserCase => {
   }
 };
 
+export const additionalTitlesMiam = SystemLanguage => {
+  const opContents = {
+    en: () => {
+      return {
+        childInvolvementInSupervision: opEn().title,
+        mediatorConfirmation: mcEn().title,
+        reasonForNotAttendingMiam: vrEn().title,
+        validResonsNotAttendingMiam: vrEn().validResonsNotAttendingMiam,
+        attendedMiamMidiation: PreviousAttendanceContentEn().attendedMiamMidiation,
+        urgentHearing: UrgentHearingContentEn().title,
+        error: '',
+      };
+    },
+    cy: () => {
+      return {
+        childInvolvementInSupervision: opCy().title,
+        mediatorConfirmation: mcCy().title,
+        reasonForNotAttendingMiam: vrCy().title,
+        validResonsNotAttendingMiam: vrCy().validResonsNotAttendingMiam,
+        attendedMiamMidiation: PreviousAttendanceContentCy().attendedMiamMidiation,
+        urgentHearing: UrgentHearingContentCy().title,
+        error: '',
+      };
+    },
+  };
+  return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
+};
+
 export const MiamFieldsLoader = (SystemLanguageContent, content) => {
   return {
-    ...SystemLanguageContent(content, MiamContentsForGeneralReasons),
     ...SystemLanguageContent(content, MiamContentsForDomensticVoilence),
     ...SystemLanguageContent(content, MiamContentsForUrgentHearing),
     ...SystemLanguageContent(content, MiamContentsForPreviousAttendance),
     ...SystemLanguageContent(content, MiamContentsForChildProtection),
     ...SystemLanguageContent(content, MiamContentForOtherFeature),
     ...SystemLanguageContent(content, MiamContentForOtherFeatureSubFields),
+    ...additionalTitlesMiam(content['language']),
+    ...SystemLanguageContent(content, MiamContentsForGeneralReasons),
   };
 };
