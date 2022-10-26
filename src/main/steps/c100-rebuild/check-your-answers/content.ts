@@ -67,6 +67,7 @@ export const enContent = {
     fullName: 'Full name',
     dateOfBirth: 'Date of birth',
     gender: 'Gender',
+    details: 'Details',
     address: 'Address',
     ordersAppliedFor: 'Orders applied for',
     isDecisionTaken:
@@ -136,6 +137,7 @@ export const cyContent: typeof enContent = {
     fullName: 'Full name - welsh',
     dateOfBirth: 'Date of birth - welsh',
     gender: 'Gender - welsh',
+    details: 'Details - welsh',
     address: 'Address - welsh',
     ordersAppliedFor: 'Orders applied for - welsh',
     isDecisionTaken:

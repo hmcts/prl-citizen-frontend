@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+/**
+ * import {
+  cy as contentjurdisictionCy,
+  en as contentjurdisictionEn,
+} from '../../international-elements/jurisdiction/content';
+ */
 import {
   cy as contentjurdisictionCy,
   en as contentjurdisictionEn,
@@ -18,17 +24,17 @@ export const InternationElements = SystemLanguage => {
   const opContents = {
     en: () => {
       return {
-        liveOutSideUk: '',
-        basedOutSideEnglandOrWales: contentRequestEn().title,
-        anotherPersonSameOrder: contentStartEn().title,
-        otherCountryRequestInfo: contentParentEn().title,
+        liveOutSideUk: contentStartEn().title,
+        basedOutSideEnglandOrWales: contentParentEn().title,
+        anotherPersonSameOrder: contentjurdisictionEn().title,
+        otherCountryRequestInfo: contentRequestEn().title,
       };
     },
     cy: () => {
       return {
-        liveOutSideUk: '',
-        basedOutSideEnglandOrWales: contentRequestCy().title,
-        anotherPersonSameOrder: contentStartCy().title,
+        liveOutSideUk: contentStartCy().title,
+        basedOutSideEnglandOrWales: contentParentCy().title,
+        anotherPersonSameOrder: contentjurdisictionCy().title,
         otherCountryRequestInfo: contentRequestCy().title,
       };
     },
