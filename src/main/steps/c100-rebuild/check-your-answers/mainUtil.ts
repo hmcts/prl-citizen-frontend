@@ -1,6 +1,8 @@
 import { CaseWithId } from '../../../app/case/case';
+import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
 
+import { DATE_FORMATTOR } from './common/dateformatter';
 import { InternationElementHelper } from './helpers/InternationElementsHelper';
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
@@ -68,19 +70,16 @@ export const ChildernDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const sessionChildData = userCase['childernDetails'];
-
+  const sessionChildData = userCase['cd_children'];
   const newChildDataStorage: { key: string; keyHtml?: string; value: string; changeUrl: string }[] = [];
-
   for (const child in sessionChildData) {
-    const firstname = sessionChildData[child]['firstname'],
-      lastname = sessionChildData[child]['lastname'],
+    const firstname = sessionChildData[child]['firstName'],
+      lastname = sessionChildData[child]['lastName'],
       id = sessionChildData[child]['id'],
       personalDetails = sessionChildData[child]['personalDetails'],
-      childMatter = sessionChildData[child]['childMatter'];
-
+      childMatters = sessionChildData[child]['childMatters'],
+      parentialResponsibility = sessionChildData[child]['parentialResponsibility'];
     const childNo = Number(child) + 1;
-
     newChildDataStorage.push(
       {
         key: '',
@@ -95,29 +94,27 @@ export const ChildernDetails = (
       },
       {
         key: keys['dateOfBirth'],
-        value: personalDetails?.['DateoBirth'],
-        changeUrl: Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'] + '?childId=' + id,
+        value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
+        changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
         key: keys['gender'],
-        value: personalDetails?.['Sex'],
-        changeUrl: Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'] + '?childId=' + id,
+        value: personalDetails?.['gender'],
+        changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
         key: keys['ordersAppliedFor'],
-        value: '',
-        changeUrl: Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'] + '?childId=' + id,
+        value: childMatters['needsResolution'],
+        changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
         key: keys['isDecisionTaken'],
-        value: childMatter['isDecisionTaken'],
-        changeUrl: Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'] + '?childId=' + id,
+        value: parentialResponsibility['statement'],
+        changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       }
     );
   }
-
   const SummaryData = newChildDataStorage;
-
   return {
     title: sectionTitles['ChildernDetails'],
     rows: getSectionSummaryList(SummaryData, content),

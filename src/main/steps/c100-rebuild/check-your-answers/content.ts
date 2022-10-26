@@ -5,7 +5,6 @@ import { CommonContent } from '../../../steps/common/common.content';
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
-import {InternationElements} from './util/InternationElement.util';
 
 import {
   ChildernDetails,
@@ -18,6 +17,7 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
 } from './mainUtil';
+import { InternationElements } from './util/InternationElement.util';
 import { hearingDetailsContents } from './util/hearingwithout.util';
 import { MiamFieldsLoader } from './util/miam.util';
 import { otherProceedingsContents } from './util/otherProceeding.util';

@@ -2,26 +2,8 @@
 
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
-
-/**
- * It takes a date object and returns a string
- * @param date - The date object that you want to format.
- * @returns A string
- */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const DATE_FORMATTOR = (date): string => {
-  if (date['year'] !== '' && date['month'] !== '' && date['day'] !== '') {
-    const formated_Date = new Date(date['year'], date['month'], date['day']);
-    const month = formated_Date.toLocaleString('default', { month: 'long' });
-    return formated_Date.getDate() + ' ' + month + ' ' + formated_Date.getFullYear();
-  } else {
-    return Object.values(date)
-      .map(item => item + ' ')
-      .toString()
-      .split(',')
-      .join('');
-  }
-};
+import { DATE_FORMATTOR } from '../common/dateformatter';
+import {HTML} from '../common/htmlSelectors';
 
 /**
  * It takes in an object and returns a string
@@ -53,18 +35,17 @@ export const IndividualOrderFieldsParser = (keys, order) => {
     },
   };
   let Val = '';
-  const divider = '<hr class="govuk-section-break govuk-section-break--visible">';
   Object.entries(order).forEach(entry => {
     const key = entry[0];
     const value = entry[1];
     if (typeof entry[1] === 'object' && entry[1] !== null) {
-      const keyDetails = '<h4>' + Mapper[key]?.question + '</h4>';
-      const valueDetails = '<p>' + DATE_FORMATTOR(value) + '</p>';
-      Val += keyDetails + valueDetails + divider;
+      const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+      const valueDetails = HTML.P + DATE_FORMATTOR(value) + HTML.P_CLOSE;
+      Val += keyDetails + valueDetails + HTML.RULER;
     } else {
-      const keyDetails = '<h4>' + Mapper[key]?.question + '</h4>';
-      const valueDetails = '<p>' + value + '</p>';
-      Val += keyDetails + valueDetails + divider;
+      const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+      const valueDetails = HTML.P + value + HTML.P_CLOSE;
+      Val += keyDetails + valueDetails + HTML.RULER;
     }
   });
 
