@@ -2381,6 +2381,7 @@ export interface C1ASafteyConcernsAbuse{
   isOngoingBehaviour?:YesNoEmpty;
   seekHelpFromPersonOrAgency?: YesNoEmpty;
   seekHelpDetails?: string;
+  childrenConcernedAbout?: string;
 }
 
 export interface C1ASafteyConcerns {
