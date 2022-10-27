@@ -85,6 +85,24 @@ export const enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
+    // do you have safety concerns
+    doYouHaveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
+    // who are the concerns about
+    whoAreConcernsAbout: 'Who are you concerned about?',
+    select_all_relevant: 'Select all options that are relevant to you.',
+    children: 'The children in this application',
+    applicant: 'Yourself',
+    //child concern screens
+    childConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing?',
+    physicalAbuse: 'Physical abuse',
+    psychologicalAbuse: 'Psychological abuse',
+    emotionalAbuse: 'Emotional abuse',
+    sexualAbuse: 'Sexual abuse',
+    financialAbuse: 'Financial abuse',
+    witnessingDomesticAbuse: 'Witnessing domestic abuse',
+    abduction: 'Abduction',
+    somethingElse: 'Something else',
+    detailsOfChildConcern: 'Briefly describe the [***] against the children if you feel able to ',
   },
 };
 export const cyContent: typeof enContent = {
@@ -144,6 +162,24 @@ export const cyContent: typeof enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend? - welsh',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case? - welsh',
+    // do you have safety concerns
+    doYouHaveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children? - welsh',
+    // who are the concerns about
+    whoAreConcernsAbout: 'Who are you concerned about?',
+    select_all_relevant: 'Select all options that are relevant to you.',
+    children: 'The children in this application',
+    applicant: 'Yourself',
+    //child concern screens
+    childConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing?',
+    physicalAbuse: 'Physical abuse',
+    psychologicalAbuse: 'Psychological abuse',
+    emotionalAbuse: 'Emotional abuse',
+    sexualAbuse: 'Sexual abuse',
+    financialAbuse: 'Financial abuse',
+    witnessingDomesticAbuse: 'Witnessing domestic abuse',
+    abduction: 'Abduction',
+    somethingElse: 'Something else',
+    detailsOfChildConcern: 'Briefly describe the physical [***] the children if you feel able to ',
   },
 };
 

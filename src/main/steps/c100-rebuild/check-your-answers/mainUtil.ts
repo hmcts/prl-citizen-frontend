@@ -8,6 +8,7 @@ import { InternationElementHelper } from './helpers/InternationElementsHelper';
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
+import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
 
@@ -280,11 +281,21 @@ export const SafetyConcerns = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
+  const dataForConcerns = userCase.hasOwnProperty('c1A_safetyConernAbout')
+    ? userCase['c1A_safetyConernAbout']?.map(
+        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
+      )
+    : '';
   const SummaryData = [
     {
-      key: keys['childrenInvolvedCourtCase'],
-      value: userCase['op_childrenInvolvedCourtCase'],
-      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+      key: keys['doYouHaveSafetyConcerns'],
+      value: userCase['c1A_haveSafetyConcerns'],
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY'],
+    },
+    {
+      key: keys['whoAreConcernsAbout'],
+      valueHtml: dataForConcerns?.toString().split(',').join(''),
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT'],
     },
   ];
   return {
@@ -297,12 +308,32 @@ export const SafetyConcerns_child = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
+  const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutChild')
+    ? userCase['c1A_concernAboutChild']?.map(
+        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
+      )
+    : '';
+
+  let subFields = userCase['c1A_concernAboutChild'] as any;
+  subFields = subFields
+    ?.filter(
+      (element: any) => element !== 'abduction' && element !== 'witnessingDomesticAbuse' && element !== 'somethingElse'
+    )
+    ?.map(field => {
+      return {
+        key: keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `),
+        valueHtml: SafetyConcernsHelper(userCase, keys, 'c1A_concernAboutChild'),
+        changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE'], { abuseType: field }),
+      };
+    }) as any;
+
   const SummaryData = [
     {
-      key: keys['childrenInvolvedCourtCase'],
-      value: userCase['op_childrenInvolvedCourtCase'],
-      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+      key: keys['childConcerns'],
+      valueHtml: childSafetyConcerns?.toString().split(',').join(''),
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD'],
     },
+    ...subFields,
   ];
   return {
     title: sectionTitles['childSafetyConcerns'],
