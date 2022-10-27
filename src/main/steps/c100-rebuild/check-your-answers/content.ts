@@ -103,6 +103,11 @@ export const enContent = {
     abduction: 'Abduction',
     somethingElse: 'Something else',
     detailsOfChildConcern: 'Briefly describe the [***] against the children if you feel able to ',
+    childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+    behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
+    behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? (optional)',
+    isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
+    seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
   },
 };
 export const cyContent: typeof enContent = {
@@ -180,6 +185,11 @@ export const cyContent: typeof enContent = {
     abduction: 'Abduction',
     somethingElse: 'Something else',
     detailsOfChildConcern: 'Briefly describe the physical [***] the children if you feel able to ',
+    childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+    behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
+    behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? (optional)',
+    isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
+    seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
   },
 };
 

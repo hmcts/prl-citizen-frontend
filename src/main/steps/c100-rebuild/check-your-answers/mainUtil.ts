@@ -1,4 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
+import { C1AAbuseTypes } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
 
@@ -108,12 +109,12 @@ export const ChildernDetails = (
           ) +
           HTML.UNORDER_LIST_END
         )
-          .split(',')
+          ?.split(',')
           .join(''),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
-        key: keys['isDecisionTaken'].split('**').join(`${Number(child) + 1}`),
+        key: keys['isDecisionTaken']?.split('**').join(`${Number(child) + 1}`),
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       }
@@ -313,16 +314,18 @@ export const SafetyConcerns_child = (
         concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
       )
     : '';
-
   let subFields = userCase['c1A_concernAboutChild'] as any;
   subFields = subFields
     ?.filter(
-      (element: any) => element !== 'abduction' && element !== 'witnessingDomesticAbuse' && element !== 'somethingElse'
+      (element: any) =>
+        element !== C1AAbuseTypes.ABDUCTION &&
+        element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
+        element !== C1AAbuseTypes.SOMETHING_ELSE
     )
     ?.map(field => {
       return {
         key: keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `),
-        valueHtml: SafetyConcernsHelper(userCase, keys, 'c1A_concernAboutChild'),
+        valueHtml: SafetyConcernsHelper(userCase, keys, 'c1A_concernAboutChild', field),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE'], { abuseType: field }),
       };
     }) as any;
