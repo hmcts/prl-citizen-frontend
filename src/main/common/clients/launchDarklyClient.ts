@@ -38,12 +38,12 @@ export class LaunchDarklyClient {
     };
     console.log('offlineDefault' + offlineDefault);
     console.log('ldConfig.offline ' + ldConfig.offline);
-    console.log(LaunchDarklyClient.client.isOffline);
-    console.log(LaunchDarklyClient.client.isOffline);
+    console.log(LaunchDarklyClient.client.isOffline());
     await LaunchDarklyClient.client.waitForInitialization();
     console.log();
     //console.log(LaunchDarklyClient.client.allFlagsState.toString);
     const test = (await LaunchDarklyClient.client.allFlagsState(ldUser)).getFlagValue(featureKey);
+    console.log(LaunchDarklyClient.client.isOffline());
     console.log('test   -' + test);
     return test;
     //.variation(featureKey, ldUser, offlineDefault);
