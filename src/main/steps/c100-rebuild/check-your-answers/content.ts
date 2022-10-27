@@ -14,6 +14,10 @@ import {
   MiamExemption,
   MiamTitle,
   PastAndCurrentProceedings,
+  SafetyConcerns,
+  SafetyConcerns_child,
+  SafetyConcerns_others,
+  SafetyConcerns_yours,
   TypeOfOrder,
   WithoutNoticeHearing,
 } from './mainUtil';
@@ -57,7 +61,11 @@ export const enContent = {
     ChildernDetails: "8. Childen's details",
     InternationalElement: '11. International elements',
     otherProceedings: '9. Past and current proceeding',
+    safetyConcerns: '10. Safety concerns',
     additionationDetailsAboutChildern: 'Additional details about the children',
+    childSafetyConcerns: 'Safety concerns: the children in the application ',
+    yourSafetyConcerns: 'Safety concern: your safety',
+    otherSafetyConcerns: 'Safety concern: other concerns that you have',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -112,7 +120,11 @@ export const cyContent: typeof enContent = {
     ChildernDetails: "8. Childen's details - welsh",
     InternationalElement: '11. International elements - welsh',
     otherProceedings: '9. Past and current proceeding - welsh',
+    safetyConcerns: '10. Safety concerns - welsh',
     additionationDetailsAboutChildern: 'Additional details about the children - welsh',
+    childSafetyConcerns: 'Safety concerns: the children in the application ',
+    yourSafetyConcerns: 'Safety concern: your safety',
+    otherSafetyConcerns: 'Safety concern: other concerns that you have',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -150,6 +162,10 @@ const en = (content: CommonContent, newEnContents?: any) => {
       ChildernDetailsAdditional(enContent, userCase),
       PastAndCurrentProceedings(enContent, userCase),
       InternationalElement(enContent, userCase),
+      SafetyConcerns(enContent, userCase),
+      SafetyConcerns_child(enContent, userCase),
+      SafetyConcerns_yours(enContent, userCase),
+      SafetyConcerns_others(enContent, userCase),
     ],
   };
 };
@@ -169,6 +185,10 @@ const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
       ChildernDetailsAdditional(cyContent, userCase),
       PastAndCurrentProceedings(cyContent, userCase),
       InternationalElement(cyContent, userCase),
+      SafetyConcerns(cyContent, userCase),
+      SafetyConcerns_child(cyContent, userCase),
+      SafetyConcerns_yours(cyContent, userCase),
+      SafetyConcerns_others(cyContent, userCase),
     ],
   };
 };

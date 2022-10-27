@@ -275,3 +275,71 @@ export const PastAndCurrentProceedings = (
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
+
+export const SafetyConcerns = (
+  { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['childrenInvolvedCourtCase'],
+      value: userCase['op_childrenInvolvedCourtCase'],
+      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+    },
+  ];
+  return {
+    title: sectionTitles['safetyConcerns'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+export const SafetyConcerns_child = (
+  { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['childrenInvolvedCourtCase'],
+      value: userCase['op_childrenInvolvedCourtCase'],
+      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+    },
+  ];
+  return {
+    title: sectionTitles['childSafetyConcerns'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+export const SafetyConcerns_yours = (
+  { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['childrenInvolvedCourtCase'],
+      value: userCase['op_childrenInvolvedCourtCase'],
+      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+    },
+  ];
+  return {
+    title: sectionTitles['yourSafetyConcerns'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+export const SafetyConcerns_others = (
+  { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['childrenInvolvedCourtCase'],
+      value: userCase['op_childrenInvolvedCourtCase'],
+      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+    },
+  ];
+  return {
+    title: sectionTitles['otherSafetyConcerns'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
