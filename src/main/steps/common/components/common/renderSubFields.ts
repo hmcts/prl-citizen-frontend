@@ -14,10 +14,10 @@ export const renderSubFields = (values: ComponentValues[]): Record<string, FormF
 };
 
 const renderComponent = (component: ComponentValues): Record<string, FormField> => {
-  switch (component.type) {
-    case 'input':
-      return generateInputField(component as InputValues);
-    default:
-      return {};
+  if(component.type){
+    return generateInputField(component as InputValues);
   }
-};
+  else{
+    return {};
+  }
+}

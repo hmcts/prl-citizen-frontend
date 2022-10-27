@@ -39,7 +39,6 @@ export default class SelectAddressPostControllerBase extends PostController<AnyO
         formData[`${this.fieldPrefix}AddressCounty`] = selectedAddress.county;
         formData[`${this.fieldPrefix}AddressPostcode`] = selectedAddress.postcode;
 
-        //req.session.userCase = await this.save(req, formData, this.getEventName(req));
       }
     }
 

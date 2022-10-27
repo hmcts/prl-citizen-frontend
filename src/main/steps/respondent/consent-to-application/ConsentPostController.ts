@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
-//import { getSystemUser } from '../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Respondent } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
@@ -36,7 +35,7 @@ export class ConsentPostController extends PostController<AnyObject> {
     caseData.id = caseReference;
     const updatedCaseDataFromCos = await client.updateCase(
       loggedInCitizen,
-      caseReference as string,
+      caseReference,
       caseData,
       'consentToTheApplication'
     );
