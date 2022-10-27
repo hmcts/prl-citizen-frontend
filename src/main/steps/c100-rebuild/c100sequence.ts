@@ -104,15 +104,16 @@ import {
 
   /** Applicant Details */
   C100_OTHER_PERSON_DETAILS_ADD,
+  C100_OTHER_PERSON_CHECK,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
 import ChildrenDetailsNavigationController from './child-details/navigationController';
 import MIAMNavigationController from './miam/navigationController';
+import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
-import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 
 export const C100Sequence: Step[] = [
   {
@@ -677,6 +678,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PERSON_DETAILS_ADD,
     showInSection: Sections.C100,
-    getNextStep: caseData => OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
+    getNextStep: caseData =>
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
+  },
+  {
+    url: C100_OTHER_PERSON_CHECK,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_OTHER_PERSON_CHECK,
   },
 ];

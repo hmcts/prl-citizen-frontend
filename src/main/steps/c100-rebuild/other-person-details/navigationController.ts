@@ -7,7 +7,7 @@ class OtherPersonsDetailsNavigationController {
   private otherPersonsDetails: C100RebuildPartyDetails[] | [] = [];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
+  public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>): PageLink {
     this.otherPersonsDetails = caseData?.oprs_otherPersons as C100RebuildPartyDetails[];
     let nextUrl;
 

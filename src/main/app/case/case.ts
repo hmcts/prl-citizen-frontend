@@ -517,6 +517,7 @@ export interface Case {
   c1A_childAbductedBefore?: YesOrNo;
   otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
   otherPersonLastName?: C100RebuildPartyDetails['lastName'];
+  oprs_otherPersonCheck?: YesOrNo;
   oprs_otherPersons?: C100RebuildPartyDetails[];
 }
 
