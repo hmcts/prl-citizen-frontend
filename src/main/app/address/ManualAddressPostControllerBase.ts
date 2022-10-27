@@ -84,7 +84,7 @@ function validateFields(req: AppRequest<AnyObject>) {
     });
     errorOnPage = true;
   } else if (
-    !(req.body.citizenUserManualAddressPostcode as string).match(/^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i)
+    !(req.body.citizenUserManualAddressPostcode as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)
   ) {
     req.session.errors?.push({
       propertyName: 'citizenUserManualAddressPostcode',
