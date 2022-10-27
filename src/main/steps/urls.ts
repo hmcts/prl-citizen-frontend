@@ -383,3 +383,6 @@ export const C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES: PageLink = `${C100_SCR
 export const C100_SCREENING_QUESTIONS_COURT_PERMISSION: PageLink = `${C100_SCREENING_QUESTIONS}/permission`;
 export const C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION: PageLink = `${C100_SCREENING_QUESTIONS}/legal-representation-application`;
 export const C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE: PageLink = `${C100_SCREENING_QUESTIONS}/contact-representative`;
+
+/**@C100 Other Person Check */
+export const C100_OTHER_PERSON_CHECK: PageLink = `${C100_URL}/other-person`;

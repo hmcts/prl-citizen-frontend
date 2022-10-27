@@ -514,6 +514,7 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
+  otherPersonCheck?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
