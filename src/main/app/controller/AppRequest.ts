@@ -8,7 +8,6 @@ import { Case, CaseWithId } from '../case/case';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
-  query(C100_OTHER_PROCEEDINGS_ORDER_DETAILS: string, caseData: Partial<Case>, query: any): `/${string}`;
   session: AppSession;
   locals: {
     env: string;

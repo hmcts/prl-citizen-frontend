@@ -16,7 +16,7 @@ class OtherPersonsDetailsNavigationController {
 
     switch (currentPageUrl) {
       case C100_OTHER_PERSON_DETAILS_ADD: {
-        nextUrl = applyParms(C100_OTHER_PERSON_DETAILS_ADD, { childId: this.otherPersonsDetails[0].id });
+        nextUrl = applyParms(C100_OTHER_PERSON_DETAILS_ADD, { otherPersonId : this.otherPersonsDetails[0].id });
         break;
       }
       default: {
