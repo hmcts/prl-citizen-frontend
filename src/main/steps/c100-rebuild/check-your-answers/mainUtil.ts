@@ -244,6 +244,13 @@ export const InternationalElement = (
   };
 };
 
+/**
+ * It takes in a userCase object and returns a SummaryList object
+ * @param {SummaryListContentWithBoolean}  - `sectionTitles` - the titles of the sections in the
+ * summary list
+ * @param userCase - Partial<CaseWithId>
+ * @returns A summary list of the other proceedings section
+ */
 export const PastAndCurrentProceedings = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
@@ -278,6 +285,12 @@ export const PastAndCurrentProceedings = (
   };
 };
 
+/**
+ * It takes in a list of keys and values, and returns a list of objects with keys and values
+ * @param {SummaryListContentWithBoolean}  - `sectionTitles` - the titles of the sections in the form
+ * @param userCase - Partial<CaseWithId>
+ * @returns An object with a title and rows property.
+ */
 export const SafetyConcerns = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
@@ -295,7 +308,7 @@ export const SafetyConcerns = (
     },
     {
       key: keys['whoAreConcernsAbout'],
-      valueHtml: dataForConcerns?.toString().split(',').join(''),
+      valueHtml: HTML.UNORDER_LIST + dataForConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT'],
     },
   ];
@@ -305,6 +318,13 @@ export const SafetyConcerns = (
   };
 };
 
+/**
+ * It takes a list of safety concerns and returns a summary list of the concerns and their details
+ * @param {SummaryListContentWithBoolean}  - `sectionTitles` - the titles of the sections in the
+ * summary list
+ * @param userCase - Partial<CaseWithId>
+ * @returns An object with a title and rows property.
+ */
 export const SafetyConcerns_child = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
@@ -324,8 +344,12 @@ export const SafetyConcerns_child = (
     )
     ?.map(field => {
       return {
-        key: keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `),
-        valueHtml: SafetyConcernsHelper(userCase, keys, 'c1A_concernAboutChild', field),
+        key: keys['detailsOfChildConcern']
+          .split('[***]')
+          .join(` ${keys[field]} `)
+          .split('[^^^]')
+          .join(keys['againstChild']),
+        valueHtml: SafetyConcernsHelper(userCase, keys, 'c1A_concernAboutChild', field, 'child'),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE'], { abuseType: field }),
       };
     }) as any;
@@ -333,7 +357,7 @@ export const SafetyConcerns_child = (
   const SummaryData = [
     {
       key: keys['childConcerns'],
-      valueHtml: childSafetyConcerns?.toString().split(',').join(''),
+      valueHtml: HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD'],
     },
     ...subFields,
@@ -344,16 +368,45 @@ export const SafetyConcerns_child = (
   };
 };
 
+/**
+ * It takes a list of safety concerns and returns a summary list of the concerns and their details
+ * @param {SummaryListContentWithBoolean}  - SummaryListContentWithBoolean - this is the content object
+ * that is passed in from the summary list component.
+ * @param userCase - Partial<CaseWithId>
+ * @returns An object with a title and rows property.
+ */
 export const SafetyConcerns_yours = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
+  const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutApplicant')
+    ? userCase['c1A_concernAboutApplicant']?.map(
+        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
+      )
+    : '';
+  let subFields = userCase['c1A_concernAboutApplicant'] as any;
+  subFields = subFields
+    ?.filter(
+      (element: any) =>
+        element !== C1AAbuseTypes.ABDUCTION &&
+        element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
+        element !== C1AAbuseTypes.SOMETHING_ELSE
+    )
+    ?.map(field => {
+      return {
+        key: keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `).split('[^^^]').join(''),
+        valueHtml: SafetyConcernsHelper(userCase, keys, 'c1A_concernAboutApplicant', field, 'applicant'),
+        changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE'], { abuseType: field }),
+      };
+    }) as any;
+
   const SummaryData = [
     {
-      key: keys['childrenInvolvedCourtCase'],
-      value: userCase['op_childrenInvolvedCourtCase'],
-      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+      key: keys['childConcerns'],
+      valueHtml: HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST,
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT'],
     },
+    ...subFields,
   ];
   return {
     title: sectionTitles['yourSafetyConcerns'],
@@ -361,6 +414,13 @@ export const SafetyConcerns_yours = (
   };
 };
 
+/**
+ * It takes in a list of keys and a userCase object and returns a summary list object
+ * @param {SummaryListContentWithBoolean}  - SummaryListContentWithBoolean - this is the content object
+ * that is passed in from the JSON file.
+ * @param userCase - Partial<CaseWithId>
+ * @returns A summary list
+ */
 export const SafetyConcerns_others = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>

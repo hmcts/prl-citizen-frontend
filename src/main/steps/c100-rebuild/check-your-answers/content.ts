@@ -102,12 +102,14 @@ export const enContent = {
     witnessingDomesticAbuse: 'Witnessing domestic abuse',
     abduction: 'Abduction',
     somethingElse: 'Something else',
-    detailsOfChildConcern: 'Briefly describe the [***] against the children if you feel able to ',
+    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
+    againstChild: 'against the child',
     childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
     behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
     behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? (optional)',
     isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
     seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
+    applicantConcerns: 'What type of behaviour have you experienced or are at risk of experiencing?',
   },
 };
 export const cyContent: typeof enContent = {
@@ -184,12 +186,14 @@ export const cyContent: typeof enContent = {
     witnessingDomesticAbuse: 'Witnessing domestic abuse',
     abduction: 'Abduction',
     somethingElse: 'Something else',
-    detailsOfChildConcern: 'Briefly describe the physical [***] the children if you feel able to ',
+    detailsOfChildConcern: 'Briefly describe the physical [***] [^^^] if you feel able to ',
+    againstChild: 'against the child',
     childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
     behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
     behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? (optional)',
     isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
     seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
+    applicantConcerns: 'What type of behaviour have you experienced or are at risk of experiencing?',
   },
 };
 
