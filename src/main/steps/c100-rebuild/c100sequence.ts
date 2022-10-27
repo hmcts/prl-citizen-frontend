@@ -112,6 +112,7 @@ import MIAMNavigationController from './miam/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
+import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 
 export const C100Sequence: Step[] = [
   {
@@ -676,6 +677,6 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PERSON_DETAILS_ADD,
     showInSection: Sections.C100,
-    getNextStep: caseData => ChildrenDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
+    getNextStep: caseData => OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
   },
 ];
