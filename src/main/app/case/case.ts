@@ -518,6 +518,9 @@ export interface Case {
   otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
   otherPersonLastName?: C100RebuildPartyDetails['lastName'];
   oprs_otherPersons?: C100RebuildPartyDetails[];
+  c100RespondentFirstName?: C100RebuildPartyDetails['firstName'];
+  c100RespondentLastName?: C100RebuildPartyDetails['lastName'];
+  resp_Respondents?: C100RebuildPartyDetails[];
 }
 
 export interface CaseWithId extends Case {
