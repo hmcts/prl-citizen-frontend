@@ -101,6 +101,9 @@ import {
   C100_SCREENING_QUESTIONS_COURT_PERMISSION,
   C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
   C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
+
+  /** Applicant Details */
+  C100_OTHER_PERSON_DETAILS_ADD,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -669,5 +672,10 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
     showInSection: Sections.C100,
     getNextStep: () => C100_INTERNATIONAL_ELEMENTS_START,
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_ADD,
+    showInSection: Sections.C100,
+    getNextStep: caseData => ChildrenDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
   },
 ];

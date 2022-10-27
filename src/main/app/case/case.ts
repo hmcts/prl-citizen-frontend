@@ -64,6 +64,7 @@ import {
   ChildrenDetails,
   C1ASafteyConcernsAbout,
   C1AAbuseTypes,
+  C100RebuildPartyDetails,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -514,6 +515,9 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
+  otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
+  otherPersonLastName?: C100RebuildPartyDetails['lastName'];
+  oprs_otherPersons?: C100RebuildPartyDetails[];
 }
 
 export interface CaseWithId extends Case {
