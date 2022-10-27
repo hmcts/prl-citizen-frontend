@@ -295,10 +295,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
-    if (cdamUrl && this.getFlagViewed(req, fieldFlag)) {
-      window.open(cdamUrl, '_blank');
-    }
-
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
 
@@ -306,12 +302,18 @@ export class DocumentManagerController extends PostController<AnyObject> {
       if (err) {
         throw err;
       } else if (generatedDocument) {
-        if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
-          this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
-        }
         res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
-        return res.end(generatedDocument.data);
+        if (cdamUrl && this.getFlagViewed(req, fieldFlag) === true) {
+          // download and open the pdf in the same window
+          return res.send(generatedDocument.data);
+        } else {
+          // set the flag from "Download" to "View" and only download the pdf
+          if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
+            this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
+          }
+          res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
+          return res.end(generatedDocument.data);
+        }
       }
 
       let redirectUrl = '';
@@ -426,23 +428,23 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   private getFlagViewed(req: AppRequest<Partial<CaseWithId>>, flag: string): boolean {
-    let downloadedAlready = false;
+    let flagViewed = false;
     req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
       const cvIsApplicationViewed = respondent?.value?.response?.citizenFlags?.isApplicationViewed;
       const cvIsAllegationOfHarmViewed = respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed;
 
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
         if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && cvIsApplicationViewed === YesOrNo.YES) {
-          downloadedAlready = true;
+          flagViewed = true;
         } else if (
           flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED &&
           cvIsAllegationOfHarmViewed === YesOrNo.YES
         ) {
-          downloadedAlready = true;
+          flagViewed = true;
         }
       }
     });
-    return downloadedAlready;
+    return flagViewed;
   }
 
   private setCaseDataCitizenFlags(
