@@ -12,6 +12,8 @@ export enum HTML {
   H3_CLOSE = '</h3>',
   P_CLOSE = '</p>',
   RULER = '<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">',
-  BOTTOM_PADDING_3 = '<div class="govuk-!-padding-right-3">',
+  BOTTOM_PADDING_3 = '<div class="govuk-!-padding-bottom-3">',
+  BOTTOM_TOP_3 = '<div class="govuk-!-padding-top-3">',
   BOTTOM_PADDING_CLOSE = '</div>',
+  TOP_PADDING_CLOSE = '</div>',
 }

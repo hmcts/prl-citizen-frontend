@@ -8,7 +8,8 @@ const childNameFormatter = (childId, userCase) => {
   );
 };
 
-const HTMLParser = (keys, FoundElement, bodyHtml, userCase, typeOfUser) => {
+const HTMLParser = (keys, FoundElement: any, bodyHtml, userCase, typeOfUser) => {
+  //FoundElement = Object.keys(FoundElement).forEach(key => FoundElement[key] === undefined && '');
   if (typeOfUser === 'child') {
     bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
     bodyHtml += FoundElement.hasOwnProperty('childrenConcernedAbout')
@@ -24,32 +25,25 @@ const HTMLParser = (keys, FoundElement, bodyHtml, userCase, typeOfUser) => {
   }
   // the behviourour details
   bodyHtml += HTML.H4 + keys['behaviourDetailsLabel'] + HTML.H4_CLOSE;
-  bodyHtml +=
-    HTML.P + FoundElement.hasOwnProperty('behaviourDetails')
-      ? FoundElement['behaviourDetails']
-      : '' + HTML.LIST_ITEM_END + HTML.P_CLOSE;
+  bodyHtml += HTML.P + FoundElement.hasOwnProperty('behaviourDetails') ? FoundElement['behaviourDetails'] : '';
   bodyHtml += HTML.RULER;
   // the behaviour Start date
   bodyHtml += HTML.H4 + keys['behaviourStartDateLabel'] + HTML.H4_CLOSE;
-  bodyHtml +=
-    HTML.P + FoundElement.hasOwnProperty('behaviourStartDate')
-      ? FoundElement['behaviourStartDate']
-      : '' + HTML.LIST_ITEM_END + HTML.P_CLOSE;
+  bodyHtml += HTML.P + FoundElement.hasOwnProperty('behaviourStartDate') && FoundElement['behaviourStartDate'];
   bodyHtml += HTML.RULER;
   // the behaviour ongoing
   bodyHtml += HTML.H4 + keys['isOngoingBehaviourLabel'] + HTML.H4_CLOSE;
-  bodyHtml +=
-    HTML.P + FoundElement.hasOwnProperty('isOngoingBehaviour')
-      ? FoundElement['isOngoingBehaviour']
-      : '' + HTML.LIST_ITEM_END + HTML.P_CLOSE;
+  bodyHtml += FoundElement.hasOwnProperty('isOngoingBehaviour') ? FoundElement['isOngoingBehaviour'] : '';
   bodyHtml += HTML.RULER;
   // seeking help from agency
   //
   bodyHtml += HTML.H4 + keys['seekHelpFromPersonOrAgencyLabel'] + HTML.H4_CLOSE;
-  bodyHtml +=
-    HTML.P + FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency')
-      ? FoundElement?.['seekHelpFromPersonOrAgency'] + HTML.P + FoundElement?.['seekHelpDetails'] + HTML.P_CLOSE
-      : '' + HTML.P_CLOSE;
+  bodyHtml += FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency')
+    ? FoundElement?.['seekHelpFromPersonOrAgency']
+    : '';
+  bodyHtml += FoundElement.hasOwnProperty('seekHelpDetails')
+    ? HTML.BOTTOM_TOP_3 + FoundElement?.['seekHelpDetails'] + HTML.BOTTOM_PADDING_CLOSE
+    : '';
   return bodyHtml;
 };
 
