@@ -110,6 +110,13 @@ export const enContent = {
     isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
     seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
     applicantConcerns: 'What type of behaviour have you experienced or are at risk of experiencing?',
+    childDrugAbuse: 'Have the children been impacted by drug, alcohol or substance abuse?',
+    otherWellBeingIssues: 'Do you have any other concerns about the children’s safety and wellbeing?',
+    doWantCourtToAction: 'What do you want the court to do to keep you and the children safe?',
+    selectSupervisionAgreementLabel:
+      'Do you agree to the children spending time with the other people in this application?',
+    supervisionAgreementOtherWaysLabel:
+      'Do you agree to the other people in this application being in touch with the children in other ways?',
   },
 };
 export const cyContent: typeof enContent = {
@@ -194,6 +201,13 @@ export const cyContent: typeof enContent = {
     isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
     seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
     applicantConcerns: 'What type of behaviour have you experienced or are at risk of experiencing?',
+    childDrugAbuse: 'Have the children been impacted by drug, alcohol or substance abuse? - welsh',
+    otherWellBeingIssues: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
+    doWantCourtToAction: 'What do you want the court to do to keep you and the children safe? - welsh',
+    selectSupervisionAgreementLabel:
+      'Do you agree to the children spending time with the other people in this application? - welsh',
+    supervisionAgreementOtherWaysLabel:
+      'Do you agree to the other people in this application being in touch with the children in other ways? welsh',
   },
 };
 

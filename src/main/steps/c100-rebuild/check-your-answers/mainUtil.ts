@@ -360,8 +360,10 @@ export const SafetyConcerns_child = (
       valueHtml: HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD'],
     },
-    ...subFields,
   ];
+  if (typeof subFields === 'object') {
+    SummaryData.push(...subFields);
+  }
   return {
     title: sectionTitles['childSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -384,7 +386,7 @@ export const SafetyConcerns_yours = (
         concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
       )
     : '';
-  let subFields = userCase['c1A_concernAboutApplicant'] as any;
+  let subFields = userCase?.['c1A_concernAboutApplicant'] as any;
   subFields = subFields
     ?.filter(
       (element: any) =>
@@ -406,8 +408,10 @@ export const SafetyConcerns_yours = (
       valueHtml: HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST,
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT'],
     },
-    ...subFields,
   ];
+  if (typeof subFields === 'object') {
+    SummaryData.push(...subFields);
+  }
   return {
     title: sectionTitles['yourSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -425,11 +429,48 @@ export const SafetyConcerns_others = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
+  const fieldParser = (field, fieldDescription?) => {
+    let html = '';
+    if (field !== undefined) {
+      html += field;
+    }
+    if (fieldDescription !== undefined) {
+      html += HTML.RULER;
+      html += HTML.H4;
+      html += keys['details'];
+      html += HTML.H4_CLOSE;
+      html += HTML.BOTTOM_PADDING_3;
+      html += fieldDescription;
+      html += HTML.BOTTOM_PADDING_CLOSE;
+    }
+    return html;
+  };
+
   const SummaryData = [
     {
-      key: keys['childrenInvolvedCourtCase'],
-      value: userCase['op_childrenInvolvedCourtCase'],
-      changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+      key: keys['childDrugAbuse'],
+      valueHtml: fieldParser(userCase['c1A_otherConcernsDrugs'], userCase['c1A_otherConcernsDrugsDetails']),
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS'],
+    },
+    {
+      key: keys['otherWellBeingIssues'],
+      valueHtml: fieldParser(userCase['c1A_childSafetyConcerns'], userCase['c1A_childSafetyConcernsDetails']),
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_OTHER'],
+    },
+    {
+      key: keys['doWantCourtToAction'],
+      value: userCase['c1A_keepingSafeStatement'],
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_COURT_ACTION'],
+    },
+    {
+      key: keys['selectSupervisionAgreementLabel'],
+      value: userCase['c1A_supervisionAgreementDetails'],
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED'],
+    },
+    {
+      key: keys['supervisionAgreementOtherWaysLabel'],
+      value: userCase['c1A_agreementOtherWaysDetails'],
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED'],
     },
   ];
   return {
