@@ -7,6 +7,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Enter the other respondents name',
+  subTitle: 'The other people who will receive this application are known as the respondents',
   firstNameLabel: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastNameLabel: 'Last name(s)',
@@ -25,6 +26,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Enter the other respondents name- welsh',
+  subTitle: 'The other people who will receive this application are known as the respondents - welsh',
   firstNameLabel: 'First name(s) - welsh',
   firstNameHint: 'Include all middle names here - welsh',
   lastNameLabel: 'Last name(s) - welsh',
