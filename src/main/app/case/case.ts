@@ -25,6 +25,7 @@ import {
   ExistingProceedings,
   Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
+  HearingsList,
   InternationalElementTable,
   InterpreterNeed,
   ListValue,
@@ -154,6 +155,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   previousOrOngoingProceedingsForChildren: 'previousOrOngoingProceedingsForChildren',
   welshLanguageRequirementApplicationNeedEnglish: 'welshLanguageRequirementApplicationNeedEnglish',
   orderCollection: 'orderCollection',
+  hearingCollection: 'hearingCollection',
   respondentName: 'respondentName',
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
@@ -340,6 +342,7 @@ export interface Case {
   respondentLastName?: string;
   caseInvites?: CaseInvite[];
   orderCollection?: ListValue<PRLDocument>[];
+  hearingCollection?: HearingsList[];
   documentsGenerated?: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
   documentText?: string;

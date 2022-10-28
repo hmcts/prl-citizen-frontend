@@ -9,7 +9,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData, RespondentCaseData, RespondentCaseId, YesOrNo } from './definition';
+import { CaseData, RespondentCaseData, RespondentCaseId, State, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -338,6 +338,61 @@ export class CosApiClient {
       },
     });
     return response.data;
+  }
+
+  public async retrieveCaseHearingsByCaseId(caseId: string, user: UserDetails): Promise<CaseWithId> {
+    if (!caseId || !user) {
+      return Promise.reject(new Error('retrieveCaseHearingsByCaseId - Case id must be set and user must be set'));
+    }
+    // const response = await Axios.get(config.get('services.cos.url') + `/${caseId}`, {
+    //   headers: {
+    //     Authorization: 'Bearer ' + user.accessToken,
+    //     serviceAuthorization: getServiceAuthToken(),
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+
+    //req.session.userCase = {id:'1234', state: State.Holding};
+    //req.session.userCase.hearingCollection = [];
+
+    const hearingCollectionMockedData = [
+      {
+        prev: [
+          {
+            date: 'date1',
+            time: 'time1',
+          },
+          {
+            date: 'date22',
+            time: 'time22',
+          },
+          {
+            date: 'date333',
+            time: 'time333',
+          },
+          {
+            date: 'date4444',
+            time: 'time4444',
+          },
+        ],
+        next: {
+          date: 'date2',
+          time: 'time2',
+        },
+      },
+    ];
+
+    // return {
+    //   id: response.data.id,
+    //   state: response.data.state,
+    //   ...fromApiFormat(response.data),
+    // };
+    return {
+      id: '1234567890',
+      state: State.AwaitingHWFDecision,
+      hearingCollection: hearingCollectionMockedData,
+    };
   }
 }
 

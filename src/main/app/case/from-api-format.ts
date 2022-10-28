@@ -4,6 +4,7 @@ import { invert } from 'lodash';
 
 import { Case, CaseDate, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, YesOrNo } from './definition';
+//import { fromHearingApiApplicant1 as hearingCollectionFromApiApplicant1 } from './formatter/hearings-list';
 import { fromApiApplicant1 as uploadedFilesFromApiApplicant1 } from './formatter/uploaded-files';
 
 dayjs.extend(advancedFormat);
@@ -21,6 +22,7 @@ console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   orderCollection: uploadedFilesFromApiApplicant1,
+  //hearingCollection: hearingCollectionFromApiApplicant1,
   // citizenUserDateOfBirth: data => ({
   //   citizenUserDateOfBirth: fromApiDate(data.citizenUserDateOfBirth),
   // }),

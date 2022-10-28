@@ -1,0 +1,50 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+
+  {% if section %}
+    <h1 class="govuk-heading-xl govuk-!-margin-top-6">{{ section }}</h1>
+  {% endif %}
+
+  <p class="govuk-body">Case number #{{userCase.id}}</p>
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  <h3 class="govuk-heading-l">Your previous hearings</h3>
+
+  <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
+
+    {% for item in userCase.hearingCollection %}
+
+      {% for previousHearing in item.prev %}
+      <div>
+        <h4 class="govuk-heading-m govuk-!-margin-left-9"> Hearing - {{ loop.index }}</h4>
+        </div>
+        
+        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+              Date:
+            </dt>
+          <dd class="govuk-summary-list__value">
+            {{previousHearing.date}}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+              Time:
+            </dt>
+          <dd class="govuk-summary-list__value">
+            {{previousHearing.time}}
+          </dd>
+
+        </div>
+        </dl>
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      {% endfor %}
+
+    {% endfor %}
+
+  </dl>
+
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+{% endblock %}

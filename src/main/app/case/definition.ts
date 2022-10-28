@@ -766,6 +766,7 @@ export interface CaseData {
   previousOrOngoingProceedingsForChildren: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
+  hearingCollection?: HearingsList[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
@@ -830,6 +831,8 @@ export interface CaseData {
   iFactorsRequestProvideDetails?: string;
   iFactorsParentsProvideDetails?: string;
   legalRepresentation?: YesOrNo;
+
+ 
 }
 
 export interface ConfidentialDetails {
@@ -2195,6 +2198,19 @@ export interface PRLDocument {
   orderType: string;
   orderDocument: Document;
   otherDetails: OtherDetails;
+}
+
+export interface HearingsList {
+  prev?: Hearings[],
+  next?: Hearings,
+}
+export interface Hearings {
+  date?: string;
+  time?: string;
+  // typeOfHearing: string;
+  // courtName: string;
+  // courtAddress: string;
+  // hearingOutcome: string;
 }
 
 export interface OtherDetails {

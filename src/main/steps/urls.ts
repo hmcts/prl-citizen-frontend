@@ -96,6 +96,10 @@ export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 export const MIAM_SAVE: PageLink = `${MIAM}/save`;
 /* MIAM */
 
+/* your hearings */
+export const RESPONDENT_YOURHEARINGS_HEARINGS: PageLink = `${RESPONDENT}/yourhearings/hearings`;
+/* your hearings */
+
 /* safety concerns */
 export const SAFETY_CONCERNS: PageLink = `${RESPONSE_TASKLIST}/safety_concerns`;
 export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;

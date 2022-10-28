@@ -73,6 +73,7 @@ import {
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
+  //RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
@@ -138,6 +139,7 @@ export class Routes {
       );
 
       app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
+
       app.get(
         `${INTERNATIONAL_FACTORS_START}/:caseId`,
         errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
