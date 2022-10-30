@@ -30,8 +30,10 @@ export const getDataShape = (): ChildrenDetails => ({
   },
 });
 
-export const getChildDetails = (children: ChildrenDetails[] | [], childId: string): ChildrenDetails | undefined =>
-  children.find(child => child.id === childId);
+export const getChildDetails = (children: ChildrenDetails[] | [], childId: string): ChildrenDetails | undefined => {
+  const found = children.find(child => child.id === childId);
+  return found;
+};
 
 export const updateChildDetails = (children: ChildrenDetails[], childDetails: ChildrenDetails): ChildrenDetails[] =>
   children.map(child => (child.id === childDetails.id ? childDetails : child));

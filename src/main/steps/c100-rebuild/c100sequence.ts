@@ -99,6 +99,9 @@ import {
   C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
   C100_SCREENING_QUESTIONS_PERMISSIONS_WHY,
   C100_SCREENING_QUESTIONS_COURT_PERMISSION,
+  C100_CHILDERN_DETAILS_OTHER_CHILDREN,
+  C100_CHILDERN_OTHER_CHILDREN_NAMES,
+  C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -325,7 +328,29 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_FURTHER_INFORMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_CHILDERN_DETAILS_OTHER_CHILDREN,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_OTHER_CHILDREN,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.cd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_CHILDERN_OTHER_CHILDREN_NAMES,
+    showInSection: Sections.C100,
+    getNextStep: caseData =>
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_OTHER_CHILDREN_NAMES, caseData),
+  },
+  {
+    url: C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ChildrenDetailsNavigationController.getNextUrl(
+        C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_CONFIRMATIONPAGE,

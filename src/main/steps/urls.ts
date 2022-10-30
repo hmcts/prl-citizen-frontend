@@ -312,6 +312,10 @@ export const C100_CHILDERN_DETAILS_PERSONAL_DETAILS: PageLink = `${C100_CHILDERN
 export const C100_CHILDERN_DETAILS_CHILD_MATTERS: PageLink = `${C100_CHILDERN_DETAILS}/:childId/child-matters`;
 export const C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: PageLink = `${C100_CHILDERN_DETAILS}/:childId/parental-responsibility`;
 export const C100_CHILDERN_FURTHER_INFORMATION: PageLink = `${C100_CHILDERN_DETAILS}/further-information`;
+export const C100_CHILDERN_DETAILS_OTHERS: PageLink = `${C100_CHILDERN_DETAILS}/other-children`;
+export const C100_CHILDERN_DETAILS_OTHER_CHILDREN: PageLink = `${C100_CHILDERN_DETAILS_OTHERS}/has-other-children`;
+export const C100_CHILDERN_OTHER_CHILDREN_NAMES: PageLink = `${C100_CHILDERN_DETAILS_OTHERS}/names`;
+export const C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS: PageLink = `${C100_CHILDERN_DETAILS_OTHERS}/:childId/personal-details`;
 
 /** @C100  Payment Handler*/
 export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';

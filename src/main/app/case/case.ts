@@ -506,6 +506,10 @@ export interface Case {
   childFirstName?: ChildrenDetails['firstName'];
   childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
+  otherChildFirstName?: ChildrenDetails['firstName'];
+  otherChildLastName?: ChildrenDetails['lastName'];
+  cd_otherChildren?: ChildrenDetails[];
+  cd_hasOtherChildren?: YesOrNo;
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
   sq_courtPermissionRequired?: YesOrNo;

@@ -10,9 +10,14 @@ export const routeGuard = {
   get: (req: AppRequest, res: Response, next: NextFunction) => {
     const childId = req.params?.childId as ChildrenDetails['id'];
 
-    if (!childId || !getChildDetails(req.session.userCase.cd_children ?? [], childId)) {
+    if (
+      !childId ||
+      (!getChildDetails(req.session.userCase.cd_children ?? [], childId) &&
+        !getChildDetails(req.session.userCase.cd_otherChildren ?? [], childId))
+    ) {
       return res.redirect('/error');
     }
+
     next();
   },
 };
