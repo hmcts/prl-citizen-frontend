@@ -53,7 +53,7 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
   let html = '';
   if (userCase.hasOwnProperty(sessionKey)) {
     if (userCase.hasOwnProperty(subFieldKey)) {
-      const FoundElement = userCase[subFieldKey]?.[typeOfUser][childField];
+      const FoundElement = userCase[subFieldKey]?.[typeOfUser]?.[childField];
       if (FoundElement !== undefined) {
         html = HTMLParser(keys, FoundElement, html, userCase, typeOfUser);
       }

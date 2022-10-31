@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { C1AAbuseTypes } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
 
@@ -356,7 +356,13 @@ export const SafetyConcerns_child = (
           .join(` ${keys[field]} `)
           .split('[^^^]')
           .join(keys['againstChild']),
-        valueHtml: SafetyConcernsHelper(userCase, keys, 'c1A_concernAboutChild', field, 'child'),
+        valueHtml: SafetyConcernsHelper(
+          userCase,
+          keys,
+          'c1A_concernAboutChild',
+          field,
+          C1ASafteyConcernsAbout.CHILDREN
+        ),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE'], { abuseType: field }),
       };
     }) as any;
@@ -486,7 +492,13 @@ export const SafetyConcerns_yours = (
     ?.map(field => {
       return {
         key: keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `).split('[^^^]').join(''),
-        valueHtml: SafetyConcernsHelper(userCase, keys, 'c1A_concernAboutApplicant', field, 'applicant'),
+        valueHtml: SafetyConcernsHelper(
+          userCase,
+          keys,
+          'c1A_concernAboutApplicant',
+          field,
+          C1ASafteyConcernsAbout.APPLICANT
+        ),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE'], { abuseType: field }),
       };
     }) as any;
