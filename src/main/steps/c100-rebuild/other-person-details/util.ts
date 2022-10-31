@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
 
-import { C100RebuildPartyDetails, Gender, YesNoEmpty } from '../../../app/case/definition';
+import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty } from '../../../app/case/definition';
 
 export const getDataShape = (): C100RebuildPartyDetails => ({
   id: uuidv4(),
@@ -14,6 +14,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
       year: '',
     },
     isDateOfBirthUnknown: YesNoEmpty.EMPTY,
+    isNameChanged: YesNoDontKnow.empty,
     approxDateOfBirth: {
       day: '',
       month: '',

@@ -101,9 +101,42 @@ const childrenMockData = mockRequest({
   },
 });
 
+const otherPersonMockData = mockRequest({
+  params: {
+    otherPersonId: '7228444b-ef3f-4202-a1e7-cdcd2316e1f6',
+  },
+  session: {
+    userCase: {
+      oprs_otherPersons: [
+        {
+          id: '7228444b-ef3f-4202-a1e7-cdcd2316e1f6',
+          firstName: 'John',
+          lastName: 'Doe',
+          personalDetails: {
+            dateOfBirth: {
+              year: '',
+              month: '',
+              day: '',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            approxDateOfBirth: {
+              year: '1999',
+              month: '09',
+              day: '09',
+            },
+            gender: 'Male',
+            otherGenderDetails: '',
+            isNameChanged: 'dontKnow',
+          },
+        },
+      ],
+    },
+  },
+});
+
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(90);
+    expect(C100Sequence).toHaveLength(91);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -644,8 +677,25 @@ describe('C100Sequence', () => {
     expect(C100Sequence[87].showInSection).toBe('c100');
     expect(C100Sequence[87].getNextStep({})).toBe('/c100-rebuild/international-elements/start');
 
-    expect(C100Sequence[89].url).toBe('/c100-rebuild/other-person-details/other-person-check');
+    expect(C100Sequence[88].url).toBe('/c100-rebuild/other-person-details/other-person-check');
+    expect(C100Sequence[88].showInSection).toBe('c100');
+    expect(C100Sequence[88].getNextStep({ oprs_otherPersonCheck: YesOrNo.YES })).toBe(
+      '/c100-rebuild/other-person-details/add-other-persons'
+    );
+    expect(C100Sequence[88].getNextStep({ oprs_otherPersonCheck: YesOrNo.NO })).toBe(
+      '/c100-rebuild/other-proceedings/current-previous-proceedings'
+    );
+
+    expect(C100Sequence[89].url).toBe('/c100-rebuild/other-person-details/add-other-persons');
     expect(C100Sequence[89].showInSection).toBe('c100');
-    expect(C100Sequence[89].getNextStep({})).toBe('/c100-rebuild/other-person-details/other-person-check');
+    expect(C100Sequence[89].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
+      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/personal-details'
+    );
+
+    expect(C100Sequence[90].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/personal-details');
+    expect(C100Sequence[90].showInSection).toBe('c100');
+    expect(C100Sequence[90].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
+      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/personal-details'
+    );
   });
 });

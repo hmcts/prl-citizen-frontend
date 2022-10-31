@@ -1434,6 +1434,7 @@ export const enum YesNoDontKnow {
   yes = 'yes',
   no = 'no',
   dontKnow = 'dontKnow',
+  empty = '',
 }
 
 export const enum SectionStatus {
@@ -2428,6 +2429,7 @@ export interface C1ASafteyConcerns {
     personalDetails: {
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
+      isNameChanged?: YesNoDontKnow;
       approxDateOfBirth?: CaseDate;
       gender: Gender;
       otherGenderDetails?: string;
