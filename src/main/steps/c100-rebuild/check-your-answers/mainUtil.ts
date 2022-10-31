@@ -364,6 +364,77 @@ export const SafetyConcerns_child = (
   if (typeof subFields === 'object') {
     SummaryData.push(...subFields);
   }
+  /**
+   * @policeOrInvestigatorsOtherDetails session Values
+   */
+  let policeOrInvestigatorsOtherDetailsHTML = '';
+  policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorInvolved'];
+  policeOrInvestigatorsOtherDetailsHTML += HTML.RULER;
+  policeOrInvestigatorsOtherDetailsHTML += HTML.H4;
+  policeOrInvestigatorsOtherDetailsHTML += keys['details'];
+  policeOrInvestigatorsOtherDetailsHTML += HTML.H3_CLOSE;
+  userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
+    ? (policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorOtherDetails'])
+    : (policeOrInvestigatorsOtherDetailsHTML += '');
+  /**
+   * @c1A_childAbductedBefore session Values
+   */
+  let c1A_childAbductedBefore = '';
+  c1A_childAbductedBefore += userCase?.['c1A_passportOffice'];
+  if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
+    c1A_childAbductedBefore += HTML.RULER;
+    c1A_childAbductedBefore += HTML.H4;
+    c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
+    c1A_childAbductedBefore += HTML.H4_CLOSE;
+    c1A_childAbductedBefore += userCase['c1A_childrenMoreThanOnePassport'];
+    c1A_childAbductedBefore += HTML.RULER;
+    c1A_childAbductedBefore += HTML.H4;
+    c1A_childAbductedBefore += keys['possessionChildrenPassport'];
+    c1A_childAbductedBefore += HTML.H4_CLOSE;
+    c1A_childAbductedBefore += HTML.UNORDER_LIST;
+    c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport'].map(
+      relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END
+    );
+    c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
+  }
+
+  SummaryData.push(
+    {
+      key: keys['childLocation'],
+      valueHtml: userCase['c1A_abductionReasonOutsideUk'],
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
+    },
+    {
+      key: keys['childsCurrentLocationText'],
+      valueHtml: userCase['c1A_childsCurrentLocation'],
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
+    },
+    {
+      key: keys['passportOffice'],
+      valueHtml: c1A_childAbductedBefore,
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE'],
+    },
+    {
+      key: keys['haspassportOfficeNotified'],
+      valueHtml: userCase['c1A_abductionPassportOfficeNotified'],
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION'],
+    },
+    {
+      key: keys['abducionThreats'],
+      valueHtml: userCase['c1A_childAbductedBefore'] as string,
+      changeUrl: Urls['C100_C1A_CHILD_ABDUCTION_THREATS'],
+    },
+    {
+      key: keys['previousAbduction'],
+      valueHtml: userCase['c1A_previousAbductionsShortDesc'],
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'],
+    },
+    {
+      key: keys['c1A_policeOrInvestigatorInvolved'],
+      valueHtml: policeOrInvestigatorsOtherDetailsHTML,
+      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'],
+    }
+  );
   return {
     title: sectionTitles['childSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),

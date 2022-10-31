@@ -117,6 +117,18 @@ export const enContent = {
       'Do you agree to the children spending time with the other people in this application?',
     supervisionAgreementOtherWaysLabel:
       'Do you agree to the other people in this application being in touch with the children in other ways?',
+    childLocation: 'Why do you think the children may be abducted or kept outside the UK without your consent?',
+    childsCurrentLocationText: 'Where are the children now?',
+    passportOffice: 'Do any of the children have a passport?',
+    childrenMoreThanOnePassport: 'Do the children have more than one passport?',
+    possessionChildrenPassport: 'Who is in possession of the children’s passports?',
+    option1: 'Mother',
+    option2: 'Father',
+    option3: 'Other',
+    haspassportOfficeNotified: 'Has the passport office been notified? ',
+    abducionThreats: 'Have the children been abducted or kept outside the UK without your consent before?',
+    previousAbduction: 'Provide details of the previous abductions',
+    c1A_policeOrInvestigatorInvolved: 'Were the police, private investigators or any other organisation involved?',
   },
 };
 export const cyContent: typeof enContent = {
@@ -208,6 +220,18 @@ export const cyContent: typeof enContent = {
       'Do you agree to the children spending time with the other people in this application? - welsh',
     supervisionAgreementOtherWaysLabel:
       'Do you agree to the other people in this application being in touch with the children in other ways? welsh',
+    childLocation: 'Why do you think the children may be abducted or kept outside the UK without your consent?',
+    childsCurrentLocationText: 'Where are the children now? - welsh',
+    passportOffice: 'Do any of the children have a passport? - welsh',
+    childrenMoreThanOnePassport: 'Do the children have more than one passport? - welsh',
+    possessionChildrenPassport: 'Who is in possession of the children’s passports? - welsh',
+    option1: 'Mother - welsh',
+    option2: 'Father - welsh',
+    option3: 'Other',
+    haspassportOfficeNotified: 'Has the passport office been notified? ',
+    abducionThreats: 'Have the children been abducted or kept outside the UK without your consent before?',
+    previousAbduction: 'Provide details of the previous abductions',
+    c1A_policeOrInvestigatorInvolved: 'Were the police, private investigators or any other organisation involved?',
   },
 };
 
