@@ -1,5 +1,3 @@
-//import config from 'config';
-//import { getSystemUser } from 'app/auth/user/oidc';
 import { APPLICATION_MADE_IN_THESE_PRCEEDINGS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';

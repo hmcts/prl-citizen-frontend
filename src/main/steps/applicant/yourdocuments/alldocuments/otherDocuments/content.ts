@@ -1,5 +1,3 @@
-//import config from 'config';
-//import { getSystemUser } from 'app/auth/user/oidc';
 import { MANAGE_DOCUMENTS_DOWNLOAD } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
