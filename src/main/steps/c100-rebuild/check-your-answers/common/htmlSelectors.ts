@@ -16,4 +16,5 @@ export enum HTML {
   BOTTOM_TOP_3 = '<div class="govuk-!-padding-top-3">',
   BOTTOM_PADDING_CLOSE = '</div>',
   TOP_PADDING_CLOSE = '</div>',
+  BREAK = '<br>',
 }

@@ -100,7 +100,7 @@ export const ChildernDetails = (
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
-        key: keys['ordersAppliedFor'],
+        key: keys['orderAppliedFor'],
         value: '',
         valueHtml: (
           HTML.UNORDER_LIST +
@@ -114,7 +114,7 @@ export const ChildernDetails = (
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
-        key: keys['isDecisionTaken']?.split('**').join(`${Number(child) + 1}`),
+        key: keys['parentalResponsibility']?.split('[^^^]').join(`${Number(child) + 1}`),
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       }
@@ -132,20 +132,27 @@ export const ChildernDetailsAdditional = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  let htmlForAdditionalText = userCase['childrenKnownToSocialServices'] === 'Yes' ? Yes : No;
-  htmlForAdditionalText += '<br/>';
-  htmlForAdditionalText += userCase['childrenKnownToSocialServicesDetails'];
+  let htmlForAdditionalText = userCase?.['cd_childrenKnownToSocialServices'];
+  htmlForAdditionalText += HTML.BREAK;
+  htmlForAdditionalText += userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
+    ? HTML.RULER +
+      HTML.H4 +
+      keys['details'] +
+      HTML.H4_CLOSE +
+      HTML.BREAK +
+      userCase['cd_childrenKnownToSocialServicesDetails']
+    : '';
 
   const SummaryData = [
     {
-      key: keys['childrenKnownToSocialServicesHint'],
+      key: keys['childrenKnownToSocialServicesLabel'],
       value: '',
       valueHtml: htmlForAdditionalText,
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
     {
       key: keys['childrenSubjectOfProtectionPlanLabel'],
-      value: userCase['childrenSubjectOfProtectionPlan'],
+      value: userCase['cd_childrenSubjectOfProtectionPlan'],
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
     {
@@ -392,9 +399,11 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
-    c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport'].map(
-      relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END
-    );
+    c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
+      .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
+      .toString()
+      .split(',')
+      .join('');
     c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
   }
 

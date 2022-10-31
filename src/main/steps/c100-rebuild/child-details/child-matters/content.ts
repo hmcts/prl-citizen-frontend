@@ -12,6 +12,7 @@ let updatedForm: FormContent;
 
 export const en = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to',
+  orderAppliedFor: 'Orders applied for',
   bodyHint: 'Select all that apply',
   childArrangementsOrder: {
     whoChildLiveWith: 'Decide who the children live with and when',
@@ -45,6 +46,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to - welsh',
+  orderAppliedFor: 'Orders applied for - welsh',
   bodyHint: 'Select all that apply - welsh',
   childArrangementsOrder: {
     whoChildLiveWith: 'Decide who the children live with and when - welsh',
