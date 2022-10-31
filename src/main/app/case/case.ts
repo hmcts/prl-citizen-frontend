@@ -308,7 +308,7 @@ export interface Case {
   languageRequirementApplicationNeedWelsh?: string;
   previousOrOngoingProceedingsForChildren?: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish?: string;
-  
+
   //applicant1CannotUploadDocuments?: DocumentType[];
   documentText?: string;
   applicantUploadFiles?: UploadedFile[];

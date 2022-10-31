@@ -65,7 +65,7 @@ export class Form {
     return errors;
   }
 
-  public populateFieldNames(value:FormInput, fieldNames:Set<string>, fieldKey:string){
+  public populateFieldNames(value: FormInput, fieldNames: Set<string>, fieldKey: string) {
     if (value.name) {
       fieldNames.add(value.name);
     } else {

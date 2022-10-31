@@ -9,8 +9,7 @@ import { RESPONDENT_DETAILS_KNOWN } from '../../urls';
 import { getKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
 export class KeepDetailsPrivateGetController extends GetController {
-
-  public async getRespondent(req:AppRequest){
+  public async getRespondent(req: AppRequest) {
     if (req.url.includes('respondent')) {
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (

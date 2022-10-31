@@ -1,6 +1,7 @@
 import { Response } from 'express';
+
 import { AppRequest } from '../../app/controller/AppRequest';
-import { CITIZEN_HOME_URL,} from '../urls';
+import { CITIZEN_HOME_URL } from '../urls';
 
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {

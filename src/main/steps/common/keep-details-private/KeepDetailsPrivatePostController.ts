@@ -22,7 +22,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
     super(fields);
   }
 
-  public async postC100(req: AppRequest<AnyObject>){
+  public async postC100(req: AppRequest<AnyObject>) {
     if (req.url.includes('respondent')) {
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
@@ -38,7 +38,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
     }
   }
 
-  public async postFL401(req: AppRequest<AnyObject>){
+  public async postFL401(req: AppRequest<AnyObject>) {
     if (req.url.includes('respondent')) {
       if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
         Object.assign(
