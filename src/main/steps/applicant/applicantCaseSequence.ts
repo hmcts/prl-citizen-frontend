@@ -29,6 +29,7 @@ import {
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
+  APPLICANT_YOURHEARINGS_HEARINGS,
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
   COURT_HEARING_SUPPORT,
@@ -400,6 +401,11 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_WITNESS_STATEMENTS_DA,
     showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_YOURHEARINGS_HEARINGS,
+    showInSection: Sections.AboutRespondentCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
 ];

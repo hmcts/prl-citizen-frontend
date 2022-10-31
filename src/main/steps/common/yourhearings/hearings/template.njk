@@ -15,29 +15,66 @@
     {% for item in userCase.hearingCollection %}
 
       {% for previousHearing in item.prev %}
-      <div>
-        <h4 class="govuk-heading-m govuk-!-margin-left-9"> Hearing - {{ loop.index }}</h4>
+        <div>
+          <h4 class="govuk-heading-m govuk-!-margin-left-9"> Hearing - {{ loop.revindex }}</h4>
         </div>
-        
-        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-              Date:
-            </dt>
-          <dd class="govuk-summary-list__value">
-            {{previousHearing.date}}
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-              Time:
-            </dt>
-          <dd class="govuk-summary-list__value">
-            {{previousHearing.time}}
-          </dd>
 
-        </div>
+        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Date
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{previousHearing.date}}
+            </dd>
+          </div>  
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Time
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{previousHearing.time}}
+            </dd>
+
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Type of hearing
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{previousHearing.typeOfHearing}}
+            </dd>
+
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Court name
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{previousHearing.courtName}}
+            </dd>
+
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Court address
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{previousHearing.courtAddress}}
+              <br><a href="#">Useful documents (Map)</a>
+            </dd>
+
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Hearing outcome
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <a href="#">{{previousHearing.hearingOutcome}}</a>
+            </dd>
+          </div>
         </dl>
+
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
       {% endfor %}
 

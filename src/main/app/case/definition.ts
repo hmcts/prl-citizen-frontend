@@ -2207,10 +2207,10 @@ export interface HearingsList {
 export interface Hearings {
   date?: string;
   time?: string;
-  // typeOfHearing: string;
-  // courtName: string;
-  // courtAddress: string;
-  // hearingOutcome: string;
+  typeOfHearing?: string;
+  courtName?: string;
+  courtAddress?: string;
+  hearingOutcome?: string;
 }
 
 export interface OtherDetails {

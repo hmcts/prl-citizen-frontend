@@ -9,6 +9,7 @@ import {
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
   getViewAllDocuments,
+  getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
 } from './utils';
 
@@ -50,7 +51,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'check_details_of_your_court_hearings',
           text: taskListItems.check_details_of_your_court_hearings,
-          status: getInternationalFactorsStatus(userCase),
+          status: getViewAllHearingsFromTheCourt(userCase),
           href: URL.RESPONDENT_YOURHEARINGS_HEARINGS,
         },
       ],

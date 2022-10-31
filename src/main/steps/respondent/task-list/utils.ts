@@ -111,6 +111,13 @@ export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | un
   return SectionStatus.TO_DO;
 };
 
+export const getViewAllHearingsFromTheCourt = (userCase: CaseWithId): SectionStatus => {
+  if (userCase && userCase.hearingCollection && userCase.hearingCollection.length > 0) {
+    return SectionStatus.READY_TO_VIEW;
+  }
+  return SectionStatus.NOT_AVAILABLE_YET;
+};
+
 export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;

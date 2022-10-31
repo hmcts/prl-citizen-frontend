@@ -97,7 +97,9 @@ export const MIAM_SAVE: PageLink = `${MIAM}/save`;
 /* MIAM */
 
 /* your hearings */
-export const RESPONDENT_YOURHEARINGS_HEARINGS: PageLink = `${RESPONDENT}/yourhearings/hearings`;
+export const YOURHEARINGS: PageLink = '/yourhearings';
+export const HEARINGS: PageLink = '/hearings';
+export const RESPONDENT_YOURHEARINGS_HEARINGS: PageLink = `${RESPONDENT}${YOURHEARINGS}${HEARINGS}`;
 /* your hearings */
 
 /* safety concerns */
@@ -270,3 +272,6 @@ export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = '/tasklistrespons
 export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
   '/tasklistresponse/legalrepresentation/solicitornotdirect';
 export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
+
+/* Applicant Hearings */
+export const APPLICANT_YOURHEARINGS_HEARINGS: PageLink = `${APPLICANT}${YOURHEARINGS}${HEARINGS}`;

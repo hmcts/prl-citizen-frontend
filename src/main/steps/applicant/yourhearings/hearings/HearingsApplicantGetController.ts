@@ -8,13 +8,13 @@ import { GetController, TranslationFn } from '../../../../app/controller/GetCont
 import { Language, generatePageContent } from '../../../common/common.content';
 
 @autobind
-export default class HearingsGetController extends GetController {
+export default class HearingsApplicantGetController extends GetController {
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {
-    console.log('LOCAL HearingsGetController constructor method.....');
+    console.log('LOCAL APPLICANT HearingsApplicantGetController constructor method.....');
     super(view, content);
   }
   public async get(req: AppRequest, res: Response): Promise<void> {
-    console.log('LOCAL HearingsGetController get method.....');
+    console.log('LOCAL APPLICANT HearingsApplicantGetController get method.....');
 
     if (res.locals.isError || res.headersSent) {
       return;
@@ -41,7 +41,7 @@ export default class HearingsGetController extends GetController {
       req.session.userCase.id,
       citizenUser
     );
-    console.log('retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos));
+    console.log('HearingsApplicantGetController retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos));
     req.session.userCase = caseHearingDataFromCos;
 
     res.render(this.view, {

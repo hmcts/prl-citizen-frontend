@@ -24,6 +24,13 @@ export const getKeepYourDetailsPrivateStatus = (
   return status;
 };
 
+export const getApplicantViewAllHearingsFromTheCourt = (userCase: CaseWithId): SectionStatus => {
+  if (userCase && userCase.hearingCollection && userCase.hearingCollection.length > 0) {
+    return SectionStatus.READY_TO_VIEW;
+  }
+  return SectionStatus.NOT_AVAILABLE_YET;
+};
+
 export const getConfirmOrEditYourContactDetails = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string

@@ -360,20 +360,20 @@ export class CosApiClient {
       {
         prev: [
           {
-            date: 'date1',
-            time: 'time1',
+            date: 'Monday 28 June 2021',
+            time: '9am',
+            typeOfHearing: 'In person',
+            courtName: 'Bristol family court',
+            courtAddress: 'Bristol Avenue, Bristol, BL1 2A3',
+            hearingOutcome: 'HearingOutcome.pdf',
           },
           {
-            date: 'date22',
-            time: 'time22',
-          },
-          {
-            date: 'date333',
-            time: 'time333',
-          },
-          {
-            date: 'date4444',
-            time: 'time4444',
+            date: 'Friday 25 June 2021',
+            time: '9am',
+            typeOfHearing: 'Video',
+            courtName: 'Bristol family court',
+            courtAddress: 'Bristol Avenue, Bristol, BL1 2A3',
+            hearingOutcome: 'HearingOutcome.pdf',
           },
         ],
         next: {

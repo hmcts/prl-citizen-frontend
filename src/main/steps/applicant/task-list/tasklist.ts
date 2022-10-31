@@ -8,6 +8,7 @@ import {
   getSupportYourNeedsDetails,
   getViewAllDocuments,
   getYourApplication,
+  getApplicantViewAllHearingsFromTheCourt
 } from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
@@ -46,8 +47,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'check-details-of-your-court-hearings',
           text: taskListItems.details_of_court_hearings,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-          href: URL.APPLICANT_DETAILS_KNOWN,
+          status: getApplicantViewAllHearingsFromTheCourt(userCase),
+          href: URL.APPLICANT_YOURHEARINGS_HEARINGS,
         },
       ],
     },
