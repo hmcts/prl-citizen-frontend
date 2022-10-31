@@ -1,10 +1,12 @@
+import autobind from 'autobind-decorator';
+import { Response } from 'express';
+
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { AnyType } from '../../../../../app/form/validation';
 import { getAddressesFromPostcode } from '../../../../../app/postcode/postcode-lookup-api';
-import autobind from 'autobind-decorator';
-import { Response } from 'express';
-import { AnyType } from 'app/form/validation';
+
 import { getUpdatedForm } from './content';
 
 @autobind
@@ -15,7 +17,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const postcode = req.body['addressPostcode'] as string;
-    const {applicantId} = req.query;
+    const { applicantId } = req.query;
     const applicantId1: AnyType | undefined = applicantId;
 
     let addresses;
@@ -27,9 +29,9 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
     req.session.userCase!.appl_allApplicants![applicantIndex] = {
-        ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
-        applicantAddressPostcode: req.body['addressPostcode'] as string
-    }
+      ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
+      applicantAddressPostcode: req.body['addressPostcode'] as string,
+    };
 
     if (req.session.errors.length === 0) {
       addresses = await getAddressesFromPostcode(postcode, req.locals.logger);

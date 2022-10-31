@@ -1,4 +1,5 @@
-import { C100Applicant } from 'app/case/definition';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { C100Applicant } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isInvalidPostcode } from '../../../../../app/form/validation';
@@ -15,7 +16,7 @@ const cy = () => ({
   manualAddressUrl: '#',
 });
 
-export const form = (caseData:Partial<C100Applicant>):FormContent => {
+export const form = (caseData: Partial<C100Applicant>): FormContent => {
   const { applicantAddressPostcode } = caseData;
   return {
     fields: {
@@ -30,8 +31,8 @@ export const form = (caseData:Partial<C100Applicant>):FormContent => {
         },
         validator: isInvalidPostcode,
       },
-    }
-  }
+    },
+  };
 };
 
 export const languages = {

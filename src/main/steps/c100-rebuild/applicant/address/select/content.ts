@@ -5,24 +5,25 @@ import { form as selectAddressForm, languages as selectAddressFormLanguages } fr
 
 let updatedForm: FormContent;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-    title: 'Select Address of',
-    changePostCodeLabel: 'Change postcode',
-    errors: {
-      selectAddress: {
-        notSelected: 'Select an address',
-      },
+  title: 'Select Address of',
+  changePostCodeLabel: 'Change postcode',
+  errors: {
+    selectAddress: {
+      notSelected: 'Select an address',
     },
+  },
 });
 
 const cy = () => ({
   title: 'Select Address of -welsh',
   changePostCodeLabel: 'Change postcode - welsh',
-    errors: {
-      selectAddress: {
-        notSelected: 'Select an address -  welsh',
-      },
+  errors: {
+    selectAddress: {
+      notSelected: 'Select an address -  welsh',
     },
+  },
 });
 
 const languages = {
@@ -40,31 +41,32 @@ export const form: FormContent = {
   },
 };
 
-const updatedFormFields=(form: FormContent, formFields:FormContent['fields']):FormContent=>{
-  updatedForm={
+// eslint-disable-next-line @typescript-eslint/no-shadow
+const updatedFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
+  updatedForm = {
     ...form,
-    fields:{
+    fields: {
       ...formFields,
-      ...form.fields ?? {},
-    }
-  }
+      ...(form.fields ?? {}),
+    },
+  };
 
-  return updatedForm
-}
+  return updatedForm;
+};
 
-export const getUpdatedForm = ():FormContent => updatedForm
+export const getUpdatedForm = (): FormContent => updatedForm;
 
-export const generateFormFields = (caseData:Partial<C100Applicant>): GenerateDynamicFormFields=>{
-  return {fields:selectAddressForm(caseData).fields, errors:{en:{}, cy:{}}}
-}
+export const generateFormFields = (caseData: Partial<C100Applicant>): GenerateDynamicFormFields => {
+  return { fields: selectAddressForm(caseData).fields, errors: { en: {}, cy: {} } };
+};
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const selectAddressFormTranslations = selectAddressFormLanguages[content.language](content);
   const applicantId = content?.additionalData?.req?.query!.applicantId;
   const applicantData = content.userCase?.appl_allApplicants!.find(i => i.id === applicantId) as C100Applicant;
-  const {applicantFirstName, applicantLastName} = applicantData
-  
+  const { applicantFirstName, applicantLastName } = applicantData;
+
   return {
     ...translations,
     ...selectAddressFormTranslations,

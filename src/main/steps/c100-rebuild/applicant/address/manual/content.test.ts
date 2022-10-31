@@ -110,13 +110,12 @@ describe('applicant > address > manual > content', () => {
     expect(address1.classes).toBe('govuk-label');
     expect(address1.labelSize).toBe(null);
     expect((address1.label as LanguageLookup)(generatedContent)).toBe('Building and street');
-   // expect(address1.label).toBe('Building and street'),
+    // expect(address1.label).toBe('Building and street'),
     expect(address1.validator).toBe(isFieldFilledIn);
 
     expect(address2.type).toBe('text');
     expect(address2.classes).toBe('govuk-label');
     expect(address2.labelSize).toBe(null);
-
 
     expect(addressTown.type).toBe('text');
     expect(addressTown.classes).toBe('govuk-label govuk-!-width-two-thirds');
@@ -137,14 +136,17 @@ describe('applicant > address > manual > content', () => {
 
     expect(addressHistory.type).toBe('radios');
     expect(addressHistory.classes).toBe('govuk-radios');
-    expect((addressHistory.label as LanguageLookup)(generatedContent)).toBe('Have you lived at this address for more than 5 years?');
+    expect((addressHistory.label as LanguageLookup)(generatedContent)).toBe(
+      'Have you lived at this address for more than 5 years?'
+    );
     expect((addressHistory.values[0].label as LanguageLookup)(generatedContent)).toBe('Yes');
     expect((addressHistory.values[1].label as LanguageLookup)(generatedContent)).toBe('No');
     const applyTextField = addressHistory.values[1].subFields!.provideDetailsOfPreviousAddresses;
     expect(applyTextField.type).toBe('textarea');
-    expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe('Provide details of previous addresses you have lived at in the last 5 years');
+    expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe(
+      'Provide details of previous addresses you have lived at in the last 5 years'
+    );
     expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe('Start with your most recent');
-   
   });
 
   test('should contain saveAndComeLater button', () => {

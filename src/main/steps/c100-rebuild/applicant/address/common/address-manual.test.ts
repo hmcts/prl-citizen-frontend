@@ -42,5 +42,4 @@ describe('common > components > manual-address > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  
 });

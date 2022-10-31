@@ -1,10 +1,10 @@
-import { C100Applicant } from 'app/case/definition';
+import { C100Applicant } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isAddressSelected } from '../../../../../app/form/validation';
 
 const getAddressItems = addresses => addresses.map((item, index) => ({ text: item.fullAddress, value: index }));
-
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = content => {
   const addresses = content.addresses || [];
   const options = [
@@ -29,6 +29,7 @@ const en = content => {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const cy = content => {
   const addresses = content.addresses || [];
   const options = [
@@ -53,7 +54,7 @@ const cy = content => {
   };
 };
 
-export const form = (caseData:Partial<C100Applicant>):FormContent => {
+export const form = (caseData: Partial<C100Applicant>): FormContent => {
   const { applicantSelectedAddress } = caseData;
   return {
     fields: {
@@ -66,7 +67,7 @@ export const form = (caseData:Partial<C100Applicant>):FormContent => {
         options: l => l.options,
       },
     },
-  }
+  };
 };
 
 export const languages = {

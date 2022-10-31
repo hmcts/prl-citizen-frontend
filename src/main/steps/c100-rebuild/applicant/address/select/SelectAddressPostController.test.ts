@@ -16,7 +16,7 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
         },
       },
     },
-    selectAddress :  0,
+    selectAddress: 0,
     addresses: [
       {
         fullAddress: 'FLAT 20, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
@@ -76,7 +76,7 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
         addressHistory: 'Yes',
         provideDetailsOfPreviousAddresses: 'NA',
         applicantSelectedAddress: 2,
-        selectAddress :  '0',
+        selectAddress: '0',
         addresses: [
           {
             fullAddress: 'FLAT 20, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',

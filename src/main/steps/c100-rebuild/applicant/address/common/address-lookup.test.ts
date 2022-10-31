@@ -28,5 +28,4 @@ describe('common > components > address-lookup > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-
 });

@@ -1,9 +1,11 @@
+import autobind from 'autobind-decorator';
+import { Response } from 'express';
+
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import autobind from 'autobind-decorator';
-import { Response } from 'express';
-import { AnyType } from 'app/form/validation';
+import { AnyType } from '../../../../../app/form/validation';
+
 import { getUpdatedForm } from './content';
 
 @autobind
@@ -15,7 +17,7 @@ export default class SelectAddressPostController extends PostController<AnyObjec
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const form = new Form(getUpdatedForm().fields as FormFields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-    const {applicantId} = req.query;
+    const { applicantId } = req.query;
 
     req.session.errors = form.getErrors(formData);
 
@@ -26,8 +28,10 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         const selectedAddress = req.session.addresses[selectedAddressIndex] as any;
 
         const applicantId1: AnyType | undefined = applicantId;
-        const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
-        if(applicantIndex >= 0) {
+        const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(
+          i => i.id === applicantId1
+        ) as number;
+        if (applicantIndex >= 0) {
           req.session.userCase!.appl_allApplicants![applicantIndex] = {
             ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
             applicantAddressPostcode: selectedAddress.postcode as string,
@@ -35,17 +39,17 @@ export default class SelectAddressPostController extends PostController<AnyObjec
             applicantAddress2: selectedAddress.street2 as string,
             applicantAddressTown: selectedAddress.town as string,
             applicantAddressCounty: selectedAddress.county as string,
-            applicantSelectedAddress: selectedAddressIndex as number
-          }
+            applicantSelectedAddress: selectedAddressIndex as number,
+          };
         }
-    
+
         formData['applicantAddress1'] = selectedAddress.street1;
         formData['applicantAddress2'] = selectedAddress.street2;
         formData['applicantAddressTown'] = selectedAddress.town;
         formData['applicantAddressCounty'] = selectedAddress.county;
         formData['applicantAddressPostcode'] = selectedAddress.postcode;
+      }
     }
-  }
-  this.redirect(req, res);
+    this.redirect(req, res);
   }
 }

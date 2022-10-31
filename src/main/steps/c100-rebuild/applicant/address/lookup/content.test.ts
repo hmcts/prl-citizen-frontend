@@ -80,7 +80,7 @@ describe('applicant > address > lookup > content', () => {
   });
 
   test('should contain addressPostcode field', () => {
-    const generatedContent = generateContent(commonContent) as Record<string, never>;
+    generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
     const addressPostcodeField = fields.addressPostcode as FormOptions;
