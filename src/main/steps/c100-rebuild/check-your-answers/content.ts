@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../../steps/common/common.content';
@@ -235,49 +236,72 @@ export const cyContent: typeof enContent = {
   },
 };
 
+const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
+  const safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected =
+    userCase.hasOwnProperty(safteyConcernsAboutKey) &&
+    userCase[safteyConcernsAboutKey]?.length === 1 &&
+    userCase[safteyConcernsAboutKey]?.some(concerner => concerner === C1ASafteyConcernsAbout.CHILDREN) &&
+    userCase.hasOwnProperty(childConcernsKey) &&
+    userCase[childConcernsKey]?.some(abuseType => abuseType === C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE);
+  const checkIfYourSafetyConcernSelected = userCase[safteyConcernsAboutKey]?.some(
+    concerner => concerner === C1ASafteyConcernsAbout.APPLICANT
+  );
+  return !!(safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected || checkIfYourSafetyConcernSelected);
+};
+
 const en = (content: CommonContent, newEnContents?: any) => {
   const userCase = content.userCase!;
+
+  console.log({ check: toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild') });
+
+  const sections = [
+    MiamTitle(enContent),
+    MiamAttendance(enContent, userCase),
+    MiamExemption(newEnContents, userCase),
+    TypeOfOrder(enContent, userCase),
+    WithoutNoticeHearing(enContent, userCase),
+    ChildernDetails(enContent, userCase),
+    ChildernDetailsAdditional(enContent, userCase),
+    PastAndCurrentProceedings(enContent, userCase),
+    SafetyConcerns(enContent, userCase),
+    SafetyConcerns_child(enContent, userCase),
+  ];
+
+  if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
+    sections.push(SafetyConcerns_yours(enContent, userCase));
+  }
+  sections.push(SafetyConcerns_others(enContent, userCase), InternationalElement(enContent, userCase));
   return {
     ...enContent,
     language: content.language,
-    sections: [
-      MiamTitle(enContent),
-      MiamAttendance(enContent, userCase),
-      MiamExemption(newEnContents, userCase),
-      TypeOfOrder(enContent, userCase),
-      WithoutNoticeHearing(enContent, userCase),
-      ChildernDetails(enContent, userCase),
-      ChildernDetailsAdditional(enContent, userCase),
-      PastAndCurrentProceedings(enContent, userCase),
-      InternationalElement(enContent, userCase),
-      SafetyConcerns(enContent, userCase),
-      SafetyConcerns_child(enContent, userCase),
-      SafetyConcerns_yours(enContent, userCase),
-      SafetyConcerns_others(enContent, userCase),
-    ],
+    sections,
   };
 };
 
 const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
   const userCase = content.userCase!;
+
+  const sections = [
+    MiamTitle(cyContent),
+    MiamAttendance(cyContent, userCase),
+    MiamExemption(newCyContents, userCase),
+    TypeOfOrder(cyContent, userCase),
+    WithoutNoticeHearing(cyContent, userCase),
+    ChildernDetails(cyContent, userCase),
+    ChildernDetailsAdditional(cyContent, userCase),
+    PastAndCurrentProceedings(cyContent, userCase),
+    SafetyConcerns(cyContent, userCase),
+    SafetyConcerns_child(cyContent, userCase),
+  ];
+
+  if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
+    sections.push(SafetyConcerns_yours(cyContent, userCase));
+  }
+  sections.push(SafetyConcerns_others(cyContent, userCase), InternationalElement(cyContent, userCase));
   return {
     ...cyContent,
     language: content.language,
-    sections: [
-      MiamTitle(cyContent),
-      MiamAttendance(cyContent, userCase),
-      MiamExemption(newCyContents, userCase),
-      TypeOfOrder(cyContent, userCase),
-      WithoutNoticeHearing(cyContent, userCase),
-      ChildernDetails(cyContent, userCase),
-      ChildernDetailsAdditional(cyContent, userCase),
-      PastAndCurrentProceedings(cyContent, userCase),
-      InternationalElement(cyContent, userCase),
-      SafetyConcerns(cyContent, userCase),
-      SafetyConcerns_child(cyContent, userCase),
-      SafetyConcerns_yours(cyContent, userCase),
-      SafetyConcerns_others(cyContent, userCase),
-    ],
+    sections,
   };
 };
 

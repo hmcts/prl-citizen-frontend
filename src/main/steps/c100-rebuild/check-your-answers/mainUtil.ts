@@ -407,7 +407,7 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
   }
 
-  SummaryData.push(
+  const abdutionScreenData = [
     {
       key: keys['childLocation'],
       valueHtml: userCase['c1A_abductionReasonOutsideUk'],
@@ -442,8 +442,17 @@ export const SafetyConcerns_child = (
       key: keys['c1A_policeOrInvestigatorInvolved'],
       valueHtml: policeOrInvestigatorsOtherDetailsHTML,
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'],
-    }
-  );
+    },
+  ];
+  /**
+   * @StrictChecks whether abduction data is enabled
+   */
+  if (
+    userCase.hasOwnProperty('c1A_concernAboutChild') &&
+    userCase['c1A_concernAboutChild']?.some(Element => Element === C1AAbuseTypes.ABDUCTION)
+  ) {
+    SummaryData.push(...abdutionScreenData);
+  }
   return {
     title: sectionTitles['childSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
