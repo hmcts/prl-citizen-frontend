@@ -18,7 +18,6 @@ const en = () => ({
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
-  allChildrenLabel: 'All of the children in the application',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -51,7 +50,6 @@ const cy = () => ({
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
-  allChildrenLabel: 'All of the children in the application - Welsh',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - Welsh (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
@@ -101,12 +99,6 @@ export const generateFormFields = (
       labelSize: 's',
       label: l => l.childrenConcernedAboutLabel,
       values: [
-        {
-          name: 'childrenConcernedAbout',
-          label: l => l.allChildrenLabel,
-          exclusive: true,
-          value: childrenData.map(childObj => childObj.id).join(''),
-        },
         ...childrenData.map(childObj => {
           return {
             name: 'childrenConcernedAbout',
