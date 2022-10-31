@@ -331,6 +331,8 @@ export interface Case {
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
+  c1A_supervisionAgreementDetails?: string;
+  c1A_agreementOtherWaysDetails?: string;
   doYouConsent?: YesOrNo;
   applicationReceivedDate?: CaseDate;
   courtPermission?: YesOrNo;

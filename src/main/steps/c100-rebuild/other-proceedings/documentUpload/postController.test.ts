@@ -66,7 +66,7 @@ describe('Document upload controller', () => {
       orderId: '1',
     });
 
-    expect(res.redirect).toBeCalledWith(
+    expect(res.redirect).toHaveBeenCalledWith(
       '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
     );
     expect(req.session.errors).toEqual(errors);
@@ -121,7 +121,7 @@ describe('Document upload controller', () => {
       orderId: '1',
     });
 
-    expect(res.redirect).toBeCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
   });
 
   test('Should upload document and redirect back to current page', async () => {
@@ -189,7 +189,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(
+    expect(res.redirect).toHaveBeenCalledWith(
       '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
     );
   });
@@ -259,7 +259,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(
+    expect(res.redirect).toHaveBeenCalledWith(
       '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=2'
     );
   });
@@ -329,7 +329,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toBeCalledWith(
+    expect(res.redirect).toHaveBeenCalledWith(
       '/c100-rebuild/other-proceedings/documentUpload?orderType=otherOrder&orderId=1'
     );
   });

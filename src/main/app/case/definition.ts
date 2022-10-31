@@ -2387,6 +2387,7 @@ export enum C1AAbuseTypes {
 export enum C1ASafteyConcernsAbout{
   CHILDREN = 'children',
   APPLICANT = 'applicant',
+  OTHER = 'otherConcerns',
 }
 
 export interface C1ASafteyConcernsAbuse{
@@ -2395,6 +2396,7 @@ export interface C1ASafteyConcernsAbuse{
   isOngoingBehaviour?:YesNoEmpty;
   seekHelpFromPersonOrAgency?: YesNoEmpty;
   seekHelpDetails?: string;
+  childrenConcernedAbout?: string;
 }
 
 export interface C1ASafteyConcerns {
