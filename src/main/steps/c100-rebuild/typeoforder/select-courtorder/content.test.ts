@@ -8,7 +8,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  selectCourtTitle: 'What are you asking the court to do?',
+  title: 'What are you asking the court to do?',
   select_all_apply: 'Select all that apply',
   whoChildLiveWith: 'Decide who the children live with and when',
   childTimeSpent: 'Decide how much time the children spend with each person',
@@ -32,6 +32,7 @@ const en = {
   medicalTreatment: 'Medical treatment',
   returningChildrenToYourCare: 'Returning the children to your care',
   returningChildrenToYourCareHint: 'If the children have been abducted, unlawfully removed or unlawfully retained',
+  whatAreYouAsking: 'What are you asking the court to do?',
   errors: {
     too_courtOrder: {
       required: 'Select  what you are asking the court to do',
@@ -46,7 +47,7 @@ const en = {
 };
 
 const cy = {
-  selectCourtTitle: 'What are you asking the court to do? - welsh',
+  title: 'What are you asking the court to do? - welsh',
   select_all_apply: 'Select all that apply - welsh',
   whoChildLiveWith: 'Decide who the children live with and when - welsh',
   childTimeSpent: 'Decide how much time the children spend with each person - welsh',
@@ -71,6 +72,7 @@ const cy = {
   returningChildrenToYourCare: 'Returning the children to your care - welsh',
   returningChildrenToYourCareHint:
     'If the children have been abducted, unlawfully removed or unlawfully retained - welsh',
+  whatAreYouAsking: 'What are you asking the court to do?',
   errors: {
     too_courtOrder: {
       required: 'Select  what you are asking the court to do - welsh',

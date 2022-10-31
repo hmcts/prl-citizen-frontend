@@ -8,8 +8,9 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
+  title: 'Details of without notice hearing',
   hearing2title: 'Details of without notice hearing',
-  line1: 'Give details of why you’re asking for a without notice hearing',
+  hearingWithoutLine1: 'Give details of why you’re asking for a without notice hearing',
   hint: 'A judge will need to be sure that there is a good reason why the other people in the application should not be told about the application before the hearing takes place.',
   doYouNeedAWithoutNoticeHearingLabel:
     'Are you asking for a without notice hearing because the other person or people may do something that would obstruct the order you are asking for if they knew about the application?',
@@ -40,8 +41,9 @@ const en = {
 };
 
 const cy = {
+  title: 'Details of without notice hearing',
   hearing2title: 'Details of without notice hearing - welsh',
-  line1: 'Give details of why you’re asking for a without notice hearing - welsh',
+  hearingWithoutLine1: 'Give details of why you’re asking for a without notice hearing - welsh',
   hint: 'A judge will need to be sure that there is a good reason why the other people in the application should not be told about the application before the hearing takes place. - welsh',
   doYouNeedAWithoutNoticeHearingLabel:
     'Are you asking for a without notice hearing because the other person or people may do something that would obstruct the order you are asking for if they knew about the application? - welsh',
