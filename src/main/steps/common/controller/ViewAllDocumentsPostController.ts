@@ -13,7 +13,7 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
     super(fields);
   }
 
-  public async setAllDocumentsViewedC100Respondent(req: AppRequest<AnyObject>){
+  public async setAllDocumentsViewedC100Respondent(req: AppRequest<AnyObject>) {
     req.session.userCase.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value.user?.idamId === req.session?.user?.id) {
         if (respondent.value.response && respondent.value.response.citizenFlags) {
@@ -23,7 +23,7 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
     });
   }
 
-  public async setAllDocumentsViewedC100Applicant(req: AppRequest<AnyObject>){
+  public async setAllDocumentsViewedC100Applicant(req: AppRequest<AnyObject>) {
     req.session.userCase.applicants?.forEach((applicant: Applicant) => {
       if (applicant?.value.user?.idamId === req.session?.user?.id) {
         if (applicant.value.response && applicant.value.response.citizenFlags) {
@@ -33,7 +33,7 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
     });
   }
 
-  public async setAllDocumentsViewedFL401Respondent(req: AppRequest<AnyObject>){
+  public async setAllDocumentsViewedFL401Respondent(req: AppRequest<AnyObject>) {
     if (
       req?.session?.userCase.respondentsFL401?.response &&
       req?.session?.userCase.respondentsFL401?.response.citizenFlags
@@ -51,13 +51,13 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
 
     if (req.session.userCase?.caseTypeOfApplication === 'C100') {
       if (isRespondent) {
-       this.setAllDocumentsViewedC100Respondent(req);
+        this.setAllDocumentsViewedC100Respondent(req);
       } else {
-      this.setAllDocumentsViewedC100Applicant(req);
+        this.setAllDocumentsViewedC100Applicant(req);
       }
     } else {
       if (isRespondent) {
-       this.setAllDocumentsViewedFL401Respondent(req);
+        this.setAllDocumentsViewedFL401Respondent(req);
       } else {
         if (
           req?.session?.userCase.applicantsFL401?.response &&
