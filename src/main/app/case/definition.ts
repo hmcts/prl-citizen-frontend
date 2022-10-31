@@ -1824,8 +1824,8 @@ export const enum State {
   PendingDispute = 'PendingDispute',
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
-  successAuthentication = 'SuccessAuthentication'
-
+  successAuthentication = 'SuccessAuthentication',
+  Deleted = 'DELETED'
 }
 
 export const enum UserRole {
@@ -2272,7 +2272,8 @@ export type RespondentCaseData = object | [] | undefined;
 
 export const enum C100 {
   CASE_TYPE_OF_APPLICATION = 'C100',
-  CASE_UPDATE = 'citizen-case-update'
+  CASE_UPDATE = 'citizen-case-update',
+  DELETE_CASE = 'deleteApplication',
 }
 
 export enum C100OrderTypes {
@@ -2371,6 +2372,7 @@ export enum C1AAbuseTypes {
 export enum C1ASafteyConcernsAbout{
   CHILDREN = 'children',
   APPLICANT = 'applicant',
+  OTHER = 'otherConcerns',
 }
 
 export interface C1ASafteyConcernsAbuse{
@@ -2379,6 +2381,7 @@ export interface C1ASafteyConcernsAbuse{
   isOngoingBehaviour?:YesNoEmpty;
   seekHelpFromPersonOrAgency?: YesNoEmpty;
   seekHelpDetails?: string;
+  childrenConcernedAbout?: string;
 }
 
 export interface C1ASafteyConcerns {

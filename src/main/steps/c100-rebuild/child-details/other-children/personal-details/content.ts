@@ -10,7 +10,7 @@ import {
   isFutureDate,
 } from '../../../../../app/form/validation';
 import { getChildDetails } from '../../util';
-export * from '../../routeGuard';
+export * from '../routeGuard';
 
 // const getChildsName = (userCase: Partial<CaseWithId>) => {
 //   const sibling = userCase.cd_otherChildren?.find(item => item.siblingId === userCase.selectedSiblingId);

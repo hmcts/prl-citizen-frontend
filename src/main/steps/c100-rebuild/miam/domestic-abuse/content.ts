@@ -4,7 +4,7 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'MIAM exemptions',
   title: 'Do you have any of the following evidence of domestic violence or abuse?',
@@ -97,27 +97,28 @@ const en = () => ({
     miam_domesticAbuse: {
       required: 'Select which of the following evidence of domestic violence or abuse you have',
     },
-    miam_domesticabuse_involvement_subfields: {
+    miam_domesticAbuse_policeInvolvement_subfields: {
       required: 'Select what evidence of police involvement you have',
     },
-    miam_domesticabuse_courtInvolvement_subfields: {
+    miam_domesticAbuse_courtInvolvement_subfields: {
       required: 'Select what evidence of court involvement you have',
     },
-    miam_domesticabuse_letterOfBeingVictim_subfields: {
+    miam_domesticAbuse_letterOfBeingVictim_subfields: {
       required:
         'Select what letter confirming that you or the other people in the application are (or have been) a victim of domestic violence or abuse you have',
     },
-    miam_domesticabuse_letterFromAuthority_subfields: {
+    miam_domesticAbuse_letterFromAuthority_subfields: {
       required: 'Select what letter from a local authority or other agency confirming a risk of harm you have',
     },
-    miam_domesticabuse_letterFromSupportService_subfields: {
+    miam_domesticAbuse_letterFromSupportService_subfields: {
       required:
         'Select what letter from a domestic violence or abuse support service, specialist or organisation you have',
     },
   },
 });
 
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   serviceName: 'Child Arrangements',
   caption: 'MIAM exemption - welsh',
   title: 'Do you have any of the following evidence of domestic violence or abuse?',
@@ -210,20 +211,20 @@ const cy = () => ({
     miam_domesticAbuse: {
       required: 'Select which of the following evidence of domestic violence or abuse you have - welsh',
     },
-    miam_domesticabuse_involvement_subfields: {
+    miam_domesticAbuse_policeInvolvement_subfields: {
       required: 'Select what evidence of police involvement you have- welsh',
     },
-    miam_domesticabuse_courtInvolvement_subfields: {
+    miam_domesticAbuse_courtInvolvement_subfields: {
       required: 'Select what evidence of court involvement you have',
     },
-    miam_domesticabuse_letterOfBeingVictim_subfields: {
+    miam_domesticAbuse_letterOfBeingVictim_subfields: {
       required:
         'Select what letter confirming that you or the other people in the application are (or have been) a victim of domestic violence or abuse you have - welsh',
     },
-    miam_domesticabuse_letterFromAuthority_subfields: {
+    miam_domesticAbuse_letterFromAuthority_subfields: {
       required: 'Select what letter from a local authority or other agency confirming a risk of harm you have - welsh',
     },
-    miam_domesticabuse_letterFromSupportService_subfields: {
+    miam_domesticAbuse_letterFromSupportService_subfields: {
       required:
         'Select what letter from a domestic violence or abuse support service, specialist or organisation you have - welsh',
     },
@@ -250,32 +251,32 @@ export const form: FormContent = {
           hint: l => l.policeInvolvement_hint,
           value: 'policeInvolvement',
           subFields: {
-            miam_domesticabuse_involvement_subfields: {
+            miam_domesticAbuse_policeInvolvement_subfields: {
               type: 'checkboxes',
               validator: value => atLeastOneFieldIsChecked(value),
               values: [
                 {
-                  name: 'miam_domesticabuse_involvement_subfields',
+                  name: 'miam_domesticAbuse_policeInvolvement_subfields',
                   label: l => l.policeInvolvement_subFields['evidenceOfSomeoneArrest'],
                   value: 'evidenceOfSomeoneArrest',
                 },
                 {
-                  name: 'miam_domesticabuse_involvement_subfields',
+                  name: 'miam_domesticAbuse_policeInvolvement_subfields',
                   label: l => l.policeInvolvement_subFields['evidenceOfPolice'],
                   value: 'evidenceOfPolice',
                 },
                 {
-                  name: 'miam_domesticabuse_involvement_subfields',
+                  name: 'miam_domesticAbuse_policeInvolvement_subfields',
                   label: l => l.policeInvolvement_subFields['evidenceOfOnGoingCriminalProceeding'],
                   value: 'evidenceOfOnGoingCriminalProceeding',
                 },
                 {
-                  name: 'miam_domesticabuse_involvement_subfields',
+                  name: 'miam_domesticAbuse_policeInvolvement_subfields',
                   label: l => l.policeInvolvement_subFields['evidenceOfConviction'],
                   value: 'evidenceOfConviction',
                 },
                 {
-                  name: 'miam_domesticabuse_involvement_subfields',
+                  name: 'miam_domesticAbuse_policeInvolvement_subfields',
                   label: l => l.policeInvolvement_subFields['evidenceOFProtectionNotice'],
                   value: 'evidenceOFProtectionNotice',
                 },
@@ -289,32 +290,32 @@ export const form: FormContent = {
           hint: l => l.courtInvolvement_hint,
           value: 'courtInvolvement',
           subFields: {
-            miam_domesticabuse_courtInvolvement_subfields: {
+            miam_domesticAbuse_courtInvolvement_subfields: {
               type: 'checkboxes',
               validator: value => atLeastOneFieldIsChecked(value),
               values: [
                 {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
+                  name: 'miam_domesticAbuse_courtInvolvement_subfields',
                   label: l => l.courtInvolvement_subFields['boundedByCourtAction'],
                   value: 'boundedByCourtAction',
                 },
                 {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
+                  name: 'miam_domesticAbuse_courtInvolvement_subfields',
                   label: l => l.courtInvolvement_subFields['protectionInjuction'],
                   value: 'protectionInjuction',
                 },
                 {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
+                  name: 'miam_domesticAbuse_courtInvolvement_subfields',
                   label: l => l.courtInvolvement_subFields['fmlAct1996'],
                   value: 'fmlAct1996',
                 },
                 {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
+                  name: 'miam_domesticAbuse_courtInvolvement_subfields',
                   label: l => l.courtInvolvement_subFields['ukdomesticVoilcenceUK'],
                   value: 'ukdomesticVoilcenceUK',
                 },
                 {
-                  name: 'miam_domesticabuse_courtInvolvement_subfields',
+                  name: 'miam_domesticAbuse_courtInvolvement_subfields',
                   label: l => l.courtInvolvement_subFields['ukPotentialVictim'],
                   value: 'ukPotentialVictim',
                 },
@@ -328,18 +329,18 @@ export const form: FormContent = {
           hint: l => l.letterFromAuthority_hint,
           value: 'letterOfBeingVictim',
           subFields: {
-            miam_domesticabuse_letterOfBeingVictim_subfields: {
+            miam_domesticAbuse_letterOfBeingVictim_subfields: {
               type: 'checkboxes',
               validator: value => atLeastOneFieldIsChecked(value),
               values: [
                 {
-                  name: 'miam_domesticabuse_letterOfBeingVictim_subfields',
+                  name: 'miam_domesticAbuse_letterOfBeingVictim_subfields',
                   label: l => l.letterOfBeingVictim_subFields['letterFromHealthProfessional'],
                   hint: l => l.letterOfBeingVictim_subFields['letterFromHealthProfessional_hint'],
                   value: 'letterFromHealthProfessional',
                 },
                 {
-                  name: 'miam_domesticabuse_letterOfBeingVictim_subfields',
+                  name: 'miam_domesticAbuse_letterOfBeingVictim_subfields',
                   label: l => l.letterOfBeingVictim_subFields['letterFromHPfromPerspectiveParty'],
                   hint: l => l.letterOfBeingVictim_subFields['letterFromHPfromPerspectiveParty_hint'],
                   value: 'letterFromHPfromPerspectiveParty',
@@ -354,23 +355,23 @@ export const form: FormContent = {
           hint: l => l.letterFromAuthority_hint,
           value: 'letterFromAuthority',
           subFields: {
-            miam_domesticabuse_letterFromAuthority_subfields: {
+            miam_domesticAbuse_letterFromAuthority_subfields: {
               type: 'checkboxes',
               validator: value => atLeastOneFieldIsChecked(value),
               values: [
                 {
-                  name: 'miam_domesticabuse_letterFromAuthority_subfields',
+                  name: 'miam_domesticAbuse_letterFromAuthority_subfields',
                   label: l => l.letterFromAuthority_subFields['letterFromMultiAgencyMember'],
                   value: 'letterFromMultiAgencyMember',
                 },
                 {
-                  name: 'miam_domesticabuse_letterFromAuthority_subfields',
+                  name: 'miam_domesticAbuse_letterFromAuthority_subfields',
                   label: l => l.letterFromAuthority_subFields['letterFromOfficer'],
                   hint: l => l.letterFromAuthority_subFields['letterFromOfficer_hint'],
                   value: 'letterFromOfficer',
                 },
                 {
-                  name: 'miam_domesticabuse_letterFromAuthority_subfields',
+                  name: 'miam_domesticAbuse_letterFromAuthority_subfields',
                   label: l => l.letterFromAuthority_subFields['letterFromPublicAuthority'],
                   value: 'letterFromPublicAuthority',
                 },
@@ -384,28 +385,28 @@ export const form: FormContent = {
           hint: l => l.letterFromSupportService_hint,
           value: 'letterFromSupportService',
           subFields: {
-            miam_domesticabuse_letterFromSupportService_subfields: {
+            miam_domesticAbuse_letterFromSupportService_subfields: {
               type: 'checkboxes',
               validator: value => atLeastOneFieldIsChecked(value),
               values: [
                 {
-                  name: 'miam_domesticabuse_letterFromSupportService_subfields',
+                  name: 'miam_domesticAbuse_letterFromSupportService_subfields',
                   label: l => l.letterFromSupportService_subFields['letterFromDomesticViolenceAdvisor'],
                   value: 'letterFromDomesticViolenceAdvisor',
                 },
                 {
-                  name: 'miam_domesticabuse_letterFromSupportService_subfields',
+                  name: 'miam_domesticAbuse_letterFromSupportService_subfields',
                   label: l => l.letterFromSupportService_subFields['letterFromSexualViolenceAdvisor'],
                   value: 'letterFromSexualViolenceAdvisor',
                 },
                 {
-                  name: 'miam_domesticabuse_letterFromSupportService_subfields',
+                  name: 'miam_domesticAbuse_letterFromSupportService_subfields',
                   label: l => l.letterFromSupportService_subFields['letterFromOrgDomesticViolenceSupport'],
                   value: 'letterFromOrgDomesticViolenceSupport',
                   hint: l => l.letterFromOrgDomesticViolenceSupportHint,
                 },
                 {
-                  name: 'miam_domesticabuse_letterFromSupportService_subfields',
+                  name: 'miam_domesticAbuse_letterFromSupportService_subfields',
                   label: l => l.letterFromSupportService_subFields['letterFromOrgDomesticViolenceInUk'],
                   value: 'letterFromOrgDomesticViolenceInUk',
                   hint: l => l.letterFromOrgDomesticViolenceInUkHint,

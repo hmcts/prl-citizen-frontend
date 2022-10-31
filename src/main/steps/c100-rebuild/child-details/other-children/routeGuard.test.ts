@@ -1,12 +1,12 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 
 import { routeGuard } from './routeGuard';
 
 const dummyData = {
-  cd_children: [
+  cd_otherChildren: [
     {
-      id: '7483640e-0817-4ddc-b709-6723f7925474',
+      id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
       firstName: 'a',
       lastName: 'b',
       personalDetails: {
@@ -37,7 +37,7 @@ describe('Add children RouteGuard', () => {
   test('Should render the page when the guard validation passes', async () => {
     const req = mockRequest({
       params: {
-        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+        childId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
       },
       session: {
         userCase: {

@@ -1,4 +1,4 @@
-import { C1AAbuseTypes, C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbuse, ChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { getDataShape } from '../../util';
@@ -17,6 +17,8 @@ const en = () => ({
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately.</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
+  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+  allChildrenLabel: 'All of the children in the application',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -48,6 +50,8 @@ const cy = () => ({
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - Welsh</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
+  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
+  allChildrenLabel: 'All of the children in the application - Welsh',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - Welsh (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
@@ -86,8 +90,32 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynamicFormFields => {
+export const generateFormFields = (
+  data: C1ASafteyConcernsAbuse,
+  childrenData: ChildrenDetails[]
+): GenerateDynamicFormFields => {
   const fields = {
+    childrenConcernedAbout: {
+      type: 'checkboxes',
+      classes: 'govuk-checkboxes',
+      labelSize: 's',
+      label: l => l.childrenConcernedAboutLabel,
+      values: [
+        {
+          name: 'childrenConcernedAbout',
+          label: l => l.allChildrenLabel,
+          exclusive: true,
+          value: childrenData.map(childObj => childObj.id).join(''),
+        },
+        ...childrenData.map(childObj => {
+          return {
+            name: 'childrenConcernedAbout',
+            label: `${childObj.firstName} ${childObj.lastName}`,
+            value: `${childObj.id}`,
+          };
+        }),
+      ],
+    },
     behaviourDetails: {
       type: 'textarea',
       labelSize: 's',
@@ -151,6 +179,7 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynami
       ],
     },
   };
+
   const errors = {
     en: {},
     cy: {},
@@ -163,6 +192,12 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynami
   );
   fields.seekHelpFromPersonOrAgency.values = fields.seekHelpFromPersonOrAgency.values.map(config =>
     config.value === data.seekHelpFromPersonOrAgency ? { ...config, selected: true } : config
+  );
+
+  // mark the selection for the children checkboxes based on the option chosen
+  fields.childrenConcernedAbout.values = fields.childrenConcernedAbout.values.map(config =>
+    // Checking if the data.childrenConcernedAbout has been prefilled, if YES, data will be fetched from userCase. If NOT, checkboxes are made fresh and untouched
+    data.childrenConcernedAbout?.includes(config.value as string) ? { ...config, selected: true } : config
   );
 
   return { fields, errors };
@@ -191,7 +226,8 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const abuseType: C1AAbuseTypes = content.additionalData!.req.params.abuseType;
   const sessionData: C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.child?.[abuseType];
-  const { fields } = generateFormFields(sessionData ?? getDataShape().abuse);
+  const sessionChildrenData = content.userCase?.cd_children ?? [];
+  const { fields } = generateFormFields(sessionData ?? getDataShape().abuse, sessionChildrenData);
 
   return {
     ...translations,
