@@ -46,7 +46,7 @@
     "@types/es6-promisify": "^6.0.1",
     "@types/express": "^4.17.14",
     "@types/express-session": "^1.17.4",
-    "@types/glob": "^7.2.0",
+    "@types/glob": "^8.0.0",
     "@types/lodash": "^4.14.178",
     "@types/multer": "^1.4.7",
     "@types/negotiator": "^0.6.1",
