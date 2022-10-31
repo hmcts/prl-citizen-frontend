@@ -688,37 +688,37 @@ describe('C100Sequence', () => {
     expect(C100Sequence[88].getNextStep({})).toBe('/c100-rebuild/applicant/confidentiality/details-know');
 
     expect(C100Sequence[89].url).toBe('/c100-rebuild/applicant/confidentiality/details-know');
-    expect(C100Sequence[88].showInSection).toBe('c100');
-    expect(C100Sequence[88].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
+    expect(C100Sequence[89].showInSection).toBe('c100');
+    expect(C100Sequence[89].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
       '/c100-rebuild/applicant/confidentiality/start-alternative'
     );
-    expect(C100Sequence[88].getNextStep({ detailsKnown: YesOrNo.NO })).toBe(
+    expect(C100Sequence[89].getNextStep({ detailsKnown: YesOrNo.NO })).toBe(
       '/c100-rebuild/applicant/confidentiality/start'
     );
 
-    expect(C100Sequence[89].url).toBe('/c100-rebuild/applicant/confidentiality/feedback');
-    expect(C100Sequence[89].showInSection).toBe('c100');
-    expect(C100Sequence[89].getNextStep({})).toBe('/c100-rebuild/applicant/confidentiality/feedback');
-
-    expect(C100Sequence[90].url).toBe('/c100-rebuild/applicant/confidentiality/feedbackno');
+    expect(C100Sequence[90].url).toBe('/c100-rebuild/applicant/confidentiality/feedback');
     expect(C100Sequence[90].showInSection).toBe('c100');
-    expect(C100Sequence[90].getNextStep({})).toBe('/c100-rebuild/applicant/confidentiality/feedbackno');
+    expect(C100Sequence[90].getNextStep({})).toBe('/c100-rebuild/applicant/confidentiality/feedback');
 
-    expect(C100Sequence[91].url).toBe('/c100-rebuild/applicant/confidentiality/start');
+    expect(C100Sequence[91].url).toBe('/c100-rebuild/applicant/confidentiality/feedbackno');
     expect(C100Sequence[91].showInSection).toBe('c100');
-    expect(C100Sequence[91].getNextStep({ start: YesOrNo.YES })).toBe(
+    expect(C100Sequence[91].getNextStep({})).toBe('/c100-rebuild/applicant/confidentiality/feedbackno');
+
+    expect(C100Sequence[92].url).toBe('/c100-rebuild/applicant/confidentiality/start');
+    expect(C100Sequence[92].showInSection).toBe('c100');
+    expect(C100Sequence[92].getNextStep({ start: YesOrNo.YES })).toBe(
       '/c100-rebuild/applicant/confidentiality/feedback'
     );
-    expect(C100Sequence[91].getNextStep({ start: YesOrNo.NO })).toBe(
+    expect(C100Sequence[92].getNextStep({ start: YesOrNo.NO })).toBe(
       '/c100-rebuild/applicant/confidentiality/feedbackno'
     );
 
-    expect(C100Sequence[92].url).toBe('/c100-rebuild/applicant/confidentiality/start-alternative');
-    expect(C100Sequence[92].showInSection).toBe('c100');
-    expect(C100Sequence[92].getNextStep({ startAlternative: YesOrNo.YES })).toBe(
+    expect(C100Sequence[93].url).toBe('/c100-rebuild/applicant/confidentiality/start-alternative');
+    expect(C100Sequence[93].showInSection).toBe('c100');
+    expect(C100Sequence[93].getNextStep({ startAlternative: YesOrNo.YES })).toBe(
       '/c100-rebuild/applicant/confidentiality/feedback'
     );
-    expect(C100Sequence[92].getNextStep({ startAlternative: YesOrNo.NO })).toBe(
+    expect(C100Sequence[93].getNextStep({ startAlternative: YesOrNo.NO })).toBe(
       '/c100-rebuild/applicant/confidentiality/feedbackno'
     );
   });
