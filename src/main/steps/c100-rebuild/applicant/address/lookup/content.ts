@@ -70,6 +70,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     ...lookupAddressFormTranslations,
+    manualAddressUrl: '/c100-rebuild/applicant/address/manual' + '?applicantId=' + applicantId,
     title: `${translations.title} ${applicantFirstName} ${applicantLastName}`,
     form: updatedFormFields(form, generateFormFields(applicantData).fields),
   };
