@@ -58,7 +58,7 @@
     "@types/session-file-store": "^1.2.2",
     "@types/toobusy-js": "^0.5.2",
     "@types/uuid": "^8.3.4",
-    "@uppy/core": "^2.1.4",
+    "@uppy/core": "^2.3.4",
     "@uppy/drop-target": "^1.1.1",
     "@uppy/file-input": "^2.0.5",
     "@uppy/progress-bar": "^2.0.4",
