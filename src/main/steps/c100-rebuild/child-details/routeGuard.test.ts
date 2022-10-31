@@ -83,7 +83,7 @@ describe('Add children RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     routeGuard.get(req, res, next);
-    expect(res.redirect).not.toBeCalledWith('error');
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
     expect(res.redirect).toHaveBeenCalledWith('/error');
     expect(next).not.toHaveBeenCalled();
   });
