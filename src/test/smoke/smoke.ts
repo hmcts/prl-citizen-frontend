@@ -1,31 +1,54 @@
-// import { fail } from 'assert';
+/* eslint-disable import/order */
+import axios from 'axios';
+import config from 'config';
 
-// import axios, { AxiosResponse } from 'axios';
-import { expect } from 'chai';
+jest.retryTimes(20);
+jest.setTimeout(15000);
 
-// const testUrl = 'https://prl-citizen-frontend-pr-45.service.core-compute-preview.internal/' || 'http://localhost:3001';
+const decoded = Buffer.from(process.env.ENDPOINTS as string, 'base64');
+const endpoints = JSON.parse(decoded.toString());
 
-describe('Smoke Test', () => {
-  describe('Home page loads', () => {
-    test('with correct content', async () => {
-      expect(1).toEqual(1);
+const servicesToCheck = [
+  { name: 'Private Law', url: process.env.TEST_URL },
+  { name: 'IDAM Web', url: endpoints.idamWeb },
+  { name: 'IDAM API', url: endpoints.idamToken },
+  { name: 'Auth Provider', url: endpoints.s2s },
+  { name: 'CCD Data Store', url: endpoints.ccd },
+  {
+    name: 'Postcode Lookup',
+    url: config.get('services.postcodeLookup.url'),
+    healthEndpoint: '/search/places/v1',
+    externalService: true,
+  },
+];
+
+const checkService = async (url: string) => {
+  const response = await axios.get(url);
+  if (response.status !== 200 || response.data?.status !== 'UP') {
+    throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
+  }
+};
+
+const checkExternalService = async (url: string) => {
+  const response = await axios.get(url);
+  if (response.status !== 200) {
+    throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
+  }
+};
+
+describe.each(servicesToCheck)(
+  '$name should return 200 status UP',
+  ({ name, url, healthEndpoint, externalService }) => {
+    const parsedUrl = new URL(healthEndpoint || '/health', url as string).toString();
+
+    test(`${name}: ${parsedUrl}`, async () => {
+      let checkServiceHealth;
+      if (externalService) {
+        checkServiceHealth = checkExternalService;
+      } else {
+        checkServiceHealth = checkService;
+      }
+      await expect(checkServiceHealth(parsedUrl)).resolves.not.toThrow();
     });
-
-    // beforeAll(async () => {
-    //   await page.goto(testUrl);
-    // });
-
-    // it('should be titled "Private Law"', async () => {
-    //   await expect(page.title()).resolves.toMatch('Private Law');
-    // });
-
-    // test('with correct content', async () => {
-    //   try {
-    //     const response: AxiosResponse = await axios.get(testUrl);
-    //     expect(response).includes(expect.anything());
-    //   } catch {
-    //     fail('Heading not present and/or correct');
-    //   }
-    // });
-  });
-});
+  }
+);
