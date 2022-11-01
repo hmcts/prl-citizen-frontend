@@ -420,52 +420,52 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => CA_DA_COMMUNICATION_HELP,
   },
   {
-    url: CA_DA_COMMUNICATION_HELP,
+    url: CA_DA_COMMUNICATION_HELP,    //71
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_COURT_HEARING_SUPPORT,
   },
   {
-    url: CA_DA_COURT_HEARING_SUPPORT,
+    url: CA_DA_COURT_HEARING_SUPPORT,   //72
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_COURT_HEARING_COMFORT,
   },
   {
-    url: CA_DA_COURT_HEARING_COMFORT,
+    url: CA_DA_COURT_HEARING_COMFORT,     //73
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_TRAVELLING_TO_COURT,
   },
   {
-    url: CA_DA_TRAVELLING_TO_COURT,
+    url: CA_DA_TRAVELLING_TO_COURT,   //74
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   },
   {
-    url: CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+    url: CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,    //75
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: RESPOND_TO_APPLICATION,
+    url: RESPOND_TO_APPLICATION,        //76
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => LEGAL_REPRESENTATION_START,
   },
   {
-    url: LEGAL_REPRESENTATION_START,
+    url: LEGAL_REPRESENTATION_START,      //77
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
   },
   {
-    url: LEGAL_REPRESENTATION_START,
+    url: LEGAL_REPRESENTATION_START,    //78
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
   },
   {
-    url: LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
+    url: LEGAL_REPRESENTATION_SOLICITOR_DIRECT,   //79
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
-    url: LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
+    url: LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,   //80
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
