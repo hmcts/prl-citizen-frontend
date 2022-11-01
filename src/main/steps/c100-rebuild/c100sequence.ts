@@ -748,4 +748,5 @@ export const C100Sequence: Step[] = [
     url: C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
+  },
 ];

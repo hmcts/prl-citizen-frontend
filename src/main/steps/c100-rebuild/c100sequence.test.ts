@@ -115,8 +115,7 @@ const safetyConcernsMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-
-    expect(C100Sequence).toHaveLength(96);
+    expect(C100Sequence).toHaveLength(99);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -723,12 +722,24 @@ describe('C100Sequence', () => {
       '/c100-rebuild/applicant/confidentiality/feedbackno'
     );
 
-    expect(C100Sequence[94].url).toBe('/c100-rebuild/consent-order/upload');
+    expect(C100Sequence[94].url).toBe('/c100-rebuild/applicant/address/lookup');
     expect(C100Sequence[94].showInSection).toBe('c100');
-    expect(C100Sequence[94].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[94].getNextStep({})).toBe('/c100-rebuild/applicant/address/select');
 
-    expect(C100Sequence[95].url).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[95].url).toBe('/c100-rebuild/applicant/address/select');
     expect(C100Sequence[95].showInSection).toBe('c100');
-    expect(C100Sequence[95].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[95].getNextStep({})).toBe('/c100-rebuild/applicant/address/manual');
+
+    expect(C100Sequence[96].url).toBe('/c100-rebuild/applicant/address/manual');
+    expect(C100Sequence[96].showInSection).toBe('c100');
+    expect(C100Sequence[96].getNextStep({})).toBe('/c100-rebuild/applicant/address/lookup');
+
+    expect(C100Sequence[97].url).toBe('/c100-rebuild/consent-order/upload');
+    expect(C100Sequence[97].showInSection).toBe('c100');
+    expect(C100Sequence[97].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
+
+    expect(C100Sequence[98].url).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[98].showInSection).toBe('c100');
+    expect(C100Sequence[98].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
   });
 });
