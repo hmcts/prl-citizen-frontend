@@ -26,7 +26,9 @@ def secrets = [
     secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
     secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET'),
     secret('system-update-user-username', 'SYSTEM_UPDATE_USER_USERNAME'),
-    secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD')
+    secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD'),
+    secret('citizen-user', 'CITIZEN_USERNAME'),
+    secret('citizen-password', 'CITIZEN_PASSWORD')
   ]
 ]
 
@@ -45,10 +47,11 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-
+  env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
   loadVaultSecrets(secrets)
   enableFortifyScan()
   enableFullFunctionalTest(120)
+  enableSecurityScan()
 
   after('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
