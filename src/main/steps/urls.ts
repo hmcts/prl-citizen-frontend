@@ -383,3 +383,18 @@ export const C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES: PageLink = `${C100_SCR
 export const C100_SCREENING_QUESTIONS_COURT_PERMISSION: PageLink = `${C100_SCREENING_QUESTIONS}/permission`;
 export const C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION: PageLink = `${C100_SCREENING_QUESTIONS}/legal-representation-application`;
 export const C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE: PageLink = `${C100_SCREENING_QUESTIONS}/contact-representative`;
+
+/** @C100 Applicant Details */
+/** @C100 Applicant Details and confidentaility */
+export const C100_APPLICANT_ADD_APPLICANTS: PageLink = `${C100_URL}/applicant/add-applicants`;
+export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/applicant/confidentiality/details-know`;
+export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START: PageLink = `${C100_URL}/applicant/confidentiality/start`;
+export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE: PageLink = `${C100_URL}/applicant/confidentiality/start-alternative`;
+export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK: PageLink = `${C100_URL}/applicant/confidentiality/feedback`;
+export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_URL}/applicant/confidentiality/feedbackno`;
+
+/**@C100 applicant address */
+export const C100_APPLICANT_ADDRESS: PageLink = `${C100_URL}/applicant/address`;
+export const C100_APPLICANT_ADDRESS_LOOKUP: PageLink = `${C100_APPLICANT_ADDRESS}/lookup`;
+export const C100_APPLICANT_ADDRESS_SELECT: PageLink = `${C100_APPLICANT_ADDRESS}/select`;
+export const C100_APPLICANT_ADDRESS_MANUAL: PageLink = `${C100_APPLICANT_ADDRESS}/manual`;

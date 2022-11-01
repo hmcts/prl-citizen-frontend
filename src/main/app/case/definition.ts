@@ -674,6 +674,28 @@ export interface Sibling {
 }
 
 
+
+export type C100Applicant = {
+  id?: string,
+  applicantFirstName?: string | unknown,
+  applicantLastName?: string | unknown,
+  detailsKnown?: string | unknown 
+  startAlternative?: string | unknown,
+  start?: string | unknown,
+  contactDetailsPrivate?: unknown | [],
+  contactDetailsPrivateAlternative?: unknown | [],
+  applicantSelectedAddress?: number,
+  applicantAddressPostcode?: string,
+  applicantAddress1?: string,
+  applicantAddress2?: string,
+  applicantAddressTown?: string,
+  applicantAddressCounty?: string,
+  applicantAddressHistory?: YesOrNo,
+  applicantProvideDetailsOfPreviousAddresses?: string
+}
+
+export type C100ListOfApplicants = C100Applicant[];
+
 export interface CaseData {
   id: string;
   children: Child[];
@@ -807,6 +829,7 @@ export interface CaseData {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  c100Applicants?: C100Applicant;
   
   accessCode: string;
   caseInvites: CaseInvite[]
