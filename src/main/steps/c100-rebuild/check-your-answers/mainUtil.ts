@@ -225,7 +225,7 @@ export const ApplicantDetails = (
         key: 'Address details',
         value: sessionApplicantData[applicant]['detailsKnown'],
         changeUrl: Urls['C100_CONFIDENTIALITY_DETAILS_KNOW'] + `?applicantId=${sessionApplicantData[applicant]['id']}`,
-      },
+      }
     );
   }
   return {
