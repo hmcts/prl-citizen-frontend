@@ -3,12 +3,12 @@ import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-lis
 import * as URL from '../../urls';
 
 import {
+  getApplicantViewAllHearingsFromTheCourt,
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
   getSupportYourNeedsDetails,
   getViewAllDocuments,
   getYourApplication,
-  getApplicantViewAllHearingsFromTheCourt
 } from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {

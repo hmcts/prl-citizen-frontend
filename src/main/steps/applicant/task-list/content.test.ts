@@ -90,9 +90,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/keep-details-private/details_known',
+              href: '/applicant/yourhearings/hearings',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.TO_DO,
+              status: SectionStatus.NOT_AVAILABLE_YET,
               text: 'Check details of your court hearings',
             },
           ],

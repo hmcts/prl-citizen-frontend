@@ -41,7 +41,9 @@ export default class HearingsApplicantGetController extends GetController {
       req.session.userCase.id,
       citizenUser
     );
-    console.log('HearingsApplicantGetController retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos));
+    console.log(
+      'HearingsApplicantGetController retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos)
+    );
     req.session.userCase = caseHearingDataFromCos;
 
     res.render(this.view, {
