@@ -4,7 +4,7 @@ import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  headingTitle: 'Where do the children live?',
+  title: 'Where do the children live?',
   paragraph1: 'Please tell us the postcode of the children you’re making this application about.',
   paragraph2: `This information will be used to identify which court will handle your application.
                 If the children have a different postcode, enter the one that is most 
@@ -27,7 +27,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  headingTitle: "Ble mae'r plant yn byw?",
+  title: "Ble mae'r plant yn byw?",
   paragraph1: "Dywedwch wrthym beth yw cod post y plant y mae'r cais hwn yn ymwneud â nhw.",
   paragraph2:
     "Bydd yr wybodaeth hon yn cael ei defnyddio i nodi pa lys fydd yn delio a’ch cais. Os oes gan y plant gôd post gwahanol, nodwch yr un sydd fwyaf cyfleus i'r rhan fwyaf o'r plant yn y cais.",
