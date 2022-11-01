@@ -5,11 +5,9 @@ import {
   getChildDetails,
   getDataShape,
   getOtherChildDataShape,
-  getOtherChildDetails,
   transformFormData,
   transformOtherChildFormData,
   updateChildDetails,
-  updateOtherChildDetails,
 } from './util';
 
 const dummyRequest = mockRequest({
@@ -201,12 +199,9 @@ describe('Add Other Children util', () => {
     );
   });
 
-  test('getOtherChildDetails for child should return appropriate child details if the childId is valid', async () => {
+  test('getChildDetails for child should return appropriate child details if the childId is valid', async () => {
     expect(
-      getOtherChildDetails(
-        otherChildDummyRequest.session.userCase.cd_otherChildren,
-        otherChildDummyRequest.params.childId
-      )
+      getChildDetails(otherChildDummyRequest.session.userCase.cd_otherChildren, otherChildDummyRequest.params.childId)
     ).toEqual(
       expect.objectContaining({
         firstName: 'Jane',
@@ -216,7 +211,7 @@ describe('Add Other Children util', () => {
   });
 
   test('updateOtherChildDetails for child should update the child details in the session the childId is valid', async () => {
-    const childDetails = getOtherChildDetails(
+    const childDetails = getChildDetails(
       otherChildDummyRequest.session.userCase.cd_otherChildren,
       otherChildDummyRequest.params.childId
     );
@@ -226,10 +221,7 @@ describe('Add Other Children util', () => {
     };
 
     expect(
-      updateOtherChildDetails(
-        otherChildDummyRequest.session.userCase.cd_otherChildren,
-        dataToUpdate as OtherChildrenDetails
-      )
+      updateChildDetails(otherChildDummyRequest.session.userCase.cd_otherChildren, dataToUpdate as OtherChildrenDetails)
     ).toEqual(
       expect.arrayContaining([
         expect.objectContaining({

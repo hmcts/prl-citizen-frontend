@@ -6,7 +6,7 @@ import { OtherChildrenDetails } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { getOtherChildDetails, transformOtherChildFormData, updateOtherChildDetails } from '../../util';
+import { getChildDetails, transformOtherChildFormData, updateChildDetails } from '../../util';
 
 import { getFormFields } from './content';
 
@@ -21,13 +21,10 @@ export default class PersonaldetailsPostController extends PostController<AnyObj
     const form = new Form(getFormFields().fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const childDetails = getOtherChildDetails(req.session.userCase.cd_otherChildren!, childId) as OtherChildrenDetails;
+    const childDetails = getChildDetails(req.session.userCase.cd_otherChildren!, childId) as OtherChildrenDetails;
 
     Object.assign(childDetails.personalDetails, transformOtherChildFormData('personalDetails', formData));
-    req.session.userCase.cd_otherChildren = updateOtherChildDetails(
-      req.session.userCase.cd_otherChildren!,
-      childDetails
-    );
+    req.session.userCase.cd_otherChildren = updateChildDetails(req.session.userCase.cd_otherChildren!, childDetails);
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

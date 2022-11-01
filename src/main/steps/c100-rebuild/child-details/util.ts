@@ -51,21 +51,16 @@ export const getOtherChildDataShape = (): OtherChildrenDetails => ({
   },
 });
 
-export const getChildDetails = (children: ChildrenDetails[] | [], childId: string): ChildrenDetails | undefined =>
-  children.find(child => child.id === childId);
-
-export const getOtherChildDetails = (
-  children: OtherChildrenDetails[] | [],
+export const getChildDetails = (
+  children: OtherChildrenDetails[] | ChildrenDetails[] | [],
   childId: string
-): OtherChildrenDetails | undefined => children.find(child => child.id === childId);
+): OtherChildrenDetails | ChildrenDetails | undefined => children.find(child => child.id === childId);
 
-export const updateChildDetails = (children: ChildrenDetails[], childDetails: ChildrenDetails): ChildrenDetails[] =>
+export const updateChildDetails = (
+  children: OtherChildrenDetails[] | ChildrenDetails[],
+  childDetails: OtherChildrenDetails | ChildrenDetails
+): OtherChildrenDetails[] | ChildrenDetails[] =>
   children.map(child => (child.id === childDetails.id ? childDetails : child));
-
-export const updateOtherChildDetails = (
-  children: OtherChildrenDetails[],
-  childDetails: OtherChildrenDetails
-): OtherChildrenDetails[] => children.map(child => (child.id === childDetails.id ? childDetails : child));
 
 export const transformFormData = (
   context: 'personalDetails' | 'childMatters' | 'parentialResponsibility',
