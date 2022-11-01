@@ -34,7 +34,7 @@ export default class HearingsGetController extends GetController {
     let formaction: YesOrNo | undefined;
 
     //make a call to the cosclient to get the hearings
-    req.session.userCase = { id: '1234', state: State.Holding };
+    req.session.userCase = { id: '1234', state: State.AwaitingHWFDecision };
     const citizenUser = req.session.user;
     const cosApiClient = new CosApiClient(citizenUser.accessToken, 'http://localhost:3001');
     const caseHearingDataFromCos = await cosApiClient.retrieveCaseHearingsByCaseId(

@@ -369,7 +369,7 @@ export class CosApiClient {
           },
           {
             date: 'Friday 25 June 2021',
-            time: '9am',
+            time: '11am',
             typeOfHearing: 'Video',
             courtName: 'Bristol family court',
             courtAddress: 'Bristol Avenue, Bristol, BL1 2A3',
@@ -377,8 +377,8 @@ export class CosApiClient {
           },
         ],
         next: {
-          date: 'date2',
-          time: 'time2',
+          date: 'Wednesday 29 June 2021',
+          time: '10am',
         },
       },
     ];
