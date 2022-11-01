@@ -10,10 +10,13 @@ export const DATE_FORMATTOR = (date): string => {
     const month = formated_Date.toLocaleString('default', { month: 'long' });
     return formated_Date.getDate() + ' ' + month + ' ' + formated_Date.getFullYear();
   } else {
-    return Object.values(date)
-      .map(item => item + ' ')
+    const formattedDate = Object.values(date)
       .toString()
       .split(',')
-      .join('');
+      .filter(item => item !== '')
+      .toString()
+      .split(',')
+      .join('/') as any;
+    return formattedDate;
   }
 };
