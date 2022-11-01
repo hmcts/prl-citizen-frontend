@@ -16,7 +16,7 @@
 
       {% for previousHearing in item.prev %}
         <div>
-          <h4 class="govuk-heading-m govuk-!-margin-left-9"> Hearing - {{ loop.revindex }}</h4>
+          <h4 class="govuk-heading-m govuk-!-margin-left-9">{{ ordinalNumberMap.get(loop.revindex) }} Hearing</h4>
         </div>
 
         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
