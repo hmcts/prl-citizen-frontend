@@ -13,7 +13,7 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
     super(fields);
   }
 
-  public async setAllDocumentsViewedC100Respondent(req: AppRequest<AnyObject>) {
+  public async setAllDocumentsViewedC100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value.user?.idamId === req.session?.user?.id) {
         if (respondent.value.response && respondent.value.response.citizenFlags) {
@@ -23,7 +23,7 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
     });
   }
 
-  public async setAllDocumentsViewedC100Applicant(req: AppRequest<AnyObject>) {
+  public async setAllDocumentsViewedC100Applicant(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase.applicants?.forEach((applicant: Applicant) => {
       if (applicant?.value.user?.idamId === req.session?.user?.id) {
         if (applicant.value.response && applicant.value.response.citizenFlags) {
@@ -33,7 +33,7 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
     });
   }
 
-  public async setAllDocumentsViewedFL401Respondent(req: AppRequest<AnyObject>) {
+  public async setAllDocumentsViewedFL401Respondent(req: AppRequest<AnyObject>): Promise<void> {
     if (
       req?.session?.userCase.respondentsFL401?.response &&
       req?.session?.userCase.respondentsFL401?.response.citizenFlags
