@@ -5,6 +5,7 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
+import { ordinalNumberMap } from '../../../../steps/constants';
 import { Language, generatePageContent } from '../../../common/common.content';
 
 @autobind
@@ -41,10 +42,10 @@ export default class HearingsApplicantGetController extends GetController {
       req.session.userCase.id,
       citizenUser
     );
-    console.log(
-      'HearingsApplicantGetController retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos)
-    );
-    req.session.userCase = caseHearingDataFromCos;
+    console.log('retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos));
+    //req.session.userCase = caseHearingDataFromCos;
+    Object.assign(req.session.userCase, caseHearingDataFromCos);
+    const userCase = req.session.userCase;
 
     res.render(this.view, {
       ...content,
@@ -52,6 +53,8 @@ export default class HearingsApplicantGetController extends GetController {
       htmlLang: language,
       formaction,
       userIdamId: req.session?.user?.id,
+      ordinalNumberMap,
+      userCase,
     });
   }
 }

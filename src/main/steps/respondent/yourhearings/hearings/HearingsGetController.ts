@@ -5,6 +5,7 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
+import { ordinalNumberMap } from '../../../../steps/constants';
 import { Language, generatePageContent } from '../../../common/common.content';
 
 @autobind
@@ -42,30 +43,10 @@ export default class HearingsGetController extends GetController {
       citizenUser
     );
     console.log('retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos));
-    req.session.userCase = caseHearingDataFromCos;
+    //req.session.userCase = caseHearingDataFromCos;
+    Object.assign(req.session.userCase, caseHearingDataFromCos);
+    const userCase = req.session.userCase;
 
-    const ordinalNumberMap = new Map<number, string>([
-      [1, 'First'],
-      [2, 'Second'],
-      [3, 'Third'],
-      [4, 'Fourth'],
-      [5, 'Fifth'],
-      [6, 'Sixth'],
-      [7, 'Seventh'],
-      [8, 'Eighth'],
-      [9, 'Ninth'],
-      [10, 'Tenth'],
-      [11, 'Eleventh'],
-      [12, 'Twelfth'],
-      [13, 'Thirteenth'],
-      [14, 'Fourteenth'],
-      [15, 'Fifteenth'],
-      [16, 'Sixteenth'],
-      [17, 'Seventeenth'],
-      [18, 'Eighteenth'],
-      [19, 'Nineteenth'],
-      [20, 'Twentieth'],
-    ]);
     res.render(this.view, {
       ...content,
       sessionErrors,
@@ -73,6 +54,7 @@ export default class HearingsGetController extends GetController {
       formaction,
       userIdamId: req.session?.user?.id,
       ordinalNumberMap,
+      userCase,
     });
   }
 }
