@@ -1,0 +1,16 @@
+
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+
+<span class="govuk-caption-l">{{section}}</span>
+<h1 class="govuk-heading-xl">{{title}}</h1>
+ <form action="/sendHearingDetailsNotification?_csrf={{ csrfToken }}&isApplicant=No" method="post" novalidate="">
+
+              <button class="govuk-button" data-module="govuk-button" value="Continue">
+                Continue
+              </button>
+
+            </form>
+
+{% endblock %}

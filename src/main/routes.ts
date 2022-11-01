@@ -9,6 +9,7 @@ import { RespondentTaskListGetController } from '../main/steps/respondent/task-l
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
 import { GetController } from './app/controller/GetController';
+import { HearingDetailsController } from './app/controller/HearingDetailsController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
@@ -199,6 +200,12 @@ export class Routes {
         app.post(
           `${RESPONDENT_ADDRESS_LOOKUP}`,
           errorHandler(new AddressLookupPostControllerBase(step.form.fields, FieldPrefix.RESPONDENT).post)
+        );
+        const hearingsManagerController = new HearingDetailsController(step.form.fields);
+
+        app.post(
+          '/sendHearingDetailsNotification',
+          errorHandler(hearingsManagerController.sendHearingDetailsNotification)
         );
         app.get(
           `${APPLICANT_CONTACT_DETAILS_SAVE}`,

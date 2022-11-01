@@ -217,6 +217,38 @@ export class CosApiClient {
     }
   }
 
+  public async HearingDetailsNotification(
+    user: UserDetails,
+    caseId: string,
+    partyName: string,
+    eventId: string,
+    partyId: string
+  ): Promise<string> {
+    try {
+      const headers = {
+        Accept: '*/*',
+        'Content-Type': '*',
+        Authorization: 'Bearer ' + user.accessToken,
+        serviceAuthorization: getServiceAuthToken(),
+      };
+
+      const formData = new FormData();
+
+      formData.append('caseId', caseId);
+      formData.append('partyName', partyName);
+      formData.append('eventId', eventId);
+      formData.append('partyId', partyId);
+
+      const response = await Axios.post(config.get('services.cos.url') + '/hearing-details-notification', formData, {
+        headers,
+      });
+      return response.data;
+    } catch (err) {
+      console.log('Error: ', err);
+      throw new Error('Case document is not updting.');
+    }
+  }
+
   public async deleteCitizenStatementDocument(
     user: UserDetails,
     deleteDocumentRequest: DeleteDocumentRequest

@@ -14,6 +14,7 @@ import {
   CA_DA_TRAVELLING_TO_COURT,
   CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CA_RESPONDENT_RESPONSE_SUBMIT,
+  CHECK_HEARINGS_DETAILS,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -73,7 +74,6 @@ export const respondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
-
   {
     url: CONSENT_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
@@ -468,5 +468,15 @@ export const respondentCaseSequence: Step[] = [
     url: LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPONDENT_TASK_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => CHECK_HEARINGS_DETAILS,
+  },
+  {
+    url: CHECK_HEARINGS_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
 ];
