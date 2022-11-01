@@ -182,12 +182,55 @@ export const ApplicantDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const SummaryData = [];
-  console.log({ userCase });
-
+  const sessionApplicantData = userCase['appl_allApplicants'];
+  const newApplicantData: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
+    [];
+  for (const applicant in sessionApplicantData) {
+    const fullname =
+      sessionApplicantData[applicant]['applicantFirstName'] +
+      ' ' +
+      sessionApplicantData[applicant]['applicantLastName'];
+    const applicantNo = Number(applicant) + 1;
+    newApplicantData.push(
+      {
+        key: '',
+        keyHtml: HTML.H4_SECTION_TITLE + keys['applicantDetails'].split('[^^^]').join(applicantNo.toString()) + HTML.H4,
+        value: '',
+        changeUrl: '',
+      },
+      {
+        key: keys['fullName'],
+        value: fullname,
+        changeUrl: Urls['C100_APPLICANT_ADD_APPLICANTS'],
+      },
+      {
+        key: keys['anyOtherPeopleKnowDetails'],
+        value: sessionApplicantData[applicant]['detailsKnown'],
+        changeUrl: Urls['C100_CONFIDENTIALITY_DETAILS_KNOW'] + `?applicantId=${sessionApplicantData[applicant]['id']}`,
+      },
+      {
+        key: keys['doYouWantToKeep'],
+        value:
+          sessionApplicantData[applicant]['start'] === ''
+            ? sessionApplicantData[applicant]['startAlternative']
+            : sessionApplicantData[applicant]['start'],
+        changeUrl:
+          sessionApplicantData[applicant]['start'] === ''
+            ? Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'] +
+              `?applicantId=${sessionApplicantData[applicant]['id']}`
+            : Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'] +
+              `?applicantId=${sessionApplicantData[applicant]['id']}`,
+      },
+      {
+        key: 'Address details',
+        value: sessionApplicantData[applicant]['detailsKnown'],
+        changeUrl: Urls['C100_CONFIDENTIALITY_DETAILS_KNOW'] + `?applicantId=${sessionApplicantData[applicant]['id']}`,
+      },
+    );
+  }
   return {
     title: sectionTitles['ApplicantDetails'],
-    rows: getSectionSummaryList(SummaryData, content),
+    rows: getSectionSummaryList(newApplicantData, content),
   };
 };
 

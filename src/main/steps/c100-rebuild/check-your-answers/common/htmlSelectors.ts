@@ -17,4 +17,5 @@ export enum HTML {
   BOTTOM_PADDING_CLOSE = '</div>',
   TOP_PADDING_CLOSE = '</div>',
   BREAK = '<br>',
+  H4_SECTION_TITLE = '<h4 class="app-task-list__section">',
 }

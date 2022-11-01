@@ -134,6 +134,11 @@ export const enContent = {
     abducionThreats: 'Have the children been abducted or kept outside the UK without your consent before?',
     previousAbduction: 'Provide details of the previous abductions',
     c1A_policeOrInvestigatorInvolved: 'Were the police, private investigators or any other organisation involved?',
+    anyOtherPeopleKnowDetails:
+      'Do the other people named in this application (the respondents) know any of your contact details?    ',
+    doYouWantToKeep:
+      'Do you want to keep your contact details private from  the other people named in the application (the respondents)?',
+    applicantDetails: 'Applicant [^^^] - Your details',
   },
 };
 export const cyContent: typeof enContent = {
@@ -239,6 +244,11 @@ export const cyContent: typeof enContent = {
     abducionThreats: 'Have the children been abducted or kept outside the UK without your consent before?',
     previousAbduction: 'Provide details of the previous abductions',
     c1A_policeOrInvestigatorInvolved: 'Were the police, private investigators or any other organisation involved?',
+    anyOtherPeopleKnowDetails:
+      'Do the other people named in this application (the respondents) know any of your contact details? ',
+    doYouWantToKeep:
+      'Do you want to keep your contact details private from  the other people named in the application (the respondents)?',
+    applicantDetails: 'Applicant [^^^] - Your details - welsh',
   },
 };
 
