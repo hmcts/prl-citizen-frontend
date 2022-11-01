@@ -47,11 +47,12 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-
+  env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
   loadVaultSecrets(secrets)
   enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
   enableFortifyScan()
   enableFullFunctionalTest(120)
+  enableSecurityScan()
 
 
   after('test') {
