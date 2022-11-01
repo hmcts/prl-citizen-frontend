@@ -24,6 +24,10 @@ export const getKeepYourDetailsPrivateStatus = (
   return status;
 };
 
+export const getYourApplication = (): SectionStatus => {
+  return SectionStatus.DOWNLOAD;
+};
+
 export const getConfirmOrEditYourContactDetails = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string

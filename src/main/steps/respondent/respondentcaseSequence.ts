@@ -80,342 +80,342 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => CONSENT_SUMMARY,
   },
   {
-    url: CONSENT_SUMMARY,
+    url: CONSENT_SUMMARY,  //3
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => CONSENT_SAVE,
   },
   {
-    url: RESPONDENT_DETAILS_KNOWN,
+    url: RESPONDENT_DETAILS_KNOWN,              //4
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_START_ALTERNATIVE,
   },
   {
-    url: RESPONDENT_START_ALTERNATIVE,
+    url: RESPONDENT_START_ALTERNATIVE,        //5
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   },
   {
-    url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
+    url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,      //6
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
+    url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,    //7
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: MIAM_START,
+    url: MIAM_START,                              //8
     showInSection: Sections.AboutRespondentCase,
     getNextStep: data => (data.miamStart === YesOrNo.NO ? MIAM_ATTEND_WILLINGNESS : MIAM_SUMMARY),
   },
   {
-    url: MIAM_ATTEND_WILLINGNESS,
+    url: MIAM_ATTEND_WILLINGNESS,               //9
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => MIAM_SUMMARY,
   },
   {
-    url: MIAM_SUMMARY,
+    url: MIAM_SUMMARY,                          //10
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => MIAM_SAVE,
   },
   {
-    url: RESPONDENT_CHECK_ANSWERS,
+    url: RESPONDENT_CHECK_ANSWERS,            //11
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_CONTACT_DETAILS_SAVE,
   },
   {
-    url: RESPONDENT_PERSONAL_DETAILS,
+    url: RESPONDENT_PERSONAL_DETAILS,       //12
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_CHECK_ANSWERS,
   },
   {
-    url: RESPONDENT_CONTACT_DETAILS,
+    url: RESPONDENT_CONTACT_DETAILS,        //13
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_CHECK_ANSWERS,
   },
   {
-    url: RESPONDENT_ADDRESS_DETAILS,
+    url: RESPONDENT_ADDRESS_DETAILS,        //14
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_ADDRESS_LOOKUP,
   },
   {
-    url: RESPONDENT_ADDRESS_LOOKUP,
+    url: RESPONDENT_ADDRESS_LOOKUP,       //15
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_ADDRESS_SELECT,
   },
   {
-    url: RESPONDENT_ADDRESS_SELECT,
+    url: RESPONDENT_ADDRESS_SELECT,         //16
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_ADDRESS_CONFIRMATION,
   },
   {
-    url: RESPONDENT_FIND_ADDRESS,
+    url: RESPONDENT_FIND_ADDRESS,       //17
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_ADDRESS_CONFIRMATION,
   },
   {
-    url: RESPONDENT_ADDRESS_CONFIRMATION,
+    url: RESPONDENT_ADDRESS_CONFIRMATION,   //18
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_ADDRESS_HISTORY,
   },
   {
-    url: RESPONDENT_ADDRESS_MANUAL,
+    url: RESPONDENT_ADDRESS_MANUAL,     //19
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_ADDRESS_HISTORY,
   },
   {
-    url: RESPONDENT_ADDRESS_HISTORY,
+    url: RESPONDENT_ADDRESS_HISTORY,      //20
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_CHECK_ANSWERS,
   },
   {
-    url: RESPONDENT_TASK_LIST_URL,
+    url: RESPONDENT_TASK_LIST_URL,      //21
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_ORDERS_FROM_THE_COURT,
   },
   {
-    url: RESPONDENT_ORDERS_FROM_THE_COURT,
+    url: RESPONDENT_ORDERS_FROM_THE_COURT,    //22
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: RESPONDENT_TASK_LIST_URL,
+    url: RESPONDENT_TASK_LIST_URL,      //23
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,     //24
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
+    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,     //25
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
   },
   {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
+    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,   //26
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   },
   {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,   //27
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT,
   },
   {
-    url: RESPONDENT_UPLOAD_DOCUMENT,
+    url: RESPONDENT_UPLOAD_DOCUMENT,      //28
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   },
   {
-    url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
+    url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,      //29
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,       //30
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${YOUR_WITNESS_STATEMENTS}`,
   },
   {
-    url: `${RESPONDENT}${YOUR_WITNESS_STATEMENTS}`,
+    url: `${RESPONDENT}${YOUR_WITNESS_STATEMENTS}`,   //31
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,               //32
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${POSITION_STATEMENTS}`,
   },
   {
-    url: `${RESPONDENT}${POSITION_STATEMENTS}`,
+    url: `${RESPONDENT}${POSITION_STATEMENTS}`,         //33
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,               //34
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${LETTER_FROM_SCHOOL}`,
   },
   {
-    url: `${RESPONDENT}${LETTER_FROM_SCHOOL}`,
+    url: `${RESPONDENT}${LETTER_FROM_SCHOOL}`,        //35
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,         //36
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${DIGITAL_DOWNLOADS}`,
   },
   {
-    url: `${RESPONDENT}${DIGITAL_DOWNLOADS}`,
+    url: `${RESPONDENT}${DIGITAL_DOWNLOADS}`,     //37
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,         //38
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${DRUG_ALCOHOL_TESTS}`,
   },
   {
-    url: `${RESPONDENT}${DRUG_ALCOHOL_TESTS}`,
+    url: `${RESPONDENT}${DRUG_ALCOHOL_TESTS}`,      //39
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,           //40
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${MEDICAL_RECORDS}`,
   },
   {
-    url: `${RESPONDENT}${MEDICAL_RECORDS}`,
+    url: `${RESPONDENT}${MEDICAL_RECORDS}`,       //41
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,           //42
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${MEDICAL_REPORTS}`,
   },
   {
-    url: `${RESPONDENT}${MEDICAL_REPORTS}`,
+    url: `${RESPONDENT}${MEDICAL_REPORTS}`,       //43
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,           //44
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${OTHER_PEOPLE_WITNESS_STATEMENTS}`,
   },
   {
-    url: `${RESPONDENT}${OTHER_PEOPLE_WITNESS_STATEMENTS}`,
+    url: `${RESPONDENT}${OTHER_PEOPLE_WITNESS_STATEMENTS}`,   //45
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,           //46
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${PATERNITY_TEST_REPORTS}`,
   },
   {
-    url: `${RESPONDENT}${PATERNITY_TEST_REPORTS}`,
+    url: `${RESPONDENT}${PATERNITY_TEST_REPORTS}`,    //47
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,       //48
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${POLICE_DISCLOSURE}`,
   },
   {
-    url: `${RESPONDENT}${POLICE_DISCLOSURE}`,
+    url: `${RESPONDENT}${POLICE_DISCLOSURE}`,     //49
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,       //50
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${WITNESS_AVAILABILITY}`,
   },
   {
-    url: `${RESPONDENT}${WITNESS_AVAILABILITY}`,
+    url: `${RESPONDENT}${WITNESS_AVAILABILITY}`,    //51
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,       //52
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
   },
   {
-    url: `${RESPONDENT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
+    url: `${RESPONDENT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,   //53
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,         //54
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${RESPONDENT}${PREVIOUS_ORDERS_SUBMITTED}`,
   },
   {
-    url: `${RESPONDENT}${PREVIOUS_ORDERS_SUBMITTED}`,
+    url: `${RESPONDENT}${PREVIOUS_ORDERS_SUBMITTED}`,     //55
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,       //56
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${APPLICATION_MADE_IN_THESE_PRCEEDINGS}`,
   },
   {
-    url: `${RESPONDENT}${APPLICATION_MADE_IN_THESE_PRCEEDINGS}`,
+    url: `${RESPONDENT}${APPLICATION_MADE_IN_THESE_PRCEEDINGS}`,    //57
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,         //58
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => `${RESPONDENT}${OTHER_DOCUMENTS}`,
   },
   {
-    url: `${RESPONDENT}${OTHER_DOCUMENTS}`,
+    url: `${RESPONDENT}${OTHER_DOCUMENTS}`,     //59
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: RESPONDENT_TASK_LIST_URL,
+    url: RESPONDENT_TASK_LIST_URL,        //60
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
-    url: RESPOND_TO_APPLICATION,
+    url: RESPOND_TO_APPLICATION,    //61
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPNDT_TO_APPLICATION_SUMMARY,
   },
   {
-    url: RESPNDT_TO_APPLICATION_SUMMARY,
+    url: RESPNDT_TO_APPLICATION_SUMMARY,    //62
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => CA_RESPONDENT_RESPONSE_SUBMIT,
   },
   {
-    url: CA_RESPONDENT_RESPONSE_CONFIRMATION,
+    url: CA_RESPONDENT_RESPONSE_CONFIRMATION,   //63
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: RESPONDENT_TASK_LIST_URL,
+    url: RESPONDENT_TASK_LIST_URL,      //64
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: RESPONDENT_TASK_LIST_URL,
+    url: RESPONDENT_TASK_LIST_URL,        //65
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_ATTENDING_THE_COURT,
   },
   {
-    url: CA_DA_ATTENDING_THE_COURT,
+    url: CA_DA_ATTENDING_THE_COURT,       //66
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_LANGUAGE_REQUIREMENTS,
   },
   {
-    url: CA_DA_LANGUAGE_REQUIREMENTS,
+    url: CA_DA_LANGUAGE_REQUIREMENTS,     //67
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_SPECIAL_ARRANGEMENTS,
   },
   {
-    url: CA_DA_SPECIAL_ARRANGEMENTS,
+    url: CA_DA_SPECIAL_ARRANGEMENTS,      //68
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_REASONABLE_ADJUSTMENTS,
   },
   {
-    url: CA_DA_REASONABLE_ADJUSTMENTS,
+    url: CA_DA_REASONABLE_ADJUSTMENTS,    //69
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_DOCUMENTS_SUPPORT,
   },
   {
-    url: CA_DA_DOCUMENTS_SUPPORT,
+    url: CA_DA_DOCUMENTS_SUPPORT,       //70
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => CA_DA_COMMUNICATION_HELP,
   },
