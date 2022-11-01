@@ -10,10 +10,6 @@ const endpoints = JSON.parse(decoded.toString());
 
 const servicesToCheck = [
   { name: 'Private Law', url: process.env.TEST_URL },
-  { name: 'IDAM Web', url: endpoints.idamWeb },
-  { name: 'IDAM API', url: endpoints.idamToken },
-  { name: 'Auth Provider', url: endpoints.s2s },
-  { name: 'CCD Data Store', url: endpoints.ccd },
   {
     name: 'Postcode Lookup',
     url: config.get('services.postcodeLookup.url'),
