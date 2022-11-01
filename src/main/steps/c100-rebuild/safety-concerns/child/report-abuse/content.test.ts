@@ -17,6 +17,8 @@ const en = {
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately.</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
+  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+  allChildrenLabel: 'All of the children in the application',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -48,6 +50,8 @@ const cy = {
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - Welsh</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
+  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
+  allChildrenLabel: 'All of the children in the application - Welsh',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - Welsh (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
@@ -74,6 +78,7 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
       c1A_safteyConcerns: {
         child: {
           physicalAbuse: {
+            childrenConcernedAbout: '',
             behaviourDetails: '',
             behaviourStartDate: '',
             isOngoingBehaviour: YesNoEmpty.YES,
@@ -122,11 +127,15 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
   });
 
   test('should contain report abuse form fields', () => {
+    const childrenConcernedAboutDetails = fields.childrenConcernedAbout as FormOptions;
     const behaviourDetails = fields.behaviourDetails as FormOptions;
     const behaviourStartDate = fields.behaviourStartDate as FormOptions;
     const isOngoingBehaviour = fields.isOngoingBehaviour as FormOptions;
     const seekHelpFromPersonOrAgency = fields.seekHelpFromPersonOrAgency as FormOptions;
     const seekHelpDetails = seekHelpFromPersonOrAgency.values[0].subFields!.seekHelpDetails as FormInput;
+
+    expect(childrenConcernedAboutDetails.type).toBe('checkboxes');
+    expect((childrenConcernedAboutDetails.label as Function)(generatedContent)).toBe(en.childrenConcernedAboutLabel);
 
     expect(behaviourDetails.type).toBe('textarea');
     expect((behaviourDetails.label as Function)(generatedContent)).toBe(en.behaviourDetailsLabel);

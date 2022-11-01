@@ -64,6 +64,7 @@ import {
   ChildrenDetails,
   C1ASafteyConcernsAbout,
   C1AAbuseTypes,
+  C100ListOfApplicants,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -390,6 +391,7 @@ export interface Case {
   injuctiveOrder?: orderInterface;
   underTakingOrderOptions?: YesOrNo;
   underTakingOrder?: orderInterface;
+  appl_allApplicants?: C100ListOfApplicants;
 
   /***** Applicant1 *****/
   citizenUserFullName?: string;
@@ -538,6 +540,10 @@ export interface CaseWithId extends Case {
   };
   id: string;
   state: State;
+  applicantTemporaryFormData?: {
+    TempFirstName?: string | unknown;
+    TempLastName?: string | unknown;
+  };
 }
 
 export enum Checkbox {
@@ -563,7 +569,7 @@ export enum FieldPrefix {
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
-  APPLICANT = 'APPLICANT',
+  APPLICANT = 'applicant',
   RESPONDENT = 'RESPONDENT',
 }
 

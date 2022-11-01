@@ -8,7 +8,7 @@ import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { UserDetails } from '../controller/AppRequest';
+import { AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { C100, State } from './definition';
@@ -55,22 +55,26 @@ export class CaseApi {
    * Delete Case
    * State: DELETED
    * Event: C100.DELETE_CASE
-   * @param caseId
    * @param caseData
-   * @returns
+   * @param session
    */
-  public async deleteCase(caseId: string, caseData: Partial<CaseWithId>): Promise<void> {
-    console.info(caseData);
+  public async deleteCase(caseData: Partial<CaseWithId>, session: AppSession): Promise<void> {
     try {
       caseData = { ...caseData, state: State.Deleted };
+      const { caseId } = caseData;
+      if (!caseId) {
+        throw new Error('caseId not found so case could not be deleted.');
+      }
       await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100.DELETE_CASE}/update-case`, caseData, {
         headers: {
           accessCode: '12345678',
         },
       });
+      session.userCase = {} as CaseWithId;
+      session.save();
     } catch (err) {
       this.logError(err);
-      throw new Error('Case could not be deleted.');
+      throw new Error('Error occured, case could not be deleted.');
     }
   }
 
@@ -167,6 +171,9 @@ interface UpdateCase {
   c100RebuildTypeOfOrder?: Record<string, string>;
   c100RebuildHearingWithoutNotice?: Record<string, string>;
   c100RebuildOtherProceedings?: Record<string, string>;
+  c100RebuildChildDetails?: Record<string, string>;
+  c100RebuildMaim?: Record<string, string>;
+  c100RebuildHearingUrgency?: Record<string, string>;
 }
 
 interface UpdateCaseRequest extends UpdateCase {
@@ -191,4 +198,7 @@ const updateCaseDataMapper = {
   too: 'c100RebuildTypeOfOrder',
   hwn: 'c100RebuildHearingWithoutNotice',
   op: 'c100RebuildOtherProceedings',
+  cd: 'c100RebuildChildDetails',
+  miam: 'c100RebuildMaim',
+  hu: 'c100RebuildHearingUrgency',
 };
