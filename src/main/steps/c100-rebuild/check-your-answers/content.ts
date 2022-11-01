@@ -8,6 +8,7 @@ import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
 import {
+  ApplicantDetails,
   ChildernDetails,
   ChildernDetailsAdditional,
   InternationalElement,
@@ -15,6 +16,7 @@ import {
   MiamExemption,
   MiamTitle,
   PastAndCurrentProceedings,
+  PeopleDetails,
   SafetyConcerns,
   SafetyConcerns_child,
   SafetyConcerns_others,
@@ -59,7 +61,9 @@ export const enContent = {
     MiamExemption: 'MIAM exemption',
     AdvisingCourt: "6. What you're asking the court to decide",
     WithoutNoticeHearing: '7. Hearing details',
-    ChildernDetails: "8. Childen's details",
+    peopleDetails: '8. Details of the people in the application',
+    ChildernDetails: "Childen's details",
+    ApplicantDetails: 'Details of the applicants',
     InternationalElement: '11. International elements',
     otherProceedings: '9. Past and current proceeding',
     safetyConcerns: '10. Safety concerns',
@@ -162,7 +166,9 @@ export const cyContent: typeof enContent = {
     MiamExemption: 'MIAM exemption - welsh',
     AdvisingCourt: "6. What you're asking the court to decide - welsh",
     WithoutNoticeHearing: '7. Hearing details - welsh',
-    ChildernDetails: "8. Childen's details - welsh",
+    peopleDetails: '8. Details of the people in the application - welsh',
+    ChildernDetails: "Childen's details - welsh",
+    ApplicantDetails: 'Details of the applicants - welsh',
     InternationalElement: '11. International elements - welsh',
     otherProceedings: '9. Past and current proceeding - welsh',
     safetyConcerns: '10. Safety concerns - welsh',
@@ -251,17 +257,16 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
 
 const en = (content: CommonContent, newEnContents?: any) => {
   const userCase = content.userCase!;
-
-  console.log({ check: toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild') });
-
   const sections = [
     MiamTitle(enContent),
     MiamAttendance(enContent, userCase),
     MiamExemption(newEnContents, userCase),
     TypeOfOrder(enContent, userCase),
     WithoutNoticeHearing(enContent, userCase),
+    PeopleDetails(enContent),
     ChildernDetails(enContent, userCase),
     ChildernDetailsAdditional(enContent, userCase),
+    ApplicantDetails(enContent, userCase),
     PastAndCurrentProceedings(enContent, userCase),
     SafetyConcerns(enContent, userCase),
     SafetyConcerns_child(enContent, userCase),
@@ -287,8 +292,10 @@ const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
     MiamExemption(newCyContents, userCase),
     TypeOfOrder(cyContent, userCase),
     WithoutNoticeHearing(cyContent, userCase),
+    PeopleDetails(cyContent),
     ChildernDetails(cyContent, userCase),
     ChildernDetailsAdditional(cyContent, userCase),
+    ApplicantDetails(cyContent, userCase),
     PastAndCurrentProceedings(cyContent, userCase),
     SafetyConcerns(cyContent, userCase),
     SafetyConcerns_child(cyContent, userCase),

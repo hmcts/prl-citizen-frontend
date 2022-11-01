@@ -61,6 +61,17 @@ export const WithoutNoticeHearing = (
   };
 };
 
+export const PeopleDetails = ({ sectionTitles, keys, ...content }: SummaryListContent): SummaryList | undefined => {
+  const SummaryData = [];
+
+  return {
+    title: sectionTitles['peopleDetails'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+//peopleDetails
+
 /* eslint-disable import/namespace */
 export const ChildernDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -163,6 +174,19 @@ export const ChildernDetailsAdditional = (
   ];
   return {
     title: sectionTitles['additionationDetailsAboutChildern'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+export const ApplicantDetails = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [];
+  console.log({ userCase });
+
+  return {
+    title: sectionTitles['ApplicantDetails'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
