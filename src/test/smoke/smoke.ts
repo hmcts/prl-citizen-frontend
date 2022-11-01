@@ -5,9 +5,6 @@ import config from 'config';
 jest.retryTimes(20);
 jest.setTimeout(15000);
 
-const decoded = Buffer.from(process.env.ENDPOINTS as string, 'base64');
-const endpoints = JSON.parse(decoded.toString());
-
 const servicesToCheck = [
   { name: 'Private Law', url: process.env.TEST_URL },
   {
