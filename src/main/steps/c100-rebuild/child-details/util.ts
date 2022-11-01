@@ -111,3 +111,11 @@ export const transformOtherChildFormData = (
     {}
   );
 };
+
+export const getNextChild = (
+  children: OtherChildrenDetails[] | ChildrenDetails[] | [],
+  childId: string
+): OtherChildrenDetails | ChildrenDetails | null => {
+  const childIndex = children.findIndex(child => child.id === childId);
+  return childIndex >= 0 && childIndex < children.length - 1 ? children[childIndex + 1] : null;
+};

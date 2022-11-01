@@ -7,18 +7,12 @@ import {
   C100_CONFIDENTIALITY_DETAILS_KNOW,
   PageLink,
 } from '../../../urls';
+import { getNextChild } from '../util';
 
 class OtherChildrenDetailsNavigationController {
   private otherChildrenDetails: OtherChildrenDetails[] | [] = [];
 
   private childId: OtherChildrenDetails['id'] = '';
-
-  private getOtherChild(): OtherChildrenDetails | null {
-    const childIndex = this.otherChildrenDetails.findIndex(child => child.id === this.childId);
-    return childIndex >= 0 && childIndex < this.otherChildrenDetails.length - 1
-      ? this.otherChildrenDetails[childIndex + 1]
-      : null;
-  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
@@ -34,7 +28,7 @@ class OtherChildrenDetailsNavigationController {
         break;
       }
       case C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS: {
-        const nextChild = this.getOtherChild();
+        const nextChild = getNextChild(this.otherChildrenDetails, this.childId);
         nextUrl = nextChild
           ? applyParms(C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS, { childId: nextChild.id })
           : C100_CONFIDENTIALITY_DETAILS_KNOW;
