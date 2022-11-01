@@ -1,5 +1,5 @@
 import { CaseDate } from '../../../../../app/case/case';
-import { ChildrenDetails, Gender, YesNoEmpty } from '../../../../../app/case/definition';
+import { Gender, OtherChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { covertToDateObject } from '../../../../../app/form/parser';
@@ -9,7 +9,7 @@ import {
   isFieldFilledIn,
   isFutureDate,
 } from '../../../../../app/form/validation';
-import { getChildDetails } from '../../util';
+import { getOtherChildDetails } from '../../util';
 export * from '../routeGuard';
 
 // const getChildsName = (userCase: Partial<CaseWithId>) => {
@@ -105,7 +105,9 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (personalDetails: ChildrenDetails['personalDetails']): GenerateDynamicFormFields => {
+export const generateFormFields = (
+  personalDetails: OtherChildrenDetails['personalDetails']
+): GenerateDynamicFormFields => {
   const { dateOfBirth, isDateOfBirthUnknown, approxDateOfBirth, gender, otherGenderDetails } = personalDetails;
   const errors = {
     en: {},
@@ -260,7 +262,7 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getChildDetails(content.userCase!.cd_otherChildren ?? [], childId)!;
+  const childDetails = getOtherChildDetails(content.userCase!.cd_otherChildren ?? [], childId)!;
   const { fields } = generateFormFields(childDetails.personalDetails);
 
   return {

@@ -7,16 +7,11 @@ import {
   C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
   C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
   C100_CHILDERN_FURTHER_INFORMATION,
-  C100_CHILDERN_OTHER_CHILDREN_NAMES,
-  C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
-  C100_CONFIDENTIALITY_DETAILS_KNOW,
   PageLink,
 } from '../../urls';
 
 class ChildrenDetailsNavigationController {
   private childrenDetails: ChildrenDetails[] | [] = [];
-
-  private otherChildrenDetails: ChildrenDetails[] | [] = [];
 
   private childId: ChildrenDetails['id'] = '';
 
@@ -27,17 +22,9 @@ class ChildrenDetailsNavigationController {
       : null;
   }
 
-  private getOtherChild(): ChildrenDetails | null {
-    const childIndex = this.otherChildrenDetails.findIndex(child => child.id === this.childId);
-    return childIndex >= 0 && childIndex < this.otherChildrenDetails.length - 1
-      ? this.otherChildrenDetails[childIndex + 1]
-      : null;
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
     this.childrenDetails = caseData?.cd_children as ChildrenDetails[];
-    this.otherChildrenDetails = caseData?.cd_otherChildren as ChildrenDetails[];
     this.childId = params?.childId;
     let nextUrl;
 
@@ -59,19 +46,6 @@ class ChildrenDetailsNavigationController {
         nextUrl = nextChild
           ? applyParms(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, { childId: nextChild.id })
           : C100_CHILDERN_FURTHER_INFORMATION;
-        break;
-      }
-      case C100_CHILDERN_OTHER_CHILDREN_NAMES: {
-        nextUrl = applyParms(C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS, {
-          childId: this.otherChildrenDetails[0].id,
-        });
-        break;
-      }
-      case C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS: {
-        const nextChild = this.getOtherChild();
-        nextUrl = nextChild
-          ? applyParms(C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS, { childId: nextChild.id })
-          : C100_CONFIDENTIALITY_DETAILS_KNOW;
         break;
       }
       default: {

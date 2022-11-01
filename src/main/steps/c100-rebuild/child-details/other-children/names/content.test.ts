@@ -17,10 +17,10 @@ const en = {
   removeChildLabel: 'Remove Child',
   newNameLabel: 'Enter a new name',
   errors: {
-    otherChildFirstName: {
+    childFirstName: {
       required: 'Enter the first name',
     },
-    otherChildLastName: {
+    childLastName: {
       required: 'Enter the last name',
     },
   },
@@ -35,10 +35,10 @@ const cy = {
   removeChildLabel: 'Remove child - welsh',
   newNameLabel: 'Enter a new name - welsh',
   errors: {
-    otherChildFirstName: {
+    childFirstName: {
       required: 'Enter the first name - welsh',
     },
-    otherChildLastName: {
+    childLastName: {
       required: 'Enter the last name - welsh',
     },
   },
@@ -127,11 +127,11 @@ describe('Add children  > content', () => {
 
   test('should contain add children form fields', () => {
     const { 'fieldset-childDetails': fieldset, fieldset1 } = fields as Record<string, FormFields>;
-    const { otherChildFirstName, otherChildLastName, addChild } = fieldset.subFields as FormFields;
+    const { childFirstName, childLastName, addChild } = fieldset.subFields as FormFields;
 
     const {
-      'otherChildFirstName-1': firstName,
-      'otherChildLastName-1': lastName,
+      'childFirstName-1': firstName,
+      'childLastName-1': lastName,
       removeChild,
     } = fieldset1.subFields as FormFields;
 
@@ -139,17 +139,17 @@ describe('Add children  > content', () => {
     expect(fieldset.type).toBe('fieldset');
     expect((fieldset.label as Function)(generatedContent)).toBe(`${en.newNameLabel}`);
 
-    expect(otherChildFirstName.type).toBe('text');
-    expect(otherChildFirstName.classes).toBe('govuk-!-width-one-half');
-    expect((otherChildFirstName.hint as Function)(generatedContent)).toBe(en.firstNameHint);
-    expect((otherChildFirstName.label as Function)(generatedContent)).toBe(en.firstNameLabel);
-    (otherChildFirstName.validator as Function)('Bob');
+    expect(childFirstName.type).toBe('text');
+    expect(childFirstName.classes).toBe('govuk-!-width-one-half');
+    expect((childFirstName.hint as Function)(generatedContent)).toBe(en.firstNameHint);
+    expect((childFirstName.label as Function)(generatedContent)).toBe(en.firstNameLabel);
+    (childFirstName.validator as Function)('Bob');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Bob');
 
-    expect(otherChildLastName.type).toBe('text');
-    expect(otherChildLastName.classes).toBe('govuk-!-width-one-half');
-    expect((otherChildLastName.label as Function)(generatedContent)).toBe(en.lastNameLabel);
-    (otherChildLastName.validator as Function)('Silly');
+    expect(childLastName.type).toBe('text');
+    expect(childLastName.classes).toBe('govuk-!-width-one-half');
+    expect((childLastName.label as Function)(generatedContent)).toBe(en.lastNameLabel);
+    (childLastName.validator as Function)('Silly');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Silly');
 
     expect(addChild.type).toBe('button');

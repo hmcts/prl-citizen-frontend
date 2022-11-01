@@ -103,13 +103,13 @@ const childrenMockData = mockRequest({
 
 const otherChildrenMockData = mockRequest({
   params: {
-    childId: '7483640e-0817-4ddc-b709-6723f7925474',
+    childId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
   },
   session: {
     userCase: {
       cd_otherChildren: [
         {
-          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
           firstName: 'Alice',
           lastName: 'Silly',
           personalDetails: {
@@ -125,12 +125,6 @@ const otherChildrenMockData = mockRequest({
               day: '',
             },
             sex: '',
-          },
-          childMatters: {
-            needsResolution: [],
-          },
-          parentialResponsibility: {
-            statement: '',
           },
         },
       ],
@@ -418,9 +412,9 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[32].url).toBe('/c100-rebuild/child-details/further-information');
     expect(C100Sequence[32].showInSection).toBe('c100');
-    expect(C100Sequence[32].getNextStep({})).toBe('/c100-rebuild/child-details/other-children/has-other-children');
+    expect(C100Sequence[32].getNextStep({})).toBe('/c100-rebuild/child-details/has-other-children');
 
-    expect(C100Sequence[33].url).toBe('/c100-rebuild/child-details/other-children/has-other-children');
+    expect(C100Sequence[33].url).toBe('/c100-rebuild/child-details/has-other-children');
     expect(C100Sequence[33].showInSection).toBe('c100');
     expect(C100Sequence[33].getNextStep({ cd_hasOtherChildren: YesOrNo.NO })).toBe(
       '/c100-rebuild/confidentiality/details-know'
@@ -431,13 +425,13 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[34].url).toBe('/c100-rebuild/child-details/other-children/names');
     expect(C100Sequence[34].showInSection).toBe('c100');
-    expect(C100Sequence[34].getNextStep(otherChildrenMockData.session.userCase, childrenMockData)).toBe(
-      '/c100-rebuild/child-details/other-children/7483640e-0817-4ddc-b709-6723f7925474/personal-details'
+    expect(C100Sequence[34].getNextStep(otherChildrenMockData.session.userCase, otherChildrenMockData)).toBe(
+      '/c100-rebuild/child-details/other-children/c9f56483-6e2d-43ce-9de8-72661755b87c/personal-details'
     );
 
     expect(C100Sequence[35].url).toBe('/c100-rebuild/child-details/other-children/:childId/personal-details');
     expect(C100Sequence[35].showInSection).toBe('c100');
-    expect(C100Sequence[35].getNextStep(otherChildrenMockData.session.userCase, childrenMockData)).toBe(
+    expect(C100Sequence[35].getNextStep(otherChildrenMockData.session.userCase, otherChildrenMockData)).toBe(
       '/c100-rebuild/confidentiality/details-know'
     );
 

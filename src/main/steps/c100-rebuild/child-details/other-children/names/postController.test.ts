@@ -71,8 +71,8 @@ describe('AddChildrenPostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       body: {
-        'otherChildFirstName-1': '',
-        'otherChildLastName-1': 'Silly',
+        'childFirstName-1': '',
+        'childLastName-1': 'Silly',
         onlycontinue: true,
       },
       session: {
@@ -97,8 +97,8 @@ describe('AddChildrenPostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       body: {
-        otherChildFirstName: 'Bob',
-        otherChildLastName: '',
+        childFirstName: 'Bob',
+        childLastName: '',
         onlycontinue: true,
       },
       session: {
@@ -123,8 +123,8 @@ describe('AddChildrenPostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       body: {
-        'otherChildFirstName-1': 'Bob',
-        'otherChildLastName-1': 'Silly',
+        'childFirstName-1': 'Bob',
+        'childLastName-1': 'Silly',
         onlycontinue: true,
       },
       session: {
@@ -156,10 +156,10 @@ describe('AddChildrenPostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       body: {
-        'otherChildFirstName-1': 'Bob',
-        'otherChildLastName-1': 'Silly',
-        otherChildFirstName: 'Jane',
-        otherChildLastName: 'Doe',
+        'childFirstName-1': 'Bob',
+        'childLastName-1': 'Silly',
+        childFirstName: 'Jane',
+        childLastName: 'Doe',
         onlycontinue: true,
       },
       session: {
@@ -191,8 +191,8 @@ describe('AddChildrenPostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       body: {
-        otherChildFirstName: 'Bob',
-        otherChildLastName: 'Silly',
+        childFirstName: 'Bob',
+        childLastName: 'Silly',
         onlycontinue: true,
       },
       session: {
@@ -221,8 +221,8 @@ describe('AddChildrenPostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       body: {
-        otherChildFirstName: 'Jane',
-        otherChildLastName: 'Doe',
+        childFirstName: 'Jane',
+        childLastName: 'Doe',
         addChild: 'Yes',
       },
       session: {
@@ -255,8 +255,8 @@ describe('AddChildrenPostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       body: {
-        otherChildFirstName: '',
-        otherChildLastName: 'Doe',
+        childFirstName: '',
+        childLastName: 'Doe',
         addChild: 'Yes',
       },
       session: {
@@ -313,8 +313,8 @@ describe('AddChildrenPostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       body: {
-        otherChildFirstName: 'Connor',
-        otherChildLastName: 'Wills',
+        childFirstName: 'Connor',
+        childLastName: 'Wills',
         saveAndComeLater: true,
       },
       session: {

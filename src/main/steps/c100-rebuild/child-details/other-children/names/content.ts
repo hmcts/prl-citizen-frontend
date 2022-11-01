@@ -1,4 +1,4 @@
-import { ChildrenDetails } from '../../../../../app/case/definition';
+import { OtherChildrenDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -14,10 +14,10 @@ const en = () => ({
   removeChildLabel: 'Remove Child',
   newNameLabel: 'Enter a new name',
   errors: {
-    otherChildFirstName: {
+    childFirstName: {
       required: 'Enter the first name',
     },
-    otherChildLastName: {
+    childLastName: {
       required: 'Enter the last name',
     },
   },
@@ -32,10 +32,10 @@ const cy = () => ({
   removeChildLabel: 'Remove child - welsh',
   newNameLabel: 'Enter a new name - welsh',
   errors: {
-    otherChildFirstName: {
+    childFirstName: {
       required: 'Enter the first name - welsh',
     },
-    otherChildLastName: {
+    childLastName: {
       required: 'Enter the last name - welsh',
     },
   },
@@ -61,7 +61,7 @@ export const getFormFields = (): FormContent => {
   return updatedForm;
 };
 
-export const generateFormFields = (children: ChildrenDetails[]): GenerateDynamicFormFields => {
+export const generateFormFields = (children: OtherChildrenDetails[]): GenerateDynamicFormFields => {
   const fields = {};
   const errors = {
     en: {},
@@ -78,7 +78,7 @@ export const generateFormFields = (children: ChildrenDetails[]): GenerateDynamic
       label: () => `Child ${count}`,
       classes: 'govuk-fieldset__legend--m',
       subFields: {
-        [`otherChildFirstName-${count}`]: {
+        [`childFirstName-${count}`]: {
           type: 'text',
           value: firstName,
           labelSize: 'm',
@@ -86,7 +86,7 @@ export const generateFormFields = (children: ChildrenDetails[]): GenerateDynamic
           label: l => l.firstNameLabel,
           validator: isFieldFilledIn,
         },
-        [`otherChildLastName-${count}`]: {
+        [`childLastName-${count}`]: {
           type: 'text',
           label: l => l.lastNameLabel,
           value: lastName,
@@ -104,10 +104,10 @@ export const generateFormFields = (children: ChildrenDetails[]): GenerateDynamic
     };
 
     //generate dynamic error message
-    errors.en[`otherChildFirstName-${count}`] = en().errors.otherChildFirstName;
-    errors.en[`otherChildLastName-${count}`] = en().errors.otherChildLastName;
-    errors.cy[`otherChildFirstName-${count}`] = cy().errors.otherChildFirstName;
-    errors.cy[`otherChildLastName-${count}`] = cy().errors.otherChildLastName;
+    errors.en[`childFirstName-${count}`] = en().errors.childFirstName;
+    errors.en[`childLastName-${count}`] = en().errors.childLastName;
+    errors.cy[`childFirstName-${count}`] = cy().errors.childFirstName;
+    errors.cy[`childLastName-${count}`] = cy().errors.childLastName;
   }
 
   return { fields, errors };
@@ -120,7 +120,7 @@ export const form: FormContent = {
       classes: 'govuk-fieldset__legend--m',
       label: l => l.newNameLabel,
       subFields: {
-        otherChildFirstName: {
+        childFirstName: {
           type: 'text',
           classes: 'govuk-!-width-one-half',
           label: l => l.firstNameLabel,
@@ -128,7 +128,7 @@ export const form: FormContent = {
           labelSize: 'none',
           validator: isFieldFilledIn,
         },
-        otherChildLastName: {
+        childLastName: {
           type: 'text',
           classes: 'govuk-!-width-one-half',
           label: l => l.lastNameLabel,

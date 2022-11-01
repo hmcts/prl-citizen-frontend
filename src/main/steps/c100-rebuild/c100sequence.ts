@@ -108,6 +108,7 @@ import {
 
 import PageStepConfigurator from './PageStepConfigurator';
 import ChildrenDetailsNavigationController from './child-details/navigationController';
+import OtherChildrenDetailsNavigationController from './child-details/other-children/navigationController';
 import MIAMNavigationController from './miam/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
@@ -342,13 +343,13 @@ export const C100Sequence: Step[] = [
     url: C100_CHILDERN_OTHER_CHILDREN_NAMES,
     showInSection: Sections.C100,
     getNextStep: caseData =>
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_OTHER_CHILDREN_NAMES, caseData),
+      OtherChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_OTHER_CHILDREN_NAMES, caseData),
   },
   {
     url: C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ChildrenDetailsNavigationController.getNextUrl(
+      OtherChildrenDetailsNavigationController.getNextUrl(
         C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
         caseData,
         req?.params

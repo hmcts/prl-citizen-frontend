@@ -2,7 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { ChildrenDetails } from '../../../../../app/case/definition';
+import { OtherChildrenDetails } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -28,36 +28,36 @@ export default class AddChildrenPostController extends PostController<AnyObject>
 
     const form = new Form(getFormFields().fields as FormFields);
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const { otherChildFirstName, otherChildLastName, ...rest } = formData;
+    const { childFirstName, childLastName, ...rest } = formData;
 
     req.session.userCase = {
       ...(req.session.userCase ?? {}),
-      otherChildFirstName,
-      otherChildLastName,
+      childFirstName,
+      childLastName,
     };
 
     if (addChild) {
-      if (otherChildFirstName && otherChildLastName) {
-        Object.assign(req.session.userCase, { otherChildFirstName: '', otherChildLastName: '' });
+      if (childFirstName && childLastName) {
+        Object.assign(req.session.userCase, { childFirstName: '', childLastName: '' });
         req.session.userCase.cd_otherChildren = [
           ...(req.session.userCase?.cd_otherChildren ?? []),
           {
             ...getDataShape(),
-            firstName: otherChildFirstName as string,
-            lastName: otherChildLastName as string,
+            firstName: childFirstName as string,
+            lastName: childLastName as string,
           },
         ];
       } else {
         req.session.errors = form
           .getErrors(formData)
-          .filter(error => ['otherChildFirstName', 'otherChildLastName'].includes(error.propertyName));
+          .filter(error => ['childFirstName', 'childLastName'].includes(error.propertyName));
       }
 
       return super.redirect(req, res, req.originalUrl);
     } else if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
       const childrenDetailsErrors = req.session.errors.filter(
-        error => !['otherChildFirstName', 'otherChildLastName'].includes(error.propertyName)
+        error => !['childFirstName', 'childLastName'].includes(error.propertyName)
       );
 
       if (req.session.userCase?.cd_otherChildren?.length) {
@@ -68,30 +68,30 @@ export default class AddChildrenPostController extends PostController<AnyObject>
         } else {
           //if there are no errors present for added children, then save the details
           req.session.userCase.cd_otherChildren = this.transformData(rest, req.session.userCase.cd_otherChildren);
-          if (otherChildFirstName && otherChildLastName) {
+          if (childFirstName && childLastName) {
             // if first name & last name is fed for new child, add the new entry to the session
             req.session.userCase.cd_otherChildren.push({
               ...getDataShape(),
-              firstName: otherChildFirstName as string,
-              lastName: otherChildLastName as string,
+              firstName: childFirstName as string,
+              lastName: childLastName as string,
             });
-            Object.assign(req.session.userCase, { otherChildFirstName: '', otherChildLastName: '' });
-          } else if (!otherChildFirstName && !otherChildLastName) {
+            Object.assign(req.session.userCase, { childFirstName: '', childLastName: '' });
+          } else if (!childFirstName && !childLastName) {
             // if first name & last name is empty, remove errors from the session
             req.session.errors = [];
           }
         }
       } else {
         //if there are no children added
-        if (otherChildFirstName && otherChildLastName) {
+        if (childFirstName && childLastName) {
           req.session.userCase.cd_otherChildren = [
             {
               ...getDataShape(),
-              firstName: otherChildFirstName as string,
-              lastName: otherChildLastName as string,
+              firstName: childFirstName as string,
+              lastName: childLastName as string,
             },
           ];
-          Object.assign(req.session.userCase, { otherChildFirstName: '', otherChildLastName: '' });
+          Object.assign(req.session.userCase, { childFirstName: '', childLastName: '' });
         }
       }
 
@@ -99,22 +99,22 @@ export default class AddChildrenPostController extends PostController<AnyObject>
     } else if (saveAndComeLater) {
       const dataToSave = { cd_otherChildren: [...this.transformData(rest, req.session.userCase.cd_otherChildren)] };
 
-      if (otherChildFirstName && otherChildLastName) {
+      if (childFirstName && childLastName) {
         dataToSave.cd_otherChildren.push({
           ...getDataShape(),
-          firstName: otherChildFirstName,
-          lastName: otherChildLastName,
+          firstName: childFirstName,
+          lastName: childLastName,
         });
-        Object.assign(req.session.userCase, { otherChildFirstName: '', otherChildLastName: '' });
+        Object.assign(req.session.userCase, { childFirstName: '', childLastName: '' });
       }
 
       super.saveAndComeLater(req, res, dataToSave);
     }
   }
 
-  private transformData(formData, orginialData: ChildrenDetails[] = []): ChildrenDetails[] {
+  private transformData(formData, orginialData: OtherChildrenDetails[] = []): OtherChildrenDetails[] {
     return Object.entries(formData).reduce(
-      (transformedData: ChildrenDetails[], [fieldName, value]) => {
+      (transformedData: OtherChildrenDetails[], [fieldName, value]) => {
         const [fieldId, fieldIndex] = fieldName.split('-');
         const index = Number(fieldIndex) - 1;
 
