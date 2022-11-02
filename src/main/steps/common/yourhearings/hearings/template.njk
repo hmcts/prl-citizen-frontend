@@ -6,9 +6,9 @@
     <h1 class="govuk-heading-xl govuk-!-margin-top-6">{{ section }}</h1>
   {% endif %}
 
-  <p class="govuk-body">Case number #{{userCase.id}}</p>
+  <p class="govuk-body">{{ caseNumber }} #{{ userCase.id }}</p>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-  <h3 class="govuk-heading-l">Your previous hearings</h3>
+  <h3 class="govuk-heading-l">{{ yourPreviousHearings }}</h3>
 
   <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
 
@@ -16,13 +16,13 @@
 
       {% for previousHearing in item.prev %}
         <div>
-          <h4 class="govuk-heading-m govuk-!-margin-left-9">{{ ordinalNumberMap.get(loop.revindex) }} Hearing</h4>
+          <h4 class="govuk-heading-m govuk-!-margin-left-9">{{ ordinalNumberMap.get(loop.revindex) }} {{ hearing }}</h4>
         </div>
 
         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Date
+              {{ hearingDate }}
             </dt>
             <dd class="govuk-summary-list__value">
               {{previousHearing.date}}
@@ -30,7 +30,7 @@
           </div>  
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Time
+              {{ hearingTime }}
             </dt>
             <dd class="govuk-summary-list__value">
               {{previousHearing.time}}
@@ -39,7 +39,7 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Type of hearing
+              {{ typeOfHearing }}
             </dt>
             <dd class="govuk-summary-list__value">
               {{previousHearing.typeOfHearing}}
@@ -48,7 +48,7 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Court name
+              {{ courtName }}
             </dt>
             <dd class="govuk-summary-list__value">
               {{previousHearing.courtName}}
@@ -57,17 +57,17 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Court address
+              {{ courtAddress }}
             </dt>
             <dd class="govuk-summary-list__value">
               {{previousHearing.courtAddress}}
-              <br><a href="#">Useful documents (Map)</a>
+              <br><a href="#">{{ usefulDocumentsMap }}</a>
             </dd>
 
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Hearing outcome
+              {{ hearingOutcome }}
             </dt>
             <dd class="govuk-summary-list__value">
               <a href="#">{{previousHearing.hearingOutcome}}</a>

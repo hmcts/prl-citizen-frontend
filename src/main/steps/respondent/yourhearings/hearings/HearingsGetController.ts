@@ -38,10 +38,7 @@ export default class HearingsGetController extends GetController {
     req.session.userCase = { id: '1234', state: State.AwaitingHWFDecision };
     const citizenUser = req.session.user;
     const cosApiClient = new CosApiClient(citizenUser.accessToken, 'http://localhost:3001');
-    const caseHearingDataFromCos = await cosApiClient.retrieveCaseHearingsByCaseId(
-      req.session.userCase.id,
-      citizenUser
-    );
+    const caseHearingDataFromCos = await cosApiClient.retrieveCaseHearingsByCaseId(req.session.userCase, citizenUser);
     console.log('retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos));
     //req.session.userCase = caseHearingDataFromCos;
     Object.assign(req.session.userCase, caseHearingDataFromCos);

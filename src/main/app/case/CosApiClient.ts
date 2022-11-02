@@ -9,7 +9,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData, RespondentCaseData, RespondentCaseId, State, YesOrNo } from './definition';
+import { CaseData, RespondentCaseData, RespondentCaseId, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -340,21 +340,10 @@ export class CosApiClient {
     return response.data;
   }
 
-  public async retrieveCaseHearingsByCaseId(caseId: string, user: UserDetails): Promise<CaseWithId> {
-    if (!caseId || !user) {
+  public async retrieveCaseHearingsByCaseId(userCase: CaseWithId, user: UserDetails): Promise<CaseWithId> {
+    if (!userCase.id || !user) {
       return Promise.reject(new Error('retrieveCaseHearingsByCaseId - Case id must be set and user must be set'));
     }
-    // const response = await Axios.get(config.get('services.cos.url') + `/${caseId}`, {
-    //   headers: {
-    //     Authorization: 'Bearer ' + user.accessToken,
-    //     serviceAuthorization: getServiceAuthToken(),
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
-
-    //req.session.userCase = {id:'1234', state: State.Holding};
-    //req.session.userCase.hearingCollection = [];
 
     const hearingCollectionMockedData = [
       {
@@ -383,14 +372,14 @@ export class CosApiClient {
       },
     ];
 
-    // return {
-    //   id: response.data.id,
-    //   state: response.data.state,
-    //   ...fromApiFormat(response.data),
-    // };
+    //here we are directly returning the mocked response of hearing api in the hearingCollection key
+    //once the integration part is done with hearing mgmt api we can modify this code.
+    //Example: Object.assign(req.session.userCase.hearingCollection, hearingAPIResponse);
+    // OR
+    //req.session.userCase.hearingCollection = hearingAPIResponse;
     return {
-      id: '1234567890',
-      state: State.AwaitingHWFDecision,
+      id: userCase.id,
+      state: userCase.state,
       hearingCollection: hearingCollectionMockedData,
     };
   }

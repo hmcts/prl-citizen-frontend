@@ -4,7 +4,6 @@ import { invert } from 'lodash';
 
 import { Case, CaseDate, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, YesOrNo } from './definition';
-//import { fromHearingApiApplicant1 as hearingCollectionFromApiApplicant1 } from './formatter/hearings-list';
 import { fromApiApplicant1 as uploadedFilesFromApiApplicant1 } from './formatter/uploaded-files';
 
 dayjs.extend(advancedFormat);
