@@ -36,7 +36,7 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
         errorType: 'required',
       });
       req.session.save(() => res.redirect(redirectUrl));
-    } else if (!(req.body.citizenUserAddressPostcode as string).match(/^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i)) {
+    } else if (!(req.body.citizenUserAddressPostcode as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)) {
       req.session.errors = [];
       req.session.errors?.push({
         propertyName: 'citizenUserAddressPostcode',
