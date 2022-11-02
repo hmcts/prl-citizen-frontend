@@ -127,19 +127,19 @@ export const getViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): 
 };
 
 export const getRespondentResponseToRequestForChildArrangements = (userCase: CaseWithId): boolean => {
-  let flag = false;
+  let flagChild = false;
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
-    flag = true;
+    flagChild = true;
   }
-  return flag;
+  return flagChild;
 };
 
 export const getRespondentAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
-  let flag = false;
+  let flagHarmViolence = false;
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
-    flag = true;
+    flagHarmViolence = true;
   }
-  return flag;
+  return flagHarmViolence;
 };
 
 export const getViewAllDocuments = (): SectionStatus => {
