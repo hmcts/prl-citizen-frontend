@@ -9,7 +9,7 @@ import { generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Apply to court about child arrangements',
+  serviceName: 'Child arrangements',
   title: 'Provide details for',
   isNameChangedLabelText: 'Have they changed their name?',
   inNameChangedHintText:
@@ -58,7 +58,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Apply to court about child arrangements - welsh',
+  serviceName: 'Child arrangements - welsh',
   title: 'Provide details for - welsh',
   isNameChangedLabelText: 'Have they changed their name? - welsh',
   inNameChangedHintText:

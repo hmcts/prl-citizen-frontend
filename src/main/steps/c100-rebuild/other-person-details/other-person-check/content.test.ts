@@ -7,7 +7,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Apply to court about child arrangements',
+  serviceName: 'Child arrangements',
   title: 'Is there anyone else who should know about your application?',
   paragraph: 'For example, you should tell everyone who:',
   bulletPoints: [
@@ -25,7 +25,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Apply to court about child arrangements - welsh',
+  serviceName: 'Child arrangements - welsh',
   title: 'Is there anyone else who should know about your application? - welsh',
   paragraph: 'For example, you should tell everyone who: - welsh',
   bulletPoints: [
