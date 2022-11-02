@@ -20,7 +20,7 @@ export default class SelectAddressPostControllerBase extends PostController<AnyO
     req.session.errors = form.getErrors(formData);
 
     Object.assign(req.session.userCase, formData);
-console.log('My branch, my rule');
+
     const selectedAddressIndex = Number(formData['citizenUserSelectAddress']);
     if (selectedAddressIndex >= 0) {
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
