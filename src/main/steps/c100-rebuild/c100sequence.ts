@@ -101,6 +101,19 @@ import {
   C100_SCREENING_QUESTIONS_COURT_PERMISSION,
   C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
   C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
+
+  /** @C100 Applicant in people section */
+  C100_APPLICANT_ADD_APPLICANTS,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+  C100_APPLICANT_ADDRESS_LOOKUP,
+  C100_APPLICANT_ADDRESS_SELECT,
+  C100_APPLICANT_ADDRESS_MANUAL,
+
+  /** @C100 Other children in people section */
   C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
   C100_CHILDERN_DETAILS_OTHER_CHILDREN,
   C100_CHILDERN_OTHER_CHILDREN_NAMES,
@@ -332,28 +345,6 @@ export const C100Sequence: Step[] = [
     url: C100_CHILDERN_FURTHER_INFORMATION,
     showInSection: Sections.C100,
     getNextStep: () => C100_CHILDERN_DETAILS_OTHER_CHILDREN,
-  },
-  {
-    url: C100_CHILDERN_DETAILS_OTHER_CHILDREN,
-    showInSection: Sections.C100,
-    getNextStep: (data: Partial<Case>) =>
-      data.cd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_CONFIDENTIALITY_DETAILS_KNOW,
-  },
-  {
-    url: C100_CHILDERN_OTHER_CHILDREN_NAMES,
-    showInSection: Sections.C100,
-    getNextStep: caseData =>
-      OtherChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_OTHER_CHILDREN_NAMES, caseData),
-  },
-  {
-    url: C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      OtherChildrenDetailsNavigationController.getNextUrl(
-        C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
-        caseData,
-        req?.params
-      ),
   },
   {
     url: C100_CONFIRMATIONPAGE,
@@ -695,5 +686,81 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
     showInSection: Sections.C100,
     getNextStep: () => C100_INTERNATIONAL_ELEMENTS_START,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.detailsKnown === YesOrNo.YES
+        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE
+        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.start === YesOrNo.YES
+        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
+        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.startAlternative === YesOrNo.YES
+        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
+        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+  },
+  {
+    url: C100_APPLICANT_ADDRESS_LOOKUP,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADDRESS_SELECT,
+  },
+  {
+    url: C100_APPLICANT_ADDRESS_SELECT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADDRESS_MANUAL,
+  },
+  {
+    url: C100_APPLICANT_ADDRESS_MANUAL,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADDRESS_LOOKUP,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_OTHER_CHILDREN,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.cd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_CHILDERN_OTHER_CHILDREN_NAMES,
+    showInSection: Sections.C100,
+    getNextStep: caseData =>
+      OtherChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_OTHER_CHILDREN_NAMES, caseData),
+  },
+  {
+    url: C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherChildrenDetailsNavigationController.getNextUrl(
+        C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
+        caseData,
+        req?.params
+      ),
   },
 ];
