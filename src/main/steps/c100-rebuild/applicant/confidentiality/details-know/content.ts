@@ -56,7 +56,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const applicantId = content.additionalData?.req.query.applicantId ? content.additionalData.req.query.applicantId : '';
+  const applicantId = content.additionalData?.req.params?.applicantId ?? '';
   const userId = applicantId;
   const applicantData = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0];
   const selectedUser = applicantData?.['detailsKnown'];

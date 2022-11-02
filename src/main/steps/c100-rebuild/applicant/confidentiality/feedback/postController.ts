@@ -5,6 +5,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject } from '../../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   C100_APPLICANT_ADD_APPLICANTS,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
@@ -18,16 +19,16 @@ export default class FeebackPostController extends CommonConfidentialityControll
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { applicantId } = req.query;
+    const { applicantId } = req.params;
     const currentApplicant = req.session.userCase.appl_allApplicants?.findIndex(
       applicant => applicant.id === applicantId
     ) as number;
     let nextURI = '' as string;
     if (req.session.userCase.appl_allApplicants) {
       if (currentApplicant < req.session.userCase.appl_allApplicants?.length - 1) {
-        nextURI =
-          C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW +
-          `?applicantId=${req.session.userCase.appl_allApplicants[currentApplicant + 1].id}`;
+        nextURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
+          applicantId: req.session.userCase.appl_allApplicants[currentApplicant + 1].id!,
+        });
       } else {
         nextURI = C100_APPLICANT_ADD_APPLICANTS;
       }

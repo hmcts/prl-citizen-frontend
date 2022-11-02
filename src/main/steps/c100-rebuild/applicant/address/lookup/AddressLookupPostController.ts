@@ -17,7 +17,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const postcode = req.body['addressPostcode'] as string;
-    const { applicantId } = req.query;
+    const { applicantId } = req.params;
     const applicantId1: AnyType | undefined = applicantId;
 
     let addresses;

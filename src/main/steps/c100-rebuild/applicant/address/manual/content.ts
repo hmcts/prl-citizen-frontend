@@ -89,7 +89,7 @@ export const generateFormFields = (caseData: Partial<C100Applicant>): GenerateDy
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const manualAddressFormTranslations = manualAddressFormLanguages[content.language]();
-  const applicantId = content?.additionalData?.req?.query!.applicantId;
+  const applicantId = content?.additionalData?.req?.params!.applicantId;
   const applicantData = content.userCase?.appl_allApplicants!.find(i => i.id === applicantId) as C100Applicant;
   const { applicantFirstName, applicantLastName } = applicantData;
 
