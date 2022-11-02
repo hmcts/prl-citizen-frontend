@@ -3,14 +3,14 @@ import { FormContent } from '../../../../app/form/Form';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Upload the draft of your consent agreement',
-  confirmationText: 'Your consent agreement draft has been uploaded',
+  title: 'Upload the draft of your consent order',
+  confirmationText: 'Your consent order draft has been uploaded',
   secondaryTitle: 'Your documents for Consent order',
 });
 
 const cy = () => ({
-  title: 'Upload the draft of your consent agreement - welsh',
-  confirmationText: 'Your consent agreement draft has been uploaded - welsh',
+  title: 'Upload the draft of your consent order - welsh',
+  confirmationText: 'Your consent order draft has been uploaded - welsh',
   secondaryTitle: 'Your documents for Consent order - welsh',
 });
 

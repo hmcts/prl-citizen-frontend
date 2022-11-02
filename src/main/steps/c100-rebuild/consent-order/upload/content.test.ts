@@ -8,9 +8,9 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Upload the draft of your consent agreement',
+  title: 'Upload the draft of your consent order',
   uploadGuidance1:
-    'The draft of the consent agreement must be signed by you (the applicant) and the other person (respondent).',
+    'The draft of the consent order must be signed by you (the applicant) and the other person (respondent).',
   uploadGuidance2:
     'If you are uploading documents from a computer, name the files clearly. For example, consent-order-draft.doc.',
   uploadGuidance3: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
@@ -39,9 +39,9 @@ const en = {
 };
 
 const cy = {
-  title: 'Upload the draft of your consent agreement - welsh',
+  title: 'Upload the draft of your consent order - welsh',
   uploadGuidance1:
-    'The draft of the consent agreement must be signed by you (the applicant) and the other person (respondent). - welsh',
+    'The draft of the consent order must be signed by you (the applicant) and the other person (respondent). - welsh',
   uploadGuidance2:
     'If you are uploading documents from a computer, name the files clearly. For example, consent-order-draft.doc. - welsh',
   uploadGuidance3: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX. - welsh',
