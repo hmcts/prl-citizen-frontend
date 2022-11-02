@@ -2432,4 +2432,23 @@ export interface C1ASafteyConcerns {
       gender: Gender;
       otherGenderDetails?: string;
     };
+    relationshipDetails: {
+      relationshipToChildren: RelationshipToChildren[];
+    }
   };
+
+  export interface RelationshipToChildren {
+    relationshipType: string;
+    otherRelationshipTypeDetails?: string;
+    childId: string;
+  }
+
+  export const enum RelationshipType {
+    MOTHER = 'Mother',
+    FATHER = 'Father',
+    GUARDIAN = 'Guardian',
+    SPECIAL_GUARDIAN = 'Special Guardian',
+    GRAND_PARENT = 'Grandparent',
+    OTHER = 'Other',
+    EMPTY = ''
+  }

@@ -105,6 +105,7 @@ import {
   /** Applicant Details */
   C100_OTHER_PERSON_DETAILS_ADD,
   C100_RESPONDENT_DETAILS_ADD,
+  C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -679,11 +680,22 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PERSON_DETAILS_ADD,
     showInSection: Sections.C100,
-    getNextStep: caseData => OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
+    getNextStep: caseData =>
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
   },
   {
     url: C100_RESPONDENT_DETAILS_ADD,
     showInSection: Sections.C100,
     getNextStep: caseData => RespondentDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADD, caseData),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      RespondentDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+        caseData,
+        req?.params
+      ),
   },
 ];

@@ -391,3 +391,4 @@ export const C100_OTHER_PERSON_DETAILS_ADD: PageLink = `${C100_OTHER_PERSON_DETA
 /** @C100 Respondent Details */
 export const C100_RESPONDENT_DETAILS: PageLink = `${C100_URL}/respondent-details`;
 export const C100_RESPONDENT_DETAILS_ADD: PageLink = `${C100_RESPONDENT_DETAILS}/add-respondents`;
+export const C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/relationship-to-child/:childId/`;

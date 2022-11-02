@@ -22,6 +22,14 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     gender: Gender.EMPTY,
     otherGenderDetails: '',
   },
+  relationshipDetails: {
+    relationshipToChildren: [
+      {
+        relationshipType: '',
+        childId: '',
+      },
+    ],
+  },
 });
 
 export const getOtherPersonDetails = (
