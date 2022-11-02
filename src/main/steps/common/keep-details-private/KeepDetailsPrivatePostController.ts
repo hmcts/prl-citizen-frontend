@@ -78,6 +78,20 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
       }
     }
 
+  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const loggedInCitizen = req.session.user;
+    const caseReference = req.session.userCase.id;
+
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+
+    const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
+    Object.assign(req.session.userCase, caseDataFromCos);
+    if (req.session.userCase.caseTypeOfApplication === 'C100') {
+      this.postC100(req);
+    } else {
+      this.postFL401(req);
+    }
+
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
     const updatedCaseDataFromCos = await client.updateCase(

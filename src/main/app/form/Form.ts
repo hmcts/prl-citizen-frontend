@@ -65,7 +65,7 @@ export class Form {
     return errors;
   }
 
-  public createFieldNameSet(fieldNames: Set<string>, value: FormInput, fieldKey: string): Set<string> {
+  public populateFieldNames(value: FormInput, fieldNames: Set<string>, fieldKey: string): Set<string> {
     if (value.name) {
       fieldNames.add(value.name);
     } else {
@@ -87,7 +87,7 @@ export class Form {
       const stepField = fields[fieldKey] as FormOptions;
       if (stepField.values && stepField.type !== 'date') {
         for (const [, value] of Object.entries(stepField.values)) {
-          fieldNames = this.createFieldNameSet(fieldNames, value, fieldKey);
+          fieldNames = this.populateFieldNames(value, fieldNames, fieldKey);
         }
       } else {
         fieldNames.add(fieldKey);

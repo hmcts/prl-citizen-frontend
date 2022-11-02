@@ -36,7 +36,7 @@ export class KeepDetailsPrivateGetController extends GetController {
     });
   }
 
-  public async FL406Respondent(req: AppRequest): Promise<void> {
+  public async FL401Respondent(req: AppRequest): Promise<void> {
     if (
       req.session.userCase?.respondentsFL401?.user.idamId === req.session?.user.id &&
       req.session.userCase?.respondentsFL401?.response &&
@@ -64,7 +64,7 @@ export class KeepDetailsPrivateGetController extends GetController {
       }
     } else {
       if (req.url.includes('respondent')) {
-        this.FL406Respondent(req);
+        this.FL401Respondent(req);
       } else {
         if (
           req.session.userCase?.applicantsFL401?.user.idamId === req.session?.user.id &&
