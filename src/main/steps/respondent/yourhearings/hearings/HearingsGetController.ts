@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { ordinalNumberMap } from '../../../../steps/constants';
@@ -32,13 +32,11 @@ export default class HearingsGetController extends GetController {
     let formaction: YesOrNo | undefined;
 
     //make a call to the cosclient to get the hearings
-    req.session.userCase = { id: '1234', state: State.AwaitingHWFDecision };
     const citizenUser = req.session.user;
     const cosApiClient = new CosApiClient(citizenUser.accessToken, 'http://localhost:3001');
     const caseHearingDataFromCos = await cosApiClient.retrieveCaseHearingsByCaseId(req.session.userCase, citizenUser);
     console.log('retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos));
-    //req.session.userCase = caseHearingDataFromCos;
-    Object.assign(req.session.userCase, caseHearingDataFromCos);
+    req.session.userCase.hearingCollection = caseHearingDataFromCos.hearingCollection;
     const userCase = req.session.userCase;
 
     res.render(this.view, {
