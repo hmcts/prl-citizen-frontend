@@ -10,6 +10,7 @@ import { APPLICANT_DETAILS_KNOWN, RESPONDENT_DETAILS_KNOWN } from '../../urls';
 import { getKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
 export class KeepDetailsPrivateGetController extends GetController {
+<<<<<<< HEAD
   public async c100Respondent(req: AppRequest): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (
@@ -44,6 +45,31 @@ export class KeepDetailsPrivateGetController extends GetController {
       req.session.userCase?.respondentsFL401?.response?.keepDetailsPrivate?.confidentiality
     ) {
       Object.assign(req.session.userCase, getKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req));
+=======
+  public async getRespondent(req: AppRequest): Promise<void> {
+    if (req.url.includes('respondent')) {
+      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+        if (
+          respondent?.value?.user?.idamId === req.session?.user.id &&
+          respondent?.value?.response &&
+          respondent?.value?.response?.keepDetailsPrivate &&
+          respondent?.value?.response?.keepDetailsPrivate?.confidentiality
+        ) {
+          Object.assign(req.session.userCase, getKeepYourDetailsPrivate(respondent.value, req));
+        }
+      });
+    } else {
+      req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
+        if (
+          applicant?.value?.user?.idamId === req.session?.user.id &&
+          applicant?.value?.response &&
+          applicant?.value?.response?.keepDetailsPrivate &&
+          applicant?.value?.response?.keepDetailsPrivate?.confidentiality
+        ) {
+          Object.assign(req.session.userCase, getKeepYourDetailsPrivate(applicant.value, req));
+        }
+      });
+>>>>>>> 8ad9db31f60b12982b5ee2662499becf9de2655f
     }
   }
 
@@ -57,11 +83,15 @@ export class KeepDetailsPrivateGetController extends GetController {
     Object.assign(req.session.userCase, caseDataFromCos);
 
     if (req.session.userCase.caseTypeOfApplication === 'C100') {
+<<<<<<< HEAD
       if (req.url.includes('respondent')) {
         this.c100Respondent(req);
       } else {
         this.c100Applicant(req);
       }
+=======
+      this.getRespondent(req);
+>>>>>>> 8ad9db31f60b12982b5ee2662499becf9de2655f
     } else {
       if (req.url.includes('respondent')) {
         this.FL406Respondent(req);

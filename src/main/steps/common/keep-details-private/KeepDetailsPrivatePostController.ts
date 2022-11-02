@@ -22,6 +22,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
     super(fields);
   }
 
+<<<<<<< HEAD
   public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
@@ -53,6 +54,39 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
         req.session.userCase.applicantsFL401,
         setKeepYourDetailsPrivate(req.session.userCase.applicantsFL401, req)
       );
+=======
+  public async postC100(req: AppRequest<AnyObject>): Promise<void> {
+    if (req.url.includes('respondent')) {
+      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+        if (respondent?.value?.user?.idamId === req.session?.user.id) {
+          Object.assign(respondent.value, setKeepYourDetailsPrivate(respondent.value, req));
+        }
+      });
+    } else {
+      req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
+        if (applicant?.value?.user?.idamId === req.session?.user.id) {
+          Object.assign(applicant.value, setKeepYourDetailsPrivate(applicant.value, req));
+        }
+      });
+    }
+  }
+
+  public async postFL401(req: AppRequest<AnyObject>): Promise<void> {
+    if (req.url.includes('respondent')) {
+      if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
+        Object.assign(
+          req.session.userCase.respondentsFL401,
+          setKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req)
+        );
+      }
+    } else {
+      if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
+        Object.assign(
+          req.session.userCase.applicantsFL401,
+          setKeepYourDetailsPrivate(req.session.userCase.applicantsFL401, req)
+        );
+      }
+>>>>>>> 8ad9db31f60b12982b5ee2662499becf9de2655f
     }
   }
 
@@ -65,6 +99,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
     if (req.session.userCase.caseTypeOfApplication === 'C100') {
+<<<<<<< HEAD
       if (req.url.includes('respondent')) {
         this.c100Respondent(req);
       } else {
@@ -76,6 +111,11 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
       } else {
         this.FL401Applicant(req);
       }
+=======
+      this.postC100(req);
+    } else {
+      this.postFL401(req);
+>>>>>>> 8ad9db31f60b12982b5ee2662499becf9de2655f
     }
 
     const caseData = toApiFormat(req?.session?.userCase);

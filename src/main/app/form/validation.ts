@@ -3,7 +3,6 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate } from '../case/case';
-//import { OtherName } from '../case/definition';
 
 dayjs.extend(customParseFormat);
 
@@ -107,7 +106,7 @@ export const isLessThanAYear: DateValidator = date => {
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-  if (!(enteredDate < oneYearAgo)) {
+  if (enteredDate >= oneYearAgo) {
     return 'lessThanAYear';
   }
 };
@@ -148,7 +147,7 @@ export const isInvalidPostcode: Validator = value => {
     return fieldNotFilledIn;
   }
 
-  if (!(value as string).match(/^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i)) {
+  if (!(value as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)) {
     return 'invalid';
   }
 };
@@ -210,7 +209,7 @@ export const isAccessCodeValid: Validator = value => {
 };
 
 export const isNumeric: Validator = value => {
-  if (value && !(value as string).match(/^[0-9]+$/)) {
+  if (value && !(value as string).match(/^\d+$/)) {
     return ValidationError.NOT_NUMERIC;
   }
 };

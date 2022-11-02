@@ -65,7 +65,11 @@ export class Form {
     return errors;
   }
 
+<<<<<<< HEAD
   public createFieldNameSet(fieldNames: Set<string>, value: FormInput, fieldKey: string): Set<string> {
+=======
+  public populateFieldNames(value: FormInput, fieldNames: Set<string>, fieldKey: string): Set<string> {
+>>>>>>> 8ad9db31f60b12982b5ee2662499becf9de2655f
     if (value.name) {
       fieldNames.add(value.name);
     } else {
@@ -87,7 +91,11 @@ export class Form {
       const stepField = fields[fieldKey] as FormOptions;
       if (stepField.values && stepField.type !== 'date') {
         for (const [, value] of Object.entries(stepField.values)) {
+<<<<<<< HEAD
           fieldNames = this.createFieldNameSet(fieldNames, value, fieldKey);
+=======
+          fieldNames = this.populateFieldNames(value, fieldNames, fieldKey);
+>>>>>>> 8ad9db31f60b12982b5ee2662499becf9de2655f
         }
       } else {
         fieldNames.add(fieldKey);
