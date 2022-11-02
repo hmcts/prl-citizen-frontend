@@ -12,6 +12,36 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
+
+  public async setAllDocumentsViewedC100Respondent(req: AppRequest<AnyObject>): Promise<void> {
+    req.session.userCase.respondents?.forEach((respondent: Respondent) => {
+      if (respondent?.value.user?.idamId === req.session?.user?.id) {
+        if (respondent.value.response && respondent.value.response.citizenFlags) {
+          respondent.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.YES;
+        }
+      }
+    });
+  }
+
+  public async setAllDocumentsViewedC100Applicant(req: AppRequest<AnyObject>): Promise<void> {
+    req.session.userCase.applicants?.forEach((applicant: Applicant) => {
+      if (applicant?.value.user?.idamId === req.session?.user?.id) {
+        if (applicant.value.response && applicant.value.response.citizenFlags) {
+          applicant.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.YES;
+        }
+      }
+    });
+  }
+
+  public async setAllDocumentsViewedFL401Respondent(req: AppRequest<AnyObject>): Promise<void> {
+    if (
+      req?.session?.userCase.respondentsFL401?.response &&
+      req?.session?.userCase.respondentsFL401?.response.citizenFlags
+    ) {
+      req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed = YesOrNo.YES;
+    }
+  }
+
   public async setAllDocumentsViewed(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const isRespondent = req.url.includes('respondent');
 
@@ -21,30 +51,13 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
 
     if (req.session.userCase?.caseTypeOfApplication === 'C100') {
       if (isRespondent) {
-        req.session.userCase.respondents?.forEach((respondent: Respondent) => {
-          if (respondent?.value.user?.idamId === req.session?.user?.id) {
-            if (respondent.value.response && respondent.value.response.citizenFlags) {
-              respondent.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.YES;
-            }
-          }
-        });
+        this.setAllDocumentsViewedC100Respondent(req);
       } else {
-        req.session.userCase.applicants?.forEach((applicant: Applicant) => {
-          if (applicant?.value.user?.idamId === req.session?.user?.id) {
-            if (applicant.value.response && applicant.value.response.citizenFlags) {
-              applicant.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.YES;
-            }
-          }
-        });
+        this.setAllDocumentsViewedC100Applicant(req);
       }
     } else {
       if (isRespondent) {
-        if (
-          req?.session?.userCase.respondentsFL401?.response &&
-          req?.session?.userCase.respondentsFL401?.response.citizenFlags
-        ) {
-          req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed = YesOrNo.YES;
-        }
+        this.setAllDocumentsViewedFL401Respondent(req);
       } else {
         if (
           req?.session?.userCase.applicantsFL401?.response &&
@@ -60,7 +73,7 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
 
     const updatedCaseDataFromCos = await client.updateCase(
       req.session.user,
-      req?.session?.userCase.id as string,
+      req?.session?.userCase.id,
       data,
       'citizen-internal-case-update'
     );
