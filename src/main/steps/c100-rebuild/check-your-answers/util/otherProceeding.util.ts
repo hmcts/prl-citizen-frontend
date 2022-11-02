@@ -95,13 +95,13 @@ export const otherProceedingsContents = SystemLanguage => {
   const opContents = {
     en: () => {
       delete en['errors'];
-      delete opDetailsCyContents['errors'];
-      return { ...en(), ...opDetailsEnContents() };
+      delete opDetailsEnContents['errors'];
+      return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().pageTitle };
     },
     cy: () => {
       delete cy['errors'];
-      delete opDetailsEnContents['errors'];
-      return { ...cy(), ...opDetailsCyContents() };
+      delete opDetailsCyContents['errors'];
+      return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().pageTitle };
     },
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();

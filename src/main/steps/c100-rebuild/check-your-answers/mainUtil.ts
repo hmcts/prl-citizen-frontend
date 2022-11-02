@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
@@ -243,13 +244,26 @@ export const ApplicantDetails = (
         key: 'Address details',
         value: '',
         valueHtml:
-          sessionApplicantData[applicant]?.['applicantAddress1'] +
+        sessionApplicantData[applicant].hasOwnProperty('applicantAddress1') ? sessionApplicantData[applicant]?.['applicantAddress1'] : '' +
           HTML.BREAK +
-          sessionApplicantData[applicant]?.['applicantAddress1'] +
+          sessionApplicantData[applicant].hasOwnProperty('applicantAddress2') ? sessionApplicantData[applicant]?.['applicantAddress2'] : '' +
           HTML.BREAK +
-          sessionApplicantData[applicant]?.['applicantAddressTown'] +
+          sessionApplicantData[applicant].hasOwnProperty('applicantAddressTown') ? sessionApplicantData[applicant]?.['applicantAddressTown']: '' +
           HTML.BREAK +
-          sessionApplicantData[applicant]?.['applicantAddressCounty'],
+          sessionApplicantData[applicant].hasOwnProperty('applicantAddressCounty') ? sessionApplicantData[applicant]?.['applicantAddressCounty'] : '' +
+          HTML.BREAK +
+          HTML.BREAK +
+          sessionApplicantData[applicant].hasOwnProperty('applicantAddressPostcode') ? sessionApplicantData[applicant]?.['applicantAddressPostcode'] : ''+
+          HTML.RULER +
+          HTML.H4 +
+          'have you lived at this address for more than 5 years ?' +
+          HTML.H4_CLOSE +
+          sessionApplicantData[applicant].hasOwnProperty('applicantAddressHistory')? sessionApplicantData[applicant]?.['applicantAddressHistory'] : '' +
+          HTML.RULER +
+          HTML.H4 +
+          'Previous Addresses' +
+          HTML.H4_CLOSE +
+          sessionApplicantData[applicant].hasOwnProperty('applicantProvideDetailsOfPreviousAddresses')? sessionApplicantData[applicant]?.['applicantProvideDetailsOfPreviousAddresses'] : '',
         changeUrl:
           Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'] +
           `?applicantId=${sessionApplicantData[applicant]['id']}`,
@@ -375,8 +389,8 @@ export const PastAndCurrentProceedings = (
       changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
     },
     {
-      key: keys['caseDetails'],
-      valueHtml: courtOrderDetails?.split(',').join(''),
+      key: keys['optitle'],
+      valueHtml: userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '',
       changeUrl: Urls['C100_OTHER_PROCEEDINGS_DETAILS'],
     },
     ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'op_courtProceedingsOrders'),
