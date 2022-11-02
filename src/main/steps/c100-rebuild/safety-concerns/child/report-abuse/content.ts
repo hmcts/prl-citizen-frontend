@@ -18,7 +18,6 @@ const en = () => ({
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
-  allChildrenLabel: 'All of the children in the application',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -26,7 +25,7 @@ const en = () => ({
   behaviourStartDateHintText: 'This does not need to be an exact date.',
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
   isOngoingBehaviourHint:
-    '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse" class="govuk-link" rel="external" target="_blank">the social care team at you local council </a>.</p>',
+    '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">the social care team at you local council </a>.</p>',
   YesOptionLabel: 'Yes',
   NoOptionLabel: 'No',
   seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
@@ -51,7 +50,6 @@ const cy = () => ({
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
-  allChildrenLabel: 'All of the children in the application - Welsh',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - Welsh (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
@@ -59,7 +57,7 @@ const cy = () => ({
   behaviourStartDateHintText: 'This does not need to be an exact date. - Welsh',
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? - Welsh (optional)',
   isOngoingBehaviourHint:
-    '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse" class="govuk-link" rel="external" target="_blank">the social care team at you local council - Welsh</a>.</p>',
+    '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">the social care team at you local council - Welsh </a>.</p>',
   YesOptionLabel: 'Yes - Welsh',
   NoOptionLabel: 'No - Welsh',
   seekHelpFromPersonOrAgencyLabel:
@@ -101,12 +99,6 @@ export const generateFormFields = (
       labelSize: 's',
       label: l => l.childrenConcernedAboutLabel,
       values: [
-        {
-          name: 'childrenConcernedAbout',
-          label: l => l.allChildrenLabel,
-          exclusive: true,
-          value: childrenData.map(childObj => childObj.id).join(''),
-        },
         ...childrenData.map(childObj => {
           return {
             name: 'childrenConcernedAbout',
