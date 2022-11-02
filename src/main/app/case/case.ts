@@ -514,6 +514,9 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
+  too_courtOrder?: string[];
+  too_stopOtherPeopleDoingSomethingSubField?: string[];
+  too_resolveSpecificIssueSubField?: string[];
 }
 
 export interface CaseWithId extends Case {

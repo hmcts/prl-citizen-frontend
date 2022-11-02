@@ -2420,3 +2420,25 @@ export interface C1ASafteyConcerns {
       statement: string;
     };
   };
+
+  export type ChildrenDetailsTranslations = {
+    issueOrderList?: any;
+    stepsList?: any;
+    childArrangementsOrder?: any;
+    id?: string;
+    firstName?: string;
+    lastName?: string;
+    personalDetails?: {
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      approxDateOfBirth?: CaseDate;
+      gender: Gender;
+      otherGenderDetails?: string;
+    };
+    childMatters?: {
+      needsResolution: string[];
+    };
+    parentialResponsibility?: {
+      statement: string;
+    };
+  };

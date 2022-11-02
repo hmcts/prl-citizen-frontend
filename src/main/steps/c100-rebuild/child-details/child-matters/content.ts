@@ -1,8 +1,9 @@
-import { ChildrenDetails } from '../../../../app/case/definition';
+import { CaseWithId } from '../../../../app/case/case';
+import { ChildrenDetails, ChildrenDetailsTranslations } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { getChildDetails } from '../util';
+import { getChildDetails, getDataShape } from '../util';
 export * from '../routeGuard';
 
 let updatedForm: FormContent;
@@ -10,8 +11,29 @@ let updatedForm: FormContent;
 const en = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to',
   bodyHint: 'Select all that apply',
-  whoChildLiveWithLabel: 'Decide who the children live with and when',
-  childTimeSpentLabel: 'Decide how much time the children spend with each person',
+  childArrangementsOrder: {
+    whoChildLiveWith: 'Decide who the children live with and when',
+    childTimeSpent: 'Decide how much time the children spend with each person',
+  },
+  stepsList: {
+    changeChildrenNameSurname: "Changing the children's names or surname",
+    allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children',
+    takingChildOnHoliday: 'Taking the children on holiday',
+    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales',
+    relocateChildrenOutsideUk: `Relocating the children outside of England and Wales
+     (including Scotland and Northern Ireland)`,
+  },
+  issueOrderList: {
+    specificHoliday: 'A specific holiday or arrangement',
+    whatSchoolChildrenWillGoTo: 'What school the children will go to',
+    religiousIssue: 'A religious issue',
+    changeChildrenNameSurnameA: "Changing the children's names or surname",
+    medicalTreatment: 'Medical treatment',
+    relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales',
+    relocateChildrenOutsideUkA:
+      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
+    returningChildrenToYourCare: 'Returning the children to your care',
+  },
   errors: {
     needsResolution: {
       required: 'Select at least a decision',
@@ -22,11 +44,32 @@ const en = () => ({
 const cy = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to - welsh',
   bodyHint: 'Select all that apply - welsh',
-  whoChildLiveWithLabel: 'Decide who the children live with and when - welsh',
-  childTimeSpentLabel: 'Decide how much time the children spend with each person - welsh',
+  childArrangementsOrder: {
+    whoChildLiveWith: 'Decide who the children live with and when - welsh',
+    childTimeSpent: 'Decide how much time the children spend with each person - welsh',
+  },
+  stepsList: {
+    changeChildrenNameSurname: "Changing the children's names or surname - welsh",
+    allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
+    takingChildOnHoliday: 'Taking the children on holiday - welsh',
+    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
+    relocateChildrenOutsideUk:
+      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
+  },
+  issueOrderList: {
+    specificHoliday: 'A specific holiday or arrangement - welsh',
+    whatSchoolChildrenWillGoTo: 'What school the children will go to - welsh',
+    religiousIssue: 'A religious issue - welsh',
+    changeChildrenNameSurnameA: "Changing the children's names or surname - welsh",
+    medicalTreatment: 'Medical treatment - welsh',
+    relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales - welsh',
+    relocateChildrenOutsideUkA:
+      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
+    returningChildrenToYourCare: 'Returning the children to your care - welsh',
+  },
   errors: {
     needsResolution: {
-      required: 'Select at least a decision  - welsh',
+      required: 'Select at least a decision - welsh',
     },
   },
 });
@@ -52,28 +95,54 @@ export const getFormFields = (): FormContent => {
   return updatedForm;
 };
 
-export const generateFormFields = (childMatters: ChildrenDetails['childMatters']): GenerateDynamicFormFields => {
+export const generateFormFields = (
+  childMatters: ChildrenDetails['childMatters'],
+  data: Partial<CaseWithId>,
+  translations: ChildrenDetailsTranslations
+): GenerateDynamicFormFields => {
+  const { too_courtOrder, too_stopOtherPeopleDoingSomethingSubField, too_resolveSpecificIssueSubField } = data;
   const { needsResolution } = childMatters;
+
+  // preemptively removing empty strings from too_stopOtherPeopleDoingSomethingSubField retrieved from the userCase
+  const filteredOtherPeopleDoingSomething = too_stopOtherPeopleDoingSomethingSubField?.filter(item => item) ?? [];
+  // filtering out 'stopOtherPeopleDoingSomething' and 'resolveSpecificIssue' elements from the too_courtOrder array
+  const filteredChildArrangementsOrderList =
+    too_courtOrder
+      ?.filter(item => item !== 'stopOtherPeopleDoingSomething')
+      ?.filter(item => item !== 'resolveSpecificIssue') ?? [];
+
   const errors = {
     en: {},
     cy: {},
   };
+
   const fields = {
     needsResolution: {
       type: 'checkboxes',
       hint: l => l.bodyHint,
       validator: atLeastOneFieldIsChecked,
       values: [
-        {
-          name: 'needsResolution',
-          label: l => l.whoChildLiveWithLabel,
-          value: 'whoChildLiveWith',
-        },
-        {
-          name: 'needsResolution',
-          label: l => l.childTimeSpentLabel,
-          value: 'childTimeSpent',
-        },
+        ...(filteredChildArrangementsOrderList?.map(order => {
+          return {
+            name: 'needsResolution',
+            label: translations.childArrangementsOrder[order],
+            value: order,
+          };
+        }) ?? []),
+        ...(filteredOtherPeopleDoingSomething?.map(order => {
+          return {
+            name: 'needsResolution',
+            label: translations.stepsList[order],
+            value: order,
+          };
+        }) ?? []),
+        ...(<[]>too_resolveSpecificIssueSubField?.map(order => {
+          return {
+            name: 'needsResolution',
+            label: translations.issueOrderList[order],
+            value: order,
+          };
+        }) ?? []),
       ],
     },
   };
@@ -98,9 +167,14 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const sessionData = content?.userCase ?? {};
   const childId = content.additionalData!.req.params.childId;
   const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)!;
-  const { fields } = generateFormFields(childDetails.childMatters);
+  const { fields } = generateFormFields(
+    childDetails.childMatters ?? getDataShape().childMatters,
+    sessionData ?? {},
+    translations
+  );
 
   return {
     ...translations,
