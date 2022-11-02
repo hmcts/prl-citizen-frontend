@@ -69,6 +69,7 @@ describe('common > components > address-lookup > content', () => {
     expect(addressPostcodeField.labelSize).toBe('m');
     expect(addressPostcodeField.attributes!.maxLength).toBe(14);
     expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
 
   });
   
@@ -83,6 +84,7 @@ describe('common > components > address-lookup > content', () => {
     expect(addressPostcodeField.labelSize).toBe('m');
     expect(addressPostcodeField.attributes!.maxLength).toBe(14);
     expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
+    expect((form.submit?.text as Function)(generatedContentcy)).toBe('Continue (in welsh)');
 
   });
     
