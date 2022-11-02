@@ -27,7 +27,8 @@ const en = () => ({
   childGenderLabel: 'Gender',
   male: 'Male',
   female: 'Female',
-  other: 'Unspecified',
+  other: 'They identify in another way',
+  otherGenderDetailsLabel: "Child's gender (Optional)",
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -61,7 +62,8 @@ const cy = () => ({
   childGenderLabel: 'Gender - welsh',
   male: 'Male - welsh',
   female: 'Female - welsh',
-  other: 'Unspecified - welsh',
+  other: 'They identify in another way - welsh',
+  otherGenderDetailsLabel: "Child's gender (Optional) - welsh",
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth - welsh',
