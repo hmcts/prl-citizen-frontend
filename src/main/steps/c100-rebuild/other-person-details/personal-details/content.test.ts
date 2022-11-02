@@ -14,6 +14,8 @@ const en = {
   isNameChangedLabelText: 'Have they changed their name?',
   inNameChangedHintText:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
+  previousFullNameLabel: 'Enter their previous name',
+  previousFullNameHintText: 'This should be the full legal name (including any middle names)',
   YesOptionLabel: 'Yes',
   NoOptionLabel: 'No',
   DontKnowOptionLabel: "Don't know",
@@ -21,13 +23,16 @@ const en = {
   otherGenderTextLabel: 'Provide details',
   maleOptionLabel: 'Male',
   femaleOptionLabel: 'Female',
-  otherOptionLabel: 'Other',
+  otherOptionLabel: 'They identify in another way',
   dobLabel: 'Date of birth',
   approxCheckboxLabel: 'I don’t know their date of birth',
   approxDobLabel: 'Approximate date of birth',
   errors: {
     isNameChanged: {
       required: 'Select if the they have changed their name',
+    },
+    previousFullName: {
+      required: 'Enter their previous name',
     },
     gender: {
       required: 'Select the gender',
@@ -58,6 +63,8 @@ const cy = {
   isNameChangedLabelText: 'Have they changed their name? - welsh',
   inNameChangedHintText:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh - welsh',
+  previousFullNameLabel: 'Enter their previous name - welsh',
+  previousFullNameHintText: 'This should be the full legal name (including any middle names) - welsh',
   YesOptionLabel: 'Yes - welsh',
   NoOptionLabel: 'No - welsh',
   DontKnowOptionLabel: "Don't know - welsh",
@@ -65,13 +72,16 @@ const cy = {
   otherGenderTextLabel: 'Provide details - welsh',
   maleOptionLabel: 'Male - welsh',
   femaleOptionLabel: 'Female - welsh',
-  otherOptionLabel: 'Other - welsh',
+  otherOptionLabel: 'They identify in another way - welsh',
   dobLabel: 'Date of birth - welsh',
   approxCheckboxLabel: 'I don’t know their date of birth - welsh',
   approxDobLabel: 'Approximate date of birth - welsh',
   errors: {
     isNameChanged: {
       required: 'Select Yes, No or Maybe - welsh',
+    },
+    previousFullName: {
+      required: 'Enter their previous name - welsh',
     },
     gender: {
       required: 'Select the gender - welsh',
@@ -234,9 +244,9 @@ describe('other person details > personal details', () => {
     expect(gender.classes).toBe('govuk-radios');
     expect((gender.label as Function)(generatedContent)).toBe(en.genderLabelText);
     expect((gender.values[0].label as Function)(generatedContent)).toBe(en.maleOptionLabel);
-    expect(gender.values[0].value).toBe('Female');
+    expect(gender.values[0].value).toBe('Male');
     expect((gender.values[1].label as Function)(generatedContent)).toBe(en.femaleOptionLabel);
-    expect(gender.values[1].value).toBe('Male');
+    expect(gender.values[1].value).toBe('Female');
     expect((gender.values[2].label as Function)(generatedContent)).toBe(en.otherOptionLabel);
     expect(gender.values[2].value).toBe('Other');
     expect(gender.values[2].subFields.otherGenderDetails.type).toBe('text');

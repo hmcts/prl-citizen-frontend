@@ -19,6 +19,8 @@ const en = () => ({
   isNameChangedLabelText: 'Have they changed their name?',
   inNameChangedHintText:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
+  previousFullNameLabel: 'Enter their previous name',
+  previousFullNameHintText: 'This should be the full legal name (including any middle names)',
   YesOptionLabel: 'Yes',
   NoOptionLabel: 'No',
   DontKnowOptionLabel: "Don't know",
@@ -26,13 +28,16 @@ const en = () => ({
   otherGenderTextLabel: 'Provide details',
   maleOptionLabel: 'Male',
   femaleOptionLabel: 'Female',
-  otherOptionLabel: 'Other',
+  otherOptionLabel: 'They identify in another way',
   dobLabel: 'Date of birth',
   approxCheckboxLabel: 'I don’t know their date of birth',
   approxDobLabel: 'Approximate date of birth',
   errors: {
     isNameChanged: {
       required: 'Select if the they have changed their name',
+    },
+    previousFullName: {
+      required: 'Enter their previous name',
     },
     gender: {
       required: 'Select the gender',
@@ -63,6 +68,8 @@ const cy = () => ({
   isNameChangedLabelText: 'Have they changed their name? - welsh',
   inNameChangedHintText:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh - welsh',
+  previousFullNameLabel: 'Enter their previous name - welsh',
+  previousFullNameHintText: 'This should be the full legal name (including any middle names) - welsh',
   YesOptionLabel: 'Yes - welsh',
   NoOptionLabel: 'No - welsh',
   DontKnowOptionLabel: "Don't know - welsh",
@@ -70,13 +77,16 @@ const cy = () => ({
   otherGenderTextLabel: 'Provide details - welsh',
   maleOptionLabel: 'Male - welsh',
   femaleOptionLabel: 'Female - welsh',
-  otherOptionLabel: 'Other - welsh',
+  otherOptionLabel: 'They identify in another way - welsh',
   dobLabel: 'Date of birth - welsh',
   approxCheckboxLabel: 'I don’t know their date of birth - welsh',
   approxDobLabel: 'Approximate date of birth - welsh',
   errors: {
     isNameChanged: {
       required: 'Select Yes, No or Maybe - welsh',
+    },
+    previousFullName: {
+      required: 'Enter their previous name - welsh',
     },
     gender: {
       required: 'Select the gender - welsh',
@@ -123,8 +133,15 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 export const generateFormFields = (
   personalDetails: C100RebuildPartyDetails['personalDetails']
 ): GenerateDynamicFormFields => {
-  const { isNameChanged, dateOfBirth, isDateOfBirthUnknown, approxDateOfBirth, gender, otherGenderDetails } =
-    personalDetails;
+  const {
+    isNameChanged,
+    dateOfBirth,
+    isDateOfBirthUnknown,
+    approxDateOfBirth,
+    gender,
+    otherGenderDetails,
+    previousFullName,
+  } = personalDetails;
   const errors = {
     en: {},
     cy: {},
@@ -140,6 +157,16 @@ export const generateFormFields = (
         {
           label: l => l.YesOptionLabel,
           value: YesNoDontKnow.yes,
+          subFields: {
+            previousFullName: {
+              type: 'text',
+              label: l => l.previousFullNameLabel,
+              hint: l => l.previousFullNameHintText,
+              labelSize: null,
+              value: previousFullName,
+              validator: isFieldFilledIn,
+            },
+          },
         },
         {
           label: l => l.NoOptionLabel,
@@ -160,11 +187,11 @@ export const generateFormFields = (
       values: [
         {
           label: l => l.maleOptionLabel,
-          value: Gender.FEMALE,
+          value: Gender.MALE,
         },
         {
           label: l => l.femaleOptionLabel,
-          value: Gender.MALE,
+          value: Gender.FEMALE,
         },
         {
           label: l => l.otherOptionLabel,
@@ -172,7 +199,7 @@ export const generateFormFields = (
           subFields: {
             otherGenderDetails: {
               type: 'text',
-              label: l => l.otherGenderDetailsLabel,
+              label: l => l.otherGenderTextLabel,
               labelSize: null,
               value: otherGenderDetails,
             },

@@ -15,6 +15,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     },
     isDateOfBirthUnknown: YesNoEmpty.EMPTY,
     isNameChanged: YesNoDontKnow.empty,
+    previousFullName: '',
     approxDateOfBirth: {
       day: '',
       month: '',

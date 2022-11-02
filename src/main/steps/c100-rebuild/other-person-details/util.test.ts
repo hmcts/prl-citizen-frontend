@@ -29,6 +29,7 @@ const dummyRequest = mockRequest({
             gender: 'Male',
             otherGenderDetails: '',
             isNameChanged: 'dontKnow',
+            previousFullName: '',
           },
         },
       ],
@@ -57,6 +58,7 @@ describe('Add other Person util', () => {
           gender: '',
           otherGenderDetails: '',
           isNameChanged: '',
+          previousFullName: '',
         },
       })
     );

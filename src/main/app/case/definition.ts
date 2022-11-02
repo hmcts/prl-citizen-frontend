@@ -2430,6 +2430,7 @@ export interface C1ASafteyConcerns {
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
       isNameChanged?: YesNoDontKnow;
+      previousFullName?: string;
       approxDateOfBirth?: CaseDate;
       gender: Gender;
       otherGenderDetails?: string;
