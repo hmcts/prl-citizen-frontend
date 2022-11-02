@@ -191,6 +191,21 @@ export const ApplicantDetails = (
       ' ' +
       sessionApplicantData[applicant]['applicantLastName'];
     const applicantNo = Number(applicant) + 1;
+    const parseStartAndStartAlternativeSubFields = (key, keyArray) => {
+      let html = '';
+      html += sessionApplicantData[applicant][key];
+      if (sessionApplicantData[applicant][keyArray].length > 0) {
+        html +=
+          HTML.RULER +
+          HTML.UNORDER_LIST +
+          sessionApplicantData[applicant][keyArray]
+            ?.map(item => HTML.LIST_ITEM + item + HTML.LIST_ITEM_END)
+            .toString()
+            .split(',')
+            .join('');
+      }
+      return html;
+    };
     newApplicantData.push(
       {
         key: '',
@@ -206,16 +221,19 @@ export const ApplicantDetails = (
       {
         key: keys['anyOtherPeopleKnowDetails'],
         value: sessionApplicantData[applicant]['detailsKnown'],
-        changeUrl: Urls['C100_CONFIDENTIALITY_DETAILS_KNOW'] + `?applicantId=${sessionApplicantData[applicant]['id']}`,
+        changeUrl:
+          Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'] +
+          `?applicantId=${sessionApplicantData[applicant]['id']}`,
       },
       {
         key: keys['doYouWantToKeep'],
-        value:
-          sessionApplicantData[applicant]['start'] === ''
-            ? sessionApplicantData[applicant]['startAlternative']
-            : sessionApplicantData[applicant]['start'],
+        value: '',
+        valueHtml:
+          sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
+            ? parseStartAndStartAlternativeSubFields('start', 'contactDetailsPrivate')
+            : parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
         changeUrl:
-          sessionApplicantData[applicant]['start'] === ''
+          sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
             ? Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'] +
               `?applicantId=${sessionApplicantData[applicant]['id']}`
             : Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'] +
@@ -223,8 +241,18 @@ export const ApplicantDetails = (
       },
       {
         key: 'Address details',
-        value: sessionApplicantData[applicant]['detailsKnown'],
-        changeUrl: Urls['C100_CONFIDENTIALITY_DETAILS_KNOW'] + `?applicantId=${sessionApplicantData[applicant]['id']}`,
+        value: '',
+        valueHtml:
+          sessionApplicantData[applicant]?.['applicantAddress1'] +
+          HTML.BREAK +
+          sessionApplicantData[applicant]?.['applicantAddress1'] +
+          HTML.BREAK +
+          sessionApplicantData[applicant]?.['applicantAddressTown'] +
+          HTML.BREAK +
+          sessionApplicantData[applicant]?.['applicantAddressCounty'],
+        changeUrl:
+          Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'] +
+          `?applicantId=${sessionApplicantData[applicant]['id']}`,
       }
     );
   }
