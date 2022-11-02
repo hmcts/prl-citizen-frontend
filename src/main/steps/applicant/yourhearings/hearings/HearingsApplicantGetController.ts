@@ -11,12 +11,9 @@ import { Language, generatePageContent } from '../../../common/common.content';
 @autobind
 export default class HearingsApplicantGetController extends GetController {
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {
-    console.log('LOCAL APPLICANT HearingsApplicantGetController constructor method.....');
     super(view, content);
   }
   public async get(req: AppRequest, res: Response): Promise<void> {
-    console.log('LOCAL APPLICANT HearingsApplicantGetController get method.....');
-
     if (res.locals.isError || res.headersSent) {
       return;
     }
