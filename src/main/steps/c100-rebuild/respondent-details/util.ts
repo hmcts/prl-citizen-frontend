@@ -27,6 +27,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
       {
         relationshipType: '',
         childId: '',
+        otherRelationshipTypeDetails: '',
       },
     ],
   },

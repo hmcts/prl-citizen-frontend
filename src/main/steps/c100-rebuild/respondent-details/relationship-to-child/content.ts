@@ -30,7 +30,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Provide details for - welsh',
+  title: 'What is  - welsh',
   title1: "'s relationship to - welsh",
   mother: 'Mother - welsh',
   father: 'Father - welsh',
@@ -116,8 +116,8 @@ export const generateFormFields = (relationshipTypeOption: RelationshipToChildre
               label: l => l.otherRelationshipDetails,
               labelSize: null,
               value: otherRelationshipTypeDetails,
+              validator: isFieldFilledIn,
             },
-            // validator: isFieldFilledIn,
           },
         },
       ],
@@ -155,15 +155,7 @@ export const generateContent: TranslationFn = content => {
   const relationshipFound = respondentDetails.relationshipDetails.relationshipToChildren.find(
     relationshipToChild => relationshipToChild.childId === childId
   );
-  if (relationshipFound !== undefined || '') {
-    const { fields } = generateFormFields(relationshipFound || Object.assign({}));
-    return {
-      ...translations,
-      title: `${translations['title']} ${respondentDetails.firstName} ${respondentDetails.lastName}${translations['title1']} ${childDetails.firstName} ${childDetails.lastName}`,
-      form: updateFormFields(form, fields),
-    };
-  }
-  const { fields } = generateFormFields(Object.assign({}));
+  const { fields } = generateFormFields(relationshipFound || Object.assign({}));
   return {
     ...translations,
     title: `${translations['title']} ${respondentDetails.firstName} ${respondentDetails.lastName}${translations['title1']} ${childDetails.firstName} ${childDetails.lastName}`,

@@ -26,10 +26,6 @@ export default class RespondentsRelationshipToChildPostController extends PostCo
       req.session.userCase.resp_Respondents!,
       respondentId
     ) as C100RebuildPartyDetails;
-    const otherRelationshipTypeSelected =
-      formData['otherRelationshipTypeDetails'] !== ''
-        ? formData['otherRelationshipTypeDetails']
-        : formData['relationshipType'];
 
     const existingRelationshipToChildren: RelationshipToChildren[] =
       respondentDetails.relationshipDetails.relationshipToChildren;
@@ -39,16 +35,19 @@ export default class RespondentsRelationshipToChildPostController extends PostCo
     );
 
     if (updateOnExistingRelationshipToChild !== undefined || '') {
-      updateOnExistingRelationshipToChild!.relationshipType = otherRelationshipTypeSelected;
+      updateOnExistingRelationshipToChild!.relationshipType = formData['relationshipType'];
+      updateOnExistingRelationshipToChild!.otherRelationshipTypeDetails = formData['otherRelationshipTypeDetails'];
     } else {
       if (existingRelationshipToChildren[0].childId === '') {
         existingRelationshipToChildren[0].childId = childId;
-        existingRelationshipToChildren[0].relationshipType = otherRelationshipTypeSelected;
+        existingRelationshipToChildren[0].relationshipType = formData['relationshipType'];
+        existingRelationshipToChildren[0].otherRelationshipTypeDetails = formData['otherRelationshipTypeDetails'];
       } else {
-        const commentData = {} as RelationshipToChildren;
-        commentData.childId = childId;
-        commentData.relationshipType = otherRelationshipTypeSelected;
-        existingRelationshipToChildren.push(commentData);
+        const newRelationshipData = {} as RelationshipToChildren;
+        newRelationshipData.childId = childId;
+        newRelationshipData.relationshipType = formData['relationshipType'];
+        newRelationshipData.otherRelationshipTypeDetails = formData['otherRelationshipTypeDetails'];
+        existingRelationshipToChildren.push(newRelationshipData);
       }
     }
 

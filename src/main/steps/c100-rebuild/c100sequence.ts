@@ -102,8 +102,7 @@ import {
   C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
   C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
 
-  /** Applicant Details */
-  C100_OTHER_PERSON_DETAILS_ADD,
+  /** Respondent Details */
   C100_RESPONDENT_DETAILS_ADD,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
 } from '../urls';
@@ -111,7 +110,6 @@ import {
 import PageStepConfigurator from './PageStepConfigurator';
 import ChildrenDetailsNavigationController from './child-details/navigationController';
 import MIAMNavigationController from './miam/navigationController';
-import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 import RespondentDetailsNavigationController from './respondent-details/navigationController';
@@ -676,12 +674,6 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
     showInSection: Sections.C100,
     getNextStep: () => C100_INTERNATIONAL_ELEMENTS_START,
-  },
-  {
-    url: C100_OTHER_PERSON_DETAILS_ADD,
-    showInSection: Sections.C100,
-    getNextStep: caseData =>
-      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
   },
   {
     url: C100_RESPONDENT_DETAILS_ADD,

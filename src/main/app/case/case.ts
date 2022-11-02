@@ -515,9 +515,6 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
-  otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
-  otherPersonLastName?: C100RebuildPartyDetails['lastName'];
-  oprs_otherPersons?: C100RebuildPartyDetails[];
   c100RespondentFirstName?: C100RebuildPartyDetails['firstName'];
   c100RespondentLastName?: C100RebuildPartyDetails['lastName'];
   resp_Respondents?: C100RebuildPartyDetails[];
