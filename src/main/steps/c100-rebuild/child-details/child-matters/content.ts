@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../../app/case/case';
-import { ChildrenDetails, ChildrenDetailsTranslations } from '../../../../app/case/definition';
+import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { getChildDetails, getDataShape } from '../util';
+import { getChildDetails } from '../util';
 export * from '../routeGuard';
 
 let updatedForm: FormContent;
@@ -98,7 +99,7 @@ export const getFormFields = (): FormContent => {
 export const generateFormFields = (
   childMatters: ChildrenDetails['childMatters'],
   data: Partial<CaseWithId>,
-  translations: ChildrenDetailsTranslations
+  translations: Record<string, any>
 ): GenerateDynamicFormFields => {
   const { too_courtOrder, too_stopOtherPeopleDoingSomethingSubField, too_resolveSpecificIssueSubField } = data;
   const { needsResolution } = childMatters;
@@ -125,21 +126,21 @@ export const generateFormFields = (
         ...(filteredChildArrangementsOrderList?.map(order => {
           return {
             name: 'needsResolution',
-            label: translations.childArrangementsOrder[order],
+            label: translations.childArrangementsOrder![order],
             value: order,
           };
         }) ?? []),
         ...(filteredOtherPeopleDoingSomething?.map(order => {
           return {
             name: 'needsResolution',
-            label: translations.stepsList[order],
+            label: translations.stepsList![order],
             value: order,
           };
         }) ?? []),
         ...(<[]>too_resolveSpecificIssueSubField?.map(order => {
           return {
             name: 'needsResolution',
-            label: translations.issueOrderList[order],
+            label: translations.issueOrderList![order],
             value: order,
           };
         }) ?? []),
@@ -171,9 +172,9 @@ export const generateContent: TranslationFn = content => {
   const childId = content.additionalData!.req.params.childId;
   const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)!;
   const { fields } = generateFormFields(
-    childDetails.childMatters ?? getDataShape().childMatters,
+    childDetails.childMatters ?? getChildDetails(content.userCase!.cd_children ?? [], childId)!,
     sessionData ?? {},
-    translations
+    translations!
   );
 
   return {
