@@ -78,11 +78,11 @@ describe('citizen-home content', () => {
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.appropriatelighting).toEqual('Appropriate lighting');
-    expect(generatedContent.appropriateLightingDetails).toEqual('Describe what you need"');
+    expect(generatedContent.appropriateLightingDetails).toEqual('Describe what you need');
     expect(generatedContent.break).toEqual('Regular breaks');
     expect(generatedContent.space).toEqual('Space to be able to get up and move around');
     expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.otherDetails).toEqual('Describe what you need"');
+    expect(generatedContent.otherDetails).toEqual('Describe what you need');
     expect(generatedContent.nosupport).toEqual('No, I do not need any support at this time');
   });
 

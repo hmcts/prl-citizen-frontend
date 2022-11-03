@@ -21,7 +21,7 @@ const en = {
   speechreporter: 'Speech to text reporter (palantypist)',
   extratime: 'Extra time to think and explain myself',
   courtvisit: 'Visit to court before the hearing',
-  courthearing: 'Explanation of the court and who\'s in the room at the hearing',
+  courthearing: "Explanation of the court and who's in the room at the hearing",
   intermediary: 'Intermediary',
   intermediaryhint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
@@ -59,7 +59,7 @@ const cy: typeof en = {
   speechreporter: 'Speech to text reporter (palantypist)',
   extratime: 'Extra time to think and explain myself',
   courtvisit: 'Visit to court before the hearing',
-  courthearing: 'Explanation of the court and who\'s in the room at the hearing',
+  courthearing: "Explanation of the court and who's in the room at the hearing",
   intermediary: 'Intermediary',
   intermediaryhint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
@@ -110,9 +110,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.speechreporter).toEqual('Speech to text reporter (palantypist)');
     expect(generatedContent.extratime).toEqual('Extra time to think and explain myself');
     expect(generatedContent.courtvisit).toEqual('Visit to court before the hearing');
-    expect(generatedContent.courthearing).toEqual(
-      'Explanation of the court and who\'s in the room at the hearing'
-    );
+    expect(generatedContent.courthearing).toEqual("Explanation of the court and who's in the room at the hearing");
     expect(generatedContent.intermediary).toEqual('Intermediary');
     expect(generatedContent.intermediaryhint).toEqual(
       'a person to help you if you have communication needs by providing professional support to participate in a hearing'
@@ -138,7 +136,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain Continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 
