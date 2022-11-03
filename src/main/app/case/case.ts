@@ -319,6 +319,7 @@ export interface Case {
   startAlternative?: string;
   contactDetailsPrivate?: string[];
   miamStart?: string;
+  yourchildconcernsstart?: string,
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
   doYouConsent?: YesOrNo;

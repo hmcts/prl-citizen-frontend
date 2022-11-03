@@ -111,6 +111,7 @@ export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | un
   return SectionStatus.TO_DO;
 };
 
+
 export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
@@ -194,4 +195,8 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
     return SectionStatus.COMPLETED;
   }
   return SectionStatus.TO_DO;
+};
+
+export const getAllegationOfHarmStatus = () :SectionStatus => {
+  return SectionStatus.NOT_AVAILABLE_YET;
 };

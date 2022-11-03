@@ -159,6 +159,9 @@ export const CONSENT_SAVE: PageLink = `${CONSENT}/save`;
 /* consent-to-the-application */
 export const RESPONDENT_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
 
+export const RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE: PageLink = `${RESPONDENT}/allegations-of-harm-and-violence/safety-concerns-guidance-page`;
+export const RESPONDENT_YOUR_CHILD_CONCERNS: PageLink = `${RESPONDENT}/allegations-of-harm-and-violence/your-or-child-safety-concerns`;
+
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
 export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';
