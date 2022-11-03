@@ -194,7 +194,7 @@ const respondentMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(99);
+    expect(C100Sequence).toHaveLength(100);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -811,6 +811,12 @@ describe('C100Sequence', () => {
     expect(C100Sequence[98].showInSection).toBe('c100');
     expect(C100Sequence[98].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
       '/c100-rebuild/respondent-details/add-respondents'
+    );
+
+    expect(C100Sequence[99].url).toBe('/c100-rebuild/respondent-details/:respondentId/personal-details');
+    expect(C100Sequence[99].showInSection).toBe('c100');
+    expect(C100Sequence[99].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/personal-details'
     );
   });
 });

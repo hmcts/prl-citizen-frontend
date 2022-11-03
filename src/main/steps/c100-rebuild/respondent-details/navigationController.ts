@@ -1,7 +1,12 @@
 import { Case } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
-import { C100_RESPONDENT_DETAILS_ADD, C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD, PageLink } from '../../urls';
+import {
+  C100_RESPONDENT_DETAILS_ADD,
+  C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
+  C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+  PageLink,
+} from '../../urls';
 
 class RespondentsDetailsNavigationController {
   private respondentsDetails: C100RebuildPartyDetails[] | [] = [];
@@ -54,6 +59,10 @@ class RespondentsDetailsNavigationController {
               childId: this.childrenDetails[0].id,
             })
           : C100_RESPONDENT_DETAILS_ADD;
+        break;
+      }
+      case C100_RESPONDENT_DETAILS_PERSONAL_DETAILS: {
+        nextUrl = applyParms(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, { respondentId: this.respondentId });
         break;
       }
       default: {
