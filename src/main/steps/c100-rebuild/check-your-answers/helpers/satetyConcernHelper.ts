@@ -1,3 +1,4 @@
+import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
 
 const childNameFormatter = (childId, userCase) => {
@@ -51,6 +52,9 @@ const HTMLParser = (keys, FoundElement: any, bodyHtml, userCase, typeOfUser) => 
 export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser) => {
   console.log({ msg: 'inside child block', typeOfUser });
   const subFieldKey = 'c1A_safteyConcerns' as string;
+  typeOfUser === C1ASafteyConcernsAbout.CHILDREN
+    ? (typeOfUser = 'child')
+    : (typeOfUser = C1ASafteyConcernsAbout.APPLICANT);
   let html = '';
   if (userCase.hasOwnProperty(sessionKey)) {
     if (userCase.hasOwnProperty(subFieldKey)) {
