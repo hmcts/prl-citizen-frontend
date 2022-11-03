@@ -695,7 +695,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[90].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/personal-details');
     expect(C100Sequence[90].showInSection).toBe('c100');
     expect(C100Sequence[90].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/personal-details'
+      '/c100-rebuild/other-person-details/other-person-check'
     );
   });
 });
