@@ -125,7 +125,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain Continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 
