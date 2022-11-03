@@ -45,9 +45,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const applicantId = content.additionalData?.req.query.applicantId
-    ? (content.additionalData.req.query.applicantId as string)
-    : ('' as string);
+  const applicantId = content.additionalData?.req.params?.applicantId ?? '';
   const userId = applicantId as string;
   const selectedOptionsContactDetailPrivate = content.userCase?.appl_allApplicants?.filter(
     user => user['id'] === userId
