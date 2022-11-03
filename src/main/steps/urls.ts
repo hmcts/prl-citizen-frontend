@@ -384,10 +384,6 @@ export const C100_SCREENING_QUESTIONS_COURT_PERMISSION: PageLink = `${C100_SCREE
 export const C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION: PageLink = `${C100_SCREENING_QUESTIONS}/legal-representation-application`;
 export const C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE: PageLink = `${C100_SCREENING_QUESTIONS}/contact-representative`;
 
-/** @C100 Other Person Details */
-export const C100_OTHER_PERSON_DETAILS: PageLink = `${C100_URL}/other-person-details`;
-export const C100_OTHER_PERSON_DETAILS_ADD: PageLink = `${C100_OTHER_PERSON_DETAILS}/add-other-persons`;
-
 /** @C100 Respondent Details */
 export const C100_RESPONDENT_DETAILS: PageLink = `${C100_URL}/respondent-details`;
 export const C100_RESPONDENT_DETAILS_ADD: PageLink = `${C100_RESPONDENT_DETAILS}/add-respondents`;
