@@ -29,6 +29,7 @@ import { childDetailsContents } from './util/childDetails.util';
 import { hearingDetailsContents } from './util/hearingwithout.util';
 import { MiamFieldsLoader } from './util/miam.util';
 import { otherProceedingsContents } from './util/otherProceeding.util';
+import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
 
 export const enContent = {
@@ -90,31 +91,9 @@ export const enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
-    // do you have safety concerns
-    doYouHaveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
-    // who are the concerns about
-    whoAreConcernsAbout: 'Who are you concerned about?',
-    select_all_relevant: 'Select all options that are relevant to you.',
-    children: 'The children in this application',
-    applicant: 'Yourself',
     //child concern screens
-    childConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing?',
-    physicalAbuse: 'Physical abuse',
-    psychologicalAbuse: 'Psychological abuse',
-    emotionalAbuse: 'Emotional abuse',
-    sexualAbuse: 'Sexual abuse',
-    financialAbuse: 'Financial abuse',
-    witnessingDomesticAbuse: 'Witnessing domestic abuse',
-    abduction: 'Abduction',
-    somethingElse: 'Something else',
     detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
     againstChild: 'against the child',
-    childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
-    behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
-    behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? (optional)',
-    isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
-    seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
-    applicantConcerns: 'What type of behaviour have you experienced or are at risk of experiencing?',
     childDrugAbuse: 'Have the children been impacted by drug, alcohol or substance abuse?',
     otherWellBeingIssues: 'Do you have any other concerns about the children’s safety and wellbeing?',
     doWantCourtToAction: 'What do you want the court to do to keep you and the children safe?',
@@ -200,31 +179,9 @@ export const cyContent: typeof enContent = {
       'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend? - welsh',
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case? - welsh',
-    // do you have safety concerns
-    doYouHaveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children? - welsh',
-    // who are the concerns about
-    whoAreConcernsAbout: 'Who are you concerned about?',
-    select_all_relevant: 'Select all options that are relevant to you.',
-    children: 'The children in this application',
-    applicant: 'Yourself',
     //child concern screens
-    childConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing?',
-    physicalAbuse: 'Physical abuse',
-    psychologicalAbuse: 'Psychological abuse',
-    emotionalAbuse: 'Emotional abuse',
-    sexualAbuse: 'Sexual abuse',
-    financialAbuse: 'Financial abuse',
-    witnessingDomesticAbuse: 'Witnessing domestic abuse',
-    abduction: 'Abduction',
-    somethingElse: 'Something else',
     detailsOfChildConcern: 'Briefly describe the physical [***] [^^^] if you feel able to ',
     againstChild: 'against the child',
-    childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
-    behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
-    behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? (optional)',
-    isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
-    seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
-    applicantConcerns: 'What type of behaviour have you experienced or are at risk of experiencing?',
     childDrugAbuse: 'Have the children been impacted by drug, alcohol or substance abuse? - welsh',
     otherWellBeingIssues: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
     doWantCourtToAction: 'What do you want the court to do to keep you and the children safe? - welsh',
@@ -349,6 +306,7 @@ export const generateContent: TranslationFn = content => {
     ...hearingDetailsContents(content['language']),
     ...InternationElements(content['language']),
     ...childDetailsContents(content['language']),
+    ...SafetyConcernContentElements(content['language']),
     ...{ none: 'none' },
   };
   const translations = languages[content.language](content, newContents);

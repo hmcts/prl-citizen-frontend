@@ -50,7 +50,6 @@ const HTMLParser = (keys, FoundElement: any, bodyHtml, userCase, typeOfUser) => 
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser) => {
-  console.log({ msg: 'inside child block', typeOfUser });
   const subFieldKey = 'c1A_safteyConcerns' as string;
   typeOfUser === C1ASafteyConcernsAbout.CHILDREN
     ? (typeOfUser = 'child')

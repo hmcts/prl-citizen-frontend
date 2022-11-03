@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   headingTitle: 'Who are you concerned about?',
@@ -17,7 +18,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
   headingTitle: 'Who are you concerned about? - welsh',
