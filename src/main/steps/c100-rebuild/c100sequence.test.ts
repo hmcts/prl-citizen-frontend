@@ -101,6 +101,37 @@ const childrenMockData = mockRequest({
   },
 });
 
+const otherChildrenMockData = mockRequest({
+  params: {
+    childId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+  },
+  session: {
+    userCase: {
+      cd_otherChildren: [
+        {
+          id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+          firstName: 'Alice',
+          lastName: 'Silly',
+          personalDetails: {
+            dateOfBirth: {
+              year: '',
+              month: '',
+              day: '',
+            },
+            isDateOfBirthUnknown: '',
+            approxDateOfBirth: {
+              year: '',
+              month: '',
+              day: '',
+            },
+            sex: '',
+          },
+        },
+      ],
+    },
+  },
+});
+
 const safetyConcernsMockData = mockRequest({
   params: {},
   session: {
@@ -115,7 +146,7 @@ const safetyConcernsMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(88);
+    expect(C100Sequence).toHaveLength(100);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -381,7 +412,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[32].url).toBe('/c100-rebuild/child-details/further-information');
     expect(C100Sequence[32].showInSection).toBe('c100');
-    expect(C100Sequence[32].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[32].getNextStep({})).toBe('/c100-rebuild/child-details/has-other-children');
 
     expect(C100Sequence[33].url).toBe('/c100-rebuild/confirmation-page');
     expect(C100Sequence[33].showInSection).toBe('c100');
@@ -682,5 +713,77 @@ describe('C100Sequence', () => {
     expect(C100Sequence[87].url).toBe('/c100-rebuild/safety-concerns/orders-required/unsupervised');
     expect(C100Sequence[87].showInSection).toBe('c100');
     expect(C100Sequence[87].getNextStep({})).toBe('/c100-rebuild/international-elements/start');
+
+    /*expect(C100Sequence[88].url).toBe('/c100-rebuild/applicant/add-applicants');
+    expect(C100Sequence[88].showInSection).toBe('c100');
+    expect(C100Sequence[88].getNextStep({})).toBe('/c100-rebuild/applicant/confidentiality/details-know');
+
+    expect(C100Sequence[89].url).toBe('/c100-rebuild/applicant/confidentiality/details-know');
+    expect(C100Sequence[89].showInSection).toBe('c100');
+    expect(C100Sequence[89].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
+      '/c100-rebuild/applicant/confidentiality/start-alternative'
+    );
+    expect(C100Sequence[89].getNextStep({ detailsKnown: YesOrNo.NO })).toBe(
+      '/c100-rebuild/applicant/confidentiality/start'
+    );
+
+    expect(C100Sequence[90].url).toBe('/c100-rebuild/applicant/confidentiality/feedback');
+    expect(C100Sequence[90].showInSection).toBe('c100');
+    expect(C100Sequence[90].getNextStep({})).toBe('/c100-rebuild/applicant/confidentiality/feedback');
+
+    expect(C100Sequence[91].url).toBe('/c100-rebuild/applicant/confidentiality/feedbackno');
+    expect(C100Sequence[91].showInSection).toBe('c100');
+    expect(C100Sequence[91].getNextStep({})).toBe('/c100-rebuild/applicant/confidentiality/feedbackno');
+
+    expect(C100Sequence[92].url).toBe('/c100-rebuild/applicant/confidentiality/start');
+    expect(C100Sequence[92].showInSection).toBe('c100');
+    expect(C100Sequence[92].getNextStep({ start: YesOrNo.YES })).toBe(
+      '/c100-rebuild/applicant/confidentiality/feedback'
+    );
+    expect(C100Sequence[92].getNextStep({ start: YesOrNo.NO })).toBe(
+      '/c100-rebuild/applicant/confidentiality/feedbackno'
+    );
+
+    expect(C100Sequence[93].url).toBe('/c100-rebuild/applicant/confidentiality/start-alternative');
+    expect(C100Sequence[93].showInSection).toBe('c100');
+    expect(C100Sequence[93].getNextStep({ startAlternative: YesOrNo.YES })).toBe(
+      '/c100-rebuild/applicant/confidentiality/feedback'
+    );
+    expect(C100Sequence[93].getNextStep({ startAlternative: YesOrNo.NO })).toBe(
+      '/c100-rebuild/applicant/confidentiality/feedbackno'
+    );
+
+    expect(C100Sequence[94].url).toBe('/c100-rebuild/applicant/address/lookup');
+    expect(C100Sequence[94].showInSection).toBe('c100');
+    expect(C100Sequence[94].getNextStep({})).toBe('/c100-rebuild/applicant/address/select');
+
+    expect(C100Sequence[95].url).toBe('/c100-rebuild/applicant/address/select');
+    expect(C100Sequence[95].showInSection).toBe('c100');
+    expect(C100Sequence[95].getNextStep({})).toBe('/c100-rebuild/applicant/address/manual');
+
+    expect(C100Sequence[96].url).toBe('/c100-rebuild/applicant/address/manual');
+    expect(C100Sequence[96].showInSection).toBe('c100');
+    expect(C100Sequence[96].getNextStep({})).toBe('/c100-rebuild/applicant/address/lookup'); */
+
+    expect(C100Sequence[97].url).toBe('/c100-rebuild/child-details/has-other-children');
+    expect(C100Sequence[97].showInSection).toBe('c100');
+    expect(C100Sequence[97].getNextStep({ cd_hasOtherChildren: YesOrNo.NO })).toBe(
+      '/c100-rebuild/confidentiality/details-know'
+    );
+    expect(C100Sequence[97].getNextStep({ cd_hasOtherChildren: YesOrNo.YES })).toBe(
+      '/c100-rebuild/child-details/other-children/names'
+    );
+
+    expect(C100Sequence[98].url).toBe('/c100-rebuild/child-details/other-children/names');
+    expect(C100Sequence[98].showInSection).toBe('c100');
+    expect(C100Sequence[98].getNextStep(otherChildrenMockData.session.userCase, otherChildrenMockData)).toBe(
+      '/c100-rebuild/child-details/other-children/c9f56483-6e2d-43ce-9de8-72661755b87c/personal-details'
+    );
+
+    expect(C100Sequence[99].url).toBe('/c100-rebuild/child-details/other-children/:childId/personal-details');
+    expect(C100Sequence[99].showInSection).toBe('c100');
+    expect(C100Sequence[99].getNextStep(otherChildrenMockData.session.userCase, otherChildrenMockData)).toBe(
+      '/c100-rebuild/confidentiality/details-know'
+    );
   });
 });
