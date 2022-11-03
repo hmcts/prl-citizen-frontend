@@ -172,6 +172,14 @@ describe('child details > child-matters', () => {
     (needsResolution.validator as Function)('whoChildLiveWith');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('whoChildLiveWith');
 
+    expect((needsResolution.hint as Function)(generatedContent)).toBe(`${en.bodyHint}`);
+    (needsResolution.validator as Function)('stepsList');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('stepsList');
+
+    expect((needsResolution.hint as Function)(generatedContent)).toBe(`${en.bodyHint}`);
+    (needsResolution.validator as Function)('issueOrderList');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('issueOrderList');
+
     // expect(childArrangementsOrder.whoChildLiveWith.name).toBe('needsResolution');
     // expect(whoChildLiveWith.value).toBe('whoChildLiveWith');
     // expect((whoChildLiveWith.label as Function)(generatedContent)).toBe(en.whoChildLiveWithLabel);

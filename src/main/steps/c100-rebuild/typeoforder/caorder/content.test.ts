@@ -21,8 +21,8 @@ const en = {
     allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children',
     takingChildOnHoliday: 'Taking the children on holiday',
     relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales',
-    relocateChildrenOutsideUk:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
+    relocateChildrenOutsideUk: `Relocating the children outside of England and Wales
+     (including Scotland and Northern Ireland)`,
   },
   issueOrderList: {
     specificHoliday: 'A specific holiday or arrangement',
@@ -31,8 +31,8 @@ const en = {
     changeChildrenNameSurnameA: "Changing the children's names or surname",
     medicalTreatment: 'Medical treatment',
     relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales',
-    relocateChildrenOutsideUkA:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland)',
+    relocateChildrenOutsideUkA: `Relocating the children outside of England and Wales
+     (including Scotland and Northern Ireland)`,
     returningChildrenToYourCare: 'Returning the children to your care',
   },
 };
@@ -52,8 +52,8 @@ const cy = {
     allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
     takingChildOnHoliday: 'Taking the children on holiday - welsh',
     relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
-    relocateChildrenOutsideUk:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
+    relocateChildrenOutsideUk: `Relocating the children outside of England and Wales
+     (including Scotland and Northern Ireland) - welsh`,
   },
   issueOrderList: {
     specificHoliday: 'A specific holiday or arrangement - welsh',
@@ -62,8 +62,8 @@ const cy = {
     changeChildrenNameSurnameA: "Changing the children's names or surname - welsh",
     medicalTreatment: 'Medical treatment - welsh',
     relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales - welsh',
-    relocateChildrenOutsideUkA:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
+    relocateChildrenOutsideUkA: `Relocating the children outside of England and Wales
+     (including Scotland and Northern Ireland) - welsh`,
     returningChildrenToYourCare: 'Returning the children to your care - welsh',
   },
 };
