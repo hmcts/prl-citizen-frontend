@@ -171,6 +171,9 @@ interface UpdateCase {
   c100RebuildTypeOfOrder?: Record<string, string>;
   c100RebuildHearingWithoutNotice?: Record<string, string>;
   c100RebuildOtherProceedings?: Record<string, string>;
+  c100RebuildChildDetails?: Record<string, string>;
+  c100RebuildMaim?: Record<string, string>;
+  c100RebuildHearingUrgency?: Record<string, string>;
 }
 
 interface UpdateCaseRequest extends UpdateCase {
@@ -195,4 +198,7 @@ const updateCaseDataMapper = {
   too: 'c100RebuildTypeOfOrder',
   hwn: 'c100RebuildHearingWithoutNotice',
   op: 'c100RebuildOtherProceedings',
+  cd: 'c100RebuildChildDetails',
+  miam: 'c100RebuildMaim',
+  hu: 'c100RebuildHearingUrgency',
 };
