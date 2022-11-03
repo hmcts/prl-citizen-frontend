@@ -99,6 +99,8 @@ export const enContent = {
     doYouWantToKeep:
       'Do you want to keep your contact details private from  the other people named in the application (the respondents)?',
     applicantDetails: 'Applicant [^^^] - Your details',
+    haveLivedMore: 'have you lived at this address for more than 5 years ?',
+    previousAddress: 'Previous Addresses',
   },
 };
 export const cyContent: typeof enContent = {
@@ -168,6 +170,8 @@ export const cyContent: typeof enContent = {
     doYouWantToKeep:
       'Do you want to keep your contact details private from  the other people named in the application (the respondents)?',
     applicantDetails: 'Applicant [^^^] - Your details - welsh',
+    haveLivedMore: 'have you lived at this address for more than 5 years ?',
+    previousAddress: 'Previous Addresses',
   },
 };
 

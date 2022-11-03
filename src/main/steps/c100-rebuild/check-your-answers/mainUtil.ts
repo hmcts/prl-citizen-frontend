@@ -7,6 +7,8 @@ import * as Urls from '../../urls';
 import { DATE_FORMATTOR } from './common/dateformatter';
 import { HTML } from './common/htmlSelectors';
 import { InternationElementHelper } from './helpers/InternationElementsHelper';
+// eslint-disable-next-line import/namespace
+import { applicantAddressParser } from './helpers/applicantHelper';
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
@@ -243,29 +245,9 @@ export const ApplicantDetails = (
       {
         key: 'Address details',
         value: '',
-        valueHtml:
-        sessionApplicantData[applicant].hasOwnProperty('applicantAddress1') ? sessionApplicantData[applicant]?.['applicantAddress1'] : '' +
-          HTML.BREAK +
-          sessionApplicantData[applicant].hasOwnProperty('applicantAddress2') ? sessionApplicantData[applicant]?.['applicantAddress2'] : '' +
-          HTML.BREAK +
-          sessionApplicantData[applicant].hasOwnProperty('applicantAddressTown') ? sessionApplicantData[applicant]?.['applicantAddressTown']: '' +
-          HTML.BREAK +
-          sessionApplicantData[applicant].hasOwnProperty('applicantAddressCounty') ? sessionApplicantData[applicant]?.['applicantAddressCounty'] : '' +
-          HTML.BREAK +
-          HTML.BREAK +
-          sessionApplicantData[applicant].hasOwnProperty('applicantAddressPostcode') ? sessionApplicantData[applicant]?.['applicantAddressPostcode'] : ''+
-          HTML.RULER +
-          HTML.H4 +
-          'have you lived at this address for more than 5 years ?' +
-          HTML.H4_CLOSE +
-          sessionApplicantData[applicant].hasOwnProperty('applicantAddressHistory')? sessionApplicantData[applicant]?.['applicantAddressHistory'] : '' +
-          HTML.RULER +
-          HTML.H4 +
-          'Previous Addresses' +
-          HTML.H4_CLOSE +
-          sessionApplicantData[applicant].hasOwnProperty('applicantProvideDetailsOfPreviousAddresses')? sessionApplicantData[applicant]?.['applicantProvideDetailsOfPreviousAddresses'] : '',
+        valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys),
         changeUrl:
-          Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'] +
+          Urls['C100_APPLICANT_ADDRESS_LOOKUP'] +
           `?applicantId=${sessionApplicantData[applicant]['id']}`,
       }
     );
