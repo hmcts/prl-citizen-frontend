@@ -517,8 +517,8 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
-  c100RespondentFirstName?: C100RebuildPartyDetails['firstName'];
-  c100RespondentLastName?: C100RebuildPartyDetails['lastName'];
+  c100TempFirstName?: string;
+  c100TempLastName?: string;
   resp_Respondents?: C100RebuildPartyDetails[];
 }
 

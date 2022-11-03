@@ -2461,7 +2461,7 @@ export interface C1ASafteyConcerns {
   };
 
   export interface RelationshipToChildren {
-    relationshipType: string;
+    relationshipType: RelationshipType;
     otherRelationshipTypeDetails?: string;
     childId: string;
   }

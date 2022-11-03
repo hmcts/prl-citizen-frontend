@@ -15,10 +15,10 @@ const en = () => ({
   removeRespondentLabel: 'Remove respondent',
   newNameLabel: 'Enter a new name',
   errors: {
-    c100RespondentFirstName: {
+    c100TempFirstName: {
       required: 'Enter the first name',
     },
-    c100RespondentLastName: {
+    c100TempLastName: {
       required: 'Enter the last name',
     },
   },
@@ -34,10 +34,10 @@ const cy = () => ({
   removeRespondentLabel: 'Remove respondent - welsh',
   newNameLabel: 'Enter a new name - welsh',
   errors: {
-    c100RespondentFirstName: {
+    c100TempFirstName: {
       required: 'Enter the first name - welsh',
     },
-    c100RespondentLastName: {
+    c100TempLastName: {
       required: 'Enter the last name - welsh',
     },
   },
@@ -106,10 +106,10 @@ export const generateFormFields = (respondents: C100RebuildPartyDetails[]): Gene
     };
 
     //generate dynamic error message
-    errors.en[`firstName-${count}`] = en().errors.c100RespondentFirstName;
-    errors.en[`lastName-${count}`] = en().errors.c100RespondentLastName;
-    errors.cy[`firstName-${count}`] = cy().errors.c100RespondentFirstName;
-    errors.cy[`lastName-${count}`] = cy().errors.c100RespondentLastName;
+    errors.en[`firstName-${count}`] = en().errors.c100TempFirstName;
+    errors.en[`lastName-${count}`] = en().errors.c100TempLastName;
+    errors.cy[`firstName-${count}`] = cy().errors.c100TempFirstName;
+    errors.cy[`lastName-${count}`] = cy().errors.c100TempLastName;
   }
 
   return { fields, errors };
@@ -122,7 +122,7 @@ export const form: FormContent = {
       classes: 'govuk-fieldset__legend--m',
       label: l => l.newNameLabel,
       subFields: {
-        c100RespondentFirstName: {
+        c100TempFirstName: {
           type: 'text',
           classes: 'govuk-!-width-one-half',
           label: l => l.firstNameLabel,
@@ -130,7 +130,7 @@ export const form: FormContent = {
           labelSize: 'none',
           validator: isFieldFilledIn,
         },
-        c100RespondentLastName: {
+        c100TempLastName: {
           type: 'text',
           classes: 'govuk-!-width-one-half',
           label: l => l.lastNameLabel,

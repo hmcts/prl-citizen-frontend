@@ -28,36 +28,36 @@ export default class AddRespondentsPostController extends PostController<AnyObje
 
     const form = new Form(getFormFields().fields as FormFields);
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const { c100RespondentFirstName, c100RespondentLastName, ...rest } = formData;
+    const { c100TempFirstName, c100TempLastName, ...rest } = formData;
 
     req.session.userCase = {
       ...(req.session.userCase ?? {}),
-      c100RespondentFirstName,
-      c100RespondentLastName,
+      c100TempFirstName,
+      c100TempLastName,
     };
 
     if (addRespondent) {
-      if (c100RespondentFirstName && c100RespondentLastName) {
-        Object.assign(req.session.userCase, { c100RespondentFirstName: '', c100RespondentLastName: '' });
+      if (c100TempFirstName && c100TempLastName) {
+        Object.assign(req.session.userCase, { c100TempFirstName: '', c100TempLastName: '' });
         req.session.userCase.resp_Respondents = [
           ...(req.session.userCase?.resp_Respondents ?? []),
           {
             ...getDataShape(),
-            firstName: c100RespondentFirstName as string,
-            lastName: c100RespondentLastName as string,
+            firstName: c100TempFirstName as string,
+            lastName: c100TempLastName as string,
           },
         ];
       } else {
         req.session.errors = form
           .getErrors(formData)
-          .filter(error => ['c100RespondentFirstName', 'c100RespondentLastName'].includes(error.propertyName));
+          .filter(error => ['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName));
       }
 
       return super.redirect(req, res, req.originalUrl);
     } else if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
       const respondentDetailsErrors = req.session.errors.filter(
-        error => !['c100RespondentFirstName', 'c100RespondentLastName'].includes(error.propertyName)
+        error => !['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName)
       );
 
       if (req.session.userCase?.resp_Respondents?.length) {
@@ -68,30 +68,30 @@ export default class AddRespondentsPostController extends PostController<AnyObje
         } else {
           //if there are no errors present for added respondents, then save the details
           req.session.userCase.resp_Respondents = this.transformData(rest, req.session.userCase.resp_Respondents);
-          if (c100RespondentFirstName && c100RespondentLastName) {
+          if (c100TempFirstName && c100TempLastName) {
             // if first name & last name is fed for new other respondent, add the new entry to the session
             req.session.userCase.resp_Respondents.push({
               ...getDataShape(),
-              firstName: c100RespondentFirstName as string,
-              lastName: c100RespondentLastName as string,
+              firstName: c100TempFirstName as string,
+              lastName: c100TempLastName as string,
             });
-            Object.assign(req.session.userCase, { c100RespondentFirstName: '', c100RespondentLastName: '' });
-          } else if (!c100RespondentFirstName && !c100RespondentLastName) {
+            Object.assign(req.session.userCase, { c100TempFirstName: '', c100TempLastName: '' });
+          } else if (!c100TempFirstName && !c100TempLastName) {
             // if first name & last name is empty, remove errors from the session
             req.session.errors = [];
           }
         }
       } else {
         //if there are no other respondents added
-        if (c100RespondentFirstName && c100RespondentLastName) {
+        if (c100TempFirstName && c100TempLastName) {
           req.session.userCase.resp_Respondents = [
             {
               ...getDataShape(),
-              firstName: c100RespondentFirstName as string,
-              lastName: c100RespondentLastName as string,
+              firstName: c100TempFirstName as string,
+              lastName: c100TempLastName as string,
             },
           ];
-          Object.assign(req.session.userCase, { c100RespondentFirstName: '', c100RespondentLastName: '' });
+          Object.assign(req.session.userCase, { c100TempFirstName: '', c100TempLastName: '' });
         }
       }
 
@@ -99,13 +99,13 @@ export default class AddRespondentsPostController extends PostController<AnyObje
     } else if (saveAndComeLater) {
       const dataToSave = { resp_Respondents: [...this.transformData(rest, req.session.userCase.resp_Respondents)] };
 
-      if (c100RespondentFirstName && c100RespondentLastName) {
+      if (c100TempFirstName && c100TempLastName) {
         dataToSave.resp_Respondents.push({
           ...getDataShape(),
-          firstName: c100RespondentFirstName,
-          lastName: c100RespondentLastName,
+          firstName: c100TempFirstName,
+          lastName: c100TempLastName,
         });
-        Object.assign(req.session.userCase, { c100RespondentFirstName: '', c100RespondentLastName: '' });
+        Object.assign(req.session.userCase, { c100TempFirstName: '', c100TempLastName: '' });
       }
 
       super.saveAndComeLater(req, res, dataToSave);

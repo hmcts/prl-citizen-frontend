@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
 
-import { C100RebuildPartyDetails, ChildrenDetails, Gender, YesNoEmpty } from '../../../app/case/definition';
+import {
+  C100RebuildPartyDetails,
+  ChildrenDetails,
+  Gender,
+  RelationshipToChildren,
+  YesNoEmpty,
+} from '../../../app/case/definition';
 
 export const getDataShape = (): C100RebuildPartyDetails => ({
   id: uuidv4(),
@@ -23,13 +29,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     otherGenderDetails: '',
   },
   relationshipDetails: {
-    relationshipToChildren: [
-      {
-        relationshipType: '',
-        childId: '',
-        otherRelationshipTypeDetails: '',
-      },
-    ],
+    relationshipToChildren: [] as RelationshipToChildren[],
   },
 });
 

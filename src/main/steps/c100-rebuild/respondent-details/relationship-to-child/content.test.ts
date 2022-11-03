@@ -2,7 +2,6 @@ import languageAssertions from '../../../../../test/unit/utils/languageAssertion
 import { RelationshipType } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -115,18 +114,18 @@ describe('respondent details > relationshipDetails details', () => {
           relationshipDetails: {
             relationshipToChildren: [
               {
-                relationshipType: 'Mother',
+                relationshipType: RelationshipType.MOTHER,
                 childId: '20bda557-4d03-49c1-a3a4-a313431dc96d',
                 otherRelationshipTypeDetails: '',
               },
               {
                 childId: 'eb609a11-a5f0-4cee-85ce-5670b58ca767',
-                relationshipType: 'Father',
+                relationshipType: RelationshipType.FATHER,
                 otherRelationshipTypeDetails: '',
               },
               {
                 childId: '00e40672-de9f-4361-8b83-f5104d9aa11a',
-                relationshipType: 'Guardian',
+                relationshipType: RelationshipType.GUARDIAN,
                 otherRelationshipTypeDetails: '',
               },
             ],
@@ -153,7 +152,11 @@ describe('respondent details > relationshipDetails details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().relationshipDetails.relationshipToChildren[0]);
+    const { errors } = generateFormFields({
+      relationshipType: RelationshipType.EMPTY,
+      otherRelationshipTypeDetails: '',
+      childId: '',
+    });
     languageAssertions(
       'en',
       {
@@ -170,7 +173,11 @@ describe('respondent details > relationshipDetails details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().relationshipDetails.relationshipToChildren[0]);
+    const { errors } = generateFormFields({
+      relationshipType: RelationshipType.EMPTY,
+      otherRelationshipTypeDetails: '',
+      childId: '',
+    });
     languageAssertions(
       'cy',
       {
