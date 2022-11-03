@@ -2443,3 +2443,16 @@ export interface C1ASafteyConcerns {
       statement: string;
     };
   };
+
+  export type OtherChildrenDetails = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    personalDetails: {
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      approxDateOfBirth?: CaseDate;
+      gender: Gender;
+      otherGenderDetails?: string;
+    };
+  };
