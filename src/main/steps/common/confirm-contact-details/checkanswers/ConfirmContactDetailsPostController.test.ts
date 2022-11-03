@@ -16,8 +16,7 @@ const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 jest.mock('axios');
 config.get = jest.fn();
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
-const token =
-  'Bearer dummy_token';
+const token = 'Bearer dummy_token';
 
 describe('ConfirmContactDetailsPostController', () => {
   beforeEach(() => {
