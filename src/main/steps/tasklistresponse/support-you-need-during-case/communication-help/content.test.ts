@@ -31,7 +31,7 @@ const en = {
   continue: 'Continue',
   errors: {
     respondentHelpCommunication: {
-      required: 'Please select an answer',
+      required: 'Select what help you need in communicating and understanding',
     },
     respondentSignLanguageDetails: {
       required: 'Please provide sign language details',
@@ -69,7 +69,7 @@ const cy: typeof en = {
   continue: 'Continue',
   errors: {
     respondentHelpCommunication: {
-      required: 'Please select an answer',
+      required: 'Select what help you need in communicating and understanding',
     },
     respondentSignLanguageDetails: {
       required: 'Please provide sign language details',

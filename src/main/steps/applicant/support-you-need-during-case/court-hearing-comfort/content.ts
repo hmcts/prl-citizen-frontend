@@ -15,10 +15,10 @@ const en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     courtComfort: {
-      required: 'Please select an answer',
+      required: 'Select what help you need to feel comfortable during a court hearing',
     },
     otherProvideDetails: {
       required: 'Please describe your need in detail',
@@ -42,10 +42,10 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     courtComfort: {
-      required: 'Please select an answer',
+      required: 'Select what help you need to feel comfortable during a court hearing',
     },
     otherProvideDetails: {
       required: 'Please describe your need in detail',
@@ -124,7 +124,7 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

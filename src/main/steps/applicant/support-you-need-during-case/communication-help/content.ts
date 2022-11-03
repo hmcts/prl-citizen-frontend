@@ -29,7 +29,7 @@ const en = {
   continue: 'Continue',
   errors: {
     helpCommunication: {
-      required: 'Please select an answer',
+      required: 'Select what help you need in communicating and understanding',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
@@ -67,7 +67,7 @@ const cy: typeof en = {
   continue: 'Continue',
   errors: {
     helpCommunication: {
-      required: 'Please select an answer',
+      required: 'Select what help you need in communicating and understanding',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
