@@ -14,6 +14,7 @@ import { HTML } from '../common/htmlSelectors';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order) => {
   delete order['id'];
+  delete order['orderDocument'];
   const Mapper = {
     ['orderDetail']: {
       question: keys['courtIssuedLabel'],

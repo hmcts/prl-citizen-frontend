@@ -9,7 +9,7 @@ const childNameFormatter = (childId, userCase) => {
 };
 
 const HTMLParser = (keys, FoundElement: any, bodyHtml, userCase, typeOfUser) => {
-  //FoundElement = Object.keys(FoundElement).forEach(key => FoundElement[key] === undefined && '');
+  //FoundElement = Object.keys(FoundElement).forEach(key => FoundElement[key] === undefined && '')
   if (typeOfUser === 'child') {
     bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
     bodyHtml += FoundElement.hasOwnProperty('childrenConcernedAbout')
@@ -49,6 +49,7 @@ const HTMLParser = (keys, FoundElement: any, bodyHtml, userCase, typeOfUser) => 
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser) => {
+  console.log({ msg: 'inside child block', typeOfUser });
   const subFieldKey = 'c1A_safteyConcerns' as string;
   let html = '';
   if (userCase.hasOwnProperty(sessionKey)) {
