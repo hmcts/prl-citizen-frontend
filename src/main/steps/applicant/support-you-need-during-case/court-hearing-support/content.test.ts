@@ -6,17 +6,20 @@ import { generateContent } from './content';
 
 const en = {
   section: 'Reasonable adjustments',
-  title: 'I would need to bring support with me to a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need to bring support with me to a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
+  supportWorkerDetails: 'Tell us who you will bring',
   familymember: 'A friend or family member',
+  familyMemberDetails: 'Tell us who you will bring',
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
+  animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  nosupport: 'No, I do not need any support at this time',
   continue: 'Save and continue',
   errors: {
     courtHearing: {
@@ -24,23 +27,35 @@ const en = {
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+    },
+    supportWorkerProvideDetails: {
+      required: 'Please provide the support worker details',
+    },
+    familyMemberProvideDetails: {
+      required: 'Please provide the family member details',
+    },
+    animalProvideDetails: {
+      required: 'Please provide the therapy animal details',
     },
   },
 };
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
-  title: 'I would need to bring support with me to a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need to bring support with me to a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
+  supportWorkerDetails: 'Tell us who you will bring',
   familymember: 'A friend or family member',
+  familyMemberDetails: 'Tell us who you will bring',
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
+  animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  nosupport: 'No, I do not need any support at this time',
   continue: 'Save and continue',
   errors: {
     courtHearing: {
@@ -48,6 +63,15 @@ const cy: typeof en = {
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+    },
+    supportWorkerProvideDetails: {
+      required: 'Please provide the support worker details',
+    },
+    familyMemberProvideDetails: {
+      required: 'Please provide the family member details',
+    },
+    animalProvideDetails: {
+      required: 'Please provide the therapy animal details',
     },
   },
 };
@@ -66,19 +90,22 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('I would need to bring support with me to a court hearing');
+    expect(generatedContent.title).toEqual('I need to bring support with me to a court hearing');
     expect(generatedContent.section).toEqual('Reasonable adjustments');
     expect(generatedContent.courtcommunication).toEqual(
-      'Think about what you would need if the hearing was in person, by phone or video.'
+      'Consider in-person, phone or video, in case your preferred hearing type is not possible'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.supportworker).toEqual('A support worker or carer');
+    expect(generatedContent.supportWorkerDetails).toEqual('Tell us who you will bring');
     expect(generatedContent.familymember).toEqual('A friend or family member');
+    expect(generatedContent.familyMemberDetails).toEqual('Tell us who you will bring');
     expect(generatedContent.assistance).toEqual('Assistance / guide dog');
     expect(generatedContent.animal).toEqual('Therapy animal');
+    expect(generatedContent.animalDetails).toEqual('Describe what you need');
     expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.nosupport).toEqual('No, I do not need any extra support at this time');
+    expect(generatedContent.nosupport).toEqual('No, I do not need any support at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect

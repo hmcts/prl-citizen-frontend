@@ -64,7 +64,7 @@ module.exports = {
     I.wait('2');
   },
   async reasonableAdjustments4() {
-    await I.retry(retryCount).waitForText('I would need to bring support with me to a court hearing');
+    await I.retry(retryCount).waitForText('I need to bring support with me to a court hearing');
     await I.retry(retryCount).click('#courtHearing');
     await I.retry(retryCount).click('#courtHearing-2');
     await I.retry(retryCount).click('#courtHearing-3');
