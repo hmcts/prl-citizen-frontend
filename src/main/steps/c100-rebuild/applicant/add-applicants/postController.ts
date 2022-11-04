@@ -136,6 +136,15 @@ export default class AddApplicantPostController extends PostController<AnyObject
         otherGenderDetails: '',
         applicantPlaceOfBirth: '',
       },
+      applicantContactDetail: {
+        canProvideEmail: YesNoEmpty.EMPTY,
+        emailAddress: '',
+        homePhoneNumber: '',
+        canProvideMobileNumber: YesNoEmpty.EMPTY,
+        mobileNumber: '',
+        canNotProvideMobileNumberReason: '',
+        canLeaveVoiceMail: YesNoEmpty.EMPTY,
+      },
     };
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {

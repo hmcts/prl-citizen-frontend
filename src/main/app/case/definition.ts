@@ -709,6 +709,18 @@ export interface RelationshipToChildren {
   relationshipType: RelationshipType;
   otherRelationshipTypeDetails?: string;
   childId: string;
+  applicantProvideDetailsOfPreviousAddresses?: string,
+  applicantContactDetail?: ContactDetail
+}
+
+export interface ContactDetail {
+  canProvideEmail?: YesNoEmpty,
+  emailAddress?: string,
+  homePhoneNumber?: string,
+  canProvideMobileNumber?: YesNoEmpty,
+  mobileNumber?: string,
+  canNotProvideMobileNumberReason?: string
+  canLeaveVoiceMail?: YesNoEmpty 
 }
 
 export type C100ListOfApplicants = C100Applicant[];
