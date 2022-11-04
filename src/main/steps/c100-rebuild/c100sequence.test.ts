@@ -1,152 +1,17 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { childrenMockData } from '../../../test/unit/mocks/mocked-requests/child-details-mock';
+import { miamMockData } from '../../../test/unit/mocks/mocked-requests/miam-mock';
+import { otherChildrenMockData } from '../../../test/unit/mocks/mocked-requests/other-child-mock';
+import { otherProceedingsMockData } from '../../../test/unit/mocks/mocked-requests/other-proceedings-mock';
+import { respondentMockData } from '../../../test/unit/mocks/mocked-requests/respondent-details-mock';
+import { safetyConcernsMockData } from '../../../test/unit/mocks/mocked-requests/safety-concerns-mock';
 import { YesOrNo } from '../../app/case/definition';
 
 import PageStepConfigurator from './PageStepConfigurator';
 import { C100Sequence } from './c100sequence';
 
-const otherProceedingsMockData = mockRequest({
-  query: {
-    orderType: 'careOrder',
-    orderId: 1,
-  },
-  session: {
-    userCase: {
-      op_courtProceedingsOrders: ['careOrder'],
-      op_otherProceedings: {
-        order: {
-          careOrders: [
-            {
-              id: '1',
-              orderDetail: '',
-              caseNo: '',
-              orderDate: {
-                day: '',
-                month: '',
-                year: '',
-              },
-              currentOrder: '',
-              orderEndDate: {
-                day: '',
-                month: '',
-                year: '',
-              },
-              orderCopy: 'Yes',
-              orderDocument: {
-                id: 'doc1',
-                url: '',
-                filename: '',
-                binaryUrl: '',
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
-});
-
-const miamMockData = mockRequest({
-  session: {
-    userCase: {
-      miam_nonAttendanceReasons: [
-        'domesticViolence',
-        'childProtection',
-        'urgentHearing',
-        'previousMIAMOrExempt',
-        'validExemption',
-      ],
-      miam_domesticAbuse: ['none'],
-      miam_childProtectionEvidence: ['none'],
-      miam_urgency: ['none'],
-      miam_previousAttendance: ['none'],
-      miam_notAttendingReasons: ['none'],
-    },
-  },
-});
-
-const childrenMockData = mockRequest({
-  params: {
-    childId: '7483640e-0817-4ddc-b709-6723f7925474',
-  },
-  session: {
-    userCase: {
-      cd_children: [
-        {
-          id: '7483640e-0817-4ddc-b709-6723f7925474',
-          firstName: 'Bob',
-          lastName: 'Silly',
-          personalDetails: {
-            dateOfBirth: {
-              year: '',
-              month: '',
-              day: '',
-            },
-            isDateOfBirthUnknown: '',
-            approxDateOfBirth: {
-              year: '',
-              month: '',
-              day: '',
-            },
-            sex: '',
-          },
-          childMatters: {
-            needsResolution: [],
-          },
-          parentialResponsibility: {
-            statement: '',
-          },
-        },
-      ],
-    },
-  },
-});
-
-const otherChildrenMockData = mockRequest({
-  params: {
-    childId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
-  },
-  session: {
-    userCase: {
-      cd_otherChildren: [
-        {
-          id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
-          firstName: 'Alice',
-          lastName: 'Silly',
-          personalDetails: {
-            dateOfBirth: {
-              year: '',
-              month: '',
-              day: '',
-            },
-            isDateOfBirthUnknown: '',
-            approxDateOfBirth: {
-              year: '',
-              month: '',
-              day: '',
-            },
-            sex: '',
-          },
-        },
-      ],
-    },
-  },
-});
-
-const safetyConcernsMockData = mockRequest({
-  params: {},
-  session: {
-    userCase: {
-      c1A_childAbductedBefore: 'No',
-      c1A_safetyConernAbout: ['children', 'applicant'],
-      c1A_concernAboutChild: ['physicalAbuse', 'financialAbuse', 'abduction'],
-      c1A_concernAboutApplicant: ['somethingElse'],
-    },
-  },
-});
-
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(100);
+    expect(C100Sequence).toHaveLength(102);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -784,6 +649,20 @@ describe('C100Sequence', () => {
     expect(C100Sequence[99].showInSection).toBe('c100');
     expect(C100Sequence[99].getNextStep(otherChildrenMockData.session.userCase, otherChildrenMockData)).toBe(
       '/c100-rebuild/confidentiality/details-know'
+    );
+
+    expect(C100Sequence[100].url).toBe('/c100-rebuild/respondent-details/add-respondents');
+    expect(C100Sequence[100].showInSection).toBe('c100');
+    expect(C100Sequence[100].getNextStep(respondentMockData.session.userCase)).toBe(
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474/'
+    );
+
+    expect(C100Sequence[101].url).toBe(
+      '/c100-rebuild/respondent-details/:respondentId/relationship-to-child/:childId/'
+    );
+    expect(C100Sequence[101].showInSection).toBe('c100');
+    expect(C100Sequence[101].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
+      '/c100-rebuild/respondent-details/add-respondents'
     );
   });
 });
