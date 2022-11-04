@@ -100,8 +100,8 @@ describe('utils', () => {
       {
         data: {
           ...mockUserCase,
-          proceedingsStart: 'undefined',
-          proceedingsStartOrder: 'undefined',
+          proceedingsStart: YesOrNo.YES,
+          proceedingsStartOrder: YesOrNo.YES,
           emergencyOrderOptions: YesOrNo.NO,
           supervisionOrderOption: YesOrNo.NO,
           careOrderOptions: YesOrNo.NO,
@@ -120,8 +120,8 @@ describe('utils', () => {
       {
         data: {
           ...mockUserCase,
-          proceedingsStart: 'undefined',
-          proceedingsStartOrder: 'undefined',
+          proceedingsStart: YesOrNo.YES,
+          proceedingsStartOrder: YesOrNo.NO,
           emergencyOrderOptions: undefined,
           supervisionOrderOption: YesOrNo.NO,
           careOrderOptions: undefined,

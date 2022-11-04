@@ -13,13 +13,13 @@ const en = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   summaryText: 'Contacts for help',
-  saveAndContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     proceedingsStart: {
-      required: 'Please choose an option for court proceedings',
+      required: 'Select yes if the children have been involved in a previous court case',
     },
     proceedingsStartOrder: {
-      required: 'Please choose an option for court order',
+      required: 'Select yes if you have had a court order made for your protection',
     },
   },
 };
@@ -35,13 +35,13 @@ const cy: typeof en = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   summaryText: 'Contacts for help',
-  saveAndContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     proceedingsStart: {
-      required: 'Please select an answer',
+      required: 'Select yes if the children have been involved in a previous court case',
     },
     proceedingsStartOrder: {
-      required: 'Please select an answer',
+      required: 'Select yes if you have had a court order made for your protection',
     },
   },
 };
@@ -68,10 +68,6 @@ export const form: FormContent = {
           label: l => l.courtCaseNo,
           value: 'No',
         },
-        {
-          label: l => l.courtCaseDontKnow,
-          value: 'I',
-        },
       ],
       validator: isFieldFilledIn,
     },
@@ -95,7 +91,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.saveAndContinue,
+    text: l => l.onlyContinue,
   },
 };
 

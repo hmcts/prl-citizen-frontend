@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Respondent, SectionStatus, YesNoIDontKnow, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (
   userCase: Partial<CaseWithId> | undefined,
@@ -152,8 +152,7 @@ export const getViewAllDocuments = (): SectionStatus => {
 
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
-    ((userCase?.proceedingsStart === YesNoIDontKnow.NO || userCase?.proceedingsStart === YesNoIDontKnow.IDONTKNOW) &&
-      userCase?.proceedingsStartOrder === YesNoIDontKnow.NO) ||
+    (userCase?.proceedingsStart === YesOrNo.NO && userCase?.proceedingsStartOrder === YesOrNo.NO) ||
     (userCase?.proceedingsStart &&
       userCase?.proceedingsStartOrder &&
       userCase?.emergencyOrderOptions &&

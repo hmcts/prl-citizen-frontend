@@ -320,9 +320,9 @@ export interface Case {
   /*** Document upload */
   respondentUploadFiles?: UploadedFile[];
   proceedingsCourtCase?: string;
-  proceedingsStart?: string;
+  proceedingsStart?: YesOrNo;
   proceedingsCourtOrder?: string;
-  proceedingsStartOrder?: string;
+  proceedingsStartOrder?: YesOrNo;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
   supervisionOrder?: orderInterface;
