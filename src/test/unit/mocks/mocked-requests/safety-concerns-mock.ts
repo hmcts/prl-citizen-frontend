@@ -1,4 +1,4 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { mockRequest } from '../../utils/mockRequest';
 
 export const safetyConcernsMockData = mockRequest({
   params: {},

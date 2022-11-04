@@ -1,13 +1,13 @@
+import { childrenMockData } from '../../../test/unit/mocks/mocked-requests/child-details-mock';
+import { miamMockData } from '../../../test/unit/mocks/mocked-requests/miam-mock';
+import { otherChildrenMockData } from '../../../test/unit/mocks/mocked-requests/other-child-mock';
+import { otherProceedingsMockData } from '../../../test/unit/mocks/mocked-requests/other-proceedings-mock';
+import { respondentMockData } from '../../../test/unit/mocks/mocked-requests/respondent-details-mock';
+import { safetyConcernsMockData } from '../../../test/unit/mocks/mocked-requests/safety-concerns-mock';
 import { YesOrNo } from '../../app/case/definition';
 
 import PageStepConfigurator from './PageStepConfigurator';
 import { C100Sequence } from './c100sequence';
-import { childrenMockData } from './mocked-requests/child-details-mock';
-import { miamMockData } from './mocked-requests/miam-mock';
-import { otherChildrenMockData } from './mocked-requests/other-child-mock';
-import { otherProceedingsMockData } from './mocked-requests/other-proceedings-mock';
-import { respondentMockData } from './mocked-requests/respondent-details-mock';
-import { safetyConcernsMockData } from './mocked-requests/safety-concerns-mock';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {

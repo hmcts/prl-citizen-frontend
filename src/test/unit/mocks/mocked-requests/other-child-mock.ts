@@ -1,15 +1,15 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { mockRequest } from '../../utils/mockRequest';
 
-export const childrenMockData = mockRequest({
+export const otherChildrenMockData = mockRequest({
   params: {
-    childId: '7483640e-0817-4ddc-b709-6723f7925474',
+    childId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
   },
   session: {
     userCase: {
-      cd_children: [
+      cd_otherChildren: [
         {
-          id: '7483640e-0817-4ddc-b709-6723f7925474',
-          firstName: 'Bob',
+          id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+          firstName: 'Alice',
           lastName: 'Silly',
           personalDetails: {
             dateOfBirth: {
@@ -24,12 +24,6 @@ export const childrenMockData = mockRequest({
               day: '',
             },
             sex: '',
-          },
-          childMatters: {
-            needsResolution: [],
-          },
-          parentialResponsibility: {
-            statement: '',
           },
         },
       ],
