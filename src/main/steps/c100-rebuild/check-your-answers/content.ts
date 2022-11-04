@@ -105,6 +105,8 @@ export const enContent = {
     previousAddress: 'Previous Addresses',
     hasOtherChildren: 'Do you or any respondents have other children who are not part of this application?',
     otherGender: 'They identify in another way ',
+    approxCheckboxLabel: 'I don’t know their date of birth',
+    approxDobLabel: 'Approximate date of birth',
   },
 };
 export const cyContent: typeof enContent = {
@@ -179,6 +181,8 @@ export const cyContent: typeof enContent = {
     previousAddress: 'Previous Addresses',
     hasOtherChildren: 'Do you or any respondents have other children who are not part of this application?- welsh',
     otherGender: 'They identify in another way ',
+    approxCheckboxLabel: 'I don’t know their date of birth',
+    approxDobLabel: 'Approximate date of birth',
   },
 };
 

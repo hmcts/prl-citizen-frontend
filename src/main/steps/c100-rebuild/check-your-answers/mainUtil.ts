@@ -693,6 +693,7 @@ export const OtherChildrenDetails = (
         lastname = sessionChildData[child]['lastName'],
         id = sessionChildData[child]['id'],
         personalDetails = sessionChildData[child]['personalDetails'];
+        const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
       const childNo = Number(child) + 1;
       newChildDataStorage.push(
         {
@@ -706,18 +707,37 @@ export const OtherChildrenDetails = (
           value: firstname + ' ' + lastname,
           changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
         },
-        {
-          key: keys['dobLabel'],
-          value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
-          changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-        },
-        {
-          key: keys['childGenderLabel'],
-          value: personalDetails?.['gender'],
-          valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
-          changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-        },
       );
+
+      if(isDateOfBirthUnknown){
+        newChildDataStorage.push(
+          {
+            key: keys['approxCheckboxLabel'],
+            value: personalDetails['isDateOfBirthUnknown'],
+            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+          },
+          {
+            key: keys['approxDobLabel'],
+            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
+            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+          },
+        );
+      }
+      else{
+        newChildDataStorage.push(
+          {
+            key: keys['dobLabel'],
+            value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
+            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+          },
+        );
+      }
+      newChildDataStorage.push( {
+        key: keys['childGenderLabel'],
+        value: personalDetails?.['gender'],
+        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
+        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      });
     }
   }  
 
