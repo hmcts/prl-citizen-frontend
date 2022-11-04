@@ -530,17 +530,22 @@ export const SafetyConcerns_child = (
       valueHtml: userCase['c1A_childAbductedBefore'] as string,
       changeUrl: Urls['C100_C1A_CHILD_ABDUCTION_THREATS'],
     },
-    {
-      key: keys['previousAbduction'],
-      valueHtml: userCase['c1A_previousAbductionsShortDesc'],
-      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'],
-    },
-    {
-      key: keys['c1A_policeOrInvestigatorInvolved'],
-      valueHtml: policeOrInvestigatorsOtherDetailsHTML,
-      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'],
-    },
+    
   ];
+  if(userCase.hasOwnProperty('c1A_childAbductedBefore') && userCase['c1A_childAbductedBefore'] === 'Yes'){
+    abdutionScreenData.push(
+      {
+        key: keys['previousAbduction'],
+        valueHtml: userCase['c1A_previousAbductionsShortDesc'],
+        changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'],
+      },
+      {
+        key: keys['c1A_policeOrInvestigatorInvolved'],
+        valueHtml: policeOrInvestigatorsOtherDetailsHTML,
+        changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'],
+      },
+    );
+  }
   /**
    * @StrictChecks whether abduction data is enabled
    */
@@ -577,8 +582,7 @@ export const SafetyConcerns_yours = (
     ?.filter(
       (element: any) =>
         element !== C1AAbuseTypes.ABDUCTION &&
-        element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
-        element !== C1AAbuseTypes.SOMETHING_ELSE
+        element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
     ?.map(field => {
       return {
