@@ -28,7 +28,9 @@ describe('test cases for SaftyConcern', () => {
 
     expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser)).toBe('');
   });
-  test('withFoundElement', () => {
+  /**
+   * 
+   * test('withFoundElement', () => {
     const sessionKey = 'sessionKey';
     const typeOfUser = 'child';
     const userCase = {
@@ -51,4 +53,5 @@ describe('test cases for SaftyConcern', () => {
       '<h4>childrenConcernedAboutLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
     );
   });
+   */
 });
