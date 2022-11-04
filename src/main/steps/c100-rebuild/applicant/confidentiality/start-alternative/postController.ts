@@ -6,6 +6,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
@@ -24,9 +25,9 @@ export default class StartAlternativePostController extends CommonConfidentialit
     req.session.errors = form.getErrors(formData);
     let redirectURI = req.originalUrl;
     let applicantData = req.session.userCase['appl_allApplicants'] as C100ListOfApplicants;
-    if (req.query['applicantId']) {
+    if (req.params['applicantId']) {
       if (req.body['startAlternative'] && req.body['startAlternative'] !== '') {
-        const { applicantId } = req['query'];
+        const { applicantId } = req['params'];
         const modifiedApplicantDetails = req.session.userCase.appl_allApplicants?.map(applicant => {
           const applicantInformation = applicant;
           if (applicant['id'] === applicantId) {
@@ -59,7 +60,7 @@ export default class StartAlternativePostController extends CommonConfidentialit
             redirectURIBasedOnSelection = C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
             break;
         }
-        redirectURI = redirectURIBasedOnSelection + `?applicantId=${applicantId}`;
+        redirectURI = applyParms(redirectURIBasedOnSelection, { applicantId: applicantId as string });
       }
     }
     super.post(

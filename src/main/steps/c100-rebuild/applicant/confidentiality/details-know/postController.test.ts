@@ -41,7 +41,7 @@ describe('DetailKnownController - post Controller', () => {
     const language = 'en';
     req.session.lang = language;
     req.session.userCase.appl_allApplicants = dummyData;
-    req['query']['applicantId'] = '480e8295-4c5b-4b9b-827f-f9be423ec1c5';
+    req['params']['applicantId'] = '480e8295-4c5b-4b9b-827f-f9be423ec1c5';
     req['body'] = {
       detailsKnown: 'Yes',
     };
@@ -54,7 +54,7 @@ describe('DetailKnownController - post Controller', () => {
     const language = 'en';
     req.session.lang = language;
     req.session.userCase.appl_allApplicants = dummyData;
-    req['query']['applicantId'] = 'd8d2d081-115e-49e6-add9-bd8b0e3e851a';
+    req['params']['applicantId'] = 'd8d2d081-115e-49e6-add9-bd8b0e3e851a';
     req['body'] = {
       detailsKnown: 'No',
     };

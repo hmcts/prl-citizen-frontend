@@ -11,7 +11,7 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
     language: 'en',
     additionalData: {
       req: {
-        query: {
+        params: {
           applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
         },
       },
@@ -41,7 +41,7 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
     const controller = new ManualAddressPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
-      query: {
+      params: {
         applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
       },
       body: {

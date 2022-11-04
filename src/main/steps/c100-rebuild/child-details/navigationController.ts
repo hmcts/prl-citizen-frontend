@@ -10,17 +10,12 @@ import {
   PageLink,
 } from '../../urls';
 
+import { getNextChild } from './util';
+
 class ChildrenDetailsNavigationController {
   private childrenDetails: ChildrenDetails[] | [] = [];
 
   private childId: ChildrenDetails['id'] = '';
-
-  private getNextChild(): ChildrenDetails | null {
-    const childIndex = this.childrenDetails.findIndex(child => child.id === this.childId);
-    return childIndex >= 0 && childIndex < this.childrenDetails.length - 1
-      ? this.childrenDetails[childIndex + 1]
-      : null;
-  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
@@ -42,7 +37,7 @@ class ChildrenDetailsNavigationController {
         break;
       }
       case C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: {
-        const nextChild = this.getNextChild();
+        const nextChild = getNextChild(this.childrenDetails, this.childId);
         nextUrl = nextChild
           ? applyParms(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, { childId: nextChild.id })
           : C100_CHILDERN_FURTHER_INFORMATION;

@@ -4,13 +4,14 @@ import PageStepConfigurator from './PageStepConfigurator';
 import { C100Sequence } from './c100sequence';
 import { childrenMockData } from './mocked-requests/child-details-mock';
 import { miamMockData } from './mocked-requests/miam-mock';
+import { otherChildrenMockData } from './mocked-requests/other-child-mock';
 import { otherProceedingsMockData } from './mocked-requests/other-proceedings-mock';
 import { respondentMockData } from './mocked-requests/respondent-details-mock';
 import { safetyConcernsMockData } from './mocked-requests/safety-concerns-mock';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(99);
+    expect(C100Sequence).toHaveLength(102);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -276,7 +277,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[32].url).toBe('/c100-rebuild/child-details/further-information');
     expect(C100Sequence[32].showInSection).toBe('c100');
-    expect(C100Sequence[32].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[32].getNextStep({})).toBe('/c100-rebuild/child-details/has-other-children');
 
     expect(C100Sequence[33].url).toBe('/c100-rebuild/confirmation-page');
     expect(C100Sequence[33].showInSection).toBe('c100');
@@ -578,7 +579,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[87].showInSection).toBe('c100');
     expect(C100Sequence[87].getNextStep({})).toBe('/c100-rebuild/international-elements/start');
 
-    expect(C100Sequence[88].url).toBe('/c100-rebuild/applicant/add-applicants');
+    /*expect(C100Sequence[88].url).toBe('/c100-rebuild/applicant/add-applicants');
     expect(C100Sequence[88].showInSection).toBe('c100');
     expect(C100Sequence[88].getNextStep({})).toBe('/c100-rebuild/applicant/confidentiality/details-know');
 
@@ -617,15 +618,50 @@ describe('C100Sequence', () => {
       '/c100-rebuild/applicant/confidentiality/feedbackno'
     );
 
-    expect(C100Sequence[97].url).toBe('/c100-rebuild/respondent-details/add-respondents');
+    expect(C100Sequence[94].url).toBe('/c100-rebuild/applicant/address/lookup');
+    expect(C100Sequence[94].showInSection).toBe('c100');
+    expect(C100Sequence[94].getNextStep({})).toBe('/c100-rebuild/applicant/address/select');
+
+    expect(C100Sequence[95].url).toBe('/c100-rebuild/applicant/address/select');
+    expect(C100Sequence[95].showInSection).toBe('c100');
+    expect(C100Sequence[95].getNextStep({})).toBe('/c100-rebuild/applicant/address/manual');
+
+    expect(C100Sequence[96].url).toBe('/c100-rebuild/applicant/address/manual');
+    expect(C100Sequence[96].showInSection).toBe('c100');
+    expect(C100Sequence[96].getNextStep({})).toBe('/c100-rebuild/applicant/address/lookup'); */
+
+    expect(C100Sequence[97].url).toBe('/c100-rebuild/child-details/has-other-children');
     expect(C100Sequence[97].showInSection).toBe('c100');
-    expect(C100Sequence[97].getNextStep(respondentMockData.session.userCase)).toBe(
+    expect(C100Sequence[97].getNextStep({ cd_hasOtherChildren: YesOrNo.NO })).toBe(
+      '/c100-rebuild/confidentiality/details-know'
+    );
+    expect(C100Sequence[97].getNextStep({ cd_hasOtherChildren: YesOrNo.YES })).toBe(
+      '/c100-rebuild/child-details/other-children/names'
+    );
+
+    expect(C100Sequence[98].url).toBe('/c100-rebuild/child-details/other-children/names');
+    expect(C100Sequence[98].showInSection).toBe('c100');
+    expect(C100Sequence[98].getNextStep(otherChildrenMockData.session.userCase, otherChildrenMockData)).toBe(
+      '/c100-rebuild/child-details/other-children/c9f56483-6e2d-43ce-9de8-72661755b87c/personal-details'
+    );
+
+    expect(C100Sequence[99].url).toBe('/c100-rebuild/child-details/other-children/:childId/personal-details');
+    expect(C100Sequence[99].showInSection).toBe('c100');
+    expect(C100Sequence[99].getNextStep(otherChildrenMockData.session.userCase, otherChildrenMockData)).toBe(
+      '/c100-rebuild/confidentiality/details-know'
+    );
+
+    expect(C100Sequence[100].url).toBe('/c100-rebuild/respondent-details/add-respondents');
+    expect(C100Sequence[100].showInSection).toBe('c100');
+    expect(C100Sequence[100].getNextStep(respondentMockData.session.userCase)).toBe(
       '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474/'
     );
 
-    expect(C100Sequence[98].url).toBe('/c100-rebuild/respondent-details/:respondentId/relationship-to-child/:childId/');
-    expect(C100Sequence[98].showInSection).toBe('c100');
-    expect(C100Sequence[98].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
+    expect(C100Sequence[101].url).toBe(
+      '/c100-rebuild/respondent-details/:respondentId/relationship-to-child/:childId/'
+    );
+    expect(C100Sequence[101].showInSection).toBe('c100');
+    expect(C100Sequence[101].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
       '/c100-rebuild/respondent-details/add-respondents'
     );
   });

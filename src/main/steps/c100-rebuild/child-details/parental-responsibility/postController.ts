@@ -24,7 +24,8 @@ export default class ParentalResponsibilityPostController extends PostController
     const childDetails = getChildDetails(req.session.userCase.cd_children!, childId) as ChildrenDetails;
 
     Object.assign(childDetails.parentialResponsibility, transformFormData('parentialResponsibility', formData));
-    req.session.userCase.cd_children = updateChildDetails(req.session.userCase.cd_children!, childDetails);
+    const updatedChild = updateChildDetails(req.session.userCase.cd_children!, childDetails);
+    req.session.userCase.cd_children = updatedChild as ChildrenDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
