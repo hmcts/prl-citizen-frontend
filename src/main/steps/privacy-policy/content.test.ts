@@ -161,7 +161,6 @@ const cy: typeof en = {
   ico: "You can also complain to the  <a class='govuk-link' href='mailto:privacy@justice.gov.uk'>Information Commissioner’s Office</a> if you’re not satisfied with our response or believe we are not processing your personal data lawfully.",
 };
 
-
 /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
 describe('privacy-policy > content', () => {
   const commonContent = generatePageContent({
