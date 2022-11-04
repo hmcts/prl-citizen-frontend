@@ -3,7 +3,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 const en = {
   title: 'Terms and conditions',
   byAccessingThisService:
-    'By accessing this private law service, you’re agreeing to the following terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>.',
+    'By accessing this service (‘Private law’), you’re agreeing to the following terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>.',
   theUseOfTheService:
     'The use of the Service includes the Manage Organisation and Manage Cases applications (sometimes known as ‘MyHMCTS’) and Judicial Case Manager (JCM).',
   theTermYouIncludes:
@@ -57,7 +57,7 @@ const en = {
 const cy: typeof en = {
   title: 'Terms and conditions {in welsh}',
   byAccessingThisService:
-    'By accessing this private law service, you’re agreeing to the following terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>. {in welsh}',
+    'By accessing this service (‘Private law’), you’re agreeing to the following terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>. {in welsh}',
   theUseOfTheService:
     'The use of the Service includes the Manage Organisation and Manage Cases applications (sometimes known as ‘MyHMCTS’) and Judicial Case Manager (JCM). {in welsh}',
   theTermYouIncludes:
