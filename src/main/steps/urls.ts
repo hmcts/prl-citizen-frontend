@@ -397,11 +397,12 @@ export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE: Pag
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/feedback`;
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/feedbackno`;
 
-/**@C100 applicant address */
+/**@C100 applicant address and contact detail*/
 export const C100_APPLICANT_ADDRESS: PageLink = `${C100_URL}/applicant/:applicantId/address`;
 export const C100_APPLICANT_ADDRESS_LOOKUP: PageLink = `${C100_APPLICANT_ADDRESS}/lookup`;
 export const C100_APPLICANT_ADDRESS_SELECT: PageLink = `${C100_APPLICANT_ADDRESS}/select`;
 export const C100_APPLICANT_ADDRESS_MANUAL: PageLink = `${C100_APPLICANT_ADDRESS}/manual`;
+export const C100_APPLICANT_CONTACT_DETAIL: PageLink = `${C100_URL}/applicant/:applicantId/contact-detail`;
 
 /** @C100 Respondent Details */
 export const C100_RESPONDENT_DETAILS: PageLink = `${C100_URL}/respondent-details`;

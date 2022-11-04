@@ -691,7 +691,18 @@ export type C100Applicant = {
   applicantAddressTown?: string,
   applicantAddressCounty?: string,
   applicantAddressHistory?: YesOrNo,
-  applicantProvideDetailsOfPreviousAddresses?: string
+  applicantProvideDetailsOfPreviousAddresses?: string,
+  applicantContactDetail?: ContactDetail
+}
+
+export interface ContactDetail {
+  canProvideEmail?: YesNoEmpty,
+  emailAddress?: string,
+  homePhoneNumber?: string,
+  canProvideMobileNumber?: YesNoEmpty,
+  mobileNumber?: string,
+  canNotProvideMobileNumberReason?: string
+  canLeaveVoiceMail?: YesNoEmpty 
 }
 
 export type C100ListOfApplicants = C100Applicant[];

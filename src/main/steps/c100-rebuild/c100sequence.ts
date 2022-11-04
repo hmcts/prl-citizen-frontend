@@ -121,6 +121,7 @@ import {
   /** Respondent Details */
   C100_RESPONDENT_DETAILS_ADD,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+  C100_APPLICANT_CONTACT_DETAIL,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -782,5 +783,10 @@ export const C100Sequence: Step[] = [
         caseData,
         req?.params
       ),
+  },
+  {
+    url: C100_APPLICANT_CONTACT_DETAIL,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS,
   },
 ];
