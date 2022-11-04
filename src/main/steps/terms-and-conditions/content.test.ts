@@ -12,7 +12,7 @@ const en = {
   theUseOfTheService:
     'The use of the Service includes the Manage Organisation and Manage Cases applications (sometimes known as ‘MyHMCTS’) and Judicial Case Manager (JCM).',
   theTermYouIncludes:
-    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to Her Majesty’s Courts and Tribunals Service.',
+    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service.',
   youAlsoAgreeThat: 'You also agree that you have a legitimate need to use the Service.',
   whoWeAre: 'Who we are',
   thisServiceIs: 'This Service is managed by HM Courts and Tribunals service.',
@@ -110,7 +110,7 @@ const cy: typeof en = {
   compliance:
     'You hereby represent and undertake that you have all procedures in the place to ensure compliance with these terms. {in welsh}',
   responsibilities:
-    'You acknowledge and accept that you are fully aware of your responsibilities for this organisation, in relation to the use of the Service as set out in the above terms and conditions. You are authorised to accept the terms on behalf of your organisation including other users. {in welsh}.',
+    'You acknowledge and accept that you are fully aware of your responsibilities for this organisation, in relation to the use of the Service as set out in the above terms and conditions. You are authorised to accept the terms on behalf of your organisation including other users. {in welsh}',
 };
 
 /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
