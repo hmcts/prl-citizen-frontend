@@ -13,8 +13,7 @@ import { HTML } from '../common/htmlSelectors';
  */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order) => {
-  delete order['id'];
-  delete order['orderDocument'];
+  const newOrders = order;
   const Mapper = {
     ['orderDetail']: {
       question: keys['courtIssuedLabel'],
@@ -36,21 +35,22 @@ export const IndividualOrderFieldsParser = (keys, order) => {
     },
   };
   let Val = '';
-  Object.entries(order).forEach((entry, index) => {
+  Object.entries(newOrders).forEach((entry, index) => {
     const key = entry[0];
     const value = entry[1];
-    const rulerForLastElement = Object.entries(order).length > index + 1 ? HTML.RULER : '<br>';
-    if (typeof entry[1] === 'object' && entry[1] !== null) {
-      const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-      const valueDetails = HTML.P + DATE_FORMATTOR(value) + HTML.P_CLOSE;
-      Val += keyDetails + valueDetails + rulerForLastElement;
-    } else {
-      const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-      const valueDetails = HTML.P + value + HTML.P_CLOSE;
-      Val += keyDetails + valueDetails + rulerForLastElement;
+    const rulerForLastElement = Object.entries(newOrders).length > index + 1 ? HTML.RULER : '<br>';
+    if (key !== 'id' && key !== 'orderDocument') {
+      if (typeof entry[1] === 'object' && entry[1] !== null) {
+        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const valueDetails = HTML.P + DATE_FORMATTOR(value) + HTML.P_CLOSE;
+        Val += keyDetails + valueDetails + rulerForLastElement;
+      } else {
+        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const valueDetails = HTML.P + value + HTML.P_CLOSE;
+        Val += keyDetails + valueDetails + rulerForLastElement;
+      }
     }
   });
-
   return Val;
 };
 
