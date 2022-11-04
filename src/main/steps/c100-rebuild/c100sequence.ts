@@ -139,6 +139,7 @@ import {
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
+  C100_APPLICANTS_PERSONAL_DETAILS,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -913,5 +914,10 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       ApplicantDetailsNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
+  },
+  {
+    url: C100_APPLICANTS_PERSONAL_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANTS_PERSONAL_DETAILS,
   },
 ];

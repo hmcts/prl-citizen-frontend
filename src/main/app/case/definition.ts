@@ -679,7 +679,7 @@ export type C100Applicant = {
   id?: string,
   applicantFirstName?: string | unknown,
   applicantLastName?: string | unknown,
-  detailsKnown?: string | unknown 
+  detailsKnown?: string | unknown
   startAlternative?: string | unknown,
   start?: string | unknown,
   contactDetailsPrivate?: unknown | [],
@@ -691,7 +691,15 @@ export type C100Applicant = {
   applicantAddressTown?: string,
   applicantAddressCounty?: string,
   applicantAddressHistory?: YesOrNo,
-  applicantProvideDetailsOfPreviousAddresses?: string
+  applicantProvideDetailsOfPreviousAddresses?: string;
+  personalDetails:{
+    haveYouChangeName?: YesNoEmpty;
+    applPreviousName?: string,
+    dateOfBirth?: CaseDate;
+    gender?: Gender;
+    otherGenderDetails?: string;
+    applicantPlaceOfBirth?: string;
+  };
   relationshipDetails?: {
     relationshipToChildren: RelationshipToChildren[];
   }
@@ -722,10 +730,10 @@ export interface CaseData {
   applicantTable: ApplicantTable[];
   othersToNotify: OthersToNotify[];
   urgencyDetails: UrgencyDetails;
-  
+
   allegationOfHarm: AllegationOfHarm;
   dateOfSubmission: DateOfSubmission;
-  
+
   interpreterNeeds: InterpreterNeed[];
   childDetailsTable: ChildDetailsTable[];
   jurisdictionIssue: string;
@@ -770,7 +778,7 @@ export interface CaseData {
   jurisdictionIssueGiveReason: string;
   litigationCapacityReferrals: string;
   specialArrangementsRequired: string;
-  
+
   habitualResidentInOtherState: string;
   otherProceedingsDetailsTable: OtherProceedingsDetailsTable[];
   summaryTabForOrderAppliedFor: SummaryTabForOrderAppliedFor;
@@ -811,7 +819,7 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  
+
   contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
@@ -839,12 +847,12 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   c100Applicants?: C100Applicant;
-  
+
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
-  
+
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   doYouConsent?: YesOrNo;

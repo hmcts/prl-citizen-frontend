@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Case } from '../../../../app/case/case';
-import { C100ListOfApplicants } from '../../../../app/case/definition';
+import { C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -123,6 +123,18 @@ export default class AddApplicantPostController extends PostController<AnyObject
       contactDetailsPrivateAlternative: [] as [],
       relationshipDetails: {
         relationshipToChildren: [],
+      },
+      personalDetails: {
+        haveYouChangeName: YesNoEmpty.EMPTY,
+        applPreviousName: '',
+        dateOfBirth: {
+          day: '',
+          month: '',
+          year: '',
+        },
+        gender: Gender.EMPTY,
+        otherGenderDetails: '',
+        applicantPlaceOfBirth: '',
       },
     };
     let applicantInSession: C100ListOfApplicants = [];
