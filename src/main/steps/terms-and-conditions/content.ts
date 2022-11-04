@@ -105,7 +105,7 @@ const cy: typeof en = {
   compliance:
     'You hereby represent and undertake that you have all procedures in the place to ensure compliance with these terms. {in welsh}',
   responsibilities:
-    'You acknowledge and accept that you are fully aware of your responsibilities for this organisation, in relation to the use of the Service as set out in the above terms and conditions. You are authorised to accept the terms on behalf of your organisation including other users. {in welsh}',
+    "You acknowledge and accept that you are fully aware of your responsibilities for this organisation, in relation to the use of the Service as set out in the above terms and conditions. You are authorised to accept the terms on behalf of your organisation including other users. {in welsh}",
 };
 
 const languages = {
