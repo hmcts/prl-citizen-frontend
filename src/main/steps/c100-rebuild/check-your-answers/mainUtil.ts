@@ -473,12 +473,8 @@ export const SafetyConcerns_child = (
    */
   let policeOrInvestigatorsOtherDetailsHTML = '';
   policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorInvolved'];
-  policeOrInvestigatorsOtherDetailsHTML += HTML.RULER;
-  policeOrInvestigatorsOtherDetailsHTML += HTML.H4;
-  policeOrInvestigatorsOtherDetailsHTML += keys['details'];
-  policeOrInvestigatorsOtherDetailsHTML += HTML.H3_CLOSE;
   userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
-    ? (policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorOtherDetails'])
+    ? (policeOrInvestigatorsOtherDetailsHTML += HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails'])
     : (policeOrInvestigatorsOtherDetailsHTML += '');
   /**
    * @c1A_childAbductedBefore session Values

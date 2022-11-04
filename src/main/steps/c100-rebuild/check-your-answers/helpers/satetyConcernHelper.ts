@@ -40,11 +40,12 @@ const HTMLParser = (keys, FoundElement: any, bodyHtml, userCase, typeOfUser) => 
   //
   bodyHtml += HTML.H4 + keys['seekHelpFromPersonOrAgencyLabel'] + HTML.H4_CLOSE;
   bodyHtml += FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency')
-    ? FoundElement?.['seekHelpFromPersonOrAgency']
+    ? HTML.BOTTOM_PADDING_3 + FoundElement?.['seekHelpFromPersonOrAgency'] + HTML.BOTTOM_PADDING_CLOSE
     : '';
-  bodyHtml += FoundElement.hasOwnProperty('seekHelpDetails')
-    ? HTML.BOTTOM_TOP_3 + FoundElement?.['seekHelpDetails'] + HTML.BOTTOM_PADDING_CLOSE
-    : '';
+  bodyHtml +=
+    FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
+      ? HTML.BOTTOM_TOP_3 + FoundElement?.['seekHelpDetails'] + HTML.BOTTOM_PADDING_CLOSE
+      : '';
   return bodyHtml;
 };
 
