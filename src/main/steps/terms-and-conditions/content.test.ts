@@ -8,14 +8,14 @@ jest.mock('../../app/form/validation');
 const en = {
   title: 'Terms and conditions',
   byAccessingThisService:
-    'By accessing this service (‘the Service’), you’re agreeing to the following terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>.',
+    'By accessing this private law service, you’re agreeing to the following terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>.',
   theUseOfTheService:
     'The use of the Service includes the Manage Organisation and Manage Cases applications (sometimes known as ‘MyHMCTS’) and Judicial Case Manager (JCM).',
   theTermYouIncludes:
     'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to Her Majesty’s Courts and Tribunals Service.',
   youAlsoAgreeThat: 'You also agree that you have a legitimate need to use the Service.',
   whoWeAre: 'Who we are',
-  thisServiceIs: 'This Service is managed by Her Majesty’s Courts and Tribunals service.',
+  thisServiceIs: 'This Service is managed by HM Courts and Tribunals service.',
   youShouldCheckThese:
     'You should check these terms and conditions regularly. We may update them at any time without notice. If you continue to use this service after the terms and conditions have changed, you are deemed to have agreed to the changes.',
   termsOfService: 'Terms of Service',
@@ -62,14 +62,14 @@ const en = {
 const cy: typeof en = {
   title: 'Terms and conditions {in welsh}',
   byAccessingThisService:
-    'By accessing this service (‘the Service’), you’re agreeing to the following terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>. {in welsh}',
+    'By accessing this private law service, you’re agreeing to the following terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>. {in welsh}',
   theUseOfTheService:
     'The use of the Service includes the Manage Organisation and Manage Cases applications (sometimes known as ‘MyHMCTS’) and Judicial Case Manager (JCM). {in welsh}',
   theTermYouIncludes:
-    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to Her Majesty’s Courts and Tribunals Service. {in welsh}',
+    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service. {in welsh}',
   youAlsoAgreeThat: 'You also agree that you have a legitimate need to use the Service. {in welsh}',
   whoWeAre: 'Who we are {in welsh}',
-  thisServiceIs: 'This Service is managed by Her Majesty’s Courts and Tribunals service. {in welsh}',
+  thisServiceIs: 'This Service is managed by HM Courts and Tribunals service. {in welsh}',
   youShouldCheckThese:
     'You should check these terms and conditions regularly. We may update them at any time without notice. If you continue to use this service after the terms and conditions have changed, you are deemed to have agreed to the changes. {in welsh}',
   termsOfService: 'Terms of Service',
