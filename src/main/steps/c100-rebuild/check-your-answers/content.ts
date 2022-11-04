@@ -15,6 +15,7 @@ import {
   MiamAttendance,
   MiamExemption,
   MiamTitle,
+  OtherChildrenDetails,
   PastAndCurrentProceedings,
   PeopleDetails,
   SafetyConcerns,
@@ -72,6 +73,7 @@ export const enContent = {
     childSafetyConcerns: 'Safety concerns: the children in the application ',
     yourSafetyConcerns: 'Safety concern: your safety',
     otherSafetyConcerns: 'Safety concern: other concerns that you have',
+    otherChildernDetails: 'Other Childern details',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -101,6 +103,8 @@ export const enContent = {
     applicantDetails: 'Applicant [^^^] - Your details',
     haveLivedMore: 'have you lived at this address for more than 5 years ?',
     previousAddress: 'Previous Addresses',
+    hasOtherChildren: 'Do you or any respondents have other children who are not part of this application?',
+    otherGender: 'They identify in another way ',
   },
 };
 export const cyContent: typeof enContent = {
@@ -143,6 +147,7 @@ export const cyContent: typeof enContent = {
     childSafetyConcerns: 'Safety concerns: the children in the application ',
     yourSafetyConcerns: 'Safety concern: your safety',
     otherSafetyConcerns: 'Safety concern: other concerns that you have',
+    otherChildernDetails: 'Other Childern details',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -172,6 +177,8 @@ export const cyContent: typeof enContent = {
     applicantDetails: 'Applicant [^^^] - Your details - welsh',
     haveLivedMore: 'have you lived at this address for more than 5 years ?',
     previousAddress: 'Previous Addresses',
+    hasOtherChildren: 'Do you or any respondents have other children who are not part of this application?- welsh',
+    otherGender: 'They identify in another way ',
   },
 };
 
@@ -199,6 +206,7 @@ const en = (content: CommonContent, newEnContents?: any) => {
     PeopleDetails(enContent),
     ChildernDetails(enContent, userCase),
     ChildernDetailsAdditional(enContent, userCase),
+    OtherChildrenDetails(enContent, userCase),
     ApplicantDetails(enContent, userCase),
     PastAndCurrentProceedings(enContent, userCase),
     SafetyConcerns(enContent, userCase),
@@ -228,6 +236,7 @@ const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
     PeopleDetails(cyContent),
     ChildernDetails(cyContent, userCase),
     ChildernDetailsAdditional(cyContent, userCase),
+    OtherChildrenDetails(cyContent, userCase),
     ApplicantDetails(cyContent, userCase),
     PastAndCurrentProceedings(cyContent, userCase),
     SafetyConcerns(cyContent, userCase),

@@ -670,3 +670,60 @@ export const SafetyConcerns_others = (
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
+
+
+/* eslint-disable import/namespace */
+export const OtherChildrenDetails = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const sessionChildData = userCase['cd_otherChildren'];
+  const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
+    [];
+    newChildDataStorage.push(
+      {
+        key: keys['hasOtherChildren'],
+        value: userCase['cd_hasOtherChildren'] as string,
+        changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
+      },
+    );
+  if(userCase['cd_hasOtherChildren'] === 'Yes'){
+    for (const child in sessionChildData) {
+      const firstname = sessionChildData[child]['firstName'],
+        lastname = sessionChildData[child]['lastName'],
+        id = sessionChildData[child]['id'],
+        personalDetails = sessionChildData[child]['personalDetails'];
+      const childNo = Number(child) + 1;
+      newChildDataStorage.push(
+        {
+          key: '',
+          keyHtml: '<h4 class="app-task-list__section">Child ' + childNo + '</h4>',
+          value: '',
+          changeUrl: '',
+        },
+        {
+          key: keys['fullName'],
+          value: firstname + ' ' + lastname,
+          changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
+        },
+        {
+          key: keys['dobLabel'],
+          value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
+          changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+        },
+        {
+          key: keys['childGenderLabel'],
+          value: personalDetails?.['gender'],
+          valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
+          changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+        },
+      );
+    }
+  }  
+
+  const SummaryData = newChildDataStorage;
+  return {
+    title: sectionTitles['otherChildernDetails'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
