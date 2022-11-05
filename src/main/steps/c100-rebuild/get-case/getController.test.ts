@@ -20,7 +20,7 @@ describe('Get Case Controller', () => {
     req.session.lang = language;
     await controller.get(req, res);
 
-    expect(res.redirect).not.toBeCalledWith('error');
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
   });
 
   test('should retrieve draft case', async () => {
@@ -33,7 +33,7 @@ describe('Get Case Controller', () => {
     req.locals.C100Api.retrieveCase.mockResolvedValue([]);
     await controller.get(req, res);
 
-    expect(res.redirect).toBeCalledWith(DASHBOARD_URL);
+    expect(res.redirect).toHaveBeenCalledWith(DASHBOARD_URL);
   });
 
   test('Retrieve draft case without return URL', async () => {
