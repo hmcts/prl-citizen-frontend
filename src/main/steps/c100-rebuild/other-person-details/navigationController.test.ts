@@ -119,20 +119,15 @@ describe('OtherPersonsDetailsNavigationController', () => {
     ).toBe('/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/personal-details');
   });
 
-  test('From a screen where the next step is not computed using OtherPersonsDetailsNavigationController.getNextUrl -> navigate to the same screen when navigation controller is invoked from any other screen', async () => {
-    const dummyparams = mockRequest({
-      params: {
-        otherPersonId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
-      },
-    });
+  test('From other person personal details  -> navigate to other person relationship for child 1', async () => {
     expect(
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
         dummyRequest.session.userCase,
-        dummyparams
+        dummyRequest.params
       )
     ).toBe(
-      '/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474/'
+      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474'
     );
   });
   /* new  */
@@ -151,7 +146,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
         dummyparams.params
       )
     ).toBe(
-      '/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925635/'
+      '/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925635'
     );
   });
 

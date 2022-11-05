@@ -356,7 +356,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_FURTHER_INFORMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_CHILDERN_DETAILS_OTHER_CHILDREN,
   },
   {
     url: C100_CONFIRMATIONPAGE,
