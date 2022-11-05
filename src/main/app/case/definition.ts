@@ -2444,6 +2444,19 @@ export interface C1ASafteyConcerns {
     };
   };
 
+  export type OtherChildrenDetails = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    personalDetails: {
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      approxDateOfBirth?: CaseDate;
+      gender: Gender;
+      otherGenderDetails?: string;
+    };
+  };
+
   export type C100RebuildPartyDetails = {
     id: string;
     firstName: string;
@@ -2451,15 +2464,32 @@ export interface C1ASafteyConcerns {
     personalDetails: {
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
-      isNameChanged?: YesNoDontKnow;
-      previousFullName?: string;
       approxDateOfBirth?: CaseDate;
       gender: Gender;
       otherGenderDetails?: string;
     };
+    relationshipDetails: {
+      relationshipToChildren: RelationshipToChildren[];
+    };
     address?: C100Address;
   };
 
+  export interface RelationshipToChildren {
+    relationshipType: RelationshipType;
+    otherRelationshipTypeDetails?: string;
+    childId: string;
+  }
+
+  export const enum RelationshipType {
+    MOTHER = 'Mother',
+    FATHER = 'Father',
+    GUARDIAN = 'Guardian',
+    SPECIAL_GUARDIAN = 'Special Guardian',
+    GRAND_PARENT = 'Grandparent',
+    OTHER = 'Other',
+    EMPTY = ''
+  }
+  
   export interface C100Address extends Address {
     selectedAddress?: number,
     addressHistory?: YesOrNo,

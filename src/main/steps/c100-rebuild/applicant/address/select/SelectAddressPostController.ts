@@ -17,7 +17,7 @@ export default class SelectAddressPostController extends PostController<AnyObjec
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const form = new Form(getUpdatedForm().fields as FormFields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-    const { applicantId } = req.query;
+    const { applicantId } = req.params;
 
     req.session.errors = form.getErrors(formData);
 

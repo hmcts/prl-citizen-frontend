@@ -65,6 +65,7 @@ import {
   C1ASafteyConcernsAbout,
   C1AAbuseTypes,
   C100ListOfApplicants,
+  OtherChildrenDetails,
   C100RebuildPartyDetails,
 } from './definition';
 
@@ -510,6 +511,8 @@ export interface Case {
   childFirstName?: ChildrenDetails['firstName'];
   childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
+  cd_otherChildren?: OtherChildrenDetails[];
+  cd_hasOtherChildren?: YesOrNo;
   sq_writtenAgreement?: string;
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
@@ -517,8 +520,8 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
-  c100RespondentFirstName?: C100RebuildPartyDetails['firstName'];
-  c100RespondentLastName?: C100RebuildPartyDetails['lastName'];
+  c100TempFirstName?: string;
+  c100TempLastName?: string;
   resp_Respondents?: C100RebuildPartyDetails[];
 }
 
