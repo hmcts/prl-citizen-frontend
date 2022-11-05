@@ -121,9 +121,10 @@ import {
   /** Respondent Details */
   C100_RESPONDENT_DETAILS_ADD,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
-  C100_RESPONDENT_ADDRESS_LOOKUP,
-  C100_RESPONDENT_ADDRESS_SELECT,
-  C100_RESPONDENT_ADDRESS_MANUAL,
+  C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
+  C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
+  C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
+  C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -787,18 +788,24 @@ export const C100Sequence: Step[] = [
       ),
   },
   {
-    url: C100_RESPONDENT_ADDRESS_LOOKUP,
+    url: C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
     showInSection: Sections.C100,
-    getNextStep: () => C100_RESPONDENT_ADDRESS_SELECT,
+    getNextStep: () => C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
   },
   {
-    url: C100_RESPONDENT_ADDRESS_SELECT,
+    url: C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_RESPONDENT_ADDRESS_MANUAL,
+    getNextStep: () => C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
   },
   {
-    url: C100_RESPONDENT_ADDRESS_MANUAL,
+    url: C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
     showInSection: Sections.C100,
-    getNextStep: () => C100_RESPONDENT_ADDRESS_LOOKUP,
+    getNextStep: () => C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      RespondentDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, caseData, req?.params),
   },
 ];

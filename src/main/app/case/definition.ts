@@ -2462,11 +2462,15 @@ export interface C1ASafteyConcerns {
     firstName: string;
     lastName: string;
     personalDetails: {
+      repondentDetials?: YesNoEmpty;
+      resPreviousName?: string,
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
       approxDateOfBirth?: CaseDate;
       gender: Gender;
       otherGenderDetails?: string;
+      respondentPlaceOfBirth?: string;
+      respondentPlaceOfBirthUnknown?: YesOrNo;
     };
     relationshipDetails: {
       relationshipToChildren: RelationshipToChildren[];
