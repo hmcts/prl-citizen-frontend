@@ -674,6 +674,28 @@ export interface Sibling {
 }
 
 
+
+export type C100Applicant = {
+  id?: string,
+  applicantFirstName?: string | unknown,
+  applicantLastName?: string | unknown,
+  detailsKnown?: string | unknown 
+  startAlternative?: string | unknown,
+  start?: string | unknown,
+  contactDetailsPrivate?: unknown | [],
+  contactDetailsPrivateAlternative?: unknown | [],
+  applicantSelectedAddress?: number,
+  applicantAddressPostcode?: string,
+  applicantAddress1?: string,
+  applicantAddress2?: string,
+  applicantAddressTown?: string,
+  applicantAddressCounty?: string,
+  applicantAddressHistory?: YesOrNo,
+  applicantProvideDetailsOfPreviousAddresses?: string
+}
+
+export type C100ListOfApplicants = C100Applicant[];
+
 export interface CaseData {
   id: string;
   children: Child[];
@@ -807,6 +829,7 @@ export interface CaseData {
   applicant1AddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  c100Applicants?: C100Applicant;
   
   accessCode: string;
   caseInvites: CaseInvite[]
@@ -2373,6 +2396,7 @@ export enum C1AAbuseTypes {
 export enum C1ASafteyConcernsAbout{
   CHILDREN = 'children',
   APPLICANT = 'applicant',
+  OTHER = 'otherConcerns',
 }
 
 export interface C1ASafteyConcernsAbuse{
@@ -2381,6 +2405,7 @@ export interface C1ASafteyConcernsAbuse{
   isOngoingBehaviour?:YesNoEmpty;
   seekHelpFromPersonOrAgency?: YesNoEmpty;
   seekHelpDetails?: string;
+  childrenConcernedAbout?: string;
 }
 
 export interface C1ASafteyConcerns {
@@ -2419,3 +2444,48 @@ export interface C1ASafteyConcerns {
       statement: string;
     };
   };
+
+  export type OtherChildrenDetails = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    personalDetails: {
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      approxDateOfBirth?: CaseDate;
+      gender: Gender;
+      otherGenderDetails?: string;
+    };
+  };
+
+  export type C100RebuildPartyDetails = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    personalDetails: {
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      approxDateOfBirth?: CaseDate;
+      gender: Gender;
+      otherGenderDetails?: string;
+    };
+    relationshipDetails: {
+      relationshipToChildren: RelationshipToChildren[];
+    }
+  };
+
+  export interface RelationshipToChildren {
+    relationshipType: RelationshipType;
+    otherRelationshipTypeDetails?: string;
+    childId: string;
+  }
+
+  export const enum RelationshipType {
+    MOTHER = 'Mother',
+    FATHER = 'Father',
+    GUARDIAN = 'Guardian',
+    SPECIAL_GUARDIAN = 'Special Guardian',
+    GRAND_PARENT = 'Grandparent',
+    OTHER = 'Other',
+    EMPTY = ''
+  }

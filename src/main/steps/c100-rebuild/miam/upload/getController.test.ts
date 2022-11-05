@@ -31,7 +31,7 @@ describe('DocumentUpload Get Controller', () => {
     req.session.userCase = MIAM_CERTIFICATE;
     await controller.get(req, res);
 
-    expect(res.redirect).not.toBeCalledWith('error');
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
   });
 
   test('should remove document when removedId is passed', async () => {
@@ -61,7 +61,7 @@ describe('DocumentUpload Get Controller', () => {
 
     await controller.get(req, res);
 
-    expect(res.redirect).not.toBeCalledWith('error');
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
   });
 
   describe('DocumentUpload Get Controller', () => {
@@ -75,7 +75,7 @@ describe('DocumentUpload Get Controller', () => {
       req.session.userCase = MIAM_CERTIFICATE;
       await controller.get(req, res);
 
-      expect(res.redirect).not.toBeCalledWith('error');
+      expect(res.redirect).not.toHaveBeenCalledWith('error');
     });
 
     test('should remove document when removedId is passed', async () => {
@@ -105,7 +105,7 @@ describe('DocumentUpload Get Controller', () => {
 
       await controller.get(req, res);
 
-      expect(res.redirect).not.toBeCalledWith('error');
+      expect(res.redirect).not.toHaveBeenCalledWith('error');
     });
 
     test('should through error when document ID is not proper', async () => {
@@ -135,7 +135,7 @@ describe('DocumentUpload Get Controller', () => {
 
       await controller.get(req, res);
 
-      expect(res.redirect).toBeCalledWith('/c100-rebuild/miam/upload');
+      expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/upload');
     });
   });
 });

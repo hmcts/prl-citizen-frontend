@@ -51,10 +51,10 @@ describe('Add children RouteGuard', () => {
     expect(next).toHaveBeenCalled();
   });
 
-  test('Should not render the page when the guard validation fails', async () => {
+  test('Should not render the page when the guard validation fails > no Id', async () => {
     const req = mockRequest({
       params: {
-        childId: 'junk-id',
+        childId: null,
       },
       session: {
         userCase: {
@@ -65,6 +65,25 @@ describe('Add children RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     routeGuard.get(req, res, next);
+    expect(res.redirect).toHaveBeenCalledWith('/error');
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  test('Should not render the page when the guard validation fails > Id not found', async () => {
+    const req = mockRequest({
+      params: {
+        childId: '7a9092e3-69e0-43d6-9334-b63f6351b7c1',
+      },
+      session: {
+        userCase: {
+          ...dummyData,
+        },
+      },
+    });
+    const res = mockResponse();
+    const next = jest.fn();
+    routeGuard.get(req, res, next);
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
     expect(res.redirect).toHaveBeenCalledWith('/error');
     expect(next).not.toHaveBeenCalled();
   });

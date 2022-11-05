@@ -1,7 +1,81 @@
 {% extends "common/template.njk" %}
-
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block page_content %}
-<h1 class="govuk-heading-xl govuk-!-margin-top-7">{{title}}</h1>
-<p class="govuk-body-l">{{body}}</p>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
+
+<p class="govuk-body-l">{{paragraph1}} </p>
+<p class="govuk-body-m">{{paragraph2}} </p>
+
+{%if userCase.miam_nonAttendanceReasons !== undefined %}
+    {% for details in userCase.miam_nonAttendanceReasons %}
+        {%if details === "domesticViolence" and userCase['miam_domesticAbuse'].indexOf("none") === -1 %}
+            <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
+              <ul class="govuk-list govuk-list--bullet">
+              {% for abuseItem in userCase.miam_domesticAbuse %}
+                    {% for item in userCase['miam_domesticAbuse_'+ abuseItem +'_subfields'] %}
+                        {% if item !== ''  %}
+                            <li>{{abuseList[abuseItem][item]}}</li>
+                        {%endif%}
+                    {% endfor %}
+               {% endfor %}
+                {%if userCase['miam_domesticAbuse'].indexOf("ILRDuetoDomesticAbuse") > -1%}
+                        <li>{{abuseList.ILRDuetoDomesticAbuse}}</li>
+                {%endif%}
+                {%if userCase['miam_domesticAbuse'].indexOf("financiallyAbuse") > -1%}
+                        <li>{{abuseList.financiallyAbuse}}</li>
+                {%endif%}
+            </ul>
+        {%endif%}
+
+        {%if details === "childProtection" and userCase['miam_childProtectionEvidence'].indexOf("none") === -1 %}
+        <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
+        <ul class="govuk-list govuk-list--bullet">
+            {% for protectionEvidence in userCase.miam_childProtectionEvidence %}
+                {% if protectionEvidence !== ''  %}
+                    <li>{{childProtection[protectionEvidence]}}</li>
+                {%endif%}
+            {% endfor %}
+        </ul>
+        {%endif%}
+
+        {%if details === "urgentHearing" and userCase['miam_urgency'].indexOf("none") === -1 %}
+            <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
+            <ul class="govuk-list govuk-list--bullet">
+                {% for urgency in userCase.miam_urgency %}
+                    {% if urgency !== ''  %}
+                        <li>{{urgentHearing[urgency]}}</li>
+                    {%endif%}
+                {% endfor %}
+            </ul>
+        {%endif%}
+        {%if details === "previousMIAMOrExempt" and userCase['miam_previousAttendance'].indexOf("none") === -1 %}
+            <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
+            <ul class="govuk-list govuk-list--bullet">
+                {% for attendance in userCase.miam_previousAttendance %}
+                    {% if attendance !== ''  %}
+                        <li>{{previousMIAMOrExempt[attendance]}}</li>
+                    {%endif%}
+                {% endfor %}
+            </ul>
+        {%endif%}
+        {%if details === "validExemption" and userCase['miam_notAttendingReasons'].indexOf("none") === -1 %}
+            <h3 class="govuk-heading-m">{{nonAttendanceReasons[details]}}</h3>
+            <ul class="govuk-list govuk-list--bullet">
+                {% for notAttendingReason in userCase.miam_notAttendingReasons %}
+                    {% if notAttendingReason !== ''  %}
+                        {% if notAttendingReason === 'canNotAccessMediator'  %}
+                            {% for option in userCase.miam_noMediatorAccessSubfields %}
+                                <li>{{validExemption.canNotAccessMediator[option]}}</li>
+                            {% endfor %}
+                        {%else%}
+                            <li>{{validExemption[notAttendingReason]}}</li>
+                        {%endif%}
+                    {%endif%}
+                {% endfor %}
+            </ul>
+        {%endif%}
+    {% endfor %}
+{%endif%}
+{{ govukInsetText(insetText) }}
 {% endblock %}

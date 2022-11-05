@@ -9,6 +9,7 @@ import {
 
 export const getDataShape = (): Record<string, any> => ({
   abuse: {
+    childrenConcernedAbout: '',
     behaviourDetails: '',
     behaviourStartDate: '',
     isOngoingBehaviour: YesNoEmpty.EMPTY,

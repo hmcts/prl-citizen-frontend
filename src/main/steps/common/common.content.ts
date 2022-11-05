@@ -207,6 +207,7 @@ export const generatePageContent = ({
   addresses = [],
   userIdamId,
   additionalData,
+  userId,
 }: // eligibility,
 // fee,
 {
@@ -222,6 +223,7 @@ export const generatePageContent = ({
   byApplicant?: string;
   userIdamId?: string;
   additionalData?: CommonContentAdditionalData;
+  userId?: string | undefined;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -244,6 +246,7 @@ export const generatePageContent = ({
     userIdamId,
     // contactEmail,
     additionalData,
+    userId,
     // eligibility,
     // fee,
   };
@@ -280,6 +283,7 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   byApplicant?: string;
   additionalData?: CommonContentAdditionalData;
+  userId?: string | undefined;
   // eligibility?: Eligibility;
   // fee?: Fee;
   userIdamId?: string;

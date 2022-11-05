@@ -17,6 +17,7 @@ const en = {
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately.</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
+  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -24,7 +25,7 @@ const en = {
   behaviourStartDateHintText: 'This does not need to be an exact date.',
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
   isOngoingBehaviourHint:
-    '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse" class="govuk-link" rel="external" target="_blank">the social care team at you local council </a>.</p>',
+    '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">the social care team at you local council </a>.</p>',
   YesOptionLabel: 'Yes',
   NoOptionLabel: 'No',
   seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
@@ -48,6 +49,7 @@ const cy = {
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - Welsh</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
+  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - Welsh (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
@@ -55,7 +57,7 @@ const cy = {
   behaviourStartDateHintText: 'This does not need to be an exact date. - Welsh',
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? - Welsh (optional)',
   isOngoingBehaviourHint:
-    '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse" class="govuk-link" rel="external" target="_blank">the social care team at you local council - Welsh</a>.</p>',
+    '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">the social care team at you local council - Welsh </a>.</p>',
   YesOptionLabel: 'Yes - Welsh',
   NoOptionLabel: 'No - Welsh',
   seekHelpFromPersonOrAgencyLabel:
@@ -74,6 +76,7 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
       c1A_safteyConcerns: {
         child: {
           physicalAbuse: {
+            childrenConcernedAbout: '',
             behaviourDetails: '',
             behaviourStartDate: '',
             isOngoingBehaviour: YesNoEmpty.YES,
@@ -122,11 +125,15 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
   });
 
   test('should contain report abuse form fields', () => {
+    const childrenConcernedAboutDetails = fields.childrenConcernedAbout as FormOptions;
     const behaviourDetails = fields.behaviourDetails as FormOptions;
     const behaviourStartDate = fields.behaviourStartDate as FormOptions;
     const isOngoingBehaviour = fields.isOngoingBehaviour as FormOptions;
     const seekHelpFromPersonOrAgency = fields.seekHelpFromPersonOrAgency as FormOptions;
     const seekHelpDetails = seekHelpFromPersonOrAgency.values[0].subFields!.seekHelpDetails as FormInput;
+
+    expect(childrenConcernedAboutDetails.type).toBe('checkboxes');
+    expect((childrenConcernedAboutDetails.label as Function)(generatedContent)).toBe(en.childrenConcernedAboutLabel);
 
     expect(behaviourDetails.type).toBe('textarea');
     expect((behaviourDetails.label as Function)(generatedContent)).toBe(en.behaviourDetailsLabel);

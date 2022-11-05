@@ -60,7 +60,7 @@ import {
   C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION,
   C100_C1A_SAFETY_CONCERNS_OTHER,
   C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE,
-  C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED,
+  C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_COURT_ACTION,
   C100_C1A_CHILD_ABDUCTION_THREATS,
   C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
 
@@ -100,14 +100,37 @@ import {
   C100_SCREENING_QUESTIONS_PERMISSIONS_WHY,
   C100_SCREENING_QUESTIONS_COURT_PERMISSION,
   C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
+  C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
+
+  /** @C100 Applicant in people section */
+  C100_APPLICANT_ADD_APPLICANTS,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+  C100_APPLICANT_ADDRESS_LOOKUP,
+  C100_APPLICANT_ADDRESS_SELECT,
+  C100_APPLICANT_ADDRESS_MANUAL,
+
+  /** @C100 Other children in people section */
+  C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
+  C100_CHILDERN_DETAILS_OTHER_CHILDREN,
+  C100_CHILDERN_OTHER_CHILDREN_NAMES,
+
+  /** Respondent Details */
+  C100_RESPONDENT_DETAILS_ADD,
+  C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
   C100_GET_CASE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
 import ChildrenDetailsNavigationController from './child-details/navigationController';
+import OtherChildrenDetailsNavigationController from './child-details/other-children/navigationController';
 import MIAMNavigationController from './miam/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
+import RespondentDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 
 export const C100Sequence: Step[] = [
@@ -327,7 +350,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_FURTHER_INFORMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_CHILDERN_DETAILS_OTHER_CHILDREN,
   },
   {
     url: C100_CONFIRMATIONPAGE,
@@ -386,7 +409,9 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
     showInSection: Sections.C100,
     getNextStep: data =>
-      data.c1A_haveSafetyConcerns === YesOrNo.YES ? C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT : C100_CONFIDENTIALITY_START,
+      data.c1A_haveSafetyConcerns === YesOrNo.YES
+        ? C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT
+        : C100_INTERNATIONAL_ELEMENTS_START,
   },
   {
     url: C100_CHILD_ADDRESS,
@@ -421,7 +446,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
@@ -449,7 +479,12 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_MIAM_URGENCY,
@@ -538,7 +573,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT,
@@ -553,7 +588,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_SAFETY_CONCERNS_OTHER,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_COURT_ACTION,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS,
@@ -566,9 +601,9 @@ export const C100Sequence: Step[] = [
       ),
   },
   {
-    url: C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED,
+    url: C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_COURT_ACTION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
@@ -630,15 +665,15 @@ export const C100Sequence: Step[] = [
   {
     url: C100_C1A_CHILD_ABDUCTION_THREATS,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.c1A_childAbductedBefore === YesOrNo.YES
+    getNextStep: (caseData, req) =>
+      caseData.c1A_childAbductedBefore === YesOrNo.YES
         ? C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS
-        : C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+        : SafteyConcernsNavigationController.getNextUrl(C100_C1A_CHILD_ABDUCTION_THREATS, caseData, req?.params),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
     showInSection: Sections.C100,
-    getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   },
   {
     url: C100_SCREENING_QUESTIONS_COURT_PERMISSION,
@@ -652,6 +687,102 @@ export const C100Sequence: Step[] = [
     url: C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
     showInSection: Sections.C100,
     getNextStep: () => C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_INTERNATIONAL_ELEMENTS_START,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.detailsKnown === YesOrNo.YES
+        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE
+        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.start === YesOrNo.YES
+        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
+        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+  },
+  {
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.startAlternative === YesOrNo.YES
+        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
+        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+  },
+  {
+    url: C100_APPLICANT_ADDRESS_LOOKUP,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADDRESS_SELECT,
+  },
+  {
+    url: C100_APPLICANT_ADDRESS_SELECT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADDRESS_MANUAL,
+  },
+  {
+    url: C100_APPLICANT_ADDRESS_MANUAL,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADDRESS_LOOKUP,
+  },
+  {
+    url: C100_CHILDERN_DETAILS_OTHER_CHILDREN,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.cd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_CONFIDENTIALITY_DETAILS_KNOW,
+  },
+  {
+    url: C100_CHILDERN_OTHER_CHILDREN_NAMES,
+    showInSection: Sections.C100,
+    getNextStep: caseData =>
+      OtherChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_OTHER_CHILDREN_NAMES, caseData),
+  },
+  {
+    url: C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherChildrenDetailsNavigationController.getNextUrl(
+        C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_ADD,
+    showInSection: Sections.C100,
+    getNextStep: caseData => RespondentDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADD, caseData),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      RespondentDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_GET_CASE,
