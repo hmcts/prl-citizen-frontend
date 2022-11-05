@@ -5,7 +5,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import PreProcessCaseData from '../../steps/c100-rebuild/PreProcessCaseData';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
-import { C100_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { C100_URL, DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
@@ -290,7 +290,7 @@ export class PostController<T extends AnyObject> {
         Object.assign(req.session.userCase, formData);
         await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
       } finally {
-        this.redirect(req, res, req.originalUrl);
+        this.redirect(req, res, DASHBOARD_URL);
       }
     } else {
       this.redirect(req, res, req.originalUrl);

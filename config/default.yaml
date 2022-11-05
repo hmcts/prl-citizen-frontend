@@ -26,8 +26,6 @@ services:
     url: 'https://prl-cos-pr-513.service.core-compute-preview.internal'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-543.service.core-compute-preview.internal'
-  dgs:
-    url: 'http://localhost:4007'
 health:
   timeout: 5000
   deadline: 15000
