@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import { Case, CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -112,6 +113,7 @@ import {
   C100_APPLICANT_ADDRESS_LOOKUP,
   C100_APPLICANT_ADDRESS_SELECT,
   C100_APPLICANT_ADDRESS_MANUAL,
+  C100_APPLICANT_RELATIONSHIP_TO_CHILD,
 
   /** @C100 Other children in people section */
   C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
@@ -145,6 +147,7 @@ import OtherProceedingsNavigationController from './other-proceedings/navigation
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
+import ApplicantDetailsNavigationController from './applicant/navigationController';
 
 export const C100Sequence: Step[] = [
   {
@@ -875,5 +878,11 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, caseData, req?.params),
+  },
+  {
+    url: C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ApplicantDetailsNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
   },
 ];

@@ -692,6 +692,15 @@ export type C100Applicant = {
   applicantAddressCounty?: string,
   applicantAddressHistory?: YesOrNo,
   applicantProvideDetailsOfPreviousAddresses?: string
+  relationshipDetails?: {
+    relationshipToChildren: RelationshipToChildren[];
+  }
+}
+
+export interface RelationshipToChildren {
+  relationshipType: RelationshipType;
+  otherRelationshipTypeDetails?: string;
+  childId: string;
 }
 
 export type C100ListOfApplicants = C100Applicant[];
