@@ -11,7 +11,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(102);
+    expect(C100Sequence).toHaveLength(103);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -663,6 +663,11 @@ describe('C100Sequence', () => {
     expect(C100Sequence[101].showInSection).toBe('c100');
     expect(C100Sequence[101].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
       '/c100-rebuild/respondent-details/add-respondents'
+    );
+    expect(C100Sequence[102].url).toBe('/c100-rebuild/respondent-details/:respondentId/contact-details');
+    expect(C100Sequence[102].showInSection).toBe('c100');
+    expect(C100Sequence[102].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
+      '/c100-rebuild/respondent-details/:respondentId/contact-details'
     );
   });
 });
