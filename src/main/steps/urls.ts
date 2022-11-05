@@ -407,3 +407,10 @@ export const C100_APPLICANT_ADDRESS_MANUAL: PageLink = `${C100_APPLICANT_ADDRESS
 export const C100_RESPONDENT_DETAILS: PageLink = `${C100_URL}/respondent-details`;
 export const C100_RESPONDENT_DETAILS_ADD: PageLink = `${C100_RESPONDENT_DETAILS}/add-respondents`;
 export const C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/relationship-to-child/:childId/`;
+
+/** @C100 OTher Person Details */
+export const C100_OTHER_PERSON_DETAILS: PageLink = `${C100_URL}/other-person-details`;
+export const C100_OTHER_PERSON_CHECK: PageLink = `${C100_OTHER_PERSON_DETAILS}/other-person-check`;
+export const C100_OTHER_PERSON_DETAILS_ADD: PageLink = `${C100_OTHER_PERSON_DETAILS}/add-other-persons`;
+export const C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/personal-details`;
+export const C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/relationship-to-child/:childId`;
