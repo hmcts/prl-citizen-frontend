@@ -44,11 +44,11 @@ export interface Miam {
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
-  AddressLine3: string;
+  AddressLine3?: string;
   PostTown: string;
   County: string;
   PostCode: string;
-  Country: string;
+  Country?: string;
 }
 
 export interface SolicitorOrg {
@@ -2443,3 +2443,25 @@ export interface C1ASafteyConcerns {
       statement: string;
     };
   };
+
+  export type C100RebuildPartyDetails = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    personalDetails: {
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      isNameChanged?: YesNoDontKnow;
+      previousFullName?: string;
+      approxDateOfBirth?: CaseDate;
+      gender: Gender;
+      otherGenderDetails?: string;
+    };
+    address?: C100Address;
+  };
+
+  export interface C100Address extends Address {
+    selectedAddress?: number,
+    addressHistory?: YesOrNo,
+    provideDetailsOfPreviousAddresses?: string
+  }
