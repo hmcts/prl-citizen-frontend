@@ -28,36 +28,36 @@ export default class AddOtherPersonsPostController extends PostController<AnyObj
 
     const form = new Form(getFormFields().fields as FormFields);
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const { otherPersonFirstName, otherPersonLastName, ...rest } = formData;
+    const { c100TempFirstName, c100TempLastName, ...rest } = formData;
 
     req.session.userCase = {
       ...(req.session.userCase ?? {}),
-      otherPersonFirstName,
-      otherPersonLastName,
+      c100TempFirstName,
+      c100TempLastName,
     };
 
     if (addOtherPerson) {
-      if (otherPersonFirstName && otherPersonLastName) {
-        Object.assign(req.session.userCase, { otherPersonFirstName: '', otherPersonLastName: '' });
+      if (c100TempFirstName && c100TempLastName) {
+        Object.assign(req.session.userCase, { c100TempFirstName: '', c100TempLastName: '' });
         req.session.userCase.oprs_otherPersons = [
           ...(req.session.userCase?.oprs_otherPersons ?? []),
           {
             ...getDataShape(),
-            firstName: otherPersonFirstName as string,
-            lastName: otherPersonLastName as string,
+            firstName: c100TempFirstName as string,
+            lastName: c100TempLastName as string,
           },
         ];
       } else {
         req.session.errors = form
           .getErrors(formData)
-          .filter(error => ['otherPersonFirstName', 'otherPersonLastName'].includes(error.propertyName));
+          .filter(error => ['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName));
       }
 
       return super.redirect(req, res, req.originalUrl);
     } else if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
       const otherPersonsDetailsErrors = req.session.errors.filter(
-        error => !['otherPersonFirstName', 'otherPersonLastName'].includes(error.propertyName)
+        error => !['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName)
       );
 
       if (req.session.userCase?.oprs_otherPersons?.length) {
@@ -68,30 +68,30 @@ export default class AddOtherPersonsPostController extends PostController<AnyObj
         } else {
           //if there are no errors present for added other persons, then save the details
           req.session.userCase.oprs_otherPersons = this.transformData(rest, req.session.userCase.oprs_otherPersons);
-          if (otherPersonFirstName && otherPersonLastName) {
+          if (c100TempFirstName && c100TempLastName) {
             // if first name & last name is fed for new other person, add the new entry to the session
             req.session.userCase.oprs_otherPersons.push({
               ...getDataShape(),
-              firstName: otherPersonFirstName as string,
-              lastName: otherPersonLastName as string,
+              firstName: c100TempFirstName as string,
+              lastName: c100TempLastName as string,
             });
-            Object.assign(req.session.userCase, { otherPersonFirstName: '', otherPersonLastName: '' });
-          } else if (!otherPersonFirstName && !otherPersonLastName) {
+            Object.assign(req.session.userCase, { c100TempFirstName: '', c100TempLastName: '' });
+          } else if (!c100TempFirstName && !c100TempLastName) {
             // if first name & last name is empty, remove errors from the session
             req.session.errors = [];
           }
         }
       } else {
         //if there are no other persons added
-        if (otherPersonFirstName && otherPersonLastName) {
+        if (c100TempFirstName && c100TempLastName) {
           req.session.userCase.oprs_otherPersons = [
             {
               ...getDataShape(),
-              firstName: otherPersonFirstName as string,
-              lastName: otherPersonLastName as string,
+              firstName: c100TempFirstName as string,
+              lastName: c100TempLastName as string,
             },
           ];
-          Object.assign(req.session.userCase, { otherPersonFirstName: '', otherPersonLastName: '' });
+          Object.assign(req.session.userCase, { c100TempFirstName: '', c100TempLastName: '' });
         }
       }
 
@@ -99,13 +99,13 @@ export default class AddOtherPersonsPostController extends PostController<AnyObj
     } else if (saveAndComeLater) {
       const dataToSave = { oprs_otherPersons: [...this.transformData(rest, req.session.userCase.oprs_otherPersons)] };
 
-      if (otherPersonFirstName && otherPersonLastName) {
+      if (c100TempFirstName && c100TempLastName) {
         dataToSave.oprs_otherPersons.push({
           ...getDataShape(),
-          firstName: otherPersonFirstName,
-          lastName: otherPersonLastName,
+          firstName: c100TempFirstName,
+          lastName: c100TempLastName,
         });
-        Object.assign(req.session.userCase, { otherPersonFirstName: '', otherPersonLastName: '' });
+        Object.assign(req.session.userCase, { c100TempFirstName: '', c100TempLastName: '' });
       }
 
       super.saveAndComeLater(req, res, dataToSave);

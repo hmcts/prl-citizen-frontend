@@ -64,6 +64,8 @@ import {
   ChildrenDetails,
   C1ASafteyConcernsAbout,
   C1AAbuseTypes,
+  C100ListOfApplicants,
+  OtherChildrenDetails,
   C100RebuildPartyDetails,
 } from './definition';
 
@@ -391,6 +393,7 @@ export interface Case {
   injuctiveOrder?: orderInterface;
   underTakingOrderOptions?: YesOrNo;
   underTakingOrder?: orderInterface;
+  appl_allApplicants?: C100ListOfApplicants;
 
   /***** Applicant1 *****/
   citizenUserFullName?: string;
@@ -508,6 +511,8 @@ export interface Case {
   childFirstName?: ChildrenDetails['firstName'];
   childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
+  cd_otherChildren?: OtherChildrenDetails[];
+  cd_hasOtherChildren?: YesOrNo;
   sq_writtenAgreement?: string;
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
@@ -515,10 +520,11 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
-  otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
-  otherPersonLastName?: C100RebuildPartyDetails['lastName'];
   oprs_otherPersonCheck?: YesOrNo;
   oprs_otherPersons?: C100RebuildPartyDetails[];
+  c100TempFirstName?: string;
+  c100TempLastName?: string;
+  resp_Respondents?: C100RebuildPartyDetails[];
 }
 
 export interface CaseWithId extends Case {
@@ -542,6 +548,10 @@ export interface CaseWithId extends Case {
   };
   id: string;
   state: State;
+  applicantTemporaryFormData?: {
+    TempFirstName?: string | unknown;
+    TempLastName?: string | unknown;
+  };
 }
 
 export enum Checkbox {
@@ -567,7 +577,7 @@ export enum FieldPrefix {
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
-  APPLICANT = 'APPLICANT',
+  APPLICANT = 'applicant',
   RESPONDENT = 'RESPONDENT',
 }
 

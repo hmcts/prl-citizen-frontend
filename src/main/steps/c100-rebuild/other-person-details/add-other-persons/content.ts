@@ -14,10 +14,10 @@ const en = () => ({
   removeOtherPersonLabel: 'Remove person',
   newNameLabel: 'Enter a new name',
   errors: {
-    otherPersonFirstName: {
+    c100TempFirstName: {
       required: 'Enter the first name',
     },
-    otherPersonLastName: {
+    c100TempLastName: {
       required: 'Enter the last name',
     },
   },
@@ -32,10 +32,10 @@ const cy = () => ({
   removeOtherPersonLabel: 'Remove person - welsh',
   newNameLabel: 'Enter a new name - welsh',
   errors: {
-    otherPersonFirstName: {
+    c100TempFirstName: {
       required: 'Enter the first name - welsh',
     },
-    otherPersonLastName: {
+    c100TempLastName: {
       required: 'Enter the last name - welsh',
     },
   },
@@ -104,10 +104,10 @@ export const generateFormFields = (otherPersons: C100RebuildPartyDetails[]): Gen
     };
 
     //generate dynamic error message
-    errors.en[`firstName-${count}`] = en().errors.otherPersonFirstName;
-    errors.en[`lastName-${count}`] = en().errors.otherPersonLastName;
-    errors.cy[`firstName-${count}`] = cy().errors.otherPersonFirstName;
-    errors.cy[`lastName-${count}`] = cy().errors.otherPersonLastName;
+    errors.en[`firstName-${count}`] = en().errors.c100TempFirstName;
+    errors.en[`lastName-${count}`] = en().errors.c100TempLastName;
+    errors.cy[`firstName-${count}`] = cy().errors.c100TempFirstName;
+    errors.cy[`lastName-${count}`] = cy().errors.c100TempLastName;
   }
 
   return { fields, errors };
@@ -120,7 +120,7 @@ export const form: FormContent = {
       classes: 'govuk-fieldset__legend--m',
       label: l => l.newNameLabel,
       subFields: {
-        otherPersonFirstName: {
+        c100TempFirstName: {
           type: 'text',
           classes: 'govuk-!-width-one-half',
           label: l => l.firstNameLabel,
@@ -128,7 +128,7 @@ export const form: FormContent = {
           labelSize: 'none',
           validator: isFieldFilledIn,
         },
-        otherPersonLastName: {
+        c100TempLastName: {
           type: 'text',
           classes: 'govuk-!-width-one-half',
           label: l => l.lastNameLabel,
