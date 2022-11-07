@@ -11,17 +11,22 @@ import {
   ApplicantDetails,
   ChildernDetails,
   ChildernDetailsAdditional,
+  HelpWithFee,
   InternationalElement,
+  LegalRepresentativeDetails,
+  LocationDetails,
   MiamAttendance,
   MiamExemption,
   MiamTitle,
   OtherChildrenDetails,
   PastAndCurrentProceedings,
   PeopleDetails,
+  PermissionForApplication,
   SafetyConcerns,
   SafetyConcerns_child,
   SafetyConcerns_others,
   SafetyConcerns_yours,
+  TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
 } from './mainUtil';
@@ -58,6 +63,10 @@ export const enContent = {
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
   },
   sectionTitles: {
+    locationDetails: '1. Location details',
+    typeOfApplication: '2. Type of application',
+    legalRepresentativeDetails: '3. Legal representative details',
+    permissionForApplication: '4. Permission to make the application',
     Miam: '5. MIAM: Mediation Information and Assessment Meeting',
     MiamAttendance: 'MIAM attendance',
     MiamExemption: 'MIAM exemption',
@@ -74,6 +83,7 @@ export const enContent = {
     yourSafetyConcerns: 'Safety concern: your safety',
     otherSafetyConcerns: 'Safety concern: other concerns that you have',
     otherChildernDetails: 'Other Childern details',
+    helpWithFee: '13. Help with Fees',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -108,6 +118,22 @@ export const enContent = {
     otherGender: 'They identify in another way ',
     approxCheckboxLabel: 'I don’t know their date of birth',
     approxDobLabel: 'Approximate date of birth',
+    whereDoChildLive: 'Where do the children live?',
+    writtenAgreement:
+      'Do you have a written agreement with the other people in the case, that you want the court to review?',
+    willYoubeUsingLegalRespresentator: 'Will you be using a legal representative in these proceedings?',
+    doyouWantLegalRespresentatorToCompleteApplication:
+      'Do you want your legal representative to complete the application for you?',
+    whyCourtGrantSubmittingPermission: 'Explain why the court should grant you permission to submit this application',
+    reasonPermissionRequired:
+      'Is there any reason that you would need permission from the court to make this application?',
+    whyPermissionRequiredFromCourt: 'Why do you need a permission from the court to make this application? (optional)',
+    doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
+    courtOrderPrevent:
+      'There is a court order preventing me from making an application without first getting the permission of the court',
+    anotherReason: 'Another reason',
+    doRequireHelpwithFee: 'Do you need help with paying the fee for this application?',
+    alreadyAppliedHelpWithFee: 'Have you already applied for help with your application fee?',
   },
 };
 export const cyContent: typeof enContent = {
@@ -135,6 +161,10 @@ export const cyContent: typeof enContent = {
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
   },
   sectionTitles: {
+    locationDetails: '1. Location details',
+    typeOfApplication: '2. Type of application',
+    legalRepresentativeDetails: '3. Legal representative details',
+    permissionForApplication: '4. Permission to make the application',
     Miam: '5. MIAM: Mediation Information and Assessment Meeting',
     MiamAttendance: 'MIAM attendance - welsh',
     MiamExemption: 'MIAM exemption - welsh',
@@ -151,6 +181,7 @@ export const cyContent: typeof enContent = {
     yourSafetyConcerns: 'Safety concern: your safety',
     otherSafetyConcerns: 'Safety concern: other concerns that you have',
     otherChildernDetails: 'Other Childern details',
+    helpWithFee: '13. Help with Fees',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -185,6 +216,22 @@ export const cyContent: typeof enContent = {
     otherGender: 'They identify in another way ',
     approxCheckboxLabel: 'I don’t know their date of birth',
     approxDobLabel: 'Approximate date of birth',
+    whereDoChildLive: 'Where do the children live? - welsh',
+    writtenAgreement:
+      'Do you have a written agreement with the other people in the case, that you want the court to review? - welsh',
+    willYoubeUsingLegalRespresentator: 'Will you be using a legal representative in these proceedings? - welsh',
+    doyouWantLegalRespresentatorToCompleteApplication:
+      'Do you want your legal representative to complete the application for you? - welsh',
+    whyCourtGrantSubmittingPermission: 'Explain why the court should grant you permission to submit this application',
+    reasonPermissionRequired:
+      'Is there any reason that you would need permission from the court to make this application?',
+    whyPermissionRequiredFromCourt: 'Why do you need a permission from the court to make this application? (optional)',
+    doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
+    courtOrderPrevent:
+      'There is a court order preventing me from making an application without first getting the permission of the court',
+    anotherReason: 'Another reason',
+    doRequireHelpwithFee: 'Do you need help with paying the fee for this application?',
+    alreadyAppliedHelpWithFee: 'Have you already applied for help with your application fee?',
   },
 };
 
@@ -204,6 +251,10 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
 const en = (content: CommonContent, newEnContents?: any) => {
   const userCase = content.userCase!;
   const sections = [
+    LocationDetails(enContent, userCase),
+    TypeOfApplication(enContent, userCase),
+    LegalRepresentativeDetails(enContent, userCase),
+    PermissionForApplication(enContent, userCase),
     MiamTitle(enContent),
     MiamAttendance(enContent, userCase),
     MiamExemption(newEnContents, userCase),
@@ -217,12 +268,17 @@ const en = (content: CommonContent, newEnContents?: any) => {
     PastAndCurrentProceedings(enContent, userCase),
     SafetyConcerns(enContent, userCase),
     SafetyConcerns_child(enContent, userCase),
+    HelpWithFee(enContent, userCase),
   ];
 
   if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
     sections.push(SafetyConcerns_yours(enContent, userCase));
   }
-  sections.push(SafetyConcerns_others(enContent, userCase), InternationalElement(enContent, userCase));
+  sections.push(
+    SafetyConcerns_others(enContent, userCase),
+    InternationalElement(enContent, userCase),
+    HelpWithFee(enContent, userCase)
+  );
   return {
     ...enContent,
     language: content.language,
@@ -234,6 +290,10 @@ const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
   const userCase = content.userCase!;
 
   const sections = [
+    LocationDetails(cyContent, userCase),
+    TypeOfApplication(cyContent, userCase),
+    LegalRepresentativeDetails(cyContent, userCase),
+    PermissionForApplication(cyContent, userCase),
     MiamTitle(cyContent),
     MiamAttendance(cyContent, userCase),
     MiamExemption(newCyContents, userCase),
@@ -252,7 +312,11 @@ const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
   if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
     sections.push(SafetyConcerns_yours(cyContent, userCase));
   }
-  sections.push(SafetyConcerns_others(cyContent, userCase), InternationalElement(cyContent, userCase));
+  sections.push(
+    SafetyConcerns_others(cyContent, userCase),
+    InternationalElement(cyContent, userCase),
+    HelpWithFee(cyContent, userCase)
+  );
   return {
     ...cyContent,
     language: content.language,

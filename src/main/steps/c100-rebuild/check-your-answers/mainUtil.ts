@@ -16,6 +16,97 @@ import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
 
+
+/* eslint-disable import/namespace */
+export const LocationDetails = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['whereDoChildLive'],
+      value: userCase['postcode'],
+      changeUrl: Urls['C100_CHILD_ADDRESS'],
+    },
+  ];
+  return {
+    title: sectionTitles['locationDetails'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+/* eslint-disable import/namespace */
+export const TypeOfApplication = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['writtenAgreement'],
+      value: userCase['sq_writtenAgreement'],
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT'],
+    },
+  ];
+  return {
+    title: sectionTitles['typeOfApplication'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+export const LegalRepresentativeDetails = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['willYoubeUsingLegalRespresentator'],
+      value: userCase['sq_legalRepresentation'],
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION'],
+    },
+    {
+      key: keys['doyouWantLegalRespresentatorToCompleteApplication'],
+      value: userCase['sq_legalRepresentationApplication'],
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION'],
+    },
+  ];
+  return {
+    title: sectionTitles['legalRepresentativeDetails'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+export const PermissionForApplication = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['whyCourtGrantSubmittingPermission'],
+      value: userCase['sq_permissionsRequest'],
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'], 
+    },
+    {
+      key: keys['reasonPermissionRequired'],
+      value: userCase['sq_courtPermissionRequired'],
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_COURT_PERMISSION'],
+    },
+    {
+      key: keys['whyPermissionRequiredFromCourt'],
+      valueHtml: userCase.hasOwnProperty('sq_permissionsWhy') ? (HTML.UNORDER_LIST + userCase['sq_permissionsWhy']?.map(props => HTML.LIST_ITEM + keys[props] + HTML.LIST_ITEM_END) + HTML.UNORDER_LIST_END).split(',').join('')
+      : '',
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_WHY'],
+    },
+  ];
+  return {
+    title: sectionTitles['permissionForApplication'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+
+
+
+
 /* eslint-disable import/namespace */
 export const TypeOfOrder = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -748,3 +839,30 @@ export const OtherChildrenDetails = (
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
+
+
+export const HelpWithFee = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData: any = [
+    {
+      key: keys['doRequireHelpwithFee'],
+      value: userCase['needHelpWithFees'],
+      changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'], 
+    },
+  ];
+  if(userCase.hasOwnProperty('needHelpWithFees') && userCase['needHelpWithFees'] === 'Yes'){
+    SummaryData.push({
+      key: keys['alreadyAppliedHelpWithFee'],
+      valueHtml: userCase.feesAppliedDetails ? userCase['feesAppliedDetails'] : '' + userCase.hasOwnProperty('feesAppliedDetails') && userCase['feesAppliedDetails'] === 'Yes' 
+      ? HTML.RULER + HTML.H4 +  keys['details'] + HTML.H4_CLOSE + HTML.BREAK + userCase['hwfReferenceNumber'] : '',
+      changeUrl: Urls['C100_HELP_WITH_FEES_FEES_APPLIED'], 
+    });
+  }
+  return {
+    title: sectionTitles['helpWithFee'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
