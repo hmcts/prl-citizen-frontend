@@ -6,13 +6,12 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Enter the respondents name',
-  subTitle: 'The other people who will receive this application are known as the respondents',
+  title: 'Enter the other persons name',
   firstNameLabel: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastNameLabel: 'Last name(s)',
-  addRespondentLabel: 'Add another respondent',
-  removeRespondentLabel: 'Remove respondent',
+  addOtherPersonLabel: 'Add another person',
+  removeOtherPersonLabel: 'Remove person',
   newNameLabel: 'Enter a new name',
   errors: {
     c100TempFirstName: {
@@ -25,13 +24,12 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Enter the respondents name- welsh',
-  subTitle: 'The other people who will receive this application are known as the respondents - welsh',
+  title: 'Enter the other persons name- welsh',
   firstNameLabel: 'First name(s) - welsh',
   firstNameHint: 'Include all middle names here - welsh',
   lastNameLabel: 'Last name(s) - welsh',
-  addRespondentLabel: 'Add another respondent - welsh',
-  removeRespondentLabel: 'Remove respondent - welsh',
+  addOtherPersonLabel: 'Add another person - welsh',
+  removeOtherPersonLabel: 'Remove person - welsh',
   newNameLabel: 'Enter a new name - welsh',
   errors: {
     c100TempFirstName: {
@@ -63,21 +61,21 @@ export const getFormFields = (): FormContent => {
   return updatedForm;
 };
 
-export const generateFormFields = (respondents: C100RebuildPartyDetails[]): GenerateDynamicFormFields => {
+export const generateFormFields = (otherPersons: C100RebuildPartyDetails[]): GenerateDynamicFormFields => {
   const fields = {};
   const errors = {
     en: {},
     cy: {},
   };
 
-  for (let index = 0; index < respondents.length; index++) {
+  for (let index = 0; index < otherPersons.length; index++) {
     const count = index + 1;
     const key = `fieldset${count}`;
-    const { id, firstName = '', lastName = '' } = respondents[index];
+    const { id, firstName = '', lastName = '' } = otherPersons[index];
 
     fields[key] = {
       type: 'fieldset',
-      label: () => `Respondent ${count}`,
+      label: () => `Person ${count}`,
       classes: 'govuk-fieldset__legend--m',
       subFields: {
         [`firstName-${count}`]: {
@@ -96,9 +94,9 @@ export const generateFormFields = (respondents: C100RebuildPartyDetails[]): Gene
           labelSize: 'm',
           validator: isFieldFilledIn,
         },
-        removeRespondent: {
+        removeOtherPerson: {
           type: 'button',
-          label: l => `${l.removeRespondentLabel} ${count}`,
+          label: l => `${l.removeOtherPersonLabel} ${count}`,
           classes: 'govuk-button--warning margin-top-3',
           value: id,
         },
@@ -117,7 +115,7 @@ export const generateFormFields = (respondents: C100RebuildPartyDetails[]): Gene
 
 export const form: FormContent = {
   fields: {
-    'fieldset-respondentDetails': {
+    'fieldset-otherPersonDetails': {
       type: 'fieldset',
       classes: 'govuk-fieldset__legend--m',
       label: l => l.newNameLabel,
@@ -137,9 +135,9 @@ export const form: FormContent = {
           labelSize: 'none',
           validator: isFieldFilledIn,
         },
-        addRespondent: {
+        addOtherPerson: {
           type: 'button',
-          label: l => l.addRespondentLabel,
+          label: l => l.addOtherPersonLabel,
           classes: 'govuk-button--secondary',
           value: 'true',
         },
@@ -156,7 +154,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const sessionData = content?.userCase?.resp_Respondents;
+  const sessionData = content?.userCase?.oprs_otherPersons;
 
   const { fields, errors } = generateFormFields(sessionData ?? []);
 

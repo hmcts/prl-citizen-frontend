@@ -2,9 +2,9 @@ import { Case } from '../../../../app/case/case';
 import { OtherChildrenDetails } from '../../../../app/case/definition';
 import { applyParms } from '../../../common/url-parser';
 import {
+  C100_APPLICANT_ADD_APPLICANTS,
   C100_CHILDERN_OTHER_CHILDREN_NAMES,
   C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
-  C100_CONFIDENTIALITY_DETAILS_KNOW,
   PageLink,
 } from '../../../urls';
 import { getNextChild } from '../util';
@@ -31,7 +31,7 @@ class OtherChildrenDetailsNavigationController {
         const nextChild = getNextChild(this.otherChildrenDetails, this.childId);
         nextUrl = nextChild
           ? applyParms(C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS, { childId: nextChild.id })
-          : C100_CONFIDENTIALITY_DETAILS_KNOW;
+          : C100_APPLICANT_ADD_APPLICANTS;
         break;
       }
       default: {

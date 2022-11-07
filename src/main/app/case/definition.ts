@@ -1457,6 +1457,7 @@ export const enum YesNoDontKnow {
   yes = 'yes',
   no = 'no',
   dontKnow = 'dontKnow',
+  empty = '',
 }
 
 export const enum SectionStatus {
@@ -1823,6 +1824,7 @@ export const enum State {
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
+  AwaitingSubmissionToHmcts = 'AWAITING_SUBMISSION_TO_HMCTS',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingBailiffReferral = 'AwaitingBailiffReferral',
@@ -2464,6 +2466,8 @@ export interface C1ASafteyConcerns {
     personalDetails: {
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
+      isNameChanged?: YesNoDontKnow;
+      previousFullName?: string;
       approxDateOfBirth?: CaseDate;
       gender: Gender;
       otherGenderDetails?: string;

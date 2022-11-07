@@ -58,7 +58,9 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     ] as C100OrderInterface[];
     const orderSessionDataById = orderSessionData[courtOrderId - 1];
 
-    if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+    if (req.body.saveAndComeLater) {
+      super.post(req, res);
+    } else if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
       super.redirect(req, res, '');
     } else {
       if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {

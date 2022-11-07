@@ -122,12 +122,20 @@ import {
   C100_RESPONDENT_DETAILS_ADD,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
   C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
+
+  /** Other Person Details */
+  C100_OTHER_PERSON_DETAILS_ADD,
+  C100_OTHER_PERSON_CHECK,
+  C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
+  C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
+  C100_GET_CASE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
 import ChildrenDetailsNavigationController from './child-details/navigationController';
 import OtherChildrenDetailsNavigationController from './child-details/other-children/navigationController';
 import MIAMNavigationController from './miam/navigationController';
+import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 import RespondentDetailsNavigationController from './respondent-details/navigationController';
@@ -751,7 +759,7 @@ export const C100Sequence: Step[] = [
     url: C100_CHILDERN_DETAILS_OTHER_CHILDREN,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.cd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_CONFIDENTIALITY_DETAILS_KNOW,
+      data.cd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_APPLICANT_ADD_APPLICANTS,
   },
   {
     url: C100_CHILDERN_OTHER_CHILDREN_NAMES,
@@ -783,6 +791,45 @@ export const C100Sequence: Step[] = [
         caseData,
         req?.params
       ),
+  },
+  {
+    url: C100_OTHER_PERSON_CHECK,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.oprs_otherPersonCheck === YesOrNo.YES
+        ? C100_OTHER_PERSON_DETAILS_ADD
+        : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_ADD,
+    showInSection: Sections.C100,
+    getNextStep: caseData =>
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C100_GET_CASE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_GET_CASE,
   },
   {
     url: C100_RESPONDENT_DETAILS_CONTACT_DETAILS,

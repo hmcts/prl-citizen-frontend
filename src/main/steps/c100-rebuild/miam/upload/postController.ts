@@ -29,7 +29,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
     const miamCertificate = req.session.userCase?.miam_certificate as C100DocumentInfo;
-    if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(miamCertificate)) {
+
+    if (req.body.saveAndComeLater) {
+      super.post(req, res);
+    } else if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(miamCertificate)) {
       super.redirect(req, res, '');
     } else {
       if (this.checkIfDocumentAlreadyExist(miamCertificate)) {
