@@ -19,7 +19,7 @@ nodejs:
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
     CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-640.service.core-compute-preview.internal'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
-    CDAM_API_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-640.service.core-compute-preview.internal'
+    DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-640.service.core-compute-preview.internal'
     COS_URL: 'https://prl-cos-pr-604.service.core-compute-preview.internal'
     REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
   keyVaults:
