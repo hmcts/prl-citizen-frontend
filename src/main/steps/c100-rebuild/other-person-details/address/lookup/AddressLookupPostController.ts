@@ -37,12 +37,6 @@ export default class AddressLookupPostController extends PostController<AnyObjec
       transformFormData('otherPersonAddress', { PostCode: formData['addressPostcode'] })
     );
 
-    // const otherPerson = req.session.userCase?.oprs_otherPersons?.findIndex(i => i.id === otherPersonId1) as number;
-    // req.session.userCase!.oprs_otherPersons![otherPerson] = {
-    //   ...req.session.userCase?.oprs_otherPersons?.[otherPerson],
-    //   otherPersonPostcode: req.body['Postcode'] as string,
-    // };
-
     req.session.userCase.oprs_otherPersons = updateOtherPersonDetails(
       req.session.userCase.oprs_otherPersons!,
       otherPersonsDetails
@@ -52,7 +46,6 @@ export default class AddressLookupPostController extends PostController<AnyObjec
       addresses = await getAddressesFromPostcode(postcode, req.locals.logger);
     }
     req.session.addresses = addresses;
-    console.log(addresses, 'found');
 
     this.redirect(req, res);
   }

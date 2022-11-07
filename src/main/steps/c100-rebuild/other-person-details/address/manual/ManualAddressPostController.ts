@@ -26,17 +26,6 @@ export default class ManualAddressPostController extends PostController<AnyObjec
       otherPersonId
     ) as C100RebuildPartyDetails;
 
-    // req.session.userCase!.appl_allApplicants![applicantIndex] = {
-    //   ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
-    //   applicantAddressPostcode: req.body['addressPostcode'] as string,
-    //   applicantAddress1: req.body['address1'] as string,
-    //   applicantAddress2: req.body['address2'] as string,
-    //   applicantAddressTown: req.body['addressTown'] as string,
-    //   applicantAddressCounty: req.body['addressCounty'] as string,
-    //   applicantAddressHistory: req.body['addressHistory'] as YesOrNo,
-    //   applicantProvideDetailsOfPreviousAddresses: req.body['provideDetailsOfPreviousAddresses'] as string,
-    // };
-
     Object.assign(otherPersonsDetails, {
       otherPersonAddress: transformFormData('otherPersonAddress', {
         AddressLine1: req.body['address1'],

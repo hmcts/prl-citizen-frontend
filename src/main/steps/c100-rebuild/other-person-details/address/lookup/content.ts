@@ -63,8 +63,6 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
 export const getUpdatedForm = (): FormContent => updatedForm;
 
 export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): GenerateDynamicFormFields => {
-  // const otherPersonData = { ...caseData, addressPostcode: caseData.otherPersonAddress?.PostCode }
-  // console.log(caseData, otherPersonData, "case")
   Object.assign(caseData, { applicantAddressPostcode: caseData.otherPersonAddress?.PostCode });
   return { fields: lookupAddressForm(caseData).fields, errors: { en: {}, cy: {} } };
 };
@@ -75,8 +73,6 @@ export const generateContent: TranslationFn = content => {
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
   const otherPersonDetails = getOtherPersonDetails(content.userCase!.oprs_otherPersons ?? [], otherPersonId)!;
   const { firstName, lastName } = otherPersonDetails;
-
-  console.log(generateFormFields(otherPersonDetails).fields, form, 'fields');
 
   return {
     ...translations,
