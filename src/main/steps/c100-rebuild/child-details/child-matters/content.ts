@@ -170,7 +170,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const sessionData = content?.userCase ?? {};
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)!;
+  const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)! as ChildrenDetails;
   const { fields } = generateFormFields(
     childDetails.childMatters ?? getChildDetails(content.userCase!.cd_children ?? [], childId)!,
     sessionData ?? {},
