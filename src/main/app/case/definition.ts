@@ -830,7 +830,15 @@ export interface CaseData {
   iFactorsRequestProvideDetails?: string;
   iFactorsParentsProvideDetails?: string;
   legalRepresentation?: YesOrNo;
+  doesOrderClosesCase?: YesOrNo;
+  selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+}
+
+export const enum SelectTypeOfOrderEnum {
+  interim = 'interim',
+  general = 'general',
+  finl = 'finl',
 }
 
 export interface ConfidentialDetails {
