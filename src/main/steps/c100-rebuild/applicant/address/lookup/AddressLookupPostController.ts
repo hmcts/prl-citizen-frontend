@@ -6,6 +6,8 @@ import { AnyObject, PostController } from '../../../../../app/controller/PostCon
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { AnyType } from '../../../../../app/form/validation';
 import { getAddressesFromPostcode } from '../../../../../app/postcode/postcode-lookup-api';
+import { applyParms } from '../../../../common/url-parser';
+import { C100_APPLICANT_ADDRESS_SELECT } from '../../../../urls';
 
 import { getUpdatedForm } from './content';
 
@@ -19,6 +21,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
     const postcode = req.body['addressPostcode'] as string;
     const { applicantId } = req.params;
     const applicantId1: AnyType | undefined = applicantId;
+    let redirectURI = req.originalUrl;
 
     let addresses;
 
@@ -38,6 +41,8 @@ export default class AddressLookupPostController extends PostController<AnyObjec
     }
     req.session.addresses = addresses;
 
-    this.redirect(req, res);
+    redirectURI = applyParms(C100_APPLICANT_ADDRESS_SELECT, { applicantId: applicantId as string });
+
+    this.redirect(req, res, redirectURI);
   }
 }
