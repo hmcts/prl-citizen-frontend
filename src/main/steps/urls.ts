@@ -161,6 +161,7 @@ export const RESPONDENT_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdoc
 
 export const RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE: PageLink = `${RESPONDENT}/allegations-of-harm-and-violence/safety-concerns-guidance-page`;
 export const RESPONDENT_YOUR_CHILD_CONCERNS: PageLink = `${RESPONDENT}/allegations-of-harm-and-violence/your-or-child-safety-concerns`;
+export const RESPONDENT_CHECK_ANSWERS_NO: PageLink = `${RESPONDENT}/allegations-of-harm-and-violence/check-answers-no`;
 
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;

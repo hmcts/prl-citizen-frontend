@@ -3,11 +3,13 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
-  title: 'Safety concerns',
-  title_desc:'Do you have any concerns for your safety or the safety of the children?',
+  section: 'Safety concerns',
+  title:'Do you have any concerns for your safety or the safety of the children?',
   line1: 'You may have concerns about current, or future safety.',
   line2:"If you or the children have experienced abuse or feel unsafe, support is available. See a list of organisations that can help",
   warning: 'You may find some of these questions difficult or upsetting to answer. Take your time and complete them as best you can.',
+  contentunderyesp1:"The information you give will be considered as part of your application. If you need to make ",
+  contentunderyesp2:"an application for a domestic abuse injunction",
   sidelink1:'Identify signs of child abuse',
   sidelink2:'Identify signs of domestic abuse',
   one: 'Yes',
@@ -21,11 +23,13 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Safety concerns - welsh',
-  title_desc:'Do you have any concerns for your safety or the safety of the children? - welsh',
+  section: 'Safety concerns - welsh',
+  title:'Do you have any concerns for your safety or the safety of the children? - welsh',
   line1: 'You may have concerns about current, or future safety. - welsh',
   line2:"If you or the children have experienced abuse or feel unsafe, support is available. See a list of organisations that can help - welsh",
   warning: 'You may find some of these questions difficult or upsetting to answer. Take your time and complete them as best you can. - welsh',
+  contentunderyesp1:"The information you give will be considered as part of your application. If you need to make  - welsh",
+  contentunderyesp2:"an application for a domestic abuse injunction - welsh",
   sidelink1:'Identify signs of child abuse - welsh',
   sidelink2:'Identify signs of domestic abuse - welsh',
   one: 'Yes - welsh',
@@ -56,10 +60,16 @@ export const form: FormContent = {
         {
           label: l => l.one,
           value: 'Yes',
+          subFields: {
+            applicationrelated: {
+              type: 'text',
+              label: l => l.contentunderyesp1,
+            },
+          },
         },
         {
           label: l => l.two,
-          value: 'No',
+          value: 'No'
         },
       ],
       validator: isFieldFilledIn,
