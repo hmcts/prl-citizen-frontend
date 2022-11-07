@@ -58,7 +58,7 @@ export const setContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
   return partyDetails;
 };
 
-function getAddressDetails(partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> {
+export function getAddressDetails(partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> {
   if (partyDetails.address) {
     if (partyDetails.address.AddressLine1) {
       req.session.userCase.citizenUserAddress1 = partyDetails.address.AddressLine1;
@@ -116,7 +116,7 @@ export const getContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
   return req.session.userCase;
 };
 
-function setAddressFields(req: AppRequest): Partial<CaseWithId> {
+export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
   if (
     !req.session.userCase.citizenUserAddress1 &&
     !req.session.userCase.citizenUserAddressTown &&
