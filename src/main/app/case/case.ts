@@ -43,6 +43,7 @@ import {
   PartyDetails,
   Respondent,
   SelectTypeOfOrderEnum,
+  ResponseDocumentList,
   SpecialArrangement,
   State,
   SummaryTabForOrderAppliedFor,
@@ -198,6 +199,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
   doesOrderClosesCase: 'doesOrderClosesCase',
   selectTypeOfOrder: 'selectTypeOfOrder',
+  citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -313,37 +315,6 @@ export interface Case {
   previousOrOngoingProceedingsForChildren?: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish?: string;
 
-  //TODO?: Below fields should be with in respondent object.
-  serviceType?: string;
-  claimNumber?: string;
-  caseCode?: string;
-  accessCode?: string;
-  detailsKnown?: string;
-  startAlternative?: string;
-  contactDetailsPrivate?: string[];
-  miamStart?: string;
-  miamWillingness?: string;
-  miamNotWillingExplnation?: string;
-  doYouConsent?: YesOrNo;
-  applicationReceivedDate?: CaseDate;
-  courtPermission?: YesOrNo;
-  reasonForNotConsenting?: string;
-  courtOrderDetails?: string;
-  start?: YesOrNo;
-  parents?: YesOrNo;
-  jurisdiction?: YesOrNo;
-  request?: YesOrNo;
-  iFactorsJurisdictionProvideDetails?: string;
-  iFactorsStartProvideDetails?: string;
-  iFactorsRequestProvideDetails?: string;
-  iFactorsParentsProvideDetails?: string;
-  confirmcontactdetails?: string;
-  respondentName?: string;
-  respondentFirstName?: string;
-  respondentLastName?: string;
-  caseInvites?: CaseInvite[];
-  orderCollection?: ListValue<PRLDocument>[];
-  documentsGenerated?: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
   documentText?: string;
   applicantUploadFiles?: UploadedFile[];
@@ -464,6 +435,36 @@ export interface Case {
   respondentParkingDetails?: string;
   respondentDifferentChairDetails?: string;
   respondentTravellingOtherDetails?: string;
+  serviceType?: string;
+  claimNumber?: string;
+  caseCode?: string;
+  accessCode?: string;
+  detailsKnown?: string;
+  startAlternative?: string;
+  contactDetailsPrivate?: string[];
+  miamStart?: string;
+  miamWillingness?: string;
+  miamNotWillingExplnation?: string;
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
+  confirmcontactdetails?: string;
+  respondentName?: string;
+  respondentFirstName?: string;
+  respondentLastName?: string;
+  caseInvites?: CaseInvite[];
+  orderCollection?: ListValue<PRLDocument>[];
+  documentsGenerated?: ListValue<PRLDocument>[];
   //applicant1LanguagePreference?: LanguagePreference;
 
   safetyConcerns?: string;
@@ -473,6 +474,7 @@ export interface Case {
   legalRepresentation?: YesOrNo;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
+  citizenResponseC7DocumentList?: ResponseDocumentList[];
 }
 
 export interface CaseWithId extends Case {
