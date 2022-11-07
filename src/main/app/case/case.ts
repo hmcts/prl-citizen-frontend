@@ -520,6 +520,9 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
+  too_courtOrder?: string[];
+  too_stopOtherPeopleDoingSomethingSubField?: string[];
+  too_resolveSpecificIssueSubField?: string[];
   oprs_otherPersonCheck?: YesOrNo;
   oprs_otherPersons?: C100RebuildPartyDetails[];
   c100TempFirstName?: string;
