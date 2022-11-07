@@ -2444,6 +2444,7 @@ export interface C1ASafteyConcerns {
     parentialResponsibility: {
       statement: string;
     };
+    liveWith?: People[]
   };
 
   export type OtherChildrenDetails = {
@@ -2491,4 +2492,17 @@ export interface C1ASafteyConcerns {
     GRAND_PARENT = 'Grandparent',
     OTHER = 'Other',
     EMPTY = ''
+  }
+
+  export enum PartyType {
+    APPLICANT = 'applicant',
+    RESPONDENT = 'respondent',
+    OTHER_PERSON = 'otherPerson',
+  }
+
+  export type People = {
+      id: string;
+      firstName: string;
+      lastName: string;
+      partyType: PartyType;
   }

@@ -31,6 +31,7 @@ export const childrenMockData = mockRequest({
           parentialResponsibility: {
             statement: '',
           },
+          liveWith: [],
         },
       ],
     },

@@ -28,6 +28,7 @@ export const getDataShape = (): ChildrenDetails => ({
   parentialResponsibility: {
     statement: '',
   },
+  liveWith: [],
 });
 
 export const getOtherChildDataShape = (): OtherChildrenDetails => ({

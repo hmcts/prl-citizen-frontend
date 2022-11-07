@@ -128,6 +128,7 @@ import {
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
   C100_GET_CASE,
+  C100_CHILDERN_LIVE_WITH,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -829,5 +830,11 @@ export const C100Sequence: Step[] = [
     url: C100_GET_CASE,
     showInSection: Sections.C100,
     getNextStep: () => C100_GET_CASE,
+  },
+  {
+    url: C100_CHILDERN_LIVE_WITH,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, caseData, req?.params),
   },
 ];

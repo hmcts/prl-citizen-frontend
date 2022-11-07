@@ -155,7 +155,7 @@ describe('RespondentsDetailsNavigationController', () => {
         dummyRequest.params
       )
     ).toBe(
-      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474/'
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474'
     );
   });
 
@@ -167,7 +167,7 @@ describe('RespondentsDetailsNavigationController', () => {
         dummyRequest.params
       )
     ).toBe(
-      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925635/'
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925635'
     );
   });
 
@@ -185,7 +185,7 @@ describe('RespondentsDetailsNavigationController', () => {
         dummyparams.params
       )
     ).toBe(
-      '/c100-rebuild/respondent-details/2cd885a0-135e-45f1-85b7-aa46a1f78f46/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474/'
+      '/c100-rebuild/respondent-details/2cd885a0-135e-45f1-85b7-aa46a1f78f46/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474'
     );
   });
 
