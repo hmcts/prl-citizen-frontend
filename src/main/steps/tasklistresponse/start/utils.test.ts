@@ -375,7 +375,7 @@ describe('utils', () => {
       expect(getMiamStatus(userCase, '123456')).toBe(SectionStatus.IN_PROGRESS);
     });
 
-    test('getMiamStatus COMPLETED', async () => {
+    test('getMiamStatus COMPLETED, did not attend', async () => {
       const completedresponse = {
         miam: {
           attendedMiam: 'No',
@@ -388,7 +388,7 @@ describe('utils', () => {
       expect(getMiamStatus(userCase, '123456')).toBe(SectionStatus.COMPLETED);
     });
 
-    test('getMiamStatus COMPLETED', async () => {
+    test('getMiamStatus COMPLETED, attended', async () => {
       const completedresponse = {
         miam: {
           attendedMiam: 'Yes',
@@ -401,7 +401,7 @@ describe('utils', () => {
       expect(getMiamStatus(userCase, '123456')).toBe(SectionStatus.COMPLETED);
     });
 
-    test('getMiamStatus COMPLETED', async () => {
+    test('getMiamStatus COMPLETED, yet to attend', async () => {
       const completedresponse = {
         miam: {
           attendedMiam: 'No',
