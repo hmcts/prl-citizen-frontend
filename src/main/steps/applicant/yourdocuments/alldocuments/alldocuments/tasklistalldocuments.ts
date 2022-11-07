@@ -495,7 +495,7 @@ const getResponseToCA = (respondent: Respondent, taskListItems) => {
       '<namerespondentxxxxx>',
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
-    href: URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE,
+    href: URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE + '/' + respondent.id,
   };
 };
 
