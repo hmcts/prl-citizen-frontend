@@ -83,7 +83,7 @@ describe('ChildrenDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/confidentiality/details-know');
+    ).toBe('/c100-rebuild/applicant/add-applicants');
   });
 
   test('From a screen where the next step is not computed using ChildrenDetailsNavigationController.getNextUrl -> navigate to the same screen when navigation controller is invoked from any other screen', async () => {

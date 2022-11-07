@@ -634,7 +634,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[97].url).toBe('/c100-rebuild/child-details/has-other-children');
     expect(C100Sequence[97].showInSection).toBe('c100');
     expect(C100Sequence[97].getNextStep({ cd_hasOtherChildren: YesOrNo.NO })).toBe(
-      '/c100-rebuild/confidentiality/details-know'
+      '/c100-rebuild/applicant/add-applicants'
     );
     expect(C100Sequence[97].getNextStep({ cd_hasOtherChildren: YesOrNo.YES })).toBe(
       '/c100-rebuild/child-details/other-children/names'
@@ -649,7 +649,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[99].url).toBe('/c100-rebuild/child-details/other-children/:childId/personal-details');
     expect(C100Sequence[99].showInSection).toBe('c100');
     expect(C100Sequence[99].getNextStep(otherChildrenMockData.session.userCase, otherChildrenMockData)).toBe(
-      '/c100-rebuild/confidentiality/details-know'
+      '/c100-rebuild/applicant/add-applicants'
     );
 
     expect(C100Sequence[100].url).toBe('/c100-rebuild/respondent-details/add-respondents');
