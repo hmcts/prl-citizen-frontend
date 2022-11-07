@@ -12,6 +12,7 @@ const en = () => ({
     },
   },
   manualAddressUrl: '#',
+  onlyContinue: 'Continue',
 });
 
 const cy = () => ({
@@ -24,6 +25,7 @@ const cy = () => ({
     },
   },
   manualAddressUrl: '#',
+  onlyContinue: 'Continue (in welsh)',
 });
 
 export const form: FormContent = {
