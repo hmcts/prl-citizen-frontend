@@ -22,10 +22,20 @@ export default class ContactDetailsPostController extends PostController<AnyObje
     const form = new Form(getFormFields().fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
+    const { donKnowEmailAddress, emailAddress, telephoneNumber, donKnowTelephoneNumber } = formData as Record<
+      string,
+      any
+    >;
     const respondentContactDetails = getRespndentDetails(
       req.session.userCase.resp_Respondents!,
       respondentId
     ) as C100RebuildPartyDetails;
+    respondentContactDetails.respondentContactDetail = {
+      donKnowEmailAddress,
+      emailAddress,
+      telephoneNumber,
+      donKnowTelephoneNumber,
+    };
     req.session.userCase.resp_Respondents = updateRespondentDetails(
       req.session.userCase.resp_Respondents!,
       respondentContactDetails
