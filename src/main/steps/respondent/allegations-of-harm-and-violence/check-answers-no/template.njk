@@ -1,9 +1,35 @@
 {% extends "common/summary/template.njk" %}
+
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% block page_content %}
-{% if section %}
-    <span class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</span>
-  {% endif %}
-  {% if title %}
-    <h1 class="govuk-heading-l">{{ title }}</h1>
-  {% endif %}
+<div>
+  <main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-xl">{{section}}</h1>
+    <h2 class="govuk-heading-l">{{title}}</h2>
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9" id="applicant_abuse_details">
+      <div class="govuk-summary-list__row">
+         <dt class="govuk-summary-list__key govuk-!-width-one-third">
+            {{lineheading}}
+          </dt>
+          <dd class="govuk-summary-list__value">
+                 No
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/respondent/allegations-of-harm-and-violence/your-or-child-safety-concerns">
+                Edit<span class="govuk-visually-hidden">your answer to, Have you suffered or are you at risk of suffering domestic violence or abuse?</span>
+            </a>
+          </dd>
+      </div>
+    </dl>
+    <div>
+       <form action="../start" method="post" novalidate="">
+         <input type="hidden" name="answers-checked" value="true">
+         <button class="govuk-button" data-module="govuk-button">
+           {{continue}}
+         </button>
+       </form>
+     </div>
+  </main>       
+</div>
 {% endblock %}

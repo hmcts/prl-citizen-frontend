@@ -46,6 +46,7 @@ import {
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CHECK_ANSWERS_NO,
+  RESPONDENT_CHECK_ANSWERS_YES,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
@@ -485,10 +486,15 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_YOUR_CHILD_CONCERNS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data => (data.yourchildconcernsstart === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_YOUR_CHILD_CONCERNS),
+    getNextStep: data => (data.yourchildconcernsstart === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES),
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_NO,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_CHECK_ANSWERS_YES,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
