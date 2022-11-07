@@ -21,6 +21,41 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
+
+  public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
+    req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+      if (respondent?.value?.user?.idamId === req.session?.user.id) {
+        Object.assign(respondent.value, setKeepYourDetailsPrivate(respondent.value, req));
+      }
+    });
+  }
+
+  public async c100Applicant(req: AppRequest<AnyObject>): Promise<void> {
+    req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
+      if (applicant?.value?.user?.idamId === req.session?.user.id) {
+        Object.assign(applicant.value, setKeepYourDetailsPrivate(applicant.value, req));
+      }
+    });
+  }
+
+  public async FL401Respondent(req: AppRequest<AnyObject>): Promise<void> {
+    if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
+      Object.assign(
+        req.session.userCase.respondentsFL401,
+        setKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req)
+      );
+    }
+  }
+
+  public async FL401Applicant(req: AppRequest<AnyObject>): Promise<void> {
+    if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
+      Object.assign(
+        req.session.userCase.applicantsFL401,
+        setKeepYourDetailsPrivate(req.session.userCase.applicantsFL401, req)
+      );
+    }
+  }
+
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
@@ -31,33 +66,15 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
     Object.assign(req.session.userCase, caseDataFromCos);
     if (req.session.userCase.caseTypeOfApplication === 'C100') {
       if (req.url.includes('respondent')) {
-        req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-          if (respondent?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(respondent.value, setKeepYourDetailsPrivate(respondent.value, req));
-          }
-        });
+        this.c100Respondent(req);
       } else {
-        req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
-          if (applicant?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(applicant.value, setKeepYourDetailsPrivate(applicant.value, req));
-          }
-        });
+        this.c100Applicant(req);
       }
     } else {
       if (req.url.includes('respondent')) {
-        if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
-          Object.assign(
-            req.session.userCase.respondentsFL401,
-            setKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req)
-          );
-        }
+        this.FL401Respondent(req);
       } else {
-        if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
-          Object.assign(
-            req.session.userCase.applicantsFL401,
-            setKeepYourDetailsPrivate(req.session.userCase.applicantsFL401, req)
-          );
-        }
+        this.FL401Applicant(req);
       }
     }
 
@@ -65,7 +82,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
     caseData.id = caseReference;
     const updatedCaseDataFromCos = await client.updateCase(
       loggedInCitizen,
-      caseReference as string,
+      caseReference,
       caseData,
       'keepYourDetailsPrivate'
     );
