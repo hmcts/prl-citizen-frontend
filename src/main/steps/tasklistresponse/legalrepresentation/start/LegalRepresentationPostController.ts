@@ -38,7 +38,7 @@ export default class LegalRepresentationPostController extends PostController<An
       if (formData.legalRepresentation === YesOrNo.YES) {
         returnUrl = LEGAL_REPRESENTATION_SOLICITOR_DIRECT;
       }
-      super.redirect(req, res, returnUrl); //res.redirect(returnUrl);
+      super.redirect(req, res, returnUrl);
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
           respondent.value.response.legalRepresentation = formData.legalRepresentation;
@@ -52,8 +52,6 @@ export default class LegalRepresentationPostController extends PostController<An
       const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
       const updatedCaseDataFromCos = await client.updateCase(req.session.user, caseReference, caseData, eventId);
       Object.assign(req.session.userCase, updatedCaseDataFromCos);
-
-      //req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
     }
   }
 }

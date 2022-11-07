@@ -47,10 +47,11 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-
+  env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
   loadVaultSecrets(secrets)
   enableFortifyScan()
   enableFullFunctionalTest(120)
+  enableSecurityScan()
 
   after('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
