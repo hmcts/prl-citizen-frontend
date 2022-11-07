@@ -7,9 +7,10 @@ import {
   getConfirmOrEditYourContactDetails,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
-  getMiamStatus,
+  //getMiamStatus,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
+  getYourApplication,
 } from './utils';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -93,7 +94,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
       {
         id: 'check_the_application',
         text: taskListItems.check_the_application,
-        status: getMiamStatus(userCase),
+        status: getYourApplication(),
         href: `${URL.APPLICANT}${URL.APPLICANT_CA_DA_REQUEST}`,
       },
       {
@@ -107,8 +108,8 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
     itemList.push({
       id: 'check_the_application',
       text: taskListItems.check_the_application,
-      status: getMiamStatus(userCase),
-      href: URL.MIAM_START,
+      status: getYourApplication(),
+      href: `${URL.APPLICANT}${URL.APPLICANT_CA_DA_REQUEST}`,
     });
   }
 
