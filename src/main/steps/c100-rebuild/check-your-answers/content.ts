@@ -29,6 +29,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  RespondentDetails
 } from './mainUtil';
 import { InternationElements } from './util/InternationElement.util';
 import { childDetailsContents } from './util/childDetails.util';
@@ -83,6 +84,7 @@ export const enContent = {
     yourSafetyConcerns: 'Safety concern: your safety',
     otherSafetyConcerns: 'Safety concern: other concerns that you have',
     otherChildernDetails: 'Other Childern details',
+    detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '13. Help with Fees',
   },
   keys: {
@@ -97,6 +99,7 @@ export const enContent = {
     none: 'none',
     details: 'Details',
     fullName: 'Full name',
+    respondents: 'Respondent',
     urgentHearingHeading:
       'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
     previousMIAMOrExemptHeading:
@@ -181,6 +184,7 @@ export const cyContent: typeof enContent = {
     yourSafetyConcerns: 'Safety concern: your safety',
     otherSafetyConcerns: 'Safety concern: other concerns that you have',
     otherChildernDetails: 'Other Childern details',
+    detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '13. Help with Fees',
   },
   keys: {
@@ -195,6 +199,7 @@ export const cyContent: typeof enContent = {
     none: 'none',
     details: 'Details',
     fullName: 'Full name - welsh',
+    respondents: 'Respondent',
     urgentHearingHeading:
       'Do you require an urgent hearing because you or the children are at risk for any of the following reasons? - welsh',
     previousMIAMOrExemptHeading:
@@ -265,6 +270,7 @@ const en = (content: CommonContent, newEnContents?: any) => {
     ChildernDetailsAdditional(enContent, userCase),
     OtherChildrenDetails(enContent, userCase),
     ApplicantDetails(enContent, userCase),
+    RespondentDetails(enContent, userCase),
     PastAndCurrentProceedings(enContent, userCase),
     SafetyConcerns(enContent, userCase),
     SafetyConcerns_child(enContent, userCase),
@@ -304,6 +310,7 @@ const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
     ChildernDetailsAdditional(cyContent, userCase),
     OtherChildrenDetails(cyContent, userCase),
     ApplicantDetails(cyContent, userCase),
+    RespondentDetails(cyContent, userCase),
     PastAndCurrentProceedings(cyContent, userCase),
     SafetyConcerns(cyContent, userCase),
     SafetyConcerns_child(cyContent, userCase),

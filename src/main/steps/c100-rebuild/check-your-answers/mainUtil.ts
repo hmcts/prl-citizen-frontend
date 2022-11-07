@@ -841,6 +841,100 @@ export const OtherChildrenDetails = (
 };
 
 
+/* eslint-disable import/namespace */
+export const RespondentDetails = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const sessionChildData = userCase['resp_Respondents'];
+  const newRespondentStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
+    [];
+    for (const child in sessionChildData) {
+      const firstname = sessionChildData[child]['firstName'],
+        lastname = sessionChildData[child]['lastName'],
+        id = sessionChildData[child]['id'],
+        personalDetails = sessionChildData[child]['personalDetails'];
+        const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
+      const childNo = Number(child) + 1;
+      newRespondentStorage.push(
+        {
+          key: '',
+          keyHtml: '<h4 class="app-task-list__section">' + keys['respondents'] + ' ' + childNo + '</h4>',
+          value: '',
+          changeUrl: '',
+        },
+        {
+          key: keys['fullName'],
+          value: firstname + ' ' + lastname,
+          changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
+        },
+      );
+
+      if(isDateOfBirthUnknown){
+        newRespondentStorage.push(
+          {
+            key: keys['approxCheckboxLabel'],
+            value: personalDetails['isDateOfBirthUnknown'],
+            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+          },
+          {
+            key: keys['approxDobLabel'],
+            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
+            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+          },
+        );
+      }
+      else{
+        newRespondentStorage.push(
+          {
+            key: keys['dobLabel'],
+            value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
+            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+          },
+        );
+      }
+      newRespondentStorage.push( {
+        key: keys['childGenderLabel'],
+        value: personalDetails?.['gender'],
+        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
+        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      },
+      {
+        key: 'Place of Birth',
+        value: personalDetails?.['gender'],
+        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
+        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      },
+      {
+        key: 'Address Details',
+        value: personalDetails?.['gender'],
+        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
+        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      },
+      {
+        key: 'Email',
+        value: personalDetails?.['gender'],
+        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
+        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      },
+      {
+        key: 'Telephone number',
+        value: personalDetails?.['gender'],
+        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
+        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      }
+      
+      );
+    }
+
+  const SummaryData = newRespondentStorage;
+  return {
+    title: sectionTitles['detailsOfRespondent'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+
 export const HelpWithFee = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
