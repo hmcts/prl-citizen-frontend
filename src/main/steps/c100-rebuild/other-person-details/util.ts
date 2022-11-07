@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
 
-import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty } from '../../../app/case/definition';
+import {
+  C100RebuildPartyDetails,
+  C100RebuildRelationships,
+  Gender,
+  YesNoDontKnow,
+  YesNoEmpty,
+} from '../../../app/case/definition';
 
 export const getDataShape = (): C100RebuildPartyDetails => ({
   id: uuidv4(),
@@ -23,6 +29,17 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     gender: Gender.EMPTY,
     otherGenderDetails: '',
   },
+  childRelationship: C100RebuildRelationships.FATHER,
+  otherPersonAddress: {
+    AddressLine1: '',
+    AddressLine2: '',
+    AddressLine3: '',
+    PostTown: '',
+    County: '',
+    PostCode: '',
+    Country: '',
+  },
+  // otherPersonPostcode: '',
 });
 
 export const getOtherPersonDetails = (
@@ -37,7 +54,7 @@ export const updateOtherPersonDetails = (
   otherPersons.map(otherPerson => (otherPerson.id === otherPersonDetails.id ? otherPersonDetails : otherPerson));
 
 export const transformFormData = (
-  context: 'personalDetails',
+  context: 'personalDetails' | 'otherPersonAddress',
   formData: Record<string, any>
 ): Partial<C100RebuildPartyDetails> => {
   const dataShape = getDataShape()[context];

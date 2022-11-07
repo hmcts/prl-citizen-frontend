@@ -179,7 +179,7 @@ const safetyConcernsMockData = mockRequest({
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(103);
+    expect(C100Sequence).toHaveLength(106);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -837,7 +837,25 @@ describe('C100Sequence', () => {
     expect(C100Sequence[102].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/personal-details');
     expect(C100Sequence[102].showInSection).toBe('c100');
     expect(C100Sequence[102].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/personal-details'
+      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/address/lookup'
+    );
+
+    expect(C100Sequence[103].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/lookup');
+    expect(C100Sequence[103].showInSection).toBe('c100');
+    expect(C100Sequence[103].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
+      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/address/select'
+    );
+
+    expect(C100Sequence[104].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/select');
+    expect(C100Sequence[104].showInSection).toBe('c100');
+    expect(C100Sequence[104].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
+      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/address/manual'
+    );
+
+    expect(C100Sequence[105].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/manual');
+    expect(C100Sequence[105].showInSection).toBe('c100');
+    expect(C100Sequence[105].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
+      '/c100-rebuild/other-proceedings/current-previous-proceedings'
     );
   });
 });

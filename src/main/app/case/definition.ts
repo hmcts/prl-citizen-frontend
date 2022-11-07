@@ -2459,15 +2459,27 @@ export interface C1ASafteyConcerns {
   };
 
   export type C100RebuildPartyDetails = {
-    id: string,
-    firstName: string,
-    lastName: string,
+    id: string;
+    firstName: string;
+    lastName: string;
     personalDetails: {
-      dateOfBirth: CaseDate
-      isDateOfBirthUnknown: YesNoEmpty,
-      isNameChanged: YesNoDontKnow,
-      approxDateOfBirth: CaseDate,
-      gender: Gender,
-      otherGenderDetails: string,
-    },
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      isNameChanged?: YesNoDontKnow;
+      approxDateOfBirth?: CaseDate;
+      gender: Gender;
+      otherGenderDetails?: string;
+    };
+    childRelationship: C100RebuildRelationships;
+    otherPersonAddress: Address;
+    // otherPersonPostcode: string;
+  };
+
+  export enum C100RebuildRelationships {
+    MOTHER = 'Mother',
+    FATHER = 'Father',
+    GUARDIAN = 'Guardian',
+    SPECIAL_GUARDIAN = 'Special Guardian',
+    GRANDPARENT = 'Grandparent',
+    OTHER = 'Other',
   }
