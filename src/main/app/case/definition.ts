@@ -2476,6 +2476,12 @@ export interface C1ASafteyConcerns {
       relationshipToChildren: RelationshipToChildren[];
     };
     address?: C100Address;
+    respondentContactDetail: {
+      donKnowEmailAddress?: YesOrNo
+      emailAddress?: string
+      telephoneNumber?: string
+      donKnowTelephoneNumber?: YesOrNo
+    }
   };
 
   export interface RelationshipToChildren {

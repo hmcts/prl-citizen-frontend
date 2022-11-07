@@ -33,8 +33,24 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     respondentPlaceOfBirth: '',
     respondentPlaceOfBirthUnknown: YesOrNo.NO,
   },
+  address: {
+    AddressLine1: '',
+    AddressLine2: '',
+    PostTown: '',
+    County: '',
+    PostCode: '',
+    selectedAddress: 2,
+    addressHistory: YesOrNo.YES,
+    provideDetailsOfPreviousAddresses: '',
+  },
   relationshipDetails: {
     relationshipToChildren: [] as RelationshipToChildren[],
+  },
+  respondentContactDetail: {
+    donKnowEmailAddress: YesOrNo.NO,
+    emailAddress: '',
+    telephoneNumber: '',
+    donKnowTelephoneNumber: YesOrNo.NO,
   },
 });
 

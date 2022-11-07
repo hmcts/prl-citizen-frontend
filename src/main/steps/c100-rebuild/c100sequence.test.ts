@@ -11,7 +11,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(106);
+    expect(C100Sequence).toHaveLength(107);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -654,45 +654,39 @@ describe('C100Sequence', () => {
     expect(C100Sequence[100].url).toBe('/c100-rebuild/respondent-details/add-respondents');
     expect(C100Sequence[100].showInSection).toBe('c100');
     expect(C100Sequence[100].getNextStep(respondentMockData.session.userCase)).toBe(
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/personal-details'
+    );
+
+    expect(C100Sequence[101].url).toBe('/c100-rebuild/respondent-details/:respondentId/personal-details');
+    expect(C100Sequence[101].showInSection).toBe('c100');
+    expect(C100Sequence[101].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
       '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474/'
     );
 
-    expect(C100Sequence[101].url).toBe(
-      '/c100-rebuild/respondent-details/:respondentId/relationship-to-child/:childId/'
-    );
-    expect(C100Sequence[101].showInSection).toBe('c100');
-    expect(C100Sequence[101].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/add-respondents'
-    );
-
     expect(C100Sequence[102].url).toBe(
-      '/c100-rebuild/respondent-details/:respondentId/address/lookup' // TODO change this param URL (:respondentId) once LINKED!
+      '/c100-rebuild/respondent-details/:respondentId/relationship-to-child/:childId/'
     );
     expect(C100Sequence[102].showInSection).toBe('c100');
     expect(C100Sequence[102].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/:respondentId/address/select' // TODO change this param URL (:respondentId) once LINKED!
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/lookup'
     );
 
-    expect(C100Sequence[103].url).toBe(
-      '/c100-rebuild/respondent-details/:respondentId/address/select' // TODO change this param URL (:respondentId) once LINKED!
-    );
+    expect(C100Sequence[103].url).toBe('/c100-rebuild/respondent-details/:respondentId/address/lookup');
     expect(C100Sequence[103].showInSection).toBe('c100');
     expect(C100Sequence[103].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/:respondentId/address/manual' // TODO change this param URL (:respondentId) once LINKED!
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/select'
     );
 
-    expect(C100Sequence[104].url).toBe(
-      '/c100-rebuild/respondent-details/:respondentId/address/manual' // TODO change this param URL (:respondentId) once LINKED!
-    );
+    expect(C100Sequence[104].url).toBe('/c100-rebuild/respondent-details/:respondentId/address/select');
     expect(C100Sequence[104].showInSection).toBe('c100');
     expect(C100Sequence[104].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/:respondentId/address/lookup' // TODO change this param URL (:respondentId) once LINKED!
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/manual'
     );
 
-    expect(C100Sequence[105].url).toBe('/c100-rebuild/respondent-details/:respondentId/personal-details');
+    expect(C100Sequence[105].url).toBe('/c100-rebuild/respondent-details/:respondentId/address/manual');
     expect(C100Sequence[105].showInSection).toBe('c100');
     expect(C100Sequence[105].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/personal-details' // TODO change URL param after linking!
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/contact-details'
     );
   });
 });
