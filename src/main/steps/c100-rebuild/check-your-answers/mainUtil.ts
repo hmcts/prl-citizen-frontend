@@ -581,8 +581,9 @@ export const SafetyConcerns_yours = (
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
     ?.map(field => {
+      const keyForFields = field === C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfChildConcern'].split('[***]').join(` ${keys['concerns']} `).split('[^^^]').join(''): keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `).split('[^^^]').join('');
       return {
-        key: keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `).split('[^^^]').join(''),
+        key: keyForFields,
         valueHtml: SafetyConcernsHelper(
           userCase,
           keys,

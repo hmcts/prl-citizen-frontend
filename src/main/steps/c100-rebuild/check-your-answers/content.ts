@@ -95,6 +95,7 @@ export const enContent = {
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
     //child concern screens
     detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
+    concerns: 'concerns',
     againstChild: 'against the child',
     anyOtherPeopleKnowDetails:
       'Do the other people named in this application (the respondents) know any of your contact details?    ',
@@ -170,7 +171,8 @@ export const cyContent: typeof enContent = {
     validExemptionHeading:
       'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case? - welsh',
     //child concern screens
-    detailsOfChildConcern: 'Briefly describe the physical [***] [^^^] if you feel able to ',
+    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
+    concerns: 'concerns',
     againstChild: 'against the child',
     anyOtherPeopleKnowDetails:
       'Do the other people named in this application (the respondents) know any of your contact details? ',
