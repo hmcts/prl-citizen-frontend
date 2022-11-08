@@ -22,6 +22,7 @@ import {
   PastAndCurrentProceedings,
   PeopleDetails,
   PermissionForApplication,
+  RespondentDetails,
   SafetyConcerns,
   SafetyConcerns_child,
   SafetyConcerns_others,
@@ -29,7 +30,6 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
-  RespondentDetails
 } from './mainUtil';
 import { InternationElements } from './util/InternationElement.util';
 import { childDetailsContents } from './util/childDetails.util';
