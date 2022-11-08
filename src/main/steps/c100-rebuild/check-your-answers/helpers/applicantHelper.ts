@@ -17,3 +17,21 @@ export const applicantAddressParser = (sessionApplicantData, keys) => {
   }
  return html;
 };
+
+
+
+export const applicantAddressParserForRespondents = (sessionApplicantData, keys) => {
+  let html = '' as string;
+  sessionApplicantData.hasOwnProperty('AddressLine1') && (html += sessionApplicantData?.['AddressLine1'] + HTML.BREAK );
+  sessionApplicantData.hasOwnProperty('AddressLine2') && (html += sessionApplicantData?.['AddressLine2'] + HTML.BREAK );
+  sessionApplicantData.hasOwnProperty('PostTown') && (html += sessionApplicantData?.['PostTown'] + HTML.BREAK);
+  sessionApplicantData.hasOwnProperty('County') && (html += sessionApplicantData?.['County'] + HTML.BREAK + HTML.BREAK);
+  sessionApplicantData.hasOwnProperty('PostCode') && (html += sessionApplicantData?.['PostCode']+ HTML.RULER);
+  if(sessionApplicantData.hasOwnProperty('addressHistory')){
+    html += HTML.H4 + keys['haveLivedMore'] + HTML.H4_CLOSE;
+    html += sessionApplicantData?.['addressHistory']+ HTML.RULER;
+    html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BREAK;
+    sessionApplicantData.hasOwnProperty('provideDetailsOfPreviousAddresses')&& (html += sessionApplicantData?.['provideDetailsOfPreviousAddresses'] );
+  }
+ return html;
+};

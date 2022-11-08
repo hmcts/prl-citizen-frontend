@@ -8,7 +8,7 @@ import { DATE_FORMATTOR } from './common/dateformatter';
 import { HTML } from './common/htmlSelectors';
 import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
-import { applicantAddressParser } from './helpers/applicantHelper';
+import { applicantAddressParser, applicantAddressParserForRespondents } from './helpers/applicantHelper';
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
@@ -334,7 +334,7 @@ export const ApplicantDetails = (
               `?applicantId=${sessionApplicantData[applicant]['id']}`,
       },
       {
-        key: 'Address details',
+        key: keys['addressDetails'],
         value: '',
         valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys),
         changeUrl:
@@ -846,27 +846,39 @@ export const RespondentDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const sessionChildData = userCase['resp_Respondents'];
+  const sessionRespondentData = userCase['resp_Respondents'];
   const newRespondentStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
     [];
-    for (const child in sessionChildData) {
-      const firstname = sessionChildData[child]['firstName'],
-        lastname = sessionChildData[child]['lastName'],
-        id = sessionChildData[child]['id'],
-        personalDetails = sessionChildData[child]['personalDetails'];
+    for (const respondent in sessionRespondentData) {
+      const firstname = sessionRespondentData[respondent]['firstName'],
+        lastname = sessionRespondentData[respondent]['lastName'],
+        id = sessionRespondentData[respondent]['id'],
+        personalDetails = sessionRespondentData[respondent]['personalDetails'];
         const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
-      const childNo = Number(child) + 1;
+      const respondentNo = Number(respondent) + 1;
+      const contactDetails = sessionRespondentData[respondent]['contactDetails'];
       newRespondentStorage.push(
         {
           key: '',
-          keyHtml: '<h4 class="app-task-list__section">' + keys['respondents'] + ' ' + childNo + '</h4>',
+          keyHtml: '<h4 class="app-task-list__section">' + keys['respondents'] + ' ' + respondentNo + '</h4>',
           value: '',
           changeUrl: '',
         },
         {
           key: keys['fullName'],
           value: firstname + ' ' + lastname,
-          changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }) ,
+        },
+        {
+          key: keys['repondentDetials'],
+          value: personalDetails?.['repondentDetials'] + userCase['resPreviousName'] === ''?  HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + userCase?.['resPreviousName'] : '',
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+        },
+        {
+          key: keys['childGenderLabel'],
+          value: personalDetails?.['gender'],
+          valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails']: '',
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
       );
 
@@ -875,12 +887,12 @@ export const RespondentDetails = (
           {
             key: keys['approxCheckboxLabel'],
             value: personalDetails['isDateOfBirthUnknown'],
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
           },
           {
             key: keys['approxDobLabel'],
             value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
           },
         );
       }
@@ -889,44 +901,82 @@ export const RespondentDetails = (
           {
             key: keys['dobLabel'],
             value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
           },
         );
       }
-      newRespondentStorage.push( {
-        key: keys['childGenderLabel'],
-        value: personalDetails?.['gender'],
-        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
-        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      },
+      newRespondentStorage.push( 
       {
-        key: 'Place of Birth',
-        value: personalDetails?.['gender'],
-        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
-        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      },
-      {
-        key: 'Address Details',
-        value: personalDetails?.['gender'],
-        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
-        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      },
-      {
-        key: 'Email',
-        value: personalDetails?.['gender'],
-        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
-        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      },
-      {
-        key: 'Telephone number',
-        value: personalDetails?.['gender'],
-        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
-        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      }
-      
-      );
-    }
+        key: keys['respondentPlaceOfBirth'],
+        value: personalDetails?.['respondentPlaceOfBirth'],
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+      });
 
+      if(personalDetails['respondentPlaceOfBirthUnknown'] !== 'No'){
+        newRespondentStorage.push( 
+          {
+            key: keys['respondentPlaceOfBirthUnknown'],
+            value: personalDetails?.['respondentPlaceOfBirthUnknown'],
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+          });
+      }
+
+      const relationShipToChildren = sessionRespondentData[respondent]['relationshipDetails']?.['relationshipToChildren'];
+      relationShipToChildren.forEach(element => {
+        const childDetails = userCase?.['cd_children']?.filter(child => child.id === element['childId'])[0];
+        const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
+        newRespondentStorage.push({
+          key: keys['relationshipTo'] + ' ' + childFullName ,
+          value: element['relationshipType'],
+          valueHtml: element['relationshipType'] + ' ' + element['otherRelationshipTypeDetails'] !== '' ?  element['otherRelationshipTypeDetails'] : '' , //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], { respondentId: id, childId: element['childId'] }),
+        });
+      });
+      
+     
+      newRespondentStorage.push({
+        key: keys['addressDetails'],
+        value: personalDetails?.['gender'],
+        valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys),
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
+      },
+      );
+      newRespondentStorage.push(
+        {
+          key: 'Email',
+          value: contactDetails?.['emailAddress'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        },
+      );
+
+      if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
+        newRespondentStorage.push(
+          {
+            key: 'I dont know their email address',
+            value: contactDetails?.['donKnowEmailAddress'],
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+          },
+        );
+      }
+      newRespondentStorage.push(
+        {
+          key: 'Telephone number',
+          value: contactDetails?.['telephoneNumber'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        }
+      );
+      if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
+        newRespondentStorage.push(
+          {
+            key: 'I dont know their telephone number',
+            value: contactDetails?.['donKnowTelephoneNumber'],
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+          },
+        );
+      }
+  
+    }
+   
   const SummaryData = newRespondentStorage;
   return {
     title: sectionTitles['detailsOfRespondent'],

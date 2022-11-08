@@ -135,6 +135,13 @@ export const enContent = {
     anotherReason: 'Another reason',
     doRequireHelpwithFee: 'Do you need help with paying the fee for this application?',
     alreadyAppliedHelpWithFee: 'Have you already applied for help with your application fee?',
+    //respondent-details
+    repondentDetials: 'Have they change thier name?',
+    respondentPlaceOfBirth: 'Place of birth',
+    approxCheckboxLabel: 'I don’t know their date of birth',
+    respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
+    addressDetails: 'Address details',
+    relationshipTo: 'Relationship to',
   },
 };
 export const cyContent: typeof enContent = {
@@ -233,6 +240,13 @@ export const cyContent: typeof enContent = {
     anotherReason: 'Another reason',
     doRequireHelpwithFee: 'Do you need help with paying the fee for this application?',
     alreadyAppliedHelpWithFee: 'Have you already applied for help with your application fee?',
+    //respondent-details
+    repondentDetials: 'Have they change thier name?',
+    respondentPlaceOfBirth: 'Place of birth',
+    approxCheckboxLabel: 'I don’t know their date of birth',
+    respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
+    addressDetails: 'Address details',
+    relationshipTo: 'Relationship to',
   },
 };
 
