@@ -107,7 +107,7 @@ export const form: FormContent = {
           value: 'beforStatingApplication',
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'miam_previousAttendance',

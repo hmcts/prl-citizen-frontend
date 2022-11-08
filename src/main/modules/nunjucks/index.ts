@@ -79,7 +79,8 @@ export class Nunjucks {
           html: this.env.globals.getContent.call(this, i.hint),
         },
         //divider: this.env.globals.getContent.call(this, i.divider),
-        divider: i.divider && 'or',
+        divider:
+          typeof i.divider === 'function' ? this.env.globals.getContent.call(this, i.divider) : i.divider && 'or',
         behaviour: (i.exclusive && 'exclusive') || this.env.globals.getContent.call(this, i.behaviour),
         open: i.open,
         conditional: (() => {
