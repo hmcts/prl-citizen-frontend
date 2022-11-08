@@ -16,7 +16,7 @@ describe('AddRespondentsPostController Post Controller', () => {
       firstName: 'John',
       lastName: 'Doe',
       personalDetails: {
-        repondentDetials: 'YES',
+        haveChangetheirName: 'YES',
         gender: 'Male',
       },
       relationshipDetails: {
@@ -36,7 +36,7 @@ describe('AddRespondentsPostController Post Controller', () => {
       firstName: 'Jane',
       lastName: 'Doe',
       personalDetails: {
-        repondentDetials: 'YES',
+        haveChangetheirName: 'YES',
         gender: 'Male',
       },
       relationshipDetails: {

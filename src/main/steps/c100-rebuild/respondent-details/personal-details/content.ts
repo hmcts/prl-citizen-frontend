@@ -1,5 +1,5 @@
 import { CaseDate } from '../../../../app/case/case';
-import { C100RebuildPartyDetails, Gender, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
@@ -15,8 +15,8 @@ import { getRespndentDetails } from '../util';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Provide details for',
-  repondentDetials: 'Have they change thier name?',
-  repondentHint:
+  haveChangetheirName: 'Have they change their name?',
+  haveChangetheirNameHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
   one: 'Yes',
   two: 'No',
@@ -35,10 +35,10 @@ const en = () => ({
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
   otherGenderDetailsLabel: "Respondent's gender (Optional)",
   errors: {
-    repondentDetials: {
+    haveChangetheirName: {
       required: 'Select if they’ve changed their name',
     },
-    previousName: {
+    resPreviousName: {
       required: 'Enter their previous name',
     },
     dateOfBirth: {
@@ -69,8 +69,8 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Provide details for - welsh',
-  repondentDetails: 'Have they change thier name? - welsh',
-  repondentHint:
+  haveChangetheirName: 'Have they change their name? - welsh',
+  haveChangetheirNameHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
   one: 'Yes',
   two: 'No',
@@ -89,10 +89,10 @@ const cy = () => ({
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth - welsh',
   otherGenderDetailsLabel: "Respondent's gender (Optional) - welsh",
   errors: {
-    repondentDetials: {
+    haveChangetheirName: {
       required: 'Select if they’ve changed their name -welsh',
     },
-    previousName: {
+    resPreviousName: {
       required: 'Enter their previous name -welsh',
     },
     dateOfBirth: {
@@ -144,7 +144,7 @@ export const generateFormFields = (
   personalDetails: C100RebuildPartyDetails['personalDetails']
 ): GenerateDynamicFormFields => {
   const {
-    repondentDetials,
+    haveChangetheirName,
     resPreviousName,
     dateOfBirth,
     isDateOfBirthUnknown,
@@ -159,19 +159,19 @@ export const generateFormFields = (
     cy: {},
   };
   const fields = {
-    repondentDetials: {
+    haveChangetheirName: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.repondentDetials,
-      hint: l => l.repondentHint,
+      label: l => l.haveChangetheirName,
+      hint: l => l.haveChangetheirNameHint,
       labelSize: 'm',
       values: [
         {
           label: l => l.one,
-          value: YesNoEmpty.YES,
-          selected: repondentDetials === YesNoEmpty.YES,
+          value: YesNoDontKnow.yes,
+          selected: haveChangetheirName === YesNoDontKnow.yes,
           subFields: {
-            previousName: {
+            resPreviousName: {
               type: 'text',
               class: 'govuk-label',
               labelSize: null,
@@ -183,13 +183,14 @@ export const generateFormFields = (
           },
         },
         {
-          selected: repondentDetials === YesNoEmpty.NO,
+          selected: haveChangetheirName === YesNoDontKnow.no,
           label: l => l.two,
-          value: YesNoEmpty.NO,
+          value: YesNoDontKnow.no,
         },
         {
+          selected: haveChangetheirName === YesNoDontKnow.dontKnow,
           label: l => l.dontKnow,
-          value: YesNoEmpty.EMPTY,
+          value: YesNoDontKnow.dontKnow,
         },
       ],
       validator: isFieldFilledIn,
