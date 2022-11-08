@@ -142,7 +142,6 @@ import OtherChildrenDetailsNavigationController from './child-details/other-chil
 import MIAMNavigationController from './miam/navigationController';
 import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
-import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 
@@ -385,31 +384,28 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
     showInSection: Sections.C100,
-    sanitizeQueryString: sanitizeOtherProceedingsQueryString,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
       return OtherProceedingsNavigationController.getNextUrl(
         C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
         caseData,
-        req!.query
+        req!.params
       );
     },
   },
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.C100,
-    sanitizeQueryString: sanitizeOtherProceedingsQueryString,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
       return OtherProceedingsNavigationController.getNextUrl(
         C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
         caseData,
-        req!.query
+        req!.params
       );
     },
   },
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
-    sanitizeQueryString: sanitizeOtherProceedingsQueryString,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
   {

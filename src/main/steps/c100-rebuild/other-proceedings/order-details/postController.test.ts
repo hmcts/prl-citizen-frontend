@@ -12,7 +12,7 @@ describe('AddOrderDetails Post Controller', () => {
     language: 'en',
     additionalData: {
       req: {
-        query: {
+        params: {
           orderType: 'careOrder',
         },
       },
@@ -26,7 +26,7 @@ describe('AddOrderDetails Post Controller', () => {
     const controller = new AddOrderDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
-      query: {
+      params: {
         orderType: C100OrderTypes.CARE_ORDER,
       },
       body: {
@@ -50,7 +50,7 @@ describe('AddOrderDetails Post Controller', () => {
     const controller = new AddOrderDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
-      query: {
+      params: {
         orderType: C100OrderTypes.CARE_ORDER,
       },
       body: {
@@ -74,7 +74,7 @@ describe('AddOrderDetails Post Controller', () => {
     const controller = new AddOrderDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
-      query: {
+      params: {
         orderType: C100OrderTypes.CARE_ORDER,
       },
       body: {

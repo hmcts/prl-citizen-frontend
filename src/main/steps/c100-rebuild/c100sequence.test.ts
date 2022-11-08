@@ -291,16 +291,16 @@ describe('C100Sequence', () => {
     expect(C100Sequence[35].url).toBe('/c100-rebuild/other-proceedings/proceeding-details');
     expect(C100Sequence[35].showInSection).toBe('c100');
     expect(C100Sequence[35].getNextStep(otherProceedingsMockData.session.userCase)).toBe(
-      '/c100-rebuild/other-proceedings/order-details?orderType=careOrder'
+      '/c100-rebuild/other-proceedings/careOrder/order-details'
     );
 
-    expect(C100Sequence[36].url).toBe('/c100-rebuild/other-proceedings/order-details');
+    expect(C100Sequence[36].url).toBe('/c100-rebuild/other-proceedings/:orderType/order-details');
     expect(C100Sequence[36].showInSection).toBe('c100');
     expect(C100Sequence[36].getNextStep(otherProceedingsMockData.session.userCase, otherProceedingsMockData)).toBe(
-      '/c100-rebuild/other-proceedings/documentUpload?orderType=careOrder&orderId=1'
+      '/c100-rebuild/other-proceedings/careOrder/1/documentUpload'
     );
 
-    expect(C100Sequence[37].url).toBe('/c100-rebuild/other-proceedings/documentUpload');
+    expect(C100Sequence[37].url).toBe('/c100-rebuild/other-proceedings/:orderType/:orderId/documentUpload/:removeId?');
     expect(C100Sequence[37].showInSection).toBe('c100');
     expect(C100Sequence[37].getNextStep(otherProceedingsMockData.session.userCase, otherProceedingsMockData)).toBe(
       '/c100-rebuild/other-proceedings/document-summary'
