@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -81,7 +81,7 @@ export const form: FormContent = {
               },
               label: l => l.appropriateLightingDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              validator: value => isFieldFilledIn(value),
             },
           },
         },
@@ -107,7 +107,7 @@ export const form: FormContent = {
               },
               label: l => l.otherDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              validator: value => isFieldFilledIn(value),
             },
           },
         },
