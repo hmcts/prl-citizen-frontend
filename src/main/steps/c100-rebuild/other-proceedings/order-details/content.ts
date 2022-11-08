@@ -159,9 +159,7 @@ export const generateFormFields = (
           hint: l => l.orderDateHint,
           values: [
             {
-              label: l => {
-                return l.dateFormat['day'];
-              },
+              label: l => l.dateFormat['day'],
               name: 'day',
               value: orders[index].orderDate.day,
               classes: 'govuk-input--width-2',
