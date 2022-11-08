@@ -13,7 +13,7 @@ const en = {
   thisServiceIs: 'This Service is managed by HM Courts and Tribunals service.',
   youShouldCheckThese:
     'You should check these terms and conditions regularly. We may update them at any time without notice. If you continue to use this service after the terms and conditions have changed, you are deemed to have agreed to the changes.',
-  termsOfService: 'Terms of Service',
+  termsOfServices: 'Terms of Service',
   youWillComplyWithData:
     'You will comply with Data Protection Law, including (without limitation and to the extent applicable) the Data Protection Act 2018 and General Data Protection Regulations, relevant privacy regulations and all professional codes of conduct which apply to the Service. You acknowledge that any breach of these provisions may result in access to the Service being suspended or terminated, and that we may pursue suspected offences under the Computer Misuse Act or Data Protection Act 2018. This includes destroying or falsifying information and documents or breach of any other applicable law in England and Wales.',
   howToUse: 'How to use this service responsibly',
@@ -67,7 +67,7 @@ const cy: typeof en = {
   thisServiceIs: 'This Service is managed by HM Courts and Tribunals service. {in welsh}',
   youShouldCheckThese:
     'You should check these terms and conditions regularly. We may update them at any time without notice. If you continue to use this service after the terms and conditions have changed, you are deemed to have agreed to the changes. {in welsh}',
-  termsOfService: 'Terms of Service',
+  termsOfServices: 'Terms of Service',
   youWillComplyWithData:
     'You will comply with Data Protection Law, including (without limitation and to the extent applicable) the Data Protection Act 2018 and General Data Protection Regulations, relevant privacy regulations and all professional codes of conduct which apply to the Service. You acknowledge that any breach of these provisions may result in access to the Service being suspended or terminated, and that we may pursue suspected offences under the Computer Misuse Act or Data Protection Act 2018. This includes destroying or falsifying information and documents or breach of any other applicable law in England and Wales.',
   howToUse: 'How to use this service responsibly {in welsh}',
