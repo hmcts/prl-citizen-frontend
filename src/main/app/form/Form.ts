@@ -65,23 +65,29 @@ export class Form {
     return errors;
   }
 
+  public populateFieldNames(value: FormInput, fieldNames: Set<string>, fieldKey: string): Set<string> {
+    if (value.name) {
+      fieldNames.add(value.name);
+    } else {
+      fieldNames.add(fieldKey);
+    }
+    if (value.subFields) {
+      for (const field of Object.keys(value.subFields)) {
+        fieldNames.add(field);
+      }
+    }
+
+    return fieldNames;
+  }
+
   public getFieldNames(): Set<string> {
     const fields = this.fields;
-    const fieldNames: Set<string> = new Set();
+    let fieldNames: Set<string> = new Set();
     for (const fieldKey in fields) {
       const stepField = fields[fieldKey] as FormOptions;
       if (stepField.values && stepField.type !== 'date') {
         for (const [, value] of Object.entries(stepField.values)) {
-          if (value.name) {
-            fieldNames.add(value.name);
-          } else {
-            fieldNames.add(fieldKey);
-          }
-          if (value.subFields) {
-            for (const field of Object.keys(value.subFields)) {
-              fieldNames.add(field);
-            }
-          }
+          fieldNames = this.populateFieldNames(value, fieldNames, fieldKey);
         }
       } else {
         fieldNames.add(fieldKey);
@@ -124,6 +130,10 @@ export interface FormContent {
     classes?: string;
   };
   submit?: {
+    text: Label;
+    classes?: string;
+  };
+  onlyContinue?: {
     text: Label;
     classes?: string;
   };

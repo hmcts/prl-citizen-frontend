@@ -30,6 +30,7 @@ const en = {
   errorSummaryHeading: 'There is a problem',
   saveAndSignOut: 'Save and sign out',
   saveAsDraft: 'Save as draft',
+  onlyContinue: 'Continue',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -184,6 +185,7 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  onlyContinue: 'Continue (in welsh)',
 };
 
 export const generatePageContent = ({
@@ -191,7 +193,13 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
+  userCaseList,
+  caption,
+  name,
+  byApplicant,
+  document_type,
   addresses = [],
+  userIdamId,
 }: // eligibility,
 // fee,
 {
@@ -199,7 +207,13 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  caption?: string;
+  document_type?: string;
+  userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
+  name?: string;
+  byApplicant?: string;
+  userIdamId?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -212,8 +226,15 @@ export const generatePageContent = ({
     language,
     userCase,
     userEmail,
+    name,
+    userCaseList,
     // contactEmail,
     addresses,
+    caption,
+    document_type,
+    byApplicant,
+    userIdamId,
+    // contactEmail,
     // eligibility,
     // fee,
   };
@@ -235,12 +256,18 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  userCaseList?: Partial<CaseWithId>[];
+  name?: string;
+  caption?: string;
+  document_type?: string;
   // contactEmail?: string;
   // referenceNumber?: string;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
+  byApplicant?: string;
   // eligibility?: Eligibility;
   // fee?: Fee;
+  userIdamId?: string;
 };
 
 export type Language = 'en' | 'cy';

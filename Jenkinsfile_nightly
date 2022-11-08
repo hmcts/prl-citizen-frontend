@@ -18,9 +18,17 @@ def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def secrets = [
   'prl-${env}': [
-    secret("AppInsightsInstrumentationKey", "APP_INSIGHTS_INSTRUMENTATION_KEY"),
+    secret('AppInsightsInstrumentationKey', 'APP_INSIGHTS_INSTRUMENTATION_KEY'),
     secret('prl-citizen-frontend-idam-client-secret', 'CITIZEN_IDAM_SECRET'),
-    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET')
+    secret('prl-cos-idam-client-secret', 'COS_API_IDAM_SECRET'),
+    secret('postcode-lookup-token', 'POSTCODE_TOKEN'),
+    secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL'),
+    secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
+    secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET'),
+    secret('system-update-user-username', 'SYSTEM_UPDATE_USER_USERNAME'),
+    secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD'),
+    secret('citizen-user', 'CITIZEN_USERNAME'),
+    secret('citizen-password', 'CITIZEN_PASSWORD')
   ]
 ]
 
@@ -41,6 +49,7 @@ pipelineConf.vaultSecrets = secrets
 withNightlyPipeline(type, product, component) {
 
   loadVaultSecrets(secrets)
+  enableFortifyScan()
   enableFullFunctionalTest(120)
 
   after('test') {
@@ -65,6 +74,7 @@ withNightlyPipeline(type, product, component) {
 
   after('fortify-scan') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/**/*'
   }
 }
 

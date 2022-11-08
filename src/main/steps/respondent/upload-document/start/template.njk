@@ -1,0 +1,22 @@
+
+{% extends "common/template.njk" %}
+
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block page_content %}
+    <div class="govuk-form-group">
+    <h1 class="govuk-heading-xl">
+        <span class="govuk-caption-l">{{caption}}</span>
+        {{document_type}}
+    </h1>
+  {% if title %}
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% endif %}
+  {% if line1 %}
+    <div class="govuk-hint">{{ line1 }}</div>
+  {% endif %}
+  {% if line2 %}
+    <p class="govuk-body">{{ line2 }}</p>
+  {% endif %}
+    </div>
+{% endblock %}
