@@ -5,7 +5,7 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 const en = {
   section: ' ',
-  title: 'Do the children live outside of England or Wales?',
+  title: "Are the children's lives mainly based outside of England and Wales?",
   one: 'Yes',
   two: 'No',
   hint: 'For example, does their main family life take place outside of England and Wales?',
@@ -23,7 +23,7 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: 'Do the children live outside of England or Wales?',
+  title: "Are the children's lives mainly based outside of England and Wales? {in welsh}",
   one: 'Yes',
   two: 'No',
   hint: 'For example, does their main family life take place outside of England and Wales?',
