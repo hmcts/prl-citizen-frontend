@@ -200,7 +200,6 @@ export interface RetreiveDraftCase extends UpdateCase {
 }
 
 interface UpdateCase {
-  c100RebuildConfidentiality?: Record<string, string>;
   c100RebuildInternationalElements?: Record<string, string>;
   c100RebuildReasonableAdjustments?: Record<string, string>;
   c100RebuildTypeOfOrder?: Record<string, string>;
@@ -209,6 +208,14 @@ interface UpdateCase {
   c100RebuildChildDetails?: Record<string, string>;
   c100RebuildMaim?: Record<string, string>;
   c100RebuildHearingUrgency?: Record<string, string>;
+  c100RebuildOtherChildrenDetails?: Record<string, string>;
+  c100RebuildApplicantDetails?: Record<string, string>;
+  c100RebuildRespondentDetails?: Record<string, string>;
+  c100RebuildOtherPersonsDetails?: Record<string, string>;
+  c100RebuildSafetyConcerns?: Record<string, string>;
+  c100RebuildScreeningQuestions?: Record<string, string>;
+  c100RebuildConsentOrderDetails?: Record<string, string>;
+  c100RebuildHelpWithFeesDetails?: Record<string, string>;
 }
 
 interface UpdateCaseRequest extends UpdateCase {
@@ -227,7 +234,6 @@ export interface DocumentUploadResponse {
 }
 
 const updateCaseDataMapper = {
-  appl: 'c100RebuildApplicants',
   ie: 'c100RebuildInternationalElements',
   ra: 'c100RebuildReasonableAdjustments',
   too: 'c100RebuildTypeOfOrder',
@@ -236,4 +242,12 @@ const updateCaseDataMapper = {
   cd: 'c100RebuildChildDetails',
   miam: 'c100RebuildMaim',
   hu: 'c100RebuildHearingUrgency',
+  odc: 'c100RebuildOtherChildrenDetails',
+  appl: 'c100RebuildApplicantDetails',
+  resp: 'c100RebuildRespondentDetails',
+  oprs: 'c100RebuildOtherPersonsDetails',
+  c1A: 'c100RebuildSafetyConcerns',
+  sq: 'c100RebuildScreeningQuestions',
+  co: 'c100RebuildConsentOrderDetails',
+  hwf: 'c100RebuildHelpWithFeesDetails',
 };

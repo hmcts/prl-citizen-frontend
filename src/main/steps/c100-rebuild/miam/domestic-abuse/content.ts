@@ -428,7 +428,7 @@ export const form: FormContent = {
           value: 'financiallyAbuse',
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'miam_domesticAbuse',

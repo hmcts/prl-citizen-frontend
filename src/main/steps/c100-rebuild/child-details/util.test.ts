@@ -54,7 +54,7 @@ const otherChildDummyRequest = mockRequest({
   },
   session: {
     userCase: {
-      cd_otherChildren: [
+      ocd_otherChildren: [
         {
           id: '7483640e-0817-4ddc-b709-6723f7925485',
           firstName: 'Jane',
@@ -201,7 +201,7 @@ describe('Add Other Children util', () => {
 
   test('getChildDetails for child should return appropriate child details if the childId is valid', async () => {
     expect(
-      getChildDetails(otherChildDummyRequest.session.userCase.cd_otherChildren, otherChildDummyRequest.params.childId)
+      getChildDetails(otherChildDummyRequest.session.userCase.ocd_otherChildren, otherChildDummyRequest.params.childId)
     ).toEqual(
       expect.objectContaining({
         firstName: 'Jane',
@@ -212,7 +212,7 @@ describe('Add Other Children util', () => {
 
   test('updateOtherChildDetails for child should update the child details in the session the childId is valid', async () => {
     const childDetails = getChildDetails(
-      otherChildDummyRequest.session.userCase.cd_otherChildren,
+      otherChildDummyRequest.session.userCase.ocd_otherChildren,
       otherChildDummyRequest.params.childId
     );
     const dataToUpdate = {
@@ -221,7 +221,10 @@ describe('Add Other Children util', () => {
     };
 
     expect(
-      updateChildDetails(otherChildDummyRequest.session.userCase.cd_otherChildren, dataToUpdate as OtherChildrenDetails)
+      updateChildDetails(
+        otherChildDummyRequest.session.userCase.ocd_otherChildren,
+        dataToUpdate as OtherChildrenDetails
+      )
     ).toEqual(
       expect.arrayContaining([
         expect.objectContaining({

@@ -12,7 +12,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(116);
+    expect(C100Sequence).toHaveLength(117);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -291,16 +291,16 @@ describe('C100Sequence', () => {
     expect(C100Sequence[35].url).toBe('/c100-rebuild/other-proceedings/proceeding-details');
     expect(C100Sequence[35].showInSection).toBe('c100');
     expect(C100Sequence[35].getNextStep(otherProceedingsMockData.session.userCase)).toBe(
-      '/c100-rebuild/other-proceedings/order-details?orderType=careOrder'
+      '/c100-rebuild/other-proceedings/careOrder/order-details'
     );
 
-    expect(C100Sequence[36].url).toBe('/c100-rebuild/other-proceedings/order-details');
+    expect(C100Sequence[36].url).toBe('/c100-rebuild/other-proceedings/:orderType/order-details');
     expect(C100Sequence[36].showInSection).toBe('c100');
     expect(C100Sequence[36].getNextStep(otherProceedingsMockData.session.userCase, otherProceedingsMockData)).toBe(
-      '/c100-rebuild/other-proceedings/documentUpload?orderType=careOrder&orderId=1'
+      '/c100-rebuild/other-proceedings/careOrder/1/documentUpload'
     );
 
-    expect(C100Sequence[37].url).toBe('/c100-rebuild/other-proceedings/documentUpload');
+    expect(C100Sequence[37].url).toBe('/c100-rebuild/other-proceedings/:orderType/:orderId/documentUpload/:removeId?');
     expect(C100Sequence[37].showInSection).toBe('c100');
     expect(C100Sequence[37].getNextStep(otherProceedingsMockData.session.userCase, otherProceedingsMockData)).toBe(
       '/c100-rebuild/other-proceedings/document-summary'
@@ -633,10 +633,10 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[97].url).toBe('/c100-rebuild/child-details/has-other-children');
     expect(C100Sequence[97].showInSection).toBe('c100');
-    expect(C100Sequence[97].getNextStep({ cd_hasOtherChildren: YesOrNo.NO })).toBe(
+    expect(C100Sequence[97].getNextStep({ ocd_hasOtherChildren: YesOrNo.NO })).toBe(
       '/c100-rebuild/applicant/add-applicants'
     );
-    expect(C100Sequence[97].getNextStep({ cd_hasOtherChildren: YesOrNo.YES })).toBe(
+    expect(C100Sequence[97].getNextStep({ ocd_hasOtherChildren: YesOrNo.YES })).toBe(
       '/c100-rebuild/child-details/other-children/names'
     );
 

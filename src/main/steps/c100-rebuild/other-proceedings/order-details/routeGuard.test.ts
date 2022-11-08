@@ -7,7 +7,7 @@ import { routeGuard } from './routeGuard';
 describe('OrderDetails Route Guard', () => {
   test('Should render the page when the guard validation passes', async () => {
     const req = mockRequest({
-      query: {
+      params: {
         orderType: C100OrderTypes.CARE_ORDER,
       },
       session: {
@@ -24,7 +24,7 @@ describe('OrderDetails Route Guard', () => {
 
   test('Should not render the page when the guard validation fails', async () => {
     const req = mockRequest({
-      query: {
+      params: {
         orderType: C100OrderTypes.EMERGENCY_PROTECTION_ORDER,
       },
       session: {

@@ -13,7 +13,7 @@ import { getChildDetails } from '../../util';
 export * from '../routeGuard';
 
 // const getChildsName = (userCase: Partial<CaseWithId>) => {
-//   const sibling = userCase.cd_otherChildren?.find(item => item.siblingId === userCase.selectedSiblingId);
+//   const sibling = userCase.ocd_otherChildren?.find(item => item.siblingId === userCase.selectedSiblingId);
 //   return `${sibling?.siblingFirstName || ''} ${sibling?.siblingLastNames || ''}`;
 // };
 
@@ -264,7 +264,7 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getChildDetails(content.userCase!.cd_otherChildren ?? [], childId)!;
+  const childDetails = getChildDetails(content.userCase!.ocd_otherChildren ?? [], childId)!;
   const { fields } = generateFormFields(childDetails.personalDetails);
 
   return {

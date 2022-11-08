@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import { Case, CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -112,6 +113,7 @@ import {
   C100_APPLICANT_ADDRESS_LOOKUP,
   C100_APPLICANT_ADDRESS_SELECT,
   C100_APPLICANT_ADDRESS_MANUAL,
+  C100_APPLICANT_RELATIONSHIP_TO_CHILD,
 
   /** @C100 Other children in people section */
   C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
@@ -145,9 +147,9 @@ import OtherChildrenDetailsNavigationController from './child-details/other-chil
 import MIAMNavigationController from './miam/navigationController';
 import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
-import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
+import ApplicantDetailsNavigationController from './applicant/navigationController';
 
 export const C100Sequence: Step[] = [
   {
@@ -388,31 +390,28 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
     showInSection: Sections.C100,
-    sanitizeQueryString: sanitizeOtherProceedingsQueryString,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
       return OtherProceedingsNavigationController.getNextUrl(
         C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
         caseData,
-        req!.query
+        req!.params
       );
     },
   },
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.C100,
-    sanitizeQueryString: sanitizeOtherProceedingsQueryString,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
       return OtherProceedingsNavigationController.getNextUrl(
         C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
         caseData,
-        req!.query
+        req!.params
       );
     },
   },
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
-    sanitizeQueryString: sanitizeOtherProceedingsQueryString,
     getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
   },
   {
@@ -767,7 +766,7 @@ export const C100Sequence: Step[] = [
     url: C100_CHILDERN_DETAILS_OTHER_CHILDREN,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.cd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_APPLICANT_ADD_APPLICANTS,
+      data.ocd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_APPLICANT_ADD_APPLICANTS,
   },
   {
     url: C100_CHILDERN_OTHER_CHILDREN_NAMES,
@@ -908,5 +907,11 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, caseData, req?.params),
+  },
+  {
+    url: C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ApplicantDetailsNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
   },
 ];

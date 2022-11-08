@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
 
-import { C100RebuildPartyDetails, Gender, YesNoEmpty, YesOrNo } from '../../../app/case/definition';
+import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../app/case/definition';
 
 export const getDataShape = (): C100RebuildPartyDetails => ({
   id: uuidv4(),
   firstName: '',
   lastName: '',
   personalDetails: {
-    repondentDetials: YesNoEmpty.EMPTY,
+    hasNameChanged: YesNoDontKnow.empty,
     resPreviousName: '',
     dateOfBirth: {
       day: '',

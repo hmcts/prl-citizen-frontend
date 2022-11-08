@@ -9,7 +9,7 @@ export const routeGuard = {
   get: (req: AppRequest, res: Response, next: NextFunction) => {
     const childId = req.params?.childId as OtherChildrenDetails['id'];
 
-    if (!childId || !getChildDetails(req.session.userCase.cd_otherChildren ?? [], childId)) {
+    if (!childId || !getChildDetails(req.session.userCase.ocd_otherChildren ?? [], childId)) {
       return res.redirect('/error');
     }
 

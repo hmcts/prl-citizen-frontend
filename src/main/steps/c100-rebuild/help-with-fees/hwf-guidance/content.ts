@@ -14,7 +14,7 @@ const en = () => ({
   hwfReferenceNumberLabel: 'Enter your help with fees reference number',
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C',
   errors: {
-    hwfGuidanceRefNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees',
     },
   },
@@ -32,7 +32,7 @@ const cy = () => ({
   hwfReferenceNumberLabel: 'Enter your help with fees reference number - welsh',
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C - welsh',
   errors: {
-    hwfGuidanceRefNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
     },
   },
@@ -45,7 +45,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    hwfGuidanceRefNumber: {
+    helpWithFeesReferenceNumber: {
       type: 'text',
       label: l => l.hwfReferenceNumberLabel,
       labelSize: 'm',

@@ -121,6 +121,9 @@ export default class AddApplicantPostController extends PostController<AnyObject
       start: '',
       contactDetailsPrivate: [] as [],
       contactDetailsPrivateAlternative: [] as [],
+      relationshipDetails: {
+        relationshipToChildren: [],
+      },
     };
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {

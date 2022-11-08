@@ -16,7 +16,7 @@ class OtherChildrenDetailsNavigationController {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
-    this.otherChildrenDetails = caseData?.cd_otherChildren as OtherChildrenDetails[];
+    this.otherChildrenDetails = caseData?.ocd_otherChildren as OtherChildrenDetails[];
     this.childId = params?.childId;
     let nextUrl;
 

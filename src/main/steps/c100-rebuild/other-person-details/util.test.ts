@@ -15,7 +15,7 @@ const dummyRequest = mockRequest({
           firstName: 'John',
           lastName: 'Doe',
           personalDetails: {
-            repondentDetials: '',
+            hasNameChanged: '',
             resPreviousName: '',
             dateOfBirth: {
               day: '',
@@ -66,7 +66,7 @@ describe('Add other Person util', () => {
         firstName: '',
         lastName: '',
         personalDetails: {
-          repondentDetials: '',
+          hasNameChanged: '',
           resPreviousName: '',
           dateOfBirth: {
             day: '',

@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { C100Applicant } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -32,7 +33,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
     req.session.userCase!.appl_allApplicants![applicantIndex] = {
-      ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
+      ...(req.session.userCase?.appl_allApplicants?.[applicantIndex] as C100Applicant),
       applicantAddressPostcode: req.body['addressPostcode'] as string,
     };
 
