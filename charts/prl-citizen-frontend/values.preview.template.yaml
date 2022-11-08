@@ -20,7 +20,7 @@ nodejs:
     CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-543.service.core-compute-preview.internal'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     CDAM_API_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-543.service.core-compute-preview.internal'
-    COS_URL: 'https://prl-cos-pr-513.service.core-compute-preview.internal'
+    COS_URL: 'https://prl-cos-pr-633.service.core-compute-preview.internal'
     REDIS_HOST: 'prl-citizen-frontend-redis-aat.redis.cache.windows.net'
   keyVaults:
     prl:

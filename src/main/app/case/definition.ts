@@ -44,11 +44,11 @@ export interface Miam {
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
-  AddressLine3: string;
+  AddressLine3?: string;
   PostTown: string;
   County: string;
   PostCode: string;
-  Country: string;
+  Country?: string;
 }
 
 export interface SolicitorOrg {
@@ -1457,6 +1457,7 @@ export const enum YesNoDontKnow {
   yes = 'yes',
   no = 'no',
   dontKnow = 'dontKnow',
+  empty = '',
 }
 
 export const enum SectionStatus {
@@ -1823,6 +1824,7 @@ export const enum State {
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
+  AwaitingSubmissionToHmcts = 'AWAITING_SUBMISSION_TO_HMCTS',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingBailiffReferral = 'AwaitingBailiffReferral',
@@ -2442,6 +2444,7 @@ export interface C1ASafteyConcerns {
     parentialResponsibility: {
       statement: string;
     };
+    liveWith?: People[]
   };
 
   export type OtherChildrenDetails = {
@@ -2456,3 +2459,68 @@ export interface C1ASafteyConcerns {
       otherGenderDetails?: string;
     };
   };
+
+  export type C100RebuildPartyDetails = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    personalDetails: {
+      repondentDetials?: YesNoEmpty;
+      resPreviousName?: string,
+      dateOfBirth?: CaseDate;
+      isDateOfBirthUnknown?: YesNoEmpty;
+      isNameChanged?: YesNoDontKnow;
+      previousFullName?: string;
+      approxDateOfBirth?: CaseDate;
+      gender: Gender;
+      otherGenderDetails?: string;
+      respondentPlaceOfBirth?: string;
+      respondentPlaceOfBirthUnknown?: YesOrNo;
+    };
+    relationshipDetails: {
+      relationshipToChildren: RelationshipToChildren[];
+    };
+    address?: C100Address;
+    contactDetails: {
+      donKnowEmailAddress?: YesOrNo
+      emailAddress?: string
+      telephoneNumber?: string
+      donKnowTelephoneNumber?: YesOrNo
+    }
+  };
+
+  export interface RelationshipToChildren {
+    relationshipType: RelationshipType;
+    otherRelationshipTypeDetails?: string;
+    childId: string;
+  }
+
+  export const enum RelationshipType {
+    MOTHER = 'Mother',
+    FATHER = 'Father',
+    GUARDIAN = 'Guardian',
+    SPECIAL_GUARDIAN = 'Special Guardian',
+    GRAND_PARENT = 'Grandparent',
+    OTHER = 'Other',
+    EMPTY = ''
+  }
+  
+  export interface C100Address extends Address {
+    selectedAddress?: number,
+    addressHistory?: YesOrNo,
+    provideDetailsOfPreviousAddresses?: string
+  }
+
+
+  export enum PartyType {
+    APPLICANT = 'applicant',
+    RESPONDENT = 'respondent',
+    OTHER_PERSON = 'otherPerson',
+  }
+
+  export type People = {
+      id: string;
+      firstName: string;
+      lastName: string;
+      partyType: PartyType;
+  }

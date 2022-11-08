@@ -5,6 +5,8 @@ import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { AnyType } from '../../../../../app/form/validation';
+import { applyParms } from '../../../../common/url-parser';
+import { C100_APPLICANT_ADDRESS_MANUAL } from '../../../../urls';
 
 import { getUpdatedForm } from './content';
 
@@ -18,6 +20,7 @@ export default class SelectAddressPostController extends PostController<AnyObjec
     const form = new Form(getUpdatedForm().fields as FormFields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     const { applicantId } = req.params;
+    let redirectURI = req.originalUrl;
 
     req.session.errors = form.getErrors(formData);
 
@@ -50,6 +53,8 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         formData['applicantAddressPostcode'] = selectedAddress.postcode;
       }
     }
-    this.redirect(req, res);
+    redirectURI = applyParms(C100_APPLICANT_ADDRESS_MANUAL, { applicantId: applicantId as string });
+
+    this.redirect(req, res, redirectURI);
   }
 }

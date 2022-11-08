@@ -15,10 +15,10 @@ const en = {
   one: 'Yes',
   two: 'No',
   errors: {
-    feesAppliedDetails: {
+    hwf_feesAppliedDetails: {
       required: 'Select yes if you already applied for help with your application fee',
     },
-    hwfReferenceNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees',
     },
   },
@@ -32,10 +32,10 @@ const cy = {
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {
-    feesAppliedDetails: {
+    hwf_feesAppliedDetails: {
       required: 'Select yes if you already applied for help with your application fee - welsh',
     },
-    hwfReferenceNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
     },
   },
@@ -64,12 +64,12 @@ describe('help with fess > fees applied', () => {
   });
 
   test('should contain applyingWith field', () => {
-    const applyingWithField = fields.feesAppliedDetails as FormOptions;
+    const applyingWithField = fields.hwf_feesAppliedDetails as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    const applyTextField = applyingWithField.values[0].subFields!.hwfReferenceNumber;
+    const applyTextField = applyingWithField.values[0].subFields!.helpWithFeesReferenceNumber;
     expect(applyTextField.type).toBe('text');
     expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberLabel);
     expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberHint);

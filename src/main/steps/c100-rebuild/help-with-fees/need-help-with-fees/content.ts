@@ -17,7 +17,7 @@ const en = () => ({
   yesNeedHelpWithFeesPaying: 'Yes, I need help with paying the fee',
   noNeedHelpWithFeesPaying: 'No, I do not need help',
   errors: {
-    needHelpWithFees: {
+    hwf_needHelpWithFees: {
       required: 'Select yes if you already applied for help with your application fee',
     },
   },
@@ -37,7 +37,7 @@ const cy = () => ({
   yesNeedHelpWithFeesPaying: 'Yes, I need help with paying the fee - welsh',
   noNeedHelpWithFeesPaying: 'No, I do not need help - welsh',
   errors: {
-    needHelpWithFees: {
+    hwf_needHelpWithFees: {
       required: 'Select yes if you already applied for help with your application fee - welsh',
     },
   },
@@ -50,7 +50,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    needHelpWithFees: {
+    hwf_needHelpWithFees: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [

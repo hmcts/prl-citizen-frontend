@@ -66,6 +66,7 @@ import {
   C1AAbuseTypes,
   C100ListOfApplicants,
   OtherChildrenDetails,
+  C100RebuildPartyDetails,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -510,8 +511,8 @@ export interface Case {
   childFirstName?: ChildrenDetails['firstName'];
   childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
-  cd_otherChildren?: OtherChildrenDetails[];
-  cd_hasOtherChildren?: YesOrNo;
+  ocd_otherChildren?: OtherChildrenDetails[];
+  ocd_hasOtherChildren?: YesOrNo;
   sq_writtenAgreement?: string;
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
@@ -519,6 +520,14 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
+  too_courtOrder?: string[];
+  too_stopOtherPeopleDoingSomethingSubField?: string[];
+  too_resolveSpecificIssueSubField?: string[];
+  oprs_otherPersonCheck?: YesOrNo;
+  oprs_otherPersons?: C100RebuildPartyDetails[];
+  c100TempFirstName?: string;
+  c100TempLastName?: string;
+  resp_Respondents?: C100RebuildPartyDetails[];
 }
 
 export interface CaseWithId extends Case {
