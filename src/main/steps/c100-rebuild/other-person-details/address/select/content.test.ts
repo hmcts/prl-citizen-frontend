@@ -40,10 +40,6 @@ describe('applicant > address > select > content', () => {
           lastName: 'Test1',
           otherPersonAddress: {
             PostCode: 'AG11NB',
-            // AddressLine1: 'UK',
-            // AddressLine2: 'UK1',
-            // PostTown: 'London',
-            // County: 'UK',
           },
         },
       ],

@@ -1,52 +1,43 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, LanguageLookup } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
 const en = {
-  title: 'Address of Dummy Test1',
+  title: 'Address details of Dummy Test1',
   errors: {
-    address1: {
+    AddressLine1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter a real postcode',
       invalid: 'Enter a real postcode',
     },
-    addressHistory: {
-      required: 'Enter your details known',
-    },
-    provideDetailsOfPreviousAddresses: {
-      required:
-        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+    addressUnknown: {
+      cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
   },
 };
 
 const cy = {
-  title: 'Address of - welsh Dummy Test1',
+  title: 'Address details of - welsh Dummy Test1',
   errors: {
-    address1: {
+    AddressLine1: {
       required: 'Enter the first line of the address - welsh',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter a real postcode - welsh',
       invalid: 'Enter a real postcode - welsh',
     },
-    addressHistory: {
-      required: 'Enter your details known - welsh',
-    },
-    provideDetailsOfPreviousAddresses: {
-      required:
-        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
+    addressUnknown: {
+      cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
     },
   },
 };
@@ -105,54 +96,48 @@ describe('applicant > address > manual > content', () => {
     ).toBe('Continue');
   });
   test('should contain address1 field', () => {
-    const { address1 } = fields as Record<string, FormFields>;
-    const { address2 } = fields as Record<string, FormFields>;
-    const { addressTown } = fields as Record<string, FormFields>;
-    const { addressCounty } = fields as Record<string, FormFields>;
-    const { addressPostcode } = fields as Record<string, FormFields>;
-    const { addressHistory } = fields as Record<string, FormFields>;
+    const { AddressLine1 } = fields as Record<string, FormFields>;
+    const { AddressLine2 } = fields as Record<string, FormFields>;
+    const { PostTown } = fields as Record<string, FormFields>;
+    // const { County } = fields as Record<string, FormFields>;
+    const { Country } = fields as Record<string, FormFields>;
+    const { PostCode } = fields as Record<string, FormFields>;
+    const { addressUnknown } = fields as Record<string, FormFields>;
 
-    expect(address1.type).toBe('text');
-    expect(address1.classes).toBe('govuk-label');
-    expect(address1.labelSize).toBe(null);
-    expect((address1.label as LanguageLookup)(generatedContent)).toBe('Building and street');
-    // expect(address1.label).toBe('Building and street'),
-    expect(address1.validator).toBe(isFieldFilledIn);
+    expect(AddressLine1.type).toBe('text');
+    expect(AddressLine1.classes).toBe('govuk-label');
+    expect(AddressLine1.labelSize).toBe(null);
+    expect((AddressLine1.label as LanguageLookup)(generatedContent)).toBe('Building and street');
 
-    expect(address2.type).toBe('text');
-    expect(address2.classes).toBe('govuk-label');
-    expect(address2.labelSize).toBe(null);
+    expect(AddressLine2.type).toBe('text');
+    expect(AddressLine2.classes).toBe('govuk-label');
+    expect(AddressLine2.labelSize).toBe(null);
 
-    expect(addressTown.type).toBe('text');
-    expect(addressTown.classes).toBe('govuk-label govuk-!-width-two-thirds');
-    expect(addressTown.labelSize).toBe(null);
-    expect((addressTown.label as LanguageLookup)(generatedContent)).toBe('Town or city');
-    expect(addressTown.validator).toBe(isFieldFilledIn);
+    expect(PostTown.type).toBe('text');
+    expect(PostTown.classes).toBe('govuk-label govuk-!-width-two-thirds');
+    expect(PostTown.labelSize).toBe(null);
+    expect((PostTown.label as LanguageLookup)(generatedContent)).toBe('Town or city');
 
-    expect(addressCounty.type).toBe('text');
-    expect(addressCounty.classes).toBe('govuk-label govuk-!-width-two-thirds');
-    expect((addressCounty.label as LanguageLookup)(generatedContent)).toBe('County');
-    expect(addressCounty.labelSize).toBe(null);
+    // expect(County.type).toBe('text');
+    // expect(County.classes).toBe('govuk-label govuk-!-width-two-thirds');
+    // expect((County.label as LanguageLookup)(generatedContent)).toBe('County');
+    // expect(County.labelSize).toBe(null);
 
-    expect(addressPostcode.type).toBe('text');
-    expect(addressPostcode.classes).toBe('govuk-label govuk-input--width-10');
-    expect((addressPostcode.label as LanguageLookup)(generatedContent)).toBe('Postcode');
-    expect(addressPostcode.labelSize).toBe(null);
-    expect(addressPostcode.validator).toBe(isInvalidPostcode);
+    expect(Country.type).toBe('text');
+    expect(Country.classes).toBe('govuk-label govuk-!-width-two-thirds');
+    expect((Country.label as LanguageLookup)(generatedContent)).toBe('Country');
+    expect(Country.labelSize).toBe(null);
 
-    expect(addressHistory.type).toBe('radios');
-    expect(addressHistory.classes).toBe('govuk-radios');
-    expect((addressHistory.label as LanguageLookup)(generatedContent)).toBe(
-      'Have you lived at this address for more than 5 years?'
+    expect(PostCode.type).toBe('text');
+    expect(PostCode.classes).toBe('govuk-label govuk-input--width-10');
+    expect((PostCode.label as LanguageLookup)(generatedContent)).toBe('Postcode');
+    expect(PostCode.labelSize).toBe(null);
+
+    expect(addressUnknown.type).toBe('checkboxes');
+    expect(addressUnknown.classes).toBe('govuk-checkboxes');
+    expect((addressUnknown.values[0].label as LanguageLookup)(generatedContent)).toBe(
+      'I dont know where they currently live'
     );
-    expect((addressHistory.values[0].label as LanguageLookup)(generatedContent)).toBe('Yes');
-    expect((addressHistory.values[1].label as LanguageLookup)(generatedContent)).toBe('No');
-    const applyTextField = addressHistory.values[1].subFields!.provideDetailsOfPreviousAddresses;
-    expect(applyTextField.type).toBe('textarea');
-    expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe(
-      'Provide details of previous addresses you have lived at in the last 5 years'
-    );
-    expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe('Start with your most recent');
   });
 
   test('should contain saveAndComeLater button', () => {

@@ -17,7 +17,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const postcode = req.body['addressPostcode'] as string;
+    const postcode = req.body['PostCode'] as string;
     const { otherPersonId } = req.params;
 
     let addresses;
@@ -34,7 +34,11 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
     Object.assign(
       otherPersonsDetails.otherPersonAddress,
-      transformFormData('otherPersonAddress', { PostCode: formData['addressPostcode'] })
+      transformFormData(
+        'otherPersonAddress',
+        formData
+        // { PostCode: formData['addressPostcode'] }
+      )
     );
 
     req.session.userCase.oprs_otherPersons = updateOtherPersonDetails(
@@ -43,7 +47,9 @@ export default class AddressLookupPostController extends PostController<AnyObjec
     );
 
     if (req.session.errors.length === 0) {
+      console.log(postcode, 'address');
       addresses = await getAddressesFromPostcode(postcode, req.locals.logger);
+      console.log(postcode, addresses, 'address');
     }
     req.session.addresses = addresses;
 

@@ -26,14 +26,11 @@ export default class ManualAddressPostController extends PostController<AnyObjec
       otherPersonId
     ) as C100RebuildPartyDetails;
 
+    console.log(formData, 'formData');
+
     Object.assign(otherPersonsDetails, {
-      otherPersonAddress: transformFormData('otherPersonAddress', {
-        AddressLine1: req.body['address1'],
-        AddressLine2: req.body['address2'],
-        PostTown: req.body['addressTown'],
-        County: req.body['addressCounty'],
-        PostCode: req.body['addressPostcode'],
-      }),
+      otherPersonAddress: transformFormData('otherPersonAddress', formData),
+      addressUnknown: formData['addressUnknown'],
     });
 
     req.session.userCase.oprs_otherPersons = updateOtherPersonDetails(

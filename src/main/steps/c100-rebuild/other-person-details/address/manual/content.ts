@@ -4,54 +4,46 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/
 import {
   form as manualAddressForm,
   languages as manualAddressFormLanguages,
-} from '../../../../../steps/c100-rebuild/applicant/address/common/address-manual';
+} from '../../../other-person-details/address/common/address-manual';
 import { getOtherPersonDetails } from '../../../other-person-details/util';
 
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Address of',
+  title: 'Address details of',
   errors: {
-    address1: {
+    AddressLine1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter a real postcode',
       invalid: 'Enter a real postcode',
     },
-    addressHistory: {
-      required: 'Enter your details known',
-    },
-    provideDetailsOfPreviousAddresses: {
-      required:
-        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+    addressUnknown: {
+      cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
   },
 });
 
 const cy = () => ({
-  title: 'Address of - welsh',
+  title: 'Address details of - welsh',
   errors: {
-    address1: {
+    AddressLine1: {
       required: 'Enter the first line of the address - welsh',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter a real postcode - welsh',
       invalid: 'Enter a real postcode - welsh',
     },
-    addressHistory: {
-      required: 'Enter your details known - welsh',
-    },
-    provideDetailsOfPreviousAddresses: {
-      required:
-        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
+    addressUnknown: {
+      cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
     },
   },
 });
@@ -87,13 +79,6 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
 export const getUpdatedForm = (): FormContent => updatedForm;
 
 export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): GenerateDynamicFormFields => {
-  Object.assign(caseData, {
-    applicantAddress1: caseData.otherPersonAddress?.AddressLine1,
-    applicantAddress2: caseData.otherPersonAddress?.AddressLine2,
-    applicantAddressTown: caseData.otherPersonAddress?.PostTown,
-    applicantAddressCounty: caseData.otherPersonAddress?.County,
-    applicantAddressPostcode: caseData.otherPersonAddress?.PostCode,
-  });
   return { fields: manualAddressForm(caseData).fields, errors: { en: {}, cy: {} } };
 };
 export const generateContent: TranslationFn = content => {

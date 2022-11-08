@@ -1,12 +1,12 @@
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
+import { applyParms } from '../../../../../steps/common/url-parser';
+import { C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL } from '../../../../../steps/urls';
 import {
   form as lookupAddressForm,
   languages as lookupAddressFormLanguages,
-} from '../../../../../steps/c100-rebuild/applicant/address/common/address-lookup';
-import { applyParms } from '../../../../../steps/common/url-parser';
-import { C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL } from '../../../../../steps/urls';
+} from '../../../other-person-details/address/common/address-lookup';
 import { getOtherPersonDetails } from '../../../other-person-details/util';
 
 let updatedForm: FormContent;
@@ -14,6 +14,8 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Address of',
+  hint: 'Documents relating to this application may be sent here',
+  enterAddressManually: 'I dont know their postcode or they live outside the UK',
   errors: {
     PostCode: {
       required: 'Enter a real postcode',
@@ -24,6 +26,8 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Address of - welsh',
+  hint: 'Documents relating to this application may be sent here - welsh',
+  enterAddressManually: 'I dont know their postcode or they live outside the UK - welsh',
   errors: {
     PostCode: {
       required: 'Enter a real postcode - welsh',
@@ -63,7 +67,6 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
 export const getUpdatedForm = (): FormContent => updatedForm;
 
 export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): GenerateDynamicFormFields => {
-  Object.assign(caseData, { applicantAddressPostcode: caseData.otherPersonAddress?.PostCode });
   return { fields: lookupAddressForm(caseData).fields, errors: { en: {}, cy: {} } };
 };
 

@@ -75,8 +75,6 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
           PostTown: 'London',
           County: 'UK',
         },
-        // addressHistory: 'Yes',
-        // provideDetailsOfPreviousAddresses: 'NA',
         otherPersonAddressIndex: 2,
         selectAddress: '0',
         addresses: [
@@ -132,8 +130,6 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
                 PostTown: 'London',
                 County: 'UK',
               },
-              // addressHistory: 'Yes',
-              // provideDetailsOfPreviousAddresses: 'NA',
               applicantSelectedAddress: 2,
             },
           ],

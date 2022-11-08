@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-  C100RebuildPartyDetails,
-  C100RebuildRelationships,
-  Gender,
-  YesNoDontKnow,
-  YesNoEmpty,
-} from '../../../app/case/definition';
+import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../app/case/definition';
 
 export const getDataShape = (): C100RebuildPartyDetails => ({
   id: uuidv4(),
@@ -29,7 +23,6 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     gender: Gender.EMPTY,
     otherGenderDetails: '',
   },
-  childRelationship: C100RebuildRelationships.FATHER,
   otherPersonAddress: {
     AddressLine1: '',
     AddressLine2: '',
@@ -39,7 +32,8 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     PostCode: '',
     Country: '',
   },
-  // otherPersonPostcode: '',
+  addressUnknown: YesOrNo.NO,
+  otherPersonAddressIndex: 0,
 });
 
 export const getOtherPersonDetails = (

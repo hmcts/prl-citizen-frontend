@@ -86,7 +86,7 @@ describe('applicant > address > lookup > content', () => {
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
     console.log(fields, 'field');
-    const addressPostcodeField = fields.addressPostcode as FormOptions;
+    const addressPostcodeField = fields.PostCode as FormOptions;
 
     expect(addressPostcodeField.type).toBe('text');
     expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');

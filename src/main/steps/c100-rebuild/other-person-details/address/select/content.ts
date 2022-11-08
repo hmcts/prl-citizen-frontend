@@ -1,15 +1,15 @@
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
-import {
-  form as selectAddressForm,
-  languages as selectAddressFormLanguages,
-} from '../../../../../steps/c100-rebuild/applicant/address/common/address-select';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
 } from '../../../../../steps/urls';
+import {
+  form as selectAddressForm,
+  languages as selectAddressFormLanguages,
+} from '../../../other-person-details/address/common/address-select';
 import { getOtherPersonDetails } from '../../../other-person-details/util';
 
 let updatedForm: FormContent;

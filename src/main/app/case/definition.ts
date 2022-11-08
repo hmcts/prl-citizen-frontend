@@ -44,7 +44,7 @@ export interface Miam {
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
-  AddressLine3: string;
+  AddressLine3?: string;
   PostTown: string;
   County: string;
   PostCode: string;
@@ -2470,9 +2470,9 @@ export interface C1ASafteyConcerns {
       gender: Gender;
       otherGenderDetails?: string;
     };
-    childRelationship: C100RebuildRelationships;
     otherPersonAddress: Address;
-    // otherPersonPostcode: string;
+    addressUnknown: YesOrNo;
+    otherPersonAddressIndex: number;
   };
 
   export enum C100RebuildRelationships {
