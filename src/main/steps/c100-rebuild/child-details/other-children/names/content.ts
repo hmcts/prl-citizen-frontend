@@ -154,7 +154,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const sessionData = content?.userCase?.cd_otherChildren;
+  const sessionData = content?.userCase?.ocd_otherChildren;
 
   const { fields, errors } = generateFormFields(sessionData ?? []);
 

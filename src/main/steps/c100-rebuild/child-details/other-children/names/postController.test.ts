@@ -78,7 +78,7 @@ describe('AddChildrenPostController Post Controller', () => {
       session: {
         lang: language,
         userCase: {
-          cd_otherChildren: [dummyChildrenData[0]],
+          ocd_otherChildren: [dummyChildrenData[0]],
         },
       },
     });
@@ -104,7 +104,7 @@ describe('AddChildrenPostController Post Controller', () => {
       session: {
         lang: language,
         userCase: {
-          cd_otherChildren: [dummyChildrenData[0]],
+          ocd_otherChildren: [dummyChildrenData[0]],
         },
       },
     });
@@ -130,7 +130,7 @@ describe('AddChildrenPostController Post Controller', () => {
       session: {
         lang: language,
         userCase: {
-          cd_otherChildren: [dummyChildrenData[0]],
+          ocd_otherChildren: [dummyChildrenData[0]],
         },
       },
     });
@@ -138,8 +138,8 @@ describe('AddChildrenPostController Post Controller', () => {
     generateContent(commonContent);
     await controller.post(req, res);
 
-    expect(req.session.userCase.cd_otherChildren).toHaveLength(1);
-    expect(req.session.userCase.cd_otherChildren[0]).toEqual(
+    expect(req.session.userCase.ocd_otherChildren).toHaveLength(1);
+    expect(req.session.userCase.ocd_otherChildren[0]).toEqual(
       expect.objectContaining({
         firstName: 'Bob',
         lastName: 'Silly',
@@ -165,7 +165,7 @@ describe('AddChildrenPostController Post Controller', () => {
       session: {
         lang: language,
         userCase: {
-          cd_otherChildren: [dummyChildrenData[0]],
+          ocd_otherChildren: [dummyChildrenData[0]],
         },
       },
     });
@@ -173,8 +173,8 @@ describe('AddChildrenPostController Post Controller', () => {
     generateContent(commonContent);
     await controller.post(req, res);
 
-    expect(req.session.userCase.cd_otherChildren).toHaveLength(2);
-    expect(req.session.userCase.cd_otherChildren[1]).toEqual(
+    expect(req.session.userCase.ocd_otherChildren).toHaveLength(2);
+    expect(req.session.userCase.ocd_otherChildren[1]).toEqual(
       expect.objectContaining({
         firstName: 'Jane',
         lastName: 'Doe',
@@ -203,8 +203,8 @@ describe('AddChildrenPostController Post Controller', () => {
     generateContent(commonContent);
     await controller.post(req, res);
 
-    expect(req.session.userCase.cd_otherChildren).toHaveLength(1);
-    expect(req.session.userCase.cd_otherChildren[0]).toEqual(
+    expect(req.session.userCase.ocd_otherChildren).toHaveLength(1);
+    expect(req.session.userCase.ocd_otherChildren[0]).toEqual(
       expect.objectContaining({
         firstName: 'Bob',
         lastName: 'Silly',
@@ -228,7 +228,7 @@ describe('AddChildrenPostController Post Controller', () => {
       session: {
         lang: language,
         userCase: {
-          cd_otherChildren: [dummyChildrenData[0]],
+          ocd_otherChildren: [dummyChildrenData[0]],
         },
       },
     });
@@ -236,8 +236,8 @@ describe('AddChildrenPostController Post Controller', () => {
     generateContent(commonContent);
     await controller.post(req, res);
 
-    expect(req.session.userCase.cd_otherChildren).toHaveLength(2);
-    expect(req.session.userCase.cd_otherChildren[1]).toEqual(
+    expect(req.session.userCase.ocd_otherChildren).toHaveLength(2);
+    expect(req.session.userCase.ocd_otherChildren[1]).toEqual(
       expect.objectContaining({
         firstName: 'Jane',
         lastName: 'Doe',
@@ -262,7 +262,7 @@ describe('AddChildrenPostController Post Controller', () => {
       session: {
         lang: language,
         userCase: {
-          cd_otherChildren: [dummyChildrenData[0]],
+          ocd_otherChildren: [dummyChildrenData[0]],
         },
       },
     });
@@ -270,7 +270,7 @@ describe('AddChildrenPostController Post Controller', () => {
     generateContent(commonContent);
     await controller.post(req, res);
 
-    expect(req.session.userCase.cd_otherChildren).toHaveLength(1);
+    expect(req.session.userCase.ocd_otherChildren).toHaveLength(1);
     expect(res.redirect).toHaveBeenCalled();
   });
 
@@ -287,7 +287,7 @@ describe('AddChildrenPostController Post Controller', () => {
       session: {
         lang: language,
         userCase: {
-          cd_otherChildren: dummyChildrenData,
+          ocd_otherChildren: dummyChildrenData,
         },
       },
     });
@@ -295,8 +295,8 @@ describe('AddChildrenPostController Post Controller', () => {
     generateContent(commonContent);
     await controller.post(req, res);
 
-    expect(req.session.userCase.cd_otherChildren).toHaveLength(1);
-    expect(req.session.userCase.cd_otherChildren[0]).toEqual(
+    expect(req.session.userCase.ocd_otherChildren).toHaveLength(1);
+    expect(req.session.userCase.ocd_otherChildren[0]).toEqual(
       expect.objectContaining({
         firstName: 'Jane',
         lastName: 'Doe',
@@ -320,7 +320,7 @@ describe('AddChildrenPostController Post Controller', () => {
       session: {
         lang: language,
         userCase: {
-          cd_otherChildren: dummyChildrenData,
+          ocd_otherChildren: dummyChildrenData,
         },
       },
     });

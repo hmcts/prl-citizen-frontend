@@ -511,8 +511,8 @@ export interface Case {
   childFirstName?: ChildrenDetails['firstName'];
   childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
-  cd_otherChildren?: OtherChildrenDetails[];
-  cd_hasOtherChildren?: YesOrNo;
+  ocd_otherChildren?: OtherChildrenDetails[];
+  ocd_hasOtherChildren?: YesOrNo;
   sq_writtenAgreement?: string;
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
