@@ -3,6 +3,7 @@ import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
+import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
@@ -43,27 +44,33 @@ export class OidcMiddleware {
         if (req.path.startsWith(CITIZEN_HOME_URL) && !req.session?.user) {
           return next();
         }
-
         if (req.session?.user) {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-          if (!req.session.userCase) {
-            //This language preference will be used while creating a case
-            // const languagePreference =
-            //   req.session['lang'] === 'cy' ? LanguagePreference.WELSH : LanguagePreference.ENGLISH;
-            // req.session.userCase = await req.locals.api.getOrCreateCase(
-            //   res.locals.serviceType,
-            //   req.session.user,
-            //   languagePreference
-            // );
-            //setting the applicant's preferred language in session
-            // req.session['lang'] =
-            // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
+
+          if (req.session.userCase) {
+            if (req.session.accessCodeLoginIn) {
+              try {
+                const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+                if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
+                  const caseReference = req.session.userCase.caseCode;
+                  const accessCode = req.session.userCase.accessCode;
+                  const data = { applicantCaseName: 'DUMMY CASE DATA' };
+                  await client.linkCaseToCitizen1(
+                    req.session.user,
+                    caseReference as string,
+                    req,
+                    accessCode as string,
+                    data
+                  );
+                  req.session.accessCodeLoginIn = false;
+                }
+              } catch (err) {
+                req.session.accessCodeLoginIn = false;
+              }
+            }
           }
           return next();
-        }
-        if (!req.session?.accessCodeLoginIn) {
-          res.redirect(CITIZEN_HOME_URL);
         } else {
           res.redirect(SIGN_IN_URL);
         }

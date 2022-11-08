@@ -5,7 +5,6 @@ import Negotiator from 'negotiator';
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import * as Urls from '../../steps/urls';
-// import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_UPDATE } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
@@ -24,15 +23,24 @@ export class GetController {
       return;
     }
 
+    const name = this.getName(req) as string;
     const language = this.getPreferredLanguage(req) as Language;
-
-    // const addresses = req.session?.addresses;
+    const captionValue = this.getCaption(req) as string;
+    const document_type = this.getDocumentType(req) as string;
+    const byApplicant = req.query['byApplicant'] as string;
+    const addresses = req.session?.addresses;
     const content = generatePageContent({
       language,
       pageContent: this.content,
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
-      // addresses,
+      caption: captionValue,
+      document_type,
+      userCaseList: req.session?.userCaseList,
+      addresses,
+      name,
+      userIdamId: req.session?.user?.id,
+      byApplicant,
     });
 
     const sessionErrors = req.session?.errors || [];
@@ -41,16 +49,26 @@ export class GetController {
       req.session.errors = undefined;
     }
 
-    res.render(this.view, {
+    /**
+     * Added for C100 Rebuild
+     * Handled scenario where caption is not present as query param
+     */
+    const viewData = {
       ...content,
       sessionErrors,
       htmlLang: language,
-      // isDraft: req.session?.userCase?.state ? req.session.userCase.state === State.Draft : true,
-      // getNextIncompleteStepUrl: () => getNextIncompleteStepUrl(req),
-    });
+      document_type,
+      name,
+    };
+    //Add caption only if it exists else it will be rendered by specific page
+    if (captionValue) {
+      Object.assign(viewData, { caption: captionValue });
+    }
+    res.render(this.view, viewData);
   }
 
-  private getPreferredLanguage(req: AppRequest) {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  protected getPreferredLanguage(req: AppRequest) {
     // User selected language
     const requestedLanguage = req.query['lng'] as string;
     if (LanguageToggle.supportedLanguages.includes(requestedLanguage)) {
@@ -65,6 +83,15 @@ export class GetController {
     // Browsers default language
     const negotiator = new Negotiator(req);
     return negotiator.language(LanguageToggle.supportedLanguages) || 'en';
+  }
+
+  private getCaption(req: AppRequest) {
+    const caption = req.query['caption'] as string;
+    return caption;
+  }
+  private getDocumentType(req: AppRequest) {
+    const caption = req.query['document_type'] as string;
+    return caption;
   }
 
   public parseAndSetReturnUrl(req: AppRequest): void {
@@ -92,5 +119,10 @@ export class GetController {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
+  }
+
+  private getName(req: AppRequest) {
+    const caption = req.query['name'] as string;
+    return caption;
   }
 }

@@ -65,23 +65,29 @@ export class Form {
     return errors;
   }
 
+  public populateFieldNames(value: FormInput, fieldNames: Set<string>, fieldKey: string): Set<string> {
+    if (value.name) {
+      fieldNames.add(value.name);
+    } else {
+      fieldNames.add(fieldKey);
+    }
+    if (value.subFields) {
+      for (const field of Object.keys(value.subFields)) {
+        fieldNames.add(field);
+      }
+    }
+
+    return fieldNames;
+  }
+
   public getFieldNames(): Set<string> {
     const fields = this.fields;
-    const fieldNames: Set<string> = new Set();
+    let fieldNames: Set<string> = new Set();
     for (const fieldKey in fields) {
       const stepField = fields[fieldKey] as FormOptions;
       if (stepField.values && stepField.type !== 'date') {
         for (const [, value] of Object.entries(stepField.values)) {
-          if (value.name) {
-            fieldNames.add(value.name);
-          } else {
-            fieldNames.add(fieldKey);
-          }
-          if (value.subFields) {
-            for (const field of Object.keys(value.subFields)) {
-              fieldNames.add(field);
-            }
-          }
+          fieldNames = this.populateFieldNames(value, fieldNames, fieldKey);
         }
       } else {
         fieldNames.add(fieldKey);
@@ -127,11 +133,19 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  onlyContinue?: {
+    text: Label;
+    classes?: string;
+  };
   saveAsDraft?: {
     text: Label;
     classes?: string;
   };
   cancel?: {
+    text: Label;
+    classes?: string;
+  };
+  editAddress?: {
     text: Label;
     classes?: string;
   };
@@ -178,12 +192,13 @@ export interface FormInput {
   warning?: Warning;
   conditionalText?: Label;
   subFields?: Record<string, FormField>;
-  divider?: Label; //Required for divider between checkbox options
   open?: boolean;
   options?: DropdownOptionsLookup;
   disabled?: boolean;
   detailsHtml?: Label;
   link?: string;
+  divider?: boolean;
+  exclusive?: boolean;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
@@ -203,6 +218,7 @@ interface CaseWithFormData extends CaseWithId {
   _csrf: string;
   saveAndSignOut?: string;
   accessCodeCheck?: string;
+  editAddress?: string;
   saveBeforeSessionTimeout?: string;
   sendToApplicant2ForReview?: string;
   addAnotherName?: string;

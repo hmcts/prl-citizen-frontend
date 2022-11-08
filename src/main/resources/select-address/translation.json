@@ -1,0 +1,26 @@
+{
+    "translations": {
+        "en": {
+            "continue": "Continue",
+            "section": "Your address",
+            "serviceName": "Select Address"
+        },
+        "cy": {
+            "continue": "Continue",
+            "section": "Your address (in welsh)",
+            "serviceName": "Select Address (in welsh)"
+        }
+    },
+    "errors":{
+        "en": {
+            "citizenUserSelectAddress": {
+                "notSelected": "Select an address"
+            }
+        },
+        "cy": {
+            "citizenUserSelectAddress": {
+                "notSelected": "Select an address (in welsh)"
+            }
+        }
+    }
+}

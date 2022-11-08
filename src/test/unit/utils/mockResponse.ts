@@ -1,6 +1,7 @@
 import { Response } from 'express';
 
-export const mockResponse = ({ locals = {} } = {}): Response => {
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const mockResponse: any = ({ locals = {} } = {}): Response => {
   const res: Partial<Response> = { locals };
 
   res.redirect = jest.fn().mockReturnValue(res);
@@ -10,6 +11,7 @@ export const mockResponse = ({ locals = {} } = {}): Response => {
   res.type = jest.fn().mockReturnValue(res);
   res.end = jest.fn();
   res.cookie = jest.fn();
+  res.setHeader = jest.fn();
   res.status = jest.fn().mockImplementation((code = 200) => {
     res.statusCode = code;
     return res;

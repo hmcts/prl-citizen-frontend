@@ -29,7 +29,6 @@ import path from 'path';
 import express from 'express';
 import nunjucks from 'nunjucks';
 
-import { PrivateLaw } from '../../app/case/definition';
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
@@ -75,7 +74,9 @@ export class Nunjucks {
         hint: i.hint && {
           html: this.env.globals.getContent.call(this, i.hint),
         },
-        divider: this.env.globals.getContent.call(this, i.divider),
+        //divider: this.env.globals.getContent.call(this, i.divider),
+        divider: i.divider && 'or',
+        behaviour: i.exclusive && 'exclusive',
         open: i.open,
         conditional: (() => {
           if (i.warning) {
@@ -121,7 +122,7 @@ export class Nunjucks {
     app.use((req, res, next) => {
       res.locals.host = req.headers['x-forwarded-host'] || req.hostname;
       res.locals.pagePath = req.path;
-      res.locals.serviceType = PrivateLaw.PRIVATELAW;
+      res.locals.serviceType = 'PRLAPPS';
       next();
     });
   }

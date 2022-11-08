@@ -6,14 +6,16 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
+import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { Step } from './constants';
-import { edgecaseSequence } from './edge-case/edgecaseSequence';
-import { repondentCaseSequence } from './respondent/respondentcaseSequence';
-import { CITIZEN_HOME_URL, EDGE_CASE_URL } from './urls';
+import { citizenSequence } from './prl-cases/citizenSequence';
+import { respondentCaseSequence } from './respondent/respondentcaseSequence';
+import { responseCaseSequence } from './tasklistresponse/responseCaseSequence';
+import { CITIZEN_HOME_URL, PRL_CASE_URL } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
-[edgecaseSequence].forEach((sequence: Step[], i: number) => {
+[citizenSequence].forEach((sequence: Step[], i: number) => {
   const dir = __dirname + (i === 0 ? '/edge-case' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content.ts`;
@@ -69,7 +71,12 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     return CITIZEN_HOME_URL;
   }
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...edgecaseSequence, ...repondentCaseSequence].find(s => s.url === path);
+  const nextStep = [
+    ...citizenSequence,
+    ...respondentCaseSequence,
+    ...applicantCaseSequence,
+    ...responseCaseSequence,
+  ].find(s => s.url === path);
 
   const url = nextStep ? nextStep.getNextStep(data) : CITIZEN_HOME_URL;
 
@@ -113,7 +120,14 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
   return results;
 };
 
-export const stepsWithContentEdgecase = getStepsWithContent(edgecaseSequence, EDGE_CASE_URL);
-export const stepsWithContentRespondent = getStepsWithContent(repondentCaseSequence);
+export const stepsWithContentEdgecase = getStepsWithContent(citizenSequence, PRL_CASE_URL);
+export const stepsWithContentRespondent = getStepsWithContent(respondentCaseSequence);
+export const stepsWithContentApplicant = getStepsWithContent(applicantCaseSequence);
+export const stepsWithContentC7response = getStepsWithContent(responseCaseSequence);
 
-export const stepsWithContent = [...stepsWithContentEdgecase, ...stepsWithContentRespondent];
+export const stepsWithContent = [
+  ...stepsWithContentEdgecase,
+  ...stepsWithContentRespondent,
+  ...stepsWithContentApplicant,
+  ...stepsWithContentC7response,
+];

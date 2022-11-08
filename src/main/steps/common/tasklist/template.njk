@@ -16,10 +16,12 @@
 
 {% macro taskStatus(item) %}
   {% set statusClass = "" %}
-  {%if item.status == 'IN_PROGRESS' %}
+  {%if item.status == 'IN_PROGRESS' or item.status == 'READY_TO_VIEW' %}
     {% set statusClass = "govuk-tag--blue" %}
-  {% elif item.status == 'TO_DO' or item.status == 'CAN_NOT_START_YET' %}
+  {% elif item.status == 'TO_DO' or item.status == 'CAN_NOT_START_YET' or item.status == 'NOT_AVAILABLE_YET' %}
     {% set statusClass = "govuk-tag--grey"%}
+  {% elif item.status == 'COMPLETED' or item.status == 'DOWNLOAD' %}
+    {% set statusClass = "govuk-tag--green"%}
   {% endif %}
   <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
 {% endmacro %}
@@ -38,7 +40,7 @@
 {% macro taskListSection(section, index) %}
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number">{{index}}. </span>{{section.title}}
+      {{section.title}}
     </h2>
     <ul class="app-task-list__items">
       {% for item in section.items %}
@@ -49,22 +51,32 @@
 {% endmacro %}
 
 {% block content %}
-  <div class="govuk-grid-column-full"></div>
+  <div class="govuk-grid-column-full">
+    {% block columnFull %}{% endblock %}
+  </div>
   <div class="govuk-grid-row">
-
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-xl">
-        {{title}}
-      </h1>
+      {% block twoThird %}
+        <h1 class="govuk-heading-xl">
+          {{title}}
+        </h1>
 
-      <ol class="app-task-list">
-        {% for section in sections %}
-          {{ taskListSection(section, loop.index) }}
-        {% endfor %}
-      </ol>
+        {% block progressBar %}{% endblock %}
+        {% block notificationBanner %}{% endblock %}
+        {% block caseDetails %}{% endblock %}
+
+        <ol class="app-task-list">
+          {% for section in sections %}
+            {{ taskListSection(section, loop.index) }}
+          {% endfor %}
+        </ol>
+      {% endblock %}
+      
     </div>
     <div class="govuk-grid-column-one-third">
+      {% block oneThird %}
            {% include "../contact-us.njk" %}
+      {% endblock %}
     </div>
 
   </div>

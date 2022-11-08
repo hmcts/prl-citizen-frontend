@@ -1,0 +1,48 @@
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "common/progress-bar.njk" import progressBar with context %}
+
+{% extends "common/tasklist/template.njk" %}
+{% block caseDetails %}
+{% endblock %}
+
+{% block columnFull %}
+<div class="govuk-grid-column-full">
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+    {{userCase.respondentName}}
+  </h1>
+  <p class="govuk-body">Case number #{{userCase.id}}</p>
+</div>
+{% endblock %}
+
+{% block progressBar %}
+  {{ progressBar(stages) }}
+{% endblock %}
+
+{% block notificationBanner %}
+  {% include "../../common/notifyBanner.njk" %}
+{% endblock %}
+{% block oneThird %}
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!">
+      <h2 class="govuk-heading-m">
+        I want to...
+      </h2>
+      <ul class="govuk-list">
+        <li>
+          <a class="govuk-link" href="#">Find my local court</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+          <a class="govuk-link" href="#">Find legal advice</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+          <a class="govuk-link" href="#">Know more about child arrangements</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+          <a class="govuk-link" href="#">Know more about attending court</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+      </ul>
+        {% include "../../common/contact-us.njk" %}
+{% endblock %}

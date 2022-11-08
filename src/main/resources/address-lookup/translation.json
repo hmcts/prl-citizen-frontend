@@ -1,0 +1,26 @@
+{
+    "translations": {
+        "en": {
+            "section": "Your address",
+            "serviceName": "Address/postcode lookup"
+        },
+        "cy": {
+            "section": "Your address (in welsh)",
+            "serviceName": "Address/postcode lookup (in welsh)"
+        }
+    },
+    "errors":{
+        "en": {
+            "citizenUserAddressPostcode": {
+                "required": "Enter a real postcode",
+                "invalid": "Enter a real postcode"
+            }
+        },
+        "cy": {
+            "citizenUserAddressPostcode": {
+                "required": "Enter a real postcode (in welsh)",
+                "invalid": "Enter a real postcode (in welsh)"
+            }
+        }
+    }
+}

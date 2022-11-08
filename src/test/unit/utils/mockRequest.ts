@@ -1,6 +1,7 @@
 import { AppRequest } from '../../../main/app/controller/AppRequest';
 
-export const mockRequest = ({
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const mockRequest: any = ({
   headers = {},
   body = {},
   session = {},
@@ -24,9 +25,11 @@ export const mockRequest = ({
       },
     },
     query: { ...query },
+    params: {
+      caseId: '1234244',
+    },
     session: {
       user: {
-        id: '123456',
         accessToken: 'mock-user-access-token',
         name: 'test',
         givenName: 'First name',

@@ -4,43 +4,35 @@ import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
+import { respondent_cy, respondent_en } from './section-titles';
+import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
-  title: 'Respond to the application',
+  title: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
     [SectionStatus.TO_DO]: 'To Do',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
+    [SectionStatus.VIEW]: 'VIEW',
   },
-  sectionTitles: {
-    respondentYourDetails: 'Your details',
-    applicationDetails: 'Application detail',
-    respondentAdditionalInformation: 'Additional information',
-  },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    mediation_miam: 'Mediation(MIAM)',
-    international_factors: 'International element',
-  },
+  sectionTitles: respondent_en,
+  taskListItems: respondent_tasklist_items_en,
 };
 const cyContent = {
-  title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  title: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.READY_TO_VIEW]: "barod i'w weld",
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
+    [SectionStatus.VIEW]: 'VIEW (in Welsh)',
   },
-  sectionTitles: {
-    respondentYourDetails: 'Your details',
-    applicationDetails: 'Application detail',
-    respondentAdditionalInformation: 'Additional information',
-  },
-  taskListItems: {
-    keep_your_details_private: 'Keep your details private',
-    confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
-    mediation_miam: 'Mediation(MIAM)',
-    international_factors: 'International element',
-  },
+  sectionTitles: respondent_cy,
+  taskListItems: respondent_tasklist_items_cy,
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
@@ -52,42 +44,82 @@ describe('task-list > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test.each([
+  test.skip.each([
     {
       userCase: mockUserCase,
       expected: [
         {
           items: [
             {
-              href: '/respondent/keep-details-private/details_known',
+              href: '/respondent/keep-details-private/details_known/' + mockUserCase.id,
               id: 'keep-your-details-private',
               status: 'TO_DO',
               text: 'Keep your details private',
             },
-          ],
-          title: 'Your details',
-        },
-        {
-          items: [
             {
-              href: '/respondent/miam/miam-start',
-              id: 'medation-miam',
+              href: '/respondent/confirm-contact-details/checkanswers',
+              id: 'confirm-or-edit-your-contact-details',
               status: 'IN_PROGRESS',
-              text: 'Mediation(MIAM)',
+              text: 'Confirm or edit your contact details',
+            },
+            {
+              href: '/respondent/support-you-need-during-case/attending-the-court',
+              id: 'support_you_need_during_your_case',
+              status: 'TO_DO',
+              text: 'Support you need during your case',
             },
           ],
-          title: 'Application detail',
+          title: 'About you',
         },
         {
           items: [
             {
-              href: '/respondent/international-factors/start',
-              id: 'international-factors',
-              status: 'TO_DO',
-              text: 'International element',
+              href: '/tasklistresponse/miam/miam-start',
+              id: 'check_the_application',
+              status: 'IN_PROGRESS',
+              text: 'Check the application (PDF)',
             },
           ],
-          title: 'Additional information',
+          title: 'The application',
+        },
+        {
+          items: [
+            {
+              href: '/tasklistresponse/international-factors/start',
+              id: 'check_details_of_your_court_hearings',
+              status: 'TO_DO',
+              text: 'Check details of your court hearings',
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            {
+              href: '/respondent/yourdocuments/alldocuments/alldocuments',
+              id: 'view-all-documents',
+              status: 'READY_TO_VIEW',
+              text: 'View all documents',
+            },
+            {
+              href: '/respondent/upload-document',
+              id: 'upload-document',
+              status: SectionStatus.TO_DO,
+              text: 'Upload Documents',
+            },
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'view-all-orders-from-the-court',
+              status: 'NOT_AVAILABLE_YET',
+              text: 'View all orders from the court',
+            },
+          ],
+          title: 'Orders from the court',
         },
       ],
     },
