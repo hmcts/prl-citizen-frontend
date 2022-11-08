@@ -2465,7 +2465,7 @@ export interface C1ASafteyConcerns {
     firstName: string;
     lastName: string;
     personalDetails: {
-      haveChangetheirName?: YesNoDontKnow;
+      hasNameChanged?: YesNoDontKnow;
       resPreviousName?: string,
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;

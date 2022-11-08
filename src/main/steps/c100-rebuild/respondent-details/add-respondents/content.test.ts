@@ -57,7 +57,7 @@ describe('Add respondent  > content', () => {
           firstName: 'John',
           lastName: 'Doe',
           personalDetails: {
-            haveChangetheirName: 'YES',
+            hasNameChanged: 'YES',
             gender: 'Male',
           },
           relationshipDetails: {

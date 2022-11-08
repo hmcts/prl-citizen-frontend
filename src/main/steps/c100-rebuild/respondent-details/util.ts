@@ -15,7 +15,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
   firstName: '',
   lastName: '',
   personalDetails: {
-    haveChangetheirName: undefined,
+    hasNameChanged: undefined,
     resPreviousName: '',
     dateOfBirth: {
       day: '',

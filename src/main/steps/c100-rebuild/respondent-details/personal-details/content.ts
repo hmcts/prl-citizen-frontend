@@ -15,8 +15,8 @@ import { getRespndentDetails } from '../util';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Provide details for',
-  haveChangetheirName: 'Have they change their name?',
-  haveChangetheirNameHint:
+  hasNameChanged: 'Have they change their name?',
+  hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
   one: 'Yes',
   two: 'No',
@@ -35,7 +35,7 @@ const en = () => ({
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
   otherGenderDetailsLabel: "Respondent's gender (Optional)",
   errors: {
-    haveChangetheirName: {
+    hasNameChanged: {
       required: 'Select if they’ve changed their name',
     },
     resPreviousName: {
@@ -69,8 +69,8 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Provide details for - welsh',
-  haveChangetheirName: 'Have they change their name? - welsh',
-  haveChangetheirNameHint:
+  hasNameChanged: 'Have they change their name? - welsh',
+  hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
   one: 'Yes',
   two: 'No',
@@ -89,7 +89,7 @@ const cy = () => ({
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth - welsh',
   otherGenderDetailsLabel: "Respondent's gender (Optional) - welsh",
   errors: {
-    haveChangetheirName: {
+    hasNameChanged: {
       required: 'Select if they’ve changed their name -welsh',
     },
     resPreviousName: {
@@ -144,7 +144,7 @@ export const generateFormFields = (
   personalDetails: C100RebuildPartyDetails['personalDetails']
 ): GenerateDynamicFormFields => {
   const {
-    haveChangetheirName,
+    hasNameChanged,
     resPreviousName,
     dateOfBirth,
     isDateOfBirthUnknown,
@@ -159,17 +159,17 @@ export const generateFormFields = (
     cy: {},
   };
   const fields = {
-    haveChangetheirName: {
+    hasNameChanged: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.haveChangetheirName,
-      hint: l => l.haveChangetheirNameHint,
+      label: l => l.hasNameChanged,
+      hint: l => l.hasNameChangedHint,
       labelSize: 'm',
       values: [
         {
           label: l => l.one,
           value: YesNoDontKnow.yes,
-          selected: haveChangetheirName === YesNoDontKnow.yes,
+          selected: hasNameChanged === YesNoDontKnow.yes,
           subFields: {
             resPreviousName: {
               type: 'text',
@@ -183,12 +183,12 @@ export const generateFormFields = (
           },
         },
         {
-          selected: haveChangetheirName === YesNoDontKnow.no,
+          selected: hasNameChanged === YesNoDontKnow.no,
           label: l => l.two,
           value: YesNoDontKnow.no,
         },
         {
-          selected: haveChangetheirName === YesNoDontKnow.dontKnow,
+          selected: hasNameChanged === YesNoDontKnow.dontKnow,
           label: l => l.dontKnow,
           value: YesNoDontKnow.dontKnow,
         },
