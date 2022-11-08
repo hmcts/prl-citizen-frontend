@@ -5,6 +5,7 @@ import {
   APPLICANT_ADDRESS_DETAILS,
   APPLICANT_ADDRESS_HISTORY,
   APPLICANT_ADDRESS_LOOKUP,
+  APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
   APPLICANT_CONTACT_DETAILS_SAVE,
@@ -399,6 +400,16 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_WITNESS_STATEMENTS_DA,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_ATTENDING_THE_COURT,
+  },
+  {
+    url: APPLICANT_ATTENDING_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
