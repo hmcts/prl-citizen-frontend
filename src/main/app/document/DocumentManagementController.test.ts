@@ -3,6 +3,8 @@ import config from 'config';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../case/CosApiClient';
+import { YesOrNo } from '../case/definition';
+import { Form } from '../form/Form';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -19,6 +21,10 @@ const generateUserUploadedStatementDocumentMock = jest.spyOn(
 );
 const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
 
+const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'UploadDocumentListFromCitizen');
+
+const formGetParsedBodyMock = jest.spyOn(Form.prototype, 'getParsedBody');
+const formGetErrorsMock = jest.spyOn(Form.prototype, 'getErrors');
 describe('DocumentManagerController', () => {
   let fields;
   const documentManagerController = new DocumentManagerController(fields);
@@ -434,7 +440,83 @@ describe('DocumentManagerController', () => {
       expect(req.session.errors[0].errorType).toEqual('Document could not be deleted');
     });
   });
+  describe('check citizen document uploaded with file', () => {
+    test('check document uploaded sucesfully with file for applicant', async () => {
+      req.query.isApplicant = 'Yes';
+      req.session.userCase.start = 'Yes';
+      req.query.parentDocumentType = 'Medical Records';
+      req.query.documentType = 'Medical Records';
+      req.session.user.id = '12345678';
+      req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+      const formData = { _csrf: 'abcedfg' };
+      formGetParsedBodyMock.mockReturnValueOnce(formData);
+      formGetErrorsMock.mockReturnValueOnce([]);
+      const documentDetail = {
+        status: 200,
+        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
+        documentName: 'uploaded.pdf',
+      };
+      uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
+      req.session.userCase.applicantUploadFiles = [];
+      await documentManagerController.post(req, res);
+      expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded.pdf');
+    });
+    test('check document uploaded sucesfully with file for respondent', async () => {
+      req.query.isApplicant = 'No';
+      req.session.userCase.start = 'Yes';
+      req.query.parentDocumentType = 'Medical Records';
+      req.query.documentType = 'Medical Records';
+      req.session.user.id = '12345678';
+      req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+      const formData = { _csrf: 'abcedfg' };
+      formGetParsedBodyMock.mockReturnValueOnce(formData);
+      formGetErrorsMock.mockReturnValueOnce([]);
+      const documentDetail = {
+        status: 200,
+        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
+        documentName: 'uploaded.pdf',
+      };
+      uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
+      req.session.userCase.respondentUploadFiles = [];
+      await documentManagerController.post(req, res);
+      expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
+    });
+    test('fail to upload document with file', async () => {
+      req.query.isApplicant = 'No';
+      req.session.userCase.start = 'Yes';
+      req.query.parentDocumentType = 'Medical Records';
+      req.query.documentType = 'Medical Records';
+      req.session.user.id = '12345678';
+      req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+      const formData = { _csrf: 'abcedfg' };
+      formGetParsedBodyMock.mockReturnValueOnce(formData);
+      formGetErrorsMock.mockReturnValueOnce([]);
+      const documentDetail = {
+        status: 400,
+      };
+      uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
+      await documentManagerController.post(req, res);
+      expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
+    });
+  });
+  describe('clearUploadDocumentFormData', () => {
+    test('clearUploadDocumentFormData for applicant', async () => {
+      req.query.isApplicant = 'Yes';
+      req.session.userCase.start = 'Yes';
+      req.query.isContinue = YesOrNo.YES;
+      await documentManagerController.clearUploadDocumentFormData(req, res);
+      expect(req.session.userCase.start).toEqual(undefined);
+    });
+    test('clearUploadDocumentFormData for respondent', async () => {
+      req.query.isApplicant = 'No';
+      req.session.userCase.start = 'Yes';
+      req.query.isContinue = YesOrNo.NO;
+      await documentManagerController.clearUploadDocumentFormData(req, res);
+      expect(req.session.userCase.start).toEqual(undefined);
+    });
+  });
 });
+
 function getMockRequestResponse() {
   const req = mockRequest();
   const res = mockResponse();
