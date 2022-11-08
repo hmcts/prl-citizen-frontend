@@ -1,13 +1,12 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { AnyType } from '../../../../../app/form/validation';
 import { getAddressesFromPostcode } from '../../../../../app/postcode/postcode-lookup-api';
-import { applyParms } from '../../../../common/url-parser';
-import { C100_APPLICANT_ADDRESS_SELECT } from '../../../../urls';
 
 import { getUpdatedForm } from './content';
 
@@ -19,9 +18,8 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const postcode = req.body['addressPostcode'] as string;
-    const { applicantId } = req.params;
-    const applicantId1: AnyType | undefined = applicantId;
-    let redirectURI = req.originalUrl;
+    const respondentId = req.params.respondentId as C100RebuildPartyDetails['id'];
+    const respondentId1: AnyType | undefined = respondentId;
 
     let addresses;
 
@@ -30,19 +28,21 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
     req.session.errors = form.getErrors(formData);
 
-    const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
-    req.session.userCase!.appl_allApplicants![applicantIndex] = {
-      ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
-      applicantAddressPostcode: req.body['addressPostcode'] as string,
-    };
+    const respondent = this.getRespondentDetails(
+      req.session.userCase!.resp_Respondents!,
+      respondentId1
+    ) as C100RebuildPartyDetails;
+    respondent!.address!.PostCode! = req.body['addressPostcode'] as string;
 
     if (req.session.errors.length === 0) {
       addresses = await getAddressesFromPostcode(postcode, req.locals.logger);
     }
     req.session.addresses = addresses;
 
-    redirectURI = applyParms(C100_APPLICANT_ADDRESS_SELECT, { applicantId: applicantId as string });
-
-    this.redirect(req, res, redirectURI);
+    this.redirect(req, res);
   }
+  private getRespondentDetails = (
+    respondents: C100RebuildPartyDetails[] | [],
+    respondentId: string
+  ): C100RebuildPartyDetails | undefined => respondents.find(respondent => respondent.id === respondentId);
 }

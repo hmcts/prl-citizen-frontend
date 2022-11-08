@@ -7,6 +7,7 @@ import {
   RelationshipToChildren,
   YesNoDontKnow,
   YesNoEmpty,
+  YesOrNo,
 } from '../../../app/case/definition';
 
 export const getDataShape = (): C100RebuildPartyDetails => ({
@@ -32,6 +33,12 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
   },
   relationshipDetails: {
     relationshipToChildren: [] as RelationshipToChildren[],
+  },
+  contactDetails: {
+    donKnowEmailAddress: YesOrNo.NO,
+    emailAddress: '',
+    telephoneNumber: '',
+    donKnowTelephoneNumber: YesOrNo.NO,
   },
 });
 

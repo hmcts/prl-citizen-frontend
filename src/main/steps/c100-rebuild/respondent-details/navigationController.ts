@@ -1,7 +1,17 @@
 import { Case } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
-import { C100_RESPONDENT_DETAILS_ADD, C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD, PageLink } from '../../urls';
+import {
+  C100_CHILDERN_DETAILS_ADD,
+  C100_RESPONDENT_DETAILS_ADD,
+  C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
+  C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
+  C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
+  C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
+  C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
+  C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+  PageLink,
+} from '../../urls';
 
 class RespondentsDetailsNavigationController {
   private respondentsDetails: C100RebuildPartyDetails[] | [] = [];
@@ -33,27 +43,54 @@ class RespondentsDetailsNavigationController {
 
     switch (currentPageUrl) {
       case C100_RESPONDENT_DETAILS_ADD: {
-        nextUrl = applyParms(C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD, {
+        nextUrl = applyParms(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, {
           respondentId: this.respondentsDetails[0].id,
+          childId: this.childrenDetails[0].id,
+        });
+        break;
+      }
+      case C100_RESPONDENT_DETAILS_PERSONAL_DETAILS: {
+        nextUrl = applyParms(C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD, {
+          respondentId: this.respondentId,
           childId: this.childrenDetails[0].id,
         });
         break;
       }
       case C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD: {
         const nextChild = this.getNextChild();
-        const nextRespondent = this.getNextRespondent();
-
         nextUrl = nextChild
           ? applyParms(C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD, {
               respondentId: this.respondentId,
               childId: nextChild?.id,
             })
-          : nextRespondent
-          ? applyParms(C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD, {
-              respondentId: nextRespondent?.id,
-              childId: this.childrenDetails[0].id,
-            })
-          : C100_RESPONDENT_DETAILS_ADD;
+          : applyParms(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, {
+              respondentId: this.respondentId,
+            });
+        break;
+      }
+      case C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP: {
+        nextUrl = applyParms(C100_RESPONDENT_DETAILS_ADDRESS_SELECT, {
+          respondentId: this.respondentId,
+        });
+        break;
+      }
+      case C100_RESPONDENT_DETAILS_ADDRESS_SELECT: {
+        nextUrl = applyParms(C100_RESPONDENT_DETAILS_ADDRESS_MANUAL, {
+          respondentId: this.respondentId,
+        });
+        break;
+      }
+      case C100_RESPONDENT_DETAILS_ADDRESS_MANUAL: {
+        nextUrl = applyParms(C100_RESPONDENT_DETAILS_CONTACT_DETAILS, {
+          respondentId: this.respondentId,
+        });
+        break;
+      }
+      case C100_RESPONDENT_DETAILS_CONTACT_DETAILS: {
+        const nextRespondent = this.getNextRespondent();
+        nextUrl = nextRespondent
+          ? applyParms(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, { respondentId: nextRespondent?.id })
+          : C100_CHILDERN_DETAILS_ADD; // TODO: this link will have to be changed with otherPersonsLink once merged
         break;
       }
       default: {
