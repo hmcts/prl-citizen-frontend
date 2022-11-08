@@ -259,7 +259,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let client: CosApiClient;
     let caseReference: string;
     let loggedInCitizen: UserDetails;
-    let isAllegationOfHarmViewed: YesOrNo;
 
     try {
       const originalUrl = req.originalUrl;
