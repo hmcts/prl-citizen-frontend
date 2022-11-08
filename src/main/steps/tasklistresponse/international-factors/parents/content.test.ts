@@ -6,8 +6,7 @@ import { generateContent } from './content';
 
 const enContent = {
   section: ' ',
-  title:
-    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+  title: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
   hint: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
   one: 'Yes',
   two: 'No',
@@ -25,8 +24,7 @@ const enContent = {
 
 const cyContent = {
   section: ' ',
-  title:
-    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales? {In Welsh}",
+  title: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
   hint: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
   one: 'Yes',
   two: 'No',
@@ -57,7 +55,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual(
-      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?"
+      "Do the children's parents or anyone significant to the children live outside of England or Wales?"
     );
     expect(generatedContent.section).toEqual(' ');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
