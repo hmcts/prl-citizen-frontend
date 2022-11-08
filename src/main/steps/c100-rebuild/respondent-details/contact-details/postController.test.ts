@@ -16,7 +16,7 @@ describe('ContactDetailsPostController Post Controller', () => {
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           firstName: 'Bob',
           lastName: 'Silly',
-          respondentContactDetail: {
+          contactDetails: {
             donKnowEmailAddress: YesOrNo.NO,
             emailAddress: '',
             telephoneNumber: '',

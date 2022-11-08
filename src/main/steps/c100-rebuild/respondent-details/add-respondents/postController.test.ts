@@ -27,7 +27,7 @@ describe('AddRespondentsPostController Post Controller', () => {
           },
         ],
       },
-      respondentContactDetail: {
+      contactDetails: {
         emailAddress: 'test@gmail.com',
       },
     },
@@ -47,7 +47,7 @@ describe('AddRespondentsPostController Post Controller', () => {
           },
         ],
       },
-      respondentContactDetail: {
+      contactDetails: {
         emailAddress: 'test@gmail.com',
       },
     },

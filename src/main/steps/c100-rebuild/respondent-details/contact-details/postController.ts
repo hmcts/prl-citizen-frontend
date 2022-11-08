@@ -30,7 +30,7 @@ export default class ContactDetailsPostController extends PostController<AnyObje
       req.session.userCase.resp_Respondents!,
       respondentId
     ) as C100RebuildPartyDetails;
-    respondentContactDetails.respondentContactDetail = {
+    respondentContactDetails.contactDetails = {
       donKnowEmailAddress,
       emailAddress,
       telephoneNumber,

@@ -84,7 +84,7 @@ describe('respondent details > contact details', () => {
             respondentPlaceOfBirthUnknown: YesOrNo.YES,
           },
 
-          respondentContactDetail: {
+          contactDetails: {
             donKnowEmailAddress: YesOrNo.NO,
             emailAddress: 'dummy@mail.com',
             telephoneNumber: '9999999999',
@@ -111,7 +111,7 @@ describe('respondent details > contact details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().respondentContactDetail);
+    const { errors } = generateFormFields(getDataShape().contactDetails);
     languageAssertions(
       'en',
       {
@@ -128,7 +128,7 @@ describe('respondent details > contact details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().respondentContactDetail);
+    const { errors } = generateFormFields(getDataShape().contactDetails);
     languageAssertions(
       'cy',
       {

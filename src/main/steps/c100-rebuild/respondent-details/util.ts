@@ -46,7 +46,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
   relationshipDetails: {
     relationshipToChildren: [] as RelationshipToChildren[],
   },
-  respondentContactDetail: {
+  contactDetails: {
     donKnowEmailAddress: YesOrNo.NO,
     emailAddress: '',
     telephoneNumber: '',
