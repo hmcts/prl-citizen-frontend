@@ -18,10 +18,10 @@ const en = {
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
   continue: 'Continue',
   errors: {
-    respondentAttendingToCourt: {
+    applicantAttendingToCourt: {
       required: 'Select whether you can take part in a video or phone hearing',
     },
-    respondentHearingDetails: {
+    applicantHearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
@@ -41,10 +41,10 @@ const cy: typeof en = {
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
   continue: 'Continue',
   errors: {
-    respondentAttendingToCourt: {
+    applicantAttendingToCourt: {
       required: 'Select whether you can take part in a video or phone hearing',
     },
-    respondentHearingDetails: {
+    applicantHearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
@@ -87,7 +87,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain Attending the court field', () => {
-    const attendingToCourtField = fields.respondentAttendingToCourt as FormOptions;
+    const attendingToCourtField = fields.applicantAttendingToCourt as FormOptions;
     expect(attendingToCourtField.type).toBe('checkboxes');
     expect((attendingToCourtField.section as Function)(generatedContent)).toBe(en.section);
   });
