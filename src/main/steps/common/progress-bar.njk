@@ -1,0 +1,23 @@
+{% macro progressBar(stages) %}
+  <div class="status-bar" aria-label="The four stages of your appeal">
+  {% for stage in stages %}
+    {% if stage.active %}
+      {% set state = "is in progress" %}
+      {% set classname = "stage--active" %}
+    {% elif stage.completed %}
+      {% set state = "is completed" %}
+      {% set classname = "stage--completed" %}
+    {% else %}
+      {% set state = "is not yet started" %}
+      {% set classname = "" %}
+    {% endif %}
+    <div
+      class="status-bar__stage {{ classname }}"
+      aria-label="{{ stage.ariaLabel }} {{ state }}"
+    >
+        <div class="status-bar__ring"></div>
+        <span class="status-bar__title" aria-hidden="true">{{ stage.title | safe }}</span>
+    </div>
+  {% endfor %}
+  </div>
+{% endmacro %}
