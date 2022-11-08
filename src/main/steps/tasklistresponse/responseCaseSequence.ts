@@ -236,5 +236,4 @@ export const responseCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
-
 ];

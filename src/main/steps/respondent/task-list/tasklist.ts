@@ -62,7 +62,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'allegations_of_harm_and_violence',
           text: taskListItems.allegations_of_harm_and_violence,
-          status: getAllegationOfHarmStatus(),
+          status: getAllegationOfHarmStatus(userCase),
           href: URL.RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
         },
       ],

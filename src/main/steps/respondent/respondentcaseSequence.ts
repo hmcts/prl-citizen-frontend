@@ -70,6 +70,9 @@ import {
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
+//import { setVarandGetNextStepofAllegationharm } from './task-list/utils';
+//import { CaseWithId } from '../../app/case/case';
+//import mockUserCase from '../../../test/unit/utils/mockUserCase';
 
 export const respondentCaseSequence: Step[] = [
   {
@@ -486,17 +489,18 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_YOUR_CHILD_CONCERNS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data => (data.yourchildconcernsstart === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES),
+    getNextStep: data =>
+      data.yourchildconcernsstart === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_NO,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    //getNextStep: ()=> setVarandGetNextStepofAllegationharm(mockUserCase),
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_YES,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
-
 ];

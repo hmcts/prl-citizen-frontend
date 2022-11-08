@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked} from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 const en = {
   section: 'Safety concerns',
@@ -13,23 +13,23 @@ const en = {
   errors: {
     respondentConcernedAbout: {
       required: 'Specify who you are concerned about',
-    }
+    },
   },
 };
 
 const cy: typeof en = {
-    section: 'Safety concerns - in welsh',
-    title: 'Who are you concerned about? - in welsh',
-    optionHint: 'Select all options that are relevant to you. - in welsh',
-    summaryText: 'Contacts for help - in welsh',
-    childconcern: 'The children in this application - in welsh',
-    selfconcern: 'Yourself - in welsh',
-    continue: 'Save and continue - in welsh',
-    errors: {
-        respondentConcernedAbout: {
-        required: 'Specify who you are concerned about - in welsh',
-      }
+  section: 'Safety concerns - in welsh',
+  title: 'Who are you concerned about? - in welsh',
+  optionHint: 'Select all options that are relevant to you. - in welsh',
+  summaryText: 'Contacts for help - in welsh',
+  childconcern: 'The children in this application - in welsh',
+  selfconcern: 'Yourself - in welsh',
+  continue: 'Save and continue - in welsh',
+  errors: {
+    respondentConcernedAbout: {
+      required: 'Specify who you are concerned about - in welsh',
     },
+  },
 };
 
 const languages = {

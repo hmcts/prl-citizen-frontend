@@ -1,3 +1,4 @@
+//import { PageLink, RESPONDENT_TASK_LIST_URL } from 'steps/urls';
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, SectionStatus, YesNoIDontKnow, YesOrNo } from '../../../app/case/definition';
 
@@ -111,7 +112,6 @@ export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | un
   return SectionStatus.TO_DO;
 };
 
-
 export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
@@ -197,6 +197,21 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
   return SectionStatus.TO_DO;
 };
 
-export const getAllegationOfHarmStatus = () :SectionStatus => {
+// export const getAllegationOfHarmStatus = () :SectionStatus => {
+//   return SectionStatus.NOT_AVAILABLE_YET;
+// };
+
+export const getAllegationOfHarmStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase && (userCase.yourchildconcernsstart === 'No' || userCase.yourchildconcernsstart === 'Yes')) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  // if(userCase && userCase.cameoutofallegationsharmwithNo){
+  //   return SectionStatus.COMPLETED;
+  // }
   return SectionStatus.NOT_AVAILABLE_YET;
 };
+
+// export const setVarandGetNextStepofAllegationharm = (userCase: CaseWithId) : PageLink => {
+//   userCase.cameoutofallegationsharmwithNo = true;
+//   return RESPONDENT_TASK_LIST_URL;
+// }
