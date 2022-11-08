@@ -1,8 +1,6 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
-// import { Fee } from '../../app/case/definition';
-// import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {
@@ -17,7 +15,6 @@ const en = {
   continue: 'Save and continue',
   next: 'Next',
   change: 'Change',
-  changePostCode: 'Change postcode',
   upload: 'Upload',
   download: 'Download',
   delete: 'Delete',
@@ -28,7 +25,7 @@ const en = {
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
-  errorSummaryHeading: 'There is a problem',
+  errorSummaryHeading: 'There is a problem on this page',
   saveAndSignOut: 'Save and sign out',
   saveAsDraft: 'Save as draft',
   onlyContinue: 'Continue',
@@ -132,7 +129,7 @@ const cy: typeof en = {
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem (in welsh)',
+  errorSummaryHeading: 'There is a problem on this page (in welsh)',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
@@ -186,7 +183,6 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
-  onlyContinue: 'Continue (in welsh)',
 };
 
 export const generatePageContent = ({
@@ -201,9 +197,7 @@ export const generatePageContent = ({
   document_type,
   addresses = [],
   userIdamId,
-}: // eligibility,
-// fee,
-{
+}: {
   language: Language;
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
@@ -213,14 +207,12 @@ export const generatePageContent = ({
   userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
   name?: string;
-  byApplicant?: string;
   userIdamId?: string;
-  // eligibility?: Eligibility;
-  // fee?: Fee;
+  byApplicant?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
-  // const contactEmail = 'todo@test.com';
+
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
@@ -229,15 +221,12 @@ export const generatePageContent = ({
     userEmail,
     name,
     userCaseList,
-    // contactEmail,
+
     addresses,
     caption,
     document_type,
-    byApplicant,
     userIdamId,
-    // contactEmail,
-    // eligibility,
-    // fee,
+    byApplicant,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -261,14 +250,12 @@ export type CommonContent = typeof en & {
   name?: string;
   caption?: string;
   document_type?: string;
-  // contactEmail?: string;
-  // referenceNumber?: string;
+
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   byApplicant?: string;
+
   userIdamId?: string;
-  // eligibility?: Eligibility;
-  // fee?: Fee;
 };
 
 export type Language = 'en' | 'cy';
