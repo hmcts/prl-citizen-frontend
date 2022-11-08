@@ -129,6 +129,34 @@ export class DocumentManagerController extends PostController<AnyObject> {
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
 
+  public async notifyBannerForNewDcoumentC100Respondent(req: AppRequest<Partial<CaseWithId>>): Promise<void> {
+    req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
+      if (respondent.value.response && respondent.value.response.citizenFlags) {
+        respondent.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+      } else {
+        respondent.value.response = {
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+          },
+        };
+      }
+    });
+  }
+
+  public async notifyBannerForNewDcoumentC100Applicant(req: AppRequest<Partial<CaseWithId>>): Promise<void> {
+    req?.session?.userCase.applicants?.forEach((applicant: Applicant) => {
+      if (applicant.value.response && applicant.value.response.citizenFlags) {
+        applicant.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+      } else {
+        applicant.value.response = {
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+          },
+        };
+      }
+    });
+  }
+
   public async notifyBannerForNewDcoumentUploaded(
     req: AppRequest<Partial<CaseWithId>>,
     caseReference: string,
@@ -136,43 +164,24 @@ export class DocumentManagerController extends PostController<AnyObject> {
     loggedInCitizen: UserDetails
   ): Promise<CaseWithId> {
     if (req?.session?.userCase?.caseTypeOfApplication === 'C100') {
-      req?.session?.userCase.respondents?.forEach((respondent: Respondent) => {
-        if (respondent.value.response && respondent.value.response.citizenFlags) {
-          respondent.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
-        } else {
-          respondent.value.response = {
-            citizenFlags: {
-              isAllDocumentsViewed: 'No',
-            },
-          };
-        }
-      });
-      req?.session?.userCase.applicants?.forEach((applicant: Applicant) => {
-        if (applicant.value.response && applicant.value.response.citizenFlags) {
-          applicant.value.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
-        } else {
-          applicant.value.response = {
-            citizenFlags: {
-              isAllDocumentsViewed: 'No',
-            },
-          };
-        }
-      });
-    } else {
-      if (req?.session?.userCase.respondentsFL401) {
-        if (
-          req?.session?.userCase.respondentsFL401?.response &&
-          req?.session?.userCase.respondentsFL401?.response.citizenFlags
-        ) {
-          req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
-        } else {
-          req.session.userCase.respondentsFL401.response = {
-            citizenFlags: {
-              isAllDocumentsViewed: 'No',
-            },
-          };
-        }
+      this.notifyBannerForNewDcoumentC100Respondent(req);
+      this.notifyBannerForNewDcoumentC100Applicant(req);
+    }
+
+    if (req?.session?.userCase.respondentsFL401) {
+      if (
+        req?.session?.userCase.respondentsFL401?.response &&
+        req?.session?.userCase.respondentsFL401?.response.citizenFlags
+      ) {
+        req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed = YesOrNo.NO;
+      } else {
+        req.session.userCase.respondentsFL401.response = {
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+          },
+        };
       }
+
       if (req?.session?.userCase.applicantsFL401) {
         if (
           req?.session?.userCase.applicantsFL401?.response &&
@@ -193,27 +202,39 @@ export class DocumentManagerController extends PostController<AnyObject> {
     data.id = caseReference;
     const updatedCaseDataFromCos = await client.updateCase(
       loggedInCitizen,
-      caseReference as string,
+      caseReference,
       data,
       'citizen-internal-case-update'
     );
     return updatedCaseDataFromCos;
   }
 
+  private getC100ApplicantName(req: AppRequest<AnyObject>, partyName: string) {
+    req.session.userCase?.applicants?.forEach(applicant => {
+      if (applicant.value?.user?.idamId === req.session.user.id) {
+        partyName += applicant.value?.firstName + ' ' + applicant.value?.lastName;
+      }
+    });
+
+    return partyName;
+  }
+
+  private getFL401ApplicantName(req: AppRequest<AnyObject>, partyName: string) {
+    if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session.user.id) {
+      partyName +=
+        req.session.userCase.applicantsFL401?.firstName + ' ' + req.session.userCase.applicantsFL401?.lastName;
+    }
+
+    return partyName;
+  }
+
   private getPartyName(isApplicant, req: AppRequest<AnyObject>) {
     let partyName = '';
     if (YesOrNo.YES === isApplicant) {
       if (req.session.userCase?.caseTypeOfApplication === 'C100') {
-        req.session.userCase?.applicants?.forEach(applicant => {
-          if (applicant.value?.user?.idamId === req.session.user.id) {
-            partyName = applicant.value?.firstName + ' ' + applicant.value?.lastName;
-          }
-        });
+        partyName = this.getC100ApplicantName(req, partyName);
       } else {
-        if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session.user.id) {
-          partyName =
-            req.session.userCase.applicantsFL401?.firstName + ' ' + req.session.userCase.applicantsFL401?.lastName;
-        }
+        partyName = this.getFL401ApplicantName(req, partyName);
       }
     } else {
       if (req.session.userCase?.caseTypeOfApplication === 'C100') {
@@ -235,9 +256,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     let filename = '';
     let endPoint = '';
-    let client;
-    let caseReference;
-    let loggedInCitizen;
+    let client: CosApiClient;
+    let caseReference: string;
+    let loggedInCitizen: UserDetails;
+    let isAllegationOfHarmViewed: YesOrNo;
 
     try {
       const originalUrl = req.originalUrl;
@@ -258,9 +280,48 @@ export class DocumentManagerController extends PostController<AnyObject> {
       console.log(err);
     }
 
-    let documentToGet = '';
-    let uid = '';
     let fieldFlag = '';
+    let documentToGet;
+    let uid;
+
+    if (filename === 'generate-c7-final') {
+      endPoint = 'caresponse';
+      req.session.userCase.respondents?.forEach(respondent => {
+        if (respondent.value.user.idamId === req.session.user.id) {
+          filename = respondent.id;
+        }
+      });
+    }
+
+    if (endPoint === 'caresponse') {
+      req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
+        if (document.value.createdBy === filename) {
+          if (!document.value.citizenDocument.document_binary_url) {
+            throw new Error('CA_RESPONSE binary url is not found');
+          }
+          filename = 'C7_Document.pdf';
+          documentToGet = document.value.citizenDocument.document_binary_url;
+          uid = this.getUID(documentToGet);
+        }
+      });
+    }
+
+    if (filename === 'cadafinaldocumentrequest') {
+      if (!req.session.userCase.finalDocument?.document_binary_url) {
+        throw new Error('APPLICANT_CA_REQUEST binary url is not found');
+      }
+      filename = req.session.userCase.finalDocument.document_filename;
+      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
+
+    if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
+      if (!req.session.userCase.finalDocument?.document_binary_url) {
+        throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
+      }
+      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
 
     if (filename === DocumentType.WITNESS_STATEMENT) {
       if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
@@ -419,7 +480,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       data.id = caseReference;
       const updatedCaseDataFromCos = await client.updateCase(
         loggedInCitizen,
-        caseReference as string,
+        caseReference,
         data,
         'citizen-internal-case-update'
       );
@@ -543,11 +604,22 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return redirectUrl;
   }
 
-  public async post(req: AppRequest, res: Response): Promise<void> {
-    let isApplicant;
-    if (req.query && req.query.isApplicant) {
-      isApplicant = req.query.isApplicant;
+  public async reqFiles(req: AppRequest): Promise<void> {
+    if (req.headers.accept?.includes('application/json')) {
+      throw new Error('No files were uploaded');
+    } else {
+      console.log('test.....');
+      const fileData = req.files || [];
+      console.log('File data... : ', fileData);
+      const obj = {
+        id: fileData[0]['originalname'],
+        name: fileData[0]['originalname'],
+      };
+      req.session.userCase.applicantUploadFiles?.push(obj);
     }
+  }
+
+  public async undefiendUploadFiles(req: AppRequest): Promise<void> {
     if (req?.session?.userCase?.applicantUploadFiles === undefined) {
       req.session.userCase[ApplicantUploadFiles] = [];
     }
@@ -555,25 +627,30 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req?.session?.userCase?.respondentUploadFiles === undefined) {
       req.session.userCase[RespondentUploadFiles] = [];
     }
+  }
 
+  public async fileData(req: AppRequest): Promise<void> {
     if (!req.files?.length) {
-      if (req.headers.accept?.includes('application/json')) {
-        throw new Error('No files were uploaded');
-      } else {
-        const fileData = req.files || [];
-        const obj = {
-          id: fileData[0]['originalname'],
-          name: fileData[0]['originalname'],
-        };
-        req.session.userCase.applicantUploadFiles?.push(obj);
-      }
+      this.reqFiles(req);
     } else {
-      //const fileData = req.files || [];
-      // const obj = {
-      //   id: fileData[0]['originalname'],
-      //   name: fileData[0]['originalname'],
-      // };
+      const fileData = req.files || [];
+      const obj = {
+        id: fileData[0]['originalname'],
+        name: fileData[0]['originalname'],
+      };
+      req.session.userCase.applicantUploadFiles?.push(obj);
     }
+  }
+
+  public async post(req: AppRequest, res: Response): Promise<void> {
+    let isApplicant;
+    if (req.query && req.query.isApplicant) {
+      isApplicant = req.query.isApplicant;
+    }
+
+    this.undefiendUploadFiles(req);
+
+    this.fileData(req);
 
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);

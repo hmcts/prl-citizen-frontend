@@ -31,7 +31,7 @@ export const getUserDetails = async (
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
   console.log('******* Recieved response');
-  const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
+  const jwt: IdTokenJwtPayload = jwt_decode(response.data.id_token);
   console.log('******* Recieved jwt');
   console.log('******* Recieved user: ');
   return {
@@ -53,7 +53,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
-  const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
+  const jwt: IdTokenJwtPayload = jwt_decode(response.data.id_token);
   return {
     accessToken: response.data.access_token,
     id: jwt.uid,

@@ -1,5 +1,6 @@
 import { Banner, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
@@ -259,6 +260,8 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
+  console.log(JSON.stringify(buildProgressBarStages(content.userCase!)));
+
   return {
     ...translations,
     sections: generateRespondentTaskList(
@@ -268,6 +271,7 @@ export const generateContent: TranslationFn = content => {
       content.userIdamId
     ),
     banners,
+    stages: buildProgressBarStages(content.userCase!),
   };
 };
 
