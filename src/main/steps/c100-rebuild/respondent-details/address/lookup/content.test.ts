@@ -10,8 +10,8 @@ const en = {
   manualAddressUrl: '/c100-rebuild/respondent-details/3d6cc3df-9c11-42c0-be69-84acfcbd6048/address/manual',
   errors: {
     addressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter the postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 };
@@ -21,8 +21,8 @@ const cy = {
   manualAddressUrl: '/c100-rebuild/respondent-details/3d6cc3df-9c11-42c0-be69-84acfcbd6048/address/manual',
   errors: {
     addressPostcode: {
-      required: 'Enter a real postcode - welsh',
-      invalid: 'Enter a real postcode - welsh',
+      required: 'Enter the postcode - welsh',
+      invalid: 'Enter a valid postcode - welsh',
     },
   },
 };
