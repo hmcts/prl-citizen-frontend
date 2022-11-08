@@ -12,10 +12,10 @@ const en = () => ({
   one: 'Yes',
   two: 'No',
   errors: {
-    feesAppliedDetails: {
+    hwf_feesAppliedDetails: {
       required: 'Select yes if you already applied for help with your application fee',
     },
-    hwfReferenceNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees',
     },
   },
@@ -29,10 +29,10 @@ const cy = () => ({
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {
-    feesAppliedDetails: {
+    hwf_feesAppliedDetails: {
       required: 'Select yes if you already applied for help with your application fee - welsh',
     },
-    hwfReferenceNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
     },
   },
@@ -45,7 +45,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    feesAppliedDetails: {
+    hwf_feesAppliedDetails: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -53,7 +53,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            hwfReferenceNumber: {
+            helpWithFeesReferenceNumber: {
               type: 'text',
               label: l => l.hwfReferenceNumberLabel,
               labelSize: 'm',
