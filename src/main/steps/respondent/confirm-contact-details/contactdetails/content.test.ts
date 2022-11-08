@@ -12,12 +12,12 @@ const en = {
   continue: 'Continue',
   errors: {
     citizenUserPhoneNumber: {
-      required: 'Enter UK telephone number',
+      required: 'Enter a valid UK telephone number',
       invalid: 'Enter a valid UK telephone number',
     },
     citizenUserEmailAddress: {
-      required: 'Enter Email address',
-      invalid: 'Enter an email address in the correct format, like name@example.com',
+      required: 'Enter a valid email address',
+      invalid: 'Enter a valid email address, like name@example.com',
     },
   },
 };
