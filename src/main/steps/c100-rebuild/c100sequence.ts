@@ -764,7 +764,7 @@ export const C100Sequence: Step[] = [
     url: C100_CHILDERN_DETAILS_OTHER_CHILDREN,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.cd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_APPLICANT_ADD_APPLICANTS,
+      data.ocd_hasOtherChildren === YesOrNo.YES ? C100_CHILDERN_OTHER_CHILDREN_NAMES : C100_APPLICANT_ADD_APPLICANTS,
   },
   {
     url: C100_CHILDERN_OTHER_CHILDREN_NAMES,

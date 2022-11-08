@@ -88,7 +88,7 @@ describe('child details > personal details', () => {
       year: 'Year',
     },
     userCase: {
-      cd_otherChildren: [
+      ocd_otherChildren: [
         {
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           firstName: 'Bob',
@@ -173,7 +173,7 @@ describe('child details > personal details', () => {
     expect(dateOfBirth.classes).toBe('govuk-date-input');
     expect((dateOfBirth.hint as Function)(generatedContent)).toBe(en.dateHint);
     expect((dateOfBirth.label as Function)(generatedContent)).toBe(en.dobLabel);
-    (dateOfBirth.validator as Validator)(commonContent.userCase!.cd_otherChildren![0].personalDetails.dateOfBirth);
+    (dateOfBirth.validator as Validator)(commonContent.userCase!.ocd_otherChildren![0].personalDetails.dateOfBirth);
     expect(areDateFieldsFilledIn).toHaveBeenCalledWith({
       day: '12',
       month: '12',
@@ -199,7 +199,7 @@ describe('child details > personal details', () => {
       en.approxDobLabel
     );
     (isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.validator as Validator)(
-      commonContent.userCase!.cd_otherChildren![0].personalDetails.dateOfBirth
+      commonContent.userCase!.ocd_otherChildren![0].personalDetails.dateOfBirth
     );
     expect(areDateFieldsFilledIn).toHaveBeenCalledWith({
       day: '12',

@@ -10,7 +10,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
   const commonContent = {
     language: 'en',
     userCase: {
-      cd_otherChildren: [
+      ocd_otherChildren: [
         {
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           firstName: 'Bob',

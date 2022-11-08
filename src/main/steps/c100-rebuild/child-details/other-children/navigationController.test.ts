@@ -9,7 +9,7 @@ const dummyRequest = mockRequest({
   },
   session: {
     userCase: {
-      cd_otherChildren: [
+      ocd_otherChildren: [
         {
           id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
           firstName: 'a',
