@@ -12,7 +12,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(112);
+    expect(C100Sequence).toHaveLength(113);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -661,12 +661,10 @@ describe('C100Sequence', () => {
     expect(C100Sequence[101].url).toBe('/c100-rebuild/respondent-details/:respondentId/personal-details');
     expect(C100Sequence[101].showInSection).toBe('c100');
     expect(C100Sequence[101].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474/'
+      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474'
     );
 
-    expect(C100Sequence[102].url).toBe(
-      '/c100-rebuild/respondent-details/:respondentId/relationship-to-child/:childId/'
-    );
+    expect(C100Sequence[102].url).toBe('/c100-rebuild/respondent-details/:respondentId/relationship-to-child/:childId');
     expect(C100Sequence[102].showInSection).toBe('c100');
     expect(C100Sequence[102].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
       '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/lookup'
@@ -728,5 +726,11 @@ describe('C100Sequence', () => {
     expect(C100Sequence[111].url).toBe('/c100-rebuild/get-case');
     expect(C100Sequence[111].showInSection).toBe('c100');
     expect(C100Sequence[111].getNextStep({})).toBe('/c100-rebuild/get-case');
+
+    expect(C100Sequence[112].url).toBe('/c100-rebuild/child-details/:childId/live-with');
+    expect(C100Sequence[112].showInSection).toBe('c100');
+    expect(C100Sequence[112].getNextStep(childrenMockData.session.userCase, childrenMockData)).toBe(
+      '/c100-rebuild/safety-concerns/concern-guidance'
+    );
   });
 });
