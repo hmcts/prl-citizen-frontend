@@ -44,11 +44,11 @@ export interface Miam {
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
-  AddressLine3: string;
+  AddressLine3?: string;
   PostTown: string;
   County: string;
   PostCode: string;
-  Country: string;
+  Country?: string;
 }
 
 export interface SolicitorOrg {
@@ -2464,6 +2464,8 @@ export interface C1ASafteyConcerns {
     firstName: string;
     lastName: string;
     personalDetails: {
+      repondentDetials?: YesNoEmpty;
+      resPreviousName?: string,
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
       isNameChanged?: YesNoDontKnow;
@@ -2471,9 +2473,18 @@ export interface C1ASafteyConcerns {
       approxDateOfBirth?: CaseDate;
       gender: Gender;
       otherGenderDetails?: string;
+      respondentPlaceOfBirth?: string;
+      respondentPlaceOfBirthUnknown?: YesOrNo;
     };
     relationshipDetails: {
       relationshipToChildren: RelationshipToChildren[];
+    };
+    address?: C100Address;
+    contactDetails: {
+      donKnowEmailAddress?: YesOrNo
+      emailAddress?: string
+      telephoneNumber?: string
+      donKnowTelephoneNumber?: YesOrNo
     }
   };
 
@@ -2491,4 +2502,10 @@ export interface C1ASafteyConcerns {
     GRAND_PARENT = 'Grandparent',
     OTHER = 'Other',
     EMPTY = ''
+  }
+  
+  export interface C100Address extends Address {
+    selectedAddress?: number,
+    addressHistory?: YesOrNo,
+    provideDetailsOfPreviousAddresses?: string
   }

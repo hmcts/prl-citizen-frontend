@@ -121,6 +121,11 @@ import {
   /** Respondent Details */
   C100_RESPONDENT_DETAILS_ADD,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+  C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
+  C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
+  C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
+  C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
+  C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
 
   /** Other Person Details */
   C100_OTHER_PERSON_DETAILS_ADD,
@@ -137,7 +142,7 @@ import MIAMNavigationController from './miam/navigationController';
 import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
-import RespondentDetailsNavigationController from './respondent-details/navigationController';
+import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 
 export const C100Sequence: Step[] = [
@@ -779,17 +784,51 @@ export const C100Sequence: Step[] = [
   {
     url: C100_RESPONDENT_DETAILS_ADD,
     showInSection: Sections.C100,
-    getNextStep: caseData => RespondentDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADD, caseData),
+    getNextStep: caseData => RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADD, caseData),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      RespondentDetailsNavigationController.getNextUrl(
+      RespondentsDetailsNavigationController.getNextUrl(
         C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
         caseData,
         req?.params
       ),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, caseData, req?.params),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADDRESS_SELECT, caseData, req?.params),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADDRESS_MANUAL, caseData, req?.params),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_CONTACT_DETAILS, caseData, req?.params),
   },
   {
     url: C100_OTHER_PERSON_CHECK,
