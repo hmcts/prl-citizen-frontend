@@ -119,8 +119,6 @@ export const enContent = {
     previousAddress: 'Previous Addresses',
     hasOtherChildren: 'Do you or any respondents have other children who are not part of this application?',
     otherGender: 'They identify in another way ',
-    approxCheckboxLabel: 'I don’t know their date of birth',
-    approxDobLabel: 'Approximate date of birth',
     whereDoChildLive: 'Where do the children live?',
     writtenAgreement:
       'Do you have a written agreement with the other people in the case, that you want the court to review?',
@@ -219,8 +217,6 @@ export const cyContent: typeof enContent = {
     previousAddress: 'Previous Addresses',
     hasOtherChildren: 'Do you or any respondents have other children who are not part of this application?- welsh',
     otherGender: 'They identify in another way ',
-    approxCheckboxLabel: 'I don’t know their date of birth',
-    approxDobLabel: 'Approximate date of birth',
     whereDoChildLive: 'Where do the children live? - welsh',
     writtenAgreement:
       'Do you have a written agreement with the other people in the case, that you want the court to review? - welsh',
