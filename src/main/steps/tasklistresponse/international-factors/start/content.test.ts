@@ -6,7 +6,7 @@ import { generateContent } from './content';
 
 const enContent = {
   section: ' ',
-  title: "Are the children's lives mainly based outside of England and Wales?",
+  title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
   hint: 'For example, does their main family life take place outside of England and Wales?',
@@ -24,7 +24,7 @@ const enContent = {
 
 const cyContent = {
   section: ' ',
-  title: "Are the children's lives mainly based outside of England and Wales? {in welsh}",
+  title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
   hint: 'For example, does their main family life take place outside of England and Wales?',
@@ -54,7 +54,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual("Are the children's lives mainly based outside of England and Wales?");
+    expect(generatedContent.title).toEqual('Do the children live outside of England or Wales?');
     expect(generatedContent.section).toEqual(' ');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
