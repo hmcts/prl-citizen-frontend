@@ -38,7 +38,7 @@ describe('applicant > address > select > content', () => {
           firstName: 'Dummy',
           id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
           lastName: 'Test1',
-          otherPersonAddress: {
+          address: {
             PostCode: 'AG11NB',
           },
         },

@@ -9,8 +9,8 @@ const en = {
   title: 'Address of John Jones',
   errors: {
     PostCode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter the Post Code',
+      invalid: 'Enter the Post Code',
     },
   },
 };
@@ -19,8 +19,8 @@ const cy = {
   title: 'Address of - welsh John Jones',
   errors: {
     PostCode: {
-      required: 'Enter a real postcode - welsh',
-      invalid: 'Enter a real postcode - welsh',
+      required: 'Enter the Post Code - welsh',
+      invalid: 'Enter the Post Code - welsh',
     },
   },
 };
@@ -35,7 +35,7 @@ describe('applicant > address > lookup > content', () => {
           id: '3d6cc3df-9c11-42c0-be69-84acfcbd6048',
           firstName: 'John',
           lastName: 'Jones',
-          otherPersonAddress: {
+          address: {
             PostCode: 'AG11NB',
           },
         },

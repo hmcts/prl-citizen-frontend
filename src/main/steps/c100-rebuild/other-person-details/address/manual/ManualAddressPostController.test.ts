@@ -22,7 +22,7 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
           firstName: 'Dummy ',
           id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
           lastName: 'Test1',
-          otherPersonAddress: {
+          address: {
             PostCode: 'AG11NB',
             AddressLine1: 'UK',
             AddressLine2: 'UK1',
@@ -50,7 +50,7 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
             firstName: 'Dummy ',
             id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
             lastName: 'Test1',
-            otherPersonAddress: {
+            address: {
               PostCode: 'AG11NB',
               AddressLine1: 'UK',
               AddressLine2: 'UK1',
@@ -68,7 +68,7 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
               firstName: 'Dummy ',
               id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
               lastName: 'Test1',
-              otherPersonAddress: {
+              address: {
                 PostCode: 'AG11NB',
                 AddressLine1: 'UK',
                 AddressLine2: 'UK1',

@@ -6,6 +6,7 @@ import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/vali
 
 const en = () => ({
   addressLine1: 'Building and street',
+  addressLine1Hint: 'Court documents may be sent here',
   town: 'Town or city',
   county: 'County',
   country: 'Country',
@@ -16,6 +17,7 @@ const en = () => ({
 
 const cy = () => ({
   addressLine1: 'Building and street - welsh',
+  addressLine1Hint: 'Court documents may be sent here - welsh',
   town: 'Town or city - welsh',
   county: 'County - welsh',
   country: 'Country - welsh',
@@ -25,7 +27,7 @@ const cy = () => ({
 });
 
 export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent => {
-  const { otherPersonAddress, addressUnknown } = caseData;
+  const { address, addressUnknown } = caseData;
   console.log(addressUnknown, 'known or not');
 
   const fields = {
@@ -34,7 +36,8 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       classes: 'govuk-label',
       label: l => l.addressLine1,
       labelSize: null,
-      value: otherPersonAddress!.AddressLine1,
+      hint: l => l.addressLine1Hint,
+      value: address!.AddressLine1,
       validator: (value, formData) =>
         formData?.addressUnknown !== YesNoEmpty.YES ? isFieldFilledIn(value) : undefined,
     },
@@ -42,7 +45,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       type: 'text',
       classes: 'govuk-label',
       label: l => l.addressLine2,
-      value: otherPersonAddress!.AddressLine2,
+      value: address!.AddressLine2,
       labelSize: null,
     },
     PostTown: {
@@ -50,7 +53,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.town,
       labelSize: null,
-      value: otherPersonAddress!.PostTown,
+      value: address!.PostTown,
       validator: (value, formData) =>
         formData?.addressUnknown !== YesNoEmpty.YES ? isFieldFilledIn(value) : undefined,
     },
@@ -58,14 +61,14 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
     //   type: 'text',
     //   classes: 'govuk-label govuk-!-width-two-thirds',
     //   label: l => l.county,
-    //   value: otherPersonAddress!.County,
+    //   value: address!.County,
     //   labelSize: null,
     // },
     Country: {
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.country,
-      value: otherPersonAddress!.Country,
+      value: address!.Country,
       labelSize: null,
     },
     PostCode: {
@@ -73,7 +76,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       classes: 'govuk-label govuk-input--width-10',
       label: l => l.postcode,
       labelSize: null,
-      value: otherPersonAddress!.PostCode,
+      value: address!.PostCode,
       attributes: {
         maxLength: 14,
       },

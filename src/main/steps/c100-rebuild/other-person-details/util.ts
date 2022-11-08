@@ -45,17 +45,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     telephoneNumber: '',
     donKnowTelephoneNumber: YesOrNo.NO,
   },
-  otherPersonAddress: {
-    AddressLine1: '',
-    AddressLine2: '',
-    AddressLine3: '',
-    PostTown: '',
-    County: '',
-    PostCode: '',
-    Country: '',
-  },
   addressUnknown: YesOrNo.NO,
-  otherPersonAddressIndex: 0,
 });
 
 export const getOtherPersonDetails = (
@@ -70,7 +60,7 @@ export const updateOtherPersonDetails = (
   otherPersons.map(otherPerson => (otherPerson.id === otherPersonDetails.id ? otherPersonDetails : otherPerson));
 
 export const transformFormData = (
-  context: 'personalDetails' | 'otherPersonAddress',
+  context: 'personalDetails' | 'address',
   formData: Record<string, any>
 ): Partial<C100RebuildPartyDetails> => {
   const dataShape = getDataShape()[context];

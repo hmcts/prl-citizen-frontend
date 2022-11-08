@@ -33,9 +33,9 @@ export default class AddressLookupPostController extends PostController<AnyObjec
     ) as C100RebuildPartyDetails;
 
     Object.assign(
-      otherPersonsDetails.otherPersonAddress!,
+      otherPersonsDetails.address!,
       transformFormData(
-        'otherPersonAddress',
+        'address',
         formData
         // { PostCode: formData['addressPostcode'] }
       )

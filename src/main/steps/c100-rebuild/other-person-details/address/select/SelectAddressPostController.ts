@@ -23,10 +23,10 @@ export default class SelectAddressPostController extends PostController<AnyObjec
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length === 0) {
-      const otherPersonAddressIndex = Number(formData['selectAddress']);
-      if (otherPersonAddressIndex >= 0) {
+      const selectedAddressIndex = Number(formData['selectAddress']);
+      if (selectedAddressIndex >= 0) {
         //eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const selectedAddress = req.session.addresses[otherPersonAddressIndex] as any;
+        const selectedAddress = req.session.addresses[selectedAddressIndex] as any;
 
         const otherPersonIndex = req.session.userCase?.oprs_otherPersons?.findIndex(
           i => i.id === otherPersonId
@@ -39,8 +39,8 @@ export default class SelectAddressPostController extends PostController<AnyObjec
 
         if (otherPersonIndex >= 0) {
           Object.assign(otherPersonsDetails, {
-            otherPersonAddress: {
-              ...otherPersonsDetails.otherPersonAddress,
+            address: {
+              ...otherPersonsDetails.address,
               AddressLine1: selectedAddress.street1,
               AddressLine2: selectedAddress.street2,
               PostTown: selectedAddress.town,

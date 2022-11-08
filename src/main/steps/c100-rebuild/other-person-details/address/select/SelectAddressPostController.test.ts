@@ -41,14 +41,14 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
           firstName: 'Dummy ',
           id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
           lastName: 'Test1',
-          otherPersonAddress: {
+          address: {
             PostCode: 'AG11NB',
             AddressLine1: 'UK',
             AddressLine2: 'UK1',
             PostTown: 'London',
             County: 'UK',
           },
-          otherPersonAddressIndex: 2,
+          selectedAddress: 2,
         },
       ],
     },
@@ -68,14 +68,14 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
         firstName: 'Dummy ',
         id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
         lastName: 'Test1',
-        otherPersonAddress: {
+        address: {
           PostCode: 'AG11NB',
           AddressLine1: 'UK',
           AddressLine2: 'UK1',
           PostTown: 'London',
           County: 'UK',
         },
-        otherPersonAddressIndex: 2,
+        selectedAddress: 2,
         selectAddress: '0',
         addresses: [
           {
@@ -123,7 +123,7 @@ describe('applicant1 > address > lookup > SelectAddressPostController', () => {
               id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
               firstName: 'Dummy',
               lastName: 'Test1',
-              otherPersonAddress: {
+              address: {
                 PostCode: 'AG11NB',
                 AddressLine1: 'UK',
                 AddressLine2: 'UK1',

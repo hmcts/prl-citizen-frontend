@@ -21,7 +21,7 @@ describe('applicant1 > address > lookup > AddressLookupPostController', () => {
           id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
           firstName: 'Bob',
           lastName: 'Jones',
-          otherPersonAddress: {
+          address: {
             PostCode: 'AG11NB',
           },
         },
@@ -43,7 +43,7 @@ describe('applicant1 > address > lookup > AddressLookupPostController', () => {
         id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
         firstName: 'Bob',
         lastName: 'Jones',
-        otherPersonAddress: {
+        address: {
           PostCode: 'AG11NB',
         },
         saveAndComeLater: true,
@@ -56,7 +56,7 @@ describe('applicant1 > address > lookup > AddressLookupPostController', () => {
               id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
               firstName: 'Bob',
               lastName: 'Jones',
-              otherPersonAddress: {
+              address: {
                 PostCode: 'AG11NB',
               },
             },

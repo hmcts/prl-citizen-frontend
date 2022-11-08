@@ -52,17 +52,7 @@ const dummyRequest = mockRequest({
             telephoneNumber: '',
             donKnowTelephoneNumber: 'No',
           },
-          otherPersonAddress: {
-            AddressLine1: '',
-            AddressLine2: '',
-            AddressLine3: '',
-            PostTown: '',
-            County: '',
-            PostCode: '',
-            Country: '',
-          },
           addressUnknown: 'No',
-          otherPersonAddressIndex: 0,
         },
       ],
     },
@@ -113,17 +103,7 @@ describe('Add other Person util', () => {
           telephoneNumber: '',
           donKnowTelephoneNumber: 'No',
         },
-        otherPersonAddress: {
-          AddressLine1: '',
-          AddressLine2: '',
-          AddressLine3: '',
-          PostTown: '',
-          County: '',
-          PostCode: '',
-          Country: '',
-        },
         addressUnknown: 'No',
-        otherPersonAddressIndex: 0,
       })
     );
   });

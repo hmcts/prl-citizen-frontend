@@ -55,7 +55,7 @@ const cy = content => {
 };
 
 export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent => {
-  const { otherPersonAddressIndex } = caseData;
+  const { selectedAddress } = caseData.address ?? {};
   return {
     fields: {
       selectAddress: {
@@ -63,7 +63,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
         label: l => l.selectAddress,
         labelSize: null,
         validator: isAddressSelected,
-        value: otherPersonAddressIndex,
+        value: selectedAddress,
         options: l => l.options,
       },
     },

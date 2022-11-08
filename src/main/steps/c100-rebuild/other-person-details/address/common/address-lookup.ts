@@ -15,7 +15,7 @@ const cy = () => ({
 });
 
 export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent => {
-  const { otherPersonAddress } = caseData;
+  const { address } = caseData;
   return {
     fields: {
       PostCode: {
@@ -23,7 +23,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
         classes: 'govuk-label govuk-input--width-10',
         label: l => l.postcode,
         labelSize: null,
-        value: otherPersonAddress!.PostCode,
+        value: address!.PostCode,
         attributes: {
           maxLength: 14,
         },

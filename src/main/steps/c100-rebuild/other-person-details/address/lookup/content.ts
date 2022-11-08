@@ -18,8 +18,8 @@ const en = () => ({
   enterAddressManually: 'I dont know their postcode or they live outside the UK',
   errors: {
     PostCode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter the Post Code',
+      invalid: 'Enter the Post Code',
     },
   },
 });
@@ -30,8 +30,8 @@ const cy = () => ({
   enterAddressManually: 'I dont know their postcode or they live outside the UK - welsh',
   errors: {
     PostCode: {
-      required: 'Enter a real postcode - welsh',
-      invalid: 'Enter a real postcode - welsh',
+      required: 'Enter the Post Code - welsh',
+      invalid: 'Enter the Post Code - welsh',
     },
   },
 });

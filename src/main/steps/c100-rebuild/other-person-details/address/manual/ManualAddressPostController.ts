@@ -29,7 +29,7 @@ export default class ManualAddressPostController extends PostController<AnyObjec
     console.log(formData, 'formData');
 
     Object.assign(otherPersonsDetails, {
-      otherPersonAddress: transformFormData('otherPersonAddress', formData),
+      address: transformFormData('address', formData),
       addressUnknown: formData['addressUnknown'],
     });
 

@@ -79,7 +79,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     ...selectAddressFormTranslations,
-    adddressPostCode: otherPersonDetails!.otherPersonAddress!.PostCode,
+    adddressPostCode: otherPersonDetails!.address!.PostCode,
     changePostCodeUrl: applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId }),
     cantFindAddressUrl: applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, { otherPersonId }),
     title: `${translations.title} ${firstName} ${lastName}`,

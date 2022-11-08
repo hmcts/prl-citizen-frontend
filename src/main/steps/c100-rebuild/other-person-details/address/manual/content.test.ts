@@ -14,8 +14,8 @@ const en = {
       required: 'Enter the town or city',
     },
     PostCode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter the Post Code',
+      invalid: 'Enter the Post Code',
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
@@ -33,8 +33,8 @@ const cy = {
       required: 'Enter the town or city - welsh',
     },
     PostCode: {
-      required: 'Enter a real postcode - welsh',
-      invalid: 'Enter a real postcode - welsh',
+      required: 'Enter the Post Code - welsh',
+      invalid: 'Enter the Post Code - welsh',
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
@@ -62,7 +62,7 @@ describe('applicant > address > manual > content', () => {
           firstName: 'Dummy',
           id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
           lastName: 'Test1',
-          otherPersonAddress: {
+          address: {
             PostCode: 'AG11NB',
             AddressLine1: 'UK',
             AddressLine2: 'UK1',
