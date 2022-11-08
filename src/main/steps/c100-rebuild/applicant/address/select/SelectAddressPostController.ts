@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { C100Applicant } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -36,7 +37,7 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         ) as number;
         if (applicantIndex >= 0) {
           req.session.userCase!.appl_allApplicants![applicantIndex] = {
-            ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
+            ...(req.session.userCase?.appl_allApplicants?.[applicantIndex] as C100Applicant),
             applicantAddressPostcode: selectedAddress.postcode as string,
             applicantAddress1: selectedAddress.street1 as string,
             applicantAddress2: selectedAddress.street2 as string,
