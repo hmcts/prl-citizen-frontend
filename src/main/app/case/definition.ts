@@ -2487,6 +2487,9 @@ export interface C1ASafteyConcerns {
       telephoneNumber?: string
       donKnowTelephoneNumber?: YesOrNo
     }
+    otherPersonAddress?: Address;
+    addressUnknown?: YesOrNo;
+    otherPersonAddressIndex?: number;
   };
 
   export interface RelationshipToChildren {
