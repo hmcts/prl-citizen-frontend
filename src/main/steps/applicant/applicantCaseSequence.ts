@@ -48,7 +48,6 @@ import {
   PREVIOUS_ORDERS_SUBMITTED,
   REASONABLE_ADJUSTMENTS,
   SAFETY_ARRANGEMENTS,
-  SUPPORT_YOU_NEED_DURING_CASE,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   TRAVELLING_TO_COURT,
@@ -139,7 +138,12 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
-    url: SUPPORT_YOU_NEED_DURING_CASE,
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_ATTENDING_THE_COURT,
+  },
+  {
+    url: APPLICANT_ATTENDING_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => LANGUAGE_REQUIREMENTS,
   },
