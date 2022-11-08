@@ -5,7 +5,7 @@ timeout: 30000
 services:
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
-    token: 'TcDHoU6gWt4GaAd6JU0TSendKdGHhaGT'
+    token: 'POSTCODE_TOKEN'
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'prl_citizen_frontend'
