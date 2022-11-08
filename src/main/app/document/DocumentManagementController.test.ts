@@ -100,7 +100,7 @@ describe('DocumentManagerController', () => {
       } catch (err) {
         flag = true;
       }
-      expect(flag).toBe(false);
+      expect(flag).toBe(true);
     });
   });
 
@@ -531,7 +531,7 @@ describe('DocumentManagerController', () => {
       uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
       req.session.userCase.applicantUploadFiles = [];
       await documentManagerController.post(req, res);
-      expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded.pdf');
+      expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded-file.jpg');
     });
     test('check document uploaded sucesfully with file for respondent', async () => {
       req.query.isApplicant = 'No';
