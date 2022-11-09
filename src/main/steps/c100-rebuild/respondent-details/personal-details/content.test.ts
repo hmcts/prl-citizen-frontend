@@ -11,7 +11,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Provide details for',
-  repondentDetials: 'Have they change thier name?',
+  hasNameChanged: 'Have they change their name?',
   repondentHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
   one: 'Yes',
@@ -31,7 +31,7 @@ const en = {
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
   otherGenderDetailsLabel: "Respondent's gender (Optional)",
   errors: {
-    repondentDetials: {
+    hasNameChanged: {
       required: 'Select if they’ve changed their name',
     },
     previousName: {
@@ -65,7 +65,7 @@ const en = {
 
 const cy = {
   title: 'Provide details for - welsh',
-  repondentDetails: 'Have they change thier name? - welsh',
+  hasNameChanged: 'Have they change their name? - welsh',
   repondentHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
   one: 'Yes',
@@ -85,7 +85,7 @@ const cy = {
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth - welsh',
   otherGenderDetailsLabel: "Respondent's gender (Optional) - welsh",
   errors: {
-    repondentDetials: {
+    hasNameChanged: {
       required: 'Select if they’ve changed their name -welsh',
     },
     previousName: {
@@ -133,7 +133,7 @@ describe('respondent details > personal details', () => {
           firstName: 'Bob',
           lastName: 'Silly',
           personalDetails: {
-            repondentDetials: YesNoEmpty.YES,
+            hasNameChanged: YesNoEmpty.YES,
             resPreviousName: YesNoEmpty.YES,
             dateOfBirth: {
               year: '1987',
@@ -206,29 +206,27 @@ describe('respondent details > personal details', () => {
   test('should contain personal details form fields', () => {
     const {
       respondentPlaceOfBirth,
-      repondentDetials,
+      hasNameChanged,
       dateOfBirth,
       isDateOfBirthUnknown,
       gender,
       respondentPlaceOfBirthUnknown,
     } = fields as Record<string, FormFields>;
 
-    expect(repondentDetials.type).toBe('radios');
-    expect(repondentDetials.classes).toBe('govuk-radios');
-    expect((repondentDetials.label as Function)(generatedContent)).toBe(en.repondentDetials);
-    expect((repondentDetials.hint as Function)(generatedContent)).toBe(en.repondentHint);
-    expect((repondentDetials.values[0].label as Function)(generatedContent)).toBe(en.one);
+    expect(hasNameChanged.type).toBe('radios');
+    expect(hasNameChanged.classes).toBe('govuk-radios');
+    expect((hasNameChanged.label as Function)(generatedContent)).toBe(en.hasNameChanged);
+    expect((hasNameChanged.hint as Function)(generatedContent)).toBe(en.repondentHint);
+    expect((hasNameChanged.values[0].label as Function)(generatedContent)).toBe(en.one);
 
-    expect(repondentDetials.values[0].subFields.previousName.type).toBe('text');
-    expect((repondentDetials.values[0].subFields.previousName.hint as Function)(generatedContent)).toBe(
+    expect(hasNameChanged.values[0].subFields.previousName.type).toBe('text');
+    expect((hasNameChanged.values[0].subFields.previousName.hint as Function)(generatedContent)).toBe(
       en.previousNameHint
     );
-    expect((repondentDetials.values[0].subFields.previousName.label as Function)(generatedContent)).toBe(
-      en.previousName
-    );
+    expect((hasNameChanged.values[0].subFields.previousName.label as Function)(generatedContent)).toBe(en.previousName);
 
-    expect((repondentDetials.values[1].label as Function)(generatedContent)).toBe(en.two);
-    expect((repondentDetials.values[2].label as Function)(generatedContent)).toBe(en.dontKnow);
+    expect((hasNameChanged.values[1].label as Function)(generatedContent)).toBe(en.two);
+    expect((hasNameChanged.values[2].label as Function)(generatedContent)).toBe(en.dontKnow);
 
     expect(dateOfBirth.type).toBe('date');
     expect(dateOfBirth.classes).toBe('govuk-date-input');

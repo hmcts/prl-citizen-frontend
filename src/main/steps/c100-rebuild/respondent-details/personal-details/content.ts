@@ -1,5 +1,5 @@
 import { CaseDate } from '../../../../app/case/case';
-import { C100RebuildPartyDetails, Gender, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
@@ -15,7 +15,7 @@ import { getRespndentDetails } from '../util';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Provide details for',
-  repondentDetials: 'Have they change thier name?',
+  hasNameChanged: 'Have they change their name?',
   repondentHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
   one: 'Yes',
@@ -35,7 +35,7 @@ const en = () => ({
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
   otherGenderDetailsLabel: "Respondent's gender (Optional)",
   errors: {
-    repondentDetials: {
+    hasNameChanged: {
       required: 'Select if they’ve changed their name',
     },
     previousName: {
@@ -69,7 +69,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Provide details for - welsh',
-  repondentDetails: 'Have they change thier name? - welsh',
+  hasNameChanged: 'Have they change their name? - welsh',
   repondentHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
   one: 'Yes',
@@ -89,7 +89,7 @@ const cy = () => ({
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth - welsh',
   otherGenderDetailsLabel: "Respondent's gender (Optional) - welsh",
   errors: {
-    repondentDetials: {
+    hasNameChanged: {
       required: 'Select if they’ve changed their name -welsh',
     },
     previousName: {
@@ -144,8 +144,8 @@ export const generateFormFields = (
   personalDetails: C100RebuildPartyDetails['personalDetails']
 ): GenerateDynamicFormFields => {
   const {
-    repondentDetials,
-    resPreviousName,
+    hasNameChanged,
+    previousFullName,
     dateOfBirth,
     isDateOfBirthUnknown,
     approxDateOfBirth,
@@ -159,17 +159,17 @@ export const generateFormFields = (
     cy: {},
   };
   const fields = {
-    repondentDetials: {
+    hasNameChanged: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.repondentDetials,
+      label: l => l.hasNameChanged,
       hint: l => l.repondentHint,
       labelSize: 'm',
       values: [
         {
           label: l => l.one,
           value: YesNoEmpty.YES,
-          selected: repondentDetials === YesNoEmpty.YES,
+          selected: hasNameChanged === YesNoDontKnow.yes,
           subFields: {
             previousName: {
               type: 'text',
@@ -177,19 +177,19 @@ export const generateFormFields = (
               labelSize: null,
               label: l => l.previousName,
               hint: l => l.previousNameHint,
-              value: resPreviousName,
+              value: previousFullName,
               validator: isFieldFilledIn,
             },
           },
         },
         {
-          selected: repondentDetials === YesNoEmpty.NO,
+          selected: hasNameChanged === YesNoDontKnow.no,
           label: l => l.two,
-          value: YesNoEmpty.NO,
+          value: YesNoDontKnow.no,
         },
         {
           label: l => l.dontKnow,
-          value: YesNoEmpty.EMPTY,
+          value: YesNoDontKnow.dontKnow,
         },
       ],
       validator: isFieldFilledIn,
@@ -341,6 +341,9 @@ export const generateFormFields = (
   };
 
   // mark the selection for the radio buttons based on the option chosen
+  fields.hasNameChanged.values = fields.hasNameChanged.values.map(config =>
+    config.value === hasNameChanged ? { ...config, selected: true } : config
+  );
 
   fields.gender.values = fields.gender.values.map(config =>
     config.value === gender ? { ...config, selected: true } : config
