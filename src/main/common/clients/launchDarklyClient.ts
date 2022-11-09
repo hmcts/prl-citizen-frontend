@@ -43,6 +43,7 @@ export class LaunchDarklyClient {
     //const test = (await LaunchDarklyClient.client.allFlagsState(ldUser)).getFlagValue(featureKey);
     //console.log(LaunchDarklyClient.client.isOffline());
     //console.log('test   -' + test);
+    await LaunchDarklyClient.client.waitForInitialization();
     return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
     //.variation(featureKey, ldUser, offlineDefault);
   }
