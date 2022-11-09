@@ -343,7 +343,7 @@ export const ApplicantDetails = (
         key: keys['addressDetails'],
         value: '',
         valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys),
-        changeUrl: applyParms( Urls['C100_APPLICANT_ADDRESS_LOOKUP'], { applicantId: sessionApplicantData[applicant]['id'] }),
+        changeUrl: applyParms( Urls['C100_APPLICANT_ADDRESS_MANUAL'], { applicantId: sessionApplicantData[applicant]['id'] }),
       },
       {
         key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),

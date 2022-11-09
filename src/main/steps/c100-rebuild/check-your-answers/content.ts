@@ -141,11 +141,11 @@ export const enContent = {
     respondentPlaceOfBirth: 'Place of birth',
     approxCheckboxLabel: 'I don’t know their date of birth',
     respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
-    addressDetails: 'Address details',
     relationshipTo: 'Relationship to',
     whoDoesLiveWith: 'Who does [^childName^] currently live with?',
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
+    addressDetails: 'Address details',
   },
 };
 export const cyContent: typeof enContent = {
@@ -247,11 +247,11 @@ export const cyContent: typeof enContent = {
     respondentPlaceOfBirth: 'Place of birth',
     approxCheckboxLabel: 'I don’t know their date of birth',
     respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
-    addressDetails: 'Address details',
     relationshipTo: 'Relationship to',
     whoDoesLiveWith: 'Who does [^childName^] currently live with?',
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
+    addressDetails: 'Address details',
   },
 };
 
