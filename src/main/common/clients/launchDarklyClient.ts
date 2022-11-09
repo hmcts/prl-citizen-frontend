@@ -2,8 +2,9 @@ import config from 'config';
 import * as ld from 'ldclient-node';
 import { LDFlagValue } from 'ldclient-node';
 
+const sdkKey: string = config.get<string>('secrets.prl.launchDarkly-sdk-key');
 const ldConfig = {
-  offline: true,
+  offline: config.get<boolean>('launchDarkly.offline'),
 };
 
 export class LaunchDarklyClient {
@@ -11,9 +12,6 @@ export class LaunchDarklyClient {
 
   constructor() {
     if (!LaunchDarklyClient.client) {
-      const sdkKey: string = config.get('featureToggles.launchDarklyKey');
-      console.log('new sdkKey' + sdkKey);
-      ldConfig.offline = config.get('launchDarkly.offline');
       LaunchDarklyClient.client = ld.init(sdkKey, ldConfig);
     }
   }
