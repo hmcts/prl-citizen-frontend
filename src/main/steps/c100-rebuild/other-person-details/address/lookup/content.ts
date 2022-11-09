@@ -3,11 +3,11 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL } from '../../../../../steps/urls';
+import { getOtherPersonDetails } from '../../../other-person-details/util';
 import {
   form as lookupAddressForm,
   languages as lookupAddressFormLanguages,
-} from '../../../other-person-details/address/common/address-lookup';
-import { getOtherPersonDetails } from '../../../other-person-details/util';
+} from '../../../people/address/address-lookup';
 
 let updatedForm: FormContent;
 

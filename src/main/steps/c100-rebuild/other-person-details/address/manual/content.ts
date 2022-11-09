@@ -1,17 +1,18 @@
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
+import { getOtherPersonDetails } from '../../../other-person-details/util';
 import {
   form as manualAddressForm,
   languages as manualAddressFormLanguages,
-} from '../../../other-person-details/address/common/address-manual';
-import { getOtherPersonDetails } from '../../../other-person-details/util';
+} from '../../../people/address/address-manual';
 
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Address details of',
+  addressLine1Hint: 'Court documents may be sent here',
   errors: {
     AddressLine1: {
       required: 'Enter the first line of the address',
@@ -31,6 +32,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Address details of - welsh',
+  addressLine1Hint: 'Court documents may be sent here - welsh',
   errors: {
     AddressLine1: {
       required: 'Enter the first line of the address - welsh',
