@@ -30,6 +30,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  OtherPeopleDetails,
   whereDoChildLive,
 } from './mainUtil';
 import { InternationElements } from './util/InternationElement.util';
@@ -88,6 +89,7 @@ export const enContent = {
     detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '13. Help with Fees',
     whereTheChildrenLive: 'Where the children live',
+    detailofOtherPeople: 'Details of the other people',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -144,6 +146,8 @@ export const enContent = {
     respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
     addressDetails: 'Address details',
     relationshipTo: 'Relationship to',
+    whoDoesLiveWith: 'Who does [^childName^] currently live with?',
+    otherPerson: 'Other person',
   },
 };
 export const cyContent: typeof enContent = {
@@ -194,6 +198,7 @@ export const cyContent: typeof enContent = {
     detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '13. Help with Fees',
     whereTheChildrenLive: 'Where the children live',
+    detailofOtherPeople: 'Details of the other people',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -250,6 +255,8 @@ export const cyContent: typeof enContent = {
     respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
     addressDetails: 'Address details',
     relationshipTo: 'Relationship to',
+    whoDoesLiveWith: 'Who does [^childName^] currently live with?',
+    otherPerson: 'Other person',
   },
 };
 
@@ -284,6 +291,7 @@ const en = (content: CommonContent, newEnContents?: any) => {
     OtherChildrenDetails(enContent, userCase),
     ApplicantDetails(enContent, userCase),
     RespondentDetails(enContent, userCase),
+    OtherPeopleDetails(enContent, userCase),
     whereDoChildLive(enContent, userCase),
     PastAndCurrentProceedings(enContent, userCase),
     SafetyConcerns(enContent, userCase),
@@ -325,6 +333,7 @@ const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
     ApplicantDetails(cyContent, userCase),
     whereDoChildLive(enContent, userCase),
     RespondentDetails(cyContent, userCase),
+    OtherPeopleDetails(cyContent, userCase),
     PastAndCurrentProceedings(cyContent, userCase),
     SafetyConcerns(cyContent, userCase),
     SafetyConcerns_child(cyContent, userCase),

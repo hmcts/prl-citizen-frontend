@@ -222,7 +222,16 @@ export const ChildernDetails = (
         key: keys['parentalResponsibility']?.split('[^^^]').join(`${Number(child) + 1}`),
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
-      }
+      },
+      {
+        key: keys['whoDoesLiveWith'].split('[^childName^]').join(` ${firstname + ' ' + lastname} `),
+        value: '',
+        valueHtml: HTML.UNORDER_LIST + personalDetails?.['liveWith']?.map(respectivechild => {
+          const { firstName, lastName } = respectivechild;
+          return HTML.LIST_ITEM + firstName + ' ' + lastName + HTML.LIST_ITEM_END;
+        }).toString().split(',').join('').toString() + HTML.UNORDER_LIST_END,
+        changeUrl: applyParms(Urls['C100_CHILDERN_LIVE_WITH'], { childId: id }),
+      },
     );
   }
   const SummaryData = newChildDataStorage;
@@ -1006,6 +1015,171 @@ export const RespondentDetails = (
   };
 };
 
+
+/* eslint-disable import/namespace */
+export const OtherPeopleDetails = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const sessionRespondentData = userCase['oprs_otherPersons'];
+  const newRespondentStorage: { key: string; keyHtml?: string; value?: string; valueHtml?: string; changeUrl: string }[] =
+    [];
+    for (const respondent in sessionRespondentData) {
+      const firstname = sessionRespondentData[respondent]['firstName'],
+        lastname = sessionRespondentData[respondent]['lastName'],
+        id = sessionRespondentData[respondent]['id'],
+        personalDetails = sessionRespondentData[respondent]['personalDetails']; //personalDetails
+        const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
+      const respondentNo = Number(respondent) + 1;
+      const contactDetails = sessionRespondentData[respondent]['contactDetails'];
+      
+      /**
+       * Name takes
+       */
+      let changeNameInformation = '';
+      const hasNameChanged = personalDetails['hasNameChanged'];
+      changeNameInformation += hasNameChanged;
+      if(hasNameChanged === 'yes'){
+        const changedName = personalDetails['resPreviousName'];
+        changeNameInformation += HTML.RULER;
+        changeNameInformation += HTML.H4;
+        changeNameInformation +=keys['details'];
+        changeNameInformation += HTML.H4_CLOSE;
+        changeNameInformation += HTML.BREAK;
+        changeNameInformation += changedName;
+      }
+
+      let childGender = '';
+      childGender += personalDetails['gender'];
+      if(personalDetails['otherGenderDetails'] !== ''){
+        childGender += HTML.BREAK + HTML.RULER + keys['otherGender'] +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails'];
+      }
+
+      newRespondentStorage.push(
+        {
+          key: '',
+          keyHtml: '<h4 class="app-task-list__section">' + keys['otherPerson'] + ' ' + respondentNo + '</h4>',
+          value: '',
+          changeUrl: '',
+        },
+        {
+          key: keys['fullName'],
+          value: firstname + ' ' + lastname,
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }) ,
+        },
+        {
+          key: keys['repondentDetials'],
+          valueHtml: changeNameInformation,
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+        },
+        {
+          key: keys['childGenderLabel'],
+          valueHtml: childGender,
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+        },
+      );
+
+      if(isDateOfBirthUnknown){
+        newRespondentStorage.push(
+          {
+            key: keys['approxCheckboxLabel'],
+            value: personalDetails['isDateOfBirthUnknown'],
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+          },
+          {
+            key: keys['approxDobLabel'],
+            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+          },
+        );
+      }
+      else{
+        newRespondentStorage.push(
+          {
+            key: keys['dobLabel'],
+            value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+          },
+        );
+      }
+      newRespondentStorage.push( 
+      {
+        key: keys['respondentPlaceOfBirth'],
+        value: personalDetails?.['respondentPlaceOfBirth'],
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+      });
+
+      if(personalDetails['respondentPlaceOfBirthUnknown'] !== 'No'){
+        newRespondentStorage.push( 
+          {
+            key: keys['respondentPlaceOfBirthUnknown'],
+            value: personalDetails?.['respondentPlaceOfBirthUnknown'],
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+          });
+      }
+
+      const relationShipToChildren = sessionRespondentData[respondent]['relationshipDetails']?.['relationshipToChildren'];
+      relationShipToChildren.forEach(element => {
+        const childDetails = userCase?.['cd_children']?.filter(child => child.id === element['childId'])[0];
+        const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
+        newRespondentStorage.push({
+          key: keys['relationshipTo'] + ' ' + childFullName ,
+          value: element['relationshipType'],
+          valueHtml: element['relationshipType'] + ' ' + element['otherRelationshipTypeDetails'] !== '' ?  element['otherRelationshipTypeDetails'] : '' , //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], { respondentId: id, childId: element['childId'] }),
+        });
+      });
+      
+     
+      newRespondentStorage.push({
+        key: keys['addressDetails'],
+        value: personalDetails?.['gender'],
+        valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys),
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
+      },
+      );
+      newRespondentStorage.push(
+        {
+          key: 'Email',
+          value: contactDetails?.['emailAddress'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        },
+      );
+
+      if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
+        newRespondentStorage.push(
+          {
+            key: 'I dont know their email address',
+            value: contactDetails?.['donKnowEmailAddress'],
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+          },
+        );
+      }
+      newRespondentStorage.push(
+        {
+          key: 'Telephone number',
+          value: contactDetails?.['telephoneNumber'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        }
+      );
+      if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
+        newRespondentStorage.push(
+          {
+            key: 'I dont know their telephone number',
+            value: contactDetails?.['donKnowTelephoneNumber'],
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+          },
+        );
+      }
+  
+    }
+   
+  const SummaryData = newRespondentStorage;
+  return {
+    title: sectionTitles['detailofOtherPeople'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
 
 export const HelpWithFee = (
   { sectionTitles, keys, ...content }: SummaryListContent,
