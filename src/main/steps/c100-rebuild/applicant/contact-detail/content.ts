@@ -9,37 +9,37 @@ const en = () => ({
   serviceName: 'Child Arrangements',
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
-  homePhoneNumberLabel: 'Your home phone',
+  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address',
   emailAdddressLabel: 'Your email address',
-  mobileNumberLabel: 'Your mobile phone',
-  canProvideMobileNumberLabel: 'I can provide a mobile phone number',
-  canNotProvideMobileNumberLabel: 'I cannot provide a mobile phone number',
+  telephoneNumberLabel: 'Your telephone phone',
+  canProvideTelephoneNumberLabel: 'I can provide a telephone number',
+  canNotProvideTelephoneNumberLabel: 'I cannot provide a telephone number',
   voiceMailLabel: 'Can the court leave you a voicemail?',
   voiceMailHint:
     'If the court calls you about your application and you cannot answer the phone, we need to know that it’s safe for them to leave a voicemail.',
   voiceMailYesLabel: 'Yes, the court can leave me a voicemail',
   voiceMailNoLabel: 'No, the court cannot leave me a voicemail',
-  canNotProvideMobileNumberReasonLabel: 'Tell us why the court cannot phone you',
+  canNotProvideTelephoneNumberReasonLabel: 'Please tell us why you cannot provide telephone number',
   errors: {
     canProvideEmail: {
       required: 'Please select email option',
     },
-    canProvideMobileNumber: {
-      required: 'Please select mobile number option',
+    canProvideTelephoneNumber: {
+      required: 'Please select telephone number option',
     },
     emailAddress: {
       required: 'Enter an email address or select cannot provide email address option',
       invalid: 'Enter an email address in the correct format, like name@example.com',
     },
-    homePhoneNumber: {
-      invalid: 'Enter a home phone number in the correct format',
+    telephoneNumber: {
+      invalid: 'Enter a telephone number in the correct format',
+      required: 'Enter a telephone number or tell us why the court cannot phone you',
     },
-    mobileNumber: {
-      invalid: 'Enter a mobile phone number in the correct format',
-      required: 'Enter a mobile number or tell us why the court cannot phone you',
+    canNotProvideTelephoneNumberReason: {
+      required: 'Please tell us why you cannot provide telephone number',
     },
-    canNotProvideMobileNumberReason: {
-      required: 'Please tell us why the court cannot phone you',
+    canNotProvideEmailReason: {
+      required: 'Please tell us why you cannot provide email address',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option',
@@ -52,37 +52,37 @@ const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   canProvideEmailLabel: 'I can provide an email address - welsh',
   canNotProvideEmailLabel: 'I cannot provide an email address - welsh',
-  homePhoneNumberLabel: 'Your home phone - welsh',
   emailAdddressLabel: 'Your email address - welsh',
-  mobileNumberLabel: 'Your mobile phone - welsh',
-  canProvideMobileNumberLabel: 'I can provide a mobile phone number - welsh',
-  canNotProvideMobileNumberLabel: 'I cannot provide a mobile phone number - welsh',
+  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address - welsh',
+  telephoneNumberLabel: 'Your telephone number - welsh',
+  canProvideTelephoneNumberLabel: 'I can provide a telephone number - welsh',
+  canNotProvideTelephoneNumberLabel: 'I cannot provide a telephone number - welsh',
   voiceMailLabel: 'Can the court leave you a voicemail? - welsh',
   voiceMailHint:
     'If the court calls you about your application and you cannot answer the phone, we need to know that it’s safe for them to leave a voicemail. - welsh',
   voiceMailYesLabel: 'Yes, the court can leave me a voicemail - welsh',
   voiceMailNoLabel: 'No, the court cannot leave me a voicemail - welsh',
-  canNotProvideMobileNumberReason: 'Tell us why the court cannot phone you - welsh',
+  canNotProvideTelephoneNumberReason: 'Please tell us why you cannot provide telephone number - welsh',
   errors: {
     canProvideEmail: {
       required: 'Please select email option - welsh',
     },
-    canProvideMobileNumber: {
-      required: 'Please select mobile number option - welsh',
+    canProvideTelephoneNumber: {
+      required: 'Please select telephone number option - welsh',
     },
     emailAddress: {
       required: 'Enter an email address or select cannot provide email address option - welsh',
       invalid: 'Enter an email address in the correct format, like name@example.com - welsh',
     },
-    homePhoneNumber: {
-      invalid: 'Enter a home phone number in the correct format - welsh',
+    telephoneNumber: {
+      invalid: 'Enter a telephone number in the correct format - welsh',
+      required: 'Enter a telephone number or tell us why the court cannot phone you - welsh',
     },
-    mobileNumber: {
-      invalid: 'Enter a mobile phone number in the correct format - welsh',
-      required: 'Enter a mobile number or tell us why the court cannot phone you - welsh',
+    canNotProvideTelephoneNumberReason: {
+      required: 'Please tell us why you cannot provide telephone number - welsh',
     },
-    canNotProvideMobileNumberReason: {
-      required: 'Please tell us why the court cannot phone you - welsh',
+    canNotProvideEmailReason: {
+      required: 'Please tell us why you cannot provide email address - welsh',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option - welsh',
@@ -115,10 +115,10 @@ export const generateFormFields = (
   const {
     canProvideEmail,
     emailAddress,
-    homePhoneNumber,
-    canProvideMobileNumber,
-    mobileNumber,
-    canNotProvideMobileNumberReason,
+    canNotProvideEmailReason,
+    canProvideTelephoneNumber,
+    telephoneNumber,
+    canNotProvideTelephoneNumberReason,
     canLeaveVoiceMail,
   } = applicantContactDetail!;
   const errors = {
@@ -148,45 +148,47 @@ export const generateFormFields = (
           label: l => l.canNotProvideEmailLabel,
           selected: canProvideEmail === YesNoEmpty.NO,
           value: YesNoEmpty.NO,
+          subFields: {
+            canNotProvideEmailReason: {
+              type: 'text',
+              label: l => l.canNotProvideEmailReasonLabel,
+              labelSize: null,
+              value: canNotProvideEmailReason,
+              validator: isFieldFilledIn,
+            },
+          },
         },
       ],
       validator: isFieldFilledIn,
     },
-    homePhoneNumber: {
-      type: 'text',
-      label: l => l.homePhoneNumberLabel,
-      labelSize: null,
-      value: homePhoneNumber,
-      validator: isPhoneNoValid,
-    },
-    canProvideMobileNumber: {
+    canProvideTelephoneNumber: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
         {
-          label: l => l.canProvideMobileNumberLabel,
-          selected: canProvideMobileNumber === YesNoEmpty.YES,
+          label: l => l.canProvideTelephoneNumberLabel,
+          selected: canProvideTelephoneNumber === YesNoEmpty.YES,
           value: YesNoEmpty.YES,
           subFields: {
-            mobileNumber: {
+            telephoneNumber: {
               type: 'text',
-              label: l => l.mobileNumberLabel,
+              label: l => l.telephoneNumberLabel,
               labelSize: null,
-              value: mobileNumber,
+              value: telephoneNumber,
               validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
             },
           },
         },
         {
-          label: l => l.canNotProvideMobileNumberLabel,
-          selected: canProvideMobileNumber === YesNoEmpty.NO,
+          label: l => l.canNotProvideTelephoneNumberLabel,
+          selected: canProvideTelephoneNumber === YesNoEmpty.NO,
           value: YesNoEmpty.NO,
           subFields: {
-            canNotProvideMobileNumberReason: {
+            canNotProvideTelephoneNumberReason: {
               type: 'text',
-              label: l => l.canNotProvideMobileNumberReasonLabel,
+              label: l => l.canNotProvideTelephoneNumberReasonLabel,
               labelSize: null,
-              value: canNotProvideMobileNumberReason,
+              value: canNotProvideTelephoneNumberReason,
               validator: isFieldFilledIn,
             },
           },

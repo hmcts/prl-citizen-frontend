@@ -715,11 +715,11 @@ export interface RelationshipToChildren {
 export interface ContactDetail {
   canProvideEmail?: YesNoEmpty,
   emailAddress?: string,
-  homePhoneNumber?: string,
-  canProvideMobileNumber?: YesNoEmpty,
-  mobileNumber?: string,
-  canNotProvideMobileNumberReason?: string
-  canLeaveVoiceMail?: YesNoEmpty 
+  canNotProvideEmailReason?: string,
+  canProvideTelephoneNumber?: YesNoEmpty,
+  telephoneNumber?: string,
+  canNotProvideTelephoneNumberReason?: string
+  canLeaveVoiceMail?: YesNoEmpty
 }
 
 export type C100ListOfApplicants = C100Applicant[];

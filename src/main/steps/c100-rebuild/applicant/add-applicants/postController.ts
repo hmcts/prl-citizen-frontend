@@ -139,10 +139,10 @@ export default class AddApplicantPostController extends PostController<AnyObject
       applicantContactDetail: {
         canProvideEmail: YesNoEmpty.EMPTY,
         emailAddress: '',
-        homePhoneNumber: '',
-        canProvideMobileNumber: YesNoEmpty.EMPTY,
-        mobileNumber: '',
-        canNotProvideMobileNumberReason: '',
+        canNotProvideEmailReason: '',
+        canProvideTelephoneNumber: YesNoEmpty.EMPTY,
+        telephoneNumber: '',
+        canNotProvideTelephoneNumberReason: '',
         canLeaveVoiceMail: YesNoEmpty.EMPTY,
       },
     };
