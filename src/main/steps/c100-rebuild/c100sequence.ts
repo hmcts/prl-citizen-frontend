@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import { Case, CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -112,6 +113,7 @@ import {
   C100_APPLICANT_ADDRESS_LOOKUP,
   C100_APPLICANT_ADDRESS_SELECT,
   C100_APPLICANT_ADDRESS_MANUAL,
+  C100_APPLICANT_RELATIONSHIP_TO_CHILD,
 
   /** @C100 Other children in people section */
   C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
@@ -134,6 +136,11 @@ import {
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
   C100_GET_CASE,
   C100_CHILDERN_LIVE_WITH,
+  C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
+  C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
+  C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
+  C100_APPLICANTS_PERSONAL_DETAILS,
+  C100_APPLICANT_CONTACT_DETAIL,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -144,6 +151,7 @@ import OtherPersonsDetailsNavigationController from './other-person-details/navi
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
+import ApplicantDetailsNavigationController from './applicant/navigationController';
 
 export const C100Sequence: Step[] = [
   {
@@ -852,6 +860,36 @@ export const C100Sequence: Step[] = [
       ),
   },
   {
+    url: C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
+        caseData,
+        req?.params
+      ),
+  },
+  {
     url: C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
@@ -871,5 +909,21 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, caseData, req?.params),
+  },
+  {
+    url: C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ApplicantDetailsNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
+  },
+  {
+    url: C100_APPLICANTS_PERSONAL_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANTS_PERSONAL_DETAILS,
+  },
+  {
+    url: C100_APPLICANT_CONTACT_DETAIL,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS,
   },
 ];

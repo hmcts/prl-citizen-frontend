@@ -33,7 +33,7 @@ const en = () => ({
   approxCheckboxLabel: 'I don’t know their date of birth',
   approxDobLabel: 'Approximate date of birth',
   errors: {
-    isNameChanged: {
+    hasNameChanged: {
       required: 'Select if the they have changed their name',
     },
     previousFullName: {
@@ -82,7 +82,7 @@ const cy = () => ({
   approxCheckboxLabel: 'I don’t know their date of birth - welsh',
   approxDobLabel: 'Approximate date of birth - welsh',
   errors: {
-    isNameChanged: {
+    hasNameChanged: {
       required: 'Select Yes, No or Maybe - welsh',
     },
     previousFullName: {
@@ -134,7 +134,7 @@ export const generateFormFields = (
   personalDetails: C100RebuildPartyDetails['personalDetails']
 ): GenerateDynamicFormFields => {
   const {
-    isNameChanged,
+    hasNameChanged,
     dateOfBirth,
     isDateOfBirthUnknown,
     approxDateOfBirth,
@@ -147,7 +147,7 @@ export const generateFormFields = (
     cy: {},
   };
   const fields = {
-    isNameChanged: {
+    hasNameChanged: {
       type: 'radios',
       classes: 'govuk-radios',
       section: l => l.section,
@@ -301,8 +301,8 @@ export const generateFormFields = (
   };
 
   // mark the selection for the radio buttons based on the option chosen
-  fields.isNameChanged.values = fields.isNameChanged.values.map(config =>
-    config.value === isNameChanged ? { ...config, selected: true } : config
+  fields.hasNameChanged.values = fields.hasNameChanged.values.map(config =>
+    config.value === hasNameChanged ? { ...config, selected: true } : config
   );
 
   fields.gender.values = fields.gender.values.map(config =>

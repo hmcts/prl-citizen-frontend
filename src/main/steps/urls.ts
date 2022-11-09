@@ -396,12 +396,15 @@ export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START: PageLink = `${
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/start-alternative`;
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/feedback`;
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/feedbackno`;
+export const C100_APPLICANT_RELATIONSHIP_TO_CHILD: PageLink = `${C100_URL}/applicant/:applicantId/relationship-to-child/:childId`;
+export const C100_APPLICANTS_PERSONAL_DETAILS: PageLink = `${C100_URL}/applicant/:applicantId/personal-details`;
 
-/**@C100 applicant address */
+/**@C100 applicant address and contact detail*/
 export const C100_APPLICANT_ADDRESS: PageLink = `${C100_URL}/applicant/:applicantId/address`;
 export const C100_APPLICANT_ADDRESS_LOOKUP: PageLink = `${C100_APPLICANT_ADDRESS}/lookup`;
 export const C100_APPLICANT_ADDRESS_SELECT: PageLink = `${C100_APPLICANT_ADDRESS}/select`;
 export const C100_APPLICANT_ADDRESS_MANUAL: PageLink = `${C100_APPLICANT_ADDRESS}/manual`;
+export const C100_APPLICANT_CONTACT_DETAIL: PageLink = `${C100_URL}/applicant/:applicantId/contact-detail`;
 
 /** @C100 Respondent Details */
 export const C100_RESPONDENT_DETAILS: PageLink = `${C100_URL}/respondent-details`;
@@ -420,5 +423,8 @@ export const C100_OTHER_PERSON_CHECK: PageLink = `${C100_OTHER_PERSON_DETAILS}/o
 export const C100_OTHER_PERSON_DETAILS_ADD: PageLink = `${C100_OTHER_PERSON_DETAILS}/add-other-persons`;
 export const C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/personal-details`;
 export const C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/relationship-to-child/:childId`;
+export const C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/lookup`;
+export const C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/manual`;
+export const C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/select`;
 
 export const C100_GET_CASE: PageLink = `${C100_URL}/get-case`;

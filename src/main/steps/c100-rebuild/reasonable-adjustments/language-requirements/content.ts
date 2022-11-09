@@ -90,7 +90,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'ra_languageNeeds',

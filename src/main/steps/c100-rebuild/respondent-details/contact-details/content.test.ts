@@ -66,8 +66,8 @@ describe('respondent details > contact details', () => {
           firstName: 'Bob',
           lastName: 'Silly',
           personalDetails: {
-            repondentDetials: YesNoEmpty.YES,
-            resPreviousName: YesNoEmpty.YES,
+            hasNameChanged: YesNoEmpty.YES,
+            previousFullName: YesNoEmpty.YES,
             dateOfBirth: {
               year: '1987',
               month: '12',

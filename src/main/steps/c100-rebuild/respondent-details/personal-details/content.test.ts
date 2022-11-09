@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -12,7 +12,7 @@ jest.mock('../../../../app/form/validation');
 const en = {
   title: 'Provide details for',
   hasNameChanged: 'Have they change their name?',
-  repondentHint:
+  hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
   one: 'Yes',
   two: 'No',
@@ -34,7 +34,7 @@ const en = {
     hasNameChanged: {
       required: 'Select if they’ve changed their name',
     },
-    previousName: {
+    previousFullName: {
       required: 'Enter their previous name',
     },
     dateOfBirth: {
@@ -66,7 +66,7 @@ const en = {
 const cy = {
   title: 'Provide details for - welsh',
   hasNameChanged: 'Have they change their name? - welsh',
-  repondentHint:
+  hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
   one: 'Yes',
   two: 'No',
@@ -88,7 +88,7 @@ const cy = {
     hasNameChanged: {
       required: 'Select if they’ve changed their name -welsh',
     },
-    previousName: {
+    previousFullName: {
       required: 'Enter their previous name -welsh',
     },
     dateOfBirth: {
@@ -133,8 +133,8 @@ describe('respondent details > personal details', () => {
           firstName: 'Bob',
           lastName: 'Silly',
           personalDetails: {
-            hasNameChanged: YesNoEmpty.YES,
-            resPreviousName: YesNoEmpty.YES,
+            hasNameChanged: YesNoDontKnow.yes,
+            previousFullName: YesNoEmpty.YES,
             dateOfBirth: {
               year: '1987',
               month: '12',
@@ -216,14 +216,16 @@ describe('respondent details > personal details', () => {
     expect(hasNameChanged.type).toBe('radios');
     expect(hasNameChanged.classes).toBe('govuk-radios');
     expect((hasNameChanged.label as Function)(generatedContent)).toBe(en.hasNameChanged);
-    expect((hasNameChanged.hint as Function)(generatedContent)).toBe(en.repondentHint);
+    expect((hasNameChanged.hint as Function)(generatedContent)).toBe(en.hasNameChangedHint);
     expect((hasNameChanged.values[0].label as Function)(generatedContent)).toBe(en.one);
 
-    expect(hasNameChanged.values[0].subFields.previousName.type).toBe('text');
-    expect((hasNameChanged.values[0].subFields.previousName.hint as Function)(generatedContent)).toBe(
+    expect(hasNameChanged.values[0].subFields.previousFullName.type).toBe('text');
+    expect((hasNameChanged.values[0].subFields.previousFullName.hint as Function)(generatedContent)).toBe(
       en.previousNameHint
     );
-    expect((hasNameChanged.values[0].subFields.previousName.label as Function)(generatedContent)).toBe(en.previousName);
+    expect((hasNameChanged.values[0].subFields.previousFullName.label as Function)(generatedContent)).toBe(
+      en.previousName
+    );
 
     expect((hasNameChanged.values[1].label as Function)(generatedContent)).toBe(en.two);
     expect((hasNameChanged.values[2].label as Function)(generatedContent)).toBe(en.dontKnow);

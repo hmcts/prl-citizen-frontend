@@ -1,4 +1,4 @@
-import { C100RebuildPartyDetails, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
@@ -91,7 +91,7 @@ export const generateFormFields = (
           name: 'donKnowEmailAddress',
           label: l => l.donKnowEmailAddress,
           selected: donKnowEmailAddress === YesOrNo.YES,
-          value: YesNoEmpty.YES,
+          value: YesOrNo.YES,
         },
       ],
     },
@@ -114,7 +114,7 @@ export const generateFormFields = (
           name: 'donKnowTelephoneNumber',
           label: l => l.donKnowTelephoneNumber,
           selected: donKnowTelephoneNumber === YesOrNo.YES,
-          value: YesNoEmpty.YES,
+          value: YesOrNo.YES,
         },
       ],
     },

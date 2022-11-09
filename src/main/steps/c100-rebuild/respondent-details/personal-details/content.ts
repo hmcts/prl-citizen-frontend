@@ -16,7 +16,7 @@ import { getRespndentDetails } from '../util';
 const en = () => ({
   title: 'Provide details for',
   hasNameChanged: 'Have they change their name?',
-  repondentHint:
+  hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
   one: 'Yes',
   two: 'No',
@@ -38,7 +38,7 @@ const en = () => ({
     hasNameChanged: {
       required: 'Select if they’ve changed their name',
     },
-    previousName: {
+    previousFullName: {
       required: 'Enter their previous name',
     },
     dateOfBirth: {
@@ -70,7 +70,7 @@ const en = () => ({
 const cy = () => ({
   title: 'Provide details for - welsh',
   hasNameChanged: 'Have they change their name? - welsh',
-  repondentHint:
+  hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
   one: 'Yes',
   two: 'No',
@@ -92,7 +92,7 @@ const cy = () => ({
     hasNameChanged: {
       required: 'Select if they’ve changed their name -welsh',
     },
-    previousName: {
+    previousFullName: {
       required: 'Enter their previous name -welsh',
     },
     dateOfBirth: {
@@ -163,15 +163,15 @@ export const generateFormFields = (
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.hasNameChanged,
-      hint: l => l.repondentHint,
+      hint: l => l.hasNameChangedHint,
       labelSize: 'm',
       values: [
         {
           label: l => l.one,
-          value: YesNoEmpty.YES,
+          value: YesNoDontKnow.yes,
           selected: hasNameChanged === YesNoDontKnow.yes,
           subFields: {
-            previousName: {
+            previousFullName: {
               type: 'text',
               class: 'govuk-label',
               labelSize: null,
@@ -188,6 +188,7 @@ export const generateFormFields = (
           value: YesNoDontKnow.no,
         },
         {
+          selected: hasNameChanged === YesNoDontKnow.dontKnow,
           label: l => l.dontKnow,
           value: YesNoDontKnow.dontKnow,
         },

@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import { Gender, YesNoEmpty } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 
 import { CommonConfidentialityController } from './postController';
@@ -17,6 +18,18 @@ const dummyData = [
     start: 'Yes',
     contactDetailsPrivate: ['email'],
     contactDetailsPrivateAlternative: ['email'],
+    personalDetails: {
+      haveYouChangeName: YesNoEmpty.EMPTY,
+      applPreviousName: '',
+      dateOfBirth: {
+        day: '',
+        month: '',
+        year: '',
+      },
+      gender: Gender.EMPTY,
+      otherGenderDetails: '',
+      applicantPlaceOfBirth: '',
+    },
   },
   {
     id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
@@ -27,6 +40,18 @@ const dummyData = [
     start: 'Yes',
     contactDetailsPrivate: ['email'],
     contactDetailsPrivateAlternative: ['email'],
+    personalDetails: {
+      haveYouChangeName: YesNoEmpty.EMPTY,
+      applPreviousName: '',
+      dateOfBirth: {
+        day: '',
+        month: '',
+        year: '',
+      },
+      gender: Gender.EMPTY,
+      otherGenderDetails: '',
+      applicantPlaceOfBirth: '',
+    },
   },
 ];
 
