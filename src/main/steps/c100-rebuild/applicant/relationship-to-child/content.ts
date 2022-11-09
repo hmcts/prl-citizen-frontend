@@ -2,7 +2,8 @@ import { RelationshipToChildren, RelationshipType } from '../../../../app/case/d
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { getApplicantDetails, getChildDetails } from '../util';
+import { getChildDetails } from '../../child-details/util';
+import { getApplicantDetails } from '../util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
