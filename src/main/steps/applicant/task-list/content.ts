@@ -1,5 +1,6 @@
 import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER } from '../../../steps/urls';
 
 import { applicant_en } from './section-titles';
@@ -141,6 +142,7 @@ export const generateContent: TranslationFn = content => {
       content.userIdamId
     ),
     banners,
+    stages: buildProgressBarStages(content.userCase!),
   };
 };
 
