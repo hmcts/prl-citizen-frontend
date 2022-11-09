@@ -6,14 +6,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import {
-  C100_REBUILD_URL,
-  CALLBACK_URL,
-  CITIZEN_HOME_URL,
-  DASHBOARD_URL,
-  SIGN_IN_URL,
-  SIGN_OUT_URL,
-} from '../../steps/urls';
+import { C100_REBUILD_URL, CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
