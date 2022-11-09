@@ -11,7 +11,7 @@ let people: People[] = [];
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Who does {{firstName}} {{lastName}} currently live with?',
+  title: 'Who does {firstName} {lastName} currently live with?',
   liveWithHint: 'Select all that apply',
   errors: {
     liveWith: {
@@ -21,7 +21,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Who does {{firstName}} {{lastName}} currently live with? - welsh',
+  title: 'Who does {firstName} {lastName} currently live with? - welsh',
   liveWithHint: 'Select all that apply - welsh',
   errors: {
     liveWith: {
