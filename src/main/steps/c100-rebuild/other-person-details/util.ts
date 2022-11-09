@@ -9,7 +9,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
   lastName: '',
   personalDetails: {
     hasNameChanged: YesNoDontKnow.empty,
-    resPreviousName: '',
+    previousFullName: '',
     dateOfBirth: {
       day: '',
       month: '',
@@ -23,8 +23,6 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     },
     gender: Gender.EMPTY,
     otherGenderDetails: '',
-    respondentPlaceOfBirth: '',
-    respondentPlaceOfBirthUnknown: YesOrNo.NO,
   },
   address: {
     AddressLine1: '',
@@ -33,17 +31,9 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     County: '',
     PostCode: '',
     selectedAddress: 2,
-    addressHistory: YesOrNo.YES,
-    provideDetailsOfPreviousAddresses: '',
   },
   relationshipDetails: {
     relationshipToChildren: [],
-  },
-  contactDetails: {
-    donKnowEmailAddress: YesOrNo.NO,
-    emailAddress: '',
-    telephoneNumber: '',
-    donKnowTelephoneNumber: YesOrNo.NO,
   },
   addressUnknown: YesOrNo.NO,
 });

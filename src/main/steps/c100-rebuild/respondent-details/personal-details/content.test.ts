@@ -34,7 +34,7 @@ const en = {
     hasNameChanged: {
       required: 'Select if they’ve changed their name',
     },
-    resPreviousName: {
+    previousFullName: {
       required: 'Enter their previous name',
     },
     dateOfBirth: {
@@ -88,7 +88,7 @@ const cy = {
     hasNameChanged: {
       required: 'Select if they’ve changed their name -welsh',
     },
-    resPreviousName: {
+    previousFullName: {
       required: 'Enter their previous name -welsh',
     },
     dateOfBirth: {
@@ -134,7 +134,7 @@ describe('respondent details > personal details', () => {
           lastName: 'Silly',
           personalDetails: {
             hasNameChanged: YesNoDontKnow.yes,
-            resPreviousName: YesNoEmpty.YES,
+            previousFullName: YesNoEmpty.YES,
             dateOfBirth: {
               year: '1987',
               month: '12',
@@ -219,11 +219,11 @@ describe('respondent details > personal details', () => {
     expect((hasNameChanged.hint as Function)(generatedContent)).toBe(en.hasNameChangedHint);
     expect((hasNameChanged.values[0].label as Function)(generatedContent)).toBe(en.one);
 
-    expect(hasNameChanged.values[0].subFields.resPreviousName.type).toBe('text');
-    expect((hasNameChanged.values[0].subFields.resPreviousName.hint as Function)(generatedContent)).toBe(
+    expect(hasNameChanged.values[0].subFields.previousFullName.type).toBe('text');
+    expect((hasNameChanged.values[0].subFields.previousFullName.hint as Function)(generatedContent)).toBe(
       en.previousNameHint
     );
-    expect((hasNameChanged.values[0].subFields.resPreviousName.label as Function)(generatedContent)).toBe(
+    expect((hasNameChanged.values[0].subFields.previousFullName.label as Function)(generatedContent)).toBe(
       en.previousName
     );
 

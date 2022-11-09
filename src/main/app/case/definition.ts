@@ -2475,11 +2475,9 @@ export interface C1ASafteyConcerns {
     lastName: string;
     personalDetails: {
       hasNameChanged?: YesNoDontKnow;
-      resPreviousName?: string,
+      previousFullName?: string;
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
-      isNameChanged?: YesNoDontKnow;
-      previousFullName?: string;
       approxDateOfBirth?: CaseDate;
       gender: Gender;
       otherGenderDetails?: string;
@@ -2490,7 +2488,7 @@ export interface C1ASafteyConcerns {
       relationshipToChildren: RelationshipToChildren[];
     };
     address?: C100Address;
-    contactDetails: {
+    contactDetails?: {
       donKnowEmailAddress?: YesOrNo
       emailAddress?: string
       telephoneNumber?: string

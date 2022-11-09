@@ -738,7 +738,7 @@ describe('C100Sequence', () => {
     );
     expect(C100Sequence[113].showInSection).toBe('c100');
     expect(C100Sequence[113].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/other-person-details/other-person-check'
+      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/address/lookup'
     );
 
     expect(C100Sequence[114].url).toBe('/c100-rebuild/get-case');

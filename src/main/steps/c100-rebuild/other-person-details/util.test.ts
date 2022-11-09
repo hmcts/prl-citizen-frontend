@@ -16,7 +16,7 @@ const dummyRequest = mockRequest({
           lastName: 'Doe',
           personalDetails: {
             hasNameChanged: '',
-            resPreviousName: '',
+            previousFullName: '',
             dateOfBirth: {
               day: '',
               month: '',
@@ -30,8 +30,6 @@ const dummyRequest = mockRequest({
             },
             gender: '',
             otherGenderDetails: '',
-            respondentPlaceOfBirth: '',
-            respondentPlaceOfBirthUnknown: 'No',
           },
           address: {
             AddressLine1: '',
@@ -40,17 +38,9 @@ const dummyRequest = mockRequest({
             County: '',
             PostCode: '',
             selectedAddress: 2,
-            addressHistory: 'Yes',
-            provideDetailsOfPreviousAddresses: '',
           },
           relationshipDetails: {
             relationshipToChildren: [],
-          },
-          contactDetails: {
-            donKnowEmailAddress: 'No',
-            emailAddress: '',
-            telephoneNumber: '',
-            donKnowTelephoneNumber: 'No',
           },
           addressUnknown: 'No',
         },
@@ -67,7 +57,7 @@ describe('Add other Person util', () => {
         lastName: '',
         personalDetails: {
           hasNameChanged: '',
-          resPreviousName: '',
+          previousFullName: '',
           dateOfBirth: {
             day: '',
             month: '',
@@ -81,8 +71,6 @@ describe('Add other Person util', () => {
           },
           gender: '',
           otherGenderDetails: '',
-          respondentPlaceOfBirth: '',
-          respondentPlaceOfBirthUnknown: 'No',
         },
         address: {
           AddressLine1: '',
@@ -91,17 +79,9 @@ describe('Add other Person util', () => {
           County: '',
           PostCode: '',
           selectedAddress: 2,
-          addressHistory: 'Yes',
-          provideDetailsOfPreviousAddresses: '',
         },
         relationshipDetails: {
           relationshipToChildren: [],
-        },
-        contactDetails: {
-          donKnowEmailAddress: 'No',
-          emailAddress: '',
-          telephoneNumber: '',
-          donKnowTelephoneNumber: 'No',
         },
         addressUnknown: 'No',
       })

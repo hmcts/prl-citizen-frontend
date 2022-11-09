@@ -38,7 +38,7 @@ const en = () => ({
     hasNameChanged: {
       required: 'Select if they’ve changed their name',
     },
-    resPreviousName: {
+    previousFullName: {
       required: 'Enter their previous name',
     },
     dateOfBirth: {
@@ -92,7 +92,7 @@ const cy = () => ({
     hasNameChanged: {
       required: 'Select if they’ve changed their name -welsh',
     },
-    resPreviousName: {
+    previousFullName: {
       required: 'Enter their previous name -welsh',
     },
     dateOfBirth: {
@@ -145,7 +145,7 @@ export const generateFormFields = (
 ): GenerateDynamicFormFields => {
   const {
     hasNameChanged,
-    resPreviousName,
+    previousFullName,
     dateOfBirth,
     isDateOfBirthUnknown,
     approxDateOfBirth,
@@ -171,13 +171,13 @@ export const generateFormFields = (
           value: YesNoDontKnow.yes,
           selected: hasNameChanged === YesNoDontKnow.yes,
           subFields: {
-            resPreviousName: {
+            previousFullName: {
               type: 'text',
               class: 'govuk-label',
               labelSize: null,
               label: l => l.previousName,
               hint: l => l.previousNameHint,
-              value: resPreviousName,
+              value: previousFullName,
               validator: isFieldFilledIn,
             },
           },
