@@ -702,13 +702,24 @@ export type C100Applicant = {
   };
   relationshipDetails?: {
     relationshipToChildren: RelationshipToChildren[];
-  }
+  };
+  applicantContactDetail?: ContactDetail;
 }
 
 export interface RelationshipToChildren {
   relationshipType: RelationshipType;
   otherRelationshipTypeDetails?: string;
   childId: string;
+}
+
+export interface ContactDetail {
+  canProvideEmail?: YesNoEmpty,
+  emailAddress?: string,
+  homePhoneNumber?: string,
+  canProvideMobileNumber?: YesNoEmpty,
+  mobileNumber?: string,
+  canNotProvideMobileNumberReason?: string
+  canLeaveVoiceMail?: YesNoEmpty 
 }
 
 export type C100ListOfApplicants = C100Applicant[];
