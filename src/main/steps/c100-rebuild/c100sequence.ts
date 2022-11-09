@@ -920,16 +920,16 @@ export const C100Sequence: Step[] = [
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, caseData, req?.params),
   },
   {
-    url: C100_APPLICANT_RELATIONSHIP_TO_CHILD,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
-  },
-  {
     url: C100_APPLICANTS_PERSONAL_DETAILS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       ApplicantNavigationController.getNextUrl(C100_APPLICANTS_PERSONAL_DETAILS, caseData, req?.params),
+  },
+  {
+    url: C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
   },
   {
     url: C100_APPLICANT_CONTACT_DETAIL,

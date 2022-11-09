@@ -1,9 +1,9 @@
-import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { CommonContent } from '../../../common/common.content';
+import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './address-select';
 
-jest.mock('../../../../app/form/validation');
+jest.mock('../../../../../app/form/validation');
 
 const enContent = {
   postcode: 'Current postcode',

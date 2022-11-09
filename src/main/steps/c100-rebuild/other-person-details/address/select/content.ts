@@ -7,10 +7,7 @@ import {
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
 } from '../../../../../steps/urls';
 import { getOtherPersonDetails } from '../../../other-person-details/util';
-import {
-  form as selectAddressForm,
-  languages as selectAddressFormLanguages,
-} from '../../../people/address/address-select';
+import { form as selectAddressForm, languages as selectAddressFormLanguages } from '../common/address-select';
 
 let updatedForm: FormContent;
 

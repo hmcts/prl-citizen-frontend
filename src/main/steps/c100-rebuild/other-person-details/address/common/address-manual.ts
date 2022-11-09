@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { C100RebuildPartyDetails, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
+import { C100RebuildPartyDetails, YesNoEmpty, YesOrNo } from '../../../../../app/case/definition';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { FormContent } from '../../../../../app/form/Form';
+import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
 
 const en = () => ({
   addressLine1: 'Building and street',

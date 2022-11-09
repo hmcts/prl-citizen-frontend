@@ -1,9 +1,9 @@
-import { ApplicantMockRequest } from '../../../../test/unit/mocks/mocked-requests/applicant-details-mock';
+import { applicantMockRequest } from '../../../../test/unit/mocks/mocked-requests/applicant-details-mock';
 import { C100_APPLICANT_ADD_APPLICANTS, C100_APPLICANT_RELATIONSHIP_TO_CHILD } from '../../urls';
 
 import ApplicantDetailsNavigationController from './navigationController';
 
-const dummyRequest = ApplicantMockRequest;
+const dummyRequest = applicantMockRequest;
 
 describe('ApplicantDetailsNavigationController', () => {
   test('From Applicant1 relationship to child 1 screen -> navigate to Applicant1 relationship to child 1 screen', async () => {
