@@ -25,10 +25,10 @@ export default class ContactDetailPostController extends PostController<AnyObjec
       ...req.session.userCase?.appl_allApplicants?.[applicantIndex].applicantContactDetail,
       canProvideEmail: req.body['canProvideEmail'] as YesNoEmpty,
       emailAddress: req.body['emailAddress'] as string,
-      homePhoneNumber: req.body['homePhoneNumber'] as string,
-      canProvideMobileNumber: req.body['canProvideMobileNumber'] as YesNoEmpty,
-      mobileNumber: req.body['mobileNumber'] as string,
-      canNotProvideMobileNumberReason: req.body['canNotProvideMobileNumberReason'] as YesNoEmpty,
+      canNotProvideEmailReason: req.body['canNotProvideEmailReason'] as string,
+      canProvideTelephoneNumber: req.body['canProvideTelephoneNumber'] as YesNoEmpty,
+      telephoneNumber: req.body['telephoneNumber'] as string,
+      canNotProvideTelephoneNumberReason: req.body['canNotProvideTelephoneNumberReason'] as YesNoEmpty,
       canLeaveVoiceMail: req.body['canLeaveVoiceMail'] as YesNoEmpty,
     };
     req.session.errors = form.getErrors(formData);

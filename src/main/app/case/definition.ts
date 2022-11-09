@@ -698,11 +698,12 @@ export type C100Applicant = {
 export interface ContactDetail {
   canProvideEmail?: YesNoEmpty,
   emailAddress?: string,
+  canNotProvideEmailReason?: string,
   homePhoneNumber?: string,
-  canProvideMobileNumber?: YesNoEmpty,
-  mobileNumber?: string,
-  canNotProvideMobileNumberReason?: string
-  canLeaveVoiceMail?: YesNoEmpty 
+  canProvideTelephoneNumber?: YesNoEmpty,
+  telephoneNumber?: string,
+  canNotProvideTelephoneNumberReason?: string
+  canLeaveVoiceMail?: YesNoEmpty
 }
 
 export type C100ListOfApplicants = C100Applicant[];

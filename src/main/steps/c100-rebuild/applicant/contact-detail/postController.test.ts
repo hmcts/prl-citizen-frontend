@@ -23,10 +23,9 @@ describe('ContactDetail Post Controller', () => {
           applicantContactDetail: {
             canProvideEmail: 'No',
             emailAddress: '',
-            homePhoneNumber: '09999999999',
-            canProvideMobileNumber: 'Yes',
-            mobileNumber: '',
-            canNotProvideMobileNumberReason: 'I cannot provide a mobile phone number',
+            canProvideTelephoneNumber: 'Yes',
+            telephoneNumber: '',
+            canNotProvideTelephoneNumberReason: 'I cannot provide a mobile phone number',
             canLeaveVoiceMail: 'Yes',
           },
         },
