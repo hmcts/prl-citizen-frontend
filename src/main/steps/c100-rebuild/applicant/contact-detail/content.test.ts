@@ -13,37 +13,37 @@ const en = {
   serviceName: 'Child Arrangements',
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
-  homePhoneNumberLabel: 'Your home phone',
+  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address',
   emailAdddressLabel: 'Your email address',
-  mobileNumberLabel: 'Your mobile phone',
-  canProvideMobileNumberLabel: 'I can provide a mobile phone number',
-  canNotProvideMobileNumberLabel: 'I cannot provide a mobile phone number',
+  telephoneNumberLabel: 'Your telephone phone',
+  canProvideTelephoneNumberLabel: 'I can provide a telephone number',
+  canNotProvideTelephoneNumberLabel: 'I cannot provide a telephone number',
   voiceMailLabel: 'Can the court leave you a voicemail?',
   voiceMailHint:
     'If the court calls you about your application and you cannot answer the phone, we need to know that it’s safe for them to leave a voicemail.',
   voiceMailYesLabel: 'Yes, the court can leave me a voicemail',
   voiceMailNoLabel: 'No, the court cannot leave me a voicemail',
-  canNotProvideMobileNumberReasonLabel: 'Tell us why the court cannot phone you',
+  canNotProvideTelephoneNumberReasonLabel: 'Please tell us why you cannot provide telephone number',
   errors: {
     canProvideEmail: {
       required: 'Please select email option',
     },
-    canProvideMobileNumber: {
-      required: 'Please select mobile number option',
+    canProvideTelephoneNumber: {
+      required: 'Please select telephone number option',
     },
     emailAddress: {
       required: 'Enter an email address or select cannot provide email address option',
       invalid: 'Enter an email address in the correct format, like name@example.com',
     },
-    homePhoneNumber: {
-      invalid: 'Enter a home phone number in the correct format',
+    telephoneNumber: {
+      invalid: 'Enter a telephone number in the correct format',
+      required: 'Enter a telephone number or tell us why the court cannot phone you',
     },
-    mobileNumber: {
-      invalid: 'Enter a mobile phone number in the correct format',
-      required: 'Enter a mobile number or tell us why the court cannot phone you',
+    canNotProvideTelephoneNumberReason: {
+      required: 'Please tell us why you cannot provide telephone number',
     },
-    canNotProvideMobileNumberReason: {
-      required: 'Please tell us why the court cannot phone you',
+    canNotProvideEmailReason: {
+      required: 'Please tell us why you cannot provide email address',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option',
@@ -56,37 +56,37 @@ const cy = {
   serviceName: 'Child Arrangements - welsh',
   canProvideEmailLabel: 'I can provide an email address - welsh',
   canNotProvideEmailLabel: 'I cannot provide an email address - welsh',
-  homePhoneNumberLabel: 'Your home phone - welsh',
   emailAdddressLabel: 'Your email address - welsh',
-  mobileNumberLabel: 'Your mobile phone - welsh',
-  canProvideMobileNumberLabel: 'I can provide a mobile phone number - welsh',
-  canNotProvideMobileNumberLabel: 'I cannot provide a mobile phone number - welsh',
+  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address - welsh',
+  telephoneNumberLabel: 'Your telephone number - welsh',
+  canProvideTelephoneNumberLabel: 'I can provide a telephone number - welsh',
+  canNotProvideTelephoneNumberLabel: 'I cannot provide a telephone number - welsh',
   voiceMailLabel: 'Can the court leave you a voicemail? - welsh',
   voiceMailHint:
     'If the court calls you about your application and you cannot answer the phone, we need to know that it’s safe for them to leave a voicemail. - welsh',
   voiceMailYesLabel: 'Yes, the court can leave me a voicemail - welsh',
   voiceMailNoLabel: 'No, the court cannot leave me a voicemail - welsh',
-  canNotProvideMobileNumberReason: 'Tell us why the court cannot phone you - welsh',
+  canNotProvideTelephoneNumberReason: 'Please tell us why you cannot provide telephone number - welsh',
   errors: {
     canProvideEmail: {
       required: 'Please select email option - welsh',
     },
-    canProvideMobileNumber: {
-      required: 'Please select mobile number option - welsh',
+    canProvideTelephoneNumber: {
+      required: 'Please select telephone number option - welsh',
     },
     emailAddress: {
       required: 'Enter an email address or select cannot provide email address option - welsh',
       invalid: 'Enter an email address in the correct format, like name@example.com - welsh',
     },
-    homePhoneNumber: {
-      invalid: 'Enter a home phone number in the correct format - welsh',
+    telephoneNumber: {
+      invalid: 'Enter a telephone number in the correct format - welsh',
+      required: 'Enter a telephone number or tell us why the court cannot phone you - welsh',
     },
-    mobileNumber: {
-      invalid: 'Enter a mobile phone number in the correct format - welsh',
-      required: 'Enter a mobile number or tell us why the court cannot phone you - welsh',
+    canNotProvideTelephoneNumberReason: {
+      required: 'Please tell us why you cannot provide telephone number - welsh',
     },
-    canNotProvideMobileNumberReason: {
-      required: 'Please tell us why the court cannot phone you - welsh',
+    canNotProvideEmailReason: {
+      required: 'Please tell us why you cannot provide email address - welsh',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option - welsh',
@@ -107,10 +107,10 @@ describe('applicant > contact details', () => {
           applicantContactDetail: {
             canProvideEmail: 'No',
             emailAddress: '',
-            homePhoneNumber: '09999999999',
-            canProvideMobileNumber: 'Yes',
-            mobileNumber: '',
-            canNotProvideMobileNumberReason: 'I cannot provide a mobile phone number',
+            canProvideTelephoneNumber: 'Yes',
+            telephoneNumber: '',
+            canNotProvideTelephoneNumberReason: 'I cannot provide a telephone phone number',
+            canNotProvideEmailReason: 'I cannot provide an email address',
             canLeaveVoiceMail: 'Yes',
           },
         },
@@ -163,10 +163,7 @@ describe('applicant > contact details', () => {
   });
 
   test('should contain contact details form fields', () => {
-    const { canProvideEmail, homePhoneNumber, canProvideMobileNumber, canLeaveVoiceMail } = fields as Record<
-      string,
-      FormFields
-    >;
+    const { canProvideEmail, canProvideTelephoneNumber, canLeaveVoiceMail } = fields as Record<string, FormFields>;
 
     expect(canProvideEmail.type).toBe('radios');
     expect(canProvideEmail.classes).toBe('govuk-radios');
@@ -180,33 +177,39 @@ describe('applicant > contact details', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('test@gmail.com');
     expect(isEmailValid).toHaveBeenCalledWith('test@gmail.com');
 
-    expect(homePhoneNumber.type).toBe('text');
-    expect((homePhoneNumber.label as Function)(generatedContent)).toBe(en.homePhoneNumberLabel);
-    (homePhoneNumber.validator as Function)('0999999999');
-    expect(isPhoneNoValid).toHaveBeenCalledWith('0999999999');
+    expect((canProvideEmail.values[1].label as Function)(generatedContent)).toBe(en.canNotProvideEmailLabel);
+    expect(canProvideEmail.values[1].value).toBe(YesNoEmpty.NO);
+    const canNotProvideEmailReason = canProvideEmail.values[1].subFields!.canNotProvideEmailReason;
+    expect((canNotProvideEmailReason?.label as Function)(generatedContent)).toBe(en.canNotProvideEmailReasonLabel);
+    expect(canNotProvideEmailReason.type).toBe('text');
+    (canNotProvideEmailReason.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
 
-    expect(canProvideMobileNumber.type).toBe('radios');
-    expect(canProvideMobileNumber.classes).toBe('govuk-radios');
+    expect(canProvideTelephoneNumber.type).toBe('radios');
+    expect(canProvideTelephoneNumber.classes).toBe('govuk-radios');
 
-    expect((canProvideMobileNumber.values[0].label as Function)(generatedContent)).toBe(en.canProvideMobileNumberLabel);
-    expect(canProvideMobileNumber.values[0].value).toBe(YesNoEmpty.YES);
-    const mobileNumber = canProvideMobileNumber.values[0].subFields!.mobileNumber;
-    expect((mobileNumber?.label as Function)(generatedContent)).toBe(en.mobileNumberLabel);
-    expect(mobileNumber.type).toBe('text');
-    (mobileNumber.validator as Function)('09999999999');
+    expect((canProvideTelephoneNumber.values[0].label as Function)(generatedContent)).toBe(
+      en.canProvideTelephoneNumberLabel
+    );
+    expect(canProvideTelephoneNumber.values[0].value).toBe(YesNoEmpty.YES);
+    const telephoneNumber = canProvideTelephoneNumber.values[0].subFields!.telephoneNumber;
+    expect((telephoneNumber?.label as Function)(generatedContent)).toBe(en.telephoneNumberLabel);
+    expect(telephoneNumber.type).toBe('text');
+    (telephoneNumber.validator as Function)('09999999999');
     expect(isFieldFilledIn).toHaveBeenCalledWith('09999999999');
     expect(isPhoneNoValid).toHaveBeenCalledWith('09999999999');
 
-    expect((canProvideMobileNumber.values[1].label as Function)(generatedContent)).toBe(
-      en.canNotProvideMobileNumberLabel
+    expect((canProvideTelephoneNumber.values[1].label as Function)(generatedContent)).toBe(
+      en.canNotProvideTelephoneNumberLabel
     );
-    expect(canProvideMobileNumber.values[1].value).toBe(YesNoEmpty.NO);
-    const canNotProvideMobileNumberReason = canProvideMobileNumber.values[1].subFields!.canNotProvideMobileNumberReason;
-    expect((canNotProvideMobileNumberReason?.label as Function)(generatedContent)).toBe(
-      en.canNotProvideMobileNumberReasonLabel
+    expect(canProvideTelephoneNumber.values[1].value).toBe(YesNoEmpty.NO);
+    const canNotProvideTelephoneNumberReason =
+      canProvideTelephoneNumber.values[1].subFields!.canNotProvideTelephoneNumberReason;
+    expect((canNotProvideTelephoneNumberReason?.label as Function)(generatedContent)).toBe(
+      en.canNotProvideTelephoneNumberReasonLabel
     );
-    expect(canNotProvideMobileNumberReason.type).toBe('text');
-    (canNotProvideMobileNumberReason.validator as Function)('test');
+    expect(canNotProvideTelephoneNumberReason.type).toBe('text');
+    (canNotProvideTelephoneNumberReason.validator as Function)('test');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test');
 
     expect(canLeaveVoiceMail.type).toBe('radios');
