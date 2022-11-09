@@ -20,7 +20,7 @@ const en = {
   detailsContent: `We use ‘children’ as a general term to mean whether you have a child or children.
                    We do this to avoid repetition.`,
   errors: {
-    postcode: {
+    c100RebuildChildPostCode: {
       required: 'Enter a full postcode, with or without a space',
       invalid: 'Enter a valid full postcode, with or without a space',
     },
@@ -44,7 +44,7 @@ const cy = {
   detailsContent: `We use ‘children’ as a general term to mean whether you have a child or children.
                    We do this to avoid repetition. - welsh`,
   errors: {
-    postcode: {
+    c100RebuildChildPostCode: {
       required: 'Enter a full postcode, with or without a space - welsh',
       invalid: 'Enter a valid full postcode, with or without a space - welsh',
     },
@@ -70,7 +70,7 @@ describe('applicant personal details > applying-with > content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
   test('should contain applyingWith field', () => {
-    const applyingWithField = fields.postcode as FormOptions;
+    const applyingWithField = fields.c100RebuildChildPostCode as FormOptions;
     expect(applyingWithField.type).toBe('text');
     expect(applyingWithField.classes).toBe('govuk-input--width-10');
   });

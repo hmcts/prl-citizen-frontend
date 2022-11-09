@@ -15,8 +15,8 @@ const en = {
       required: 'Enter the town or city',
     },
     addressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter the postcode',
+      invalid: 'Enter a valid postcode',
     },
     addressHistory: {
       required: 'Enter your details known',
@@ -38,8 +38,8 @@ const cy = {
       required: 'Enter the town or city - welsh',
     },
     addressPostcode: {
-      required: 'Enter a real postcode - welsh',
-      invalid: 'Enter a real postcode - welsh',
+      required: 'Enter the postcode - welsh',
+      invalid: 'Enter a valid postcode - welsh',
     },
     addressHistory: {
       required: 'Enter your details known - welsh',
@@ -60,7 +60,7 @@ describe('applicant > address > manual > content', () => {
     language: 'en',
     additionalData: {
       req: {
-        query: {
+        params: {
           applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
         },
       },

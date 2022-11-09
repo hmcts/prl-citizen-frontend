@@ -1,10 +1,13 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { C100Applicant } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { AnyType } from '../../../../../app/form/validation';
+import { applyParms } from '../../../../common/url-parser';
+import { C100_APPLICANT_ADDRESS_MANUAL } from '../../../../urls';
 
 import { getUpdatedForm } from './content';
 
@@ -17,7 +20,8 @@ export default class SelectAddressPostController extends PostController<AnyObjec
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const form = new Form(getUpdatedForm().fields as FormFields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-    const { applicantId } = req.query;
+    const { applicantId } = req.params;
+    let redirectURI = req.originalUrl;
 
     req.session.errors = form.getErrors(formData);
 
@@ -33,7 +37,7 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         ) as number;
         if (applicantIndex >= 0) {
           req.session.userCase!.appl_allApplicants![applicantIndex] = {
-            ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
+            ...(req.session.userCase?.appl_allApplicants?.[applicantIndex] as C100Applicant),
             applicantAddressPostcode: selectedAddress.postcode as string,
             applicantAddress1: selectedAddress.street1 as string,
             applicantAddress2: selectedAddress.street2 as string,
@@ -50,6 +54,8 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         formData['applicantAddressPostcode'] = selectedAddress.postcode;
       }
     }
-    this.redirect(req, res);
+    redirectURI = applyParms(C100_APPLICANT_ADDRESS_MANUAL, { applicantId: applicantId as string });
+
+    this.redirect(req, res, redirectURI);
   }
 }

@@ -16,8 +16,8 @@ const en = () => ({
       required: 'Enter the town or city',
     },
     addressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter the postcode',
+      invalid: 'Enter a valid postcode',
     },
     addressHistory: {
       required: 'Enter your details known',
@@ -39,8 +39,8 @@ const cy = () => ({
       required: 'Enter the town or city - welsh',
     },
     addressPostcode: {
-      required: 'Enter a real postcode - welsh',
-      invalid: 'Enter a real postcode - welsh',
+      required: 'Enter the postcode - welsh',
+      invalid: 'Enter a valid postcode - welsh',
     },
     addressHistory: {
       required: 'Enter your details known - welsh',
@@ -89,7 +89,7 @@ export const generateFormFields = (caseData: Partial<C100Applicant>): GenerateDy
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const manualAddressFormTranslations = manualAddressFormLanguages[content.language]();
-  const applicantId = content?.additionalData?.req?.query!.applicantId;
+  const applicantId = content?.additionalData?.req?.params!.applicantId;
   const applicantData = content.userCase?.appl_allApplicants!.find(i => i.id === applicantId) as C100Applicant;
   const { applicantFirstName, applicantLastName } = applicantData;
 

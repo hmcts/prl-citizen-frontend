@@ -43,7 +43,7 @@ describe('applicant > address > select > content', () => {
     },
     additionalData: {
       req: {
-        query: {
+        params: {
           applicantId: '3d6cc3df-9c11-42c0-be69-84acfcbd6048',
         },
       },

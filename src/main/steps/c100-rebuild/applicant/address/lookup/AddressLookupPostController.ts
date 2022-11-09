@@ -1,11 +1,14 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { C100Applicant } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { AnyType } from '../../../../../app/form/validation';
 import { getAddressesFromPostcode } from '../../../../../app/postcode/postcode-lookup-api';
+import { applyParms } from '../../../../common/url-parser';
+import { C100_APPLICANT_ADDRESS_SELECT } from '../../../../urls';
 
 import { getUpdatedForm } from './content';
 
@@ -17,8 +20,9 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const postcode = req.body['addressPostcode'] as string;
-    const { applicantId } = req.query;
+    const { applicantId } = req.params;
     const applicantId1: AnyType | undefined = applicantId;
+    let redirectURI = req.originalUrl;
 
     let addresses;
 
@@ -29,7 +33,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
     req.session.userCase!.appl_allApplicants![applicantIndex] = {
-      ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
+      ...(req.session.userCase?.appl_allApplicants?.[applicantIndex] as C100Applicant),
       applicantAddressPostcode: req.body['addressPostcode'] as string,
     };
 
@@ -38,6 +42,8 @@ export default class AddressLookupPostController extends PostController<AnyObjec
     }
     req.session.addresses = addresses;
 
-    this.redirect(req, res);
+    redirectURI = applyParms(C100_APPLICANT_ADDRESS_SELECT, { applicantId: applicantId as string });
+
+    this.redirect(req, res, redirectURI);
   }
 }

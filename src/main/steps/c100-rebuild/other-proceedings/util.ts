@@ -6,7 +6,6 @@ import {
   C100OrderTypes,
   YesNoEmpty,
 } from '../../../app/case/definition';
-import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, C100_OTHER_PROCEEDINGS_ORDER_DETAILS } from '../../../steps/urls';
 
 interface C100AllOrdersInterface extends C100OrderInterface {
   orderType: C100OrderTypes;
@@ -45,29 +44,4 @@ export const getAllOrderDocuments = (
   orders: C100OrderTypeInterface | Record<string, never> = {}
 ): C100OrderInterface[] | [] => {
   return getAllOrders(orders).filter(order => order.orderDocument?.id);
-};
-
-export const sanitizeOtherProceedingsQueryString = (
-  fromUrl: string,
-  toUrl: string,
-  queryString: Record<string, string>
-): Record<string, string> => {
-  switch (fromUrl) {
-    case C100_OTHER_PROCEEDINGS_ORDER_DETAILS:
-    case C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: {
-      if (toUrl === C100_OTHER_PROCEEDINGS_ORDER_DETAILS) {
-        delete queryString.orderId;
-      } else if (toUrl !== C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD) {
-        delete queryString.orderType;
-        delete queryString.orderId;
-      }
-      break;
-    }
-    default: {
-      delete queryString.orderType;
-      delete queryString.orderId;
-      break;
-    }
-  }
-  return queryString;
 };

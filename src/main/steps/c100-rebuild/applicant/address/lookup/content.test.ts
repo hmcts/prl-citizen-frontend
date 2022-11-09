@@ -7,22 +7,20 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Address of firstName lastName',
-  manualAddressUrl: '/c100-rebuild/applicant/address/manual?applicantId=3d6cc3df-9c11-42c0-be69-84acfcbd6048',
   errors: {
     addressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter the postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 };
 
 const cy = {
   title: 'Address of - welsh firstName lastName',
-  manualAddressUrl: '/c100-rebuild/applicant/address/manual?applicantId=3d6cc3df-9c11-42c0-be69-84acfcbd6048',
   errors: {
     addressPostcode: {
-      required: 'Enter a real postcode - welsh',
-      invalid: 'Enter a real postcode - welsh',
+      required: 'Enter the postcode - welsh',
+      invalid: 'Enter a valid postcode - welsh',
     },
   },
 };
@@ -42,7 +40,7 @@ describe('applicant > address > lookup > content', () => {
     },
     additionalData: {
       req: {
-        query: {
+        params: {
           applicantId: '3d6cc3df-9c11-42c0-be69-84acfcbd6048',
         },
       },

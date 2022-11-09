@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { YesOrNo } from '../../../../../app/case/definition';
+import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -16,7 +16,7 @@ export default class ManualAddressPostController extends PostController<AnyObjec
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { applicantId } = req.query;
+    const { applicantId } = req.params;
 
     const form = new Form(getUpdatedForm().fields as FormFields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
@@ -25,7 +25,7 @@ export default class ManualAddressPostController extends PostController<AnyObjec
 
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
     req.session.userCase!.appl_allApplicants![applicantIndex] = {
-      ...req.session.userCase?.appl_allApplicants?.[applicantIndex],
+      ...(req.session.userCase?.appl_allApplicants?.[applicantIndex] as C100Applicant),
       applicantAddressPostcode: req.body['addressPostcode'] as string,
       applicantAddress1: req.body['address1'] as string,
       applicantAddress2: req.body['address2'] as string,

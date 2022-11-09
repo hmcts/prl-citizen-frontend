@@ -19,7 +19,7 @@ const en = {
   hwfReferenceNumberLabel: 'Enter your help with fees reference number',
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C',
   errors: {
-    hwfGuidanceRefNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees',
     },
   },
@@ -37,7 +37,7 @@ const cy = {
   hwfReferenceNumberLabel: 'Enter your help with fees reference number - welsh',
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C - welsh',
   errors: {
-    hwfGuidanceRefNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
     },
   },
@@ -66,7 +66,7 @@ describe('help with fess > hwf guidance', () => {
   });
 
   test('should contain applyingWith field', () => {
-    const applyingWithField = fields.hwfGuidanceRefNumber as FormOptions;
+    const applyingWithField = fields.helpWithFeesReferenceNumber as FormOptions;
     expect(applyingWithField.type).toBe('text');
     expect(applyingWithField.classes).toBe('govuk-input--width-10');
     expect(applyingWithField.labelSize).toBe('m');

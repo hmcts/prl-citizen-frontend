@@ -111,6 +111,7 @@ const en = {
   apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
+  divider: 'or',
 };
 
 const cy: typeof en = {
@@ -192,6 +193,7 @@ const cy: typeof en = {
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
   onlyContinue: 'Continue (in welsh)',
   onlycontinue: 'Continue (in welsh)',
+  divider: 'neu',
 };
 
 export const generatePageContent = ({

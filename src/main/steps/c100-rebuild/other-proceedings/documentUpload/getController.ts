@@ -11,6 +11,7 @@ import {
 } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
+import { applyParms } from '../../../../steps/common/url-parser';
 import { Language, generatePageContent } from '../../../common/common.content';
 import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 export type URL_OF_FILE_UPLOAD = string;
@@ -28,7 +29,7 @@ export default class DocumentUpload extends GetController {
   }
 
   public async removeDocument(req: AppRequest, res: Response): Promise<void> {
-    const { removeId, orderType, orderId } = req.query;
+    const { removeId, orderType, orderId } = req.params;
     this.removeExistingDocument(removeId as string, req, res, orderType as string, orderId as string);
   }
 
@@ -36,10 +37,10 @@ export default class DocumentUpload extends GetController {
     if (res.locals.isError || res.headersSent) {
       return;
     }
-    const { orderType, orderId } = req.query;
+    const { orderId, orderType, removeId } = req.params;
     const courtOrderType = orderType as C100OrderTypes;
     const courtOrderId: AnyType | undefined = orderId;
-    if (req.query.hasOwnProperty('removeId') && req.query.hasOwnProperty('orderType')) {
+    if (removeId && orderType) {
       this.removeDocument(req, res);
     } else {
       let currentOrderDocument: C100DocumentInfo | undefined = {
@@ -78,8 +79,13 @@ export default class DocumentUpload extends GetController {
         htmlLang: language,
         orderType,
         orderId,
-        postURL: C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
         document: currentOrderDocument,
+        fileUplaodUrl: applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }),
+        fileRemoveUrl: applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
+          orderType,
+          orderId,
+          removeId: currentOrderDocument.id,
+        }),
       });
     }
   }
@@ -110,8 +116,7 @@ export default class DocumentUpload extends GetController {
         if (err) {
           throw err;
         }
-        console.log(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
-        res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
+        res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
       });
     } catch (error) {
       console.log(error);

@@ -103,7 +103,7 @@ export const form: FormContent = {
           hint: l => l.helpTravellingMovingBuildingSupportHint,
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'ra_disabilityRequirements',
