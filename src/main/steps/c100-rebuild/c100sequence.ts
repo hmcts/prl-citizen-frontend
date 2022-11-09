@@ -151,7 +151,7 @@ import OtherPersonsDetailsNavigationController from './other-person-details/navi
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
-import ApplicantDetailsNavigationController from './applicant/navigationController';
+import ApplicantNavigationController from './applicant/navigationController';
 
 export const C100Sequence: Step[] = [
   {
@@ -726,12 +726,14 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
@@ -752,17 +754,20 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADDRESS_LOOKUP,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANT_ADDRESS_SELECT,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_ADDRESS_LOOKUP, caseData, req?.params),
   },
   {
     url: C100_APPLICANT_ADDRESS_SELECT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANT_ADDRESS_MANUAL,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_ADDRESS_SELECT, caseData, req?.params),
   },
   {
     url: C100_APPLICANT_ADDRESS_MANUAL,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANT_ADDRESS_LOOKUP,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_ADDRESS_MANUAL, caseData, req?.params),
   },
   {
     url: C100_CHILDERN_DETAILS_OTHER_CHILDREN,
@@ -914,16 +919,18 @@ export const C100Sequence: Step[] = [
     url: C100_APPLICANT_RELATIONSHIP_TO_CHILD,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantDetailsNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
   },
   {
     url: C100_APPLICANTS_PERSONAL_DETAILS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANTS_PERSONAL_DETAILS,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANTS_PERSONAL_DETAILS, caseData, req?.params),
   },
   {
     url: C100_APPLICANT_CONTACT_DETAIL,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_CONTACT_DETAIL, caseData, req?.params),
   },
 ];

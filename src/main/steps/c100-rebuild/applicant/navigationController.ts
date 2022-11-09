@@ -1,9 +1,21 @@
 import { Case } from '../../../app/case/case';
 import { C100Applicant, ChildrenDetails } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
-import { C100_APPLICANT_ADD_APPLICANTS, C100_APPLICANT_RELATIONSHIP_TO_CHILD, PageLink } from '../../urls';
+import {
+  C100_APPLICANTS_PERSONAL_DETAILS,
+  C100_APPLICANT_ADDRESS_LOOKUP,
+  C100_APPLICANT_ADDRESS_MANUAL,
+  C100_APPLICANT_ADDRESS_SELECT,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+  C100_APPLICANT_CONTACT_DETAIL,
+  C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+  C100_CONFIDENTIALITY_FEEDBACK,
+  C100_CONFIDENTIALITY_FEEDBACK_NO,
+  C100_RESPONDENT_DETAILS_ADD,
+  PageLink,
+} from '../../urls';
 
-class ApplicantDetailsNavigationController {
+class ApplicantNavigationController {
   private applicantDetails: C100Applicant[] | [] = [];
   private childrenDetails: ChildrenDetails[] | [] = [];
   private childId: ChildrenDetails['id'] = '';
@@ -27,26 +39,63 @@ class ApplicantDetailsNavigationController {
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
     this.applicantDetails = caseData?.appl_allApplicants as C100Applicant[];
     this.childrenDetails = caseData?.cd_children as ChildrenDetails[];
-    this.applicantId = params?.applicantId;
+    this.applicantId = params?.applicantId as string;
     this.childId = params?.childId;
     let nextUrl;
 
     switch (currentPageUrl) {
+      case C100_CONFIDENTIALITY_FEEDBACK:
+      case C100_CONFIDENTIALITY_FEEDBACK_NO: {
+        nextUrl = applyParms(C100_APPLICANTS_PERSONAL_DETAILS, {
+          applicantId: this.applicantId,
+        });
+        break;
+      }
+      case C100_APPLICANTS_PERSONAL_DETAILS: {
+        nextUrl = applyParms(C100_APPLICANT_RELATIONSHIP_TO_CHILD, {
+          applicantId: this.applicantId,
+          childId: this.childrenDetails[0].id,
+        });
+        break;
+      }
       case C100_APPLICANT_RELATIONSHIP_TO_CHILD: {
         const nextChild = this.getNextChild();
-        const nextApplicant = this.getNextApplicant();
-
         nextUrl = nextChild
           ? applyParms(C100_APPLICANT_RELATIONSHIP_TO_CHILD, {
-              applicantId: this.applicantId as string,
+              applicantId: this.applicantId,
               childId: nextChild?.id,
             })
-          : nextApplicant
-          ? applyParms(C100_APPLICANT_RELATIONSHIP_TO_CHILD, {
-              applicantId: nextApplicant?.id as string,
-              childId: this.childrenDetails[0].id,
+          : applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
+              applicantId: this.applicantId,
+            });
+        break;
+      }
+      case C100_APPLICANT_ADDRESS_LOOKUP: {
+        nextUrl = applyParms(C100_APPLICANT_ADDRESS_SELECT, {
+          applicantId: this.applicantId,
+        });
+        break;
+      }
+      case C100_APPLICANT_ADDRESS_SELECT: {
+        nextUrl = applyParms(C100_APPLICANT_ADDRESS_MANUAL, {
+          applicantId: this.applicantId,
+        });
+        break;
+      }
+      case C100_APPLICANT_ADDRESS_MANUAL: {
+        nextUrl = applyParms(C100_APPLICANT_CONTACT_DETAIL, {
+          applicantId: this.applicantId,
+        });
+        break;
+      }
+      case C100_APPLICANT_CONTACT_DETAIL: {
+        const nextApplicant = this.getNextApplicant();
+
+        nextUrl = nextApplicant
+          ? applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
+              applicantId: nextApplicant.id!,
             })
-          : C100_APPLICANT_ADD_APPLICANTS;
+          : C100_RESPONDENT_DETAILS_ADD;
         break;
       }
       default: {
@@ -59,4 +108,4 @@ class ApplicantDetailsNavigationController {
   }
 }
 
-export default new ApplicantDetailsNavigationController();
+export default new ApplicantNavigationController();
