@@ -702,15 +702,14 @@ export type C100Applicant = {
   };
   relationshipDetails?: {
     relationshipToChildren: RelationshipToChildren[];
-  }
+  };
+  applicantContactDetail?: ContactDetail;
 }
 
 export interface RelationshipToChildren {
   relationshipType: RelationshipType;
   otherRelationshipTypeDetails?: string;
   childId: string;
-  applicantProvideDetailsOfPreviousAddresses?: string,
-  applicantContactDetail?: ContactDetail
 }
 
 export interface ContactDetail {
