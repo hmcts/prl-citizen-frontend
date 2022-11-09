@@ -3,7 +3,6 @@ import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/u
 import * as URL from '../../urls';
 
 import {
-  getAllegationOfHarmStatus,
   getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getInternationalFactorsStatus,
@@ -53,17 +52,6 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.check_details_of_your_court_hearings,
           status: getInternationalFactorsStatus(userCase),
           href: URL.INTERNATIONAL_FACTORS_START,
-        },
-      ],
-    },
-    {
-      title: sectionTitles.safetyconcerns,
-      items: [
-        {
-          id: 'allegations_of_harm_and_violence',
-          text: taskListItems.allegations_of_harm_and_violence,
-          status: getAllegationOfHarmStatus(userCase),
-          href: URL.RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
         },
       ],
     },

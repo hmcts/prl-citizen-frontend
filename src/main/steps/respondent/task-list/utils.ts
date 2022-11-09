@@ -202,17 +202,3 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
 //   return SectionStatus.NOT_AVAILABLE_YET;
 // };
 
-export const getAllegationOfHarmStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase.yourchildconcernsstart === 'No' || userCase.yourchildconcernsstart === 'Yes') {
-    return SectionStatus.COMPLETED;
-  }
-  // if(userCase.cameoutofallegationsharmwithNo){
-  //   return SectionStatus.COMPLETED;
-  // }
-  return SectionStatus.NOT_AVAILABLE_YET;
-};
-
-// export const setVarandGetNextStepofAllegationharm = (userCase: Partial<CaseWithId>) : PageLink => {
-//   userCase.cameoutofallegationsharmwithNo = true;
-//   return RESPONDENT_TASK_LIST_URL;
-// }
