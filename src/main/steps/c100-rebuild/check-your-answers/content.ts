@@ -37,6 +37,7 @@ import { InternationElements } from './util/InternationElement.util';
 import { ApplicantElements } from './util/applicant.util';
 import { childDetailsContents } from './util/childDetails.util';
 import { hearingDetailsContents } from './util/hearingwithout.util';
+import { HelpWithFeeContent } from './util/helpWithFee.util';
 import { MiamFieldsLoader } from './util/miam.util';
 import { otherProceedingsContents } from './util/otherProceeding.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
@@ -134,8 +135,6 @@ export const enContent = {
     courtOrderPrevent:
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
-    doRequireHelpwithFee: 'Do you need help with paying the fee for this application?',
-    hwfApplication: 'Enter your help with fees reference number',
     //respondent-details
     repondentDetials: 'Have they change thier name?',
     respondentPlaceOfBirth: 'Place of birth',
@@ -240,8 +239,6 @@ export const cyContent: typeof enContent = {
     courtOrderPrevent:
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
-    doRequireHelpwithFee: 'Do you need help with paying the fee for this application?',
-    hwfApplication: 'Enter your help with fees reference number',
     //respondent-details
     repondentDetials: 'Have they change thier name?',
     respondentPlaceOfBirth: 'Place of birth',
@@ -378,6 +375,7 @@ export const generateContent: TranslationFn = content => {
     ...childDetailsContents(content['language']),
     ...SafetyConcernContentElements(content['language']),
     ...ApplicantElements(content['language']),
+    ...HelpWithFeeContent(content['language']),
     ...{ none: 'none' },
   };
   const translations = languages[content.language](content, newContents);

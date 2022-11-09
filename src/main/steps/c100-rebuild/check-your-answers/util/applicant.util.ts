@@ -18,8 +18,6 @@ import {
   en as contentPersonalDetailsEn,
 } from '../../applicant/personal-details/content';
 
-
-
 /**
  * It returns an object containing the contents of the English and Welsh versions of the page,
  * depending on the language selected
