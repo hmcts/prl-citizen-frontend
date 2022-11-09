@@ -12,8 +12,9 @@ export const applicantAddressParser = (sessionApplicantData, keys) => {
   if(sessionApplicantData.hasOwnProperty('applicantAddressHistory')){
     html += HTML.H4 + keys['haveLivedMore'] + HTML.H4_CLOSE;
     html += sessionApplicantData?.['applicantAddressHistory']+ HTML.RULER;
-    html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BREAK;
+    html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BOTTOM_PADDING_3;
     sessionApplicantData.hasOwnProperty('applicantProvideDetailsOfPreviousAddresses')&& (html += sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'] );
+    HTML.BOTTOM_PADDING_CLOSE;
   }
  return html;
 };
@@ -33,5 +34,51 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys)
     html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BREAK;
     sessionApplicantData.hasOwnProperty('provideDetailsOfPreviousAddresses')&& (html += sessionApplicantData?.['provideDetailsOfPreviousAddresses'] );
   }
+ return html;
+};
+
+
+
+export const applicantContactDetailsParser = (sessionApplicantData, keys) => {
+  let html = '' as string;
+  if(sessionApplicantData['canProvideEmail'] === 'Yes'){
+    html += HTML.H4 + keys['canProvideEmailLabel'] + HTML.H4_CLOSE;
+    html += sessionApplicantData['emailAddress'];
+  }
+  if(sessionApplicantData['canProvideEmail'] === 'No'){
+    html += HTML.H4 +  keys['canNotProvideEmailLabel'] + HTML.H4_CLOSE;
+  }
+  html += HTML.RULER;
+  html += HTML.H4 + keys['homePhoneNumberLabel'] + HTML.H4_CLOSE;
+  html += sessionApplicantData['homePhoneNumber'];
+  html += HTML.BREAK;
+  html += HTML.RULER;
+  if(sessionApplicantData['canProvideMobileNumber'] === 'Yes'){
+    html +=  HTML.H4  + keys['mobileNumberLabel'] + HTML.H4_CLOSE;
+    html +=  HTML.BOTTOM_PADDING_3;
+    html += sessionApplicantData['mobileNumber'];
+    html += HTML.BOTTOM_PADDING_CLOSE;
+  }
+  if(sessionApplicantData['canProvideMobileNumber'] === 'No'){
+    html += HTML.H4 + keys['canNotProvideMobileNumberLabel'] + HTML.H4_CLOSE;
+    html +=  HTML.BOTTOM_PADDING_3;
+    html += sessionApplicantData['canNotProvideMobileNumberReason'];
+    html += HTML.BOTTOM_PADDING_CLOSE;
+    //canNotProvideMobileNumberReason
+  }  
+ return html;
+};
+
+
+
+export const applicantCourtCanLeaveVoiceMail = (sessionApplicantData, keys) => {
+  let html = '' as string;
+  if(sessionApplicantData['canLeaveVoiceMail'] === 'Yes'){
+    html +=  keys['voiceMailYesLabel'];
+  } 
+
+  if(sessionApplicantData['canLeaveVoiceMail'] === 'No'){
+    html += keys['voiceMailNoLabel'];
+  } 
  return html;
 };

@@ -8,7 +8,7 @@ import { DATE_FORMATTOR } from './common/dateformatter';
 import { HTML } from './common/htmlSelectors';
 import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
-import { applicantAddressParser, applicantAddressParserForRespondents } from './helpers/applicantHelper';
+import { applicantAddressParser, applicantAddressParserForRespondents, applicantContactDetailsParser, applicantCourtCanLeaveVoiceMail } from './helpers/applicantHelper';
 import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
@@ -325,8 +325,7 @@ export const ApplicantDetails = (
         key: keys['anyOtherPeopleKnowDetails'],
         value: sessionApplicantData[applicant]['detailsKnown'],
         changeUrl:
-          Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'] +
-          `?applicantId=${sessionApplicantData[applicant]['id']}`,
+         applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId: sessionApplicantData[applicant]['id'] }),
       },
       {
         key: keys['doYouWantToKeep'],
@@ -337,20 +336,30 @@ export const ApplicantDetails = (
             : parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
         changeUrl:
           sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
-            ? Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'] +
-              `?applicantId=${sessionApplicantData[applicant]['id']}`
-            : Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'] +
-              `?applicantId=${sessionApplicantData[applicant]['id']}`,
+            ?  applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'], { applicantId: sessionApplicantData[applicant]['id'] })
+            :  applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId: sessionApplicantData[applicant]['id'] }),
       },
       {
         key: keys['addressDetails'],
         value: '',
         valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys),
-        changeUrl:
-          Urls['C100_APPLICANT_ADDRESS_LOOKUP'] +
-          `?applicantId=${sessionApplicantData[applicant]['id']}`,
+        changeUrl: applyParms( Urls['C100_APPLICANT_ADDRESS_LOOKUP'], { applicantId: sessionApplicantData[applicant]['id'] }),
+      },
+      {
+        key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
+        value: '',
+        valueHtml: applicantContactDetailsParser(sessionApplicantData[applicant].applicantContactDetail, keys),
+        changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
+      },
+      {
+        key: keys['voiceMailLabel'],
+        value: '',
+        valueHtml: applicantCourtCanLeaveVoiceMail(sessionApplicantData[applicant].applicantContactDetail, keys),
+        changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
       }
     );
+
+    //contactDetailsOf
   }
   return {
     title: sectionTitles['ApplicantDetails'],

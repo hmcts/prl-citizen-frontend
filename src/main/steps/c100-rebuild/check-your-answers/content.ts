@@ -19,6 +19,7 @@ import {
   MiamExemption,
   MiamTitle,
   OtherChildrenDetails,
+  OtherPeopleDetails,
   PastAndCurrentProceedings,
   PeopleDetails,
   PermissionForApplication,
@@ -30,10 +31,10 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
-  OtherPeopleDetails,
   whereDoChildLive,
 } from './mainUtil';
 import { InternationElements } from './util/InternationElement.util';
+import { ApplicantElements } from './util/applicant.util';
 import { childDetailsContents } from './util/childDetails.util';
 import { hearingDetailsContents } from './util/hearingwithout.util';
 import { MiamFieldsLoader } from './util/miam.util';
@@ -114,10 +115,6 @@ export const enContent = {
     detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
     concerns: 'concerns',
     againstChild: 'against the child',
-    anyOtherPeopleKnowDetails:
-      'Do the other people named in this application (the respondents) know any of your contact details?    ',
-    doYouWantToKeep:
-      'Do you want to keep your contact details private from  the other people named in the application (the respondents)?',
     applicantDetails: 'Applicant [^^^] - Your details',
     haveLivedMore: 'have you lived at this address for more than 5 years ?',
     previousAddress: 'Previous Addresses',
@@ -148,6 +145,7 @@ export const enContent = {
     relationshipTo: 'Relationship to',
     whoDoesLiveWith: 'Who does [^childName^] currently live with?',
     otherPerson: 'Other person',
+    contactDetailsOf: 'Contact details of [^applicantName^]',
   },
 };
 export const cyContent: typeof enContent = {
@@ -223,10 +221,6 @@ export const cyContent: typeof enContent = {
     detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
     concerns: 'concerns',
     againstChild: 'against the child',
-    anyOtherPeopleKnowDetails:
-      'Do the other people named in this application (the respondents) know any of your contact details? ',
-    doYouWantToKeep:
-      'Do you want to keep your contact details private from  the other people named in the application (the respondents)?',
     applicantDetails: 'Applicant [^^^] - Your details - welsh',
     haveLivedMore: 'have you lived at this address for more than 5 years ?',
     previousAddress: 'Previous Addresses',
@@ -257,6 +251,7 @@ export const cyContent: typeof enContent = {
     relationshipTo: 'Relationship to',
     whoDoesLiveWith: 'Who does [^childName^] currently live with?',
     otherPerson: 'Other person',
+    contactDetailsOf: 'Contact details of [^applicantName^]',
   },
 };
 
@@ -382,6 +377,7 @@ export const generateContent: TranslationFn = content => {
     ...InternationElements(content['language']),
     ...childDetailsContents(content['language']),
     ...SafetyConcernContentElements(content['language']),
+    ...ApplicantElements(content['language']),
     ...{ none: 'none' },
   };
   const translations = languages[content.language](content, newContents);

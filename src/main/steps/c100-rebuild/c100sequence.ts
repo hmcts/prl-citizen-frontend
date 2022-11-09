@@ -1028,5 +1028,5 @@ export const C100Sequence: Step[] = [
     url: C100_CHECK_YOUR_ANSWER,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
-  }
+  },
 ];
