@@ -58,7 +58,7 @@ describe('CosApiClient', () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
     const caseData = toApiFormat(req?.session?.userCase);
-    const actual = await client.submitRespondentResponse(req.session.user, '123456', caseData, 'update');
+    const actual = await client.submitRespondentResponse(req.session.user, '123456', '123456', caseData);
     expect(actual).toEqual(response);
   });
 

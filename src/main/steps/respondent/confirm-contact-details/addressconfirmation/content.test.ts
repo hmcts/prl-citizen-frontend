@@ -17,8 +17,8 @@ const en = {
       required: 'Enter the town or city',
     },
     citizenUserAddressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter a valid postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 };
