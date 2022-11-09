@@ -136,6 +136,9 @@ import {
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
   C100_GET_CASE,
   C100_CHILDERN_LIVE_WITH,
+  C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
+  C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
+  C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -850,6 +853,36 @@ export const C100Sequence: Step[] = [
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
         caseData,
         req?.params
       ),

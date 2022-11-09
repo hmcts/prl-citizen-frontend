@@ -5,32 +5,54 @@ import { getDataShape, getOtherPersonDetails, updateOtherPersonDetails } from '.
 
 const dummyRequest = mockRequest({
   params: {
-    otherPersonId: '7228444b-ef3f-4202-a1e7-cdcd2316e1f6',
+    otherPersonId: '1031eeb1-e55a-4989-8ab9-b2be33f1d9bd',
   },
   session: {
     userCase: {
       oprs_otherPersons: [
         {
-          id: '7228444b-ef3f-4202-a1e7-cdcd2316e1f6',
+          id: '1031eeb1-e55a-4989-8ab9-b2be33f1d9bd',
           firstName: 'John',
           lastName: 'Doe',
           personalDetails: {
+            hasNameChanged: '',
+            resPreviousName: '',
             dateOfBirth: {
-              year: '',
-              month: '',
               day: '',
+              month: '',
+              year: '',
             },
-            isDateOfBirthUnknown: 'Yes',
+            isDateOfBirthUnknown: '',
             approxDateOfBirth: {
-              year: '1999',
-              month: '09',
-              day: '09',
+              day: '',
+              month: '',
+              year: '',
             },
-            gender: 'Male',
+            gender: '',
             otherGenderDetails: '',
-            isNameChanged: 'dontKnow',
-            previousFullName: '',
+            respondentPlaceOfBirth: '',
+            respondentPlaceOfBirthUnknown: 'No',
           },
+          address: {
+            AddressLine1: '',
+            AddressLine2: '',
+            PostTown: '',
+            County: '',
+            PostCode: '',
+            selectedAddress: 2,
+            addressHistory: 'Yes',
+            provideDetailsOfPreviousAddresses: '',
+          },
+          relationshipDetails: {
+            relationshipToChildren: [],
+          },
+          contactDetails: {
+            donKnowEmailAddress: 'No',
+            emailAddress: '',
+            telephoneNumber: '',
+            donKnowTelephoneNumber: 'No',
+          },
+          addressUnknown: 'No',
         },
       ],
     },
@@ -44,6 +66,8 @@ describe('Add other Person util', () => {
         firstName: '',
         lastName: '',
         personalDetails: {
+          hasNameChanged: '',
+          resPreviousName: '',
           dateOfBirth: {
             day: '',
             month: '',
@@ -57,9 +81,29 @@ describe('Add other Person util', () => {
           },
           gender: '',
           otherGenderDetails: '',
-          isNameChanged: '',
-          previousFullName: '',
+          respondentPlaceOfBirth: '',
+          respondentPlaceOfBirthUnknown: 'No',
         },
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+          selectedAddress: 2,
+          addressHistory: 'Yes',
+          provideDetailsOfPreviousAddresses: '',
+        },
+        relationshipDetails: {
+          relationshipToChildren: [],
+        },
+        contactDetails: {
+          donKnowEmailAddress: 'No',
+          emailAddress: '',
+          telephoneNumber: '',
+          donKnowTelephoneNumber: 'No',
+        },
+        addressUnknown: 'No',
       })
     );
   });

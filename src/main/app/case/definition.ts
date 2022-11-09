@@ -2496,6 +2496,7 @@ export interface C1ASafteyConcerns {
       telephoneNumber?: string
       donKnowTelephoneNumber?: YesOrNo
     }
+    addressUnknown?: YesOrNo;
   };
 
   export interface RelationshipToChildren {

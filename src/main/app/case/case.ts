@@ -523,6 +523,8 @@ export interface Case {
   too_courtOrder?: string[];
   too_stopOtherPeopleDoingSomethingSubField?: string[];
   too_resolveSpecificIssueSubField?: string[];
+  otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
+  otherPersonLastName?: C100RebuildPartyDetails['lastName'];
   oprs_otherPersonCheck?: YesOrNo;
   oprs_otherPersons?: C100RebuildPartyDetails[];
   c100TempFirstName?: string;
