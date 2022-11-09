@@ -2534,7 +2534,7 @@ export interface C1ASafteyConcerns {
   
   export interface C100Address extends Address {
     selectedAddress?: number,
-    addressHistory?: YesOrNo,
+    addressHistory?: YesNoDontKnow,
     provideDetailsOfPreviousAddresses?: string
   }
 

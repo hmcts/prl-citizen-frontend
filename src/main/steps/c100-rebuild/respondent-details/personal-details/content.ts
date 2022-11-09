@@ -342,6 +342,9 @@ export const generateFormFields = (
   };
 
   // mark the selection for the radio buttons based on the option chosen
+  fields.hasNameChanged.values = fields.hasNameChanged.values.map(config =>
+    config.value === hasNameChanged ? { ...config, selected: true } : config
+  );
 
   fields.gender.values = fields.gender.values.map(config =>
     config.value === gender ? { ...config, selected: true } : config

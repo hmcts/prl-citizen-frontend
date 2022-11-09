@@ -6,6 +6,7 @@ import {
   ChildrenDetails,
   Gender,
   RelationshipToChildren,
+  YesNoDontKnow,
   YesNoEmpty,
   YesOrNo,
 } from '../../../app/case/definition';
@@ -15,7 +16,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
   firstName: '',
   lastName: '',
   personalDetails: {
-    hasNameChanged: undefined,
+    hasNameChanged: YesNoDontKnow.empty,
     previousFullName: '',
     dateOfBirth: {
       day: '',
@@ -40,7 +41,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     County: '',
     PostCode: '',
     selectedAddress: 2,
-    addressHistory: YesOrNo.YES,
+    addressHistory: YesNoDontKnow.yes,
     provideDetailsOfPreviousAddresses: '',
   },
   relationshipDetails: {
@@ -52,6 +53,7 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     telephoneNumber: '',
     donKnowTelephoneNumber: YesOrNo.NO,
   },
+  addressUnknown: YesOrNo.NO,
 });
 
 export const getRespndentDetails = (
@@ -69,12 +71,12 @@ export const updateRespondentDetails = (
   respondents.map(respondent => (respondent.id === respondentDetails.id ? respondentDetails : respondent));
 
 export const transformFormData = (
-  context: 'personalDetails',
+  context: 'personalDetails' | 'address',
   formData: Record<string, any>
 ): Partial<C100RebuildPartyDetails> => {
   const dataShape = getDataShape()[context];
 
-  return Object.entries(dataShape).reduce(
+  return Object.entries(dataShape!).reduce(
     (transformedData: Partial<C100RebuildPartyDetails>, [fieldName, defaultValue]) => {
       if (fieldName in formData && !(fieldName in transformedData)) {
         if (
@@ -83,7 +85,7 @@ export const transformFormData = (
         ) {
           formData[fieldName] = defaultValue;
         }
-        transformedData[fieldName] = formData[fieldName] ?? dataShape[fieldName];
+        transformedData[fieldName] = formData[fieldName] ?? dataShape![fieldName];
       }
 
       return transformedData;

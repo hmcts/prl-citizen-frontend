@@ -141,7 +141,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const respondentId = content.additionalData!.req.params.respondentId;
   const respondentDetails = getRespndentDetails(content.userCase!.resp_Respondents ?? [], respondentId)!;
-  console.log('respondentDetails from /contact-details/content-ts ===+>', respondentDetails);
   const { fields } = generateFormFields(respondentDetails.contactDetails);
 
   return {

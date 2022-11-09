@@ -7,9 +7,11 @@ let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Address of',
+  title: 'Address details of',
+  subtitle:
+    "Include as much detail as you can. If there's information missing, your application may take longer to process.",
   errors: {
-    address1: {
+    AddressLine1: {
       required: 'Enter the first line of the address',
     },
     addressTown: {
@@ -22,17 +24,18 @@ const en = () => ({
     addressHistory: {
       required: 'Enter your details known',
     },
-    provideDetailsOfPreviousAddresses: {
-      required:
-        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+    addressUnknown: {
+      cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
   },
 });
 
 const cy = () => ({
-  title: 'Address of - welsh',
+  title: 'Address details of - welsh',
+  subtitle:
+    "Include as much detail as you can. If there's information missing, your application may take longer to process. - welsh",
   errors: {
-    address1: {
+    AddressLine1: {
       required: 'Enter the first line of the address - welsh',
     },
     addressTown: {
@@ -45,9 +48,8 @@ const cy = () => ({
     addressHistory: {
       required: 'Enter your details known - welsh',
     },
-    provideDetailsOfPreviousAddresses: {
-      required:
-        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
+    addressUnknown: {
+      cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
     },
   },
 });
