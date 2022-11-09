@@ -1,10 +1,11 @@
+import { YesOrNo } from 'app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
-  section: 'Current or previous proceedings',
-  title: 'Have you or the children ever been involved in court proceedings?',
+  section: 'Have you or the children ever been involved in court proceedings?',
+  title: '',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
@@ -25,8 +26,8 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Current or previous proceedings',
-  title: 'Have you or the children ever been involved in court proceedings?',
+  section: 'Have you or the children ever been involved in court proceedings?',
+  title: '',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
@@ -80,11 +81,11 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.courtOrderYes,
-          value: 'Yes',
+          value: YesOrNo.YES,
         },
         {
           label: l => l.courtOrderNo,
-          value: 'No',
+          value: YesOrNo.NO,
         },
       ],
       validator: isFieldFilledIn,
@@ -92,7 +93,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlyContinue,
-  },
+  }
 };
 
 export const generateContent: TranslationFn = content => {
