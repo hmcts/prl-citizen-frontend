@@ -30,6 +30,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  whereDoChildLive,
 } from './mainUtil';
 import { InternationElements } from './util/InternationElement.util';
 import { childDetailsContents } from './util/childDetails.util';
@@ -86,6 +87,7 @@ export const enContent = {
     otherChildernDetails: 'Other Childern details',
     detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '13. Help with Fees',
+    whereTheChildrenLive: 'Where the children live',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -134,7 +136,7 @@ export const enContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     doRequireHelpwithFee: 'Do you need help with paying the fee for this application?',
-    alreadyAppliedHelpWithFee: 'Have you already applied for help with your application fee?',
+    hwfApplication: 'Enter your help with fees reference number',
     //respondent-details
     repondentDetials: 'Have they change thier name?',
     respondentPlaceOfBirth: 'Place of birth',
@@ -191,6 +193,7 @@ export const cyContent: typeof enContent = {
     otherChildernDetails: 'Other Childern details',
     detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '13. Help with Fees',
+    whereTheChildrenLive: 'Where the children live',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -239,7 +242,7 @@ export const cyContent: typeof enContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     doRequireHelpwithFee: 'Do you need help with paying the fee for this application?',
-    alreadyAppliedHelpWithFee: 'Have you already applied for help with your application fee?',
+    hwfApplication: 'Enter your help with fees reference number',
     //respondent-details
     repondentDetials: 'Have they change thier name?',
     respondentPlaceOfBirth: 'Place of birth',
@@ -281,10 +284,10 @@ const en = (content: CommonContent, newEnContents?: any) => {
     OtherChildrenDetails(enContent, userCase),
     ApplicantDetails(enContent, userCase),
     RespondentDetails(enContent, userCase),
+    whereDoChildLive(enContent, userCase),
     PastAndCurrentProceedings(enContent, userCase),
     SafetyConcerns(enContent, userCase),
     SafetyConcerns_child(enContent, userCase),
-    HelpWithFee(enContent, userCase),
   ];
 
   if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
@@ -320,6 +323,7 @@ const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
     ChildernDetailsAdditional(cyContent, userCase),
     OtherChildrenDetails(cyContent, userCase),
     ApplicantDetails(cyContent, userCase),
+    whereDoChildLive(enContent, userCase),
     RespondentDetails(cyContent, userCase),
     PastAndCurrentProceedings(cyContent, userCase),
     SafetyConcerns(cyContent, userCase),

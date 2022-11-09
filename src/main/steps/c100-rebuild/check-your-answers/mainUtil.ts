@@ -769,17 +769,17 @@ export const OtherChildrenDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const sessionChildData = userCase['cd_otherChildren'];
+  const sessionChildData = userCase['ocd_otherChildren'];
   const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
     [];
     newChildDataStorage.push(
       {
         key: keys['hasOtherChildren'],
-        value: userCase['cd_hasOtherChildren'] as string,
+        value: userCase['ocd_hasOtherChildren'] as string,
         changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
       },
     );
-  if(userCase['cd_hasOtherChildren'] === 'Yes'){
+  if(userCase['ocd_hasOtherChildren'] === 'Yes'){
     for (const child in sessionChildData) {
       const firstname = sessionChildData[child]['firstName'],
         lastname = sessionChildData[child]['lastName'],
@@ -992,21 +992,42 @@ export const HelpWithFee = (
   const SummaryData: any = [
     {
       key: keys['doRequireHelpwithFee'],
-      value: userCase['needHelpWithFees'],
+      value: userCase['hwf_needHelpWithFees'],
       changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'], 
     },
   ];
-  if(userCase.hasOwnProperty('needHelpWithFees') && userCase['needHelpWithFees'] === 'Yes'){
+
     SummaryData.push({
-      key: keys['alreadyAppliedHelpWithFee'],
-      valueHtml: userCase.feesAppliedDetails ? userCase['feesAppliedDetails'] : '' + userCase.hasOwnProperty('feesAppliedDetails') && userCase['feesAppliedDetails'] === 'Yes' 
-      ? HTML.RULER + HTML.H4 +  keys['details'] + HTML.H4_CLOSE + HTML.BREAK + userCase['hwfReferenceNumber'] : '',
-      changeUrl: Urls['C100_HELP_WITH_FEES_FEES_APPLIED'], 
+      key: keys['hwfApplication'],
+      valueHtml: userCase['helpWithFeesReferenceNumber'],
+      changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'], 
     });
-  }
   return {
     title: sectionTitles['helpWithFee'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
 
+
+export const whereDoChildLive = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData: any = [
+    {
+      key: keys['doRequireHelpwithFee'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'], 
+    },
+  ];
+
+    SummaryData.push({
+      key: keys['hwfApplication'],
+      valueHtml: userCase['helpWithFeesReferenceNumber'],
+      changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'], 
+    });
+  return {
+    title: sectionTitles['whereTheChildrenLive'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
