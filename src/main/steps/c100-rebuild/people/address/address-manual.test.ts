@@ -1,13 +1,12 @@
-import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { CommonContent } from '../../../../common/common.content';
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './address-manual';
 
-jest.mock('../../../../../app/form/validation');
+jest.mock('../../../../app/form/validation');
 
 const enContent = {
   addressLine1: 'Building and street',
-  addressLine1Hint: 'Court documents may be sent here',
   town: 'Town or city',
   county: 'County',
   country: 'Country',
@@ -18,7 +17,6 @@ const enContent = {
 
 const cyContent = {
   addressLine1: 'Building and street - welsh',
-  addressLine1Hint: 'Court documents may be sent here - welsh',
   town: 'Town or city - welsh',
   county: 'County - welsh',
   country: 'Country - welsh',

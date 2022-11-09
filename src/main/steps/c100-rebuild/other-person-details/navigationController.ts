@@ -2,7 +2,6 @@ import { Case } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
-  C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_ADD,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
@@ -59,18 +58,14 @@ class OtherPersonsDetailsNavigationController {
       }
       case C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD: {
         const nextChild = this.getNextChild();
-        const nextOtherPerson = this.getNextOtherPerson();
-
         nextUrl = nextChild
           ? applyParms(C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD, {
               otherPersonId: this.otherPersonId,
               childId: nextChild?.id,
             })
-          : nextOtherPerson
-          ? applyParms(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, {
-              otherPersonId: nextOtherPerson.id,
-            })
-          : C100_OTHER_PERSON_CHECK;
+          : applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, {
+              otherPersonId: this.otherPersonId,
+            });
         break;
       }
       case C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP: {

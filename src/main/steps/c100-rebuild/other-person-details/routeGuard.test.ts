@@ -23,7 +23,7 @@ const dummyData = {
         },
         gender: 'Male',
         otherGenderDetails: '',
-        isNameChanged: 'dontKnow',
+        hasNameChanged: 'dontKnow',
       },
     },
   ],

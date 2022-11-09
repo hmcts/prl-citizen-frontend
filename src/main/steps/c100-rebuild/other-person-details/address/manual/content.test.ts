@@ -6,6 +6,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Address details of Dummy Test1',
+  addressLine1Hint: 'Court documents may be sent here',
   errors: {
     AddressLine1: {
       required: 'Enter the first line of the address',
@@ -25,6 +26,7 @@ const en = {
 
 const cy = {
   title: 'Address details of - welsh Dummy Test1',
+  addressLine1Hint: 'Court documents may be sent here - welsh',
   errors: {
     AddressLine1: {
       required: 'Enter the first line of the address - welsh',

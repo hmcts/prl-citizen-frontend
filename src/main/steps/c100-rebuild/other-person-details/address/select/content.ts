@@ -6,11 +6,11 @@ import {
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
 } from '../../../../../steps/urls';
+import { getOtherPersonDetails } from '../../../other-person-details/util';
 import {
   form as selectAddressForm,
   languages as selectAddressFormLanguages,
-} from '../../../other-person-details/address/common/address-select';
-import { getOtherPersonDetails } from '../../../other-person-details/util';
+} from '../../../people/address/address-select';
 
 let updatedForm: FormContent;
 
@@ -20,7 +20,7 @@ const en = () => ({
   changePostCodeLabel: 'Change postcode',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address',
+      notSelected: 'Select an address from the list',
     },
   },
 });
@@ -30,7 +30,7 @@ const cy = () => ({
   changePostCodeLabel: 'Change postcode - welsh',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address -  welsh',
+      notSelected: 'Select an address from the list -  welsh',
     },
   },
 });

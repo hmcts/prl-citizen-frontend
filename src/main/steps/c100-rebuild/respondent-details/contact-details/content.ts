@@ -66,7 +66,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 export const generateFormFields = (
   contactDetails: C100RebuildPartyDetails['contactDetails']
 ): GenerateDynamicFormFields => {
-  const { donKnowEmailAddress, emailAddress, telephoneNumber, donKnowTelephoneNumber } = contactDetails;
+  const { donKnowEmailAddress, emailAddress, telephoneNumber, donKnowTelephoneNumber } = contactDetails!;
 
   const errors = {
     en: {},

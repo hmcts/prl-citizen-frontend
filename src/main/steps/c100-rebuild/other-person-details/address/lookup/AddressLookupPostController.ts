@@ -32,14 +32,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
       otherPersonId
     ) as C100RebuildPartyDetails;
 
-    Object.assign(
-      otherPersonsDetails.address!,
-      transformFormData(
-        'address',
-        formData
-        // { PostCode: formData['addressPostcode'] }
-      )
-    );
+    Object.assign(otherPersonsDetails.address!, transformFormData('address', formData));
 
     req.session.userCase.oprs_otherPersons = updateOtherPersonDetails(
       req.session.userCase.oprs_otherPersons!,
