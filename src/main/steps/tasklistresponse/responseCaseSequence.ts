@@ -25,8 +25,11 @@ import {
   RESPONDENT_ADDRESS_LOOKUP,
   RESPONDENT_ADDRESS_MANUAL,
   RESPONDENT_ADDRESS_SELECT,
+  RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   //RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
+  RESPONDENT_CHECK_ANSWERS_NO,
+  RESPONDENT_CHECK_ANSWERS_YES,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_FIND_ADDRESS,
@@ -41,6 +44,7 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
+  RESPONDENT_YOUR_CHILD_CONCERNS,
   //RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
@@ -235,5 +239,33 @@ export const responseCaseSequence: Step[] = [
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
+  },
+  {
+    url: RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_YOUR_CHILD_CONCERNS,
+  },
+  {
+    url: RESPONDENT_YOUR_CHILD_CONCERNS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: data =>
+      data.yourchildconcernsstart === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
+  },
+
+  {
+    url: RESPONDENT_CHECK_ANSWERS_YES,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPONDENT_CHECK_ANSWERS_NO,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+    //getNextStep:(userCase:Partial<CaseWithId>) =>  setVarandGetNextStepofAllegationharm(userCase),
   },
 ];

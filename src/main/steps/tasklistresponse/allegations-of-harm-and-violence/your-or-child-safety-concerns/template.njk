@@ -1,0 +1,21 @@
+{% extends "common/template1.njk" %}
+
+{% block page_content %}
+<div class="gov-uk-grid-row">
+<legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+  <span class="govuk-caption-l">{{section}}</span>
+  <h1 class="govuk-fieldset__heading">{{title}}</h1>
+</legend>
+<div class="govuk-!-padding-bottom-4"></div>
+<p class="govuk-body">  {{line1}}</p>
+<p class="govuk-body">If you or the children have experienced abuse or feel unsafe,  support is
+              available. <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">See a list of organisations that can help</a>.</p>
+<div class="govuk-warning-text">
+                  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                  <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    {{warning}}
+                  </strong>
+                </div>
+</div>
+{% endblock %}

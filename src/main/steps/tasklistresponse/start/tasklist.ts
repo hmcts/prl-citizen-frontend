@@ -2,6 +2,7 @@ import { Respondent, YesOrNo } from '../../../app/case/definition';
 import * as URL from '../../urls';
 
 import {
+  getAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
   getCurrentOrOtherProceedingsStatus,
@@ -32,6 +33,17 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           text: taskListItems.do_you_have_legal_representation,
           status: getLegalRepresentationStatus(userCase),
           href: URL.LEGAL_REPRESENTATION_START,
+        },
+      ],
+    },
+    {
+      title: sectionTitles.safetyconcerns,
+      items: [
+        {
+          id: 'allegations_of_harm_and_violence',
+          text: taskListItems.allegations_of_harm_and_violence,
+          status: getAllegationOfHarmStatus(userCase),
+          href: URL.RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
         },
       ],
     },

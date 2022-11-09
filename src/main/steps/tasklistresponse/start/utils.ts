@@ -214,3 +214,13 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
   }
   return SectionStatus.TO_DO;
 };
+
+export const getAllegationOfHarmStatus = (userCase: CaseWithId): SectionStatus => {
+  if (userCase.yourchildconcernsstart === 'No' || userCase.yourchildconcernsstart === 'Yes') {
+    return SectionStatus.COMPLETED;
+  }
+  // if(userCase.cameoutofallegationsharmwithNo){
+  //   return SectionStatus.COMPLETED;
+  // }
+  return SectionStatus.NOT_AVAILABLE_YET;
+};

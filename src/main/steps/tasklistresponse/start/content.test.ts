@@ -72,6 +72,17 @@ describe('task-list > content', () => {
           ],
         },
         {
+          items: [
+            {
+              id: 'allegations_of_harm_and_violence',
+              text: 'Allegations of harm and violence',
+              status: 'NOT_AVAILABLE_YET',
+              href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+            },
+          ],
+          title: 'Safety concerns',
+        },
+        {
           title: 'Consent to the application',
           items: [
             {
@@ -166,6 +177,17 @@ describe('task-list > content', () => {
               href: '/tasklistresponse/legalrepresentation/start',
             },
           ],
+        },
+        {
+          items: [
+            {
+              id: 'allegations_of_harm_and_violence',
+              text: 'Allegations of harm and violence',
+              status: 'NOT_AVAILABLE_YET',
+              href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+            },
+          ],
+          title: 'Safety concerns',
         },
       ],
     },

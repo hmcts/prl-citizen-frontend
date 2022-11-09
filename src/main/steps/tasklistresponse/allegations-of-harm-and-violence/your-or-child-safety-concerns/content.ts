@@ -67,7 +67,7 @@ export const form: FormContent = {
             applicationrelated: {
               type: 'hidden',
               classes: 'govuk-label',
-              name: 'world',
+              name: 'contentunderyes',
               hint: l => l.contentunderyesp1,
               //link: 'https://www.gov.uk/injunction-domestic-violence',
               //label: l => l.contentunderyesp1,

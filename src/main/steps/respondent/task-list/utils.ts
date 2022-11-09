@@ -1,4 +1,5 @@
 //import { PageLink, RESPONDENT_TASK_LIST_URL } from 'steps/urls';
+// import { PageLink, RESPONDENT_TASK_LIST_URL } from 'steps/urls';
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, SectionStatus, YesNoIDontKnow, YesOrNo } from '../../../app/case/definition';
 
@@ -202,16 +203,16 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
 // };
 
 export const getAllegationOfHarmStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase && (userCase.yourchildconcernsstart === 'No' || userCase.yourchildconcernsstart === 'Yes')) {
-    return SectionStatus.IN_PROGRESS;
+  if (userCase.yourchildconcernsstart === 'No' || userCase.yourchildconcernsstart === 'Yes') {
+    return SectionStatus.COMPLETED;
   }
-  // if(userCase && userCase.cameoutofallegationsharmwithNo){
+  // if(userCase.cameoutofallegationsharmwithNo){
   //   return SectionStatus.COMPLETED;
   // }
   return SectionStatus.NOT_AVAILABLE_YET;
 };
 
-// export const setVarandGetNextStepofAllegationharm = (userCase: CaseWithId) : PageLink => {
+// export const setVarandGetNextStepofAllegationharm = (userCase: Partial<CaseWithId>) : PageLink => {
 //   userCase.cameoutofallegationsharmwithNo = true;
 //   return RESPONDENT_TASK_LIST_URL;
 // }
