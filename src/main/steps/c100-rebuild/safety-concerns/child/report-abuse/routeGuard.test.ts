@@ -7,8 +7,8 @@ import { routeGuard } from './routeGuard';
 describe('C1A Saftey Concers child report abuse RouteGuard', () => {
   test('Should render the page when the guard validation passes', async () => {
     const req = mockRequest({
-      query: {
-        type: C1AAbuseTypes.FINANCIAL_ABUSE,
+      params: {
+        abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
       },
       session: {
         userCase: {
@@ -24,8 +24,8 @@ describe('C1A Saftey Concers child report abuse RouteGuard', () => {
 
   test('Should not render the page when the guard validation fails', async () => {
     const req = mockRequest({
-      query: {
-        type: C1AAbuseTypes.EMOTIONAL_ABUSE,
+      params: {
+        abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
       },
       session: {
         userCase: {
@@ -36,7 +36,7 @@ describe('C1A Saftey Concers child report abuse RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     routeGuard.get(req, res, next);
-    expect(res.redirect).toHaveBeenCalledWith('error');
+    expect(res.redirect).toHaveBeenCalledWith('/error');
     expect(next).not.toHaveBeenCalled();
   });
 });

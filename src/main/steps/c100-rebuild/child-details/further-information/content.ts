@@ -6,7 +6,7 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Further Information',
-  childrenKnownToSocialServicesLabel: 'Are any of the childern known to social service?',
+  childrenKnownToSocialServicesLabel: 'Are any of the children known to social service?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan?',
@@ -30,7 +30,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Further Information - welsh',
-  childrenKnownToSocialServicesLabel: 'Are any of the childern known to social service - welsh?',
+  childrenKnownToSocialServicesLabel: 'Are any of the children known to social service - welsh?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known - welsh',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan - welsh?',

@@ -62,6 +62,11 @@ import {
   OtherProceedings,
   //DocumentType,
   ChildrenDetails,
+  C1ASafteyConcernsAbout,
+  C1AAbuseTypes,
+  OtherChildrenDetails,
+  C100RebuildPartyDetails,
+  C100Applicant,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -328,7 +333,8 @@ export interface Case {
   miamStart?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
-  sq_writtenAgreement?: string;
+  c1A_supervisionAgreementDetails?: string;
+  c1A_agreementOtherWaysDetails?: string;
   doYouConsent?: YesOrNo;
   applicationReceivedDate?: CaseDate;
   courtPermission?: YesOrNo;
@@ -484,6 +490,7 @@ export interface Case {
   c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
+  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
   c1A_safteyConcerns?: C1ASafteyConcerns;
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
@@ -503,8 +510,27 @@ export interface Case {
   childFirstName?: ChildrenDetails['firstName'];
   childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
+  ocd_otherChildren?: OtherChildrenDetails[];
+  ocd_hasOtherChildren?: YesOrNo;
+  sq_writtenAgreement?: string;
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
+  sq_courtPermissionRequired?: YesOrNo;
+  c1A_concernAboutChild?: C1AAbuseTypes[];
+  c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_childAbductedBefore?: YesOrNo;
+  co_certificate?: C100DocumentInfo;
+  too_courtOrder?: string[];
+  too_stopOtherPeopleDoingSomethingSubField?: string[];
+  too_resolveSpecificIssueSubField?: string[];
+  otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
+  otherPersonLastName?: C100RebuildPartyDetails['lastName'];
+  oprs_otherPersonCheck?: YesOrNo;
+  oprs_otherPersons?: C100RebuildPartyDetails[];
+  c100TempFirstName?: string;
+  c100TempLastName?: string;
+  resp_Respondents?: C100RebuildPartyDetails[];
+  appl_allApplicants?: C100Applicant[];
 }
 
 export interface CaseWithId extends Case {
@@ -528,6 +554,10 @@ export interface CaseWithId extends Case {
   };
   id: string;
   state: State;
+  applicantTemporaryFormData?: {
+    TempFirstName?: string | unknown;
+    TempLastName?: string | unknown;
+  };
 }
 
 export enum Checkbox {
@@ -553,7 +583,7 @@ export enum FieldPrefix {
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
-  APPLICANT = 'APPLICANT',
+  APPLICANT = 'applicant',
   RESPONDENT = 'RESPONDENT',
 }
 

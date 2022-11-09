@@ -8,7 +8,7 @@ services:
     token: POSTCODE_TOKEN
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'prl-citizen-frontend'
+    microservice: 'prl_citizen_frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
@@ -23,7 +23,7 @@ services:
   case:
     url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-543.service.core-compute-preview.internal'
   cos:
-    url: 'https://prl-cos-pr-513.service.core-compute-preview.internal'
+    url: 'https://prl-cos-pr-633.service.core-compute-preview.internal'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-543.service.core-compute-preview.internal'
 health:

@@ -1,7 +1,14 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { ChildrenDetails } from '../../../app/case/definition';
+import { ChildrenDetails, OtherChildrenDetails } from '../../../app/case/definition';
 
-import { getChildDetails, getDataShape, transformFormData, updateChildDetails } from './util';
+import {
+  getChildDetails,
+  getDataShape,
+  getOtherChildDataShape,
+  transformFormData,
+  transformOtherChildFormData,
+  updateChildDetails,
+} from './util';
 
 const dummyRequest = mockRequest({
   params: {
@@ -34,6 +41,37 @@ const dummyRequest = mockRequest({
           },
           parentialResponsibility: {
             statement: 'fgfdgfg',
+          },
+        },
+      ],
+    },
+  },
+});
+
+const otherChildDummyRequest = mockRequest({
+  params: {
+    childId: '7483640e-0817-4ddc-b709-6723f7925485',
+  },
+  session: {
+    userCase: {
+      ocd_otherChildren: [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925485',
+          firstName: 'Jane',
+          lastName: 'Doe',
+          personalDetails: {
+            dateOfBirth: {
+              year: '',
+              month: '',
+              day: '',
+            },
+            isDateOfBirthUnknown: '',
+            approxDateOfBirth: {
+              year: '',
+              month: '',
+              day: '',
+            },
+            sex: '',
           },
         },
       ],
@@ -106,6 +144,100 @@ describe('Add Children util', () => {
     );
     expect(
       transformFormData('personalDetails', {
+        dateOfBirth: {
+          year: '1987',
+          month: '12',
+          day: '12',
+        },
+        isDateOfBirthUnknown: 'No',
+        approxDateOfBirth: {
+          year: '1987',
+          month: '12',
+          day: '12',
+        },
+      })
+    ).toEqual(
+      expect.objectContaining({
+        dateOfBirth: {
+          year: '1987',
+          month: '12',
+          day: '12',
+        },
+        isDateOfBirthUnknown: 'No',
+        approxDateOfBirth: {
+          year: '',
+          month: '',
+          day: '',
+        },
+      })
+    );
+  });
+});
+
+describe('Add Other Children util', () => {
+  test('getDataShape for add children details should return appropriate fields', async () => {
+    expect(getOtherChildDataShape()).toEqual(
+      expect.objectContaining({
+        firstName: '',
+        lastName: '',
+        personalDetails: {
+          dateOfBirth: {
+            day: '',
+            month: '',
+            year: '',
+          },
+          isDateOfBirthUnknown: '',
+          approxDateOfBirth: {
+            day: '',
+            month: '',
+            year: '',
+          },
+          gender: '',
+          otherGenderDetails: '',
+        },
+      })
+    );
+  });
+
+  test('getChildDetails for child should return appropriate child details if the childId is valid', async () => {
+    expect(
+      getChildDetails(otherChildDummyRequest.session.userCase.ocd_otherChildren, otherChildDummyRequest.params.childId)
+    ).toEqual(
+      expect.objectContaining({
+        firstName: 'Jane',
+        lastName: 'Doe',
+      })
+    );
+  });
+
+  test('updateOtherChildDetails for child should update the child details in the session the childId is valid', async () => {
+    const childDetails = getChildDetails(
+      otherChildDummyRequest.session.userCase.ocd_otherChildren,
+      otherChildDummyRequest.params.childId
+    );
+    const dataToUpdate = {
+      ...childDetails,
+      firstName: 'Jane',
+    };
+
+    expect(
+      updateChildDetails(
+        otherChildDummyRequest.session.userCase.ocd_otherChildren,
+        dataToUpdate as OtherChildrenDetails
+      )
+    ).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          firstName: 'Jane',
+          lastName: 'Doe',
+        }),
+      ])
+    );
+  });
+
+  test('transformOtherChildFormData should return appropriate data field', async () => {
+    expect(
+      transformOtherChildFormData('personalDetails', {
         dateOfBirth: {
           year: '1987',
           month: '12',

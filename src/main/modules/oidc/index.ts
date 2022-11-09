@@ -10,7 +10,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { FeatureToggles } from '../../app/utils/featureToggles';
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 // eslint-disable-next-line sort-imports
-import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL, DASHBOARD_URL, C100_URL } from '../../steps/urls';
+import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL, DASHBOARD_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -118,7 +118,7 @@ export class OidcMiddleware {
             // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
           }
           // TODO - Need to be revisited by PRLAW team
-          if (!req.path.startsWith(C100_URL)) {
+          if (req.path.startsWith(DASHBOARD_URL)) {
             console.log('****** inside oidc, trying to get the cases');
             try {
               req.session.userCaseList = await getCaseDetails(req);

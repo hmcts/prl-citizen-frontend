@@ -16,7 +16,7 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
     const userCase = req.session.userCase;
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,

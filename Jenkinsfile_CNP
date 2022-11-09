@@ -29,7 +29,9 @@ def secrets = [
     secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL'),
     secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET'),
     secret('system-update-user-username', 'SYSTEM_UPDATE_USER_USERNAME'),
-    secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD')
+    secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD'),
+    secret('citizen-user', 'CITIZEN_USERNAME'),
+    secret('citizen-password', 'CITIZEN_PASSWORD')
   ]
 ]
 
@@ -55,6 +57,25 @@ withPipeline(type, product, component) {
   }
 
   after('smoketest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+
+  before('functionalTest:preview') {
+    env.PRL_CITIZEN_WEB_URLL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
+    yarnBuilder.yarn('test:pa11y')
+  }
+
+  after('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+
+  before('functionalTest:aat') {
+    env.PRL_CITIZEN_WEB_URLL = "https://privatelaw.aat.platform.hmcts.net/"
+    yarnBuilder.yarn('test:functional:skip')
+  }
+
+  after('functionalTest:aat') {
+    yarnBuilder.yarn('test:pa11y')
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }
