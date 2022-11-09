@@ -25,7 +25,7 @@ export const LocationDetails = (
   const SummaryData = [
     {
       key: keys['whereDoChildLive'],
-      value: userCase['postcode'],
+      value: userCase['c100RebuildChildPostCode'],
       changeUrl: Urls['C100_CHILD_ADDRESS'],
     },
   ];
@@ -371,8 +371,8 @@ export const MiamAttendance = (
     },
     {
       key: keys['attendedMiamMidiation'],
-      value: userCase['childrenSubjectOfProtectionPlan'],
-      changeUrl: Urls['C100_MIAM_PREVIOUS_ATTENDANCE'],
+      value: userCase['miam_attendance'],
+      changeUrl: Urls['C100_MIAM_ATTENDANCE'],
     },
     {
       key: keys['midatatorDocumentTitle'],
@@ -847,16 +847,39 @@ export const RespondentDetails = (
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
   const sessionRespondentData = userCase['resp_Respondents'];
-  const newRespondentStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
+  const newRespondentStorage: { key: string; keyHtml?: string; value?: string; valueHtml?: string; changeUrl: string }[] =
     [];
     for (const respondent in sessionRespondentData) {
       const firstname = sessionRespondentData[respondent]['firstName'],
         lastname = sessionRespondentData[respondent]['lastName'],
         id = sessionRespondentData[respondent]['id'],
-        personalDetails = sessionRespondentData[respondent]['personalDetails'];
+        personalDetails = sessionRespondentData[respondent]['personalDetails']; //personalDetails
         const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
       const respondentNo = Number(respondent) + 1;
       const contactDetails = sessionRespondentData[respondent]['contactDetails'];
+      
+      /**
+       * Name takes
+       */
+      let changeNameInformation = '';
+      const hasNameChanged = personalDetails['hasNameChanged'];
+      changeNameInformation += hasNameChanged;
+      if(hasNameChanged === 'yes'){
+        const changedName = personalDetails['resPreviousName'];
+        changeNameInformation += HTML.RULER;
+        changeNameInformation += HTML.H4;
+        changeNameInformation +=keys['details'];
+        changeNameInformation += HTML.H4_CLOSE;
+        changeNameInformation += HTML.BREAK;
+        changeNameInformation += changedName;
+      }
+
+      let childGender = '';
+      childGender += personalDetails['gender'];
+      if(personalDetails['otherGenderDetails'] !== ''){
+        childGender += HTML.BREAK + HTML.RULER + keys['otherGender'] +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails'];
+      }
+
       newRespondentStorage.push(
         {
           key: '',
@@ -871,13 +894,12 @@ export const RespondentDetails = (
         },
         {
           key: keys['repondentDetials'],
-          value: personalDetails?.['repondentDetials'] + userCase['resPreviousName'] === ''?  HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + userCase?.['resPreviousName'] : '',
+          valueHtml: changeNameInformation,
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
         {
           key: keys['childGenderLabel'],
-          value: personalDetails?.['gender'],
-          valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails']: '',
+          valueHtml: childGender,
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
       );
