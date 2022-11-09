@@ -1,6 +1,6 @@
 import { mockRequest } from '../../utils/mockRequest';
 
-export const ApplicantMockRequest = mockRequest({
+export const applicantMockRequest = mockRequest({
   params: {
     childId: '7483640e-0817-4ddc-b709-6723f7925474',
     applicantId: '2732dd53-2e6c-46f9-88cd-08230e735b08',

@@ -90,6 +90,10 @@ import {
   C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES,
   PageLink,
   C100_MIAM_NO_NEED_WITH_REASONS,
+
+  /** Consent Order questions */
+  C100_CONSENT_ORDER_UPLOAD,
+  C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
   C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
 
   /** Screening Questions */
@@ -916,21 +920,31 @@ export const C100Sequence: Step[] = [
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, caseData, req?.params),
   },
   {
-    url: C100_APPLICANT_RELATIONSHIP_TO_CHILD,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
-  },
-  {
     url: C100_APPLICANTS_PERSONAL_DETAILS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       ApplicantNavigationController.getNextUrl(C100_APPLICANTS_PERSONAL_DETAILS, caseData, req?.params),
   },
   {
+    url: C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
+  },
+  {
     url: C100_APPLICANT_CONTACT_DETAIL,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       ApplicantNavigationController.getNextUrl(C100_APPLICANT_CONTACT_DETAIL, caseData, req?.params),
+  },
+  {
+    url: C100_CONSENT_ORDER_UPLOAD,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
+  },
+  {
+    url: C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
   },
 ];

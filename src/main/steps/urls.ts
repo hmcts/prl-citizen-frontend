@@ -428,3 +428,8 @@ export const C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: PageLink = `${C100_OTHER_
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/select`;
 
 export const C100_GET_CASE: PageLink = `${C100_URL}/get-case`;
+
+/** @C100 Consent Order */
+export const C100_CONSENT_ORDER: PageLink = `${C100_URL}/consent-order`;
+export const C100_CONSENT_ORDER_UPLOAD: PageLink = `${C100_CONSENT_ORDER}/upload`;
+export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_ORDER}/upload-confirmation`;

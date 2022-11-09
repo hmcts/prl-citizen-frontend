@@ -2,10 +2,7 @@ import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { getOtherPersonDetails } from '../../../other-person-details/util';
-import {
-  form as manualAddressForm,
-  languages as manualAddressFormLanguages,
-} from '../../../people/address/address-manual';
+import { form as manualAddressForm, languages as manualAddressFormLanguages } from '../common/address-manual';
 
 let updatedForm: FormContent;
 

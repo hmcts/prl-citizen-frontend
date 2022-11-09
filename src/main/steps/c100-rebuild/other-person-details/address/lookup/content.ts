@@ -4,10 +4,7 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL } from '../../../../../steps/urls';
 import { getOtherPersonDetails } from '../../../other-person-details/util';
-import {
-  form as lookupAddressForm,
-  languages as lookupAddressFormLanguages,
-} from '../../../people/address/address-lookup';
+import { form as lookupAddressForm, languages as lookupAddressFormLanguages } from '../common/address-lookup';
 
 let updatedForm: FormContent;
 
