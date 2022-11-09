@@ -10,7 +10,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { FeatureToggles } from '../../app/utils/featureToggles';
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 // eslint-disable-next-line sort-imports
-import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL, DASHBOARD_URL } from '../../steps/urls';
+import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL, DASHBOARD_URL, C100_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
