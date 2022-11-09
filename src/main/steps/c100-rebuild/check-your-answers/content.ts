@@ -40,6 +40,7 @@ import { hearingDetailsContents } from './util/hearingwithout.util';
 import { HelpWithFeeContent } from './util/helpWithFee.util';
 import { MiamFieldsLoader } from './util/miam.util';
 import { otherProceedingsContents } from './util/otherProceeding.util';
+import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
 
@@ -136,10 +137,6 @@ export const enContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     //respondent-details
-    repondentDetials: 'Have they change thier name?',
-    respondentPlaceOfBirth: 'Place of birth',
-    approxCheckboxLabel: 'I don’t know their date of birth',
-    respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
     relationshipTo: 'Relationship to',
     whoDoesLiveWith: 'Who does [^childName^] currently live with?',
     otherPerson: 'Other person',
@@ -240,10 +237,6 @@ export const cyContent: typeof enContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     //respondent-details
-    repondentDetials: 'Have they change thier name?',
-    respondentPlaceOfBirth: 'Place of birth',
-    approxCheckboxLabel: 'I don’t know their date of birth',
-    respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
     relationshipTo: 'Relationship to',
     whoDoesLiveWith: 'Who does [^childName^] currently live with?',
     otherPerson: 'Other person',
@@ -376,6 +369,7 @@ export const generateContent: TranslationFn = content => {
     ...SafetyConcernContentElements(content['language']),
     ...ApplicantElements(content['language']),
     ...HelpWithFeeContent(content['language']),
+    ...RespondentsElements(content['language']),
     ...{ none: 'none' },
   };
   const translations = languages[content.language](content, newContents);

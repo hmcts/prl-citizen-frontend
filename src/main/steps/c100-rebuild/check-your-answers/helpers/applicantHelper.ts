@@ -11,7 +11,7 @@ export const applicantAddressParser = (sessionApplicantData, keys) => {
   sessionApplicantData.hasOwnProperty('applicantAddressPostcode') && (html += sessionApplicantData?.['applicantAddressPostcode']+ HTML.RULER);
   if(sessionApplicantData.hasOwnProperty('applicantAddressHistory')){
     html += HTML.H4 + keys['haveLivedMore'] + HTML.H4_CLOSE;
-    html += sessionApplicantData?.['applicantAddressHistory']
+    html += sessionApplicantData?.['applicantAddressHistory'];
     if(sessionApplicantData['applicantAddressHistory'] === 'No'){
       html += HTML.RULER;
       html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BOTTOM_PADDING_3;
@@ -34,7 +34,7 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys)
   sessionApplicantData.hasOwnProperty('PostCode') && (html += sessionApplicantData?.['PostCode']+ HTML.RULER);
   if(sessionApplicantData.hasOwnProperty('addressHistory')){
     html += HTML.H4 + keys['haveLivedMore'] + HTML.H4_CLOSE;
-    html += sessionApplicantData?.['addressHistory']
+    html += sessionApplicantData?.['addressHistory'];
     if(sessionApplicantData.addressHistory === 'No'){
     html + + HTML.RULER;
     html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BOTTOM_PADDING_3;
