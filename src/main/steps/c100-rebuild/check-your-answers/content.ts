@@ -103,6 +103,7 @@ export const enContent = {
     domesticVoilenceHeading: DomesticAbuseEn().title,
     childProtectionHeading: ChildProtectionEn().title,
     midatatorDocumentTitle: EnMidiationDocument().title,
+    previousAddress: 'Previous Addresses',
     none: 'none',
     details: 'Details',
     fullName: 'Full name',
@@ -124,6 +125,10 @@ export const enContent = {
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
+    doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
+    courtOrderPrevent:
+      'There is a court order preventing me from making an application without first getting the permission of the court',
+    anotherReason: 'Another reason',
   },
 };
 export const cyContent: typeof enContent = {
@@ -185,6 +190,7 @@ export const cyContent: typeof enContent = {
     domesticVoilenceHeading: DomesticAbuseCy().title,
     childProtectionHeading: ChildProtectionCy().title,
     midatatorDocumentTitle: CyMidiationDocument().title,
+    previousAddress: 'Previous Addresses',
     none: 'none',
     details: 'Details',
     fullName: 'Full name - welsh',
@@ -206,6 +212,10 @@ export const cyContent: typeof enContent = {
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
+    doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
+    courtOrderPrevent:
+      'There is a court order preventing me from making an application without first getting the permission of the court',
+    anotherReason: 'Another reason',
   },
 };
 

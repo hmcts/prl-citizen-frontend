@@ -7,6 +7,7 @@
   en as contentjurdisictionEn,
 } from '../../international-elements/jurisdiction/content';
  */
+import { cy as addressManualCy, en as addressManualEn } from '../../applicant/address/common/address-manual';
 import {
   cy as contentDetailKnownCy,
   en as contentDetailKnownEn,
@@ -17,6 +18,24 @@ import {
   cy as contentPersonalDetailsCy,
   en as contentPersonalDetailsEn,
 } from '../../applicant/personal-details/content';
+import { cy as personalDetailsCy, en as personalDetailsEn } from '../../child-details/personal-details/content';
+import { cy as contentChildLivesCy, en as contentChildLivesEn } from '../../childaddress/content';
+import {
+  cy as constentAgreementCy,
+  en as constentAgreementEn,
+} from '../../screening-questions/consent-agreement/content';
+import {
+  cy as contentLRACy,
+  en as contentLRAEn,
+} from '../../screening-questions/legal-representation-application/content';
+import { cy as contentLRCy, en as contentLREn } from '../../screening-questions/legal-representation/content';
+import { cy as contentPermissionCy, en as contentPermissionEn } from '../../screening-questions/permission/content';
+import { cy as contentPRCy, en as contentPREn } from '../../screening-questions/permissions-request/content';
+import {
+  cy as contentPermissionWhyCy,
+  en as contentPermissionWhyEn,
+} from '../../screening-questions/permissions-why/content';
+//consent-agreement
 
 /**
  * It returns an object containing the contents of the English and Welsh versions of the page,
@@ -31,26 +50,15 @@ export const ApplicantElements = SystemLanguage => {
         ...contentPersonalDetailsEn(),
         anyOtherPeopleKnowDetails: contentDetailKnownEn().headingTitle,
         doYouWantToKeep: contentStartEn().headingTitle,
-        haveLivedMore: 'have you lived at this address for more than 5 years ?',
-        previousAddress: 'Previous Addresses',
-        hasOtherChildren: 'Do you or any respondents have other children who are not part of this application?',
-        otherGender: 'They identify in another way ',
-        whereDoChildLive: 'Where do the children live?',
-        writtenAgreement:
-          'Do you have a written agreement with the other people in the case, that you want the court to review?',
-        willYoubeUsingLegalRespresentator: 'Will you be using a legal representative in these proceedings?',
-        doyouWantLegalRespresentatorToCompleteApplication:
-          'Do you want your legal representative to complete the application for you?',
-        whyCourtGrantSubmittingPermission:
-          'Explain why the court should grant you permission to submit this application',
-        reasonPermissionRequired:
-          'Is there any reason that you would need permission from the court to make this application?',
-        whyPermissionRequiredFromCourt:
-          'Why do you need a permission from the court to make this application? (optional)',
-        doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
-        courtOrderPrevent:
-          'There is a court order preventing me from making an application without first getting the permission of the court',
-        anotherReason: 'Another reason',
+        haveLivedMore: addressManualEn().addressHistoryLabel,
+        otherGender: personalDetailsEn().other,
+        whereDoChildLive: contentChildLivesEn().headingTitle,
+        writtenAgreement: constentAgreementEn().title,
+        willYoubeUsingLegalRespresentator: contentLREn().title,
+        doyouWantLegalRespresentatorToCompleteApplication: contentLRAEn().title,
+        whyCourtGrantSubmittingPermission: contentPREn().title,
+        reasonPermissionRequired: contentPermissionEn().title,
+        whyPermissionRequiredFromCourt: contentPermissionWhyEn().title,
         errors: '',
       };
     },
@@ -60,26 +68,15 @@ export const ApplicantElements = SystemLanguage => {
         ...contentPersonalDetailsCy(),
         anyOtherPeopleKnowDetails: contentDetailKnownCy().headingTitle,
         doYouWantToKeep: contentStartCy().headingTitle,
-        haveLivedMore: 'have you lived at this address for more than 5 years ?',
-        previousAddress: 'Previous Addresses',
-        hasOtherChildren: 'Do you or any respondents have other children who are not part of this application?',
-        otherGender: 'They identify in another way ',
-        whereDoChildLive: 'Where do the children live?',
-        writtenAgreement:
-          'Do you have a written agreement with the other people in the case, that you want the court to review?',
-        willYoubeUsingLegalRespresentator: 'Will you be using a legal representative in these proceedings?',
-        doyouWantLegalRespresentatorToCompleteApplication:
-          'Do you want your legal representative to complete the application for you?',
-        whyCourtGrantSubmittingPermission:
-          'Explain why the court should grant you permission to submit this application',
-        reasonPermissionRequired:
-          'Is there any reason that you would need permission from the court to make this application?',
-        whyPermissionRequiredFromCourt:
-          'Why do you need a permission from the court to make this application? (optional)',
-        doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
-        courtOrderPrevent:
-          'There is a court order preventing me from making an application without first getting the permission of the court',
-        anotherReason: 'Another reason',
+        haveLivedMore: addressManualCy().addressHistoryLabel,
+        otherGender: personalDetailsCy().other,
+        whereDoChildLive: contentChildLivesCy().headingTitle,
+        writtenAgreement: constentAgreementCy().title,
+        willYoubeUsingLegalRespresentator: contentLRCy().title,
+        doyouWantLegalRespresentatorToCompleteApplication: contentLRACy().title,
+        whyCourtGrantSubmittingPermission: contentPRCy().title,
+        reasonPermissionRequired: contentPermissionCy().title,
+        whyPermissionRequiredFromCourt: contentPermissionWhyCy().title,
         errors: '',
       };
     },

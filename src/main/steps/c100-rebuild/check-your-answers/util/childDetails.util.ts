@@ -6,6 +6,7 @@ import {
   cy as contentFInformationCy,
   en as contentFInformationEn,
 } from '../../child-details/further-information/content';
+import { cy as otherChildCy, en as otherChildEn } from '../../child-details/has-other-children/content';
 import {
   cy as contentParentResponsibilityCy,
   en as contentParentResponsibilityEn,
@@ -37,6 +38,7 @@ export const childDetailsContents = SystemLanguage => {
         ...childMatters_english.issueOrderList,
         ...childMatters_english.childArrangementsOrder,
         ...childMatters_english.stepsList,
+        hasOtherChildren: otherChildEn().title,
         errors: '',
       };
     },
@@ -49,6 +51,7 @@ export const childDetailsContents = SystemLanguage => {
         ...childMatters_welsh.issueOrderList,
         ...childMatters_welsh.childArrangementsOrder,
         ...childMatters_welsh.stepsList,
+        hasOtherChildren: otherChildCy().title,
         errors: '',
       };
     },
