@@ -32,10 +32,14 @@ class PageStepConfigurator {
       const page = filteredPage?.steps.find(_page => _page.id === pId);
 
       if (page) {
-        const prevPageId = currentArray[pageIndex - 1] || '';
-        const prevPage = (prevPageId && filteredPage?.steps.find(_page => _page.id === prevPageId)) || {};
-        const nextPageId = currentArray[pageIndex + 1] || '';
-        const nextPage = (nextPageId && filteredPage?.steps.find(_page => _page.id === nextPageId)) || {};
+        // const prevPageId = currentArray[pageIndex - 1] || '';
+        // const prevPage = (prevPageId && filteredPage?.steps.find(_page => _page.id === prevPageId)) || {};
+        // const nextPageId = currentArray[pageIndex + 1] || '';
+        // const nextPage = (nextPageId && filteredPage?.steps.find(_page => _page.id === nextPageId)) || {};
+        const prevPageId = this.checkAndReturnPageId(currentArray[pageIndex - 1]);
+        const prevPage = this.checkAndReturnPage(prevPageId, filteredPage);
+        const nextPageId = this.checkAndReturnPageId(currentArray[pageIndex + 1]);
+        const nextPage = this.checkAndReturnPage(nextPageId, filteredPage);
 
         _pages[page.url] = {
           ...page,
@@ -57,7 +61,7 @@ class PageStepConfigurator {
 
   getSteps(mainPageId: string, selectedPageSteps?: string[]) {
     const pageSteps = this.pageSteps[mainPageId];
-    if (!pageSteps && selectedPageSteps && selectedPageSteps.length) {
+    if (!pageSteps && selectedPageSteps?.length) {
       this.deriveSteps(mainPageId, selectedPageSteps);
     }
     return this.pageSteps[mainPageId] || null;
@@ -65,13 +69,44 @@ class PageStepConfigurator {
 
   getNextPage(mainPageId: string, stepPageId?: string | null, selectedPageSteps?: string[]) {
     const pageSteps = this.getSteps(mainPageId, selectedPageSteps);
-    return pageSteps
-      ? mainPageId && stepPageId
-        ? pageSteps[stepPageId]
-          ? pageSteps[stepPageId].next
-          : null
-        : Object.values(pageSteps)[0]
-      : null;
+    // return pageSteps
+    // ? mainPageId && stepPageId
+    //   ? pageSteps[stepPageId]
+    //     ? pageSteps[stepPageId].next
+    //     : null
+    //   : Object.values(pageSteps)[0]
+    // : null;
+    return this.checkPageSteps(pageSteps, mainPageId, stepPageId);
+  }
+
+  private checkAndReturnPageId(pageId: string): string {
+    if (!pageId) {
+      return '';
+    }
+    return pageId;
+  }
+
+  private checkAndReturnPage(pageId: string, filteredPageParam) {
+    if (!pageId) {
+      return;
+    }
+    if (!filteredPageParam?.steps.find(_page => _page.id === pageId)) {
+      return {};
+    }
+    return filteredPageParam?.steps.find(_page => _page.id === pageId);
+  }
+
+  private checkPageSteps(pageStepsParam, mainPageIdParam: string, stepPageIdParam?: string | null) {
+    if (!pageStepsParam) {
+      return null;
+    }
+    if (!(mainPageIdParam && stepPageIdParam)) {
+      return Object.values(pageStepsParam)[0];
+    }
+    if (!pageStepsParam[stepPageIdParam]) {
+      return null;
+    }
+    return pageStepsParam[stepPageIdParam].next;
   }
 }
 
