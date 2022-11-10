@@ -20,9 +20,9 @@ const en = () => ({
 const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   title: "A oes gan unrhyw un o'r plant basbort?",
-  caption: "Pryderon diogelwch",
-  one: "Oes",
-  two: "Nac oes",
+  caption: 'Pryderon diogelwch',
+  one: 'Oes',
+  two: 'Nac oes',
   errors: {
     c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport - welsh',

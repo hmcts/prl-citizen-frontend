@@ -76,7 +76,7 @@ const cy = () => ({
   },
   youNeed:
     "Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i'r ffeiliau. Er enghraifft, gorchymyn-diogelu-brys.doc.",
-  youNeed2: "Rhaid i’r ffeiliau orffen efo JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.",
+  youNeed2: 'Rhaid i’r ffeiliau orffen efo JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
   uploadDescription: "Sut i dynnu llun o ddogfen ar eich ffôn a'i lwytho ",
   uploadRequirement: [
     'Place your document on a flat service in a well-lit room. Use a flash if you need to. - welsh',
@@ -85,7 +85,7 @@ const cy = () => ({
     'Email or send the photo or scan to the device you are using now. - welsh',
     'Upload it here. - welsh',
   ],
-  uploadButton: "Llwytho ffeil",
+  uploadButton: 'Llwytho ffeil',
   remove: ' Dileu',
   errors: {
     document: {

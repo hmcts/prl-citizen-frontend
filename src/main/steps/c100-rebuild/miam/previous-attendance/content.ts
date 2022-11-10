@@ -36,16 +36,23 @@ export const en = () => ({
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
   caption: 'Esemptiadau MIAM',
-  title: "A allwch chi gadarnhau eich bod wedi mynychu MIAM yn barod, neu fod gennych reswm dilys dros beidio â mynychu?",
+  title:
+    'A allwch chi gadarnhau eich bod wedi mynychu MIAM yn barod, neu fod gennych reswm dilys dros beidio â mynychu?',
   insetHtml: `<p class="govuk-body">Os ydych chi’n ceisio esemptiad rhag mynychu MIAM, bydd angen i chi ddarparu mwy o fanylion. </p>
              <p class="govuk-body">Mae’r llys angen yr wybodaeth hon i benderfynu a oes angen i chi fynychu MIAM ai peidio.</p>`,
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
-  fourMonthsPriorAttended: "Yn y 4 mis cyn gwneud y cais, bu ichi fynychu MIAM neu gymryd rhan mewn math arall o broses i ddatrys anghydfod y tu allan i’r llys yn ymwneud â’r un anghydfod neu yr un anghydfod i raddau helaeth",
-  onTimeParticipation: "Ar adeg gwneud y cais, bu ichi gymryd rhan mewn math arall o broses i ddatrys anghydfod y tu allan i’r llys yn ymwneud â’r un anghydfod neu yr un anghydfod i raddau helaeth",
-  beforeInitiationProceeding: "Byddai’r cais yn cael ei wneud ynghylch achos presennol sy’n parhau a bu ichi fynychu MIAM cyn cychwyn yr achos hwnnw",
-  fourMonthsPriorFiled: "Yn y 4 mis cyn gwneud y cais, bu ichi ffeilio cais perthnasol i’r llys teulu yn cadarnhau bod esemptiad rhag mynychu MIAM yn berthnasol a bod y cais yn ymwneud â’r un anghydfod neu yr un anghydfod i raddau helaeth",
-  miamExamptionApplied: "Byddai’r cais yn cael ei wneud ynghylch achos presennol sy’n parhau ac roedd esemptiad rhag mynychu MIAM yn berthnasol pan wnaed y cais ynghylch yr achos hwnnw",
-  beforStatingApplication: "Byddai’r cais yn cael ei wneud ynghylch achos presennol sy’n parhau a mynychodd y ceisydd MIAM cyn cychwyn yr achos hwnnw",
+  fourMonthsPriorAttended:
+    'Yn y 4 mis cyn gwneud y cais, bu ichi fynychu MIAM neu gymryd rhan mewn math arall o broses i ddatrys anghydfod y tu allan i’r llys yn ymwneud â’r un anghydfod neu yr un anghydfod i raddau helaeth',
+  onTimeParticipation:
+    'Ar adeg gwneud y cais, bu ichi gymryd rhan mewn math arall o broses i ddatrys anghydfod y tu allan i’r llys yn ymwneud â’r un anghydfod neu yr un anghydfod i raddau helaeth',
+  beforeInitiationProceeding:
+    'Byddai’r cais yn cael ei wneud ynghylch achos presennol sy’n parhau a bu ichi fynychu MIAM cyn cychwyn yr achos hwnnw',
+  fourMonthsPriorFiled:
+    'Yn y 4 mis cyn gwneud y cais, bu ichi ffeilio cais perthnasol i’r llys teulu yn cadarnhau bod esemptiad rhag mynychu MIAM yn berthnasol a bod y cais yn ymwneud â’r un anghydfod neu yr un anghydfod i raddau helaeth',
+  miamExamptionApplied:
+    'Byddai’r cais yn cael ei wneud ynghylch achos presennol sy’n parhau ac roedd esemptiad rhag mynychu MIAM yn berthnasol pan wnaed y cais ynghylch yr achos hwnnw',
+  beforStatingApplication:
+    'Byddai’r cais yn cael ei wneud ynghylch achos presennol sy’n parhau a mynychodd y ceisydd MIAM cyn cychwyn yr achos hwnnw',
   noneOfTheAbove: "Dim un o'r uchod",
   errors: {
     miam_previousAttendance: {

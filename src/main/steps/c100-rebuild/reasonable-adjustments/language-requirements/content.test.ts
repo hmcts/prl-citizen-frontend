@@ -35,15 +35,16 @@ const en = {
 const cy = {
   serviceName: 'Child Arrangements - welsh',
   caption: 'Gofynion ieithyddol',
-  headingTitle: `A oes gennych chi unrhyw ofynion ieithyddol?`,
-  line1: `Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl`,
+  headingTitle: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+  line1:
+    'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   speakInWelsh: "Rwy'n dymuno siarad Cymraeg",
   readAndWriteInWelsh: "Rwy'n dymuno darllen ac ysgrifennu yn Gymraeg",
   needInterpreterInCertainLanguage: "Rwy'n dymuno cael cyfieithydd mewn iaith benodol",
   needInterpreterInCertainLanguageDetailsLabel: `Give details of the language you require (including dialect, 
     if applicable) - welsh`,
-  noLanguageRequirements: "Nac oes, nid oes gennyf unrhyw ofynion ieithyddol ar hyn o bryd",
+  noLanguageRequirements: 'Nac oes, nid oes gennyf unrhyw ofynion ieithyddol ar hyn o bryd',
   errors: {
     ra_needInterpreterInCertainLanguageDetails: {
       required: 'Give details of the language you need an interpreter for - welsh',

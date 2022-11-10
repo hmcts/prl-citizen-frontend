@@ -125,22 +125,21 @@ export const cy = () => ({
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   childrenInvolvedCourtCase: 'Have the children been involved in a court case? - welsh',
   courtOrderProtection: 'Have you had a court order made for your protection? - welsh',
-  inset1: "Os ydych chi’n ceisio esemptiad rhag mynychu MIAM, bydd angen i chi roi mwy o fanylion.",
-  inset2: "Mae’r llys angen yr wybodaeth hon i benderfynu a oes angen i chi fynychu MIAM ai peidio.",
+  inset1: 'Os ydych chi’n ceisio esemptiad rhag mynychu MIAM, bydd angen i chi roi mwy o fanylion.',
+  inset2: 'Mae’r llys angen yr wybodaeth hon i benderfynu a oes angen i chi fynychu MIAM ai peidio.',
   detailsPara:
-   "‘Darpar barti’ yw rhywun sy’n cael ei enwi yn y cais hwn. Gallai gyfeirio atoch chi, neu'r bobl eraill yn y cais (yr atebwyr).",
-  policeInvolvement: "Mae’r heddlu wedi bod ynghlwm â hyn",
+    "‘Darpar barti’ yw rhywun sy’n cael ei enwi yn y cais hwn. Gallai gyfeirio atoch chi, neu'r bobl eraill yn y cais (yr atebwyr).",
+  policeInvolvement: 'Mae’r heddlu wedi bod ynghlwm â hyn',
   policeInvolvement_hint:
-    "Gall hyn olygu bod rhywun yn y cais (chi neu’r atebwyr) wedi cael ei arestio, rhybuddio, ei gyhuddo neu ei gael yn euog o gyflawni troseddau cam-drin domestig neu gam-drin plant. Dewiswch yr holl dystiolaeth sydd gennych i gefnogi eich cais.",
+    'Gall hyn olygu bod rhywun yn y cais (chi neu’r atebwyr) wedi cael ei arestio, rhybuddio, ei gyhuddo neu ei gael yn euog o gyflawni troseddau cam-drin domestig neu gam-drin plant. Dewiswch yr holl dystiolaeth sydd gennych i gefnogi eich cais.',
   policeInvolvement_subFields: {
-    evidenceOfSomeoneArrest:
-      "Tystiolaeth bod rhywun yn y cais wedi cael ei arestio am drosedd trais domestig",
-    evidenceOfPolice: "Tystiolaeth o rybudd gan yr heddlu am drosedd trais domestig",
-    evidenceOfOnGoingCriminalProceeding: "Tystiolaeth o achosion troseddol parhaus am drosedd trais domestig",
-    evidenceOfConviction: "Tystiolaeth o euogfarn berthnasol am drosedd trais domestig",
-    evidenceOFProtectionNotice: "Hysbysiad Diogelu rhag Trais Domestig wedi ei gyhoeddi yn erbyn rhywun yn y cais",
+    evidenceOfSomeoneArrest: 'Tystiolaeth bod rhywun yn y cais wedi cael ei arestio am drosedd trais domestig',
+    evidenceOfPolice: 'Tystiolaeth o rybudd gan yr heddlu am drosedd trais domestig',
+    evidenceOfOnGoingCriminalProceeding: 'Tystiolaeth o achosion troseddol parhaus am drosedd trais domestig',
+    evidenceOfConviction: 'Tystiolaeth o euogfarn berthnasol am drosedd trais domestig',
+    evidenceOFProtectionNotice: 'Hysbysiad Diogelu rhag Trais Domestig wedi ei gyhoeddi yn erbyn rhywun yn y cais',
   },
-  courtInvolvement: "Hysbysiad Diogelu rhag Trais Domestig wedi ei gyhoeddi yn erbyn rhywun yn y cais",
+  courtInvolvement: 'Hysbysiad Diogelu rhag Trais Domestig wedi ei gyhoeddi yn erbyn rhywun yn y cais',
   courtInvolvement_hint:
     'A court has made an order against you or the other people in the application (or someone close to you, or them) in connection to domestic violence and abuse. Select all evidence you have to support your claim.',
   courtInvolvement_subFields: {

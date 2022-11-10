@@ -46,7 +46,8 @@ const cy = {
   serviceName: 'Child Arrangements - welsh',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf eisiau dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
-  line1: 'Ystyriwch wrandawiad wyneb yn wyneb, dros y ffôn neu drwy fideo, rhag ofn nad yw’r math o wrandawiad a ffefrir gennych yn bosibl',
+  line1:
+    'Ystyriwch wrandawiad wyneb yn wyneb, dros y ffôn neu drwy fideo, rhag ofn nad yw’r math o wrandawiad a ffefrir gennych yn bosibl',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   supportWorkerCarer: 'Gweithiwr cymorth neu ofalwr',
   supportWorkerCarerSubField: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',

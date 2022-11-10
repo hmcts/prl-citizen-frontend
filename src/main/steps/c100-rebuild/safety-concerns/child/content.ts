@@ -20,21 +20,20 @@ const en = () => ({
 
 const cy = () => ({
   applyForAnInjunctionHyperLink: 'https://www.gov.uk/injunction-domestic-violence',
-  applyForAnInjunctionLabel: "Gwneud cais am waharddeb",
+  applyForAnInjunctionLabel: 'Gwneud cais am waharddeb',
   howToReportChildAbuseHyperLink: 'https://www.gov.uk/report-child-abuse',
-  howToReportChildAbuseLabel: "Sut i riportio achos o gam-drin plant",
+  howToReportChildAbuseLabel: 'Sut i riportio achos o gam-drin plant',
   nationalSocietyPreventionCrueltyHyperLink: 'https://www.nspcc.org.uk',
-  nationalSocietyPreventionCrueltyChildrenLabel:
-    "NSPCC: Cymdeithas Genedlaethol er Atal Creulondeb i Blant",
+  nationalSocietyPreventionCrueltyChildrenLabel: 'NSPCC: Cymdeithas Genedlaethol er Atal Creulondeb i Blant',
   childlineHyperLink: 'https://www.childline.org.uk',
   childlineLabel: 'Childline',
   supportDirectoryHyperLink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
-  supportDirectoryLabel: "GOV.UK - Cyfeiriadur cymorth",
+  supportDirectoryLabel: 'GOV.UK - Cyfeiriadur cymorth',
   supportNavHyperLink: 'https://supportnav.org.uk',
   supportNavLabel: 'SupportNav',
-  reportIncident: "Riportio digwyddiad",
+  reportIncident: 'Riportio digwyddiad',
   emergencyCall: "Ffoniwch 999 bob amser os oes argyfwng neu os ydych chi'n meddwl bod plentyn mewn perygl.",
-  support: "Cael cefnogaeth",
+  support: 'Cael cefnogaeth',
 });
 
 const languages = {

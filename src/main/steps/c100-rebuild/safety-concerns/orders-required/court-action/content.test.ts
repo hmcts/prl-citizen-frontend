@@ -25,11 +25,11 @@ const en = {
 };
 
 const cy = {
-  caption: "Pryderon diogelwch",
+  caption: 'Pryderon diogelwch',
   title: "Beth ydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel?",
   paragraph:
     "Disgrifiwch yr hyn rydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel. Mae'n bosib y bydd y llys yn gallu gwneud gorchymyn amddiffyn.",
-  detailsSummary: "Camau y gall y llys eu cymryd",
+  detailsSummary: 'Camau y gall y llys eu cymryd',
   detailsParagraphs: [
     "<strong>Gorchymyn rhag molestu: </strong>  Gall y llys benderfynu gwneud gorchymyn rhag molestu. Mae hyn yn ei gwneud yn ofynnol i'r unigolyn a wasanaethwyd â’r gorchymyn hwn i beidio â bod yn dreisgar, neu fygwth rhywun gyda thrais. Ni ddylent aflonyddu na phlagio’r unigolyn a wnaeth gais am y gorchymyn mewn unrhyw ffordd. Mae hyn yn cynnwys aflonyddu ar rywun dros apiau anfon negeseuon neu gyfryngau cymdeithasol (Facebook, Twitter ac yn y blaen).",
     "<strong>Camau Gwaharddedig:</strong> mae'r gorchymyn hwn yn atal unigolyn rhag cymryd camau penodol heb ganiatâd y llys.",

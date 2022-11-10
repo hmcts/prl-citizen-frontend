@@ -17,12 +17,12 @@ const en = {
 };
 
 const cy = {
-  title: "Mae arnoch angen cael dogfen gan y cyfryngwr",
+  title: 'Mae arnoch angen cael dogfen gan y cyfryngwr',
   paragraph:
-    "Gofynnwch i’r cyfryngwr roi dogfen wedi’i llofnodi i chi sy’n cadarnhau eich bod wedi mynychu MIAM, neu i gadarnhau nad oes angen i chi fynychu.",
+    'Gofynnwch i’r cyfryngwr roi dogfen wedi’i llofnodi i chi sy’n cadarnhau eich bod wedi mynychu MIAM, neu i gadarnhau nad oes angen i chi fynychu.',
   lines: [
     "Bydd angen i chi lwytho'r ddogfen hon i'r cais.",
-    "Pan fydd gennych ddogfen gan y cyfryngwr, dewch yn ôl i’r sgrin hon i barhau â’ch cais.",
+    'Pan fydd gennych ddogfen gan y cyfryngwr, dewch yn ôl i’r sgrin hon i barhau â’ch cais.',
   ],
 };
 

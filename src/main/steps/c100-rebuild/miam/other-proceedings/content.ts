@@ -18,8 +18,8 @@ const en = () => ({
 
 const cy = () => ({
   title:
-     "A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?",
-  localAuthority: "Fel arfer, bydd y rhain yn cynnwys awdurdod lleol.",
+    'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+  localAuthority: 'Fel arfer, bydd y rhain yn cynnwys awdurdod lleol.',
   one: 'Ydyn',
   two: 'Nac ydyn',
   errors: {

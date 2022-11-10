@@ -45,28 +45,27 @@ const cy = {
   caption: 'Esemptiadau MIAM',
   title:
     "A oes angen gwrandawiad brys arnoch chi am eich bod chi neu'r plant mewn perygl am unrhyw un o'r rhesymau canlynol?",
-  line1: "Os ydych chi’n ceisio esemptiad rhag mynychu MIAM, bydd angen i chi roi mwy o fanylion.",
-  line2: "Mae’r llys angen yr wybodaeth hon i benderfynu a oes angen i chi fynychu MIAM ai peidio.",
+  line1: 'Os ydych chi’n ceisio esemptiad rhag mynychu MIAM, bydd angen i chi roi mwy o fanylion.',
+  line2: 'Mae’r llys angen yr wybodaeth hon i benderfynu a oes angen i chi fynychu MIAM ai peidio.',
   paragraph1:
-    "Os cewch wrandawiad brys, nid yw hyn yn golygu y bydd eich achos drosodd yn gynt, ac ni fyddwch yn cael penderfyniad terfynol ar eich achos ar yr adeg hon.",
+    'Os cewch wrandawiad brys, nid yw hyn yn golygu y bydd eich achos drosodd yn gynt, ac ni fyddwch yn cael penderfyniad terfynol ar eich achos ar yr adeg hon.',
   paragraph2:
     "Bydd y llys ond yn cytuno i wrandawiad brys os yw’r sefyllfa’n argyfyngus a bod unrhyw un o'r rhesymau canlynol yn berthnasol.",
-  select_all_apply:"Dewiswch bob un sy'n berthnasol i chi",
+  select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   freedomPhysicalSafety: "Mae risg i'ch bywyd, rhyddid neu ddiogelwch corfforol",
-  freedomPhysicalSafetyInFamily:
-    "Mae risg i fywyd, rhyddid neu ddiogelwch corfforol rhywun yn eich teulu",
-  riskSafetyInHome: "Mae yna risg i ddiogelwch eich cartref",
+  freedomPhysicalSafetyInFamily: 'Mae risg i fywyd, rhyddid neu ddiogelwch corfforol rhywun yn eich teulu',
+  riskSafetyInHome: 'Mae yna risg i ddiogelwch eich cartref',
   riskUnreasonableFinancialHardship:
-    "Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg o galedi ariannol afresymol",
-  riskOfHarmToChildren: "Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg o niwed i’r plant",
+    'Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg o galedi ariannol afresymol',
+  riskOfHarmToChildren: 'Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg o niwed i’r plant',
   unlawfullyRemovedFromUK:
-    "Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg y bydd y plant yn cael eu tynnu’n anghyfreithlon o’r DU neu eu cadw dramor yn anghyfreithlon",
+    'Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg y bydd y plant yn cael eu tynnu’n anghyfreithlon o’r DU neu eu cadw dramor yn anghyfreithlon',
   riskOfUnfairCourtDecision:
-    "Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg sylweddol o benderfyniad annheg gan y llys (camweinyddu cyfiawnder)",
+    'Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg sylweddol o benderfyniad annheg gan y llys (camweinyddu cyfiawnder)',
   riskOfIrretrievableProblems:
-    "Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg o broblemau anadferadwy, gan gynnwys colli tystiolaeth yn yr achos",
+    'Byddai unrhyw oedi a achosir trwy fynychu MIAM yn achosi risg o broblemau anadferadwy, gan gynnwys colli tystiolaeth yn yr achos',
   riskOfCourtProceedingsDispute:
-    "Mae risg bod achosion llys yn gysylltiedig â’r anghydfod yn dechrau neu’n digwydd mewn gwlad heblaw Cymru neu Loegr",
+    'Mae risg bod achosion llys yn gysylltiedig â’r anghydfod yn dechrau neu’n digwydd mewn gwlad heblaw Cymru neu Loegr',
   noneOfTheAbove: "Dim un o'r uchod",
   errors: {
     miam_urgency: {

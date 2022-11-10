@@ -37,7 +37,8 @@ const cy = {
   serviceName: 'Child Arrangements - welsh',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
-  line1: 'Ystyriwch wrandawiad wyneb yn wyneb, dros y ffôn neu drwy fideo, rhag ofn nad yw’r math o wrandawiad a ffefrir gennych yn bosibl',
+  line1:
+    'Ystyriwch wrandawiad wyneb yn wyneb, dros y ffôn neu drwy fideo, rhag ofn nad yw’r math o wrandawiad a ffefrir gennych yn bosibl',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   appropriateLighting: 'Golau priodol',
   appropriateLightingSubField: 'Disgrifiwch yr hyn sydd ei angen arnoch',

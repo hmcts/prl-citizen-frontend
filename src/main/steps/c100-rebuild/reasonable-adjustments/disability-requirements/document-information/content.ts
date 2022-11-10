@@ -42,7 +42,7 @@ const cy = () => ({
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen dogfennau mewn fformat arall',
   line1:
-    "Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiad wyneb yn wyneb, dros y ffôn neu drwy fideo, rhag ofn nad yw’r math o wrandawiad a ffefrir gennych yn bosibl",
+    'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiad wyneb yn wyneb, dros y ffôn neu drwy fideo, rhag ofn nad yw’r math o wrandawiad a ffefrir gennych yn bosibl',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   specifiedColorDocuments: 'Dogfennau mewn lliw penodol',
   easyReadFormatDocuments: 'Dogfennau mewn fformat hawdd i’w darllen',

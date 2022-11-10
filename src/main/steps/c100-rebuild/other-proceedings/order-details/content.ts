@@ -63,9 +63,8 @@ const en = () => ({
 });
 
 const cy = () => ({
-  pageTitle: "Darparu manylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy",
-  additionalNote:
-    "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a pharhau â'r cais.",
+  pageTitle: 'Darparu manylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy',
+  additionalNote: "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a pharhau â'r cais.",
   emergencyProtectionOrderLabel: 'Emergency Protection Order - welsh',
   childArrangementOrderLabel: 'Child Arrangements Order - welsh',
   supervisionOrderLabel: 'Supervision Order - welsh',
@@ -87,9 +86,9 @@ const cy = () => ({
   courtIssuedLabel: 'Pa lys gyhoeddodd y gorchymyn? (dewisol)',
   caseNumberLabel: 'Rhif yr achos (dewisol)',
   caseNumberHint: 'Er enghraifft, BS19F99999',
-  orderDateLabel: "Pa ddyddiad y cafodd ei wneud? (dewisol)",
-  orderEndDateLabel: "Ar pa ddyddiad y daeth i ben? (dewisol) ",
-  orderDateHint: " Er enghraifft, 31 3 2015",
+  orderDateLabel: 'Pa ddyddiad y cafodd ei wneud? (dewisol)',
+  orderEndDateLabel: 'Ar pa ddyddiad y daeth i ben? (dewisol) ',
+  orderDateHint: ' Er enghraifft, 31 3 2015',
   isCurrentOrderLabel: 'Ai gorchymyn cyfredol yw hwn? (dewisol)',
   copyOfOrderLabel: 'A oes gennych chi gopi o’r gorchymyn? (dewisol)',
   addOrderLabel: 'Ychwanegu gorchymyn arall',

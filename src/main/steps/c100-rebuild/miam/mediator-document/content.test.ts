@@ -17,11 +17,11 @@ const en = {
 };
 
 const cy = {
-  title: "A oes gennych chi ddogfen wedi’i llofnodi gan y cyfryngwr?",
+  title: 'A oes gennych chi ddogfen wedi’i llofnodi gan y cyfryngwr?',
   docSigned:
     "Dylai’r cyfryngwr roi dogfen wedi’i llofnodi i chi i gadarnhau eich bod wedi mynychu MIAM, neu i gadarnhau nad oes angen i chi fynychu. Os nad oes gennych ddogfen, dylech ofyn i'r cyfryngwr am un.",
-  one: "Oes",
-  two: "Nac oes",
+  one: 'Oes',
+  two: 'Nac oes',
 };
 
 describe('miam->have document signed by mediator or not', () => {

@@ -11,7 +11,8 @@ const en = {
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
-  detail:"Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.",
+  detail:
+    'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
   errors: {
     c1A_childSafetyConcerns: {
       required: 'Please select an answer',
@@ -23,13 +24,14 @@ const en = {
 };
 
 const cy = {
-  section: "Pryderon diogelwch",
-  title: "A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant?",
+  section: 'Pryderon diogelwch',
+  title: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant?',
   hint: "Er enghraifft, nid yw eu hanghenion sylfaenol yn cael eu diwallu (a elwir yn esgeuluso plant) neu rydych chi'n poeni am rywun y gallai fod ganddynt gysylltiad â nhw.",
-  one: "Oes",
-  two: "Nac oes",
-  summaryText: "Cysylltiadau am gymorth",
-  detail:"Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
+  one: 'Oes',
+  two: 'Nac oes',
+  summaryText: 'Cysylltiadau am gymorth',
+  detail:
+    "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     c1A_childSafetyConcerns: {
       required: 'Please select an answer',

@@ -28,13 +28,13 @@ const en = {
 
 const cy = {
   serviceName: 'Child Arrangements - welsh',
-  caption: "Pryderon diogelwch",
-  title: "Diogelwch y plant",
+  caption: 'Pryderon diogelwch',
+  title: 'Diogelwch y plant',
   firstParagraph:
     "Mae’r llys angen gwybod os oes unrhyw un o'r bobl eraill yn y cais hwn, neu unrhyw un sy'n gysylltiedig â nhw sydd â chysylltiad â'r plant, yn peri risg i ddiogelwch y plant.",
-  subHeading: "Beth ddywedoch chi wrthon ni",
+  subHeading: 'Beth ddywedoch chi wrthon ni',
   bulletPoints: [
-    "Rydych wedi dioddef neu mewn perygl o ddioddef trais domestig neu gamdriniaeth",
+    'Rydych wedi dioddef neu mewn perygl o ddioddef trais domestig neu gamdriniaeth',
     "Nid yw'r plant wedi dioddef neu nid ydynt mewn perygl o ddioddef trais domestig neu gamdriniaeth",
   ],
   paragraphs: [
@@ -42,7 +42,7 @@ const cy = {
     "Bydd eich atebion yn helpu'r llys i ystyried unrhyw risgiau i chi neu'r plant.  Mae'r wybodaeth hon yn rhan o'ch cais llys a bydd yn cael ei thrafod yn gwbl sensitif.",
     "Efallai y byddwch chi'n ystyried rhai o'r cwestiynau canlynol yn anodd i’w hateb neu eu bod yn peri gofid i chi.  Atebwch nhw y gorau y gallwch chi.",
   ],
-  signsOfChildAbuseHyperlinkLabel: "Adnabod arwyddion o gam-drin plant",
+  signsOfChildAbuseHyperlinkLabel: 'Adnabod arwyddion o gam-drin plant',
   signsOfChildAbuseHyperlink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/',
 };
 

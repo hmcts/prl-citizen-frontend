@@ -41,32 +41,32 @@ const en = () => ({
 
 const cy = () => ({
   serviceName: 'Child arrangements - welsh',
-  caption: "Pryderon diogelwch",
+  caption: 'Pryderon diogelwch',
   headingTitle: "Pa fath o ymddygiad y mae'r plant wedi ei brofi neu mewn perygl o’i brofi?",
   paragraph1: "Gweler canllawiau'r Gymdeithas Genedlaethol er Atal Creulondeb i Blant (NSPCC) ar ",
   spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse',
   spottingSignsOfChildAbuseLabel: 'adnabod arwyddion o gam-drin plant.',
   select_all_relevant: "Dewiswch unrhyw opsiynau sy'n berthnasol i'ch sefyllfa chi. ",
-  physicalAbuse: "Cam-drin corfforol",
-  physicalAbuseHint: "Ymddygiad megis dyrnu, tagu, cicio neu daro gyda gwrthrych",
-  psychologicalAbuse: "Cam-drin seicolegol",
+  physicalAbuse: 'Cam-drin corfforol',
+  physicalAbuseHint: 'Ymddygiad megis dyrnu, tagu, cicio neu daro gyda gwrthrych',
+  psychologicalAbuse: 'Cam-drin seicolegol',
   psychologicalAbuseHint:
     "Cael eu rhoi mewn sefyllfa sy'n arwain at or-bryder, iselder, neu anhwylder straen ar ôl trawma",
-  emotionalAbuse: "Cam-drin emosiynol",
-  emotionalAbuseHint: "Gwneud i blentyn deimlo fel nad oes neb yn ei garu, ei fod yn ddiwerth, yn cael ei fychanu neu ei anwybyddu",
-  sexualAbuse: "Cam-drin rhywiol",
+  emotionalAbuse: 'Cam-drin emosiynol',
+  emotionalAbuseHint:
+    'Gwneud i blentyn deimlo fel nad oes neb yn ei garu, ei fod yn ddiwerth, yn cael ei fychanu neu ei anwybyddu',
+  sexualAbuse: 'Cam-drin rhywiol',
   sexualAbuseHint:
-    "Plentyn yn cael ei orfodi neu ei berswadio i gymryd rhan mewn gweithgareddau rhywiol, gan gynnwys ar-lein. Gall fod heb gyswllt, er enghraifft meithrin perthynas amhriodol neu ecsploetiaeth",
-  financialAbuse: "Cam-drin ariannol",
-  financialAbuseHint:
-    "Dwyn a defnyddio arian plentyn, neu ddefnyddio ei wybodaeth bersonol er mwyn cael arian",
-  witnessingDomesticAbuse: "Gweld cam-drin domestig",
+    'Plentyn yn cael ei orfodi neu ei berswadio i gymryd rhan mewn gweithgareddau rhywiol, gan gynnwys ar-lein. Gall fod heb gyswllt, er enghraifft meithrin perthynas amhriodol neu ecsploetiaeth',
+  financialAbuse: 'Cam-drin ariannol',
+  financialAbuseHint: 'Dwyn a defnyddio arian plentyn, neu ddefnyddio ei wybodaeth bersonol er mwyn cael arian',
+  witnessingDomesticAbuse: 'Gweld cam-drin domestig',
   witnessingDomesticAbuseHint:
-    "Lles emosiynol a meddyliol y plentyn yn cael ei effeithio gan gam-drin domestig yn y cartref",
-  abductionAbuse: "Cipio",
+    'Lles emosiynol a meddyliol y plentyn yn cael ei effeithio gan gam-drin domestig yn y cartref',
+  abductionAbuse: 'Cipio',
   abductionAbuseHint:
-    "Risg y bydd plant yn cael eu cymryd oddi wrth eu gofalwyr, yn enwedig os ydynt yn cael eu cadw dramor",
-  somethingElse: "Rhywbeth arall",
+    'Risg y bydd plant yn cael eu cymryd oddi wrth eu gofalwyr, yn enwedig os ydynt yn cael eu cadw dramor',
+  somethingElse: 'Rhywbeth arall',
   somethingElseHint: "Unrhyw bryderon sydd gennych nad ydynt yn ffitio i'r categorïau uchod",
   errors: {
     c1A_concernAboutChild: {

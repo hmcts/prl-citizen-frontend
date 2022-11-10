@@ -24,14 +24,14 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Rhaid i chi fynychu MIAM',
-  paragraph: "Nid ydych wedi darparu rheswm dilys dros beidio â mynychu MIAM. Mae gofyniad cyfreithiol i chi fynychu un os ydych eisiau mynd i'r llys i ddatrys anghydfod yn ymwneud â'r plant.",
-  stepsLabel: "Mae angen i chi ddilyn y camau hyn cyn parhau â’ch cais:",
-  step1: "Rhoi eich cod post i ddod o hyd i gyfryngwr",
+  paragraph:
+    "Nid ydych wedi darparu rheswm dilys dros beidio â mynychu MIAM. Mae gofyniad cyfreithiol i chi fynychu un os ydych eisiau mynd i'r llys i ddatrys anghydfod yn ymwneud â'r plant.",
+  stepsLabel: 'Mae angen i chi ddilyn y camau hyn cyn parhau â’ch cais:',
+  step1: 'Rhoi eich cod post i ddod o hyd i gyfryngwr',
   steps: [
     "Trefnu cyfarfod cychwynnol gyda'r cyfryngwr",
-    "Mynychu’r MIAM",                                                                                                                                                                                                                                                                                                                               
-    "Gofyn i’r cyfryngwr am ddogfen sy’n cadarnhau eich presenoldeb",
-
+    'Mynychu’r MIAM',
+    'Gofyn i’r cyfryngwr am ddogfen sy’n cadarnhau eich presenoldeb',
   ],
   paragraph1: `Alternatively you can 
                 <a href="https://helpwithchildarrangements.service.justice.gov.uk" 

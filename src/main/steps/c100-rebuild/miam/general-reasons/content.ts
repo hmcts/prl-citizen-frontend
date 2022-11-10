@@ -26,18 +26,18 @@ const en = {
 
 const cy: typeof en = {
   section: 'Esemptiadau MIAM',
-  title: "Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?",
+  title: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
   courtcommunication:
     "Mae'r llys angen mwy o wybodaeth er mwyn asesu a yw eich rhesymau'n ddilys. Os na allwch ddarparu digon o wybodaeth ategol, fe ofynnir i chi fynychu MIAM.",
   optionHint: "Dewiswch bopeth sy'n berthnasol i chi - gofynnir i chi ddarparu manylion pellach nesaf",
-  domesticViolence: "Mae gen i dystiolaeth o drais domestig a chamdriniaeth",
-  childProtection: "Mae gen i bryderon o ran amddiffyn plant",
-  urgentHearing: "Mae gen i reswm dros gael gwrandawiad brys",
-  previousMIAMOrExempt: "Rwyf eisoes wedi mynychu MIAM, neu mae’r llys eisoes wedi cadarnhau’r esemptiad",
-  validExemption: "Mae gen i resymau dilys eraill dros gael fy eithrio rhag mynychu MIAM",
+  domesticViolence: 'Mae gen i dystiolaeth o drais domestig a chamdriniaeth',
+  childProtection: 'Mae gen i bryderon o ran amddiffyn plant',
+  urgentHearing: 'Mae gen i reswm dros gael gwrandawiad brys',
+  previousMIAMOrExempt: 'Rwyf eisoes wedi mynychu MIAM, neu mae’r llys eisoes wedi cadarnhau’r esemptiad',
+  validExemption: 'Mae gen i resymau dilys eraill dros gael fy eithrio rhag mynychu MIAM',
   noReason: 'Dim un o’r uchod',
-  summaryText: "Cysylltiadau am gymorth",
-  continue: "Cadw’r cais a dychwelyd ato yn hwyrach ymlaen",
+  summaryText: 'Cysylltiadau am gymorth',
+  continue: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
   errors: {
     miam_nonAttendanceReasons: {
       required: 'Select your valid reasons for not attending a MIAM',

@@ -38,28 +38,28 @@ const en = {
 };
 
 const cy = {
-headingTitle: 'Provide details of court cases you or the children have been involved in - welsh',
-select_all_apply:
-  "Dewiswch bopeth sy'n berthnasol i chi neu'r plant. Os oes gennych fanylion penodol, byddwch yn gallu darparu'r wybodaeth honno yn fuan.",
-childArrangementOrder: 'Gorchymyn Trefniadau Plant',
-section8Hint: 'Adran 8 Deddf Plant 1989',
-schedule1Hint: "Atodlen 1 Deddf Plant 1989",
-emergencyProtectionOrder: 'Gorchymyn Diogelu Brys',
-supervisionOrder: 'Gorchymyn Goruchwylio',
-caseOrder: 'Gorchymyn Gofal',
-childAbduction: 'Herwgydio Plentyn',
-contactOrderForDivorce:
-  'Gorchymyn cyswllt neu orchymyn preswylio a wnaed fel rhan o achos ysgaru neu achos diddymu partneriaeth sifil',
-contactOrderForAdoption: 'Gorchymyn cyswllt neu orchymyn preswylio a wnaed mewn perthynas â Gorchymyn Mabwysiadu',
-childMaintenanceOrder: 'An order relating to child maintenance - welsh',
-financialOrder: 'Gorchymyn Ariannol o dan Atodlen 1 Deddf Plant 1989',
-nonMolestationOrder: 'Gorchymyn Rhag Molestu',
-occupationOrder: 'Gorchymyn Anheddu',
-forcedMarriageProtectionOrder: 'Gorchymyn Amddiffyn rhag Priodi dan Orfod',
-restrainingOrder: 'Gorchymyn Atal',
-otherInjuctionOrder: 'Gorchymyn Gwahardd arall',
-undertakingOrder: 'Ymgymeriad yn hytrach na gorchymyn',
-otherOrder: 'Gorchmynion eraill',
+  headingTitle: 'Provide details of court cases you or the children have been involved in - welsh',
+  select_all_apply:
+    "Dewiswch bopeth sy'n berthnasol i chi neu'r plant. Os oes gennych fanylion penodol, byddwch yn gallu darparu'r wybodaeth honno yn fuan.",
+  childArrangementOrder: 'Gorchymyn Trefniadau Plant',
+  section8Hint: 'Adran 8 Deddf Plant 1989',
+  schedule1Hint: 'Atodlen 1 Deddf Plant 1989',
+  emergencyProtectionOrder: 'Gorchymyn Diogelu Brys',
+  supervisionOrder: 'Gorchymyn Goruchwylio',
+  caseOrder: 'Gorchymyn Gofal',
+  childAbduction: 'Herwgydio Plentyn',
+  contactOrderForDivorce:
+    'Gorchymyn cyswllt neu orchymyn preswylio a wnaed fel rhan o achos ysgaru neu achos diddymu partneriaeth sifil',
+  contactOrderForAdoption: 'Gorchymyn cyswllt neu orchymyn preswylio a wnaed mewn perthynas â Gorchymyn Mabwysiadu',
+  childMaintenanceOrder: 'An order relating to child maintenance - welsh',
+  financialOrder: 'Gorchymyn Ariannol o dan Atodlen 1 Deddf Plant 1989',
+  nonMolestationOrder: 'Gorchymyn Rhag Molestu',
+  occupationOrder: 'Gorchymyn Anheddu',
+  forcedMarriageProtectionOrder: 'Gorchymyn Amddiffyn rhag Priodi dan Orfod',
+  restrainingOrder: 'Gorchymyn Atal',
+  otherInjuctionOrder: 'Gorchymyn Gwahardd arall',
+  undertakingOrder: 'Ymgymeriad yn hytrach na gorchymyn',
+  otherOrder: 'Gorchmynion eraill',
   errors: {
     op_courtProceedingsOrders: {
       required: 'Specify which court cases you or the children have been involved in - welsh',

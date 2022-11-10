@@ -13,7 +13,7 @@ const en = {
 
 const cy = {
   headingTitle:
-   "Rydych wedi llwytho manylion eich achosion yn y gorffennol a'ch achosion presennol. Bydd y rhain yn cael eu hadolygu gan y llys ar ôl i chi gyflwyno’r cais.",
+    "Rydych wedi llwytho manylion eich achosion yn y gorffennol a'ch achosion presennol. Bydd y rhain yn cael eu hadolygu gan y llys ar ôl i chi gyflwyno’r cais.",
 };
 
 /* eslint-disable @typescript-eslint/ban-types */

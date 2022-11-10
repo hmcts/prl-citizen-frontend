@@ -31,20 +31,19 @@ const en = {
 };
 
 const cy = {
-  section: "Pryderon diogelwch",
+  section: 'Pryderon diogelwch',
   title: "Cyswllt rhwng y plant a'r bobl eraill yn y cais hwn",
   subtitle:
     "Bydd y llys yn tybio ei bod yn dda i les y plant gael y ddau riant yn rhan o'u bywydau, oni bai bod tystiolaeth sy'n dangos y byddai hyn yn achosi niwed i'r plant.",
-  selectSupervisionAgreementLabel:
-    "Ydych chi'n cytuno i'r plant dreulio amser gyda'r bobl eraill yn y cais hwn?",
-  one: "Ydw",
-  two: "Ydw, ond byddai’n well gennyf i’r cyswllt gael ei oruchwylio",
+  selectSupervisionAgreementLabel: "Ydych chi'n cytuno i'r plant dreulio amser gyda'r bobl eraill yn y cais hwn?",
+  one: 'Ydw',
+  two: 'Ydw, ond byddai’n well gennyf i’r cyswllt gael ei oruchwylio',
   three: "Nac ydw, byddai'n well gennyf pe na bai’r bobl eraill yn treulio amser gyda'r plant",
   supervisionAgreementOtherWaysLabel:
     "Ydych chi'n cytuno i'r bobl eraill yn y cais hwn fod mewn cysylltiad â'r plant mewn ffyrdd eraill?",
-  supervisionAgreementOtherWaysHint: "Er enghraifft, dros y ffôn, drwy anfon negeseuon testun neu drwy e-bost",
-  yes: "Ydw",
-  no: "Nac ydw",
+  supervisionAgreementOtherWaysHint: 'Er enghraifft, dros y ffôn, drwy anfon negeseuon testun neu drwy e-bost',
+  yes: 'Ydw',
+  no: 'Nac ydw',
   errors: {
     c1A_supervisionAgreementDetails:
       'Select whether you agree to the children spending time with the other people in this application - welsh',

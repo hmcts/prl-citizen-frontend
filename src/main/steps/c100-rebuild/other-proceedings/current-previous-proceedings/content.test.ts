@@ -24,9 +24,9 @@ const en = {
 };
 
 const cy = {
-  headingTitle: "Ydych chi neu’r plant erioed wedi bod ynghlwm ag achos llys?",
-  childrenInvolvedCourtCase: "Ydy’r plant wedi bod ynghlwm ag achos llys?",
-  courtOrderProtection: "A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?",
+  headingTitle: 'Ydych chi neu’r plant erioed wedi bod ynghlwm ag achos llys?',
+  childrenInvolvedCourtCase: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+  courtOrderProtection: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {

@@ -17,10 +17,10 @@ const en = () => ({
 });
 
 const cy = () => ({
-  caption: "Pryderon diogelwch",
+  caption: 'Pryderon diogelwch',
   title: "Ydy'r plant wedi cael eu cipio neu eu cadw y tu allan i'r DU heb eich caniatâd o'r blaen?",
-  one: "Ydyn",
-  two: "Nac ydyn",
+  one: 'Ydyn',
+  two: 'Nac ydyn',
   errors: {
     c1A_childAbductedBefore: {
       required:

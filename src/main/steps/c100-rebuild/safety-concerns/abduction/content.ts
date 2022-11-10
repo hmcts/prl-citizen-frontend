@@ -10,11 +10,11 @@ const en = () => ({
 });
 
 const cy = () => ({
-  guidanceOnAbductionLabel: "Canllawiau yn ymwneud ag a oes un o’r rhieni wedi cipio’r plentyn",
+  guidanceOnAbductionLabel: 'Canllawiau yn ymwneud ag a oes un o’r rhieni wedi cipio’r plentyn',
   guidanceOnAbductionLink: 'https://www.gov.uk/government/collections/child-abduction',
-  getHelpOnReturningChildAbroadLabel: "Cael help i ddychwelyd plentyn o dramor neu drefnu cyswllt",
+  getHelpOnReturningChildAbroadLabel: 'Cael help i ddychwelyd plentyn o dramor neu drefnu cyswllt',
   getHelpOnReturningChildAbroadLink: 'https://www.gov.uk/return-or-contact-abducted-child',
-  preventChildFromObtainingPassportLabel: "Stopio plentyn rhag cael pasbort",
+  preventChildFromObtainingPassportLabel: 'Stopio plentyn rhag cael pasbort',
   preventChildFromObtainingPassportLink: 'https://www.gov.uk/stop-child-passport',
 });
 

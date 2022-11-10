@@ -39,7 +39,7 @@ const cy = () => ({
     "Dewiswch bopeth sy'n berthnasol i chi neu'r plant. Os oes gennych fanylion penodol, byddwch yn gallu darparu'r wybodaeth honno yn fuan.",
   childArrangementOrder: 'Gorchymyn Trefniadau Plant',
   section8Hint: 'Adran 8 Deddf Plant 1989',
-  schedule1Hint: "Atodlen 1 Deddf Plant 1989",
+  schedule1Hint: 'Atodlen 1 Deddf Plant 1989',
   emergencyProtectionOrder: 'Gorchymyn Diogelu Brys',
   supervisionOrder: 'Gorchymyn Goruchwylio',
   caseOrder: 'Gorchymyn Gofal',

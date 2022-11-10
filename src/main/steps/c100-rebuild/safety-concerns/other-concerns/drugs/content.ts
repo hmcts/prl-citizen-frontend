@@ -26,8 +26,8 @@ const en = () => ({
 
 const cy = () => ({
   serviceName: 'Child arrangements - welsh',
-  caption: "Pryderon diogelwch",
-  title: "A fu effaith ar y plant o ganlyniad i gamddefnyddio cyffuriau, alcohol neu sylweddau?",
+  caption: 'Pryderon diogelwch',
+  title: 'A fu effaith ar y plant o ganlyniad i gamddefnyddio cyffuriau, alcohol neu sylweddau?',
   line1: "Gallai hyn fod yn gamdriniaeth sy'n digwydd nawr neu yn y gorffennol.",
   line2:
     "Er enghraifft, rydych chi'n meddwl yr effeithir ar y plant oherwydd eu bod yn byw efo rhywun sydd â phroblem camddefnyddio sylweddau.",

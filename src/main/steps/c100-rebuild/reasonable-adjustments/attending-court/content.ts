@@ -33,9 +33,10 @@ const en = () => ({
 const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Mynychu’r llys',
-  headingTitle: `A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?`,
+  headingTitle: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
   paragraph1: 'Os bydd eich achos yn mynd i wrandawiad, gellir ei gynnal naill ai:',
-  paragraph2: `Mae rhai gwrandawiadau yn defnyddio cyfuniad o'r dulliau hyn. Y Barnwr fydd yn penderfynu pa ddull fydd yn cael ei ddefnyddio.`,
+  paragraph2:
+    "Mae rhai gwrandawiadau yn defnyddio cyfuniad o'r dulliau hyn. Y Barnwr fydd yn penderfynu pa ddull fydd yn cael ei ddefnyddio.",
   line1: "yn bersonol, mewn ystafell mewn lleoliad penodol ('wyneb yn wyneb')",
   line2: "trwy fideo (lle gallwch chi ymuno o leoliad sy'n addas i chi)",
   line3: 'dros y ffôn',
