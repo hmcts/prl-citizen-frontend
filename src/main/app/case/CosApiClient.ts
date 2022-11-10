@@ -253,7 +253,7 @@ export class CosApiClient {
     const response = await Axios.get(config.get('services.cos.url') + '/cases', {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },

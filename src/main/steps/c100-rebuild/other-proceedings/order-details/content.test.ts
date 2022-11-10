@@ -111,7 +111,7 @@ describe('other proceedings > order-details > content', () => {
     language: 'en',
     additionalData: {
       req: {
-        query: {
+        params: {
           orderType: 'careOrder',
         },
       },

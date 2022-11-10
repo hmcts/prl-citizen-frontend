@@ -70,7 +70,7 @@ export const form: FormContent = {
         },
         {
           label: l => l.two,
-          value: YesOrNo.NO,
+          value: 'Yes, but I prefer that it is supervised',
         },
         {
           label: l => l.three,

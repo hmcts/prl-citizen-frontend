@@ -80,7 +80,7 @@ export const form: FormContent = {
           value: 'phoneHearing',
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'ra_typeOfHearing',

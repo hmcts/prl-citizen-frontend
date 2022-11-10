@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Case } from '../../../../app/case/case';
-import { C100ListOfApplicants } from '../../../../app/case/definition';
+import { C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -121,6 +121,30 @@ export default class AddApplicantPostController extends PostController<AnyObject
       start: '',
       contactDetailsPrivate: [] as [],
       contactDetailsPrivateAlternative: [] as [],
+      relationshipDetails: {
+        relationshipToChildren: [],
+      },
+      personalDetails: {
+        haveYouChangeName: YesNoEmpty.EMPTY,
+        applPreviousName: '',
+        dateOfBirth: {
+          day: '',
+          month: '',
+          year: '',
+        },
+        gender: Gender.EMPTY,
+        otherGenderDetails: '',
+        applicantPlaceOfBirth: '',
+      },
+      applicantContactDetail: {
+        canProvideEmail: YesNoEmpty.EMPTY,
+        emailAddress: '',
+        canNotProvideEmailReason: '',
+        canProvideTelephoneNumber: YesNoEmpty.EMPTY,
+        telephoneNumber: '',
+        canNotProvideTelephoneNumberReason: '',
+        canLeaveVoiceMail: YesNoEmpty.EMPTY,
+      },
     };
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {

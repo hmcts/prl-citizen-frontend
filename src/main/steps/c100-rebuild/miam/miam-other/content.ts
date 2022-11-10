@@ -174,7 +174,7 @@ export const form: FormContent = {
           value: 'under18',
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'miam_notAttendingReasons',

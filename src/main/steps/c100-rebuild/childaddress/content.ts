@@ -19,7 +19,7 @@ const en = () => ({
   detailsContent: `We use ‘children’ as a general term to mean whether you have a child or children.
                    We do this to avoid repetition.`,
   errors: {
-    postcode: {
+    c100RebuildChildPostCode: {
       required: 'Enter a full postcode, with or without a space',
       invalid: 'Enter a valid full postcode, with or without a space',
     },
@@ -43,7 +43,7 @@ const cy = () => ({
   detailsContent: `We use ‘children’ as a general term to mean whether you have a child or children.
                    We do this to avoid repetition. - welsh`,
   errors: {
-    postcode: {
+    c100RebuildChildPostCode: {
       required: 'Enter a full postcode, with or without a space - welsh',
       invalid: 'Enter a valid full postcode, with or without a space - welsh',
     },
@@ -57,8 +57,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    postcode: {
-      id: 'postcode',
+    c100RebuildChildPostCode: {
+      id: 'c100RebuildChildPostCode',
       type: 'text',
       classes: 'govuk-input--width-10',
       label: l => l.postcodeLabel,

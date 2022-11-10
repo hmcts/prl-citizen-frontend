@@ -44,11 +44,11 @@ export interface Miam {
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
-  AddressLine3: string;
+  AddressLine3?: string;
   PostTown: string;
   County: string;
   PostCode: string;
-  Country: string;
+  Country?: string;
 }
 
 export interface SolicitorOrg {
@@ -679,7 +679,7 @@ export type C100Applicant = {
   id?: string,
   applicantFirstName?: string | unknown,
   applicantLastName?: string | unknown,
-  detailsKnown?: string | unknown 
+  detailsKnown?: string | unknown
   startAlternative?: string | unknown,
   start?: string | unknown,
   contactDetailsPrivate?: unknown | [],
@@ -691,7 +691,35 @@ export type C100Applicant = {
   applicantAddressTown?: string,
   applicantAddressCounty?: string,
   applicantAddressHistory?: YesOrNo,
-  applicantProvideDetailsOfPreviousAddresses?: string
+  applicantProvideDetailsOfPreviousAddresses?: string;
+  personalDetails:{
+    haveYouChangeName?: YesNoEmpty;
+    applPreviousName?: string,
+    dateOfBirth?: CaseDate;
+    gender?: Gender;
+    otherGenderDetails?: string;
+    applicantPlaceOfBirth?: string;
+  };
+  relationshipDetails?: {
+    relationshipToChildren: RelationshipToChildren[];
+  };
+  applicantContactDetail?: ContactDetail;
+}
+
+export interface RelationshipToChildren {
+  relationshipType: RelationshipType;
+  otherRelationshipTypeDetails?: string;
+  childId: string;
+}
+
+export interface ContactDetail {
+  canProvideEmail?: YesNoEmpty,
+  emailAddress?: string,
+  canNotProvideEmailReason?: string,
+  canProvideTelephoneNumber?: YesNoEmpty,
+  telephoneNumber?: string,
+  canNotProvideTelephoneNumberReason?: string
+  canLeaveVoiceMail?: YesNoEmpty
 }
 
 export type C100ListOfApplicants = C100Applicant[];
@@ -713,10 +741,10 @@ export interface CaseData {
   applicantTable: ApplicantTable[];
   othersToNotify: OthersToNotify[];
   urgencyDetails: UrgencyDetails;
-  
+
   allegationOfHarm: AllegationOfHarm;
   dateOfSubmission: DateOfSubmission;
-  
+
   interpreterNeeds: InterpreterNeed[];
   childDetailsTable: ChildDetailsTable[];
   jurisdictionIssue: string;
@@ -761,7 +789,7 @@ export interface CaseData {
   jurisdictionIssueGiveReason: string;
   litigationCapacityReferrals: string;
   specialArrangementsRequired: string;
-  
+
   habitualResidentInOtherState: string;
   otherProceedingsDetailsTable: OtherProceedingsDetailsTable[];
   summaryTabForOrderAppliedFor: SummaryTabForOrderAppliedFor;
@@ -802,7 +830,7 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  
+
   contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
@@ -830,12 +858,12 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   c100Applicants?: C100Applicant;
-  
+
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
-  
+
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   doYouConsent?: YesOrNo;
@@ -1457,6 +1485,7 @@ export const enum YesNoDontKnow {
   yes = 'yes',
   no = 'no',
   dontKnow = 'dontKnow',
+  empty = '',
 }
 
 export const enum SectionStatus {
@@ -1823,6 +1852,7 @@ export const enum State {
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
+  AwaitingSubmissionToHmcts = 'AWAITING_SUBMISSION_TO_HMCTS',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingBailiffReferral = 'AwaitingBailiffReferral',
@@ -2442,6 +2472,7 @@ export interface C1ASafteyConcerns {
     parentialResponsibility: {
       statement: string;
     };
+    liveWith?: People[]
   };
 
   export type OtherChildrenDetails = {
@@ -2462,15 +2493,27 @@ export interface C1ASafteyConcerns {
     firstName: string;
     lastName: string;
     personalDetails: {
+      hasNameChanged?: YesNoDontKnow;
+      previousFullName?: string;
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
       approxDateOfBirth?: CaseDate;
       gender: Gender;
       otherGenderDetails?: string;
+      respondentPlaceOfBirth?: string;
+      respondentPlaceOfBirthUnknown?: YesOrNo;
     };
     relationshipDetails: {
       relationshipToChildren: RelationshipToChildren[];
+    };
+    address?: C100Address;
+    contactDetails?: {
+      donKnowEmailAddress?: YesOrNo
+      emailAddress?: string
+      telephoneNumber?: string
+      donKnowTelephoneNumber?: YesOrNo
     }
+    addressUnknown?: YesOrNo;
   };
 
   export interface RelationshipToChildren {
@@ -2487,4 +2530,24 @@ export interface C1ASafteyConcerns {
     GRAND_PARENT = 'Grandparent',
     OTHER = 'Other',
     EMPTY = ''
+  }
+  
+  export interface C100Address extends Address {
+    selectedAddress?: number,
+    addressHistory?: YesNoDontKnow,
+    provideDetailsOfPreviousAddresses?: string
+  }
+
+
+  export enum PartyType {
+    APPLICANT = 'applicant',
+    RESPONDENT = 'respondent',
+    OTHER_PERSON = 'otherPerson',
+  }
+
+  export type People = {
+      id: string;
+      firstName: string;
+      lastName: string;
+      partyType: PartyType;
   }

@@ -131,7 +131,7 @@ export const form: FormContent = {
           value: 'riskOfCourtProceedingsDispute',
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'miam_urgency',

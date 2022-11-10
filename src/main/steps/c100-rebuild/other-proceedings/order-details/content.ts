@@ -353,7 +353,7 @@ export const getFormFields = (): FormContent => {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const orderType = content?.additionalData?.req?.query?.orderType as C100OrderTypes;
+  const orderType = content?.additionalData?.req?.params?.orderType as C100OrderTypes;
   const orderSessionData = content?.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[orderType]];
   const { fields, errors } = generateFormFields(
     orderType,

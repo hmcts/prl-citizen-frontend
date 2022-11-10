@@ -217,7 +217,7 @@ export interface FormInput {
   detailsHtml?: Label;
   textAndHtml?: Label;
   link?: string;
-  divider?: boolean | string;
+  divider?: boolean | Label;
   exclusive?: boolean;
   behaviour?: string;
 }

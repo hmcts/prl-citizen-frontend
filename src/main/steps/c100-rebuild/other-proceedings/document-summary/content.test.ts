@@ -22,7 +22,7 @@ describe('other proceedings > documentSummary > content', () => {
     language: 'en',
     additionalData: {
       req: {
-        query: {
+        params: {
           orderType: 'careOrder',
         },
       },

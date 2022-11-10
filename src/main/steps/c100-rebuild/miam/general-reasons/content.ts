@@ -84,7 +84,7 @@ export const form: FormContent = {
           value: MiamNonAttendReason.EXEMPT,
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'miam_nonAttendanceReasons',

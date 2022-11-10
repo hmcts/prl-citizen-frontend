@@ -20,7 +20,7 @@ export default class AddChildrenPostController extends PostController<AnyObject>
     const { addChild, removeChild, onlycontinue, saveAndComeLater, ...formFields } = req.body;
 
     if (removeChild) {
-      req.session.userCase.cd_otherChildren = req.session.userCase.cd_otherChildren?.filter(
+      req.session.userCase.ocd_otherChildren = req.session.userCase.ocd_otherChildren?.filter(
         child => child.id !== removeChild
       );
       return super.redirect(req, res, req.originalUrl);
@@ -39,8 +39,8 @@ export default class AddChildrenPostController extends PostController<AnyObject>
     if (addChild) {
       if (childFirstName && childLastName) {
         Object.assign(req.session.userCase, { childFirstName: '', childLastName: '' });
-        req.session.userCase.cd_otherChildren = [
-          ...(req.session.userCase?.cd_otherChildren ?? []),
+        req.session.userCase.ocd_otherChildren = [
+          ...(req.session.userCase?.ocd_otherChildren ?? []),
           {
             ...getDataShape(),
             firstName: childFirstName as string,
@@ -60,17 +60,17 @@ export default class AddChildrenPostController extends PostController<AnyObject>
         error => !['childFirstName', 'childLastName'].includes(error.propertyName)
       );
 
-      if (req.session.userCase?.cd_otherChildren?.length) {
+      if (req.session.userCase?.ocd_otherChildren?.length) {
         //if there are already children added
         if (childrenDetailsErrors.length) {
           //if there are errors present for added children, save the changes made on the input fields
-          req.session.userCase.cd_otherChildren = this.transformData(rest, req.session.userCase.cd_otherChildren);
+          req.session.userCase.ocd_otherChildren = this.transformData(rest, req.session.userCase.ocd_otherChildren);
         } else {
           //if there are no errors present for added children, then save the details
-          req.session.userCase.cd_otherChildren = this.transformData(rest, req.session.userCase.cd_otherChildren);
+          req.session.userCase.ocd_otherChildren = this.transformData(rest, req.session.userCase.ocd_otherChildren);
           if (childFirstName && childLastName) {
             // if first name & last name is fed for new child, add the new entry to the session
-            req.session.userCase.cd_otherChildren.push({
+            req.session.userCase.ocd_otherChildren.push({
               ...getDataShape(),
               firstName: childFirstName as string,
               lastName: childLastName as string,
@@ -84,7 +84,7 @@ export default class AddChildrenPostController extends PostController<AnyObject>
       } else {
         //if there are no children added
         if (childFirstName && childLastName) {
-          req.session.userCase.cd_otherChildren = [
+          req.session.userCase.ocd_otherChildren = [
             {
               ...getDataShape(),
               firstName: childFirstName as string,
@@ -97,10 +97,10 @@ export default class AddChildrenPostController extends PostController<AnyObject>
 
       return super.redirect(req, res);
     } else if (saveAndComeLater) {
-      const dataToSave = { cd_otherChildren: [...this.transformData(rest, req.session.userCase.cd_otherChildren)] };
+      const dataToSave = { ocd_otherChildren: [...this.transformData(rest, req.session.userCase.ocd_otherChildren)] };
 
       if (childFirstName && childLastName) {
-        dataToSave.cd_otherChildren.push({
+        dataToSave.ocd_otherChildren.push({
           ...getDataShape(),
           firstName: childFirstName,
           lastName: childLastName,

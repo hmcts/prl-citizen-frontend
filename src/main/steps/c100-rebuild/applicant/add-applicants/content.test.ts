@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -54,11 +55,35 @@ const dummyApplicants = [
     id: 'f944071e-278a-4421-b8de-88dcab3f5137',
     applicantFirstName: 'Test1',
     applicantLastName: 'Test1',
+    personalDetails: {
+      haveYouChangeName: YesNoEmpty.EMPTY,
+      applPreviousName: '',
+      dateOfBirth: {
+        day: '',
+        month: '',
+        year: '',
+      },
+      gender: Gender.EMPTY,
+      otherGenderDetails: '',
+      applicantPlaceOfBirth: '',
+    },
   },
   {
     id: 'c73b9d9e-1c26-4865-a0d1-01e988c67700',
     applicantFirstName: 'Test2',
     applicantLastName: 'Test2',
+    personalDetails: {
+      haveYouChangeName: YesNoEmpty.EMPTY,
+      applPreviousName: '',
+      dateOfBirth: {
+        day: '',
+        month: '',
+        year: '',
+      },
+      gender: Gender.EMPTY,
+      otherGenderDetails: '',
+      applicantPlaceOfBirth: '',
+    },
   },
 ];
 
@@ -178,6 +203,18 @@ describe('applicant > add-applicants > content', () => {
         id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
         applicantFirstName: 'Test',
         applicantLastName: 'Test',
+        personalDetails: {
+          haveYouChangeName: YesNoEmpty.EMPTY,
+          applPreviousName: '',
+          dateOfBirth: {
+            day: '',
+            month: '',
+            year: '',
+          },
+          gender: Gender.EMPTY,
+          otherGenderDetails: '',
+          applicantPlaceOfBirth: '',
+        },
       },
     ]);
     expect(formFields).not.toBe(null);

@@ -9,8 +9,8 @@ const en = {
   title: 'Address of firstName lastName',
   errors: {
     addressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter the postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 };
@@ -19,8 +19,8 @@ const cy = {
   title: 'Address of - welsh firstName lastName',
   errors: {
     addressPostcode: {
-      required: 'Enter a real postcode - welsh',
-      invalid: 'Enter a real postcode - welsh',
+      required: 'Enter the postcode - welsh',
+      invalid: 'Enter a valid postcode - welsh',
     },
   },
 };

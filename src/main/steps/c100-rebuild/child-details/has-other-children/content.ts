@@ -8,7 +8,7 @@ const en = () => ({
   one: YesOrNo.YES,
   two: YesOrNo.NO,
   errors: {
-    cd_hasOtherChildren: {
+    ocd_hasOtherChildren: {
       required: 'Select yes if you have other children',
     },
   },
@@ -32,7 +32,7 @@ const cy = () => ({
   one: YesOrNo.YES,
   two: YesOrNo.NO,
   errors: {
-    cd_hasOtherChildren: {
+    ocd_hasOtherChildren: {
       required: 'Select yes if you have other children',
     },
   },
@@ -58,7 +58,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    cd_hasOtherChildren: {
+    ocd_hasOtherChildren: {
       type: 'radios',
       classes: 'govuk-radios',
       section: l => l.section,
