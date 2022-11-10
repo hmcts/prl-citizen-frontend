@@ -1,4 +1,5 @@
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "common/progress-bar.njk" import progressBar with context %}
 
 {% extends "common/tasklist/template.njk" %}
 {% block caseDetails %}
@@ -12,6 +13,11 @@
   <p class="govuk-body">Case number #{{userCase.id}}</p>
 </div>
 {% endblock %}
+
+{% block progressBar %}
+  {{ progressBar(stages) }}
+{% endblock %}
+
 {% block notificationBanner %}
   {% include "../../common/notifyBanner.njk" %}
 {% endblock %}
