@@ -14,10 +14,12 @@ const enContent = {
   continue: 'Continue',
   errors: {
     start: {
-      required: 'Select yes if the children live outside of England or Wales',
+      required:
+        "Select yes if the children's parents (or anyone significant to the children) are mainly based outside of England and Wales",
     },
     iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
     },
   },
 };
@@ -32,10 +34,12 @@ const cyContent = {
   continue: 'Continue',
   errors: {
     start: {
-      required: 'Select yes if the children live outside of England or Wales',
+      required:
+        "Select yes if the children's parents (or anyone significant to the children) are mainly based outside of England and Wales",
     },
     iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
     },
   },
 };
