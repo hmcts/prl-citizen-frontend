@@ -226,9 +226,9 @@ export const ChildernDetails = (
       {
         key: keys['whoDoesLiveWith'].split('[^childName^]').join(` ${firstname + ' ' + lastname} `),
         value: '',
-        valueHtml: HTML.UNORDER_LIST + personalDetails?.['liveWith']?.map(respectivechild => {
-          const { firstName, lastName } = respectivechild;
-          return HTML.LIST_ITEM + firstName + ' ' + lastName + HTML.LIST_ITEM_END;
+        valueHtml: HTML.UNORDER_LIST + sessionChildData[child]?.['liveWith']?.map(respectivechild => {
+          const { firstName, lastName, partyType } = respectivechild;
+          return HTML.LIST_ITEM + firstName + ' ' + lastName + ` - (${partyType}) ` + HTML.LIST_ITEM_END;
         }).toString().split(',').join('').toString() + HTML.UNORDER_LIST_END,
         changeUrl: applyParms(Urls['C100_CHILDERN_LIVE_WITH'], { childId: id }),
       },

@@ -34,6 +34,9 @@ export const childDetailsContents = SystemLanguage => {
         ...parentalResponsibility__english,
         ...personalDetails_english,
         ...childMatters_english,
+        ...childMatters_english.issueOrderList,
+        ...childMatters_english.childArrangementsOrder,
+        ...childMatters_english.stepsList,
         errors: '',
       };
     },
@@ -43,6 +46,9 @@ export const childDetailsContents = SystemLanguage => {
         ...parentalResponsibility_welsh,
         ...personalDetails_welsh,
         ...childMatters_welsh,
+        ...childMatters_welsh.issueOrderList,
+        ...childMatters_welsh.childArrangementsOrder,
+        ...childMatters_welsh.stepsList,
         errors: '',
       };
     },
