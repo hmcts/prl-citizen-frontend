@@ -4,6 +4,7 @@
  * import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/content';
  */
+import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/content';
 import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/content';
 import { cy as GeneralContentCy, en as GeneralContentEn } from '../../miam/general-reasons/content';
@@ -178,7 +179,7 @@ export const additionalTitlesMiam = SystemLanguage => {
         mediatorConfirmation: mcEn().title,
         reasonForNotAttendingMiam: vrEn().title,
         validResonsNotAttendingMiam: vrEn().title,
-        attendedMiamMidiation: PreviousAttendanceContentEn().title,
+        attendedMiamMidiation: attendanceEn().title,
         urgentHearing: UrgentHearingContentEn().title,
         error: '',
       };
@@ -189,7 +190,7 @@ export const additionalTitlesMiam = SystemLanguage => {
         mediatorConfirmation: mcCy().title,
         reasonForNotAttendingMiam: vrCy().title,
         validResonsNotAttendingMiam: vrCy().title,
-        attendedMiamMidiation: PreviousAttendanceContentCy().title,
+        attendedMiamMidiation: attendanceCy().title,
         urgentHearing: UrgentHearingContentCy().title,
         error: '',
       };
