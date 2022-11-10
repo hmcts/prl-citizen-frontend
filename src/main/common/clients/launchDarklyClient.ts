@@ -16,6 +16,10 @@ export class LaunchDarklyClient {
     }
   }
 
+  async initializeLD(): Promise<void> {
+    await LaunchDarklyClient.client.waitForInitialization();
+  }
+
   /*async userVariation(user: User, roles: string[], featureKey: string, offlineDefault): Promise<ld.LDFlagValue> {
     const ldUser: ld.LDUser = {
       key: user.id,
@@ -43,7 +47,7 @@ export class LaunchDarklyClient {
     //const test = (await LaunchDarklyClient.client.allFlagsState(ldUser)).getFlagValue(featureKey);
     //console.log(LaunchDarklyClient.client.isOffline());
     //console.log('test   -' + test);
-    await LaunchDarklyClient.client.waitForInitialization();
+    // await LaunchDarklyClient.client.waitForInitialization();
     LaunchDarklyClient.client.variationDetail(featureKey, ldUser, 'default', detail => {
       const detailValue = detail.value;
       console.log('detailValue' + detailValue);

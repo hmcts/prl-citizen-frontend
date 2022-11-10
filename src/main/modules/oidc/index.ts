@@ -20,6 +20,8 @@ export class OidcMiddleware {
     const protocol = app.locals.developmentMode ? 'http://' : 'https://';
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
+    const featureToggle = new FeatureToggles(new LaunchDarklyClient());
+    featureToggle.launchDarklyClient.initializeLD();
 
     app.get(SIGN_IN_URL, (req, res) =>
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL))
@@ -65,9 +67,7 @@ export class OidcMiddleware {
             const c100RebuildLdFlag: boolean =
               req.session.c100RebuildLdFlag !== undefined
                 ? req.session.c100RebuildLdFlag
-                : (req.session.c100RebuildLdFlag = await new FeatureToggles(
-                    new LaunchDarklyClient()
-                  ).isC100reBuildEnabled());
+                : (req.session.c100RebuildLdFlag = await featureToggle.isC100reBuildEnabled());
             if (c100RebuildLdFlag) {
               return next();
             } else {
