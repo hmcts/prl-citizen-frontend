@@ -55,22 +55,21 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys) => {
   }
   if(sessionApplicantData['canProvideEmail'] === 'No'){
     html += HTML.H4 +  keys['canNotProvideEmailLabel'] + HTML.H4_CLOSE;
-  }
-  html += HTML.RULER;
-  html += HTML.H4 + keys['homePhoneNumberLabel'] + HTML.H4_CLOSE;
-  html += sessionApplicantData['homePhoneNumber'];
-  html += HTML.BREAK;
-  html += HTML.RULER;
-  if(sessionApplicantData['canProvideMobileNumber'] === 'Yes'){
-    html +=  HTML.H4  + keys['mobileNumberLabel'] + HTML.H4_CLOSE;
     html +=  HTML.BOTTOM_PADDING_3;
-    html += sessionApplicantData['mobileNumber'];
+    html += sessionApplicantData['canNotProvideEmailReason'];
     html += HTML.BOTTOM_PADDING_CLOSE;
   }
-  if(sessionApplicantData['canProvideMobileNumber'] === 'No'){
-    html += HTML.H4 + keys['canNotProvideMobileNumberLabel'] + HTML.H4_CLOSE;
+  html += HTML.RULER;
+  if(sessionApplicantData['canProvideTelephoneNumber'] === 'Yes'){
+    html +=  HTML.H4  + keys['canProvideTelephoneNumberLabel'] + HTML.H4_CLOSE;
     html +=  HTML.BOTTOM_PADDING_3;
-    html += sessionApplicantData['canNotProvideMobileNumberReason'];
+    html += sessionApplicantData['telephoneNumber'];
+    html += HTML.BOTTOM_PADDING_CLOSE;
+  }
+  if(sessionApplicantData['canProvideTelephoneNumber'] === 'No'){
+    html += HTML.H4 + keys['canNotProvideTelephoneNumberLabel'] + HTML.H4_CLOSE;
+    html +=  HTML.BOTTOM_PADDING_3;
+    html += sessionApplicantData['canNotProvideTelephoneNumberReason'];
     html += HTML.BOTTOM_PADDING_CLOSE;
     //canNotProvideMobileNumberReason
   }  
