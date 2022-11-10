@@ -7,8 +7,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-// eslint-disable-next-line sort-imports
-import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL, DASHBOARD_URL } from '../../steps/urls';
+import { C100_URL, CALLBACK_URL, CITIZEN_HOME_URL, DASHBOARD_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -51,7 +50,8 @@ export class OidcMiddleware {
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         console.log('inside app.use');
         console.log('req.path is ' + req.path);
-        if (req.path.startsWith(CITIZEN_HOME_URL) && !req.session?.user) {
+        //Skipping for C100 rebuild
+        if (req.path.startsWith(CITIZEN_HOME_URL || C100_URL) && !req.session?.user) {
           return next();
         }
         console.log('inside oidc, finding user');
@@ -102,7 +102,7 @@ export class OidcMiddleware {
             // req.session['lang'] =
             // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
           }
-          // TODO - Need to be revisited by PRLAW team
+          //TODO pvt law team to revisit & correct
           if (req.path.startsWith(DASHBOARD_URL)) {
             console.log('****** inside oidc, trying to get the cases');
             try {
@@ -110,8 +110,6 @@ export class OidcMiddleware {
             } catch (e) {
               console.log('**** getCaseDetails error', e);
             }
-
-            return next();
           }
           return next();
         } else {
