@@ -17,11 +17,11 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Do you have a document signed by the mediator? - welsh  ',
+  title: "A oes gennych chi ddogfen wedi’i llofnodi gan y cyfryngwr?",
   docSigned:
-    'The mediator should give you a signed document to confirm you attended a MIAM, or do not need to attend. If you do not have a document, you should ask the mediator for one. - Welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
+    "Dylai’r cyfryngwr roi dogfen wedi’i llofnodi i chi i gadarnhau eich bod wedi mynychu MIAM, neu i gadarnhau nad oes angen i chi fynychu. Os nad oes gennych ddogfen, dylech ofyn i'r cyfryngwr am un.",
+  one: "Oes",
+  two: "Nac oes",
   errors: {
     miam_haveDocSigned: {
       required: 'Select yes if you have a document signed by the mediator - welsh',

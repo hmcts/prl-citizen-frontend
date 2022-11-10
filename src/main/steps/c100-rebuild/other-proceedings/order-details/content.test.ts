@@ -59,9 +59,9 @@ const en = {
 };
 
 const cy = {
-  pageTitle: 'Provide details of court cases you or the children have been involved in - welsh',
+  pageTitle: "Darparu manylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy",
   additionalNote:
-    'If you do not have the specific details, you can skip this section and proceed with the application. - welsh',
+    "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a pharhau â'r cais.",
   emergencyProtectionOrderLabel: 'Emergency Protection Order - welsh',
   childArrangementOrderLabel: 'Child Arrangements Order - welsh',
   supervisionOrderLabel: 'Supervision Order - welsh',
@@ -80,15 +80,15 @@ const cy = {
   otherInjuctionOrderLabel: 'Other Injunction Order - welsh',
   undertakingOrderLabel: 'Undertaking Order - welsh',
   otherOrderLabel: 'Other Order - welsh',
-  courtIssuedLabel: 'Which court issued the order? (optional) - welsh',
-  caseNumberLabel: 'Case number (optional) - welsh',
-  caseNumberHint: 'For example, BS19F99999 - welsh',
-  orderDateLabel: 'What date was it made? (optional) - welsh',
-  orderEndDateLabel: 'What date did it end? (optional) - welsh',
-  orderDateHint: 'For example, 31 3 2015 - welsh',
-  isCurrentOrderLabel: 'Is this a current order? (optional) - welsh',
-  copyOfOrderLabel: 'Do you have a copy of the order? (optional) - welsh',
-  addOrderLabel: 'Add another order - welsh',
+  courtIssuedLabel: 'Pa lys gyhoeddodd y gorchymyn? (dewisol)',
+  caseNumberLabel: 'Rhif yr achos (dewisol)',
+  caseNumberHint: 'Er enghraifft, BS19F99999',
+  orderDateLabel: "Pa ddyddiad y cafodd ei wneud? (dewisol)",
+  orderEndDateLabel: "Ar pa ddyddiad y daeth i ben? (dewisol) ",
+  orderDateHint: " Er enghraifft, 31 3 2015",
+  isCurrentOrderLabel: 'Ai gorchymyn cyfredol yw hwn? (dewisol)',
+  copyOfOrderLabel: 'A oes gennych chi gopi o’r gorchymyn? (dewisol)',
+  addOrderLabel: 'Ychwanegu gorchymyn arall',
   errors: {
     orderDate: {
       invalidDate: 'Order date must be a real date - welsh',

@@ -38,11 +38,11 @@ const en = {
 
 const cy = {
   serviceName: 'Child arrangements - welsh',
-  title: 'Upload your MIAM certificate - welsh',
+  title: 'Llwytho eich tystysgrif MIAM',
   youNeed:
-    'If you are uploading documents from a computer, name the files clearly. For example, miam-certificate.doc. - welsh',
-  youNeed2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX. - welsh',
-  uploadDescription: 'How to take a picture of a document on your phone and upload it - welsh',
+    "Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, tystysgrif-miam.doc.",
+  youNeed2: "Rhaid i’r ffeiliau orffen efo JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.",
+  uploadDescription: "Sut i dynnu llun o ddogfen ar eich ffôn a'i lwytho",
   uploadRequirement: [
     'Place your document on a flat service in a well-lit room. Use a flash if you need to. - welsh',
     'Take a picture of the whole document. You should be able to see its edges. - welsh',
@@ -50,8 +50,8 @@ const cy = {
     'Email or send the photo or scan to the device you are using now. - welsh',
     'Upload it here. - welsh',
   ],
-  uploadButton: 'Upload file - welsh',
-  remove: 'Remove - welsh',
+  uploadButton: "Llwytho ffeil",
+  remove: 'Dileu',
   errors: {
     document: {
       required: 'Please choose a file. - welsh',

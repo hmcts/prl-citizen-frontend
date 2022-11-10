@@ -11,9 +11,9 @@ const en = {
 };
 
 const cy = {
-  title: 'Upload your MIAM certificate - welsh',
-  confirmationText: 'Your MIAM certificate has been uploaded - welsh',
-  secondaryTitle: 'Your documents - welsh',
+  title: 'Llwytho eich tystysgrif MIAM',
+  confirmationText: 'YMae eich tystysgrif MIAM wedi’i llwytho',
+  secondaryTitle: 'Eich dogfennau',
 };
 describe('applicant personal details > applying-with > content', () => {
   const commonContent = { language: 'en' } as CommonContent;

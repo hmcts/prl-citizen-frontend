@@ -19,22 +19,22 @@ const en = () => ({
 });
 
 const cy = () => ({
-  applyForAnInjunctionHyperLink: 'https://www.gov.uk/injunction-domestic-violence - welsh',
-  applyForAnInjunctionLabel: 'Apply for an injunction - welsh',
-  howToReportChildAbuseHyperLink: 'https://www.gov.uk/report-child-abuse - welsh',
-  howToReportChildAbuseLabel: 'How to report child abuse - welsh',
-  nationalSocietyPreventionCrueltyHyperLink: 'https://www.nspcc.org.uk - welsh',
+  applyForAnInjunctionHyperLink: 'https://www.gov.uk/injunction-domestic-violence',
+  applyForAnInjunctionLabel: "Gwneud cais am waharddeb",
+  howToReportChildAbuseHyperLink: 'https://www.gov.uk/report-child-abuse',
+  howToReportChildAbuseLabel: "Sut i riportio achos o gam-drin plant",
+  nationalSocietyPreventionCrueltyHyperLink: 'https://www.nspcc.org.uk',
   nationalSocietyPreventionCrueltyChildrenLabel:
-    'NSPCC: National Society for the Prevention of Cruelty to Children - welsh',
-  childlineHyperLink: 'https://www.childline.org.uk - welsh',
-  childlineLabel: 'Childline - welsh',
-  supportDirectoryHyperLink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help - welsh',
-  supportDirectoryLabel: 'GOV.UK Support directory - welsh',
-  supportNavHyperLink: 'https://supportnav.org.uk - welsh',
-  supportNavLabel: 'SupportNav - welsh',
-  reportIncident: 'Report an incident - welsh',
-  emergencyCall: 'Always call 999 if there’s an emergency or if you think a child’s in danger. - welsh',
-  support: 'Get support - welsh',
+    "NSPCC: Cymdeithas Genedlaethol er Atal Creulondeb i Blant",
+  childlineHyperLink: 'https://www.childline.org.uk',
+  childlineLabel: 'Childline',
+  supportDirectoryHyperLink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
+  supportDirectoryLabel: "GOV.UK - Cyfeiriadur cymorth",
+  supportNavHyperLink: 'https://supportnav.org.uk',
+  supportNavLabel: 'SupportNav',
+  reportIncident: "Riportio digwyddiad",
+  emergencyCall: "Ffoniwch 999 bob amser os oes argyfwng neu os ydych chi'n meddwl bod plentyn mewn perygl.",
+  support: "Cael cefnogaeth",
 });
 
 const languages = {

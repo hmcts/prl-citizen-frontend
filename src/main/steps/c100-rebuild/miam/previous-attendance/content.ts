@@ -35,27 +35,18 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: 'MIAM exemptions - welsh',
-  title: 'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend? - welsh',
-  insetHtml: `<p class="govuk-body">If you are seeking a MIAM exemption, you will need to give more details. </p>
-             <p class="govuk-body">The court needs this information to decide if you need to attend a MIAM.</p> - welsh`,
-  select_all_apply: 'Select all that apply to you - welsh',
-  fourMonthsPriorAttended: `In the 4 months prior to making the application, you attended 
-                            a MIAM or participated in another form of non-court dispute resolution relating 
-                            to the same or substantially the same dispute - welsh`,
-  onTimeParticipation: `At the time of making the application, you are participating in another
-                        form of non-court dispute resolution relating to the same or 
-                        substantially the same dispute - welsh`,
-  beforeInitiationProceeding: `This application would be made in existing proceedings which are continuing 
-                                and you attended a MIAM before initiating those proceedings - welsh`,
-  fourMonthsPriorFiled: `In the 4 months prior to making the application, you filed a relevant
-                          family application confirming that a MIAM exemption applied and that application
-                          related to the same or substantially the same dispute - welsh`,
-  miamExamptionApplied: `The application would be made in existing proceedings which are continuing
-                          and a MIAM exemption applied to the application for those proceedings - welsh`,
-  beforStatingApplication: `The application would be made in existing proceedings which 
-                            are continuing and and the applicant attended a MIAM before starting those proceedings - welsh`,
-  noneOfTheAbove: 'None of the above  - welsh',
+  caption: 'Esemptiadau MIAM',
+  title: "A allwch chi gadarnhau eich bod wedi mynychu MIAM yn barod, neu fod gennych reswm dilys dros beidio â mynychu?",
+  insetHtml: `<p class="govuk-body">Os ydych chi’n ceisio esemptiad rhag mynychu MIAM, bydd angen i chi ddarparu mwy o fanylion. </p>
+             <p class="govuk-body">Mae’r llys angen yr wybodaeth hon i benderfynu a oes angen i chi fynychu MIAM ai peidio.</p>`,
+  select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
+  fourMonthsPriorAttended: "Yn y 4 mis cyn gwneud y cais, bu ichi fynychu MIAM neu gymryd rhan mewn math arall o broses i ddatrys anghydfod y tu allan i’r llys yn ymwneud â’r un anghydfod neu yr un anghydfod i raddau helaeth",
+  onTimeParticipation: "Ar adeg gwneud y cais, bu ichi gymryd rhan mewn math arall o broses i ddatrys anghydfod y tu allan i’r llys yn ymwneud â’r un anghydfod neu yr un anghydfod i raddau helaeth",
+  beforeInitiationProceeding: "Byddai’r cais yn cael ei wneud ynghylch achos presennol sy’n parhau a bu ichi fynychu MIAM cyn cychwyn yr achos hwnnw",
+  fourMonthsPriorFiled: "Yn y 4 mis cyn gwneud y cais, bu ichi ffeilio cais perthnasol i’r llys teulu yn cadarnhau bod esemptiad rhag mynychu MIAM yn berthnasol a bod y cais yn ymwneud â’r un anghydfod neu yr un anghydfod i raddau helaeth",
+  miamExamptionApplied: "Byddai’r cais yn cael ei wneud ynghylch achos presennol sy’n parhau ac roedd esemptiad rhag mynychu MIAM yn berthnasol pan wnaed y cais ynghylch yr achos hwnnw",
+  beforStatingApplication: "Byddai’r cais yn cael ei wneud ynghylch achos presennol sy’n parhau a mynychodd y ceisydd MIAM cyn cychwyn yr achos hwnnw",
+  noneOfTheAbove: "Dim un o'r uchod",
   errors: {
     miam_previousAttendance: {
       required: 'Confirm if you previously attended a MIAM, or had a valid reason not to attend - welsh',

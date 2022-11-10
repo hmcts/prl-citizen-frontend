@@ -18,10 +18,10 @@ const en = () => ({
 
 const cy = () => ({
   title:
-    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? - welsh  ',
-  localAuthority: 'These will usually involve a local authority. - Welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
+     "A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?",
+  localAuthority: "Fel arfer, bydd y rhain yn cynnwys awdurdod lleol.",
+  one: 'Ydyn',
+  two: 'Nac ydyn',
   errors: {
     miam_otherProceedings: {
       required:

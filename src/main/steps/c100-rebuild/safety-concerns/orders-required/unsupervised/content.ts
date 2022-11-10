@@ -29,20 +29,20 @@ const en = () => ({
   },
 });
 const cy = () => ({
-  section: 'Safety concerns - welsh',
-  title: 'Contact between the children and the other people in this application - welsh',
+  section: "Pryderon diogelwch",
+  title: "Cyswllt rhwng y plant a'r bobl eraill yn y cais hwn",
   subtitle:
-    "The court will presume it is good for the children's welfare to have both of their parents involved in their lives, unless there is evidence showing that this would cause harm to the children. - welsh",
+    "Bydd y llys yn tybio ei bod yn dda i les y plant gael y ddau riant yn rhan o'u bywydau, oni bai bod tystiolaeth sy'n dangos y byddai hyn yn achosi niwed i'r plant.",
   selectSupervisionAgreementLabel:
-    'Do you agree to the children spending time with the other people in this application? - welsh',
-  one: 'Yes - welsh',
-  two: 'Yes, but I prefer that it is supervised - welsh',
-  three: 'No, I would prefer the other people do not spend time with the children - welsh',
+    "Ydych chi'n cytuno i'r plant dreulio amser gyda'r bobl eraill yn y cais hwn?",
+  one: "Ydw",
+  two: "Ydw, ond byddai’n well gennyf i’r cyswllt gael ei oruchwylio",
+  three: "Nac ydw, byddai'n well gennyf pe na bai’r bobl eraill yn treulio amser gyda'r plant",
   supervisionAgreementOtherWaysLabel:
-    'Do you agree to the other people in this application being in touch with the children in other ways? - welsh',
-  supervisionAgreementOtherWaysHint: 'For example, by phone, text or email - welsh',
-  yes: 'Yes - welsh',
-  no: 'No - welsh',
+    "Ydych chi'n cytuno i'r bobl eraill yn y cais hwn fod mewn cysylltiad â'r plant mewn ffyrdd eraill?",
+  supervisionAgreementOtherWaysHint: "Er enghraifft, dros y ffôn, drwy anfon negeseuon testun neu drwy e-bost",
+  yes: "Ydw",
+  no: "Nac ydw",
   errors: {
     c1A_supervisionAgreementDetails:
       'Select whether you agree to the children spending time with the other people in this application - welsh',

@@ -35,17 +35,17 @@ const en = {
 
 const cy = {
   serviceName: 'Child Arrangements - welsh',
-  caption: 'Reasonable adjustments - welsh',
-  headingTitle: 'I need something to feel comfortable during a court hearing - welsh',
-  line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
-  select_all_apply: 'Select all that apply to you - welsh',
-  appropriateLighting: 'Appropriate lighting - welsh',
-  appropriateLightingSubField: 'Describe what you need - welsh',
-  regularBreaks: 'Regular breaks - welsh',
-  spaceUpAndMoveAround: 'Space to be able to get up and move around - welsh',
-  feelComportableOther: 'Other - welsh',
-  feelComportableOtherSubField: 'Describe what you need - welsh',
-  feelComportableNoOption: 'No, I do not need any support at this time - welsh',
+  caption: 'Addasiadau rhesymol',
+  headingTitle: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
+  line1: 'Ystyriwch wrandawiad wyneb yn wyneb, dros y ffôn neu drwy fideo, rhag ofn nad yw’r math o wrandawiad a ffefrir gennych yn bosibl',
+  select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
+  appropriateLighting: 'Golau priodol',
+  appropriateLightingSubField: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  regularBreaks: 'Seibiannau rheolaidd',
+  spaceUpAndMoveAround: 'Lle i allu codi a symud o gwmpas',
+  feelComportableOther: 'Arall',
+  feelComportableOtherSubField: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  feelComportableNoOption: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   errors: {
     ra_appropriateLightingSubField: {
       required: 'Describe the appropriate lighting you need - welsh',

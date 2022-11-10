@@ -31,16 +31,16 @@ const en = () => ({
 });
 
 const cy = () => ({
-  caption: 'Safety concerns - welsh',
-  title: 'Provide details of the children’s passports - welsh',
-  childrenMoreThanOnePassport: 'Do the children have more than one passport? - welsh',
-  possessionChildrenPassport: 'Who is in possession of the children’s passports? - welsh',
-  select_all_relevant: 'Select all that apply - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
-  option1: 'Mother - welsh',
-  option2: 'Father - welsh',
-  option3: 'Other - welsh',
+  caption: 'Pryderon diogelwch',
+  title: 'Darparu manylion pasbortau y plant',
+  childrenMoreThanOnePassport: 'A oes gan y plant fwy nag un pasbort?',
+  possessionChildrenPassport: "Ym meddiant pwy y mae pasbortau'r plant?",
+  select_all_relevant: "Dewiswch bob un sy'n berthnasol",
+  one: 'Oes',
+  two: 'Nac oes',
+  option1: 'Mam',
+  option2: 'Tad',
+  option3: 'Arall',
   otherDetails: 'Provide more details - welsh',
   errors: {
     c1A_childrenMoreThanOnePassport: {
