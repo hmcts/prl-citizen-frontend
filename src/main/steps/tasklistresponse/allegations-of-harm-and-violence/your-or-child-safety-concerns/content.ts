@@ -11,7 +11,7 @@ const en = {
   warning:
     'You may find some of these questions difficult or upsetting to answer. Take your time and complete them as best you can.',
   contentunderyesp1:
-    '<p class="govuk-body">The information you give will be considered as part of your application. If you need to make  <a href="#" class="govuk-link">an application for a domestic abuse injunction</a>, you can do this separately.</p>',
+    '<p class="govuk-body">The information you give will be considered as part of your application. If you need to make  <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link">an application for a domestic abuse injunction</a>, you can do this separately.</p>',
   sidelink1: 'Identify signs of child abuse',
   sidelink2: 'Identify signs of domestic abuse',
   one: 'Yes',
@@ -34,7 +34,7 @@ const cy: typeof en = {
   warning:
     'You may find some of these questions difficult or upsetting to answer. Take your time and complete them as best you can. - welsh',
   contentunderyesp1:
-    'The information you give will be considered as part of your application. If you need to make <a href="#">an application for a domestic abuse injunction</a>, you can do this separately.',
+    'The information you give will be considered as part of your application. If you need to make <a href="https://www.gov.uk/injunction-domestic-violence">an application for a domestic abuse injunction</a>, you can do this separately.',
   sidelink1: 'Identify signs of child abuse - welsh',
   sidelink2: 'Identify signs of domestic abuse - welsh',
   one: 'Yes - welsh',

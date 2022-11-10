@@ -36,17 +36,6 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         },
       ],
     },
-    {
-      title: sectionTitles.safetyconcerns,
-      items: [
-        {
-          id: 'allegations_of_harm_and_violence',
-          text: taskListItems.allegations_of_harm_and_violence,
-          status: getAllegationOfHarmStatus(userCase),
-          href: URL.RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
-        },
-      ],
-    },
     ...getRemainingTaskList(sectionTitles, taskListItems, userCase, userIdamId),
   ];
 };
@@ -102,6 +91,17 @@ const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId
             text: taskListItems.current_or_previous_proceedings,
             status: getCurrentOrOtherProceedingsStatus(userCase),
             href: URL.PROCEEDINGS_START,
+          },
+        ],
+      },
+      {
+        title: sectionTitles.safetyconcerns,
+        items: [
+          {
+            id: 'allegations_of_harm_and_violence',
+            text: taskListItems.allegations_of_harm_and_violence,
+            status: getAllegationOfHarmStatus(userCase),
+            href: URL.RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
           },
         ],
       },

@@ -201,4 +201,3 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
 // export const getAllegationOfHarmStatus = () :SectionStatus => {
 //   return SectionStatus.NOT_AVAILABLE_YET;
 // };
-
