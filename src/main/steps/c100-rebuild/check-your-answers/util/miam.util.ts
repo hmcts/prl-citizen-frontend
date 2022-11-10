@@ -177,8 +177,8 @@ export const additionalTitlesMiam = SystemLanguage => {
         childInvolvementInSupervision: opEn().title,
         mediatorConfirmation: mcEn().title,
         reasonForNotAttendingMiam: vrEn().title,
-        validResonsNotAttendingMiam: vrEn().validResonsNotAttendingMiam,
-        attendedMiamMidiation: PreviousAttendanceContentEn().attendedMiamMidiation,
+        validResonsNotAttendingMiam: vrEn().title,
+        attendedMiamMidiation: PreviousAttendanceContentEn().title,
         urgentHearing: UrgentHearingContentEn().title,
         error: '',
       };
@@ -188,8 +188,8 @@ export const additionalTitlesMiam = SystemLanguage => {
         childInvolvementInSupervision: opCy().title,
         mediatorConfirmation: mcCy().title,
         reasonForNotAttendingMiam: vrCy().title,
-        validResonsNotAttendingMiam: vrCy().validResonsNotAttendingMiam,
-        attendedMiamMidiation: PreviousAttendanceContentCy().attendedMiamMidiation,
+        validResonsNotAttendingMiam: vrCy().title,
+        attendedMiamMidiation: PreviousAttendanceContentCy().title,
         urgentHearing: UrgentHearingContentCy().title,
         error: '',
       };

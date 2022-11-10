@@ -45,7 +45,7 @@ export const en = () => ({
     miam_notAttendingReasons: {
       required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case',
     },
-    miam_notAttendingReasons_canNotAccessMediator: {
+    miam_noMediatorAccessSubfields: {
       required: 'Select why you cannot access a mediator',
     },
   },
@@ -95,7 +95,7 @@ export const cy = () => ({
     miam_notAttendingReasons: {
       required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case - welsh',
     },
-    miam_notAttendingReasons_canNotAccessMediator: {
+    miam_noMediatorAccessSubfields: {
       required: 'Select why you cannot access a mediator - welsh',
     },
   },
@@ -131,25 +131,25 @@ export const form: FormContent = {
           hint: l => l.canNotAccessMediatorHint,
           value: 'canNotAccessMediator',
           subFields: {
-            miam_notAttendingReasons_canNotAccessMediator: {
-              id: 'miam_notAttendingReasons_canNotAccessMediator',
+            miam_noMediatorAccessSubfields: {
+              id: 'miam_noMediatorAccessSubfields',
               type: 'checkboxes',
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'miam_notAttendingReasons_canNotAccessMediator',
+                  name: 'miam_noMediatorAccessSubfields',
                   label: l => l.mediatorDoesNotHaveDisabilityAccess,
                   value: 'mediatorDoesNotHaveDisabilityAccess',
                   hint: l => l.mediatorDoesNotHaveDisabilityAccessHint1,
                 },
                 {
-                  name: 'miam_notAttendingReasons_canNotAccessMediator',
+                  name: 'miam_noMediatorAccessSubfields',
                   label: l => l.noMediatorAppointment,
                   value: 'noMediatorAppointment',
                   hint: l => l.mediatorDoesNotHaveDisabilityAccessHint2,
                 },
                 {
-                  name: 'miam_notAttendingReasons_canNotAccessMediator',
+                  name: 'miam_noMediatorAccessSubfields',
                   label: l => l.noAuthorisedFamilyMediator,
                   value: 'noAuthorisedFamilyMediator',
                 },

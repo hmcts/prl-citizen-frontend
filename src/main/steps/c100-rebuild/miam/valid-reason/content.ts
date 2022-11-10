@@ -8,7 +8,6 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 export const en = () => ({
   serviceName: 'Child Arrangements',
   title: 'Do you have valid reasons for not attending a MIAM?',
-  validResonsNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
   paragraph1: 'You must attend a MIAM before making an application unless you have valid reasons not to attend.',
   applyForVrLink:
     'If you\'re unsure, you can check the <a href="https://www.justice.gov.uk/courts/procedure-rules/family/practice_directions/pd_part_03a" class="govuk-link" target="_blank" aria-label="list of valid reasons">list of valid reasons</a>.',
@@ -26,7 +25,6 @@ export const en = () => ({
 export const cy = () => ({
   serviceName: 'Child Arrangements',
   title: 'Do you have valid reasons for not attending a MIAM? - Welsh',
-  validResonsNotAttendingMiam: 'What are your valid reasons for not attending a MIAM? - welsh',
   paragraph1:
     'You must attend a MIAM before making an application unless you have valid reasons not to attend. - Welsh',
   applyForVrLink:

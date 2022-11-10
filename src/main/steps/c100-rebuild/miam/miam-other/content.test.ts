@@ -48,7 +48,7 @@ const en = {
     miam_notAttendingReasons: {
       required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case',
     },
-    miam_notAttendingReasons_canNotAccessMediator: {
+    miam_noMediatorAccessSubfields: {
       required: 'Select why you cannot access a mediator',
     },
   },
@@ -97,7 +97,7 @@ const cy = {
     miam_notAttendingReasons: {
       required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case - welsh',
     },
-    miam_notAttendingReasons_canNotAccessMediator: {
+    miam_noMediatorAccessSubfields: {
       required: 'Select why you cannot access a mediator - welsh',
     },
   },
@@ -153,7 +153,7 @@ describe('miam should contain miam other reasons content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('noSufficientContactDetails');
 
     const noMediatorAccessSubField = miamNotAttendingReasonsField.values[2].subFields
-      ?.miam_notAttendingReasons_canNotAccessMediator as FormOptions;
+      ?.miam_noMediatorAccessSubfields as FormOptions;
     expect(noMediatorAccessSubField.type).toBe('checkboxes');
     expect((noMediatorAccessSubField.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.mediatorDoesNotHaveDisabilityAccess

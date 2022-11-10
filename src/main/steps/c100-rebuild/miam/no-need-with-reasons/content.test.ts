@@ -37,8 +37,8 @@ const en = {
     financiallyAbuse: DomesticAbuseEn().financiallyAbuse,
   },
   childProtection: {
-    localAuthority: ChildProtectionEn().localAuthorityCp,
-    childProtectionPlan: ChildProtectionEn().childProtectionCpPlan,
+    localAuthority: ChildProtectionEn().localAuthority,
+    childProtectionPlan: ChildProtectionEn().childProtectionPlan,
   },
   urgentHearing: {
     freedomPhysicalSafety: UrgencyEn().freedomPhysicalSafety,
@@ -99,8 +99,8 @@ const cy = {
     financiallyAbuse: DomesticAbuseCy().financiallyAbuse,
   },
   childProtection: {
-    localAuthority: ChildProtectionCy().localAuthorityCp,
-    childProtectionPlan: ChildProtectionCy().childProtectionCpPlan,
+    localAuthority: ChildProtectionCy().localAuthority,
+    childProtectionPlan: ChildProtectionCy().childProtectionPlan,
   },
   urgentHearing: {
     freedomPhysicalSafety: UrgencyCy().freedomPhysicalSafety,
