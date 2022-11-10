@@ -167,6 +167,8 @@ export const RESPONDENT_CHECK_ANSWERS_NO: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/check-answers-no';
 export const RESPONDENT_CHECK_ANSWERS_YES: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes';
+export const RESPONDENT_ONLY_CHILD_CONCERN: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/only-child-abuse';
 
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;

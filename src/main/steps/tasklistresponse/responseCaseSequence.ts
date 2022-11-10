@@ -34,6 +34,7 @@ import {
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
+  RESPONDENT_ONLY_CHILD_CONCERN,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
@@ -260,12 +261,17 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_CHECK_ANSWERS_YES,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => RESPONDENT_ONLY_CHILD_CONCERN,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_NO,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
     //getNextStep:(userCase:Partial<CaseWithId>) =>  setVarandGetNextStepofAllegationharm(userCase),
+  },
+  {
+    url: RESPONDENT_ONLY_CHILD_CONCERN,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
 ];
