@@ -1,7 +1,6 @@
 import {
   MiamContentForOtherFeature,
   MiamContentForOtherFeatureSubFields,
-  MiamContentsForChildProtection,
   MiamContentsForDomensticVoilence,
   MiamContentsForGeneralReasons,
   MiamContentsForPreviousAttendance,
@@ -92,16 +91,6 @@ describe('miam Util', () => {
     };
     const sessionFields = MiamContentForOtherFeature(userCase);
     userCase.miam_notAttendingReasons.forEach(item => {
-      expect(sessionFields?.en()[item]).not.toBe(undefined);
-    });
-  });
-
-  test('miam_childProtectionEvidence test for checking if respective screen match contentss', () => {
-    const userCase = {
-      miam_childProtectionEvidence: ['localAuthorityCp', 'childProtectionCpPlan'],
-    };
-    const sessionFields = MiamContentsForChildProtection(userCase);
-    userCase.miam_childProtectionEvidence.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
     });
   });
