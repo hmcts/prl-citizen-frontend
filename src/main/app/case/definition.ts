@@ -2539,7 +2539,9 @@ export interface C1ASafteyConcerns {
 
 
   export enum PartyType {
+    CHILDREN = 'children',
     APPLICANT = 'applicant',
+    OTHER_CHILDREN = 'otherChildren',
     RESPONDENT = 'respondent',
     OTHER_PERSON = 'otherPerson',
   }

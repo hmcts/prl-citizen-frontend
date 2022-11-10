@@ -12,26 +12,13 @@ import {
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
   PageLink,
 } from '../../urls';
+import { getNextPerson } from '../people/util';
 
 class RespondentsDetailsNavigationController {
   private respondentsDetails: C100RebuildPartyDetails[] | [] = [];
   private childrenDetails: ChildrenDetails[] | [] = [];
   private childId: ChildrenDetails['id'] = '';
   private respondentId: C100RebuildPartyDetails['id'] = '';
-
-  private getNextChild(): ChildrenDetails | null {
-    const childIndex = this.childrenDetails.findIndex(child => child.id === this.childId);
-    return childIndex >= 0 && childIndex < this.childrenDetails.length - 1
-      ? this.childrenDetails[childIndex + 1]
-      : null;
-  }
-
-  private getNextRespondent(): C100RebuildPartyDetails | null {
-    const respondentIndex = this.respondentsDetails.findIndex(respondent => respondent.id === this.respondentId);
-    return respondentIndex >= 0 && respondentIndex < this.respondentsDetails.length - 1
-      ? this.respondentsDetails[respondentIndex + 1]
-      : null;
-  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
@@ -57,7 +44,7 @@ class RespondentsDetailsNavigationController {
         break;
       }
       case C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD: {
-        const nextChild = this.getNextChild();
+        const nextChild = getNextPerson(this.childrenDetails, this.childId);
         nextUrl = nextChild
           ? applyParms(C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD, {
               respondentId: this.respondentId,
@@ -87,7 +74,7 @@ class RespondentsDetailsNavigationController {
         break;
       }
       case C100_RESPONDENT_DETAILS_CONTACT_DETAILS: {
-        const nextRespondent = this.getNextRespondent();
+        const nextRespondent = getNextPerson(this.respondentsDetails, this.respondentId);
         nextUrl = nextRespondent
           ? applyParms(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, { respondentId: nextRespondent?.id })
           : C100_CHILDERN_DETAILS_ADD; // TODO: this link will have to be changed with otherPersonsLink once merged

@@ -94,7 +94,7 @@ export const generateFormFields = (otherPersons: C100RebuildPartyDetails[]): Gen
           labelSize: 'm',
           validator: isFieldFilledIn,
         },
-        removeOtherPerson: {
+        remove: {
           type: 'button',
           label: l => `${l.removeOtherPersonLabel} ${count}`,
           classes: 'govuk-button--warning margin-top-3',
@@ -135,13 +135,18 @@ export const form: FormContent = {
           labelSize: 'none',
           validator: isFieldFilledIn,
         },
-        addOtherPerson: {
+        add: {
           type: 'button',
           label: l => l.addOtherPersonLabel,
           classes: 'govuk-button--secondary',
           value: 'true',
         },
       },
+    },
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'op',
     },
   },
   onlycontinue: {

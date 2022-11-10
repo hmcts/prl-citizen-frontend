@@ -1,9 +1,9 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { PartyType, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
+import { getDataShape } from '../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -171,7 +171,7 @@ describe('respondent details > personal details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields(getDataShape(PartyType.RESPONDENT).personalDetails);
     languageAssertions(
       'en',
       {
@@ -188,7 +188,7 @@ describe('respondent details > personal details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields(getDataShape(PartyType.RESPONDENT).personalDetails);
     languageAssertions(
       'cy',
       {

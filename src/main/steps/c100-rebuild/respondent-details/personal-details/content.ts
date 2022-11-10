@@ -9,7 +9,7 @@ import {
   isFieldFilledIn,
   isFutureDate,
 } from '../../../../app/form/validation';
-import { getRespndentDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 //export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -370,7 +370,10 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const respondentId = content.additionalData!.req.params.respondentId;
-  const respondentDetails = getRespndentDetails(content.userCase!.resp_Respondents ?? [], respondentId)!;
+  const respondentDetails = getPartyDetails(
+    content.userCase!.resp_Respondents,
+    respondentId
+  ) as C100RebuildPartyDetails;
   const { fields } = generateFormFields(respondentDetails.personalDetails);
 
   return {

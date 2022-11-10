@@ -6,7 +6,7 @@ import { C100RebuildPartyDetails } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { getRespndentDetails, updateRespondentDetails } from '../util';
+import { getPartyDetails, updatePartyDetails } from '../../people/util';
 
 import { getFormFields } from './content';
 
@@ -18,7 +18,6 @@ export default class ContactDetailsPostController extends PostController<AnyObje
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const respondentId = req.params.respondentId as C100RebuildPartyDetails['id'];
-    console.log('respondentId from contact-details ===++++++++>', respondentId);
     const form = new Form(getFormFields().fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
@@ -26,7 +25,7 @@ export default class ContactDetailsPostController extends PostController<AnyObje
       string,
       any
     >;
-    const respondentContactDetails = getRespndentDetails(
+    const respondentContactDetails = getPartyDetails(
       req.session.userCase.resp_Respondents!,
       respondentId
     ) as C100RebuildPartyDetails;
@@ -36,10 +35,10 @@ export default class ContactDetailsPostController extends PostController<AnyObje
       telephoneNumber,
       donKnowTelephoneNumber,
     };
-    req.session.userCase.resp_Respondents = updateRespondentDetails(
+    req.session.userCase.resp_Respondents = updatePartyDetails(
       req.session.userCase.resp_Respondents!,
       respondentContactDetails
-    );
+    ) as C100RebuildPartyDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

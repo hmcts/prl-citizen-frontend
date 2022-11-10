@@ -504,8 +504,6 @@ export interface Case {
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
-  childFirstName?: ChildrenDetails['firstName'];
-  childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
   ocd_otherChildren?: OtherChildrenDetails[];
   ocd_hasOtherChildren?: YesOrNo;
