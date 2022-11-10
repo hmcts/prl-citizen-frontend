@@ -34,6 +34,7 @@ export class PostController<T extends AnyObject> {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
+      await this.getCaseList(req, res, form, formData);
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else {
@@ -242,6 +243,24 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
+
+    this.redirect(req, res);
+  }
+
+  private async getCaseList(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
+    req.session.errors = form.getErrors(formData);
+
+    this.filterErrorsForSaveAsDraft(req);
+
+    if (req.session.errors.length) {
+      return this.redirect(req, res);
+    }
+
+    const citizenUser = req.session.user;
+
+    const cosApiClient = new CosApiClient(citizenUser.accessToken, 'http://localhost:3001');
+    const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
+    console.log('retrieved casedata for case : ' + caseDataFromCos);
 
     this.redirect(req, res);
   }
