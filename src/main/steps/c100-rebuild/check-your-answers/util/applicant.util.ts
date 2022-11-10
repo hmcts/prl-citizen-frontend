@@ -70,10 +70,12 @@ export const ApplicantElements = SystemLanguage => {
         willYoubeUsingLegalRespresentator: 'Will you be using a legal representative in these proceedings?',
         doyouWantLegalRespresentatorToCompleteApplication:
           'Do you want your legal representative to complete the application for you?',
-        whyCourtGrantSubmittingPermission: 'Explain why the court should grant you permission to submit this application',
+        whyCourtGrantSubmittingPermission:
+          'Explain why the court should grant you permission to submit this application',
         reasonPermissionRequired:
           'Is there any reason that you would need permission from the court to make this application?',
-        whyPermissionRequiredFromCourt: 'Why do you need a permission from the court to make this application? (optional)',
+        whyPermissionRequiredFromCourt:
+          'Why do you need a permission from the court to make this application? (optional)',
         doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
         courtOrderPrevent:
           'There is a court order preventing me from making an application without first getting the permission of the court',
