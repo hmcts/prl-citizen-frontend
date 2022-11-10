@@ -151,6 +151,15 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
+function deleteCyKeys(userCase: Partial<CaseWithId>) {
+  for (const key in cyContent.keys) {
+    if (userCase[key] === '') {
+      delete cyContent.keys[key];
+      delete urls[key];
+    }
+  }
+}
+
 function updateUserCaseUrls(userCase: Partial<CaseWithId>, isEnglish: YesOrNo) {
   if (userCase.start === YesOrNo.NO) {
     userCase.iFactorsStartProvideDetails = '';
@@ -178,9 +187,10 @@ function updateUserCaseUrls(userCase: Partial<CaseWithId>, isEnglish: YesOrNo) {
 
   if (isEnglish === YesOrNo.YES) {
     enContent.keys = {
-      start: 'Do the children live outside of England or Wales?',
+      start: "Are the children's lives mainly based outside of England and Wales?",
       iFactorsStartProvideDetails: 'Provide details',
-      parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
+      parents:
+        "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
       iFactorsParentsProvideDetails: 'Provide details',
       jurisdiction:
         'Could another person in the application apply for a similar order in a country outside England or Wales?',
@@ -197,9 +207,10 @@ function updateUserCaseUrls(userCase: Partial<CaseWithId>, isEnglish: YesOrNo) {
     }
   } else if (isEnglish === YesOrNo.NO) {
     cyContent.keys = {
-      start: 'Do the children live outside of England or Wales?',
+      start: "Are the children's lives mainly based outside of England and Wales?",
       iFactorsStartProvideDetails: 'Provide details',
-      parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
+      parents:
+        "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
       iFactorsParentsProvideDetails: 'Provide details',
       jurisdiction:
         'Could another person in the application apply for a similar order in a country outside England or Wales?',
@@ -208,11 +219,6 @@ function updateUserCaseUrls(userCase: Partial<CaseWithId>, isEnglish: YesOrNo) {
       iFactorsRequestProvideDetails: 'Provide details',
     };
 
-    for (const key in cyContent.keys) {
-      if (userCase[key] === '') {
-        delete cyContent.keys[key];
-        delete urls[key];
-      }
-    }
+    deleteCyKeys(userCase);
   }
 }
