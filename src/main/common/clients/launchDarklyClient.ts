@@ -44,6 +44,14 @@ export class LaunchDarklyClient {
     //console.log(LaunchDarklyClient.client.isOffline());
     //console.log('test   -' + test);
     await LaunchDarklyClient.client.waitForInitialization();
+    LaunchDarklyClient.client.variationDetail(featureKey, ldUser, 'default', detail => {
+      const detailValue = detail.value;
+      console.log('detailValue' + detailValue);
+      const detailIndex = detail.variationIndex;
+      console.log('detailIndex' + detailIndex);
+      const detailReason = detail.reason;
+      console.log('detailReason' + detailReason);
+    });
     return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
     //.variation(featureKey, ldUser, offlineDefault);
   }
