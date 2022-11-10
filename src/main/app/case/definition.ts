@@ -715,7 +715,6 @@ export interface RelationshipToChildren {
 export interface ContactDetail {
   canProvideEmail?: YesNoEmpty,
   emailAddress?: string,
-  canNotProvideEmailReason?: string,
   canProvideTelephoneNumber?: YesNoEmpty,
   telephoneNumber?: string,
   canNotProvideTelephoneNumberReason?: string
