@@ -14,10 +14,11 @@ const en = {
   continue: 'Continue',
   errors: {
     request: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Select yes if another country has asked (or been asked) for information or help for the children',
     },
     iFactorsRequestProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        'Provide details about another country asking (or being asked) for information or help for the children',
     },
   },
 };
@@ -33,10 +34,11 @@ const cy: typeof en = {
   continue: 'Continue',
   errors: {
     request: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Select yes if another country has asked (or been asked) for information or help for the children',
     },
     iFactorsRequestProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        'Provide details about another country asking (or being asked) for information or help for the children',
     },
   },
 };
