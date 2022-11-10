@@ -9,7 +9,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   twoHint:
-    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
+    'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -28,7 +28,7 @@ const cy: typeof en = {
   one: 'Yes',
   two: 'No',
   twoHint:
-    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
+    'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
