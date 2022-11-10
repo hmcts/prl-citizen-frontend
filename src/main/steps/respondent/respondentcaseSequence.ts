@@ -67,6 +67,8 @@ import {
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
 
+import ReasonableAdjustmentsNavigationController from './task-list/navigationController';
+
 export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_TASK_LIST_URL,
@@ -412,27 +414,35 @@ export const respondentCaseSequence: Step[] = [
   {
     url: CA_DA_REASONABLE_ADJUSTMENTS,
     showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_DOCUMENTS_SUPPORT,
+    getNextStep: caseData =>
+      ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_REASONABLE_ADJUSTMENTS, caseData),
   },
   {
     url: CA_DA_DOCUMENTS_SUPPORT,
     showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_COMMUNICATION_HELP,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_DOCUMENTS_SUPPORT, caseData),
   },
   {
     url: CA_DA_COMMUNICATION_HELP,
     showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_COURT_HEARING_SUPPORT,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_COMMUNICATION_HELP, caseData),
   },
   {
     url: CA_DA_COURT_HEARING_SUPPORT,
     showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_COURT_HEARING_COMFORT,
+    getNextStep: caseData =>
+      ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_COURT_HEARING_SUPPORT, caseData),
   },
   {
     url: CA_DA_COURT_HEARING_COMFORT,
     showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_TRAVELLING_TO_COURT,
+    getNextStep: caseData =>
+      ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_COURT_HEARING_COMFORT, caseData),
+  },
+  {
+    url: CA_DA_TRAVELLING_TO_COURT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_TRAVELLING_TO_COURT, caseData),
   },
   {
     url: CA_DA_TRAVELLING_TO_COURT,

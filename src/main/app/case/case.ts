@@ -41,6 +41,7 @@ import {
   OthersToNotify,
   PRLDocument,
   PartyDetails,
+  ReasonableAdjustments,
   Respondent,
   ResponseDocumentList,
   SelectTypeOfOrderEnum,
@@ -475,6 +476,12 @@ export interface Case {
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  reasonableAdjustmentsPages?: ReasonableAdjustments[];
+  respondentDocsSupportPage?: string[];
+  respondentHelpCommunicationPage?: string[];
+  respondentCourtHearingPage?: string[];
+  respondentCourtComfortPage?: string[];
+  respondentTravellingToCourtPage?: string[];
 }
 
 export interface CaseWithId extends Case {

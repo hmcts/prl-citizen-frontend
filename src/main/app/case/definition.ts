@@ -2306,3 +2306,12 @@ export interface BannerLink {
 export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
+
+export enum ReasonableAdjustments {
+  DOCUMENTS_SUPPORT = 'document format',
+  COMMUNICATION_HELP = 'comminication help',
+  COURT_HEARING_SUPPORT = 'hearing support',
+  COURT_HEARING_COMFORT = 'hearing comfort',
+  TRAVELLING_TO_COURT = 'travel help',
+  NO_NEED_OF_SUPPORT = 'no need of support',
+ }
