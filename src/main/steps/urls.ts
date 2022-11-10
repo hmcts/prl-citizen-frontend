@@ -24,6 +24,7 @@ export const CONTACT_US: PageLink = '/contact-us';
 
 export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
 export const RESPONSE_TASKLIST: PageLink = '/tasklistresponse';
+export const RESPONDENT: PageLink = '/respondent';
 
 /*confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = '/confirm-contact-details';
@@ -66,7 +67,6 @@ export const RESPONDENT_UPLOAD_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMEN
 export const RESPONDENT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
 /* Respondent Upload document end */
 /* respondent-keep-details-private */
-export const RESPONDENT: PageLink = '/respondent';
 export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;
 export const RESPONDENT_DETAILS_KNOWN: PageLink = `${RESPONDENT}${DETAILS_KNOWN}`;
 export const RESPONDENT_START_ALTERNATIVE: PageLink = `${RESPONDENT}${START_ALTERNATIVE}`;
@@ -258,7 +258,8 @@ export const FIND_OUT_ABOUT_CAFCASS_CYMRU = 'https://gov.wales/cafcass-cymru/wha
 /* Respondent respnse */
 export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/summary-confirmation';
 export const CA_RESPONDENT_RESPONSE_SUBMIT: PageLink = `${CA_RESPONDENT_RESPONSE_CONFIRMATION}/submit`;
-
+export const CA_RESPONDENT_GENERATE_C7_DRAFT: PageLink = '/tasklistresponse/generate-c7-draft';
+export const CA_RESPONDENT_GENERATE_C7_Final: PageLink = '/tasklistresponse/generate-c7-final';
 /* Legal representation*/
 
 export const LEGAL_REPRESENTATION_START: PageLink = '/tasklistresponse/legalrepresentation/start';
@@ -266,3 +267,6 @@ export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = '/tasklistrespons
 export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
   '/tasklistresponse/legalrepresentation/solicitornotdirect';
 export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
+
+/** @C100 rebuild */
+export const C100_REBUILD_URL: PageLink = '/c100-rebuild';

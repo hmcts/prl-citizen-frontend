@@ -42,6 +42,8 @@ import {
   PRLDocument,
   PartyDetails,
   Respondent,
+  ResponseDocumentList,
+  SelectTypeOfOrderEnum,
   SpecialArrangement,
   State,
   SummaryTabForOrderAppliedFor,
@@ -195,6 +197,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   iFactorsJurisdictionProvideDetails: 'iFactorsJurisdictionProvideDetails',
   request: 'request',
   iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
+  doesOrderClosesCase: 'doesOrderClosesCase',
+  selectTypeOfOrder: 'selectTypeOfOrder',
+  citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -467,6 +472,9 @@ export interface Case {
   citizenRole?: FieldPrefix;
   orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;
+  doesOrderClosesCase?: YesOrNo;
+  selectTypeOfOrder?: SelectTypeOfOrderEnum;
+  citizenResponseC7DocumentList?: ResponseDocumentList[];
 }
 
 export interface CaseWithId extends Case {
