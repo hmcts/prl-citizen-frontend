@@ -23,6 +23,8 @@ const en = {
                 arrangements guide</a> to see if there’s a more suitable option 
                 than going to court.`,
   formActionUrl: 'https://www.familymediationcouncil.org.uk/find-local-mediator/',
+  minimumDistance: '5',
+  findButtonText: 'Find a mediator',
 };
 
 const cy = {
@@ -41,7 +43,9 @@ const cy = {
                 class="govuk-link" rel="external" target="_blank">read the child 
                 arrangements guide</a> to see if there’s a more suitable option 
                 than going to court. - Welsh`,
-  formActionUrl: 'https://www.familymediationcouncil.org.uk/find-local-mediator/ - Welsh',
+  formActionUrl: 'https://www.familymediationcouncil.org.uk/find-local-mediator/',
+  minimumDistance: '5',
+  findButtonText: 'Find a mediator',
 };
 
 describe('miam->have document signed by mediator or not', () => {

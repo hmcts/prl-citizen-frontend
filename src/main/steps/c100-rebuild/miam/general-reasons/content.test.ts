@@ -18,6 +18,7 @@ const en = {
   noReason: 'None of the above',
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
+  divider: 'or',
   errors: {
     miam_nonAttendanceReasons: {
       required: 'Select your valid reasons for not attending a MIAM',
@@ -39,6 +40,7 @@ const cy = {
   noReason: 'Dim un o’r uchod',
   summaryText: 'Cysylltiadau am gymorth',
   continue: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
+  divider: 'neu',
   errors: {
     miam_nonAttendanceReasons: {
       required: 'Select your valid reasons for not attending a MIAM',
@@ -81,7 +83,8 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct welsh content Data', () => {
-    languageAssertions('cy', cy, () => generateContent(commonContent));
+    const commonContentcy = { language: 'cy' } as CommonContent;
+    languageAssertions('cy', cy, () => generateContent(commonContentcy));
   });
 
   test('should contain continue button', () => {

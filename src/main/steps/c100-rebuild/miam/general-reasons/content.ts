@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
-const en = {
+const en = () => ({
   section: 'MIAM exemptions',
   title: 'What are your valid reasons for not attending a MIAM?',
   courtcommunication:
@@ -17,14 +17,15 @@ const en = {
   noReason: 'None of the above',
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
+  divider: 'or',
   errors: {
     miam_nonAttendanceReasons: {
       required: 'Select your valid reasons for not attending a MIAM',
     },
   },
-};
+});
 
-const cy: typeof en = {
+const cy = () => ({
   section: 'Esemptiadau MIAM',
   title: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
   courtcommunication:
@@ -38,12 +39,13 @@ const cy: typeof en = {
   noReason: 'Dim un o’r uchod',
   summaryText: 'Cysylltiadau am gymorth',
   continue: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
+  divider: 'neu',
   errors: {
     miam_nonAttendanceReasons: {
       required: 'Select your valid reasons for not attending a MIAM',
     },
   },
-};
+});
 
 const languages = {
   en,
@@ -104,7 +106,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const translations = languages[content.language]();
   return {
     ...translations,
     form,

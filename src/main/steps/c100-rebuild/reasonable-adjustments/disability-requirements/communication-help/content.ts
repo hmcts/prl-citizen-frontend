@@ -40,7 +40,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Child Arrangements',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
   line1:
@@ -61,7 +61,7 @@ const cy = () => ({
     'Rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
   other: 'Arall',
   noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  describeWhatNeeded: 'Describe what you need - welsh',
+  describeWhatNeeded: 'Describe what you need',
   errors: {
     ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding - welsh',

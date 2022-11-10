@@ -41,7 +41,7 @@ const cy = {
   safetyConcernsBullet2: 'lle y gellid mynd â nhw neu eu cadw',
   childsCurrentLocationText: "Lle mae'r plant nawr?",
   childsCurrentLocationHint:
-    'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses. - welsh',
+    'Os ydyn nhw y tu allan i Gymru neu Loegr, dylech gynnwys pa wlad maen nhw ynddi a pha mor hir maen nhw wedi bod yno. Does dim angen i chi gynnwys unrhyw gyfeiriadau.',
   errors: {
     c1A_abductionReasonOutsideUk: {
       required:
