@@ -29,7 +29,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
             },
             gender: 'Male',
             otherGenderDetails: '',
-            isNameChanged: 'dontKnow',
+            hasNameChanged: 'dontKnow',
           },
         },
       ],

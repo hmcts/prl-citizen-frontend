@@ -10,7 +10,7 @@ const en = {
   one: YesOrNo.YES,
   two: YesOrNo.NO,
   errors: {
-    cd_hasOtherChildren: {
+    ocd_hasOtherChildren: {
       required: 'Select yes if you have other children',
     },
   },
@@ -34,7 +34,7 @@ const cy = {
   one: YesOrNo.YES,
   two: YesOrNo.NO,
   errors: {
-    cd_hasOtherChildren: {
+    ocd_hasOtherChildren: {
       required: 'Select yes if you have other children',
     },
   },
@@ -77,11 +77,11 @@ describe('citizen-home content', () => {
   });
 
   test('should contain detailsKnown field', () => {
-    const cd_otherChildren = fields.cd_hasOtherChildren as FormOptions;
-    expect(cd_otherChildren.type).toBe('radios');
-    expect(cd_otherChildren.classes).toBe('govuk-radios');
-    expect((cd_otherChildren.values[0].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.YES);
-    expect((cd_otherChildren.values[1].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.NO);
+    const ocd_otherChildren = fields.ocd_hasOtherChildren as FormOptions;
+    expect(ocd_otherChildren.type).toBe('radios');
+    expect(ocd_otherChildren.classes).toBe('govuk-radios');
+    expect((ocd_otherChildren.values[0].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.YES);
+    expect((ocd_otherChildren.values[1].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.NO);
   });
 
   test('should contain continue button', () => {

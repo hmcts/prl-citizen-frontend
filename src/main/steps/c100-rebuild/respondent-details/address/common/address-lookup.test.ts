@@ -6,14 +6,16 @@ import { generateContent } from './address-lookup';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
+  subTitle: 'Documents relating to this application will be sent here.',
   postcode: 'Current postcode',
-  enterAddressManually: 'I live outside the UK',
+  enterAddressManually: "I don't know their postcode or they live outside the UK",
   manualAddressUrl: '#',
 };
 
 const cy = {
+  subTitle: 'Documents relating to this application will be sent here. - welsh',
   postcode: 'Current postcode - welsh',
-  enterAddressManually: 'I live outside the UK - welsh',
+  enterAddressManually: "I don't know their postcode or they live outside the UK - welsh",
   manualAddressUrl: '#',
 };
 

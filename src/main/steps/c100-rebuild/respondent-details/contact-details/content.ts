@@ -1,4 +1,4 @@
-import { C100RebuildPartyDetails, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
@@ -66,7 +66,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 export const generateFormFields = (
   contactDetails: C100RebuildPartyDetails['contactDetails']
 ): GenerateDynamicFormFields => {
-  const { donKnowEmailAddress, emailAddress, telephoneNumber, donKnowTelephoneNumber } = contactDetails;
+  const { donKnowEmailAddress, emailAddress, telephoneNumber, donKnowTelephoneNumber } = contactDetails!;
 
   const errors = {
     en: {},
@@ -91,7 +91,7 @@ export const generateFormFields = (
           name: 'donKnowEmailAddress',
           label: l => l.donKnowEmailAddress,
           selected: donKnowEmailAddress === YesOrNo.YES,
-          value: YesNoEmpty.YES,
+          value: YesOrNo.YES,
         },
       ],
     },
@@ -114,7 +114,7 @@ export const generateFormFields = (
           name: 'donKnowTelephoneNumber',
           label: l => l.donKnowTelephoneNumber,
           selected: donKnowTelephoneNumber === YesOrNo.YES,
-          value: YesNoEmpty.YES,
+          value: YesOrNo.YES,
         },
       ],
     },
@@ -141,7 +141,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const respondentId = content.additionalData!.req.params.respondentId;
   const respondentDetails = getRespndentDetails(content.userCase!.resp_Respondents ?? [], respondentId)!;
-  console.log('respondentDetails from /contact-details/content-ts ===+>', respondentDetails);
   const { fields } = generateFormFields(respondentDetails.contactDetails);
 
   return {

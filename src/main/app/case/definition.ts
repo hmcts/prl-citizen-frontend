@@ -679,7 +679,7 @@ export type C100Applicant = {
   id?: string,
   applicantFirstName?: string | unknown,
   applicantLastName?: string | unknown,
-  detailsKnown?: string | unknown 
+  detailsKnown?: string | unknown
   startAlternative?: string | unknown,
   start?: string | unknown,
   contactDetailsPrivate?: unknown | [],
@@ -691,7 +691,35 @@ export type C100Applicant = {
   applicantAddressTown?: string,
   applicantAddressCounty?: string,
   applicantAddressHistory?: YesOrNo,
-  applicantProvideDetailsOfPreviousAddresses?: string
+  applicantProvideDetailsOfPreviousAddresses?: string;
+  personalDetails:{
+    haveYouChangeName?: YesNoEmpty;
+    applPreviousName?: string,
+    dateOfBirth?: CaseDate;
+    gender?: Gender;
+    otherGenderDetails?: string;
+    applicantPlaceOfBirth?: string;
+  };
+  relationshipDetails?: {
+    relationshipToChildren: RelationshipToChildren[];
+  };
+  applicantContactDetail?: ContactDetail;
+}
+
+export interface RelationshipToChildren {
+  relationshipType: RelationshipType;
+  otherRelationshipTypeDetails?: string;
+  childId: string;
+}
+
+export interface ContactDetail {
+  canProvideEmail?: YesNoEmpty,
+  emailAddress?: string,
+  canNotProvideEmailReason?: string,
+  canProvideTelephoneNumber?: YesNoEmpty,
+  telephoneNumber?: string,
+  canNotProvideTelephoneNumberReason?: string
+  canLeaveVoiceMail?: YesNoEmpty
 }
 
 export type C100ListOfApplicants = C100Applicant[];
@@ -713,10 +741,10 @@ export interface CaseData {
   applicantTable: ApplicantTable[];
   othersToNotify: OthersToNotify[];
   urgencyDetails: UrgencyDetails;
-  
+
   allegationOfHarm: AllegationOfHarm;
   dateOfSubmission: DateOfSubmission;
-  
+
   interpreterNeeds: InterpreterNeed[];
   childDetailsTable: ChildDetailsTable[];
   jurisdictionIssue: string;
@@ -761,7 +789,7 @@ export interface CaseData {
   jurisdictionIssueGiveReason: string;
   litigationCapacityReferrals: string;
   specialArrangementsRequired: string;
-  
+
   habitualResidentInOtherState: string;
   otherProceedingsDetailsTable: OtherProceedingsDetailsTable[];
   summaryTabForOrderAppliedFor: SummaryTabForOrderAppliedFor;
@@ -802,7 +830,7 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  
+
   contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
@@ -830,12 +858,12 @@ export interface CaseData {
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
   c100Applicants?: C100Applicant;
-  
+
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
-  
+
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   doYouConsent?: YesOrNo;
@@ -2465,12 +2493,10 @@ export interface C1ASafteyConcerns {
     firstName: string;
     lastName: string;
     personalDetails: {
-      repondentDetials?: YesNoEmpty;
-      resPreviousName?: string,
+      hasNameChanged?: YesNoDontKnow;
+      previousFullName?: string;
       dateOfBirth?: CaseDate;
       isDateOfBirthUnknown?: YesNoEmpty;
-      isNameChanged?: YesNoDontKnow;
-      previousFullName?: string;
       approxDateOfBirth?: CaseDate;
       gender: Gender;
       otherGenderDetails?: string;
@@ -2481,12 +2507,13 @@ export interface C1ASafteyConcerns {
       relationshipToChildren: RelationshipToChildren[];
     };
     address?: C100Address;
-    contactDetails: {
+    contactDetails?: {
       donKnowEmailAddress?: YesOrNo
       emailAddress?: string
       telephoneNumber?: string
       donKnowTelephoneNumber?: YesOrNo
     }
+    addressUnknown?: YesOrNo;
   };
 
   export interface RelationshipToChildren {
@@ -2507,7 +2534,7 @@ export interface C1ASafteyConcerns {
   
   export interface C100Address extends Address {
     selectedAddress?: number,
-    addressHistory?: YesOrNo,
+    addressHistory?: YesNoDontKnow,
     provideDetailsOfPreviousAddresses?: string
   }
 

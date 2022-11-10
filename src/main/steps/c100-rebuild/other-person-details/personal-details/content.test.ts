@@ -28,7 +28,7 @@ const en = {
   approxCheckboxLabel: 'I don’t know their date of birth',
   approxDobLabel: 'Approximate date of birth',
   errors: {
-    isNameChanged: {
+    hasNameChanged: {
       required: 'Select if the they have changed their name',
     },
     previousFullName: {
@@ -77,7 +77,7 @@ const cy = {
   approxCheckboxLabel: 'I don’t know their date of birth - welsh',
   approxDobLabel: 'Approximate date of birth - welsh',
   errors: {
-    isNameChanged: {
+    hasNameChanged: {
       required: 'Select Yes, No or Maybe - welsh',
     },
     previousFullName: {
@@ -135,7 +135,7 @@ describe('other person details > personal details', () => {
             },
             gender: 'Male',
             otherGenderDetails: '',
-            isNameChanged: 'dontKnow',
+            hasNameChanged: 'dontKnow',
           },
         },
       ],

@@ -7,28 +7,38 @@ jest.mock('../../../../../app/form/validation');
 
 const enContent = {
   addressLine1: 'Building and street',
+  addressLine1Hint: 'Court documents will be sent here',
   town: 'Town or city',
   county: 'County',
+  country: 'Country',
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
-  addressHistoryLabel: 'Have you lived at this address for more than 5 years?',
+  explainNoLabel: 'I dont know where they currently live',
+  addressHistoryLabel: 'Have they lived at this address for more than 5 years?',
+  provideDetailsOfPreviousAddressLabel:
+    'Please provide details of all previous addresses for the last 5 years below, including the dates and starting with the most recent',
+  addressHistoryDontKnowHintText: "Leave blank if you don't know",
   one: 'Yes',
   two: 'No',
-  explainNoLabel: 'Provide details of previous addresses you have lived at in the last 5 years',
-  explainNoHint: 'Start with your most recent',
+  three: "Don't know",
 };
 
 const cyContent = {
   addressLine1: 'Building and street - welsh',
+  addressLine1Hint: 'Court documents will be sent here - welsh',
   town: 'Town or city - welsh',
   county: 'County - welsh',
+  country: 'Country - welsh',
   postcode: 'Postcode - welsh',
   enterInternationalAddress: 'Enter an international address - welsh',
-  addressHistoryLabel: 'Have you lived at this address for more than 5 years? - welsh',
+  explainNoLabel: 'I dont know where they currently live - welsh',
+  addressHistoryLabel: 'Have they lived at this address for more than 5 years? - welsh',
+  provideDetailsOfPreviousAddressLabel:
+    'Please provide details of all previous addresses for the last 5 years below, including the dates and starting with the most recent - welsh',
+  addressHistoryDontKnowHintText: "Leave blank if you don't know - welsh",
   one: 'Yes - welsh',
   two: 'No - welsh',
-  explainNoLabel: 'Provide details of previous addresses you have lived at in the last 5 years - welsh',
-  explainNoHint: 'Start with your most recent - welsh',
+  three: "Don't know - welsh",
 };
 
 /* eslint-disable @typescript-eslint/ban-types */

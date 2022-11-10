@@ -1,7 +1,7 @@
 import { mockRequest } from '../../utils/mockRequest';
 
 export const otherProceedingsMockData = mockRequest({
-  query: {
+  params: {
     orderType: 'careOrder',
     orderId: 1,
   },

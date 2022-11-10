@@ -1,28 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-  C100RebuildPartyDetails,
-  Gender,
-  RelationshipToChildren,
-  YesNoDontKnow,
-  YesNoEmpty,
-  YesOrNo,
-} from '../../../app/case/definition';
+import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../app/case/definition';
 
 export const getDataShape = (): C100RebuildPartyDetails => ({
   id: uuidv4(),
   firstName: '',
   lastName: '',
   personalDetails: {
+    hasNameChanged: YesNoDontKnow.empty,
+    previousFullName: '',
     dateOfBirth: {
       day: '',
       month: '',
       year: '',
     },
     isDateOfBirthUnknown: YesNoEmpty.EMPTY,
-    isNameChanged: YesNoDontKnow.empty,
-    previousFullName: '',
     approxDateOfBirth: {
       day: '',
       month: '',
@@ -31,15 +24,18 @@ export const getDataShape = (): C100RebuildPartyDetails => ({
     gender: Gender.EMPTY,
     otherGenderDetails: '',
   },
+  address: {
+    AddressLine1: '',
+    AddressLine2: '',
+    PostTown: '',
+    County: '',
+    PostCode: '',
+    selectedAddress: 2,
+  },
   relationshipDetails: {
-    relationshipToChildren: [] as RelationshipToChildren[],
+    relationshipToChildren: [],
   },
-  contactDetails: {
-    donKnowEmailAddress: YesOrNo.NO,
-    emailAddress: '',
-    telephoneNumber: '',
-    donKnowTelephoneNumber: YesOrNo.NO,
-  },
+  addressUnknown: YesOrNo.NO,
 });
 
 export const getOtherPersonDetails = (
@@ -54,12 +50,12 @@ export const updateOtherPersonDetails = (
   otherPersons.map(otherPerson => (otherPerson.id === otherPersonDetails.id ? otherPersonDetails : otherPerson));
 
 export const transformFormData = (
-  context: 'personalDetails',
+  context: 'personalDetails' | 'address',
   formData: Record<string, any>
 ): Partial<C100RebuildPartyDetails> => {
   const dataShape = getDataShape()[context];
 
-  return Object.entries(dataShape).reduce(
+  return Object.entries(dataShape!).reduce(
     (transformedData: Partial<C100RebuildPartyDetails>, [fieldName, defaultValue]) => {
       if (fieldName in formData && !(fieldName in transformedData)) {
         if (
@@ -68,7 +64,7 @@ export const transformFormData = (
         ) {
           formData[fieldName] = defaultValue;
         }
-        transformedData[fieldName] = formData[fieldName] ?? dataShape[fieldName];
+        transformedData[fieldName] = formData[fieldName] ?? dataShape![fieldName];
       }
 
       return transformedData;

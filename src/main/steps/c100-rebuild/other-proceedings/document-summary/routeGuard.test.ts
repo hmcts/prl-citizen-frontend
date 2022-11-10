@@ -49,7 +49,7 @@ describe('OrderDetails Route Guard', () => {
 
   test('Should not render the page when the guard validation fails', async () => {
     const req = mockRequest({
-      query: {
+      params: {
         orderType: C100OrderTypes.EMERGENCY_PROTECTION_ORDER,
       },
       session: {
