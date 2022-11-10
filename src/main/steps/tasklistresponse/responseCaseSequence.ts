@@ -1,11 +1,13 @@
+import { Case } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   COURT_PROCEEDINGS_SUMMARY,
-  DOMESTIC_ABUSE_RISK,
+  DOMESTIC_ABUSE_RISK,      
   DOMESTIC_ABUSE_RISK_NO,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
@@ -18,7 +20,9 @@ import {
   MIAM_START,
   MIAM_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_ORDER_DETAILS,
   PROCEEDINGS_START,
+  PageLink,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
   RESPONDENT_ADDRESS_HISTORY,
@@ -44,6 +48,8 @@ import {
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
 } from '../urls';
+
+import OtherProceedingsNavigationController from './proceedings/navigationController';
 
 export const responseCaseSequence: Step[] = [
   {
@@ -202,7 +208,16 @@ export const responseCaseSequence: Step[] = [
   {
     url: PROCEEDINGS_COURT_PROCEEDINGS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => COURT_PROCEEDINGS_SUMMARY,
+    getNextStep: (caseData: Partial<Case>): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_COURT_PROCEEDINGS, caseData);
+    },
+  },
+  {
+    url: PROCEEDINGS_ORDER_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_ORDER_DETAILS, caseData, req!.params);
+    },
   },
   {
     url: COURT_PROCEEDINGS_SUMMARY,

@@ -35,12 +35,14 @@ import {
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
+  OtherProceedings,
   OtherProceedingsDetailsTable,
   OtherProceedingsForSummaryTab,
   OtherProceedingsTable,
   OthersToNotify,
   PRLDocument,
   PartyDetails,
+  ProceedingsOrderTypes,
   Respondent,
   SpecialArrangement,
   State,
@@ -467,6 +469,9 @@ export interface Case {
   citizenRole?: FieldPrefix;
   orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;
+
+  courtProceedingsOrders?: ProceedingsOrderTypes[];
+  otherProceedings?: OtherProceedings;
 }
 
 export interface CaseWithId extends Case {

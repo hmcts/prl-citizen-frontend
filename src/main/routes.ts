@@ -64,6 +64,7 @@ import {
   MIAM_SAVE,
   MIAM_START,
   PRIVACY_POLICY,
+  PROCEEDINGS_ORDER_DETAILS,
   RESPONDENT,
   RESPONDENT_ADDRESS_LOOKUP,
   RESPONDENT_CHECK_ANSWERS,
@@ -105,6 +106,10 @@ export class Routes {
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
 
     for (const step of stepsWithContent) {
+      if(step.url === PROCEEDINGS_ORDER_DETAILS){
+        console.log(step.url);
+        
+      }
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
       const getController = getControllerFileName

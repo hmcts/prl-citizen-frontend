@@ -1,4 +1,4 @@
-import { YesOrNo } from 'app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
@@ -93,7 +93,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlyContinue,
-  }
+  },
 };
 
 export const generateContent: TranslationFn = content => {

@@ -1,77 +1,67 @@
-//import { CaseDate } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-//import { covertToDateObject } from '../../../../app/form/parser';
-import {
-  //areDateFieldsFilledIn,
-  atLeastOneFieldIsChecked
-  //isDateInputInvalid,
-  //isFieldFilledIn,
-  //isFutureDate,
-} from '../../../../app/form/validation';
-import { court_proceedings_details_en } from './court-proceedings-details';
+import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
-const en = {
-  section: 'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly',
-  title: '',
-  emergencyOrder: 'Emergency Protection Order',
-  supervisionOrder: 'Supervision Order',
-  careOrder: 'Care Order',
-  childAbductionOrder: 'Child Abduction',
-  caOrder: 'Child Arrangements Order',
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const en = () => ({
+  headingTitle: 'Provide details of court cases you or the children have been involved in',
+  select_all_apply:
+    'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly.',
+  childArrangementOrder: 'A Child Arrangements Order',
   section8Hint: 'Section 8 Children Act 1989',
-  divorceOrder: 'A contact or residence order made within proceedings for a divorce or dissolution of civil partnership',
-  adoptionOrder: 'Adoption Order',
-  childMaintenanceOrder : 'An order relating to child maintenance',
-  schedule1Hint :'Schedule 1 Children Act 1989',
-  financialOrder: 'Financial Order under Schedule 1 of the Children Act 1989',
-  nonmolestationOrder: 'Non-molestation Order',
-  occupationOrder: 'Occupation Order',
-  marraigeOrder: 'Forced Marriage Protection Order',
-  restrainingOrder: 'Restraining Order',
-  restrainingOrderhint: 'Under the Protection from Harassment Act 1997',
-  injuctiveOrder: 'Other Injunction Order',
-  underTakingOrder: 'Undertaking in Place of an Order',
-  otherOrder: 'Other orders',
-  summaryText: 'Contacts for help',
-  continue: 'Continue',
-  errors: {
-    courtProceedingsDetails: {
-      required: 'Specify which court cases you or the children have been involved in',
-    }
-  },
-};
-
-const cy: typeof en = {
-  section: 'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly',
-  title: '',
-  emergencyOrder: 'Emergency Protection Order',
+  schedule1Hint: 'Schedule 1 Children Act 1989',
+  emergencyProtectionOrder: 'Emergency Protection Order',
   supervisionOrder: 'Supervision Order',
-  careOrder: 'Care Order',
-  childAbductionOrder: 'Child Abduction',
-  caOrder: 'A Child Arrangements Order',
-  section8Hint: 'Section 8 Children Act 1989',
-  divorceOrder: 'A contact or residence order made within proceedings for a divorce or dissolution of civil partnership',
-  adoptionOrder: 'Adoption Order',
-  childMaintenanceOrder : 'An order relating to child maintenance',
-  schedule1Hint :'Schedule 1 Children Act 1989',
+  caseOrder: 'Care Order',
+  childAbduction: 'Child Abduction',
+  contactOrderForDivorce:
+    'A contact or residence order made within proceedings for a divorce or dissolution of civil partnership',
+  contactOrderForAdoption: 'A contact or residence order made in connection with an Adoption Order',
+  childMaintenanceOrder: 'An order relating to child maintenance',
   financialOrder: 'Financial Order under Schedule 1 of the Children Act 1989',
-  nonmolestationOrder: 'Non-molestation Order',
+  nonMolestationOrder: 'Non-molestation Order',
   occupationOrder: 'Occupation Order',
-  marraigeOrder: 'Forced Marriage Protection Order',
-  restrainingOrder: 'Restraining Order',
-  restrainingOrderhint: 'Under the Protection from Harassment Act 1997',
-  injuctiveOrder: 'Other Injunction Order',
-  underTakingOrder: 'Undertaking in Place of an Order',
+  forcedMarriageProtectionOrder: 'Forced Marriage Protection Order',
+  restrainingOrder: 'Restraining order',
+  otherInjuctionOrder: 'Other injunction order',
+  undertakingOrder: 'Undertaking in place of an order',
   otherOrder: 'Other orders',
-  summaryText: 'Contacts for help',
-  continue: 'Continue',
   errors: {
-    courtProceedingsDetails: {
+    courtProceedingsOrders: {
       required: 'Specify which court cases you or the children have been involved in',
     },
   },
-};
+});
+
+const cy = () => ({
+  headingTitle: 'Provide details of court cases you or the children have been involved in - welsh',
+  select_all_apply:
+    'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly. - welsh',
+  childArrangementOrder: 'A Child Arrangements Order - welsh',
+  section8Hint: 'Section 8 Children Act 1989 - welsh',
+  schedule1Hint: 'Schedule 1 Children Act 1989 - welsh',
+  emergencyProtectionOrder: 'Emergency Protection Order - welsh',
+  supervisionOrder: 'Supervision Order - welsh',
+  caseOrder: 'Care Order - welsh',
+  childAbduction: 'Child Abduction - welsh',
+  contactOrderForDivorce:
+    'A contact or residence order made within proceedings for a divorce or dissolution of civil partnership - welsh',
+  contactOrderForAdoption: 'A contact or residence order made in connection with an Adoption Order - welsh',
+  childMaintenanceOrder: 'An order relating to child maintenance - welsh',
+  financialOrder: 'Financial Order under Schedule 1 of the Children Act 1989 - welsh',
+  nonMolestationOrder: 'Non-molestation Order - welsh',
+  occupationOrder: 'Occupation Order - welsh',
+  forcedMarriageProtectionOrder: 'Forced Marriage Protection Order - welsh',
+  restrainingOrder: 'Restraining order - welsh',
+  otherInjuctionOrder: 'Other injunction order - welsh',
+  undertakingOrder: 'Undertaking in place of an order - welsh',
+  otherOrder: 'Other orders - welsh',
+  errors: {
+    courtProceedingsOrders: {
+      required: 'Specify which court cases you or the children have been involved in - welsh',
+    },
+  },
+});
 
 const languages = {
   en,
@@ -80,112 +70,109 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    courtProceedingsDetails: {
+    courtProceedingsOrders: {
+      id: 'courtProceedingsOrders',
       type: 'checkboxes',
-      hint: l => l.section,
-      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+      hint: l => l.select_all_apply,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.caOrder,
+          name: 'courtProceedingsOrders',
+          label: l => l.childArrangementOrder,
+          value: 'childArrangementOrder',
           hint: l => l.section8Hint,
-          value: court_proceedings_details_en.child_arrangements_order,
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.emergencyOrder,
-          value: court_proceedings_details_en.emergency_protection_order,
+          name: 'courtProceedingsOrders',
+          label: l => l.emergencyProtectionOrder,
+          value: 'emergencyProtectionOrder',
         },
         {
-          name: 'courtProceedingsDetails',
+          name: 'courtProceedingsOrders',
           label: l => l.supervisionOrder,
-          value: court_proceedings_details_en.supervision_order,
+          value: 'supervisionOrder',
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.careOrder,
-          value: court_proceedings_details_en.care_order,
+          name: 'courtProceedingsOrders',
+          label: l => l.caseOrder,
+          value: 'careOrder',
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.childAbductionOrder,
-          value: court_proceedings_details_en.child_abduction,
+          name: 'courtProceedingsOrders',
+          label: l => l.childAbduction,
+          value: 'childAbductionOrder',
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.divorceOrder,
+          name: 'courtProceedingsOrders',
+          label: l => l.contactOrderForDivorce,
+          value: 'contactOrderForDivorce',
           hint: l => l.section8Hint,
-          value: court_proceedings_details_en.proceedings_for_divorce,
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.adoptionOrder,
+          name: 'courtProceedingsOrders',
+          label: l => l.contactOrderForAdoption,
+          value: 'contactOrderForAdoption',
           hint: l => l.section8Hint,
-          value: court_proceedings_details_en.adoption_order,
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.childAbductionOrder,
-          hint: l => l.section8Hint,
-          value: court_proceedings_details_en.child_abduction,
-        },
-        {
-          name: 'courtProceedingsDetails',
+          name: 'courtProceedingsOrders',
           label: l => l.childMaintenanceOrder,
+          value: 'childMaintenanceOrder',
           hint: l => l.schedule1Hint,
-          value: court_proceedings_details_en.child_maintenance,
         },
         {
-          name: 'courtProceedingsDetails',
+          name: 'courtProceedingsOrders',
           label: l => l.financialOrder,
-          value: court_proceedings_details_en.financial_order,
+          value: 'financialOrder',
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.nonmolestationOrder,
-          value: court_proceedings_details_en.non_molestation_order,
+          name: 'courtProceedingsOrders',
+          label: l => l.nonMolestationOrder,
+          value: 'nonMolestationOrder',
         },
         {
-          name: 'courtProceedingsDetails',
+          name: 'courtProceedingsOrders',
           label: l => l.occupationOrder,
-          value: court_proceedings_details_en.occupation_order,
+          value: 'occupationOrder',
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.marraigeOrder,
-          value: court_proceedings_details_en.forced_marriage_protection_order,
+          name: 'courtProceedingsOrders',
+          label: l => l.forcedMarriageProtectionOrder,
+          value: 'forcedMarriageProtectionOrder',
         },
         {
-          name: 'courtProceedingsDetails',
+          name: 'courtProceedingsOrders',
           label: l => l.restrainingOrder,
-          value: court_proceedings_details_en.restraining_order,
+          value: 'restrainingOrder',
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.injuctiveOrder,
-          value: court_proceedings_details_en.other_injunction_order,
+          name: 'courtProceedingsOrders',
+          label: l => l.otherInjuctionOrder,
+          value: 'otherInjuctionOrder',
         },
         {
-          name: 'courtProceedingsDetails',
-          label: l => l.underTakingOrder,
-          value: court_proceedings_details_en.undertaking_place_order,
+          name: 'courtProceedingsOrders',
+          label: l => l.undertakingOrder,
+          value: 'undertakingOrder',
         },
         {
-          name: 'courtProceedingsDetails',
+          name: 'courtProceedingsOrders',
           label: l => l.otherOrder,
-          value: court_proceedings_details_en.other_orders,
-        }
+          value: 'otherOrder',
+        },
       ],
     },
   },
-  submit: {
-    text: l => l.continue,
+  onlyContinue: {
+    text: l => l.onlyContinue,
+  },
+  saveAndComeLater: {
+    text: l => l.saveAndComeLater,
   },
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const translations = languages[content.language]();
   return {
     ...translations,
     form,

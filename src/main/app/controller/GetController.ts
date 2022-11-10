@@ -41,6 +41,9 @@ export class GetController {
       name,
       userIdamId: req.session?.user?.id,
       byApplicant,
+      additionalData: {
+        req,
+      },
     });
 
     const sessionErrors = req.session?.errors || [];
@@ -64,6 +67,7 @@ export class GetController {
     if (captionValue) {
       Object.assign(viewData, { caption: captionValue });
     }
+    
     res.render(this.view, viewData);
   }
 

@@ -14,6 +14,13 @@ export class Form {
     const fields = checkFields || this.fields;
 
     const parsedBody = Object.entries(fields)
+      .reduce((_fields: [string, FormField][], [key, field]) => {
+        _fields =
+          field.type === 'fieldset' && Object.keys(field?.subFields ?? {}).length
+            ? [..._fields, ...(Object.entries(field.subFields) as [string, FormField][])]
+            : [..._fields, [key, field]];
+        return _fields;
+      }, [])
       .map(setupCheckboxParser(!!body.saveAndSignOut))
       .filter(([, field]) => typeof field?.parser === 'function')
       .flatMap(([key, field]) => {
@@ -149,7 +156,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
-
+  saveAndComeLater?: {
+    text: Label;
+    classes?: string;
+  };
   fields: FormFields | FormFieldsFn;
 }
 
@@ -223,4 +233,10 @@ interface CaseWithFormData extends CaseWithId {
   sendToApplicant2ForReview?: string;
   addAnotherName?: string;
   addAnotherNameHidden?: string;
+}
+
+export interface GenerateDynamicFormFields {
+  fields: FormContent['fields'];
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  errors: Record<string, any>;
 }

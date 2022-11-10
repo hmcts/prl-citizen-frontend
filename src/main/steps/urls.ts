@@ -235,7 +235,9 @@ export const SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${SUPPORT_YOU_NEE
 export const PROCEEDINGS: PageLink = `${RESPONSE_TASKLIST}/proceedings`;
 export const PROCEEDINGS_START: PageLink = `${PROCEEDINGS}/start`;
 export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/courtproceedings`;
+export const PROCEEDINGS_ORDER_DETAILS: PageLink = `${RESPONSE_TASKLIST}/proceedings/:orderType/order-details`;
 export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
+export const PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/documentUpload`;
 
 /* your needs when you go to court */
 export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${RESPONDENT}/support-you-need-during-case`;

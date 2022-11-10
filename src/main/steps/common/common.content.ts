@@ -32,6 +32,7 @@ const en = {
   saveAndSignOut: 'Save and sign out',
   saveAsDraft: 'Save as draft',
   onlyContinue: 'Continue',
+  saveAndComeLater: 'Save and come back later',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -187,6 +188,7 @@ const cy: typeof en = {
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
   onlyContinue: 'Continue (in welsh)',
+  saveAndComeLater: 'Save and come back later',
 };
 
 export const generatePageContent = ({
@@ -201,6 +203,7 @@ export const generatePageContent = ({
   document_type,
   addresses = [],
   userIdamId,
+  additionalData,
 }: // eligibility,
 // fee,
 {
@@ -215,6 +218,7 @@ export const generatePageContent = ({
   name?: string;
   byApplicant?: string;
   userIdamId?: string;
+  additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
@@ -235,6 +239,7 @@ export const generatePageContent = ({
     document_type,
     byApplicant,
     userIdamId,
+    additionalData,
     // contactEmail,
     // eligibility,
     // fee,
@@ -267,8 +272,14 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   byApplicant?: string;
   userIdamId?: string;
+  additionalData?: CommonContentAdditionalData;
   // eligibility?: Eligibility;
   // fee?: Fee;
+};
+
+type CommonContentAdditionalData = {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  [key: string]: any;
 };
 
 export type Language = 'en' | 'cy';
