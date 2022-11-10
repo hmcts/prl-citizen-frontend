@@ -5,10 +5,10 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 const en = {
   section: ' ',
-  title: 'Do the children live outside of England or Wales?',
+  title: "Are the children's lives mainly based outside of England and Wales?",
   one: 'Yes',
   two: 'No',
-  hint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, is their family life mainly based outside of England and Wales?',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -23,10 +23,10 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: 'Do the children live outside of England or Wales?',
+  title: "Are the children's lives mainly based outside of England and Wales?",
   one: 'Yes',
   two: 'No',
-  hint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, is their family life mainly based outside of England and Wales?',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
