@@ -15,7 +15,7 @@ import { getRespndentDetails } from '../util';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Provide details for',
-  hasNameChanged: 'Have they change their name?',
+  hasNameChanged: 'Have they changed their name?',
   hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
   one: 'Yes',
@@ -69,7 +69,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Provide details for - welsh',
-  hasNameChanged: 'Have they change their name? - welsh',
+  hasNameChanged: 'Have they changed their name? - welsh',
   hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
   one: 'Yes',
