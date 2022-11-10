@@ -602,10 +602,14 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.H4_CLOSE;
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
     c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
+      .filter(element => element !== 'Other')
       .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
       .toString()
       .split(',')
       .join('');
+    if(userCase['c1A_possessionChildrenPassport'].some(element => element === 'Other')){
+      c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
+    }  
     c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
   }
 
