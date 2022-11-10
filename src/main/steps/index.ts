@@ -1,4 +1,5 @@
 // import s from 'connect-redis';
+import { NextFunction } from 'express';
 import * as fs from 'fs';
 
 import { Case } from '../app/case/case';
@@ -103,12 +104,19 @@ const getStepFiles = (stepDir: string) => {
   return { content, view };
 };
 
+type RouteGuard = {
+  get?: (req: AppRequest, res: Response, next: NextFunction) => Promise<void>;
+  post?: (req: AppRequest, res: Response, next: NextFunction) => Promise<void>;
+};
+
 export type StepWithContent = Step & {
   stepDir: string;
   generateContent: TranslationFn;
   form: FormContent;
   view: string;
+  routeGuard?: RouteGuard;
 };
+
 const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] => {
   const dir = __dirname;
 

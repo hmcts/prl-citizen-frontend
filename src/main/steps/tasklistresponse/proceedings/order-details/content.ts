@@ -44,6 +44,7 @@ const en = () => ({
   isCurrentOrderLabel: 'Is this a current order? (optional)',
   copyOfOrderLabel: 'Do you have a copy of the order? (optional)',
   addOrderLabel: 'Add another order',
+  onlyContinue: 'Continue',
   errors: {
     orderDate: {
       invalidDate: 'Order date must be a real date',
@@ -93,6 +94,7 @@ const cy = () => ({
   isCurrentOrderLabel: 'Is this a current order? (optional) - welsh',
   copyOfOrderLabel: 'Do you have a copy of the order? (optional) - welsh',
   addOrderLabel: 'Add another order - welsh',
+  onlyContinue: 'Continue',
   errors: {
     orderDate: {
       invalidDate: 'Order date must be a real date - welsh',
@@ -131,12 +133,12 @@ export const generateFormFields = (
     const key = `fieldset${count}`;
 
     fields[key] = {
-      type: 'fieldset',
-      label: l => {
+       type: 'fieldset',
+       label: l => {
         return count === 1 ? `${l[`${orderType}Label`]}` : `${l[`${orderType}Label`]} ${count}`;
-      },
-      classes: 'govuk-fieldset__legend--m',
-      subFields: {
+        },
+       classes: 'govuk-fieldset__legend--m',
+       subFields: {
         [`orderDetail-${count}`]: {
           type: 'text',
           value: orders[index].orderDetail,
@@ -262,8 +264,8 @@ export const generateFormFields = (
               value: YesNoEmpty.EMPTY,
             },
           ],
-        },
-      },
+         },
+       },
     };
 
     // mark the selection for the radio buttons based on the option chosen
@@ -340,8 +342,8 @@ export const form: FormContent = {
       value: 'Yes',
     },
   },
-  onlyContinue: {
-    text: l => l.onlycontinue,
+  submit: {
+    text: l => l.onlyContinue,
   },
 };
 
@@ -362,6 +364,8 @@ export const generateContent: TranslationFn = content => {
     ...translations.errors,
     ...errors[content.language],
   };
+
+  console.log(updateFormFields(form, fields));
 
   return {
     ...translations,
