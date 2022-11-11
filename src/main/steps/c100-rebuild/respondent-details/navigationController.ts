@@ -2,7 +2,7 @@ import { Case } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
-  C100_CHILDERN_DETAILS_ADD,
+  C100_OTHER_PERSON_CHECK,
   C100_RESPONDENT_DETAILS_ADD,
   C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
   C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
@@ -77,7 +77,7 @@ class RespondentsDetailsNavigationController {
         const nextRespondent = getNextPerson(this.respondentsDetails, this.respondentId);
         nextUrl = nextRespondent
           ? applyParms(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, { respondentId: nextRespondent?.id })
-          : C100_CHILDERN_DETAILS_ADD; // TODO: this link will have to be changed with otherPersonsLink once merged
+          : C100_OTHER_PERSON_CHECK;
         break;
       }
       default: {
