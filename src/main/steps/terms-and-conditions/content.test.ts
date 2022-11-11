@@ -12,7 +12,7 @@ const en = {
   theUseOfTheService:
     'The use of the Service includes the Manage Organisation and Manage Cases applications (sometimes known as ‘MyHMCTS’) and Judicial Case Manager (JCM).',
   theTermYouIncludes:
-    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service.',
+  'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service (HMCTS).',
   youAlsoAgreeThat: 'You also agree that you have a legitimate need to use the Service.',
   whoWeAre: 'Who we are',
   thisServiceIs: 'This Service is managed by HM Courts and Tribunals service.',
@@ -66,7 +66,7 @@ const cy: typeof en = {
   theUseOfTheService:
     'The use of the Service includes the Manage Organisation and Manage Cases applications (sometimes known as ‘MyHMCTS’) and Judicial Case Manager (JCM). {in welsh}',
   theTermYouIncludes:
-    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service. {in welsh}',
+  'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service (HMCTS). {in welsh}',
   youAlsoAgreeThat: 'You also agree that you have a legitimate need to use the Service. {in welsh}',
   whoWeAre: 'Who we are {in welsh}',
   thisServiceIs: 'This Service is managed by HM Courts and Tribunals service. {in welsh}',
