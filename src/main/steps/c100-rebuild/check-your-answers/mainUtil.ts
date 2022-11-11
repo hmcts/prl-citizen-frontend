@@ -9,7 +9,7 @@ import { HTML } from './common/htmlSelectors';
 import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
 import { applicantAddressParser, applicantAddressParserForRespondents, applicantContactDetailsParser, applicantCourtCanLeaveVoiceMail, otherPeopleAddressParser } from './helpers/applicantHelper';
-import { CourtOrderParserHelper } from './helpers/courtOrderHelper';
+import {  courtTypeOfOrderHelper } from './helpers/courtOrderHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
@@ -116,7 +116,7 @@ export const TypeOfOrder = (
     {
       key: keys['whatAreYouAsking'],
       value: '',
-      valueHtml: CourtOrderParserHelper(userCase, keys, 'too_courtOrder'),
+      valueHtml: courtTypeOfOrderHelper(userCase, keys, 'too_courtOrder'),
       changeUrl: Urls['C100_TYPE_ORDER_SELECT_COURT_ORDER'],
     },
     {
@@ -1225,22 +1225,24 @@ export const reasonableAdjustment = (
     {
       key: keys['attendingCourtHeading'],
       value: userCase['hwf_needHelpWithFees'],
+      valueHtml: userCase.hasOwnProperty('ra_typeOfHearing') ? HTML.UNORDER_LIST + userCase['ra_typeOfHearing'].map(element => HTML.LIST_ITEM + keys[element] + HTML.LIST_ITEM_END).toString().split(',').join('') + HTML.UNORDER_LIST_END : '',
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT'], 
-    },
-    {
-      key: keys['disabilityRequirementHeading'],
-      value: userCase['hwf_needHelpWithFees'],
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS'], 
     },
     {
       key: keys['langaugeRequirementHeading'],
       value: userCase['hwf_needHelpWithFees'],
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS'], 
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS'], 
+    },
+    {
+      key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
+      value: '',
+      valueHtml:  userCase.hasOwnProperty('ra_disabilityRequirements') && userCase['ra_disabilityRequirements'] ? HTML.UNORDER_LIST + userCase['ra_disabilityRequirements'].map(element => HTML.LIST_ITEM + keys[element] + HTML.LIST_ITEM_END).toString().split(',').join('') + HTML.UNORDER_LIST_END : '',
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS'], 
     },
     {
       key: keys['specialArrangementsHeading'],
       value: userCase['hwf_needHelpWithFees'],
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS'], 
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS'], 
     },
     {
       key: keys['documentInformationHeading'],

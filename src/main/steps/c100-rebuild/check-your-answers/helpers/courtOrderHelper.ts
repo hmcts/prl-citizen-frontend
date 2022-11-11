@@ -21,11 +21,11 @@ export const courtOrderParentAndChildFieldParser = (userCase, keys, sessionKey) 
     const mappedVals = userCase[sessionKey]
       .filter(val => val !== '')
       .map(courtConsideration => {
-        if (userCase.hasOwnProperty(`too_${courtConsideration}_subfields`)) {
+        if (userCase.hasOwnProperty(`too_${courtConsideration}_subFields`)) {
           return courtOrderSubFieldParser(
             userCase,
             keys,
-            `too_${courtConsideration}_subfields`,
+            `too_${courtConsideration}_subFields`,
             keys[courtConsideration]
           );
         } else {
@@ -35,6 +35,32 @@ export const courtOrderParentAndChildFieldParser = (userCase, keys, sessionKey) 
     return (HTML.UNORDER_LIST + mappedVals + HTML.UNORDER_LIST_END).split(',').join('');
   }
 };
+
+export const courtTypeOfOrder = (userCase, keys, sessionKey) => {
+  if (userCase.hasOwnProperty(sessionKey)) {
+    const mappedVals = userCase[sessionKey]
+      .filter(val => val !== '')
+      .map(courtConsideration => {
+        if (userCase.hasOwnProperty(`too_${courtConsideration}SubField`)) {
+          return courtOrderSubFieldParser(
+            userCase,
+            keys,
+            `too_${courtConsideration}SubField`,
+            keys[courtConsideration]
+          );
+        } else {
+          return HTML.LIST_ITEM + keys[courtConsideration] + HTML.LIST_ITEM_END;
+        }
+      });
+    return (HTML.UNORDER_LIST + mappedVals + HTML.UNORDER_LIST_END).split(',').join('');
+  }
+};
+
+export const courtTypeOfOrderHelper = (userCase, keys, sessionKey) => {
+  return courtTypeOfOrder(userCase, keys, sessionKey);
+};
+
+
 export const CourtOrderParserHelper = (userCase, keys, sessionKey) => {
   return courtOrderParentAndChildFieldParser(userCase, keys, sessionKey);
 };

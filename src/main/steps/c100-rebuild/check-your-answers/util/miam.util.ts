@@ -75,12 +75,26 @@ export const MiamContentsForDomensticVoilence = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...DomesticAbuseEn() } as any;
-        return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
+        const data = {
+          ...DomesticAbuseEn(),
+          ...DomesticAbuseEn().policeInvolvement_subFields,
+          ...DomesticAbuseEn().letterFromSupportService_subFields,
+          ...DomesticAbuseEn().courtInvolvement_subFields,
+          ...DomesticAbuseEn().letterOfBeingVictim_subFields,
+          ...DomesticAbuseEn().letterFromAuthority_subFields,
+        } as any;
+        return { ...data };
       },
       cy: () => {
-        const data = { ...DomesticAbuseCy() } as any;
-        return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
+        const data = {
+          ...DomesticAbuseCy(),
+          ...DomesticAbuseCy().policeInvolvement_subFields,
+          ...DomesticAbuseCy().letterFromSupportService_subFields,
+          ...DomesticAbuseCy().courtInvolvement_subFields,
+          ...DomesticAbuseCy().letterOfBeingVictim_subFields,
+          ...DomesticAbuseCy().letterFromAuthority_subFields,
+        } as any;
+        return { ...data };
       },
     };
   }
@@ -200,6 +214,7 @@ export const additionalTitlesMiam = SystemLanguage => {
 };
 
 export const MiamFieldsLoader = (SystemLanguageContent, content) => {
+  console.log({ ...SystemLanguageContent(content, MiamContentsForDomensticVoilence) });
   return {
     ...SystemLanguageContent(content, MiamContentsForDomensticVoilence),
     ...SystemLanguageContent(content, MiamContentsForUrgentHearing),

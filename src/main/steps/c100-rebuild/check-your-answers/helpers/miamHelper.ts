@@ -79,8 +79,8 @@ export const miamOnlyChildFieldParser = (userCase, keys, userKey) => {
 export const miamParentAndChildFieldParser = (userCase, keys, sessionKey) => {
   if (userCase.hasOwnProperty(sessionKey)) {
     const mappedVals = userCase[sessionKey].map(nonAttendance => {
-      if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}`)) {
-        return miamOnlyChildFieldParser(userCase, keys, `${sessionKey}_${nonAttendance}`);
+      if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
+        return miamOnlyChildFieldParser(userCase, keys, `${sessionKey}_${nonAttendance}_subfields`);
       } else {
         return HTML.LIST_ITEM + keys[nonAttendance] + HTML.LIST_ITEM_END;
       }

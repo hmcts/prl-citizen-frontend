@@ -48,7 +48,7 @@ export const ReasonableAdjustmentElement = SystemLanguage => {
       return {
         attendingCourtHeading: attendingCourtEn().headingTitle,
         disabilityRequirementHeading: disabilityRequirementsEn().headingTitle,
-        langaugeRequirementHeading: disabilityRequirementsEn().headingTitle,
+        langaugeRequirementHeading: langaugeRequirementEn().headingTitle,
         specialArrangementsHeading: specialArrangementsEn().headingTitle,
         documentInformationHeading: documentInformationEn().headingTitle,
         communicationHelpHeading: communicationHelpEn().headingTitle,
@@ -71,7 +71,7 @@ export const ReasonableAdjustmentElement = SystemLanguage => {
       return {
         attendingCourtHeading: attendingCourtCy().headingTitle,
         disabilityRequirementHeading: disabilityRequirementsCy().headingTitle,
-        langaugeRequirementHeading: disabilityRequirementsCy().headingTitle,
+        langaugeRequirementHeading: langaugeRequirementCy().headingTitle,
         specialArrangementsHeading: specialArrangementsCy().headingTitle,
         documentInformationHeading: documentInformationCy().headingTitle,
         communicationHelpHeading: communicationHelpCy().headingTitle,
