@@ -856,10 +856,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PERSON_CHECK,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.oprs_otherPersonCheck === YesOrNo.YES
-        ? C100_OTHER_PERSON_DETAILS_ADD
-        : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_CHECK, caseData, req?.params),
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADD,

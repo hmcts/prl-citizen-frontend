@@ -1,14 +1,15 @@
 import { Case } from '../../../app/case/case';
-import { C100RebuildPartyDetails, ChildrenDetails } from '../../../app/case/definition';
+import { C100RebuildPartyDetails, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_CHILDERN_LIVE_WITH,
+  C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_ADD,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
   C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
-  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   PageLink,
 } from '../../urls';
 import { getNextPerson } from '../people/util';
@@ -28,6 +29,13 @@ class OtherPersonsDetailsNavigationController {
     let nextUrl;
 
     switch (currentPageUrl) {
+      case C100_OTHER_PERSON_CHECK: {
+        const hasOtherPerson = caseData.oprs_otherPersonCheck === YesOrNo.YES;
+        nextUrl = hasOtherPerson
+          ? C100_OTHER_PERSON_DETAILS_ADD
+          : applyParms(C100_CHILDERN_LIVE_WITH, { childId: this.childrenDetails[0].id });
+        break;
+      }
       case C100_OTHER_PERSON_DETAILS_ADD: {
         nextUrl = applyParms(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, {
           otherPersonId: this.otherPersonsDetails[0].id,
@@ -66,7 +74,7 @@ class OtherPersonsDetailsNavigationController {
         const nextPerson = getNextPerson(this.otherPersonsDetails, this.otherPersonId);
         nextUrl = nextPerson
           ? applyParms(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, { otherPersonId: nextPerson.id })
-          : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS;
+          : applyParms(C100_CHILDERN_LIVE_WITH, { childId: this.childrenDetails[0].id });
         break;
       }
       default: {
