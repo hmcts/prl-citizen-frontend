@@ -270,5 +270,7 @@ export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
   '/tasklistresponse/legalrepresentation/solicitornotdirect';
 export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
 
+export const C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orderType/:orderId/documentUpload/:removeId?`;
+
 /** @C100 rebuild */
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';

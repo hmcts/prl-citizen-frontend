@@ -1,5 +1,8 @@
+import https from 'https';
+
 import Axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
+import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
@@ -12,6 +15,7 @@ import {
   //CITIZEN_ADD_PAYMENT,
   CITIZEN_CREATE,
   CaseData,
+  DocumentUploadResponse,
   JURISDICTION,
   LanguagePreference,
   //ListValue,
@@ -108,6 +112,31 @@ export class CaseApi {
     }
   }
 
+  public async uploadDocument(formdata: FormData): Promise<DocumentUploadResponse> {
+    try {
+      const response = await this.axios.post<DocumentUploadResponse>('/upload-citizen-document', formdata, {
+        headers: {
+          ...formdata.getHeaders(),
+        },
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
+      });
+      return { document: response.data.document, status: response.data.status };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Document could not be uploaded.');
+    }
+  }
+
+  public async deleteDocument(docId: string): Promise<void> {
+    try {
+      await this.axios.delete<void>(`/${docId}/delete`);
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Document could not be deleted.');
+    }
+  }
+
   public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
     try {
       const response = await this.axios.get<CaseAssignedUserRoles>(`case-users?case_ids=${caseId}&user_ids=${userId}`);
@@ -201,3 +230,21 @@ interface CcdV2Response {
 interface CcdTokenResponse {
   token: string;
 }
+
+export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
+  return new CaseApi(
+    Axios.create({
+      baseURL: config.get('services.cos.url'),
+      headers: {
+        Authorization: `Bearer ${userDetails.accessToken}`,
+        ServiceAuthorization: `Bearer ${getServiceAuthToken()}`,
+        'Content-Type': 'application/json',
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    }),
+    userDetails,
+    logger
+  );
+};

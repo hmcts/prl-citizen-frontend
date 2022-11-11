@@ -133,12 +133,12 @@ export const generateFormFields = (
     const key = `fieldset${count}`;
 
     fields[key] = {
-       type: 'fieldset',
-       label: l => {
+      type: 'fieldset',
+      label: l => {
         return count === 1 ? `${l[`${orderType}Label`]}` : `${l[`${orderType}Label`]} ${count}`;
-        },
-       classes: 'govuk-fieldset__legend--m',
-       subFields: {
+      },
+      classes: 'govuk-fieldset__legend--m',
+      subFields: {
         [`orderDetail-${count}`]: {
           type: 'text',
           value: orders[index].orderDetail,
@@ -264,8 +264,8 @@ export const generateFormFields = (
               value: YesNoEmpty.EMPTY,
             },
           ],
-         },
-       },
+        },
+      },
     };
 
     // mark the selection for the radio buttons based on the option chosen

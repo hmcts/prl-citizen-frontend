@@ -535,7 +535,6 @@ export interface AlternativeService {
   servicePaymentFeeOrderSummary: OrderSummary;
   localCourtName: string;
   localCourtEmail: string;
-  certificateOfServiceDocument: DivorceDocument;
   certificateOfServiceDate: DateAsString;
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
@@ -553,7 +552,6 @@ export interface UrgencyDetails {
 export interface Bailiff {
   localCourtName: string;
   localCourtEmail: string;
-  certificateOfServiceDocument: DivorceDocument;
   certificateOfServiceDate: DateAsString;
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
@@ -936,14 +934,12 @@ export interface ConditionalOrder {
   RefusalClarificationReason: ClarificationReason;
   RefusalClarificationAdditionalInfo: string;
   ClarificationResponse: string;
-  ClarificationUploadDocuments: ListValue<DivorceDocument>[];
   OutcomeCase: YesOrNo;
   Court: ConditionalOrderCourt;
   DateAndTimeOfHearing: DateAsString;
   PronouncementJudge: string;
   JudgeCostsClaimGranted: JudgeCostsClaimGranted;
   JudgeCostsOrderAdditionalInfo: string;
-  CertificateOfEntitlementDocument: DivorceDocument;
   ApplicantStatementOfTruth: YesOrNo;
 }
 
@@ -1126,7 +1122,6 @@ export interface Value11 {
 }
 
 export interface DivorceGeneralOrder {
-  generalOrderDocument: DivorceDocument;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
 }
 
@@ -1234,7 +1229,6 @@ export interface RetiredFields {
   courtName: Court;
   applicant1PrayerHasBeenGiven: YesOrNo;
   coAddNewDocuments: YesOrNo;
-  coDocumentsUploaded: ListValue<DivorceDocument>[];
   coIsEverythingInPetitionTrue: YesOrNo;
 }
 
@@ -1263,33 +1257,6 @@ export interface SolicitorService {
   TruthStatement: string;
 }
 
-export interface ConfidentialDivorceDocument {
-  confidentialDocumentsReceived: ConfidentialDocumentsReceived;
-  documentEmailContent: string;
-  documentLink: Document;
-  documentDateAdded: DateAsString;
-  documentComment: string;
-  documentFileName: string;
-}
-
-export interface DivorceDocument {
-  documentDateAdded: DateAsString;
-  documentComment: string;
-  documentFileName: string;
-  documentType: DocumentType;
-  documentEmailContent: string;
-  documentLink: Document;
-}
-
-export interface AdoptionDocument {
-  documentDateAdded: DateAsString;
-  documentComment: string;
-  documentFileName: string;
-  documentType: DocumentType;
-  documentEmailContent: string;
-  documentLink: Document;
-}
-
 export interface DocAssemblyRequest {
   templateId: string;
   outputType: string;
@@ -1307,17 +1274,7 @@ export interface DocumentInfo {
   filename: string;
   binaryUrl: string;
 }
-export interface Letter {
-  divorceDocument: DivorceDocument;
-  count: number;
-}
 
-export interface Print {
-  letters: Letter[];
-  caseId: string;
-  caseRef: string;
-  letterType: string;
-}
 
 export interface CreditAccountPaymentRequest {
   ccd_case_number: string;
@@ -2388,3 +2345,27 @@ export interface ProceedingsOrderTypeInterface {
   undertakingOrders?: ProceedingsOrderInterface[],
   otherOrders?: ProceedingsOrderInterface[]
 }
+
+export interface DocumentInfo {
+  url: string;
+  filename: string;
+  binaryUrl: string;
+}
+
+export interface OtherProceedingsDocumentInfo extends DocumentInfo{
+  id: string;
+}
+
+export interface DocumentUploadResponse {
+  status: string;
+  document: {
+    document_url: string;
+    document_binary_url: string;
+    document_filename: string;
+    document_hash: string;
+    document_creation_date: string;
+  };
+}
+
+export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png' , 'tif', 'tiff', 'pdf', 'doc', 'docx']
+export const C100MaxFileSize = '20000000'
