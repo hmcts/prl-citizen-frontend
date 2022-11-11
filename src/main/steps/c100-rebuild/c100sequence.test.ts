@@ -773,7 +773,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[115].url).toBe('/c100-rebuild/child-details/:childId/live-with');
     expect(C100Sequence[115].showInSection).toBe('c100');
     expect(C100Sequence[115].getNextStep(childrenMockData.session.userCase, childrenMockData)).toBe(
-      '/c100-rebuild/safety-concerns/concern-guidance'
+      '/c100-rebuild/other-proceedings/current-previous-proceedings'
     );
 
     expect(C100Sequence[116].url).toBe('/c100-rebuild/applicant/:applicantId/personal-details');
