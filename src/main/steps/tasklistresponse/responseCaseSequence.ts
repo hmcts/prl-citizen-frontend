@@ -47,6 +47,7 @@ import {
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
+  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
 } from '../urls';
 
 import OtherProceedingsNavigationController from './proceedings/navigationController';
@@ -217,6 +218,17 @@ export const responseCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
       return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_ORDER_DETAILS, caseData, req!.params);
+    },
+  },
+  {
+    url: C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(
+        C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+        caseData,
+        req!.params
+      );
     },
   },
   {
