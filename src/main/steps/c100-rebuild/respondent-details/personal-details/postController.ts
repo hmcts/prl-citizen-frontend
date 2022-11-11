@@ -2,11 +2,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100RebuildPartyDetails } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { getRespndentDetails, transformFormData, updateRespondentDetails } from '../util';
+import { PartyDetailsVariant, getPartyDetails, transformPartyDetails, updatePartyDetails } from '../../people/util';
 
 import { getFormFields } from './content';
 
@@ -21,15 +21,15 @@ export default class PersonaldetailsPostController extends PostController<AnyObj
     const form = new Form(getFormFields().fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const otherPersonDetails = getRespndentDetails(
-      req.session.userCase.resp_Respondents!,
-      respondentId
-    ) as C100RebuildPartyDetails;
-    Object.assign(otherPersonDetails.personalDetails, transformFormData('personalDetails', formData));
-    req.session.userCase.resp_Respondents = updateRespondentDetails(
-      req.session.userCase.resp_Respondents!,
-      otherPersonDetails
-    );
+
+    req.session.userCase.resp_Respondents = updatePartyDetails(req.session.userCase.resp_Respondents, {
+      ...(getPartyDetails(req.session.userCase.resp_Respondents, respondentId) as C100RebuildPartyDetails),
+      personalDetails: transformPartyDetails(
+        PartyType.RESPONDENT,
+        PartyDetailsVariant.PERSONAL_DETAILS,
+        formData
+      ) as C100RebuildPartyDetails['personalDetails'],
+    }) as C100RebuildPartyDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

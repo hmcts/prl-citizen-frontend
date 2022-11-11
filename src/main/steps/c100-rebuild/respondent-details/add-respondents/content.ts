@@ -96,7 +96,7 @@ export const generateFormFields = (respondents: C100RebuildPartyDetails[]): Gene
           labelSize: 'm',
           validator: isFieldFilledIn,
         },
-        removeRespondent: {
+        remove: {
           type: 'button',
           label: l => `${l.removeRespondentLabel} ${count}`,
           classes: 'govuk-button--warning margin-top-3',
@@ -137,13 +137,18 @@ export const form: FormContent = {
           labelSize: 'none',
           validator: isFieldFilledIn,
         },
-        addRespondent: {
+        add: {
           type: 'button',
           label: l => l.addRespondentLabel,
           classes: 'govuk-button--secondary',
           value: 'true',
         },
       },
+    },
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'resp',
     },
   },
   onlycontinue: {
