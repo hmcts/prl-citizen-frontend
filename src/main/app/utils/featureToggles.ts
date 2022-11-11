@@ -41,14 +41,17 @@ export class FeatureToggles {
   }
 }
 
-let featureToggleObj;
+let featureToggleObj: FeatureToggles;
 export const initializeFeatureToggle = async (): Promise<FeatureToggles> => {
   featureToggleObj = new FeatureToggles(new LaunchDarklyClient());
+  featureToggleObj.launchDarklyClient.initializeLD();
   return featureToggleObj;
 };
 
 export const initFeatureToggle = (): void => {
+  console.log('initFeatureToggle');
   initializeFeatureToggle();
+  console.log('after initialisation');
 };
 
 export const getFeatureToggle = (): FeatureToggles => {
