@@ -92,7 +92,7 @@ export const enContent = {
     detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '13. Help with Fees',
     whereTheChildrenLive: 'Where the children live',
-    detailofOtherPeople: 'Details of the other people',
+    detailofOtherPeople: 'Details of the other people in the application',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -129,6 +129,7 @@ export const enContent = {
     courtOrderPrevent:
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
+    dontKnow: "Don't know",
   },
 };
 export const cyContent: typeof enContent = {
@@ -179,7 +180,7 @@ export const cyContent: typeof enContent = {
     detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '13. Help with Fees',
     whereTheChildrenLive: 'Where the children live',
-    detailofOtherPeople: 'Details of the other people',
+    detailofOtherPeople: 'Details of the other people in the application',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -216,6 +217,7 @@ export const cyContent: typeof enContent = {
     courtOrderPrevent:
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
+    dontKnow: "Don't know",
   },
 };
 

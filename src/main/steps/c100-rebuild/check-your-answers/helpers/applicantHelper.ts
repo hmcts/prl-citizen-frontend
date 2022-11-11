@@ -89,3 +89,13 @@ export const applicantCourtCanLeaveVoiceMail = (sessionApplicantData, keys) => {
   } 
  return html;
 };
+
+
+export const otherPeopleAddressParser = (sessionApplicantData) => {
+  let html = '' as string;
+  html += sessionApplicantData?.['AddressLine1'] + HTML.BREAK;
+  html += sessionApplicantData?.['AddressLine2'] + HTML.BREAK;
+  html += sessionApplicantData?.['PostTown'] + HTML.BREAK + HTML.BREAK;
+  html += sessionApplicantData?.['PostCode'];
+ return html;
+};
