@@ -123,11 +123,11 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
         {
           label: l => l.one,
           selected: addressHistory === YesNoDontKnow.yes,
-          value: YesOrNo.YES,
+          value: YesNoDontKnow.yes,
         },
         {
           label: l => l.two,
-          value: YesOrNo.NO,
+          value: YesNoDontKnow.no,
           selected: addressHistory === YesNoDontKnow.no,
           subFields: {
             provideDetailsOfPreviousAddresses: {
