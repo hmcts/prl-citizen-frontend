@@ -156,6 +156,7 @@ import OtherProceedingsNavigationController from './other-proceedings/navigation
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
+import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 
 export const C100Sequence: Step[] = [
   {
@@ -349,6 +350,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_DETAILS_ADD,
     showInSection: Sections.C100,
+    postController: AddPeoplePostContoller,
     getNextStep: caseData => ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_ADD, caseData),
   },
   {
@@ -787,6 +789,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_OTHER_CHILDREN_NAMES,
     showInSection: Sections.C100,
+    postController: AddPeoplePostContoller,
     getNextStep: caseData =>
       OtherChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_OTHER_CHILDREN_NAMES, caseData),
   },
@@ -803,6 +806,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_RESPONDENT_DETAILS_ADD,
     showInSection: Sections.C100,
+    postController: AddPeoplePostContoller,
     getNextStep: caseData => RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADD, caseData),
   },
   {
@@ -860,6 +864,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PERSON_DETAILS_ADD,
     showInSection: Sections.C100,
+    postController: AddPeoplePostContoller,
     getNextStep: caseData =>
       OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
   },

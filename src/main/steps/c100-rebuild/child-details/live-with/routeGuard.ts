@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import { getChildDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -11,7 +11,7 @@ export const routeGuard = {
     if (
       !childId ||
       !(
-        getChildDetails(req.session.userCase?.cd_children ?? [], childId) &&
+        getPartyDetails(req.session.userCase?.cd_children, childId) &&
         req.session.userCase?.appl_allApplicants?.length &&
         req.session.userCase?.resp_Respondents?.length
       )
