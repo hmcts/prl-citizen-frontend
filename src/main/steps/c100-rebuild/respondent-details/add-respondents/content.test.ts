@@ -1,15 +1,16 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { C100RebuildPartyDetails, PartyType } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
+import { getDataShape } from '../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Enter the respondents name',
+  title: "Enter the respondent's name",
   subTitle: 'The other people who will receive this application are known as the respondents',
   firstNameLabel: 'First name(s)',
   firstNameHint: 'Include all middle names here',
@@ -28,7 +29,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Enter the respondents name- welsh',
+  title: "Enter the respondent's name - welsh",
   subTitle: 'The other people who will receive this application are known as the respondents - welsh',
   firstNameLabel: 'First name(s) - welsh',
   firstNameHint: 'Include all middle names here - welsh',
@@ -92,7 +93,7 @@ describe('Add respondent  > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields([getDataShape()]);
+    const { errors } = generateFormFields([getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails]);
     languageAssertions(
       'en',
       {
@@ -108,7 +109,7 @@ describe('Add respondent  > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields([getDataShape()]);
+    const { errors } = generateFormFields([getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails]);
     languageAssertions(
       'cy',
       {
@@ -124,9 +125,13 @@ describe('Add respondent  > content', () => {
 
   test('should contain add respondents form fields', () => {
     const { 'fieldset-respondentDetails': fieldset, fieldset1 } = fields as Record<string, FormFields>;
-    const { c100TempFirstName, c100TempLastName, addRespondent } = fieldset.subFields as FormFields;
+    const { c100TempFirstName, c100TempLastName, add: addRespondent } = fieldset.subFields as FormFields;
 
-    const { 'firstName-1': firstName, 'lastName-1': lastName, removeRespondent } = fieldset1.subFields as FormFields;
+    const {
+      'firstName-1': firstName,
+      'lastName-1': lastName,
+      remove: removeRespondent,
+    } = fieldset1.subFields as FormFields;
 
     expect(fieldset.classes).toBe('govuk-fieldset__legend--m');
     expect(fieldset.type).toBe('fieldset');

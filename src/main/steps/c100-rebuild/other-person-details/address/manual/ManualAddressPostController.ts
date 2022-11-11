@@ -1,11 +1,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
+import { C100Address, C100RebuildPartyDetails, PartyType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { getOtherPersonDetails, transformFormData, updateOtherPersonDetails } from '../../../other-person-details/util';
+import { PartyDetailsVariant, getPartyDetails, transformPartyDetails, updatePartyDetails } from '../../../people/util';
 
 import { getUpdatedForm } from './content';
 
@@ -17,26 +17,17 @@ export default class ManualAddressPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { otherPersonId } = req.params;
-
     const form = new Form(getUpdatedForm().fields as FormFields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    const otherPersonsDetails = getOtherPersonDetails(
-      req.session.userCase.oprs_otherPersons!,
-      otherPersonId
-    ) as C100RebuildPartyDetails;
-
-    console.log(formData, 'formData');
-
-    Object.assign(otherPersonsDetails, {
-      address: transformFormData('address', formData),
-      addressUnknown: formData['addressUnknown'],
-    });
-
-    req.session.userCase.oprs_otherPersons = updateOtherPersonDetails(
-      req.session.userCase.oprs_otherPersons!,
-      otherPersonsDetails
-    );
+    req.session.userCase.oprs_otherPersons = updatePartyDetails(
+      req.session.userCase.oprs_otherPersons as C100RebuildPartyDetails[],
+      {
+        ...(getPartyDetails(req.session.userCase.oprs_otherPersons!, otherPersonId) as C100RebuildPartyDetails),
+        address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
+        addressUnknown: formData['addressUnknown'],
+      }
+    ) as C100RebuildPartyDetails[];
 
     req.session.errors = form.getErrors(formData);
     this.redirect(req, res);

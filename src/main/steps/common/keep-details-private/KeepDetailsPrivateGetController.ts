@@ -9,6 +9,32 @@ import { RESPONDENT_DETAILS_KNOWN } from '../../urls';
 import { getKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
 export class KeepDetailsPrivateGetController extends GetController {
+  public async getRespondent(req: AppRequest): Promise<void> {
+    if (req.url.includes('respondent')) {
+      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+        if (
+          respondent?.value?.user?.idamId === req.session?.user.id &&
+          respondent?.value?.response &&
+          respondent?.value?.response?.keepDetailsPrivate &&
+          respondent?.value?.response?.keepDetailsPrivate?.confidentiality
+        ) {
+          Object.assign(req.session.userCase, getKeepYourDetailsPrivate(respondent.value, req));
+        }
+      });
+    } else {
+      req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
+        if (
+          applicant?.value?.user?.idamId === req.session?.user.id &&
+          applicant?.value?.response &&
+          applicant?.value?.response?.keepDetailsPrivate &&
+          applicant?.value?.response?.keepDetailsPrivate?.confidentiality
+        ) {
+          Object.assign(req.session.userCase, getKeepYourDetailsPrivate(applicant.value, req));
+        }
+      });
+    }
+  }
+
   public async get(req: AppRequest, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.params?.caseId;
@@ -19,29 +45,7 @@ export class KeepDetailsPrivateGetController extends GetController {
     Object.assign(req.session.userCase, caseDataFromCos);
 
     if (req.session.userCase.caseTypeOfApplication === 'C100') {
-      if (req.url.includes('respondent')) {
-        req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-          if (
-            respondent?.value?.user?.idamId === req.session?.user.id &&
-            respondent?.value?.response &&
-            respondent?.value?.response?.keepDetailsPrivate &&
-            respondent?.value?.response?.keepDetailsPrivate?.confidentiality
-          ) {
-            Object.assign(req.session.userCase, getKeepYourDetailsPrivate(respondent.value, req));
-          }
-        });
-      } else {
-        req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
-          if (
-            applicant?.value?.user?.idamId === req.session?.user.id &&
-            applicant?.value?.response &&
-            applicant?.value?.response?.keepDetailsPrivate &&
-            applicant?.value?.response?.keepDetailsPrivate?.confidentiality
-          ) {
-            Object.assign(req.session.userCase, getKeepYourDetailsPrivate(applicant.value, req));
-          }
-        });
-      }
+      this.getRespondent(req);
     } else {
       if (req.url.includes('respondent')) {
         if (

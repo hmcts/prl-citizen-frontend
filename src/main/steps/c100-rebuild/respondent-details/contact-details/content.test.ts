@@ -1,9 +1,9 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, PartyType, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
+import { getDataShape } from '../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -111,7 +111,9 @@ describe('respondent details > contact details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().contactDetails);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).contactDetails
+    );
     languageAssertions(
       'en',
       {
@@ -128,7 +130,9 @@ describe('respondent details > contact details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().contactDetails);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).contactDetails
+    );
     languageAssertions(
       'cy',
       {

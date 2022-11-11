@@ -715,7 +715,6 @@ export interface RelationshipToChildren {
 export interface ContactDetail {
   canProvideEmail?: YesNoEmpty,
   emailAddress?: string,
-  canNotProvideEmailReason?: string,
   canProvideTelephoneNumber?: YesNoEmpty,
   telephoneNumber?: string,
   canNotProvideTelephoneNumberReason?: string
@@ -2540,7 +2539,9 @@ export interface C1ASafteyConcerns {
 
 
   export enum PartyType {
+    CHILDREN = 'children',
     APPLICANT = 'applicant',
+    OTHER_CHILDREN = 'otherChildren',
     RESPONDENT = 'respondent',
     OTHER_PERSON = 'otherPerson',
   }

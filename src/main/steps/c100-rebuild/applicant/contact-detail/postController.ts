@@ -25,7 +25,6 @@ export default class ContactDetailPostController extends PostController<AnyObjec
       ...req.session.userCase?.appl_allApplicants?.[applicantIndex].applicantContactDetail,
       canProvideEmail: req.body['canProvideEmail'] as YesNoEmpty,
       emailAddress: req.body['emailAddress'] as string,
-      canNotProvideEmailReason: req.body['canNotProvideEmailReason'] as string,
       canProvideTelephoneNumber: req.body['canProvideTelephoneNumber'] as YesNoEmpty,
       telephoneNumber: req.body['telephoneNumber'] as string,
       canNotProvideTelephoneNumberReason: req.body['canNotProvideTelephoneNumberReason'] as YesNoEmpty,

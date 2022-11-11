@@ -1,7 +1,7 @@
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
-import { getOtherPersonDetails } from '../../../other-person-details/util';
+import { getPartyDetails } from '../../../people/util';
 import { form as manualAddressForm, languages as manualAddressFormLanguages } from '../common/address-manual';
 
 let updatedForm: FormContent;
@@ -84,7 +84,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const manualAddressFormTranslations = manualAddressFormLanguages[content.language]();
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
-  const otherPersonDetails = getOtherPersonDetails(content.userCase!.oprs_otherPersons ?? [], otherPersonId)!;
+  const otherPersonDetails = getPartyDetails(
+    content.userCase?.oprs_otherPersons,
+    otherPersonId
+  ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 
   return {

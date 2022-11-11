@@ -1,9 +1,9 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { PartyType, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
+import { getDataShape } from '../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -11,7 +11,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Provide details for',
-  hasNameChanged: 'Have they change their name?',
+  hasNameChanged: 'Have they changed their name?',
   hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
   one: 'Yes',
@@ -65,7 +65,7 @@ const en = {
 
 const cy = {
   title: 'Provide details for - welsh',
-  hasNameChanged: 'Have they change their name? - welsh',
+  hasNameChanged: 'Have they changed their name? - welsh',
   hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
   one: 'Yes',
@@ -171,7 +171,7 @@ describe('respondent details > personal details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields(getDataShape(PartyType.RESPONDENT).personalDetails);
     languageAssertions(
       'en',
       {
@@ -188,7 +188,7 @@ describe('respondent details > personal details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields(getDataShape(PartyType.RESPONDENT).personalDetails);
     languageAssertions(
       'cy',
       {
