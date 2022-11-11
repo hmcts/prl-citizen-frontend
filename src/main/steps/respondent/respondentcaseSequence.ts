@@ -43,10 +43,7 @@ import {
   RESPONDENT_ADDRESS_LOOKUP,
   RESPONDENT_ADDRESS_MANUAL,
   RESPONDENT_ADDRESS_SELECT,
-  //RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
-  //RESPONDENT_CHECK_ANSWERS_NO,
-  //RESPONDENT_CHECK_ANSWERS_YES,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
@@ -64,17 +61,11 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
-  //RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_APPLICATION,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
-//import { CaseWithId } from 'app/case/case';
-//import { setVarandGetNextStepofAllegationharm } from './task-list/utils';
-//import { CaseWithId } from '../../app/case/case';
-//import mockUserCase from '../../../test/unit/utils/mockUserCase';
-// const userCase : Partial<CaseWithId>;
 export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_TASK_LIST_URL,
@@ -477,32 +468,4 @@ export const respondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
-  // {
-  //   url: RESPONDENT_TASK_LIST_URL,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getNextStep: () => RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
-  // },
-  // {
-  //   url: RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getNextStep: () => RESPONDENT_YOUR_CHILD_CONCERNS,
-  // },
-  // {
-  //   url: RESPONDENT_YOUR_CHILD_CONCERNS,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getNextStep: data =>
-  //     data.yourchildconcernsstart === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
-  // },
-
-  // {
-  //   url: RESPONDENT_CHECK_ANSWERS_YES,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  // },
-  // {
-  //   url: RESPONDENT_CHECK_ANSWERS_NO,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getNextStep: () => RESPONDENT_CHECK_ANSWERS_YES,
-  //   //getNextStep:(userCase:Partial<CaseWithId>) =>  setVarandGetNextStepofAllegationharm(userCase),
-  // },
 ];

@@ -77,53 +77,5 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[18].url).toBe('/respondent/confirm-contact-details/address/manual');
     expect(respondentCaseSequence[18].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[18].getNextStep({})).toBe('/respondent/confirm-contact-details/addresshistory');
-
-    // expect(respondentCaseSequence[27].url).toBe('/respondent/safety_concerns/domestic_abuse_risk');
-    // expect(respondentCaseSequence[27].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[27].getNextStep({})).toBe('/respondent/safety_concerns/domestic_abuse_risk_no');
-
-    // expect(respondentCaseSequence[25].url).toBe('/respondent/task-list');
-    // expect(respondentCaseSequence[25].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[25].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/orders');
-
-    // expect(respondentCaseSequence[26].url).toBe('/respondent/yourdocuments/alldocuments/orders');
-    // expect(respondentCaseSequence[26].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[26].getNextStep({})).toBe('/respondent/task-list');
-
-    // expect(respondentCaseSequence[27].url).toBe('/respondent/task-list');
-    // expect(respondentCaseSequence[27].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[27].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    // expect(respondentCaseSequence[28].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    // expect(respondentCaseSequence[28].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[28].getNextStep({})).toBe('/respondent/task-list');
-
-    // expect(respondentCaseSequence[29].url).toBe('/tasklistresponse/safety_concerns/main_page');
-    // expect(respondentCaseSequence[29].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[29].getNextStep({})).toBe('/tasklistresponse/safety_concerns/your_safety');
-
-    // expect(respondentCaseSequence[30].url).toBe('/tasklistresponse/safety_concerns/your_safety');
-    // expect(respondentCaseSequence[30].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[30].getNextStep({})).toBe('/tasklistresponse/safety_concerns/domestic_abuse_risk');
-
-    // expect(respondentCaseSequence[31].url).toBe('/tasklistresponse/safety_concerns/domestic_abuse_risk');
-    // expect(respondentCaseSequence[31].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[31].getNextStep({})).toBe('/tasklistresponse/safety_concerns/domestic_abuse_risk_no');
-
-    // expect(respondentCaseSequence[32].url).toBe('/tasklistresponse/safety_concerns/domestic_abuse_risk_no');
-    // expect(respondentCaseSequence[32].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[32].getNextStep({})).toBe('/respondent/task-list');
-
-    // expect(respondentCaseSequence[33].url).toBe('/tasklistresponse/proceedings/start');
-    // expect(respondentCaseSequence[33].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[33].getNextStep({})).toBe('/tasklistresponse/proceedings/summary');
-
-    // expect(respondentCaseSequence[34].url).toBe('/tasklistresponse/proceedings/court-proceedings');
-    // expect(respondentCaseSequence[34].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[34].getNextStep({})).toBe('/tasklistresponse/proceedings/summary');
-
-    // expect(respondentCaseSequence[35].url).toBe('/tasklistresponse/proceedings/summary');
-    // expect(respondentCaseSequence[35].showInSection).toBe('aboutRespondentCase');
-    // expect(respondentCaseSequence[35].getNextStep({})).toBe('/respondent/task-list');
   });
 });

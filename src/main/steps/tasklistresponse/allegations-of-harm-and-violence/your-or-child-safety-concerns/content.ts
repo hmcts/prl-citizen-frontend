@@ -69,8 +69,6 @@ export const form: FormContent = {
               classes: 'govuk-label',
               name: 'contentunderyes',
               hint: l => l.contentunderyesp1,
-              //link: 'https://www.gov.uk/injunction-domestic-violence',
-              //label: l => l.contentunderyesp1,
             },
           },
         },

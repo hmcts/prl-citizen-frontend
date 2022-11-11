@@ -178,18 +178,6 @@ describe('task-list > content', () => {
             },
           ],
         },
-        // {
-        //   title: 'Safety concerns',
-        //   items: [
-        //     {
-        //       id: 'allegations_of_harm_and_violence',
-        //       text: 'Allegations of harm and violence',
-        //       status: 'NOT_AVAILABLE_YET',
-        //       href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
-        //     },
-        //   ],
-
-        // },
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {

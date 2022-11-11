@@ -45,8 +45,6 @@ const fieldType = {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  //userCase.citizenUserDateOfBirthText = getFormattedDate(userCase.citizenUserDateOfBirth);
-  //console.log("userCase.citizenUserDateOfBirthText====>"+userCase.citizenUserDateOfBirthText);
   return {
     ...cyContent,
     language: content.language,

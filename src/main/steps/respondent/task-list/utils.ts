@@ -1,5 +1,3 @@
-//import { PageLink, RESPONDENT_TASK_LIST_URL } from 'steps/urls';
-// import { PageLink, RESPONDENT_TASK_LIST_URL } from 'steps/urls';
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, SectionStatus, YesNoIDontKnow, YesOrNo } from '../../../app/case/definition';
 
@@ -197,7 +195,3 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
   }
   return SectionStatus.TO_DO;
 };
-
-// export const getAllegationOfHarmStatus = () :SectionStatus => {
-//   return SectionStatus.NOT_AVAILABLE_YET;
-// };

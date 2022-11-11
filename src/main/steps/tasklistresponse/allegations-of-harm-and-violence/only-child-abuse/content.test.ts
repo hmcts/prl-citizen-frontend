@@ -1,7 +1,7 @@
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
+import { generateContent } from './content';
 const en = {
   section: 'Safety concerns',
   title: 'What type of behaviour have the children experienced or are at risk of experiencing?',
@@ -33,7 +33,6 @@ const en = {
     },
   },
 };
-
 const cy: typeof en = {
   section: 'Safety concerns - in welsh',
   title: 'What type of behaviour have the children experienced or are at risk of experiencing? - in welsh',
@@ -68,80 +67,16 @@ const cy: typeof en = {
   },
 };
 
-const languages = {
-  en,
-  cy,
-};
-
-export const form: FormContent = {
-  fields: {
-    respondentConcernedonChildAbout: {
-      type: 'checkboxes',
-      labelHidden: true,
-      hint: l => l.optionHint,
-      section: l => l.section,
-      validator: atLeastOneFieldIsChecked,
-      values: [
-        {
-          name: 'respondentConcernedonChildAbout',
-          label: l => l.physicalabuse,
-          hint: l => l.physicalabusehint,
-          value: 'physical abuse',
-        },
-        {
-          name: 'respondentConcernedonChildAbout',
-          label: l => l.psychologicalabuse,
-          hint: l => l.psychologicalabusehint,
-          value: 'psychological abuse',
-        },
-        {
-          name: 'respondentConcernedonChildAbout',
-          label: l => l.emotionalabuse,
-          hint: l => l.emotionalabusehint,
-          value: 'emotional abuse',
-        },
-        {
-          name: 'respondentConcernedonChildAbout',
-          label: l => l.sexualabuse,
-          hint: l => l.sexualabusehint,
-          value: 'sexual abuse',
-        },
-        {
-          name: 'respondentConcernedonChildAbout',
-          label: l => l.financialabuse,
-          hint: l => l.financialabusehint,
-          value: 'financial abuse',
-        },
-        {
-          name: 'respondentConcernedonChildAbout',
-          label: l => l.witnessingdomesticabuse,
-          hint: l => l.witnessingdomesticabusehint,
-          value: 'witness domestic abuse',
-        },
-        {
-          name: 'respondentConcernedonChildAbout',
-          label: l => l.abduction,
-          hint: l => l.abductionhint,
-          value: 'abduction',
-        },
-        {
-          name: 'respondentConcernedonChildAbout',
-          label: l => l.somethingelse,
-          hint: l => l.somethingelsehint,
-          value: 'something else',
-        },
-      ],
-    },
-  },
-  submit: {
-    text: l => l.continue,
-  },
-};
-
-export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
-  return {
-    ...translations,
-    form,
-  };
-};
+/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
+describe('your or child safety concerns > content', () => {
+  const commonContent = generatePageContent({
+    language: 'en',
+    userCase: {},
+  }) as CommonContent;
+  test('should return correct english content', () => {
+    languageAssertions('en', en, () => generateContent(commonContent));
+  });
+  test('should return correct welsh content', () => {
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+});

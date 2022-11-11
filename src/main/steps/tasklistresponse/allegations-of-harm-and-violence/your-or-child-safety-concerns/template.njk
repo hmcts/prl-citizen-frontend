@@ -1,21 +1,58 @@
-{% extends "common/template1.njk" %}
+{% extends "common/template.njk" %}
 
-{% block page_content %}
-<div class="gov-uk-grid-row">
-<legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-  <span class="govuk-caption-l">{{section}}</span>
-  <h1 class="govuk-fieldset__heading">{{title}}</h1>
-</legend>
-<div class="govuk-!-padding-bottom-4"></div>
-<p class="govuk-body">  {{line1}}</p>
-<p class="govuk-body">If you or the children have experienced abuse or feel unsafe,  support is
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% block error_summary %}
+        {% include "common/error/summary.njk" %}
+      {% endblock %}
+
+      {% block page_content %}
+      <div class="gov-uk-grid-row">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+          <span class="govuk-caption-l">{{section}}</span>
+          <h1 class="govuk-fieldset__heading">{{title}}</h1>
+        </legend>
+        <div class="govuk-!-padding-bottom-4"></div>
+        <p class="govuk-body">  {{line1}}</p>
+        <p class="govuk-body">If you or the children have experienced abuse or feel unsafe,  support is
               available. <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">See a list of organisations that can help</a>.</p>
-<div class="govuk-warning-text">
-                  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                  <strong class="govuk-warning-text__text">
-                    <span class="govuk-warning-text__assistive">Warning</span>
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
                     {{warning}}
-                  </strong>
-                </div>
-</div>
+            </strong>
+        </div>
+      </div>
+       
+      {% endblock %}
+      
+      {% if form %}
+        {% block form %}
+          {% include "common/form/form.njk"%}
+        {% endblock %}
+      {% endif %}
+
+      {% block page_content_under_form %}
+      {% endblock %}
+    </div>
+    <div class="govuk-grid-column-one-third">
+        {% block page_contact_us %}
+            <div class="govuk-form-group">
+           <ul class="govuk-list">
+             <li><a href="https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/" class="govuk-link" rel="external" target="_blank">Identify signs of child abuse</a></li>
+             <li><a href="https://supportnav.org.uk/what-is-domestic-abuse" class="govuk-link" rel="external" target="_blank">Identify signs of domestic abuse</a></li>
+           </ul>
+    </div>
+             {% include "../../../common/contact-us.njk" %}
+        {% endblock %}
+    </div>
+  </div>
 {% endblock %}
+
+
+
+
+
