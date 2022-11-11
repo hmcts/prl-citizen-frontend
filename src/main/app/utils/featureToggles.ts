@@ -5,7 +5,7 @@ import toBoolean = require('to-boolean');
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 
 export class FeatureToggles {
-  readonly launchDarklyClient: LaunchDarklyClient;
+  launchDarklyClient: LaunchDarklyClient;
 
   constructor(launchDarklyClient: LaunchDarklyClient) {
     this.launchDarklyClient = launchDarklyClient;
@@ -40,3 +40,17 @@ export class FeatureToggles {
     );
   }
 }
+
+let featureToggleObj;
+export const initializeFeatureToggle = async (): Promise<FeatureToggles> => {
+  featureToggleObj = new FeatureToggles(new LaunchDarklyClient());
+  return featureToggleObj;
+};
+
+export const initFeatureToggle = (): void => {
+  initializeFeatureToggle();
+};
+
+export const getFeatureToggle = (): FeatureToggles => {
+  return featureToggleObj;
+};

@@ -7,8 +7,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { FeatureToggles } from '../../app/utils/featureToggles';
-import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
+import { getFeatureToggle } from '../../app/utils/featureToggles';
 // eslint-disable-next-line sort-imports
 import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL, DASHBOARD_URL, C100_URL } from '../../steps/urls';
 
@@ -20,8 +19,6 @@ export class OidcMiddleware {
     const protocol = app.locals.developmentMode ? 'http://' : 'https://';
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
-    const featureToggle = new FeatureToggles(new LaunchDarklyClient());
-    featureToggle.launchDarklyClient.initializeLD();
 
     app.get(SIGN_IN_URL, (req, res) =>
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL))
@@ -67,7 +64,7 @@ export class OidcMiddleware {
             const c100RebuildLdFlag: boolean =
               req.session.c100RebuildLdFlag !== undefined
                 ? req.session.c100RebuildLdFlag
-                : (req.session.c100RebuildLdFlag = await featureToggle.isC100reBuildEnabled());
+                : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
             if (c100RebuildLdFlag) {
               return next();
             } else {

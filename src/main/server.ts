@@ -26,6 +26,7 @@ import { SessionStorage } from './modules/session';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
+import { FeatureToggleProvider } from 'modules/feature-toggle';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -65,6 +66,7 @@ new HealthCheck().enableFor(app);
 new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
+new FeatureToggleProvider().enable();
 
 setupDev(app, developmentMode);
 
