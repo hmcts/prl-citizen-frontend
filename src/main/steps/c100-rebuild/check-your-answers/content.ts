@@ -336,7 +336,6 @@ const languages = {
 export const SystemLanguageContent = (content, Function) => {
   return content['language'] === 'en' ? Function(content.userCase)?.en() : Function(content.userCase)?.cy();
 };
-
 export const generateContent: TranslationFn = content => {
   const newContents = content['language'] === 'en' ? enContent : cyContent;
   newContents['keys'] = {

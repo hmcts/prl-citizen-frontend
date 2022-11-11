@@ -46,6 +46,15 @@ export const ReasonableAdjustmentElement = SystemLanguage => {
   const opContents = {
     en: () => {
       return {
+        attendingCourtHeading: attendingCourtEn().headingTitle,
+        disabilityRequirementHeading: disabilityRequirementsEn().headingTitle,
+        langaugeRequirementHeading: disabilityRequirementsEn().headingTitle,
+        specialArrangementsHeading: specialArrangementsEn().headingTitle,
+        documentInformationHeading: documentInformationEn().headingTitle,
+        communicationHelpHeading: communicationHelpEn().headingTitle,
+        supportCourtHeading: supportCourtEn().headingTitle,
+        feelComfortableHeading: feelComfortableEn().headingTitle,
+        travellingCourtHeading: travellingCourtEn().headingTitle,
         ...attendingCourtEn(),
         ...disabilityRequirementsEn(),
         ...langaugeRequirementEn(),
@@ -60,6 +69,15 @@ export const ReasonableAdjustmentElement = SystemLanguage => {
     },
     cy: () => {
       return {
+        attendingCourtHeading: attendingCourtCy().headingTitle,
+        disabilityRequirementHeading: disabilityRequirementsCy().headingTitle,
+        langaugeRequirementHeading: disabilityRequirementsCy().headingTitle,
+        specialArrangementsHeading: specialArrangementsCy().headingTitle,
+        documentInformationHeading: documentInformationCy().headingTitle,
+        communicationHelpHeading: communicationHelpCy().headingTitle,
+        supportCourtHeading: supportCourtCy().headingTitle,
+        feelComfortableHeading: feelComfortableCy().headingTitle,
+        travellingCourtHeading: travellingCourtCy().headingTitle,
         ...attendingCourtCy(),
         ...disabilityRequirementsCy(),
         ...langaugeRequirementCy(),

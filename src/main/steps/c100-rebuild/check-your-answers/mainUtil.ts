@@ -1217,25 +1217,57 @@ export const whereDoChildLive = (
   };
 };
 
-
-
 export const reasonableAdjustment = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
   const SummaryData: any = [
     {
-      key: keys['doRequireHelpwithFee'],
+      key: keys['attendingCourtHeading'],
       value: userCase['hwf_needHelpWithFees'],
-      changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'], 
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT'], 
+    },
+    {
+      key: keys['disabilityRequirementHeading'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS'], 
+    },
+    {
+      key: keys['langaugeRequirementHeading'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS'], 
+    },
+    {
+      key: keys['specialArrangementsHeading'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS'], 
+    },
+    {
+      key: keys['documentInformationHeading'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION'], 
+    },
+    {
+      key: keys['communicationHelpHeading'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP'], 
+    },
+    {
+      key: keys['supportCourtHeading'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT'], 
+    },
+    {
+      key: keys['feelComfortableHeading'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE'], 
+    },
+    {
+      key: keys['travellingCourtHeading'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT'], 
     },
   ];
-
-    SummaryData.push({
-      key: keys['hwfApplication'],
-      valueHtml: userCase['helpWithFeesReferenceNumber'],
-      changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'], 
-    });
   return {
     title: sectionTitles['reasonAbleAdjustment'],
     rows: getSectionSummaryList(SummaryData, content),
