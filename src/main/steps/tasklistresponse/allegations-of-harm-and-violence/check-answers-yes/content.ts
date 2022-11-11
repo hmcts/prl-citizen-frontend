@@ -49,12 +49,12 @@ export const form: FormContent = {
         {
           name: 'respondentConcernedAbout',
           label: l => l.childconcern,
-          value: 'video hearings',
+          value: 'only child',
         },
         {
           name: 'respondentConcernedAbout',
           label: l => l.selfconcern,
-          value: 'phone hearings',
+          value: 'only self',
         },
       ],
     },

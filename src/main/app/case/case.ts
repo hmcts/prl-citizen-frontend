@@ -438,7 +438,7 @@ export interface Case {
 
   //CA-DA-Respondent
   respondentAttendingToCourt?: string;
-  respondentConcernedAbout?: string;
+  respondentConcernedAbout?: string[];
   respondentConcernedonChildAbout?: string;
   respondentHearingDetails?: string;
   respondentLangRequirements?: string;

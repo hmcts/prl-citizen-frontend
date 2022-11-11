@@ -259,7 +259,10 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_CHECK_ANSWERS_YES,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ONLY_CHILD_CONCERN,
+    getNextStep: data =>
+      data.respondentConcernedAbout?.includes('only child') && data.respondentConcernedAbout.length === 1
+        ? RESPONDENT_ONLY_CHILD_CONCERN
+        : RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_NO,
