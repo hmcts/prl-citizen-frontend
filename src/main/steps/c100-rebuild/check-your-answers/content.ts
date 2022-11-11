@@ -31,6 +31,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  reasonableAdjustment,
   whereDoChildLive,
 } from './mainUtil';
 import { InternationElements } from './util/InternationElement.util';
@@ -40,6 +41,7 @@ import { hearingDetailsContents } from './util/hearingwithout.util';
 import { HelpWithFeeContent } from './util/helpWithFee.util';
 import { MiamFieldsLoader } from './util/miam.util';
 import { otherProceedingsContents } from './util/otherProceeding.util';
+import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.util';
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
@@ -93,6 +95,7 @@ export const enContent = {
     helpWithFee: '13. Help with Fees',
     whereTheChildrenLive: 'Where the children live',
     detailofOtherPeople: 'Details of the other people in the application',
+    reasonAbleAdjustment: '12. Support you need during your case',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -181,6 +184,7 @@ export const cyContent: typeof enContent = {
     helpWithFee: '13. Help with Fees',
     whereTheChildrenLive: 'Where the children live',
     detailofOtherPeople: 'Details of the other people in the application',
+    reasonAbleAdjustment: '12. Support you need during your case',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -265,6 +269,7 @@ const en = (content: CommonContent, newEnContents?: any) => {
   sections.push(
     SafetyConcerns_others(enContent, userCase),
     InternationalElement(enContent, userCase),
+    reasonableAdjustment(enContent, userCase),
     HelpWithFee(enContent, userCase)
   );
   return {
@@ -306,6 +311,7 @@ const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
   sections.push(
     SafetyConcerns_others(cyContent, userCase),
     InternationalElement(cyContent, userCase),
+    reasonableAdjustment(cyContent, userCase),
     HelpWithFee(cyContent, userCase)
   );
   return {
@@ -346,6 +352,7 @@ export const generateContent: TranslationFn = content => {
     ...ApplicantElements(content['language']),
     ...HelpWithFeeContent(content['language']),
     ...RespondentsElements(content['language']),
+    ...ReasonableAdjustmentElement(content['language']),
     ...{ none: content['language'] === 'en' ? enContent.keys.none : cyContent.keys.none },
   };
   const translations = languages[content.language](content, newContents);

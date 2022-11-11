@@ -1216,3 +1216,28 @@ export const whereDoChildLive = (
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
+
+
+
+export const reasonableAdjustment = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData: any = [
+    {
+      key: keys['doRequireHelpwithFee'],
+      value: userCase['hwf_needHelpWithFees'],
+      changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'], 
+    },
+  ];
+
+    SummaryData.push({
+      key: keys['hwfApplication'],
+      valueHtml: userCase['helpWithFeesReferenceNumber'],
+      changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'], 
+    });
+  return {
+    title: sectionTitles['reasonAbleAdjustment'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
