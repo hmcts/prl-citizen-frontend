@@ -43,7 +43,6 @@ const cy = () => ({
 export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent => {
   const { address, addressUnknown } = caseData;
   const { addressHistory, provideDetailsOfPreviousAddresses } = caseData.address!;
-  console.log(addressUnknown, 'known or not');
 
   const fields = {
     AddressLine1: {
