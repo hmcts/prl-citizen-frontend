@@ -230,7 +230,7 @@ export const C100Sequence: Step[] = [
         data?.ra_disabilityRequirements
       );
       const nextPage = PageStepConfigurator.getNextPage(C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS);
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -242,7 +242,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -254,7 +254,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -266,7 +266,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -278,7 +278,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -290,7 +290,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -306,7 +306,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART2,
     showInSection: Sections.C100,
-    getNextStep: () => C100_TYPE_ORDER_SELECT_COURT_ORDER,
+    getNextStep: () => C100_CHILDERN_DETAILS_ADD,
   },
   {
     url: C100_TYPE_ORDER_SELECT_COURT_ORDER,
@@ -321,7 +321,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_TYPE_ORDER_SHORT_STATEMENT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: (data: Partial<Case>) =>
+      data.sq_writtenAgreement === YesOrNo.YES ? C100_CONSENT_ORDER_UPLOAD : C100_HEARING_URGENCY_URGENT,
   },
   {
     url: C100_START,
@@ -332,17 +333,18 @@ export const C100Sequence: Step[] = [
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE,
+      data.hwf_needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: correct for NO, navigate to check your answers
   },
   {
     url: C100_HELP_WITH_FEES_FEES_APPLIED,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE,
+    getNextStep: (data: Partial<Case>) =>
+      data.hwf_feesAppliedDetails === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: correct for YES, navigate to check your answers
   },
   {
     url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: navigate to check your answers
   },
   {
     url: C100_CHILDERN_DETAILS_ADD,
@@ -384,7 +386,10 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_DETAILS,
+    getNextStep: (data: Partial<Case>) =>
+      data.op_childrenInvolvedCourtCase === YesOrNo.YES || data.op_courtOrderProtection === YesOrNo.YES
+        ? C100_OTHER_PROCEEDINGS_DETAILS
+        : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   },
   {
     url: C100_OTHER_PROCEEDINGS_DETAILS,
@@ -945,6 +950,6 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
+    getNextStep: () => C100_HEARING_URGENCY_URGENT,
   },
 ];
