@@ -7753,10 +7753,10 @@ launchdarkly-eventsource@1.4.4:
   resolved "https://registry.yarnpkg.com/launchdarkly-eventsource/-/launchdarkly-eventsource-1.4.4.tgz#fa595af8602e487c61520787170376c6a1104459"
   integrity sha512-GL+r2Y3WccJlhFyL2buNKel+9VaMnYpbE/FfCkOST5jSNSFodahlxtGyrE8o7R+Qhobyq0Ree4a7iafJDQi9VQ==
 
-launchdarkly-node-server-sdk@^6.4.1:
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/launchdarkly-node-server-sdk/-/launchdarkly-node-server-sdk-6.4.1.tgz#1ef3826d282aa32b6a626d5c633f2a10b51a2bcc"
-  integrity sha512-gJOILeGwJFGmWgDNiotBfw5Z0UrQzaESDZfpPk95qExdL+zvye+TogZth/PYW/shTMORKy+tIhgm666SWBBGCw==
+launchdarkly-node-server-sdk@^6.3.0:
+  version "6.4.3"
+  resolved "https://registry.yarnpkg.com/launchdarkly-node-server-sdk/-/launchdarkly-node-server-sdk-6.4.3.tgz#7a35caee3709d70776173fcd814fa0cd88de1270"
+  integrity sha512-n7L2mAAcKqUUKhCGHRd6soVD3Ws4ME4R+MNShWL0lBBY8yGASIaPAW4rGmkob/hs+grCNRXn8HHlZCufecaX4w==
   dependencies:
     async "^3.1.0"
     launchdarkly-eventsource "1.4.4"
