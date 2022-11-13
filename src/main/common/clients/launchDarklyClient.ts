@@ -1,6 +1,7 @@
 import config from 'config';
-import * as ld from 'ldclient-node';
-import { LDFlagValue } from 'ldclient-node';
+import { LDClient, LDFlagValue, LDUser, init } from 'launchdarkly-node-server-sdk';
+//import * as ld from 'ldclient-node';
+//import { LDFlagValue } from 'ldclient-node';
 
 const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
 const ldConfig = {
@@ -8,11 +9,11 @@ const ldConfig = {
 };
 
 export class LaunchDarklyClient {
-  private static client: ld.LDClient;
+  private static client: LDClient;
 
   constructor() {
     if (!LaunchDarklyClient.client) {
-      LaunchDarklyClient.client = ld.init(sdkKey, ldConfig);
+      LaunchDarklyClient.client = init(sdkKey, ldConfig);
     }
   }
 
@@ -30,9 +31,9 @@ export class LaunchDarklyClient {
     return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
   }*/
 
-  async serviceVariation(featureKey: string, offlineDefault: LDFlagValue): Promise<ld.LDFlagValue> {
+  async serviceVariation(featureKey: string, offlineDefault: LDFlagValue): Promise<LDFlagValue> {
     const roles: string[] = [];
-    const ldUser: ld.LDUser = {
+    const ldUser: LDUser = {
       key: 'citizen-frontend',
       custom: {
         roles,
