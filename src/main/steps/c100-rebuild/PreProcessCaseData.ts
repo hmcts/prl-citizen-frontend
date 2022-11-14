@@ -10,7 +10,7 @@ class PreProcessCaseData {
   ): CaseWithId {
     if (byPass) {
       return {
-        ...(caseData ?? {}),
+        ...caseData,
         ...formData,
       } as CaseWithId;
     }
@@ -29,32 +29,7 @@ class PreProcessCaseData {
 
             if (fieldValue.includes(valueConfig.value)) {
               // if form data value matches with the field values config value
-              if (valueConfig.subFields) {
-                Object.entries(valueConfig.subFields as FormField).forEach(([subField, subFieldConfig]) => {
-                  //This condition satisfies for any field with data type array and as per the framework it works for checkboxes
-                  if (Array.isArray(formData[subField])) {
-                    // This fixes the framework issue with all array values empty for subfield checkbox when the parent checkbox is alone checked.
-                    if (!formData[subField].join(',').replace(/,/g, '')) {
-                      formData[subField] = [];
-                    }
-
-                    if (formData[subField].length) {
-                      // This fixes the framework issue with array values empty along with sub options that were checked in subfield checkboxes.
-                      formData[subField] = subFieldConfig.values.reduce(
-                        (subFieldFormValues, subFieldValueConfig: FormFields) => {
-                          if (formData[subField].includes(subFieldValueConfig.value)) {
-                            subFieldFormValues.push(subFieldValueConfig.value);
-                          }
-                          return subFieldFormValues;
-                        },
-                        []
-                      );
-                    }
-                  }
-
-                  _caseData[subField] = formData[subField];
-                });
-              }
+              this.checkValueConfigSubFields(valueConfig, formData, _caseData);
             } else {
               // if the field values config value is not present in form data then clean up other subfield data from caseData for the fields that has subfields
               if (valueConfig.subFields) {
@@ -68,8 +43,53 @@ class PreProcessCaseData {
 
         return _caseData;
       },
-      { ...(caseData ?? {}) }
+      { ...caseData }
     ) as CaseWithId;
+  }
+
+  private checkValueConfigSubFields(valueConfig, formData, _caseData) {
+    // Guard clause checking for subFields
+    if (!valueConfig.subFields) {
+      return;
+    }
+    Object.entries(valueConfig.subFields as FormField).forEach(([subField, subFieldConfig]) => {
+      //This condition satisfies for any field with data type array and as per the framework it works for checkboxes
+      this.isFormDataArray(formData, subField, subFieldConfig);
+
+      _caseData[subField] = formData[subField];
+    });
+  }
+
+  private isFormDataArray(formData, subField, subFieldConfig) {
+    // This fixes the framework issue with all array values empty for subfield checkbox when the parent checkbox is alone checked.
+    // Introducing a guard clase and early return to reduce Cognitive Complexity
+    if (!Array.isArray(formData)) {
+      return;
+    }
+
+    if (!formData[subField].join(',').replace(/,/g, '')) {
+      formData[subField] = [];
+    }
+
+    this.checkFormDataLengthAndReduce(formData, subField, subFieldConfig);
+  }
+
+  private checkFormDataLengthAndReduce(formData, subField, subFieldConfig) {
+    // Guard clause to check if the length is 0
+    if (!formData[subField].length) {
+      return;
+    }
+    // This fixes the framework issue with array values empty along with sub options that were checked in subfield checkboxes.
+    formData[subField] = subFieldConfig.values.reduce((subFieldFormValues, subFieldValueConfig: FormFields) => {
+      this.isSubFieldValueConfigIncluded(formData, subField, subFieldValueConfig, subFieldFormValues);
+    }, []);
+  }
+
+  private isSubFieldValueConfigIncluded(formData, subField, subFieldValueConfig, subFieldFormValues) {
+    if (!formData[subField].includes[subFieldValueConfig.value]) {
+      return subFieldFormValues;
+    }
+    subFieldFormValues.push(subFieldValueConfig.value);
   }
 }
 
