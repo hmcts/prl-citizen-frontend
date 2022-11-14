@@ -15,11 +15,11 @@ const en = () => ({
   speakInWelsh: 'I need to speak in Welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
-  needInterpreterInCertainLanguageDetailsLabel: `Give details of the language you require (including dialect, 
+  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect, 
     if applicable)`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time',
   errors: {
-    ra_needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Give details of the language you need an interpreter for',
     },
     ra_languageNeeds: {
@@ -40,11 +40,11 @@ const cy = () => ({
   speakInWelsh: 'I need to speak in Welsh - welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh - welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language - welsh',
-  needInterpreterInCertainLanguageDetailsLabel: `Give details of the language you require (including dialect, 
+  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect, 
     if applicable) - welsh`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time - welsh',
   errors: {
-    ra_needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Give details of the language you need an interpreter for - welsh',
     },
     ra_languageNeeds: {
@@ -81,9 +81,9 @@ export const form: FormContent = {
           label: l => l.needInterpreterInCertainLanguage,
           value: 'needInterpreterInCertainLanguage',
           subFields: {
-            ra_needInterpreterInCertainLanguageDetails: {
+            ra_needInterpreterInCertainLanguage_subfield: {
               type: 'textarea',
-              label: l => l.needInterpreterInCertainLanguageDetailsLabel,
+              label: l => l.needInterpreterInCertainLanguage_subfield,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

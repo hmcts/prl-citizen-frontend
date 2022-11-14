@@ -29,13 +29,13 @@ const en = {
     ra_documentInformation: {
       required: 'Select which format you need your documents in',
     },
-    ra_specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocuments_subfield: {
       required: 'Describe which colour you need your documents in',
     },
-    ra_largePrintDocumentsDetails: {
+    ra_largePrintDocuments_subfield: {
       required: 'Describe which large print you need your documents in',
     },
-    ra_otherDetails: {
+    ra_documentHelpOther_subfield: {
       required: 'Describe which alternative format you need your documents in',
     },
   },
@@ -63,13 +63,13 @@ const cy = {
     ra_documentInformation: {
       required: 'Select which format you need your documents in - welsh',
     },
-    ra_specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocuments_subfield: {
       required: 'Describe which colour you need your documents in - welsh',
     },
-    ra_largePrintDocumentsDetails: {
+    ra_largePrintDocuments_subfield: {
       required: 'Describe which large print you need your documents in - welsh',
     },
-    ra_otherDetails: {
+    ra_documentHelpOther_subfield: {
       required: 'Describe which alternative format you need your documents in - welsh',
     },
   },
@@ -126,7 +126,7 @@ describe('Disability requirements content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('specifiedColorDocuments');
 
     const specifiedColorDocumentsDetailsField = documentInformationField.values[0].subFields
-      ?.ra_specifiedColorDocumentsDetails as FormOptions;
+      ?.ra_specifiedColorDocuments_subfield as FormOptions;
     expect(specifiedColorDocumentsDetailsField.type).toBe('textarea');
     expect((specifiedColorDocumentsDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (specifiedColorDocumentsDetailsField.validator as Function)('test text area');
@@ -134,14 +134,15 @@ describe('Disability requirements content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
 
     const largePrintDocumentsDetailsField = documentInformationField.values[3].subFields
-      ?.ra_largePrintDocumentsDetails as FormOptions;
+      ?.ra_largePrintDocuments_subfield as FormOptions;
     expect(largePrintDocumentsDetailsField.type).toBe('textarea');
     expect((largePrintDocumentsDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (largePrintDocumentsDetailsField.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
 
-    const otherDetailsField = documentInformationField.values[7].subFields?.ra_otherDetails as FormOptions;
+    const otherDetailsField = documentInformationField.values[7].subFields
+      ?.ra_documentHelpOther_subfield as FormOptions;
     expect(otherDetailsField.type).toBe('textarea');
     expect((otherDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (otherDetailsField.validator as Function)('test text area');
