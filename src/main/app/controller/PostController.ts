@@ -257,7 +257,7 @@ export class PostController<T extends AnyObject> {
     }
 
     const citizenUser = req.session.user;
-
+    console.log('=====citizenUser===='+citizenUser);
     const cosApiClient = new CosApiClient(citizenUser.accessToken, 'http://localhost:3001');
     const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
     console.log('retrieved casedata for case : ' + caseDataFromCos);
