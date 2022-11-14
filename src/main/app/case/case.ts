@@ -481,8 +481,8 @@ export interface Case {
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;
   ra_disabilityRequirements?: string[];
-  needHelpWithFees?: YesOrNo;
-  feesAppliedDetails?: YesOrNo;
+  hwf_needHelpWithFees?: YesOrNo;
+  hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
   c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
@@ -504,8 +504,6 @@ export interface Case {
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
-  childFirstName?: ChildrenDetails['firstName'];
-  childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
   ocd_otherChildren?: OtherChildrenDetails[];
   ocd_hasOtherChildren?: YesOrNo;
@@ -528,6 +526,8 @@ export interface Case {
   c100TempLastName?: string;
   resp_Respondents?: C100RebuildPartyDetails[];
   appl_allApplicants?: C100Applicant[];
+  op_childrenInvolvedCourtCase?: YesOrNo;
+  op_courtOrderProtection?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

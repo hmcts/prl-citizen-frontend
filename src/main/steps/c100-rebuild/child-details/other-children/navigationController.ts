@@ -7,7 +7,7 @@ import {
   C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
   PageLink,
 } from '../../../urls';
-import { getNextChild } from '../util';
+import { getNextPerson } from '../../people/util';
 
 class OtherChildrenDetailsNavigationController {
   private otherChildrenDetails: OtherChildrenDetails[] | [] = [];
@@ -28,7 +28,7 @@ class OtherChildrenDetailsNavigationController {
         break;
       }
       case C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS: {
-        const nextChild = getNextChild(this.otherChildrenDetails, this.childId);
+        const nextChild = getNextPerson(this.otherChildrenDetails, this.childId);
         nextUrl = nextChild
           ? applyParms(C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS, { childId: nextChild.id })
           : C100_APPLICANT_ADD_APPLICANTS;

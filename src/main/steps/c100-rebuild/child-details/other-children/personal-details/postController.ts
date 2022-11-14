@@ -2,11 +2,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { OtherChildrenDetails } from '../../../../../app/case/definition';
+import { OtherChildrenDetails, PartyType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { getChildDetails, transformOtherChildFormData, updateChildDetails } from '../../util';
+import { PartyDetailsVariant, getPartyDetails, transformPartyDetails, updatePartyDetails } from '../../../people/util';
 
 import { getFormFields } from './content';
 
@@ -21,10 +21,15 @@ export default class PersonaldetailsPostController extends PostController<AnyObj
     const form = new Form(getFormFields().fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const childDetails = getChildDetails(req.session.userCase.ocd_otherChildren!, childId) as OtherChildrenDetails;
 
-    Object.assign(childDetails.personalDetails, transformOtherChildFormData('personalDetails', formData));
-    req.session.userCase.ocd_otherChildren = updateChildDetails(req.session.userCase.ocd_otherChildren!, childDetails);
+    req.session.userCase.ocd_otherChildren = updatePartyDetails(req.session.userCase.ocd_otherChildren, {
+      ...(getPartyDetails(req.session.userCase.ocd_otherChildren, childId) as OtherChildrenDetails),
+      personalDetails: transformPartyDetails(
+        PartyType.OTHER_CHILDREN,
+        PartyDetailsVariant.PERSONAL_DETAILS,
+        formData
+      ) as OtherChildrenDetails['personalDetails'],
+    }) as OtherChildrenDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
