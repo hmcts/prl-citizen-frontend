@@ -26,17 +26,11 @@ class PreProcessCaseData {
           // clean up the caseData for field types radios & checkboxes
           fieldValues.forEach(valueConfig => {
             const fieldValue = Array.isArray(formFieldValue) ? formFieldValue : [formFieldValue];
-
             if (fieldValue.includes(valueConfig.value)) {
               // if form data value matches with the field values config value
-              this.checkValueConfigSubFields(valueConfig, formData, _caseData);
+              this.transformSubFieldEntries(valueConfig, formData, _caseData);
             } else {
-              // if the field values config value is not present in form data then clean up other subfield data from caseData for the fields that has subfields
-              if (valueConfig.subFields) {
-                Object.keys(valueConfig.subFields).forEach(subField => {
-                  delete _caseData[subField];
-                });
-              }
+              this.transformSubFieldKeys(valueConfig, _caseData);
             }
           });
         }
@@ -47,7 +41,18 @@ class PreProcessCaseData {
     ) as CaseWithId;
   }
 
-  private checkValueConfigSubFields(valueConfig, formData, _caseData) {
+  private transformSubFieldKeys(valueConfig, _caseData) {
+    // Guard clause for an early return
+    if (!valueConfig.subFields) {
+      return;
+    }
+    // if the field values config value is not present in form data then clean up other subfield data from caseData for the fields that has subfields
+    Object.keys(valueConfig.subFields).forEach(subField => {
+      delete _caseData[subField];
+    });
+  }
+
+  private transformSubFieldEntries(valueConfig, formData, _caseData) {
     // Guard clause checking for subFields
     if (!valueConfig.subFields) {
       return;
