@@ -13,6 +13,7 @@ export class LaunchDarklyClient {
 
   constructor() {
     if (!LaunchDarklyClient.client) {
+      console.log('sdkKey received -' + sdkKey);
       LaunchDarklyClient.client = init(sdkKey, ldConfig);
     }
   }
