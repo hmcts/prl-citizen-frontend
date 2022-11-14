@@ -25,10 +25,13 @@ export default class AddressLookupPostController extends PostController<AnyObjec
 
     req.session.errors = form.getErrors(formData);
 
-    req.session.userCase.oprs_otherPersons = updatePartyDetails(req.session.userCase.oprs_otherPersons, {
-      ...(getPartyDetails(req.session.userCase.oprs_otherPersons, otherPersonId) as C100RebuildPartyDetails),
-      address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
-    }) as C100RebuildPartyDetails[];
+    req.session.userCase.oprs_otherPersons = updatePartyDetails(
+      {
+        ...(getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons) as C100RebuildPartyDetails),
+        address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
+      },
+      req.session.userCase.oprs_otherPersons
+    ) as C100RebuildPartyDetails[];
 
     if (!req.session.errors.length) {
       req.session.addresses = (await getAddressesFromPostcode(postcode, req.locals.logger)) as [];

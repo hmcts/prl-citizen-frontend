@@ -22,14 +22,17 @@ export default class PersonaldetailsPostController extends PostController<AnyObj
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    req.session.userCase.oprs_otherPersons = updatePartyDetails(req.session.userCase.oprs_otherPersons, {
-      ...(getPartyDetails(req.session.userCase.oprs_otherPersons, otherPersonId) as C100RebuildPartyDetails),
-      personalDetails: transformPartyDetails(
-        PartyType.OTHER_PERSON,
-        PartyDetailsVariant.PERSONAL_DETAILS,
-        formData
-      ) as C100RebuildPartyDetails['personalDetails'],
-    }) as C100RebuildPartyDetails[];
+    req.session.userCase.oprs_otherPersons = updatePartyDetails(
+      {
+        ...(getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons) as C100RebuildPartyDetails),
+        personalDetails: transformPartyDetails(
+          PartyType.OTHER_PERSON,
+          PartyDetailsVariant.PERSONAL_DETAILS,
+          formData
+        ) as C100RebuildPartyDetails['personalDetails'],
+      },
+      req.session.userCase.oprs_otherPersons
+    ) as C100RebuildPartyDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

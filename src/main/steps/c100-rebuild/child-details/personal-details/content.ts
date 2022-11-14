@@ -257,7 +257,7 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getPartyDetails(content.userCase!.cd_children, childId)!;
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children)!;
   const { fields } = generateFormFields(childDetails.personalDetails);
 
   return {

@@ -21,11 +21,14 @@ export default class ManualAddressPostController extends PostController<AnyObjec
     const form = new Form(getUpdatedForm().fields as FormFields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    req.session.userCase.resp_Respondents = updatePartyDetails(req.session.userCase.resp_Respondents, {
-      ...(getPartyDetails(req.session.userCase.resp_Respondents, respondentId) as C100RebuildPartyDetails),
-      address: transformPartyDetails(PartyType.RESPONDENT, PartyDetailsVariant.ADDRESS, formData) as C100Address,
-      addressUnknown: formData['addressUnknown'],
-    }) as C100RebuildPartyDetails[];
+    req.session.userCase.resp_Respondents = updatePartyDetails(
+      {
+        ...(getPartyDetails(respondentId, req.session.userCase.resp_Respondents) as C100RebuildPartyDetails),
+        address: transformPartyDetails(PartyType.RESPONDENT, PartyDetailsVariant.ADDRESS, formData) as C100Address,
+        addressUnknown: formData['addressUnknown'],
+      },
+      req.session.userCase.resp_Respondents
+    ) as C100RebuildPartyDetails[];
 
     req.session.errors = form.getErrors(formData);
     this.redirect(req, res);

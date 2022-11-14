@@ -28,12 +28,11 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         //eslint-disable-next-line @typescript-eslint/no-explicit-any
         const selectedAddress = req.session.addresses[selectedAddressIndex] as any;
         const respondentDetails = getPartyDetails(
-          req.session.userCase.resp_Respondents!,
-          respondentId
+          respondentId,
+          req.session.userCase.resp_Respondents!
         ) as C100RebuildPartyDetails;
 
         req.session.userCase.resp_Respondents = updatePartyDetails(
-          req.session.userCase.resp_Respondents as C100RebuildPartyDetails[],
           {
             ...respondentDetails,
             address: {
@@ -44,7 +43,8 @@ export default class SelectAddressPostController extends PostController<AnyObjec
               County: selectedAddress.county,
               Country: 'United Kingdom',
             } as C100Address,
-          }
+          },
+          req.session.userCase.resp_Respondents as C100RebuildPartyDetails[]
         ) as C100RebuildPartyDetails[];
       }
     }

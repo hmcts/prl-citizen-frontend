@@ -22,14 +22,17 @@ export default class ChildMattersPostController extends PostController<AnyObject
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    req.session.userCase.cd_children = updatePartyDetails(req.session.userCase.cd_children, {
-      ...(getPartyDetails(req.session.userCase.cd_children, childId) as ChildrenDetails),
-      childMatters: transformPartyDetails(
-        PartyType.CHILDREN,
-        PartyDetailsVariant.CHILD_MATTERS,
-        formData
-      ) as ChildrenDetails['childMatters'],
-    }) as ChildrenDetails[];
+    req.session.userCase.cd_children = updatePartyDetails(
+      {
+        ...(getPartyDetails(childId, req.session.userCase.cd_children) as ChildrenDetails),
+        childMatters: transformPartyDetails(
+          PartyType.CHILDREN,
+          PartyDetailsVariant.CHILD_MATTERS,
+          formData
+        ) as ChildrenDetails['childMatters'],
+      },
+      req.session.userCase.cd_children
+    ) as ChildrenDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
