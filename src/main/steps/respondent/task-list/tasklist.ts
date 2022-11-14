@@ -1,4 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
+import { SectionStatus } from '../../../app/case/definition';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
 import * as URL from '../../urls';
 
@@ -107,8 +108,8 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
     itemList.push({
       id: 'check_the_application',
       text: taskListItems.check_the_application,
-      status: getMiamStatus(userCase),
-      href: URL.MIAM_START,
+      status: SectionStatus.DOWNLOAD,
+      href: `${URL.APPLICANT}${URL.APPLICANT_CA_DA_REQUEST}`,
     });
   }
 
