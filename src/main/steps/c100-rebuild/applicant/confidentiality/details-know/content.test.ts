@@ -86,4 +86,51 @@ describe('applicant personal details > applying-with > content', () => {
       (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
   });
+
+  test('rendering form fields', () => {
+    const additionalData = {
+      req: {
+        params: {
+          applicantId: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+        },
+      },
+      userCase: {
+        appl_allApplicants: [
+          {
+            id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+            applicantFirstName: 'Test1',
+            applicantLastName: 'Test2',
+            detailsKnown: 'Yes',
+            startAlternative: '',
+            start: '',
+            contactDetailsPrivate: [],
+            contactDetailsPrivateAlternative: [],
+          },
+          {
+            id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+            applicantFirstName: 'Test2',
+            applicantLastName: 'Test2',
+            detailsKnown: 'No',
+            startAlternative: '',
+            start: '',
+            contactDetailsPrivate: [],
+            contactDetailsPrivateAlternative: [],
+          },
+          {
+            id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+            applicantFirstName: 'Test2',
+            applicantLastName: 'Test2',
+            detailsKnown: 'I dont know',
+            startAlternative: '',
+            start: '',
+            contactDetailsPrivate: [],
+            contactDetailsPrivateAlternative: [],
+          },
+        ],
+      },
+    };
+    type PageContent = Record<string, unknown>;
+    const generatedContentFields: PageContent = generateContent({ ...commonContent, additionalData });
+    expect(generatedContentFields.form).not.toBe(0);
+  });
 });

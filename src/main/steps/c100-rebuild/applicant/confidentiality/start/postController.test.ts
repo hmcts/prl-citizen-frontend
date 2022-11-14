@@ -26,7 +26,7 @@ const dummyData = [
     detailsKnown: 'Yes',
     startAlternative: '',
     start: 'Yes',
-    contactDetailsPrivate: ['email'],
+    contactDetailsPrivate: ['address', 'telephone', 'email'],
     contactDetailsPrivateAlternative: [],
   },
 ];
@@ -66,6 +66,22 @@ describe('StartPostController - post Controller', () => {
     expect(
       req.session.userCase['appl_allApplicants'].findIndex(applicant => applicant['id'] === req.params['applicantId'])
     ).not.toBe(0);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Checking if Yes option is selected and also list of nested contact details selected', async () => {
+    const language = 'en';
+    req.session.lang = language;
+    req.session.userCase.appl_allApplicants = dummyData;
+    req['params']['applicantId'] = 'd8d2d081-115e-49e6-add9-bd8b0e3e851a';
+    req['body'] = {
+      start: 'Yes',
+    };
+    await controller.post(req, res);
+    expect(req.session.userCase['appl_allApplicants'][0]).toEqual(dummyData[0]);
+    expect(
+      req.session.userCase['appl_allApplicants'].findIndex(applicant => applicant['id'] === req.params['applicantId'])
+    ).not.toBe(-1);
     expect(res.redirect).toHaveBeenCalled();
   });
 });

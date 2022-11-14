@@ -96,9 +96,7 @@ export const generateContent: TranslationFn = content => {
   const contactDetailsPrivate = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0]?.[
     'contactDetailsPrivate'
   ] as [];
-  console.log({ contactDetailsPrivate });
   let detailKnownFormField = form.fields['start']['values']!;
-
   const formFieldValues = [
     {
       label: l => l.one,

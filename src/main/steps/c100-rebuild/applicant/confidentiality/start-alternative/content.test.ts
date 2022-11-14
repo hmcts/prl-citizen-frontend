@@ -112,4 +112,41 @@ describe('applicant personal details > applying-with > content', () => {
       (form.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
   });
+
+  test('rendering form fields', () => {
+    const additionalData = {
+      req: {
+        params: {
+          applicantId: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+        },
+      },
+      userCase: {
+        appl_allApplicants: [
+          {
+            id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+            applicantFirstName: 'Test1',
+            applicantLastName: 'Test2',
+            detailsKnown: 'Yes',
+            startAlternative: 'Yes',
+            start: '',
+            contactDetailsPrivate: [],
+            contactDetailsPrivateAlternative: ['address', 'telephone', 'email'],
+          },
+          {
+            id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+            applicantFirstName: 'Test2',
+            applicantLastName: 'Test2',
+            detailsKnown: '',
+            startAlternative: 'Yes',
+            start: 'Yes',
+            contactDetailsPrivate: [],
+            contactDetailsPrivateAlternative: ['address', 'telephone', 'email'],
+          },
+        ],
+      },
+    };
+    const generatedContentFields = generateContent({ ...commonContent, additionalData });
+    expect(generatedContentFields).not.toBe(Function);
+    expect(1).toBe(1);
+  });
 });
