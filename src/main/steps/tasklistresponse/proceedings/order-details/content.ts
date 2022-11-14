@@ -342,7 +342,7 @@ export const form: FormContent = {
       value: 'Yes',
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.onlyContinue,
   },
 };

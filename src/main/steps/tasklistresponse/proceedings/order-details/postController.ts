@@ -26,7 +26,7 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
     const orderType = req.params.orderType as ProceedingsOrderTypes;
     const orderTypeCaseKey = ProceedingsOrderTypeKeyMapper[orderType];
     const form = new Form(getFormFields().fields as FormFields);
-    const { addOrder, onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { addOrder, onlyContinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const newData: Partial<Case> = {
       otherProceedings: {
@@ -62,7 +62,7 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
         },
       ];
       super.redirect(req, res, req.originalUrl);
-    } else if (onlycontinue) {
+    } else if (onlyContinue) {
       super.redirect(req, res);
     }
   }

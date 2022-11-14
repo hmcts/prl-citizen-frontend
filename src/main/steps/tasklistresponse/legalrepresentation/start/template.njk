@@ -20,7 +20,7 @@
         {% endif %}
       {% endfor %}
     <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
-
+    {{csrfToken}}
     {% if formaction == 'Yes' %}
     {{ govukRadios({
     idPrefix: "legalRepresentation",

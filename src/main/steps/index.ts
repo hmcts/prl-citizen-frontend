@@ -99,11 +99,12 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     queryString = `?${QueryString.stringify(finalQueryString)}`;
   }
 
-  return `${url}${queryString}`;
+  return `${urlPath}${queryString}`;
 };
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
-  const [path, searchParams] = req.originalUrl.split('?');
+  const path = req.route.path;
+  const [, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
 };

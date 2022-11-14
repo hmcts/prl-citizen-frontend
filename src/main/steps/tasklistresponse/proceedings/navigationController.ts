@@ -9,7 +9,7 @@ import { applyParms } from '../../../steps/common/url-parser';
 import {
   COURT_PROCEEDINGS_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
-  PROCEEDINGS_DOCUMENT_UPLOAD,
+  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PROCEEDINGS_ORDER_DETAILS,
   PageLink,
   RESPOND_TO_APPLICATION,
@@ -38,7 +38,7 @@ class OtherProceedingsNavigationController {
   }
 
   private getOrdersByType(caseData): ProceedingsOrderInterface[] | [] {
-    return caseData?.op_otherProceedings?.order[ProceedingsOrderTypeKeyMapper[this.orderType]] ?? [];
+    return caseData?.otherProceedings?.order[ProceedingsOrderTypeKeyMapper[this.orderType]] ?? [];
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPage: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
@@ -56,7 +56,7 @@ class OtherProceedingsNavigationController {
         const orderId = this.getOrderId();
         if (orderId) {
           // if any order has order copy to be uploaded
-          nextUrl = applyParms(PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
+          nextUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
         } else {
           // none of the orders in the current order type have order copy to be uploaded
           const nextOrderType = this.getNextOrderType();
@@ -74,11 +74,11 @@ class OtherProceedingsNavigationController {
         }
         break;
       }
-      case PROCEEDINGS_DOCUMENT_UPLOAD: {
+      case C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: {
         const nextOrderId = this.getNextOrderId();
         if (nextOrderId) {
           // if there are any more orders with order copy
-          nextUrl = applyParms(PROCEEDINGS_DOCUMENT_UPLOAD, {
+          nextUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
             orderType: this.orderType,
             orderId: nextOrderId,
           });
