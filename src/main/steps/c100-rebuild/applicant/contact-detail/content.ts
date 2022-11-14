@@ -9,7 +9,6 @@ const en = () => ({
   serviceName: 'Child Arrangements',
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
-  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address',
   emailAdddressLabel: 'Your email address',
   telephoneNumberLabel: 'Your telephone phone',
   canProvideTelephoneNumberLabel: 'I can provide a telephone number',
@@ -38,9 +37,6 @@ const en = () => ({
     canNotProvideTelephoneNumberReason: {
       required: 'Please tell us why you cannot provide telephone number',
     },
-    canNotProvideEmailReason: {
-      required: 'Please tell us why you cannot provide email address',
-    },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option',
     },
@@ -51,9 +47,7 @@ const cy = () => ({
   title: 'Contact details of - welsh',
   serviceName: 'Child Arrangements - welsh',
   canProvideEmailLabel: 'I can provide an email address - welsh',
-  canNotProvideEmailLabel: 'I cannot provide an email address - welsh',
   emailAdddressLabel: 'Your email address - welsh',
-  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address - welsh',
   telephoneNumberLabel: 'Your telephone number - welsh',
   canProvideTelephoneNumberLabel: 'I can provide a telephone number - welsh',
   canNotProvideTelephoneNumberLabel: 'I cannot provide a telephone number - welsh',
@@ -80,9 +74,6 @@ const cy = () => ({
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Please tell us why you cannot provide telephone number - welsh',
-    },
-    canNotProvideEmailReason: {
-      required: 'Please tell us why you cannot provide email address - welsh',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option - welsh',
@@ -115,7 +106,6 @@ export const generateFormFields = (
   const {
     canProvideEmail,
     emailAddress,
-    canNotProvideEmailReason,
     canProvideTelephoneNumber,
     telephoneNumber,
     canNotProvideTelephoneNumberReason,
@@ -148,15 +138,6 @@ export const generateFormFields = (
           label: l => l.canNotProvideEmailLabel,
           selected: canProvideEmail === YesNoEmpty.NO,
           value: YesNoEmpty.NO,
-          subFields: {
-            canNotProvideEmailReason: {
-              type: 'text',
-              label: l => l.canNotProvideEmailReasonLabel,
-              labelSize: null,
-              value: canNotProvideEmailReason,
-              validator: isFieldFilledIn,
-            },
-          },
         },
       ],
       validator: isFieldFilledIn,

@@ -155,7 +155,7 @@ describe('ChildrenDetailsNavigationController', () => {
 
     expect(
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, mock.session.userCase, mock.params)
-    ).toBe('/c100-rebuild/safety-concerns/concern-guidance');
+    ).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
   });
 
   test('From a screen where the next step is not computed using ChildrenDetailsNavigationController.getNextUrl -> navigate to the same screen when navigation controller is invoked from any other screen', async () => {

@@ -23,6 +23,9 @@ export class PropertiesVolume {
     } else {
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
       this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
+      this.setLocalSecret('system-update-user-username', 'services.idam.systemUsername');
+      this.setLocalSecret('system-update-user-password', 'services.idam.systemPassword');
+      this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
       this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
@@ -31,7 +34,6 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemPassword');
       this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
-      this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setLocalSecret('idam-solicitor-username', 'services.idam.systemUsername');
       this.setLocalSecret('idam-solicitor-password', 'services.idam.systemPassword');
       //this.setLocalEndpoints();

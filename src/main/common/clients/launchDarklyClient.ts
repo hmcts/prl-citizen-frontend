@@ -5,7 +5,7 @@ import { LDClient, LDFlagValue, LDUser, init } from 'launchdarkly-node-server-sd
 
 const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
 const ldConfig = {
-  offline: config.get<boolean>('launchDarkly.offline'),
+  offline: false,
 };
 
 export class LaunchDarklyClient {

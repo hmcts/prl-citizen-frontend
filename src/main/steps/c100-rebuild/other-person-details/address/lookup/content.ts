@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL } from '../../../../../steps/urls';
-import { getOtherPersonDetails } from '../../../other-person-details/util';
+import { getPartyDetails } from '../../../people/util';
 import { form as lookupAddressForm, languages as lookupAddressFormLanguages } from '../common/address-lookup';
 
 let updatedForm: FormContent;
@@ -71,7 +71,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const lookupAddressFormTranslations = lookupAddressFormLanguages[content.language]();
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
-  const otherPersonDetails = getOtherPersonDetails(content.userCase!.oprs_otherPersons ?? [], otherPersonId)!;
+  const otherPersonDetails = getPartyDetails(
+    content.userCase?.oprs_otherPersons,
+    otherPersonId
+  ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 
   return {

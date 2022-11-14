@@ -6,7 +6,7 @@ import {
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
 } from '../../../../../steps/urls';
-import { getOtherPersonDetails } from '../../../other-person-details/util';
+import { getPartyDetails } from '../../../people/util';
 import { form as selectAddressForm, languages as selectAddressFormLanguages } from '../common/address-select';
 
 let updatedForm: FormContent;
@@ -70,13 +70,16 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const selectAddressFormTranslations = selectAddressFormLanguages[content.language](content);
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
-  const otherPersonDetails = getOtherPersonDetails(content.userCase!.oprs_otherPersons ?? [], otherPersonId)!;
+  const otherPersonDetails = getPartyDetails(
+    content.userCase?.oprs_otherPersons,
+    otherPersonId
+  ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 
   return {
     ...translations,
     ...selectAddressFormTranslations,
-    adddressPostCode: otherPersonDetails!.address!.PostCode,
+    adddressPostCode: otherPersonDetails.address?.PostCode,
     changePostCodeUrl: applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId }),
     cantFindAddressUrl: applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, { otherPersonId }),
     title: `${translations.title} ${firstName} ${lastName}`,
