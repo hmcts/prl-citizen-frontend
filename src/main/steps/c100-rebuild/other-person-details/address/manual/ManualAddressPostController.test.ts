@@ -59,6 +59,7 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
             },
           },
         ],
+        onlycontinue: true,
       },
       session: {
         lang: language,

@@ -8,6 +8,7 @@ const en = () => ({
   addressLine1: 'Building and street',
   town: 'Town or city',
   county: 'County',
+  country: 'Country',
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
   addressHistoryLabel: 'Have you lived at this address for more than 5 years?',
@@ -21,6 +22,7 @@ const cy = () => ({
   addressLine1: 'Building and street - welsh',
   town: 'Town or city - welsh',
   county: 'County - welsh',
+  country: 'Country - welsh',
   postcode: 'Postcode - welsh',
   enterInternationalAddress: 'Enter an international address - welsh',
   addressHistoryLabel: 'Have you lived at this address for more than 5 years? - welsh',
@@ -39,6 +41,7 @@ export const form = (caseData: Partial<C100Applicant>): FormContent => {
     applicantAddressPostcode,
     applicantAddressHistory,
     applicantProvideDetailsOfPreviousAddresses,
+    country,
   } = caseData;
 
   return {
@@ -83,6 +86,14 @@ export const form = (caseData: Partial<C100Applicant>): FormContent => {
           maxLength: 14,
         },
         validator: isInvalidPostcode,
+      },
+      country: {
+        type: 'text',
+        classes: 'govuk-label govuk-!-width-two-thirds',
+        label: l => l.country,
+        value: country,
+        labelSize: null,
+        validator: isFieldFilledIn,
       },
       addressHistory: {
         type: 'radios',

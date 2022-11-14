@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { PartyType } from '../../../../../app/case/definition';
+import { C100RebuildPartyDetails, PartyType } from '../../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
@@ -96,7 +96,7 @@ describe('Add children  > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields([getDataShape(PartyType.OTHER_CHILDREN)]);
+    const { errors } = generateFormFields([getDataShape(PartyType.OTHER_CHILDREN) as C100RebuildPartyDetails]);
     languageAssertions(
       'en',
       {
@@ -112,7 +112,7 @@ describe('Add children  > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields([getDataShape(PartyType.OTHER_CHILDREN)]);
+    const { errors } = generateFormFields([getDataShape(PartyType.OTHER_CHILDREN) as C100RebuildPartyDetails]);
     languageAssertions(
       'cy',
       {

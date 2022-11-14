@@ -21,6 +21,9 @@ const en = {
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
+    Country: {
+      required: 'Enter the country',
+    },
   },
 };
 
@@ -40,6 +43,9 @@ const cy = {
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+    },
+    Country: {
+      required: 'Enter the country - welsh',
     },
   },
 };
