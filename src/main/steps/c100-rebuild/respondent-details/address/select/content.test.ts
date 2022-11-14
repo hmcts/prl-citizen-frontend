@@ -66,7 +66,7 @@ describe('respondent > address > select > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');

@@ -42,17 +42,10 @@ export default class SelectAddressPostController extends PostController<AnyObjec
               AddressLine2: selectedAddress.street2,
               PostTown: selectedAddress.town,
               County: selectedAddress.county,
-              Country: selectedAddress.country,
+              Country: 'United Kingdom',
             } as C100Address,
           }
         ) as C100RebuildPartyDetails[];
-
-        formData['AddressLine1'] = selectedAddress.street1;
-        formData['AddressLine2'] = selectedAddress.street2;
-        formData['PostTown'] = selectedAddress.town;
-        formData['County'] = selectedAddress.county;
-        formData['Country'] = selectedAddress.country;
-        formData['PostCode'] = selectedAddress.postcode;
       }
     }
     this.redirect(req, res);

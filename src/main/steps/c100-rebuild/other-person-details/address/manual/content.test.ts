@@ -15,8 +15,8 @@ const en = {
       required: 'Enter the town or city',
     },
     PostCode: {
-      required: 'Enter the Post Code',
-      invalid: 'Enter the Post Code',
+      required: 'Enter the postcode',
+      invalid: 'Enter a valid postcode',
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
@@ -35,8 +35,8 @@ const cy = {
       required: 'Enter the town or city - welsh',
     },
     PostCode: {
-      required: 'Enter the Post Code - welsh',
-      invalid: 'Enter the Post Code - welsh',
+      required: 'Enter the postcode - welsh',
+      invalid: 'Enter a valid postcode - welsh',
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
@@ -92,7 +92,7 @@ describe('applicant > address > manual > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');

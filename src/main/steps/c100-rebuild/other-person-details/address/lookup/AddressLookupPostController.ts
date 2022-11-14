@@ -21,7 +21,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
     const { otherPersonId } = req.params;
 
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { onlycontinue, saveAndComeLater, _csrf, ...formData } = req.body;
 
     req.session.errors = form.getErrors(formData);
 
@@ -34,6 +34,10 @@ export default class AddressLookupPostController extends PostController<AnyObjec
       req.session.addresses = (await getAddressesFromPostcode(postcode, req.locals.logger)) as [];
     }
 
-    this.redirect(req, res);
+    if (onlycontinue) {
+      this.redirect(req, res);
+    } else if (saveAndComeLater) {
+      super.saveAndComeLater(req, res, req.session.userCase);
+    }
   }
 }

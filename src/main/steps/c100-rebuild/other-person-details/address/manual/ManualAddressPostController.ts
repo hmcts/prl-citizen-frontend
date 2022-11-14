@@ -23,7 +23,7 @@ export default class ManualAddressPostController extends PostController<AnyObjec
     req.session.userCase.oprs_otherPersons = updatePartyDetails(
       req.session.userCase.oprs_otherPersons as C100RebuildPartyDetails[],
       {
-        ...(getPartyDetails(req.session.userCase.oprs_otherPersons!, otherPersonId) as C100RebuildPartyDetails),
+        ...(getPartyDetails(req.session.userCase.oprs_otherPersons, otherPersonId) as C100RebuildPartyDetails),
         address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
         addressUnknown: formData['addressUnknown'],
       }

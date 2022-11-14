@@ -721,9 +721,12 @@ describe('C100Sequence', () => {
     expect(C100Sequence[107].getNextStep({ oprs_otherPersonCheck: YesOrNo.YES })).toBe(
       '/c100-rebuild/other-person-details/add-other-persons'
     );
-    expect(C100Sequence[107].getNextStep({ oprs_otherPersonCheck: YesOrNo.NO })).toBe(
-      '/c100-rebuild/other-proceedings/current-previous-proceedings'
-    );
+    expect(
+      C100Sequence[107].getNextStep(
+        { ...otherPersonMockData.session.userCase, oprs_otherPersonCheck: YesOrNo.NO },
+        otherPersonMockData
+      )
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with');
 
     expect(C100Sequence[108].url).toBe('/c100-rebuild/other-person-details/add-other-persons');
     expect(C100Sequence[108].showInSection).toBe('c100');
@@ -752,7 +755,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[112].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/manual');
     expect(C100Sequence[112].showInSection).toBe('c100');
     expect(C100Sequence[112].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/other-proceedings/current-previous-proceedings'
+      '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with'
     );
 
     expect(C100Sequence[113].url).toBe(
@@ -770,7 +773,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[115].url).toBe('/c100-rebuild/child-details/:childId/live-with');
     expect(C100Sequence[115].showInSection).toBe('c100');
     expect(C100Sequence[115].getNextStep(childrenMockData.session.userCase, childrenMockData)).toBe(
-      '/c100-rebuild/safety-concerns/concern-guidance'
+      '/c100-rebuild/other-proceedings/current-previous-proceedings'
     );
 
     expect(C100Sequence[116].url).toBe('/c100-rebuild/applicant/:applicantId/personal-details');
