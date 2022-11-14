@@ -41,14 +41,14 @@ describe('StartAlternativePostController - post Controller', () => {
     const language = 'en';
     req.session.lang = language;
     req.session.userCase.appl_allApplicants = dummyData;
-    req['query']['applicantId'] = '480e8295-4c5b-4b9b-827f-f9be423ec1c5';
+    req['params']['applicantId'] = '480e8295-4c5b-4b9b-827f-f9be423ec1c5';
     req['body'] = {
       startAlternative: 'Yes',
     };
     await controller.post(req, res);
     expect(req.session.userCase['appl_allApplicants']).toEqual(dummyData);
     expect(
-      req.session.userCase['appl_allApplicants'].findIndex(applicant => applicant['id'] === req.query['applicantId'])
+      req.session.userCase['appl_allApplicants'].findIndex(applicant => applicant['id'] === req.params['applicantId'])
     ).toBe(0);
     expect(res.redirect).toHaveBeenCalled();
   });
@@ -57,15 +57,15 @@ describe('StartAlternativePostController - post Controller', () => {
     const language = 'en';
     req.session.lang = language;
     req.session.userCase.appl_allApplicants = dummyData;
-    req['query']['applicantId'] = 'd8d2d081-115e-49e6-add9-bd8b0e3e851a';
+    req['params']['applicantId'] = 'd8d2d081-115e-49e6-add9-bd8b0e3e851a';
     req['body'] = {
       startAlternative: 'No',
     };
     await controller.post(req, res);
     expect(req.session.userCase['appl_allApplicants']).toEqual(dummyData);
     expect(
-      req.session.userCase['appl_allApplicants'].findIndex(applicant => applicant['id'] === req.query['applicantId'])
-    ).not.toBe(0);
+      req.session.userCase['appl_allApplicants'].findIndex(applicant => applicant['id'] === req.params['applicantId'])
+    ).not.toBe(-1);
     expect(res.redirect).toHaveBeenCalled();
   });
 });
