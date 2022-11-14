@@ -214,7 +214,6 @@ export const additionalTitlesMiam = SystemLanguage => {
 };
 
 export const MiamFieldsLoader = (SystemLanguageContent, content) => {
-  console.log({ ...SystemLanguageContent(content, MiamContentsForDomensticVoilence) });
   return {
     ...SystemLanguageContent(content, MiamContentsForDomensticVoilence),
     ...SystemLanguageContent(content, MiamContentsForUrgentHearing),
