@@ -32,10 +32,6 @@ class PageStepConfigurator {
       const page = filteredPage?.steps.find(_page => _page.id === pId);
 
       if (page) {
-        // const prevPageId = currentArray[pageIndex - 1] || '';
-        // const prevPage = (prevPageId && filteredPage?.steps.find(_page => _page.id === prevPageId)) || {};
-        // const nextPageId = currentArray[pageIndex + 1] || '';
-        // const nextPage = (nextPageId && filteredPage?.steps.find(_page => _page.id === nextPageId)) || {};
         const prevPageId = this.checkAndReturnPageId(currentArray[pageIndex - 1]);
         const prevPage = this.checkAndReturnPage(prevPageId, filteredPage);
         const nextPageId = this.checkAndReturnPageId(currentArray[pageIndex + 1]);
@@ -69,13 +65,6 @@ class PageStepConfigurator {
 
   getNextPage(mainPageId: string, stepPageId?: string | null, selectedPageSteps?: string[]) {
     const pageSteps = this.getSteps(mainPageId, selectedPageSteps);
-    // return pageSteps
-    //   ? mainPageId && stepPageId
-    //     ? pageSteps[stepPageId]
-    //       ? pageSteps[stepPageId].next
-    //       : null
-    //     : Object.values(pageSteps)[0]
-    //   : null;
     return this.checkPageSteps(pageSteps, mainPageId, stepPageId);
   }
 
