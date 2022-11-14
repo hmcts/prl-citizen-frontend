@@ -68,6 +68,7 @@ export const getDataShape = (context: PartyType): People => {
         PostTown: '',
         County: '',
         PostCode: '',
+        Country: 'United Kingdom',
         selectedAddress: 0,
         addressHistory: YesNoDontKnow.yes,
         provideDetailsOfPreviousAddresses: '',

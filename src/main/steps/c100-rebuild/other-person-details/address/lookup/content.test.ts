@@ -9,8 +9,8 @@ const en = {
   title: 'Address of John Jones',
   errors: {
     PostCode: {
-      required: 'Enter the Post Code',
-      invalid: 'Enter the Post Code',
+      required: 'Enter the postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 };
@@ -19,8 +19,8 @@ const cy = {
   title: 'Address of - welsh John Jones',
   errors: {
     PostCode: {
-      required: 'Enter the Post Code - welsh',
-      invalid: 'Enter the Post Code - welsh',
+      required: 'Enter the postcode - welsh',
+      invalid: 'Enter a valid postcode - welsh',
     },
   },
 };
@@ -67,7 +67,7 @@ describe('applicant > address > lookup > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');
