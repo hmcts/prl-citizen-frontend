@@ -50,6 +50,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       /* Checking if the applicant fields are filled, and if they are, it is mapping the entries to the
      values after continuing, and adding another application. If they are not filled, it is just
      mapping the entries to the values after continuing. */
+     consoe.log({msg: 'session val check'});
       if (toggleCheckIfApplicantFieldIsFilled) {
         this.errorsAndRedirect(req, res, formData, form);
         this.addAnotherApplicant(req);
