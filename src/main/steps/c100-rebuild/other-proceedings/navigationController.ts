@@ -48,44 +48,11 @@ class OtherProceedingsNavigationController {
         nextUrl = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: this.selectedOrderTypes[0] });
         break;
       case C100_OTHER_PROCEEDINGS_ORDER_DETAILS: {
-        const orderId = this.getOrderId();
-        if (orderId) {
-          // if any order has order copy to be uploaded
-          nextUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
-        } else {
-          // none of the orders in the current order type have order copy to be uploaded
-          const nextOrderType = this.getNextOrderType();
-          if (nextOrderType) {
-            nextUrl = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
-          } else {
-            // there is no other order type present
-            if (isAnyOrderWithOrderCopy(caseData?.op_otherProceedings?.order)) {
-              // check at last if there were any previous order types having at least an order with order copy
-              nextUrl = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
-            } else {
-              nextUrl = C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
-            }
-          }
-        }
+        nextUrl = this.getNextUrlOtherProceedingDetails(caseData);
         break;
       }
       case C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: {
-        const nextOrderId = this.getNextOrderId();
-        if (nextOrderId) {
-          // if there are any more orders with order copy
-          nextUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
-            orderType: this.orderType,
-            orderId: nextOrderId,
-          });
-        } else {
-          // none of the orders in the current order type have order copy to be uploaded
-          const nextOrderType = this.getNextOrderType();
-          if (nextOrderType) {
-            nextUrl = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
-          } else {
-            nextUrl = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
-          }
-        }
+        nextUrl = this.getNextUrlOtherProceedingDocument();
         break;
       }
       default:
@@ -94,6 +61,51 @@ class OtherProceedingsNavigationController {
     }
 
     return nextUrl;
+  }
+
+  private getNextUrlOtherProceedingDetails(caseData) {
+    let returnUrl;
+    const orderId = this.getOrderId();
+    if (orderId) {
+      // if any order has order copy to be uploaded
+      returnUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
+    } else {
+      // none of the orders in the current order type have order copy to be uploaded
+      const nextOrderType = this.getNextOrderType();
+      if (nextOrderType) {
+        returnUrl = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
+      } else {
+        // there is no other order type present
+        if (isAnyOrderWithOrderCopy(caseData?.op_otherProceedings?.order)) {
+          // check at last if there were any previous order types having at least an order with order copy
+          returnUrl = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
+        } else {
+          returnUrl = C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+        }
+      }
+    }
+    return returnUrl;
+  }
+
+  private getNextUrlOtherProceedingDocument() {
+    const nextOrderId = this.getNextOrderId();
+    let returnUrl;
+    if (nextOrderId) {
+      // if there are any more orders with order copy
+      returnUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
+        orderType: this.orderType,
+        orderId: nextOrderId,
+      });
+    } else {
+      // none of the orders in the current order type have order copy to be uploaded
+      const nextOrderType = this.getNextOrderType();
+      if (nextOrderType) {
+        returnUrl = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
+      } else {
+        returnUrl = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
+      }
+    }
+    return returnUrl;
   }
 }
 
