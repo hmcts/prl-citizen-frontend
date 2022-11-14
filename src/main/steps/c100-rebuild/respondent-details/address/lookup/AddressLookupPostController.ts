@@ -30,7 +30,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
       address: transformPartyDetails(PartyType.RESPONDENT, PartyDetailsVariant.ADDRESS, formData) as C100Address,
     }) as C100RebuildPartyDetails[];
 
-    if (!req.session.errors.length && !req.session.addresses.length) {
+    if (!req.session.errors.length) {
       req.session.addresses = (await getAddressesFromPostcode(postcode, req.locals.logger)) as [];
     }
 

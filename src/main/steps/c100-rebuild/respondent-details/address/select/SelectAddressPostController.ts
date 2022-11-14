@@ -42,7 +42,7 @@ export default class SelectAddressPostController extends PostController<AnyObjec
               AddressLine2: selectedAddress.street2,
               PostTown: selectedAddress.town,
               County: selectedAddress.county,
-              Country: selectedAddress.country,
+              Country: 'United Kingdom',
             } as C100Address,
           }
         ) as C100RebuildPartyDetails[];
