@@ -39,7 +39,8 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
-env.C100_REBUILD_FLAG = 'false'
+env.C100_REBUILD_FLAG = false
+env.LAUNCH_DARKLY_OFFLINE_MODE = false
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
