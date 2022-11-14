@@ -80,7 +80,7 @@ export default class DocumentUpload extends GetController {
         orderType,
         orderId,
         document: currentOrderDocument,
-        fileUplaodUrl: applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }),
+        fileUploadUrl: applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }),
         fileRemoveUrl: applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
           orderType,
           orderId,
