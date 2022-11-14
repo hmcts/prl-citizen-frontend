@@ -208,7 +208,6 @@ export default class AddApplicantPostController extends PostController<AnyObject
       return super.redirect(req, res, redirectURI);
     } else {
       req.session.userCase.appl_allApplicants = newApplicantStorage;
-      req.session.userCase.applicantTemporaryFormData = undefined;
       req.session.errors = errorMessageStorage;
       return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
     }
