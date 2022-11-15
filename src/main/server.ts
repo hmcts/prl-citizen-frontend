@@ -14,6 +14,7 @@ import { AuthProvider } from './modules/auth-provider';
 import { AxiosLogger } from './modules/axios-logger';
 import { CSRFToken } from './modules/csrf';
 import { ErrorHandler } from './modules/error-handler';
+import { FileUpload } from './modules/fileUpload';
 import { HealthCheck } from './modules/health';
 import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
@@ -25,7 +26,6 @@ import { SessionStorage } from './modules/session';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
-import { FileUpload } from './modules/fileUpload';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 

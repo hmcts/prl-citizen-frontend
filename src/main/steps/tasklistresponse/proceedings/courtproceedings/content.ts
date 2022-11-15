@@ -4,7 +4,8 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  headingTitle: 'Provide details of court cases you or the children have been involved in',
+  section: 'Provide details of court cases you or the children have been involved in',
+  title: '',
   select_all_apply:
     'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly.',
   childArrangementOrder: 'A Child Arrangements Order',
@@ -34,7 +35,8 @@ const en = () => ({
 });
 
 const cy = () => ({
-  headingTitle: 'Provide details of court cases you or the children have been involved in - welsh',
+  section: 'Provide details of court cases you or the children have been involved in',
+  title: '',
   select_all_apply:
     'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly. - welsh',
   childArrangementOrder: 'A Child Arrangements Order - welsh',
