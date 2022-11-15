@@ -1,5 +1,5 @@
 import { CaseDate } from '../../../../../app/case/case';
-import { Gender, OtherChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
+import { ChildrenDetails, Gender, OtherChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { covertToDateObject } from '../../../../../app/form/parser';
@@ -264,7 +264,7 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getPartyDetails(content.userCase!.ocd_otherChildren, childId)!;
+  const childDetails = getPartyDetails(content.userCase!.ocd_otherChildren, childId) as ChildrenDetails;
   const { fields } = generateFormFields(childDetails.personalDetails);
 
   return {

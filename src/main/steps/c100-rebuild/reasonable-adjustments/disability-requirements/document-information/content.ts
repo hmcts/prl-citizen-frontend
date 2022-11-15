@@ -25,13 +25,13 @@ const en = () => ({
     ra_documentInformation: {
       required: 'Select which format you need your documents in',
     },
-    ra_specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocuments_subfield: {
       required: 'Describe which colour you need your documents in',
     },
-    ra_largePrintDocumentsDetails: {
+    ra_largePrintDocuments_subfield: {
       required: 'Describe which large print you need your documents in',
     },
-    ra_otherDetails: {
+    ra_documentHelpOther_subfield: {
       required: 'Describe which alternative format you need your documents in',
     },
   },
@@ -59,13 +59,13 @@ const cy = () => ({
     ra_documentInformation: {
       required: 'Select which format you need your documents in - welsh',
     },
-    ra_specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocuments_subfield: {
       required: 'Describe which colour you need your documents in - welsh',
     },
-    ra_largePrintDocumentsDetails: {
+    ra_largePrintDocuments_subfield: {
       required: 'Describe which large print you need your documents in - welsh',
     },
-    ra_otherDetails: {
+    ra_documentHelpOther_subfield: {
       required: 'Describe which alternative format you need your documents in - welsh',
     },
   },
@@ -89,7 +89,7 @@ export const form: FormContent = {
           label: l => l.specifiedColorDocuments,
           value: 'specifiedColorDocuments',
           subFields: {
-            ra_specifiedColorDocumentsDetails: {
+            ra_specifiedColorDocuments_subfield: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -116,7 +116,7 @@ export const form: FormContent = {
           label: l => l.largePrintDocuments,
           value: 'largePrintDocuments',
           subFields: {
-            ra_largePrintDocumentsDetails: {
+            ra_largePrintDocuments_subfield: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -145,9 +145,9 @@ export const form: FormContent = {
         {
           name: 'ra_documentInformation',
           label: l => l.other,
-          value: 'other',
+          value: 'documentHelpOther',
           subFields: {
-            ra_otherDetails: {
+            ra_documentHelpOther_subfield: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
