@@ -3,6 +3,10 @@ import { expect } from 'chai';
 import { FeatureToggles } from '../../../main/app/utils/featureToggles';
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 
+jest.mock('../../common/clients/launchDarklyClient');
+
+const mockedLaunchDarklyClient = LaunchDarklyClient as jest.MockedClass<typeof LaunchDarklyClient>;
+
 describe('FeatureToggles', () => {
   describe('isAnyEnabled', () => {
     it('should throw an error when no toggle names are provided', () => {
@@ -31,9 +35,12 @@ describe('FeatureToggles', () => {
   });
 
   describe('isC100reBuildEnabled', () => {
-    it('should throw an error when c100-rebuild does not exist', () => {
-      expect(() => new FeatureToggles(new LaunchDarklyClient()).isC100reBuildEnabled()).to.throw(Error);
+    it('should throw and error if isC100reBuildEnabled does not exist', async () => {
+      new FeatureToggles(new mockedLaunchDarklyClient()).isC100reBuildEnabled().then(data => {
+        expect(data).to.be.undefined;
+      });
+      await expect(await new FeatureToggles(new mockedLaunchDarklyClient()).isC100reBuildEnabled().then(() => false)).to
+        .be.false;
     });
   });
-
 });
