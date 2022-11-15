@@ -14,6 +14,7 @@ const en = () => ({
     'Email or send the photo or scan to the device you are using now.',
     'Upload it here.',
   ],
+  titleForFile: 'Select documents to upload',
   uploadButton: 'Upload file',
   remove: 'Remove',
   errors: {
@@ -44,6 +45,7 @@ const cy = () => ({
     'Email or send the photo or scan to the device you are using now. - welsh',
     'Upload it here. - welsh',
   ],
+  titleForFile: 'Dewiswch ddogfen i’w llwytho',
   uploadButton: 'Llwytho ffeil',
   remove: 'Dileu',
   errors: {
