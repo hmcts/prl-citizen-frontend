@@ -60,7 +60,6 @@ export const courtTypeOfOrderHelper = (userCase, keys, sessionKey) => {
   return courtTypeOfOrder(userCase, keys, sessionKey);
 };
 
-
 export const CourtOrderParserHelper = (userCase, keys, sessionKey) => {
   return courtOrderParentAndChildFieldParser(userCase, keys, sessionKey);
 };
