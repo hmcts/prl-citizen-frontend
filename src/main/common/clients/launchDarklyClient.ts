@@ -1,7 +1,5 @@
 import config from 'config';
 import { LDClient, LDFlagValue, LDUser, init } from 'launchdarkly-node-server-sdk';
-//import * as ld from 'ldclient-node';
-//import { LDFlagValue } from 'ldclient-node';
 
 const ldConfig = {
   offline: false,
@@ -13,7 +11,6 @@ export class LaunchDarklyClient {
   constructor() {
     if (!LaunchDarklyClient.client) {
       const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
-      console.log('sdkKey received -' + sdkKey);
       LaunchDarklyClient.client = init(sdkKey, ldConfig);
     }
   }
@@ -21,16 +18,6 @@ export class LaunchDarklyClient {
   async initializeLD(): Promise<void> {
     await LaunchDarklyClient.client.waitForInitialization();
   }
-
-  /*async userVariation(user: User, roles: string[], featureKey: string, offlineDefault): Promise<ld.LDFlagValue> {
-    const ldUser: ld.LDUser = {
-      key: user.id,
-      custom: {
-        roles,
-      },
-    };
-    return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
-  }*/
 
   async serviceVariation(featureKey: string, offlineDefault: LDFlagValue): Promise<LDFlagValue> {
     const roles: string[] = [];
@@ -40,17 +27,7 @@ export class LaunchDarklyClient {
         roles,
       },
     };
-    console.log('offlineDefault' + offlineDefault);
-    console.log('ldConfig.offline ' + ldConfig.offline);
-    //console.log(LaunchDarklyClient.client.isOffline());
-    //await LaunchDarklyClient.client.waitForInitialization();
-    //console.log();
-    //console.log(LaunchDarklyClient.client.allFlagsState.toString);
-    //const test = (await LaunchDarklyClient.client.allFlagsState(ldUser)).getFlagValue(featureKey);
-    //console.log(LaunchDarklyClient.client.isOffline());
-    //console.log('test   -' + test);
-    // await LaunchDarklyClient.client.waitForInitialization();
+
     return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
-    //.variation(featureKey, ldUser, offlineDefault);
   }
 }

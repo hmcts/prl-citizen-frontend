@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 
 import { FeatureToggles } from '../../../main/app/utils/featureToggles';
+import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 
 describe('FeatureToggles', () => {
   describe('isAnyEnabled', () => {
@@ -28,4 +29,11 @@ describe('FeatureToggles', () => {
       expect(() => FeatureToggles.isEnabled('I am not a valid toggle name')).to.throw(Error);
     });
   });
+
+  describe('isC100reBuildEnabled', () => {
+    it('should throw an error when c100-rebuild does not exist', () => {
+      expect(() => new FeatureToggles(new LaunchDarklyClient()).isC100reBuildEnabled()).to.throw(Error);
+    });
+  });
+
 });

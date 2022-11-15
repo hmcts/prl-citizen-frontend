@@ -49,9 +49,7 @@ export const initializeFeatureToggle = async (): Promise<FeatureToggles> => {
 };
 
 export const initFeatureToggle = (): void => {
-  console.log('initFeatureToggle');
   initializeFeatureToggle();
-  console.log('after initialisation');
 };
 
 export const getFeatureToggle = (): FeatureToggles => {
