@@ -136,36 +136,32 @@ describe('respondent1Sequence', () => {
     //   '/tasklistresponse/proceedings/:orderType/:orderId/documentUpload/:removeId?'
     // );
 
-    expect(responseCaseSequence[33].url).toBe('/respondent/upload-document/start');
+    expect(responseCaseSequence[33].url).toBe('/tasklistresponse/proceedings/document-summary');
     expect(responseCaseSequence[33].showInSection).toBe('aboutRespondentCase');
     // expect(responseCaseSequence[33].getNextStep(mockUserCase)).toBe(
     //   '/respondent/upload-document/document-sharing-details'
     // );
 
-    expect(responseCaseSequence[34].url).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[34].url).toBe('/respondent/upload-document');
     expect(responseCaseSequence[34].showInSection).toBe('aboutRespondentCase');
     // expect(responseCaseSequence[34].getNextStep(mockUserCase)).toBe(
     //   '/respondent/upload-document/upload-your-documents'
     // );
 
-    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document/start');
     expect(responseCaseSequence[35].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[35].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[35].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
 
-    expect(responseCaseSequence[36].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[36].url).toBe('/respondent/upload-document/document-sharing-details');
     expect(responseCaseSequence[36].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[36].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[36].getNextStep({})).toBe('/respondent/upload-document/upload-your-documents');
 
-    expect(responseCaseSequence[37].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[37].url).toBe('/respondent/upload-document/upload-your-documents');
     expect(responseCaseSequence[37].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[37].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[37].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
 
     expect(responseCaseSequence[38].url).toBe('/respondent/upload-document/upload-documents-success');
     expect(responseCaseSequence[38].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[38].getNextStep({})).toBe('/tasklistresponse/start');
-
-    expect(responseCaseSequence[39].url).toBe('/respondent/upload-document/upload-documents-success');
-    expect(responseCaseSequence[39].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[39].getNextStep({})).toBe('/tasklistresponse/start');
   });
 });

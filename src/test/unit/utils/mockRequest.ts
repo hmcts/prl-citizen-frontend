@@ -62,4 +62,7 @@ export const mockRequest: any = ({
     url: '/request',
     originalUrl: '/request',
     logout: jest.fn(),
+    route: {
+      path: '/request',
+    },
   } as unknown as AppRequest);
