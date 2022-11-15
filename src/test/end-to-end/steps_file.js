@@ -1,31 +1,43 @@
-const EnterPinPage = require('./pages/EnterPinPage');
+//const EnterPinPage = require('./pages/EnterPinPage');
 const Login = require('./pages/LoginPage');
-const HomePage = require('./pages/HomePage');
-const InternationalElement = require('./pages/InternationalElement');
-const CurrentOrPreviousProceedings = require('./pages/CurrentOrPreviousProceedings');
-const ConsentToApplication = require('./pages/ConsentToApplication');
-const SupportYouNeed = require('./pages/SupportYouNeedDuringYourCase');
+//const InternationalElement = require('./pages/InternationalElement');
+//const CurrentOrPreviousProceedings = require('./pages/CurrentOrPreviousProceedings');
+//const ConsentToApplication = require('./pages/ConsentToApplication');
+const SupportYouNeedApplicant = require('./pages/SupportYouNeedDuringYourCase-Applicant');
+const SupportYouNeedRespondent = require('./pages/SupportYouNeedDuringYourCase-RespondentCADA');
+const ViewAllDocuments = require('./pages/ViewAllDocuments');
+const UploadDocuments = require('./pages/UploadDocuments');
 
 module.exports = () => {
   return actor({
 
-    enterPinPageHappyPath() {
-      return EnterPinPage.enterPin();
-    },
+    // enterPinPageHappyPath() {
+    //   return EnterPinPage.enterPin();
+    // },
     loginAsCitizen() {
       return Login.loginAsCitizen();
     },
-    internationalElement() {
-      return InternationalElement.clickInternationalElementHappyPath();
+    // internationalElement() {
+    //   return InternationalElement.clickInternationalElementHappyPath();
+    // },
+    // currentOrPreviousProceedings() {
+    //   return CurrentOrPreviousProceedings.currentOrPreviousProceedingsHappyPath();
+    // },
+    // consentToApplication() {
+    //   return ConsentToApplication.consentToApplicationHappyPath();
+    // },
+    supportYouNeedDuringYourCaseApplicant() {
+      return SupportYouNeedApplicant.supportYouNeedHappyPath();
     },
-    currentOrPreviousProceedings() {
-      return CurrentOrPreviousProceedings.currentOrPreviousProceedingsHappyPath();
+    supportYouNeedDuringYourCaseRespondent() {
+      return SupportYouNeedRespondent.supportYouNeedHappyPath();
     },
-    consentToApplication() {
-      return ConsentToApplication.consentToApplicationHappyPath();
+    viewAllDocuments () {
+      return ViewAllDocuments.clickViewAllDocuments();
     },
-    supportYouNeedDuringYourCase() {
-      return SupportYouNeed.supportYouNeedHappyPath();
-    }
+     uploadDocuments () {
+        return UploadDocuments.clickUploadDocuments();
+      }
+   
   });
 };

@@ -8,15 +8,24 @@ module.exports = {
   },
 
   async clickSupportYouNeedDuringYourCase() {
-    await I.retry(retryCount).click('#support-you-need-during-your-case');
+    await I.retry(retryCount).click('#support_you_need_during_your_case');
+    I.wait('2');
+  },
+
+  async AttendingTheCourt() {
+    await I.retry(retryCount).waitForText('Would you be able to take part in hearings by video and phone?');
+    await I.retry(retryCount).click('#respondentAttendingToCourt');
+    await I.retry(retryCount).click('#respondentAttendingToCourt-2');
+    await I.retry(retryCount).click('Save and continue');
     I.wait('2');
   },
 
   async languageRequirements() {
     await I.retry(retryCount).waitForText('Do you have any language requirements?');
-    await I.retry(retryCount).click('#languageRequirements');
-    await I.retry(retryCount).click('#languageRequirements-3');
-    await I.retry(retryCount).fillField('#languageDetails', 'Test Language Details');
+    await I.retry(retryCount).click('#respondentLangRequirements');
+    await I.retry(retryCount).click('#respondentLangRequirements-2');
+    await I.retry(retryCount).click('#respondentLangRequirements-3');
+    await I.retry(retryCount).fillField('#respondentLangDetails', 'Test');
     await I.retry(retryCount).click('Save and continue');
     I.wait('2');
   },

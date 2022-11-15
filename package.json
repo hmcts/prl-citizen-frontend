@@ -22,7 +22,7 @@
     "test:pa11y": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.a11y.config.js --maxWorkers 1",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "echo 'smoke tests disabled temporarily for setup' && exit 0",
-    "test:functional": "echo 'functional tests disabled temporarily for setup' && exit 0",
+    "test:functional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js",
     "test:fullfunctional": "run-p test:pa11y",
     "cichecks": "yarn && run-p build lint test",
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",

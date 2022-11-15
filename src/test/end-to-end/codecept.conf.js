@@ -1,5 +1,5 @@
 exports.config = {
-  tests: './tests/*.js',
+  tests: './tests/ViewAllDocumemts.js',
   output: './output',
   helpers: {
     Puppeteer: {
@@ -7,7 +7,7 @@ exports.config = {
       show: process.env.SHOW_BROWSER_WINDOW || false,
       //show: true,
       url: 'http://localhost:3000',
-      waitForNavigation: ['load', 'domcontentloaded', 'networkidle0'],
+      //waitForNavigation: ['load', 'domcontentloaded', 'networkidle0'],
       waitForTimeout: 180000,
       ignoreHTTPSErrors: true,
       chrome: {

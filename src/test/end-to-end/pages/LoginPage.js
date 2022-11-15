@@ -15,6 +15,8 @@ module.exports = {
   },
 
   async loginAsCitizen() {
+    await I.retry(retryCount).amOnPage(baseUrl);
+
     try {
       await I.retry(retryCount).click('Accept additional cookies');
       I.wait('1');
@@ -27,5 +29,6 @@ module.exports = {
       await I.retry(retryCount).fillField(this.fields.password, config.citizenFrontEnd.password);
     }
     await I.retry(retryCount).click(this.fields.submit);
+    I.wait('5');
   }
 };
