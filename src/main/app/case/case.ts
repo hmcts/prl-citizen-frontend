@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnyObject } from '../controller/PostController';
 
+// import {
+//  PageLink,
+// } from '../../steps/urls';
 import {
   AllegationOfHarm,
   AllegationsOfHarmChildAbductionTable,
@@ -482,6 +485,7 @@ export interface Case {
   respondentCourtHearingPage?: string[];
   respondentCourtComfortPage?: string[];
   respondentTravellingToCourtPage?: string[];
+  //selectedPageUrls: Array<PageLink>;
 }
 
 export interface CaseWithId extends Case {

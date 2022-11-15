@@ -15,6 +15,7 @@ import {
 class ReasonableAdjustmentsNavigationController {
   //protected selectedPages: ReasonableAdjustments[] = [];
   protected selectedPages;
+  selectedPageUrls: PageLink[] = [];
 
   private pages: Record<ReasonableAdjustments, Record<string, any>> = {
     [ReasonableAdjustments.DOCUMENTS_SUPPORT]: {
@@ -55,22 +56,43 @@ class ReasonableAdjustmentsNavigationController {
       if (currentPageIndex < this.selectedPages.length - 1) {
         pageUrl = this.pages[this.selectedPages[currentPageIndex + 1]].url;
       }
+      console.log('currentPageId==>' + currentPageId);
+      console.log('currentPageIndex==>' + currentPageIndex);
+      console.log('pageUrl==>' + pageUrl);
     }
+
     return pageUrl;
   }
 
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>): PageLink {
     //this.selectedPages = caseData.reasonableAdjustmentsPages as ReasonableAdjustments[];
+
     this.selectedPages = caseData.respondentReasonableAdjustments;
+    console.log('selectedPages==>' + this.selectedPages);
     let url: PageLink;
 
     switch (currentPageUrl) {
       case CA_DA_REASONABLE_ADJUSTMENTS: {
+        this.selectedPageUrls = [];
         url = this.pages[this.selectedPages[0]].url;
+        this.selectedPageUrls.push(url);
+        console.log('first url====>' + url);
         break;
       }
       default: {
-        url = this.getNextPageUrl(currentPageUrl) || CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY;
+        let pageUrl: PageLink | null = null;
+        pageUrl = this.getNextPageUrl(currentPageUrl);
+        if (pageUrl !== null) {
+          url = pageUrl;
+          this.selectedPageUrls.push(url);
+          console.log('selectedPageUrls==1===>' + this.selectedPageUrls);
+        } else {
+          // get the selected pages list
+          // remove the data (req.session.userCase) from not selected pages
+          // navigate to summary page
+          url = CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY;
+        }
+        //url = this.getNextPageUrl(currentPageUrl) || CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY;
         break;
       }
     }
