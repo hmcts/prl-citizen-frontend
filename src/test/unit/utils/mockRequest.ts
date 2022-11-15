@@ -27,6 +27,8 @@ export const mockRequest: any = ({
     query: { ...query },
     params: {
       caseId: '1234244',
+      orderType: 'otherOrder',
+      orderId: '1',
     },
     session: {
       user: {

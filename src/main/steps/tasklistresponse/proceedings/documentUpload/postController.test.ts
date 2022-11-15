@@ -62,11 +62,12 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(req.params).toEqual({
+      caseId: '1234244',
       orderType: 'otherOrder',
       orderId: '1',
     });
 
-    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/other-proceedings/otherOrder/1/documentUpload');
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -117,11 +118,12 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(req.params).toEqual({
+      caseId: '1234244',
       orderType: 'otherOrder',
       orderId: '1',
     });
 
-    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
   });
 
   test('Should upload document and redirect back to current page', async () => {
@@ -190,7 +192,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/other-proceedings/otherOrder/1/documentUpload');
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
   });
 
   test('Should upload document for second order and redirect back to current page', async () => {
@@ -259,7 +261,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/other-proceedings/otherOrder/2/documentUpload');
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
   });
 
   test('Should upload document for first order and redirect back to current page', async () => {
@@ -328,7 +330,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/other-proceedings/otherOrder/1/documentUpload');
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
   });
 
   describe('when there is an error in saving session', () => {
