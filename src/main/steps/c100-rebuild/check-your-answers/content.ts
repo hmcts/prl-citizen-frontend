@@ -7,6 +7,8 @@ import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
+// eslint-disable-next-line import/no-unresolved
+import { ANYTYPE } from './common/index';
 import {
   ApplicantDetails,
   ChildernDetails,
@@ -238,7 +240,7 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
   return !!(safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected || checkIfYourSafetyConcernSelected);
 };
 
-const en = (content: CommonContent, newEnContents?: any) => {
+const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   const sections = [
     LocationDetails(enContent, userCase),
@@ -279,7 +281,7 @@ const en = (content: CommonContent, newEnContents?: any) => {
   };
 };
 
-const cy: typeof en = (content: CommonContent, newCyContents?: any) => {
+const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
 
   const sections = [

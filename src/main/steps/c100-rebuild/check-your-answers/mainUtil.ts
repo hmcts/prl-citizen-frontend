@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
@@ -6,6 +7,7 @@ import * as Urls from '../../urls';
 
 import { DATE_FORMATTOR } from './common/dateformatter';
 import { HTML } from './common/htmlSelectors';
+import { ANYTYPE } from './common/index';
 import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
 import { applicantAddressParser, applicantAddressParserForRespondents, applicantContactDetailsParser, applicantCourtCanLeaveVoiceMail, otherPeopleAddressParser } from './helpers/applicantHelper';
@@ -15,7 +17,6 @@ import { MiamHelper } from './helpers/miamHelper';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
-
 
 /* eslint-disable import/namespace */
 export const LocationDetails = (
@@ -210,7 +211,7 @@ export const ChildernDetails = (
         valueHtml: (
           HTML.UNORDER_LIST +
           Object.values(childMatters['needsResolution']).map(
-            (field: any) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
+            (field: ANYTYPE) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
           ) +
           HTML.UNORDER_LIST_END
         )
@@ -541,10 +542,10 @@ export const SafetyConcerns_child = (
         concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
       )
     : '';
-  let subFields = userCase['c1A_concernAboutChild'] as any;
+  let subFields = userCase['c1A_concernAboutChild'] as ANYTYPE;
   subFields = subFields
     ?.filter(
-      (element: any) =>
+      (element: ANYTYPE) =>
         element !== C1AAbuseTypes.ABDUCTION &&
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
         element !== C1AAbuseTypes.SOMETHING_ELSE
@@ -565,7 +566,7 @@ export const SafetyConcerns_child = (
         ),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE'], { abuseType: field }),
       };
-    }) as any;
+    }) as ANYTYPE;
 
   const SummaryData = [
     {
@@ -686,10 +687,10 @@ export const SafetyConcerns_yours = (
         concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
       )
     : '';
-  let subFields = userCase?.['c1A_concernAboutApplicant'] as any;
+  let subFields = userCase?.['c1A_concernAboutApplicant'] as ANYTYPE;
   subFields = subFields
     ?.filter(
-      (element: any) =>
+      (element: ANYTYPE) =>
         element !== C1AAbuseTypes.ABDUCTION &&
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
@@ -706,7 +707,7 @@ export const SafetyConcerns_yours = (
         ),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE'], { abuseType: field }),
       };
-    }) as any;
+    }) as ANYTYPE;
 
   const SummaryData = [
     {
@@ -1174,7 +1175,7 @@ export const HelpWithFee = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const SummaryData: any = [
+  const SummaryData: ANYTYPE = [
     {
       key: keys['doRequireHelpwithFee'],
       value: userCase['hwf_needHelpWithFees'],
@@ -1198,7 +1199,7 @@ export const whereDoChildLive = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const SummaryData: any = [
+  const SummaryData: ANYTYPE = [
     {
       key: keys['doRequireHelpwithFee'],
       value: userCase['hwf_needHelpWithFees'],
@@ -1221,7 +1222,7 @@ export const reasonableAdjustment = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const SummaryData: any = [
+  const SummaryData: ANYTYPE = [
     {
       key: keys['attendingCourtHeading'],
       value: userCase['hwf_needHelpWithFees'],

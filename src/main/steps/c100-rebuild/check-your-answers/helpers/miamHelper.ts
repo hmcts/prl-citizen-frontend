@@ -1,13 +1,14 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { MiamNonAttendReason } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
+import { ANYTYPE } from '../common/index';
 
 class MiamHelperDataParser<T> {
   [x: string]: T;
 }
-//eslint @typescript-eslint/no-explicit-any
-const InstanceOfMiamHelper = new MiamHelperDataParser<any>();
+const InstanceOfMiamHelper = new MiamHelperDataParser<ANYTYPE>();
 
 type KeysType = {
   whoChildLiveWith?: string;

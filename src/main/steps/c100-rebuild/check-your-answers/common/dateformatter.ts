@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+import { ANYTYPE } from './index';
 /**
  * It takes a date object and returns a string
  * @param date - The date object that you want to format.
@@ -16,7 +18,7 @@ export const DATE_FORMATTOR = (date): string => {
       .filter(item => item !== '')
       .toString()
       .split(',')
-      .join('/') as any;
+      .join('/') as ANYTYPE;
     return formattedDate;
   }
 };

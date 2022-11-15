@@ -1,16 +1,17 @@
+/* eslint-disable import/no-unresolved */
 import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
+import { ANYTYPE } from '../common/index';
 
 const childNameFormatter = (childId, userCase) => {
   const sessionChildKey = 'cd_children';
-  const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId) as any;
+  const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId) as ANYTYPE;
   return (
     HTML.LIST_ITEM + founChildDetails[0]?.['firstName'] + ' ' + founChildDetails[0]?.['lastName'] + HTML.LIST_ITEM_END
   );
 };
 
-const HTMLParser = (keys, FoundElement: any, bodyHtml, userCase, typeOfUser) => {
-  //FoundElement = Object.keys(FoundElement).forEach(key => FoundElement[key] === undefined && '')
+const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser) => {
   if (typeOfUser === 'child') {
     bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
     bodyHtml += FoundElement.hasOwnProperty('childrenConcernedAbout')

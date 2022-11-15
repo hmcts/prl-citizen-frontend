@@ -17,7 +17,7 @@ import {
 } from '../../miam/previous-attendance/content';
 import { cy as UrgentHearingContentCy, en as UrgentHearingContentEn } from '../../miam/urgency/content';
 import { cy as vrCy, en as vrEn } from '../../miam/valid-reason/content';
-
+import { ANYTYPE } from '../common/index';
 /**
  *   it take all files -> ...keys -> but section doesn't -> nested object ->
  * @returns
@@ -38,7 +38,7 @@ export class CommonDataLoader {
   };
 
   static SessionToFieldGenerator = (key, UserCase) => {
-    const storage: any = [];
+    const storage: ANYTYPE = [];
     UserCase[key].forEach(element => {
       if (UserCase.hasOwnProperty(`${key}_${element}`)) {
         let val = UserCase[`${key}_${element}`].filter(item => item !== '');
@@ -58,11 +58,11 @@ export const MiamContentsForGeneralReasons = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...GeneralContentEn } as any;
+        const data = { ...GeneralContentEn } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...GeneralContentCy } as any;
+        const data = { ...GeneralContentCy } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };
@@ -82,7 +82,7 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseEn().courtInvolvement_subFields,
           ...DomesticAbuseEn().letterOfBeingVictim_subFields,
           ...DomesticAbuseEn().letterFromAuthority_subFields,
-        } as any;
+        } as ANYTYPE;
         return { ...data };
       },
       cy: () => {
@@ -93,7 +93,7 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseCy().courtInvolvement_subFields,
           ...DomesticAbuseCy().letterOfBeingVictim_subFields,
           ...DomesticAbuseCy().letterFromAuthority_subFields,
-        } as any;
+        } as ANYTYPE;
         return { ...data };
       },
     };
@@ -106,11 +106,11 @@ export const MiamContentsForUrgentHearing = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...UrgentHearingContentEn() } as any;
+        const data = { ...UrgentHearingContentEn() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...UrgentHearingContentCy() } as any;
+        const data = { ...UrgentHearingContentCy() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };
@@ -123,11 +123,11 @@ export const MiamContentsForPreviousAttendance = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...PreviousAttendanceContentEn() } as any;
+        const data = { ...PreviousAttendanceContentEn() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...PreviousAttendanceContentCy() } as any;
+        const data = { ...PreviousAttendanceContentCy() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };
@@ -140,11 +140,11 @@ export const MiamContentsForChildProtection = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...ChildProtectionContentEn() } as any;
+        const data = { ...ChildProtectionContentEn() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...ChildProtectionContentCy() } as any;
+        const data = { ...ChildProtectionContentCy() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };
@@ -157,11 +157,11 @@ export const MiamContentForOtherFeature = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...MiamOtherContentEn() } as any;
+        const data = { ...MiamOtherContentEn() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...MiamOtherContentCy() } as any;
+        const data = { ...MiamOtherContentCy() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };
@@ -174,11 +174,11 @@ export const MiamContentForOtherFeatureSubFields = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...MiamOtherContentEn() } as any;
+        const data = { ...MiamOtherContentEn() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...MiamOtherContentCy() } as any;
+        const data = { ...MiamOtherContentCy() } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };
