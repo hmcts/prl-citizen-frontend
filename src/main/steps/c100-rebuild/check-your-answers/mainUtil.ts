@@ -14,6 +14,7 @@ import { applicantAddressParser, applicantAddressParserForRespondents, applicant
 import {  courtTypeOfOrderHelper } from './helpers/courtOrderHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
+import { resonableAdjustmentHelper } from './helpers/reasonableAdjustment';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
@@ -1231,7 +1232,7 @@ export const reasonableAdjustment = (
     },
     {
       key: keys['langaugeRequirementHeading'],
-      value: userCase['hwf_needHelpWithFees'],
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_languageNeeds') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS'], 
     },
     {
@@ -1242,32 +1243,37 @@ export const reasonableAdjustment = (
     },
     {
       key: keys['specialArrangementsHeading'],
-      value: userCase['hwf_needHelpWithFees'],
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS'], 
     },
     {
       key: keys['documentInformationHeading'],
-      value: userCase['hwf_needHelpWithFees'],
+      value: '',
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION'], 
     },
     {
       key: keys['communicationHelpHeading'],
-      value: userCase['hwf_needHelpWithFees'],
+      value: '', 
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP'], 
     },
     {
       key: keys['supportCourtHeading'],
-      value: userCase['hwf_needHelpWithFees'],
+      value: '', 
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT'], 
     },
     {
       key: keys['feelComfortableHeading'],
-      value: userCase['hwf_needHelpWithFees'],
+      value: '',
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE'], 
     },
     {
       key: keys['travellingCourtHeading'],
-      value: userCase['hwf_needHelpWithFees'],
+      value: '', 
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT'], 
     },
   ];
