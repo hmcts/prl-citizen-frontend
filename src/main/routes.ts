@@ -12,7 +12,7 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
-import { stepsWithContent, StepWithContent } from './steps/';
+import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
@@ -113,9 +113,8 @@ export class Routes {
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
 
     for (const step of stepsWithContent) {
-      if(step.url === PROCEEDINGS_ORDER_DETAILS){
+      if (step.url === PROCEEDINGS_ORDER_DETAILS) {
         console.log(step.url);
-        
       }
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
@@ -124,7 +123,11 @@ export class Routes {
         : GetController;
 
       if (step && getController) {
-        app.get(step.url, this.routeGuard.bind(this, step, 'get'), errorHandler(new getController(step.view, step.generateContent).get));
+        app.get(
+          step.url,
+          this.routeGuard.bind(this, step, 'get'),
+          errorHandler(new getController(step.view, step.generateContent).get)
+        );
       }
       app.get(
         `${CONSENT_TO_APPLICATION}/:caseId`,
@@ -161,7 +164,11 @@ export class Routes {
           ? require(`${step.stepDir}/${postControllerFileName}`).default
           : PostController;
 
-        app.post(step.url, this.routeGuard.bind(this, step, 'get'), errorHandler(new postController(step.form.fields).post));
+        app.post(
+          step.url,
+          this.routeGuard.bind(this, step, 'get'),
+          errorHandler(new postController(step.form.fields).post)
+        );
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
         app.get(

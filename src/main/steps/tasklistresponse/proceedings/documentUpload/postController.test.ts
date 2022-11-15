@@ -38,7 +38,7 @@ describe('Document upload controller', () => {
       files: { documents: { name: 'test.rtf', data: '', mimetype: 'text' } },
       session: {
         userCase: {
-          op_otherProceedings: {
+          otherProceedings: {
             order: {
               otherOrders: [
                 {
@@ -93,7 +93,7 @@ describe('Document upload controller', () => {
       files: { documents: { name: 'test.rtf', data: '', mimetype: 'text' } },
       session: {
         userCase: {
-          op_otherProceedings: {
+          otherProceedings: {
             order: {
               otherOrders: [
                 {
@@ -167,7 +167,7 @@ describe('Document upload controller', () => {
       files: { documents: { name: 'test.rtf', data: '', mimetype: 'text' } },
       session: {
         userCase: {
-          op_otherProceedings: {
+          otherProceedings: {
             order: {
               otherOrders: [
                 {
@@ -236,7 +236,7 @@ describe('Document upload controller', () => {
       files: { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } },
       session: {
         userCase: {
-          op_otherProceedings: {
+          otherProceedings: {
             order: {
               otherOrders: [
                 {
@@ -305,7 +305,7 @@ describe('Document upload controller', () => {
       files: { documents: { name: 'test.png', size: '812300', data: '', mimetype: 'text' } },
       session: {
         userCase: {
-          op_otherProceedings: {
+          otherProceedings: {
             order: {
               otherOrders: [
                 {
@@ -344,7 +344,7 @@ describe('Document upload controller', () => {
         session: {
           user: { email: 'test@example.com' },
           userCase: {
-            op_otherProceedings: {
+            otherProceedings: {
               order: {
                 otherOrders: [
                   {

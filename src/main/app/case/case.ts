@@ -480,7 +480,6 @@ export interface Case {
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
-
 }
 
 export interface CaseWithId extends Case {

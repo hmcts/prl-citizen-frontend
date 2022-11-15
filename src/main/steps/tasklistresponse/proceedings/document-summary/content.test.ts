@@ -61,14 +61,14 @@ describe('other proceedings > documentSummary > content', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
-      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
   });
-  test('should contain SaveAndComeLater button', () => {
+  test('should not contain SaveAndComeLater button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
       (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
+    ).toBeUndefined;
   });
 });

@@ -11,7 +11,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
 
 const ORDER_DETAILS = {
-  op_otherProceedings: {
+  otherProceedings: {
     order: {
       otherOrders: [
         {

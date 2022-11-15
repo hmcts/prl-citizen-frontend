@@ -7,9 +7,9 @@ import {
 } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
+  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   COURT_PROCEEDINGS_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
-  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PROCEEDINGS_ORDER_DETAILS,
   PageLink,
   RESPOND_TO_APPLICATION,
@@ -64,12 +64,7 @@ class OtherProceedingsNavigationController {
             nextUrl = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
           } else {
             // there is no other order type present
-            if (isAnyOrderWithOrderCopy(caseData?.otherProceedings?.order)) {
-              // check at last if there were any previous order types having at least an order with order copy
-              nextUrl = COURT_PROCEEDINGS_SUMMARY;
-            } else {
-              nextUrl = RESPOND_TO_APPLICATION;
-            }
+            nextUrl = COURT_PROCEEDINGS_SUMMARY;
           }
         }
         break;
