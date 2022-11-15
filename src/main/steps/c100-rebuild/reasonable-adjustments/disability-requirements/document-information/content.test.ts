@@ -22,7 +22,7 @@ const en = {
   audioTranslationDocuments: 'Audio translation of documents',
   readOutDocuments: 'Documents read out to me',
   emailInformation: 'Information emailed to me',
-  other: 'Other',
+  documentHelpOther: 'Other',
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
@@ -56,7 +56,7 @@ const cy = {
   audioTranslationDocuments: 'Audio translation of documents - welsh',
   readOutDocuments: 'Documents read out to me - welsh',
   emailInformation: 'Information emailed to me - welsh',
-  other: 'Other - welsh',
+  documentHelpOther: 'Other - welsh',
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
@@ -114,7 +114,9 @@ describe('Disability requirements content', () => {
     );
     expect((documentInformationField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.readOutDocuments);
     expect((documentInformationField.values[6].label as LanguageLookup)(generatedContent)).toBe(en.emailInformation);
-    expect((documentInformationField.values[7].label as LanguageLookup)(generatedContent)).toBe(en.other);
+    expect((documentInformationField.values[7].label as LanguageLookup)(generatedContent)).toBe(
+      en.documentHelpOther
+    );
     expect(documentInformationField.values[9].behaviour).toBe('exclusive');
     expect((documentInformationField.values[9].label as LanguageLookup)(generatedContent)).toBe(en.noSupportRequired);
 

@@ -18,7 +18,7 @@ const en = () => ({
   audioTranslationDocuments: 'Audio translation of documents',
   readOutDocuments: 'Documents read out to me',
   emailInformation: 'Information emailed to me',
-  other: 'Other',
+  documentHelpOther: 'Other',
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
@@ -52,7 +52,7 @@ const cy = () => ({
   audioTranslationDocuments: 'Audio translation of documents - welsh',
   readOutDocuments: 'Documents read out to me - welsh',
   emailInformation: 'Information emailed to me - welsh',
-  other: 'Other - welsh',
+  documentHelpOther: 'Other - welsh',
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
@@ -144,7 +144,7 @@ export const form: FormContent = {
         },
         {
           name: 'ra_documentInformation',
-          label: l => l.other,
+          label: l => l.documentHelpOther,
           value: 'documentHelpOther',
           subFields: {
             ra_documentHelpOther_subfield: {
