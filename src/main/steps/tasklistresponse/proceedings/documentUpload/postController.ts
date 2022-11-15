@@ -66,7 +66,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
     if (req.body.saveAndComeLater) {
       super.post(req, res);
-    } else if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+    } else if (req.body.onlyContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
       super.redirect(req, res, '');
     } else {
       if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {

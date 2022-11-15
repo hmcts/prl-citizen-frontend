@@ -236,7 +236,7 @@ export const PROCEEDINGS: PageLink = `${RESPONSE_TASKLIST}/proceedings`;
 export const PROCEEDINGS_START: PageLink = `${PROCEEDINGS}/start`;
 export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/courtproceedings`;
 export const PROCEEDINGS_ORDER_DETAILS: PageLink = `${PROCEEDINGS}/:orderType/order-details`;
-export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
+export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/document-summary`;
 export const PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/documentUpload`;
 
 /* your needs when you go to court */

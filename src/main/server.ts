@@ -25,6 +25,7 @@ import { SessionStorage } from './modules/session';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
+import { FileUpload } from './modules/fileUpload';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -49,6 +50,7 @@ app.use((req, res, next) => {
 });
 new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
+new FileUpload().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new Helmet(config.get('security')).enableFor(app);
 new AppInsights().enable();
