@@ -26,6 +26,9 @@ const en = () => ({
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
     },
+    country: {
+      required: 'Enter the country',
+    },
   },
 });
 
@@ -49,6 +52,9 @@ const cy = () => ({
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
     },
+    country: {
+      required: 'Enter the country - welsh',
+    },
   },
 });
 
@@ -59,7 +65,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {

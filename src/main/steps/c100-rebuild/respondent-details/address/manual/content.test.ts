@@ -25,6 +25,9 @@ const en = {
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
+    Country: {
+      required: 'Enter the country - welsh',
+    },
   },
 };
 
@@ -48,6 +51,9 @@ const cy = {
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+    },
+    Country: {
+      required: 'Enter the country - welsh',
     },
   },
 };
@@ -96,7 +102,7 @@ describe('respondent > address > manual > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');

@@ -3,8 +3,11 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL } from '../../../../../steps/urls';
+import {
+  form as lookupAddressForm,
+  languages as lookupAddressFormLanguages,
+} from '../../../people/address/address-lookup';
 import { getPartyDetails } from '../../../people/util';
-import { form as lookupAddressForm, languages as lookupAddressFormLanguages } from '../common/address-lookup';
 
 let updatedForm: FormContent;
 
@@ -15,8 +18,8 @@ const en = () => ({
   enterAddressManually: 'I dont know their postcode or they live outside the UK',
   errors: {
     PostCode: {
-      required: 'Enter the Post Code',
-      invalid: 'Enter the Post Code',
+      required: 'Enter the postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 });
@@ -27,8 +30,8 @@ const cy = () => ({
   enterAddressManually: 'I dont know their postcode or they live outside the UK - welsh',
   errors: {
     PostCode: {
-      required: 'Enter the Post Code - welsh',
-      invalid: 'Enter the Post Code - welsh',
+      required: 'Enter the postcode - welsh',
+      invalid: 'Enter a valid postcode - welsh',
     },
   },
 });
@@ -40,7 +43,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {

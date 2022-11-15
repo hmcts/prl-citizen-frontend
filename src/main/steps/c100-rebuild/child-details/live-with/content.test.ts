@@ -12,7 +12,7 @@ const en = {
   liveWithHint: 'Select all that apply',
   errors: {
     liveWith: {
-      required: 'You must select atleast one person',
+      required: 'You must select at least one person',
     },
   },
 };
@@ -22,7 +22,7 @@ const cy = {
   liveWithHint: 'Select all that apply - welsh',
   errors: {
     liveWith: {
-      required: 'You must select atleast one person - welsh',
+      required: 'You must select at least one person - welsh',
     },
   },
 };

@@ -17,23 +17,24 @@ export default class AddressLookupPostController extends PostController<AnyObjec
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const postcode = req.body['PostCode'] as string;
     const { otherPersonId } = req.params;
-
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-
-    req.session.errors = form.getErrors(formData);
+    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
 
     req.session.userCase.oprs_otherPersons = updatePartyDetails(req.session.userCase.oprs_otherPersons, {
       ...(getPartyDetails(req.session.userCase.oprs_otherPersons, otherPersonId) as C100RebuildPartyDetails),
       address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
     }) as C100RebuildPartyDetails[];
 
-    if (!req.session.errors.length) {
-      req.session.addresses = (await getAddressesFromPostcode(postcode, req.locals.logger)) as [];
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      if (!req.session.errors.length) {
+        req.session.addresses = (await getAddressesFromPostcode(formData['PostCode'], req.locals.logger)) as [];
+      }
+      return this.redirect(req, res);
+    } else if (saveAndComeLater) {
+      this.saveAndComeLater(req, res, req.session.userCase);
     }
-
-    this.redirect(req, res);
   }
 }

@@ -66,18 +66,10 @@ describe('respondent > address > select > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');
-  });
-
-  test('should contain saveAndComeLater button', () => {
-    expect(
-      (generatedContent.form?.saveAndComeLater?.text as LanguageLookup)(
-        generatePageContent({ language: 'en' }) as Record<string, never>
-      )
-    ).toBe('Save and come back later');
   });
 
   test('should contain applicantSelectAddress field', () => {

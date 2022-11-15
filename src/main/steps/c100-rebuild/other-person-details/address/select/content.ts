@@ -6,8 +6,11 @@ import {
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
 } from '../../../../../steps/urls';
+import {
+  form as selectAddressForm,
+  languages as selectAddressFormLanguages,
+} from '../../../people/address/address-select';
 import { getPartyDetails } from '../../../people/util';
-import { form as selectAddressForm, languages as selectAddressFormLanguages } from '../common/address-select';
 
 let updatedForm: FormContent;
 
@@ -39,11 +42,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 

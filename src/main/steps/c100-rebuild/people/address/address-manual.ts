@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { C100RebuildPartyDetails, YesNoEmpty, YesOrNo } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
+import { C100RebuildPartyDetails, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent } from '../../../../app/form/Form';
+import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
 
 const en = () => ({
   addressLine1: 'Building and street',
@@ -26,7 +26,6 @@ const cy = () => ({
 
 export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent => {
   const { address, addressUnknown } = caseData;
-  console.log(addressUnknown, 'known or not');
 
   const fields = {
     AddressLine1: {
@@ -55,18 +54,11 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       validator: (value, formData) =>
         formData?.addressUnknown !== YesNoEmpty.YES ? isFieldFilledIn(value) : undefined,
     },
-    // County: {
-    //   type: 'text',
-    //   classes: 'govuk-label govuk-!-width-two-thirds',
-    //   label: l => l.county,
-    //   value: address!.County,
-    //   labelSize: null,
-    // },
-    Country: {
+    County: {
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
-      label: l => l.country,
-      value: address!.Country,
+      label: l => l.county,
+      value: address!.County,
       labelSize: null,
     },
     PostCode: {
@@ -80,6 +72,14 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       },
       validator: (value, formData) =>
         formData?.addressUnknown !== YesNoEmpty.YES ? isFieldFilledIn(value) || isInvalidPostcode(value) : undefined,
+    },
+    Country: {
+      type: 'text',
+      classes: 'govuk-label govuk-!-width-two-thirds',
+      label: l => l.country,
+      value: address!.Country,
+      labelSize: null,
+      validator: isFieldFilledIn,
     },
     addressUnknown: {
       type: 'checkboxes',

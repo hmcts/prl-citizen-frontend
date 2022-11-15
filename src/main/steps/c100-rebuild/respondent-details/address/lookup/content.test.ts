@@ -9,7 +9,7 @@ const en = {
   title: 'Address of John Jolly',
   manualAddressUrl: '/c100-rebuild/respondent-details/3d6cc3df-9c11-42c0-be69-84acfcbd6048/address/manual',
   errors: {
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode',
       invalid: 'Enter a valid postcode',
     },
@@ -20,7 +20,7 @@ const cy = {
   title: 'Address of - welsh John Jolly',
   manualAddressUrl: '/c100-rebuild/respondent-details/3d6cc3df-9c11-42c0-be69-84acfcbd6048/address/manual',
   errors: {
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode - welsh',
       invalid: 'Enter a valid postcode - welsh',
     },
@@ -37,6 +37,9 @@ describe('respondent > address > lookup > content', () => {
           id: '3d6cc3df-9c11-42c0-be69-84acfcbd6048',
           firstName: 'John',
           lastName: 'Jolly',
+          address: {
+            PostCode: 'AG11NB',
+          },
         },
       ],
     },
@@ -65,7 +68,7 @@ describe('respondent > address > lookup > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');
@@ -83,7 +86,7 @@ describe('respondent > address > lookup > content', () => {
     generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const addressPostcodeField = fields.addressPostcode as FormOptions;
+    const addressPostcodeField = fields.PostCode as FormOptions;
 
     expect(addressPostcodeField.type).toBe('text');
     expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');

@@ -1,7 +1,16 @@
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
-import { form as selectAddressForm, languages as selectAddressFormLanguages } from '../common/address-select';
+import { applyParms } from '../../../../../steps/common/url-parser';
+import {
+  C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
+  C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
+} from '../../../../../steps/urls';
+import {
+  form as selectAddressForm,
+  languages as selectAddressFormLanguages,
+} from '../../../people/address/address-select';
+import { getPartyDetails } from '../../../people/util';
 
 let updatedForm: FormContent;
 
@@ -33,11 +42,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
@@ -64,17 +70,15 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const selectAddressFormTranslations = selectAddressFormLanguages[content.language](content);
   const respondentId = content?.additionalData?.req?.params!.respondentId;
-  const respondentData = content.userCase?.resp_Respondents!.find(
-    i => i.id === respondentId
-  ) as C100RebuildPartyDetails;
+  const respondentData = getPartyDetails(content.userCase?.resp_Respondents, respondentId) as C100RebuildPartyDetails;
   const { firstName, lastName } = respondentData;
 
   return {
     ...translations,
     ...selectAddressFormTranslations,
     adddressPostCode: respondentData.address?.PostCode,
-    changePostCodeUrl: `/c100-rebuild/respondent-details/${respondentId}/address/lookup`,
-    cantFindAddressUrl: `/c100-rebuild/respondent-details/${respondentId}/address/manual`,
+    changePostCodeUrl: applyParms(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, { respondentId }),
+    cantFindAddressUrl: applyParms(C100_RESPONDENT_DETAILS_ADDRESS_MANUAL, { respondentId }),
     title: `${translations.title} ${firstName} ${lastName}`,
     form: updatedFormFields(form, generateFormFields(respondentData).fields),
   };

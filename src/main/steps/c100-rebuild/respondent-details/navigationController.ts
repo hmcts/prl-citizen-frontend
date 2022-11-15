@@ -48,7 +48,7 @@ class RespondentsDetailsNavigationController {
         nextUrl = nextChild
           ? applyParms(C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD, {
               respondentId: this.respondentId,
-              childId: nextChild?.id,
+              childId: nextChild.id as ChildrenDetails['id'],
             })
           : applyParms(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, {
               respondentId: this.respondentId,
@@ -76,7 +76,9 @@ class RespondentsDetailsNavigationController {
       case C100_RESPONDENT_DETAILS_CONTACT_DETAILS: {
         const nextRespondent = getNextPerson(this.respondentsDetails, this.respondentId);
         nextUrl = nextRespondent
-          ? applyParms(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, { respondentId: nextRespondent?.id })
+          ? applyParms(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, {
+              respondentId: nextRespondent?.id as C100RebuildPartyDetails['id'],
+            })
           : C100_OTHER_PERSON_CHECK;
         break;
       }
