@@ -2,7 +2,7 @@ import { responseCaseSequence } from './responseCaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(37);
+    expect(responseCaseSequence).toHaveLength(39);
     expect(responseCaseSequence[0].url).toBe('/respondent/task-list');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -121,13 +121,13 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[29].url).toBe('/tasklistresponse/proceedings/start');
     expect(responseCaseSequence[29].showInSection).toBe('aboutRespondentCase');
 
-    expect(responseCaseSequence[30].url).toBe('/tasklistresponse/proceedings/court-proceedings');
+    expect(responseCaseSequence[30].url).toBe('/tasklistresponse/proceedings/courtproceedings');
     expect(responseCaseSequence[30].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[30].getNextStep({})).toBe('/tasklistresponse/proceedings/summary');
+    expect(responseCaseSequence[30].getNextStep({})).toBe('/tasklistresponse/proceedings/undefined/order-details');
 
-    expect(responseCaseSequence[31].url).toBe('/tasklistresponse/proceedings/summary');
+    expect(responseCaseSequence[31].url).toBe('/tasklistresponse/proceedings/:orderType/order-details');
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[31].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[31].getNextStep({})).toBe('/tasklistresponse/proceedings');
 
     expect(responseCaseSequence[32].url).toBe('/respondent/upload-document');
     expect(responseCaseSequence[32].showInSection).toBe('aboutRespondentCase');
@@ -148,5 +148,17 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[36].url).toBe('/respondent/upload-document/upload-documents-success');
     expect(responseCaseSequence[36].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[36].getNextStep({})).toBe('/tasklistresponse/start');
+
+    expect(responseCaseSequence[37].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[37].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[37].getNextStep({})).toBe('/tasklistresponse/start');
+
+    expect(responseCaseSequence[38].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[38].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[38].getNextStep({})).toBe('/tasklistresponse/start');
+
+    expect(responseCaseSequence[39].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[39].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[39].getNextStep({})).toBe('/tasklistresponse/start');
   });
 });

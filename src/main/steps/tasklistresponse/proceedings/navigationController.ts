@@ -7,9 +7,9 @@ import {
 } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
+  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   COURT_PROCEEDINGS_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
-  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PROCEEDINGS_ORDER_DETAILS,
   PageLink,
   RESPOND_TO_APPLICATION,

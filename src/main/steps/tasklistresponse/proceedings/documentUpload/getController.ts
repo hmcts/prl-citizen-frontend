@@ -68,9 +68,9 @@ export default class DocumentUpload extends GetController {
       });
 
       const sessionErrors = req.session?.errors || [];
-       if (req.session?.errors) {
+      if (req.session?.errors) {
         req.session.errors = undefined;
-       }
+      }
 
       //super.clearConfidentialitySessionSaveData(req);
       res.render(this.view, {

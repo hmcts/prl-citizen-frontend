@@ -67,7 +67,7 @@ export class GetController {
     if (captionValue) {
       Object.assign(viewData, { caption: captionValue });
     }
-    
+
     res.render(this.view, viewData);
   }
 

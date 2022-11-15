@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { C100OrderTypes } from '../../../../app/case/definition';
+import { ProceedingsOrderTypes } from '../../../../app/case/definition';
 
 import { routeGuard } from './routeGuard';
 
@@ -9,7 +9,7 @@ describe('OrderDetails Route Guard', () => {
     const req = mockRequest({
       session: {
         userCase: {
-          op_otherProceedings: {
+          otherProceedings: {
             order: {
               careOrders: [
                 {
@@ -50,11 +50,11 @@ describe('OrderDetails Route Guard', () => {
   test('Should not render the page when the guard validation fails', async () => {
     const req = mockRequest({
       params: {
-        orderType: C100OrderTypes.EMERGENCY_PROTECTION_ORDER,
+        orderType: ProceedingsOrderTypes.EMERGENCY_PROTECTION_ORDER,
       },
       session: {
         userCase: {
-          op_courtProceedingsOrders: [C100OrderTypes.CARE_ORDER],
+          courtProceedingsOrders: [ProceedingsOrderTypes.CARE_ORDER],
         },
       },
     });

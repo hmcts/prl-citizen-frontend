@@ -3,11 +3,12 @@ import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
+  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   COURT_PROCEEDINGS_SUMMARY,
-  DOMESTIC_ABUSE_RISK,      
+  DOMESTIC_ABUSE_RISK,
   DOMESTIC_ABUSE_RISK_NO,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
@@ -47,7 +48,6 @@ import {
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
-  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
 } from '../urls';
 
 import OtherProceedingsNavigationController from './proceedings/navigationController';

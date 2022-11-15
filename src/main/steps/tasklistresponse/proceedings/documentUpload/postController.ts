@@ -52,10 +52,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    * @param req - AppRequest<AnyObject>
    * @param {Response} res - Response - This is the response object that will be sent back to the client.
    */
-  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { files }: AppRequest<AnyObject> = req;
-    const { orderType, orderId } = req.params;
-
+  public async post(requ: AppRequest, res: Response): Promise<void> {
+    const { files }: AppRequest = requ;
+    const { orderType, orderId } = requ.params;
+    const req: AppRequest<AnyObject> = requ;
     const courtOrderType = orderType as ProceedingsOrderTypes;
     const courtOrderId: AnyType | undefined = orderId;
 
