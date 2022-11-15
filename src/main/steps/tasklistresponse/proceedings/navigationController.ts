@@ -64,12 +64,7 @@ class OtherProceedingsNavigationController {
             nextUrl = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
           } else {
             // there is no other order type present
-            if (isAnyOrderWithOrderCopy(caseData?.otherProceedings?.order)) {
-              // check at last if there were any previous order types having at least an order with order copy
-              nextUrl = COURT_PROCEEDINGS_SUMMARY;
-            } else {
-              nextUrl = RESPOND_TO_APPLICATION;
-            }
+            nextUrl = COURT_PROCEEDINGS_SUMMARY;
           }
         }
         break;
