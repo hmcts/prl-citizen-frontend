@@ -1,12 +1,12 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100Address, C100RebuildPartyDetails, PartyType } from '../../../../../app/case/definition';
+import { C100Address, C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { getAddressesFromPostcode } from '../../../../../app/postcode/postcode-lookup-api';
-import { PartyDetailsVariant, getPartyDetails, transformPartyDetails, updatePartyDetails } from '../../../people/util';
+import { getPartyDetails, updatePartyDetails } from '../../../people/util';
 
 import { getUpdatedForm } from './content';
 
@@ -17,30 +17,31 @@ export default class AddressLookupPostController extends PostController<AnyObjec
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const postcode = req.body['PostCode'] as string;
     const { respondentId } = req.params;
-
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { onlycontinue, saveAndComeLater, _csrf, ...formData } = req.body;
-
-    req.session.errors = form.getErrors(formData);
+    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
+    const postcode = formData['PostCode'];
 
     req.session.userCase.resp_Respondents = updatePartyDetails(
       {
         ...(getPartyDetails(respondentId, req.session.userCase.resp_Respondents) as C100RebuildPartyDetails),
-        address: transformPartyDetails(PartyType.RESPONDENT, PartyDetailsVariant.ADDRESS, formData) as C100Address,
+        address: {
+          PostCode: postcode,
+        } as C100Address,
       },
       req.session.userCase.resp_Respondents
     ) as C100RebuildPartyDetails[];
 
-    if (!req.session.errors.length) {
-      req.session.addresses = (await getAddressesFromPostcode(postcode, req.locals.logger)) as [];
-    }
-
     if (onlycontinue) {
-      this.redirect(req, res);
+      req.session.errors = form.getErrors(formData);
+      if (!req.session.errors.length) {
+        req.session.addresses = (await getAddressesFromPostcode(postcode, req.locals.logger)) as [];
+      }
+
+      return this.redirect(req, res);
     } else if (saveAndComeLater) {
-      super.saveAndComeLater(req, res, req.session.userCase);
+      this.saveAndComeLater(req, res, req.session.userCase);
     }
   }
 }

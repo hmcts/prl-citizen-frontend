@@ -17,9 +17,9 @@ export default class ManualAddressPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { respondentId } = req.params;
-
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
 
     req.session.userCase.resp_Respondents = updatePartyDetails(
       {
@@ -30,7 +30,11 @@ export default class ManualAddressPostController extends PostController<AnyObjec
       req.session.userCase.resp_Respondents
     ) as C100RebuildPartyDetails[];
 
-    req.session.errors = form.getErrors(formData);
-    this.redirect(req, res);
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      return this.redirect(req, res);
+    } else if (saveAndComeLater) {
+      this.saveAndComeLater(req, res, req.session.userCase);
+    }
   }
 }

@@ -45,9 +45,6 @@ export const form: FormContent = {
   onlycontinue: {
     text: l => l.onlycontinue,
   },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
 };
 
 // eslint-disable-next-line @typescript-eslint/no-shadow

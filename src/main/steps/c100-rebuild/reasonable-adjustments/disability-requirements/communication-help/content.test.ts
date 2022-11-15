@@ -34,10 +34,10 @@ const en = {
     ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding',
     },
-    ra_signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreter_subfield: {
       required: 'Describe which Sign Language interpreter you need',
     },
-    ra_communicationHelpOtherDetails: {
+    ra_communicationHelpOther_subfield: {
       required: 'Describe what you need to help with communicating and understanding',
     },
   },
@@ -70,10 +70,10 @@ const cy = {
     ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding - welsh',
     },
-    ra_signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreter_subfield: {
       required: 'Describe which Sign Language interpreter you need - welsh',
     },
-    ra_communicationHelpOtherDetails: {
+    ra_communicationHelpOther_subfield: {
       required: 'Describe what you need to help with communicating and understanding - welsh',
     },
   },
@@ -131,7 +131,7 @@ describe('Communication help content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('needExtraTime');
 
     const signLanguageInterpreterDetailsField = communicationHelpField.values[4].subFields
-      ?.ra_signLanguageInterpreterDetails as FormOptions;
+      ?.ra_signLanguageInterpreter_subfield as FormOptions;
     expect(signLanguageInterpreterDetailsField.type).toBe('textarea');
     expect((signLanguageInterpreterDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (signLanguageInterpreterDetailsField.validator as Function)('test text area');
@@ -139,7 +139,7 @@ describe('Communication help content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
 
     const otherDetailsField = communicationHelpField.values[10].subFields
-      ?.ra_communicationHelpOtherDetails as FormOptions;
+      ?.ra_communicationHelpOther_subfield as FormOptions;
     expect(otherDetailsField.type).toBe('textarea');
     expect((otherDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (otherDetailsField.validator as Function)('test text area');

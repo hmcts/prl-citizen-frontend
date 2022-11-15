@@ -49,7 +49,7 @@ describe('Get Case Controller', () => {
         state: 'AWAITING_SUBMISSION_TO_HMCTS',
         c100RebuildInternationalElements: '{"ie_internationalRequest":"Yes","ie_provideDetailsRequest":"test IE"}',
         c100RebuildReasonableAdjustments:
-          '{"ra_typeOfHearing":["phoneHearing"],"ra_noVideoAndPhoneHearingExplanation":"","ra_languageNeeds":["speakInWelsh"],"ra_needInterpreterInCertainLanguageDetails":"","ra_specialArrangements":["separateExitEntrance"],"ra_specialArrangementsOtherSubField":"","ra_disabilityRequirements":["documentsHelp"]}',
+          '{"ra_typeOfHearing":["phoneHearing"],"ra_noVideoAndPhoneHearing_subfield":"","ra_languageNeeds":["speakInWelsh"],"ra_needInterpreterInCertainLanguage_subfield":"","ra_specialArrangements":["separateExitEntrance"],"ra_specialArrangementsOther_subfield":"","ra_disabilityRequirements":["documentsHelp"]}',
         c100RebuildReturnUrl: '/c100-rebuild/reasonable-adjustments/disability-requirements',
       },
     ]);

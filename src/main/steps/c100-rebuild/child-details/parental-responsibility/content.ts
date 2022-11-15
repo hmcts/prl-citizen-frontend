@@ -85,8 +85,8 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getPartyDetails(childId, content.userCase!.cd_children)!;
-  const { fields } = generateFormFields((childDetails as ChildrenDetails).parentialResponsibility);
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
+  const { fields } = generateFormFields(childDetails.parentialResponsibility);
 
   return {
     ...translations,

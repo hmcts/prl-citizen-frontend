@@ -287,6 +287,7 @@ export class PostController<T extends AnyObject> {
   ): Promise<void> {
     if (req.path.startsWith(C100_URL)) {
       try {
+        req.session.errors = [];
         Object.assign(req.session.userCase, formData);
         await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
       } finally {
