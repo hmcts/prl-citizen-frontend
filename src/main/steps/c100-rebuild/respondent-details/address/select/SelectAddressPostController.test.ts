@@ -99,7 +99,7 @@ describe('respondent > address > lookup > SelectAddressPostController', () => {
             postcode: 'IG1 1NB',
           },
         ],
-        saveAndComeLater: true,
+        onlycontinue: true,
       },
       session: {
         lang: language,

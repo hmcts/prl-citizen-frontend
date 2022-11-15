@@ -690,6 +690,7 @@ export type C100Applicant = {
   applicantAddress2?: string,
   applicantAddressTown?: string,
   applicantAddressCounty?: string,
+  country?: string,
   applicantAddressHistory?: YesOrNo,
   applicantProvideDetailsOfPreviousAddresses?: string;
   personalDetails:{
@@ -2505,7 +2506,7 @@ export interface C1ASafteyConcerns {
     relationshipDetails: {
       relationshipToChildren: RelationshipToChildren[];
     };
-    address?: C100Address;
+    address: C100Address;
     contactDetails?: {
       donKnowEmailAddress?: YesOrNo
       emailAddress?: string

@@ -26,7 +26,6 @@ const cy = () => ({
 
 export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent => {
   const { address, addressUnknown } = caseData;
-  console.log(addressUnknown, 'known or not');
 
   const fields = {
     AddressLine1: {
@@ -80,6 +79,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       label: l => l.country,
       value: address!.Country,
       labelSize: null,
+      validator: isFieldFilledIn,
     },
     addressUnknown: {
       type: 'checkboxes',
