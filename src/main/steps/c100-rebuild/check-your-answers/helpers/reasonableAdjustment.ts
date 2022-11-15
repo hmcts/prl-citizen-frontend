@@ -6,10 +6,7 @@ export const resonableAdjustmentHelper = (userCase, keys, sessionKey) => {
     let html = '';
     userCase[sessionKey].forEach(item => {
       if (userCase.hasOwnProperty(`ra_${item}_subfield`)) {
-        html += HTML.BOTTOM_PADDING_3;
-        html += HTML.LIST_ITEM + keys[item] + HTML.LIST_ITEM_END;
-        html += userCase[`ra_${item}_subfield`];
-        html += HTML.BOTTOM_PADDING_CLOSE;
+        html += HTML.LIST_ITEM + keys[item] + ' : ' + userCase[`ra_${item}_subfield`] + HTML.LIST_ITEM_END;
       } else {
         // html += HTML.BOTTOM_PADDING_3;
         html += HTML.LIST_ITEM + keys[item] + HTML.LIST_ITEM_END;
