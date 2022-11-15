@@ -27,7 +27,7 @@ const en = {
   intermediary: 'Intermediary',
   intermediaryHint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
-  other: 'Other',
+  communicationHelpOther: 'Other',
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
@@ -63,7 +63,7 @@ const cy = {
   intermediary: 'Intermediary - welsh',
   intermediaryHint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing - welsh',
-  other: 'Other - welsh',
+  communicationHelpOther: 'Other - welsh',
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
@@ -123,7 +123,9 @@ describe('Communication help content', () => {
     expect((communicationHelpField.values[8].label as LanguageLookup)(generatedContent)).toBe(en.explanationOfCourt);
     expect((communicationHelpField.values[9].label as LanguageLookup)(generatedContent)).toBe(en.intermediary);
     expect((communicationHelpField.values[9].hint as LanguageLookup)(generatedContent)).toBe(en.intermediaryHint);
-    expect((communicationHelpField.values[10].label as LanguageLookup)(generatedContent)).toBe(en.other);
+    expect((communicationHelpField.values[10].label as LanguageLookup)(generatedContent)).toBe(
+      en.communicationHelpOther
+    );
     expect(communicationHelpField.values[12].behaviour).toBe('exclusive');
     expect((communicationHelpField.values[12].label as LanguageLookup)(generatedContent)).toBe(en.noSupportRequired);
 
