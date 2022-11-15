@@ -12,10 +12,7 @@ import {
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_ORDER_DETAILS,
   PageLink,
-  RESPOND_TO_APPLICATION,
 } from '../../urls';
-
-import { isAnyOrderWithOrderCopy } from './util';
 
 class OtherProceedingsNavigationController {
   private selectedOrderTypes: ProceedingsOrderTypes[] | [] = [];
