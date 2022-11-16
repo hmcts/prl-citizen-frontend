@@ -173,17 +173,6 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/safety_concerns/main_page',
-            id: 'your-safety',
-            status: 'TO_DO',
-            text: 'Your safety',
-          },
-        ],
-        title: 'Safety concerns',
-      },
-      {
-        items: [
-          {
             href: '/tasklistresponse/international-factors/start/1234',
             id: 'international-factors',
             status: 'TO_DO',
@@ -294,17 +283,6 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/safety_concerns/main_page',
-            id: 'your-safety',
-            status: 'TO_DO',
-            text: 'Your safety',
-          },
-        ],
-        title: 'Safety concerns',
-      },
-      {
-        items: [
-          {
             href: '/tasklistresponse/international-factors/start/1234',
             id: 'international-factors',
             status: 'TO_DO',
@@ -396,17 +374,6 @@ describe('getRemainingTaskList', () => {
             id: 'allegations_of_harm_and_violence',
             status: 'NOT_AVAILABLE_YET',
             text: 'Allegations of harm and violence',
-          },
-        ],
-        title: 'Safety concerns',
-      },
-      {
-        items: [
-          {
-            href: '/tasklistresponse/safety_concerns/main_page',
-            id: 'your-safety',
-            status: 'COMPLETED',
-            text: 'Your safety',
           },
         ],
         title: 'Safety concerns',

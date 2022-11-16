@@ -10,7 +10,7 @@ import {
   getKeepYourDetailsPrivateStatus,
   getLegalRepresentationStatus,
   getMiamStatus,
-  getYourSafetyStatus,
+  //getYourSafetyStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -105,17 +105,17 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           },
         ],
       },
-      {
-        title: sectionTitles.safetyConcerns,
-        items: [
-          {
-            id: 'your-safety',
-            text: taskListItems.your_safety,
-            status: getYourSafetyStatus(userCase),
-            href: URL.SAFETY_MAIN_PAGE,
-          },
-        ],
-      },
+      // {
+      //   title: sectionTitles.safetyConcerns,
+      //   items: [
+      //     {
+      //       id: 'your-safety',
+      //       text: taskListItems.your_safety,
+      //       status: getYourSafetyStatus(userCase),
+      //       href: URL.SAFETY_MAIN_PAGE,
+      //     },
+      //   ],
+      // },
       {
         title: sectionTitles.additionalInformation,
         items: [

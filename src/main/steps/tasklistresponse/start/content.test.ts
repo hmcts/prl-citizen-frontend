@@ -136,17 +136,6 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/tasklistresponse/safety_concerns/main_page',
-              id: 'your-safety',
-              status: 'TO_DO',
-              text: 'Your safety',
-            },
-          ],
-          title: 'Safety concerns',
-        },
-        {
-          items: [
-            {
               href: '/tasklistresponse/international-factors/start/1234567',
               id: 'international-factors',
               status: 'TO_DO',
