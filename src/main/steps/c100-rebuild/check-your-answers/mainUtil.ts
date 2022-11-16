@@ -221,7 +221,7 @@ export const ChildernDetails = (
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
-        key: keys['parentalResponsibility']?.split('[^^^]').join(`${Number(child) + 1}`),
+        key: keys['parentalResponsibility']?.split('[^^^]').join(` ${firstname} ${lastname} `),
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       },
