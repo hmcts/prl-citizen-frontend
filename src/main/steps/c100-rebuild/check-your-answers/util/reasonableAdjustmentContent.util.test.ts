@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {ReasonableAdjustmentElement} from './reasonableAdjustmentContent.util';
 
 import { cy as attendingCourtCy, en as attendingCourtEn } from '../../reasonable-adjustments/attending-court/content';
 import {
@@ -37,6 +36,8 @@ import {
   cy as specialArrangementsCy,
   en as specialArrangementsEn,
 } from '../../reasonable-adjustments/special-arrangements/content';
+
+import { ReasonableAdjustmentElement } from './reasonableAdjustmentContent.util';
 
 /**
  * It returns an object containing the contents of the English and Welsh versions of the page,
@@ -96,7 +97,6 @@ const TestReasonableAdjustmentElement = SystemLanguage => {
 };
 
 describe('test cases for otherProceedingsContents', () => {
-
   test('english contents', () => {
     expect(ReasonableAdjustmentElement('en')).toStrictEqual(TestReasonableAdjustmentElement('en'));
   });
