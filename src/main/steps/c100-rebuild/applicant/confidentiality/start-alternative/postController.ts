@@ -60,14 +60,9 @@ export default class StartAlternativePostController extends CommonConfidentialit
             redirectURIBasedOnSelection = C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
             break;
         }
-        redirectURI = applyParms(redirectURIBasedOnSelection, { applicantId: applicantId as string });
+        redirectURI = applyParms(redirectURIBasedOnSelection, { applicantId });
       }
     }
-    super.post(
-      req as AppRequest<AnyObject>,
-      res as Response,
-      redirectURI as string,
-      applicantData as C100ListOfApplicants
-    );
+    super.post(req, res, redirectURI, applicantData);
   }
 }
