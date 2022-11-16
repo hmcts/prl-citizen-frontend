@@ -34,7 +34,6 @@ export class PostController<T extends AnyObject> {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
-      // await this.getCaseList(req, res, form, formData);
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else {
