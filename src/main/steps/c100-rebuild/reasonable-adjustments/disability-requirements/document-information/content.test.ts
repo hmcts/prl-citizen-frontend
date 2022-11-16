@@ -114,9 +114,7 @@ describe('Disability requirements content', () => {
     );
     expect((documentInformationField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.readOutDocuments);
     expect((documentInformationField.values[6].label as LanguageLookup)(generatedContent)).toBe(en.emailInformation);
-    expect((documentInformationField.values[7].label as LanguageLookup)(generatedContent)).toBe(
-      en.documentHelpOther
-    );
+    expect((documentInformationField.values[7].label as LanguageLookup)(generatedContent)).toBe(en.documentHelpOther);
     expect(documentInformationField.values[9].behaviour).toBe('exclusive');
     expect((documentInformationField.values[9].label as LanguageLookup)(generatedContent)).toBe(en.noSupportRequired);
 
