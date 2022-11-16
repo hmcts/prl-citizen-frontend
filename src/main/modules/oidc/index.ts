@@ -66,12 +66,12 @@ export class OidcMiddleware {
                 ? req.session.c100RebuildLdFlag
                 : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
             if (c100RebuildLdFlag) {
+              req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
               return next();
             } else {
               return res.redirect(CITIZEN_HOME_URL);
             }
           }
-          req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
 
           if (req.session.userCase) {
             console.log('****** inside oidc, user case found');
