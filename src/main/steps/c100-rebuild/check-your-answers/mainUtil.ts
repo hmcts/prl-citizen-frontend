@@ -332,12 +332,6 @@ export const ApplicantDetails = (
             ?  applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'], { applicantId: sessionApplicantData[applicant]['id'] })
             :  applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId: sessionApplicantData[applicant]['id'] }),
       },
-      {
-        key: keys['addressDetails'],
-        value: '',
-        valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys),
-        changeUrl: applyParms( Urls['C100_APPLICANT_ADDRESS_MANUAL'], { applicantId: sessionApplicantData[applicant]['id'] }),
-      },
     );
 
     const relationShipToChildren = sessionApplicantData[applicant]['relationshipDetails']?.['relationshipToChildren'];
@@ -354,6 +348,12 @@ export const ApplicantDetails = (
       });
 
       newApplicantData.push(
+        {
+          key: keys['addressDetails'],
+          value: '',
+          valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys),
+          changeUrl: applyParms( Urls['C100_APPLICANT_ADDRESS_MANUAL'], { applicantId: sessionApplicantData[applicant]['id'] }),
+        },
         {
           key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
           value: '',
@@ -921,7 +921,7 @@ export const RespondentDetails = (
         {
           key: keys['fullName'],
           value: firstname + ' ' + lastname,
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }) ,
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADD'], {}) ,
         },
         {
           key: keys['hasNameChanged'],
