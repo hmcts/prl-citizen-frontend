@@ -1,19 +1,12 @@
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getCaseDetails, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import {
-  C100_REBUILD_URL,
-  CALLBACK_URL,
-  CITIZEN_HOME_URL,
-  DASHBOARD_URL,
-  SIGN_IN_URL,
-  SIGN_OUT_URL,
-} from '../../steps/urls';
+import { C100_REBUILD_URL, CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -48,9 +41,6 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        console.log('inside app.use');
-        console.log('req.path is ' + req.path);
-        //Skipping for C100 rebuild
         if (req.path.startsWith(CITIZEN_HOME_URL || C100_REBUILD_URL) && !req.session?.user) {
           return next();
         }
@@ -66,7 +56,7 @@ export class OidcMiddleware {
                   const caseReference = req.session.userCase.caseCode;
                   const accessCode = req.session.userCase.accessCode;
                   const data = { applicantCaseName: 'DUMMY CASE DATA' };
-                  await client.linkCaseToCitizen1(
+                  await client.linkCaseToCitizen(
                     req.session.user,
                     caseReference as string,
                     req,
@@ -78,29 +68,6 @@ export class OidcMiddleware {
               } catch (err) {
                 req.session.accessCodeLoginIn = false;
               }
-            }
-          }
-
-          if (!req.session.userCase) {
-            //This language preference will be used while creating a case
-            // const languagePreference =
-            //   req.session['lang'] === 'cy' ? LanguagePreference.WELSH : LanguagePreference.ENGLISH;
-            // req.session.userCase = await req.locals.api.getOrCreateCase(
-            //   res.locals.serviceType,
-            //   req.session.user,
-            //   languagePreference
-            // );
-            //setting the applicant's preferred language in session
-            // req.session['lang'] =
-            // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
-          }
-          //TODO pvt law team to revisit & correct
-          if (req.path.startsWith(DASHBOARD_URL)) {
-            console.log('****** inside oidc, trying to get the cases');
-            try {
-              req.session.userCaseList = await getCaseDetails(req);
-            } catch (e) {
-              console.log('**** getCaseDetails error', e);
             }
           }
           return next();
