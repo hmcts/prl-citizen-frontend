@@ -157,6 +157,7 @@ import RespondentsDetailsNavigationController from './respondent-details/navigat
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
+import UploadDocumentController from './uploadDocumentController';
 
 export const C100Sequence: Step[] = [
   {
@@ -567,6 +568,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_MIAM_UPLOAD,
+    postController: UploadDocumentController,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_UPLOAD_CONFIRMATION,
   },
@@ -947,6 +949,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_CONSENT_ORDER_UPLOAD,
+    postController: UploadDocumentController,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
   },
