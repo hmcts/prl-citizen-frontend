@@ -74,17 +74,17 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         });
       } else {
         if (isNull(files) || files === undefined) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
+          this.uploadFileError(req, res, orderType, orderId, {
             propertyName: 'document',
             errorType: 'required',
           });
         } else if (!isValidFileFormat(files)) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
+          this.uploadFileError(req, res, orderType, orderId, {
             propertyName: 'document',
             errorType: 'fileFormat',
           });
         } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
+          this.uploadFileError(req, res, orderType, orderId, {
             propertyName: 'document',
             errorType: 'fileSize',
           });

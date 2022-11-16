@@ -1,12 +1,12 @@
-import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { FormContent } from '../../../../app/form/Form';
-import { CommonContent } from '../../../common/common.content';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { FormContent } from '../../../app/form/Form';
+import { CommonContent } from '../../common/common.content';
 
-import { generateContent } from './content';
-import ParentalResponsibilityPostController from './postController';
+import ChildDetailsPostController from './childDetailPostController';
+import { generateContent } from './personal-details/content';
 
-describe('ParentalResponsibilityPostController Post Controller', () => {
+describe('ChildDetailsPostController Post Controller', () => {
   const commonContent = {
     language: 'en',
     userCase: {
@@ -49,9 +49,15 @@ describe('ParentalResponsibilityPostController Post Controller', () => {
 
   test('Should navigagte to the next page when there are no errors when continue button is clicked', async () => {
     const mockFormContent = {
-      fields: {},
+      fields: {
+        _ctx: {
+          type: 'hidden',
+          labelHidden: true,
+          value: 'pd',
+        },
+      },
     } as unknown as FormContent;
-    const controller = new ParentalResponsibilityPostController(mockFormContent.fields);
+    const controller = new ChildDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       params: {
@@ -76,9 +82,15 @@ describe('ParentalResponsibilityPostController Post Controller', () => {
 
   test('Should update case when save and come back button is clicked', async () => {
     const mockFormContent = {
-      fields: {},
+      fields: {
+        _ctx: {
+          type: 'hidden',
+          labelHidden: true,
+          value: 'pd',
+        },
+      },
     } as unknown as FormContent;
-    const controller = new ParentalResponsibilityPostController(mockFormContent.fields);
+    const controller = new ChildDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       params: {
