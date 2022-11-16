@@ -124,7 +124,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
@@ -152,7 +152,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,
@@ -216,7 +216,7 @@ export class CosApiClient {
         Accept: '*/*',
         'Content-Type': '*',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
       const formData = new FormData();
@@ -272,26 +272,7 @@ export class CosApiClient {
     }
   }
 
-  public async linkCaseToCitizen(user: UserDetails, caseId: string, accessCode: string): Promise<AxiosResponse> {
-    try {
-      const headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        caseId,
-        accessCode,
-        Authorization: 'Bearer ' + user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-      };
-      const response = await Axios.post(config.get('services.cos.url') + '/citizen/link', {
-        headers,
-      });
-      return response;
-    } catch (err) {
-      throw new Error('Case could not be updated.');
-    }
-  }
-
-  public async linkCaseToCitizen1(
+  public async linkCaseToCitizen(
     user: UserDetails,
     caseId: string,
     req: AppRequest,
@@ -305,15 +286,13 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: ('Bearer ' + user.accessToken) as string,
-        serviceAuthorization: getServiceAuthToken() as string,
+        ServiceAuthorization: ('Bearer ' + getServiceAuthToken()) as string,
         accessCode: accessCode as string,
       };
-      //: AxiosResponse<CaseWithId>
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
       });
       return response;
-      // return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
       throw new Error('Case could not be updated.');
     }
