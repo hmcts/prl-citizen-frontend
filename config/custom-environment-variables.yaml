@@ -4,7 +4,6 @@ services:
     token: POSTCODE_TOKEN
   authProvider:
     url: SERVICE_AUTH_PROVIDER_URL
-    microservice: 'prl_citizen_frontend'
     secret: SERVICE_AUTH_SECRET
   idam:
     authorizationURL: IDAM_WEB_URL
