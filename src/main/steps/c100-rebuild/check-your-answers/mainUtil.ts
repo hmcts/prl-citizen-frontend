@@ -225,15 +225,6 @@ export const ChildernDetails = (
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       },
-      {
-        key: keys['whoDoesLiveWith'].split('[^childName^]').join(` ${firstname + ' ' + lastname} `),
-        value: '',
-        valueHtml: HTML.UNORDER_LIST + sessionChildData[child]?.['liveWith']?.map(respectivechild => {
-          const { firstName, lastName, partyType } = respectivechild;
-          return HTML.LIST_ITEM + firstName + ' ' + lastName + ` - (${partyType}) ` + HTML.LIST_ITEM_END;
-        }).toString().split(',').join('').toString() + HTML.UNORDER_LIST_END,
-        changeUrl: applyParms(Urls['C100_CHILDERN_LIVE_WITH'], { childId: id }),
-      },
     );
   }
   const SummaryData = newChildDataStorage;
@@ -347,19 +338,34 @@ export const ApplicantDetails = (
         valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys),
         changeUrl: applyParms( Urls['C100_APPLICANT_ADDRESS_MANUAL'], { applicantId: sessionApplicantData[applicant]['id'] }),
       },
-      {
-        key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
-        value: '',
-        valueHtml: applicantContactDetailsParser(sessionApplicantData[applicant].applicantContactDetail, keys),
-        changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
-      },
-      {
-        key: keys['voiceMailLabel'],
-        value: '',
-        valueHtml: applicantCourtCanLeaveVoiceMail(sessionApplicantData[applicant].applicantContactDetail, keys),
-        changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
-      }
     );
+
+    const relationShipToChildren = sessionApplicantData[applicant]['relationshipDetails']?.['relationshipToChildren'];
+    const id = sessionApplicantData[applicant]['id'];
+      relationShipToChildren.forEach(element => {
+        const childDetails = userCase?.['cd_children']?.filter(child => child.id === element['childId'])[0];
+        const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
+        newApplicantData.push({
+          key: keys['relationshipTo'] + ' ' + childFullName ,
+          value: element['relationshipType'],
+          valueHtml: element['relationshipType'] + ' ' + element['otherRelationshipTypeDetails'] !== '' ?  element['otherRelationshipTypeDetails'] : '' , //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+          changeUrl: applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], { applicantId: id, childId: element['childId'] }),
+        });
+      });
+
+      newApplicantData.push(
+        {
+          key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
+          value: '',
+          valueHtml: applicantContactDetailsParser(sessionApplicantData[applicant].applicantContactDetail, keys),
+          changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
+        },
+        {
+          key: keys['voiceMailLabel'],
+          value: '',
+          valueHtml: applicantCourtCanLeaveVoiceMail(sessionApplicantData[applicant].applicantContactDetail, keys),
+          changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
+        });
 
     //contactDetailsOf
   }
@@ -1200,22 +1206,29 @@ export const whereDoChildLive = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const SummaryData: ANYTYPE = [
-    {
-      key: keys['doRequireHelpwithFee'],
-      value: userCase['hwf_needHelpWithFees'],
-      changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'], 
-    },
-  ];
-
-    SummaryData.push({
-      key: keys['hwfApplication'],
-      valueHtml: userCase['helpWithFeesReferenceNumber'],
-      changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'], 
-    });
+ 
+  const sessionChildData = userCase['cd_children'];
+  const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
+    [];
+  for (const child in sessionChildData) {
+    const firstname = sessionChildData[child]['firstName'],
+      lastname = sessionChildData[child]['lastName'],
+      id = sessionChildData[child]['id'];
+    newChildDataStorage.push(
+      {
+        key: keys['whoDoesLiveWith'].split('[^childName^]').join(` ${firstname + ' ' + lastname} `),
+        value: '',
+        valueHtml: HTML.UNORDER_LIST + sessionChildData[child]?.['liveWith']?.map(respectivechild => {
+          const { firstName, lastName } = respectivechild;
+          return HTML.LIST_ITEM + firstName + ' ' + lastName  + HTML.LIST_ITEM_END;
+        }).toString().split(',').join('').toString() + HTML.UNORDER_LIST_END,
+        changeUrl: applyParms(Urls['C100_CHILDERN_LIVE_WITH'], { childId: id }),
+      },
+    );
+  }
   return {
     title: sectionTitles['whereTheChildrenLive'],
-    rows: getSectionSummaryList(SummaryData, content),
+    rows: getSectionSummaryList(newChildDataStorage, content),
   };
 };
 

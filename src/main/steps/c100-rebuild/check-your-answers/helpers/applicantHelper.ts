@@ -4,11 +4,11 @@ import { HTML } from '../common/htmlSelectors';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const applicantAddressParser = (sessionApplicantData, keys) => {
   let html = '' as string;
-  sessionApplicantData.hasOwnProperty('applicantAddress1') && (html += sessionApplicantData?.['applicantAddress1'] + HTML.BREAK );
-  sessionApplicantData.hasOwnProperty('applicantAddress2') && (html += sessionApplicantData?.['applicantAddress2'] + HTML.BREAK );
-  sessionApplicantData.hasOwnProperty('applicantAddressTown') && (html += sessionApplicantData?.['applicantAddressTown'] + HTML.BREAK);
-  sessionApplicantData.hasOwnProperty('applicantAddressCounty') && (html += sessionApplicantData?.['applicantAddressCounty'] + HTML.BREAK + HTML.BREAK);
-  sessionApplicantData.hasOwnProperty('applicantAddressPostcode') && (html += sessionApplicantData?.['applicantAddressPostcode']+ HTML.RULER);
+  sessionApplicantData.hasOwnProperty('applicantAddress1') && sessionApplicantData['applicantAddress1'] !==  '' ? (html += sessionApplicantData?.['applicantAddress1'] + HTML.BREAK ) : '';
+  sessionApplicantData.hasOwnProperty('applicantAddress2') &&  sessionApplicantData['applicantAddress2'] !==  '' ?  (html += sessionApplicantData?.['applicantAddress2'] + HTML.BREAK ) : '';
+  sessionApplicantData.hasOwnProperty('applicantAddressTown') &&  sessionApplicantData['applicantAddressTown'] !==  '' ?  (html += sessionApplicantData?.['applicantAddressTown'] + HTML.BREAK): '';
+  sessionApplicantData.hasOwnProperty('applicantAddressCounty') &&  sessionApplicantData['applicantAddressCounty'] !==  '' ?  (html += sessionApplicantData?.['applicantAddressCounty'] + HTML.BREAK + HTML.BREAK) : '';
+  sessionApplicantData.hasOwnProperty('applicantAddressPostcode') &&  sessionApplicantData['applicantAddressPostcode'] !==  '' ?  (html += sessionApplicantData?.['applicantAddressPostcode']+ HTML.RULER) : '';
   if(sessionApplicantData.hasOwnProperty('applicantAddressHistory')){
     html += HTML.H4 + keys['haveLivedMore'] + HTML.H4_CLOSE;
     html += sessionApplicantData?.['applicantAddressHistory'];
@@ -27,14 +27,17 @@ export const applicantAddressParser = (sessionApplicantData, keys) => {
 
 export const applicantAddressParserForRespondents = (sessionApplicantData, keys) => {
   let html = '' as string;
-  sessionApplicantData.hasOwnProperty('AddressLine1') && (html += sessionApplicantData?.['AddressLine1'] + HTML.BREAK );
-  sessionApplicantData.hasOwnProperty('AddressLine2') && (html += sessionApplicantData?.['AddressLine2'] + HTML.BREAK );
-  sessionApplicantData.hasOwnProperty('PostTown') && (html += sessionApplicantData?.['PostTown'] + HTML.BREAK);
-  sessionApplicantData.hasOwnProperty('County') && (html += sessionApplicantData?.['County'] + HTML.BREAK + HTML.BREAK);
-  sessionApplicantData.hasOwnProperty('PostCode') && (html += sessionApplicantData?.['PostCode']+ HTML.RULER);
+  sessionApplicantData.hasOwnProperty('AddressLine1') && sessionApplicantData['AddressLine1'] !==  '' ? (html += sessionApplicantData?.['AddressLine1'] + HTML.BREAK ) : '';
+  sessionApplicantData.hasOwnProperty('AddressLine2') && sessionApplicantData['AddressLine2'] !==  '' ? (html += sessionApplicantData?.['AddressLine2'] + HTML.BREAK ) : '';
+  sessionApplicantData.hasOwnProperty('PostTown') && sessionApplicantData['PostTown'] !==  '' ? (html += sessionApplicantData?.['PostTown'] + HTML.BREAK) : '';
+  sessionApplicantData.hasOwnProperty('County') && sessionApplicantData['County'] !==  '' ? (html += sessionApplicantData?.['County'] + HTML.BREAK + HTML.BREAK) : '';
+  sessionApplicantData.hasOwnProperty('PostCode') && sessionApplicantData['PostCode'] !==  '' ? (html += sessionApplicantData?.['PostCode']+ HTML.BREAK) : '';
+  sessionApplicantData.hasOwnProperty('Country') && sessionApplicantData['Country'] !==  '' ? (html += sessionApplicantData?.['Country']+ HTML.RULER) : '';
   if(sessionApplicantData.hasOwnProperty('addressHistory')){
     html += HTML.H4 + keys['haveLivedMore'] + HTML.H4_CLOSE;
-    html += sessionApplicantData?.['addressHistory'];
+    html += HTML.BOTTOM_PADDING_3;
+    html += sessionApplicantData?.['addressHistory'] === 'dontKnow' ? keys['dontKnow'] : sessionApplicantData?.['addressHistory'];
+    html += HTML.BOTTOM_PADDING_CLOSE;
     if(sessionApplicantData.addressHistory === 'No'){
     html + + HTML.RULER;
     html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BOTTOM_PADDING_3;
@@ -55,9 +58,6 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys) => {
   }
   if(sessionApplicantData['canProvideEmail'] === 'No'){
     html += HTML.H4 +  keys['canNotProvideEmailLabel'] + HTML.H4_CLOSE;
-    html +=  HTML.BOTTOM_PADDING_3;
-    html += sessionApplicantData['canNotProvideEmailReason'];
-    html += HTML.BOTTOM_PADDING_CLOSE;
   }
   html += HTML.RULER;
   if(sessionApplicantData['canProvideTelephoneNumber'] === 'Yes'){
@@ -93,9 +93,11 @@ export const applicantCourtCanLeaveVoiceMail = (sessionApplicantData, keys) => {
 
 export const otherPeopleAddressParser = (sessionApplicantData) => {
   let html = '' as string;
-  html += sessionApplicantData?.['AddressLine1'] + HTML.BREAK;
-  html += sessionApplicantData?.['AddressLine2'] + HTML.BREAK;
-  html += sessionApplicantData?.['PostTown'] + HTML.BREAK + HTML.BREAK;
-  html += sessionApplicantData?.['PostCode'];
+  html += sessionApplicantData.hasOwnProperty('AddressLine1') ? sessionApplicantData?.['AddressLine1'] + HTML.BREAK : '';
+  html += sessionApplicantData.hasOwnProperty('AddressLine2') ? sessionApplicantData?.['AddressLine2'] + HTML.BREAK : '';
+  html += sessionApplicantData.hasOwnProperty('PostTown') ? sessionApplicantData?.['PostTown'] + HTML.BREAK  : '';
+  html += sessionApplicantData.hasOwnProperty('County') ? sessionApplicantData?.['County'] + HTML.BREAK  + HTML.BREAK  : '';
+  html += sessionApplicantData.hasOwnProperty('PostCode') ? sessionApplicantData?.['PostCode'] + HTML.BREAK : '';
+  html += sessionApplicantData.hasOwnProperty('Country') ? sessionApplicantData?.['Country'] + HTML.BREAK  : '';
  return html;
 };

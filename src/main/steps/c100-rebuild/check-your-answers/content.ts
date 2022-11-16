@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../../steps/common/common.content';
@@ -258,12 +258,16 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
     OtherChildrenDetails(enContent, userCase),
     ApplicantDetails(enContent, userCase),
     RespondentDetails(enContent, userCase),
-    OtherPeopleDetails(enContent, userCase),
+  ];
+  if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
+    sections.push(OtherPeopleDetails(enContent, userCase));
+  }
+  sections.push(
     whereDoChildLive(enContent, userCase),
     PastAndCurrentProceedings(enContent, userCase),
     SafetyConcerns(enContent, userCase),
-    SafetyConcerns_child(enContent, userCase),
-  ];
+    SafetyConcerns_child(enContent, userCase)
+  );
 
   if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
     sections.push(SafetyConcerns_yours(enContent, userCase));
@@ -299,13 +303,17 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     ChildernDetailsAdditional(cyContent, userCase),
     OtherChildrenDetails(cyContent, userCase),
     ApplicantDetails(cyContent, userCase),
-    whereDoChildLive(enContent, userCase),
     RespondentDetails(cyContent, userCase),
-    OtherPeopleDetails(cyContent, userCase),
+  ];
+  if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
+    sections.push(OtherPeopleDetails(cyContent, userCase));
+  }
+  sections.push(
+    whereDoChildLive(enContent, userCase),
     PastAndCurrentProceedings(cyContent, userCase),
     SafetyConcerns(cyContent, userCase),
-    SafetyConcerns_child(cyContent, userCase),
-  ];
+    SafetyConcerns_child(cyContent, userCase)
+  );
 
   if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
     sections.push(SafetyConcerns_yours(cyContent, userCase));
