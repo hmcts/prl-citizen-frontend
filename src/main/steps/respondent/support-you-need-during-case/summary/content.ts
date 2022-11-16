@@ -1,4 +1,5 @@
 import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
+import { NO_HEARINGS, NO_NEED_OF_SUPPORT } from '../../../../../main/steps/constants';
 import { CaseWithId } from '../../../../app/case/case';
 import { ReasonableAdjustments } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
@@ -125,8 +126,7 @@ export const enContent = {
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
-  console.log('userCase========>' + JSON.stringify(userCase));
-  console.log('urls========>' + JSON.stringify(urls));
+
   filterSelectedUrls(userCase);
   return {
     ...enContent,
@@ -254,8 +254,7 @@ const urls = {
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
-  console.log('urls=========>' + urls);
-  console.log('userCase=========>' + JSON.stringify(userCase));
+
   return {
     ...cyContent,
     language: content.language,
@@ -364,11 +363,11 @@ function filterSelectedUrls(userCase: Partial<CaseWithId>) {
     deleteTravellingToCourtFields();
   }
 
-  if (!userCase?.respondentAttendingToCourt?.includes('no hearings')) {
+  if (!userCase?.respondentAttendingToCourt?.includes(NO_HEARINGS)) {
     userCase.respondentHearingDetails = '';
   }
 
-  if (userCase?.respondentLangRequirements?.includes('No, I do not have any language requirements at this time')) {
+  if (userCase?.respondentLangRequirements?.includes(NO_NEED_OF_SUPPORT)) {
     userCase.respondentLangDetails = '';
   }
 

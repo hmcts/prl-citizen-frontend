@@ -61,9 +61,6 @@ class ApplicantReasonableAdjustmentsNavigationController {
       if (currentPageIndex < this.selectedPages.length - 1) {
         pageUrl = this.pages[this.selectedPages[currentPageIndex + 1]].url;
       }
-      console.log('applicant currentPageId==>' + currentPageId);
-      console.log('applicant currentPageIndex==>' + currentPageIndex);
-      console.log('applicant pageUrl==>' + pageUrl);
     }
 
     return pageUrl;
@@ -71,7 +68,11 @@ class ApplicantReasonableAdjustmentsNavigationController {
 
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>): PageLink {
     this.selectedPages = caseData.reasonableAdjustments;
-    console.log('selectedPages==>' + this.selectedPages);
+
+    if (caseData.reasonableAdjustments === ApplicantReasonableAdjustments.NO_NEED_OF_SUPPORT) {
+      return SAFETY_ARRANGEMENTS;
+    }
+
     let url: PageLink;
 
     switch (currentPageUrl) {
@@ -79,7 +80,7 @@ class ApplicantReasonableAdjustmentsNavigationController {
         this.selectedPageUrls = [];
         url = this.pages[this.selectedPages[0]].url;
         this.selectedPageUrls.push(url);
-        console.log('first url====>' + url);
+
         break;
       }
       default: {
@@ -88,7 +89,6 @@ class ApplicantReasonableAdjustmentsNavigationController {
         if (pageUrl !== null) {
           url = pageUrl;
           this.selectedPageUrls.push(url);
-          console.log('applicant selectedPageUrls==1===>' + this.selectedPageUrls);
         } else {
           url = SAFETY_ARRANGEMENTS;
         }

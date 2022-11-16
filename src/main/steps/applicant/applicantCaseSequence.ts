@@ -187,7 +187,8 @@ export const applicantCaseSequence: Step[] = [
   {
     url: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => SAFETY_ARRANGEMENTS,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(UNABLE_TO_TAKE_COURT_PROCEEDINGS, caseData),
   },
   {
     url: SAFETY_ARRANGEMENTS,

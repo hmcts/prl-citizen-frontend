@@ -121,8 +121,8 @@ describe('applicant1Sequence', () => {
       '/applicant/support-you-need-during-case/unable-to-take-court-proceedings'
     );
     expect(applicantCaseSequence[24].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[24].getNextStep({})).toBe(
-      '/applicant/support-you-need-during-case/safety-arrangements'
+    expect(applicantCaseSequence[24].getNextStep(applicantReasonableAdjustmentsMockData.session.userCase)).toBe(
+      '/applicant/support-you-need-during-case/summary'
     );
 
     expect(applicantCaseSequence[25].url).toBe('/applicant/support-you-need-during-case/safety-arrangements');
