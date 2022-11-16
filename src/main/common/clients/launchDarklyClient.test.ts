@@ -30,20 +30,6 @@ describe('LaunchDarkly', function () {
     };
   });
 
-  // test('Should initiate ldUser and client', function () {
-  //   when(config.get as jest.Mock)
-  //     .calledWith('launchDarkly.ldUser')
-  //     .mockReturnValue('citizen-frontend');
-  //   when(config.get as jest.Mock)
-  //     .calledWith('launchDarkly.sdkKey')
-  //     .mockReturnValue('sometestkey');
-
-  //   const featureFlags = launchdarkly;
-  //   console.log("FEATURE FLAGS", featureFlags);
-  //   expect(featureFlags['LDUser'].key).toEqual('citizen-frontend');
-  // //  expect(featureFlags['client']).toEqual(launchDarklyClient.serviceVariation('sometestkey', false));
-  // });
-
   test('Should get a flag value', async function () {
     when(config.get as jest.Mock)
       .calledWith('launchDarkly.ldUser')
