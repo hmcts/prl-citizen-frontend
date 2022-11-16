@@ -17,6 +17,7 @@ const checkboxConverter = (value: string | undefined) => {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
 };
+console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   orderCollection: uploadedFilesFromApiApplicant1,
@@ -97,5 +98,6 @@ export const fromApiDate = (date: string | undefined): CaseDate => {
   const [y, m, d] = date.split('-');
   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
+console.log(fromApiDate);
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);

@@ -67,6 +67,7 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
 };
 
 const isFinalOrderActive = (userCase: Partial<CaseWithId>) => {
+  console.log(JSON.stringify(userCase.selectTypeOfOrder));
   if (userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl) {
     return true;
   }
@@ -74,6 +75,7 @@ const isFinalOrderActive = (userCase: Partial<CaseWithId>) => {
 };
 
 const iscaseClosedActive = (userCase: Partial<CaseWithId>) => {
+  console.log(JSON.stringify(userCase.doesOrderClosesCase));
   if (userCase.doesOrderClosesCase === YesOrNo.YES) {
     return true;
   }

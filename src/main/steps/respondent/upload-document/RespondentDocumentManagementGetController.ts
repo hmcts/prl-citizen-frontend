@@ -27,6 +27,7 @@ export default class RespondentDocumentManagementGetController extends GetContro
     const formaction = '';
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
+        console.log('entering loop to');
         req.session.userCase.start = undefined;
         req.session.userCase.respondentUploadFiles = undefined;
         req.session.userCase.declarationCheck = undefined;

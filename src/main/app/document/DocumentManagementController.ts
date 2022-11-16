@@ -276,7 +276,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
     } catch (err) {
-      throw new Error('Could not retrieve the document.');
+      console.log(err);
     }
 
     let fieldFlag = '';
@@ -607,7 +607,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.headers.accept?.includes('application/json')) {
       throw new Error('No files were uploaded');
     } else {
+      console.log('test.....');
       const fileData = req.files || [];
+      console.log('File data... : ', fileData);
       const obj = {
         id: fileData[0]['originalname'],
         name: fileData[0]['originalname'],
@@ -666,6 +668,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentRequestedByCourt = req.session.userCase.start;
     }
 
+    console.log('documentRequestedByCourt option: ', documentRequestedByCourt);
+
     let parentDocumentType;
     let documentType;
     const caseId = req.session.userCase.id;
@@ -688,6 +692,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
     );
 
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+
+    console.log('Calling upload request: ', uploadedDocumentRequest);
 
     const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(
       caseworkerUser,

@@ -260,6 +260,7 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
+  console.log(JSON.stringify(buildProgressBarStages(content.userCase!)));
 
   return {
     ...translations,
