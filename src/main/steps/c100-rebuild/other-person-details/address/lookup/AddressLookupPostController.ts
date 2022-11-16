@@ -1,12 +1,12 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
+import { C100Address, C100RebuildPartyDetails, PartyType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { getAddressesFromPostcode } from '../../../../../app/postcode/postcode-lookup-api';
-import { getOtherPersonDetails, transformFormData, updateOtherPersonDetails } from '../../../other-person-details/util';
+import { PartyDetailsVariant, getPartyDetails, transformPartyDetails, updatePartyDetails } from '../../../people/util';
 
 import { getUpdatedForm } from './content';
 
@@ -17,35 +17,27 @@ export default class AddressLookupPostController extends PostController<AnyObjec
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const postcode = req.body['PostCode'] as string;
     const { otherPersonId } = req.params;
-
-    let addresses;
-
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    req.session.errors = form.getErrors(formData);
+    req.session.userCase.oprs_otherPersons = updatePartyDetails(
+      {
+        ...(getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons) as C100RebuildPartyDetails),
+        address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
+      },
+      req.session.userCase.oprs_otherPersons
+    ) as C100RebuildPartyDetails[];
 
-    const otherPersonsDetails = getOtherPersonDetails(
-      req.session.userCase.oprs_otherPersons!,
-      otherPersonId
-    ) as C100RebuildPartyDetails;
-
-    Object.assign(otherPersonsDetails.address!, transformFormData('address', formData));
-
-    req.session.userCase.oprs_otherPersons = updateOtherPersonDetails(
-      req.session.userCase.oprs_otherPersons!,
-      otherPersonsDetails
-    );
-
-    if (req.session.errors.length === 0) {
-      console.log(postcode, 'address');
-      addresses = await getAddressesFromPostcode(postcode, req.locals.logger);
-      console.log(postcode, addresses, 'address');
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      if (!req.session.errors.length) {
+        req.session.addresses = (await getAddressesFromPostcode(formData['PostCode'], req.locals.logger)) as [];
+      }
+      return this.redirect(req, res);
+    } else if (saveAndComeLater) {
+      this.saveAndComeLater(req, res, req.session.userCase);
     }
-    req.session.addresses = addresses;
-
-    this.redirect(req, res);
   }
 }

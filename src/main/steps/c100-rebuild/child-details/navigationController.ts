@@ -2,17 +2,16 @@ import { Case } from '../../../app/case/case';
 import { ChildrenDetails } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
-  C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   C100_CHILDERN_DETAILS_ADD,
   C100_CHILDERN_DETAILS_CHILD_MATTERS,
   C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
   C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
   C100_CHILDERN_FURTHER_INFORMATION,
   C100_CHILDERN_LIVE_WITH,
+  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   PageLink,
 } from '../../urls';
-
-import { getNextChild } from './util';
+import { getNextPerson } from '../people/util';
 
 class ChildrenDetailsNavigationController {
   private childrenDetails: ChildrenDetails[] | [] = [];
@@ -39,17 +38,17 @@ class ChildrenDetailsNavigationController {
         break;
       }
       case C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: {
-        const nextChild = getNextChild(this.childrenDetails, this.childId);
+        const nextChild = getNextPerson(this.childrenDetails, this.childId);
         nextUrl = nextChild
-          ? applyParms(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, { childId: nextChild.id })
+          ? applyParms(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, { childId: nextChild.id as ChildrenDetails['id'] })
           : C100_CHILDERN_FURTHER_INFORMATION;
         break;
       }
       case C100_CHILDERN_LIVE_WITH: {
-        const nextChild = getNextChild(this.childrenDetails, this.childId);
+        const nextChild = getNextPerson(this.childrenDetails, this.childId);
         nextUrl = nextChild
-          ? applyParms(C100_CHILDERN_LIVE_WITH, { childId: nextChild.id })
-          : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+          ? applyParms(C100_CHILDERN_LIVE_WITH, { childId: nextChild.id as ChildrenDetails['id'] })
+          : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS;
         break;
       }
       default: {

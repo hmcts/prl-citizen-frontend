@@ -6,7 +6,7 @@ import { C100RebuildPartyDetails, ChildrenDetails } from '../../../../app/case/d
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { getRespndentDetails, updateRespondentDetails } from '../util';
+import { getPartyDetails, updatePartyDetails } from '../../people/util';
 
 import { getFormFields } from './content';
 
@@ -23,9 +23,9 @@ export default class RespondentsRelationshipToChildPostController extends PostCo
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { relationshipType, otherRelationshipTypeDetails } = formData as Record<string, any>;
-    const respondentDetails = getRespndentDetails(
-      req.session.userCase.resp_Respondents!,
-      respondentId
+    const respondentDetails = getPartyDetails(
+      respondentId,
+      req.session.userCase.resp_Respondents
     ) as C100RebuildPartyDetails;
 
     if (respondentDetails.relationshipDetails.relationshipToChildren.length) {
@@ -46,10 +46,10 @@ export default class RespondentsRelationshipToChildPostController extends PostCo
       pushRelationshipDataToRespondent(respondentDetails, childId, relationshipType, otherRelationshipTypeDetails);
     }
 
-    req.session.userCase.resp_Respondents = updateRespondentDetails(
-      req.session.userCase.resp_Respondents!,
-      respondentDetails
-    );
+    req.session.userCase.resp_Respondents = updatePartyDetails(
+      respondentDetails,
+      req.session.userCase.resp_Respondents
+    ) as C100RebuildPartyDetails[];
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
       return super.redirect(req, res);

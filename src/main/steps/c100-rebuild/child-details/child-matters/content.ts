@@ -4,7 +4,7 @@ import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { getChildDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
 let updatedForm: FormContent;
@@ -98,10 +98,10 @@ export const getFormFields = (): FormContent => {
 
 export const generateFormFields = (
   childMatters: ChildrenDetails['childMatters'],
-  data: Partial<CaseWithId>,
+  caseData: Partial<CaseWithId> = {},
   translations: Record<string, any>
 ): GenerateDynamicFormFields => {
-  const { too_courtOrder, too_stopOtherPeopleDoingSomethingSubField, too_resolveSpecificIssueSubField } = data;
+  const { too_courtOrder, too_stopOtherPeopleDoingSomethingSubField, too_resolveSpecificIssueSubField } = caseData;
   const { needsResolution } = childMatters;
 
   // preemptively removing empty strings from too_stopOtherPeopleDoingSomethingSubField retrieved from the userCase
@@ -168,18 +168,13 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const sessionData = content?.userCase ?? {};
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)! as ChildrenDetails;
-  const { fields } = generateFormFields(
-    childDetails.childMatters ?? getChildDetails(content.userCase!.cd_children ?? [], childId)!,
-    sessionData ?? {},
-    translations!
-  );
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
+  const { fields } = generateFormFields(childDetails.childMatters, content.userCase, translations);
 
   return {
     ...translations,
-    title: `${translations['title']} ${childDetails.firstName} ${childDetails.lastName}`,
+    title: `${translations['title']} ${childDetails!.firstName} ${childDetails!.lastName}`,
     form: updateFormFields(form, fields),
   };
 };

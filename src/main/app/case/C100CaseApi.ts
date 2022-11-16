@@ -242,7 +242,7 @@ const updateCaseDataMapper = {
   cd: 'c100RebuildChildDetails',
   miam: 'c100RebuildMaim',
   hu: 'c100RebuildHearingUrgency',
-  odc: 'c100RebuildOtherChildrenDetails',
+  ocd: 'c100RebuildOtherChildrenDetails',
   appl: 'c100RebuildApplicantDetails',
   resp: 'c100RebuildRespondentDetails',
   oprs: 'c100RebuildOtherPersonsDetails',

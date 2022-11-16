@@ -14,26 +14,26 @@ const en = {
   line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   select_all_apply: 'Select all that apply to you',
   supportWorkerCarer: 'A support worker or carer',
-  supportWorkerCarerSubField: 'Tell us who you will bring',
+  supportWorkerCarer_subfield: 'Tell us who you will bring',
   friendFamilyMember: 'A friend or family member',
-  friendFamilyMemberSubField: 'Tell us who you will bring',
+  friendFamilyMember_subfield: 'Tell us who you will bring',
   assistanceGuideDog: 'Assistance / guide dog',
   therapyAnimal: 'Therapy animal',
-  therapyAnimalSubField: 'Describe what you need',
+  therapyAnimal_subfield: 'Describe what you need',
   supportCourtOther: 'Other',
-  supportCourtOtherSubField: 'Describe what you need',
+  supportCourtOther_subfield: 'Describe what you need',
   supportCourtNoOption: 'No, I do not need any support at this time',
   errors: {
-    ra_supportWorkerCarerSubField: {
+    ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring',
     },
-    ra_friendFamilyMemberSubField: {
+    ra_friendFamilyMember_subfield: {
       required: 'Enter the name of a friend or family member you will bring',
     },
-    ra_therapyAnimalSubField: {
+    ra_therapyAnimal_subfield: {
       required: 'Describe which therapy animal you will bring',
     },
-    ra_supportCourtOtherSubField: {
+    ra_supportCourtOther_subfield: {
       required: 'Describe which support you need to bring with you to a hearing ',
     },
     ra_supportCourt: {
@@ -49,26 +49,26 @@ const cy = {
   line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
   select_all_apply: 'Select all that apply to you - welsh',
   supportWorkerCarer: 'A support worker or carer - welsh',
-  supportWorkerCarerSubField: 'Tell us who you will bring - welsh',
+  supportWorkerCarer_subfield: 'Tell us who you will bring - welsh',
   friendFamilyMember: 'A friend or family member - welsh',
-  friendFamilyMemberSubField: 'Tell us who you will bring - welsh',
+  friendFamilyMember_subfield: 'Tell us who you will bring - welsh',
   assistanceGuideDog: 'Assistance / guide dog - welsh',
   therapyAnimal: 'Therapy animal - welsh',
-  therapyAnimalSubField: 'Describe what you need - welsh',
+  therapyAnimal_subfield: 'Describe what you need - welsh',
   supportCourtOther: 'Other - welsh',
-  supportCourtOtherSubField: 'Describe what you need - welsh',
+  supportCourtOther_subfield: 'Describe what you need - welsh',
   supportCourtNoOption: 'No, I do not need any support at this time - welsh',
   errors: {
-    ra_supportWorkerCarerSubField: {
+    ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring - welsh',
     },
-    ra_friendFamilyMemberSubField: {
+    ra_friendFamilyMember_subfield: {
       required: 'Enter the name of a friend or family member you will bring - welsh',
     },
-    ra_therapyAnimalSubField: {
+    ra_therapyAnimal_subfield: {
       required: 'Describe which therapy animal you will bring - welsh',
     },
-    ra_supportCourtOtherSubField: {
+    ra_supportCourtOther_subfield: {
       required: 'Describe which support you need to bring with you to a hearing - welsh',
     },
     ra_supportCourt: {
@@ -99,49 +99,49 @@ describe('applicant personal details > applying-with > content', () => {
 
   test('should contain specialArrangements field', () => {
     const supportCourtField = fields.ra_supportCourt as FormOptions;
-    const supportWorkerCarerSubFields = supportCourtField.values[0].subFields
-      ?.ra_supportWorkerCarerSubField as FormOptions;
+    const supportWorkerCarer_subfields = supportCourtField.values[0].subFields
+      ?.ra_supportWorkerCarer_subfield as FormOptions;
 
     expect(supportCourtField.type).toBe('checkboxes');
-    expect(supportWorkerCarerSubFields.type).toBe('textarea');
-    expect((supportWorkerCarerSubFields?.label as Function)(generatedContent)).toBe(en.supportWorkerCarerSubField);
+    expect(supportWorkerCarer_subfields.type).toBe('textarea');
+    expect((supportWorkerCarer_subfields?.label as Function)(generatedContent)).toBe(en.supportWorkerCarer_subfield);
 
     (supportCourtField.validator as Function)('supportWorkerCarer');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('supportWorkerCarer');
 
-    (supportWorkerCarerSubFields.validator as Function)('test text area');
+    (supportWorkerCarer_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
     const friendFamilyMemberSubFields = supportCourtField.values[1].subFields
-      ?.ra_friendFamilyMemberSubField as FormOptions;
+      ?.ra_friendFamilyMember_subfield as FormOptions;
 
     expect(supportCourtField.type).toBe('checkboxes');
     expect(friendFamilyMemberSubFields.type).toBe('textarea');
-    expect((friendFamilyMemberSubFields?.label as Function)(generatedContent)).toBe(en.friendFamilyMemberSubField);
+    expect((friendFamilyMemberSubFields?.label as Function)(generatedContent)).toBe(en.friendFamilyMember_subfield);
 
     (friendFamilyMemberSubFields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
-    const therapyAnimalSubFields = supportCourtField.values[3].subFields?.ra_therapyAnimalSubField as FormOptions;
+    const therapyAnimal_subfields = supportCourtField.values[3].subFields?.ra_therapyAnimal_subfield as FormOptions;
 
-    expect(therapyAnimalSubFields.type).toBe('textarea');
-    expect((therapyAnimalSubFields?.label as Function)(generatedContent)).toBe(en.therapyAnimalSubField);
+    expect(therapyAnimal_subfields.type).toBe('textarea');
+    expect((therapyAnimal_subfields?.label as Function)(generatedContent)).toBe(en.therapyAnimal_subfield);
 
-    (therapyAnimalSubFields.validator as Function)('test text area');
+    (therapyAnimal_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
-    const supportCourtOtherSubFields = supportCourtField.values[4].subFields
-      ?.ra_supportCourtOtherSubField as FormOptions;
+    const supportCourtOther_subfields = supportCourtField.values[4].subFields
+      ?.ra_supportCourtOther_subfield as FormOptions;
 
-    expect(supportCourtOtherSubFields.type).toBe('textarea');
-    expect((supportCourtOtherSubFields?.label as Function)(generatedContent)).toBe(en.supportCourtOtherSubField);
+    expect(supportCourtOther_subfields.type).toBe('textarea');
+    expect((supportCourtOther_subfields?.label as Function)(generatedContent)).toBe(en.supportCourtOther_subfield);
 
-    (supportCourtOtherSubFields.validator as Function)('test text area');
+    (supportCourtOther_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
     expect(supportCourtField.type).toBe('checkboxes');
     expect(friendFamilyMemberSubFields.type).toBe('textarea');
-    expect((friendFamilyMemberSubFields?.label as Function)(generatedContent)).toBe(en.friendFamilyMemberSubField);
+    expect((friendFamilyMemberSubFields?.label as Function)(generatedContent)).toBe(en.friendFamilyMember_subfield);
 
     expect((supportCourtField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((supportCourtField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.supportWorkerCarer);

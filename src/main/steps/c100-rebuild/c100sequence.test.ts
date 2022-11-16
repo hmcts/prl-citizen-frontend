@@ -158,13 +158,13 @@ describe('C100Sequence', () => {
           'helpTravellingMovingBuildingSupport',
         ],
       })
-    ).toBe('/c100-rebuild/confidentiality/details-know');
+    ).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[12].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[12].showInSection).toBe('c100');
     expect(C100Sequence[12].getNextStep({ ra_disabilityRequirements: ['dummyPage'] })).toBe(
-      '/c100-rebuild/confidentiality/details-know'
+      '/c100-rebuild/help-with-fees/need-help-with-fees'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
@@ -173,7 +173,7 @@ describe('C100Sequence', () => {
     );
     expect(C100Sequence[13].showInSection).toBe('c100');
     expect(C100Sequence[13].getNextStep({ ra_disabilityRequirements: ['documentsHelp'] })).toBe(
-      '/c100-rebuild/confidentiality/details-know'
+      '/c100-rebuild/help-with-fees/need-help-with-fees'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
@@ -182,21 +182,21 @@ describe('C100Sequence', () => {
     );
     expect(C100Sequence[14].showInSection).toBe('c100');
     expect(C100Sequence[14].getNextStep({ ra_disabilityRequirements: ['communicationHelp'] })).toBe(
-      '/c100-rebuild/confidentiality/details-know'
+      '/c100-rebuild/help-with-fees/need-help-with-fees'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[15].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/support-court');
     expect(C100Sequence[15].showInSection).toBe('c100');
     expect(C100Sequence[15].getNextStep({ ra_disabilityRequirements: ['extraSupport'] })).toBe(
-      '/c100-rebuild/confidentiality/details-know'
+      '/c100-rebuild/help-with-fees/need-help-with-fees'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[16].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable');
     expect(C100Sequence[16].showInSection).toBe('c100');
     expect(C100Sequence[16].getNextStep({ ra_disabilityRequirements: ['feelComfortableSupport'] })).toBe(
-      '/c100-rebuild/confidentiality/details-know'
+      '/c100-rebuild/help-with-fees/need-help-with-fees'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
@@ -218,7 +218,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[20].url).toBe('/c100-rebuild/hearing-without-notice/hearing-part2');
     expect(C100Sequence[20].showInSection).toBe('c100');
-    expect(C100Sequence[20].getNextStep({})).toBe('/c100-rebuild/typeoforder/select-courtorder');
+    expect(C100Sequence[20].getNextStep({})).toBe('/c100-rebuild/child-details/add-children');
 
     expect(C100Sequence[21].url).toBe('/c100-rebuild/typeoforder/select-courtorder');
     expect(C100Sequence[21].showInSection).toBe('c100');
@@ -230,7 +230,12 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[23].url).toBe('/c100-rebuild/typeoforder/shortstatement');
     expect(C100Sequence[23].showInSection).toBe('c100');
-    expect(C100Sequence[23].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[23].getNextStep({ sq_writtenAgreement: YesOrNo.YES })).toBe(
+      '/c100-rebuild/consent-order/upload'
+    );
+    expect(C100Sequence[23].getNextStep({ hwf_needHelpWithFees: YesOrNo.NO })).toBe(
+      '/c100-rebuild/hearing-urgency/urgent'
+    );
 
     expect(C100Sequence[24].url).toBe('/c100-rebuild/start');
     expect(C100Sequence[24].showInSection).toBe('c100');
@@ -238,20 +243,25 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[25].url).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
     expect(C100Sequence[25].showInSection).toBe('c100');
-    expect(C100Sequence[25].getNextStep({ needHelpWithFees: YesOrNo.YES })).toBe(
+    expect(C100Sequence[25].getNextStep({ hwf_needHelpWithFees: YesOrNo.YES })).toBe(
       '/c100-rebuild/help-with-fees/fees-applied'
     );
-    expect(C100Sequence[25].getNextStep({ needHelpWithFees: YesOrNo.NO })).toBe(
+    expect(C100Sequence[25].getNextStep({ hwf_needHelpWithFees: YesOrNo.NO })).toBe(
       '/c100-rebuild/help-with-fees/hwf-guidance'
     );
 
     expect(C100Sequence[26].url).toBe('/c100-rebuild/help-with-fees/fees-applied');
     expect(C100Sequence[26].showInSection).toBe('c100');
-    expect(C100Sequence[26].getNextStep({})).toBe('/c100-rebuild/help-with-fees/hwf-guidance');
+    expect(C100Sequence[26].getNextStep({ hwf_feesAppliedDetails: YesOrNo.YES })).toBe(
+      '/c100-rebuild/help-with-fees/fees-applied'
+    );
+    expect(C100Sequence[26].getNextStep({ hwf_feesAppliedDetails: YesOrNo.NO })).toBe(
+      '/c100-rebuild/help-with-fees/hwf-guidance'
+    );
 
     expect(C100Sequence[27].url).toBe('/c100-rebuild/help-with-fees/hwf-guidance');
     expect(C100Sequence[27].showInSection).toBe('c100');
-    expect(C100Sequence[27].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[27].getNextStep({})).toBe('/c100-rebuild/help-with-fees/hwf-guidance');
 
     expect(C100Sequence[28].url).toBe('/c100-rebuild/child-details/add-children');
     expect(C100Sequence[28].showInSection).toBe('c100');
@@ -287,7 +297,12 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[34].url).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
     expect(C100Sequence[34].showInSection).toBe('c100');
-    expect(C100Sequence[34].getNextStep({})).toBe('/c100-rebuild/other-proceedings/proceeding-details');
+    expect(
+      C100Sequence[34].getNextStep({ op_childrenInvolvedCourtCase: YesOrNo.YES, op_courtOrderProtection: YesOrNo.YES })
+    ).toBe('/c100-rebuild/other-proceedings/proceeding-details');
+    expect(
+      C100Sequence[34].getNextStep({ op_childrenInvolvedCourtCase: YesOrNo.NO, op_courtOrderProtection: YesOrNo.NO })
+    ).toBe('/c100-rebuild/safety-concerns/concern-guidance');
 
     expect(C100Sequence[35].url).toBe('/c100-rebuild/other-proceedings/proceeding-details');
     expect(C100Sequence[35].showInSection).toBe('c100');
@@ -309,14 +324,14 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[38].url).toBe('/c100-rebuild/other-proceedings/document-summary');
     expect(C100Sequence[38].showInSection).toBe('c100');
-    expect(C100Sequence[38].getNextStep({})).toBe('/c100-rebuild/confidentiality/details-know');
+    expect(C100Sequence[38].getNextStep({})).toBe('/c100-rebuild/safety-concerns/concern-guidance');
 
     expect(C100Sequence[40].url).toBe('/c100-rebuild/safety-concerns/concerns-for-safety');
     expect(C100Sequence[40].showInSection).toBe('c100');
     expect(C100Sequence[40].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.YES })).toBe(
       '/c100-rebuild/safety-concerns/concern-about'
     );
-    expect(C100Sequence[40].getNextStep({ needHelpWithFees: YesOrNo.NO })).toBe(
+    expect(C100Sequence[40].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.NO })).toBe(
       '/c100-rebuild/international-elements/start'
     );
 
@@ -692,7 +707,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[106].url).toBe('/c100-rebuild/respondent-details/:respondentId/contact-details');
     expect(C100Sequence[106].showInSection).toBe('c100');
     expect(C100Sequence[106].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/child-details/add-children'
+      '/c100-rebuild/other-person-details/other-person-check'
     );
 
     expect(C100Sequence[107].url).toBe('/c100-rebuild/other-person-details/other-person-check');
@@ -700,9 +715,12 @@ describe('C100Sequence', () => {
     expect(C100Sequence[107].getNextStep({ oprs_otherPersonCheck: YesOrNo.YES })).toBe(
       '/c100-rebuild/other-person-details/add-other-persons'
     );
-    expect(C100Sequence[107].getNextStep({ oprs_otherPersonCheck: YesOrNo.NO })).toBe(
-      '/c100-rebuild/other-proceedings/current-previous-proceedings'
-    );
+    expect(
+      C100Sequence[107].getNextStep(
+        { ...otherPersonMockData.session.userCase, oprs_otherPersonCheck: YesOrNo.NO },
+        otherPersonMockData
+      )
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with');
 
     expect(C100Sequence[108].url).toBe('/c100-rebuild/other-person-details/add-other-persons');
     expect(C100Sequence[108].showInSection).toBe('c100');
@@ -731,7 +749,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[112].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/manual');
     expect(C100Sequence[112].showInSection).toBe('c100');
     expect(C100Sequence[112].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/other-proceedings/current-previous-proceedings'
+      '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with'
     );
 
     expect(C100Sequence[113].url).toBe(
@@ -749,7 +767,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[115].url).toBe('/c100-rebuild/child-details/:childId/live-with');
     expect(C100Sequence[115].showInSection).toBe('c100');
     expect(C100Sequence[115].getNextStep(childrenMockData.session.userCase, childrenMockData)).toBe(
-      '/c100-rebuild/safety-concerns/concern-guidance'
+      '/c100-rebuild/other-proceedings/current-previous-proceedings'
     );
 
     expect(C100Sequence[116].url).toBe('/c100-rebuild/applicant/:applicantId/personal-details');
@@ -776,6 +794,6 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[120].url).toBe('/c100-rebuild/consent-order/upload-confirmation');
     expect(C100Sequence[120].showInSection).toBe('c100');
-    expect(C100Sequence[120].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[120].getNextStep({})).toBe('/c100-rebuild/hearing-urgency/urgent');
   });
 });

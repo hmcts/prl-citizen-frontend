@@ -2,7 +2,7 @@ import { C100RebuildPartyDetails, YesOrNo } from '../../../../app/case/definitio
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
-import { getRespndentDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 
 const en = () => ({
   title: 'Contact details of',
@@ -140,7 +140,10 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const respondentId = content.additionalData!.req.params.respondentId;
-  const respondentDetails = getRespndentDetails(content.userCase!.resp_Respondents ?? [], respondentId)!;
+  const respondentDetails = getPartyDetails(
+    respondentId,
+    content.userCase!.resp_Respondents ?? []
+  ) as C100RebuildPartyDetails;
   const { fields } = generateFormFields(respondentDetails.contactDetails);
 
   return {

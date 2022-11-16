@@ -210,6 +210,6 @@ describe('OtherPersonsDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyparams.params
       )
-    ).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with');
   });
 });

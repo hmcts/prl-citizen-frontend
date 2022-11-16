@@ -57,7 +57,7 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
         addressCounty: 'UK',
         addressHistory: 'Yes',
         provideDetailsOfPreviousAddresses: 'NA',
-        saveAndComeLater: true,
+        onlycontinue: true,
       },
       session: {
         lang: language,

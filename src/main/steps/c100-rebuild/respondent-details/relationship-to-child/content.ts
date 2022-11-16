@@ -1,8 +1,13 @@
-import { RelationshipToChildren, RelationshipType } from '../../../../app/case/definition';
+import {
+  C100RebuildPartyDetails,
+  ChildrenDetails,
+  RelationshipToChildren,
+  RelationshipType,
+} from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { getChildDetails, getRespndentDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -149,8 +154,11 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
   const respondentId = content.additionalData!.req.params.respondentId;
-  const respondentDetails = getRespndentDetails(content.userCase!.resp_Respondents ?? [], respondentId)!;
-  const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)!;
+  const respondentDetails = getPartyDetails(
+    respondentId,
+    content.userCase!.resp_Respondents
+  ) as C100RebuildPartyDetails;
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
 
   const relationshipFound = respondentDetails.relationshipDetails.relationshipToChildren.find(
     relationshipToChild => relationshipToChild.childId === childId

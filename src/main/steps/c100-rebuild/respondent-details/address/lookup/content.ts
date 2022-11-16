@@ -1,15 +1,23 @@
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
-import { form as lookupAddressForm, languages as lookupAddressFormLanguages } from '../common/address-lookup';
+import { applyParms } from '../../../../../steps/common/url-parser';
+import { C100_RESPONDENT_DETAILS_ADDRESS_MANUAL } from '../../../../../steps/urls';
+import {
+  form as lookupAddressForm,
+  languages as lookupAddressFormLanguages,
+} from '../../../people/address/address-lookup';
+import { getPartyDetails } from '../../../people/util';
 
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Address of',
+  subTitle: 'Documents relating to this application will be sent here.',
+  enterAddressManually: "I don't know their postcode or they live outside the UK",
   errors: {
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode',
       invalid: 'Enter a valid postcode',
     },
@@ -18,8 +26,10 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Address of - welsh',
+  subTitle: 'Documents relating to this application will be sent here. - welsh',
+  enterAddressManually: "I don't know their postcode or they live outside the UK - welsh",
   errors: {
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode - welsh',
       invalid: 'Enter a valid postcode - welsh',
     },
@@ -33,7 +43,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {
@@ -63,16 +73,14 @@ export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const lookupAddressFormTranslations = lookupAddressFormLanguages[content.language]();
-  const respondentId = content?.additionalData?.req?.params!.respondentId as C100RebuildPartyDetails['id'];
-  const respondentData = content.userCase?.resp_Respondents!.find(
-    i => i.id === respondentId
-  ) as C100RebuildPartyDetails;
+  const respondentId = content?.additionalData?.req?.params!.respondentId;
+  const respondentData = getPartyDetails(respondentId, content.userCase?.resp_Respondents) as C100RebuildPartyDetails;
   const { firstName, lastName } = respondentData;
 
   return {
     ...translations,
     ...lookupAddressFormTranslations,
-    manualAddressUrl: `/c100-rebuild/respondent-details/${respondentId}/address/manual`,
+    manualAddressUrl: applyParms(C100_RESPONDENT_DETAILS_ADDRESS_MANUAL, { respondentId: respondentData.id }),
     title: `${translations.title} ${firstName} ${lastName}`,
     form: updatedFormFields(form, generateFormFields(respondentData).fields),
   };

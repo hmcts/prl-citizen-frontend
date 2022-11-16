@@ -6,7 +6,7 @@ import { ChildrenDetails } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { getChildDetails, updateChildDetails } from '../util';
+import { getPartyDetails, updatePartyDetails } from '../../people/util';
 
 import { getFormFields, getPeople } from './content';
 
@@ -23,15 +23,18 @@ export default class childLiveWithPostController extends PostController<AnyObjec
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { liveWith } = formData as Record<string, any>;
 
-    req.session.userCase.cd_children = updateChildDetails(req.session.userCase.cd_children!, {
-      ...(getChildDetails(req.session.userCase.cd_children!, childId) as ChildrenDetails),
-      liveWith:
-        !liveWith || !liveWith.length
-          ? []
-          : getPeople(req.session.userCase).filter(person =>
-              Array.isArray(liveWith) ? liveWith.includes(person.id) : liveWith === person.id
-            ),
-    }) as ChildrenDetails[];
+    req.session.userCase.cd_children = updatePartyDetails(
+      {
+        ...(getPartyDetails(childId, req.session.userCase.cd_children) as ChildrenDetails),
+        liveWith:
+          !liveWith || !liveWith.length
+            ? []
+            : getPeople(req.session.userCase).filter(person =>
+                Array.isArray(liveWith) ? liveWith.includes(person.id) : liveWith === person.id
+              ),
+      },
+      req.session.userCase.cd_children
+    ) as ChildrenDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

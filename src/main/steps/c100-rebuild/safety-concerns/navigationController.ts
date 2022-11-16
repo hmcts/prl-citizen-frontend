@@ -153,53 +153,16 @@ class SafteyConcernsNavigationController {
         break;
       }
       case C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: {
-        nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, this.childConcerns[0]);
-
-        if (
-          nextUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE) &&
-          this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT])
-        ) {
-          nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT);
-        } else if (
-          nextUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE) &&
-          this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true)
-        ) {
-          nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
-        }
+        nextUrl = this.getNextUrlSafetyConcernChild(
+          this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, this.childConcerns[0])
+        );
 
         break;
       }
       case C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE:
       case C100_C1A_CHILD_ABDUCTION_THREATS:
       case C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS: {
-        const abuseType =
-          params?.abuseType ??
-          (currentPageUrl.includes(C100_C1A_SAFETY_CONCERNS_ABDUCTION) ? C1AAbuseTypes.ABDUCTION : null);
-        nextUrl = this.getNextPageUrl(C1ASafteyConcernsAbout.CHILDREN, abuseType);
-
-        //Flow-3
-        if (this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT])) {
-          /* 
-          1. If there is no page left to navigate for child, then the next page url should be applicant abuse selection page.
-          2. If the next page url is other concerns page, then the next page url should be applicant abuse selection page.
-          */
-          if (!nextUrl || nextUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE)) {
-            nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT);
-          }
-        } else {
-          //Flow-1 or Flow-2
-          /* 
-          Flow-1 or Flow-2: If there is no page left to navigate for child, then the next page url should be other concerns page.
-          Flow-2: If the next page url is applicant abuse selection page, then the next page url url should be other concerns page.
-          */
-          if (
-            !nextUrl ||
-            (this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true) &&
-              nextUrl === this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT))
-          ) {
-            nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
-          }
-        }
+        nextUrl = this.getNextUrlSafetyConcernAbduct(params, currentPageUrl);
         break;
       }
       case C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: {
@@ -207,15 +170,7 @@ class SafteyConcernsNavigationController {
         break;
       }
       case C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: {
-        /* 
-        Flow-2: If there is no page left to navigate for applicant, then the next page url should be child guidelines selection page.
-        Flow-3: If there is no page left to navigate for applicant, then the next page url should be other concerns page.
-        */
-        nextUrl =
-          this.getNextPageUrl(C1ASafteyConcernsAbout.APPLICANT, params?.abuseType) ??
-          (this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true)
-            ? this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, undefined, 'guidelines')
-            : this.getPageUrl(C1ASafteyConcernsAbout.OTHER));
+        nextUrl = this.getNextUrlSafetyConcernReport(params);
         break;
       }
       default:
@@ -224,6 +179,69 @@ class SafteyConcernsNavigationController {
     }
 
     return nextUrl;
+  }
+
+  private getNextUrlSafetyConcernChild(returnUrl) {
+    if (
+      returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE) &&
+      this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT])
+    ) {
+      returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT);
+    } else if (
+      returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE) &&
+      this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true)
+    ) {
+      returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
+    }
+
+    return returnUrl;
+  }
+
+  private getNextUrlSafetyConcernAbduct(params, currentPageUrl) {
+    const abuseType =
+      params?.abuseType ??
+      (currentPageUrl.includes(C100_C1A_SAFETY_CONCERNS_ABDUCTION) ? C1AAbuseTypes.ABDUCTION : null);
+    let returnUrl = this.getNextPageUrl(C1ASafteyConcernsAbout.CHILDREN, abuseType);
+
+    //Flow-3
+    if (this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT])) {
+      /* 
+    1. If there is no page left to navigate for child, then the next page url should be applicant abuse selection page.
+    2. If the next page url is other concerns page, then the next page url should be applicant abuse selection page.
+    */
+      if (!returnUrl || returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE)) {
+        returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT);
+      }
+    } else {
+      //Flow-1 or Flow-2
+      /* 
+    Flow-1 or Flow-2: If there is no page left to navigate for child, then the next page url should be other concerns page.
+    Flow-2: If the next page url is applicant abuse selection page, then the next page url url should be other concerns page.
+    */
+      if (
+        !returnUrl ||
+        (this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true) &&
+          returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT))
+      ) {
+        returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
+      }
+    }
+
+    return returnUrl;
+  }
+
+  private getNextUrlSafetyConcernReport(params) {
+    /* 
+          Flow-2: If there is no page left to navigate for applicant, then the next page url should be child guidelines selection page.
+          Flow-3: If there is no page left to navigate for applicant, then the next page url should be other concerns page.
+          */
+    const returnUrl =
+      this.getNextPageUrl(C1ASafteyConcernsAbout.APPLICANT, params?.abuseType) ??
+      (this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true)
+        ? this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, undefined, 'guidelines')
+        : this.getPageUrl(C1ASafteyConcernsAbout.OTHER));
+
+    return returnUrl;
   }
 }
 

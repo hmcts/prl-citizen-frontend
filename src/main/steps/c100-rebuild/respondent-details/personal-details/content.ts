@@ -9,13 +9,13 @@ import {
   isFieldFilledIn,
   isFutureDate,
 } from '../../../../app/form/validation';
-import { getRespndentDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 //export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Provide details for',
-  hasNameChanged: 'Have they change their name?',
+  hasNameChanged: 'Have they changed their name?',
   hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
   one: 'Yes',
@@ -69,7 +69,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Provide details for - welsh',
-  hasNameChanged: 'Have they change their name? - welsh',
+  hasNameChanged: 'Have they changed their name? - welsh',
   hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
   one: 'Yes',
@@ -370,7 +370,10 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const respondentId = content.additionalData!.req.params.respondentId;
-  const respondentDetails = getRespndentDetails(content.userCase!.resp_Respondents ?? [], respondentId)!;
+  const respondentDetails = getPartyDetails(
+    respondentId,
+    content.userCase!.resp_Respondents
+  ) as C100RebuildPartyDetails;
   const { fields } = generateFormFields(respondentDetails.personalDetails);
 
   return {
