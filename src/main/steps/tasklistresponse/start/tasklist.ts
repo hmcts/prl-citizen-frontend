@@ -40,7 +40,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
   ];
 };
 
-const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   if (userCase?.legalRepresentation === YesOrNo.NO) {
     return [
       {

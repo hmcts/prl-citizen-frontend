@@ -48,6 +48,8 @@ import {
   APPLICANT_TASK_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
+  CA_RESPONDENT_GENERATE_C7_DRAFT,
+  CA_RESPONDENT_GENERATE_C7_Final,
   CA_RESPONDENT_RESPONSE_SUBMIT,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   CONSENT_SAVE,
@@ -66,6 +68,7 @@ import {
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ADDRESS_LOOKUP,
+  RESPONDENT_CA_RESPONSE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
@@ -98,6 +101,10 @@ export class Routes {
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getApplicantCase));
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getRespondentCase));
     app.get(`${CA_RESPONDENT_RESPONSE_SUBMIT}`, errorHandler(new RespondentSubmitResponseController().save));
+    app.get(
+      `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
+      errorHandler(new RespondentSubmitResponseController().getDraftDocument)
+    );
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
@@ -157,6 +164,7 @@ export class Routes {
           errorHandler(documentManagerController.deleteDocument)
         );
         app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
+        app.get(`${CA_RESPONDENT_GENERATE_C7_Final}`, errorHandler(documentManagerController.get));
         app.post(
           `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
           errorHandler(documentManagerController.clearUploadDocumentFormData)
@@ -164,7 +172,7 @@ export class Routes {
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
-
+        app.get(APPLICANT_CA_DA_REQUEST, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
 
@@ -174,6 +182,7 @@ export class Routes {
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${APPLICANT}${RESPONDENT_CA_RESPONSE}/:uid`, errorHandler(documentManagerController.get));
         app.get(
           `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)

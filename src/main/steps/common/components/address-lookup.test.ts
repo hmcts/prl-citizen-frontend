@@ -1,3 +1,4 @@
+//import { hasUncaughtExceptionCaptureCallback } from 'process';
 import { FormContent, FormFields, FormOptions } from '../../../app/form/Form';
 import { isInvalidPostcode } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -33,10 +34,13 @@ const cyContent = {
 /* eslint-disable @typescript-eslint/ban-types */
 describe('common > components > address-lookup > content', () => {
   const commonContent = { language: 'en', userCase: {} } as CommonContent;
+  const commonContentcy = { language: 'cy', userCase: {} } as CommonContent;
   let generatedContent;
+  let generatedContentcy;
 
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
+    generatedContentcy = generateContent(commonContentcy);
   });
 
   test('should return correct english content', () => {
@@ -61,9 +65,25 @@ describe('common > components > address-lookup > content', () => {
 
     expect(addressPostcodeField.type).toBe('text');
     expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
+    expect((addressPostcodeField.label as Function)(generatedContent)).toBe(enContent.citizenUserAddressPostcode);
     expect(addressPostcodeField.labelSize).toBe('m');
     expect(addressPostcodeField.attributes!.maxLength).toBe(14);
     expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+  });
+
+  test('should contain citizenUserAddressPostcode field with welsh', () => {
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const addressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
+
+    expect(addressPostcodeField.type).toBe('text');
+    expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
+    expect((addressPostcodeField.label as Function)(generatedContentcy)).toBe(cyContent.citizenUserAddressPostcode);
+    expect(addressPostcodeField.labelSize).toBe('m');
+    expect(addressPostcodeField.attributes!.maxLength).toBe(14);
+    expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
+    expect((form.submit?.text as Function)(generatedContentcy)).toBe('Continue (in welsh)');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

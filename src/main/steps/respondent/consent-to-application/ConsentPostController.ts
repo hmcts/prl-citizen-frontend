@@ -35,7 +35,7 @@ export class ConsentPostController extends PostController<AnyObject> {
     caseData.id = caseReference;
     const updatedCaseDataFromCos = await client.updateCase(
       loggedInCitizen,
-      caseReference as string,
+      caseReference,
       caseData,
       'consentToTheApplication'
     );

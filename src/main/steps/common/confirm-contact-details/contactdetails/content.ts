@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
+import { isEmailValid, isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   title: 'Your contact details',
@@ -11,12 +11,12 @@ const en = {
   continue: 'Continue',
   errors: {
     citizenUserPhoneNumber: {
-      required: 'Enter UK telephone number',
+      required: 'Enter a valid UK telephone number',
       invalid: 'Enter a valid UK telephone number',
     },
     citizenUserEmailAddress: {
-      required: 'Enter Email address',
-      invalid: 'Enter an email address in the correct format, like name@example.com',
+      required: 'Enter a valid email address',
+      invalid: 'Enter a valid email address, like name@example.com',
     },
   },
 };
@@ -52,7 +52,6 @@ export const form: FormContent = {
       classes: 'govuk-input--width-20',
       label: l => l.citizenUserPhoneNumber,
       labelSize: null,
-      validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
     },
     citizenUserEmailAddress: {
       type: 'text',

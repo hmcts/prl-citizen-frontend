@@ -134,6 +134,15 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
 }
 
+export const enum DownloadFileFieldFlag {
+  IS_APPLICATION_VIEWED = 'isApplicationViewed',
+  IS_ALLEGATION_OF_HARM_VIEWED = 'isAllegationOfHarmViewed',
+
+}
+export interface FileProperties {
+  elements?: string[],
+  downloadFileFieldFlag?: string | DownloadFileFieldFlag
+}
 export interface CitizenInternationalElements {
   childrenLiveOutsideOfEnWl?: YesOrNo;
   childrenLiveOutsideOfEnWlDetails?: string;
@@ -686,10 +695,10 @@ export interface CaseData {
   applicantTable: ApplicantTable[];
   othersToNotify: OthersToNotify[];
   urgencyDetails: UrgencyDetails;
-  
+
   allegationOfHarm: AllegationOfHarm;
   dateOfSubmission: DateOfSubmission;
-  
+
   interpreterNeeds: InterpreterNeed[];
   childDetailsTable: ChildDetailsTable[];
   jurisdictionIssue: string;
@@ -734,7 +743,7 @@ export interface CaseData {
   jurisdictionIssueGiveReason: string;
   litigationCapacityReferrals: string;
   specialArrangementsRequired: string;
-  
+
   habitualResidentInOtherState: string;
   otherProceedingsDetailsTable: OtherProceedingsDetailsTable[];
   summaryTabForOrderAppliedFor: SummaryTabForOrderAppliedFor;
@@ -775,7 +784,7 @@ export interface CaseData {
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
-  
+
   contactDetailsPrivate?: ContactDetails[];
 
   /***** Applicant1 *****/
@@ -830,6 +839,15 @@ export interface CaseData {
   iFactorsRequestProvideDetails?: string;
   iFactorsParentsProvideDetails?: string;
   legalRepresentation?: YesOrNo;
+  doesOrderClosesCase?: YesOrNo;
+  selectTypeOfOrder?: SelectTypeOfOrderEnum;
+  citizenResponseC7DocumentList?: ResponseDocumentList[];
+}
+
+export const enum SelectTypeOfOrderEnum {
+  interim = 'interim',
+  general = 'general',
+  finl = 'finl',
 }
 
 export interface ConfidentialDetails {
@@ -1588,14 +1606,17 @@ export interface OtherProceedingEmptyTable {
 
 // // eslint-disable-next-line @typescript-eslint/no-empty-interface
 
+export interface ResponseDocumentList {
+  id: string;
+  value: ResponseDocuments;
+}
 
-
-
-
-
-
-
-
+export interface ResponseDocuments {
+  partyName: string;
+  createdBy: string;
+  dateCreated: Date;
+  citizenDocument: Document;
+}
 
 export interface Value13 {
   dateEnded: string;
@@ -2294,3 +2315,4 @@ export interface BannerLink {
 export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
+
