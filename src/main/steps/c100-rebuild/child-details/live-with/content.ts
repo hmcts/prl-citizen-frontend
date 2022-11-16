@@ -119,7 +119,7 @@ export const getPeople = (caseData: Partial<CaseWithId>): People[] => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const { firstName, lastName, liveWith } = getPartyDetails(content.userCase!.cd_children, childId) as ChildrenDetails;
+  const { firstName, lastName, liveWith } = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
   people = [];
 
   return {

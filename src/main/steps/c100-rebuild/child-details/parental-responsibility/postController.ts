@@ -22,14 +22,17 @@ export default class ParentalResponsibilityPostController extends PostController
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    req.session.userCase.cd_children = updatePartyDetails(req.session.userCase.cd_children, {
-      ...(getPartyDetails(req.session.userCase.cd_children!, childId) as ChildrenDetails),
-      parentialResponsibility: transformPartyDetails(
-        PartyType.CHILDREN,
-        PartyDetailsVariant.PARENTAL_RESPONSIBILITY,
-        formData
-      ) as ChildrenDetails['parentialResponsibility'],
-    }) as ChildrenDetails[];
+    req.session.userCase.cd_children = updatePartyDetails(
+      {
+        ...(getPartyDetails(childId, req.session.userCase.cd_children!) as ChildrenDetails),
+        parentialResponsibility: transformPartyDetails(
+          PartyType.CHILDREN,
+          PartyDetailsVariant.PARENTAL_RESPONSIBILITY,
+          formData
+        ) as ChildrenDetails['parentialResponsibility'],
+      },
+      req.session.userCase.cd_children
+    ) as ChildrenDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
