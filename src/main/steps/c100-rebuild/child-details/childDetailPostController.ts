@@ -41,6 +41,14 @@ export default class ChildDetailsPostController {
           formData
         ) as ChildrenDetails['parentialResponsibility'],
       };
+    } else if (_ctx === 'cm') {
+      data = {
+        childMatters: transformPartyDetails(
+          PartyType.CHILDREN,
+          PartyDetailsVariant.CHILD_MATTERS,
+          formData
+        ) as ChildrenDetails['childMatters'],
+      };
     }
 
     req.session.userCase.cd_children = updatePartyDetails(

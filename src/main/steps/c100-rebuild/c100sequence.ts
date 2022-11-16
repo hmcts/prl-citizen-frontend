@@ -364,6 +364,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_DETAILS_CHILD_MATTERS,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_CHILD_MATTERS, caseData, req?.params),
   },
