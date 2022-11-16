@@ -420,6 +420,18 @@ function filterSelectedUrls(userCase: Partial<CaseWithId>) {
     deleteTravellingToCourtFields();
   }
 
+  if (!userCase?.respondentAttendingToCourt?.includes('no hearings')) {
+    userCase.respondentHearingDetails = '';
+  }
+
+  if (userCase?.respondentLangRequirements?.includes('No, I do not have any language requirements at this time')) {
+    userCase.respondentLangDetails = '';
+  }
+
+  if (!userCase?.respondentSpecialArrangements?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+    userCase.respondentSpecialArrangementsDetails = '';
+  }
+
   if (userCase.respondentReasonableAdjustments?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
     deleteDocumentSupportFields();
     deleteCommunicationHelpFields();

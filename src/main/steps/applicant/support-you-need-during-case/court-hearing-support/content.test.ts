@@ -17,7 +17,7 @@ const en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     courtHearing: {
       required: 'Please select an answer',
@@ -41,7 +41,7 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     courtHearing: {
       required: 'Please select an answer',
@@ -97,8 +97,8 @@ describe('citizen-home content', () => {
     expect((courthearingField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 

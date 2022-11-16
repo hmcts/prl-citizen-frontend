@@ -2307,7 +2307,17 @@ export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
 
-export enum ReasonableAdjustments {
+export enum ApplicantReasonableAdjustments {
+  DOCUMENTS_SUPPORT = 'document format',
+  COMMUNICATION_HELP = 'comminication help',
+  COURT_HEARING_SUPPORT = 'hearing support',
+  COURT_HEARING_COMFORT = 'hearing comfort',
+  TRAVELLING_TO_COURT = 'travel help',
+  UNABLE_TO_TAKE_COURT_PROCEEDINGS = 'unable to take court proceedings',
+  NO_NEED_OF_SUPPORT = 'no need of support',
+ }
+
+ export enum ReasonableAdjustments {
   DOCUMENTS_SUPPORT = 'document format',
   COMMUNICATION_HELP = 'comminication help',
   COURT_HEARING_SUPPORT = 'hearing support',

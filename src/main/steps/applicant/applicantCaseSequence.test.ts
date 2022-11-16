@@ -1,3 +1,5 @@
+import { mockRequest } from '../../../test/unit/utils/mockRequest';
+
 import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
@@ -81,35 +83,37 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[18].url).toBe('/applicant/support-you-need-during-case/reasonable-adjustments');
     expect(applicantCaseSequence[18].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[18].getNextStep({})).toBe('/applicant/support-you-need-during-case/documents-support');
+    expect(applicantCaseSequence[18].getNextStep(applicantReasonableAdjustmentsMockData.session.userCase)).toBe(
+      '/applicant/support-you-need-during-case/documents-support'
+    );
 
     expect(applicantCaseSequence[19].url).toBe('/applicant/support-you-need-during-case/documents-support');
     expect(applicantCaseSequence[19].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[19].getNextStep({})).toBe(
+    expect(applicantCaseSequence[19].getNextStep(applicantReasonableAdjustmentsMockData.session.userCase)).toBe(
       '/applicant/support-you-need-during-case/communication-help'
     );
 
     expect(applicantCaseSequence[20].url).toBe('/applicant/support-you-need-during-case/communication-help');
     expect(applicantCaseSequence[20].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[20].getNextStep({})).toBe(
+    expect(applicantCaseSequence[20].getNextStep(applicantReasonableAdjustmentsMockData.session.userCase)).toBe(
       '/applicant/support-you-need-during-case/court-hearing-support'
     );
 
     expect(applicantCaseSequence[21].url).toBe('/applicant/support-you-need-during-case/court-hearing-support');
     expect(applicantCaseSequence[21].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[21].getNextStep({})).toBe(
+    expect(applicantCaseSequence[21].getNextStep(applicantReasonableAdjustmentsMockData.session.userCase)).toBe(
       '/applicant/support-you-need-during-case/court-hearing-comfort'
     );
 
     expect(applicantCaseSequence[22].url).toBe('/applicant/support-you-need-during-case/court-hearing-comfort');
     expect(applicantCaseSequence[22].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[22].getNextStep({})).toBe(
+    expect(applicantCaseSequence[22].getNextStep(applicantReasonableAdjustmentsMockData.session.userCase)).toBe(
       '/applicant/support-you-need-during-case/travelling-to-court'
     );
 
     expect(applicantCaseSequence[23].url).toBe('/applicant/support-you-need-during-case/travelling-to-court');
     expect(applicantCaseSequence[23].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[23].getNextStep({})).toBe(
+    expect(applicantCaseSequence[23].getNextStep(applicantReasonableAdjustmentsMockData.session.userCase)).toBe(
       '/applicant/support-you-need-during-case/unable-to-take-court-proceedings'
     );
 
@@ -311,4 +315,26 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[68].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[68].getNextStep({})).toBe('/applicant/task-list');
   });
+});
+
+const applicantReasonableAdjustmentsMockData = mockRequest({
+  session: {
+    userCase: {
+      reasonableAdjustments: [
+        'document format',
+        'comminication help',
+        'hearing support',
+        'hearing comfort',
+        'travel help',
+        'unable to take court proceedings',
+        'no need of support',
+      ],
+      appplicantDocsSupportPage: ['none'],
+      appplicantHelpCommunicationPage: ['none'],
+      appplicantCourtHearingPage: ['none'],
+      appplicantCourtComfortPage: ['none'],
+      appplicantTravellingToCourtPage: ['none'],
+      applicantUnableToTakeCourtProceedings: ['none'],
+    },
+  },
 });

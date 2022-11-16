@@ -25,7 +25,7 @@ const en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     helpCommunication: {
       required: 'Please select an answer',
@@ -59,7 +59,7 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     helpCommunication: {
       required: 'Please select an answer',
@@ -161,7 +161,7 @@ export const form: FormContent = {
       ],
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

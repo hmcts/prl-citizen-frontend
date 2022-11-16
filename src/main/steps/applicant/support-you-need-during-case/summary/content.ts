@@ -72,7 +72,8 @@ export const enContent = {
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
-
+  console.log('APPLICANT userCase===>' + JSON.stringify(userCase));
+  console.log('APPLICANT urls===>' + JSON.stringify(urls));
   return {
     ...enContent,
     language: content.language,
@@ -169,6 +170,8 @@ const urls = {
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
+  console.log('APPLICANT userCase===>' + JSON.stringify(userCase));
+  console.log('APPLICANT urls===>' + JSON.stringify(urls));
   return {
     ...cyContent,
     language: content.language,
