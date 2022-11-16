@@ -40,6 +40,9 @@ const en = () => ({
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
+    Country: {
+      required: 'Enter the country - welsh',
+    },
   },
 });
 
@@ -71,6 +74,9 @@ const cy = () => ({
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+    },
+    Country: {
+      required: 'Enter the country - welsh',
     },
   },
 });
@@ -154,7 +160,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const manualAddressFormTranslations = manualAddressFormLanguages[content.language]();
   const respondentId = content?.additionalData?.req?.params!.respondentId;
-  const respondentData = getPartyDetails(content.userCase?.resp_Respondents, respondentId) as C100RebuildPartyDetails;
+  const respondentData = getPartyDetails(respondentId, content.userCase?.resp_Respondents) as C100RebuildPartyDetails;
   const { firstName, lastName } = respondentData;
 
   return {

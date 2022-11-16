@@ -428,7 +428,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,

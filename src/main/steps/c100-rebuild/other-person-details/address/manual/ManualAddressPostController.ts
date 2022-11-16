@@ -18,18 +18,23 @@ export default class ManualAddressPostController extends PostController<AnyObjec
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { otherPersonId } = req.params;
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
 
     req.session.userCase.oprs_otherPersons = updatePartyDetails(
-      req.session.userCase.oprs_otherPersons as C100RebuildPartyDetails[],
       {
-        ...(getPartyDetails(req.session.userCase.oprs_otherPersons, otherPersonId) as C100RebuildPartyDetails),
+        ...(getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons) as C100RebuildPartyDetails),
         address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
         addressUnknown: formData['addressUnknown'],
-      }
+      },
+      req.session.userCase.oprs_otherPersons as C100RebuildPartyDetails[]
     ) as C100RebuildPartyDetails[];
 
-    req.session.errors = form.getErrors(formData);
-    this.redirect(req, res);
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      return this.redirect(req, res);
+    } else if (saveAndComeLater) {
+      this.saveAndComeLater(req, res, req.session.userCase);
+    }
   }
 }

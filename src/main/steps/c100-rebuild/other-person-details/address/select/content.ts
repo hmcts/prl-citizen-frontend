@@ -45,9 +45,6 @@ export const form: FormContent = {
   onlycontinue: {
     text: l => l.onlycontinue,
   },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
 };
 
 // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -74,8 +71,8 @@ export const generateContent: TranslationFn = content => {
   const selectAddressFormTranslations = selectAddressFormLanguages[content.language](content);
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
   const otherPersonDetails = getPartyDetails(
-    content.userCase?.oprs_otherPersons,
-    otherPersonId
+    otherPersonId,
+    content.userCase?.oprs_otherPersons
   ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 

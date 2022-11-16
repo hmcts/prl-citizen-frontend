@@ -10,26 +10,26 @@ const en = () => ({
   line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   select_all_apply: 'Select all that apply to you',
   supportWorkerCarer: 'A support worker or carer',
-  supportWorkerCarerSubField: 'Tell us who you will bring',
+  supportWorkerCarer_subfield: 'Tell us who you will bring',
   friendFamilyMember: 'A friend or family member',
-  friendFamilyMemberSubField: 'Tell us who you will bring',
+  friendFamilyMember_subfield: 'Tell us who you will bring',
   assistanceGuideDog: 'Assistance / guide dog',
   therapyAnimal: 'Therapy animal',
-  therapyAnimalSubField: 'Describe what you need',
+  therapyAnimal_subfield: 'Describe what you need',
   supportCourtOther: 'Other',
-  supportCourtOtherSubField: 'Describe what you need',
+  supportCourtOther_subfield: 'Describe what you need',
   supportCourtNoOption: 'No, I do not need any support at this time',
   errors: {
-    ra_supportWorkerCarerSubField: {
+    ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring',
     },
-    ra_friendFamilyMemberSubField: {
+    ra_friendFamilyMember_subfield: {
       required: 'Enter the name of a friend or family member you will bring',
     },
-    ra_therapyAnimalSubField: {
+    ra_therapyAnimal_subfield: {
       required: 'Describe which therapy animal you will bring',
     },
-    ra_supportCourtOtherSubField: {
+    ra_supportCourtOther_subfield: {
       required: 'Describe which support you need to bring with you to a hearing ',
     },
     ra_supportCourt: {
@@ -45,26 +45,26 @@ const cy = () => ({
   line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
   select_all_apply: 'Select all that apply to you - welsh',
   supportWorkerCarer: 'A support worker or carer - welsh',
-  supportWorkerCarerSubField: 'Tell us who you will bring - welsh',
+  supportWorkerCarer_subfield: 'Tell us who you will bring - welsh',
   friendFamilyMember: 'A friend or family member - welsh',
-  friendFamilyMemberSubField: 'Tell us who you will bring - welsh',
+  friendFamilyMember_subfield: 'Tell us who you will bring - welsh',
   assistanceGuideDog: 'Assistance / guide dog - welsh',
   therapyAnimal: 'Therapy animal - welsh',
-  therapyAnimalSubField: 'Describe what you need - welsh',
+  therapyAnimal_subfield: 'Describe what you need - welsh',
   supportCourtOther: 'Other - welsh',
-  supportCourtOtherSubField: 'Describe what you need - welsh',
+  supportCourtOther_subfield: 'Describe what you need - welsh',
   supportCourtNoOption: 'No, I do not need any support at this time - welsh',
   errors: {
-    ra_supportWorkerCarerSubField: {
+    ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring - welsh',
     },
-    ra_friendFamilyMemberSubField: {
+    ra_friendFamilyMember_subfield: {
       required: 'Enter the name of a friend or family member you will bring - welsh',
     },
-    ra_therapyAnimalSubField: {
+    ra_therapyAnimal_subfield: {
       required: 'Describe which therapy animal you will bring - welsh',
     },
-    ra_supportCourtOtherSubField: {
+    ra_supportCourtOther_subfield: {
       required: 'Describe which support you need to bring with you to a hearing - welsh',
     },
     ra_supportCourt: {
@@ -91,9 +91,9 @@ export const form: FormContent = {
           label: l => l.supportWorkerCarer,
           value: 'supportWorkerCarer',
           subFields: {
-            ra_supportWorkerCarerSubField: {
+            ra_supportWorkerCarer_subfield: {
               type: 'textarea',
-              label: l => l.supportWorkerCarerSubField,
+              label: l => l.supportWorkerCarer_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,
@@ -107,9 +107,9 @@ export const form: FormContent = {
           label: l => l.friendFamilyMember,
           value: 'friendFamilyMember',
           subFields: {
-            ra_friendFamilyMemberSubField: {
+            ra_friendFamilyMember_subfield: {
               type: 'textarea',
-              label: l => l.friendFamilyMemberSubField,
+              label: l => l.friendFamilyMember_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,
@@ -128,9 +128,9 @@ export const form: FormContent = {
           label: l => l.therapyAnimal,
           value: 'therapyAnimal',
           subFields: {
-            ra_therapyAnimalSubField: {
+            ra_therapyAnimal_subfield: {
               type: 'textarea',
-              label: l => l.therapyAnimalSubField,
+              label: l => l.therapyAnimal_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,
@@ -144,9 +144,9 @@ export const form: FormContent = {
           label: l => l.supportCourtOther,
           value: 'supportCourtOther',
           subFields: {
-            ra_supportCourtOtherSubField: {
+            ra_supportCourtOther_subfield: {
               type: 'textarea',
-              label: l => l.supportCourtOtherSubField,
+              label: l => l.supportCourtOther_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,

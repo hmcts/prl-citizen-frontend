@@ -43,10 +43,13 @@ export default class ChildDetailsPostController {
       };
     }
 
-    req.session.userCase.cd_children = updatePartyDetails(req.session.userCase.cd_children, {
-      ...(getPartyDetails(req.session.userCase.cd_children!, childId) as ChildrenDetails),
-      ...data,
-    }) as ChildrenDetails[];
+    req.session.userCase.cd_children = updatePartyDetails(
+      {
+        ...(getPartyDetails(childId, req.session.userCase.cd_children!) as ChildrenDetails),
+        ...data,
+      },
+      req.session.userCase.cd_children
+    ) as ChildrenDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

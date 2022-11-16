@@ -2,6 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import {
+  C100Applicant,
   C100RebuildPartyDetails,
   ChildrenDetails,
   Gender,
@@ -12,7 +13,7 @@ import {
   YesOrNo,
 } from '../../../app/case/definition';
 
-type People = ChildrenDetails | OtherChildrenDetails | C100RebuildPartyDetails;
+type People = ChildrenDetails | OtherChildrenDetails | C100RebuildPartyDetails | C100Applicant;
 
 export enum PartyDetailsVariant {
   PERSONAL_DETAILS = 'personalDetails',
@@ -69,7 +70,7 @@ export const getDataShape = (context: PartyType): People => {
         County: '',
         PostCode: '',
         Country: 'United Kingdom',
-        selectedAddress: 0,
+        selectedAddress: -1,
         addressHistory: YesNoDontKnow.yes,
         provideDetailsOfPreviousAddresses: '',
       },
@@ -89,10 +90,10 @@ export const getDataShape = (context: PartyType): People => {
   return shape;
 };
 
-export const getPartyDetails = (people: People[] = [], id: string): People | null =>
+export const getPartyDetails = (id: string, people: People[] = []): People | null =>
   people.find(person => person.id === id) ?? null;
 
-export const updatePartyDetails = (people: People[] = [], personDetails: People): People[] | [] =>
+export const updatePartyDetails = (personDetails: People, people: People[] = []): People[] | [] =>
   people.map(person => (person.id === personDetails.id ? personDetails : person));
 
 export const getNextPerson = (people: People[], currentPersonId: string): People | null => {

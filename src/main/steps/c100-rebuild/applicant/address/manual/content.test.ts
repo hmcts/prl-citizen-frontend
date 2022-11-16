@@ -25,6 +25,9 @@ const en = {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
     },
+    country: {
+      required: 'Enter the country',
+    },
   },
 };
 
@@ -47,6 +50,9 @@ const cy = {
     provideDetailsOfPreviousAddresses: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
+    },
+    country: {
+      required: 'Enter the country - welsh',
     },
   },
 };
@@ -93,7 +99,7 @@ describe('applicant > address > manual > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');

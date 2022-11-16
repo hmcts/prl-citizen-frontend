@@ -19,10 +19,10 @@ const en = () => ({
   videoLinks: 'Video links',
   videoLinksHint: 'This needs to be approved by a judge',
   specialArrangementsOther: 'Other',
-  specialArrangementsOtherSubField: 'Provide details of what you or the children need',
+  specialArrangementsOther_subfield: 'Provide details of what you or the children need',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time',
   errors: {
-    ra_specialArrangementsOtherSubField: {
+    ra_specialArrangementsOther_subfield: {
       required: 'Give details of the special arrangements you or the children need',
     },
     ra_specialArrangements: {
@@ -47,10 +47,10 @@ const cy = () => ({
   videoLinks: 'Video links - welsh',
   videoLinksHint: 'This needs to be approved by a judge - welsh',
   specialArrangementsOther: 'Other - welsh',
-  specialArrangementsOtherSubField: 'Provide details of what you or the children need - welsh',
+  specialArrangementsOther_subfield: 'Provide details of what you or the children need - welsh',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time - welsh',
   errors: {
-    ra_specialArrangementsOtherSubField: {
+    ra_specialArrangementsOther_subfield: {
       required: 'Give details of the special arrangements you or the children need - welsh',
     },
     ra_specialArrangements: {
@@ -109,9 +109,9 @@ export const form: FormContent = {
           label: l => l.specialArrangementsOther,
           value: 'specialArrangementsOther',
           subFields: {
-            ra_specialArrangementsOtherSubField: {
+            ra_specialArrangementsOther_subfield: {
               type: 'textarea',
-              label: l => l.specialArrangementsOtherSubField,
+              label: l => l.specialArrangementsOther_subfield,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
@@ -123,7 +123,7 @@ export const form: FormContent = {
         {
           name: 'ra_specialArrangements',
           label: l => l.noSafetyRequirements,
-          value: 'noSafetyRequirements',
+          value: 'none',
           behaviour: 'exclusive',
         },
       ],
