@@ -31,3 +31,4 @@ export const URL_PATTERN_INTERNATIONAL_FACTORS = 'international-factors';
 export const EVENT_INTERNATIONAL_ELEMENT = 'internationalElement';
 
 export const EVENT_RESPONDENT_MIAM = 'respondentMiam';
+export const UPDATE_CASE_YES = '?updateCase=Yes';

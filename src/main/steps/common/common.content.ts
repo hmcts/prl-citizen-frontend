@@ -229,7 +229,6 @@ export const generatePageContent = ({
     userEmail,
     name,
     userCaseList,
-
     addresses,
     caption,
     document_type,
