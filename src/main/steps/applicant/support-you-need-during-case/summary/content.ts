@@ -1,7 +1,20 @@
+import { CaseWithId } from '../../../../../main/app/case/case';
+import { ApplicantReasonableAdjustments } from '../../../../../main/app/case/definition';
 import { TranslationFn } from '../../../../../main/app/controller/GetController';
 import { FormContent } from '../../../../../main/app/form/Form';
 import { CommonContent } from '../../../../../main/steps/common/common.content';
 import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
+import {
+  COMMUNICATION_HELP,
+  COURT_HEARING_COMFORT,
+  COURT_HEARING_SUPPORT,
+  DOCUMENTS_SUPPORT,
+  LANGUAGE_REQUIREMENTS,
+  REASONABLE_ADJUSTMENTS,
+  SAFETY_ARRANGEMENTS,
+  TRAVELLING_TO_COURT,
+  UNABLE_TO_TAKE_COURT_PROCEEDINGS,
+} from '../../../../../main/steps/urls';
 
 export const enContent = {
   section: 'Check your answers',
@@ -74,6 +87,7 @@ const en = (content: CommonContent) => {
   const userCase = content.userCase!;
   console.log('APPLICANT userCase===>' + JSON.stringify(userCase));
   console.log('APPLICANT urls===>' + JSON.stringify(urls));
+  filterApplicantSelectedUrls(userCase);
   return {
     ...enContent,
     language: content.language,
@@ -148,23 +162,23 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  languageRequirements: 'language-requirements',
-  languageDetails: 'language-requirements',
-  reasonableAdjustments: 'reasonable-adjustments',
-  docsSupport: 'documents-support',
-  otherDetails: 'documents-support',
-  helpCommunication: 'communication-help',
-  describeOtherNeed: 'communication-help',
-  courtHearing: 'court-hearing-support',
-  communicationSupportOther: 'court-hearing-support',
-  courtComfort: 'court-hearing-comfort',
-  otherProvideDetails: 'court-hearing-comfort',
-  travellingToCourt: 'travelling-to-court',
-  travellingOtherDetails: 'travelling-to-court',
-  unableForCourtProceedings: 'unable-to-take-court-proceedings',
-  courtProceedingProvideDetails: 'unable-to-take-court-proceedings',
-  safetyArrangements: 'safety-arrangements',
-  safetyArrangementsDetails: 'safety-arrangements',
+  languageRequirements: LANGUAGE_REQUIREMENTS,
+  languageDetails: LANGUAGE_REQUIREMENTS,
+  reasonableAdjustments: REASONABLE_ADJUSTMENTS,
+  docsSupport: DOCUMENTS_SUPPORT,
+  otherDetails: DOCUMENTS_SUPPORT,
+  helpCommunication: COMMUNICATION_HELP,
+  describeOtherNeed: COMMUNICATION_HELP,
+  courtHearing: COURT_HEARING_SUPPORT,
+  communicationSupportOther: COURT_HEARING_SUPPORT,
+  courtComfort: COURT_HEARING_COMFORT,
+  otherProvideDetails: COURT_HEARING_COMFORT,
+  travellingToCourt: TRAVELLING_TO_COURT,
+  travellingOtherDetails: TRAVELLING_TO_COURT,
+  unableForCourtProceedings: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
+  courtProceedingProvideDetails: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
+  safetyArrangements: SAFETY_ARRANGEMENTS,
+  safetyArrangementsDetails: SAFETY_ARRANGEMENTS,
 };
 
 const cy: typeof en = (content: CommonContent) => {
@@ -198,3 +212,10 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
+
+function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
+  if (userCase.reasonableAdjustments?.includes(ApplicantReasonableAdjustments.DOCUMENTS_SUPPORT)) {
+    Object.assign(urls, { docsSupport: DOCUMENTS_SUPPORT });
+    Object.assign(enContent.keys, { docsSupport: 'I need documents in an alternative format' });
+  }
+}

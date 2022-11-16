@@ -31,25 +31,6 @@ export const enContent = {
     respondentSpecialArrangementsDetails: 'Please describe your need in detail',
     respondentReasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    //respondentDocsSupport: 'I need documents in an alternative format',
-    //respondentDocsDetails: 'Please provide the docs details',
-    //respondentLargePrintDetails: 'Please provide the large print details',
-    //respondentOtherDetails: 'Please provide the other details',
-    //respondentHelpCommunication: 'I need help communicating and understanding',
-    //respondentSignLanguageDetails: 'Please provide sign language details',
-    //respondentDescribeOtherNeed: 'Please provide the details',
-    // respondentCourtHearing: 'I would need to bring support with me to a court hearing',
-    // respondentSupportWorkerDetails: 'Please provide support worker details',
-    // respondentFamilyDetails: 'Please provide family member details',
-    // respondentTherapyDetails: 'Please provide therapy animal details',
-    // respondentCommSupportOther: 'Please provide the details',
-    // respondentCourtComfort: 'I need something to make me feel comfortable during a court hearing',
-    // respondentLightingDetails: 'Please describe appropriate lighting details',
-    // respondentOtherProvideDetails: 'Please describe your need in detail',
-    // respondentTravellingToCourt: 'I need help travelling to, or moving around court buildings',
-    // respondentParkingDetails: 'Please describe parking space details',
-    // respondentDifferentChairDetails: 'Please describe different chair details',
-    // respondentTravellingOtherDetails: 'Please describe your need in detail',
   },
   dependencies: {
     respondentHearingDetails: {
@@ -169,25 +150,6 @@ const cyContent: typeof enContent = {
     respondentSpecialArrangementsDetails: 'Please describe your need in detail',
     respondentReasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    //respondentDocsSupport: 'I need documents in an alternative format',
-    //respondentDocsDetails: 'Please provide the docs details',
-    //respondentLargePrintDetails: 'Please provide the large print details',
-    //respondentOtherDetails: 'Please provide the other details',
-    //respondentHelpCommunication: 'I need help communicating and understanding',
-    //respondentSignLanguageDetails: 'Please provide sign language details',
-    //respondentDescribeOtherNeed: 'Please provide the details',
-    // respondentCourtHearing: 'I would need to bring support with me to a court hearing',
-    // respondentSupportWorkerDetails: 'Please provide support worker details',
-    // respondentFamilyDetails: 'Please provide family member details',
-    // respondentTherapyDetails: 'Please provide therapy animal details',
-    // respondentCommSupportOther: 'Please provide the details',
-    // respondentCourtComfort: 'I need something to make me feel comfortable during a court hearing',
-    // respondentLightingDetails: 'Please describe appropriate lighting details',
-    // respondentOtherProvideDetails: 'Please describe your need in detail',
-    // respondentTravellingToCourt: 'I need help travelling to, or moving around court buildings',
-    // respondentParkingDetails: 'Please describe parking space details',
-    // respondentDifferentChairDetails: 'Please describe different chair details',
-    // respondentTravellingOtherDetails: 'Please describe your need in detail',
   },
   dependencies: {
     respondentHearingDetails: {
@@ -287,25 +249,6 @@ const urls = {
   respondentSpecialArrangements: CA_DA_SPECIAL_ARRANGEMENTS,
   respondentSpecialArrangementsDetails: CA_DA_SPECIAL_ARRANGEMENTS,
   respondentReasonableAdjustments: CA_DA_REASONABLE_ADJUSTMENTS,
-  //respondentDocsSupport: CA_DA_DOCUMENTS_SUPPORT,
-  //respondentDocsDetails: CA_DA_DOCUMENTS_SUPPORT,
-  //respondentLargePrintDetails: CA_DA_DOCUMENTS_SUPPORT,
-  //respondentOtherDetails: CA_DA_DOCUMENTS_SUPPORT,
-  //respondentHelpCommunication: CA_DA_COMMUNICATION_HELP,
-  //respondentSignLanguageDetails: CA_DA_COMMUNICATION_HELP,
-  //respondentDescribeOtherNeed: CA_DA_COMMUNICATION_HELP,
-  // respondentCourtHearing: CA_DA_COURT_HEARING_SUPPORT,
-  // respondentSupportWorkerDetails: CA_DA_COURT_HEARING_SUPPORT,
-  // respondentFamilyDetails: CA_DA_COURT_HEARING_SUPPORT,
-  // respondentTherapyDetails: CA_DA_COURT_HEARING_SUPPORT,
-  // respondentCommSupportOther: CA_DA_COURT_HEARING_SUPPORT,
-  // respondentCourtComfort: CA_DA_COURT_HEARING_COMFORT,
-  // respondentLightingDetails: CA_DA_COURT_HEARING_COMFORT,
-  // respondentOtherProvideDetails: CA_DA_COURT_HEARING_COMFORT,
-  // respondentTravellingToCourt: CA_DA_TRAVELLING_TO_COURT,
-  // respondentParkingDetails: CA_DA_TRAVELLING_TO_COURT,
-  // respondentDifferentChairDetails: CA_DA_TRAVELLING_TO_COURT,
-  // respondentTravellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
 };
 
 const cy: typeof en = (content: CommonContent) => {
@@ -339,6 +282,7 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
+
 function filterSelectedUrls(userCase: Partial<CaseWithId>) {
   if (userCase.respondentReasonableAdjustments?.includes(ReasonableAdjustments.DOCUMENTS_SUPPORT)) {
     Object.assign(urls, { respondentDocsSupport: CA_DA_DOCUMENTS_SUPPORT });
