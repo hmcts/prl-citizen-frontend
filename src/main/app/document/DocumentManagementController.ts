@@ -305,13 +305,34 @@ export class DocumentManagerController extends PostController<AnyObject> {
       });
     }
 
-    if (filename === 'cadafinaldocumentrequest') {
+    if (filename.includes('cadafinaldocumentrequest')) {
       if (!req.session.userCase.finalDocument?.document_binary_url) {
         throw new Error('APPLICANT_CA_REQUEST binary url is not found');
       }
       filename = req.session.userCase.finalDocument.document_filename;
       documentToGet = req.session.userCase.finalDocument?.document_binary_url;
       uid = this.getUID(documentToGet);
+    }
+
+    if (endPoint.includes('orders')) {
+      if (!req.session.userCase.orderCollection) {
+        throw new Error('No orders found');
+      }
+      for (const doc of req.session.userCase?.orderCollection) {
+        if (
+          doc.value?.orderDocument?.document_url.substring(
+            doc.value.orderDocument.document_url.lastIndexOf('/') + 1
+          ) === filename
+        ) {
+          if (!doc.value.orderDocument.document_binary_url) {
+            throw new Error('Orders binary url is not found');
+          }
+          documentToGet = doc.value.orderDocument.document_binary_url;
+          filename = doc.value.orderDocument.document_filename;
+          uid = this.getUID(documentToGet);
+          break;
+        }
+      }
     }
 
     if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
