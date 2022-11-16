@@ -177,7 +177,6 @@ describe('utils', () => {
         expected: SectionStatus.READY_TO_VIEW,
       },
     ])('should return correct status %#', async ({ data, expected }) => {
-      console.log(data);
       expect(getViewAllDocuments()).toBe(expected);
     });
   });
