@@ -120,7 +120,6 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
         getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
           ? '#'
           : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
-
     });
   }
 

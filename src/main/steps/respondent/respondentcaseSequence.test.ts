@@ -78,7 +78,7 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[18].url).toBe('/respondent/confirm-contact-details/address/manual');
     expect(respondentCaseSequence[18].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[18].getNextStep({})).toBe('/respondent/confirm-contact-details/addresshistory');
-    
+
     expect(respondentCaseSequence[19].url).toBe('/respondent/confirm-contact-details/addresshistory');
     expect(respondentCaseSequence[19].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[19].getNextStep({})).toBe('/respondent/confirm-contact-details/checkanswers');
@@ -374,6 +374,5 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[79].url).toBe('/tasklistresponse/legalrepresentation/solicitornotdirect');
     expect(respondentCaseSequence[79].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[79].getNextStep({})).toBe('/tasklistresponse/start');
-
   });
 });

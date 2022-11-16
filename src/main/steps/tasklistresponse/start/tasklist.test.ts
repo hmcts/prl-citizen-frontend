@@ -162,6 +162,17 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
+            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+            id: 'allegations_of_harm_and_violence',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'Allegations of harm and violence',
+          },
+        ],
+        title: 'Safety concerns',
+      },
+      {
+        items: [
+          {
             href: '/tasklistresponse/safety_concerns/main_page',
             id: 'your-safety',
             status: 'TO_DO',
@@ -272,6 +283,17 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
+            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+            id: 'allegations_of_harm_and_violence',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'Allegations of harm and violence',
+          },
+        ],
+        title: 'Safety concerns',
+      },
+      {
+        items: [
+          {
             href: '/tasklistresponse/safety_concerns/main_page',
             id: 'your-safety',
             status: 'TO_DO',
@@ -366,6 +388,17 @@ describe('getRemainingTaskList', () => {
           },
         ],
         title: 'Application details',
+      },
+      {
+        items: [
+          {
+            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+            id: 'allegations_of_harm_and_violence',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'Allegations of harm and violence',
+          },
+        ],
+        title: 'Safety concerns',
       },
       {
         items: [
