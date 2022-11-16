@@ -20,7 +20,7 @@ export class CosApiClient {
       baseURL: config.get('services.cos.url'),
       headers: {
         Authorization: 'Bearer ' + authToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         'return-url': returnUrl,
       },
     });
@@ -57,7 +57,7 @@ export class CosApiClient {
     const response = await Axios.get(config.get('services.cos.url') + `/${caseId}`, {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -76,7 +76,7 @@ export class CosApiClient {
     const response = await Axios.get(config.get('services.cos.url') + '/validate-access-code', {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         caseId,
         accessCode,
         Accept: 'application/json',
@@ -99,7 +99,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         accessCode: 'Dummy accessCode',
       };
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
@@ -181,7 +181,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
       console.log('Generated document request: ', generateAndUploadDocumentRequest);
@@ -258,7 +258,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
       const response = await Axios.post(
@@ -280,7 +280,7 @@ export class CosApiClient {
         caseId,
         accessCode,
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
       const response = await Axios.post(config.get('services.cos.url') + '/citizen/link', {
         headers,
@@ -341,7 +341,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
       //: AxiosResponse<CaseWithId>
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
@@ -364,7 +364,7 @@ export class CosApiClient {
     const response = await Axios.get(config.get('services.cos.url') + '/cases', {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
