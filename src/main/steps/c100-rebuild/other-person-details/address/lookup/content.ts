@@ -75,8 +75,8 @@ export const generateContent: TranslationFn = content => {
   const lookupAddressFormTranslations = lookupAddressFormLanguages[content.language]();
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
   const otherPersonDetails = getPartyDetails(
-    content.userCase?.oprs_otherPersons,
-    otherPersonId
+    otherPersonId,
+    content.userCase?.oprs_otherPersons
   ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 

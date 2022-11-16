@@ -9,7 +9,7 @@ export const routeGuard = {
   get: (req: AppRequest, res: Response, next: NextFunction) => {
     const otherPersonId = req.params?.otherPersonId as C100RebuildPartyDetails['id'];
 
-    if (!otherPersonId || !getPartyDetails(req.session.userCase.oprs_otherPersons, otherPersonId)) {
+    if (!otherPersonId || !getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons)) {
       return res.redirect('/error');
     }
     next();

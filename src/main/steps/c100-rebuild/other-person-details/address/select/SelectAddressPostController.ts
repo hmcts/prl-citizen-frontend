@@ -26,18 +26,21 @@ export default class SelectAddressPostController extends PostController<AnyObjec
       const selectedAddress = req.session.addresses[selectedAddressIndex];
       const { postcode, street1, street2, town, county } = selectedAddress;
 
-      req.session.userCase.oprs_otherPersons = updatePartyDetails(req.session.userCase.oprs_otherPersons, {
-        ...(getPartyDetails(req.session.userCase.oprs_otherPersons, otherPersonId) as C100RebuildPartyDetails),
-        address: {
-          PostCode: postcode,
-          AddressLine1: street1,
-          AddressLine2: street2,
-          PostTown: town,
-          County: county,
-          Country: (getDataShape(PartyType.OTHER_PERSON) as C100RebuildPartyDetails).address.Country,
-          selectedAddress: selectedAddressIndex,
-        } as C100Address,
-      }) as C100RebuildPartyDetails[];
+      req.session.userCase.oprs_otherPersons = updatePartyDetails(
+        {
+          ...(getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons) as C100RebuildPartyDetails),
+          address: {
+            PostCode: postcode,
+            AddressLine1: street1,
+            AddressLine2: street2,
+            PostTown: town,
+            County: county,
+            Country: (getDataShape(PartyType.OTHER_PERSON) as C100RebuildPartyDetails).address.Country,
+            selectedAddress: selectedAddressIndex,
+          } as C100Address,
+        },
+        req.session.userCase.oprs_otherPersons
+      ) as C100RebuildPartyDetails[];
     }
 
     if (onlycontinue) {

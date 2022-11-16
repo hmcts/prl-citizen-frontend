@@ -21,16 +21,19 @@ export default class ManualAddressPostController extends PostController<AnyObjec
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    req.session.userCase.appl_allApplicants = updatePartyDetails(req.session.userCase.appl_allApplicants, {
-      ...(getPartyDetails(req.session.userCase.appl_allApplicants, applicantId) as C100Applicant),
-      applicantAddressPostcode: formData['addressPostcode'],
-      applicantAddress1: formData['address1'],
-      applicantAddress2: formData['address2'],
-      applicantAddressTown: formData['addressTown'],
-      applicantAddressCounty: formData['addressCounty'],
-      applicantAddressHistory: formData['addressHistory'],
-      applicantProvideDetailsOfPreviousAddresses: formData['provideDetailsOfPreviousAddresses'],
-    }) as C100Applicant[];
+    req.session.userCase.appl_allApplicants = updatePartyDetails(
+      {
+        ...(getPartyDetails(applicantId, req.session.userCase.appl_allApplicants) as C100Applicant),
+        applicantAddressPostcode: formData['addressPostcode'],
+        applicantAddress1: formData['address1'],
+        applicantAddress2: formData['address2'],
+        applicantAddressTown: formData['addressTown'],
+        applicantAddressCounty: formData['addressCounty'],
+        applicantAddressHistory: formData['addressHistory'],
+        applicantProvideDetailsOfPreviousAddresses: formData['provideDetailsOfPreviousAddresses'],
+      },
+      req.session.userCase.appl_allApplicants
+    ) as C100Applicant[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

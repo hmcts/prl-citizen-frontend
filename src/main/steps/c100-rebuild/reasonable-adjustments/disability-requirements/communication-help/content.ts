@@ -23,7 +23,7 @@ const en = () => ({
   intermediary: 'Intermediary',
   intermediaryHint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
-  other: 'Other',
+  communicationHelpOther: 'Other',
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
@@ -59,7 +59,7 @@ const cy = () => ({
   intermediary: 'Intermediary - welsh',
   intermediaryHint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing - welsh',
-  other: 'Other - welsh',
+  communicationHelpOther: 'Other - welsh',
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
@@ -153,7 +153,7 @@ export const form: FormContent = {
         },
         {
           name: 'ra_communicationHelp',
-          label: l => l.other,
+          label: l => l.communicationHelpOther,
           value: 'communicationHelpOther',
           subFields: {
             ra_communicationHelpOther_subfield: {

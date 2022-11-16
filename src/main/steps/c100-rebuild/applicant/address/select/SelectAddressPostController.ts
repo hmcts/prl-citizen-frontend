@@ -26,16 +26,19 @@ export default class SelectAddressPostController extends PostController<AnyObjec
       const selectedAddress = req.session.addresses[selectedAddressIndex];
       const { postcode, street1, street2, town, county } = selectedAddress;
 
-      req.session.userCase.appl_allApplicants = updatePartyDetails(req.session.userCase.appl_allApplicants, {
-        ...(getPartyDetails(req.session.userCase.appl_allApplicants, applicantId) as C100Applicant),
-        applicantAddressPostcode: postcode,
-        applicantAddress1: street1,
-        applicantAddress2: street2,
-        applicantAddressTown: town,
-        applicantAddressCounty: county,
-        country: 'United Kingdom',
-        applicantSelectedAddress: selectedAddressIndex,
-      }) as C100Applicant[];
+      req.session.userCase.appl_allApplicants = updatePartyDetails(
+        {
+          ...(getPartyDetails(applicantId, req.session.userCase.appl_allApplicants) as C100Applicant),
+          applicantAddressPostcode: postcode,
+          applicantAddress1: street1,
+          applicantAddress2: street2,
+          applicantAddressTown: town,
+          applicantAddressCounty: county,
+          country: 'United Kingdom',
+          applicantSelectedAddress: selectedAddressIndex,
+        },
+        req.session.userCase.appl_allApplicants
+      ) as C100Applicant[];
     }
 
     if (onlycontinue) {
