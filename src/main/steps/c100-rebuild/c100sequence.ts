@@ -157,6 +157,7 @@ import RespondentsDetailsNavigationController from './respondent-details/navigat
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
+import ChildDetailsPostController from './child-details/childDetailPostController';
 
 export const C100Sequence: Step[] = [
   {
@@ -356,18 +357,21 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, caseData, req?.params),
   },
   {
     url: C100_CHILDERN_DETAILS_CHILD_MATTERS,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_CHILD_MATTERS, caseData, req?.params),
   },
   {
     url: C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(
         C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
