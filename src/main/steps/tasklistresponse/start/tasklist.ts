@@ -105,17 +105,6 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           },
         ],
       },
-      // {
-      //   title: sectionTitles.safetyConcerns,
-      //   items: [
-      //     {
-      //       id: 'your-safety',
-      //       text: taskListItems.your_safety,
-      //       status: getYourSafetyStatus(userCase),
-      //       href: URL.SAFETY_MAIN_PAGE,
-      //     },
-      //   ],
-      // },
       {
         title: sectionTitles.additionalInformation,
         items: [
