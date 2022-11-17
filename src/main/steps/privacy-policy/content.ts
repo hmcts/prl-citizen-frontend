@@ -1,8 +1,9 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
 const en = {
-  title: 'Overview',
-  overview:
+  title: 'Privacy Policy',
+  overview: 'Overview',
+  whyWeCollect:
     'This privacy policy explains why we collect personal data and what we do with it. It also explains the rights which you and your client have, and how to enforce them.',
   whoManages: 'Who manages this service',
   managedBy:
@@ -82,9 +83,10 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Overview {in welsh}',
-  overview:
-    'This privacy policy explains why we collect personal data and what we do with it. It also explains the rights which you and your client have, and how to enforce them.',
+  title: 'Privacy Policy {in welsh}',
+  overview: 'Overview {in welsh}',
+  whyWeCollect:
+    'This privacy policy explains why we collect personal data and what we do with it. It also explains the rights which you and your client have, and how to enforce them. {in welsh}',
   whoManages: 'Who manages this service',
   managedBy:
     'This service is managed by HM Courts & Tribunals Service (HMCTS), which is an executive agency of the Ministry of Justice (MoJ).',
