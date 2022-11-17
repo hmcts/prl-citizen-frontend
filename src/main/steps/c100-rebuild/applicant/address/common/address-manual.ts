@@ -91,7 +91,7 @@ export const form = (caseData: Partial<C100Applicant>): FormContent => {
         type: 'text',
         classes: 'govuk-label govuk-!-width-two-thirds',
         label: l => l.country,
-        value: country,
+        value: country ?? 'United Kingdom',
         labelSize: null,
         validator: isFieldFilledIn,
       },

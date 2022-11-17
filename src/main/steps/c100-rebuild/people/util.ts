@@ -71,7 +71,7 @@ export const getDataShape = (context: PartyType): People => {
         PostCode: '',
         Country: 'United Kingdom',
         selectedAddress: -1,
-        addressHistory: YesNoDontKnow.yes,
+        addressHistory: YesNoDontKnow.dontKnow,
         provideDetailsOfPreviousAddresses: '',
       },
       relationshipDetails: {
