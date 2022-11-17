@@ -164,6 +164,8 @@ import { applyParms } from '../../steps/common/url-parser';
 import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
 import UploadDocumentController from './uploadDocumentController';
 
+import { ApplicantCommonConfidentialityController } from './applicant/confidentiality/common/commonConfidentialityPostController';
+import { applyParms } from '../../steps/common/url-parser';
 export const C100Sequence: Step[] = [
   {
     url: C100_CONFIDENTIALITY_DETAILS_KNOW,
