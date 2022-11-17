@@ -9,6 +9,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
+import { applyParms } from '../../../../steps/common/url-parser';
 import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 
 const C100OrderTypeNameMapper = {
@@ -48,7 +49,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
-    const { orderType, orderId } = req.query;
+    const { orderType, orderId } = req.params;
 
     const courtOrderType = orderType as C100OrderTypes;
     const courtOrderId: AnyType | undefined = orderId;
@@ -58,7 +59,9 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     ] as C100OrderInterface[];
     const orderSessionDataById = orderSessionData[courtOrderId - 1];
 
-    if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+    if (req.body.saveAndComeLater) {
+      super.post(req, res);
+    } else if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
       super.redirect(req, res, '');
     } else {
       if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
@@ -67,21 +70,21 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           if (err) {
             throw err;
           }
-          res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
+          res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
         });
       } else {
         if (isNull(files) || files === undefined) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
+          this.uploadFileError(req, res, orderType, orderId, {
             propertyName: 'document',
             errorType: 'required',
           });
         } else if (!isValidFileFormat(files)) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
+          this.uploadFileError(req, res, orderType, orderId, {
             propertyName: 'document',
             errorType: 'fileFormat',
           });
         } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
+          this.uploadFileError(req, res, orderType, orderId, {
             propertyName: 'document',
             errorType: 'fileSize',
           });
@@ -127,8 +130,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             }
 
             req.session.save(() => {
-              const redirectURL = `${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`;
-              res.redirect(redirectURL);
+              res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
             });
           } catch (error) {
             res.json(error);
@@ -172,7 +174,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       if (err) {
         throw err;
       }
-      res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
+      res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
     });
   }
 }

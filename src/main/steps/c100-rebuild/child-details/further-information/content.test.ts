@@ -9,10 +9,10 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Further Information',
-  childrenKnownToSocialServicesLabel: 'Are any of the childern known to social service?',
+  childrenKnownToSocialServicesLabel: 'Are any of the children known to social service?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known',
-  childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan?',
+  childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a child protection plan?',
   childrenProtectionPlanHint: `A child protection plan is prepared by a local authority where a child is thought to be at risk of significant harm.
   It sets out steps to be taken to protect the child and support the family.`,
   one: 'Yes',
@@ -33,10 +33,10 @@ const en = {
 
 const cy = {
   title: 'Further Information - welsh',
-  childrenKnownToSocialServicesLabel: 'Are any of the childern known to social service - welsh?',
+  childrenKnownToSocialServicesLabel: 'Are any of the children known to social service - welsh?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known - welsh',
-  childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a a child protection plan - welsh?',
+  childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a child protection plan - welsh?',
   childrenProtectionPlanHint: `A child protection plan is prepared by a local authority where a child is thought to be at risk of significant harm.
   It sets out steps to be taken to protect the child and support the family.- welsh`,
   one: 'Yes - Welsh',

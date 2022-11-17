@@ -15,7 +15,7 @@ describe('CookiesGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,

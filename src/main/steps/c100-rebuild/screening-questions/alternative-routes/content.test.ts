@@ -80,7 +80,7 @@ const en = {
   formTitle: 'Have you considered any alternative options to reach an agreement?',
   one: 'Yes',
   two: 'No',
-  otherDetails: 'Provide details',
+  otherDetails: 'Provide details (optional)',
 };
 
 const cy = {
@@ -152,7 +152,7 @@ const cy = {
   formTitle: 'Have you considered any alternative options to reach an agreement? - welsh',
   one: 'Yes - welsh',
   two: 'No - welsh',
-  otherDetails: 'Provide details - welsh',
+  otherDetails: 'Provide details (optional) - welsh',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */

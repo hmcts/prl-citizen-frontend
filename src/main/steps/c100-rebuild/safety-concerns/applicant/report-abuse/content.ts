@@ -190,7 +190,7 @@ const getPageTitle = (abuseType: C1AAbuseTypes, translations: Record<string, any
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const abuseType: C1AAbuseTypes = content.additionalData!.req.query.type;
+  const abuseType: C1AAbuseTypes = content.additionalData!.req.params.abuseType;
   const sessionData: C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.applicant?.[abuseType];
   const { fields } = generateFormFields(sessionData ?? getDataShape().abuse);
 

@@ -38,15 +38,14 @@ describe('DocumentUpload Get Controller', () => {
     req.session.lang = language;
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.session.userCase = ORDER_DETAILS;
-    const QUERY = {
+    req.params = {
       orderType: 'otherOrder',
       orderId: '1',
     };
-    req.query = QUERY;
 
     await controller.get(req, res);
 
-    expect(res.redirect).not.toBeCalledWith('error');
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
   });
 
   test('should remove document when removedId is passed', async () => {
@@ -55,12 +54,11 @@ describe('DocumentUpload Get Controller', () => {
     const req = mockRequest({});
     req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
     req.session.userCase = ORDER_DETAILS;
-    const QUERY = {
+    req.params = {
       orderType: 'otherOrder',
       orderId: '1',
       removeId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
     };
-    req.query = QUERY;
 
     const res = mockResponse();
     req.session.lang = language;
@@ -78,7 +76,7 @@ describe('DocumentUpload Get Controller', () => {
 
     await controller.get(req, res);
 
-    expect(res.redirect).not.toBeCalledWith('error');
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
   });
 
   describe('when there is an error in saving session', () => {

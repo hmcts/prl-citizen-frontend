@@ -12,8 +12,8 @@ describe('SafteyConcernsAbusePostController Post Controller', () => {
     language: 'en',
     additionalData: {
       req: {
-        query: {
-          type: 'physicalAbuse',
+        params: {
+          abuseType: 'physicalAbuse',
         },
       },
     },
@@ -26,8 +26,8 @@ describe('SafteyConcernsAbusePostController Post Controller', () => {
     const controller = new SafteyConcernsAbusePostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
-      query: {
-        type: C1AAbuseTypes.PHYSICAL_ABUSE,
+      params: {
+        abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
       },
       body: {
         onlycontinue: true,
@@ -50,8 +50,8 @@ describe('SafteyConcernsAbusePostController Post Controller', () => {
     const controller = new SafteyConcernsAbusePostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
-      query: {
-        type: C1AAbuseTypes.PHYSICAL_ABUSE,
+      params: {
+        abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
       },
       body: {
         saveAndComeLater: true,

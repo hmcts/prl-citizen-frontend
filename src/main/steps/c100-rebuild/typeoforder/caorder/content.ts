@@ -47,7 +47,7 @@ const cy = () => ({
     changeChildrenNameSurname: "Changing the children's names or surname - welsh",
     allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
     takingChildOnHoliday: 'Taking the children on holiday - welsh',
-    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welshs',
+    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
     relocateChildrenOutsideUk: `Relocating the children outside of England and Wales
      (including Scotland and Northern Ireland) - welsh`,
   },

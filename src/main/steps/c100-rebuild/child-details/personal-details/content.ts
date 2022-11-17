@@ -9,7 +9,7 @@ import {
   isFieldFilledIn,
   isFutureDate,
 } from '../../../../app/form/validation';
-import { getChildDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -241,7 +241,13 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'pd',
+    },
+  },
   onlycontinue: {
     text: l => l.onlycontinue,
   },
@@ -257,7 +263,7 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)!;
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
   const { fields } = generateFormFields(childDetails.personalDetails);
 
   return {

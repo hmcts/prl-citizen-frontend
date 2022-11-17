@@ -11,7 +11,7 @@ const isValidOrderType = (orderType: C100OrderTypes, caseData: Partial<Case>) =>
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   get: (req: AppRequest, res: Response, next: NextFunction) => {
-    const orderType = req.query?.orderType as C100OrderTypes;
+    const orderType = req.params?.orderType as C100OrderTypes;
 
     if (!isValidOrderType(orderType, req.session.userCase)) {
       res.redirect('error');

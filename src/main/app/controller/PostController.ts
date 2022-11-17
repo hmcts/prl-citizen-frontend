@@ -3,8 +3,9 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
+import PreProcessCaseData from '../../steps/c100-rebuild/PreProcessCaseData';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
-import { C100_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { C100_URL, DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
@@ -69,6 +70,7 @@ export class PostController<T extends AnyObject> {
       ...(req.session.userCase ?? {}),
       ...formData,
     };
+
     req.session.errors = form.getErrors(formData);
     console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
@@ -76,6 +78,10 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
+
+    req.session.userCase = {
+      ...PreProcessCaseData.clean(this.fields, formData, req.session.userCase, !req.path.startsWith(C100_URL)),
+    };
 
     if (req.originalUrl.includes(UploadDocumentSucess)) {
       if (req?.session?.userCase?.applicantUploadFiles) {
@@ -281,10 +287,11 @@ export class PostController<T extends AnyObject> {
   ): Promise<void> {
     if (req.path.startsWith(C100_URL)) {
       try {
+        req.session.errors = [];
         Object.assign(req.session.userCase, formData);
         await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
       } finally {
-        this.redirect(req, res, req.originalUrl);
+        this.redirect(req, res, DASHBOARD_URL);
       }
     } else {
       this.redirect(req, res, req.originalUrl);

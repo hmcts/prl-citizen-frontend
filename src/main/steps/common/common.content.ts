@@ -4,11 +4,13 @@ import { CaseWithId } from '../../app/case/case';
 // import { Fee } from '../../app/case/definition';
 // import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
+import { C100_URL } from '../../steps/urls';
 
 const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
   applyForDissolution: 'Private Law',
+  c100ServiceName: 'Child arrangements',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
@@ -111,6 +113,7 @@ const en = {
   apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
+  divider: 'or',
 };
 
 const cy: typeof en = {
@@ -118,6 +121,7 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law" (in welsh)',
   applyForDissolution: 'Private Law"(in welsh)',
+  c100ServiceName: 'Child arrangements - welsh',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.(in welsh)',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
@@ -192,6 +196,7 @@ const cy: typeof en = {
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
   onlyContinue: 'Continue (in welsh)',
   onlycontinue: 'Continue (in welsh)',
+  divider: 'neu',
 };
 
 export const generatePageContent = ({
@@ -207,6 +212,7 @@ export const generatePageContent = ({
   addresses = [],
   userIdamId,
   additionalData,
+  userId,
 }: // eligibility,
 // fee,
 {
@@ -222,11 +228,12 @@ export const generatePageContent = ({
   byApplicant?: string;
   userIdamId?: string;
   additionalData?: CommonContentAdditionalData;
+  userId?: string | undefined;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
-  const serviceName = getServiceName(commonTranslations);
+  const serviceName = getServiceName(additionalData, commonTranslations);
   // const contactEmail = 'todo@test.com';
   const content: CommonContent = {
     ...commonTranslations,
@@ -244,6 +251,7 @@ export const generatePageContent = ({
     userIdamId,
     // contactEmail,
     additionalData,
+    userId,
     // eligibility,
     // fee,
   };
@@ -255,8 +263,12 @@ export const generatePageContent = ({
   return content;
 };
 
-const getServiceName = (translations: typeof en): string => {
-  return capitalize(translations.applyForChildArrangements);
+const getServiceName = (addtionalReqData: CommonContentAdditionalData | undefined, translations: typeof en): string => {
+  let serviceName = translations.applyForChildArrangements;
+  if (addtionalReqData?.req?.path?.startsWith(C100_URL)) {
+    serviceName = translations.c100ServiceName;
+  }
+  return capitalize(serviceName);
 };
 
 type CommonContentAdditionalData = {
@@ -280,6 +292,7 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   byApplicant?: string;
   additionalData?: CommonContentAdditionalData;
+  userId?: string | undefined;
   // eligibility?: Eligibility;
   // fee?: Fee;
   userIdamId?: string;

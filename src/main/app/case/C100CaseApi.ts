@@ -8,12 +8,28 @@ import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { UserDetails } from '../controller/AppRequest';
+import { AppSession, UserDetails } from '../controller/AppRequest';
 
-import { Case } from './case';
-import { C100 } from './definition';
+import { Case, CaseWithId } from './case';
+import { C100, State } from './definition';
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
+
+  public async retrieveCase(): Promise<RetreiveDraftCase> {
+    try {
+      const url: string = config.get('services.cos.url') + '/cases';
+      const response = await this.axios.get<RetreiveDraftCase[]>(url);
+
+      const retreivedDraftCase = response.data.filter(
+        caseData => caseData.state === 'AWAITING_SUBMISSION_TO_HMCTS'
+      )[0] as RetreiveDraftCase;
+
+      return detransformCaseData(retreivedDraftCase);
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be retreived.');
+    }
+  }
 
   public async createCase(): Promise<CreateCaseResponse> {
     const data = {
@@ -48,6 +64,33 @@ export class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be updated.');
+    }
+  }
+
+  /**
+   * Delete Case
+   * State: DELETED
+   * Event: C100.DELETE_CASE
+   * @param caseData
+   * @param session
+   */
+  public async deleteCase(caseData: Partial<CaseWithId>, session: AppSession): Promise<void> {
+    try {
+      caseData = { ...caseData, state: State.Deleted };
+      const { caseId } = caseData;
+      if (!caseId) {
+        throw new Error('caseId not found so case could not be deleted.');
+      }
+      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100.DELETE_CASE}/update-case`, caseData, {
+        headers: {
+          accessCode: '12345678',
+        },
+      });
+      session.userCase = {} as CaseWithId;
+      session.save();
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Error occured, case could not be deleted.');
     }
   }
 
@@ -94,7 +137,7 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
       baseURL: config.get('services.cos.url'),
       headers: {
         Authorization: `Bearer ${userDetails.accessToken}`,
-        serviceAuthorization: `Bearer ${getServiceAuthToken()}`,
+        ServiceAuthorization: `Bearer ${getServiceAuthToken()}`,
         'Content-Type': 'application/json',
       },
       httpsAgent: new https.Agent({
@@ -130,6 +173,19 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
   );
 };
 
+const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => {
+  let detransformedCaseData = { ...caseData };
+
+  Object.values(updateCaseDataMapper).forEach(field => {
+    if (field in caseData) {
+      detransformedCaseData = { ...detransformedCaseData, ...JSON.parse(caseData[field]) };
+      delete detransformedCaseData[field];
+    }
+  });
+
+  return detransformedCaseData;
+};
+
 interface CreateCaseResponse {
   id: string;
 }
@@ -137,13 +193,29 @@ interface UpdateCaseResponse {
   [key: string]: any;
 }
 
+export interface RetreiveDraftCase extends UpdateCase {
+  id: string;
+  state: State;
+  c100RebuildReturnUrl: string;
+}
+
 interface UpdateCase {
-  c100RebuildConfidentiality?: Record<string, string>;
   c100RebuildInternationalElements?: Record<string, string>;
   c100RebuildReasonableAdjustments?: Record<string, string>;
   c100RebuildTypeOfOrder?: Record<string, string>;
   c100RebuildHearingWithoutNotice?: Record<string, string>;
   c100RebuildOtherProceedings?: Record<string, string>;
+  c100RebuildChildDetails?: Record<string, string>;
+  c100RebuildMaim?: Record<string, string>;
+  c100RebuildHearingUrgency?: Record<string, string>;
+  c100RebuildOtherChildrenDetails?: Record<string, string>;
+  c100RebuildApplicantDetails?: Record<string, string>;
+  c100RebuildRespondentDetails?: Record<string, string>;
+  c100RebuildOtherPersonsDetails?: Record<string, string>;
+  c100RebuildSafetyConcerns?: Record<string, string>;
+  c100RebuildScreeningQuestions?: Record<string, string>;
+  c100RebuildConsentOrderDetails?: Record<string, string>;
+  c100RebuildHelpWithFeesDetails?: Record<string, string>;
 }
 
 interface UpdateCaseRequest extends UpdateCase {
@@ -162,10 +234,20 @@ export interface DocumentUploadResponse {
 }
 
 const updateCaseDataMapper = {
-  appl: 'c100RebuildApplicants',
   ie: 'c100RebuildInternationalElements',
   ra: 'c100RebuildReasonableAdjustments',
   too: 'c100RebuildTypeOfOrder',
   hwn: 'c100RebuildHearingWithoutNotice',
   op: 'c100RebuildOtherProceedings',
+  cd: 'c100RebuildChildDetails',
+  miam: 'c100RebuildMaim',
+  hu: 'c100RebuildHearingUrgency',
+  ocd: 'c100RebuildOtherChildrenDetails',
+  appl: 'c100RebuildApplicantDetails',
+  resp: 'c100RebuildRespondentDetails',
+  oprs: 'c100RebuildOtherPersonsDetails',
+  c1A: 'c100RebuildSafetyConcerns',
+  sq: 'c100RebuildScreeningQuestions',
+  co: 'c100RebuildConsentOrderDetails',
+  hwf: 'c100RebuildHelpWithFeesDetails',
 };

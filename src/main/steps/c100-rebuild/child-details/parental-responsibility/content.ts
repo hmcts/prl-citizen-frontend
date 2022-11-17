@@ -2,7 +2,7 @@ import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { getChildDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
 let updatedForm: FormContent;
@@ -73,7 +73,13 @@ export const generateFormFields = (
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'pr',
+    },
+  },
   onlycontinue: {
     text: l => l.onlycontinue,
   },
@@ -85,7 +91,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)!;
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
   const { fields } = generateFormFields(childDetails.parentialResponsibility);
 
   return {

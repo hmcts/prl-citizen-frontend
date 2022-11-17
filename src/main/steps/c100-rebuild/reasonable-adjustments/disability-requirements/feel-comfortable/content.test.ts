@@ -14,17 +14,17 @@ const en = {
   line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   select_all_apply: 'Select all that apply to you',
   appropriateLighting: 'Appropriate lighting',
-  appropriateLightingSubField: 'Describe what you need',
+  appropriateLighting_subfield: 'Describe what you need',
   regularBreaks: 'Regular breaks',
   spaceUpAndMoveAround: 'Space to be able to get up and move around',
   feelComportableOther: 'Other',
-  feelComportableOtherSubField: 'Describe what you need',
+  feelComportableOther_subfield: 'Describe what you need',
   feelComportableNoOption: 'No, I do not need any support at this time',
   errors: {
-    ra_appropriateLightingSubField: {
+    ra_appropriateLighting_subfield: {
       required: 'Describe the appropriate lighting you need',
     },
-    ra_feelComportableOtherSubField: {
+    ra_feelComportableOther_subfield: {
       required: 'Describe what you need to feel comfortable during a court hearing',
     },
     ra_feelComportable: {
@@ -40,14 +40,14 @@ const cy = {
   line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
   select_all_apply: 'Select all that apply to you - welsh',
   appropriateLighting: 'Appropriate lighting - welsh',
-  appropriateLightingSubField: 'Describe what you need - welsh',
+  appropriateLighting_subfield: 'Describe what you need - welsh',
   regularBreaks: 'Regular breaks - welsh',
   spaceUpAndMoveAround: 'Space to be able to get up and move around - welsh',
   feelComportableOther: 'Other - welsh',
-  feelComportableOtherSubField: 'Describe what you need - welsh',
+  feelComportableOther_subfield: 'Describe what you need - welsh',
   feelComportableNoOption: 'No, I do not need any support at this time - welsh',
   errors: {
-    ra_appropriateLightingSubField: {
+    ra_appropriateLighting_subfield: {
       required: 'Describe the appropriate lighting you need - welsh',
     },
     feelComportableSubField: {
@@ -81,26 +81,28 @@ describe('applicant personal details > applying-with > content', () => {
 
   test('should contain specialArrangements field', () => {
     const feelComportableField = fields.ra_feelComportable as FormOptions;
-    const appropriateLightingSubFields = feelComportableField.values[0].subFields
-      ?.ra_appropriateLightingSubField as FormOptions;
+    const appropriateLighting_subfields = feelComportableField.values[0].subFields
+      ?.ra_appropriateLighting_subfield as FormOptions;
 
     expect(feelComportableField.type).toBe('checkboxes');
-    expect(appropriateLightingSubFields.type).toBe('textarea');
-    expect((appropriateLightingSubFields?.label as Function)(generatedContent)).toBe(en.appropriateLightingSubField);
+    expect(appropriateLighting_subfields.type).toBe('textarea');
+    expect((appropriateLighting_subfields?.label as Function)(generatedContent)).toBe(en.appropriateLighting_subfield);
 
     (feelComportableField.validator as Function)('appropriateLighting');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('appropriateLighting');
 
-    (appropriateLightingSubFields.validator as Function)('test text area');
+    (appropriateLighting_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
-    const feelComportableOtherSubFields = feelComportableField.values[3].subFields
-      ?.ra_feelComportableOtherSubField as FormOptions;
+    const feelComportableOther_subfields = feelComportableField.values[3].subFields
+      ?.ra_feelComportableOther_subfield as FormOptions;
 
-    expect(feelComportableOtherSubFields.type).toBe('textarea');
-    expect((feelComportableOtherSubFields?.label as Function)(generatedContent)).toBe(en.feelComportableOtherSubField);
+    expect(feelComportableOther_subfields.type).toBe('textarea');
+    expect((feelComportableOther_subfields?.label as Function)(generatedContent)).toBe(
+      en.feelComportableOther_subfield
+    );
 
-    (feelComportableOtherSubFields.validator as Function)('test text area');
+    (feelComportableOther_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
     expect((feelComportableField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);

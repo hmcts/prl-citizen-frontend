@@ -4,7 +4,7 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   caption: 'MIAM exemptions',
   title: 'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
   insetHtml: `<p class="govuk-body">If you are seeking a MIAM exemption, you will need to give more details. </p>
@@ -33,7 +33,8 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'MIAM exemptions - welsh',
   title: 'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend? - welsh',
   insetHtml: `<p class="govuk-body">If you are seeking a MIAM exemption, you will need to give more details. </p>
@@ -106,7 +107,7 @@ export const form: FormContent = {
           value: 'beforStatingApplication',
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'miam_previousAttendance',

@@ -1,8 +1,9 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { ChildrenDetails, PartyType } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
+import { getDataShape } from '../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -134,7 +135,7 @@ describe('child details > personal details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields((getDataShape(PartyType.CHILDREN) as ChildrenDetails).personalDetails);
     languageAssertions(
       'en',
       {
@@ -151,7 +152,7 @@ describe('child details > personal details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields((getDataShape(PartyType.CHILDREN) as ChildrenDetails).personalDetails);
     languageAssertions(
       'cy',
       {
