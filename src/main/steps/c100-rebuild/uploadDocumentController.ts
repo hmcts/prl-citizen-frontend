@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import FormData from 'form-data';
@@ -27,7 +29,7 @@ export default class UploadDocumentController {
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
-
+    req.session.errors = [];
     let paramCert: string;
     let redirectUrl: string;
     let fileNamePrefix: string;
@@ -44,70 +46,43 @@ export default class UploadDocumentController {
 
     const certificate = req.session.userCase?.[paramCert] as C100DocumentInfo;
 
-    if (req.body.saveAndComeLater && paramCert === 'co_certificate') {
+    if (this.callParentPost(req, paramCert)) {
       this.parent.post(req, res);
     }
-    if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(certificate)) {
+
+    if (this.checkSaveandContinueDocumentExist(req, certificate)) {
+      req.session.errors = [];
       this.parent.redirect(req, res, '');
     } else {
-      if (this.checkIfDocumentAlreadyExist(certificate)) {
-        req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
-        req.session.save(err => {
-          if (err) {
-            throw err;
-          }
-          res.redirect(redirectUrl);
-        });
-      } else {
-        if (isNull(files) || files === undefined) {
-          this.uploadFileError(req, res, redirectUrl, {
-            propertyName: 'document',
-            errorType: 'required',
-          });
-        } else if (!isValidFileFormat(files)) {
-          this.uploadFileError(req, res, redirectUrl, {
-            propertyName: 'document',
-            errorType: 'fileFormat',
-          });
-        } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-          this.uploadFileError(req, res, redirectUrl, {
-            propertyName: 'document',
-            errorType: 'fileSize',
-          });
-        } else {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const { documents }: any = files;
-
-          const formData: FormData = new FormData();
-
-          const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
-          const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
-
-          formData.append('file', documents.data, {
-            contentType: documents.mimetype,
-            filename: `${fileNamePrefix}.${dateOfSystem}.${extensionType}`,
-          });
-          try {
-            const responseBody: DocumentUploadResponse = await req.locals.C100Api.uploadDocument(formData);
-            const { document_url, document_filename, document_binary_url } = responseBody['document'];
-            req.session.userCase[paramCert] = {
-              id: document_url.split('/')[document_url.split('/').length - 1],
-              url: document_url,
-              filename: document_filename,
-              binaryUrl: document_binary_url,
-            };
-
-            req.session.save(() => {
-              res.redirect(redirectUrl);
-            });
-          } catch (error) {
-            res.json(error);
-          }
-        }
-      }
+      this.checkFileCondition(certificate, req, res, redirectUrl, files, fileNamePrefix, paramCert);
     }
   }
 
+  /**
+   *
+   * @param req
+   * @param paramCert
+   * @returns
+   */
+  public callParentPost(req: AppRequest<AnyObject>, paramCert: string): any {
+    return req.body.saveAndComeLater && paramCert === 'co_certificate';
+  }
+
+  /**
+   *
+   * @param req
+   * @param certificate
+   * @returns
+   */
+  public checkSaveandContinueDocumentExist = (req: AppRequest<AnyObject>, certificate: C100DocumentInfo): any => {
+    return req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(certificate);
+  };
+
+  /**
+   *
+   * @param document
+   * @returns
+   */
   public checkIfDocumentAlreadyExist = (document: C100DocumentInfo): boolean => {
     if (document?.id) {
       return true;
@@ -116,17 +91,126 @@ export default class UploadDocumentController {
   };
 
   /**
-   * It's a function that handles errors that occur during the upload process
-   * @param req - AppRequest<AnyObject>
-   * @param res - Response<any, Record<string, any>>
-   * @param {string} [errorMessage] - The error message to be displayed.
+   *
+   * @param certificate
+   * @param req
+   * @param res
+   * @param redirectUrl
+   * @param files
+   * @param fileNamePrefix
+   * @param paramCert
    */
-  private uploadFileError(
+  //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public checkFileCondition(
+    certificate: C100DocumentInfo,
     req: AppRequest<AnyObject>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     res: Response<any, Record<string, any>>,
     redirectUrl: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    files: any,
+    fileNamePrefix: string,
+    paramCert: string
+  ) {
+    if (this.checkIfDocumentAlreadyExist(certificate)) {
+      req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
+      req.session.save(err => {
+        if (err) {
+          throw err;
+        }
+        res.redirect(redirectUrl);
+      });
+    } else {
+      req.session.errors = [];
+      this.checkFileValidation(files, req, res, redirectUrl, fileNamePrefix, paramCert);
+    }
+  }
+
+  /**
+   *
+   * @param files
+   * @param req
+   * @param res
+   * @param redirectUrl
+   * @param fileNamePrefix
+   * @param paramCert
+   */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public async checkFileValidation(
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    files: any,
+    req: AppRequest<AnyObject>,
+    res: Response<any, Record<string, any>>,
+    redirectUrl: string,
+    fileNamePrefix: string,
+    paramCert: string
+  ) {
+    req.session.errors = [];
+    if (this.fileNullCheck(files)) {
+      this.uploadFileError(req, res, redirectUrl, {
+        propertyName: 'document',
+        errorType: 'required',
+      });
+    } else if (!isValidFileFormat(files)) {
+      this.uploadFileError(req, res, redirectUrl, {
+        propertyName: 'document',
+        errorType: 'fileFormat',
+      });
+    } else if (isFileSizeGreaterThanMaxAllowed(files)) {
+      this.uploadFileError(req, res, redirectUrl, {
+        propertyName: 'document',
+        errorType: 'fileSize',
+      });
+    } else {
+      const { documents }: any = files;
+
+      const formData: FormData = new FormData();
+
+      const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
+      const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
+
+      formData.append('file', documents.data, {
+        contentType: documents.mimetype,
+        filename: `${fileNamePrefix}.${dateOfSystem}.${extensionType}`,
+      });
+      try {
+        const responseBody: DocumentUploadResponse = await req.locals.C100Api.uploadDocument(formData);
+        const { document_url, document_filename, document_binary_url } = responseBody['document'];
+        req.session.userCase[paramCert] = {
+          id: document_url.split('/')[document_url.split('/').length - 1],
+          url: document_url,
+          filename: document_filename,
+          binaryUrl: document_binary_url,
+        };
+
+        req.session.save(() => {
+          res.redirect(redirectUrl);
+        });
+      } catch (error) {
+        res.json(error);
+      }
+    }
+    /**
+     * It's a function that handles errors that occur during the upload process
+     * @param req - AppRequest<AnyObject>
+     * @param res - Response<any, Record<string, any>>
+     * @param {string} [errorMessage] - The error message to be displayed.
+     */
+  }
+
+  /**
+   *
+   * @param files
+   * @returns
+   */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public fileNullCheck = (files: any): boolean => {
+    return !!(isNull(files) || files === undefined);
+  };
+
+  private uploadFileError(
+    req: AppRequest<AnyObject>,
+    res: Response<any, Record<string, any>>,
+    redirectUrl: string,
     errObj: any
   ) {
     req.session.errors = [errObj];
