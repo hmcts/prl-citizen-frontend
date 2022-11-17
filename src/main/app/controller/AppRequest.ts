@@ -30,6 +30,7 @@ export interface AppSession extends Session {
   addresses: [];
   returnUrl?: string;
   accessCodeLoginIn: boolean;
+  c100RebuildLdFlag: boolean;
 }
 export interface UserDetails {
   accessToken: string;
