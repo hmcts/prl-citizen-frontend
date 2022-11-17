@@ -42,8 +42,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_the_application',
             text: taskListItems.check_the_application,
-            status: 'DOWNLOAD',
-            href: `${URL.APPLICANT}${URL.APPLICANT_CA_DA_REQUEST}`,
+            status: 'NOT_AVAILABLE_YET',
+            href: '#',
           },
         ],
       },
@@ -126,8 +126,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_the_application',
             text: taskListItems.check_the_application,
-            status: 'DOWNLOAD',
-            href: `${URL.APPLICANT}${URL.APPLICANT_CA_DA_REQUEST}`,
+            status: 'NOT_AVAILABLE_YET',
+            href: '#',
           },
         ],
       },
@@ -208,15 +208,15 @@ describe('generateRespondentTaskList', () => {
         title: sectionTitles.theApplication,
         items: [
           {
-            href: '/applicant/yourdocuments/alldocuments/cadafinaldocumentrequest',
+            href: '#',
             id: 'check_the_application',
-            status: 'DOWNLOAD',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Check the application (PDF)',
           },
           {
-            href: '/yourdocuments/alldocuments/aohviolence?updateCase=Yes',
+            href: '#',
             id: 'check_allegations_of_harm_and_violence',
-            status: 'DOWNLOAD',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Check the allegations of harm and violence (PDF)',
           },
         ],

@@ -4,7 +4,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { DeleteDocumentRequest } from '../document/DeleteDocumentRequest';
 import { GenerateAndUploadDocumentRequest } from '../document/GenerateAndUploadDocumentRequest';
 
-import { CosApiClient } from './CosApiClient';
+import { CosApiClient, UploadDocumentRequest } from './CosApiClient';
 import { CaseWithId } from './case';
 import { YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
@@ -91,17 +91,18 @@ describe('CosApiClient', () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
     const files = [];
-    const actual = await client.UploadDocumentListFromCitizen(
-      req.session.user,
-      '123456',
-      'test',
-      'test',
-      '12345',
-      'a test',
-      'Yes',
+    const request: UploadDocumentRequest = {
+      user: req.session.user,
+      caseId: '123456',
+      parentDocumentType: 'test',
+      documentType: 'test',
+      partyId: '12345',
+      partyName: 'a test',
+      isApplicant: 'Yes',
       files,
-      YesOrNo.YES
-    );
+      documentRequestedByCourt: YesOrNo.YES,
+    };
+    const actual = await client.UploadDocumentListFromCitizen(request);
     expect(actual).toEqual(response);
   });
 
@@ -124,24 +125,10 @@ describe('CosApiClient', () => {
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
-    let flag = false;
-    try {
-      await client.linkCaseToCitizen(req.session.user, '1234567', '45678789');
-    } catch (err) {
-      flag = true;
-    }
-    expect(flag).toBe(false);
-  });
-
-  test('linkCaseToCitizen1', async () => {
-    const response = { id: '1234567' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
-    const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
     const caseData = toApiFormat(req?.session?.userCase);
     let flag = false;
     try {
-      await client.linkCaseToCitizen1(req.session.user, '1234567', req, '123456789', caseData);
+      await client.linkCaseToCitizen(req.session.user, '1234567', req, '123456789', caseData);
     } catch (err) {
       flag = true;
     }
