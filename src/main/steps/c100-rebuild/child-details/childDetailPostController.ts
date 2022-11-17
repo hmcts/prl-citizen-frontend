@@ -5,24 +5,47 @@ import { Response } from 'express';
 import { ChildrenDetails, PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { Form, FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PartyDetailsVariant, getPartyDetails, transformPartyDetails, updatePartyDetails } from '../people/util';
 
-import { getFormFields } from './personal-details/content';
+import { getFormFields as getChildMatters } from './child-matters/content';
+import { getFormFields as getChildParentalResponsibility } from './parental-responsibility/content';
+import { getFormFields as getChildPersonalDetails } from './personal-details/content';
 
+type ContextReference = { formRef: () => FormContent };
+type FeatureContext = { [key: string]: ContextReference };
 @autobind
 export default class ChildDetailsPostController {
   private parent;
+  private featureContext: FeatureContext;
+  private contextReference: ContextReference;
 
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     this.parent = new PostController(fields);
+    this.parent = new PostController(fields);
+    this.featureContext = {
+      pd: {
+        formRef: getChildPersonalDetails,
+      },
+      pr: {
+        formRef: getChildParentalResponsibility,
+      },
+      cm: {
+        formRef: getChildMatters,
+      },
+    };
+    this.contextReference = {} as ContextReference;
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const childId = req.params.childId as ChildrenDetails['id'];
-    const form = new Form(getFormFields().fields as FormFields);
     const { _ctx, onlycontinue, saveAndComeLater, ...formFields } = req.body;
+
+    this.contextReference = this.featureContext[_ctx as string];
+    const { formRef } = this.contextReference;
+    const form = new Form(formRef().fields as FormFields);
     const { _csrf, ...formData } = form.getParsedBody(formFields);
+
     let data;
 
     if (_ctx === 'pd') {
