@@ -31,6 +31,7 @@ export default class ManualAddressPostController extends PostController<AnyObjec
         applicantAddressCounty: formData['addressCounty'],
         applicantAddressHistory: formData['addressHistory'],
         applicantProvideDetailsOfPreviousAddresses: formData['provideDetailsOfPreviousAddresses'],
+        country: formData['country'],
       },
       req.session.userCase.appl_allApplicants
     ) as C100Applicant[];

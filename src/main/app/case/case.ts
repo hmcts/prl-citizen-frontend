@@ -528,6 +528,7 @@ export interface Case {
   appl_allApplicants?: C100Applicant[];
   op_childrenInvolvedCourtCase?: YesOrNo;
   op_courtOrderProtection?: YesOrNo;
+  hwn_hearingPart1?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
