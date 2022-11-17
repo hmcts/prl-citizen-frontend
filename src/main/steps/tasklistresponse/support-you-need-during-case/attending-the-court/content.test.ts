@@ -16,7 +16,7 @@ const en = {
   noHearings: 'No, I cannot take part in either video or phone hearings',
   noHearingsHint: 'If you choose this option please tell us why in case we can assist you',
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentAttendingToCourt: {
       required: 'Please select an answer',
@@ -39,7 +39,7 @@ const cy: typeof en = {
   noHearings: 'No, I cannot take part in either video or phone hearings',
   noHearingsHint: 'If you choose this option please tell us why in case we can assist you',
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentAttendingToCourt: {
       required: 'Please select an answer',
@@ -92,8 +92,8 @@ describe('citizen-home content', () => {
     expect((attendingToCourtField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 

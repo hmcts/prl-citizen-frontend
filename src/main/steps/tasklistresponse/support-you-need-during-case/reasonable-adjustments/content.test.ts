@@ -23,7 +23,7 @@ const en = {
   travellingHelp: 'I need help travelling to, or moving around court buildings',
   travellingHelpHint: 'for example, access and mobility support if a hearing takes place in person',
   noSupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentReasonableAdjustments: {
       required: 'Please select an answer',
@@ -50,7 +50,7 @@ const cy: typeof en = {
   travellingHelp: 'I need help travelling to, or moving around court buildings',
   travellingHelpHint: 'for example, access and mobility support if a hearing takes place in person',
   noSupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentReasonableAdjustments: {
       required: 'Please select an answer',
@@ -114,8 +114,8 @@ describe('citizen-home content', () => {
     expect((reasonableAdjustmentsField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 
