@@ -52,8 +52,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'check_details_of_your_court_hearings',
           text: taskListItems.check_details_of_your_court_hearings,
-          status: getInternationalFactorsStatus(userCase),
-          href: URL.INTERNATIONAL_FACTORS_START,
+          status: SectionStatus.NOT_AVAILABLE_YET,
+          href: '#',
         },
       ],
     },
