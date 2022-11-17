@@ -14,7 +14,7 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
 } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CosApiClient } from '../case/CosApiClient';
+import { CosApiClient, UploadDocumentRequest } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
 import {
   Applicant,
@@ -32,7 +32,6 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentRequest';
-import { UploadedDocumentRequest } from './UploadedDocumentRequest';
 
 const UID_LENGTH = 36;
 @autobind
@@ -686,22 +685,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
     const partyId = req.session.user.id;
 
-    const uploadedDocumentRequest = new UploadedDocumentRequest(
-      caseId,
-      files,
-      parentDocumentType,
-      documentType,
-      partyName,
-      partyId,
-      isApplicant
-    );
-
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
 
-    console.log('Calling upload request: ', uploadedDocumentRequest);
-
-    const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(
-      caseworkerUser,
+    const uploadRequest: UploadDocumentRequest = {
+      user: caseworkerUser,
       caseId,
       parentDocumentType,
       documentType,
@@ -709,8 +696,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
       partyName,
       isApplicant,
       files,
-      documentRequestedByCourt
-    );
+      documentRequestedByCourt,
+    };
+    console.log('Calling get document List From Citizen for case : ', uploadRequest.caseId);
+    const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(uploadRequest);
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {

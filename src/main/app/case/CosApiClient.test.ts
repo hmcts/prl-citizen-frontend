@@ -4,7 +4,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { DeleteDocumentRequest } from '../document/DeleteDocumentRequest';
 import { GenerateAndUploadDocumentRequest } from '../document/GenerateAndUploadDocumentRequest';
 
-import { CosApiClient } from './CosApiClient';
+import { CosApiClient, UploadDocumentRequest } from './CosApiClient';
 import { CaseWithId } from './case';
 import { YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
@@ -91,17 +91,18 @@ describe('CosApiClient', () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
     const files = [];
-    const actual = await client.UploadDocumentListFromCitizen(
-      req.session.user,
-      '123456',
-      'test',
-      'test',
-      '12345',
-      'a test',
-      'Yes',
+    const request: UploadDocumentRequest = {
+      user: req.session.user,
+      caseId: '123456',
+      parentDocumentType: 'test',
+      documentType: 'test',
+      partyId: '12345',
+      partyName: 'a test',
+      isApplicant: 'Yes',
       files,
-      YesOrNo.YES
-    );
+      documentRequestedByCourt: YesOrNo.YES,
+    };
+    const actual = await client.UploadDocumentListFromCitizen(request);
     expect(actual).toEqual(response);
   });
 
