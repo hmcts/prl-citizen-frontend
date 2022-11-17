@@ -9,7 +9,10 @@ const en = {
     'This service is managed by HM Courts & Tribunals Service (HMCTS), which is an executive agency of the Ministry of Justice (MoJ).',
   mojPersonalInformationCharter:
     "The MoJ is known as the data controller for data protection purposes. The <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>The MoJ personal information charter</a> explains how the MoJ processes personal data.",
-  personalData: 'More information about using this service is in the terms and conditions.',
+  protectingData:
+    'As part of the MoJ, HMCTS is responsible for deciding how personal data is used and for protecting the personal data you provide.',
+  personalData:
+    "More information about using this service is in the <a class='govuk-link' href='/terms-and-conditions'>terms and conditions</a>.",
   thePersonal: 'Why we collect your personal data',
   whenYouUseService: 'We collect personal data to:',
   process: "enable us to process your client's application",
@@ -87,7 +90,10 @@ const cy: typeof en = {
     'This service is managed by HM Courts & Tribunals Service (HMCTS), which is an executive agency of the Ministry of Justice (MoJ).',
   mojPersonalInformationCharter:
     "The MoJ is known as the data controller for data protection purposes. The <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'>The MoJ personal information charter</a> explains how the MoJ processes personal data. {in welsh}",
-  personalData: 'More information about using this service is in the terms and conditions. {in welsh}',
+  protectingData:
+    'As part of the MoJ, HMCTS is responsible for deciding how personal data is used and for protecting the personal data you provide. {in welsh}',
+  personalData:
+    "More information about using this service is in the <a class='govuk-link' href='/terms-and-conditions'>terms and conditions</a>. {in welsh}",
   thePersonal: 'Why we collect your personal data {in welsh}',
   whenYouUseService: 'We collect personal data to: {in welsh}',
   process: "enable us to process your client's application {in welsh}",
