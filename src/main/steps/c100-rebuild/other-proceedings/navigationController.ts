@@ -1,17 +1,24 @@
 import { Case } from '../../../app/case/case';
-import { C100OrderInterface, C100OrderTypeKeyMapper, C100OrderTypes, YesNoEmpty } from '../../../app/case/definition';
+import {
+  C100OrderInterface,
+  C100OrderTypeKeyMapper,
+  C100OrderTypes,
+  YesNoEmpty,
+  YesOrNo,
+} from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
   C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   C100_OTHER_PROCEEDINGS_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
   C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+  C100_TYPE_ORDER_SELECT_COURT_ORDER,
   PageLink,
 } from '../../urls';
 
 import { isAnyOrderWithOrderCopy } from './util';
-
 class OtherProceedingsNavigationController {
   private selectedOrderTypes: C100OrderTypes[] | [] = [];
   private orders: C100OrderInterface[] | [] = [];
@@ -35,6 +42,7 @@ class OtherProceedingsNavigationController {
   private getOrdersByType(caseData): C100OrderInterface[] | [] {
     return caseData?.op_otherProceedings?.order[C100OrderTypeKeyMapper[this.orderType]] ?? [];
   }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPage: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
     this.selectedOrderTypes = caseData?.op_courtProceedingsOrders ?? [];
@@ -44,6 +52,15 @@ class OtherProceedingsNavigationController {
     let nextUrl;
 
     switch (currentPage) {
+      case C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS: {
+        nextUrl =
+          caseData.op_childrenInvolvedCourtCase === YesOrNo.YES || caseData.op_courtOrderProtection === YesOrNo.YES
+            ? C100_OTHER_PROCEEDINGS_DETAILS
+            : caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
+            ? C100_TYPE_ORDER_SELECT_COURT_ORDER
+            : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+        break;
+      }
       case C100_OTHER_PROCEEDINGS_DETAILS:
         nextUrl = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: this.selectedOrderTypes[0] });
         break;
@@ -55,6 +72,13 @@ class OtherProceedingsNavigationController {
         nextUrl = this.getNextUrlOtherProceedingDocument();
         break;
       }
+      case C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY: {
+        nextUrl =
+          caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
+            ? C100_TYPE_ORDER_SELECT_COURT_ORDER
+            : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+        break;
+      }
       default:
         nextUrl = currentPage;
         break;
@@ -64,35 +88,38 @@ class OtherProceedingsNavigationController {
   }
 
   private getNextUrlOtherProceedingDetails(caseData) {
-    let returnUrl;
+    let url;
     const orderId = this.getOrderId();
     if (orderId) {
       // if any order has order copy to be uploaded
-      returnUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
+      url = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
     } else {
       // none of the orders in the current order type have order copy to be uploaded
       const nextOrderType = this.getNextOrderType();
       if (nextOrderType) {
-        returnUrl = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
+        url = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
       } else {
         // there is no other order type present
         if (isAnyOrderWithOrderCopy(caseData?.op_otherProceedings?.order)) {
           // check at last if there were any previous order types having at least an order with order copy
-          returnUrl = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
+          url = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
         } else {
-          returnUrl = C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+          url =
+            caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
+              ? C100_TYPE_ORDER_SELECT_COURT_ORDER
+              : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
         }
       }
     }
-    return returnUrl;
+    return url;
   }
 
   private getNextUrlOtherProceedingDocument() {
     const nextOrderId = this.getNextOrderId();
-    let returnUrl;
+    let url;
     if (nextOrderId) {
       // if there are any more orders with order copy
-      returnUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
+      url = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
         orderType: this.orderType,
         orderId: nextOrderId,
       });
@@ -100,12 +127,12 @@ class OtherProceedingsNavigationController {
       // none of the orders in the current order type have order copy to be uploaded
       const nextOrderType = this.getNextOrderType();
       if (nextOrderType) {
-        returnUrl = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
+        url = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
       } else {
-        returnUrl = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
+        url = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
       }
     }
-    return returnUrl;
+    return url;
   }
 }
 

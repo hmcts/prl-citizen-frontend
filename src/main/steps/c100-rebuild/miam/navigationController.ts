@@ -61,16 +61,18 @@ class MIAMNavigationController {
   }
 
   public checkForAnyValidReason(caseData: Partial<Case>, page?: MiamNonAttendReason): boolean {
-    if (page && !this.selectedPages.includes(page)) {
+    if (page && !caseData?.miam_nonAttendanceReasons?.includes(page)) {
       return false;
     }
 
-    const pages = page ? [page] : this.selectedPages;
+    const pages = page ? [page] : caseData?.miam_nonAttendanceReasons;
 
-    return pages.some(pageId => {
-      const dataReference = this.pages[pageId]?.dataReference;
-      return dataReference && caseData[dataReference] ? !caseData[dataReference].includes('none') : false;
-    });
+    return (
+      pages?.some(pageId => {
+        const dataReference = this.pages[pageId]?.dataReference;
+        return dataReference && caseData[dataReference] ? !caseData[dataReference].includes('none') : false;
+      }) ?? false
+    );
   }
 
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>): PageLink {

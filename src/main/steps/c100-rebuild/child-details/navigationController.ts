@@ -1,7 +1,8 @@
 import { Case } from '../../../app/case/case';
-import { ChildrenDetails } from '../../../app/case/definition';
+import { ChildrenDetails, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   C100_CHILDERN_DETAILS_ADD,
   C100_CHILDERN_DETAILS_CHILD_MATTERS,
   C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
@@ -48,6 +49,8 @@ class ChildrenDetailsNavigationController {
         const nextChild = getNextPerson(this.childrenDetails, this.childId);
         nextUrl = nextChild
           ? applyParms(C100_CHILDERN_LIVE_WITH, { childId: nextChild.id as ChildrenDetails['id'] })
+          : caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
+          ? C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE
           : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS;
         break;
       }
