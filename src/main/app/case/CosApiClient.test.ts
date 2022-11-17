@@ -182,7 +182,7 @@ describe('CosApiClient', () => {
     const client = new CosApiClient('abc', 'http://return-url');
     let flag = false;
     try {
-      await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data)
+      await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data);
     } catch (error) {
       flag = true;
     }
