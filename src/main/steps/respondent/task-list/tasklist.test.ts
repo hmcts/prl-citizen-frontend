@@ -53,8 +53,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_details_of_your_court_hearings',
             text: taskListItems.check_details_of_your_court_hearings,
-            status: 'TO_DO',
-            href: URL.INTERNATIONAL_FACTORS_START,
+            status: 'NOT_AVAILABLE_YET',
+            href: '#',
           },
         ],
       },
@@ -137,8 +137,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_details_of_your_court_hearings',
             text: taskListItems.check_details_of_your_court_hearings,
-            status: 'IN_PROGRESS',
-            href: URL.INTERNATIONAL_FACTORS_START,
+            status: 'NOT_AVAILABLE_YET',
+            href: '#',
           },
         ],
       },
@@ -242,9 +242,9 @@ describe('generateRespondentTaskList', () => {
         title: sectionTitles.yourcourtHearings,
         items: [
           {
-            href: '/tasklistresponse/international-factors/start',
+            href: '#',
             id: 'check_details_of_your_court_hearings',
-            status: 'IN_PROGRESS',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Check details of your court hearings',
           },
         ],
