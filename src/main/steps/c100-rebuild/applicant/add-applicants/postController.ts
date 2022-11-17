@@ -32,14 +32,13 @@ export default class AddApplicantPostController extends PostController<AnyObject
       TempFirstName: req['body']['applicantFirstName'],
       TempLastName: req['body']['applicantLastName'],
     };
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const form = new Form(fields);
-    const { _csrf, ...formData } = form.getParsedBody(req.body);
     const saveAndContinueChecked = req['body']['saveAndContinue'] && req['body']['saveAndContinue'] !== undefined;
-
     if (saveAndContinueChecked) {
       const toggleCheckIfApplicantFieldIsFilled =
         req['body']['applicantFirstName'] !== '' || req['body']['applicantLastName'] !== '';
+      const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+      const form = new Form(fields);
+      const { _csrf, ...formData } = form.getParsedBody(req.body);
       if (
         (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantFirstName'] === '') ||
         (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantLastName'] === '')
@@ -47,6 +46,10 @@ export default class AddApplicantPostController extends PostController<AnyObject
         req.session.errors = form.getErrors(formData);
         return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
       }
+
+      /* Checking if the applicant fields are filled, and if they are, it is mapping the entries to the
+     values after continuing, and adding another application. If they are not filled, it is just
+     mapping the entries to the values after continuing. */
       if (toggleCheckIfApplicantFieldIsFilled) {
         this.errorsAndRedirect(req, res, formData, form);
         this.addAnotherApplicant(req);
@@ -67,18 +70,19 @@ export default class AddApplicantPostController extends PostController<AnyObject
         this.mapEnteriesToValuesAfterContinuing(req, res);
       }
     } else {
+      const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+      const form = new Form(fields);
+      const { _csrf, ...formData } = form.getParsedBody(req.body);
       this.errorsAndRedirect(req, res, formData, form);
-      if (req.session.errors && !req.session.errors.length) {
-        const { addAnotherApplicant } = req['body'];
-        switch (addAnotherApplicant) {
-          case 'Yes':
-            this.addAnotherApplicant(req);
-            this.resetSessionTemporaryFormValues(req);
-            break;
-          default:
-        }
-        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+      const { addAnotherApplicant } = req['body'];
+      switch (addAnotherApplicant) {
+        case 'Yes':
+          this.addAnotherApplicant(req);
+          this.resetSessionTemporaryFormValues(req);
+          break;
+        default:
       }
+      return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
     }
   }
 
@@ -208,6 +212,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       return super.redirect(req, res, redirectURI);
     } else {
       req.session.userCase.appl_allApplicants = newApplicantStorage;
+      req.session.userCase.applicantTemporaryFormData = undefined;
       req.session.errors = errorMessageStorage;
       return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
     }
