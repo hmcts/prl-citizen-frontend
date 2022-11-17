@@ -414,6 +414,7 @@ export interface Case {
   respondentAttendingToCourt?: string;
   respondentConcernedAbout?: string[];
   respondentConcernedonChildAbout?: string;
+  ConcernedonSelfAbout?: string;
   respondentHearingDetails?: string;
   respondentLangRequirements?: string;
   respondentLangDetails?: string;

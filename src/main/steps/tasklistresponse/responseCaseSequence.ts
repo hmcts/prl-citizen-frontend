@@ -34,6 +34,7 @@ import {
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ONLY_CHILD_CONCERN,
+  RESPONDENT_ONLY_SELF_CONCERN,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
@@ -255,14 +256,14 @@ export const responseCaseSequence: Step[] = [
     getNextStep: data =>
       data.yourchildconcernsstart === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
   },
-
   {
     url: RESPONDENT_CHECK_ANSWERS_YES,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.respondentConcernedAbout?.includes('only child') && data.respondentConcernedAbout.length === 1
+    getNextStep: data => data.respondentConcernedAbout?.length === 2
+        ? RESPOND_TO_APPLICATION
+        :(data.respondentConcernedAbout?.includes('only child') && data.respondentConcernedAbout.length === 1
         ? RESPONDENT_ONLY_CHILD_CONCERN
-        : RESPOND_TO_APPLICATION,
+        : RESPONDENT_ONLY_SELF_CONCERN),
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_NO,
@@ -271,6 +272,11 @@ export const responseCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_ONLY_CHILD_CONCERN,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPONDENT_ONLY_SELF_CONCERN,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
