@@ -70,4 +70,36 @@ describe('applicant1 > address > lookup > AddressLookupPostController', () => {
 
     expect(res.redirect).toHaveBeenCalled();
   });
+
+  test('Should navigagte to the next page when there are no errors when continue button is clicked', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddressLookupPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        respondentId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+      },
+      body: {
+        PostCode: 'AG11NB',
+        onlycontinue: true,
+      },
+      session: {
+        lang: language,
+        userCase: {
+          resp_Respondents: [
+            {
+              id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+            },
+          ],
+        },
+      },
+    })
+    const res = mockResponse();
+    generateContent(commonContent);
+    await controller.post(req, res);
+    expect(req.session.addresses).toBeTruthy;
+    expect(res.redirect).toHaveBeenCalled();
+  });
 });

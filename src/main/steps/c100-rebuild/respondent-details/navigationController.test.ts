@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import {
+  C100_OTHER_PERSON_CHECK,
   C100_RESPONDENT_DETAILS_ADD,
   C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
   C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
@@ -233,5 +234,17 @@ describe('RespondentsDetailsNavigationController', () => {
         dummyparams.params
       )
     ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/contact-details');
+  });
+
+  test('default', async () => {
+    //let currentUrl='/c100-rebuild/respondent-details';
+    expect(
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_CHECK,
+        dummyRequest.session.userCase,
+        dummyRequest.params
+        
+      )
+    ).toBe('/c100-rebuild/other-person-details/other-person-check');
   });
 });
