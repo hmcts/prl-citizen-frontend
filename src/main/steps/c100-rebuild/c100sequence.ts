@@ -161,6 +161,7 @@ import ChildDetailsPostController from './child-details/childDetailPostControlle
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
 import { applyParms } from '../../steps/common/url-parser';
 import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
+import UploadDocumentController from './uploadDocumentController';
 
 export const C100Sequence: Step[] = [
   {
@@ -589,6 +590,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_MIAM_UPLOAD,
+    postController: UploadDocumentController,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_UPLOAD_CONFIRMATION,
   },
@@ -1007,6 +1009,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_CONSENT_ORDER_UPLOAD,
+    postController: UploadDocumentController,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
   },
