@@ -27,7 +27,9 @@ export default class AddApplicants extends GetController {
         TempLastName: '',
       };
     }
-
+    if (!req.session.userCase.hasOwnProperty('appl_allApplicants')) {
+      req.session.userCase['appl_allApplicants'] = [];
+    }
     const language = super.getPreferredLanguage(req) as Language;
 
     const content = generatePageContent({

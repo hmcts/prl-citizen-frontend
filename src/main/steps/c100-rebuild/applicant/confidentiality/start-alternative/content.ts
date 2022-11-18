@@ -70,6 +70,11 @@ export const form: FormContent = {
       values: [],
       validator: isFieldFilledIn,
     },
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'appl_start_alternative',
+    },
   },
   submit: {
     text: l => l.onlycontinue,
