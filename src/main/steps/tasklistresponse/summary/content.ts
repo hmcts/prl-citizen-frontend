@@ -136,7 +136,7 @@ const confirmYourDetailsfieldType = {
   citizenUserAddressHistory: 'String',
   citizenUserPhoneNumberText: 'String',
   citizenUserEmailAddressText: 'String',
-  applicant1SafeToCall: 'String',
+  citizenUserSafeToCall: 'String',
 };
 
 const supportYouNeedFieldType = {
@@ -282,7 +282,7 @@ export const enConfirmYourDetailsContent = {
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
     citizenUserEmailAddressText: 'Email',
-    applicant1SafeToCall: 'When it is safe to call you (optional)',
+    citizenUserSafeToCall: 'When it is safe to call you (optional)',
   },
   dependencies: {},
   statementOfTruth: 'Statement of truth',

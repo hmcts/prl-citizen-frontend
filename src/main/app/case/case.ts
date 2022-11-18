@@ -175,7 +175,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenUserDateOfBirth: 'citizenUserDateOfBirth',
   applicant1Occupation: 'applicant1Occupation',
   citizenUserEmailAddress: 'citizenUserEmailAddress',
-  applicant1SafeToCall: 'applicant1SafeToCall',
+  citizenUserSafeToCall: 'citizenUserSafeToCall',
   citizenUserPhoneNumber: 'citizenUserPhoneNumber',
   citizenUserPlaceOfBirth: 'citizenUserPlaceOfBirth',
   // citizenUserAddress1: 'citizenUserAddress1',
@@ -363,7 +363,7 @@ export interface Case {
   applicant1AdditionalNames?: OtherName[];
   citizenUserEmailAddress?: string;
   citizenUserEmailAddressText?: string;
-  applicant1SafeToCall?: string;
+  citizenUserSafeToCall?: string;
   citizenUserPhoneNumber?: string;
   citizenUserPhoneNumberText?: string;
   citizenUserDateOfBirth?: CaseDate;
