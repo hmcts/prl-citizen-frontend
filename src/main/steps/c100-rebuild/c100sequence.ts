@@ -160,6 +160,8 @@ import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
 import { applyParms } from '../../steps/common/url-parser';
+import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
+
 export const C100Sequence: Step[] = [
   {
     url: C100_CONFIDENTIALITY_DETAILS_KNOW,
@@ -934,6 +936,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
+    postController: LookupAndManualAddressPostController,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
@@ -954,6 +957,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
+    postController: LookupAndManualAddressPostController,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
