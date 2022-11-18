@@ -73,9 +73,9 @@ describe('applicant tasklist getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/applicant/keep-details-private/details_known',
+            href: '#',
             id: 'check-details-of-your-court-hearings',
-            status: 'TO_DO',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Check details of your court hearings',
           },
         ],
@@ -203,9 +203,9 @@ describe('applicant tasklist getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/applicant/keep-details-private/details_known',
+            href: '#',
             id: 'check-details-of-your-court-hearings',
-            status: 'TO_DO',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Check details of your court hearings',
           },
         ],
