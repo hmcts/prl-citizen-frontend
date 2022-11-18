@@ -64,10 +64,15 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
     });
     userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
+      if (userCase.c1ADocument) {
+        applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
+      }
     });
+    /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
     userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
+      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
+        applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
+      }
     });
     userCase.applicants.forEach((applicant: Applicant) => {
       applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
@@ -209,14 +214,22 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   const respondentItems2: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
     userCase.respondents.forEach((respondent: Respondent) => {
-      respondentItems.push(getResponseToCA(respondent, taskListItems));
+      if (userCase.citizenResponseC7DocumentList) {
+        respondentItems.push(getResponseToCA(respondent, taskListItems, userCase.citizenResponseC7DocumentList));
+      }
+    });
+    /** uncomment and add condition when we implement Response to AOH, AOH docs for respondent  */
+    userCase.respondents.forEach((respondent: Respondent) => {
+      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
+        respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
+      }
     });
     userCase.respondents.forEach((respondent: Respondent) => {
-      respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
+      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
+        respondentItems.push(getAohAndViolence(respondent, taskListItems));
+      }
     });
-    userCase.respondents.forEach((respondent: Respondent) => {
-      respondentItems.push(getAohAndViolence(respondent, taskListItems));
-    });
+
     userCase.respondents.forEach((respondent: Respondent) => {
       respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, url));
     });
@@ -410,21 +423,26 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url) =>
       {
         id: 'support_you_need_during_your_case',
         text: taskListItems.support_you_need_during_your_case,
-        href: url + URL.RESPONDENT_SUPPORT_NEEDED,
+        href: '#',
       },
     ],
   };
 };
 
-const getResponseToCA = (respondent: Respondent, taskListItems) => {
-  return {
-    id: 'respondent_response_to_request_for_child_arrangements',
-    text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
-      '<namerespondentxxxxx>',
-      respondent.value.firstName + ' ' + respondent.value.lastName
-    ),
-    href: URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE + '/' + respondent.id,
-  };
+const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {
+  for (const doc of citizenResponseC7DocumentList) {
+    if (doc.value.createdBy === respondent.value.firstName + ' ' + respondent.value.lastName) {
+      return {
+        id: 'respondent_response_to_request_for_child_arrangements',
+        text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
+          '<namerespondentxxxxx>',
+          respondent.value.firstName + ' ' + respondent.value.lastName
+        ),
+        href: URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE + '/' + respondent.id,
+      };
+    }
+  }
+  return {};
 };
 
 const getAohAndViolence = (respondent: Respondent, taskListItems) => {
