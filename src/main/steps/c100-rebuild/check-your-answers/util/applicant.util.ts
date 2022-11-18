@@ -20,6 +20,7 @@ import {
 } from '../../applicant/personal-details/content';
 import { cy as personalDetailsCy, en as personalDetailsEn } from '../../child-details/personal-details/content';
 import { cy as contentChildLivesCy, en as contentChildLivesEn } from '../../childaddress/content';
+import { cy as opersonDetailsCy, en as opersonDetailsEn } from '../../other-person-details/other-person-check/content';
 import {
   cy as constentAgreementCy,
   en as constentAgreementEn,
@@ -48,6 +49,7 @@ export const ApplicantElements = SystemLanguage => {
       return {
         ...contentContactEn(),
         ...contentPersonalDetailsEn(),
+        anyotherPersonYouwantList: opersonDetailsEn().title,
         anyOtherPeopleKnowDetails: contentDetailKnownEn().headingTitle,
         doYouWantToKeep: contentStartEn().headingTitle,
         haveLivedMore: addressManualEn().addressHistoryLabel,
@@ -66,6 +68,8 @@ export const ApplicantElements = SystemLanguage => {
       return {
         ...contentContactCy(),
         ...contentPersonalDetailsCy(),
+        ...opersonDetailsEn(),
+        anyotherPersonYouwantList: opersonDetailsCy().title,
         anyOtherPeopleKnowDetails: contentDetailKnownCy().headingTitle,
         doYouWantToKeep: contentStartCy().headingTitle,
         haveLivedMore: addressManualCy().addressHistoryLabel,

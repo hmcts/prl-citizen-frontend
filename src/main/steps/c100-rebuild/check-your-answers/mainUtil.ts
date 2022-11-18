@@ -963,7 +963,7 @@ export const RespondentDetails = (
         },
         {
           key: keys['hasNameChanged'],
-          valueHtml: changeNameInformation,
+          valueHtml: changeNameInformation[0].toUpperCase() + changeNameInformation.slice(1),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
         {
@@ -1084,6 +1084,43 @@ export const RespondentDetails = (
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
+
+
+/**
+ * 
+ * @param param0 
+ * @param userCase 
+ * @returns 
+ * 
+ *   const SummaryData = newOtherPeopleStorage;
+  return {
+    title: sectionTitles['detailofOtherPeople'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+ */
+
+  /* eslint-disable import/namespace */
+export const OtherPeopleDetailsTitle = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+
+  const newOtherPeopleStorage = [
+    {
+      key: keys['anyotherPersonYouwantList'],
+      value: userCase['oprs_otherPersonCheck'],
+      changeUrl: Urls['C100_OTHER_PERSON_CHECK'] ,
+    },
+  ];
+
+     
+  const SummaryData = newOtherPeopleStorage;
+  return {
+    title: sectionTitles['detailofOtherPeople'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
 
 
 /* eslint-disable import/namespace */
@@ -1211,7 +1248,7 @@ export const OtherPeopleDetails = (
    
   const SummaryData = newOtherPeopleStorage;
   return {
-    title: sectionTitles['detailofOtherPeople'],
+    title: '',
     rows: getSectionSummaryList(SummaryData, content),
   };
 };

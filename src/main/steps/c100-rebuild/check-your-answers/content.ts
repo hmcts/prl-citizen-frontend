@@ -22,6 +22,7 @@ import {
   MiamTitle,
   OtherChildrenDetails,
   OtherPeopleDetails,
+  OtherPeopleDetailsTitle,
   PastAndCurrentProceedings,
   PeopleDetails,
   PermissionForApplication,
@@ -258,6 +259,7 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
     OtherChildrenDetails(enContent, userCase),
     ApplicantDetails(enContent, userCase),
     RespondentDetails(enContent, userCase),
+    OtherPeopleDetailsTitle(enContent, userCase),
   ];
   if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
     sections.push(OtherPeopleDetails(enContent, userCase));
@@ -304,6 +306,7 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     OtherChildrenDetails(cyContent, userCase),
     ApplicantDetails(cyContent, userCase),
     RespondentDetails(cyContent, userCase),
+    OtherPeopleDetailsTitle(cyContent, userCase),
   ];
   if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
     sections.push(OtherPeopleDetails(cyContent, userCase));
