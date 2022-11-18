@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { C100RebuildPartyDetails, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, PartyType, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
+import { getDataShape } from '../util';
 
 const en = () => ({
   addressLine1: 'Building and street',
@@ -26,7 +27,6 @@ const cy = () => ({
 
 export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent => {
   const { address, addressUnknown } = caseData;
-  console.log(addressUnknown, 'known or not');
 
   const fields = {
     AddressLine1: {
@@ -42,7 +42,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
     AddressLine2: {
       type: 'text',
       classes: 'govuk-label',
-      label: l => l.addressLine2,
+      //label: l => l.addressLine2,
       value: address!.AddressLine2,
       labelSize: null,
     },
@@ -78,14 +78,15 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.country,
-      value: address!.Country,
+      value: address!.Country ?? (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).address.Country,
       labelSize: null,
+      validator: isFieldFilledIn,
     },
     addressUnknown: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes',
       labelSize: 'm',
-      section: l => l.section,
+      // section: l => l.section,
       values: [
         {
           name: 'addressUnknown',

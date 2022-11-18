@@ -131,7 +131,7 @@ describe('people util', () => {
   });
 
   test('getPartyDetails for child should return appropriate child details if the childId is valid', async () => {
-    expect(getPartyDetails(mockReq.session.userCase.cd_children, mockReq.params.childId)).toEqual(
+    expect(getPartyDetails(mockReq.params.childId, mockReq.session.userCase.cd_children)).toEqual(
       expect.objectContaining({
         firstName: 'Bob',
         lastName: 'Silly',
@@ -140,17 +140,17 @@ describe('people util', () => {
   });
 
   test('getPartyDetails for child should return null if the childId is not valid', async () => {
-    expect(getPartyDetails(mockReq.session.userCase.cd_children, 'invalid-id')).toEqual(null);
+    expect(getPartyDetails('invalid-id', mockReq.session.userCase.cd_children)).toEqual(null);
   });
 
   test('updatePartyDetails for child should update the child details in the session the childId is valid', async () => {
-    const childDetails = getPartyDetails(mockReq.session.userCase.cd_children, mockReq.params.childId);
+    const childDetails = getPartyDetails(mockReq.params.childId, mockReq.session.userCase.cd_children);
     const dataToUpdate = {
       ...childDetails,
       firstName: 'Bob1',
     };
 
-    expect(updatePartyDetails(mockReq.session.userCase.cd_children, dataToUpdate as ChildrenDetails)).toEqual(
+    expect(updatePartyDetails(dataToUpdate as ChildrenDetails, mockReq.session.userCase.cd_children)).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           firstName: 'Bob1',

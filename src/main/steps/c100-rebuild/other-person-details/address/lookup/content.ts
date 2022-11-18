@@ -51,6 +51,10 @@ export const form: FormContent = {
   },
 };
 
+export const getFormFields = (): FormContent => {
+  return updatedForm;
+};
+
 // eslint-disable-next-line @typescript-eslint/no-shadow
 const updatedFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
   updatedForm = {
@@ -58,6 +62,11 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
     fields: {
       ...formFields,
       ...(form.fields ?? {}),
+      _ctx: {
+        type: 'hidden',
+        labelHidden: true,
+        value: 'opAddressLookup',
+      },
     },
   };
 
@@ -75,8 +84,8 @@ export const generateContent: TranslationFn = content => {
   const lookupAddressFormTranslations = lookupAddressFormLanguages[content.language]();
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
   const otherPersonDetails = getPartyDetails(
-    content.userCase?.oprs_otherPersons,
-    otherPersonId
+    otherPersonId,
+    content.userCase?.oprs_otherPersons
   ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 

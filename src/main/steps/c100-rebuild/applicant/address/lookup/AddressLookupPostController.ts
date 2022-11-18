@@ -5,10 +5,8 @@ import { C100Applicant } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { AnyType } from '../../../../../app/form/validation';
 import { getAddressesFromPostcode } from '../../../../../app/postcode/postcode-lookup-api';
-import { applyParms } from '../../../../common/url-parser';
-import { C100_APPLICANT_ADDRESS_SELECT } from '../../../../urls';
+import { getPartyDetails, updatePartyDetails } from '../../../people/util';
 
 import { getUpdatedForm } from './content';
 
@@ -19,31 +17,30 @@ export default class AddressLookupPostController extends PostController<AnyObjec
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const postcode = req.body['addressPostcode'] as string;
     const { applicantId } = req.params;
-    const applicantId1: AnyType | undefined = applicantId;
-    let redirectURI = req.originalUrl;
-
-    let addresses;
-
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
+    const postcode = formData['addressPostcode'];
 
-    req.session.errors = form.getErrors(formData);
+    req.session.userCase.appl_allApplicants = updatePartyDetails(
+      {
+        ...(getPartyDetails(applicantId, req.session.userCase.appl_allApplicants) as C100Applicant),
 
-    const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
-    req.session.userCase!.appl_allApplicants![applicantIndex] = {
-      ...(req.session.userCase?.appl_allApplicants?.[applicantIndex] as C100Applicant),
-      applicantAddressPostcode: req.body['addressPostcode'] as string,
-    };
+        applicantAddressPostcode: postcode,
+      },
+      req.session.userCase.appl_allApplicants
+    ) as C100Applicant[];
 
-    if (req.session.errors.length === 0) {
-      addresses = await getAddressesFromPostcode(postcode, req.locals.logger);
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      if (!req.session.errors.length) {
+        req.session.addresses = (await getAddressesFromPostcode(postcode, req.locals.logger)) as [];
+      }
+
+      return this.redirect(req, res);
+    } else if (saveAndComeLater) {
+      this.saveAndComeLater(req, res, req.session.userCase);
     }
-    req.session.addresses = addresses;
-
-    redirectURI = applyParms(C100_APPLICANT_ADDRESS_SELECT, { applicantId: applicantId as string });
-
-    this.redirect(req, res, redirectURI);
   }
 }

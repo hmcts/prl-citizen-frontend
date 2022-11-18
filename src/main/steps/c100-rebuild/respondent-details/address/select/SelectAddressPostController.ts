@@ -1,11 +1,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100Address, C100RebuildPartyDetails } from '../../../../../app/case/definition';
+import { C100Address, C100RebuildPartyDetails, PartyType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { getPartyDetails, updatePartyDetails } from '../../../people/util';
+import { getDataShape, getPartyDetails, updatePartyDetails } from '../../../people/util';
 
 import { getUpdatedForm } from './content';
 
@@ -17,37 +17,35 @@ export default class SelectAddressPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { onlycontinue, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { respondentId } = req?.params;
+    const selectedAddressIndex = Number(formData['selectAddress']);
 
-    req.session.errors = form.getErrors(formData);
+    if (selectedAddressIndex >= 0) {
+      const selectedAddress = req.session.addresses[selectedAddressIndex];
+      const { postcode, street1, street2, town, county } = selectedAddress;
 
-    if (!req.session.errors.length) {
-      const selectedAddressIndex = Number(formData['selectAddress']);
-      if (selectedAddressIndex >= 0) {
-        //eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const selectedAddress = req.session.addresses[selectedAddressIndex] as any;
-        const respondentDetails = getPartyDetails(
-          req.session.userCase.resp_Respondents!,
-          respondentId
-        ) as C100RebuildPartyDetails;
-
-        req.session.userCase.resp_Respondents = updatePartyDetails(
-          req.session.userCase.resp_Respondents as C100RebuildPartyDetails[],
-          {
-            ...respondentDetails,
-            address: {
-              ...respondentDetails.address,
-              AddressLine1: selectedAddress.street1,
-              AddressLine2: selectedAddress.street2,
-              PostTown: selectedAddress.town,
-              County: selectedAddress.county,
-              Country: 'United Kingdom',
-            } as C100Address,
-          }
-        ) as C100RebuildPartyDetails[];
-      }
+      req.session.userCase.resp_Respondents = updatePartyDetails(
+        {
+          ...(getPartyDetails(respondentId, req.session.userCase.resp_Respondents) as C100RebuildPartyDetails),
+          address: {
+            PostCode: postcode,
+            AddressLine1: street1,
+            AddressLine2: street2,
+            PostTown: town,
+            County: county,
+            Country: (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).address.Country,
+            selectedAddress: selectedAddressIndex,
+          } as C100Address,
+        },
+        req.session.userCase.resp_Respondents
+      ) as C100RebuildPartyDetails[];
     }
-    this.redirect(req, res);
+
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      return this.redirect(req, res);
+    }
   }
 }

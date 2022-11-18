@@ -141,8 +141,8 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const respondentId = content.additionalData!.req.params.respondentId;
   const respondentDetails = getPartyDetails(
-    content.userCase!.resp_Respondents ?? [],
-    respondentId
+    respondentId,
+    content.userCase!.resp_Respondents ?? []
   ) as C100RebuildPartyDetails;
   const { fields } = generateFormFields(respondentDetails.contactDetails);
 

@@ -27,6 +27,9 @@ const en = () => ({
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
+    Country: {
+      required: 'Enter the country',
+    },
   },
 });
 
@@ -47,6 +50,9 @@ const cy = () => ({
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
     },
+    Country: {
+      required: 'Enter the country - welsh',
+    },
   },
 });
 
@@ -65,6 +71,10 @@ export const form: FormContent = {
   },
 };
 
+export const getFormFields = (): FormContent => {
+  return updatedForm;
+};
+
 // eslint-disable-next-line @typescript-eslint/no-shadow
 const updatedFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
   updatedForm = {
@@ -72,6 +82,11 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
     fields: {
       ...formFields,
       ...(form.fields ?? {}),
+      _ctx: {
+        type: 'hidden',
+        labelHidden: true,
+        value: 'opAddressManual',
+      },
     },
   };
 
@@ -88,8 +103,8 @@ export const generateContent: TranslationFn = content => {
   const manualAddressFormTranslations = manualAddressFormLanguages[content.language]();
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
   const otherPersonDetails = getPartyDetails(
-    content.userCase?.oprs_otherPersons,
-    otherPersonId
+    otherPersonId,
+    content.userCase?.oprs_otherPersons
   ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 

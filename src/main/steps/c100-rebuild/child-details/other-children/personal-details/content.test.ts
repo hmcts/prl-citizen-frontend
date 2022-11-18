@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { PartyType } from '../../../../../app/case/definition';
+import { C100RebuildPartyDetails, PartyType } from '../../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../../app/form/Form';
 import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
@@ -135,7 +135,9 @@ describe('child details > personal details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape(PartyType.OTHER_CHILDREN).personalDetails);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.OTHER_CHILDREN) as C100RebuildPartyDetails).personalDetails
+    );
     languageAssertions(
       'en',
       {
@@ -152,7 +154,9 @@ describe('child details > personal details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape(PartyType.OTHER_CHILDREN).personalDetails);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.OTHER_CHILDREN) as C100RebuildPartyDetails).personalDetails
+    );
     languageAssertions(
       'cy',
       {

@@ -24,7 +24,7 @@ export class PaymentSystemAPIInstance {
       baseURL: PaymentURL,
       headers: {
         Authorization: `Bearer ${userSystemAuthToken}`,
-        ServiceAuthorization: serviceAuthToken,
+        ServiceAuthorization: `Bearer ${serviceAuthToken}`,
       },
     });
   }
@@ -43,7 +43,7 @@ export class CheckPaymentStatusApi {
       baseURL: PaymentURL,
       headers: {
         Authorization: `Bearer ${userSystemAuthToken}`,
-        ServiceAuthorization: serviceAuthToken,
+        ServiceAuthorization: `Bearer ${serviceAuthToken}`,
         'Content-Type': 'application/json',
       },
     });

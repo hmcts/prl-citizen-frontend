@@ -12,10 +12,10 @@ const en = {
     AddressLine1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode',
       invalid: 'Enter a valid postcode',
     },
@@ -24,6 +24,9 @@ const en = {
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
+    },
+    Country: {
+      required: 'Enter the country - welsh',
     },
   },
 };
@@ -36,10 +39,10 @@ const cy = {
     AddressLine1: {
       required: 'Enter the first line of the address - welsh',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode - welsh',
       invalid: 'Enter a valid postcode - welsh',
     },
@@ -48,6 +51,9 @@ const cy = {
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+    },
+    Country: {
+      required: 'Enter the country - welsh',
     },
   },
 };

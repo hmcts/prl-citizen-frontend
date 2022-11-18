@@ -75,14 +75,6 @@ describe('applicant > address > select > content', () => {
     ).toBe('Continue');
   });
 
-  test('should contain saveAndComeLater button', () => {
-    expect(
-      (generatedContent.form?.saveAndComeLater?.text as LanguageLookup)(
-        generatePageContent({ language: 'en' }) as Record<string, never>
-      )
-    ).toBe('Save and come back later');
-  });
-
   test('should contain applicantSelectAddress field', () => {
     const { selectAddress } = fields as Record<string, FormFields>;
     expect(selectAddress.type).toBe('select');

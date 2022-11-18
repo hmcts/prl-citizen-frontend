@@ -151,7 +151,7 @@ export const generateContent: TranslationFn = content => {
   const childId = content.additionalData!.req.params.childId;
   const applicantId = content.additionalData!.req.params.applicantId;
   const applicantDetails = getApplicantDetails(content.userCase!.appl_allApplicants ?? [], applicantId)!;
-  const childDetails = getPartyDetails(content.userCase!.cd_children, childId) as ChildrenDetails;
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
 
   const relationshipFound = applicantDetails.relationshipDetails!.relationshipToChildren.find(
     relationshipToChild => relationshipToChild.childId === childId

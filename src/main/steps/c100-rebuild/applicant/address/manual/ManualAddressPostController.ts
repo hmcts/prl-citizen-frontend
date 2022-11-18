@@ -1,11 +1,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
+import { C100Applicant } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { AnyType } from '../../../../../app/form/validation';
+import { getPartyDetails, updatePartyDetails } from '../../../people/util';
 
 import { getUpdatedForm } from './content';
 
@@ -17,24 +17,30 @@ export default class ManualAddressPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { applicantId } = req.params;
-
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    const applicantId1: AnyType | undefined = applicantId;
+    req.session.userCase.appl_allApplicants = updatePartyDetails(
+      {
+        ...(getPartyDetails(applicantId, req.session.userCase.appl_allApplicants) as C100Applicant),
+        applicantAddressPostcode: formData['addressPostcode'],
+        applicantAddress1: formData['address1'],
+        applicantAddress2: formData['address2'],
+        applicantAddressTown: formData['addressTown'],
+        applicantAddressCounty: formData['addressCounty'],
+        applicantAddressHistory: formData['addressHistory'],
+        applicantProvideDetailsOfPreviousAddresses: formData['provideDetailsOfPreviousAddresses'],
+        country: formData['country'],
+      },
+      req.session.userCase.appl_allApplicants
+    ) as C100Applicant[];
 
-    const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId1) as number;
-    req.session.userCase!.appl_allApplicants![applicantIndex] = {
-      ...(req.session.userCase?.appl_allApplicants?.[applicantIndex] as C100Applicant),
-      applicantAddressPostcode: req.body['addressPostcode'] as string,
-      applicantAddress1: req.body['address1'] as string,
-      applicantAddress2: req.body['address2'] as string,
-      applicantAddressTown: req.body['addressTown'] as string,
-      applicantAddressCounty: req.body['addressCounty'] as string,
-      applicantAddressHistory: req.body['addressHistory'] as YesOrNo,
-      applicantProvideDetailsOfPreviousAddresses: req.body['provideDetailsOfPreviousAddresses'] as string,
-    };
-    req.session.errors = form.getErrors(formData);
-    this.redirect(req, res);
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      return this.redirect(req, res);
+    } else if (saveAndComeLater) {
+      this.saveAndComeLater(req, res, req.session.userCase);
+    }
   }
 }
