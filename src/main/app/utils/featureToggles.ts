@@ -5,7 +5,7 @@ import toBoolean = require('to-boolean');
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 
 export class FeatureToggles {
-  readonly launchDarklyClient: LaunchDarklyClient;
+  launchDarklyClient: LaunchDarklyClient;
 
   constructor(launchDarklyClient: LaunchDarklyClient) {
     this.launchDarklyClient = launchDarklyClient;
@@ -32,4 +32,26 @@ export class FeatureToggles {
     }
     return featureNames.some(featureName => toBoolean(config.get<boolean>(`featureToggles.${featureName}`)));
   }
+
+  async isC100reBuildEnabled(): Promise<boolean> {
+    return this.launchDarklyClient.serviceVariation(
+      'c100-rebuild',
+      toBoolean(config.get<boolean>('featureToggles.c100Rebuild'))
+    );
+  }
 }
+
+let featureToggleObj: FeatureToggles;
+export const initializeFeatureToggle = async (): Promise<FeatureToggles> => {
+  featureToggleObj = new FeatureToggles(new LaunchDarklyClient());
+  featureToggleObj.launchDarklyClient.initializeLD();
+  return featureToggleObj;
+};
+
+export const initFeatureToggle = (): void => {
+  initializeFeatureToggle();
+};
+
+export const getFeatureToggle = (): FeatureToggles => {
+  return featureToggleObj;
+};

@@ -155,10 +155,10 @@ export const generateContent: TranslationFn = content => {
   const childId = content.additionalData!.req.params.childId;
   const otherPersonId = content.additionalData!.req.params.otherPersonId;
   const otherPersonDetails = getPartyDetails(
-    content.userCase!.oprs_otherPersons,
-    otherPersonId
+    otherPersonId,
+    content.userCase!.oprs_otherPersons
   ) as C100RebuildPartyDetails;
-  const childDetails = getPartyDetails(content.userCase!.cd_children, childId) as ChildrenDetails;
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
 
   const relationshipFound = otherPersonDetails.relationshipDetails.relationshipToChildren.find(
     relationshipToChild => relationshipToChild.childId === childId

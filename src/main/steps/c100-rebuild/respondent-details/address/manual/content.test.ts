@@ -12,10 +12,10 @@ const en = {
     AddressLine1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode',
       invalid: 'Enter a valid postcode',
     },
@@ -39,10 +39,10 @@ const cy = {
     AddressLine1: {
       required: 'Enter the first line of the address - welsh',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode - welsh',
       invalid: 'Enter a valid postcode - welsh',
     },
