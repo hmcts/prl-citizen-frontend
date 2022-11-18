@@ -20,9 +20,8 @@ export default class NeedHelpWithFeesGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     if (req.session.userCase.c100ApplicationFees === undefined) {
-      const c100ApplicationFees = await (
-        await getFeesForC100ApplicationSubmission(req.session.user, req.locals.logger)
-      ).feeAmountForC100Application;
+      const c100ApplicationFees = (await getFeesForC100ApplicationSubmission(req.session.user, req.locals.logger))
+        .feeAmountForC100Application;
       req.session.userCase = {
         ...(req.session.userCase ?? {}),
         c100ApplicationFees,
