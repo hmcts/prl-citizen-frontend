@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { C100RebuildPartyDetails, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, PartyType, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
+import { getDataShape } from '../util';
 
 const en = () => ({
   addressLine1: 'Building and street',
@@ -77,7 +78,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.country,
-      value: address!.Country,
+      value: address!.Country ?? (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).address.Country,
       labelSize: null,
       validator: isFieldFilledIn,
     },

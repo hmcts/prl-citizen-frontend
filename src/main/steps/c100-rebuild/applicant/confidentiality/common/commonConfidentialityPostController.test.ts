@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { Gender, YesNoEmpty } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 
-import { ApplicantCommonConfidentialityController } from './commonConfidentialityPostController';
+import ApplicantCommonConfidentialityController from './commonConfidentialityPostController';
 
 const req = mockRequest({});
 const res = mockResponse({});

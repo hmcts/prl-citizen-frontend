@@ -23,11 +23,14 @@ export default class AddressLookupPostController extends PostController<AnyObjec
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const postcode = formData['addressPostcode'];
 
-    req.session.userCase.appl_allApplicants = updatePartyDetails(req.session.userCase.appl_allApplicants, {
-      ...(getPartyDetails(req.session.userCase.appl_allApplicants, applicantId) as C100Applicant),
+    req.session.userCase.appl_allApplicants = updatePartyDetails(
+      {
+        ...(getPartyDetails(applicantId, req.session.userCase.appl_allApplicants) as C100Applicant),
 
-      applicantAddressPostcode: postcode,
-    }) as C100Applicant[];
+        applicantAddressPostcode: postcode,
+      },
+      req.session.userCase.appl_allApplicants
+    ) as C100Applicant[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

@@ -22,10 +22,13 @@ export default class AddressLookupPostController extends PostController<AnyObjec
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    req.session.userCase.oprs_otherPersons = updatePartyDetails(req.session.userCase.oprs_otherPersons, {
-      ...(getPartyDetails(req.session.userCase.oprs_otherPersons, otherPersonId) as C100RebuildPartyDetails),
-      address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
-    }) as C100RebuildPartyDetails[];
+    req.session.userCase.oprs_otherPersons = updatePartyDetails(
+      {
+        ...(getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons) as C100RebuildPartyDetails),
+        address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
+      },
+      req.session.userCase.oprs_otherPersons
+    ) as C100RebuildPartyDetails[];
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

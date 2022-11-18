@@ -1,6 +1,6 @@
 /* eslint-disable import/order */
 import { Case, CaseWithId } from '../../app/case/case';
-import { YesOrNo } from '../../app/case/definition';
+import { MiamNonAttendReason, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
@@ -157,7 +157,8 @@ import RespondentsDetailsNavigationController from './respondent-details/navigat
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
-import { ApplicantCommonConfidentialityController } from './applicant/confidentiality/common/commonConfidentialityPostController';
+import ChildDetailsPostController from './child-details/childDetailPostController';
+import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
 import { applyParms } from '../../steps/common/url-parser';
 export const C100Sequence: Step[] = [
   {
@@ -303,12 +304,24 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART1,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART2,
+    getNextStep: caseData =>
+      caseData.hwn_hearingPart1 === YesOrNo.YES
+        ? C100_HEARING_WITHOUT_NOTICE_PART2
+        : caseData.sq_writtenAgreement === YesOrNo.NO &&
+          caseData.miam_validReason === YesOrNo.YES &&
+          MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+        ? C100_TYPE_ORDER_SELECT_COURT_ORDER
+        : C100_CHILDERN_DETAILS_ADD,
   },
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART2,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CHILDERN_DETAILS_ADD,
+    getNextStep: caseData =>
+      caseData.sq_writtenAgreement === YesOrNo.NO &&
+      caseData.miam_validReason === YesOrNo.YES &&
+      MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+        ? C100_TYPE_ORDER_SELECT_COURT_ORDER
+        : C100_CHILDERN_DETAILS_ADD,
   },
   {
     url: C100_TYPE_ORDER_SELECT_COURT_ORDER,
@@ -323,8 +336,14 @@ export const C100Sequence: Step[] = [
   {
     url: C100_TYPE_ORDER_SHORT_STATEMENT,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<Case>) =>
-      data.sq_writtenAgreement === YesOrNo.YES ? C100_CONSENT_ORDER_UPLOAD : C100_HEARING_URGENCY_URGENT,
+    getNextStep: caseData =>
+      caseData.sq_writtenAgreement === YesOrNo.YES
+        ? C100_CONSENT_ORDER_UPLOAD
+        : caseData.miam_otherProceedings === YesOrNo.NO &&
+          caseData.miam_validReason === YesOrNo.YES &&
+          MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+        ? C100_CHILDERN_DETAILS_ADD
+        : C100_HEARING_URGENCY_URGENT,
   },
   {
     url: C100_START,
@@ -357,18 +376,21 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, caseData, req?.params),
   },
   {
     url: C100_CHILDERN_DETAILS_CHILD_MATTERS,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_CHILD_MATTERS, caseData, req?.params),
   },
   {
     url: C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(
         C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
@@ -389,17 +411,13 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<Case>) =>
-      data.op_childrenInvolvedCourtCase === YesOrNo.YES || data.op_courtOrderProtection === YesOrNo.YES
-        ? C100_OTHER_PROCEEDINGS_DETAILS
-        : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+    getNextStep: caseData =>
+      OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS, caseData),
   },
   {
     url: C100_OTHER_PROCEEDINGS_DETAILS,
     showInSection: Sections.C100,
-    getNextStep: (caseData: Partial<Case>): PageLink => {
-      return OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DETAILS, caseData);
-    },
+    getNextStep: caseData => OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DETAILS, caseData),
   },
   {
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
@@ -426,7 +444,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: caseData =>
+      OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY, caseData),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,

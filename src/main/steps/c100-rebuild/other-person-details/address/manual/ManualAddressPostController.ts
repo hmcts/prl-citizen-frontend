@@ -22,12 +22,12 @@ export default class ManualAddressPostController extends PostController<AnyObjec
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
     req.session.userCase.oprs_otherPersons = updatePartyDetails(
-      req.session.userCase.oprs_otherPersons as C100RebuildPartyDetails[],
       {
-        ...(getPartyDetails(req.session.userCase.oprs_otherPersons, otherPersonId) as C100RebuildPartyDetails),
+        ...(getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons) as C100RebuildPartyDetails),
         address: transformPartyDetails(PartyType.OTHER_PERSON, PartyDetailsVariant.ADDRESS, formData) as C100Address,
         addressUnknown: formData['addressUnknown'],
-      }
+      },
+      req.session.userCase.oprs_otherPersons as C100RebuildPartyDetails[]
     ) as C100RebuildPartyDetails[];
 
     if (onlycontinue) {

@@ -13,6 +13,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
       this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
       this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
+      this.setSecret('secrets.prl.launchDarkly-sdk-key', 'featureToggles.launchDarklyKey');
       this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.system-update-user-password', 'services.idam.systemPassword');

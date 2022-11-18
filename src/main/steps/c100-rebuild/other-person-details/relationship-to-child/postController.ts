@@ -24,8 +24,8 @@ export default class OtherPersonsRelationshipToChildPostController extends PostC
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { relationshipType, otherRelationshipTypeDetails } = formData as Record<string, any>;
     const otherPersonDetails = getPartyDetails(
-      req.session.userCase.oprs_otherPersons,
-      otherPersonId
+      otherPersonId,
+      req.session.userCase.oprs_otherPersons
     ) as C100RebuildPartyDetails;
 
     if (otherPersonDetails.relationshipDetails.relationshipToChildren.length) {
@@ -47,8 +47,8 @@ export default class OtherPersonsRelationshipToChildPostController extends PostC
     }
 
     req.session.userCase.oprs_otherPersons = updatePartyDetails(
-      req.session.userCase.oprs_otherPersons,
-      otherPersonDetails
+      otherPersonDetails,
+      req.session.userCase.oprs_otherPersons
     ) as C100RebuildPartyDetails[];
 
     if (onlycontinue) {
