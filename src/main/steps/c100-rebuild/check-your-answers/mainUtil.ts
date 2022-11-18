@@ -305,6 +305,19 @@ export const ApplicantDetails = (
       }
       return html;
     };
+    let changeNameInformation = '';
+    const hasNameChanged = personalDetails['haveYouChangeName'];
+    changeNameInformation += hasNameChanged;
+    if(hasNameChanged === 'Yes'){
+      changeNameInformation += HTML.RULER;
+      changeNameInformation += HTML.H4;
+      changeNameInformation +=keys['details'];
+      changeNameInformation += HTML.H4_CLOSE;
+      changeNameInformation += HTML.BOTTOM_PADDING_3;
+      changeNameInformation +=  personalDetails['applPreviousName'];
+      changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
+    }
+
     newApplicantData.push(
       {
         key: '',
@@ -336,9 +349,9 @@ export const ApplicantDetails = (
             :  applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId }),
       },
       {
-        key: keys['hasNameChanged'],
+        key: keys['haveYouChangeNameLabel'],
         value: '',
-        valueHtml: personalDetails['haveYouChangeName'],
+        valueHtml: changeNameInformation,
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -348,7 +361,7 @@ export const ApplicantDetails = (
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
-        key: keys['approxDobLabel'],
+        key: keys['dobLabel'],
         value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
@@ -917,7 +930,7 @@ export const RespondentDetails = (
        * Name takes
        */
       let changeNameInformation = '';
-      const hasNameChanged = personalDetails['hasNameChanged'];
+      const hasNameChanged = personalDetails['hasNameChanged'] !== 'dontKnow' ? personalDetails['hasNameChanged'] : keys['dontKnow'];
       changeNameInformation += hasNameChanged;
       if(hasNameChanged === 'yes'){
         const changedName = personalDetails['previousFullName'];

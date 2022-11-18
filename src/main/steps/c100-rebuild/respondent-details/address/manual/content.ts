@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { C100RebuildPartyDetails, YesNoDontKnow } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -11,7 +12,7 @@ import { getPartyDetails } from '../../../people/util';
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Address details of',
   subtitle:
     "Include as much detail as you can. If there's information missing, your application may take longer to process.",
@@ -46,7 +47,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Address details of - welsh',
   subtitle:
     "Include as much detail as you can. If there's information missing, your application may take longer to process. - welsh",

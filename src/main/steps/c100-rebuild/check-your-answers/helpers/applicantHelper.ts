@@ -34,7 +34,7 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys)
   sessionApplicantData.hasOwnProperty('PostCode') && sessionApplicantData['PostCode'] !==  '' ? (html += sessionApplicantData?.['PostCode']+ HTML.BREAK) : '';
   sessionApplicantData.hasOwnProperty('Country') && sessionApplicantData['Country'] !==  '' ? (html += sessionApplicantData?.['Country']+ HTML.RULER) : '';
   if(sessionApplicantData.hasOwnProperty('addressHistory')){
-    html += HTML.H4 + keys['haveLivedMore'] + HTML.H4_CLOSE;
+    html += HTML.H4 + keys['respondentAddressLabel'] + HTML.H4_CLOSE;
     html += HTML.BOTTOM_PADDING_3;
     html += sessionApplicantData?.['addressHistory'] === 'dontKnow' ? keys['dontKnow'] : sessionApplicantData?.['addressHistory'];
     html += HTML.BOTTOM_PADDING_CLOSE;
