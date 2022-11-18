@@ -13,7 +13,7 @@ const en = {
   summaryText: 'Contacts for help',
   errors: {
     c1A_childSafetyConcerns: {
-      required: 'Please select an answer',
+      required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
     },
     c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
@@ -22,18 +22,18 @@ const en = {
 };
 
 const cy = {
-  section: 'Safety concerns',
-  title: 'Do you have any other concerns about the children’s safety and wellbeing?',
-  hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with.',
-  one: 'Yes',
-  two: 'No',
-  summaryText: 'Contacts for help',
+  section: 'Safety concerns - welsh',
+  title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
+  hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',
+  one: 'Yes - welsh',
+  two: 'No - welsh',
+  summaryText: 'Contacts for help - welsh',
   errors: {
     c1A_childSafetyConcerns: {
-      required: 'Please select an answer',
+      required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
     },
     c1A_childSafetyConcernsDetails: {
-      required: 'Describe what concerns you have about the children’s safety and wellbeing',
+      required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
     },
   },
 };
