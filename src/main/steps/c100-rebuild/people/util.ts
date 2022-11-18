@@ -71,7 +71,7 @@ export const getDataShape = (context: PartyType): People => {
         PostCode: '',
         Country: 'United Kingdom',
         selectedAddress: -1,
-        addressHistory: YesNoDontKnow.yes,
+        addressHistory: YesNoDontKnow.dontKnow,
         provideDetailsOfPreviousAddresses: '',
       },
       relationshipDetails: {
@@ -90,10 +90,10 @@ export const getDataShape = (context: PartyType): People => {
   return shape;
 };
 
-export const getPartyDetails = (people: People[] = [], id: string): People | null =>
+export const getPartyDetails = (id: string, people: People[] = []): People | null =>
   people.find(person => person.id === id) ?? null;
 
-export const updatePartyDetails = (people: People[] = [], personDetails: People): People[] | [] =>
+export const updatePartyDetails = (personDetails: People, people: People[] = []): People[] | [] =>
   people.map(person => (person.id === personDetails.id ? personDetails : person));
 
 export const getNextPerson = (people: People[], currentPersonId: string): People | null => {

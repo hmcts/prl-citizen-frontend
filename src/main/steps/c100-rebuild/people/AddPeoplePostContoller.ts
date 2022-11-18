@@ -92,13 +92,15 @@ export default class AddPersonPostController {
     const { c100TempFirstName, c100TempLastName, ...rest } = formData;
 
     req.session.userCase = {
-      ...(req.session.userCase ?? {}),
+      ...req.session.userCase,
       c100TempFirstName,
       c100TempLastName,
     };
 
+    const fullName = c100TempFirstName && c100TempLastName;
+
     if (add) {
-      if (c100TempFirstName && c100TempLastName) {
+      if (fullName) {
         this.addPerson(c100TempFirstName, c100TempLastName);
       } else {
         req.session.errors = form
@@ -113,19 +115,17 @@ export default class AddPersonPostController {
 
       if (!req.session.errors.length) {
         this.addPerson(c100TempFirstName, c100TempLastName);
-      } else {
-        if (req.session.userCase[dataReference].length && !c100TempFirstName && !c100TempLastName) {
-          req.session.errors = req.session.errors.filter(
-            error => !['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName)
-          );
-        }
+      } else if (req.session.userCase[dataReference].length && !fullName) {
+        req.session.errors = req.session.errors.filter(
+          error => !['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName)
+        );
       }
 
       return this.parent.redirect(req, res);
     } else if (saveAndComeLater) {
       req.session.userCase[dataReference] = transformAddPeople(context, rest, req.session.userCase[dataReference]);
 
-      if (c100TempFirstName && c100TempLastName) {
+      if (fullName) {
         this.addPerson(c100TempFirstName, c100TempLastName);
       }
 

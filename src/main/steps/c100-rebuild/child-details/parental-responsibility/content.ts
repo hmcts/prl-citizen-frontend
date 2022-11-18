@@ -73,7 +73,13 @@ export const generateFormFields = (
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'pr',
+    },
+  },
   onlycontinue: {
     text: l => l.onlycontinue,
   },
@@ -85,7 +91,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getPartyDetails(content.userCase!.cd_children, childId) as ChildrenDetails;
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
   const { fields } = generateFormFields(childDetails.parentialResponsibility);
 
   return {

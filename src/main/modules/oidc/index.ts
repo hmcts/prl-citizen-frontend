@@ -7,6 +7,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { C100_URL, CALLBACK_URL, CITIZEN_HOME_URL, DASHBOARD_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
@@ -59,7 +60,18 @@ export class OidcMiddleware {
           console.log('***** User login success');
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-          req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
+          if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {
+            const c100RebuildLdFlag: boolean =
+              req.session.c100RebuildLdFlag !== undefined
+                ? req.session.c100RebuildLdFlag
+                : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
+            if (c100RebuildLdFlag) {
+              req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
+              return next();
+            } else {
+              return res.redirect(CITIZEN_HOME_URL);
+            }
+          }
 
           if (req.session.userCase) {
             console.log('****** inside oidc, user case found');

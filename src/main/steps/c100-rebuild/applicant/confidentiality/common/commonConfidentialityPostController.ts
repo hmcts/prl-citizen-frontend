@@ -8,7 +8,7 @@ import { AnyObject, PostController } from '../../../../../app/controller/PostCon
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 
 @autobind
-export class ApplicantCommonConfidentialityController {
+export default class ApplicantCommonConfidentialityController {
   private parent;
   private request: AppRequest<AnyObject>;
   private contextNavigators;

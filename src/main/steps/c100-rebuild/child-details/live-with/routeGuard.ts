@@ -11,7 +11,7 @@ export const routeGuard = {
     if (
       !childId ||
       !(
-        getPartyDetails(req.session.userCase?.cd_children, childId) &&
+        getPartyDetails(childId, req.session.userCase?.cd_children) &&
         req.session.userCase?.appl_allApplicants?.length &&
         req.session.userCase?.resp_Respondents?.length
       )
