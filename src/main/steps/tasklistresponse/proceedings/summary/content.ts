@@ -3,6 +3,7 @@ import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
 import { PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../../../steps/urls';
 import { summaryList } from '../../../common/summary/utils';
+import { getSelectedOrders } from '../util';
 
 const fieldType = {
   proceedingsStart: 'String',
@@ -942,18 +943,19 @@ function updateContent(enContentTemp, userCaseTemp, urlsTemp) {
       clearObject(enContentTemp.keys, urlsTemp);
       addProceedingsStart(enContentTemp, urlsTemp);
       addProceedingsStartOrder(enContentTemp, urlsTemp);
-      addEmergencyOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addSuperVisionOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addCareOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addchildAbductionOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addCaOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addFinancialOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addNonmolestationOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addOccupationOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addMarriageOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addRestrainingOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addInjunctiveOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addUndertakingOrder(enContentTemp, urlsTemp, userCaseTemp);
+      addSelectedOrders(enContentTemp, urlsTemp, userCaseTemp);
+      // addEmergencyOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addSuperVisionOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addCareOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addchildAbductionOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addCaOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addFinancialOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addNonmolestationOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addOccupationOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addMarriageOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addRestrainingOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addInjunctiveOrder(enContentTemp, urlsTemp, userCaseTemp);
+      // addUndertakingOrder(enContentTemp, urlsTemp, userCaseTemp);
     }
   }
 }
@@ -968,196 +970,202 @@ function addProceedingsStartOrder(enContenttemp, urlstemp) {
   Object.assign(urlstemp, { proceedingsStartOrder: PROCEEDINGS_START });
 }
 
-function addEmergencyOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { emergencyOrderOptions: 'Emergency Protection Order' });
-  Object.assign(urlstemp, { emergencyOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.emergencyOrderOptions === 'Yes') {
-    addEmergencyOrderSubFields(enContenttemp);
-  }
+function addSelectedOrders(enContenttemp,urlstemp,userCaseTemp) {
+  const orders = userCaseTemp?.otherProceedings?.order ?? {};
+  console.log(orders);
+  Object.assign('Provide details of court cases you or the children have been involved in',
+  getSelectedOrders(orders));
 }
+// function addEmergencyOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { emergencyOrderOptions: 'Emergency Protection Order' });
+//   Object.assign(urlstemp, { emergencyOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.emergencyOrderOptions === 'Yes') {
+//     addEmergencyOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addEmergencyOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.issueOrderDetails': 'Which court issued this order?' });
-  //Object.assign(urlstemp, {});
-}
+// function addEmergencyOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'emergencyOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'emergencyOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'emergencyOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'emergencyOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'emergencyOrder.issueOrderDetails': 'Which court issued this order?' });
+//   //Object.assign(urlstemp, {});
+// }
 
-function addSuperVisionOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { supervisionOrderOption: 'Supervision Order' });
-  Object.assign(urlstemp, { supervisionOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.supervisionOrderOption === 'Yes') {
-    addSuperVisionOrderSubFields(enContenttemp);
-  }
-}
+// function addSuperVisionOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { supervisionOrderOption: 'Supervision Order' });
+//   Object.assign(urlstemp, { supervisionOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.supervisionOrderOption === 'Yes') {
+//     addSuperVisionOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addSuperVisionOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.issueOrderDetails': 'Which court issued this order?' });
-}
+// function addSuperVisionOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'supervisionOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'supervisionOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'supervisionOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'supervisionOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'supervisionOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
 
-function addCareOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { careOrderOptions: 'Care Order' });
-  Object.assign(urlstemp, { careOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.careOrderOptions === 'Yes') {
-    addCareOrderSubFields(enContenttemp);
-  }
-}
+// function addCareOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { careOrderOptions: 'Care Order' });
+//   Object.assign(urlstemp, { careOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.careOrderOptions === 'Yes') {
+//     addCareOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addCareOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'careOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'careOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'careOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'careOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'careOrder.issueOrderDetails': 'Which court issued this order?' });
-}
+// function addCareOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'careOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'careOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'careOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'careOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'careOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
 
-function addchildAbductionOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { childAbductionOrderOption: 'Child Abduction' });
-  Object.assign(urlstemp, { childAbductionOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.childAbductionOrderOption === 'Yes') {
-    addchildAbductionOrderSubFields(enContenttemp);
-  }
-}
+// function addchildAbductionOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { childAbductionOrderOption: 'Child Abduction' });
+//   Object.assign(urlstemp, { childAbductionOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.childAbductionOrderOption === 'Yes') {
+//     addchildAbductionOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addchildAbductionOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.issueOrderDetails': 'Which court issued this order?' });
-}
+// function addchildAbductionOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'childAbductionOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'childAbductionOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'childAbductionOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'childAbductionOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'childAbductionOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
 
-function addCaOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { caOrderOption: 'Child Arrangements Order' });
-  Object.assign(urlstemp, { caOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.caOrderOption === 'Yes') {
-    addCaOrderSubFields(enContenttemp);
-  }
-}
-function addCaOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'caOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'caOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'caOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'caOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'careOrder.issueOrderDetails': 'Which court issued this order?' });
-}
+// function addCaOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { caOrderOption: 'Child Arrangements Order' });
+//   Object.assign(urlstemp, { caOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.caOrderOption === 'Yes') {
+//     addCaOrderSubFields(enContenttemp);
+//   }
+// }
+// function addCaOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'caOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'caOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'caOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'caOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'careOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
 
-function addFinancialOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, {
-    financialOrderOption: 'Financial Order under Schedule 1 of the Children Act 1989',
-  });
-  Object.assign(urlstemp, { financialOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.financialOrderOption === 'Yes') {
-    addFinancialOrderSubFields(enContenttemp);
-  }
-}
+// function addFinancialOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, {
+//     financialOrderOption: 'Financial Order under Schedule 1 of the Children Act 1989',
+//   });
+//   Object.assign(urlstemp, { financialOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.financialOrderOption === 'Yes') {
+//     addFinancialOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addFinancialOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'financialOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'financialOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'financialOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'financialOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'careOrder.issueOrderDetails': 'Which court issued this order?' });
-}
+// function addFinancialOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'financialOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'financialOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'financialOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'financialOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'careOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
 
-function addNonmolestationOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { nonmolestationOrderOption: 'Non-molestation Order' });
-  Object.assign(urlstemp, { nonmolestationOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.nonmolestationOrderOption === 'Yes') {
-    addNonmolestationOrderSubFields(enContenttemp);
-  }
-}
+// function addNonmolestationOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { nonmolestationOrderOption: 'Non-molestation Order' });
+//   Object.assign(urlstemp, { nonmolestationOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.nonmolestationOrderOption === 'Yes') {
+//     addNonmolestationOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addNonmolestationOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.issueOrderDetails': 'Which court issued this order?' });
-}
+// function addNonmolestationOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'nonmolestationOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'nonmolestationOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'nonmolestationOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'nonmolestationOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'nonmolestationOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
 
-function addOccupationOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { occupationalOrderOptions: 'Occupation Order' });
-  Object.assign(urlstemp, { occupationalOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.occupationalOrderOptions === 'Yes') {
-    addOccupationOrderSubFields(enContenttemp);
-  }
-}
+// function addOccupationOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { occupationalOrderOptions: 'Occupation Order' });
+//   Object.assign(urlstemp, { occupationalOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.occupationalOrderOptions === 'Yes') {
+//     addOccupationOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addOccupationOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'occupationOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'occupationOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'occupationOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'occupationOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'occupationOrder.issueOrderDetails': 'Which court issued this order?' });
-}
+// function addOccupationOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'occupationOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'occupationOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'occupationOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'occupationOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'occupationOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
 
-function addMarriageOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { marraigeOrderOptions: 'Forced Marriage Protection Order' });
-  Object.assign(urlstemp, { marraigeOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.marraigeOrderOptions === 'Yes') {
-    addMarriagerderSubFields(enContenttemp);
-  }
-}
+// function addMarriageOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { marraigeOrderOptions: 'Forced Marriage Protection Order' });
+//   Object.assign(urlstemp, { marraigeOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.marraigeOrderOptions === 'Yes') {
+//     addMarriagerderSubFields(enContenttemp);
+//   }
+// }
 
-function addMarriagerderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-function addRestrainingOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { restrainingOrderOptions: 'Restraining Order' });
-  Object.assign(urlstemp, { restrainingOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.restrainingOrderOptions === 'Yes') {
-    addRestrainingOrderSubFields(enContenttemp);
-  }
-}
+// function addMarriagerderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'marraigeOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'marraigeOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'marraigeOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'marraigeOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'marraigeOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
+// function addRestrainingOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { restrainingOrderOptions: 'Restraining Order' });
+//   Object.assign(urlstemp, { restrainingOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.restrainingOrderOptions === 'Yes') {
+//     addRestrainingOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addRestrainingOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-function addInjunctiveOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { injuctiveOrderOptions: 'Other Injunctive Order' });
-  Object.assign(urlstemp, { injuctiveOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.injuctiveOrderOptions === 'Yes') {
-    addInjunctiveOrderSubFields(enContenttemp);
-  }
-}
+// function addRestrainingOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'restrainingOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'restrainingOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'restrainingOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'restrainingOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'restrainingOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
+// function addInjunctiveOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { injuctiveOrderOptions: 'Other Injunctive Order' });
+//   Object.assign(urlstemp, { injuctiveOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.injuctiveOrderOptions === 'Yes') {
+//     addInjunctiveOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addInjunctiveOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-function addUndertakingOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { underTakingOrderOptions: 'Undertaking in Place of an Order' });
-  Object.assign(urlstemp, { underTakingOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.underTakingOrderOptions === 'Yes') {
-    addUndertakingOrderSubFields(enContenttemp);
-  }
-}
+// function addInjunctiveOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'injuctiveOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'injuctiveOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'injuctiveOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'injuctiveOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'injuctiveOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
+// function addUndertakingOrder(enContenttemp, urlstemp, userCaseTemp) {
+//   Object.assign(enContenttemp.keys, { underTakingOrderOptions: 'Undertaking in Place of an Order' });
+//   Object.assign(urlstemp, { underTakingOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
+//   if (userCaseTemp.underTakingOrderOptions === 'Yes') {
+//     addUndertakingOrderSubFields(enContenttemp);
+//   }
+// }
 
-function addUndertakingOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.issueOrderDetails': 'Which court issued this order?' });
-}
+// function addUndertakingOrderSubFields(enContenttemp) {
+//   Object.assign(enContenttemp.keys, { 'underTakingOrder.caseNoDetails': 'Case number' });
+//   Object.assign(enContenttemp.keys, { 'underTakingOrder.orderDateDetails': 'What date was it made' });
+//   Object.assign(enContenttemp.keys, { 'underTakingOrder.orderTimeDetails': 'How long was the order for?' });
+//   Object.assign(enContenttemp.keys, { 'underTakingOrder.currentOrderDetails': 'Is this a current order?' });
+//   Object.assign(enContenttemp.keys, { 'underTakingOrder.issueOrderDetails': 'Which court issued this order?' });
+// }
 
 function clearObject(enContenttemp, urlstemp) {
   for (const key in enContenttemp) {

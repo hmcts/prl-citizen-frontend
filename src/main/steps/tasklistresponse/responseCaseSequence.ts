@@ -48,6 +48,7 @@ import {
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
+  PROCEEDINGS_SUMMARY,
 } from '../urls';
 
 import OtherProceedingsNavigationController from './proceedings/navigationController';
@@ -233,6 +234,11 @@ export const responseCaseSequence: Step[] = [
   },
   {
     url: COURT_PROCEEDINGS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },

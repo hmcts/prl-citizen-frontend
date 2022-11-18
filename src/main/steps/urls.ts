@@ -238,6 +238,7 @@ export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/courtproc
 export const PROCEEDINGS_ORDER_DETAILS: PageLink = `${PROCEEDINGS}/:orderType/order-details`;
 export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/document-summary`;
 export const PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/documentUpload`;
+export const PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
 
 /* your needs when you go to court */
 export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${RESPONDENT}/support-you-need-during-case`;
