@@ -158,6 +158,7 @@ import SafteyConcernsNavigationController from './safety-concerns/navigationCont
 import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
+import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
 
 export const C100Sequence: Step[] = [
   {
@@ -897,6 +898,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
+    postController: LookupAndManualAddressPostController,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
@@ -917,6 +919,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
+    postController: LookupAndManualAddressPostController,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
