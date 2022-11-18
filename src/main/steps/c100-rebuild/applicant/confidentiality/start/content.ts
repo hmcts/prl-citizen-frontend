@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Case } from '../../../../../app/case/case';
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
@@ -5,7 +6,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   caption: 'Keeping your contact details private',
   headingTitle: `Do you want to keep your contact details private from 
   the other people named in the application (the respondents)?`,
@@ -29,7 +30,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   caption: 'Keeping your contact details private  - welsh',
   headingTitle: `Do you want to keep your contact details private from 
   the other people named in the application (the respondents)? - welsh`,
@@ -70,6 +71,11 @@ export const form: FormContent = {
       values: [],
       validator: isFieldFilledIn,
     },
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'appl_start',
+    },
   },
   submit: {
     text: l => l.onlycontinue,
@@ -96,7 +102,6 @@ export const generateContent: TranslationFn = content => {
   const contactDetailsPrivate = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0]?.[
     'contactDetailsPrivate'
   ] as [];
-  console.log({ contactDetailsPrivate });
   let detailKnownFormField = form.fields['start']['values']!;
 
   const formFieldValues = [

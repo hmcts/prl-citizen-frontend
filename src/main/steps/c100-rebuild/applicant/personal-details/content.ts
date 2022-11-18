@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseDate } from '../../../../app/case/case';
 import { C100Applicant, Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
@@ -13,7 +14,7 @@ import { getApplicantDetails } from '../util';
 //export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Provide details for',
   haveYouChangeNameLabel: 'Have you changed your name?',
   haveYouChangeNameHint:
@@ -56,7 +57,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Provide details for - welsh',
   haveYouChangeNameLabel: 'Have you changed your name? - welsh',
 
