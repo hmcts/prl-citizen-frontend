@@ -46,26 +46,13 @@ export default class UploadDocumentController {
 
     const certificate = req.session.userCase?.[paramCert] as C100DocumentInfo;
 
-    if (this.callParentPost(req, paramCert)) {
+    if (req.body.saveAndComeLater) {
       this.parent.post(req, res);
-    }
-
-    if (this.checkSaveandContinueDocumentExist(req, certificate)) {
-      req.session.errors = [];
+    } else if (this.checkSaveandContinueDocumentExist(req, certificate)) {
       this.parent.redirect(req, res, '');
     } else {
       this.checkFileCondition(certificate, req, res, redirectUrl, files, fileNamePrefix, paramCert);
     }
-  }
-
-  /**
-   *
-   * @param req
-   * @param paramCert
-   * @returns
-   */
-  public callParentPost(req: AppRequest<AnyObject>, paramCert: string): any {
-    return req.body.saveAndComeLater && paramCert === 'co_certificate';
   }
 
   /**
@@ -120,7 +107,6 @@ export default class UploadDocumentController {
         res.redirect(redirectUrl);
       });
     } else {
-      req.session.errors = [];
       this.checkFileValidation(files, req, res, redirectUrl, fileNamePrefix, paramCert);
     }
   }
@@ -144,7 +130,6 @@ export default class UploadDocumentController {
     fileNamePrefix: string,
     paramCert: string
   ) {
-    req.session.errors = [];
     if (this.fileNullCheck(files)) {
       this.uploadFileError(req, res, redirectUrl, {
         propertyName: 'document',

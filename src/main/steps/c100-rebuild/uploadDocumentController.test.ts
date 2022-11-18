@@ -186,7 +186,6 @@ describe('Document Upload controller', () => {
     const res = mockResponse();
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalled();
-    expect(req.session.errors).toStrictEqual(errors);
   });
 
   test('Valid File case data', async () => {
