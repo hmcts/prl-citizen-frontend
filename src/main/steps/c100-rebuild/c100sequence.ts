@@ -158,6 +158,8 @@ import SafteyConcernsNavigationController from './safety-concerns/navigationCont
 import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
+import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
+import { applyParms } from '../../steps/common/url-parser';
 import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
 
 export const C100Sequence: Step[] = [
@@ -749,10 +751,22 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.detailsKnown === YesOrNo.YES
-        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE
-        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+    postController: ApplicantCommonConfidentialityController,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    getNextStep: (data, req) => {
+      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
+      let redirectURI = '';
+      if (applicantData?.length) {
+        const nextStepUri =
+          applicantData[0].detailsKnown === YesOrNo.YES
+            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START
+            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE;
+        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
+      } else {
+        redirectURI = '';
+      }
+      return redirectURI as `/${string}`;
+    },
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
@@ -769,18 +783,42 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.start === YesOrNo.YES
-        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+    postController: ApplicantCommonConfidentialityController,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    getNextStep: (data, req) => {
+      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
+      let redirectURI = '';
+      if (applicantData?.length) {
+        const nextStepUri =
+          applicantData[0].start === YesOrNo.YES
+            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
+            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
+        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
+      } else {
+        redirectURI = '';
+      }
+      return redirectURI as `/${string}`;
+    },
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.startAlternative === YesOrNo.YES
-        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+    postController: ApplicantCommonConfidentialityController,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    getNextStep: (data, req) => {
+      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
+      let redirectURI = '';
+      if (applicantData?.length) {
+        const nextStepUri =
+          applicantData[0].startAlternative === YesOrNo.YES
+            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
+            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
+        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
+      } else {
+        redirectURI = '';
+      }
+      return redirectURI as `/${string}`;
+    },
   },
   {
     url: C100_APPLICANT_ADDRESS_LOOKUP,
