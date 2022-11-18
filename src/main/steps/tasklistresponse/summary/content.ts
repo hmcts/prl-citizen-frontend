@@ -139,35 +139,6 @@ const confirmYourDetailsfieldType = {
   citizenUserSafeToCall: 'String',
 };
 
-const supportYouNeedFieldType = {
-  respondentAttendingToCourt: 'String',
-  respondentHearingDetails: 'String',
-  respondentLangRequirements: 'String',
-  respondentLangDetails: 'String',
-  respondentSpecialArrangements: 'String',
-  respondentSpecialArrangementsDetails: 'String',
-  respondentReasonableAdjustments: 'String',
-  respondentDocsSupport: 'String',
-  respondentDocsDetails: 'String',
-  respondentLargePrintDetails: 'String',
-  respondentOtherDetails: 'String',
-  respondentHelpCommunication: 'String',
-  respondentSignLanguageDetails: 'String',
-  respondentDescribeOtherNeed: 'String',
-  respondentCourtHearing: 'String',
-  respondentSupportWorkerDetails: 'String',
-  respondentFamilyDetails: 'String',
-  respondentTherapyDetails: 'String',
-  respondentCommSupportOther: 'String',
-  respondentCourtComfort: 'String',
-  respondentLightingDetails: 'String',
-  respondentOtherProvideDetails: 'String',
-  respondentTravellingToCourt: 'String',
-  respondentParkingDetails: 'String',
-  respondentDifferentChairDetails: 'String',
-  respondentTravellingOtherDetails: 'String',
-};
-
 const inetnationlFactorFieldType = {
   start: 'String',
   iFactorsStartProvideDetails: 'String',
@@ -920,22 +891,6 @@ const en = (content: CommonContent) => {
         urls,
         enContentMiam.sectionTitles.title,
         applicationDetailsfieldTypeMiam,
-        content.language
-      ),
-      summaryList(
-        enContent,
-        userCase,
-        urls,
-        enContent.sectionTitles.title,
-        applicationDetailsfieldType,
-        content.language
-      ),
-      summaryList(
-        enSupportYouNeedContent,
-        userCase,
-        urls,
-        enSupportYouNeedContent.sectionTitles.title,
-        supportYouNeedFieldType,
         content.language
       ),
       summaryList(
