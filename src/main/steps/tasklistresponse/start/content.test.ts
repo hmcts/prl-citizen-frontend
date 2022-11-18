@@ -97,9 +97,9 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '/respondent/support-you-need-during-case/attending-the-court',
+              href: '#',
               id: 'support_you_need_during_your_case',
-              status: 'TO_DO',
+              status: 'NOT_AVAILABLE_YET',
               text: 'Support you need during your case',
             },
           ],

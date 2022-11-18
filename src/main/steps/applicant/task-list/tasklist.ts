@@ -6,7 +6,6 @@ import * as URL from '../../urls';
 import {
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
-  getSupportYourNeedsDetails,
   getViewAllDocuments,
   getYourApplication,
 } from './utils';
@@ -31,8 +30,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'support-you-need-during-your-case',
           text: taskListItems.support_you_need_during_your_case,
-          status: getSupportYourNeedsDetails(userCase),
-          href: URL.LANGUAGE_REQUIREMENTS,
+          status: SectionStatus.NOT_AVAILABLE_YET,
+          href: '#',
         },
       ],
     },

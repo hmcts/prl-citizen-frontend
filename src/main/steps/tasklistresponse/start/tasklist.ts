@@ -1,4 +1,4 @@
-import { Respondent, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import * as URL from '../../urls';
 
 import {
@@ -71,8 +71,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-            href: URL.CA_DA_ATTENDING_THE_COURT,
+            status: SectionStatus.NOT_AVAILABLE_YET,
+            href: '#',
           },
         ],
       },
