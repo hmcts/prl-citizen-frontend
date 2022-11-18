@@ -31,8 +31,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: 'TO_DO',
-            href: URL.CA_DA_ATTENDING_THE_COURT,
+            status: 'NOT_AVAILABLE_YET',
+            href: '#',
           },
         ],
       },
@@ -115,8 +115,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: 'TO_DO',
-            href: URL.CA_DA_ATTENDING_THE_COURT,
+            status: 'NOT_AVAILABLE_YET',
+            href: '#',
           },
         ],
       },
@@ -197,9 +197,9 @@ describe('generateRespondentTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/respondent/support-you-need-during-case/attending-the-court',
+            href: '#',
             id: 'support_you_need_during_your_case',
-            status: 'TO_DO',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Support you need during your case',
           },
         ],

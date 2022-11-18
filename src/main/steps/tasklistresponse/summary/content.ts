@@ -136,36 +136,7 @@ const confirmYourDetailsfieldType = {
   citizenUserAddressHistory: 'String',
   citizenUserPhoneNumberText: 'String',
   citizenUserEmailAddressText: 'String',
-  applicant1SafeToCall: 'String',
-};
-
-const supportYouNeedFieldType = {
-  respondentAttendingToCourt: 'String',
-  respondentHearingDetails: 'String',
-  respondentLangRequirements: 'String',
-  respondentLangDetails: 'String',
-  respondentSpecialArrangements: 'String',
-  respondentSpecialArrangementsDetails: 'String',
-  respondentReasonableAdjustments: 'String',
-  respondentDocsSupport: 'String',
-  respondentDocsDetails: 'String',
-  respondentLargePrintDetails: 'String',
-  respondentOtherDetails: 'String',
-  respondentHelpCommunication: 'String',
-  respondentSignLanguageDetails: 'String',
-  respondentDescribeOtherNeed: 'String',
-  respondentCourtHearing: 'String',
-  respondentSupportWorkerDetails: 'String',
-  respondentFamilyDetails: 'String',
-  respondentTherapyDetails: 'String',
-  respondentCommSupportOther: 'String',
-  respondentCourtComfort: 'String',
-  respondentLightingDetails: 'String',
-  respondentOtherProvideDetails: 'String',
-  respondentTravellingToCourt: 'String',
-  respondentParkingDetails: 'String',
-  respondentDifferentChairDetails: 'String',
-  respondentTravellingOtherDetails: 'String',
+  citizenUserSafeToCall: 'String',
 };
 
 const inetnationlFactorFieldType = {
@@ -282,7 +253,7 @@ export const enConfirmYourDetailsContent = {
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
     citizenUserEmailAddressText: 'Email',
-    applicant1SafeToCall: 'When it is safe to call you (optional)',
+    citizenUserSafeToCall: 'When it is safe to call you (optional)',
   },
   dependencies: {},
   statementOfTruth: 'Statement of truth',
@@ -920,22 +891,6 @@ const en = (content: CommonContent) => {
         urls,
         enContentMiam.sectionTitles.title,
         applicationDetailsfieldTypeMiam,
-        content.language
-      ),
-      summaryList(
-        enContent,
-        userCase,
-        urls,
-        enContent.sectionTitles.title,
-        applicationDetailsfieldType,
-        content.language
-      ),
-      summaryList(
-        enSupportYouNeedContent,
-        userCase,
-        urls,
-        enSupportYouNeedContent.sectionTitles.title,
-        supportYouNeedFieldType,
         content.language
       ),
       summaryList(

@@ -6,7 +6,7 @@ import { GenerateAndUploadDocumentRequest } from '../document/GenerateAndUploadD
 
 import { CosApiClient, UploadDocumentRequest } from './CosApiClient';
 import { CaseWithId } from './case';
-import { YesOrNo } from './definition';
+import { CaseData, YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
@@ -157,5 +157,35 @@ describe('CosApiClient', () => {
     const client = new CosApiClient('abc', 'http://return-url');
     const actual = await client.retrieveCasesByUserId(req.session.user);
     expect(actual).toEqual(response);
+  });
+
+  test('generateC7Document', async () => {
+    const response = {
+      status: 'test',
+      data: {
+        document_binary_url: 'test',
+        document_filename: 'test',
+      },
+    };
+    const data = {} as Partial<CaseData>;
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const actual = await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data);
+    expect(actual).not.toBeUndefined;
+  });
+
+  test('generateC7Document throws exception', async () => {
+    const data = {} as Partial<CaseData>;
+    mockedAxios.post.mockRejectedValueOnce;
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    let flag = false;
+    try {
+      await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data);
+    } catch (error) {
+      flag = true;
+    }
+    expect(flag).toEqual(true);
   });
 });

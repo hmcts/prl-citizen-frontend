@@ -16,8 +16,8 @@ const en = () => ({
       required: 'Enter the town or city',
     },
     citizenUserManualAddressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter a valid postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 });
@@ -36,8 +36,8 @@ const cy = () => ({
       required: 'Enter the town or city (in welsh)',
     },
     citizenUserManualAddressPostcode: {
-      required: 'Enter a real postcode (in welsh)',
-      invalid: 'Enter a real postcode (in welsh)',
+      required: 'Enter a valid postcode (in welsh)',
+      invalid: 'Enter a valid postcode (in welsh)',
     },
   },
 });
