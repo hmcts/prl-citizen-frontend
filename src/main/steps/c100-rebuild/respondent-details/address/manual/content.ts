@@ -30,10 +30,6 @@ const en = () => ({
     PostTown: {
       required: 'Enter the town or city',
     },
-    PostCode: {
-      required: 'Enter the postcode',
-      invalid: 'Enter a valid postcode',
-    },
     addressHistory: {
       required: 'Enter your details known',
     },
@@ -41,7 +37,7 @@ const en = () => ({
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
     Country: {
-      required: 'Enter the country - welsh',
+      required: 'Enter the country ',
     },
   },
 });
@@ -65,10 +61,7 @@ const cy = () => ({
     PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    PostCode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
-    },
+
     addressHistory: {
       required: 'Enter your details known - welsh',
     },

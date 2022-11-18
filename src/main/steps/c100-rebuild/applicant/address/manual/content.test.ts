@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, LanguageLookup } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
@@ -13,10 +13,6 @@ const en = {
     },
     addressTown: {
       required: 'Enter the town or city',
-    },
-    addressPostcode: {
-      required: 'Enter the postcode',
-      invalid: 'Enter a valid postcode',
     },
     addressHistory: {
       required: 'Enter your details known',
@@ -39,10 +35,6 @@ const cy = {
     },
     addressTown: {
       required: 'Enter the town or city - welsh',
-    },
-    addressPostcode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
     },
     addressHistory: {
       required: 'Enter your details known - welsh',
@@ -137,8 +129,6 @@ describe('applicant > address > manual > content', () => {
     expect(addressPostcode.type).toBe('text');
     expect(addressPostcode.classes).toBe('govuk-label govuk-input--width-10');
     expect((addressPostcode.label as LanguageLookup)(generatedContent)).toBe('Postcode');
-    expect(addressPostcode.labelSize).toBe(null);
-    expect(addressPostcode.validator).toBe(isInvalidPostcode);
 
     expect(addressHistory.type).toBe('radios');
     expect(addressHistory.classes).toBe('govuk-radios');
