@@ -1,6 +1,8 @@
+/* eslint-disable import/no-unresolved */
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
+import { ANYTYPE } from '../common/index';
 
 import { generateContent } from './content';
 
@@ -113,5 +115,48 @@ describe('applicant personal details > applying-with > content', () => {
     expect(
       (form.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
+  });
+
+  test('rendering form fields', () => {
+    const additionalData = {
+      req: {
+        params: {
+          applicantId: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+        },
+      },
+      userCase: {
+        appl_allApplicants: [
+          {
+            id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+            applicantFirstName: 'Test1',
+            applicantLastName: 'Test2',
+            detailsKnown: 'Yes',
+            startAlternative: '',
+            start: 'Yes',
+            contactDetailsPrivate: ['email'],
+            contactDetailsPrivateAlternative: [],
+          },
+          {
+            id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+            applicantFirstName: 'Test2',
+            applicantLastName: 'Test2',
+            detailsKnown: 'Yes',
+            startAlternative: '',
+            start: 'Yes',
+            contactDetailsPrivate: ['address', 'telephone', 'email'],
+            contactDetailsPrivateAlternative: [],
+          },
+        ],
+      },
+    };
+    const generatedContentFields: ANYTYPE = generateContent({ ...commonContent, additionalData });
+    expect(generatedContentFields).not.toBeNull();
+    expect(generatedContentFields.form).not.toBe([]);
+    expect(generatedContentFields).not.toBe([]);
+    expect(generatedContentFields.Email).toBe('Email');
+    expect(generatedContentFields.address).toBe('Address');
+    expect(generatedContentFields.applicantName).toEqual('Test2 Test2');
+    expect(generatedContentFields.caption).toBe('Keeping your contact details private');
+    expect(generatedContentFields.form.fields._ctx.value).toBe('appl_start');
   });
 });

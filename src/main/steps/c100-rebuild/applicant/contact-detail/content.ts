@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { C100Applicant, YesNoEmpty } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Contact details of',
   serviceName: 'Child Arrangements',
   canProvideEmailLabel: 'I can provide an email address',
@@ -43,7 +44,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Contact details of - welsh',
   serviceName: 'Child Arrangements - welsh',
   canProvideEmailLabel: 'I can provide an email address - welsh',
