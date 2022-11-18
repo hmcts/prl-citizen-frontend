@@ -324,24 +324,34 @@ const getUpdatedFlags = (doc, flags) => {
   switch (doc.value.documentType) {
     case applicant_tasklist_items_all_docs_en.drug_alcohol_tests:
       flags.isDrugDocUploaded = true;
+      break;
     case applicant_tasklist_items_all_docs_en.paternity_test_reports:
       flags.isPaternityDocUploaded = true;
+      break;
     case applicant_tasklist_items_all_docs_en.medical_reports:
       flags.isMedicalReportsUploaded = true;
+      break;
     case applicant_tasklist_items_all_docs_en.previous_orders_submitted:
       flags.isPreviousOrdersSubmitted = true;
+      break;
     case applicant_tasklist_items_all_docs_en.letters_from_school:
       flags.isLettersFromSchool = true;
+      break;
     case applicant_tasklist_items_all_docs_en.medical_records:
       flags.isMedicalRecordsUpload = true;
+      break;
     case applicant_tasklist_items_all_docs_en.digital_downloads:
       flags.isDigitalDownloadsUploaded = true;
+      break;
     case applicant_tasklist_items_all_docs_en.police_disclosures:
       flags.isPoliceReportUploaded = true;
+      break;
     case applicant_tasklist_items_all_docs_en.witness_availability:
       flags.isWitnessAvailabilityUploaded = true;
+      break;
     case applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability:
       flags.isTenancyUploaded = true;
+      break;
     default:
       break;
   }
