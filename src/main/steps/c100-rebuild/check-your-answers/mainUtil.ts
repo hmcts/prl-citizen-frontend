@@ -203,7 +203,8 @@ export const ChildernDetails = (
       },
       {
         key: keys['childGenderLabel'],
-        value: personalDetails?.['gender'],
+        value: '',
+        valueHtml:  personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? personalDetails?.['gender'] + HTML.BREAK +  HTML.RULER  + keys['otherGender'] +  HTML.H4 +  keys['details']  + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails']: personalDetails?.['gender'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
@@ -287,6 +288,8 @@ export const ApplicantDetails = (
       ' ' +
       sessionApplicantData[applicant]['applicantLastName'];
     const applicantNo = Number(applicant) + 1;
+    const personalDetails = sessionApplicantData[applicant]['personalDetails'];
+    const applicantId = sessionApplicantData[applicant]['id'];
     const parseStartAndStartAlternativeSubFields = (key, keyArray) => {
       let html = '';
       html += sessionApplicantData[applicant][key];
@@ -318,7 +321,7 @@ export const ApplicantDetails = (
         key: keys['anyOtherPeopleKnowDetails'],
         value: sessionApplicantData[applicant]['detailsKnown'],
         changeUrl:
-         applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId: sessionApplicantData[applicant]['id'] }),
+         applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
       },
       {
         key: keys['doYouWantToKeep'],
@@ -329,9 +332,32 @@ export const ApplicantDetails = (
             : parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
         changeUrl:
           sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
-            ?  applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'], { applicantId: sessionApplicantData[applicant]['id'] })
-            :  applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId: sessionApplicantData[applicant]['id'] }),
+            ?  applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'], { applicantId })
+            :  applyParms( Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId }),
       },
+      {
+        key: keys['hasNameChanged'],
+        value: '',
+        valueHtml: personalDetails['haveYouChangeName'],
+        changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
+      },
+      {
+        key: keys['childGenderLabel'],
+        value: '',
+        valueHtml:  personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? personalDetails?.['gender'] + HTML.BREAK +  HTML.RULER  + keys['otherGender'] +  HTML.H4 +  keys['details']  + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails']: personalDetails?.['gender'],
+        changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
+      },
+      {
+        key: keys['approxDobLabel'],
+        value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
+        changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
+      },
+      {
+        key: keys['respondentPlaceOfBirth'],
+        value: personalDetails?.['applicantPlaceOfBirth'],
+        changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
+      }
+
     );
 
     const relationShipToChildren = sessionApplicantData[applicant]['relationshipDetails']?.['relationshipToChildren'];
@@ -342,7 +368,7 @@ export const ApplicantDetails = (
         newApplicantData.push({
           key: keys['relationshipTo'] + ' ' + childFullName ,
           value: element['relationshipType'],
-          valueHtml: element['relationshipType'] + ' ' + element['otherRelationshipTypeDetails'] !== '' ?  element['otherRelationshipTypeDetails'] : '' , //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+          valueHtml: element['relationshipType'] === 'Other' ?  element['otherRelationshipTypeDetails'] : element['relationshipType'] , //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
           changeUrl: applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], { applicantId: id, childId: element['childId'] }),
         });
       });
@@ -793,7 +819,6 @@ export const SafetyConcerns_others = (
   };
 };
 
-
 /* eslint-disable import/namespace */
 export const OtherChildrenDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -981,7 +1006,7 @@ export const RespondentDetails = (
         newRespondentStorage.push({
           key: keys['relationshipTo'] + ' ' + childFullName ,
           value: element['relationshipType'],
-          valueHtml: element['relationshipType'] + ' ' + element['otherRelationshipTypeDetails'] !== '' ?  element['otherRelationshipTypeDetails'] : '' , //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+          valueHtml: element['relationshipType'] === 'Other' ?  element['otherRelationshipTypeDetails'] : element['relationshipType'], //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], { respondentId: id, childId: element['childId'] }),
         });
       });
@@ -1147,7 +1172,7 @@ export const OtherPeopleDetails = (
         newOtherPeopleStorage.push({
           key: keys['relationshipTo'] + ' ' + childFullName ,
           value: element['relationshipType'],
-          valueHtml: element['relationshipType'] + ' ' + element['otherRelationshipTypeDetails'] !== '' ?  element['otherRelationshipTypeDetails'] : '' , //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+          valueHtml: element['relationshipType'] === 'Other' ?  element['otherRelationshipTypeDetails'] : element['relationshipType'], //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD'], { otherPersonId: id, childId: element['childId'] }),
         });
       });

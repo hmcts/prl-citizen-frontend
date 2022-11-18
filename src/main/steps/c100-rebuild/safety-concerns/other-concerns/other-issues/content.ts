@@ -3,7 +3,8 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 
-export const en = {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   section: 'Safety concerns',
   title: 'Do you have any other concerns about the children’s safety and wellbeing?',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with.',
@@ -18,15 +19,16 @@ export const en = {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
     },
   },
-};
+});
 
-export const cy: typeof en = {
-  section: 'Safety concerns',
-  title: 'Do you have any other concerns about the children’s safety and wellbeing?',
-  hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with.',
-  one: 'Yes',
-  two: 'No',
-  summaryText: 'Contacts for help',
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
+  section: 'Safety concerns - welsh',
+  title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
+  hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',
+  one: 'Yes - welsh',
+  two: 'No - welsh',
+  summaryText: 'Contacts for help - welsh',
   errors: {
     c1A_childSafetyConcerns: {
       required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
@@ -35,7 +37,7 @@ export const cy: typeof en = {
       required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
     },
   },
-};
+});
 
 const languages = {
   en,
