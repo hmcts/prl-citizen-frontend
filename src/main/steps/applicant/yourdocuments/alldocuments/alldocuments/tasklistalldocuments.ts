@@ -423,7 +423,7 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url) =>
       {
         id: 'support_you_need_during_your_case',
         text: taskListItems.support_you_need_during_your_case,
-        href: url + URL.RESPONDENT_SUPPORT_NEEDED,
+        href: '#',
       },
     ],
   };
