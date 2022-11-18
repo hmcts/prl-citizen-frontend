@@ -95,7 +95,7 @@ describe('applicant1 > address > lookup > AddressLookupPostController', () => {
           ],
         },
       },
-    })
+    });
     const res = mockResponse();
     generateContent(commonContent);
     await controller.post(req, res);

@@ -243,7 +243,6 @@ describe('RespondentsDetailsNavigationController', () => {
         C100_OTHER_PERSON_CHECK,
         dummyRequest.session.userCase,
         dummyRequest.params
-        
       )
     ).toBe('/c100-rebuild/other-person-details/other-person-check');
   });

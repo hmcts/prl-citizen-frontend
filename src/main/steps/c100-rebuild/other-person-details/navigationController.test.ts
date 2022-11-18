@@ -215,9 +215,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
   });
   test('default', async () => {
     const dummyparams = mockRequest({
-      params: {
-        
-      },
+      params: {},
     });
     expect(
       OtherPersonsDetailsNavigationController.getNextUrl(

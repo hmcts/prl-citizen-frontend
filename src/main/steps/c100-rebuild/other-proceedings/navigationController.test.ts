@@ -156,9 +156,7 @@ describe('OtherProceedingsNavigationController', () => {
     expect(nextUrl).toBe(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY);
   });
   test('Default', async () => {
-    dummyRequest.params = {
-     
-    };
+    dummyRequest.params = {};
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
       dummyRequest.session.userCase,
@@ -167,10 +165,8 @@ describe('OtherProceedingsNavigationController', () => {
     expect(nextUrl).toBe(C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE);
   });
   test('C100_OTHER_PROCEEDINGS_ORDER_DETAILS with out order', async () => {
-    dummyRequest.params = {
-     
-    };
-    dummyRequest.session.userCase={};
+    dummyRequest.params = {};
+    dummyRequest.session.userCase = {};
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
       dummyRequest.session.userCase,
