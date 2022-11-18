@@ -241,7 +241,13 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'pd',
+    },
+  },
   onlycontinue: {
     text: l => l.onlycontinue,
   },

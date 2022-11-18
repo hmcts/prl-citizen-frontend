@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { FeatureToggles } from '../../../main/app/utils/featureToggles';
+import { FeatureToggles, initializeFeatureToggle } from '../../../main/app/utils/featureToggles';
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 
 jest.mock('../../common/clients/launchDarklyClient');
@@ -41,6 +41,17 @@ describe('FeatureToggles', () => {
       });
       await expect(await new FeatureToggles(new mockedLaunchDarklyClient()).isC100reBuildEnabled().then(() => false)).to
         .be.false;
+    });
+  });
+
+  describe('initializeFeatureToggle', () => {
+    it('when invoked should run LaunchDarklyClient.initializeLD and return featureToggleObject', () => {
+      const instanceOfFeatureToggles = new FeatureToggles(new mockedLaunchDarklyClient());
+      initializeFeatureToggle().then(promiseData => {
+        expect(promiseData).to.not.be.undefined;
+      });
+      expect(instanceOfFeatureToggles).to.be.instanceOf(FeatureToggles);
+      expect(instanceOfFeatureToggles.launchDarklyClient.initializeLD).to.be.a('function');
     });
   });
 });

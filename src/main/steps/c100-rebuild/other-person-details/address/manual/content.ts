@@ -71,6 +71,10 @@ export const form: FormContent = {
   },
 };
 
+export const getFormFields = (): FormContent => {
+  return updatedForm;
+};
+
 // eslint-disable-next-line @typescript-eslint/no-shadow
 const updatedFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
   updatedForm = {
@@ -78,6 +82,11 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
     fields: {
       ...formFields,
       ...(form.fields ?? {}),
+      _ctx: {
+        type: 'hidden',
+        labelHidden: true,
+        value: 'opAddressManual',
+      },
     },
   };
 

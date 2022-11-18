@@ -73,7 +73,13 @@ export const generateFormFields = (
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'pr',
+    },
+  },
   onlycontinue: {
     text: l => l.onlycontinue,
   },

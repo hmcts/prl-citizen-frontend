@@ -1,4 +1,4 @@
-import { C100RebuildPartyDetails, YesNoDontKnow, YesOrNo } from '../../../../../app/case/definition';
+import { C100RebuildPartyDetails, YesNoDontKnow } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -27,10 +27,10 @@ const en = () => ({
     AddressLine1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode',
       invalid: 'Enter a valid postcode',
     },
@@ -62,10 +62,10 @@ const cy = () => ({
     AddressLine1: {
       required: 'Enter the first line of the address - welsh',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    addressPostcode: {
+    PostCode: {
       required: 'Enter the postcode - welsh',
       invalid: 'Enter a valid postcode - welsh',
     },
@@ -126,11 +126,11 @@ export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): 
           {
             label: l => l.one,
             selected: addressHistory === YesNoDontKnow.yes,
-            value: YesOrNo.YES,
+            value: YesNoDontKnow.yes,
           },
           {
             label: l => l.two,
-            value: YesOrNo.NO,
+            value: YesNoDontKnow.no,
             selected: addressHistory === YesNoDontKnow.no,
             subFields: {
               provideDetailsOfPreviousAddresses: {
