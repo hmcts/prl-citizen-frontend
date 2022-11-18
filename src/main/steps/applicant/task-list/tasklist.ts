@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { SectionStatus } from '../../../app/case/definition';
 import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
@@ -46,8 +47,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'check-details-of-your-court-hearings',
           text: taskListItems.details_of_court_hearings,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-          href: URL.APPLICANT_DETAILS_KNOWN,
+          status: SectionStatus.NOT_AVAILABLE_YET,
+          href: '#',
         },
       ],
     },
