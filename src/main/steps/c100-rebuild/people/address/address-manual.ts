@@ -42,7 +42,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
     AddressLine2: {
       type: 'text',
       classes: 'govuk-label',
-      label: l => l.addressLine2,
+      //label: l => l.addressLine2,
       value: address!.AddressLine2,
       labelSize: null,
     },
@@ -86,7 +86,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       type: 'checkboxes',
       classes: 'govuk-checkboxes',
       labelSize: 'm',
-      section: l => l.section,
+      // section: l => l.section,
       values: [
         {
           name: 'addressUnknown',

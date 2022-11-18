@@ -161,4 +161,50 @@ describe('applicant1 > address > lookup > AddressLookupPostController', () => {
 
     expect(res.redirect).toHaveBeenCalled();
   });
+  test('Should navigagte to the next page when there are no errors when continue button is clicked', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new LookupAndManualAddressPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        otherPersonId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+      },
+      body: {
+        id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        firstName: 'Bob',
+        lastName: 'Jones',
+        address: {
+          PostCode: 'AG11NB',
+        },
+        _ctx: 'opAddressLookup',
+        onlycontinue: true,
+      },
+      session: {
+        lang: language,
+        userCase: {
+          oprs_otherPersons: [
+            {
+              id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+              firstName: 'Bob',
+              lastName: 'Jones',
+              address: {
+                PostCode: 'AG11NB',
+              },
+            },
+          ],
+          _ctx: 'opAddressLookup',
+        },
+      },
+      locals: {
+        logger: 'abc',
+      },
+    });
+    const res = mockResponse();
+    getLookupGenerateContent(commonContent);
+    await controller.post(req, res);
+    expect(req.session.addresses).toBeTruthy;
+    expect(res.redirect).toHaveBeenCalled();
+  });
 });
