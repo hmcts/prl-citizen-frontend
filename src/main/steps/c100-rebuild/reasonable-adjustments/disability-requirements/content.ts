@@ -109,7 +109,7 @@ export const form: FormContent = {
         {
           name: 'ra_disabilityRequirements',
           label: l => l.noSupportRequired,
-          value: 'noSupport',
+          value: 'noSupportRequired',
           behaviour: 'exclusive',
         },
       ],

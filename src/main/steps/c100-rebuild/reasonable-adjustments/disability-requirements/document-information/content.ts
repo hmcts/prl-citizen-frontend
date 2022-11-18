@@ -165,7 +165,7 @@ export const form: FormContent = {
         {
           name: 'ra_documentInformation',
           label: l => l.noSupportRequired,
-          value: 'none',
+          value: 'noSupportRequired',
           behaviour: 'exclusive',
         },
       ],

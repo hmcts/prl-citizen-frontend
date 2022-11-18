@@ -1314,9 +1314,8 @@ export const reasonableAdjustment = (
   const SummaryData: ANYTYPE = [
     {
       key: keys['attendingCourtHeading'],
-      value: userCase['hwf_needHelpWithFees'],
-      valueHtml: userCase.hasOwnProperty('ra_typeOfHearing') ? HTML.UNORDER_LIST + userCase['ra_typeOfHearing'].map(element => HTML.LIST_ITEM + keys[element] + HTML.LIST_ITEM_END).toString().split(',').join('') + HTML.UNORDER_LIST_END : '',
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT'], 
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_typeOfHearing') + HTML.UNORDER_LIST_END,
+     changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT'], 
     },
     {
       key: keys['langaugeRequirementHeading'],
@@ -1325,8 +1324,7 @@ export const reasonableAdjustment = (
     },
     {
       key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
-      value: '',
-      valueHtml:  userCase.hasOwnProperty('ra_disabilityRequirements') && userCase['ra_disabilityRequirements'] ? HTML.UNORDER_LIST + userCase['ra_disabilityRequirements'].map(element => HTML.LIST_ITEM + keys[element] + HTML.LIST_ITEM_END).toString().split(',').join('') + HTML.UNORDER_LIST_END : '',
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS'], 
     },
     {
@@ -1336,31 +1334,26 @@ export const reasonableAdjustment = (
     },
     {
       key: keys['documentInformationHeading'],
-      value: '',
       valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION'], 
     },
     {
       key: keys['communicationHelpHeading'],
-      value: '', 
       valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP'], 
     },
     {
       key: keys['supportCourtHeading'],
-      value: '', 
       valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT'], 
     },
     {
       key: keys['feelComfortableHeading'],
-      value: '',
       valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE'], 
     },
     {
       key: keys['travellingCourtHeading'],
-      value: '', 
       valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT'], 
     },

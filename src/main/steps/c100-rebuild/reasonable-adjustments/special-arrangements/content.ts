@@ -124,7 +124,7 @@ export const form: FormContent = {
         {
           name: 'ra_specialArrangements',
           label: l => l.noSafetyRequirements,
-          value: 'none',
+          value: 'noSafetyRequirements',
           behaviour: 'exclusive',
         },
       ],

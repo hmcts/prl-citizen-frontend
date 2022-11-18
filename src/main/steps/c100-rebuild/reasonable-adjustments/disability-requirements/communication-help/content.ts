@@ -174,7 +174,7 @@ export const form: FormContent = {
         {
           name: 'ra_communicationHelp',
           label: l => l.noSupportRequired,
-          value: 'none',
+          value: 'noSupportRequired',
           behaviour: 'exclusive',
         },
       ],
