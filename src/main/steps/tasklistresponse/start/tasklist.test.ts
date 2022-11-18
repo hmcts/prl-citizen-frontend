@@ -151,9 +151,9 @@ describe('getRemainingTaskList', () => {
             text: 'Mediation(MIAM)',
           },
           {
-            href: '/tasklistresponse/proceedings/start',
+            href: '#',
             id: 'current-or-previous-proceedings',
-            status: 'TO_DO',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Current or previous proceedings',
           },
         ],
@@ -162,9 +162,9 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/safety_concerns/main_page',
+            href: '#',
             id: 'your-safety',
-            status: 'TO_DO',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Your safety',
           },
         ],
@@ -261,9 +261,9 @@ describe('getRemainingTaskList', () => {
             text: 'Mediation(MIAM)',
           },
           {
-            href: '/tasklistresponse/proceedings/start',
+            href: '#',
             id: 'current-or-previous-proceedings',
-            status: 'TO_DO',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Current or previous proceedings',
           },
         ],
@@ -272,9 +272,9 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/safety_concerns/main_page',
+            href: '#',
             id: 'your-safety',
-            status: 'TO_DO',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Your safety',
           },
         ],
@@ -359,9 +359,9 @@ describe('getRemainingTaskList', () => {
             text: 'Mediation(MIAM)',
           },
           {
-            href: '/tasklistresponse/proceedings/start',
+            href: '#',
             id: 'current-or-previous-proceedings',
-            status: 'TO_DO',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Current or previous proceedings',
           },
         ],
@@ -370,9 +370,9 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/safety_concerns/main_page',
+            href: '#',
             id: 'your-safety',
-            status: 'COMPLETED',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Your safety',
           },
         ],
