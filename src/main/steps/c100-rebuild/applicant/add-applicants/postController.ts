@@ -42,45 +42,51 @@ export default class AddApplicantPostController extends PostController<AnyObject
     const checkIfApplicantLengthLessAndFormError =
       (checkIfApplicantLengthLess && applicantFirstName === '') ||
       (checkIfApplicantLengthLess && applicantLastName === '');
+    const saveAndComeBackToggled = req.body['saveAndComeLater'];
 
-    if (saveAndContinueChecked) {
-      const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
-      if (checkIfApplicantLengthLessAndFormError) {
-        req.session.errors = form.getErrors(formData);
-        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
-      } else {
-        if (toggleCheckIfApplicantFieldIsFilled) {
-          this.errorsAndRedirect(req, res, formData, form);
-          if (req.session.errors && !req.session.errors.length) {
-            this.addAnotherApplicant(req);
-            this.resetSessionTemporaryFormValues(req);
-            delete req.session.userCase.applicantTemporaryFormData;
-            const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
-              applicantId: req.session.userCase?.appl_allApplicants?.[0].id as string,
-            });
-            return super.redirect(req, res, redirectURI);
-          }
-        } else {
-          if (checkIfApplicantLengthLessAndFormError) {
-            req.session.errors = form.getErrors(formData);
-            return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
-          } else {
-            return this.mapEnteriesToValuesAfterContinuing(req, res);
-          }
-        }
-      }
+    if (saveAndComeBackToggled) {
+      req.session.save();
+      return super.saveAndComeLater(req, res, req.session.userCase);
     } else {
-      this.errorsAndRedirect(req, res, formData, form);
-      if (req.session.errors && !req.session.errors.length) {
-        const { addAnotherApplicant } = req['body'];
-        switch (addAnotherApplicant) {
-          case 'Yes':
-            this.addAnotherApplicant(req);
-            this.resetSessionTemporaryFormValues(req);
-            break;
-          default:
+      if (saveAndContinueChecked) {
+        const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
+        if (checkIfApplicantLengthLessAndFormError && !saveAndComeBackToggled) {
+          req.session.errors = form.getErrors(formData);
+          return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+        } else {
+          if (toggleCheckIfApplicantFieldIsFilled) {
+            this.errorsAndRedirect(req, res, formData, form);
+            if (req.session.errors && !req.session.errors.length) {
+              this.addAnotherApplicant(req);
+              this.resetSessionTemporaryFormValues(req);
+              delete req.session.userCase.applicantTemporaryFormData;
+              const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
+                applicantId: req.session.userCase?.appl_allApplicants?.[0].id as string,
+              });
+              return super.redirect(req, res, redirectURI);
+            }
+          } else {
+            if (checkIfApplicantLengthLessAndFormError) {
+              req.session.errors = form.getErrors(formData);
+              return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+            } else {
+              return this.mapEnteriesToValuesAfterContinuing(req, res);
+            }
+          }
         }
-        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+      } else {
+        this.errorsAndRedirect(req, res, formData, form);
+        if (req.session.errors && !req.session.errors.length) {
+          const { addAnotherApplicant } = req['body'];
+          switch (addAnotherApplicant) {
+            case 'Yes':
+              this.addAnotherApplicant(req);
+              this.resetSessionTemporaryFormValues(req);
+              break;
+            default:
+          }
+          return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+        }
       }
     }
   }
