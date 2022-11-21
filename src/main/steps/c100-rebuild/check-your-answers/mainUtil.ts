@@ -963,7 +963,7 @@ export const RespondentDetails = (
         },
         {
           key: keys['hasNameChanged'],
-          valueHtml: changeNameInformation[0].toUpperCase() + changeNameInformation.slice(1),
+          valueHtml: changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
         {

@@ -74,9 +74,9 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessio
       if (UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
         const orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
         orderDetails.forEach((nestedOrder, index) => {
-          const IndexNumber = index > 0 ? index + 1 : '';
+          const IndexNumber = index > 0 ? index + 1 : 0;
           orderSessionStorage.push({
-            key: `${keys[`${order}Label`]} ${IndexNumber}`,
+            key: `${keys[order + 'Label']} ${IndexNumber}`,
             valueHtml: IndividualOrderFieldsParser(keys, nestedOrder),
             changeUrl: URLS['C100_OTHER_PROCEEDINGS_ORDER_DETAILS'] + `?orderType=${order}`,
           });
