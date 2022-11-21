@@ -89,8 +89,12 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : (key === 'startAlternative' && userCase[key] !=='undefined') ? userCase[key] + getSelectedPrivateDetails(userCase) :
-      userCase[key],
+      value:
+        fieldTypes[key] === 'Date'
+          ? getFormattedDate(userCase[key], language)
+          : key === 'startAlternative' && userCase[key] !== 'undefined'
+          ? userCase[key] + getSelectedPrivateDetails(userCase)
+          : userCase[key],
       changeUrl: url,
     };
     if (key !== 'citizenUserSafeToCall') {
@@ -175,16 +179,19 @@ export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): str
   date && !isDateInputInvalid(date)
     ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
     : '';
-    
+
 export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string => {
   let tempDetails = '<br/><br/><ul class="govuk-list govuk-list--bullet">';
   const contact_private_list = userCase['contactDetailsPrivate'];
-  for(const key in contact_private_list) {
+  for (const key in contact_private_list) {
     console.log(contact_private_list[key]);
-      tempDetails = tempDetails +'<li>'+ contact_private_list[key].charAt(0).toUpperCase()+ 
-      contact_private_list[key].slice(1)+ '</li>';
+    tempDetails =
+      tempDetails +
+      '<li>' +
+      contact_private_list[key].charAt(0).toUpperCase() +
+      contact_private_list[key].slice(1) +
+      '</li>';
   }
-  tempDetails = tempDetails +'</ul>';
+  tempDetails = tempDetails + '</ul>';
   return tempDetails;
-}
-
+};

@@ -138,8 +138,8 @@ const confirmYourDetailsfieldType = {
 };
 
 const legalRepresantationFieldType = {
-  legalRepresentation: 'String'
-}
+  legalRepresentation: 'String',
+};
 
 const inetnationlFactorFieldType = {
   start: 'String',
@@ -168,7 +168,7 @@ export const enlegalRepresntationContent = {
     title: '1. Legal representation',
   },
   keys: {
-    legalRepresentation: 'Will you be using a legal representative to respond to the application?'
+    legalRepresentation: 'Will you be using a legal representative to respond to the application?',
   },
   dependencies: {},
   statementOfTruth: 'Statement of truth',
@@ -874,16 +874,12 @@ export const enInternationalContent = {
 };
 
 export const enDummyContent = {
-  
   sectionTitles: {
     title2: '3. Your details',
-    title3: '4. Application details'
+    title3: '4. Application details',
   },
-  keys: {
-
-  },
-  dependencies: {
-  },
+  keys: {},
+  dependencies: {},
 };
 
 const en = (content: CommonContent) => {
@@ -911,14 +907,7 @@ const en = (content: CommonContent) => {
         consentFieldType,
         content.language
       ),
-      summaryList(
-        enDummyContent,
-        userCase,
-        '',
-        enDummyContent.sectionTitles.title2,
-        '',
-        content.language
-      ),
+      summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title2, '', content.language),
       summaryList(
         enKeepYourDetailsContent,
         userCase,
@@ -936,14 +925,7 @@ const en = (content: CommonContent) => {
         confirmYourDetailsfieldType,
         content.language
       ),
-      summaryList(
-        enDummyContent,
-        userCase,
-        '',
-        enDummyContent.sectionTitles.title3,
-        '',
-        content.language
-      ),
+      summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, '', content.language),
       summaryList(
         enContentMiam,
         userCase,
