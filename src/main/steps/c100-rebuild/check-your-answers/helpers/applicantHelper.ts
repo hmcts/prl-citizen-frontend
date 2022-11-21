@@ -23,8 +23,6 @@ export const applicantAddressParser = (sessionApplicantData, keys) => {
  return html;
 };
 
-
-
 export const applicantAddressParserForRespondents = (sessionApplicantData, keys) => {
   let html = '' as string;
   html+= sessionApplicantData.hasOwnProperty('AddressLine1') && sessionApplicantData['AddressLine1'] !==  '' ? sessionApplicantData?.['AddressLine1'] + HTML.BREAK  : '';
@@ -49,8 +47,6 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys)
   }
  return html;
 };
-
-
 
 export const applicantContactDetailsParser = (sessionApplicantData, keys) => {
   let html = '' as string;
