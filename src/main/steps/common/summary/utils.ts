@@ -115,11 +115,11 @@ export const summaryCaseList = (
   for (const userCase of userCaseList) {
     const id = userCase.id as string;
     const name = userCase.applicantCaseName;
-    const state = userCase.state;
+    const state = userCase.caseStatus?.state;
     let caseUrl = '#';
     if (userCase.caseTypeOfApplication === 'C100') {
       if (!isRespondent) {
-        if (state === State.AwaitingSubmissionToHmcts) {
+        if (state === State.Draft) {
           caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
         }
       } else {

@@ -160,8 +160,6 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
 
     if (transformedData[key]) {
       transformedData[key][field] = data;
-    } else {
-      // transformedData[field] = data;
     }
 
     return transformedData;
