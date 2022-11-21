@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   title: 'Is there any reason that you would need permission from the court to make this application?',
   paragraphsOne: [
     'In some cases, the court will need to give permission before the application can be made.',
@@ -23,7 +24,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Is there any reason that you would need permission from the court to make this application? - welsh',
   paragraphsOne: [
     'In some cases, the court will need to give permission before the application can be made. - welsh',
