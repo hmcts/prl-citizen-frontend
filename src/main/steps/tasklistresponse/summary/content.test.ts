@@ -6,10 +6,10 @@ import { enContent, generateContent } from './content';
 
 const cyContent: typeof enContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you finish your application.',
+  title: 'Please review your answers before you complete your response.',
   title2: 'Current or previous court cases',
   sectionTitles: {
-    title: 'Application details',
+    title: '4. Application details',
   },
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
@@ -412,7 +412,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('Please review your answers before you finish your application.');
+    expect(generatedContent.title).toEqual('Please review your answers before you complete your response.');
     expect(generatedContent.section).toEqual('Check your answers');
     expect(generatedContent.keys.proceedingsStart).toEqual('Have the children been involved in a court case?');
     expect(generatedContent.dependencies).toBeDefined();
