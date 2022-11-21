@@ -239,7 +239,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[24].url).toBe('/c100-rebuild/start');
     expect(C100Sequence[24].showInSection).toBe('c100');
-    expect(C100Sequence[24].getNextStep({})).toBe('/c100-rebuild/childaddress');
+    expect(C100Sequence[24].getNextStep({})).toBe('/c100-rebuild/case-name');
 
     expect(C100Sequence[25].url).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
     expect(C100Sequence[25].showInSection).toBe('c100');
@@ -787,20 +787,14 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[118].url).toBe('/c100-rebuild/consent-order/upload');
     expect(C100Sequence[118].showInSection).toBe('c100');
-    expect(C100Sequence[118].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
-      '/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/details-know'
-    );
+    expect(C100Sequence[118].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
 
-    expect(C100Sequence[119].url).toBe('/c100-rebuild/consent-order/upload');
+    expect(C100Sequence[119].url).toBe('/c100-rebuild/consent-order/upload-confirmation');
     expect(C100Sequence[119].showInSection).toBe('c100');
-    expect(C100Sequence[119].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
-
-    expect(C100Sequence[120].url).toBe('/c100-rebuild/consent-order/upload-confirmation');
-    expect(C100Sequence[120].showInSection).toBe('c100');
-    expect(C100Sequence[120].getNextStep({})).toBe('/c100-rebuild/hearing-urgency/urgent');
+    expect(C100Sequence[119].getNextStep({})).toBe('/c100-rebuild/hearing-urgency/urgent');
 
     expect(C100Sequence[122].url).toBe('/c100-rebuild/case-name');
     expect(C100Sequence[122].showInSection).toBe('c100');
-    expect(C100Sequence[122].getNextStep({})).toBe('/c100-rebuild/childaddress');
+    expect(C100Sequence[122].getNextStep({})).toBe('/c100-rebuild/case/create');
   });
 });
