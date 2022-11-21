@@ -145,6 +145,8 @@ import {
   C100_APPLICANTS_PERSONAL_DETAILS,
   C100_APPLICANT_CONTACT_DETAIL,
   C100_CHECK_YOUR_ANSWER,
+  C100_CASE_NAME,
+  C100_CREATE_CASE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -351,7 +353,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_START,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CHILD_ADDRESS,
+    getNextStep: () => C100_CASE_NAME,
   },
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
@@ -1022,5 +1024,10 @@ export const C100Sequence: Step[] = [
     url: C100_CHECK_YOUR_ANSWER,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+  },
+  {
+    url: C100_CASE_NAME,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CREATE_CASE,
   },
 ];
