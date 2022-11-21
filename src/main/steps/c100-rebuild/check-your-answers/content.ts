@@ -2,10 +2,12 @@
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
+import {HTML} from './common/htmlSelectors';
 
 // eslint-disable-next-line import/no-unresolved
 import { ANYTYPE } from './common/index';
@@ -334,20 +336,46 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   };
 };
 
+
+export const SystemLanguageContent = (content, Function) => {
+  return content['language'] === 'en' ? Function(content.userCase)?.en() : Function(content.userCase)?.cy();
+};
+
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    statementOftruthHeading: {
+      type: 'textAndHtml',
+      textAndHtml: `${HTML.H1}${l => l.StatementOfTruth['title']} ${HTML.H1_CLOSE}`,
+    },
+    statementOfTruth: {
+      type: 'checkboxes',
+      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+      validator: (value, formData) => {
+        if (formData.start === 'Yes') {
+          return atLeastOneFieldIsChecked(formData?.contactDetailsPrivate);
+        }
+        return '';
+      },
+      values: [
+        {
+          name: 'statementOfTruth',
+          label: l => l.StatementOfTruth['check'],
+          value: YesOrNo.YES,
+        },
+      ],
+    },
+  },
   submit: {
-    text: l => l.continue,
+    text: l => l.onlycontinue,
+  },
+  saveAndComeLater: {
+    text: l => l.saveAndComeLater,
   },
 };
 
 const languages = {
   en,
   cy,
-};
-
-export const SystemLanguageContent = (content, Function) => {
-  return content['language'] === 'en' ? Function(content.userCase)?.en() : Function(content.userCase)?.cy();
 };
 export const generateContent: TranslationFn = content => {
   const newContents = content['language'] === 'en' ? enContent : cyContent;
