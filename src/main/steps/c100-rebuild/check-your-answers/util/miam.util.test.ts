@@ -104,7 +104,7 @@ describe('miam Util', () => {
     };
     const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase);
     userCase.miam_notAttendingReasons_canNotAccessMediator.forEach(item => {
-      expect(sessionFields).not.toBe(undefined);
+      expect(sessionFields).not.toBe(item);
     });
   });
 });
