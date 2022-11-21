@@ -138,7 +138,6 @@ import {
   C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
-  C100_GET_CASE,
   C100_CHILDERN_LIVE_WITH,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
@@ -352,7 +351,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_START,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_CHILD_ADDRESS,
   },
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
@@ -978,11 +977,6 @@ export const C100Sequence: Step[] = [
         caseData,
         req?.params
       ),
-  },
-  {
-    url: C100_GET_CASE,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_GET_CASE,
   },
   {
     url: C100_CHILDERN_LIVE_WITH,

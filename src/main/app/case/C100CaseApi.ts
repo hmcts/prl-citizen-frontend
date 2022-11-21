@@ -15,19 +15,16 @@ import { C100, State } from './definition';
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  public async retrieveCase(): Promise<RetreiveDraftCase> {
+  public async retrieveCaseById(caseId: string): Promise<RetreiveDraftCase> {
+    if (!caseId) {
+      throw new Error('caseId cannot be empty');
+    }
     try {
-      const url: string = config.get('services.cos.url') + '/cases';
-      const response = await this.axios.get<RetreiveDraftCase[]>(url);
-
-      const retreivedDraftCase = response.data.filter(
-        caseData => caseData.state === 'AWAITING_SUBMISSION_TO_HMCTS'
-      )[0] as RetreiveDraftCase;
-
-      return detransformCaseData(retreivedDraftCase);
+      const response = await this.axios.get<RetreiveDraftCase>(`${config.get('services.cos.url')}/${caseId}`);
+      return detransformCaseData(response.data);
     } catch (err) {
       this.logError(err);
-      throw new Error('Case could not be retreived.');
+      throw new Error('Case could not be retreived');
     }
   }
 
@@ -37,10 +34,9 @@ export class CaseApi {
     };
 
     try {
-      const response = await this.axios.post<CreateCaseResponse>('/case/create', {
-        data,
-      });
-      return { id: response.data.id };
+      const response = await this.axios.post<CreateCaseResponse>('/case/create', data);
+      const { id, caseTypeOfApplication } = response?.data;
+      return { id, caseTypeOfApplication };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -48,11 +44,15 @@ export class CaseApi {
   }
 
   public async updateCase(caseId: string, caseData: Partial<Case>, returnUrl: string): Promise<UpdateCaseResponse> {
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
+
     const data: UpdateCaseRequest = {
-      ...transformCaseData(caseData),
+      ...transformCaseData(rest),
+      caseTypeOfApplication: caseTypeOfApplication as string,
+      c100RebuildChildPostCode,
+      helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
     };
-    console.info(data);
 
     try {
       const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100.CASE_UPDATE}/update-case`, data, {
@@ -160,6 +160,8 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
 
     if (transformedData[key]) {
       transformedData[key][field] = data;
+    } else {
+      // transformedData[field] = data;
     }
 
     return transformedData;
@@ -174,7 +176,13 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
 };
 
 const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => {
-  let detransformedCaseData = { ...caseData };
+  let detransformedCaseData = {
+    caseId: caseData.id,
+    caseTypeOfApplication: caseData.caseTypeOfApplication,
+    c100RebuildChildPostCode: caseData.c100RebuildChildPostCode,
+    helpWithFeesReferenceNumber: caseData.helpWithFeesReferenceNumber,
+    c100RebuildReturnUrl: caseData.c100RebuildReturnUrl,
+  } as RetreiveDraftCase;
 
   Object.values(updateCaseDataMapper).forEach(field => {
     if (field in caseData) {
@@ -188,14 +196,16 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
 
 interface CreateCaseResponse {
   id: string;
+  caseTypeOfApplication: string;
 }
 interface UpdateCaseResponse {
   [key: string]: any;
 }
 
-export interface RetreiveDraftCase extends UpdateCase {
-  id: string;
-  state: State;
+export interface RetreiveDraftCase extends CaseWithId {
+  caseTypeOfApplication: string;
+  c100RebuildChildPostCode?: string;
+  helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
 }
 
@@ -219,6 +229,9 @@ interface UpdateCase {
 }
 
 interface UpdateCaseRequest extends UpdateCase {
+  caseTypeOfApplication: string;
+  c100RebuildChildPostCode?: string;
+  helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
 }
 

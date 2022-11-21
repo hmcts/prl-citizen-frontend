@@ -36,31 +36,27 @@ describe('CaseApi', () => {
     jest.clearAllMocks();
   });
 
-  test('Should create a case if one is not found', async () => {
-    const results = {
+  test('Should create a case', async () => {
+    const request = {
+      caseTypeOfApplication: C100.CASE_TYPE_OF_APPLICATION,
+    };
+
+    mockedAxios.post.mockResolvedValueOnce({
       data: {
         id: '1234',
+        caseTypeOfApplication: 'C100',
       },
-    };
-
-    const data = {
-      data: {
-        caseTypeOfApplication: C100.CASE_TYPE_OF_APPLICATION,
-      },
-    };
-
-    mockedAxios.post.mockResolvedValueOnce(results);
-    mockedAxios.get.mockResolvedValueOnce({ data: { token: '123' } });
-
+    });
     const userCase = await api.createCase();
 
     expect(userCase).toStrictEqual({
       id: '1234',
+      caseTypeOfApplication: 'C100',
     });
-    expect(mockedAxios.post).toHaveBeenCalledWith('/case/create', data);
+    expect(mockedAxios.post).toHaveBeenCalledWith('/case/create', request);
   });
 
-  test('Should throw error if there is an error creating case', async () => {
+  test('Should throw error if there is an error in creating a case', async () => {
     mockedAxios.post.mockRejectedValue({
       response: {
         status: 500,
@@ -127,8 +123,8 @@ describe('CaseApi', () => {
       },
     });
 
-    await expect(api.retrieveCase()).rejects.toThrow('Case could not be retreived.');
-    expect(mockLogger.error).toHaveBeenCalledWith('API Error', 'response.data.filter is not a function');
+    await expect(api.retrieveCaseById('1234')).rejects.toThrow('Case could not be retreived');
+    expect(mockLogger.error).toHaveBeenCalled();
   });
 
   test('Should throw error when case could not be deleted', async () => {

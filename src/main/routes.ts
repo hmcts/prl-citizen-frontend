@@ -5,6 +5,7 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
+import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
@@ -14,8 +15,6 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsPostController';
-import LandingPageGetController from './steps/c100-rebuild/landing/get';
-import { LandingPageController } from './steps/c100-rebuild/landing/landingPageController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -23,7 +22,6 @@ import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/RespondentConfirmContactDetailsGetController';
 import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/RespondentConfirmContactDetailsPostController';
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
@@ -77,10 +75,10 @@ import {
   YOUR_APPLICATION_WITNESS_STATEMENT,
   /** C100 Rebuild URLs */
   // eslint-disable-next-line sort-imports
-  C100_CREATE_APPLICATION,
-  C100_URL as C100_LANDING_PAGE,
+  C100_CREATE_CASE,
   PAYMENT_GATEWAY_ENTRY_URL,
   PAYMENT_RETURN_URL_CALLBACK,
+  C100_RETRIVE_CASE,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -98,15 +96,15 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
+    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getApplicantCase));
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
-    app.get(C100_LANDING_PAGE, errorHandler(new LandingPageGetController().get));
-    app.get(C100_CREATE_APPLICATION, errorHandler(new LandingPageController().get));
+    app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
+    app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
