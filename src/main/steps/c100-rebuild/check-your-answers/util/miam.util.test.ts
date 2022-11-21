@@ -1,6 +1,5 @@
 import {
-  MiamContentForOtherFeature,
-  MiamContentForOtherFeatureSubFields,
+  MiamContentForOtherFeatureAndSubFeilds,
   MiamContentsForDomensticVoilence,
   MiamContentsForGeneralReasons,
   MiamContentsForPreviousAttendance,
@@ -89,7 +88,7 @@ describe('miam Util', () => {
         'under18',
       ],
     };
-    const sessionFields = MiamContentForOtherFeature(userCase);
+    const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase);
     userCase.miam_notAttendingReasons.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
     });
@@ -103,9 +102,9 @@ describe('miam Util', () => {
         'noAuthorisedFamilyMediator',
       ],
     };
-    const sessionFields = MiamContentForOtherFeatureSubFields(userCase);
+    const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase);
     userCase.miam_notAttendingReasons_canNotAccessMediator.forEach(item => {
-      expect(sessionFields?.en()[item]).not.toBe(undefined);
+      expect(sessionFields).not.toBe(undefined);
     });
   });
 });
