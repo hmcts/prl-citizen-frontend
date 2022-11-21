@@ -4,7 +4,7 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   headingTitle: 'Have you or the children ever been involved in court proceedings?',
   childrenInvolvedCourtCase: 'Have the children been involved in a court case?',
   courtOrderProtection: 'Have you had a court order made for your protection?',
@@ -20,7 +20,8 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   headingTitle: 'Have you or the children ever been involved in court proceedings? - welsh',
   childrenInvolvedCourtCase: 'Have the children been involved in a court case? - welsh',
   courtOrderProtection: 'Have you had a court order made for your protection? - welsh',

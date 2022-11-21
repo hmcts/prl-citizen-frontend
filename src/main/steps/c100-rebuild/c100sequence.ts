@@ -145,6 +145,7 @@ import {
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
   C100_APPLICANTS_PERSONAL_DETAILS,
   C100_APPLICANT_CONTACT_DETAIL,
+  C100_CHECK_YOUR_ANSWER,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -368,7 +369,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: navigate to check your answers
+    getNextStep: () => C100_CHECK_YOUR_ANSWER, //todo: navigate to check your answers
   },
   {
     url: C100_CHILDERN_DETAILS_ADD,
@@ -1017,5 +1018,15 @@ export const C100Sequence: Step[] = [
     url: C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
     showInSection: Sections.C100,
     getNextStep: () => C100_HEARING_URGENCY_URGENT,
+  },
+  {
+    url: C100_CHECK_YOUR_ANSWER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+  },
+  {
+    url: C100_CHECK_YOUR_ANSWER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
   },
 ];
