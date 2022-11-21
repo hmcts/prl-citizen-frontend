@@ -7,6 +7,9 @@
  {% block backLink %}
       <a href="#" class="govuk-back-link">{{ back }}</a>
     {% endblock %}
+      {% block error_summary %}
+        {% include "common/error/summary.njk" %}
+      {% endblock %}    
 
 <h1 class="govuk-heading-xl govuk-!-margin-top-5">{{title}}</h1>
 {{ govukWarningText({

@@ -261,7 +261,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[27].url).toBe('/c100-rebuild/help-with-fees/hwf-guidance');
     expect(C100Sequence[27].showInSection).toBe('c100');
-    expect(C100Sequence[27].getNextStep({})).toBe('/c100-rebuild/help-with-fees/hwf-guidance');
+    expect(C100Sequence[27].getNextStep({})).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[28].url).toBe('/c100-rebuild/child-details/add-children');
     expect(C100Sequence[28].showInSection).toBe('c100');

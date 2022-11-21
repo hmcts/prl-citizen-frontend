@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -7,7 +8,8 @@ import { CommonContent } from '../../../steps/common/common.content';
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
-import {HTML} from './common/htmlSelectors';
+
+import { HTML } from './common/htmlSelectors';
 
 // eslint-disable-next-line import/no-unresolved
 import { ANYTYPE } from './common/index';
@@ -74,6 +76,13 @@ export const enContent = {
     check: 'I believe that the facts stated in this application are true',
     lastPara:
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
+    payAndSubmitButton: 'Pay and submit your application',
+    SubmitButton: 'Submit your application',
+  },
+  errors: {
+    statementOfTruth: {
+      required: 'Please select statement of truth',
+    },
   },
   sectionTitles: {
     locationDetails: '1. Location details',
@@ -163,6 +172,13 @@ export const cyContent: typeof enContent = {
     check: 'I believe that the facts stated in this application are true',
     lastPara:
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
+    payAndSubmitButton: 'Pay and submit your application',
+    SubmitButton: 'Submit your application',
+  },
+  errors: {
+    statementOfTruth: {
+      required: 'Please select statement of truth',
+    },
   },
   sectionTitles: {
     locationDetails: '1. Location details',
@@ -336,26 +352,19 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   };
 };
 
-
 export const SystemLanguageContent = (content, Function) => {
   return content['language'] === 'en' ? Function(content.userCase)?.en() : Function(content.userCase)?.cy();
 };
 
 export const form: FormContent = {
   fields: {
-    statementOftruthHeading: {
-      type: 'textAndHtml',
-      textAndHtml: `${HTML.H1}${l => l.StatementOfTruth['title']} ${HTML.H1_CLOSE}`,
-    },
+    statementOftruthHeading: {},
+    statementOftruthSubHeading: {},
+    statementOftruthWarning: {},
+    statementOftruthInset: {},
     statementOfTruth: {
       type: 'checkboxes',
-      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-      validator: (value, formData) => {
-        if (formData.start === 'Yes') {
-          return atLeastOneFieldIsChecked(formData?.contactDetailsPrivate);
-        }
-        return '';
-      },
+      validator: atLeastOneFieldIsChecked,
       values: [
         {
           name: 'statementOfTruth',
@@ -364,6 +373,7 @@ export const form: FormContent = {
         },
       ],
     },
+    statementOftruthSpacer: {},
   },
   submit: {
     text: l => l.onlycontinue,
@@ -396,6 +406,45 @@ export const generateContent: TranslationFn = content => {
     ...{ none: content['language'] === 'en' ? enContent.keys.none : cyContent.keys.none },
   };
   const translations = languages[content.language](content, newContents);
+
+  form.fields['statementOftruthHeading'] = {
+    type: 'textAndHtml',
+    textAndHtml: `${HTML.H1}${newContents.StatementOfTruth['title']} ${HTML.H1_CLOSE}`,
+  };
+
+  form.fields['statementOftruthSubHeading'] = {
+    type: 'textAndHtml',
+    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H2}${newContents.StatementOfTruth['heading']} ${HTML.STATEMENT_OF_TRUTH_H2_CLOSE}`,
+  };
+
+  form.fields['statementOftruthWarning'] = {
+    type: 'warning',
+    label: `${newContents.StatementOfTruth['warning']}`,
+  };
+
+  form.fields['statementOftruthInset'] = {
+    type: 'inset',
+    label: `${newContents.StatementOfTruth['inset']}`,
+  };
+
+  form.fields['statementOftruthSpacer'] = {
+    type: 'textAndHtml',
+    label: `${HTML.BREAK + HTML.BREAK + HTML.BREAK}`,
+  };
+  if (
+    content.userCase &&
+    content.userCase.hasOwnProperty('helpWithFeesReferenceNumber') &&
+    content.userCase['helpWithFeesReferenceNumber'] !== ''
+  ) {
+    form.submit = {
+      text: l => l.StatementOfTruth['SubmitButton'],
+    };
+  } else {
+    form.submit = {
+      text: l => l.StatementOfTruth['payAndSubmitButton'],
+    };
+  }
+
   return {
     ...translations,
     form,

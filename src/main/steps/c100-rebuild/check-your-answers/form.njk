@@ -20,39 +20,6 @@
     
       {% endif %}
     {% endfor %}
-      <h2 class="govuk-heading-l">{{StatementOfTruth['title']}}</h2>
-      <h2 class="govuk-heading-m govuk-!-padding-bottom-4">{{StatementOfTruth['heading']}}</h2>
-
-
-{{ govukWarningText({
-  text: StatementOfTruth['warning'],
-  iconFallbackText: "Warning"
-}) }}
-
-{{ govukInsetText({
-  text:  StatementOfTruth['inset'] | safe
-}) }}
-
-{{ govukCheckboxes({
-  idPrefix: "stateoftruth",
-  name: "stateoftruth",
-  fieldset: {
-    legend: {
-      text: "",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--l"
-    }
-  },
-  hint: {
-    text: ""
-  },
-  items: [
-    {
-      value: "true",
-      text: StatementOfTruth['check'] 
-    }
-  ]
-}) }}
 
 <p class="govuk-body govuk-!-padding-bottom-4">
           {{StatementOfTruth['lastpara']}}
@@ -61,18 +28,6 @@
   {% endif %}
 {% endblock %}
 
-    {% block form_actions %}
-  <div class="govuk-button-group">
-
-    {{ govukButton({
-      text: "Pay and submit application"
-    }) }}
-    {{ govukButton({
-  text: "Save and come back later",
-  classes: "govuk-button--secondary"
-}) }}
-    </div>
-    {% endblock %}
 
     {% block after_form %}
     {{ govukDetails({

@@ -369,7 +369,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: navigate to check your answers
+    getNextStep: () => C100_CHECK_YOUR_ANSWER, //todo: navigate to check your answers
   },
   {
     url: C100_CHILDERN_DETAILS_ADD,

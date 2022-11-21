@@ -96,7 +96,7 @@ export const form: FormContent = {
         {
           name: 'ra_languageNeeds',
           label: l => l.noLanguageRequirements,
-          value: 'none',
+          value: 'noLanguageRequirements',
           behaviour: 'exclusive',
         },
       ],
