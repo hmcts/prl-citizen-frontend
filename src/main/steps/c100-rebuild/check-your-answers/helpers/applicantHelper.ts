@@ -85,7 +85,6 @@ export const applicantCourtCanLeaveVoiceMail = (sessionApplicantData, keys) => {
   if(sessionApplicantData['canLeaveVoiceMail'] === 'Yes'){
     html +=  keys['voiceMailYesLabel'];
   } 
-
   if(sessionApplicantData['canLeaveVoiceMail'] === 'No'){
     html += keys['voiceMailNoLabel'];
   } 

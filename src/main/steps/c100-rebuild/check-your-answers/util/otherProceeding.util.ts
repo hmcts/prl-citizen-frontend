@@ -4,13 +4,6 @@ import { cy, en } from '../../other-proceedings/current-previous-proceedings/con
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 import { DATE_FORMATTOR } from '../common/dateformatter';
 import { HTML } from '../common/htmlSelectors';
-
-/**
- * It takes in an object and returns a string
- * @param keys - This is the object that contains the labels for the fields.
- * @param order - This is the object that contains the data that you want to display.
- * @returns A string
- */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order) => {
   const newOrders = order;

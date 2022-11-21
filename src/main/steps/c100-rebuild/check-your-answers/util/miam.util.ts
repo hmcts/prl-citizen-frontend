@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
-/**
- * import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../../miam/child-protection/content';
-import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/content';
- */
 import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/content';
 import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/content';
@@ -18,12 +14,6 @@ import {
 import { cy as UrgentHearingContentCy, en as UrgentHearingContentEn } from '../../miam/urgency/content';
 import { cy as vrCy, en as vrEn } from '../../miam/valid-reason/content';
 import { ANYTYPE } from '../common/index';
-/**
- *   it take all files -> ...keys -> but section doesn't -> nested object ->
- * @returns
- *
- */
-
 export class CommonDataLoader {
   static DataFormatter = (args, storage) => {
     let mappedData = {};
@@ -51,7 +41,6 @@ export class CommonDataLoader {
     return storage;
   };
 }
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const MiamContentsForGeneralReasons = UserCase => {
   const key = 'miam_nonAttendanceReasons';
@@ -68,7 +57,6 @@ export const MiamContentsForGeneralReasons = UserCase => {
     };
   }
 };
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const MiamContentsForDomensticVoilence = UserCase => {
   const key = 'miam_domesticAbuse';

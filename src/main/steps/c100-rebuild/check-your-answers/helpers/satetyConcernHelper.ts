@@ -52,15 +52,13 @@ const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser) => {
   const subFieldKey = 'c1A_safteyConcerns' as string;
-  typeOfUser === C1ASafteyConcernsAbout.CHILDREN
-    ? (typeOfUser = 'child')
-    : (typeOfUser = C1ASafteyConcernsAbout.APPLICANT);
-  let html = '';
+  const user = typeOfUser === C1ASafteyConcernsAbout.CHILDREN ? 'child' : C1ASafteyConcernsAbout.APPLICANT;
+  let html;
   if (userCase.hasOwnProperty(sessionKey)) {
     if (userCase.hasOwnProperty(subFieldKey)) {
-      const FoundElement = userCase[subFieldKey]?.[typeOfUser]?.[childField];
+      const FoundElement = userCase[subFieldKey]?.[user]?.[childField];
       if (FoundElement !== undefined) {
-        html = HTMLParser(keys, FoundElement, html, userCase, typeOfUser);
+        html = HTMLParser(keys, FoundElement, html, userCase, user);
       }
     }
     return html;

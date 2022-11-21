@@ -595,8 +595,7 @@ export const SafetyConcerns_child = (
         element !== C1AAbuseTypes.ABDUCTION &&
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
         element !== C1AAbuseTypes.SOMETHING_ELSE
-    )
-    ?.map(field => {
+    ).map(field => {
       return {
         key: keys['detailsOfChildConcern']
           .split('[***]')
