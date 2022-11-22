@@ -1,5 +1,13 @@
-import { ChildernDetails, PeopleDetails, TypeOfOrder, WithoutNoticeHearing } from './mainUtil';
-//  ,ChildernDetailsAdditional ,ChildernDetailsAdditional, ApplicantDetails, MiamTitle,  MiamAttendance, MiamExemption, InternationalElement, PastAndCurrentProceedings, SafetyConcerns, SafetyConcerns_child, SafetyConcerns_yours, SafetyConcerns_others  } from './mainUtil';
+import {
+  ChildernDetails,
+  LegalRepresentativeDetails,
+  LocationDetails,
+  PeopleDetails,
+  PermissionForApplication,
+  TypeOfApplication,
+  TypeOfOrder,
+  WithoutNoticeHearing,
+} from './mainUtil';
 
 const sectionTitles = {
   TypeOfOrder: 'TypeOfOrder',
@@ -113,5 +121,30 @@ describe('test cases for main util', () => {
       rows: [],
       title: 'ChildernDetails',
     });
+  });
+  //LocationDetails
+  test('LocationDetails', () => {
+    const locationDetails = LocationDetails({ sectionTitles, keys, content }, userCase);
+    expect(locationDetails?.rows).not.toBe([]);
+    expect(locationDetails?.title).toBe(undefined);
+  });
+
+  //LocationDetails
+  test('TypeOfApplication', () => {
+    const TypeOfApplicationObj = TypeOfApplication({ sectionTitles, keys, content }, userCase);
+    expect(TypeOfApplicationObj?.rows).not.toBe([]);
+    expect(TypeOfApplicationObj?.title).toBe(undefined);
+  });
+
+  test('LegalRepresentativeDetails', () => {
+    const LegalRepresentativeDetailsObj = LegalRepresentativeDetails({ sectionTitles, keys, content }, userCase);
+    expect(LegalRepresentativeDetailsObj?.rows).not.toBe([]);
+    expect(LegalRepresentativeDetailsObj?.title).toBe(undefined);
+  });
+
+  test('PermissionForApplication', () => {
+    const PermissionForApplicationObj = PermissionForApplication({ sectionTitles, keys, content }, userCase);
+    expect(PermissionForApplicationObj?.rows).not.toBe([]);
+    expect(PermissionForApplicationObj?.title).toBe(undefined);
   });
 });
