@@ -6,6 +6,7 @@
     {% for item in sections %}
     {% if item %}
         <h1 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h1>
+        <p>{{item.help | safe}}</p>
         {{ govukSummaryList.govukSummaryList({
           classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
           rows: item.rows
