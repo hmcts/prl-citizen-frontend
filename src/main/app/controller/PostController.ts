@@ -10,7 +10,7 @@ import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
+import { C100_CASE_EVENT, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -289,7 +289,12 @@ export class PostController<T extends AnyObject> {
       try {
         req.session.errors = [];
         Object.assign(req.session.userCase, formData);
-        await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
+        await req.locals.C100Api.updateCase(
+          req.session.userCase!.caseId!,
+          req.session.userCase,
+          req.originalUrl,
+          C100_CASE_EVENT.CASE_UPDATE
+        );
         req.session.userCase = {} as CaseWithId;
       } finally {
         this.redirect(req, res, DASHBOARD_URL);
