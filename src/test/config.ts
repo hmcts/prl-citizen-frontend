@@ -4,7 +4,7 @@ process.on('unhandledRejection', reason => {
   });
 
   export const config = {
-    TEST_URL: process.env.PRL_CITIZEN_WEB_URLL || 'http://localhost:3001',
+    TEST_URL: process.env.PRL_CITIZEN_URL || 'https://prl-citizen-frontend-staging.service.core-compute-aat.internal/',
     TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
     TestSlowMo: 250,
     WaitForTimeout: 10000,
