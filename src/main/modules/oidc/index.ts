@@ -69,7 +69,7 @@ export class OidcMiddleware {
               req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
               return next();
             } else {
-              return res.redirect(CITIZEN_HOME_URL);
+              return res.redirect(DASHBOARD_URL);
             }
           }
 
