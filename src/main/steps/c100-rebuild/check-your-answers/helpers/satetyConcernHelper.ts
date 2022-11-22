@@ -3,7 +3,8 @@ import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
 
-const childNameFormatter = (childId, userCase) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const childNameFormatter = (childId, userCase) => {
   const sessionChildKey = 'cd_children';
   const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId) as ANYTYPE;
   return (
@@ -11,7 +12,8 @@ const childNameFormatter = (childId, userCase) => {
   );
 };
 
-const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser) => {
   if (typeOfUser === 'child') {
     bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
     if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
