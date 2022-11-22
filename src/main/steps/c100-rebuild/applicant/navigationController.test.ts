@@ -4,8 +4,8 @@ import {
   C100_APPLICANT_ADDRESS_MANUAL,
   C100_APPLICANT_ADDRESS_SELECT,
   C100_APPLICANT_ADD_APPLICANTS,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
-  C100_CONFIDENTIALITY_FEEDBACK_NO,
 } from '../../urls';
 
 import ApplicantDetailsNavigationController from './navigationController';
@@ -75,7 +75,7 @@ describe('ApplicantDetailsNavigationController', () => {
     dummyRequest.params.applicantId = '2cd885a0-135e-45f1-85b7-aa46a1f78f46';
     expect(
       ApplicantDetailsNavigationController.getNextUrl(
-        C100_CONFIDENTIALITY_FEEDBACK_NO,
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
         dummyRequest.session.userCase,
         dummyRequest.params
       )
