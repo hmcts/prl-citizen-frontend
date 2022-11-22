@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=14.8.1"
   },
   "scripts": {
     "prepare": "husky install",
