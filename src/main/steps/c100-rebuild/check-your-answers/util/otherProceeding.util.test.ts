@@ -1,7 +1,7 @@
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 
-import { otherProceedingsContents } from './otherProceeding.util';
+import { OPotherProceedingsSessionParserUtil, otherProceedingsContents } from './otherProceeding.util';
 
 describe('test cases for otherProceedingsContents', () => {
   const contentLoaders = SystemLanguage => {
@@ -25,5 +25,13 @@ describe('test cases for otherProceedingsContents', () => {
   });
   test('Welsh contents', () => {
     expect(otherProceedingsContents('cy')).toStrictEqual(contentLoaders('cy'));
+  });
+
+  test('OPotherProceedingsSessionParserUtil', () => {
+    const UserCase = {};
+    const keys = {};
+    const URLS = {};
+    const sessionKey = '';
+    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey)).not.toBe([]);
   });
 });
