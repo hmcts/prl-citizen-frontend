@@ -10,7 +10,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
-  reasonableAdjustment
+  reasonableAdjustment,
 } from './mainUtil';
 
 const sectionTitles = {
