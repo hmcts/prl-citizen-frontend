@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Language requirements',
   headingTitle: `Do you have any language 
@@ -28,7 +29,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Language requirements - welsh',
   headingTitle: `Do you have any language 
@@ -95,7 +96,7 @@ export const form: FormContent = {
         {
           name: 'ra_languageNeeds',
           label: l => l.noLanguageRequirements,
-          value: 'none',
+          value: 'noLanguageRequirements',
           behaviour: 'exclusive',
         },
       ],

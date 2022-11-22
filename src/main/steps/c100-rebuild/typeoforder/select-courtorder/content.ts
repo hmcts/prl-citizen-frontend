@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'What are you asking the court to do?',
   select_all_apply: 'Select all that apply',
   whoChildLiveWith: 'Decide who the children live with and when',
@@ -28,6 +29,7 @@ const en = () => ({
   medicalTreatment: 'Medical treatment',
   returningChildrenToYourCare: 'Returning the children to your care',
   returningChildrenToYourCareHint: 'If the children have been abducted, unlawfully removed or unlawfully retained',
+  whatAreYouAsking: 'What are you asking the court to do?',
   errors: {
     too_courtOrder: {
       required: 'Select  what you are asking the court to do',
@@ -41,7 +43,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'What are you asking the court to do? - welsh',
   select_all_apply: 'Select all that apply - welsh',
   whoChildLiveWith: 'Decide who the children live with and when - welsh',
@@ -67,6 +69,7 @@ const cy = () => ({
   returningChildrenToYourCare: 'Returning the children to your care - welsh',
   returningChildrenToYourCareHint:
     'If the children have been abducted, unlawfully removed or unlawfully retained - welsh',
+  whatAreYouAsking: 'What are you asking the court to do?',
   errors: {
     too_courtOrder: {
       required: 'Select  what you are asking the court to do - welsh',

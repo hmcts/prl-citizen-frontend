@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../child-protection/content';
@@ -7,7 +8,7 @@ import { cy as PreviousAttendanceCy, en as PreviousAttendanceEn } from '../previ
 import { cy as UrgencyCy, en as UrgencyEn } from '../urgency/content';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'You don’t have to attend a MIAM',
   paragraph1: 'You’ve said you have a valid reason for not attending a MIAM',
   paragraph2: 'The reasons you’ve given are:',
@@ -70,7 +71,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'You don’t have to attend a MIAM - welsh',
   paragraph1: 'You’ve said you have a valid reason for not attending a MIAM - welsh',
   paragraph2: 'The reasons you’ve given are: - welsh',

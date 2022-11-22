@@ -250,14 +250,24 @@ export class CosApiClient {
    * @returns The response from the API is being returned.
    */
   public async retrieveCasesByUserId(user: UserDetails): Promise<CaseWithId[]> {
-    const response = await Axios.get(config.get('services.cos.url') + '/cases', {
-      headers: {
-        Authorization: 'Bearer ' + user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
+    try {
+      const response = await Axios.get(config.get('services.cos.url') + '/cases', {
+        headers: {
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return response.data.map(_case => ({
+        ..._case.caseData,
+        caseStatus: {
+          state: _case.stateName,
+        },
+      }));
+    } catch (e) {
+      throw new Error('Could not retrive cases - retrieveCasesByUserId');
+    }
   }
 }

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { C100RebuildPartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 
-const en = () => ({
+export const en = () => ({
   title: 'Contact details of',
   subTitle:
     'Include as much detail as you can. If there’s information missing, your application may take longer to process.',
@@ -24,7 +25,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Contact details of - welsh ',
   subTitle:
     'Include as much detail as you can. If there’s information missing, your application may take longer to process. - welsh',

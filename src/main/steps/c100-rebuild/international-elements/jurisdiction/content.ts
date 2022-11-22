@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child arrangements',
   title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
   line1: 'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
@@ -23,7 +24,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   title:
     'Could another person in the application apply for a similar order in a country outside England or Wales? - welsh',
