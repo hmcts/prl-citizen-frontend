@@ -81,7 +81,7 @@ export const enContent = {
   },
   errors: {
     statementOfTruth: {
-      required: 'Please select statement of truth',
+      required: 'Confirm that you believe the information in this application is true',
     },
   },
   sectionTitles: {
@@ -177,7 +177,7 @@ export const cyContent: typeof enContent = {
   },
   errors: {
     statementOfTruth: {
-      required: 'Please select statement of truth',
+      required: 'Confirm that you believe the information in this application is true',
     },
   },
   sectionTitles: {
