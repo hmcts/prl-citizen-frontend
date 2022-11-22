@@ -15,10 +15,6 @@ const en = () => ({
     addressTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
-      required: 'Enter the postcode',
-      invalid: 'Enter a valid postcode',
-    },
     addressHistory: {
       required: 'Enter your details known',
     },
@@ -40,10 +36,6 @@ const cy = () => ({
     },
     addressTown: {
       required: 'Enter the town or city - welsh',
-    },
-    addressPostcode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
     },
     addressHistory: {
       required: 'Enter your details known - welsh',
