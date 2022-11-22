@@ -774,53 +774,43 @@ export const C100Sequence: Step[] = [
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getNextStep: (data, req) => {
-      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
-      let redirectURI = '';
-      if (applicantData?.length) {
-        const nextStepUri =
-          applicantData[0].start === YesOrNo.YES
-            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
-        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
-      } else {
-        redirectURI = '';
-      }
-      return redirectURI as `/${string}`;
-    },
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getNextStep: (data, req) => {
-      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
-      let redirectURI = '';
-      if (applicantData?.length) {
-        const nextStepUri =
-          applicantData[0].startAlternative === YesOrNo.YES
-            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
-        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
-      } else {
-        redirectURI = '';
-      }
-      return redirectURI as `/${string}`;
-    },
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADDRESS_LOOKUP,
