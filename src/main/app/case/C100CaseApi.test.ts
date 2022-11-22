@@ -22,6 +22,7 @@ const mockData = {
   c100RebuildChildPostCode: 'AB2 3BV',
   helpWithFeesReferenceNumber: 'HWF-1234',
   c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
+  applicantCaseName: 'C100 test case',
 };
 
 describe('CaseApi', () => {
