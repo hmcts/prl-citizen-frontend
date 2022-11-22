@@ -44,11 +44,13 @@ export class CaseApi {
   }
 
   public async updateCase(caseId: string, caseData: Partial<Case>, returnUrl: string): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
+      caseData;
 
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
       caseTypeOfApplication: caseTypeOfApplication as string,
+      applicantCaseName,
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
@@ -176,6 +178,7 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
 const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => {
   let detransformedCaseData = {
     caseId: caseData.id,
+    applicantCaseName: caseData.applicantCaseName,
     caseTypeOfApplication: caseData.caseTypeOfApplication,
     c100RebuildChildPostCode: caseData.c100RebuildChildPostCode,
     helpWithFeesReferenceNumber: caseData.helpWithFeesReferenceNumber,
@@ -228,6 +231,7 @@ interface UpdateCase {
 
 interface UpdateCaseRequest extends UpdateCase {
   caseTypeOfApplication: string;
+  applicantCaseName?: string;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
