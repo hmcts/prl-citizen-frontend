@@ -30,7 +30,9 @@
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "test:local": "codeceptjs run-multiple parallel",
     "codeceptjs": "node $NODE_DEBUG_OPTION ./node_modules/.bin/codeceptjs --verbose",
-    "test:uploadFile": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run --steps -c test/functional/codecept.conf.js --reporter mocha-multi"
+    "test:uploadFile": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run --steps -c test/functional/codecept.conf.js --reporter mocha-multi",
+    "test:mutation": "NODE_CONFIG_DIR=./config stryker run test/mutation/stryker.conf.js",
+    "test:mutation-local": "NODE_CONFIG_DIR=./config stryker run stryker.node.conf.js"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "^0.0.4",
@@ -157,7 +159,9 @@
     "webpack": "^5.72.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-middleware": "^5.3.1",
-    "webpack-node-externals": "^3.0.0"
+    "webpack-node-externals": "^3.0.0",
+    "@stryker-mutator/api": "^3.3.1",
+    "@stryker-mutator/core": "^3.3.1"
   },
   "resolutions": {
     "moment": "2.29.4",
