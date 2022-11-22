@@ -173,7 +173,9 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[40].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes');
     expect(responseCaseSequence[40].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[40].getNextStep({})).toBe('/tasklistresponse/allegations-of-harm-and-violence/only-self-concern');
+    expect(responseCaseSequence[40].getNextStep({})).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/only-self-concern'
+    );
 
     expect(responseCaseSequence[41].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-answers-no');
     expect(responseCaseSequence[41].showInSection).toBe('aboutRespondentCase');

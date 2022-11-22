@@ -48,6 +48,12 @@ import {
   RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
+  SELF_CONCERN_ABUSE_PHYSICAL,
+  SELF_CONCERN_ABUSE_PSYCHOLOGICAL,
+  SELF_CONCERN_EMOTIONAL_ABUSE,
+  SELF_CONCERN_FINANCIAL_ABUSE,
+  SELF_CONCERN_SEXUAL_ABUSE,
+  SELF_CONCERN_SOMETHING_ABUSE,
   YOUR_SAFETY,
 } from '../urls';
 
@@ -259,11 +265,12 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_CHECK_ANSWERS_YES,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data => data.respondentConcernedAbout?.length === 2
+    getNextStep: data =>
+      data.respondentConcernedAbout?.length === 2
         ? RESPOND_TO_APPLICATION
-        :(data.respondentConcernedAbout?.includes('only child') && data.respondentConcernedAbout.length === 1
+        : data.respondentConcernedAbout?.includes('only child') && data.respondentConcernedAbout.length === 1
         ? RESPONDENT_ONLY_CHILD_CONCERN
-        : RESPONDENT_ONLY_SELF_CONCERN),
+        : RESPONDENT_ONLY_SELF_CONCERN,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_NO,
@@ -277,6 +284,66 @@ export const responseCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_ONLY_SELF_CONCERN,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => SELF_CONCERN_ABUSE_PHYSICAL,
+  },
+  {
+    url: SELF_CONCERN_ABUSE_PHYSICAL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => SELF_CONCERN_ABUSE_PSYCHOLOGICAL,
+  },
+  {
+    url: SELF_CONCERN_ABUSE_PSYCHOLOGICAL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => SELF_CONCERN_EMOTIONAL_ABUSE,
+  },
+  {
+    url: SELF_CONCERN_EMOTIONAL_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => SELF_CONCERN_SEXUAL_ABUSE,
+  },
+  {
+    url: SELF_CONCERN_SEXUAL_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => SELF_CONCERN_FINANCIAL_ABUSE,
+  },
+  {
+    url: SELF_CONCERN_FINANCIAL_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => SELF_CONCERN_SOMETHING_ABUSE,
+  },
+  {
+    url: SELF_CONCERN_SOMETHING_ABUSE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },

@@ -13,12 +13,14 @@ const en = {
   psychologicalabusehint:
     'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder',
   emotionalabuse: 'Emotional abuse',
-  emotionalabusehint: 'Emotional abuse could be spoken (verbal) or not involving words or speech (non-verbal). Examples may include name calling, constant criticism, controlling behaviour, not letting you have an opinion',
+  emotionalabusehint:
+    'Emotional abuse could be spoken (verbal) or not involving words or speech (non-verbal). Examples may include name calling, constant criticism, controlling behaviour, not letting you have an opinion',
   sexualabuse: 'Sexual abuse',
   sexualabusehint:
     'Include being forced or pressured to have sex without consent, being threatened into an unwanted sexual activity, or unwanted touching or groping',
   financialabuse: 'Financial abuse',
-  financialabusehint: "Examples of financial abuse can be not allowing a person to work, stopping someone saving their own money, or withholding money or credit cards",
+  financialabusehint:
+    'Examples of financial abuse can be not allowing a person to work, stopping someone saving their own money, or withholding money or credit cards',
   somethingelse: 'Something else',
   somethingelsehint: 'Any concerns you have that do not fit into the above categories',
   continue: 'Continue',
@@ -40,12 +42,14 @@ const cy: typeof en = {
   psychologicalabusehint:
     'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder - in welsh',
   emotionalabuse: 'Emotional abuse - in welsh',
-  emotionalabusehint: 'Emotional abuse could be spoken (verbal) or not involving words or speech (non-verbal). Examples may include name calling, constant criticism, controlling behaviour, not letting you have an opinion - in welsh',
+  emotionalabusehint:
+    'Emotional abuse could be spoken (verbal) or not involving words or speech (non-verbal). Examples may include name calling, constant criticism, controlling behaviour, not letting you have an opinion - in welsh',
   sexualabuse: 'Sexual abuse - in welsh',
   sexualabusehint:
     'Include being forced or pressured to have sex without consent, being threatened into an unwanted sexual activity, or unwanted touching or groping - in welsh',
   financialabuse: 'Financial abuse - in welsh',
-  financialabusehint: "Examples of financial abuse can be not allowing a person to work, stopping someone saving their own money, or withholding money or credit cards - in welsh",
+  financialabusehint:
+    'Examples of financial abuse can be not allowing a person to work, stopping someone saving their own money, or withholding money or credit cards - in welsh',
   somethingelse: 'Something else - in welsh',
   somethingelsehint: 'Any concerns you have that do not fit into the above categories - in welsh',
   continue: 'Continue - in welsh',
