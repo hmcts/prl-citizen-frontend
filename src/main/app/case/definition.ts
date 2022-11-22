@@ -2323,9 +2323,13 @@ export const enum ThePrayer {
 export type RespondentCaseId = string | number | undefined;
 export type RespondentCaseData = object | [] | undefined;
 
-export const enum C100 {
-  CASE_TYPE_OF_APPLICATION = 'C100',
+export const enum C100_CASE_TYPE {
+  C100 = 'C100',
+}
+
+export const enum C100_CASE_EVENT {
   CASE_UPDATE = 'citizen-case-update',
+  CASE_SUBMIT = 'citizen-case-submit',
   DELETE_CASE = 'deleteApplication',
 }
 
