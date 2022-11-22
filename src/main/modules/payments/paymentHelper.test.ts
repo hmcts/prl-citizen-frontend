@@ -21,7 +21,6 @@ describe('PaymentHelper', () => {
     expect(generateMockSystemCredential.Authorization).toEqual(mockToken);
     expect(generateMockSystemCredential.applicantCaseName).toEqual('Test');
     expect(generateMockSystemCredential.caseId).toEqual(dummyCaseID);
-    expect(generateMockSystemCredential.returnUrL).toEqual('http://undefined/payment/reciever/callback');
   });
 
   test('Shouldn"t match the output values corresponding to given input', async () => {
