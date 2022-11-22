@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=14.8.1"
   },
   "scripts": {
     "prepare": "husky install",
@@ -126,15 +126,14 @@
     "concurrently": "^7.0.0",
     "copy-webpack-plugin": "^10.2.1",
     "css-loader": "^6.5.1",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "^27.1.2",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-jest": "^27.1.5",
+    "eslint-plugin-prettier": "^4.2.1",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.1",
     "jest": "^27.5.1",
-    "jest-extended": "^1.2.0",
     "ts-jest": "^27.1.4",
     "lint-staged": "^12.4.1",
     "mini-css-extract-plugin": "^2.5.3",
