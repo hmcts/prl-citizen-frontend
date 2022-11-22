@@ -20,7 +20,7 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
   const responseSubmitted = {
     title: progressBarC100.responseSubmitted.title,
     ariaLabel: progressBarC100.responseSubmitted.ariaLabel,
-    active: true,
+    active: isResponseSubmitted(userCase),
     completed: cafcassSafetyChecks.completed && !true,
   };
 
@@ -71,6 +71,11 @@ const isFinalOrderActive = (userCase: Partial<CaseWithId>) => {
   if (userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl) {
     return true;
   }
+  return false;
+};
+
+const isResponseSubmitted = (userCase: Partial<CaseWithId>) => {
+  console.log(userCase.caseTypeOfApplication);
   return false;
 };
 

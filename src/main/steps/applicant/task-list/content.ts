@@ -133,6 +133,7 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
+  const stages = content.userCase?.caseTypeOfApplication === 'C100' ? [] : buildProgressBarStages(content.userCase!);
   return {
     ...translations,
     sections: generateApplicantTaskList(
@@ -142,7 +143,7 @@ export const generateContent: TranslationFn = content => {
       content.userIdamId
     ),
     banners,
-    stages: buildProgressBarStages(content.userCase!),
+    stages,
   };
 };
 
