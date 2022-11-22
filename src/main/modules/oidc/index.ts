@@ -53,13 +53,6 @@ export class OidcMiddleware {
         console.log('req.path is ' + req.path);
         //Skipping for C100 rebuild
         if (req.path.startsWith(CITIZEN_HOME_URL || C100_URL) && !req.session?.user) {
-          return next();
-        }
-        console.log('inside oidc, finding user');
-        if (req.session?.user) {
-          console.log('***** User login success');
-          res.locals.isLoggedIn = true;
-          req.locals.api = getCaseApi(req.session.user, req.locals.logger);
           if (req.path.startsWith(C100_URL) || req.path.startsWith(DASHBOARD_URL)) {
             const c100RebuildLdFlag: boolean =
               req.session.c100RebuildLdFlag !== undefined
@@ -72,6 +65,13 @@ export class OidcMiddleware {
               return res.redirect(DASHBOARD_URL);
             }
           }
+          return next();
+        }
+        console.log('inside oidc, finding user');
+        if (req.session?.user) {
+          console.log('***** User login success');
+          res.locals.isLoggedIn = true;
+          req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
           if (req.session.userCase) {
             console.log('****** inside oidc, user case found');
