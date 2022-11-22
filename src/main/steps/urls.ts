@@ -10,7 +10,7 @@ export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const CITIZEN_HOME_URL: PageLink = '/citizen-home';
 export const SERVICE_TYPE: PageLink = '/service-type';
-export const DASHBOARD_URL: PageLink = '/dashboard-v1';
+export const DASHBOARD_URL: PageLink = '/dashboard';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
 export const PRL_CASE_URL: PageLink = '/prl-cases';
 
@@ -261,7 +261,8 @@ export const C100_URL: PageLink = '/c100-rebuild';
 export const C100_START: PageLink = `${C100_URL}/start`;
 export const C100_CHILD_ADDRESS: PageLink = `${C100_URL}/childaddress`;
 
-export const C100_CREATE_APPLICATION: PageLink = `${C100_URL}/create-application`;
+export const C100_CREATE_CASE: PageLink = `${C100_URL}/case/create`;
+export const C100_RETRIVE_CASE: PageLink = `${C100_URL}/case/:caseId/retrive`;
 export const C100_CONFIRMATIONPAGE: PageLink = `${C100_URL}/confirmation-page`;
 export const C100_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/confidentiality/details-know`;
 export const C100_CONFIDENTIALITY_START: PageLink = `${C100_URL}/confidentiality/start`;
@@ -378,6 +379,7 @@ export const C100_HEARING_URGENCY_URGENT: PageLink = `${C100_HEARING_URGENCY}/ur
 export const C100_HEARING_URGENCY_URGENT_DETAILS: PageLink = `${C100_HEARING_URGENCY}/urgent-details`;
 
 /**@C100 Screening Questions */
+// eslint-disable-next-line import/export
 export const C100_SCREENING_QUESTIONS: PageLink = `${C100_URL}/screening-questions`;
 export const C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT: PageLink = `${C100_SCREENING_QUESTIONS}/consent-agreement`;
 export const C100_SCREENING_QUESTIONS_ALTERNATIVE_RESOLUTION: PageLink = `${C100_SCREENING_QUESTIONS}/alternative-resolution`;
@@ -427,9 +429,11 @@ export const C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP: PageLink = `${C100_OTHER_
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/manual`;
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/select`;
 
-export const C100_GET_CASE: PageLink = `${C100_URL}/get-case`;
-
 /** @C100 Consent Order */
 export const C100_CONSENT_ORDER: PageLink = `${C100_URL}/consent-order`;
 export const C100_CONSENT_ORDER_UPLOAD: PageLink = `${C100_CONSENT_ORDER}/upload`;
 export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_ORDER}/upload-confirmation`;
+/**@C100 check you answers */
+export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
+
+export const C100_CASE_NAME: PageLink = `${C100_URL}/case-name`;

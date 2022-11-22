@@ -529,6 +529,8 @@ export interface Case {
   op_childrenInvolvedCourtCase?: YesOrNo;
   op_courtOrderProtection?: YesOrNo;
   hwn_hearingPart1?: YesOrNo;
+  c100RebuildChildPostCode?: string;
+  helpWithFeesReferenceNumber?: string;
 }
 
 export interface CaseWithId extends Case {

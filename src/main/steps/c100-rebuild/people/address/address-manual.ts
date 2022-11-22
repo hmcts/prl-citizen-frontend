@@ -5,7 +5,7 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { getDataShape } from '../util';
 
-const en = () => ({
+export const en = () => ({
   addressLine1: 'Building and street',
   town: 'Town or city',
   county: 'County',
@@ -15,7 +15,7 @@ const en = () => ({
   explainNoLabel: 'I dont know where they currently live',
 });
 
-const cy = () => ({
+export const cy = () => ({
   addressLine1: 'Building and street - welsh',
   town: 'Town or city - welsh',
   county: 'County - welsh',

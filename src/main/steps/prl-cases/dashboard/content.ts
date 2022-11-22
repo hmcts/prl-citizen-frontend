@@ -7,13 +7,31 @@ import { summaryCaseList } from '../../common/summary/utils';
 //import { summaryCaseList } from './utils';
 
 export const enContent = {
-  title: 'Welcome to Citizen dashboard',
+  title: 'Your private law account',
+  CAApplicationNote: 'Case once submitted cannot be accessed.',
+  createCAApplication: 'Start new C100 application',
   sectionTitles: {
-    yourCAapplication: 'CA Applications made by you',
-    youtCArespondentApplication: 'CA Applications against you',
-    daApplicationsMadeByYou: 'DA Applications made by you',
-    daApplicationsAgainstYou: 'DA Applications made against you',
+    yourCAapplication: 'C100 applications where you are an applicant',
+    youtCArespondentApplication: 'C100 applications where you are an respondent',
+    daApplicationsMadeByYou: 'FL401 applications where you are an applicant',
+    daApplicationsAgainstYou: 'FL401 applications where you are an respondent',
   },
+  help: 'To view or progress your case click on your case number.',
+  keys: {},
+  errors: {},
+};
+
+export const cyContent = {
+  title: 'Your private law account (welsh)',
+  CAApplicationNote: 'Case once submitted cannot be accessed. (welsh)',
+  createCAApplication: 'Start new C100 application (welsh)',
+  sectionTitles: {
+    yourCAapplication: 'C100 applications where you are an applicant',
+    youtCArespondentApplication: 'C100 applications where you are an respondent',
+    daApplicationsMadeByYou: 'FL401 applications where you are an applicant',
+    daApplicationsAgainstYou: 'FL401 applications where you are an respondent',
+  },
+  help: 'To view or progress your case click on your case number.',
   keys: {},
   errors: {},
 };
@@ -46,18 +64,61 @@ const en = (content: CommonContent) => {
   return {
     title: enContent.title,
     sections: [
-      summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, isRespondent),
+      {
+        ...summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, isRespondent),
+        help: `
+        <p class="govuk-body">${enContent.CAApplicationNote}</p>
+        <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${enContent.createCAApplication}</a></h1>`,
+      },
       summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, isRespondent),
       summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
       summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),
     ],
+    help: enContent.help,
   };
 };
 
-const cy = () => ({
-  title: 'Welcome to Citizen dashboard(welsh)',
-  section: 'C100 applications(welsh)',
-});
+const cy = (content: CommonContent) => {
+  const userCaseList: Partial<CaseWithId>[] = content.userCaseList || [];
+  const c100CaseListApplicant: Partial<CaseWithId>[] = [];
+  const c100CaseListRespondent: Partial<CaseWithId>[] = [];
+  const fl401CaseListApplicant: Partial<CaseWithId>[] = [];
+  const fl401CaseListRespondent: Partial<CaseWithId>[] = [];
+  let isRespondent = false;
+  let isRespondentFL401 = false;
+  for (const userCase of userCaseList || []) {
+    if (userCase.caseTypeOfApplication === 'C100') {
+      isRespondent = isLinkedToRespondent(userCase);
+      if (!isRespondent) {
+        c100CaseListApplicant.push(userCase);
+      } else {
+        c100CaseListRespondent.push(userCase);
+      }
+    } else if (userCase.caseTypeOfApplication === 'FL401') {
+      isRespondentFL401 = isLinkedToRespondentFl401(userCase);
+      if (!isRespondentFL401) {
+        fl401CaseListApplicant.push(userCase);
+      } else {
+        fl401CaseListRespondent.push(userCase);
+      }
+    }
+  }
+  return {
+    title: cyContent.title,
+    sections: [
+      {
+        ...summaryCaseList(c100CaseListApplicant, cyContent.sectionTitles.yourCAapplication, isRespondent),
+        help: `
+        <p class="govuk-body">${cyContent.CAApplicationNote}</p>
+        <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${cyContent.createCAApplication}</a></h1>`,
+      },
+      summaryCaseList(c100CaseListRespondent, cyContent.sectionTitles.youtCArespondentApplication, isRespondent),
+      summaryCaseList(fl401CaseListApplicant, cyContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
+      summaryCaseList(fl401CaseListRespondent, cyContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),
+    ],
+    help: cyContent.help,
+  };
+};
 
 const languages = {
   en,
@@ -87,8 +148,12 @@ function isLinkedToRespondent(userCase: Partial<CaseWithId>): boolean {
 }
 function isLinkedToRespondentFl401(userCase: Partial<CaseWithId>): boolean {
   for (const caseInviteEmail of userCase.caseInvites || []) {
-    console.log(caseInviteEmail.value.isApplicant);
-    if (caseInviteEmail.value.isApplicant === YesOrNo.NO) {
+    if (
+      userCase.respondentsFL401?.user?.idamId &&
+      caseInviteEmail.value.invitedUserId &&
+      userCase.respondentsFL401?.user?.idamId === caseInviteEmail.value.invitedUserId &&
+      caseInviteEmail.value.isApplicant === YesOrNo.NO
+    ) {
       return true;
     }
   }

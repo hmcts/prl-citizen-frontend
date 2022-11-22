@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child arrangements',
   title: "Are the children's lives mainly based outside of England and Wales?",
   line1: 'For example, is their family life mainly based outside of England and Wales?',
@@ -21,7 +22,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   title: "Are the children's lives mainly based outside of England and Wales? - welsh",
   line1: 'For example, is their family life mainly based outside of England and Wales? - welsh',
