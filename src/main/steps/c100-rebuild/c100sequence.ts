@@ -353,24 +353,24 @@ export const C100Sequence: Step[] = [
   {
     url: C100_START,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CASE_NAME,
+    getNextStep: () => C100_CREATE_CASE,
   },
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.hwf_needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: correct for NO, navigate to check your answers
+      data.hwf_needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_CHECK_YOUR_ANSWER,
   },
   {
     url: C100_HELP_WITH_FEES_FEES_APPLIED,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.hwf_feesAppliedDetails === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: correct for YES, navigate to check your answers
+      data.hwf_feesAppliedDetails === YesOrNo.YES ? C100_CHECK_YOUR_ANSWER : C100_HELP_WITH_FEES_HWF_GUIDANCE,
   },
   {
     url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CHECK_YOUR_ANSWER, //todo: navigate to check your answers
+    getNextStep: () => C100_CHECK_YOUR_ANSWER,
   },
   {
     url: C100_CHILDERN_DETAILS_ADD,
@@ -1018,6 +1018,6 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CASE_NAME,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CREATE_CASE,
+    getNextStep: () => C100_CHILD_ADDRESS,
   },
 ];
