@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Details of without notice hearing',
   subTitle: 'Give details of why you’re asking for a without notice hearing',
   hint: 'A judge will need to be sure that there is a good reason why the other people in the application should not be told about the application before the hearing takes place.',
@@ -36,7 +37,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Details of without notice hearing - welsh',
   subTitle: 'Give details of why you’re asking for a without notice hearing - welsh',
   hint: 'A judge will need to be sure that there is a good reason why the other people in the application should not be told about the application before the hearing takes place. - welsh',

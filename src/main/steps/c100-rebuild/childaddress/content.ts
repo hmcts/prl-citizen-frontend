@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   headingTitle: 'Where do the children live?',
   paragraph1: 'Please tell us the postcode of the children you’re making this application about.',
   paragraph2: `This information will be used to identify which court will handle your application.
@@ -26,7 +27,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   headingTitle: 'Where do the children live? - welsh',
   paragraph1: `Please tell us the postcode of the children 
               you’re making this application about. - welsh`,

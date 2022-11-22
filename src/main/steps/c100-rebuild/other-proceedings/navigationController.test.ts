@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   C100_OTHER_PROCEEDINGS_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
   C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
@@ -153,5 +154,24 @@ describe('OtherProceedingsNavigationController', () => {
       dummyRequest.params
     );
     expect(nextUrl).toBe(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY);
+  });
+  test('Default', async () => {
+    dummyRequest.params = {};
+    const nextUrl = OtherProceedingsNavigationController.getNextUrl(
+      C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+      dummyRequest.session.userCase,
+      dummyRequest.params
+    );
+    expect(nextUrl).toBe(C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE);
+  });
+  test('C100_OTHER_PROCEEDINGS_ORDER_DETAILS with out order', async () => {
+    dummyRequest.params = {};
+    dummyRequest.session.userCase = {};
+    const nextUrl = OtherProceedingsNavigationController.getNextUrl(
+      C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+      dummyRequest.session.userCase,
+      dummyRequest.params
+    );
+    expect(nextUrl).toBe(C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE);
   });
 });

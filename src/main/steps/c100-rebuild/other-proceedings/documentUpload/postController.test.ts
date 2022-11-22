@@ -233,7 +233,7 @@ describe('Document upload controller', () => {
     });
 
     expect(res.redirect).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/dashboard-v1');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should upload document and redirect back to current page', async () => {
@@ -431,50 +431,48 @@ describe('Document upload controller', () => {
 
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/other-proceedings/otherOrder/1/documentUpload');
   });
+});
 
-  describe('when there is an error in saving session', () => {
-    test('should throw an error', async () => {
-      const controller = new UploadDocumentController({});
-      const res = mockResponse();
-      const req = mockRequest({
-        params: {
-          orderType: 'otherOrder',
-          orderId: '1',
-        },
-        files: { documents: { name: 'test.rtf', data: '', mimetype: 'text' } },
-        session: {
-          user: { email: 'test@example.com' },
-          userCase: {
-            op_otherProceedings: {
-              order: {
-                otherOrders: [
-                  {
-                    orderDetail: 'OtherOrder1',
-                    orderCopy: 'Yes',
-                    orderDocument: {
-                      id: '',
-                      url: '',
-                      filename: '',
-                      binaryUrl: '',
-                    },
+describe('when there is an error in saving session', () => {
+  test('should throw an error', async () => {
+    const controller = new UploadDocumentController({});
+    const res = mockResponse();
+    const req = mockRequest({
+      params: {
+        orderType: 'otherOrder',
+        orderId: '1',
+      },
+      files: { documents: { name: 'test.rtf', data: '', mimetype: 'text' } },
+      session: {
+        user: { email: 'test@example.com' },
+        userCase: {
+          op_otherProceedings: {
+            order: {
+              otherOrders: [
+                {
+                  orderDetail: 'OtherOrder1',
+                  orderCopy: 'Yes',
+                  orderDocument: {
+                    id: '',
+                    url: '',
+                    filename: '',
+                    binaryUrl: '',
                   },
-                ],
-              },
+                },
+              ],
             },
           },
-          save: jest.fn(done => done('MOCK_ERROR')),
         },
-      });
-
-      try {
-        await controller.post(req, res);
-      } catch (err) {
-        //eslint-disable-next-line jest/no-conditional-expect
-        expect(err).toBe('MOCK_ERROR');
-        //eslint-disable-next-line jest/no-conditional-expect
-        expect(req.session.errors).toEqual([{ errorType: 'required', propertyName: 'document' }]);
-      }
+        save: jest.fn(done => done('MOCK_ERROR')),
+      },
     });
+
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
   });
 
   test('Should throw error if file is null', async () => {

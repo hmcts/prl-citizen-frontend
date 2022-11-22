@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Why do you need a permission from the court to make this application? (optional)',
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply',
   select_all_apply: 'Select all that apply',
@@ -13,13 +14,13 @@ const en = () => ({
     'There is a court order preventing me from making an application without first getting the permission of the court',
   anotherReason: 'Another reason',
   errors: {
-    sq_doNotHaveParentalResponsibilitySubField: 'Provide details',
-    sq_courtOrderPreventSubField: 'Provide details',
-    sq_anotherReasonSubField: 'Provide details',
+    sq_doNotHaveParentalResponsibility_subfield: 'Provide details',
+    sq_courtOrderPrevent_subfield: 'Provide details',
+    sq_anotherReason_subfield: 'Provide details',
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Why do you need a permission from the court to make this application? (optional) - welsh',
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply - welsh',
   select_all_apply: 'Select all that apply - welsh',
@@ -28,6 +29,11 @@ const cy = () => ({
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court - welsh',
   anotherReason: 'Another reason - welsh',
+  errors: {
+    sq_doNotHaveParentalResponsibility_subfield: 'Provide details - welsh',
+    sq_courtOrderPrevent_subfield: 'Provide details - welsh',
+    sq_anotherReason_subfield: 'Provide details - welsh',
+  },
 });
 
 const languages = {
@@ -48,7 +54,7 @@ export const form: FormContent = {
           value: 'doNotHaveParentalResponsibility',
           hint: l => l.section,
           subFields: {
-            sq_doNotHaveParentalResponsibilitySubField: {
+            sq_doNotHaveParentalResponsibility_subfield: {
               type: 'textarea',
               labelSize: null,
               attributes: {
@@ -63,7 +69,7 @@ export const form: FormContent = {
           label: l => l.courtOrderPrevent,
           value: 'courtOrderPrevent',
           subFields: {
-            sq_courtOrderPreventSubField: {
+            sq_courtOrderPrevent_subfield: {
               type: 'textarea',
               labelSize: null,
               attributes: {
@@ -78,7 +84,7 @@ export const form: FormContent = {
           label: l => l.anotherReason,
           value: 'anotherReason',
           subFields: {
-            sq_anotherReasonSubField: {
+            sq_anotherReason_subfield: {
               type: 'textarea',
               labelSize: null,
               attributes: {

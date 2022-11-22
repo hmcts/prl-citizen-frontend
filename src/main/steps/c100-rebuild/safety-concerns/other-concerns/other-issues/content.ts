@@ -3,7 +3,8 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   section: 'Safety concerns',
   title: 'Do you have any other concerns about the children’s safety and wellbeing?',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with.',
@@ -20,7 +21,8 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   section: 'Safety concerns - welsh',
   title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',

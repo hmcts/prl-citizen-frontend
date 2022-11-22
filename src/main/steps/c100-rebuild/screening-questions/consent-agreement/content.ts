@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   title: 'Do you have a written agreement with the other people in the case, that you want the court to review?',
   writtenAgreementDetails:
     'A written agreement between the parties that is made legally binding by the court is called a consent order.',
@@ -19,7 +20,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title:
     'Do you have a written agreement with the other people in the case, that you want the court to review? - welsh',
   writtenAgreementDetails:

@@ -2,9 +2,9 @@
 import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   addressLine1: 'Building and street',
   town: 'Town or city',
   county: 'County',
@@ -18,7 +18,7 @@ const en = () => ({
   explainNoHint: 'Start with your most recent',
 });
 
-const cy = () => ({
+export const cy = () => ({
   addressLine1: 'Building and street - welsh',
   town: 'Town or city - welsh',
   county: 'County - welsh',
@@ -85,7 +85,6 @@ export const form = (caseData: Partial<C100Applicant>): FormContent => {
         attributes: {
           maxLength: 14,
         },
-        validator: isInvalidPostcode,
       },
       country: {
         type: 'text',

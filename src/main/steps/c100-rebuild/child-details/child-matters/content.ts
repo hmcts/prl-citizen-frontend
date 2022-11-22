@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../../app/case/case';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -9,8 +10,9 @@ export * from '../routeGuard';
 
 let updatedForm: FormContent;
 
-const en = () => ({
+export const en = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to',
+  orderAppliedFor: 'Orders applied for',
   bodyHint: 'Select all that apply',
   childArrangementsOrder: {
     whoChildLiveWith: 'Decide who the children live with and when',
@@ -42,8 +44,9 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to - welsh',
+  orderAppliedFor: 'Orders applied for - welsh',
   bodyHint: 'Select all that apply - welsh',
   childArrangementsOrder: {
     whoChildLiveWith: 'Decide who the children live with and when - welsh',

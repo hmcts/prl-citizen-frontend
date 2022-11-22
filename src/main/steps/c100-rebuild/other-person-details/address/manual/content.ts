@@ -20,10 +20,6 @@ const en = () => ({
     PostTown: {
       required: 'Enter the town or city',
     },
-    PostCode: {
-      required: 'Enter the postcode',
-      invalid: 'Enter a valid postcode',
-    },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
@@ -42,10 +38,6 @@ const cy = () => ({
     },
     PostTown: {
       required: 'Enter the town or city - welsh',
-    },
-    PostCode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
@@ -71,6 +63,10 @@ export const form: FormContent = {
   },
 };
 
+export const getFormFields = (): FormContent => {
+  return updatedForm;
+};
+
 // eslint-disable-next-line @typescript-eslint/no-shadow
 const updatedFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
   updatedForm = {
@@ -78,6 +74,11 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
     fields: {
       ...formFields,
       ...(form.fields ?? {}),
+      _ctx: {
+        type: 'hidden',
+        labelHidden: true,
+        value: 'opAddressManual',
+      },
     },
   };
 

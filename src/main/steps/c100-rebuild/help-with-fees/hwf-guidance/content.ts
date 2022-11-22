@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   hwfGuidanceTitle: 'You need to apply for help with your child arrangements application fee',
   hwfApplyLinkHint1: 'You need to',
   hwfApplyLinkHint2: 'before you continue with this child arrangements application.',
@@ -20,7 +21,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   hwfGuidanceTitle: 'You need to apply for help with your child arrangements application fee - welsh',
   hwfApplyLinkHint1: 'You need to - welsh',
   hwfApplyLinkHint2: 'before you continue with this child arrangements application. - welsh',

@@ -4,7 +4,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   caption: 'Keeping your contact details private',
   headingTitle: 'Do the other people named in this application (the respondents) know any of your contact details?    ',
   one: 'Yes',
@@ -17,7 +17,8 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'Keeping your contact details private  - welsh',
   headingTitle:
     'Do the other people named in this application (the respondents) know any of your contact details? - welsh  ',
@@ -45,6 +46,11 @@ export const form: FormContent = {
       section: l => l.section,
       values: [],
       validator: isFieldFilledIn,
+    },
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'appl_detailsknow',
     },
   },
   submit: {
