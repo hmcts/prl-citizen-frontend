@@ -6,7 +6,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { UserDetails } from '../controller/AppRequest';
 
 import { CaseApi } from './C100CaseApi';
-import { C100 } from './definition';
+import { C100_CASE_EVENT, C100_CASE_TYPE } from './definition';
 
 jest.mock('axios');
 
@@ -16,6 +16,12 @@ const userDetails: UserDetails = {
   givenName: 'billy',
   familyName: 'bob',
   id: '1234',
+};
+const mockData = {
+  caseTypeOfApplication: C100_CASE_TYPE.C100,
+  c100RebuildChildPostCode: 'AB2 3BV',
+  helpWithFeesReferenceNumber: 'HWF-1234',
+  c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
 };
 
 describe('CaseApi', () => {
@@ -38,7 +44,7 @@ describe('CaseApi', () => {
 
   test('Should create a case', async () => {
     const request = {
-      caseTypeOfApplication: C100.CASE_TYPE_OF_APPLICATION,
+      caseTypeOfApplication: C100_CASE_TYPE.C100,
     };
 
     mockedAxios.post.mockResolvedValueOnce({
@@ -71,29 +77,26 @@ describe('CaseApi', () => {
   });
 
   test('Should update case if one is found', async () => {
+    //mock
     const caseData = {
-      data: {
-        ...userDetails,
-        id: '1234',
-      },
+      id: '1234',
+      ...mockData,
     };
-    mockedAxios.post.mockResolvedValueOnce(caseData);
+    mockedAxios.post.mockResolvedValueOnce({ data: caseData });
+    const updatedCaseData = await api.updateCase(
+      '1234',
+      caseData,
+      'c100-rebuild/dummyUrl',
+      C100_CASE_EVENT.CASE_UPDATE
+    );
 
-    const userCase = await api.updateCase('1234', userDetails, 'c100-rebuild/dummyUrl');
-
-    expect(userCase).toStrictEqual({
-      data: {
-        id: '1234',
-        accessToken: '123',
-        email: 'billy@bob.com',
-        givenName: 'billy',
-        familyName: 'bob',
-      },
-    });
+    expect(updatedCaseData).toStrictEqual({ data: caseData });
     expect(mockedAxios.post).toHaveBeenCalledWith(
       '1234/citizen-case-update/update-case',
-      { c100RebuildReturnUrl: 'c100-rebuild/dummyUrl' },
-      { headers: { accessCode: '12345678' } }
+      { ...mockData },
+      {
+        headers: { accessCode: 'null' },
+      }
     );
   });
 
@@ -216,5 +219,29 @@ describe('CaseApi', () => {
 
     await expect(api.deleteDocument('1234')).rejects.toThrow('Document could not be deleted.');
     expect(mockLogger.error).toHaveBeenCalledWith('API Error DELETE undefined 500');
+  });
+
+  test('Should submit case on citizen-case-submit', async () => {
+    //mock
+    const caseData = {
+      id: '1234',
+      ...mockData,
+    };
+    mockedAxios.post.mockResolvedValueOnce({ data: caseData });
+    const updatedCaseData = await api.updateCase(
+      '1234',
+      caseData,
+      'c100-rebuild/dummyUrl',
+      C100_CASE_EVENT.CASE_SUBMIT
+    );
+
+    expect(updatedCaseData).toStrictEqual({ data: caseData });
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      '1234/citizen-case-submit/update-case',
+      { ...mockData },
+      {
+        headers: { accessCode: 'null' },
+      }
+    );
   });
 });
