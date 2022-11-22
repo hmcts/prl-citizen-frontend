@@ -290,6 +290,7 @@ export class PostController<T extends AnyObject> {
         req.session.errors = [];
         Object.assign(req.session.userCase, formData);
         await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
+        req.session.userCase = {} as CaseWithId;
       } finally {
         this.redirect(req, res, DASHBOARD_URL);
       }

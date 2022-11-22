@@ -138,7 +138,6 @@ import {
   C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
-  C100_GET_CASE,
   C100_CHILDERN_LIVE_WITH,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
@@ -146,6 +145,8 @@ import {
   C100_APPLICANTS_PERSONAL_DETAILS,
   C100_APPLICANT_CONTACT_DETAIL,
   C100_CHECK_YOUR_ANSWER,
+  C100_CASE_NAME,
+  C100_CREATE_CASE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -352,7 +353,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_START,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_CASE_NAME,
   },
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
@@ -775,53 +776,43 @@ export const C100Sequence: Step[] = [
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getNextStep: (data, req) => {
-      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
-      let redirectURI = '';
-      if (applicantData?.length) {
-        const nextStepUri =
-          applicantData[0].start === YesOrNo.YES
-            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
-        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
-      } else {
-        redirectURI = '';
-      }
-      return redirectURI as `/${string}`;
-    },
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getNextStep: (data, req) => {
-      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
-      let redirectURI = '';
-      if (applicantData?.length) {
-        const nextStepUri =
-          applicantData[0].startAlternative === YesOrNo.YES
-            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
-        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
-      } else {
-        redirectURI = '';
-      }
-      return redirectURI as `/${string}`;
-    },
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADDRESS_LOOKUP,
@@ -980,11 +971,6 @@ export const C100Sequence: Step[] = [
       ),
   },
   {
-    url: C100_GET_CASE,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_GET_CASE,
-  },
-  {
     url: C100_CHILDERN_LIVE_WITH,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
@@ -1028,5 +1014,10 @@ export const C100Sequence: Step[] = [
     url: C100_CHECK_YOUR_ANSWER,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+  },
+  {
+    url: C100_CASE_NAME,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CREATE_CASE,
   },
 ];
