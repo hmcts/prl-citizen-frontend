@@ -1,5 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -11,6 +12,11 @@ const en = () => ({
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court',
   anotherReason: 'Another reason',
+  errors: {
+    sq_doNotHaveParentalResponsibilitySubField: 'Provide details',
+    sq_courtOrderPreventSubField: 'Provide details',
+    sq_anotherReasonSubField: 'Provide details',
+  },
 });
 
 const cy = () => ({
@@ -41,16 +47,46 @@ export const form: FormContent = {
           label: l => l.doNotHaveParentalResponsibility,
           value: 'doNotHaveParentalResponsibility',
           hint: l => l.section,
+          subFields: {
+            sq_doNotHaveParentalResponsibilitySubField: {
+              type: 'textarea',
+              labelSize: null,
+              attributes: {
+                rows: 4,
+              },
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'sq_permissionsWhy',
           label: l => l.courtOrderPrevent,
           value: 'courtOrderPrevent',
+          subFields: {
+            sq_courtOrderPreventSubField: {
+              type: 'textarea',
+              labelSize: null,
+              attributes: {
+                rows: 4,
+              },
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'sq_permissionsWhy',
           label: l => l.anotherReason,
           value: 'anotherReason',
+          subFields: {
+            sq_anotherReasonSubField: {
+              type: 'textarea',
+              labelSize: null,
+              attributes: {
+                rows: 4,
+              },
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
       ],
     },
