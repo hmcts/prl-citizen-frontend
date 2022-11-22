@@ -353,7 +353,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_START,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CASE_NAME,
+    getNextStep: () => C100_CREATE_CASE,
   },
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
@@ -1018,6 +1018,6 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CASE_NAME,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CREATE_CASE,
+    getNextStep: () => C100_CHILD_ADDRESS,
   },
 ];

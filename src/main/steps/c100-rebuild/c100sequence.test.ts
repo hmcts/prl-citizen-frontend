@@ -239,7 +239,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[24].url).toBe('/c100-rebuild/start');
     expect(C100Sequence[24].showInSection).toBe('c100');
-    expect(C100Sequence[24].getNextStep({})).toBe('/c100-rebuild/case-name');
+    expect(C100Sequence[24].getNextStep({})).toBe('/c100-rebuild/case/create');
 
     expect(C100Sequence[25].url).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
     expect(C100Sequence[25].showInSection).toBe('c100');
@@ -793,6 +793,6 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[122].url).toBe('/c100-rebuild/case-name');
     expect(C100Sequence[122].showInSection).toBe('c100');
-    expect(C100Sequence[122].getNextStep({})).toBe('/c100-rebuild/case/create');
+    expect(C100Sequence[122].getNextStep({})).toBe('/c100-rebuild/childaddress');
   });
 });
