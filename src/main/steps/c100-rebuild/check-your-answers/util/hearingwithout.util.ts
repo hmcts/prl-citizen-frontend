@@ -17,7 +17,6 @@ export const hearingDetailsContents = SystemLanguage => {
       return { ...contentHearingWithoutEn(), errors: '' };
     },
     cy: () => {
-      delete contentHearingWithoutCy['errors'];
       return { ...contentHearingWithoutCy(), errors: '' };
     },
   };

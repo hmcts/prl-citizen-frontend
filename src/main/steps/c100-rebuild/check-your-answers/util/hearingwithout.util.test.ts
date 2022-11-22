@@ -18,7 +18,6 @@ const RespectiveFileContents = SystemLanguage => {
       return { ...contentHearingWithoutEn(), errors: '' };
     },
     cy: () => {
-      delete contentHearingWithoutCy['errors'];
       return { ...contentHearingWithoutCy(), errors: '' };
     },
   };
