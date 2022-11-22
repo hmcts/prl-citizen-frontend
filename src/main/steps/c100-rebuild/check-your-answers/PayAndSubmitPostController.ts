@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { C100_CASE_EVENT } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PaymentHandler } from '../../../modules/payments/paymentController';
 import { C100_CONFIRMATIONPAGE, CHECK_ANSWERS } from '../../../steps/urls';
 
@@ -19,16 +19,8 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
       if (req.body.saveAndComeLater) {
         this.saveAndComeLater(req, res, req.session.userCase);
       } else {
-        console.log(req.body);
-        const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-        const form = new Form(fields);
-        const { _csrf, ...formData } = form.getParsedBody(req.body);
-        console.log(formData);
-
-        Object.assign(req.session.userCase, formData);
-
+        //Submit case in case of help with fees is opted in else initiate payment
         if (req.session.userCase.helpWithFeesReferenceNumber) {
-          //Submit case in case of help with fees is opted
           await req.locals.C100Api.updateCase(
             req.session.userCase!.caseId!,
             req.session.userCase,
@@ -44,6 +36,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
         }
       }
     } catch (e) {
+      req.locals.logger.error('Error happened in pay & submit case', e);
       res.redirect(CHECK_ANSWERS);
     }
   }
