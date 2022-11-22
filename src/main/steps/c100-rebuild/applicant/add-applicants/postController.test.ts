@@ -166,4 +166,84 @@ describe('PostController', () => {
     expect(req.session.userCase['appl_allApplicants'][2].applicantFirstName).toBe('dummy 3');
     expect(req.session.userCase['appl_allApplicants'][2].applicantLastName).toBe('dummy 3');
   });
+
+  test('Adding Applicant after if both body appliantfirst and applicantlastname without values', async () => {
+    const mockFields = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddApplicantPostController(mockFields.fields);
+    const req = mockRequest();
+    req.session.userCase['appl_allApplicants'] = [];
+    req.session.save = function () {
+      return req.session;
+    };
+    req.body = {
+      saveAndContinue: 'true',
+      'ApplicantFirstName-1': '',
+      'ApplicantLastName-1': '',
+      applicantFirstName: '',
+      applicantLastName: '',
+    };
+    controller.post(req, mockResponse());
+    expect(req.session.userCase['appl_allApplicants']).toHaveLength(0);
+  });
+
+  test('Adding Applicant after if both body appliantfirst and applicantlastname without values, saveAndContinue unchecked', async () => {
+    const mockFields = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddApplicantPostController(mockFields.fields);
+    const req = mockRequest();
+    req.session.userCase['appl_allApplicants'] = [];
+    req.session.save = function () {
+      return req.session;
+    };
+    req.body = {
+      saveAndContinue: undefined,
+      'ApplicantFirstName-1': '',
+      'ApplicantLastName-1': '',
+      applicantFirstName: '',
+      applicantLastName: '',
+    };
+    (req.session.errors = [{ errorType: 'required', propertyName: 'needsResolution' }]),
+      controller.post(req, mockResponse());
+    expect(req.session.userCase['appl_allApplicants']).toHaveLength(0);
+  });
+
+  test('Redirecting Add Applicant clicking on Continue Button', async () => {
+    const mockFields = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddApplicantPostController(mockFields.fields);
+    const req = mockRequest();
+    req.session.userCase['appl_allApplicants'] = [
+      {
+        id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        applicantFirstName: 'abc',
+        applicantLastName: 'abc',
+        detailsKnown: '',
+        startAlternative: '',
+        start: 'Yes',
+        contactDetailsPrivate: ['email'],
+        contactDetailsPrivateAlternative: ['email'],
+      },
+    ];
+    req.body = {
+      'ApplicantFirstName-1': 'Test',
+      'ApplicantLastName-1': 'Test',
+    };
+    controller.mapEnteriesToValuesAfterContinuing(req, mockResponse());
+    expect(req.session.userCase['appl_allApplicants']).toEqual([
+      {
+        id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        applicantFirstName: 'Test',
+        applicantLastName: 'Test',
+        detailsKnown: '',
+        startAlternative: '',
+        start: 'Yes',
+        contactDetailsPrivate: ['email'],
+        contactDetailsPrivateAlternative: ['email'],
+      },
+    ]);
+  });
 });
