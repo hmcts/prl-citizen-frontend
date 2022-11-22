@@ -59,6 +59,7 @@ describe('miam Util', () => {
     const sessionFields = MiamContentsForGeneralReasons(userCase);
     userCase.miam_nonAttendanceReasons.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
+      expect(sessionFields?.cy()[item]).not.toBe(undefined);
     });
   });
 
@@ -77,6 +78,7 @@ describe('miam Util', () => {
     const sessionFields = MiamContentsForDomensticVoilence(userCase);
     userCase.miam_domesticAbuse.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
+      expect(sessionFields?.cy()[item]).not.toBe(undefined);
     });
   });
 
@@ -97,6 +99,7 @@ describe('miam Util', () => {
     const sessionFields = MiamContentsForUrgentHearing(userCase);
     userCase.miam_urgency.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
+      expect(sessionFields?.cy()[item]).not.toBe(undefined);
     });
   });
 
@@ -114,6 +117,7 @@ describe('miam Util', () => {
     const sessionFields = MiamContentsForPreviousAttendance(userCase);
     userCase.miam_previousAttendance.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
+      expect(sessionFields?.cy()[item]).not.toBe(undefined);
     });
   });
   test('miam_notAttendingReasons test for checking if respective screen match contentss', () => {
@@ -130,6 +134,7 @@ describe('miam Util', () => {
     const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase);
     userCase.miam_notAttendingReasons.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
+      expect(sessionFields?.cy()[item]).not.toBe(undefined);
     });
   });
 
@@ -144,6 +149,7 @@ describe('miam Util', () => {
     const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase);
     userCase.miam_notAttendingReasons_canNotAccessMediator.forEach(item => {
       expect(sessionFields).not.toBe(item);
+      expect(sessionFields).not.toBe(item);
     });
   });
   test('MiamContentsForChildProtection test for checking if respective screen match contentss', () => {
@@ -154,10 +160,12 @@ describe('miam Util', () => {
     const sessionFields = MiamContentsForChildProtection(userCase);
     userCase.miam_childProtectionEvidence.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe([]);
+      expect(sessionFields?.cy()[item]).not.toBe([]);
     });
   });
 
   test('additionalTitlesMiam test for checking if respective screen match contentss', () => {
     expect(additionalTitlesMiam('en').toString()).toBe(additionalTitlesMiamTestSample('en').toString());
+    expect(additionalTitlesMiam('cy').toString()).toBe(additionalTitlesMiamTestSample('cy').toString());
   });
 });
