@@ -93,12 +93,8 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
           value: YesOrNo.YES,
         },
       ],
-      validator: (value, formData) =>
-        formData?.addressUnknown === YesNoEmpty.YES
-          ? ''
-          : formData.AddressLine1 === '' || formData.PostTown === '' || formData.Country === ''
-          ? 'cantHaveAddressAndUnknown'
-          : '',
+
+      validator: (value, formData) => (formData?.addressUnknown === YesNoEmpty.YES ? '' : undefined),
     },
   };
 
