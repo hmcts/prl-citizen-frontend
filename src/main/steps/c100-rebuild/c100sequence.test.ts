@@ -246,14 +246,12 @@ describe('C100Sequence', () => {
     expect(C100Sequence[25].getNextStep({ hwf_needHelpWithFees: YesOrNo.YES })).toBe(
       '/c100-rebuild/help-with-fees/fees-applied'
     );
-    expect(C100Sequence[25].getNextStep({ hwf_needHelpWithFees: YesOrNo.NO })).toBe(
-      '/c100-rebuild/help-with-fees/hwf-guidance'
-    );
+    expect(C100Sequence[25].getNextStep({ hwf_needHelpWithFees: YesOrNo.NO })).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[26].url).toBe('/c100-rebuild/help-with-fees/fees-applied');
     expect(C100Sequence[26].showInSection).toBe('c100');
     expect(C100Sequence[26].getNextStep({ hwf_feesAppliedDetails: YesOrNo.YES })).toBe(
-      '/c100-rebuild/help-with-fees/fees-applied'
+      '/c100-rebuild/check-your-answers'
     );
     expect(C100Sequence[26].getNextStep({ hwf_feesAppliedDetails: YesOrNo.NO })).toBe(
       '/c100-rebuild/help-with-fees/hwf-guidance'

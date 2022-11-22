@@ -11,7 +11,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
-import { C100, State } from './definition';
+import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
@@ -30,7 +30,7 @@ export class CaseApi {
 
   public async createCase(): Promise<CreateCaseResponse> {
     const data = {
-      caseTypeOfApplication: C100.CASE_TYPE_OF_APPLICATION,
+      caseTypeOfApplication: C100_CASE_TYPE.C100,
     };
 
     try {
@@ -43,10 +43,22 @@ export class CaseApi {
     }
   }
 
-  public async updateCase(caseId: string, caseData: Partial<Case>, returnUrl: string): Promise<UpdateCaseResponse> {
+  /**
+   * This is used to update/submit case based on the case event passed
+   * @param caseId
+   * @param caseData
+   * @param returnUrl
+   * @param caseEvent
+   * @returns
+   */
+  public async updateCase(
+    caseId: string,
+    caseData: Partial<Case>,
+    returnUrl: string,
+    caseEvent: C100_CASE_EVENT
+  ): Promise<UpdateCaseResponse> {
     const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
       caseData;
-
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
       caseTypeOfApplication: caseTypeOfApplication as string,
@@ -57,9 +69,9 @@ export class CaseApi {
     };
 
     try {
-      const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100.CASE_UPDATE}/update-case`, data, {
+      const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${caseEvent}/update-case`, data, {
         headers: {
-          accessCode: '12345678',
+          accessCode: 'null',
         },
       });
       return { data: response.data };
@@ -72,7 +84,7 @@ export class CaseApi {
   /**
    * Delete Case
    * State: DELETED
-   * Event: C100.DELETE_CASE
+   * Event: C100_CASE_EVENT.DELETE_CASE
    * @param caseData
    * @param session
    */
@@ -83,7 +95,7 @@ export class CaseApi {
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
       }
-      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100.DELETE_CASE}/update-case`, caseData, {
+      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100_CASE_EVENT.DELETE_CASE}/update-case`, caseData, {
         headers: {
           accessCode: '12345678',
         },
