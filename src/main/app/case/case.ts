@@ -198,7 +198,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
   const result = {};
-  for (const field of Object.keys(data)) {
+  for (const field of Object.keys({ data })) {
     const value = fields[field];
 
     if (typeof value === 'function') {

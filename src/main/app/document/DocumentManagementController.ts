@@ -190,7 +190,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     if (endPoint === 'downloadCitizenDocument' && req.session.userCase?.citizenUploadedDocumentList) {
-      for (const doc of req.session.userCase?.citizenUploadedDocumentList) {
+      for (const doc of req.session.userCase.citizenUploadedDocumentList) {
         if (
           doc.value?.citizenDocument?.document_url?.substring(
             doc.value?.citizenDocument?.document_url?.lastIndexOf('/') + 1
@@ -207,7 +207,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     if (endPoint === 'downloadManageDocument' && req.session.userCase?.otherDocuments) {
-      for (const doc of req.session.userCase?.otherDocuments) {
+      for (const doc of req.session.userCase.otherDocuments) {
         if (
           doc.value?.documentOther?.document_url.substring(
             doc.value.documentOther.document_url.lastIndexOf('/') + 1
@@ -224,7 +224,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     if (endPoint === 'orders' && req.session.userCase?.orderCollection) {
-      for (const doc of req.session.userCase?.orderCollection) {
+      for (const doc of req.session.userCase.orderCollection) {
         if (
           doc.value.orderDocument.document_url.substring(doc.value.orderDocument.document_url.lastIndexOf('/') + 1) ===
           filename
@@ -240,7 +240,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     if (endPoint === 'applicationmade' && req.session.userCase?.existingProceedings) {
-      for (const doc of req.session.userCase?.existingProceedings) {
+      for (const doc of req.session.userCase.existingProceedings) {
         if (
           doc.value?.uploadRelevantOrder?.document_url.substring(
             doc.value.uploadRelevantOrder.document_url.lastIndexOf('/') + 1
