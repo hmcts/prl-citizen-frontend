@@ -4,11 +4,11 @@ import { isAlphaNumeric, isFieldFilledIn } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  headingTitle: 'Enter Case Name',
+  title: 'Enter Case Name',
   caseNameHint: 'Enter the eldest child’s full name. For example, John Smith',
 
   errors: {
-    c100RebuildCaseName: {
+    applicantCaseName: {
       required: 'Case Name is required',
       invalid: 'Please enter a valid case name to proceed',
     },
@@ -16,11 +16,11 @@ const en = () => ({
 });
 
 const cy = () => ({
-  headingTitle: 'Enter Case Name - welsh',
+  title: 'Enter Case Name - welsh',
   caseNameHint: 'Enter the eldest child’s full name. For example, John Smith - welsh',
 
   errors: {
-    c100RebuildCaseName: {
+    applicantCaseName: {
       required: 'Case Name is required - welsh',
       invalid: 'Please enter a valid case name to proceed - welsh',
     },
@@ -34,8 +34,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c100RebuildCaseName: {
-      id: 'c100RebuildCaseName',
+    applicantCaseName: {
+      id: 'applicantCaseName',
       type: 'text',
       classes: 'govuk-input--width-20',
       hint: hint => hint.caseNameHint,

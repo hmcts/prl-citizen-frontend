@@ -5,11 +5,11 @@ import { CommonContent, generatePageContent } from '../../common/common.content'
 import { generateContent } from './content';
 
 const en = {
-  headingTitle: 'Enter Case Name',
+  title: 'Enter Case Name',
   caseNameHint: 'Enter the eldest child’s full name. For example, John Smith',
 
   errors: {
-    c100RebuildCaseName: {
+    applicantCaseName: {
       required: 'Case Name is required',
       invalid: 'Please enter a valid case name to proceed',
     },
@@ -17,11 +17,11 @@ const en = {
 };
 
 const cy = {
-  headingTitle: 'Enter Case Name - welsh',
+  title: 'Enter Case Name - welsh',
   caseNameHint: 'Enter the eldest child’s full name. For example, John Smith - welsh',
 
   errors: {
-    c100RebuildCaseName: {
+    applicantCaseName: {
       required: 'Case Name is required - welsh',
       invalid: 'Please enter a valid case name to proceed - welsh',
     },
@@ -48,7 +48,7 @@ describe('applicant personal details > applying-with > content', () => {
   });
 
   test('should contain applyingWith field', () => {
-    const applyingWithField = fields.c100RebuildCaseName as FormOptions;
+    const applyingWithField = fields.applicantCaseName as FormOptions;
     expect(applyingWithField.type).toBe('text');
     // eslint-disable-next-line @typescript-eslint/ban-types
     expect((applyingWithField.hint as Function)(generatedContent)).toBe(en.caseNameHint);
