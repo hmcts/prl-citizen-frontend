@@ -166,7 +166,7 @@ section {
 .stage--active {
   .status-bar__ring {
     background-image: url('/assets/images/icon-progress-tick.png');
-    background-size: contain;
+    background-repeat: no-repeat;
     background-color: $govuk-link-colour;
     background-position: center;
     border: .25rem solid $govuk-link-colour;
