@@ -41,7 +41,7 @@ appInsights:
   instrumentationKey: false
 featureToggles:
   c100Rebuild: true
-  launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
+  launchDarklyKey: 'sdk-dce5b745-a173-4ad0-9751-69c96bb9d644'
 
 launchDarkly:
   offline: false
