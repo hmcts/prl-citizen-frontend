@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { applyParms } from '../../../common/url-parser';
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 import { DATE_FORMATTOR } from '../common/dateformatter';
 import { HTML } from '../common/htmlSelectors';
 
-/**
- * It takes in an object and returns a string
- * @param keys - This is the object that contains the labels for the fields.
- * @param order - This is the object that contains the data that you want to display.
- * @returns A string
- */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order) => {
   const newOrders = order;
@@ -76,9 +71,9 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessio
         orderDetails.forEach((nestedOrder, index) => {
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({
-            key: `${keys[`${order}Label`]} ${IndexNumber}`,
+            key: `${keys[order + 'Label']} ${IndexNumber}`,
             valueHtml: IndividualOrderFieldsParser(keys, nestedOrder),
-            changeUrl: URLS['C100_OTHER_PROCEEDINGS_ORDER_DETAILS'] + `?orderType=${order}`,
+            changeUrl: applyParms(URLS['C100_OTHER_PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
           });
         });
       }
