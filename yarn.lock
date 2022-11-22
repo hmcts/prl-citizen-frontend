@@ -7196,7 +7196,7 @@ jest-haste-map@^27.5.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-jest-html-reporter@^3.5.0:
+jest-html-reporter@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/jest-html-reporter/-/jest-html-reporter-3.7.0.tgz#8bdd6d106c815767c65f88201a207ecb05e5e0f5"
   integrity sha512-Bdr71uiCWidOkLvoV2xCvRCTaojjQTuaRplNeEWFeuxAleuHXh/dTuzq0zzwjRqgZjOA6Qoe8LGrkBIb7oXlzQ==
