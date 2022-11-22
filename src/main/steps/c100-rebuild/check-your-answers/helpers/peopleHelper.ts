@@ -36,9 +36,9 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys)
   if(sessionApplicantData.hasOwnProperty('addressHistory')){
     html += HTML.H4 + keys['respondentAddressLabel'] + HTML.H4_CLOSE;
     html += HTML.BOTTOM_PADDING_3;
-    html += sessionApplicantData?.['addressHistory'] === 'dontKnow' ? keys['dontKnow'] : sessionApplicantData?.['addressHistory'];
+    html += sessionApplicantData?.['addressHistory'] === 'dontKnow' ? keys['dontKnow'] : sessionApplicantData?.['addressHistory'].charAt(0).toUpperCase() + sessionApplicantData?.['addressHistory'].slice(1);
     html += HTML.BOTTOM_PADDING_CLOSE;
-    if(sessionApplicantData.addressHistory === 'No'){
+    if(sessionApplicantData.addressHistory === 'no'){
     html += HTML.RULER;
     html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BOTTOM_PADDING_3;
     sessionApplicantData.hasOwnProperty('provideDetailsOfPreviousAddresses')&& (html += sessionApplicantData?.['provideDetailsOfPreviousAddresses'] );

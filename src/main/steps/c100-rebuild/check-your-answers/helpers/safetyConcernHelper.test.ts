@@ -25,6 +25,6 @@ describe('test cases for SaftyConcern', () => {
     const userCase = {
       sessionKey: 'sessionKey',
     };
-    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser)).toBe(undefined);
+    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser)).toBe('');
   });
 });

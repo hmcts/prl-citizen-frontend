@@ -53,7 +53,7 @@ const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser)
 export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser) => {
   const subFieldKey = 'c1A_safteyConcerns' as string;
   const user = typeOfUser === C1ASafteyConcernsAbout.CHILDREN ? 'child' : C1ASafteyConcernsAbout.APPLICANT;
-  let html;
+  let html = '';
   if (userCase.hasOwnProperty(sessionKey)) {
     if (userCase.hasOwnProperty(subFieldKey)) {
       const FoundElement = userCase[subFieldKey]?.[user]?.[childField];
