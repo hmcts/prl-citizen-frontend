@@ -23,6 +23,7 @@ import {
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_ORDER_DETAILS,
   PROCEEDINGS_START,
+  PROCEEDINGS_SUMMARY,
   PageLink,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
@@ -48,7 +49,6 @@ import {
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
-  PROCEEDINGS_SUMMARY,
 } from '../urls';
 
 import OtherProceedingsNavigationController from './proceedings/navigationController';

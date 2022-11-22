@@ -3,7 +3,7 @@ import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   section: 'Provide details of court cases you or the children have been involved in',
   title: '',
   select_all_apply:
@@ -27,6 +27,8 @@ const en = () => ({
   otherInjuctionOrder: 'Other injunction order',
   undertakingOrder: 'Undertaking in place of an order',
   otherOrder: 'Other orders',
+  childrenInvolvedCourtCase: 'Have the children been involved in a court case?',
+  courtOrderProtection: 'Have you had a court order made for your protection?',
   errors: {
     courtProceedingsOrders: {
       required: 'Specify which court cases you or the children have been involved in',
@@ -34,7 +36,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   section: 'Provide details of court cases you or the children have been involved in',
   title: '',
   select_all_apply:
@@ -58,6 +60,8 @@ const cy = () => ({
   otherInjuctionOrder: 'Other injunction order - welsh',
   undertakingOrder: 'Undertaking in place of an order - welsh',
   otherOrder: 'Other orders - welsh',
+  childrenInvolvedCourtCase: 'Have the children been involved in a court case?',
+  courtOrderProtection: 'Have you had a court order made for your protection?',
   errors: {
     courtProceedingsOrders: {
       required: 'Specify which court cases you or the children have been involved in - welsh',

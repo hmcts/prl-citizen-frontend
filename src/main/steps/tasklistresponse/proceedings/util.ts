@@ -47,9 +47,3 @@ export const getAllOrderDocuments = (
 ): ProceedingsOrderInterface[] | [] => {
   return getAllOrders(orders).filter(order => order.orderDocument?.id);
 };
-
-export const getSelectedOrders = (
-  orders: ProceedingsOrderTypeInterface | Record<string, never> = {}
-): ProceedingsOrderInterface[] | [] => {
-  return  getAllOrders(orders).filter( order => order.orderType);
-};

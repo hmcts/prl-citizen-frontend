@@ -28,7 +28,7 @@ describe('other proceedings > documentSummary > content', () => {
       },
     },
     userCase: {
-      op_otherProceedings: {
+      otherProceedings: {
         order: {
           otherOrders: [
             {
