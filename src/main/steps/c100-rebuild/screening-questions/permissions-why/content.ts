@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -12,6 +13,11 @@ export const en = () => ({
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court',
   anotherReason: 'Another reason',
+  errors: {
+    sq_doNotHaveParentalResponsibility_subfield: 'Provide details',
+    sq_courtOrderPrevent_subfield: 'Provide details',
+    sq_anotherReason_subfield: 'Provide details',
+  },
 });
 
 export const cy = () => ({
@@ -23,6 +29,11 @@ export const cy = () => ({
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court - welsh',
   anotherReason: 'Another reason - welsh',
+  errors: {
+    sq_doNotHaveParentalResponsibility_subfield: 'Provide details - welsh',
+    sq_courtOrderPrevent_subfield: 'Provide details - welsh',
+    sq_anotherReason_subfield: 'Provide details - welsh',
+  },
 });
 
 const languages = {
@@ -42,16 +53,46 @@ export const form: FormContent = {
           label: l => l.doNotHaveParentalResponsibility,
           value: 'doNotHaveParentalResponsibility',
           hint: l => l.section,
+          subFields: {
+            sq_doNotHaveParentalResponsibility_subfield: {
+              type: 'textarea',
+              labelSize: null,
+              attributes: {
+                rows: 4,
+              },
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'sq_permissionsWhy',
           label: l => l.courtOrderPrevent,
           value: 'courtOrderPrevent',
+          subFields: {
+            sq_courtOrderPrevent_subfield: {
+              type: 'textarea',
+              labelSize: null,
+              attributes: {
+                rows: 4,
+              },
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'sq_permissionsWhy',
           label: l => l.anotherReason,
           value: 'anotherReason',
+          subFields: {
+            sq_anotherReason_subfield: {
+              type: 'textarea',
+              labelSize: null,
+              attributes: {
+                rows: 4,
+              },
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
       ],
     },
