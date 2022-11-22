@@ -1,3 +1,4 @@
+import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -39,7 +40,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentConcernedAbout: {
+    c1A_safetyConernAbout: {
+      id: 'c1A_safetyConernAbout',
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
@@ -47,14 +49,14 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'respondentConcernedAbout',
+          name: 'c1A_safetyConernAbout',
           label: l => l.childconcern,
-          value: 'only child',
+          value: C1ASafteyConcernsAbout.CHILDREN,
         },
         {
-          name: 'respondentConcernedAbout',
+          name: 'c1A_safetyConernAbout',
           label: l => l.selfconcern,
-          value: 'only self',
+          value: C1ASafteyConcernsAbout.APPLICANT,
         },
       ],
     },

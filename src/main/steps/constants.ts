@@ -1,3 +1,4 @@
+import { AppRequest } from 'app/controller/AppRequest';
 import { CaseWithId } from '../app/case/case';
 
 import { PageLink } from './urls';
@@ -14,7 +15,7 @@ export interface Step {
   showInSection?: Sections;
   showInCompleteSection?: Sections;
   excludeFromContinueApplication?: boolean;
-  getNextStep: (data: Partial<CaseWithId>) => PageLink;
+  getNextStep: (data: Partial<CaseWithId>, req?: AppRequest) => PageLink;
 }
 
 export const ApplicantUploadFiles = 'applicantUploadFiles';

@@ -2316,3 +2316,8 @@ export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
 
+export enum C1ASafteyConcernsAbout{
+  CHILDREN = 'children',
+  APPLICANT = 'applicant',
+  OTHER = 'otherConcerns',
+}

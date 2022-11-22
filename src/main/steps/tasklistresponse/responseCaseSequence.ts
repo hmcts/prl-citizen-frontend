@@ -1,5 +1,6 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
+import SafteyConcernsNavigationController from './allegations-of-harm-and-violence/navigationController'
 import {
   CONSENT_SAVE,
   CONSENT_SUMMARY,
@@ -265,12 +266,8 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_CHECK_ANSWERS_YES,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.respondentConcernedAbout?.length === 2
-        ? RESPOND_TO_APPLICATION
-        : data.respondentConcernedAbout?.includes('only child') && data.respondentConcernedAbout.length === 1
-        ? RESPONDENT_ONLY_CHILD_CONCERN
-        : RESPONDENT_ONLY_SELF_CONCERN,
+    getNextStep: (caseData, req) =>
+    SafteyConcernsNavigationController.getNextUrl(RESPONDENT_CHECK_ANSWERS_YES, caseData, req?.params),
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_NO,
