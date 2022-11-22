@@ -590,7 +590,7 @@ export const SafetyConcerns_child = (
   let subFields = userCase['c1A_concernAboutChild'] as ANYTYPE;
   subFields = subFields
     ?.filter(
-      (element: ANYTYPE) =>
+      (element) =>
         element !== C1AAbuseTypes.ABDUCTION &&
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
         element !== C1AAbuseTypes.SOMETHING_ELSE
@@ -611,7 +611,7 @@ export const SafetyConcerns_child = (
         ),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE'], { abuseType: field }),
       };
-    }) as ANYTYPE;
+    });
 
   const SummaryData = [
     {
@@ -735,7 +735,7 @@ export const SafetyConcerns_yours = (
   let subFields = userCase?.['c1A_concernAboutApplicant'] as ANYTYPE;
   subFields = subFields
     ?.filter(
-      (element: ANYTYPE) =>
+      (element) =>
         element !== C1AAbuseTypes.ABDUCTION &&
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
@@ -752,7 +752,7 @@ export const SafetyConcerns_yours = (
         ),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE'], { abuseType: field }),
       };
-    }) as ANYTYPE;
+    });
 
   const SummaryData = [
     {
