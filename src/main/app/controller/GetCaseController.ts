@@ -1,7 +1,7 @@
 import { Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
-import { APPLICANT_TASK_LIST_URL, C100_CHILD_ADDRESS, DASHBOARD_URL, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
+import { APPLICANT_TASK_LIST_URL, C100_CASE_NAME, DASHBOARD_URL, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
 
 import { AppRequest } from './AppRequest';
@@ -50,9 +50,9 @@ export class GetCaseController {
           caseId,
           caseTypeOfApplication,
         } as CaseWithId;
-
+        req.session.userCaseList = [];
         req.session.save(() => {
-          res.redirect(C100_CHILD_ADDRESS);
+          res.redirect(C100_CASE_NAME);
         });
       } catch (e) {
         throw new Error('case could not be created-createC100ApplicantCase');
@@ -71,7 +71,9 @@ export class GetCaseController {
           ...rest,
         };
       }
-
+      if (c100RebuildReturnUrl !== '') {
+        req.session.userCaseList = [];
+      }
       req.session.save(() => {
         res.redirect(c100RebuildReturnUrl ?? DASHBOARD_URL);
       });
