@@ -81,7 +81,7 @@ export const enContent = {
   },
   errors: {
     statementOfTruth: {
-      required: 'Please select statement of truth',
+      required: 'Confirm that you believe the information in this application is true',
     },
   },
   sectionTitles: {
@@ -177,7 +177,7 @@ export const cyContent: typeof enContent = {
   },
   errors: {
     statementOfTruth: {
-      required: 'Please select statement of truth',
+      required: 'Confirm that you believe the information in this application is true',
     },
   },
   sectionTitles: {
@@ -373,7 +373,7 @@ export const form: FormContent = {
         },
       ],
     },
-    statementOftruthSpacer: {},
+    statementOftruthLastPara: {},
   },
   submit: {
     text: l => l.onlycontinue,
@@ -427,9 +427,9 @@ export const generateContent: TranslationFn = content => {
     label: `${newContents.StatementOfTruth['inset']}`,
   };
 
-  form.fields['statementOftruthSpacer'] = {
+  form.fields['statementOftruthLastPara'] = {
     type: 'textAndHtml',
-    label: `${HTML.BREAK + HTML.BREAK + HTML.BREAK}`,
+    textAndHtml: HTML.BREAK + `${newContents.StatementOfTruth['lastPara']}` + HTML.BREAK + HTML.BREAK + HTML.BREAK,
   };
   if (
     content.userCase &&

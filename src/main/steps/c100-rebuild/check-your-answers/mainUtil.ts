@@ -10,15 +10,15 @@ import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
 import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
-import { applicantAddressParser, applicantAddressParserForRespondents, applicantContactDetailsParser, applicantCourtCanLeaveVoiceMail, otherPeopleAddressParser } from './helpers/applicantHelper';
 import {  courtTypeOfOrderHelper } from './helpers/courtOrderHelper';
+import { nameAndGenderParser } from './helpers/generalHelper';
 import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
+import { applicantAddressParser, applicantAddressParserForRespondents, applicantContactDetailsParser, applicantCourtCanLeaveVoiceMail, otherPeopleAddressParser } from './helpers/peopleHelper';
 import { resonableAdjustmentHelper } from './helpers/reasonableAdjustment';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
-
 /* eslint-disable import/namespace */
 export const LocationDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -317,7 +317,6 @@ export const ApplicantDetails = (
       changeNameInformation +=  personalDetails['applPreviousName'];
       changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
     }
-
     newApplicantData.push(
       {
         key: '',
@@ -591,18 +590,18 @@ export const SafetyConcerns_child = (
   let subFields = userCase['c1A_concernAboutChild'] as ANYTYPE;
   subFields = subFields
     ?.filter(
-      (element: ANYTYPE) =>
+      (element) =>
         element !== C1AAbuseTypes.ABDUCTION &&
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
         element !== C1AAbuseTypes.SOMETHING_ELSE
-    )
-    ?.map(field => {
+    ).map(field => {
       return {
         key: keys['detailsOfChildConcern']
           .split('[***]')
           .join(` ${keys[field]} `)
           .split('[^^^]')
           .join(keys['againstChild']),
+        value: '',  
         valueHtml: SafetyConcernsHelper(
           userCase,
           keys,
@@ -612,7 +611,7 @@ export const SafetyConcerns_child = (
         ),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE'], { abuseType: field }),
       };
-    }) as ANYTYPE;
+    });
 
   const SummaryData = [
     {
@@ -629,9 +628,9 @@ export const SafetyConcerns_child = (
    */
   let policeOrInvestigatorsOtherDetailsHTML = '';
   policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorInvolved'];
-  userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
-    ? (policeOrInvestigatorsOtherDetailsHTML += HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails'])
-    : (policeOrInvestigatorsOtherDetailsHTML += '');
+   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
+    ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
+    :  '' ;
   /**
    * @c1A_childAbductedBefore session Values
    */
@@ -736,7 +735,7 @@ export const SafetyConcerns_yours = (
   let subFields = userCase?.['c1A_concernAboutApplicant'] as ANYTYPE;
   subFields = subFields
     ?.filter(
-      (element: ANYTYPE) =>
+      (element) =>
         element !== C1AAbuseTypes.ABDUCTION &&
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
@@ -753,7 +752,7 @@ export const SafetyConcerns_yours = (
         ),
         changeUrl: applyParms(Urls['C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE'], { abuseType: field }),
       };
-    }) as ANYTYPE;
+    });
 
   const SummaryData = [
     {
@@ -926,28 +925,7 @@ export const RespondentDetails = (
       const respondentNo = Number(respondent) + 1;
       const contactDetails = sessionRespondentData[respondent]['contactDetails'];
       
-      /**
-       * Name takes
-       */
-      let changeNameInformation = '';
-      const hasNameChanged = personalDetails['hasNameChanged'] !== 'dontKnow' ? personalDetails['hasNameChanged'] : keys['dontKnow'];
-      changeNameInformation += hasNameChanged;
-      if(hasNameChanged === 'yes'){
-        const changedName = personalDetails['previousFullName'];
-        changeNameInformation += HTML.RULER;
-        changeNameInformation += HTML.H4;
-        changeNameInformation +=keys['details'];
-        changeNameInformation += HTML.H4_CLOSE;
-        changeNameInformation += HTML.BOTTOM_PADDING_3;
-        changeNameInformation += changedName;
-        changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
-      }
-
-      let childGender = '';
-      childGender += personalDetails['gender'];
-      if(personalDetails['otherGenderDetails'] !== ''){
-        childGender += HTML.BREAK + HTML.RULER + keys['otherGender'] +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails'];
-      }
+      const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML);
 
       newRespondentStorage.push(
         {
@@ -963,7 +941,7 @@ export const RespondentDetails = (
         },
         {
           key: keys['hasNameChanged'],
-          valueHtml: changeNameInformation[0].toUpperCase() + changeNameInformation.slice(1),
+          valueHtml: changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
         {
@@ -1085,20 +1063,6 @@ export const RespondentDetails = (
   };
 };
 
-
-/**
- * 
- * @param param0 
- * @param userCase 
- * @returns 
- * 
- *   const SummaryData = newOtherPeopleStorage;
-  return {
-    title: sectionTitles['detailofOtherPeople'],
-    rows: getSectionSummaryList(SummaryData, content),
-  };
- */
-
   /* eslint-disable import/namespace */
 export const OtherPeopleDetailsTitle = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -1138,34 +1102,8 @@ export const OtherPeopleDetails = (
         personalDetails = sessionOtherPeopleData[respondent]['personalDetails']; //personalDetails
         const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
       const OtherRespondentNo = Number(respondent) + 1;
-      
-      /**
-       * Name takes
-       */
-      let changeNameInformation = '';
-      const hasNameChanged = personalDetails['hasNameChanged'];
-      if(hasNameChanged === 'dontKnow'){
-        changeNameInformation += keys['dontKnow'];
-      }else{
-        changeNameInformation += hasNameChanged;
-      }
-
-      if(hasNameChanged === 'yes'){
-        const changedName = personalDetails['previousFullName'];
-        changeNameInformation += HTML.RULER;
-        changeNameInformation += HTML.H4;
-        changeNameInformation +=keys['details'];
-        changeNameInformation += HTML.H4_CLOSE;
-        changeNameInformation += HTML.BOTTOM_PADDING_3;
-        changeNameInformation += changedName;
-        changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
-      }
-
-      let childGender = '';
-      childGender += personalDetails['gender'];
-      if(personalDetails['otherGenderDetails'] !== ''){
-        childGender += HTML.BREAK + HTML.RULER + keys['otherGender'] +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails'];
-      }
+    
+      const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML);
 
       newOtherPeopleStorage.push(
         {

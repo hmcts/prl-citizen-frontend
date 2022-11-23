@@ -233,7 +233,7 @@ describe('Document upload controller', () => {
     });
 
     expect(res.redirect).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/dashboard-v1');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should upload document and redirect back to current page', async () => {
