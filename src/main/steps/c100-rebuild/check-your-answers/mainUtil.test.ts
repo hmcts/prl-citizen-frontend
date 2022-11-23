@@ -1,5 +1,17 @@
-import { ChildernDetails, PeopleDetails, TypeOfOrder, WithoutNoticeHearing } from './mainUtil';
-//  ,ChildernDetailsAdditional ,ChildernDetailsAdditional, ApplicantDetails, MiamTitle,  MiamAttendance, MiamExemption, InternationalElement, PastAndCurrentProceedings, SafetyConcerns, SafetyConcerns_child, SafetyConcerns_yours, SafetyConcerns_others  } from './mainUtil';
+/* eslint-disable import/no-unresolved */
+
+import {
+  ApplicantDetails,
+  ChildernDetails,
+  LegalRepresentativeDetails,
+  LocationDetails,
+  PeopleDetails,
+  PermissionForApplication,
+  TypeOfApplication,
+  TypeOfOrder,
+  WithoutNoticeHearing,
+  reasonableAdjustment,
+} from './mainUtil';
 
 const sectionTitles = {
   TypeOfOrder: 'TypeOfOrder',
@@ -22,16 +34,17 @@ const keys = {
   whatAreYouAsking: 'whatAreYouAsking',
   wantingCourtToDo: 'wantingCourtToDo',
 };
-const userCase = {
-  id: 'id',
-  state: undefined,
-};
+
 const content = {
   x: 'aaa',
 };
 
 describe('test cases for main util', () => {
   test('TypeOfOrder', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    };
     expect(TypeOfOrder({ sectionTitles, keys, content }, userCase)).toStrictEqual({
       rows: [
         {
@@ -69,6 +82,10 @@ describe('test cases for main util', () => {
     });
   });
   test('with out notice hearning', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    };
     expect(WithoutNoticeHearing({ sectionTitles, keys, content }, userCase)).toStrictEqual({
       rows: [
         {
@@ -109,9 +126,67 @@ describe('test cases for main util', () => {
   });
 
   test('ChildernDetails', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    };
     expect(ChildernDetails({ sectionTitles, keys, content }, userCase)).toStrictEqual({
       rows: [],
       title: 'ChildernDetails',
     });
+  });
+  //LocationDetails
+  test('LocationDetails', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    };
+    const locationDetails = LocationDetails({ sectionTitles, keys, content }, userCase);
+    expect(locationDetails?.rows).not.toBe([]);
+    expect(locationDetails?.title).toBe(undefined);
+  });
+
+  //LocationDetails
+  test('TypeOfApplication', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    };
+    const TypeOfApplicationObj = TypeOfApplication({ sectionTitles, keys, content }, userCase);
+    expect(TypeOfApplicationObj?.rows).not.toBe([]);
+    expect(TypeOfApplicationObj?.title).toBe(undefined);
+  });
+
+  test('LegalRepresentativeDetails', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    };
+    const LegalRepresentativeDetailsObj = LegalRepresentativeDetails({ sectionTitles, keys, content }, userCase);
+    expect(LegalRepresentativeDetailsObj?.rows).not.toBe([]);
+    expect(LegalRepresentativeDetailsObj?.title).toBe(undefined);
+  });
+
+  test('PermissionForApplication', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    };
+    const PermissionForApplicationObj = PermissionForApplication({ sectionTitles, keys, content }, userCase);
+    expect(PermissionForApplicationObj?.rows).not.toBe([]);
+    expect(PermissionForApplicationObj?.title).toBe(undefined);
+  });
+
+  test('ApplicantDetails', () => {
+    const PermissionForApplicationObj = ApplicantDetails({ sectionTitles, keys, content }, {});
+    expect(PermissionForApplicationObj).not.toBe(null);
+  });
+
+  //reasonableAdjustment
+
+  test('reasonableAdjustment', () => {
+    const PermissionForApplicationObj = reasonableAdjustment({ sectionTitles, keys, content }, {});
+    expect(PermissionForApplicationObj?.rows).not.toBe([]);
+    expect(PermissionForApplicationObj?.title).toBe(undefined);
   });
 });
