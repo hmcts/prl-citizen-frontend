@@ -78,12 +78,9 @@ export default class AddApplicantPostController extends PostController<AnyObject
         this.errorsAndRedirect(req, res, formData, form);
         if (req.session.errors && !req.session.errors.length) {
           const { addAnotherApplicant } = req['body'];
-          switch (addAnotherApplicant) {
-            case 'Yes':
-              this.addAnotherApplicant(req);
-              this.resetSessionTemporaryFormValues(req);
-              break;
-            default:
+          if (addAnotherApplicant === 'Yes') {
+            this.addAnotherApplicant(req);
+            this.resetSessionTemporaryFormValues(req);
           }
           return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
         }
@@ -102,7 +99,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
   public addAnotherApplicant(req: AppRequest<AnyObject>): void {
     const { applicantFirstName, applicantLastName } = req['body'];
     const applicantInformation = {
-      id: uuidv4() as string,
+      id: uuidv4(),
       applicantFirstName,
       applicantLastName,
       detailsKnown: '',
