@@ -2,10 +2,10 @@
 import { C100RebuildPartyDetails, PartyType, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
+import { isFieldFilledIn } from '../../../../app/form/validation';
 import { getDataShape } from '../util';
 
-const en = () => ({
+export const en = () => ({
   addressLine1: 'Building and street',
   town: 'Town or city',
   county: 'County',
@@ -15,7 +15,7 @@ const en = () => ({
   explainNoLabel: 'I dont know where they currently live',
 });
 
-const cy = () => ({
+export const cy = () => ({
   addressLine1: 'Building and street - welsh',
   town: 'Town or city - welsh',
   county: 'County - welsh',
@@ -71,8 +71,6 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       attributes: {
         maxLength: 14,
       },
-      validator: (value, formData) =>
-        formData?.addressUnknown !== YesNoEmpty.YES ? isFieldFilledIn(value) || isInvalidPostcode(value) : undefined,
     },
     Country: {
       type: 'text',
@@ -80,7 +78,8 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       label: l => l.country,
       value: address!.Country ?? (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).address.Country,
       labelSize: null,
-      validator: isFieldFilledIn,
+      validator: (value, formData) =>
+        formData?.addressUnknown !== YesNoEmpty.YES ? isFieldFilledIn(value) : undefined,
     },
     addressUnknown: {
       type: 'checkboxes',
@@ -94,15 +93,8 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
           value: YesOrNo.YES,
         },
       ],
-      validator: (value, formData) =>
-        formData?.addressUnknown === YesNoEmpty.YES &&
-        (formData.AddressLine1 !== '' ||
-          formData.AddressLine2 !== '' ||
-          formData.PostTown !== '' ||
-          formData.Country !== '' ||
-          formData.PostCode !== '')
-          ? 'cantHaveAddressAndUnknown'
-          : '',
+
+      validator: (value, formData) => (formData?.addressUnknown === YesNoEmpty.YES ? '' : undefined),
     },
   };
 

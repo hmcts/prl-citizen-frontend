@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Details of without notice hearing',
-  line1: 'Give details of why you’re asking for a without notice hearing',
+  subTitle: 'Give details of why you’re asking for a without notice hearing',
   hint: 'A judge will need to be sure that there is a good reason why the other people in the application should not be told about the application before the hearing takes place.',
   doYouNeedAWithoutNoticeHearingLabel:
     'Are you asking for a without notice hearing because the other person or people may do something that would obstruct the order you are asking for if they knew about the application?',
@@ -36,9 +37,9 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Details of without notice hearing - welsh',
-  line1: 'Give details of why you’re asking for a without notice hearing - welsh',
+  subTitle: 'Give details of why you’re asking for a without notice hearing - welsh',
   hint: 'A judge will need to be sure that there is a good reason why the other people in the application should not be told about the application before the hearing takes place. - welsh',
   doYouNeedAWithoutNoticeHearingLabel:
     'Are you asking for a without notice hearing because the other person or people may do something that would obstruct the order you are asking for if they knew about the application? - welsh',
@@ -77,6 +78,7 @@ export const form: FormContent = {
   fields: {
     hwn_reasonsForApplicationWithoutNotice: {
       type: 'textarea',
+      hint: l => l.hint,
       validator: value => isFieldFilledIn(value),
     },
     hwn_doYouNeedAWithoutNoticeHearing: {

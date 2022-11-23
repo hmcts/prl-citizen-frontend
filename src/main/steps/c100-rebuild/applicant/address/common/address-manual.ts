@@ -2,7 +2,7 @@
 import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
 
 export const en = () => ({
   addressLine1: 'Building and street',
@@ -84,7 +84,6 @@ export const form = (caseData: Partial<C100Applicant>): FormContent => {
         attributes: {
           maxLength: 14,
         },
-        validator: isInvalidPostcode,
       },
       country: {
         type: 'text',

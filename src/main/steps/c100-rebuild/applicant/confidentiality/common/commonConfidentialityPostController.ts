@@ -30,35 +30,33 @@ export default class ApplicantCommonConfidentialityController {
     const form = new Form(<FormFields>this.fields);
     const { ...formData } = form.getParsedBody(this.request.body);
 
-    this.request.session.errors = form.getErrors(formData);
+    if (!this.request.body['saveAndComeLater']) {
+      this.request.session.errors = form.getErrors(formData);
+    }
 
     if (this.request.session.errors && this.request.session.errors.length) {
       return this.parent.redirect(this.request, res, this.request.originalUrl);
     }
-    if (this.request.params.applicantId) {
-      const { applicantId } = req['params'];
-      switch (this.request.body._ctx) {
-        case this.contextNavigators.START: {
-          this.applicantData = this.CofidentialityStartDataUpdate(applicantId);
-          break;
-        }
-        case this.contextNavigators.START_ALTERNATIVE: {
-          this.applicantData = this.CofidentialityStartAlternativeDataUpdate(applicantId);
-          break;
-        }
-        case this.contextNavigators.DETAIL_KNOW: {
-          this.applicantData = this.CofidentialityDetailKnownDataUpdate(applicantId);
-          break;
-        }
+    const { applicantId } = req['params'];
+    switch (this.request.body._ctx) {
+      case this.contextNavigators.START: {
+        this.applicantData = this.CofidentialityStartDataUpdate(applicantId);
+        break;
       }
-      this.request.session.userCase.appl_allApplicants = this.applicantData;
-      if (this.request.body.saveAndComeLater) {
-        return this.parent.saveAndComeLater(this.request, res, this.request.session.userCase);
+      case this.contextNavigators.START_ALTERNATIVE: {
+        this.applicantData = this.CofidentialityStartAlternativeDataUpdate(applicantId);
+        break;
       }
-
-      this.parent.redirect(this.request, res);
+      case this.contextNavigators.DETAIL_KNOW: {
+        this.applicantData = this.CofidentialityDetailKnownDataUpdate(applicantId);
+        break;
+      }
+    }
+    this.request.session.userCase.appl_allApplicants = this.applicantData;
+    if (this.request.body.saveAndComeLater) {
+      return this.parent.saveAndComeLater(this.request, res, this.request.session.userCase);
     } else {
-      this.parent.redirect(this.request, res);
+      return this.parent.redirect(this.request, res);
     }
   }
 

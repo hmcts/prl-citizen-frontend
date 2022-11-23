@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { C1AAbuseTypes, C1ASafteyConcernsAbuse, ChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -5,7 +6,7 @@ import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
 
-const en = () => ({
+export const en = () => ({
   caption: 'Safety concerns',
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to',
   psychologicalAbusePageTitle: 'Briefly describe the psychological abuse against the children if you feel able to',

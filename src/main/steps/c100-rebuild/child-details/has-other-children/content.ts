@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   title: 'Do you or any respondents have other children who are not part of this application?',
   one: 'Yes',
   two: 'No',
@@ -27,6 +28,7 @@ const en = () => ({
     'The information you provide in this section will also be shared with the respondents so that they have the opportunity to respond to your allegations.',
 });
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const cy = () => ({
   title: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
   one: 'Oes',

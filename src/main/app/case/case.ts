@@ -211,7 +211,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
   const result = {};
-  for (const field of Object.keys(data)) {
+  for (const field of Object.keys(data as Record<string, any>)) {
     const value = fields[field];
 
     if (typeof value === 'function') {
@@ -529,6 +529,8 @@ export interface Case {
   op_childrenInvolvedCourtCase?: YesOrNo;
   op_courtOrderProtection?: YesOrNo;
   hwn_hearingPart1?: YesOrNo;
+  c100RebuildChildPostCode?: string;
+  helpWithFeesReferenceNumber?: string;
 }
 
 export interface CaseWithId extends Case {
@@ -549,6 +551,7 @@ export interface CaseWithId extends Case {
     external_reference: string;
     next_url: string;
     status: string;
+    serviceRequestReference: string;
   };
   id: string;
   state: State;

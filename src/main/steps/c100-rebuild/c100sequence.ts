@@ -138,13 +138,15 @@ import {
   C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
-  C100_GET_CASE,
   C100_CHILDERN_LIVE_WITH,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
   C100_APPLICANTS_PERSONAL_DETAILS,
   C100_APPLICANT_CONTACT_DETAIL,
+  C100_CHECK_YOUR_ANSWER,
+  C100_CASE_NAME,
+  C100_CREATE_CASE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -159,8 +161,8 @@ import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
-import { applyParms } from '../../steps/common/url-parser';
 import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
+import UploadDocumentController from './uploadDocumentController';
 
 export const C100Sequence: Step[] = [
   {
@@ -306,14 +308,17 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART1,
     showInSection: Sections.C100,
-    getNextStep: caseData =>
-      caseData.hwn_hearingPart1 === YesOrNo.YES
-        ? C100_HEARING_WITHOUT_NOTICE_PART2
-        : caseData.sq_writtenAgreement === YesOrNo.NO &&
-          caseData.miam_validReason === YesOrNo.YES &&
-          MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+    getNextStep: (caseData: Partial<CaseWithId>): PageLink => {
+      if (caseData.hwn_hearingPart1 === YesOrNo.YES) {
+        return C100_HEARING_WITHOUT_NOTICE_PART2;
+      }
+
+      return caseData.sq_writtenAgreement === YesOrNo.NO &&
+        caseData.miam_validReason === YesOrNo.YES &&
+        MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
         ? C100_TYPE_ORDER_SELECT_COURT_ORDER
-        : C100_CHILDERN_DETAILS_ADD,
+        : C100_CHILDERN_DETAILS_ADD;
+    },
   },
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART2,
@@ -338,36 +343,39 @@ export const C100Sequence: Step[] = [
   {
     url: C100_TYPE_ORDER_SHORT_STATEMENT,
     showInSection: Sections.C100,
-    getNextStep: caseData =>
-      caseData.sq_writtenAgreement === YesOrNo.YES
-        ? C100_CONSENT_ORDER_UPLOAD
-        : caseData.miam_otherProceedings === YesOrNo.NO &&
-          caseData.miam_validReason === YesOrNo.YES &&
-          MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+    getNextStep: (caseData: Partial<CaseWithId>): PageLink => {
+      if (caseData.sq_writtenAgreement === YesOrNo.YES) {
+        return C100_CONSENT_ORDER_UPLOAD;
+      }
+
+      return caseData.miam_otherProceedings === YesOrNo.NO &&
+        caseData.miam_validReason === YesOrNo.YES &&
+        MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
         ? C100_CHILDERN_DETAILS_ADD
-        : C100_HEARING_URGENCY_URGENT,
+        : C100_HEARING_URGENCY_URGENT;
+    },
   },
   {
     url: C100_START,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_CREATE_CASE,
   },
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.hwf_needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: correct for NO, navigate to check your answers
+      data.hwf_needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_CHECK_YOUR_ANSWER,
   },
   {
     url: C100_HELP_WITH_FEES_FEES_APPLIED,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.hwf_feesAppliedDetails === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: correct for YES, navigate to check your answers
+      data.hwf_feesAppliedDetails === YesOrNo.YES ? C100_CHECK_YOUR_ANSWER : C100_HELP_WITH_FEES_HWF_GUIDANCE,
   },
   {
     url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE, //todo: navigate to check your answers
+    getNextStep: () => C100_CHECK_YOUR_ANSWER,
   },
   {
     url: C100_CHILDERN_DETAILS_ADD,
@@ -589,6 +597,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_MIAM_UPLOAD,
+    postController: UploadDocumentController,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_UPLOAD_CONFIRMATION,
   },
@@ -753,72 +762,54 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getNextStep: (data, req) => {
-      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
-      let redirectURI = '';
-      if (applicantData?.length) {
-        const nextStepUri =
-          applicantData[0].detailsKnown === YesOrNo.YES
-            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START
-            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE;
-        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
-      } else {
-        redirectURI = '';
-      }
-      return redirectURI as `/${string}`;
-    },
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getNextStep: (data, req) => {
-      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
-      let redirectURI = '';
-      if (applicantData?.length) {
-        const nextStepUri =
-          applicantData[0].start === YesOrNo.YES
-            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
-        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
-      } else {
-        redirectURI = '';
-      }
-      return redirectURI as `/${string}`;
-    },
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getNextStep: (data, req) => {
-      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
-      let redirectURI = '';
-      if (applicantData?.length) {
-        const nextStepUri =
-          applicantData[0].startAlternative === YesOrNo.YES
-            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO;
-        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
-      } else {
-        redirectURI = '';
-      }
-      return redirectURI as `/${string}`;
-    },
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADDRESS_LOOKUP,
@@ -977,11 +968,6 @@ export const C100Sequence: Step[] = [
       ),
   },
   {
-    url: C100_GET_CASE,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_GET_CASE,
-  },
-  {
     url: C100_CHILDERN_LIVE_WITH,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
@@ -1007,6 +993,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_CONSENT_ORDER_UPLOAD,
+    postController: UploadDocumentController,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
   },
@@ -1014,5 +1001,20 @@ export const C100Sequence: Step[] = [
     url: C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
     showInSection: Sections.C100,
     getNextStep: () => C100_HEARING_URGENCY_URGENT,
+  },
+  {
+    url: C100_CHECK_YOUR_ANSWER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+  },
+  {
+    url: C100_CHECK_YOUR_ANSWER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+  },
+  {
+    url: C100_CASE_NAME,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILD_ADDRESS,
   },
 ];

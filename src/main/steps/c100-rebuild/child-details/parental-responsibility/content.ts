@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -8,10 +9,12 @@ export * from '../routeGuard';
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Parental responsibility for',
+  parentalResponsibility:
+    'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility.',
   subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility.',
-  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
+  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born'.</p>
  <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p>`,
   errors: {
     statement: {
@@ -22,6 +25,8 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Cyfrifoldeb rhiant dros Steve Jones ',
+  parentalResponsibility:
+    'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility. - welsh',
   subTitle: 'Nodwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
   bodyHint: `<p>Er enghraifft, ‘mam y plentyn’ neu ‘tad y plentyn oedd wedi priodi â’r fam pan gafodd y plentyn ei (g)eni’.</p>
   <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Gweler Adran E o daflen CB1 am ragor o wybodaeth</a></p> `,
@@ -37,7 +42,7 @@ const languages = {
   cy,
 };
 
-const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
+export const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
   updatedForm = {
     ...form,
     fields: {

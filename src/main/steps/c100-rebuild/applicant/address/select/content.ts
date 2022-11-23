@@ -13,7 +13,7 @@ const en = () => ({
   changePostCodeLabel: 'Change postcode',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address',
+      notSelected: 'Select an address from the list',
     },
   },
 });
