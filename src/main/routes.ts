@@ -5,11 +5,13 @@ import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
+import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { GetRespondentCaseController } from './app/controller/GetRespondentCaseController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
-import { stepsWithContent } from './steps/';
+import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
+import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/ApplicantConfirmContactDetailsPostController';
@@ -20,7 +22,6 @@ import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { GetCaseController } from './steps/prl-cases/dashboard/controller/GetCaseController';
 import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/RespondentConfirmContactDetailsGetController';
 import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/RespondentConfirmContactDetailsPostController';
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
@@ -72,6 +73,12 @@ import {
   TIMED_OUT_URL,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
+  /** C100 Rebuild URLs */
+  // eslint-disable-next-line sort-imports
+  C100_CREATE_CASE,
+  PAYMENT_GATEWAY_ENTRY_URL,
+  PAYMENT_RETURN_URL_CALLBACK,
+  C100_RETRIVE_CASE,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -89,23 +96,29 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getCase));
+    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getApplicantCase));
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetRespondentCaseController().getCase));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
+    app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
+    app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
       const getController = getControllerFileName
         ? require(`${step.stepDir}/${getControllerFileName}`).default
-        : GetController;
+        : step.getController ?? GetController;
 
       if (step && getController) {
-        app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+        app.get(
+          step.url,
+          this.routeGuard.bind(this, step, 'get'),
+          errorHandler(new getController(step.view, step.generateContent).get)
+        );
       }
       app.get(
         `${CONSENT_TO_APPLICATION}/:caseId`,
@@ -140,9 +153,12 @@ export class Routes {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
           ? require(`${step.stepDir}/${postControllerFileName}`).default
-          : PostController;
-
-        app.post(step.url, errorHandler(new postController(step.form.fields).post));
+          : step.postController ?? PostController;
+        app.post(
+          step.url,
+          this.routeGuard.bind(this, step, 'post'),
+          errorHandler(new postController(step.form.fields).post)
+        );
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
         app.get(
@@ -186,6 +202,21 @@ export class Routes {
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
       }
+    }
+    /**
+     * @Payment_Handler
+     */
+    app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
+    app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
+
+    app.get('/api/v1/session', (req, res) => res.json(req.session));
+  }
+
+  private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
+    if (typeof step?.routeGuard?.[httpMethod] === 'function') {
+      step.routeGuard[httpMethod].call(this, req, res, next);
+    } else {
+      next();
     }
   }
 }
