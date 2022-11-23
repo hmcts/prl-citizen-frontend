@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 import { PastAndCurrentProceedings } from './mainUtils';
 //  ,ChildernDetailsAdditional ,ChildernDetailsAdditional, ApplicantDetails, MiamTitle,  MiamAttendance, MiamExemption, InternationalElement, PastAndCurrentProceedings, SafetyConcerns, SafetyConcerns_child, SafetyConcerns_yours, SafetyConcerns_others  } from './mainUtil';
 
@@ -6,7 +8,7 @@ const userCase = {
   state: undefined,
 };
 
-export const enContent = {
+const enContent = {
   serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',

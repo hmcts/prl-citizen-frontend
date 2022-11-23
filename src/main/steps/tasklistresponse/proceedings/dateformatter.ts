@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ANYTYPE = any;
 /**
  * It takes a date object and returns a string

@@ -119,6 +119,7 @@ export default class DocumentUpload extends GetController {
         res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
       });
     } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
       console.log(error);
     }
   };

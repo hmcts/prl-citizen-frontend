@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../app/case/case';
+/* eslint-disable import/no-unresolved */
+/* eslint-disable prettier/prettier */
 import * as Urls from '../../urls';
 
 import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from './lib';
 import { OPotherProceedingsSessionParserUtil } from './proceedingUtils';
 
+/* eslint-disable import/namespace */
 export const PastAndCurrentProceedings = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>

@@ -63,6 +63,7 @@ export const en = () => ({
   },
 });
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
   pageTitle: 'Provide details of court cases you or the children have been involved in - welsh',
   additionalNote:
