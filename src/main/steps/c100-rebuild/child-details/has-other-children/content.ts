@@ -5,8 +5,8 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = () => ({
   title: 'Do you or any respondents have other children who are not part of this application?',
-  one: YesOrNo.YES,
-  two: YesOrNo.NO,
+  one: 'Yes',
+  two: 'No',
   errors: {
     ocd_hasOtherChildren: {
       required: 'Select yes if you have other children',
@@ -28,15 +28,15 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Do you or any respondents have other children who are not part of this application?',
-  one: YesOrNo.YES,
-  two: YesOrNo.NO,
+  title: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+  one: 'Oes',
+  two: 'Nac Oes',
   errors: {
     ocd_hasOtherChildren: {
       required: 'Select yes if you have other children',
     },
   },
-  needInfoTitle: 'Why do we need this information and what will we do with it?',
+  needInfoTitle: 'Pam ein bod angen yr wybodaeth hon a beth fyddwn yn ei wneud gyda hi?',
   riskToChildrenInfo:
     'The court needs to know if any of the other people in this application, or anyone connected to them who has contact with the children, poses a risk to the safety of the children.',
   abuseRiskInfo:

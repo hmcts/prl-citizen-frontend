@@ -33,6 +33,9 @@ export const en = () => ({
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Applicant's gender (Optional)",
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     haveYouChangeName: {
       required: 'Select if you’ve changed your name',
@@ -58,25 +61,27 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Provide details for - welsh',
-  haveYouChangeNameLabel: 'Have you changed your name? - welsh',
-
+  title: 'Darparwch fanylion am ',
+  haveYouChangeNameLabel: 'A ydych wedi newid eich enw?',
   haveYouChangeNameHint:
-    'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
-  one: 'Yes',
-  two: 'No',
-  applicantPlaceOfBirthLabel: 'Your place of birth - welsh',
-  applicantPlaceOfBirthHint: 'For example, town or city - welsh',
+    'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
+  one: 'Do',
+  two: 'Naddo',
+  applicantPlaceOfBirthLabel: 'Eich man geni',
+  applicantPlaceOfBirthHint: 'Er enghraifft, tref neu ddinas',
   dontKnowLabel: "Don't know - welsh",
-  dobLabel: 'Your date of birth - welsh',
-  dobHint: 'For example, 31 3 2016 - welsh',
+  dobLabel: 'Eich dyddiad geni',
+  dobHint: 'Er enghraifft, 31 3 2016',
   previousNameLabel: 'Enter your previous name -welsh',
   previousNameHint: 'This should be the full legal name(including any middle names) -welsh',
-  applicantGenderLabel: 'Gender - welsh',
-  male: 'Male - welsh',
-  female: 'Female - welsh',
-  other: 'They identify in another way - welsh',
-  otherGenderDetailsLabel: "applicant's gender (Optional) - welsh",
+  applicantGenderLabel: 'Rhyw',
+  male: 'Benyw',
+  female: 'Gwryw',
+  other: 'Maen nhw’n uniaethu mewn ffordd arall',
+  otherGenderDetailsLabel: "Rhyw'r Ceisydd (Dewisol)",
+  // day: 'Diwrnod',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     haveYouChangeName: {
       required: 'Select if you’ve changed your name -welsh',
@@ -199,21 +204,24 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
       hint: l => l.dobHint,
       values: [
         {
-          label: l => l.dateFormat['day'],
-          name: 'day',
+         label: l => l.dateFormat['day'],
+          //label: l => l.day,
+          name: 'day',//l=>l.dateFormat['day'],
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: l => l.dateFormat['month'],
+          //label: l => l.dateFormat['month'],
+          label: l => l.month,
           name: 'month',
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: l => l.dateFormat['year'],
+          //label: l => l.dateFormat['year'],
+          label: l => l.year,
           name: 'year',
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',

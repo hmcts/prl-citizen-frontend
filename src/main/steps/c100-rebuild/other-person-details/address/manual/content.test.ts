@@ -28,7 +28,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Address details of - welsh Dummy Test1',
+  title: 'Manylion cyfeiriad Dummy Test1',
   addressLine1Hint: 'Court documents may be sent here - welsh',
   errors: {
     AddressLine1: {

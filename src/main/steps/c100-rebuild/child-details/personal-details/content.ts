@@ -24,6 +24,9 @@ const en = () => ({
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Child's gender (Optional)",
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -49,16 +52,19 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Provide details for - welsh',
-  dobLabel: 'Date of birth - welsh',
-  dateHint: 'For example, 31 3 2016 - welsh',
-  approxCheckboxLabel: 'I don’t know their date of birth - welsh',
-  approxDobLabel: 'Approximate date of birth - welsh',
-  childGenderLabel: 'Gender - welsh',
-  male: 'Male - welsh',
-  female: 'Female - welsh',
-  other: 'They identify in another way - welsh',
-  otherGenderDetailsLabel: "Child's gender (Optional) - welsh",
+  title: 'Darparwch fanylion am',
+  dobLabel: 'Dyddiad geni',
+  dateHint: 'Er enghraifft, 31 3 2016',
+  approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
+  approxDobLabel: 'Dyddiad geni bras',
+  childGenderLabel: 'Rhyw',
+  male: 'Benyw',
+  female: 'Gwryw',
+  other: 'Maen nhw’n uniaethu mewn ffordd arall',
+  otherGenderDetailsLabel: 'Rhyw y plentyn (Dewisol)',
+  // day: 'Diwrnod',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth - welsh',
@@ -118,6 +124,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
       values: [
         {
           label: l => l.dateFormat['day'],
+          //label: l => l.day,
           name: 'day',
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
@@ -125,6 +132,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         },
         {
           label: l => l.dateFormat['month'],
+          //label: l => l.month,
           name: 'month',
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
@@ -132,6 +140,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         },
         {
           label: l => l.dateFormat['year'],
+          //label: l => l.year,
           name: 'year',
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
@@ -168,6 +177,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
               values: [
                 {
                   label: l => l.dateFormat['day'],
+                  //label: l => l.day,
                   name: 'day',
                   value: approxDateOfBirth!.day,
                   classes: 'govuk-input--width-2',
@@ -175,6 +185,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 },
                 {
                   label: l => l.dateFormat['month'],
+                  //label: l => l.month,
                   name: 'month',
                   value: approxDateOfBirth!.month,
                   classes: 'govuk-input--width-2',
@@ -182,6 +193,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 },
                 {
                   label: l => l.dateFormat['year'],
+                  //label: l => l.year,
                   name: 'year',
                   value: approxDateOfBirth!.year,
                   classes: 'govuk-input--width-4',

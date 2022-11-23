@@ -34,7 +34,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Address details of - welsh',
+  title: 'Manylion cyfeiriad',
   addressLine1Hint: 'Court documents may be sent here - welsh',
   errors: {
     AddressLine1: {

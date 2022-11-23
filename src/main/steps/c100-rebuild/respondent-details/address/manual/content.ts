@@ -47,17 +47,17 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Address details of - welsh',
+  title: 'Cyfeiriad',
   subtitle:
-    "Include as much detail as you can. If there's information missing, your application may take longer to process. - welsh",
-  addressLine1Hint: 'Court documents will be sent here - welsh',
-  addressHistoryLabel: 'Have they lived at this address for more than 5 years? - welsh',
+    'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
+  addressLine1Hint: 'Bydd dogfennau’r llys yn cael eu hanfon yma',
+  addressHistoryLabel: 'A ydynt wedi byw yn y cyfeiriad hwn am 5 mlynedd neu fwy?',
   provideDetailsOfPreviousAddressLabel:
-    'Please provide details of all previous addresses for the last 5 years below, including the dates and starting with the most recent - welsh',
-  addressHistoryDontKnowHintText: "Leave blank if you don't know - welsh",
-  one: 'Yes - welsh',
-  two: 'No - welsh',
-  three: "Don't know - welsh",
+    'Os nad ydynt, rhowch fanylion yr holl gyfeiriadau blaenorol am y 5 mlynedd diwethaf, os yn hysbys, gan gynnwys y dyddiadau, gan ddechrau gyda’r diweddaraf',
+  addressHistoryDontKnowHintText: 'Gadewch yn wag os nad ydych yn gwybod',
+  one: 'Ydynt',
+  two: 'Nac ydynt',
+  three: 'DDdim yn gwybod',
   errors: {
     AddressLine1: {
       required: 'Enter the first line of the address - welsh',

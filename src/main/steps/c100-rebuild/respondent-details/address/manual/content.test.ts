@@ -32,9 +32,9 @@ const en = {
 };
 
 const cy = {
-  title: 'Address details of - welsh Dummy  Test1',
+  title: 'Cyfeiriad Dummy  Test1',
   subtitle:
-    "Include as much detail as you can. If there's information missing, your application may take longer to process. - welsh",
+    'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   errors: {
     AddressLine1: {
       required: 'Enter the first line of the address - welsh',

@@ -34,6 +34,9 @@ const en = () => ({
   other: 'They identify in another way',
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
   otherGenderDetailsLabel: "Respondent's gender (Optional)",
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     hasNameChanged: {
       required: 'Select if they’ve changed their name',
@@ -68,32 +71,35 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Provide details for - welsh',
-  hasNameChanged: 'Have they changed their name? - welsh',
+  title: 'Darparu manylion am',
+  hasNameChanged: 'A ydynt wedi newid eu henw?',
   hasNameChangedHint:
-    'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
-  one: 'Yes',
-  two: 'No',
-  respondentPlaceOfBirth: 'Place of birth',
-  respondentPlaceOfBirthHint: 'For example, town or city',
-  dontKnow: "Don't know - welsh",
-  dobLabel: 'Date of birth - welsh',
-  approxCheckboxLabel: 'I don’t know their date of birth - welsh',
-  approxDobLabel: 'Approximate date of birth - welsh',
-  previousName: 'Enter their previous name -welsh',
-  previousNameHint: 'This should be the full legal name(including any middle names) -welsh',
-  respondentGenderLabel: 'Gender - welsh',
-  male: 'Male - welsh',
-  female: 'Female - welsh',
-  other: 'They identify in another way - welsh',
-  respondentPlaceOfBirthUnknown: 'I don’t know their place of birth - welsh',
+    'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
+  one: 'Do',
+  two: 'Naddo',
+  respondentPlaceOfBirth: 'Lleoliad geni',
+  respondentPlaceOfBirthHint: 'Er enghraifft, tref neu ddinas',
+  dontKnow: 'Ddim yn gwybod',
+  dobLabel: 'Dyddiad geni',
+  approxCheckboxLabel: 'Nid wyf yn gwybod beth yw eu dyddiad geni',
+  approxDobLabel: 'Dyddiad geni bras',
+  previousName: 'Nodwch eu henw blaenorol',
+  previousNameHint: 'Dylai hwn fod yr enw cyfreithiol llawn (gan gynnwys unrhyw enwau canol)',
+  respondentGenderLabel: 'Rhyw',
+  male: 'Benyw',
+  female: 'Gwryw',
+  other: 'Maen nhw’n uniaethu mewn ffordd arall',
+  respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man genih',
   otherGenderDetailsLabel: "Respondent's gender (Optional) - welsh",
+  // day: 'Diwrnod',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     hasNameChanged: {
       required: 'Select if they’ve changed their name -welsh',
     },
     previousFullName: {
-      required: 'Enter their previous name -welsh',
+      required: 'Nodwch eu henw blaenorol',
     },
     dateOfBirth: {
       required: 'Enter the date of birth - welsh',
@@ -234,6 +240,7 @@ export const generateFormFields = (
       values: [
         {
           label: l => l.dateFormat['day'],
+          //label: l => l.day,
           name: 'day',
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
@@ -241,6 +248,7 @@ export const generateFormFields = (
         },
         {
           label: l => l.dateFormat['month'],
+          //label: l => l.month,
           name: 'month',
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
@@ -248,6 +256,7 @@ export const generateFormFields = (
         },
         {
           label: l => l.dateFormat['year'],
+          //label: l => l.year,
           name: 'year',
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
@@ -284,6 +293,7 @@ export const generateFormFields = (
               values: [
                 {
                   label: l => l.dateFormat['day'],
+                  //label: l => l.day,
                   name: 'day',
                   value: approxDateOfBirth!.day,
                   classes: 'govuk-input--width-2',
@@ -291,6 +301,7 @@ export const generateFormFields = (
                 },
                 {
                   label: l => l.dateFormat['month'],
+                  //label: l => l.month,
                   name: 'month',
                   value: approxDateOfBirth!.month,
                   classes: 'govuk-input--width-2',
@@ -298,6 +309,7 @@ export const generateFormFields = (
                 },
                 {
                   label: l => l.dateFormat['year'],
+                  //label: l => l.year,
                   name: 'year',
                   value: approxDateOfBirth!.year,
                   classes: 'govuk-input--width-4',
