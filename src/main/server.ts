@@ -66,7 +66,7 @@ new HealthCheck().enableFor(app);
 new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
-new FeatureToggleProvider().enable();
+new FeatureToggleProvider().enable(app);
 
 setupDev(app, developmentMode);
 

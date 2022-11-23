@@ -48,4 +48,4 @@ featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
 
 launchDarkly:
-  offline: true
+  offline: false
