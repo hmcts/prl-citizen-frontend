@@ -106,7 +106,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you have a legal representative?',
           },
         ],
-        title: 'Legal representation',
+        title: '1. Legal representation',
       },
       {
         items: [
@@ -117,7 +117,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you consent to the application?',
           },
         ],
-        title: 'Consent to the application',
+        title: '2. Consent to the application',
       },
       {
         items: [
@@ -140,7 +140,7 @@ describe('getRemainingTaskList', () => {
             text: 'Support you need during your case',
           },
         ],
-        title: 'Your details',
+        title: '3. Your details',
       },
       {
         items: [
@@ -157,7 +157,7 @@ describe('getRemainingTaskList', () => {
             text: 'Current or previous proceedings',
           },
         ],
-        title: 'Application details',
+        title: '4. Application details',
       },
       {
         items: [
@@ -168,7 +168,7 @@ describe('getRemainingTaskList', () => {
             text: 'Your safety',
           },
         ],
-        title: 'Safety concerns',
+        title: '5. Safety concerns',
       },
       {
         items: [
@@ -179,7 +179,7 @@ describe('getRemainingTaskList', () => {
             text: 'International element',
           },
         ],
-        title: 'Additional information',
+        title: '6. Additional information',
       },
     ];
     expect(generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
@@ -216,7 +216,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you have a legal representative?',
           },
         ],
-        title: 'Legal representation',
+        title: '1. Legal representation',
       },
       {
         items: [
@@ -227,7 +227,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you consent to the application?',
           },
         ],
-        title: 'Consent to the application',
+        title: '2. Consent to the application',
       },
       {
         items: [
@@ -250,7 +250,7 @@ describe('getRemainingTaskList', () => {
             text: 'Support you need during your case',
           },
         ],
-        title: 'Your details',
+        title: '3. Your details',
       },
       {
         items: [
@@ -267,7 +267,7 @@ describe('getRemainingTaskList', () => {
             text: 'Current or previous proceedings',
           },
         ],
-        title: 'Application details',
+        title: '4. Application details',
       },
       {
         items: [
@@ -278,7 +278,7 @@ describe('getRemainingTaskList', () => {
             text: 'Your safety',
           },
         ],
-        title: 'Safety concerns',
+        title: '5. Safety concerns',
       },
       {
         items: [
@@ -289,7 +289,7 @@ describe('getRemainingTaskList', () => {
             text: 'International element',
           },
         ],
-        title: 'Additional information',
+        title: '6. Additional information',
       },
     ];
     expect(generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
@@ -314,7 +314,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you have a legal representative?',
           },
         ],
-        title: 'Legal representation',
+        title: '1. Legal representation',
       },
       {
         items: [
@@ -325,7 +325,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you consent to the application?',
           },
         ],
-        title: 'Consent to the application',
+        title: '2. Consent to the application',
       },
       {
         items: [
@@ -348,7 +348,7 @@ describe('getRemainingTaskList', () => {
             text: 'Support you need during your case',
           },
         ],
-        title: 'Your details',
+        title: '3. Your details',
       },
       {
         items: [
@@ -365,7 +365,7 @@ describe('getRemainingTaskList', () => {
             text: 'Current or previous proceedings',
           },
         ],
-        title: 'Application details',
+        title: '4. Application details',
       },
       {
         items: [
@@ -376,7 +376,7 @@ describe('getRemainingTaskList', () => {
             text: 'Your safety',
           },
         ],
-        title: 'Safety concerns',
+        title: '5. Safety concerns',
       },
       {
         items: [
@@ -387,7 +387,7 @@ describe('getRemainingTaskList', () => {
             text: 'International element',
           },
         ],
-        title: 'Additional information',
+        title: '6. Additional information',
       },
     ];
     expect(generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
