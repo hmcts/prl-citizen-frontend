@@ -204,9 +204,9 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
       hint: l => l.dobHint,
       values: [
         {
-         label: l => l.dateFormat['day'],
+          label: l => l.dateFormat['day'],
           //label: l => l.day,
-          name: 'day',//l=>l.dateFormat['day'],
+          name: 'day', //l=>l.dateFormat['day'],
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
