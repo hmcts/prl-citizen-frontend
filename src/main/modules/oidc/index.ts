@@ -62,12 +62,10 @@ export class OidcMiddleware {
         //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
         if (req.path.startsWith(C100_URL)) {
           if (c100RebuildLdFlag) {
-            req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
             return next();
           } else {
             return res.redirect(DASHBOARD_URL);
           }
-          return next();
         }
 
         console.log('inside oidc, finding user');
