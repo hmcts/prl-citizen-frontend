@@ -97,7 +97,7 @@ export class CaseApi {
       }
       await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100_CASE_EVENT.DELETE_CASE}/update-case`, caseData, {
         headers: {
-          accessCode: '12345678',
+          accessCode: 'null',
         },
       });
       session.userCase = {} as CaseWithId;

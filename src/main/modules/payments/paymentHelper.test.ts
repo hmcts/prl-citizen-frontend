@@ -13,6 +13,7 @@ describe('PaymentHelper', () => {
 
   req.session.user.accessToken = mockToken;
   req.session.userCase.caseId = dummyCaseID;
+  req.session.userCase.applicantCaseName = 'Test';
   req.protocol = 'http';
   req.host = 'localhost:3001';
   test('Should match the output values corresponding to given input', async () => {
@@ -32,6 +33,7 @@ describe('PaymentHelper', () => {
       applicantCaseName: '',
       caseId: '',
       returnUrL: '',
+      hwfRefNumber: '',
     });
   });
 });

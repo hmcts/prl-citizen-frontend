@@ -51,20 +51,8 @@ export class OidcMiddleware {
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         console.log('inside app.use');
         console.log('req.path is ' + req.path);
-        const c100RebuildLdFlag: boolean =
-          req.session.c100RebuildLdFlag !== undefined
-            ? req.session.c100RebuildLdFlag
-            : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
-
-        //Skipping for C100 rebuild
-        if (req.path.startsWith(CITIZEN_HOME_URL || C100_URL || DASHBOARD_URL) && !req.session?.user) {
-          if (c100RebuildLdFlag) {
-            req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
-            return next();
-          } else {
-            return res.redirect(DASHBOARD_URL);
-          }
-          return next();
+        if (app.locals.developmentMode) {
+          req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
         }
 
         console.log('inside oidc, finding user');
@@ -73,8 +61,21 @@ export class OidcMiddleware {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
-          if (c100RebuildLdFlag && !req.locals.C100Api) {
+          if (!req.locals.C100Api) {
             req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
+          }
+          const c100RebuildLdFlag: boolean =
+            req.session.c100RebuildLdFlag !== undefined
+              ? req.session.c100RebuildLdFlag
+              : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
+          console.log('C100 - Launch Darkly Flag ', c100RebuildLdFlag);
+          //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
+          if (req.path.startsWith(C100_URL)) {
+            if (c100RebuildLdFlag) {
+              return next();
+            } else {
+              return res.redirect(DASHBOARD_URL);
+            }
           }
 
           if (req.session.userCase) {
