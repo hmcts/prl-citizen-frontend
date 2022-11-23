@@ -59,7 +59,7 @@ export class OidcMiddleware {
             ? req.session.c100RebuildLdFlag
             : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
         console.log('C100 - Launch Darkly Flag ', c100RebuildLdFlag);
-        //Skipping for C100 rebuild
+        //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
         if (req.path.startsWith(C100_URL)) {
           if (c100RebuildLdFlag) {
             req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
