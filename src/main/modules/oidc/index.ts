@@ -51,6 +51,9 @@ export class OidcMiddleware {
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         console.log('inside app.use');
         console.log('req.path is ' + req.path);
+        if (app.locals.developmentMode) {
+          req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
+        }
         const c100RebuildLdFlag: boolean =
           req.session.c100RebuildLdFlag !== undefined
             ? req.session.c100RebuildLdFlag

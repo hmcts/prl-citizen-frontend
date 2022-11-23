@@ -32,6 +32,5 @@ export class LaunchDarklyClient {
     };
 
     return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
-    return true;
   }
 }
