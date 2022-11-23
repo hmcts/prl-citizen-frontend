@@ -30,7 +30,7 @@ describe('test cases for main util', () => {
               {
                 href: '/tasklistresponse/proceedings/courtproceedings',
                 text: 'Edit',
-                visuallyHiddenText: "undefined",
+                visuallyHiddenText: 'undefined',
               },
             ],
           },
@@ -43,7 +43,7 @@ describe('test cases for main util', () => {
               {
                 href: '/tasklistresponse/proceedings/courtproceedings',
                 text: 'Edit',
-                visuallyHiddenText: "undefined",
+                visuallyHiddenText: 'undefined',
               },
             ],
           },
