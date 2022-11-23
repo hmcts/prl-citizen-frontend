@@ -161,7 +161,6 @@ import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
-import { applyParms } from '../../steps/common/url-parser';
 import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
 import UploadDocumentController from './uploadDocumentController';
 
@@ -309,14 +308,17 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART1,
     showInSection: Sections.C100,
-    getNextStep: caseData =>
-      caseData.hwn_hearingPart1 === YesOrNo.YES
-        ? C100_HEARING_WITHOUT_NOTICE_PART2
-        : caseData.sq_writtenAgreement === YesOrNo.NO &&
-          caseData.miam_validReason === YesOrNo.YES &&
-          MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+    getNextStep: (caseData: Partial<CaseWithId>): PageLink => {
+      if (caseData.hwn_hearingPart1 === YesOrNo.YES) {
+        return C100_HEARING_WITHOUT_NOTICE_PART2;
+      }
+
+      return caseData.sq_writtenAgreement === YesOrNo.NO &&
+        caseData.miam_validReason === YesOrNo.YES &&
+        MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
         ? C100_TYPE_ORDER_SELECT_COURT_ORDER
-        : C100_CHILDERN_DETAILS_ADD,
+        : C100_CHILDERN_DETAILS_ADD;
+    },
   },
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART2,
@@ -341,14 +343,17 @@ export const C100Sequence: Step[] = [
   {
     url: C100_TYPE_ORDER_SHORT_STATEMENT,
     showInSection: Sections.C100,
-    getNextStep: caseData =>
-      caseData.sq_writtenAgreement === YesOrNo.YES
-        ? C100_CONSENT_ORDER_UPLOAD
-        : caseData.miam_otherProceedings === YesOrNo.NO &&
-          caseData.miam_validReason === YesOrNo.YES &&
-          MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+    getNextStep: (caseData: Partial<CaseWithId>): PageLink => {
+      if (caseData.sq_writtenAgreement === YesOrNo.YES) {
+        return C100_CONSENT_ORDER_UPLOAD;
+      }
+
+      return caseData.miam_otherProceedings === YesOrNo.NO &&
+        caseData.miam_validReason === YesOrNo.YES &&
+        MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
         ? C100_CHILDERN_DETAILS_ADD
-        : C100_HEARING_URGENCY_URGENT,
+        : C100_HEARING_URGENCY_URGENT;
+    },
   },
   {
     url: C100_START,
@@ -757,20 +762,12 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getNextStep: (data, req) => {
-      const applicantData = data.appl_allApplicants?.filter(applicant => applicant.id === req!.params.applicantId);
-      let redirectURI = '';
-      if (applicantData?.length) {
-        const nextStepUri =
-          applicantData[0].detailsKnown === YesOrNo.YES
-            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START
-            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE;
-        redirectURI = applyParms(nextStepUri, { applicantId: req!.params.applicantId });
-      } else {
-        redirectURI = '';
-      }
-      return redirectURI as `/${string}`;
-    },
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,

@@ -47,11 +47,14 @@ class ChildrenDetailsNavigationController {
       }
       case C100_CHILDERN_LIVE_WITH: {
         const nextChild = getNextPerson(this.childrenDetails, this.childId);
-        nextUrl = nextChild
-          ? applyParms(C100_CHILDERN_LIVE_WITH, { childId: nextChild.id as ChildrenDetails['id'] })
-          : caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
-          ? C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE
-          : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS;
+
+        if (nextChild) {
+          nextUrl = applyParms(C100_CHILDERN_LIVE_WITH, { childId: nextChild.id as ChildrenDetails['id'] });
+        } else if (caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES) {
+          nextUrl = C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+        } else {
+          nextUrl = C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS;
+        }
         break;
       }
       default: {
