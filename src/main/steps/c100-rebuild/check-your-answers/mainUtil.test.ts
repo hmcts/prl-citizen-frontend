@@ -92,7 +92,7 @@ describe('test cases for main util', () => {
           actions: {
             items: [
               {
-                href: '/c100-rebuild/hearing-without-notice/hearing-part1',
+                href: '/c100-rebuild/hearing-urgency/urgent',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
               },
@@ -105,7 +105,7 @@ describe('test cases for main util', () => {
           actions: {
             items: [
               {
-                href: '/c100-rebuild/hearing-without-notice/hearing-part2',
+                href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
               },
