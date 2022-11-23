@@ -2,14 +2,14 @@ import config from 'config';
 import { LDClient, LDFlagValue, LDUser, init } from 'launchdarkly-node-server-sdk';
 
 const ldConfig = {
-  offline: true,
+  offline: false,
 };
 
 export class LaunchDarklyClient {
   private static client: LDClient;
 
   constructor() {
-    if (ldConfig.offline === false) {
+    if (config.get('launchDarkly.offline') === false) {
       if (!LaunchDarklyClient.client) {
         const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
         LaunchDarklyClient.client = init(sdkKey, ldConfig);
@@ -24,7 +24,7 @@ export class LaunchDarklyClient {
   }
 
   async serviceVariation(featureKey: string, offlineDefault: LDFlagValue): Promise<LDFlagValue> {
-    if (ldConfig.offline === false) {
+    if (config.get('launchDarkly.offline') === false) {
       const roles: string[] = [];
       const ldUser: LDUser = {
         key: 'citizen-frontend',
