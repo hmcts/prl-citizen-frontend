@@ -24,9 +24,9 @@ def secrets = [
     secret('AppInsightsInstrumentationKey', 'APP_INSIGHTS_INSTRUMENTATION_KEY'),
     secret('prl-citizen-frontend-idam-client-secret', 'CITIZEN_IDAM_SECRET'),
     secret('prl-cos-idam-client-secret', 'COS_API_IDAM_SECRET'),
+    secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
     secret('postcode-lookup-token', 'POSTCODE_TOKEN'),
     secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL'),
-    secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
     secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
     secret('system-update-user-username', 'SYSTEM_UPDATE_USER_USERNAME'),
     secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD'),
@@ -39,6 +39,8 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
+env.C100_REBUILD_FLAG = false
+env.LAUNCH_DARKLY_OFFLINE_MODE = false
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)

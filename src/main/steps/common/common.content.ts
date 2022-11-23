@@ -2,11 +2,13 @@ import { capitalize } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
+import { C100_URL } from '../../steps/urls';
 
 const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
   applyForDissolution: 'Private Law',
+  c100ServiceName: 'Child arrangements',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
@@ -27,8 +29,11 @@ const en = {
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
   errorSummaryHeading: 'There is a problem on this page',
   saveAndSignOut: 'Save and sign out',
+  saveAndComeLater: 'Save and come back later',
+  goBack: 'Go back',
   saveAsDraft: 'Save as draft',
   onlyContinue: 'Continue',
+  onlycontinue: 'Continue',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -106,6 +111,7 @@ const en = {
   apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
+  divider: 'or',
 };
 
 const cy: typeof en = {
@@ -113,6 +119,7 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law" (in welsh)',
   applyForDissolution: 'Private Law"(in welsh)',
+  c100ServiceName: 'Child arrangements - welsh',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.(in welsh)',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
@@ -131,6 +138,8 @@ const cy: typeof en = {
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   errorSummaryHeading: 'There is a problem on this page (in welsh)',
   saveAndSignOut: 'Cadw ac allgofnodi',
+  saveAndComeLater: 'Save and come back later - welsh',
+  goBack: 'Go back - welsh',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
   signIn: 'Sign in (in welsh)',
@@ -183,6 +192,8 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  onlyContinue: 'Continue (in welsh)',
+  divider: 'neu',
 };
 
 export const generatePageContent = ({
@@ -197,7 +208,10 @@ export const generatePageContent = ({
   document_type,
   addresses = [],
   userIdamId,
-}: {
+  additionalData,
+  userId,
+}: 
+{
   language: Language;
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
@@ -209,10 +223,11 @@ export const generatePageContent = ({
   name?: string;
   userIdamId?: string;
   byApplicant?: string;
+  additionalData?: CommonContentAdditionalData;
+  userId?: string | undefined;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
-  const serviceName = getServiceName(commonTranslations);
-
+  const serviceName = getServiceName(additionalData, commonTranslations);
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
@@ -226,6 +241,8 @@ export const generatePageContent = ({
     document_type,
     userIdamId,
     byApplicant,
+    additionalData,
+    userId,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -235,8 +252,17 @@ export const generatePageContent = ({
   return content;
 };
 
-const getServiceName = (translations: typeof en): string => {
-  return capitalize(translations.applyForChildArrangements);
+const getServiceName = (addtionalReqData: CommonContentAdditionalData | undefined, translations: typeof en): string => {
+  let serviceName = translations.applyForChildArrangements;
+  if (addtionalReqData?.req?.path?.startsWith(C100_URL)) {
+    serviceName = translations.c100ServiceName;
+  }
+  return capitalize(serviceName);
+};
+
+type CommonContentAdditionalData = {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  [key: string]: any;
 };
 
 export type CommonContent = typeof en & {
@@ -253,7 +279,8 @@ export type CommonContent = typeof en & {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   byApplicant?: string;
-
+  additionalData?: CommonContentAdditionalData;
+  userId?: string | undefined;
   userIdamId?: string;
 };
 

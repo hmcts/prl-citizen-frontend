@@ -7,6 +7,8 @@ import { summaryCaseList } from '../../common/summary/utils';
 
 export const enContent = {
   title: 'Your private law account',
+  CAApplicationNote: 'Case once submitted cannot be accessed.',
+  createCAApplication: 'Start new C100 application',
   sectionTitles: {
     yourCAapplication: 'C100 applications where you are an applicant',
     youtCArespondentApplication: 'C100 applications where you are an respondent',
@@ -20,6 +22,8 @@ export const enContent = {
 
 export const cyContent = {
   title: 'Your private law account (welsh)',
+  CAApplicationNote: 'Case once submitted cannot be accessed. (welsh)',
+  createCAApplication: 'Start new C100 application (welsh)',
   sectionTitles: {
     yourCAapplication: 'C100 applications where you are an applicant',
     youtCArespondentApplication: 'C100 applications where you are an respondent',
@@ -59,10 +63,15 @@ const en = (content: CommonContent) => {
   return {
     title: enContent.title,
     sections: [
-      summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, false),
-      summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, true),
-      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, false),
-      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, true),
+      {
+        ...summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, isRespondent),
+        help: `
+        <p class="govuk-body">${enContent.CAApplicationNote}</p>
+        <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${enContent.createCAApplication}</a></h1>`,
+      },
+      summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, isRespondent),
+      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
+      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),
     ],
     help: enContent.help,
   };
@@ -96,7 +105,12 @@ const cy = (content: CommonContent) => {
   return {
     title: cyContent.title,
     sections: [
-      summaryCaseList(c100CaseListApplicant, cyContent.sectionTitles.yourCAapplication, isRespondent),
+      {
+        ...summaryCaseList(c100CaseListApplicant, cyContent.sectionTitles.yourCAapplication, isRespondent),
+        help: `
+        <p class="govuk-body">${cyContent.CAApplicationNote}</p>
+        <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${cyContent.createCAApplication}</a></h1>`,
+      },
       summaryCaseList(c100CaseListRespondent, cyContent.sectionTitles.youtCArespondentApplication, isRespondent),
       summaryCaseList(fl401CaseListApplicant, cyContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
       summaryCaseList(fl401CaseListRespondent, cyContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),

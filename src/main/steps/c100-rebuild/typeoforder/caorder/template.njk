@@ -1,0 +1,95 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
+
+    {%if userCase['too_courtOrder'] and userCase['too_courtOrder'].length === 1 %}
+        {% for item in userCase['too_courtOrder'] %}
+            {% if item === "whoChildLiveWith" %}
+                <h2 class="govuk-heading-m">{{singlechildTitle}}</h2>
+                <ul class="govuk-list govuk-list--bullet">
+                <li>{{childOption1}}</li>
+                </ul>
+                <p class="govuk-body">{{childSecondary}}</p>
+            {% elif item === "childTimeSpent"  %}
+                <h2 class="govuk-heading-m">{{singlechildTitle}}</h2>
+                <ul class="govuk-list govuk-list--bullet">
+                <li>{{childOption2}}</li>
+                </ul>
+                <p class="govuk-body">{{childSecondary}}</p>
+            {% elif item === "stopOtherPeopleDoingSomething"  %}
+                <h2 class="govuk-heading-m">{{stepsOrderTitle}}</h2>
+                <ul class="govuk-list govuk-list--bullet">
+                {% for subItem in userCase['too_stopOtherPeopleDoingSomethingSubField'] %}
+                {% if subItem !== ''  %}
+                <li>{{stepsList[subItem]}}</li>
+                {% endif %}
+                {% endfor %}
+                </ul>
+                <p class="govuk-body">{{stepsOrderSecondary}}</p>
+            {% elif item === "resolveSpecificIssue"%}
+                <h2 class="govuk-heading-m">{{issueOrderTitle}}</h2>
+                <ul class="govuk-list govuk-list--bullet">
+                    {% for subItem in userCase['too_resolveSpecificIssueSubField'] %}
+                    <li>{{issueOrderList[subItem]}}</li>
+                    {% endfor %}
+                 </ul>
+                <p class="govuk-body">{{issueOrderSecondary}}</p>
+            {% endif %}
+        {% endfor %}
+    {%endif%}
+
+    {%if userCase['too_courtOrder'] and userCase['too_courtOrder'].length > 1 %}
+        {% if userCase['too_courtOrder'].indexOf("whoChildLiveWith") > -1 and  userCase['too_courtOrder'].indexOf("childTimeSpent") > -1 %}
+            <h2 class="govuk-heading-m">{{singlechildTitle}}</h2>
+            <ul class="govuk-list govuk-list--bullet">
+                {% if userCase['too_courtOrder'].indexOf("whoChildLiveWith") > -1  %}
+                    <li>{{childOption1}}</li>
+                {% endif %}
+                {% if userCase['too_courtOrder'].indexOf("childTimeSpent") > -1  %}
+                    <li>{{childOption2}}</li>
+                {% endif %}
+            </ul>
+            <p class="govuk-body">{{childSecondary}}</p>
+        {% else %}
+            {% if userCase['too_courtOrder'].indexOf("whoChildLiveWith") > -1 %}
+                <h2 class="govuk-heading-m">{{singlechildTitle}}</h2>
+                <ul class="govuk-list govuk-list--bullet">
+                <li>{{childOption1}}</li>
+                </ul>
+                <p class="govuk-body">{{childSecondary}}</p>
+            {%endif%}
+            {% if userCase['too_courtOrder'].indexOf("childTimeSpent") > -1  %}
+                <h2 class="govuk-heading-m">{{singlechildTitle}}</h2>
+                <ul class="govuk-list govuk-list--bullet">
+                <li>{{childOption2}}</li>
+                </ul>
+                <p class="govuk-body">{{childSecondary}}</p>
+            {%endif%}
+        {%endif%}
+
+        {% for item in userCase['too_courtOrder'] %}
+            {% if item === "stopOtherPeopleDoingSomething"  %}
+                <h2 class="govuk-heading-m">{{stepsOrderTitle}}</h2>
+                <ul class="govuk-list govuk-list--bullet">
+                    {% for subItem in userCase['too_stopOtherPeopleDoingSomethingSubField'] %}
+                        {% if subItem !== ''  %}
+                            <li>{{stepsList[subItem]}}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                <p class="govuk-body">{{stepsOrderSecondary}}</p>
+            {% endif %}
+            {% if item === "resolveSpecificIssue"%}
+                <h2 class="govuk-heading-m">{{issueOrderTitle}}</h2>
+                <ul class="govuk-list govuk-list--bullet">
+                    {% for subItem in userCase['too_resolveSpecificIssueSubField'] %}
+                        <li>{{issueOrderList[subItem]}}</li>
+                    {% endfor %}
+                </ul>
+                <p class="govuk-body">{{issueOrderSecondary}}</p>
+            {% endif %}
+        {% endfor %}
+    {%endif%}
+    <br/>    <br/>
+{% endblock %} 

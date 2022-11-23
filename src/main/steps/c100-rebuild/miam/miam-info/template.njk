@@ -1,0 +1,27 @@
+{% extends "common/template.njk" %}
+
+
+{% block page_content %}
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
+
+<p class="govuk-body-l">{{paragraph1 | safe}} </p>
+<p class="govuk-body-m">{{paragraph2 | safe}} </p>
+<p class="govuk-body">{{ legalAidLink | safe }}</p>
+<div class="govuk-inset-text"> {{miamMeeting | safe}} </div>
+
+<h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ miamHeading1 | safe }}</h1>
+<p class="govuk-body-m">{{line1 | safe}} </p>
+<ul class="govuk-list govuk-list--bullet">
+{% for miamItem in miamList %}
+    <li>{{ miamItem }}</li>
+{% endfor %}
+</ul>
+<p class="govuk-body-m">{{line2 | safe}} </p>
+<p class="govuk-body">{{ line3Link | safe }}</p>
+<h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ miamHeading2 | safe}}</h1>
+<p class="govuk-body-m">{{line4}} </p>
+<h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ miamHeading3 | safe}}</h1>
+<p class="govuk-body-m">{{line5 | safe}} </p>
+<p class="govuk-body-m govuk-!-margin-bottom-7">{{line6Link | safe}} </p>
+
+{% endblock %}

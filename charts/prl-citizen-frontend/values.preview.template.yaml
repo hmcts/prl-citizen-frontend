@@ -22,6 +22,8 @@ nodejs:
     DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-640.service.core-compute-preview.internal'
     COS_URL: 'https://prl-cos-pr-604.service.core-compute-preview.internal'
     REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
+    LAUNCH_DARKLY_OFFLINE_MODE: false
+    C100_REBUILD_FLAG: false
   keyVaults:
     prl:
       resourceGroup: prl

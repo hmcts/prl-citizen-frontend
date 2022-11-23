@@ -11,6 +11,8 @@ const IGNORED_URLS = [
   urls.SIGN_OUT_URL,
   urls.FIND_OUT_ABOUT_CAFCASS,
   urls.FIND_OUT_ABOUT_CAFCASS_CYMRU,
+  urls.CALLBACK_URL,
+  urls.CITIZEN_HOME_URL
 ];
 
 const pa11y = require('pa11y');

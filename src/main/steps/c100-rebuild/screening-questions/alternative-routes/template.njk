@@ -1,0 +1,24 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block page_content %}
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
+    <p class="govuk-body">{{paragraph}}</p>
+    <p class="govuk-body">{{secondaryLabel}}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        {% for item in firstList %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+    <h2 class="govuk-heading-l">{{secondaryTitle}}</h2>
+    <h3 class="govuk-heading-m">{{thirdTitle}}</h3>
+    <div class="govuk-body">{{ paragraph1 | safe}}</div>
+    <h3 class="govuk-heading-m">{{fourthTitle}}</h3>
+    <div class="govuk-body">{{ paragraph2 | safe}}</div>
+    {{ govukInsetText(insetText) }}
+    <h3 class="govuk-heading-m">{{fifthTitle}}</h3>
+    <div class="govuk-body">{{ paragraph3 | safe}}</div>
+    <h3 class="govuk-heading-m">{{sixthTitle}}</h3>
+    <div class="govuk-body">{{ paragraph4 | safe}}</div>
+    <h3 class="govuk-heading-m">{{formTitle}}</h3>
+{% endblock %}

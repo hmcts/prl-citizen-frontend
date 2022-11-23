@@ -1,0 +1,41 @@
+{% extends "common/form/form.njk"%}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+
+{% block before_fields %}
+  {% if sections %}
+    {% for item in sections %}
+      {% if item %}
+        <h2 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h2>
+        {{ govukSummaryList({
+          classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
+          rows: item.rows
+        })
+      }}
+    
+      {% endif %}
+    {% endfor %}
+
+<p class="govuk-body govuk-!-padding-bottom-4">
+          {{StatementOfTruth['lastpara']}}
+        </p>
+      <br>
+  {% endif %}
+{% endblock %}
+
+
+    {% block after_form %}
+    {{ govukDetails({
+  summaryText: SummaryDetail,
+  text: SummaryDetailInnerText | safe
+}) }}
+
+
+    {% endblock %}
+
+   
