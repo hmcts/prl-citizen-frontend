@@ -5,8 +5,6 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-const https = require('https');
-
 export const getFeesForC100ApplicationSubmission = async (
   userDetails: UserDetails,
   logger: LoggerInstance
@@ -19,9 +17,6 @@ export const getFeesForC100ApplicationSubmission = async (
         serviceAuthorization: 'Bearer ' + getServiceAuthToken(),
         'Content-Type': 'application/json',
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
     return response.data;
   } catch (err) {
