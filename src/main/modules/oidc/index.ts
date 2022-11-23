@@ -55,7 +55,7 @@ export class OidcMiddleware {
           req.session.c100RebuildLdFlag !== undefined
             ? req.session.c100RebuildLdFlag
             : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
-
+        console.log('C100 - Launch Darkly Flag ', c100RebuildLdFlag);
         //Skipping for C100 rebuild
         if (req.path.startsWith(CITIZEN_HOME_URL || C100_URL || DASHBOARD_URL) && !req.session?.user) {
           if (c100RebuildLdFlag) {
