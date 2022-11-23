@@ -1,0 +1,87 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "../../../common/fileupload/macro.njk" import fileUpload %}
+
+{% extends "common/page.njk" %}
+{% block page_content %}
+
+{% if FileErrors.length > 0 %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: FileErrors
+}) }}
+{%endif%}
+
+  <h1 class="govuk-heading-xl">{{titleList[orderType]}}
+ {% if orderId == '1' %}
+  {{''}}
+  {% else %}
+  {{orderId}}
+  {% endif %}
+  
+  </h1>
+  <p class="govuk-body">{{ youNeed }}</p>
+  <p class="govuk-body">{{ youNeed2 }}</p>
+
+
+
+
+{% set uploadReqTest = ""%}
+
+{% for item in uploadRequirement %}
+    {% set uploadReqTest = uploadReqTest + "<li>" + item + "</li>"%}
+{% endfor %}
+
+{% set requirementTest = "<ol class='govuk-list govuk-list--number'>" + uploadReqTest + "</ol>" %}
+
+{{ govukDetails({
+  summaryText: uploadDescription,
+  text: requirementTest  | safe
+}) }}
+
+
+<div class="">
+   {% for error in sessionErrors %}
+    {%- if  error.propertyName === 'document'  %}<div class="govuk-form-group--error">  {% endif %}
+    {% endfor %}
+  {% for error in sessionErrors %}
+    {%- if  error.propertyName === 'document'  %}
+    {%- if  error.errorType === 'required'  %}
+         <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
+    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].required}}</span>
+     {% endif %}
+      {%- if  error.errorType === 'multipleFiles'  %}
+     <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
+    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].multipleFiles}}</span>
+     {% endif %}
+     {% endif %}
+    {% endfor %}
+   {{ fileUpload(
+        {
+          uploadButtonText: uploadButton,
+          fileuploadTitle: "Upload a file",
+          formPostURL: fileUploadUrl,
+          sessionFilesArray: false,
+          sessionFiles: document,
+          uploadFileHeading: '',
+          sessionNullFilesMessage: noFilesUploaded,
+          removeText: remove,
+          csrfToken: csrfToken,
+          fileremoveURL : fileRemoveUrl
+        }
+      ) }}
+         {% for error in sessionErrors %}
+    {%- if  error.propertyName === 'document'  %}</div>  {% endif %}
+    {% endfor %}
+
+  <div>
+    <p class="govuk-body">
+    {{ fileFormats }}<br>
+    {{ fileSize }}
+  </p>
+  </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{title}}</h1>
+{% endblock %}
+
+{% block page_content_under_form %}
+    <details class="govuk-details" data-module="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text" data-ga-category="explanations" data-ga-label="applicant abuse info">
+              {{ needInfoTitle }}
+            </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p class="govuk-body">{{ riskToChildrenInfo }}</p>
+      <p class="govuk-body">{{ abuseRiskInfo }}</p>
+      <p class="govuk-body">{{ cafcassLinksInfo | safe }}</p>
+      <p class="govuk-body">{{ enquiryContactInfo }}</p>
+      <p class="govuk-body">{{ hearingSumissionInfo }}</p>
+      <p class="govuk-body">{{ sharedRespondentinfo }}</p>
+    </div>
+  </details>
+{% endblock %}

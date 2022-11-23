@@ -1,0 +1,14 @@
+{% extends "common/template.njk" %}
+
+
+{% block page_content %}
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
+<div class="govuk-body">{{ subHeading }}</div>
+<p class="govuk-body">{{setOut}}</p>
+
+<ul class="govuk-list govuk-list--bullet">
+{% for item in listOfsetOut %}
+  <li>{{item}} </li>
+{% endfor %}
+</ul>
+{% endblock %} 
