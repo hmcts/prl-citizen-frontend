@@ -11,14 +11,23 @@ const en = {
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply',
   select_all_apply: 'Select all that apply',
   doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
+  doNotHaveParentalResponsibilityHintText: 'Provide details',
   section: 'parental responsibility means that you are responsible for the children and their property',
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court',
+  courtOrderPreventHintText: 'Provide details of the court order in place',
   anotherReason: 'Another reason',
+  anotherReasonHintText: 'Provide details for why you need permission to make this application',
   errors: {
-    sq_doNotHaveParentalResponsibility_subfield: 'Provide details',
-    sq_courtOrderPrevent_subfield: 'Provide details',
-    sq_anotherReason_subfield: 'Provide details',
+    sq_doNotHaveParentalResponsibility_subfield: {
+      required: "Provide details for 'I do not have parental responsibility for the children'",
+    },
+    sq_courtOrderPrevent_subfield: {
+      required: "Provide details for 'There is a court order preventing me from making an application'",
+    },
+    sq_anotherReason_subfield: {
+      required: 'Provide details for another reason',
+    },
   },
 };
 
@@ -27,14 +36,23 @@ const cy = {
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply - welsh',
   select_all_apply: 'Select all that apply - welsh',
   doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children - welsh',
+  doNotHaveParentalResponsibilityHintText: 'Provide details - welsh',
   section: 'parental responsibility means that you are responsible for the children and their property - welsh',
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court - welsh',
+  courtOrderPreventHintText: 'Provide details of the court order in place - welsh',
   anotherReason: 'Another reason - welsh',
+  anotherReasonHintText: 'Provide details for why you need permission to make this application - welsh',
   errors: {
-    sq_doNotHaveParentalResponsibility_subfield: 'Provide details - welsh',
-    sq_courtOrderPrevent_subfield: 'Provide details - welsh',
-    sq_anotherReason_subfield: 'Provide details - welsh',
+    sq_doNotHaveParentalResponsibility_subfield: {
+      required: "Provide details for 'I do not have parental responsibility for the children' - welsh",
+    },
+    sq_courtOrderPrevent_subfield: {
+      required: "Provide details for 'There is a court order preventing me from making an application' - welsh",
+    },
+    sq_anotherReason_subfield: {
+      required: 'Provide details for another reason - welsh',
+    },
   },
 };
 /* eslint-disable @typescript-eslint/ban-types */
