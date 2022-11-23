@@ -57,6 +57,7 @@ import {
   YesOrNo,
   orderInterface,
   C1ASafteyConcernsAbout,
+  C1ASafteyConcerns,
   //DocumentType,
 } from './definition';
 
@@ -414,6 +415,7 @@ export interface Case {
   //CA-DA-Respondent
   respondentAttendingToCourt?: string;
   c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
+  c1A_safteyConcerns?: C1ASafteyConcerns;
   respondentConcernedonChildAbout?: string;
   ConcernedonSelfAbout?: string;
   selfphysicalbehaviourDetails?: string;

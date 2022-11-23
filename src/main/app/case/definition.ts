@@ -2321,3 +2321,47 @@ export enum C1ASafteyConcernsAbout{
   APPLICANT = 'applicant',
   OTHER = 'otherConcerns',
 }
+
+export const enum YesNoEmpty {
+  YES = 'Yes',
+  NO = 'No',
+  EMPTY = '',
+}
+
+export interface C1ASafteyConcernsAbuse{
+  behaviourDetails?: string;
+  behaviourStartDate?: string;
+  isOngoingBehaviour?:YesNoEmpty;
+  seekHelpFromPersonOrAgency?: YesNoEmpty;
+  seekHelpDetails?: string;
+  childrenConcernedAbout?: string;
+}
+
+export interface C1ASafteyConcerns {
+  child?: {
+    physicalAbuse?:C1ASafteyConcernsAbuse;
+    psychologicalAbuse?:C1ASafteyConcernsAbuse;
+    emotionalAbuse?:C1ASafteyConcernsAbuse;
+    sexualAbuse?:C1ASafteyConcernsAbuse;
+    financialAbuse?: C1ASafteyConcernsAbuse;
+  },
+  applicant?:{
+    physicalAbuse?:C1ASafteyConcernsAbuse;
+    psychologicalAbuse?:C1ASafteyConcernsAbuse;
+    emotionalAbuse?:C1ASafteyConcernsAbuse;
+    sexualAbuse?:C1ASafteyConcernsAbuse;
+    financialAbuse?: C1ASafteyConcernsAbuse;
+    somethingElse?: C1ASafteyConcernsAbuse;
+  },
+  }
+
+  export enum C1AAbuseTypes {
+    PHYSICAL_ABUSE = 'physicalAbuse',
+    PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
+    EMOTIONAL_ABUSE = 'emotionalAbuse',
+    SEXUAL_ABUSE = 'sexualAbuse',
+    FINANCIAL_ABUSE = 'financialAbuse',
+    ABDUCTION = 'abduction',
+    WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
+    SOMETHING_ELSE='somethingElse',
+  }

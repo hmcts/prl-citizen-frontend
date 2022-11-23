@@ -12,7 +12,7 @@ const en = {
   selfconcern: 'Yourself',
   continue: 'Save and continue',
   errors: {
-    respondentConcernedAbout: {
+    c1A_safetyConernAbout: {
       required: 'Specify who you are concerned about',
     },
   },
@@ -27,7 +27,7 @@ const cy: typeof en = {
   selfconcern: 'Yourself - in welsh',
   continue: 'Save and continue - in welsh',
   errors: {
-    respondentConcernedAbout: {
+    c1A_safetyConernAbout: {
       required: 'Specify who you are concerned about - in welsh',
     },
   },

@@ -197,6 +197,7 @@ export const generatePageContent = ({
   document_type,
   addresses = [],
   userIdamId,
+  additionalData,
 }: {
   language: Language;
   pageContent?: TranslationFn;
@@ -209,9 +210,10 @@ export const generatePageContent = ({
   name?: string;
   userIdamId?: string;
   byApplicant?: string;
+  additionalData?: CommonContentAdditionalData;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
-  const serviceName = getServiceName(commonTranslations);
+  const serviceName = getServiceName(additionalData,commonTranslations);
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -225,6 +227,7 @@ export const generatePageContent = ({
     caption,
     document_type,
     userIdamId,
+    additionalData,
     byApplicant,
   };
 
@@ -235,7 +238,7 @@ export const generatePageContent = ({
   return content;
 };
 
-const getServiceName = (translations: typeof en): string => {
+const getServiceName = (addtionalReqData: CommonContentAdditionalData | undefined,translations: typeof en): string => {
   return capitalize(translations.applyForChildArrangements);
 };
 
@@ -253,8 +256,13 @@ export type CommonContent = typeof en & {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   byApplicant?: string;
-
+  additionalData?: CommonContentAdditionalData
   userIdamId?: string;
+};
+
+type CommonContentAdditionalData = {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  [key: string]: any;
 };
 
 export type Language = 'en' | 'cy';
