@@ -47,13 +47,25 @@ class ApplicantNavigationController {
     let nextUrl;
 
     switch (currentPageUrl) {
+      case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW: {
+        const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
+
+        nextUrl = applyParms(
+          applicantData.detailsKnown === YesOrNo.YES
+            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START
+            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+          { applicantId: this.applicantId }
+        );
+        break;
+      }
       case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START:
       case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE: {
         const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
+        const dataReference =
+          currentPageUrl === C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START ? 'start' : 'startAlternative';
+
         nextUrl = applyParms(
-          applicantData[
-            currentPageUrl === C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START ? 'start' : 'startAlternative'
-          ] === YesOrNo.YES
+          applicantData[dataReference] === YesOrNo.YES
             ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
             : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
           { applicantId: this.applicantId }
