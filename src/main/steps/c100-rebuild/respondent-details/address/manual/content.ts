@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { C100RebuildPartyDetails, YesNoDontKnow } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -11,7 +12,7 @@ import { getPartyDetails } from '../../../people/util';
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Address details of',
   subtitle:
     "Include as much detail as you can. If there's information missing, your application may take longer to process.",
@@ -30,10 +31,6 @@ const en = () => ({
     PostTown: {
       required: 'Enter the town or city',
     },
-    PostCode: {
-      required: 'Enter the postcode',
-      invalid: 'Enter a valid postcode',
-    },
     addressHistory: {
       required: 'Enter your details known',
     },
@@ -41,12 +38,12 @@ const en = () => ({
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
     Country: {
-      required: 'Enter the country - welsh',
+      required: 'Enter the country ',
     },
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Address details of - welsh',
   subtitle:
     "Include as much detail as you can. If there's information missing, your application may take longer to process. - welsh",
@@ -65,10 +62,7 @@ const cy = () => ({
     PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    PostCode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
-    },
+
     addressHistory: {
       required: 'Enter your details known - welsh',
     },

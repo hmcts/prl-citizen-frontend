@@ -14,10 +14,7 @@ const en = {
     PostTown: {
       required: 'Enter the town or city',
     },
-    PostCode: {
-      required: 'Enter the postcode',
-      invalid: 'Enter a valid postcode',
-    },
+
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
@@ -37,10 +34,7 @@ const cy = {
     PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    PostCode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
-    },
+
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
     },

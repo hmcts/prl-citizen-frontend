@@ -11,6 +11,7 @@ import {
   isEmailValid,
   isFieldFilledIn,
   isFieldLetters,
+  isFileSizeGreaterThanMaxAllowed,
   isFutureDate,
   isInvalidHelpWithFeesRef,
   isInvalidPostcode,
@@ -21,6 +22,8 @@ import {
   isTextAreaValid,
   isValidAccessCode,
   isValidCaseReference,
+  isValidFileFormat,
+  notSureViolation,
 } from './validation';
 
 describe('Validation', () => {
@@ -42,6 +45,12 @@ describe('Validation', () => {
       const isValid = isFieldFilledIn('    ');
 
       expect(isValid).toStrictEqual('required');
+    });
+
+    test('Should check if its a notSureViolation', async () => {
+      const notSureValidation = notSureViolation(['Not sure', 'other']);
+
+      expect(notSureValidation).toStrictEqual('notSureViolation');
     });
   });
 
@@ -364,5 +373,18 @@ describe('isTextAreaValid()', () => {
       'abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz0987654321098765432123450abcdefghijklmnopqrstuvwxyz0987654321000000000000000000000000000000';
 
     expect(isTextAreaValid(value)).toStrictEqual('invalid');
+  });
+});
+
+describe('should return valid files', () => {
+  const files = { documents: { name: 'test.pdf', size: '812300', data: '', mimetype: 'text' } };
+  test('isFileSizeGreaterThanMaxAllowed', async () => {
+    const isValidFile = isFileSizeGreaterThanMaxAllowed(files);
+    expect(isValidFile).toStrictEqual(true);
+  });
+
+  test('Should check if value does not exist', async () => {
+    const isValidFile = isValidFileFormat(files);
+    expect(isValidFile).toStrictEqual(true);
   });
 });

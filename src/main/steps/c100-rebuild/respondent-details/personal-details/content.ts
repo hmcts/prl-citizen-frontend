@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseDate } from '../../../../app/case/case';
 import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
@@ -13,7 +14,7 @@ import { getPartyDetails } from '../../people/util';
 //export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Provide details for',
   hasNameChanged: 'Have they changed their name?',
   hasNameChangedHint:
@@ -67,7 +68,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Provide details for - welsh',
   hasNameChanged: 'Have they changed their name? - welsh',
   hasNameChangedHint:

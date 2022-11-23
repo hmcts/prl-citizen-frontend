@@ -233,7 +233,7 @@ describe('Document upload controller', () => {
     });
 
     expect(res.redirect).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/dashboard-v1');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should upload document and redirect back to current page', async () => {
@@ -430,6 +430,142 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/other-proceedings/otherOrder/1/documentUpload');
+  });
+
+  test('Should validate file and upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({
+      params: {
+        orderType: 'otherOrder',
+        orderId: '1',
+      },
+      session: {
+        userCase: {
+          op_otherProceedings: {
+            order: {
+              otherOrders: [
+                // {
+                //   orderDetail: 'OtherOrder1',
+                //   orderCopy: 'Yes',
+                // //   orderDocument: {
+                // //     id: '',
+                // //     url: '',
+                // //     filename: '',
+                // //     binaryUrl: '',
+                // //   },
+                // },
+              ],
+            },
+          },
+        },
+        save: jest.fn(done => done()),
+      },
+    });
+    req.files = { documents: { name: 'test.pdf', data: '', mimetype: 'text' } };
+    const res = mockResponse();
+
+    mockedAxios.post.mockImplementation(url => {
+      switch (url) {
+        case '/upload-citizen-document':
+          return Promise.resolve({
+            data: {
+              status: 'Success',
+              document: {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_filename: 'applicant_emergency_protection_order10_12092022.rtf',
+                document_binary_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          });
+        default:
+          return Promise.reject(new Error('not found'));
+      }
+    });
+
+    await controller.post(req, res);
+
+    expect(res.redirect).not.toHaveBeenCalled();
+  });
+
+  test('Should validate file and upload for second order', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({
+      params: {
+        orderType: 'otherOrder',
+        orderId: '2',
+      },
+      session: {
+        userCase: {
+          op_otherProceedings: {
+            order: {
+              otherOrders: [
+                // {
+                //   orderDetail: 'OtherOrder1',
+                //   orderCopy: 'Yes',
+                // //   orderDocument: {
+                // //     id: '',
+                // //     url: '',
+                // //     filename: '',
+                // //     binaryUrl: '',
+                // //   },
+                // },
+              ],
+            },
+          },
+        },
+        save: jest.fn(done => done()),
+      },
+    });
+    req.files = { documents: { name: 'test.pdf', data: '', mimetype: 'text' } };
+    const res = mockResponse();
+
+    mockedAxios.post.mockImplementation(url => {
+      switch (url) {
+        case '/upload-citizen-document':
+          return Promise.resolve({
+            data: {
+              status: 'Success',
+              document: {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_filename: 'applicant_emergency_protection_order10_12092022.rtf',
+                document_binary_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          });
+        default:
+          return Promise.reject(new Error('not found'));
+      }
+    });
+
+    await controller.post(req, res);
+
+    expect(res.redirect).not.toHaveBeenCalled();
   });
 });
 

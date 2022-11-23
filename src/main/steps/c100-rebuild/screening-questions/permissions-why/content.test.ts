@@ -15,6 +15,11 @@ const en = {
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court',
   anotherReason: 'Another reason',
+  errors: {
+    sq_doNotHaveParentalResponsibility_subfield: 'Provide details',
+    sq_courtOrderPrevent_subfield: 'Provide details',
+    sq_anotherReason_subfield: 'Provide details',
+  },
 };
 
 const cy = {
@@ -26,6 +31,11 @@ const cy = {
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court - welsh',
   anotherReason: 'Another reason - welsh',
+  errors: {
+    sq_doNotHaveParentalResponsibility_subfield: 'Provide details - welsh',
+    sq_courtOrderPrevent_subfield: 'Provide details - welsh',
+    sq_anotherReason_subfield: 'Provide details - welsh',
+  },
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Screening questions > permissions-why', () => {
@@ -59,6 +69,14 @@ describe('Screening questions > permissions-why', () => {
     expect((permissionsWhyField.values[0].hint as LanguageLookup)(generatedContent)).toBe(en.section);
     expect((permissionsWhyField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.courtOrderPrevent);
     expect((permissionsWhyField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.anotherReason);
+    const sq_doNotHaveParentalResponsibility_subfield = permissionsWhyField.values[0].subFields
+      ?.sq_doNotHaveParentalResponsibility_subfield as FormOptions;
+    expect(sq_doNotHaveParentalResponsibility_subfield.type).toBe('textarea');
+    const sq_courtOrderPrevent_subfield = permissionsWhyField.values[1].subFields
+      ?.sq_courtOrderPrevent_subfield as FormOptions;
+    expect(sq_courtOrderPrevent_subfield.type).toBe('textarea');
+    const sq_anotherReason_subfield = permissionsWhyField.values[2].subFields?.sq_anotherReason_subfield as FormOptions;
+    expect(sq_anotherReason_subfield.type).toBe('textarea');
   });
 
   test('should contain Save and continue button', () => {

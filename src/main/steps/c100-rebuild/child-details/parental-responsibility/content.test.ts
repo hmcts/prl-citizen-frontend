@@ -11,8 +11,10 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Parental responsibility for',
+  parentalResponsibility:
+    'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility.',
   subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility.',
-  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
+  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born'.</p>
  <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p>`,
   errors: {
     statement: {
@@ -23,8 +25,10 @@ const en = {
 
 const cy = {
   title: 'Parental responsibility for - welsh',
+  parentalResponsibility:
+    'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility. - welsh',
   subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility. - welsh',
-  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
+  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born'.</p>
   <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p> - welsh`,
   errors: {
     statement: {
