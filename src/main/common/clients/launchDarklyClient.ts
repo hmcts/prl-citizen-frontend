@@ -2,18 +2,17 @@ import config from 'config';
 import { LDClient, LDFlagValue, LDUser, init } from 'launchdarkly-node-server-sdk';
 
 const ldConfig = {
-  offline: true,
+  offline: false,
 };
 
 export class LaunchDarklyClient {
   private static client: LDClient;
 
   constructor() {
-    if (ldConfig.offline === false) {
-      if (!LaunchDarklyClient.client) {
-        const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
-        LaunchDarklyClient.client = init(sdkKey, ldConfig);
-      }
+    if (!LaunchDarklyClient.client) {
+      console.log('initializing LD Client');
+      const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
+      LaunchDarklyClient.client = init(sdkKey, ldConfig);
     }
   }
 
@@ -24,17 +23,14 @@ export class LaunchDarklyClient {
   }
 
   async serviceVariation(featureKey: string, offlineDefault: LDFlagValue): Promise<LDFlagValue> {
-    if (ldConfig.offline === false) {
-      const roles: string[] = [];
-      const ldUser: LDUser = {
-        key: 'citizen-frontend',
-        custom: {
-          roles,
-        },
-      };
+    const roles: string[] = [];
+    const ldUser: LDUser = {
+      key: 'citizen-frontend',
+      custom: {
+        roles,
+      },
+    };
 
-      return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
-    }
-    return true;
+    return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
   }
 }
