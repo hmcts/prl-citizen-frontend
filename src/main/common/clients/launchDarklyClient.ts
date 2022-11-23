@@ -9,6 +9,7 @@ export class LaunchDarklyClient {
   private static client: LDClient;
 
   constructor() {
+    console.log("config.get('launchDarkly.offline')", config.get('launchDarkly.offline'));
     if (config.get('launchDarkly.offline') === false) {
       if (!LaunchDarklyClient.client) {
         const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
