@@ -2,7 +2,7 @@ import { responseCaseSequence } from './responseCaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(39);
+    expect(responseCaseSequence).toHaveLength(40);
     expect(responseCaseSequence[0].url).toBe('/respondent/task-list');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -142,26 +142,26 @@ describe('respondent1Sequence', () => {
     //   '/respondent/upload-document/document-sharing-details'
     // );
 
-    expect(responseCaseSequence[34].url).toBe('/respondent/upload-document');
+    expect(responseCaseSequence[34].url).toBe('/tasklistresponse/proceedings/summary');
     expect(responseCaseSequence[34].showInSection).toBe('aboutRespondentCase');
     // expect(responseCaseSequence[34].getNextStep(mockUserCase)).toBe(
     //   '/respondent/upload-document/upload-your-documents'
     // );
 
-    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document/start');
+    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document');
     expect(responseCaseSequence[35].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[35].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[35].getNextStep({})).toBe('/respondent/upload-document/start');
 
-    expect(responseCaseSequence[36].url).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[36].url).toBe('/respondent/upload-document/start');
     expect(responseCaseSequence[36].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[36].getNextStep({})).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[36].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
 
-    expect(responseCaseSequence[37].url).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[37].url).toBe('/respondent/upload-document/document-sharing-details');
     expect(responseCaseSequence[37].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[37].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[37].getNextStep({})).toBe('/respondent/upload-document/upload-your-documents');
 
-    expect(responseCaseSequence[38].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[38].url).toBe('/respondent/upload-document/upload-your-documents');
     expect(responseCaseSequence[38].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[38].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[38].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
   });
 });

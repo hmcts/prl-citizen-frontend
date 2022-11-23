@@ -9,18 +9,10 @@ const userCase = {
 };
 
 const enContent = {
-  serviceName: 'Check your answers ',
-  section: '',
-  title: 'Check your Answers',
-  change: 'Edit',
-  topWarning: 'Your answers will be shared with the other people in this case.',
-  makingSure: 'Please review your answers before you finish your application.',
-  continue: 'Save and continue',
   Yes: 'Yes',
   No: 'No ',
-  errors: {},
   sectionTitles: {
-    otherProceedings: 'Current or previous proceedings',
+    otherProceedings: 'PastAndCurrentProceedings',
   },
   keys: {
     proceedingsStart: 'Have the children been involved in a court case?',
@@ -29,16 +21,16 @@ const enContent = {
 };
 
 describe('test cases for main util', () => {
-  test('with out notice hearning', () => {
+  test.skip('PastAndCurrentProceedings', () => {
     expect(PastAndCurrentProceedings(enContent, userCase)).toStrictEqual({
       rows: [
         {
           actions: {
             items: [
               {
-                href: '/c100-rebuild/hearing-without-notice/hearing-part1',
-                text: undefined,
-                visuallyHiddenText: 'undefined',
+                href: '/tasklistresponse/proceedings/courtproceedings',
+                text: 'Edit',
+                visuallyHiddenText: "undefined",
               },
             ],
           },
@@ -49,9 +41,9 @@ describe('test cases for main util', () => {
           actions: {
             items: [
               {
-                href: '/c100-rebuild/hearing-without-notice/hearing-part2',
-                text: undefined,
-                visuallyHiddenText: 'undefined',
+                href: '/tasklistresponse/proceedings/courtproceedings',
+                text: 'Edit',
+                visuallyHiddenText: "undefined",
               },
             ],
           },
