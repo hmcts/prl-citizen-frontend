@@ -4,7 +4,7 @@ import SafteyConcernsNavigationController from './allegations-of-harm-and-violen
 import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
-  // C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   // C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
@@ -297,14 +297,14 @@ export const responseCaseSequence: Step[] = [
   //   getNextStep: (caseData, req) =>
   //     SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, req?.params),
   // },
-  // {
-  //   url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getNextStep: (caseData, req) =>
-  //     SafteyConcernsNavigationController.getNextUrl(
-  //       C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
-  //       caseData,
-  //       req?.params
-  //     ),
-  // },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+        caseData,
+        req?.params
+      ),
+  },
 ];

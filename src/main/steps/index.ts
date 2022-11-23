@@ -1,6 +1,8 @@
 // import s from 'connect-redis';
-import { NextFunction } from 'express';
 import * as fs from 'fs';
+
+import { NextFunction } from 'express';
+import QueryString from 'query-string';
 
 import { Case } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
@@ -8,11 +10,12 @@ import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
+import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
 import { responseCaseSequence } from './tasklistresponse/responseCaseSequence';
-import { CITIZEN_HOME_URL, PRL_CASE_URL } from './urls';
+import { CITIZEN_HOME_URL, PRL_CASE_URL, PageLink } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
@@ -71,7 +74,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
   if ((req.body as any).saveAsDraft) {
     return CITIZEN_HOME_URL;
   }
-  const { path, queryString } = getPathAndQueryString(req);
+  const { path, queryString: queryStr } = getPathAndQueryString(req);
   const nextStep = [
     ...citizenSequence,
     ...respondentCaseSequence,
@@ -79,13 +82,29 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...responseCaseSequence,
   ].find(s => s.url === path);
 
-  const url = nextStep ? nextStep.getNextStep(data,req) : CITIZEN_HOME_URL;
+  //const url = nextStep ? nextStep.getNextStep(data) : CITIZEN_HOME_URL;
+  const url = nextStep ? nextStep.getNextStep(data, req) : CITIZEN_HOME_URL;
+  const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
+  let queryString = '';
+  let finalQueryString = {
+    ...QueryString.parse(queryStr),
+    ...QueryString.parse(urlQueryStr),
+  } as Record<string, string>;
 
-  return `${url}${queryString}`;
+  if (nextStep?.sanitizeQueryString) {
+    finalQueryString = nextStep?.sanitizeQueryString(path, urlPath, { ...finalQueryString });
+  }
+
+  if (Object.values(finalQueryString).length) {
+    queryString = `?${QueryString.stringify(finalQueryString)}`;
+  }
+
+  return `${urlPath}${queryString}`;
 };
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
-  const [path, searchParams] = req.originalUrl.split('?');
+  const path = req.route.path;
+  const [, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
 };
@@ -115,12 +134,14 @@ export type StepWithContent = Step & {
   view: string;
   routeGuard?: RouteGuard;
 };
+
 const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] => {
   const dir = __dirname;
 
   const results: StepWithContent[] = [];
   for (const step of sequence) {
-    const stepDir = `${dir}${step.url.startsWith(subDir) ? step.url : `${subDir}${step.url}`}`;
+    const { url } = parseUrl(step.url);
+    const stepDir = `${dir}${url.startsWith(subDir) ? url : `${subDir}${url}`}`;
     const { content, view } = getStepFiles(stepDir);
     results.push({ stepDir, ...step, ...content, view });
   }
@@ -138,3 +159,9 @@ export const stepsWithContent = [
   ...stepsWithContentApplicant,
   ...stepsWithContentC7response,
 ];
+
+const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {
+  const [path, searchParams] = url.split('?');
+  const queryString = searchParams ? `?${searchParams}` : '';
+  return { path, queryString };
+};
