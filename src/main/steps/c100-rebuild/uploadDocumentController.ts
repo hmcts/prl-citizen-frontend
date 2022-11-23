@@ -155,7 +155,7 @@ export default class UploadDocumentController {
 
       formData.append('file', documents.data, {
         contentType: documents.mimetype,
-        filename: `${fileNamePrefix}.${dateOfSystem}.${extensionType}`,
+        filename: `${fileNamePrefix}${dateOfSystem}.${extensionType}`,
       });
       try {
         const responseBody: DocumentUploadResponse = await req.locals.C100Api.uploadDocument(formData);

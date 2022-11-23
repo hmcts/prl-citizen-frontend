@@ -67,4 +67,35 @@ describe('Remove applicant using query from session', () => {
       },
     ]);
   });
+
+  test('Condition check for error', async () => {
+    const controller = new AddApplicants('page', () => ({}), FieldPrefix.APPLICANT);
+    const language = 'en';
+    const req = mockRequest();
+    const res = mockResponse();
+    res.locals.isError = true;
+    req.session.errors = [{ errorType: 'required', propertyName: 'needsResolution' }];
+
+    req.query = {
+      action: 'remove',
+      applicantId: '95dd0bb0-82da-49b2-ac5a-18e6e834948c',
+    };
+    req.session.lang = language;
+    await controller.get(req, res);
+  });
+});
+
+test('Condition check for appl_allApplicants empty value', async () => {
+  const controller = new AddApplicants('page', () => ({}), FieldPrefix.APPLICANT);
+  const language = 'en';
+  const req = mockRequest();
+  const res = mockResponse();
+  req.session.errors = [{ errorType: 'required', propertyName: 'needsResolution' }];
+  req.query = {
+    action: 'remove',
+    applicantId: '95dd0bb0-82da-49b2-ac5a-18e6e834948c',
+  };
+  req.session.lang = language;
+  await controller.get(req, res);
+  expect(req.session.userCase['appl_allApplicants']).toEqual([]);
 });
