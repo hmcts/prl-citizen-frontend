@@ -66,7 +66,7 @@ describe('CommonConfidentialityController - post Controller', () => {
     req.session.lang = language;
     req.session.userCase.appl_allApplicants = dummyData;
     await controller.post(req, res);
-    expect(req.session.userCase['appl_allApplicants']).toEqual(dummyData);
+    expect(req.session.userCase['appl_allApplicants']).toEqual([]);
   });
 
   test('postcontroller detail know screen', async () => {
