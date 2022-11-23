@@ -20,6 +20,14 @@ export const mockRequest: any = ({
         addPayment: jest.fn(),
         getCaseById: jest.fn(),
       },
+      C100Api: {
+        caseApi: jest.fn(),
+        createCase: jest.fn(),
+        updateCase: jest.fn(),
+        deleteDocument: jest.fn(),
+        uploadDocument: jest.fn(),
+        retrieveCase: jest.fn(),
+      },
       logger: {
         info: jest.fn(),
         error: jest.fn(),
@@ -59,4 +67,7 @@ export const mockRequest: any = ({
     url: '/request',
     originalUrl: '/request',
     logout: jest.fn(),
+    route: {
+      path: '/request',
+    },
   } as unknown as AppRequest);

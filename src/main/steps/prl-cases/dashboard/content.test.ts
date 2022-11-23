@@ -8,12 +8,12 @@ describe('service-type content', () => {
   const commonContent = { language: 'en', userCaseList: [{}, {}] } as CommonContent;
   test('should return correct english content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'en' });
-    expect(generatedContent.title).toEqual('Welcome to Citizen dashboard');
+    expect(generatedContent.title).toEqual('Your private law account');
   });
 
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.title).toEqual('Welcome to Citizen dashboard(welsh)');
+    expect(generatedContent.title).toEqual('Your private law account (welsh)');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
