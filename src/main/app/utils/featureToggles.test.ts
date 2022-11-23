@@ -1,6 +1,11 @@
 import { expect } from 'chai';
 
-import { FeatureToggles, initializeFeatureToggle } from '../../../main/app/utils/featureToggles';
+import {
+  FeatureToggles,
+  getFeatureToggle,
+  initFeatureToggle,
+  initializeFeatureToggle,
+} from '../../../main/app/utils/featureToggles';
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
 
 jest.mock('../../common/clients/launchDarklyClient');
@@ -52,6 +57,18 @@ describe('FeatureToggles', () => {
       });
       expect(instanceOfFeatureToggles).to.be.instanceOf(FeatureToggles);
       expect(instanceOfFeatureToggles.launchDarklyClient.initializeLD).to.be.a('function');
+    });
+  });
+
+  describe('initFeatureToggle', () => {
+    it('should call function', () => {
+      expect(initFeatureToggle()).to.be.instanceOf;
+    });
+  });
+
+  describe('getFeatureToggle', () => {
+    it('when invoked should run LaunchDarklyClient.initializeLD and return featureToggleObject', () => {
+      expect(getFeatureToggle()).to.be.instanceOf;
     });
   });
 });
