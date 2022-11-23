@@ -551,6 +551,7 @@ export interface CaseWithId extends Case {
     external_reference: string;
     next_url: string;
     status: string;
+    serviceRequestReference: string;
   };
   id: string;
   state: State;
