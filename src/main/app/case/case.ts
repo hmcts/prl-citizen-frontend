@@ -58,6 +58,7 @@ import {
   orderInterface,
   C1ASafteyConcernsAbout,
   C1ASafteyConcerns,
+  C1AAbuseTypes,
   //DocumentType,
 } from './definition';
 
@@ -416,6 +417,8 @@ export interface Case {
   respondentAttendingToCourt?: string;
   c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
   c1A_safteyConcerns?: C1ASafteyConcerns;
+  c1A_concernAboutChild?: C1AAbuseTypes[];
+  c1A_concernAboutApplicant?: C1AAbuseTypes[];
   respondentConcernedonChildAbout?: string;
   ConcernedonSelfAbout?: string;
   selfphysicalbehaviourDetails?: string;

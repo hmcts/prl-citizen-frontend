@@ -169,21 +169,12 @@ export const RESPONDENT_CHECK_ANSWERS_NO: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/check-answers-no';
 export const RESPONDENT_CHECK_ANSWERS_YES: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes';
-export const RESPONDENT_ONLY_CHILD_CONCERN: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/only-child-abuse';
-export const RESPONDENT_ONLY_SELF_CONCERN: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/only-self-concern';
-  export const SELF_CONCERN_ABUSE_PHYSICAL: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/self-concern-physical-abuse';
-  export const SELF_CONCERN_ABUSE_PSYCHOLOGICAL: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/self-concern-psychological-abuse';
-  export const SELF_CONCERN_EMOTIONAL_ABUSE: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/self-concern-emotional-abuse';
-  export const SELF_CONCERN_SEXUAL_ABUSE: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/self-concern-sexual-abuse';
-  export const SELF_CONCERN_FINANCIAL_ABUSE: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/self-concern-financial-abuse';
-  export const SELF_CONCERN_SOMETHING_ABUSE: PageLink =`${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE_LINK}/abuse-self-concern/someelse-abuse`;
+
+  export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink = `/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about`;
+  export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: PageLink = `/tasklistresponse/allegations-of-harm-and-violence/applicant/concerns-about`;
+  export const C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink = '/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType';
+  export const C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink = `/tasklistresponse/allegations-of-harm-and-violence/applicant/report-abuse/:abuseType`;
+  
 
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;

@@ -12,7 +12,7 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
-import { stepsWithContent } from './steps/';
+import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
@@ -119,7 +119,11 @@ export class Routes {
         : GetController;
 
       if (step && getController) {
-        app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+        app.get(
+          step.url,
+          this.routeGuard.bind(this, step, 'get'),
+          errorHandler(new getController(step.view, step.generateContent).get)
+        );
       }
       app.get(
         `${CONSENT_TO_APPLICATION}/:caseId`,
@@ -156,7 +160,11 @@ export class Routes {
           ? require(`${step.stepDir}/${postControllerFileName}`).default
           : PostController;
 
-        app.post(step.url, errorHandler(new postController(step.form.fields).post));
+        app.post(
+          step.url,
+          this.routeGuard.bind(this, step, 'get'),
+          errorHandler(new postController(step.form.fields).post)
+        );
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
         app.get(
@@ -219,6 +227,14 @@ export class Routes {
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
       }
+    }
+  }
+
+  private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
+    if (typeof step?.routeGuard?.[httpMethod] === 'function') {
+      step.routeGuard[httpMethod].call(this, req, res, next);
+    } else {
+      next();
     }
   }
 }

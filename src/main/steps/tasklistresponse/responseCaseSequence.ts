@@ -2,6 +2,10 @@ import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import SafteyConcernsNavigationController from './allegations-of-harm-and-violence/navigationController'
 import {
+  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  // C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  // C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -34,8 +38,6 @@ import {
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
-  RESPONDENT_ONLY_CHILD_CONCERN,
-  RESPONDENT_ONLY_SELF_CONCERN,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
@@ -49,12 +51,7 @@ import {
   RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
-  SELF_CONCERN_ABUSE_PHYSICAL,
-  SELF_CONCERN_ABUSE_PSYCHOLOGICAL,
-  SELF_CONCERN_EMOTIONAL_ABUSE,
-  SELF_CONCERN_FINANCIAL_ABUSE,
-  SELF_CONCERN_SEXUAL_ABUSE,
-  SELF_CONCERN_SOMETHING_ABUSE,
+ 
   YOUR_SAFETY,
 } from '../urls';
 
@@ -275,73 +272,39 @@ export const responseCaseSequence: Step[] = [
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
-    url: RESPONDENT_ONLY_CHILD_CONCERN,
+    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+        caseData,
+        req?.params
+      ),
   },
   {
-    url: RESPONDENT_ONLY_SELF_CONCERN,
+    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+        caseData,
+        req?.params
+      ),
   },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => SELF_CONCERN_ABUSE_PHYSICAL,
-  },
-  {
-    url: SELF_CONCERN_ABUSE_PHYSICAL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
-  },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => SELF_CONCERN_ABUSE_PSYCHOLOGICAL,
-  },
-  {
-    url: SELF_CONCERN_ABUSE_PSYCHOLOGICAL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
-  },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => SELF_CONCERN_EMOTIONAL_ABUSE,
-  },
-  {
-    url: SELF_CONCERN_EMOTIONAL_ABUSE,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
-  },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => SELF_CONCERN_SEXUAL_ABUSE,
-  },
-  {
-    url: SELF_CONCERN_SEXUAL_ABUSE,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
-  },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => SELF_CONCERN_FINANCIAL_ABUSE,
-  },
-  {
-    url: SELF_CONCERN_FINANCIAL_ABUSE,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
-  },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => SELF_CONCERN_SOMETHING_ABUSE,
-  },
-  {
-    url: SELF_CONCERN_SOMETHING_ABUSE,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
-  },
+  // {
+  //   url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  //   showInSection: Sections.AboutRespondentCase,
+  //   getNextStep: (caseData, req) =>
+  //     SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, req?.params),
+  // },
+  // {
+  //   url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  //   showInSection: Sections.AboutRespondentCase,
+  //   getNextStep: (caseData, req) =>
+  //     SafteyConcernsNavigationController.getNextUrl(
+  //       C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  //       caseData,
+  //       req?.params
+  //     ),
+  // },
 ];

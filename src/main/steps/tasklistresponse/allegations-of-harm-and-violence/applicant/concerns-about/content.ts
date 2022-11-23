@@ -122,7 +122,7 @@ export const form: FormContent = {
     },
   },
   onlyContinue: {
-    text: l => l.onlycontinue,
+    text: l => l.onlyContinue,
   },
 };
 
