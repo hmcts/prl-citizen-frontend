@@ -43,7 +43,7 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if (req.path.startsWith(CITIZEN_HOME_URL || C100_REBUILD_URL) && !req.session?.user) {
+        if (req.path.startsWith(CITIZEN_HOME_URL) && !req.session?.user) {
           return next();
         }
 

@@ -132,10 +132,8 @@ export const summaryCaseList = (
       }
     } else if (userCase.caseTypeOfApplication === 'FL401') {
       if (!isRespondent) {
-        console.log('enetering in applicant fl401 loop....');
         caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
       } else {
-        console.log('enetering in respondent fl401 loop....');
         caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
       }
     }

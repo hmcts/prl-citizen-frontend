@@ -112,7 +112,6 @@ export class PostController<T extends AnyObject> {
       req.locals.api = getCaseApi(citizenUser, req.locals.logger);
       const caseReference = req.session.userCase.caseCode;
       const caseData = await req.locals.api.getCaseById(caseReference as string);
-      console.log('Saving data for case : ' + JSON.stringify(caseData.id));
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
@@ -129,8 +128,6 @@ export class PostController<T extends AnyObject> {
     data: Partial<CaseData>
   ): Promise<CaseWithId> {
     try {
-      console.log(eventName);
-
       req.session.userCase = await req.locals.api.triggerEventWithData(
         req.session.userCase.id,
         formData,
