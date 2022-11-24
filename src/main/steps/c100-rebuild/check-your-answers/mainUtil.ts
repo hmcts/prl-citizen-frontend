@@ -513,30 +513,49 @@ export const MiamAttendance = (
         value: userCase['miam_attendance'],
         changeUrl: Urls['C100_MIAM_ATTENDANCE'],
       },
-      {
-        key: keys['midatatorDocumentTitle'],
-        value: userCase['miam_haveDocSigned'],
-        changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
-      },
     );
+
+    if(userCase.hasOwnProperty('miam_attendance')) {
+      if(userCase['miam_attendance'] === YesOrNo.YES ){
+        SummaryData.push(
+          {
+            key: keys['midatatorDocumentTitle'],
+            value: userCase['miam_haveDocSigned'],
+            changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
+          },
+        );
+      }
+      else{
+        SummaryData.push(
+          {
+            key: keys['mediatorConfirmation'],
+            value: userCase['miam_mediatorDocument'],
+            changeUrl: Urls['C100_MIAM_MEDIATOR_CONFIRMAION'],
+          },
+        );
+
+        if(userCase.hasOwnProperty('miam_mediatorDocument') && userCase['miam_mediatorDocument'] === YesOrNo.YES){
+          SummaryData.push(
+            {
+              key: keys['midatatorDocumentTitle'],
+              value: userCase['miam_haveDocSigned'],
+              changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
+            },
+          );
+        }
+        else{
+          SummaryData.push(
+         
+            {
+              key: keys['reasonForNotAttendingMiam'],
+              value: userCase['miam_validReason'],
+              changeUrl: Urls['C100_MIAM_VALID_REASON'],
+            },
+          );
+        }
+      }
+    }
   }
-//miam_otherProceedings
-if ( userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO ) {
-  if ( userCase.hasOwnProperty('miam_attendance') && userCase['miam_attendance'] === YesOrNo.NO ) {
-    SummaryData.push(
-      {
-        key: keys['mediatorConfirmation'],
-        value: userCase['miam_mediatorDocument'],
-        changeUrl: Urls['C100_MIAM_MEDIATOR_CONFIRMAION'],
-      },
-      {
-        key: keys['reasonForNotAttendingMiam'],
-        value: userCase['miam_validReason'],
-        changeUrl: Urls['C100_MIAM_VALID_REASON'],
-      },
-    );
-  }
-}
 
   return {
     title: sectionTitles['MiamAttendance'],

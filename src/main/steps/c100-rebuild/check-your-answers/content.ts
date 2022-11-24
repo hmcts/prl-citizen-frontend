@@ -289,6 +289,9 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   ) {
     sections.push(MiamExemption(newEnContents, userCase));
   }
+  if (userCase.hasOwnProperty('miam_validReason') && userCase['miam_validReason'] === YesOrNo.YES) {
+    sections.push(MiamExemption(newEnContents, userCase));
+  }
 
   if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
     sections.push(PastAndCurrentProceedings(enContent, userCase));
@@ -345,6 +348,7 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     sections.push(LegalRepresentativeDetails(cyContent, userCase), PermissionForApplication(cyContent, userCase));
     sections.push(MiamTitle(cyContent), MiamAttendance(cyContent, userCase));
   }
+  //miam_validReason
   if (
     userCase.hasOwnProperty('miam_otherProceedings') &&
     userCase['miam_otherProceedings'] === YesOrNo.NO &&
@@ -352,6 +356,9 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     userCase['sq_writtenAgreement'] === YesOrNo.NO &&
     !userCase.hasOwnProperty('miam_attendance')
   ) {
+    sections.push(MiamExemption(newCyContents, userCase));
+  }
+  if (userCase.hasOwnProperty('miam_validReason') && userCase['miam_validReason'] === YesOrNo.YES) {
     sections.push(MiamExemption(newCyContents, userCase));
   }
   sections.push(
