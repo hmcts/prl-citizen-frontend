@@ -64,21 +64,21 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     } else if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
       super.redirect(req, res, '');
     } else {
-      this.ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrderType, courtOrderId);
+      if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+        req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
+        req.session.save(err => {
+          this.checkErrorsAndRedirect(err, res, orderType, orderId);
+        });
+      } else {
+        this.ifContinueIsClicked(req, res, files, orderType, orderId, courtOrderType, courtOrderId);
+      }
     }
   }
 
-  private ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrderType, courtOrderId) {
-    if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
-      req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
-      req.session.save(err => {
-        this.checkErrorsAndRedirect(err, res, orderType, orderId);
-      });
-    } else {
-      this.validateFileAndUpload(files, req, res, orderType, orderId, courtOrderType, courtOrderId).catch(err =>
-        console.log(err)
-      );
-    }
+  private ifContinueIsClicked(req, res, files, orderType, orderId, courtOrderType, courtOrderId) {
+    this.validateFileAndUpload(files, req, res, orderType, orderId, courtOrderType, courtOrderId).catch(err =>
+      console.log(err)
+    );
   }
 
   private checkErrorsAndRedirect(err, res, orderType, orderId) {

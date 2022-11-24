@@ -53,12 +53,7 @@ class OtherProceedingsNavigationController {
 
     switch (currentPage) {
       case C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS: {
-        nextUrl =
-          caseData.op_childrenInvolvedCourtCase === YesOrNo.YES || caseData.op_courtOrderProtection === YesOrNo.YES
-            ? C100_OTHER_PROCEEDINGS_DETAILS
-            : caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
-            ? C100_TYPE_ORDER_SELECT_COURT_ORDER
-            : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+        nextUrl = this.getNextUrlCurrentPrevious(caseData);
         break;
       }
       case C100_OTHER_PROCEEDINGS_DETAILS:
@@ -85,6 +80,18 @@ class OtherProceedingsNavigationController {
     }
 
     return nextUrl;
+  }
+
+  private getNextUrlCurrentPrevious(caseData) {
+    if (caseData.op_childrenInvolvedCourtCase === YesOrNo.YES || caseData.op_courtOrderProtection === YesOrNo.YES) {
+      return C100_OTHER_PROCEEDINGS_DETAILS;
+    } else {
+      if (caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES) {
+        return C100_TYPE_ORDER_SELECT_COURT_ORDER;
+      } else {
+        return C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+      }
+    }
   }
 
   private getNextUrlOtherProceedingDetails(caseData) {
