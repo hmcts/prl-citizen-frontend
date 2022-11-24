@@ -46,7 +46,7 @@ export default class DocumentUpload extends GetController {
         res.redirect(`${C100_CONSENT_ORDER_UPLOAD}`);
       });
     } catch (err) {
-      console.log(err);
+      req.locals.logger.error(err);
     }
   };
 }

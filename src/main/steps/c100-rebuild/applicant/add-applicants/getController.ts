@@ -72,7 +72,7 @@ export default class AddApplicants extends GetController {
             );
             return req.session.save(err => {
               if (err) {
-                console.log(err);
+                req.locals.logger.error(err);
               }
               res.redirect(C100_APPLICANT_ADD_APPLICANTS);
             });

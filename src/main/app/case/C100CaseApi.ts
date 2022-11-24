@@ -65,7 +65,6 @@ export class CaseApi {
       c100RebuildReturnUrl: returnUrl,
       id: caseId,
     };
-    console.log(data);
     try {
       const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${caseEvent}/update-case`, data, {
         headers: {

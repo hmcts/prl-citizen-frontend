@@ -119,7 +119,7 @@ export default class DocumentUpload extends GetController {
         res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
       });
     } catch (error) {
-      console.log(error);
+      req.locals.logger.error(error);
     }
   };
 }

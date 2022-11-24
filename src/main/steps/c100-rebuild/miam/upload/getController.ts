@@ -46,7 +46,7 @@ export default class DocumentUpload extends GetController {
         res.redirect(`${C100_MIAM_UPLOAD}`);
       });
     } catch (error) {
-      console.log(error);
+      req.locals.logger.error(error);
     }
   };
 }

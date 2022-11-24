@@ -32,9 +32,6 @@ export class CosApiClient {
   public async get(): Promise<string | undefined> {
     try {
       const response = await this.client.get<string>('/');
-      const userCase = null;
-      console.info(userCase);
-      console.info(JSON.stringify(response.data));
       return response.data;
     } catch (e) {
       //const errMsg = 'Error connecting cos';
@@ -82,7 +79,6 @@ export class CosApiClient {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data);
 
     return response.data;
   }
