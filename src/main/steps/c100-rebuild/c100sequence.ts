@@ -147,8 +147,6 @@ import {
   C100_CHECK_YOUR_ANSWER,
   C100_CASE_NAME,
   C100_CREATE_CASE,
-  DASHBOARD_URL,
-  PAYMENT_GATEWAY_ENTRY_URL,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -1007,10 +1005,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHECK_YOUR_ANSWER,
     showInSection: Sections.C100,
-    getNextStep: caseData =>
-      caseData.hasOwnProperty('helpWithFeesReferenceNumber') && caseData['helpWithFeesReferenceNumber'] !== ''
-        ? DASHBOARD_URL
-        : PAYMENT_GATEWAY_ENTRY_URL,
+    getNextStep: () => C100_CHECK_YOUR_ANSWER,
   },
   {
     url: C100_CASE_NAME,
