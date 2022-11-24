@@ -45,8 +45,6 @@ env.LAUNCH_DARKLY_OFFLINE_MODE = false
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
-  enableMutationTest()
-  enableSecurityScan()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
 
