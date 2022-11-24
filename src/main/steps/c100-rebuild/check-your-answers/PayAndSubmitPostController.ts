@@ -6,7 +6,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PaymentHandler } from '../../../modules/payments/paymentController';
-import { C100_CONFIRMATIONPAGE, CHECK_ANSWERS } from '../../../steps/urls';
+import { C100_CHECK_YOUR_ANSWER, C100_CONFIRMATIONPAGE } from '../../../steps/urls';
 
 @autobind
 export default class PayAndSubmitPostController extends PostController<AnyObject> {
@@ -37,7 +37,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
       }
     } catch (e) {
       req.locals.logger.error('Error happened in pay & submit case', e);
-      res.redirect(CHECK_ANSWERS);
+      res.redirect(C100_CHECK_YOUR_ANSWER);
     }
   }
 }
