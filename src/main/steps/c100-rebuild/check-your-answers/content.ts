@@ -266,9 +266,11 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
     TypeOfApplication(enContent, userCase),
     LegalRepresentativeDetails(enContent, userCase),
     PermissionForApplication(enContent, userCase),
-    MiamTitle(enContent),
-    MiamAttendance(enContent, userCase),
-    MiamExemption(newEnContents, userCase),
+  ];
+  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) {
+    sections.push(MiamTitle(enContent), MiamAttendance(enContent, userCase), MiamExemption(newEnContents, userCase));
+  }
+  sections.push(
     TypeOfOrder(enContent, userCase),
     WithoutNoticeHearing(enContent, userCase),
     PeopleDetails(enContent),
@@ -277,23 +279,26 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
     OtherChildrenDetails(enContent, userCase),
     ApplicantDetails(enContent, userCase),
     RespondentDetails(enContent, userCase),
-    OtherPeopleDetailsTitle(enContent, userCase),
-  ];
+    OtherPeopleDetailsTitle(enContent, userCase)
+  );
+
   if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
     sections.push(OtherPeopleDetails(enContent, userCase));
   }
   sections.push(
     whereDoChildLive(enContent, userCase),
     PastAndCurrentProceedings(enContent, userCase),
-    SafetyConcerns(enContent, userCase),
-    SafetyConcerns_child(enContent, userCase)
+    SafetyConcerns(enContent, userCase)
   );
-
-  if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
-    sections.push(SafetyConcerns_yours(enContent, userCase));
+  /** if user selects safty concerns as Yes then these section will display until line 352 */
+  if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
+    sections.push(SafetyConcerns_child(enContent, userCase));
+    if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
+      sections.push(SafetyConcerns_yours(enContent, userCase));
+    }
+    sections.push(SafetyConcerns_others(enContent, userCase));
   }
   sections.push(
-    SafetyConcerns_others(enContent, userCase),
     InternationalElement(enContent, userCase),
     reasonableAdjustment(enContent, userCase),
     HelpWithFee(enContent, userCase)
@@ -313,9 +318,12 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     TypeOfApplication(cyContent, userCase),
     LegalRepresentativeDetails(cyContent, userCase),
     PermissionForApplication(cyContent, userCase),
-    MiamTitle(cyContent),
-    MiamAttendance(cyContent, userCase),
-    MiamExemption(newCyContents, userCase),
+  ];
+
+  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) {
+    sections.push(MiamTitle(cyContent), MiamAttendance(cyContent, userCase), MiamExemption(newCyContents, userCase));
+  }
+  sections.push(
     TypeOfOrder(cyContent, userCase),
     WithoutNoticeHearing(cyContent, userCase),
     PeopleDetails(cyContent),
@@ -324,23 +332,28 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     OtherChildrenDetails(cyContent, userCase),
     ApplicantDetails(cyContent, userCase),
     RespondentDetails(cyContent, userCase),
-    OtherPeopleDetailsTitle(cyContent, userCase),
-  ];
+    OtherPeopleDetailsTitle(cyContent, userCase)
+  );
+
+  //miam_otherProceedings
   if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
     sections.push(OtherPeopleDetails(cyContent, userCase));
   }
   sections.push(
     whereDoChildLive(enContent, userCase),
     PastAndCurrentProceedings(cyContent, userCase),
-    SafetyConcerns(cyContent, userCase),
-    SafetyConcerns_child(cyContent, userCase)
+    SafetyConcerns(cyContent, userCase)
   );
-
-  if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
-    sections.push(SafetyConcerns_yours(cyContent, userCase));
+  /** if user selects safty concerns as Yes then these section will display until line 352 */
+  if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
+    sections.push(SafetyConcerns_child(cyContent, userCase));
+    if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
+      sections.push(SafetyConcerns_yours(cyContent, userCase));
+    }
+    sections.push(SafetyConcerns_others(cyContent, userCase));
   }
+
   sections.push(
-    SafetyConcerns_others(cyContent, userCase),
     InternationalElement(cyContent, userCase),
     reasonableAdjustment(cyContent, userCase),
     HelpWithFee(cyContent, userCase)

@@ -630,12 +630,17 @@ export const SafetyConcerns = (
       value: userCase['c1A_haveSafetyConcerns'],
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY'],
     },
-    {
-      key: keys['whoAreConcernsAbout'],
-      valueHtml: HTML.UNORDER_LIST + dataForConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT'],
-    },
-  ];
+  ] as ANYTYPE;
+
+  if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
+    SummaryData.push(
+      {
+        key: keys['whoAreConcernsAbout'],
+        valueHtml: HTML.UNORDER_LIST + dataForConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
+        changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT'],
+      },
+    );
+  }
   return {
     title: sectionTitles['safetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
