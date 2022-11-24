@@ -110,8 +110,6 @@ export class PostController<T extends AnyObject> {
       // call here to get the case details //
       const citizenUser = req.session.user;
       req.locals.api = getCaseApi(citizenUser, req.locals.logger);
-      const caseReference = req.session.userCase.caseCode;
-      const caseData = await req.locals.api.getCaseById(caseReference as string);
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
