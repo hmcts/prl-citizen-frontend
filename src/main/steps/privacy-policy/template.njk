@@ -3,17 +3,16 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h3 class="govuk-heading-s">{{ title }}</h3>
-    <p class="govuk-body">{{ overview }}</p>
-
-    <h3 class="govuk-heading-s">{{ whoManages }}</h3>
-    <h2 class="govuk-heading-s">{{ title }}</h2>
-    <p class="govuk-body">{{ overview }}</p>
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    
+    <h3 class="govuk-heading-s">{{ overview }}</h3>
+    <p class="govuk-body">{{ whyWeCollect }}</p>
 
     <h2 class="govuk-heading-s">{{  whoManages }}</h2>
     <p class="govuk-body">{{ managedBy }}</p>
     <p class="govuk-body">{{  mojPersonalInformationCharter | safe }}</p>
-    <p class="govuk-body">{{ personalData }}</p>
+    <p class="govuk-body">{{ protectingData }}</p>
+    <p class="govuk-body">{{ personalData | safe }}</p>
 
     <h3 class="govuk-heading-s">{{ thePersonal }}</h3>
     <p class="govuk-body">{{  whenYouUseService }}</p>

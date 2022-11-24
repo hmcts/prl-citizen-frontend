@@ -31,7 +31,7 @@ const en = {
     'You will not make false claims or denials relating to the use of the Service (for example, falsely denying any access, editing, reproduction or viewing of digital case material).',
   youWillAlways:
     'You will always check that recipients of material available through the Service are authorised to do so and that information is not accidentally or deliberately released to any unauthorised third party.',
-  youWIllOnly:
+  youWillOnly:
     'You will only access the Service from devices that have appropriate security controls installed, enabled and up to date (including, as appropriate, firewalls, anti-virus and spyware software, encryption of data and operating system security patches).',
   youWillNotAttempt: 'You will not attempt to bypass or subvert systems access controls.',
   whenUsingWifi:
@@ -85,7 +85,7 @@ const cy: typeof en = {
     'You will not make false claims or denials relating to the use of the Service (for example, falsely denying any access, editing, reproduction or viewing of digital case material). {in welsh}',
   youWillAlways:
     'You will always check that recipients of material available through the Service are authorised to do so and that information is not accidentally or deliberately released to any unauthorised third party. {in welsh}',
-  youWIllOnly:
+  youWillOnly:
     'You will only access the Service from devices that have appropriate security controls installed, enabled and up to date (including, as appropriate, firewalls, anti-virus and spyware software, encryption of data and operating system security patches). {in welsh}',
   youWillNotAttempt: 'You will not attempt to bypass or subvert systems access controls. {in welsh}',
   whenUsingWifi:
