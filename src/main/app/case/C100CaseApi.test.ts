@@ -23,7 +23,7 @@ const mockData = {
   helpWithFeesReferenceNumber: 'HWF-1234',
   c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
   applicantCaseName: 'C100 test case',
-  id:  '1234'
+  id: '1234',
 };
 
 describe('CaseApi', () => {

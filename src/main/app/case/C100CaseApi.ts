@@ -63,7 +63,7 @@ export class CaseApi {
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
-      id: caseId
+      id: caseId,
     };
     console.log(data);
     try {
