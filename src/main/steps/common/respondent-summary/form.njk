@@ -7,11 +7,14 @@
     {% for item in sections %}
     {% if item %}
         <h2 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h2>
+
+       {% if item.rows.length > 0 %}
         {{ govukSummaryList({
           classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
           rows: item.rows
         })
       }}
+      {% endif %}
       {% endif %}
     {% endfor %}
   {% endif %}
