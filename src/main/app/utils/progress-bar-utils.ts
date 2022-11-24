@@ -1,6 +1,6 @@
 import { progressBarC100, progressBarFl401 } from '../../../main/steps/common/models/progressBarItems';
 import { CaseWithId } from '../../app/case/case';
-import { SelectTypeOfOrderEnum, State, YesOrNo } from '../../app/case/definition';
+import { SelectTypeOfOrderEnum, State } from '../../app/case/definition';
 
 const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
   const applicationSubmitted = {
@@ -49,7 +49,7 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
     title: progressBarC100.caseClosed.title,
     ariaLabel: progressBarC100.caseClosed.ariaLabel,
     active: false,
-    completed: iscaseClosed(userCase),
+    completed: isFinalOrderIssued(userCase),
   };
 
   const progressBarC100Stages = [
@@ -67,7 +67,6 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
 };
 
 const isFinalOrderIssued = (userCase: Partial<CaseWithId>) => {
-  console.log(JSON.stringify(userCase.selectTypeOfOrder));
   if (userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl) {
     return true;
   }
@@ -86,13 +85,7 @@ const isHearingOrderActive = (userCase: Partial<CaseWithId>) => {
 };
 
 const isResponseSubmitted = (userCase: Partial<CaseWithId>) => {
-  console.log(userCase.caseTypeOfApplication);
-  return false;
-};
-
-const iscaseClosed = (userCase: Partial<CaseWithId>) => {
-  console.log(JSON.stringify(userCase.doesOrderClosesCase));
-  if (userCase.doesOrderClosesCase === YesOrNo.YES) {
+  if (userCase.citizenResponseC7DocumentList) {
     return true;
   }
   return false;
