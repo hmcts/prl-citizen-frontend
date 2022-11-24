@@ -259,15 +259,27 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
   return !!(safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected || checkIfYourSafetyConcernSelected);
 };
 
+export const sectionCountFormatter = sections => {
+  let sectionCount = 1;
+  sections = sections.map(section => {
+    const { title } = section;
+    if (title.includes('[^^sectionNo^^]')) {
+      section['title'] = title.split('[^^sectionNo^^]').join(sectionCount);
+      sectionCount++;
+    }
+    return section;
+  });
+  return sections;
+};
+
 const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
   sections.push(LocationDetails(enContent, userCase), TypeOfApplication(enContent, userCase));
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.NO) {
     sections.push(LegalRepresentativeDetails(enContent, userCase), PermissionForApplication(enContent, userCase));
+    sections.push(MiamTitle(enContent), MiamAttendance(enContent, userCase));
   }
-
-  sections.push(MiamTitle(enContent), MiamAttendance(enContent, userCase));
   if (
     userCase.hasOwnProperty('miam_otherProceedings') &&
     userCase['miam_otherProceedings'] === YesOrNo.NO &&
@@ -316,15 +328,7 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
     reasonableAdjustment(enContent, userCase),
     HelpWithFee(enContent, userCase)
   );
-  let sectionCount = 1;
-  sections = sections.map(section => {
-    const { title } = section;
-    if (title.includes('[^^sectionNo^^]')) {
-      section['title'] = title.split('[^^sectionNo^^]').join(sectionCount);
-      sectionCount++;
-    }
-    return section;
-  });
+  sections = sectionCountFormatter(sections);
   return {
     ...enContent,
     language: content.language,
@@ -338,8 +342,8 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   sections.push(LocationDetails(cyContent, userCase), TypeOfApplication(cyContent, userCase));
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.NO) {
     sections.push(LegalRepresentativeDetails(cyContent, userCase), PermissionForApplication(cyContent, userCase));
+    sections.push(MiamTitle(cyContent), MiamAttendance(cyContent, userCase));
   }
-  sections.push(MiamTitle(cyContent), MiamAttendance(cyContent, userCase));
   if (
     userCase.hasOwnProperty('miam_otherProceedings') &&
     userCase['miam_otherProceedings'] === YesOrNo.NO &&
@@ -384,15 +388,7 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     reasonableAdjustment(cyContent, userCase),
     HelpWithFee(cyContent, userCase)
   );
-  let sectionCount = 1;
-  sections = sections.map(section => {
-    const { title } = section;
-    if (title.includes('[^^sectionNo^^]')) {
-      section['title'] = title.split('[^^sectionNo^^]').join(sectionCount);
-      sectionCount++;
-    }
-    return section;
-  });
+  sections = sectionCountFormatter(sections);
   return {
     ...cyContent,
     language: content.language,
