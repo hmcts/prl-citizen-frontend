@@ -1,3 +1,4 @@
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Respondent, YesOrNo } from '../../../app/case/definition';
 import { fromApiDate } from '../../../app/case/from-api-format';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -1408,9 +1409,6 @@ const urls = {
   miamNotWillingExplnation: MIAM_ATTEND_WILLINGNESS,
   miamStart: MIAM_START,
   legalRepresentation: LEGAL_REPRESENTATION_START,
-  courtOrderDetails: ' ',
-  iFactorsJurisdictionProvideDetails: ' ',
-  iFactorsRequestProvideDetails: ' ',
 };
 
 export const cyConsentContent = {
@@ -1633,16 +1631,37 @@ function populateSummaryData(
         userCase.citizenUserFullName = userCase.citizenUserFirstNames + ' ' + userCase.citizenUserLastNames;
       }
       if (respondent?.value?.placeOfBirth) {
-        userCase.citizenUserPlaceOfBirthText = respondent?.value?.placeOfBirth;
+        userCase.citizenUserPlaceOfBirth = respondent?.value?.placeOfBirth;
       }
       if (respondent?.value?.dateOfBirth) {
-        userCase.citizenUserDateOfBirthText = respondent?.value?.dateOfBirth;
+        userCase.citizenUserDateOfBirth = fromApiDate(respondent?.value?.dateOfBirth);
       }
       if (respondent?.value?.phoneNumber) {
-        userCase.citizenUserPhoneNumberText = respondent?.value?.phoneNumber;
+        userCase.citizenUserPhoneNumber = respondent?.value?.phoneNumber;
       }
       if (respondent?.value?.email) {
-        userCase.citizenUserEmailAddressText = respondent?.value?.email;
+        userCase.citizenUserEmailAddress = respondent?.value?.email;
+      }
+
+      if (!userCase.citizenUserPlaceOfBirth) {
+        userCase.citizenUserPlaceOfBirthText = '';
+      } else {
+        userCase.citizenUserPlaceOfBirthText = userCase.citizenUserPlaceOfBirth;
+      }
+      if (!userCase.citizenUserDateOfBirth) {
+        userCase.citizenUserDateOfBirthText = '';
+      } else {
+        userCase.citizenUserDateOfBirthText = getFormattedDate(userCase.citizenUserDateOfBirth);
+      }
+      if (!userCase.citizenUserPhoneNumber) {
+        userCase.citizenUserPhoneNumberText = '';
+      } else {
+        userCase.citizenUserPhoneNumberText = userCase.citizenUserPhoneNumber;
+      }
+      if (!userCase.citizenUserEmailAddress) {
+        userCase.citizenUserEmailAddressText = '';
+      } else {
+        userCase.citizenUserEmailAddressText = userCase.citizenUserEmailAddress;
       }
 
       if (respondent?.value.address) {
