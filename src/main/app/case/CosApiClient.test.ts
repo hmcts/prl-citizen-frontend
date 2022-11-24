@@ -151,12 +151,21 @@ describe('CosApiClient', () => {
   });
 
   test('retrieveCasesByUserId', async () => {
-    const response = { id: '200', state: 'SUCCESS' };
-    mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const response = { id: '200', state: 'SUCCESS',data:[{
+      caseData: {id: '1234', postCode: 'xyz'},
+      stateName: 'Draft'
+    }] };
+    mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
     const actual = await client.retrieveCasesByUserId(req.session.user);
-    expect(actual).toEqual(response);
+    expect(actual).toEqual([{
+      id: '1234', 
+      postCode: 'xyz',
+      caseStatus: {
+        state: 'Draft'
+      }
+    }]);
   });
 
   test('generateC7Document', async () => {
