@@ -4,7 +4,6 @@ import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate } from '../case/case';
 
-
 dayjs.extend(customParseFormat);
 
 export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;

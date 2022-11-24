@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { YesNoEmpty } from '../../../../../app/case/definition';
-import { FormContent, FormFields, FormInput, FormOptions} from '../../../../../app/form/Form';
-import { CommonContent} from '../../../../common/common.content';
+import { FormContent, FormFields, FormInput, FormOptions } from '../../../../../app/form/Form';
+import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -163,5 +163,4 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
     expect(seekHelpDetails.type).toBe('textarea');
     expect((seekHelpDetails.hint as Function)(generatedContent)).toBe(en.seekHelpDetailsYesHint);
   });
-
 });

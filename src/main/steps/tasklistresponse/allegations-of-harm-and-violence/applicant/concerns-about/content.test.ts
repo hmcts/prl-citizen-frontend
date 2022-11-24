@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
-import { CommonContent} from '../../../../common/common.content';
+import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -112,5 +112,4 @@ describe('safetyconcerns > child > concern about > content', () => {
     expect((applicantConcernAboutField.values[4].hint as LanguageLookup)(generatedContent)).toBe(en.financialAbuseHint);
     expect((applicantConcernAboutField.values[5].hint as LanguageLookup)(generatedContent)).toBe(en.somethingElseHint);
   });
-
 });

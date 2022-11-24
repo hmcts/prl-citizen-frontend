@@ -38,6 +38,6 @@ export default class SafteyConcernsApplicantAbusePostController extends PostCont
 
     if (onlyContinue) {
       super.redirect(req, res);
-    } 
+    }
   }
 }

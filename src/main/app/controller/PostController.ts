@@ -245,8 +245,6 @@ export class PostController<T extends AnyObject> {
 
     this.redirect(req, res);
   }
-
-
 }
 
 export type AnyObject = Record<string, unknown>;

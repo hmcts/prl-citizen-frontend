@@ -88,10 +88,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (
-  data: C1ASafteyConcernsAbuse,
-  childrenData: Child[]
-): GenerateDynamicFormFields => {
+export const generateFormFields = (data: C1ASafteyConcernsAbuse, childrenData: Child[]): GenerateDynamicFormFields => {
   const fields = {
     childrenConcernedAbout: {
       type: 'checkboxes',

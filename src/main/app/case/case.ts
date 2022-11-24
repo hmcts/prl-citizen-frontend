@@ -11,6 +11,9 @@ import {
   Applicant,
   ApplicantTable,
   AttendingTheHearingTable,
+  C1AAbuseTypes,
+  C1ASafteyConcerns,
+  C1ASafteyConcernsAbout,
   CaseData,
   CaseInvite,
   CaseStatus,
@@ -56,9 +59,6 @@ import {
   YesNoDontKnow,
   YesOrNo,
   orderInterface,
-  C1ASafteyConcernsAbout,
-  C1ASafteyConcerns,
-  C1AAbuseTypes,
   //DocumentType,
 } from './definition';
 

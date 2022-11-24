@@ -1,14 +1,15 @@
-import { applyParms } from "../../../steps/common/url-parser";
-import { Case } from "../../../app/case/case";
-import { C1AAbuseTypes, C1ASafteyConcernsAbout } from "../../../app/case/definition";
-import { 
+import { Case } from '../../../app/case/case';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
+import { applyParms } from '../../../steps/common/url-parser';
+import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
-  PageLink, RESPONDENT_CHECK_ANSWERS_YES, 
-  RESPONDENT_TASK_LIST_URL, 
-  } from "../../../steps/urls";
+  PageLink,
+  RESPONDENT_CHECK_ANSWERS_YES,
+  RESPONDENT_TASK_LIST_URL,
+} from '../../../steps/urls';
 
 class SafteyConcernsNavigationController {
   private concernsAbout: C1ASafteyConcernsAbout[] = [];
@@ -21,14 +22,13 @@ class SafteyConcernsNavigationController {
     this.concernsAbout = caseData?.c1A_safetyConernAbout as C1ASafteyConcernsAbout[];
     this.childConcerns = caseData?.c1A_concernAboutChild as C1AAbuseTypes[];
     this.applicantConcerns = caseData?.c1A_concernAboutApplicant as C1AAbuseTypes[];
-    
 
     switch (currentPageUrl) {
       case RESPONDENT_CHECK_ANSWERS_YES: {
         nextUrl = this.getPageUrl(this.concernsAbout[0]);
         break;
       }
-      
+
       case C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: {
         nextUrl = this.getNextUrlSafetyConcernChild(
           this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, this.childConcerns[0])
@@ -109,7 +109,7 @@ class SafteyConcernsNavigationController {
       return isOnly ? this.concernsAbout.length === 1 && hasConcern : hasConcern;
     });
   }
-  
+
   private getNextPageUrl(concernFor: C1ASafteyConcernsAbout, abuseType: C1AAbuseTypes | null): PageLink | null {
     let pageUrl: PageLink | null = null;
 
@@ -192,17 +192,6 @@ class SafteyConcernsNavigationController {
       url: RESPONDENT_TASK_LIST_URL,
     },
   };
-
 }
-
-  
-
-  
-
-  
-
-  
-
-
 
 export default new SafteyConcernsNavigationController();

@@ -170,6 +170,5 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[39].getNextStep({})).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes'
     );
-
   });
 });

@@ -16,20 +16,23 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
     const userCase = req.session.userCase;
 
-    expect(res.render).toHaveBeenCalledWith(expect.anything(),expect.objectContaining({
-      ...generatePageContent({
-        language,
-        pageContent: generateContent,
-        userCase,
-        userEmail: 'test@example.com',
-        additionalData:{
-          req
-        }
-      }),
-      // ...defaultViewArgs,
-      // userCase: req.session.userCase,
-      // paymentError: false,
-      // caseId: undefined,
-    }));
+    expect(res.render).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...generatePageContent({
+          language,
+          pageContent: generateContent,
+          userCase,
+          userEmail: 'test@example.com',
+          additionalData: {
+            req,
+          },
+        }),
+        // ...defaultViewArgs,
+        // userCase: req.session.userCase,
+        // paymentError: false,
+        // caseId: undefined,
+      })
+    );
   });
 });

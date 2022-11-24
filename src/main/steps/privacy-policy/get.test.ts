@@ -15,16 +15,19 @@ describe('PrivacyPolicyGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toHaveBeenCalledWith(expect.anything(),expect.objectContaining( {
-      ...generatePageContent({
-        language,
-        pageContent: generateContent,
-        userEmail: 'test@example.com',
-        userCase: req.session.userCase,
-        additionalData:{req}
-      }),
-      // ...defaultViewArgs,
-      // userCase: req.session.userCase,
-    }));
+    expect(res.render).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...generatePageContent({
+          language,
+          pageContent: generateContent,
+          userEmail: 'test@example.com',
+          userCase: req.session.userCase,
+          additionalData: { req },
+        }),
+        // ...defaultViewArgs,
+        // userCase: req.session.userCase,
+      })
+    );
   });
 });

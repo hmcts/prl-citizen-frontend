@@ -29,6 +29,7 @@ const en = () => ({
     'Examples of financial abuse can be not allowing a person to work, stopping someone saving their own money, or withholding money or credit cards',
   somethingElse: 'Something else',
   somethingElseHint: 'Any concerns you have that do not fit into the above categories',
+  continue: 'Save and continue',
   errors: {
     c1A_concernAboutApplicant: {
       required: 'Specify the type of behaviour you have experienced or are at risk of experiencing',
@@ -61,6 +62,7 @@ const cy = () => ({
     'Examples of financial abuse can be not allowing a person to work, stopping someone saving their own money, or withholding money or credit cards - welsh',
   somethingElse: 'Something else - welsh',
   somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
+  continue: 'Save and continue',
   errors: {
     c1A_concernAboutApplicant: {
       required: 'Specify the type of behaviour you have experienced or are at risk of experiencing - welsh',
@@ -121,8 +123,8 @@ export const form: FormContent = {
       ],
     },
   },
-  onlyContinue: {
-    text: l => l.onlyContinue,
+  submit: {
+    text: l => l.continue,
   },
 };
 

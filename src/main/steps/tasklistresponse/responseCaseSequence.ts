@@ -1,6 +1,5 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
-import SafteyConcernsNavigationController from './allegations-of-harm-and-violence/navigationController'
 import {
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
@@ -51,9 +50,10 @@ import {
   RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
- 
   YOUR_SAFETY,
 } from '../urls';
+
+import SafteyConcernsNavigationController from './allegations-of-harm-and-violence/navigationController';
 
 export const responseCaseSequence: Step[] = [
   {
@@ -264,7 +264,7 @@ export const responseCaseSequence: Step[] = [
     url: RESPONDENT_CHECK_ANSWERS_YES,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData, req) =>
-    SafteyConcernsNavigationController.getNextUrl(RESPONDENT_CHECK_ANSWERS_YES, caseData, req?.params),
+      SafteyConcernsNavigationController.getNextUrl(RESPONDENT_CHECK_ANSWERS_YES, caseData, req?.params),
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_NO,

@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { YesNoEmpty } from '../../../../../app/case/definition';
 import { FormContent, FormFields, FormInput, FormOptions } from '../../../../../app/form/Form';
-import { CommonContent} from '../../../../common/common.content';
+import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 

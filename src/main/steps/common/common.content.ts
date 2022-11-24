@@ -213,7 +213,7 @@ export const generatePageContent = ({
   additionalData?: CommonContentAdditionalData;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
-  const serviceName = getServiceName(additionalData,commonTranslations);
+  const serviceName = getServiceName(additionalData, commonTranslations);
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -238,7 +238,7 @@ export const generatePageContent = ({
   return content;
 };
 
-const getServiceName = (addtionalReqData: CommonContentAdditionalData | undefined,translations: typeof en): string => {
+const getServiceName = (addtionalReqData: CommonContentAdditionalData | undefined, translations: typeof en): string => {
   return capitalize(translations.applyForChildArrangements);
 };
 
@@ -256,7 +256,7 @@ export type CommonContent = typeof en & {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   byApplicant?: string;
-  additionalData?: CommonContentAdditionalData
+  additionalData?: CommonContentAdditionalData;
   userIdamId?: string;
 };
 
