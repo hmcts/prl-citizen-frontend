@@ -504,27 +504,32 @@ export const MiamAttendance = (
       value: userCase['miam_otherProceedings'],
       changeUrl: Urls['C100_MIAM_OTHER_PROCEEDINGS'],
     },
-    {
-      key: keys['attendedMiamMidiation'],
-      value: userCase['miam_attendance'],
-      changeUrl: Urls['C100_MIAM_ATTENDANCE'],
-    },
-    {
-      key: keys['midatatorDocumentTitle'],
-      value: userCase['miam_haveDocSigned'],
-      changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
-    },
-    {
-      key: keys['mediatorConfirmation'],
-      value: userCase['miam_mediatorDocument'],
-      changeUrl: Urls['C100_MIAM_MEDIATOR_CONFIRMAION'],
-    },
-    {
-      key: keys['reasonForNotAttendingMiam'],
-      value: userCase['miam_validReason'],
-      changeUrl: Urls['C100_MIAM_VALID_REASON'],
-    },
   ];
+
+  if ( userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO ) {
+    SummaryData.push(
+      {
+        key: keys['attendedMiamMidiation'],
+        value: userCase['miam_attendance'],
+        changeUrl: Urls['C100_MIAM_ATTENDANCE'],
+      },
+      {
+        key: keys['midatatorDocumentTitle'],
+        value: userCase['miam_haveDocSigned'],
+        changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
+      },
+      {
+        key: keys['mediatorConfirmation'],
+        value: userCase['miam_mediatorDocument'],
+        changeUrl: Urls['C100_MIAM_MEDIATOR_CONFIRMAION'],
+      },
+      {
+        key: keys['reasonForNotAttendingMiam'],
+        value: userCase['miam_validReason'],
+        changeUrl: Urls['C100_MIAM_VALID_REASON'],
+      },
+    );
+  }
 
   return {
     title: sectionTitles['MiamAttendance'],

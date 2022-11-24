@@ -85,31 +85,31 @@ export const enContent = {
     },
   },
   sectionTitles: {
-    locationDetails: '1. Location details',
-    typeOfApplication: '2. Type of application',
-    legalRepresentativeDetails: '3. Legal representative details',
-    permissionForApplication: '4. Permission to make the application',
-    Miam: '5. MIAM: Mediation Information and Assessment Meeting',
+    locationDetails: '[^^sectionNo^^]. Location details', // section 1
+    typeOfApplication: '[^^sectionNo^^]. Type of application', //section 2,
+    legalRepresentativeDetails: '[^^sectionNo^^]. Legal representative details', //section 3
+    permissionForApplication: '[^^sectionNo^^]. Permission to make the application', //section 4
+    Miam: '[^^sectionNo^^]. MIAM: Mediation Information and Assessment Meeting', //section 5
     MiamAttendance: 'MIAM attendance',
     MiamExemption: 'MIAM exemption',
-    AdvisingCourt: "6. What you're asking the court to decide",
-    WithoutNoticeHearing: '7. Hearing details',
-    peopleDetails: '8. Details of the people in the application',
+    AdvisingCourt: "[^^sectionNo^^]. What you're asking the court to decide", //section 6
+    WithoutNoticeHearing: '[^^sectionNo^^]. Hearing details', //section 7
+    peopleDetails: '[^^sectionNo^^]. Details of the people in the application ', // section 8
     ChildernDetails: "Childen's details",
     ApplicantDetails: 'Details of the applicants',
-    InternationalElement: '11. International elements',
-    otherProceedings: '9. Past and current proceeding',
-    safetyConcerns: '10. Safety concerns',
+    InternationalElement: '[^^sectionNo^^]. International elements', //section 11
+    otherProceedings: '[^^sectionNo^^]. Past and current proceeding', //section 9
+    safetyConcerns: '[^^sectionNo^^]. Safety concerns', //section 10
     additionationDetailsAboutChildern: 'Additional details about the children',
     childSafetyConcerns: 'Safety concerns: the children in the application ',
     yourSafetyConcerns: 'Safety concern: your safety',
     otherSafetyConcerns: 'Safety concern: other concerns that you have',
     otherChildernDetails: 'Other Children details',
     detailsOfRespondent: 'Details of the respondents',
-    helpWithFee: '13. Help with Fees',
+    helpWithFee: '[^^sectionNo^^]. Help with Fees', //section 13
     whereTheChildrenLive: 'Where the children live',
     detailofOtherPeople: 'Details of the other people in the application',
-    reasonAbleAdjustment: '12. Support you need during your case',
+    reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -181,31 +181,31 @@ export const cyContent: typeof enContent = {
     },
   },
   sectionTitles: {
-    locationDetails: '1. Location details',
-    typeOfApplication: '2. Type of application',
-    legalRepresentativeDetails: '3. Legal representative details',
-    permissionForApplication: '4. Permission to make the application',
-    Miam: '5. MIAM: Mediation Information and Assessment Meeting',
+    locationDetails: '[^^sectionNo^^]. Location details', // section 1
+    typeOfApplication: '[^^sectionNo^^]. Type of application', //section 2,
+    legalRepresentativeDetails: '[^^sectionNo^^]. Legal representative details', //section 3
+    permissionForApplication: '[^^sectionNo^^]. Permission to make the application', //section 4
+    Miam: '[^^sectionNo^^]. MIAM: Mediation Information and Assessment Meeting', //section 5
     MiamAttendance: 'MIAM attendance - welsh',
     MiamExemption: 'MIAM exemption - welsh',
-    AdvisingCourt: "6. What you're asking the court to decide - welsh",
-    WithoutNoticeHearing: '7. Hearing details - welsh',
-    peopleDetails: '8. Details of the people in the application - welsh',
+    AdvisingCourt: "[^^sectionNo^^]. What you're asking the court to decide - welsh", //section 6
+    WithoutNoticeHearing: '[^^sectionNo^^]. Hearing details - welsh', //section 7
+    peopleDetails: '[^^sectionNo^^]. Details of the people in the application - welsh', // section 8
     ChildernDetails: "Childen's details - welsh",
     ApplicantDetails: 'Details of the applicants - welsh',
-    InternationalElement: '11. International elements - welsh',
-    otherProceedings: '9. Past and current proceeding - welsh',
-    safetyConcerns: '10. Safety concerns - welsh',
+    InternationalElement: '[^^sectionNo^^]. International elements - welsh', //section 11
+    otherProceedings: '[^^sectionNo^^]. Past and current proceeding - welsh', //section 9
+    safetyConcerns: '[^^sectionNo^^]. Safety concerns - welsh', //section 10
     additionationDetailsAboutChildern: 'Additional details about the children - welsh',
     childSafetyConcerns: 'Safety concerns: the children in the application ',
     yourSafetyConcerns: 'Safety concern: your safety',
     otherSafetyConcerns: 'Safety concern: other concerns that you have',
     otherChildernDetails: 'Other Children details',
     detailsOfRespondent: 'Details of the respondents',
-    helpWithFee: '13. Help with Fees',
+    helpWithFee: '[^^sectionNo^^]. Help with Fees', //section 13
     whereTheChildrenLive: 'Where the children live',
     detailofOtherPeople: 'Details of the other people in the application',
-    reasonAbleAdjustment: '12. Support you need during your case',
+    reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -261,14 +261,24 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
 
 const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
-  const sections = [
-    LocationDetails(enContent, userCase),
-    TypeOfApplication(enContent, userCase),
-    LegalRepresentativeDetails(enContent, userCase),
-    PermissionForApplication(enContent, userCase),
-  ];
-  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) {
-    sections.push(MiamTitle(enContent), MiamAttendance(enContent, userCase), MiamExemption(newEnContents, userCase));
+  let sections = [] as ANYTYPE;
+  sections.push(LocationDetails(enContent, userCase), TypeOfApplication(enContent, userCase));
+  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.NO) {
+    sections.push(LegalRepresentativeDetails(enContent, userCase), PermissionForApplication(enContent, userCase));
+  }
+
+  sections.push(MiamTitle(enContent), MiamAttendance(enContent, userCase));
+  if (
+    userCase.hasOwnProperty('miam_otherProceedings') &&
+    userCase['miam_otherProceedings'] === YesOrNo.NO &&
+    userCase.hasOwnProperty('sq_writtenAgreement') &&
+    userCase['sq_writtenAgreement'] === YesOrNo.NO
+  ) {
+    sections.push(MiamExemption(newEnContents, userCase));
+  }
+
+  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
+    sections.push(PastAndCurrentProceedings(enContent, userCase));
   }
   sections.push(
     TypeOfOrder(enContent, userCase),
@@ -285,11 +295,14 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
     sections.push(OtherPeopleDetails(enContent, userCase));
   }
-  sections.push(
-    whereDoChildLive(enContent, userCase),
-    PastAndCurrentProceedings(enContent, userCase),
-    SafetyConcerns(enContent, userCase)
-  );
+  sections.push(whereDoChildLive(enContent, userCase));
+
+  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) {
+    sections.push(PastAndCurrentProceedings(enContent, userCase));
+  }
+
+  sections.push(SafetyConcerns(enContent, userCase));
+
   /** if user selects safty concerns as Yes then these section will display until line 352 */
   if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
     sections.push(SafetyConcerns_child(enContent, userCase));
@@ -303,6 +316,15 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
     reasonableAdjustment(enContent, userCase),
     HelpWithFee(enContent, userCase)
   );
+  let sectionCount = 1;
+  sections = sections.map(section => {
+    const { title } = section;
+    if (title.includes('[^^sectionNo^^]')) {
+      section['title'] = title.split('[^^sectionNo^^]').join(sectionCount);
+      sectionCount++;
+    }
+    return section;
+  });
   return {
     ...enContent,
     language: content.language,
@@ -312,16 +334,19 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
 
 const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
-
-  const sections = [
-    LocationDetails(cyContent, userCase),
-    TypeOfApplication(cyContent, userCase),
-    LegalRepresentativeDetails(cyContent, userCase),
-    PermissionForApplication(cyContent, userCase),
-  ];
-
-  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) {
-    sections.push(MiamTitle(cyContent), MiamAttendance(cyContent, userCase), MiamExemption(newCyContents, userCase));
+  let sections = [] as ANYTYPE;
+  sections.push(LocationDetails(cyContent, userCase), TypeOfApplication(cyContent, userCase));
+  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.NO) {
+    sections.push(LegalRepresentativeDetails(cyContent, userCase), PermissionForApplication(cyContent, userCase));
+  }
+  sections.push(MiamTitle(cyContent), MiamAttendance(cyContent, userCase));
+  if (
+    userCase.hasOwnProperty('miam_otherProceedings') &&
+    userCase['miam_otherProceedings'] === YesOrNo.NO &&
+    userCase.hasOwnProperty('sq_writtenAgreement') &&
+    userCase['sq_writtenAgreement'] === YesOrNo.NO
+  ) {
+    sections.push(MiamExemption(newCyContents, userCase));
   }
   sections.push(
     TypeOfOrder(cyContent, userCase),
@@ -335,15 +360,16 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     OtherPeopleDetailsTitle(cyContent, userCase)
   );
 
-  //miam_otherProceedings
   if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
     sections.push(OtherPeopleDetails(cyContent, userCase));
   }
-  sections.push(
-    whereDoChildLive(enContent, userCase),
-    PastAndCurrentProceedings(cyContent, userCase),
-    SafetyConcerns(cyContent, userCase)
-  );
+  sections.push(whereDoChildLive(cyContent, userCase));
+
+  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) {
+    sections.push(PastAndCurrentProceedings(cyContent, userCase));
+  }
+
+  sections.push(SafetyConcerns(cyContent, userCase));
   /** if user selects safty concerns as Yes then these section will display until line 352 */
   if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
     sections.push(SafetyConcerns_child(cyContent, userCase));
@@ -358,6 +384,15 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     reasonableAdjustment(cyContent, userCase),
     HelpWithFee(cyContent, userCase)
   );
+  let sectionCount = 1;
+  sections = sections.map(section => {
+    const { title } = section;
+    if (title.includes('[^^sectionNo^^]')) {
+      section['title'] = title.split('[^^sectionNo^^]').join(sectionCount);
+      sectionCount++;
+    }
+    return section;
+  });
   return {
     ...cyContent,
     language: content.language,
