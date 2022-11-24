@@ -284,7 +284,8 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
     userCase.hasOwnProperty('miam_otherProceedings') &&
     userCase['miam_otherProceedings'] === YesOrNo.NO &&
     userCase.hasOwnProperty('sq_writtenAgreement') &&
-    userCase['sq_writtenAgreement'] === YesOrNo.NO
+    userCase['sq_writtenAgreement'] === YesOrNo.NO &&
+    !userCase.hasOwnProperty('miam_attendance')
   ) {
     sections.push(MiamExemption(newEnContents, userCase));
   }
@@ -348,7 +349,8 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     userCase.hasOwnProperty('miam_otherProceedings') &&
     userCase['miam_otherProceedings'] === YesOrNo.NO &&
     userCase.hasOwnProperty('sq_writtenAgreement') &&
-    userCase['sq_writtenAgreement'] === YesOrNo.NO
+    userCase['sq_writtenAgreement'] === YesOrNo.NO &&
+    !userCase.hasOwnProperty('miam_attendance')
   ) {
     sections.push(MiamExemption(newCyContents, userCase));
   }

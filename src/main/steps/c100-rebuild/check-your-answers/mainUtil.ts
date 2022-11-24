@@ -518,6 +518,12 @@ export const MiamAttendance = (
         value: userCase['miam_haveDocSigned'],
         changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
       },
+    );
+  }
+//miam_otherProceedings
+if ( userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO ) {
+  if ( userCase.hasOwnProperty('miam_attendance') && userCase['miam_attendance'] === YesOrNo.NO ) {
+    SummaryData.push(
       {
         key: keys['mediatorConfirmation'],
         value: userCase['miam_mediatorDocument'],
@@ -530,6 +536,7 @@ export const MiamAttendance = (
       },
     );
   }
+}
 
   return {
     title: sectionTitles['MiamAttendance'],
@@ -1267,41 +1274,69 @@ export const reasonableAdjustment = (
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS'], 
     },
     {
-      key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS'], 
-    },
-    {
       key: keys['specialArrangementsHeading'],
       valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS'], 
     },
     {
-      key: keys['documentInformationHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION'], 
-    },
-    {
-      key: keys['communicationHelpHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP'], 
-    },
-    {
-      key: keys['supportCourtHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT'], 
-    },
-    {
-      key: keys['feelComfortableHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE'], 
-    },
-    {
-      key: keys['travellingCourtHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT'], 
+      key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements') + HTML.UNORDER_LIST_END,
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS'], 
     },
   ];
+  const disabilityRequirements = userCase['ra_disabilityRequirements'];
+  if(userCase.hasOwnProperty('ra_disabilityRequirements')  && Array.isArray(disabilityRequirements)){
+    disabilityRequirements.forEach(requirement => {
+      switch(requirement){
+        case 'documentsHelp': {
+          SummaryData.push(
+            {
+              key: keys['documentInformationHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation') + HTML.UNORDER_LIST_END,
+              changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION'], 
+            });
+          break;
+        } 
+        case 'communicationHelp': {
+          SummaryData.push(
+              {
+                key: keys['communicationHelpHeading'],
+                valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp') + HTML.UNORDER_LIST_END,
+                changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP'], 
+              });
+          break;
+        } 
+        case 'extraSupport': {
+          SummaryData.push(
+            {
+              key: keys['supportCourtHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt') + HTML.UNORDER_LIST_END,
+              changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT'], 
+            });
+          break;
+        } 
+        case 'feelComfortableSupport': {
+          SummaryData.push(
+            {
+              key: keys['feelComfortableHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable') + HTML.UNORDER_LIST_END,
+              changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE'], 
+            },);
+          break;
+        } 
+        case 'helpTravellingMovingBuildingSupport': {
+          SummaryData.push(
+            {
+              key: keys['travellingCourtHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt') + HTML.UNORDER_LIST_END,
+              changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT'], 
+            });
+          break;
+        } 
+
+      }
+    });
+  }
   return {
     title: sectionTitles['reasonAbleAdjustment'],
     rows: getSectionSummaryList(SummaryData, content),
