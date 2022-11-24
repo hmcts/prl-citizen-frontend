@@ -16,7 +16,7 @@ const en = {
   sidelink2: 'Identify signs of domestic abuse',
   one: 'Yes',
   two: 'No',
-  onlyContinue: 'Continue',
+  onlyContinue: 'Save and continue',
   label1: 'Test',
   errors: {
     yourchildconcernsstart: {
@@ -38,7 +38,7 @@ const cy: typeof en = {
   sidelink2: 'Identify signs of domestic abuse - welsh',
   one: 'Yes - welsh',
   two: 'No - welsh',
-  onlyContinue: 'Continue - welsh',
+  onlyContinue: 'Save and continue - welsh',
   label1: 'Test',
   errors: {
     yourchildconcernsstart: {

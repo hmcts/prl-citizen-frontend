@@ -1,4 +1,4 @@
-import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
+//import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { generatePageContent } from '../common/common.content';
@@ -16,17 +16,20 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
     const userCase = req.session.userCase;
 
-    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(),expect.objectContaining({
       ...generatePageContent({
         language,
         pageContent: generateContent,
         userCase,
         userEmail: 'test@example.com',
+        additionalData:{
+          req
+        }
       }),
-      ...defaultViewArgs,
-      userCase: req.session.userCase,
-      paymentError: false,
-      caseId: undefined,
-    });
+      // ...defaultViewArgs,
+      // userCase: req.session.userCase,
+      // paymentError: false,
+      // caseId: undefined,
+    }));
   });
 });
