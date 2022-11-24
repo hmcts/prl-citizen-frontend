@@ -1,6 +1,6 @@
 import { progressBarC100, progressBarFl401 } from '../../../main/steps/common/models/progressBarItems';
 import { CaseWithId } from '../../app/case/case';
-import { SelectTypeOfOrderEnum, YesOrNo } from '../../app/case/definition';
+import { SelectTypeOfOrderEnum, State, YesOrNo } from '../../app/case/definition';
 
 const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
   const applicationSubmitted = {
@@ -13,7 +13,7 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
   const cafcassSafetyChecks = {
     title: progressBarC100.cafcassSafetyChecks.title,
     ariaLabel: progressBarC100.cafcassSafetyChecks.ariaLabel,
-    active: false,
+    active: true,
     completed: false,
   };
 
@@ -27,29 +27,29 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
   const hearingAndCourtOrders = {
     title: progressBarC100.hearingAndCourtOrders.title,
     ariaLabel: progressBarC100.hearingAndCourtOrders.ariaLabel,
-    active: false,
-    completed: responseSubmitted.completed && !true,
+    active: isHearingOrderActive(userCase),
+    completed: isFinalOrderIssued(userCase),
   };
 
   const caseOpened = {
     title: progressBarFl401.caseOpened.title,
     ariaLabel: progressBarFl401.caseOpened.ariaLabel,
     active: true,
-    completed: false,
+    completed: true,
   };
 
   const finalOrder = {
     title: progressBarFl401.finalOrder.title,
     ariaLabel: progressBarFl401.finalOrder.ariaLabel,
-    active: isFinalOrderActive(userCase),
-    completed: false,
+    active: false,
+    completed: isFinalOrderIssued(userCase),
   };
 
   const caseClosed = {
     title: progressBarC100.caseClosed.title,
     ariaLabel: progressBarC100.caseClosed.ariaLabel,
-    active: iscaseClosedActive(userCase),
-    completed: false,
+    active: false,
+    completed: iscaseClosed(userCase),
   };
 
   const progressBarC100Stages = [
@@ -66,9 +66,20 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
   return progressBarStages;
 };
 
-const isFinalOrderActive = (userCase: Partial<CaseWithId>) => {
+const isFinalOrderIssued = (userCase: Partial<CaseWithId>) => {
   console.log(JSON.stringify(userCase.selectTypeOfOrder));
   if (userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl) {
+    return true;
+  }
+  return false;
+};
+
+const isHearingOrderActive = (userCase: Partial<CaseWithId>) => {
+  if (
+    userCase.orderCollection ||
+    userCase.state === State.DECISION_OUTCOME ||
+    userCase.state === State.PREPARE_FOR_HEARING_CONDUCT_HEARING
+  ) {
     return true;
   }
   return false;
@@ -79,7 +90,7 @@ const isResponseSubmitted = (userCase: Partial<CaseWithId>) => {
   return false;
 };
 
-const iscaseClosedActive = (userCase: Partial<CaseWithId>) => {
+const iscaseClosed = (userCase: Partial<CaseWithId>) => {
   console.log(JSON.stringify(userCase.doesOrderClosesCase));
   if (userCase.doesOrderClosesCase === YesOrNo.YES) {
     return true;
