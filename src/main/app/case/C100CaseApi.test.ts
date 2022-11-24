@@ -23,6 +23,7 @@ const mockData = {
   helpWithFeesReferenceNumber: 'HWF-1234',
   c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
   applicantCaseName: 'C100 test case',
+  id:  '1234'
 };
 
 describe('CaseApi', () => {
@@ -80,7 +81,6 @@ describe('CaseApi', () => {
   test('Should update case if one is found', async () => {
     //mock
     const caseData = {
-      id: '1234',
       ...mockData,
     };
     mockedAxios.post.mockResolvedValueOnce({ data: caseData });
@@ -225,7 +225,6 @@ describe('CaseApi', () => {
   test('Should submit case on citizen-case-submit', async () => {
     //mock
     const caseData = {
-      id: '1234',
       ...mockData,
     };
     mockedAxios.post.mockResolvedValueOnce({ data: caseData });
