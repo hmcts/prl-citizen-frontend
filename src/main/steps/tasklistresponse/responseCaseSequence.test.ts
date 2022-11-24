@@ -2,7 +2,7 @@ import { responseCaseSequence } from './responseCaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(44);
+    expect(responseCaseSequence).toHaveLength(46);
     expect(responseCaseSequence[0].url).toBe('/respondent/task-list');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -171,22 +171,5 @@ describe('respondent1Sequence', () => {
       '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes'
     );
 
-    expect(responseCaseSequence[40].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes');
-    expect(responseCaseSequence[40].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[40].getNextStep({})).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/only-self-concern'
-    );
-
-    expect(responseCaseSequence[41].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-answers-no');
-    expect(responseCaseSequence[41].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[41].getNextStep({})).toBe('/tasklistresponse/start');
-
-    expect(responseCaseSequence[42].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/only-child-abuse');
-    expect(responseCaseSequence[42].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[42].getNextStep({})).toBe('/tasklistresponse/start');
-
-    expect(responseCaseSequence[43].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/only-self-concern');
-    expect(responseCaseSequence[43].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[43].getNextStep({})).toBe('/tasklistresponse/start');
   });
 });

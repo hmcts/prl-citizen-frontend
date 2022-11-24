@@ -19,7 +19,7 @@ export default class SafteyConcernsAbusePostController extends PostController<An
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const abuseType = req.params.abuseType as C1AAbuseTypes;
     const form = new Form(getFormFields().fields as FormFields);
-    const { onlycontinue, ...formFields } = req.body;
+    const { onlyContinue, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const childAbuseData: Partial<Case> = {
       c1A_safteyConcerns: {
@@ -36,7 +36,7 @@ export default class SafteyConcernsAbusePostController extends PostController<An
       ...childAbuseData,
     };
 
-    if (onlycontinue) {
+    if (onlyContinue) {
       super.redirect(req, res);
     } 
   }

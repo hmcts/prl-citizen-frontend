@@ -15,7 +15,7 @@ describe('CookiesGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(),expect.objectContaining({
       ...generatePageContent({
         language,
         pageContent: generateContent,
@@ -24,6 +24,6 @@ describe('CookiesGetController', () => {
       }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
-    });
+    }));
   });
 });
