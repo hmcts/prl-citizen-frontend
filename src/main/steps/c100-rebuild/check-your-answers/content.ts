@@ -301,13 +301,18 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
     WithoutNoticeHearing(enContent, userCase),
     PeopleDetails(enContent),
     ChildernDetails(enContent, userCase),
-    ChildernDetailsAdditional(enContent, userCase),
-    OtherChildrenDetails(enContent, userCase),
+    ChildernDetailsAdditional(enContent, userCase)
+  );
+
+  if (userCase.hasOwnProperty('ocd_hasOtherChildren') && userCase['ocd_hasOtherChildren'] === YesOrNo.YES) {
+    sections.push(OtherChildrenDetails(enContent, userCase));
+  }
+
+  sections.push(
     ApplicantDetails(enContent, userCase),
     RespondentDetails(enContent, userCase),
     OtherPeopleDetailsTitle(enContent, userCase)
   );
-
   if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
     sections.push(OtherPeopleDetails(enContent, userCase));
   }
@@ -366,8 +371,13 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     WithoutNoticeHearing(cyContent, userCase),
     PeopleDetails(cyContent),
     ChildernDetails(cyContent, userCase),
-    ChildernDetailsAdditional(cyContent, userCase),
-    OtherChildrenDetails(cyContent, userCase),
+    ChildernDetailsAdditional(cyContent, userCase)
+  );
+  if (userCase.hasOwnProperty('ocd_hasOtherChildren') && userCase['ocd_hasOtherChildren'] === YesOrNo.YES) {
+    sections.push(OtherChildrenDetails(cyContent, userCase));
+  }
+
+  sections.push(
     ApplicantDetails(cyContent, userCase),
     RespondentDetails(cyContent, userCase),
     OtherPeopleDetailsTitle(cyContent, userCase)
