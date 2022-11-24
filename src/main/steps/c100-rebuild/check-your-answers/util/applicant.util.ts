@@ -21,6 +21,7 @@ import {
 import { cy as personalDetailsCy, en as personalDetailsEn } from '../../child-details/personal-details/content';
 import { cy as contentChildLivesCy, en as contentChildLivesEn } from '../../childaddress/content';
 import { cy as opersonDetailsCy, en as opersonDetailsEn } from '../../other-person-details/other-person-check/content';
+import { cy as peopleCY, en as peopleEN } from '../../people/address/address-manual';
 import {
   cy as constentAgreementCy,
   en as constentAgreementEn,
@@ -61,6 +62,7 @@ export const ApplicantElements = SystemLanguage => {
         whyCourtGrantSubmittingPermission: contentPREn().title,
         reasonPermissionRequired: contentPermissionEn().title,
         whyPermissionRequiredFromCourt: contentPermissionWhyEn().title,
+        explainNoLabel: peopleEN().explainNoLabel,
         errors: '',
       };
     },
@@ -81,6 +83,7 @@ export const ApplicantElements = SystemLanguage => {
         whyCourtGrantSubmittingPermission: contentPRCy().title,
         reasonPermissionRequired: contentPermissionCy().title,
         whyPermissionRequiredFromCourt: contentPermissionWhyCy().title,
+        explainNoLabel: peopleCY().explainNoLabel,
         errors: '',
       };
     },

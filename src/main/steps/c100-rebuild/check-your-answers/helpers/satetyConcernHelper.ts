@@ -25,7 +25,7 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
           .split(',')
           .join('');
       } else {
-        bodyHtml += FoundElement['childrenConcernedAbout'];
+        bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
       }
       bodyHtml += HTML.UNORDER_LIST_END;
     }
