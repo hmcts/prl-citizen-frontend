@@ -63,6 +63,7 @@ export class CaseApi {
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
+      id: caseId,
     };
     console.log(data);
     try {
@@ -241,6 +242,7 @@ interface UpdateCaseRequest extends UpdateCase {
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
+  id: string;
 }
 
 export interface DocumentUploadResponse {
