@@ -29,7 +29,7 @@ export const en = () => ({
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const cy = () => ({
+export const cy = () => ({
   title: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
   one: 'Oes',
   two: 'Nac Oes',

@@ -23,7 +23,7 @@ export const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Cyfrifoldeb rhiant dros Steve Jones ',
   parentalResponsibility:
     'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility. - welsh',

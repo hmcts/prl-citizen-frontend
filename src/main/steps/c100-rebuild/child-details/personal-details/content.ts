@@ -52,7 +52,7 @@ export const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Darparwch fanylion am',
   dobLabel: 'Dyddiad geni',
   dateHint: 'Er enghraifft, 31 3 2016',

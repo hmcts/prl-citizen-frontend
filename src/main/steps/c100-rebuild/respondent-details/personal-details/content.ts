@@ -71,7 +71,7 @@ export const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Darparu manylion am',
   hasNameChanged: 'A ydynt wedi newid eu henw?',
   hasNameChangedHint:

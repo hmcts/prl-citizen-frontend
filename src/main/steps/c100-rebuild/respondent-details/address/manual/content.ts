@@ -43,7 +43,7 @@ export const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Cyfeiriad',
   subtitle:
     'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',

@@ -37,7 +37,7 @@ export const en = () => ({
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
 });
 
-const cy = () => ({
+export const cy = () => ({
   caption: 'Pryderon am ddiogelwch',
   physicalAbusePageTitle:
     "Disgrifiwch yn gryno y cam-drin corfforol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",

@@ -29,7 +29,7 @@ export const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Rhagor o wybodaeth',
   childrenKnownToSocialServicesLabel: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
   childrenKnownToSocialServicesHint:
