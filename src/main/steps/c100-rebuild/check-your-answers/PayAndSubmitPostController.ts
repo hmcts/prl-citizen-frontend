@@ -24,7 +24,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
         const { ...formData } = form.getParsedBody(req.body);
         req.session.errors = form.getErrors(formData);
         if (req.session.errors && req.session.errors.length) {
-          return super.redirect(req, res, CHECK_ANSWERS);
+          return super.redirect(req, res, C100_CHECK_YOUR_ANSWER);
         }
 
         //Submit case in case of help with fees is opted in else initiate payment
