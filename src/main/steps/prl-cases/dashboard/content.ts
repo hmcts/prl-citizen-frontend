@@ -69,9 +69,9 @@ const en = (content: CommonContent) => {
         <p class="govuk-body">${enContent.CAApplicationNote}</p>
         <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${enContent.createCAApplication}</a></h1>`,
       },
-      summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, isRespondent),
-      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
-      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),
+      summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, true),
+      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, false),
+      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, true),
     ],
     help: enContent.help,
   };
@@ -111,9 +111,9 @@ const cy = (content: CommonContent) => {
         <p class="govuk-body">${cyContent.CAApplicationNote}</p>
         <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${cyContent.createCAApplication}</a></h1>`,
       },
-      summaryCaseList(c100CaseListRespondent, cyContent.sectionTitles.youtCArespondentApplication, isRespondent),
-      summaryCaseList(fl401CaseListApplicant, cyContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
-      summaryCaseList(fl401CaseListRespondent, cyContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),
+      summaryCaseList(c100CaseListRespondent, cyContent.sectionTitles.youtCArespondentApplication, true),
+      summaryCaseList(fl401CaseListApplicant, cyContent.sectionTitles.daApplicationsMadeByYou, false),
+      summaryCaseList(fl401CaseListRespondent, cyContent.sectionTitles.daApplicationsAgainstYou, true),
     ],
     help: cyContent.help,
   };
