@@ -58,8 +58,8 @@ describe('miam Util', () => {
     };
     const sessionFields = MiamContentsForGeneralReasons(userCase);
     userCase.miam_nonAttendanceReasons.forEach(item => {
-      expect(sessionFields?.en()[item]).not.toBe(undefined);
-      expect(sessionFields?.cy()[item]).not.toBe(undefined);
+      expect(sessionFields?.en()[item]).toBe(undefined);
+      expect(sessionFields?.cy()[item]).toBe(undefined);
     });
   });
 
