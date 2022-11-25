@@ -10,7 +10,7 @@ const en = () => ({
   howAreCookiesUsedItem3: 'temporarily store the answers you give',
   howAreCookiesUsedParagraph2:
     'Find out more about <a class="govuk-link" href="http://www.aboutcookies.org/">how to manage cookies</a>.',
-  howAreCookiesUsedHeading2: 'How cookies are used in the Private Law service',
+  howAreCookiesUsedHeading2: 'How cookies are used in this service',
   websiteUsageCookiesHeading3: 'To measure website usage',
   websiteUsageCookiesParagraph1:
     'We use Google Analytics software to collect information about how you use this service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements, for example improving site search.',
@@ -22,7 +22,7 @@ const en = () => ({
   websiteUsageCookiesParagraph3:
     'We allow Google to use or share our analytics data. You can find out more about how Google use this information in their <a class="govuk-link" href="https://www.google.com/policies/privacy/partners/">Privacy Policy</a>.',
   websiteUsageCookiesParagraph4:
-    'You can <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">opt out of Google Analytics</a> if you do not want Google to have access to your information.',
+    'You can opt  <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">out of Google Analytics</a> if you do not want Google to have access to your information.',
   websiteUsageCookiesParagraph5: 'List of google analytics cookies used.',
   websiteUsageCookiesAriaDescribedby: 'Google Analytics sets the following cookies',
   cookieNameHeader: 'Name',
@@ -105,7 +105,7 @@ const cy: typeof en = () => ({
   howAreCookiesUsedItem3: 'storio’r atebion a roddwch dros dro',
   howAreCookiesUsedParagraph2:
     'Darganfod mwy am <a class="govuk-link" href="http://www.aboutcookies.org/">sut i reoli cwcis.</a>.',
-  howAreCookiesUsedHeading2: 'Sut rydym yn defnyddio cwcis yn y gwasanaeth gwneud cais mabwysiad',
+  howAreCookiesUsedHeading2: 'How cookies are used in this service {in welsh}',
   websiteUsageCookiesHeading3: 'Cwcis a ddefnyddir i fesur faint o bobl sy’n defnyddio ein gwefan',
   websiteUsageCookiesParagraph1:
     'Rydym yn defnyddio meddalwedd Google Analytics i gasglu gwybodaeth am sut rydych yn defnyddio&rsquo;r gwasanaeth hwn. Rydym yn gwneud hyn i helpu i sicrhau bod y gwasanaeth yn diwallu anghenion defnyddwyr ac i&rsquo;n helpu i wneud gwelliannau, er enghraifft gwella’r cyfleuster chwilio.',
@@ -117,7 +117,7 @@ const cy: typeof en = () => ({
   websiteUsageCookiesParagraph3:
     'Rydym yn caniatáu i Google ddefnyddio neu rannu ein data dadansoddi. Gallwch ddarganfod mwy am sut mae Google yn defnyddio’r wybodaeth hon yn eu <a class="govuk-link" href="https://www.google.com/policies/privacy/partners/">Polisi Preifatrwydd.</a>',
   websiteUsageCookiesParagraph4:
-    'Gallwch <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">optio allan o Google Analytics</a> os nad ydych eisiau i Google gael mynediad at eich gwybodaeth.',
+    'You can opt  <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">out of Google Analytics</a> if you do not want Google to have access to your information. {in welsh}',
   websiteUsageCookiesParagraph5: 'List of google analytics cookies used.',
   websiteUsageCookiesAriaDescribedby: 'os nad ydych eisiau i Google gael mynediad at eich gwybodaeth',
   cookieNameHeader: 'Enw’r cwci',
