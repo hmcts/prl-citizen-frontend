@@ -263,11 +263,6 @@ export const ChildernDetailsAdditional = (
       value: userCase['cd_childrenSubjectOfProtectionPlan'],
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
-    {
-      key: keys['hasOtherChildren'],
-      value: userCase['ocd_hasOtherChildren'] as string,
-      changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
-    },
   ];
   return {
     title: sectionTitles['additionationDetailsAboutChildern'],
@@ -284,6 +279,14 @@ export const OtherChildrenDetails = (
   const sessionChildData = userCase['ocd_otherChildren'];
   const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
     [];
+
+  newChildDataStorage.push(
+    {
+      key: keys['hasOtherChildren'],
+      value: userCase['ocd_hasOtherChildren'] as string,
+      changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
+    },
+  );   
   if(userCase['ocd_hasOtherChildren'] === 'Yes'){
     for (const child in sessionChildData) {
       const firstname = sessionChildData[child]['firstName'],
@@ -570,7 +573,7 @@ export const MiamExemption = (
   const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);
   const SummaryData = [
     {
-      key: keys['validResonsNotAttendingMiam'],
+      key: keys['generalReasonTitle'],
       valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },

@@ -57,6 +57,8 @@ export const MiamContentsForGeneralReasons = UserCase => {
     };
   }
 };
+
+//general reasons
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const MiamContentsForDomensticVoilence = UserCase => {
   const key = 'miam_domesticAbuse';
@@ -70,6 +72,7 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseEn().courtInvolvement_subFields,
           ...DomesticAbuseEn().letterOfBeingVictim_subFields,
           ...DomesticAbuseEn().letterFromAuthority_subFields,
+          generalReasonTitle: GeneralContentEn.title,
         } as ANYTYPE;
         return { ...data };
       },
@@ -81,6 +84,7 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseCy().courtInvolvement_subFields,
           ...DomesticAbuseCy().letterOfBeingVictim_subFields,
           ...DomesticAbuseCy().letterFromAuthority_subFields,
+          generalReasonTitle: GeneralContentCy.title,
         } as ANYTYPE;
         return { ...data };
       },
