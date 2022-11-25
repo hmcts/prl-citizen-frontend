@@ -20,10 +20,10 @@ export const en = () => ({
 
 export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
-  title: 'Do any of the children have a passport? - welsh',
-  caption: 'Safety concerns - welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
+  title: "A oes gan unrhyw un o'r plant basbort?",
+  caption: 'Pryderon diogelwch',
+  one: 'Oes',
+  two: 'Nac oes',
   errors: {
     c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport - welsh',

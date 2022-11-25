@@ -57,7 +57,7 @@ const cy = {
   resolveSpecificIssueHint: 'Er enghraifft, i ba ysgol y bydd y plant yn mynd iddi',
   changeChildrenNameSurname: "Newid enwau neu gyfenwau'r plant",
   changeChildrenNameSurname1: "Newid enwau neu gyfenwau'r plant",
-  allowMedicalTreatment: "Caniatáu i'r plant gael triniaeth feddygol",
+  allowMedicalTreatment: "Caniatáu i'r plant gael triniaedh feddygol",
   takingChildOnHoliday: "Mynd â'r plant ar wyliau",
   relocateChildrenDifferentUkArea: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
   relocateChildrenOutsideUk: 'Adleoli’r plant y tu allan i Gymru a Lloegr (gan gynnwys Yr Alban a Gogledd Iwerddon)',
