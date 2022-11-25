@@ -25,15 +25,15 @@ export const en = () => ({
 
 export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
-  title: 'Is there anyone else who should know about your application? - welsh',
-  paragraph: 'For example, you should tell everyone who: - welsh',
+  title: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+  paragraph: 'Er enghraifft, dylech ddweud wrth pawb sy’n:',
   bulletPoints: [
-    "Cares for the children (but is not their parent), including social services if the children are in local authority accommodation (such as foster care or a children's home) -",
-    'Is currently involved in another court case or named in a current court order that concerns the children and is relevant to this application -',
-    'The child has lived with for at least 3 years prior to this application -',
+    'Gofalu am y plant (ond nid ydynt yn riant iddo/iddi), gan gynnwys gwasanaethau cymdeithasol os yw’r plant wedi’u lleoli mewn llety awdurdod lleol (fel gofal maethu neu gartref i blant)',
+    'Rhan o achos llys arall neu wedi’u henwi mewn gorchymyn llys cyfredol sy’n ymwneud â’r plant ac sy’n berthnasol i’r cais hwn',
+    'Mae’r plentyn wedi byw gyda nhw am o leiaf 3 blynedd cyn i’r cais hwn gael ei wneud',
   ],
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
+  one: 'Oes',
+  two: 'Nac oes',
   errors: {
     oprs_otherPersonCheck: {
       required: 'Select yes if anyone else should know about the application - welsh',

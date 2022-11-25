@@ -11,8 +11,8 @@ const en = () => ({
 });
 
 const cy = () => ({
-  postcode: 'Current postcode - welsh',
-  enterAddressManually: 'I live outside the UK - welsh',
+  postcode: 'Cod post cyfredol',
+  enterAddressManually: 'Rwy’n byw y tu allan i’r DU',
   manualAddressUrl: '#',
 });
 

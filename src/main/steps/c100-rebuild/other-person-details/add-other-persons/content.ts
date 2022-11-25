@@ -24,13 +24,13 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: "Enter the other person's name - welsh",
-  firstNameLabel: 'First name(s) - welsh',
-  firstNameHint: 'Include all middle names here - welsh',
-  lastNameLabel: 'Last name(s) - welsh',
-  addOtherPersonLabel: 'Add another person - welsh',
+  title: 'Nodwch enw’r unigolyn arall',
+  firstNameLabel: 'Enw(au) cyntaf',
+  firstNameHint: 'Nodwch bob enw canol yma',
+  lastNameLabel: 'Cyfenw(au)',
+  addOtherPersonLabel: 'Ychwanegu unigolyn arall',
   removeOtherPersonLabel: 'Remove person - welsh',
-  newNameLabel: 'Enter a new name - welsh',
+  newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name - welsh',

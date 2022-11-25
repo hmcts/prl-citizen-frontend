@@ -45,19 +45,20 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Contact details of - welsh',
+  title: 'Manylion cyswllt ',
   serviceName: 'Child Arrangements - welsh',
-  canProvideEmailLabel: 'I can provide an email address - welsh',
-  emailAdddressLabel: 'Your email address - welsh',
-  telephoneNumberLabel: 'Your telephone number - welsh',
-  canProvideTelephoneNumberLabel: 'I can provide a telephone number - welsh',
-  canNotProvideTelephoneNumberLabel: 'I cannot provide a telephone number - welsh',
-  voiceMailLabel: 'Can the court leave you a voicemail? - welsh',
+  canProvideEmailLabel: 'Allwch chi ddarparu cyfeiriad e-bost',
+  canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
+  emailAdddressLabel: 'Eich cyfeiriad e-bost',
+  telephoneNumberLabel: 'Eich rhif ffôn',
+  canProvideTelephoneNumberLabel: 'Gallaf ddarparu rhif ffôn',
+  canNotProvideTelephoneNumberLabel: 'Ni allaf ddarparu rhif ffôn',
+  voiceMailLabel: "Ydi hi'n iawn i'r llys adael neges llais i chi?",
   voiceMailHint:
-    'If the court calls you about your application and you cannot answer the phone, we need to know that it’s safe for them to leave a voicemail. - welsh',
-  voiceMailYesLabel: 'Yes, the court can leave me a voicemail - welsh',
-  voiceMailNoLabel: 'No, the court cannot leave me a voicemail - welsh',
-  canNotProvideTelephoneNumberReason: 'Please tell us why you cannot provide telephone number - welsh',
+    'Os bydd y llys yn ffonio ynghylch eich cais ac ni allwch ateb y ffôn, bydd arnom angen gwybod ei fod yn saff iddynt adael neges llais.',
+  voiceMailYesLabel: "Ydy, mae hi'n iawn i'r llys adael neges llais i mi",
+  voiceMailNoLabel: "Nac ydy, tydi hi ddim yn iawn i'r llys adael neges llais i mi",
+  canNotProvideTelephoneNumberReason: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
   errors: {
     canProvideEmail: {
       required: 'Please select email option - welsh',
