@@ -12,7 +12,7 @@ import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
 import {  courtTypeOfOrderHelper } from './helpers/courtOrderHelper';
 import { nameAndGenderParser } from './helpers/generalHelper';
-import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
+import { hearingDetailsHelper, hearingDetailsQualifyForFirstHearingHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
 import { applicantAddressParser, applicantAddressParserForRespondents, applicantContactDetailsParser, applicantCourtCanLeaveVoiceMail, otherPeopleAddressParser } from './helpers/peopleHelper';
 import { resonableAdjustmentHelper } from './helpers/reasonableAdjustment';
@@ -141,7 +141,7 @@ export const WithoutNoticeHearing = (
   const SummaryData = [
     {
       key: keys['qualifyForUrgentHearing'],
-      value: userCase['hu_urgentHearingReasons'],
+      valueHtml: hearingDetailsQualifyForFirstHearingHelper(userCase, keys, 'hu_urgentHearingReasons'),
       changeUrl: Urls['C100_HEARING_URGENCY_URGENT'],
     },
     {
