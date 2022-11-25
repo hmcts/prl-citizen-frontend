@@ -50,43 +50,40 @@ export const en = () => ({
 
 export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
-  title: 'Attending a Mediation Information and Assessment Meeting MIAM - welsh',
+  title: 'Mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
   paragraph1:
     'Before completing this application you’re legally required to attend a Mediation Information and Assessment Meeting (MIAM), unless <a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label=" you’re exempt."> you’re exempt.</a> - welsh',
   paragraph2:
     'A <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> is a meeting where you\'ll be given information about <a href="https://helpwithchildarrangements.service.justice.gov.uk/professional-mediation" class="govuk-link" target="_blank" aria-label="mediation,"> mediation,</a> and other ways to reach an agreement without going to court. A mediator will discuss with you whether these options are suitable for your case. - welsh',
   legalAidLink:
-    '<a href="https://www.gov.uk/check-legal-aid" class="govuk-link" target="_blank" aria-label="Check if you’re eligible for legal aid during mediation">Check if you’re eligible for legal aid during mediation</a> - welsh',
+    '<a href="https://www.gov.uk/check-legal-aid" class="govuk-link" target="_blank" aria-label="Check if you’re eligible for legal aid during mediation">Gwiriwch a ydych yn gymwys i gael cymorth cyfreithiol yn ystod cyfryngu</a>',
   miamMeeting:
-    'A <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> is a one-off meeting and not the same as mediation. - welsh',
-  miamHeading1: 'What happens at a <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> - welsh',
-  miamHeading2:
-    'If you’ve already attended a <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> - welsh',
+    'Cyfarfod un tro yw <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> ac nid yw yr un fath â chyfryngu.',
+  miamHeading1: "Beth sy'n digwydd mewn  <abbr title='Mediation Information and Assessment Meeting'>MIAM</abbr> ",
+  miamHeading2: 'Os ydych eisoes wedi mynychu <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr>',
   miamHeading3:
-    'When you don’t have to attend a <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> - welsh',
+    'Pan nad oes rhaid i chi fynychu <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> ',
   miamList: [
-    'how mediation works - welsh',
-    'the benefits of mediation - welsh',
-    'whether mediation is right for you - welsh',
-    'the likely costs - welsh',
-    'if you may qualify for help with the costs of mediation and legal advice - welsh',
-    'other options you could use to help you reach an agreement - welsh',
+    'sut mae cyfryngu yn gweithio',
+    'manteision cyfryngu',
+    'a yw cyfryngu yn addas i chi',
+    'y costau tebygol',
+    'a fyddwch yn gymwys i gael help i dalu costau cyfryngu a chael cyngor cyfreithiol',
+    "opsiynau eraill y gallech eu defnyddio i'ch helpu i ddod i gytundeb",
   ],
-  line1:
-    'At the <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> a mediator will explain: - welsh',
+  line1: 'Yn y <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr>, bydd y cyfryngwr yn egluro:',
   line2:
     'Your mediator will also discuss the <a href="https://www.gov.uk/guidance/family-mediation-voucher-scheme" class="govuk-link" target="_blank" aria-label="Family Mediation Voucher Scheme">Family Mediation Voucher Scheme</a> with you if you are eligible. - welsh',
   line3Link:
-    '<a href="https://www.familymediationcouncil.org.uk/find-local-mediator/" class="govuk-link" target="_blank" aria-label="Find a mediator to book a MIAM">Find a mediator to book a MIAM</a> - welsh',
+    '<a href="https://www.familymediationcouncil.org.uk/find-local-mediator/" class="govuk-link" target="_blank" aria-label="Find a mediator to book a MIAM">Dod o hyd i gyfryngwr i drefnu MIAM</a>',
   line4:
-    'You should have a document signed by the mediator confirming this. You need to upload this document to your application. - welsh',
+    'Dylech gael dogfen wedi’i llofnodi gan y cyfryngwr yn cadarnhau hyn. Mae angen i chi lwytho’r ddogfen hon i’ch cais.',
   line5:
-    'You do not have to attend a <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> if you have a valid reason. For example, you or the children are at risk of harm. - welsh',
+    "Nid oes rhaid i chi fynychu <abbr title='Mediation Information and Assessment Meeting'>MIAM</abbr> os oes gennych reswm dilys. Er enghraifft, rydych chi neu'r plant mewn perygl o niwed.",
   line6Link:
-    '<a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label="List of valid reasons for not attending a MIAM">List of valid reasons for not attending a MIAM</a> - welsh',
-  miamLabel: 'Attending a MIAM - welsh',
-  miamConsentStatement:
-    'I understand that I have to attend a MIAM or provide a valid reason for not attending. - welsh',
+    '<a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label="List of valid reasons for not attending a MIAM">Rhestr o resymau dilys dros beidio â mynychu MIAM</a>',
+  miamLabel: 'Mynychu MIAM',
+  miamConsentStatement: "Rwy'n deall bod yn rhaid i mi fynychu MIAM neu ddarparu rheswm dilys dros beidio â mynychu.",
   errors: {
     miam_consent: {
       required:

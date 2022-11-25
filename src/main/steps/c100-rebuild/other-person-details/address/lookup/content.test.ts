@@ -16,7 +16,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Address of - welsh John Jones',
+  title: 'Cyfeiriad John Jones',
   errors: {
     PostCode: {
       required: 'Enter the postcode - welsh',

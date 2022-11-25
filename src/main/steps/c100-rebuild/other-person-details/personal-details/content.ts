@@ -32,6 +32,9 @@ const en = () => ({
   dobLabel: 'Date of birth',
   approxCheckboxLabel: 'I don’t know their date of birth',
   approxDobLabel: 'Approximate date of birth',
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     hasNameChanged: {
       required: 'Select if the they have changed their name',
@@ -64,29 +67,32 @@ const en = () => ({
 
 const cy = () => ({
   serviceName: 'Child arrangements - welsh',
-  title: 'Provide details for - welsh',
-  isNameChangedLabelText: 'Have they changed their name? - welsh',
+  title: 'Darparwch fanylion am',
+  isNameChangedLabelText: 'A ydynt wedi newid eu henw?',
   inNameChangedHintText:
-    'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh - welsh',
-  previousFullNameLabel: 'Enter their previous name - welsh',
-  previousFullNameHintText: 'This should be the full legal name (including any middle names) - welsh',
-  YesOptionLabel: 'Yes - welsh',
-  NoOptionLabel: 'No - welsh',
-  DontKnowOptionLabel: "Don't know - welsh",
-  genderLabelText: 'Gender - welsh',
+    'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
+  previousFullNameLabel: 'Nodwch eu henw blaenorol',
+  previousFullNameHintText: 'Dylai hwn fod yr enw cyfreithiol llawn (gan gynnwys unrhyw enwau canol)',
+  YesOptionLabel: 'Do',
+  NoOptionLabel: 'Naddo',
+  DontKnowOptionLabel: 'Ddim yn gwybod',
+  genderLabelText: 'Rhyw',
   otherGenderTextLabel: 'Provide details - welsh',
-  maleOptionLabel: 'Male - welsh',
-  femaleOptionLabel: 'Female - welsh',
-  otherOptionLabel: 'They identify in another way - welsh',
-  dobLabel: 'Date of birth - welsh',
-  approxCheckboxLabel: 'I don’t know their date of birth - welsh',
+  maleOptionLabel: 'Benyw',
+  femaleOptionLabel: 'Gwryw',
+  otherOptionLabel: 'Maen nhw’n uniaethu mewn ffordd arall',
+  dobLabel: 'Dyddiad geni',
+  approxCheckboxLabel: 'Nid wyf yn gwybod beth yw eu dyddiad geni',
   approxDobLabel: 'Approximate date of birth - welsh',
+  // day: 'Diwrnody',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     hasNameChanged: {
       required: 'Select Yes, No or Maybe - welsh',
     },
     previousFullName: {
-      required: 'Enter their previous name - welsh',
+      required: 'Nodwch eu henw blaenorol',
     },
     gender: {
       required: 'Select the gender - welsh',
@@ -216,6 +222,7 @@ export const generateFormFields = (
       values: [
         {
           label: l => l.dateFormat['day'],
+          //label: l => l.day,
           name: 'day',
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
@@ -223,6 +230,7 @@ export const generateFormFields = (
         },
         {
           label: l => l.dateFormat['month'],
+          //label: l => l.month,
           name: 'month',
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
@@ -230,6 +238,7 @@ export const generateFormFields = (
         },
         {
           label: l => l.dateFormat['year'],
+          //label: l => l.year,
           name: 'year',
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
@@ -266,6 +275,7 @@ export const generateFormFields = (
               values: [
                 {
                   label: l => l.dateFormat['day'],
+                  //label: l => l.day,
                   name: 'day',
                   value: approxDateOfBirth!.day,
                   classes: 'govuk-input--width-2',
@@ -273,6 +283,7 @@ export const generateFormFields = (
                 },
                 {
                   label: l => l.dateFormat['month'],
+                  //label: l => l.month,
                   name: 'month',
                   value: approxDateOfBirth!.month,
                   classes: 'govuk-input--width-2',
@@ -280,6 +291,7 @@ export const generateFormFields = (
                 },
                 {
                   label: l => l.dateFormat['year'],
+                  //label: l => l.year,
                   name: 'year',
                   value: approxDateOfBirth!.year,
                   classes: 'govuk-input--width-4',
