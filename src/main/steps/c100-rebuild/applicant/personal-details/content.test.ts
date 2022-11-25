@@ -28,6 +28,9 @@ const en = {
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Applicant's gender (Optional)",
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     haveYouChangeName: {
       required: 'Select if you’ve changed your name',
@@ -53,24 +56,27 @@ const en = {
 };
 
 const cy = {
-  title: 'Provide details for - welsh',
-  haveYouChangeNameLabel: 'Have you changed your name? - welsh',
+  title: 'Darparwch fanylion am ',
+  haveYouChangeNameLabel: 'A ydych wedi newid eich enw?',
   haveYouChangeNameHint:
-    'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
-  one: 'Yes',
-  two: 'No',
-  applicantPlaceOfBirthLabel: 'Your place of birth - welsh',
-  applicantPlaceOfBirthHint: 'For example, town or city - welsh',
+    'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
+  one: 'Do',
+  two: 'Naddo',
+  applicantPlaceOfBirthLabel: 'Eich man geni',
+  applicantPlaceOfBirthHint: 'Er enghraifft, tref neu ddinas',
   dontKnowLabel: "Don't know - welsh",
-  dobLabel: 'Your date of birth - welsh',
-  dobHint: 'For example, 31 3 2016 - welsh',
+  dobLabel: 'Eich dyddiad geni',
+  dobHint: 'Er enghraifft, 31 3 2016',
   previousNameLabel: 'Enter your previous name -welsh',
   previousNameHint: 'This should be the full legal name(including any middle names) -welsh',
-  applicantGenderLabel: 'Gender - welsh',
-  male: 'Male - welsh',
-  female: 'Female - welsh',
-  other: 'They identify in another way - welsh',
-  otherGenderDetailsLabel: "applicant's gender (Optional) - welsh",
+  applicantGenderLabel: 'Rhyw',
+  male: 'Benyw',
+  female: 'Gwryw',
+  other: 'Maen nhw’n uniaethu mewn ffordd arall',
+  otherGenderDetailsLabel: "Rhyw'r Ceisydd (Dewisol)",
+  // day: 'Diwrnod',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     haveYouChangeName: {
       required: 'Select if you’ve changed your name -welsh',

@@ -29,14 +29,14 @@ const en = {
 };
 
 const cy = {
-  title: 'Enter the names of the children- welsh',
-  subTitle: 'Only include the children you’re making this application about- welsh',
-  firstNameLabel: 'First name(s) - welsh',
-  firstNameHint: 'Include all middle names here - welsh',
-  lastNameLabel: 'Last name(s) - welsh',
-  addChildLabel: 'Add another child - welsh',
+  title: 'Nodwch enwau’r plant',
+  subTitle: 'Dylech ond gynnwys y plant sy’n destun y cais rydych yn ei wneud',
+  firstNameLabel: 'Enw(au) cyntaf',
+  firstNameHint: 'Dylech gynnwys yr holl enwau canol yma',
+  lastNameLabel: 'Cyfenw(au)',
+  addChildLabel: 'Ychwanegu plentyn arall',
   removeChildLabel: 'Remove child - welsh',
-  newNameLabel: 'Enter a new name - welsh',
+  newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name - welsh',

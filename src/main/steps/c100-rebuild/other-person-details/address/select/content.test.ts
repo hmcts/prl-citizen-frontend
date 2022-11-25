@@ -16,8 +16,8 @@ const en = {
 };
 
 const cy = {
-  title: 'Select Address of -welsh Dummy Test1',
-  changePostCodeLabel: 'Change postcode - welsh',
+  title: 'Dewiswch gyfeiriad Dummy Test1',
+  changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {
       notSelected: 'Select an address from the list -  welsh',
