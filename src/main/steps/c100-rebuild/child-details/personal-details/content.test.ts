@@ -1,8 +1,9 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { ChildrenDetails, PartyType } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
+import { getDataShape } from '../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -19,6 +20,9 @@ const en = {
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Child's gender (Optional)",
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -44,16 +48,19 @@ const en = {
 };
 
 const cy = {
-  title: 'Provide details for - welsh',
-  dobLabel: 'Date of birth - welsh',
-  dateHint: 'For example, 31 3 2016 - welsh',
-  approxCheckboxLabel: 'I don’t know their date of birth - welsh',
-  approxDobLabel: 'Approximate date of birth - welsh',
-  childGenderLabel: 'Gender - welsh',
-  male: 'Male - welsh',
-  female: 'Female - welsh',
-  other: 'They identify in another way - welsh',
-  otherGenderDetailsLabel: "Child's gender (Optional) - welsh",
+  title: 'Darparwch fanylion am',
+  dobLabel: 'Dyddiad geni',
+  dateHint: 'Er enghraifft, 31 3 2016',
+  approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
+  approxDobLabel: 'Dyddiad geni bras',
+  childGenderLabel: 'Rhyw',
+  male: 'Benyw',
+  female: 'Gwryw',
+  other: 'Maen nhw’n uniaethu mewn ffordd arall',
+  otherGenderDetailsLabel: 'Rhyw y plentyn (Dewisol)',
+  // day: 'Diwrnod',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth - welsh',
@@ -134,7 +141,7 @@ describe('child details > personal details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields((getDataShape(PartyType.CHILDREN) as ChildrenDetails).personalDetails);
     languageAssertions(
       'en',
       {
@@ -151,7 +158,7 @@ describe('child details > personal details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields((getDataShape(PartyType.CHILDREN) as ChildrenDetails).personalDetails);
     languageAssertions(
       'cy',
       {

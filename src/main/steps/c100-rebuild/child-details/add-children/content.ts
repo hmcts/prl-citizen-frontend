@@ -15,29 +15,29 @@ const en = () => ({
   removeChildLabel: 'Remove Child',
   newNameLabel: 'Enter a new name',
   errors: {
-    childFirstName: {
+    c100TempFirstName: {
       required: 'Enter the first name',
     },
-    childLastName: {
+    c100TempLastName: {
       required: 'Enter the last name',
     },
   },
 });
 
 const cy = () => ({
-  title: 'Enter the names of the children- welsh',
-  subTitle: 'Only include the children you’re making this application about- welsh',
-  firstNameLabel: 'First name(s) - welsh',
-  firstNameHint: 'Include all middle names here - welsh',
-  lastNameLabel: 'Last name(s) - welsh',
-  addChildLabel: 'Add another child - welsh',
+  title: 'Nodwch enwau’r plant',
+  subTitle: 'Dylech ond gynnwys y plant sy’n destun y cais rydych yn ei wneud',
+  firstNameLabel: 'Enw(au) cyntaf',
+  firstNameHint: 'Dylech gynnwys yr holl enwau canol yma',
+  lastNameLabel: 'Cyfenw(au)',
+  addChildLabel: 'Ychwanegu plentyn arall',
   removeChildLabel: 'Remove child - welsh',
-  newNameLabel: 'Enter a new name - welsh',
+  newNameLabel: 'Nodwch enw newydd',
   errors: {
-    childFirstName: {
+    c100TempFirstName: {
       required: 'Enter the first name - welsh',
     },
-    childLastName: {
+    c100TempLastName: {
       required: 'Enter the last name - welsh',
     },
   },
@@ -96,7 +96,7 @@ export const generateFormFields = (children: ChildrenDetails[]): GenerateDynamic
           labelSize: 'm',
           validator: isFieldFilledIn,
         },
-        removeChild: {
+        remove: {
           type: 'button',
           label: l => `${l.removeChildLabel} ${count}`,
           classes: 'govuk-button--warning margin-top-3',
@@ -106,10 +106,10 @@ export const generateFormFields = (children: ChildrenDetails[]): GenerateDynamic
     };
 
     //generate dynamic error message
-    errors.en[`firstName-${count}`] = en().errors.childFirstName;
-    errors.en[`lastName-${count}`] = en().errors.childLastName;
-    errors.cy[`firstName-${count}`] = cy().errors.childFirstName;
-    errors.cy[`lastName-${count}`] = cy().errors.childLastName;
+    errors.en[`firstName-${count}`] = en().errors.c100TempFirstName;
+    errors.en[`lastName-${count}`] = en().errors.c100TempLastName;
+    errors.cy[`firstName-${count}`] = cy().errors.c100TempFirstName;
+    errors.cy[`lastName-${count}`] = cy().errors.c100TempLastName;
   }
 
   return { fields, errors };
@@ -122,28 +122,36 @@ export const form: FormContent = {
       classes: 'govuk-fieldset__legend--m',
       label: l => l.newNameLabel,
       subFields: {
-        childFirstName: {
+        c100TempFirstName: {
           type: 'text',
           classes: 'govuk-!-width-one-half',
           label: l => l.firstNameLabel,
           hint: hint => hint.firstNameHint,
           labelSize: 'none',
           validator: isFieldFilledIn,
+          attributes: {
+            autocomplete: 'off',
+          },
         },
-        childLastName: {
+        c100TempLastName: {
           type: 'text',
           classes: 'govuk-!-width-one-half',
           label: l => l.lastNameLabel,
           labelSize: 'none',
           validator: isFieldFilledIn,
         },
-        addChild: {
+        add: {
           type: 'button',
           label: l => l.addChildLabel,
           classes: 'govuk-button--secondary',
           value: 'true',
         },
       },
+    },
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'cd',
     },
   },
   onlycontinue: {

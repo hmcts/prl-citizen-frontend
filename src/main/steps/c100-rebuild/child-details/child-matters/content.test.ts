@@ -1,8 +1,9 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormInput, LanguageLookup } from '../../../../app/form/Form';
+import { ChildrenDetails, PartyType } from '../../../../app/case/definition';
+import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
+import { getDataShape } from '../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -129,7 +130,11 @@ describe('child details > child-matters', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().childMatters, dummySessionData, dummyTranslations);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.CHILDREN) as ChildrenDetails).childMatters,
+      dummySessionData,
+      dummyTranslations
+    );
     languageAssertions(
       'en',
       {
@@ -146,7 +151,11 @@ describe('child details > child-matters', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().childMatters, dummySessionData, dummyTranslations);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.CHILDREN) as ChildrenDetails).childMatters,
+      dummySessionData,
+      dummyTranslations
+    );
     languageAssertions(
       'cy',
       {
@@ -163,9 +172,6 @@ describe('child details > child-matters', () => {
 
   test('should contain child matters form fields', () => {
     const { needsResolution } = fields as Record<string, FormFields>;
-    const whoChildLiveWith = needsResolution.values[0] as FormInput;
-    const childTimeSpent = needsResolution.values[1] as FormInput;
-    console.log(whoChildLiveWith, childTimeSpent);
 
     expect(needsResolution.type).toBe('checkboxes');
     expect((needsResolution.hint as Function)(generatedContent)).toBe(`${en.bodyHint}`);

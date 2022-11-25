@@ -15,16 +15,15 @@ const en = () => ({
     addressTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
-      required: 'Enter the postcode',
-      invalid: 'Enter a valid postcode',
-    },
     addressHistory: {
       required: 'Enter your details known',
     },
     provideDetailsOfPreviousAddresses: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+    },
+    country: {
+      required: 'Enter the country',
     },
   },
 });
@@ -38,16 +37,15 @@ const cy = () => ({
     addressTown: {
       required: 'Enter the town or city - welsh',
     },
-    addressPostcode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
-    },
     addressHistory: {
       required: 'Enter your details known - welsh',
     },
     provideDetailsOfPreviousAddresses: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
+    },
+    country: {
+      required: 'Enter the country - welsh',
     },
   },
 });
@@ -59,7 +57,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {

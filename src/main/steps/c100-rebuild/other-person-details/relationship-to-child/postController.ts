@@ -6,7 +6,7 @@ import { C100RebuildPartyDetails, ChildrenDetails } from '../../../../app/case/d
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { getOtherPersonDetails, updateOtherPersonDetails } from '../util';
+import { getPartyDetails, updatePartyDetails } from '../../people/util';
 
 import { getFormFields } from './content';
 
@@ -23,9 +23,9 @@ export default class OtherPersonsRelationshipToChildPostController extends PostC
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { relationshipType, otherRelationshipTypeDetails } = formData as Record<string, any>;
-    const otherPersonDetails = getOtherPersonDetails(
-      req.session.userCase.oprs_otherPersons!,
-      otherPersonId
+    const otherPersonDetails = getPartyDetails(
+      otherPersonId,
+      req.session.userCase.oprs_otherPersons
     ) as C100RebuildPartyDetails;
 
     if (otherPersonDetails.relationshipDetails.relationshipToChildren.length) {
@@ -46,10 +46,11 @@ export default class OtherPersonsRelationshipToChildPostController extends PostC
       pushRelationshipDataToOtherPerson(otherPersonDetails, childId, relationshipType, otherRelationshipTypeDetails);
     }
 
-    req.session.userCase.oprs_otherPersons = updateOtherPersonDetails(
-      req.session.userCase.oprs_otherPersons!,
-      otherPersonDetails
-    );
+    req.session.userCase.oprs_otherPersons = updatePartyDetails(
+      otherPersonDetails,
+      req.session.userCase.oprs_otherPersons
+    ) as C100RebuildPartyDetails[];
+
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
       return super.redirect(req, res);
@@ -58,6 +59,7 @@ export default class OtherPersonsRelationshipToChildPostController extends PostC
     }
   }
 }
+
 function pushRelationshipDataToOtherPerson(
   otherPersonDetails: C100RebuildPartyDetails,
   childId: string,

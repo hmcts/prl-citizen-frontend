@@ -3,7 +3,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   section: 'MIAM exemptions',
   title: 'What are your valid reasons for not attending a MIAM?',
   courtcommunication:
@@ -25,7 +26,8 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   section: 'Esemptiadau MIAM',
   title: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
   courtcommunication:

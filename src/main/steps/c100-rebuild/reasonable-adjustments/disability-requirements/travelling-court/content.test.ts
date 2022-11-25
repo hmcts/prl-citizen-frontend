@@ -14,26 +14,26 @@ const en = {
   //line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   select_all_apply: 'Select all that apply to you',
   parkingSpace: 'Parking space close to the venue',
-  parkingSpaceSubField: 'Describe why you need this',
+  parkingSpace_subfield: 'Describe why you need this',
   wheelchairAccess: 'Step free / wheelchair access',
   venueWheelchair: 'Use of venue wheelchair',
   accessToilet: 'Accessible toilet',
   helpUsingLift: 'Help using a lift',
   differentTypeChair: 'A different type of chair',
-  differentTypeChairSubField: 'Describe why you need',
+  differentTypeChair_subfield: 'Describe why you need',
   differentTypeChairSubFieldHint: 'For example, a chair with back support',
   guideBuilding: 'Guiding in the building',
   travellingCourtOther: 'Other',
-  travellingCourtOtherSubField: 'Describe what you need',
+  travellingCourtOther_subfield: 'Describe what you need',
   travellingCourtNoOption: 'No, I do not need any support at this time',
   errors: {
-    ra_parkingSpaceSubField: {
+    ra_parkingSpace_subfield: {
       required: 'Describe why you need a parking space close to the venue',
     },
-    ra_differentTypeChairSubField: {
+    ra_differentTypeChair_subfield: {
       required: 'Describe what type of chair you need',
     },
-    ra_travellingCourtOtherSubField: {
+    ra_travellingCourtOther_subfield: {
       required: 'Describe what help you need if travelling to, or moving around court buildings',
     },
     ra_travellingCourt: {
@@ -49,26 +49,26 @@ const cy = {
   //line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   parkingSpace: "Lle parcio yn agos i'r lleoliad",
-  parkingSpaceSubField: 'Disgrifiwch pam fod arnoch angen hyn',
+  parkingSpace_subfield: 'Disgrifiwch pam fod arnoch angen hyn',
   wheelchairAccess: 'Dim gris / mynediad ar gyfer cadair olwyn',
   venueWheelchair: 'Y gallu i ddefnyddio cadair olwyn a geir yn y lleoliad',
   accessToilet: 'Toiledau hygyrch',
   helpUsingLift: 'Help i ddefnyddio lifft',
   differentTypeChair: 'Math gwahanol o gadair',
-  differentTypeChairSubField: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  differentTypeChair_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   differentTypeChairSubFieldHint: 'Er enghraifft, cadair â chymorth cefn',
   guideBuilding: 'Cymorth i fynd o amgylch yr adeilad',
   travellingCourtOther: 'Arall',
-  travellingCourtOtherSubField: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  travellingCourtOther_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   travellingCourtNoOption: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   errors: {
-    ra_parkingSpaceSubField: {
+    ra_parkingSpace_subfield: {
       required: 'Describe why you need a parking space close to the venue - welsh',
     },
-    ra_differentTypeChairSubField: {
+    ra_differentTypeChair_subfield: {
       required: 'Describe what type of chair you need - welsh',
     },
-    ra_travellingCourtOtherSubField: {
+    ra_travellingCourtOther_subfield: {
       required: 'Describe what help you need if travelling to, or moving around court buildings - welsh',
     },
     ra_travellingCourt: {
@@ -99,41 +99,42 @@ describe('applicant personal details > applying-with > content', () => {
 
   test('should contain travellingCourt field', () => {
     const travellingCourtField = fields.ra_travellingCourt as FormOptions;
-    const parkingSpaceSubFields = travellingCourtField.values[0].subFields?.ra_parkingSpaceSubField as FormOptions;
+    const parkingSpace_subfields = travellingCourtField.values[0].subFields?.ra_parkingSpace_subfield as FormOptions;
 
     expect(travellingCourtField.type).toBe('checkboxes');
-    expect(parkingSpaceSubFields.type).toBe('textarea');
-    expect((parkingSpaceSubFields?.label as Function)(generatedContent)).toBe(en.parkingSpaceSubField);
+    expect(parkingSpace_subfields.type).toBe('textarea');
+    expect((parkingSpace_subfields?.label as Function)(generatedContent)).toBe(en.parkingSpace_subfield);
 
     (travellingCourtField.validator as Function)('parkingSpace');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('parkingSpace');
 
-    (parkingSpaceSubFields.validator as Function)('test text area');
+    (parkingSpace_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
     const differentTypeChairSubFields = travellingCourtField.values[5].subFields
-      ?.ra_differentTypeChairSubField as FormOptions;
+      ?.ra_differentTypeChair_subfield as FormOptions;
 
     expect(travellingCourtField.type).toBe('checkboxes');
     expect(differentTypeChairSubFields.type).toBe('textarea');
-    expect((differentTypeChairSubFields?.label as Function)(generatedContent)).toBe(en.differentTypeChairSubField);
+    expect((differentTypeChairSubFields?.label as Function)(generatedContent)).toBe(en.differentTypeChair_subfield);
     expect((differentTypeChairSubFields?.hint as Function)(generatedContent)).toBe(en.differentTypeChairSubFieldHint);
 
     (differentTypeChairSubFields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
-    const travellingCourtOtherSubFields = travellingCourtField.values[7].subFields
-      ?.ra_travellingCourtOtherSubField as FormOptions;
+    const travellingCourtOther_subfields = travellingCourtField.values[7].subFields
+      ?.ra_travellingCourtOther_subfield as FormOptions;
 
-    expect(travellingCourtOtherSubFields.type).toBe('textarea');
-    expect((travellingCourtOtherSubFields?.label as Function)(generatedContent)).toBe(en.travellingCourtOtherSubField);
+    expect(travellingCourtOther_subfields.type).toBe('textarea');
+    expect((travellingCourtOther_subfields?.label as Function)(generatedContent)).toBe(
+      en.travellingCourtOther_subfield
+    );
 
-    (travellingCourtOtherSubFields.validator as Function)('test text area');
+    (travellingCourtOther_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
     expect(travellingCourtField.type).toBe('checkboxes');
     //expect(friendFamilyMemberSubFields.type).toBe('textarea');
-    // expect((friendFamilyMemberSubFields?.label as Function)(generatedContent)).toBe(en.friendFamilyMemberSubField);
 
     expect((travellingCourtField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((travellingCourtField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.parkingSpace);

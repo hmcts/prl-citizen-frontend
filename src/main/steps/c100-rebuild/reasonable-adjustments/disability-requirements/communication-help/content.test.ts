@@ -27,17 +27,17 @@ const en = {
   intermediary: 'Intermediary',
   intermediaryHint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
-  other: 'Other',
+  communicationHelpOther: 'Other',
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
     ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding',
     },
-    ra_signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreter_subfield: {
       required: 'Describe which Sign Language interpreter you need',
     },
-    ra_communicationHelpOtherDetails: {
+    ra_communicationHelpOther_subfield: {
       required: 'Describe what you need to help with communicating and understanding',
     },
   },
@@ -62,18 +62,18 @@ const cy = {
   explanationOfCourt: 'Esboniad o osodiad y llys a phwy fydd yn yr ystafell wrandawiadau',
   intermediary: 'Cyfryngwr',
   intermediaryHint:
-    'Rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
-  other: 'Arall',
+    'Rhywun i’ch helpu os oes gennych anghenion cyfathreby drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
+  communicationHelpOther: 'Arall',
   noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   describeWhatNeeded: 'Describe what you need',
   errors: {
     ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding - welsh',
     },
-    ra_signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreter_subfield: {
       required: 'Describe which Sign Language interpreter you need - welsh',
     },
-    ra_communicationHelpOtherDetails: {
+    ra_communicationHelpOther_subfield: {
       required: 'Describe what you need to help with communicating and understanding - welsh',
     },
   },
@@ -123,7 +123,9 @@ describe('Communication help content', () => {
     expect((communicationHelpField.values[8].label as LanguageLookup)(generatedContent)).toBe(en.explanationOfCourt);
     expect((communicationHelpField.values[9].label as LanguageLookup)(generatedContent)).toBe(en.intermediary);
     expect((communicationHelpField.values[9].hint as LanguageLookup)(generatedContent)).toBe(en.intermediaryHint);
-    expect((communicationHelpField.values[10].label as LanguageLookup)(generatedContent)).toBe(en.other);
+    expect((communicationHelpField.values[10].label as LanguageLookup)(generatedContent)).toBe(
+      en.communicationHelpOther
+    );
     expect(communicationHelpField.values[12].behaviour).toBe('exclusive');
     expect((communicationHelpField.values[12].label as LanguageLookup)(generatedContent)).toBe(en.noSupportRequired);
 
@@ -131,7 +133,7 @@ describe('Communication help content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('needExtraTime');
 
     const signLanguageInterpreterDetailsField = communicationHelpField.values[4].subFields
-      ?.ra_signLanguageInterpreterDetails as FormOptions;
+      ?.ra_signLanguageInterpreter_subfield as FormOptions;
     expect(signLanguageInterpreterDetailsField.type).toBe('textarea');
     expect((signLanguageInterpreterDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (signLanguageInterpreterDetailsField.validator as Function)('test text area');
@@ -139,7 +141,7 @@ describe('Communication help content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
 
     const otherDetailsField = communicationHelpField.values[10].subFields
-      ?.ra_communicationHelpOtherDetails as FormOptions;
+      ?.ra_communicationHelpOther_subfield as FormOptions;
     expect(otherDetailsField.type).toBe('textarea');
     expect((otherDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (otherDetailsField.validator as Function)('test text area');

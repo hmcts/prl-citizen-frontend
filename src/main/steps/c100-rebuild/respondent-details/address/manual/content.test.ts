@@ -12,12 +12,8 @@ const en = {
     AddressLine1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city',
-    },
-    addressPostcode: {
-      required: 'Enter the postcode',
-      invalid: 'Enter a valid postcode',
     },
     addressHistory: {
       required: 'Enter your details known',
@@ -25,29 +21,31 @@ const en = {
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
     },
+    Country: {
+      required: 'Enter the country ',
+    },
   },
 };
 
 const cy = {
-  title: 'Address details of - welsh Dummy  Test1',
+  title: 'Cyfeiriad Dummy  Test1',
   subtitle:
-    "Include as much detail as you can. If there's information missing, your application may take longer to process. - welsh",
+    'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   errors: {
     AddressLine1: {
       required: 'Enter the first line of the address - welsh',
     },
-    addressTown: {
+    PostTown: {
       required: 'Enter the town or city - welsh',
-    },
-    addressPostcode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
     },
     addressHistory: {
       required: 'Enter your details known - welsh',
     },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+    },
+    Country: {
+      required: 'Enter the country - welsh',
     },
   },
 };
@@ -96,7 +94,7 @@ describe('respondent > address > manual > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');

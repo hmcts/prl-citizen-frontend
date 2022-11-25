@@ -6,7 +6,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Enter the other persons name',
+  title: "Enter the other person's name",
   firstNameLabel: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastNameLabel: 'Last name(s)',
@@ -24,13 +24,13 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Enter the other persons name- welsh',
-  firstNameLabel: 'First name(s) - welsh',
-  firstNameHint: 'Include all middle names here - welsh',
-  lastNameLabel: 'Last name(s) - welsh',
-  addOtherPersonLabel: 'Add another person - welsh',
+  title: 'Nodwch enw’r unigolyn arall',
+  firstNameLabel: 'Enw(au) cyntaf',
+  firstNameHint: 'Nodwch bob enw canol yma',
+  lastNameLabel: 'Cyfenw(au)',
+  addOtherPersonLabel: 'Ychwanegu unigolyn arall',
   removeOtherPersonLabel: 'Remove person - welsh',
-  newNameLabel: 'Enter a new name - welsh',
+  newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name - welsh',
@@ -94,7 +94,7 @@ export const generateFormFields = (otherPersons: C100RebuildPartyDetails[]): Gen
           labelSize: 'm',
           validator: isFieldFilledIn,
         },
-        removeOtherPerson: {
+        remove: {
           type: 'button',
           label: l => `${l.removeOtherPersonLabel} ${count}`,
           classes: 'govuk-button--warning margin-top-3',
@@ -135,13 +135,18 @@ export const form: FormContent = {
           labelSize: 'none',
           validator: isFieldFilledIn,
         },
-        addOtherPerson: {
+        add: {
           type: 'button',
           label: l => l.addOtherPersonLabel,
           classes: 'govuk-button--secondary',
           value: 'true',
         },
       },
+    },
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'op',
     },
   },
   onlycontinue: {

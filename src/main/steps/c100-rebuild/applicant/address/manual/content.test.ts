@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, LanguageLookup } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
@@ -14,16 +14,15 @@ const en = {
     addressTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
-      required: 'Enter the postcode',
-      invalid: 'Enter a valid postcode',
-    },
     addressHistory: {
       required: 'Enter your details known',
     },
     provideDetailsOfPreviousAddresses: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+    },
+    country: {
+      required: 'Enter the country',
     },
   },
 };
@@ -37,16 +36,15 @@ const cy = {
     addressTown: {
       required: 'Enter the town or city - welsh',
     },
-    addressPostcode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
-    },
     addressHistory: {
       required: 'Enter your details known - welsh',
     },
     provideDetailsOfPreviousAddresses: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
+    },
+    country: {
+      required: 'Enter the country - welsh',
     },
   },
 };
@@ -93,7 +91,7 @@ describe('applicant > address > manual > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');
@@ -103,6 +101,7 @@ describe('applicant > address > manual > content', () => {
     const { address2 } = fields as Record<string, FormFields>;
     const { addressTown } = fields as Record<string, FormFields>;
     const { addressCounty } = fields as Record<string, FormFields>;
+    const { country } = fields as Record<string, FormFields>;
     const { addressPostcode } = fields as Record<string, FormFields>;
     const { addressHistory } = fields as Record<string, FormFields>;
 
@@ -116,6 +115,7 @@ describe('applicant > address > manual > content', () => {
     expect(address2.type).toBe('text');
     expect(address2.classes).toBe('govuk-label');
     expect(address2.labelSize).toBe(null);
+    expect((address2.label as LanguageLookup)(generatedContent)).toBe(undefined);
 
     expect(addressTown.type).toBe('text');
     expect(addressTown.classes).toBe('govuk-label govuk-!-width-two-thirds');
@@ -128,17 +128,22 @@ describe('applicant > address > manual > content', () => {
     expect((addressCounty.label as LanguageLookup)(generatedContent)).toBe('County');
     expect(addressCounty.labelSize).toBe(null);
 
+    expect(country.type).toBe('text');
+    expect(country.classes).toBe('govuk-label govuk-!-width-two-thirds');
+    expect(country.labelSize).toBe(null);
+    expect(country.validator).toBe(isFieldFilledIn);
+    expect((country.label as LanguageLookup)(generatedContent)).toBe('Country');
+
     expect(addressPostcode.type).toBe('text');
     expect(addressPostcode.classes).toBe('govuk-label govuk-input--width-10');
     expect((addressPostcode.label as LanguageLookup)(generatedContent)).toBe('Postcode');
-    expect(addressPostcode.labelSize).toBe(null);
-    expect(addressPostcode.validator).toBe(isInvalidPostcode);
 
     expect(addressHistory.type).toBe('radios');
     expect(addressHistory.classes).toBe('govuk-radios');
     expect((addressHistory.label as LanguageLookup)(generatedContent)).toBe(
       'Have you lived at this address for more than 5 years?'
     );
+    expect((addressHistory.section as Function)(generatedContent)).toBe(undefined);
     expect((addressHistory.values[0].label as LanguageLookup)(generatedContent)).toBe('Yes');
     expect((addressHistory.values[1].label as LanguageLookup)(generatedContent)).toBe('No');
     const applyTextField = addressHistory.values[1].subFields!.provideDetailsOfPreviousAddresses;

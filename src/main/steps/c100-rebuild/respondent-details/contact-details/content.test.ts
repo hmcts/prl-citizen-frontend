@@ -1,9 +1,9 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, PartyType, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
+import { getDataShape } from '../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -30,13 +30,13 @@ const en = {
 };
 
 const cy = {
-  title: 'Contact details of - welsh ',
+  title: 'Manylion cyswllt',
   subTitle:
-    'Include as much detail as you can. If there’s information missing, your application may take longer to process. - welsh',
-  donKnowEmailAddress: "I don't know their email - welsh",
-  emailAddress: 'Email address - welsh',
-  telephoneNumber: 'Telephone number - welsh',
-  donKnowTelephoneNumber: "I don't know their telephone number - welsh",
+    'Dylech gynnwys cymaint o fanylion â phosib. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
+  donKnowEmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
+  emailAddress: 'Cyfeiriad e-bost',
+  telephoneNumber: 'Rhif ffôn',
+  donKnowTelephoneNumber: 'Nid wyf yn gwybod beth yw eu rhif ffônNid wyf yn gwybod beth yw eu rhif ffôn',
 
   errors: {
     emailAddress: {
@@ -111,7 +111,9 @@ describe('respondent details > contact details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().contactDetails);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).contactDetails
+    );
     languageAssertions(
       'en',
       {
@@ -128,7 +130,9 @@ describe('respondent details > contact details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().contactDetails);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).contactDetails
+    );
     languageAssertions(
       'cy',
       {

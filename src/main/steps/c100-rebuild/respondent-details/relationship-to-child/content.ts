@@ -1,8 +1,13 @@
-import { RelationshipToChildren, RelationshipType } from '../../../../app/case/definition';
+import {
+  C100RebuildPartyDetails,
+  ChildrenDetails,
+  RelationshipToChildren,
+  RelationshipType,
+} from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { getChildDetails, getRespndentDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -32,22 +37,22 @@ const en = () => ({
 const cy = () => ({
   title: 'What is  - welsh',
   title1: "'s relationship to - welsh",
-  mother: 'Mother - welsh',
-  father: 'Father - welsh',
-  guardian: 'Guardian - welsh',
-  specialGuardian: 'Special Guardian - welsh',
-  grandparent: 'Grandparent - welsh',
-  other: 'They identify in another way - welsh',
-  otherRelationshipDetails: 'Please specify - welsh',
+  mother: 'Mam',
+  father: 'Tad',
+  guardian: 'Gwarcheidwad',
+  specialGuardian: 'Gwarcheidwad Arbennig',
+  grandparent: 'Nain/Taid',
+  other: 'Arall',
+  otherRelationshipDetails: 'Rhowch fanylion',
   guardianHintText:
-    'Someone who represents the rights of a child, may be appointed by a parent, special guardian or the court - welsh',
-  specialGuardianHintText: 'Someone who represents the rights of a child, appointed by the court - welsh',
+    'Rhywun sy’n cynrychioli hawliau plentyn, gall fod wedi’i benodi gan riant, gwarcheidwad arbennig neu’r llys',
+  specialGuardianHintText: 'Rhywun sy’n cynrychioli hawliau plentyn, wedi’i benodi gan y llys',
   errors: {
     relationshipType: {
-      required: 'Enter the relationship - welsh',
+      required: 'Nodwch y berthynas',
     },
     otherRelationshipTypeDetails: {
-      required: 'Enter the relationship - welsh',
+      required: 'Nodwch y berthynas',
     },
   },
 });
@@ -149,8 +154,11 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
   const respondentId = content.additionalData!.req.params.respondentId;
-  const respondentDetails = getRespndentDetails(content.userCase!.resp_Respondents ?? [], respondentId)!;
-  const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)!;
+  const respondentDetails = getPartyDetails(
+    respondentId,
+    content.userCase!.resp_Respondents
+  ) as C100RebuildPartyDetails;
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
 
   const relationshipFound = respondentDetails.relationshipDetails.relationshipToChildren.find(
     relationshipToChild => relationshipToChild.childId === childId

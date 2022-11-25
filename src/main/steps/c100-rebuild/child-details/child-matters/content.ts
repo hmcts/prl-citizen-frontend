@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../../app/case/case';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { getChildDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
 let updatedForm: FormContent;
 
-const en = () => ({
+export const en = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to',
+  orderAppliedFor: 'Orders applied for',
   bodyHint: 'Select all that apply',
   childArrangementsOrder: {
     whoChildLiveWith: 'Decide who the children live with and when',
@@ -42,8 +44,9 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to - welsh',
+  orderAppliedFor: 'Orders applied for - welsh',
   bodyHint: 'Select all that apply - welsh',
   childArrangementsOrder: {
     whoChildLiveWith: 'Decide who the children live with and when - welsh',
@@ -98,10 +101,10 @@ export const getFormFields = (): FormContent => {
 
 export const generateFormFields = (
   childMatters: ChildrenDetails['childMatters'],
-  data: Partial<CaseWithId>,
+  caseData: Partial<CaseWithId> = {},
   translations: Record<string, any>
 ): GenerateDynamicFormFields => {
-  const { too_courtOrder, too_stopOtherPeopleDoingSomethingSubField, too_resolveSpecificIssueSubField } = data;
+  const { too_courtOrder, too_stopOtherPeopleDoingSomethingSubField, too_resolveSpecificIssueSubField } = caseData;
   const { needsResolution } = childMatters;
 
   // preemptively removing empty strings from too_stopOtherPeopleDoingSomethingSubField retrieved from the userCase
@@ -157,7 +160,13 @@ export const generateFormFields = (
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'cm',
+    },
+  },
   onlycontinue: {
     text: l => l.onlycontinue,
   },
@@ -168,18 +177,13 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const sessionData = content?.userCase ?? {};
   const childId = content.additionalData!.req.params.childId;
-  const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)! as ChildrenDetails;
-  const { fields } = generateFormFields(
-    childDetails.childMatters ?? getChildDetails(content.userCase!.cd_children ?? [], childId)!,
-    sessionData ?? {},
-    translations!
-  );
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
+  const { fields } = generateFormFields(childDetails.childMatters, content.userCase, translations);
 
   return {
     ...translations,
-    title: `${translations['title']} ${childDetails.firstName} ${childDetails.lastName}`,
+    title: `${translations['title']} ${childDetails!.firstName} ${childDetails!.lastName}`,
     form: updateFormFields(form, fields),
   };
 };

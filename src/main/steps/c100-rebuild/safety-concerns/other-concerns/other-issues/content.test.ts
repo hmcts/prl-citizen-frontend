@@ -15,7 +15,7 @@ const en = {
     'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
   errors: {
     c1A_childSafetyConcerns: {
-      required: 'Please select an answer',
+      required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
     },
     c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
@@ -24,20 +24,20 @@ const en = {
 };
 
 const cy = {
-  section: 'Pryderon diogelwch',
-  title: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant?',
-  hint: "Er enghraifft, nid yw eu hanghenion sylfaenol yn cael eu diwallu (a elwir yn esgeuluso plant) neu rydych chi'n poeni am rywun y gallai fod ganddynt gysylltiad â nhw.",
-  one: 'Oes',
-  two: 'Nac oes',
+  section: 'Pryderon diogelwch - welsh',
+  title: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant? - welsh',
+  hint: "Er enghraifft, nid yw eu hanghenion sylfaenol yn cael eu diwallu (a elwir yn esgeuluso plant) neu rydych chi'n poeni am rywun y gallai fod ganddynt gysylltiad â nhw. - welsh",
+  one: 'Oes - welsh',
+  two: 'Nac oes - welsh',
   summaryText: 'Cysylltiadau am gymorth',
   detail:
-    "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
+    "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy - welsh'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     c1A_childSafetyConcerns: {
-      required: 'Please select an answer',
+      required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
     },
     c1A_childSafetyConcernsDetails: {
-      required: 'Describe what concerns you have about the children’s safety and wellbeing',
+      required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
     },
   },
 };

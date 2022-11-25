@@ -13,7 +13,6 @@ const en = {
   serviceName: 'Child Arrangements',
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
-  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address',
   emailAdddressLabel: 'Your email address',
   telephoneNumberLabel: 'Your telephone phone',
   canProvideTelephoneNumberLabel: 'I can provide a telephone number',
@@ -42,9 +41,6 @@ const en = {
     canNotProvideTelephoneNumberReason: {
       required: 'Please tell us why you cannot provide telephone number',
     },
-    canNotProvideEmailReason: {
-      required: 'Please tell us why you cannot provide email address',
-    },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option',
     },
@@ -52,21 +48,20 @@ const en = {
 };
 
 const cy = {
-  title: 'Contact details of - welsh',
+  title: 'Manylion cyswllt ',
   serviceName: 'Child Arrangements - welsh',
-  canProvideEmailLabel: 'I can provide an email address - welsh',
-  canNotProvideEmailLabel: 'I cannot provide an email address - welsh',
-  emailAdddressLabel: 'Your email address - welsh',
-  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address - welsh',
-  telephoneNumberLabel: 'Your telephone number - welsh',
-  canProvideTelephoneNumberLabel: 'I can provide a telephone number - welsh',
-  canNotProvideTelephoneNumberLabel: 'I cannot provide a telephone number - welsh',
-  voiceMailLabel: 'Can the court leave you a voicemail? - welsh',
+  canProvideEmailLabel: 'Allwch chi ddarparu cyfeiriad e-bost',
+  canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
+  emailAdddressLabel: 'Eich cyfeiriad e-bost',
+  telephoneNumberLabel: 'Eich rhif ffôn',
+  canProvideTelephoneNumberLabel: 'Gallaf ddarparu rhif ffôn',
+  canNotProvideTelephoneNumberLabel: 'Ni allaf ddarparu rhif ffôn',
+  voiceMailLabel: "Ydi hi'n iawn i'r llys adael neges llais i chi?",
   voiceMailHint:
-    'If the court calls you about your application and you cannot answer the phone, we need to know that it’s safe for them to leave a voicemail. - welsh',
-  voiceMailYesLabel: 'Yes, the court can leave me a voicemail - welsh',
-  voiceMailNoLabel: 'No, the court cannot leave me a voicemail - welsh',
-  canNotProvideTelephoneNumberReason: 'Please tell us why you cannot provide telephone number - welsh',
+    'Os bydd y llys yn ffonio ynghylch eich cais ac ni allwch ateb y ffôn, bydd arnom angen gwybod ei fod yn saff iddynt adael neges llais.',
+  voiceMailYesLabel: "Ydy, mae hi'n iawn i'r llys adael neges llais i mi",
+  voiceMailNoLabel: "Nac ydy, tydi hi ddim yn iawn i'r llys adael neges llais i mi",
+  canNotProvideTelephoneNumberReason: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
   errors: {
     canProvideEmail: {
       required: 'Please select email option - welsh',
@@ -84,9 +79,6 @@ const cy = {
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Please tell us why you cannot provide telephone number - welsh',
-    },
-    canNotProvideEmailReason: {
-      required: 'Please tell us why you cannot provide email address - welsh',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option - welsh',
@@ -110,7 +102,6 @@ describe('applicant > contact details', () => {
             canProvideTelephoneNumber: 'Yes',
             telephoneNumber: '',
             canNotProvideTelephoneNumberReason: 'I cannot provide a telephone phone number',
-            canNotProvideEmailReason: 'I cannot provide an email address',
             canLeaveVoiceMail: 'Yes',
           },
         },
@@ -179,11 +170,6 @@ describe('applicant > contact details', () => {
 
     expect((canProvideEmail.values[1].label as Function)(generatedContent)).toBe(en.canNotProvideEmailLabel);
     expect(canProvideEmail.values[1].value).toBe(YesNoEmpty.NO);
-    const canNotProvideEmailReason = canProvideEmail.values[1].subFields!.canNotProvideEmailReason;
-    expect((canNotProvideEmailReason?.label as Function)(generatedContent)).toBe(en.canNotProvideEmailReasonLabel);
-    expect(canNotProvideEmailReason.type).toBe('text');
-    (canNotProvideEmailReason.validator as Function)('test');
-    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
 
     expect(canProvideTelephoneNumber.type).toBe('radios');
     expect(canProvideTelephoneNumber.classes).toBe('govuk-radios');

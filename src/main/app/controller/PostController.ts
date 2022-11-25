@@ -10,7 +10,7 @@ import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
+import { C100_CASE_EVENT, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -72,7 +72,6 @@ export class PostController<T extends AnyObject> {
     };
 
     req.session.errors = form.getErrors(formData);
-    console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
 
     if (req.session.errors.length) {
@@ -113,9 +112,6 @@ export class PostController<T extends AnyObject> {
       // call here to get the case details //
       const caseworkerUser = await getSystemUser();
       req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
-      const caseReference = req.session.userCase.caseCode;
-      const caseData = await req.locals.api.getCaseById(caseReference as string);
-      console.log('Saving data for case : ' + JSON.stringify(caseData.id));
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
@@ -132,8 +128,6 @@ export class PostController<T extends AnyObject> {
     data: Partial<CaseData>
   ): Promise<CaseWithId> {
     try {
-      console.log(eventName);
-
       req.session.userCase = await req.locals.api.triggerEventWithData(
         req.session.userCase.id,
         formData,
@@ -214,7 +208,7 @@ export class PostController<T extends AnyObject> {
         }
       }
     } catch (err) {
-      console.log('Retrieving case failed with error: ' + err);
+      req.locals.logger.error('Retrieving case failed with error: ' + err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 
@@ -287,8 +281,15 @@ export class PostController<T extends AnyObject> {
   ): Promise<void> {
     if (req.path.startsWith(C100_URL)) {
       try {
+        req.session.errors = [];
         Object.assign(req.session.userCase, formData);
-        await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
+        await req.locals.C100Api.updateCase(
+          req.session.userCase!.caseId!,
+          req.session.userCase,
+          req.originalUrl,
+          C100_CASE_EVENT.CASE_UPDATE
+        );
+        req.session.userCase = {} as CaseWithId;
       } finally {
         this.redirect(req, res, DASHBOARD_URL);
       }

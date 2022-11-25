@@ -13,17 +13,17 @@ const en = () => ({
   changePostCodeLabel: 'Change postcode',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address',
+      notSelected: 'Select an address from the list',
     },
   },
 });
 
 const cy = () => ({
-  title: 'Select Address of -welsh',
-  changePostCodeLabel: 'Change postcode - welsh',
+  title: 'Dewiswch gyfeiriad',
+  changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address -  welsh',
+      notSelected: 'Dewiswch gyfeiriad',
     },
   },
 });
@@ -35,11 +35,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 

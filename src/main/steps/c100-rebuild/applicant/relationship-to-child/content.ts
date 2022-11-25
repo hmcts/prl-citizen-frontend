@@ -1,8 +1,8 @@
-import { RelationshipToChildren, RelationshipType } from '../../../../app/case/definition';
+import { ChildrenDetails, RelationshipToChildren, RelationshipType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { getChildDetails } from '../../child-details/util';
+import { getPartyDetails } from '../../people/util';
 import { getApplicantDetails } from '../util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -33,22 +33,22 @@ const en = () => ({
 const cy = () => ({
   title: 'What is  - welsh',
   title1: "'s relationship to - welsh",
-  mother: 'Mother - welsh',
-  father: 'Father - welsh',
-  guardian: 'Guardian - welsh',
-  specialGuardian: 'Special Guardian - welsh',
-  grandparent: 'Grandparent - welsh',
-  other: 'They identify in another way - welsh',
-  otherRelationshipDetails: 'Please specify - welsh',
+  mother: 'Mam',
+  father: 'Tad',
+  guardian: 'Gwarcheidwad',
+  specialGuardian: 'Gwarcheidwad Arbennig',
+  grandparent: 'Nain/Taid',
+  other: 'Arall',
+  otherRelationshipDetails: 'Rhowch fanylion',
   guardianHintText:
-    'Someone who represents the rights of a child, may be appointed by a parent, special guardian or the court - welsh',
-  specialGuardianHintText: 'Someone who represents the rights of a child, appointed by the court - welsh',
+    'Rhywun sy’n cynrychioli hawliau plentyn, gall fod wedi’i benodi gan riant, gwarcheidwad arbennig neu’r llys',
+  specialGuardianHintText: 'Rhywun sy’n cynrychioli hawliau plentyn, wedi’i benodi gan y llys',
   errors: {
     relationshipType: {
-      required: 'Enter the relationship - welsh',
+      required: 'Nodwch y berthynas',
     },
     otherRelationshipTypeDetails: {
-      required: 'Enter the relationship - welsh',
+      required: 'Nodwch y berthynas',
     },
   },
 });
@@ -151,12 +151,12 @@ export const generateContent: TranslationFn = content => {
   const childId = content.additionalData!.req.params.childId;
   const applicantId = content.additionalData!.req.params.applicantId;
   const applicantDetails = getApplicantDetails(content.userCase!.appl_allApplicants ?? [], applicantId)!;
-  const childDetails = getChildDetails(content.userCase!.cd_children ?? [], childId)!;
+  const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
 
   const relationshipFound = applicantDetails.relationshipDetails!.relationshipToChildren.find(
     relationshipToChild => relationshipToChild.childId === childId
   );
-  const { fields } = generateFormFields(relationshipFound || Object.assign({}));
+  const { fields } = generateFormFields(relationshipFound ?? ({} as RelationshipToChildren));
   return {
     ...translations,
     title: `${translations['title']} ${applicantDetails.applicantFirstName} ${applicantDetails.applicantLastName}${translations['title1']} ${childDetails.firstName} ${childDetails.lastName}`,

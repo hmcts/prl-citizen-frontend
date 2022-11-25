@@ -690,6 +690,7 @@ export type C100Applicant = {
   applicantAddress2?: string,
   applicantAddressTown?: string,
   applicantAddressCounty?: string,
+  country?: string,
   applicantAddressHistory?: YesOrNo,
   applicantProvideDetailsOfPreviousAddresses?: string;
   personalDetails:{
@@ -715,7 +716,6 @@ export interface RelationshipToChildren {
 export interface ContactDetail {
   canProvideEmail?: YesNoEmpty,
   emailAddress?: string,
-  canNotProvideEmailReason?: string,
   canProvideTelephoneNumber?: YesNoEmpty,
   telephoneNumber?: string,
   canNotProvideTelephoneNumberReason?: string
@@ -2323,9 +2323,13 @@ export const enum ThePrayer {
 export type RespondentCaseId = string | number | undefined;
 export type RespondentCaseData = object | [] | undefined;
 
-export const enum C100 {
-  CASE_TYPE_OF_APPLICATION = 'C100',
+export const enum C100_CASE_TYPE {
+  C100 = 'C100',
+}
+
+export const enum C100_CASE_EVENT {
   CASE_UPDATE = 'citizen-case-update',
+  CASE_SUBMIT = 'citizen-case-submit',
   DELETE_CASE = 'deleteApplication',
 }
 
@@ -2506,7 +2510,7 @@ export interface C1ASafteyConcerns {
     relationshipDetails: {
       relationshipToChildren: RelationshipToChildren[];
     };
-    address?: C100Address;
+    address: C100Address;
     contactDetails?: {
       donKnowEmailAddress?: YesOrNo
       emailAddress?: string
@@ -2540,7 +2544,9 @@ export interface C1ASafteyConcerns {
 
 
   export enum PartyType {
+    CHILDREN = 'children',
     APPLICANT = 'applicant',
+    OTHER_CHILDREN = 'otherChildren',
     RESPONDENT = 'respondent',
     OTHER_PERSON = 'otherPerson',
   }

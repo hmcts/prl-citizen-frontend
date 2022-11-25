@@ -10,17 +10,17 @@ const en = {
   changePostCodeLabel: 'Change postcode',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address',
+      notSelected: 'Select an address from the list',
     },
   },
 };
 
 const cy = {
-  title: 'Select Address of -welsh firstName lastName',
-  changePostCodeLabel: 'Change postcode - welsh',
+  title: 'Dewiswch gyfeiriad firstName lastName',
+  changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address -  welsh',
+      notSelected: 'Dewiswch gyfeiriad',
     },
   },
 };
@@ -66,18 +66,10 @@ describe('applicant > address > select > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');
-  });
-
-  test('should contain saveAndComeLater button', () => {
-    expect(
-      (generatedContent.form?.saveAndComeLater?.text as LanguageLookup)(
-        generatePageContent({ language: 'en' }) as Record<string, never>
-      )
-    ).toBe('Save and come back later');
   });
 
   test('should contain applicantSelectAddress field', () => {

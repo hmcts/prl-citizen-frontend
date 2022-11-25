@@ -1,35 +1,36 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Reasonable adjustments',
   headingTitle: 'I need to bring support with me to a court hearing',
   line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   select_all_apply: 'Select all that apply to you',
   supportWorkerCarer: 'A support worker or carer',
-  supportWorkerCarerSubField: 'Tell us who you will bring',
+  supportWorkerCarer_subfield: 'Tell us who you will bring',
   friendFamilyMember: 'A friend or family member',
-  friendFamilyMemberSubField: 'Tell us who you will bring',
+  friendFamilyMember_subfield: 'Tell us who you will bring',
   assistanceGuideDog: 'Assistance / guide dog',
   therapyAnimal: 'Therapy animal',
-  therapyAnimalSubField: 'Describe what you need',
+  therapyAnimal_subfield: 'Describe what you need',
   supportCourtOther: 'Other',
-  supportCourtOtherSubField: 'Describe what you need',
+  supportCourtOther_subfield: 'Describe what you need',
   supportCourtNoOption: 'No, I do not need any support at this time',
   errors: {
-    ra_supportWorkerCarerSubField: {
+    ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring',
     },
-    ra_friendFamilyMemberSubField: {
+    ra_friendFamilyMember_subfield: {
       required: 'Enter the name of a friend or family member you will bring',
     },
-    ra_therapyAnimalSubField: {
+    ra_therapyAnimal_subfield: {
       required: 'Describe which therapy animal you will bring',
     },
-    ra_supportCourtOtherSubField: {
+    ra_supportCourtOther_subfield: {
       required: 'Describe which support you need to bring with you to a hearing ',
     },
     ra_supportCourt: {
@@ -38,7 +39,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf eisiau dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
@@ -46,26 +47,26 @@ const cy = () => ({
     'Ystyriwch wrandawiad wyneb yn wyneb, dros y ffôn neu drwy fideo, rhag ofn nad yw’r math o wrandawiad a ffefrir gennych yn bosibl',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   supportWorkerCarer: 'Gweithiwr cymorth neu ofalwr',
-  supportWorkerCarerSubField: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
+  supportWorkerCarer_subfield: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
   friendFamilyMember: "ffrind neu aelod o'r teulu",
-  friendFamilyMemberSubField: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
+  friendFamilyMember_subfield: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
   assistanceGuideDog: 'Ci cymorth / ci tywys',
   therapyAnimal: 'Anifail therapi',
-  therapyAnimalSubField: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  therapyAnimal_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   supportCourtOther: 'Arall',
-  supportCourtOtherSubField: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  supportCourtOther_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   supportCourtNoOption: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   errors: {
-    ra_supportWorkerCarerSubField: {
+    ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring - welsh',
     },
-    ra_friendFamilyMemberSubField: {
+    ra_friendFamilyMember_subfield: {
       required: 'Enter the name of a friend or family member you will bring - welsh',
     },
-    ra_therapyAnimalSubField: {
+    ra_therapyAnimal_subfield: {
       required: 'Describe which therapy animal you will bring - welsh',
     },
-    ra_supportCourtOtherSubField: {
+    ra_supportCourtOther_subfield: {
       required: 'Describe which support you need to bring with you to a hearing - welsh',
     },
     ra_supportCourt: {
@@ -92,9 +93,9 @@ export const form: FormContent = {
           label: l => l.supportWorkerCarer,
           value: 'supportWorkerCarer',
           subFields: {
-            ra_supportWorkerCarerSubField: {
+            ra_supportWorkerCarer_subfield: {
               type: 'textarea',
-              label: l => l.supportWorkerCarerSubField,
+              label: l => l.supportWorkerCarer_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,
@@ -108,9 +109,9 @@ export const form: FormContent = {
           label: l => l.friendFamilyMember,
           value: 'friendFamilyMember',
           subFields: {
-            ra_friendFamilyMemberSubField: {
+            ra_friendFamilyMember_subfield: {
               type: 'textarea',
-              label: l => l.friendFamilyMemberSubField,
+              label: l => l.friendFamilyMember_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,
@@ -129,9 +130,9 @@ export const form: FormContent = {
           label: l => l.therapyAnimal,
           value: 'therapyAnimal',
           subFields: {
-            ra_therapyAnimalSubField: {
+            ra_therapyAnimal_subfield: {
               type: 'textarea',
-              label: l => l.therapyAnimalSubField,
+              label: l => l.therapyAnimal_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,
@@ -145,9 +146,9 @@ export const form: FormContent = {
           label: l => l.supportCourtOther,
           value: 'supportCourtOther',
           subFields: {
-            ra_supportCourtOtherSubField: {
+            ra_supportCourtOther_subfield: {
               type: 'textarea',
-              label: l => l.supportCourtOtherSubField,
+              label: l => l.supportCourtOther_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,

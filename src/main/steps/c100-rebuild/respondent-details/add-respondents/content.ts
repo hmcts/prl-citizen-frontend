@@ -6,7 +6,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Enter the respondents name',
+  title: "Enter the respondent's name",
   subTitle: 'The other people who will receive this application are known as the respondents',
   firstNameLabel: 'First name(s)',
   firstNameHint: 'Include all middle names here',
@@ -25,14 +25,14 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Enter the respondents name- welsh',
-  subTitle: 'The other people who will receive this application are known as the respondents - welsh',
-  firstNameLabel: 'First name(s) - welsh',
-  firstNameHint: 'Include all middle names here - welsh',
-  lastNameLabel: 'Last name(s) - welsh',
-  addRespondentLabel: 'Add another respondent - welsh',
+  title: 'Nodwch enw’r atebydd',
+  subTitle: 'Gelwir y bobl eraill sy’n derbyn y cais hwn yn ‘yr atebwyr.’',
+  firstNameLabel: 'Enw(au) cyntaf',
+  firstNameHint: 'Rhowch bob enw canol yma',
+  lastNameLabel: 'Cyfenw(au)',
+  addRespondentLabel: 'Ychwanegu atebydd arall',
   removeRespondentLabel: 'Remove respondent - welsh',
-  newNameLabel: 'Enter a new name - welsh',
+  newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name - welsh',
@@ -96,7 +96,7 @@ export const generateFormFields = (respondents: C100RebuildPartyDetails[]): Gene
           labelSize: 'm',
           validator: isFieldFilledIn,
         },
-        removeRespondent: {
+        remove: {
           type: 'button',
           label: l => `${l.removeRespondentLabel} ${count}`,
           classes: 'govuk-button--warning margin-top-3',
@@ -137,13 +137,18 @@ export const form: FormContent = {
           labelSize: 'none',
           validator: isFieldFilledIn,
         },
-        addRespondent: {
+        add: {
           type: 'button',
           label: l => l.addRespondentLabel,
           classes: 'govuk-button--secondary',
           value: 'true',
         },
       },
+    },
+    _ctx: {
+      type: 'hidden',
+      labelHidden: true,
+      value: 'resp',
     },
   },
   onlycontinue: {

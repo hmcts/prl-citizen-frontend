@@ -3,8 +3,11 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL } from '../../../../../steps/urls';
-import { getOtherPersonDetails } from '../../../other-person-details/util';
-import { form as lookupAddressForm, languages as lookupAddressFormLanguages } from '../common/address-lookup';
+import {
+  form as lookupAddressForm,
+  languages as lookupAddressFormLanguages,
+} from '../../../people/address/address-lookup';
+import { getPartyDetails } from '../../../people/util';
 
 let updatedForm: FormContent;
 
@@ -15,20 +18,20 @@ const en = () => ({
   enterAddressManually: 'I dont know their postcode or they live outside the UK',
   errors: {
     PostCode: {
-      required: 'Enter the Post Code',
-      invalid: 'Enter the Post Code',
+      required: 'Enter the postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 });
 
 const cy = () => ({
-  title: 'Address of - welsh',
-  hint: 'Documents relating to this application may be sent here - welsh',
-  enterAddressManually: 'I dont know their postcode or they live outside the UK - welsh',
+  title: 'Cyfeiriad',
+  hint: 'Bydd dogfennau sy’n ymwneud â’r cais hwn yn cael eu hanfon yno.',
+  enterAddressManually: 'Nid wyf yn gwybod beth yw eu cod post neu maen nhw’n byw y tu allan i’r DU',
   errors: {
     PostCode: {
-      required: 'Enter the Post Code - welsh',
-      invalid: 'Enter the Post Code - welsh',
+      required: 'Enter the postcode - welsh',
+      invalid: 'Enter a valid postcode - welsh',
     },
   },
 });
@@ -40,12 +43,16 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
+};
+
+export const getFormFields = (): FormContent => {
+  return updatedForm;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -55,6 +62,11 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
     fields: {
       ...formFields,
       ...(form.fields ?? {}),
+      _ctx: {
+        type: 'hidden',
+        labelHidden: true,
+        value: 'opAddressLookup',
+      },
     },
   };
 
@@ -71,7 +83,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const lookupAddressFormTranslations = lookupAddressFormLanguages[content.language]();
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
-  const otherPersonDetails = getOtherPersonDetails(content.userCase!.oprs_otherPersons ?? [], otherPersonId)!;
+  const otherPersonDetails = getPartyDetails(
+    otherPersonId,
+    content.userCase?.oprs_otherPersons
+  ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 
   return {

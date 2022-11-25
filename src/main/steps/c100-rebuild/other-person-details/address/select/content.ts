@@ -6,8 +6,11 @@ import {
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
 } from '../../../../../steps/urls';
-import { getOtherPersonDetails } from '../../../other-person-details/util';
-import { form as selectAddressForm, languages as selectAddressFormLanguages } from '../common/address-select';
+import {
+  form as selectAddressForm,
+  languages as selectAddressFormLanguages,
+} from '../../../people/address/address-select';
+import { getPartyDetails } from '../../../people/util';
 
 let updatedForm: FormContent;
 
@@ -23,8 +26,8 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Select Address of -welsh',
-  changePostCodeLabel: 'Change postcode - welsh',
+  title: 'Dewiswch gyfeiriad',
+  changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {
       notSelected: 'Select an address from the list -  welsh',
@@ -39,11 +42,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
@@ -70,13 +70,16 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const selectAddressFormTranslations = selectAddressFormLanguages[content.language](content);
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
-  const otherPersonDetails = getOtherPersonDetails(content.userCase!.oprs_otherPersons ?? [], otherPersonId)!;
+  const otherPersonDetails = getPartyDetails(
+    otherPersonId,
+    content.userCase?.oprs_otherPersons
+  ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 
   return {
     ...translations,
     ...selectAddressFormTranslations,
-    adddressPostCode: otherPersonDetails!.address!.PostCode,
+    adddressPostCode: otherPersonDetails.address?.PostCode,
     changePostCodeUrl: applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId }),
     cantFindAddressUrl: applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, { otherPersonId }),
     title: `${translations.title} ${firstName} ${lastName}`,

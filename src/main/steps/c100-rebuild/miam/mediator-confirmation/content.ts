@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Has a mediator confirmed that you do not need to attend a MIAM?',
   one: 'Yes',
   two: 'No',
@@ -15,7 +16,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'A oes cyfryngwr wedi cadarnhau nad oes angen i chi fynychu MIAM?',
   one: 'Oes',
   two: 'Nac oes',

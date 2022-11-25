@@ -1,6 +1,6 @@
 /* eslint-disable import/order */
 import { Case, CaseWithId } from '../../app/case/case';
-import { YesOrNo } from '../../app/case/definition';
+import { MiamNonAttendReason, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
@@ -138,13 +138,15 @@ import {
   C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
-  C100_GET_CASE,
   C100_CHILDERN_LIVE_WITH,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
   C100_APPLICANTS_PERSONAL_DETAILS,
   C100_APPLICANT_CONTACT_DETAIL,
+  C100_CHECK_YOUR_ANSWER,
+  C100_CASE_NAME,
+  C100_CREATE_CASE,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -156,6 +158,11 @@ import OtherProceedingsNavigationController from './other-proceedings/navigation
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
+import AddPeoplePostContoller from './people/AddPeoplePostContoller';
+import ChildDetailsPostController from './child-details/childDetailPostController';
+import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
+import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
+import UploadDocumentController from './uploadDocumentController';
 
 export const C100Sequence: Step[] = [
   {
@@ -230,7 +237,7 @@ export const C100Sequence: Step[] = [
         data?.ra_disabilityRequirements
       );
       const nextPage = PageStepConfigurator.getNextPage(C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS);
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -242,7 +249,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -254,7 +261,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -266,7 +273,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -278,7 +285,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -290,7 +297,7 @@ export const C100Sequence: Step[] = [
         C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
+      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
   },
   {
@@ -301,12 +308,27 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART1,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART2,
+    getNextStep: (caseData: Partial<CaseWithId>): PageLink => {
+      if (caseData.hwn_hearingPart1 === YesOrNo.YES) {
+        return C100_HEARING_WITHOUT_NOTICE_PART2;
+      }
+
+      return caseData.sq_writtenAgreement === YesOrNo.NO &&
+        caseData.miam_validReason === YesOrNo.YES &&
+        MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+        ? C100_TYPE_ORDER_SELECT_COURT_ORDER
+        : C100_CHILDERN_DETAILS_ADD;
+    },
   },
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART2,
     showInSection: Sections.C100,
-    getNextStep: () => C100_TYPE_ORDER_SELECT_COURT_ORDER,
+    getNextStep: caseData =>
+      caseData.sq_writtenAgreement === YesOrNo.NO &&
+      caseData.miam_validReason === YesOrNo.YES &&
+      MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+        ? C100_TYPE_ORDER_SELECT_COURT_ORDER
+        : C100_CHILDERN_DETAILS_ADD,
   },
   {
     url: C100_TYPE_ORDER_SELECT_COURT_ORDER,
@@ -321,49 +343,64 @@ export const C100Sequence: Step[] = [
   {
     url: C100_TYPE_ORDER_SHORT_STATEMENT,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: (caseData: Partial<CaseWithId>): PageLink => {
+      if (caseData.sq_writtenAgreement === YesOrNo.YES) {
+        return C100_CONSENT_ORDER_UPLOAD;
+      }
+
+      return caseData.miam_otherProceedings === YesOrNo.NO &&
+        caseData.miam_validReason === YesOrNo.YES &&
+        MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+        ? C100_CHILDERN_DETAILS_ADD
+        : C100_HEARING_URGENCY_URGENT;
+    },
   },
   {
     url: C100_START,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_CREATE_CASE,
   },
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_HELP_WITH_FEES_HWF_GUIDANCE,
+      data.hwf_needHelpWithFees === YesOrNo.YES ? C100_HELP_WITH_FEES_FEES_APPLIED : C100_CHECK_YOUR_ANSWER,
   },
   {
     url: C100_HELP_WITH_FEES_FEES_APPLIED,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HELP_WITH_FEES_HWF_GUIDANCE,
+    getNextStep: (data: Partial<Case>) =>
+      data.hwf_feesAppliedDetails === YesOrNo.YES ? C100_CHECK_YOUR_ANSWER : C100_HELP_WITH_FEES_HWF_GUIDANCE,
   },
   {
     url: C100_HELP_WITH_FEES_HWF_GUIDANCE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_CHECK_YOUR_ANSWER,
   },
   {
     url: C100_CHILDERN_DETAILS_ADD,
     showInSection: Sections.C100,
+    postController: AddPeoplePostContoller,
     getNextStep: caseData => ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_ADD, caseData),
   },
   {
     url: C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, caseData, req?.params),
   },
   {
     url: C100_CHILDERN_DETAILS_CHILD_MATTERS,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_CHILD_MATTERS, caseData, req?.params),
   },
   {
     url: C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
     showInSection: Sections.C100,
+    postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
       ChildrenDetailsNavigationController.getNextUrl(
         C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
@@ -384,14 +421,13 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_DETAILS,
+    getNextStep: caseData =>
+      OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS, caseData),
   },
   {
     url: C100_OTHER_PROCEEDINGS_DETAILS,
     showInSection: Sections.C100,
-    getNextStep: (caseData: Partial<Case>): PageLink => {
-      return OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DETAILS, caseData);
-    },
+    getNextStep: caseData => OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DETAILS, caseData),
   },
   {
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
@@ -418,7 +454,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: caseData =>
+      OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY, caseData),
   },
   {
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
@@ -560,6 +597,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_MIAM_UPLOAD,
+    postController: UploadDocumentController,
     showInSection: Sections.C100,
     getNextStep: () => C100_MIAM_UPLOAD_CONFIRMATION,
   },
@@ -722,38 +760,56 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.detailsKnown === YesOrNo.YES
-        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE
-        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+    postController: ApplicantCommonConfidentialityController,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.start === YesOrNo.YES
-        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+    postController: ApplicantCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.startAlternative === YesOrNo.YES
-        ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
-        : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+    postController: ApplicantCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_APPLICANT_ADDRESS_LOOKUP,
@@ -782,6 +838,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILDERN_OTHER_CHILDREN_NAMES,
     showInSection: Sections.C100,
+    postController: AddPeoplePostContoller,
     getNextStep: caseData =>
       OtherChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_OTHER_CHILDREN_NAMES, caseData),
   },
@@ -798,6 +855,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_RESPONDENT_DETAILS_ADD,
     showInSection: Sections.C100,
+    postController: AddPeoplePostContoller,
     getNextStep: caseData => RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADD, caseData),
   },
   {
@@ -847,14 +905,13 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PERSON_CHECK,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.oprs_otherPersonCheck === YesOrNo.YES
-        ? C100_OTHER_PERSON_DETAILS_ADD
-        : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_CHECK, caseData, req?.params),
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADD,
     showInSection: Sections.C100,
+    postController: AddPeoplePostContoller,
     getNextStep: caseData =>
       OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADD, caseData),
   },
@@ -870,6 +927,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
+    postController: LookupAndManualAddressPostController,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
@@ -890,6 +948,7 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
+    postController: LookupAndManualAddressPostController,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
@@ -907,11 +966,6 @@ export const C100Sequence: Step[] = [
         caseData,
         req?.params
       ),
-  },
-  {
-    url: C100_GET_CASE,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_GET_CASE,
   },
   {
     url: C100_CHILDERN_LIVE_WITH,
@@ -939,12 +993,23 @@ export const C100Sequence: Step[] = [
   },
   {
     url: C100_CONSENT_ORDER_UPLOAD,
+    postController: UploadDocumentController,
     showInSection: Sections.C100,
     getNextStep: () => C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
   },
   {
     url: C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
+    getNextStep: () => C100_HEARING_URGENCY_URGENT,
+  },
+  {
+    url: C100_CHECK_YOUR_ANSWER,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHECK_YOUR_ANSWER,
+  },
+  {
+    url: C100_CASE_NAME,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILD_ADDRESS,
   },
 ];

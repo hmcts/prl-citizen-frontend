@@ -23,7 +23,7 @@ const en = {
   phoneHearing: 'Yes, I can take part in phone hearings',
   noVideoAndPhoneHearing: 'No, I cannot take part in either video or phone hearings',
   noVideoAndPhoneHearingReason: 'If you choose this option please tell us why in case we can assist you',
-  noVideoAndPhoneHearingExplanation: 'Explain why you are unable to take part in video or phone hearings',
+  noVideoAndPhoneHearing_subfield: 'Explain why you are unable to take part in video or phone hearings',
 };
 
 const cy = {
@@ -41,7 +41,7 @@ const cy = {
   phoneHearing: 'YGallaf gymryd rhan mewn gwrandawiad dros y ffôn',
   noVideoAndPhoneHearing: 'Ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
   noVideoAndPhoneHearingReason: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
-  noVideoAndPhoneHearingExplanation: 'Explain why you are unable to take part in video or phone hearings - welsh',
+  noVideoAndPhoneHearing_subfield: 'Explain why you are unable to take part in video or phone hearings - welsh',
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('applicant personal details > applying-with > content', () => {
@@ -67,12 +67,12 @@ describe('applicant personal details > applying-with > content', () => {
   test('should contain typeOfHearing field', () => {
     const typeOfHearingField = fields.ra_typeOfHearing as FormOptions;
     const noVideoAndPhoneHearingExplanationField = typeOfHearingField.values[3].subFields
-      ?.ra_noVideoAndPhoneHearingExplanation as FormOptions;
+      ?.ra_noVideoAndPhoneHearing_subfield as FormOptions;
 
     expect(typeOfHearingField.type).toBe('checkboxes');
     expect(noVideoAndPhoneHearingExplanationField.type).toBe('textarea');
     expect((noVideoAndPhoneHearingExplanationField.label as LanguageLookup)(generatedContent)).toBe(
-      en.noVideoAndPhoneHearingExplanation
+      en.noVideoAndPhoneHearing_subfield
     );
 
     expect((typeOfHearingField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);

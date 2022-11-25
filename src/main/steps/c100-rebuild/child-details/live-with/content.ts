@@ -4,7 +4,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { interpolate } from '../../../../steps/common/string-parser';
-import { getChildDetails } from '../util';
+import { getPartyDetails } from '../../people/util';
 export * from './routeGuard';
 
 let people: People[] = [];
@@ -15,17 +15,17 @@ const en = () => ({
   liveWithHint: 'Select all that apply',
   errors: {
     liveWith: {
-      required: 'You must select atleast one person',
+      required: 'You must select at least one person',
     },
   },
 });
 
 const cy = () => ({
-  title: 'Who does {firstName} {lastName} currently live with? - welsh',
-  liveWithHint: 'Select all that apply - welsh',
+  title: 'Gyda phwy mae {firstName} {lastName} yn byw ar hyn o bryd?',
+  liveWithHint: 'Dewiswch bob un sy’n berthnasol',
   errors: {
     liveWith: {
-      required: 'You must select atleast one person - welsh',
+      required: 'You must select at least one person - welsh',
     },
   },
 });
@@ -119,10 +119,7 @@ export const getPeople = (caseData: Partial<CaseWithId>): People[] => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
-  const { firstName, lastName, liveWith } = getChildDetails(
-    content.userCase!.cd_children ?? [],
-    childId
-  )! as ChildrenDetails;
+  const { firstName, lastName, liveWith } = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
   people = [];
 
   return {

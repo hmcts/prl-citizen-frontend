@@ -1,15 +1,15 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { C100Applicant, YesNoEmpty } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Contact details of',
   serviceName: 'Child Arrangements',
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
-  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address',
   emailAdddressLabel: 'Your email address',
   telephoneNumberLabel: 'Your telephone phone',
   canProvideTelephoneNumberLabel: 'I can provide a telephone number',
@@ -38,31 +38,27 @@ const en = () => ({
     canNotProvideTelephoneNumberReason: {
       required: 'Please tell us why you cannot provide telephone number',
     },
-    canNotProvideEmailReason: {
-      required: 'Please tell us why you cannot provide email address',
-    },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option',
     },
   },
 });
 
-const cy = () => ({
-  title: 'Contact details of - welsh',
+export const cy = () => ({
+  title: 'Manylion cyswllt ',
   serviceName: 'Child Arrangements - welsh',
-  canProvideEmailLabel: 'I can provide an email address - welsh',
-  canNotProvideEmailLabel: 'I cannot provide an email address - welsh',
-  emailAdddressLabel: 'Your email address - welsh',
-  canNotProvideEmailReasonLabel: 'Please tell us why you cannot provide email address - welsh',
-  telephoneNumberLabel: 'Your telephone number - welsh',
-  canProvideTelephoneNumberLabel: 'I can provide a telephone number - welsh',
-  canNotProvideTelephoneNumberLabel: 'I cannot provide a telephone number - welsh',
-  voiceMailLabel: 'Can the court leave you a voicemail? - welsh',
+  canProvideEmailLabel: 'Allwch chi ddarparu cyfeiriad e-bost',
+  canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
+  emailAdddressLabel: 'Eich cyfeiriad e-bost',
+  telephoneNumberLabel: 'Eich rhif ffôn',
+  canProvideTelephoneNumberLabel: 'Gallaf ddarparu rhif ffôn',
+  canNotProvideTelephoneNumberLabel: 'Ni allaf ddarparu rhif ffôn',
+  voiceMailLabel: "Ydi hi'n iawn i'r llys adael neges llais i chi?",
   voiceMailHint:
-    'If the court calls you about your application and you cannot answer the phone, we need to know that it’s safe for them to leave a voicemail. - welsh',
-  voiceMailYesLabel: 'Yes, the court can leave me a voicemail - welsh',
-  voiceMailNoLabel: 'No, the court cannot leave me a voicemail - welsh',
-  canNotProvideTelephoneNumberReason: 'Please tell us why you cannot provide telephone number - welsh',
+    'Os bydd y llys yn ffonio ynghylch eich cais ac ni allwch ateb y ffôn, bydd arnom angen gwybod ei fod yn saff iddynt adael neges llais.',
+  voiceMailYesLabel: "Ydy, mae hi'n iawn i'r llys adael neges llais i mi",
+  voiceMailNoLabel: "Nac ydy, tydi hi ddim yn iawn i'r llys adael neges llais i mi",
+  canNotProvideTelephoneNumberReason: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
   errors: {
     canProvideEmail: {
       required: 'Please select email option - welsh',
@@ -80,9 +76,6 @@ const cy = () => ({
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Please tell us why you cannot provide telephone number - welsh',
-    },
-    canNotProvideEmailReason: {
-      required: 'Please tell us why you cannot provide email address - welsh',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option - welsh',
@@ -115,7 +108,6 @@ export const generateFormFields = (
   const {
     canProvideEmail,
     emailAddress,
-    canNotProvideEmailReason,
     canProvideTelephoneNumber,
     telephoneNumber,
     canNotProvideTelephoneNumberReason,
@@ -148,15 +140,6 @@ export const generateFormFields = (
           label: l => l.canNotProvideEmailLabel,
           selected: canProvideEmail === YesNoEmpty.NO,
           value: YesNoEmpty.NO,
-          subFields: {
-            canNotProvideEmailReason: {
-              type: 'text',
-              label: l => l.canNotProvideEmailReasonLabel,
-              labelSize: null,
-              value: canNotProvideEmailReason,
-              validator: isFieldFilledIn,
-            },
-          },
         },
       ],
       validator: isFieldFilledIn,

@@ -5,7 +5,7 @@ import { CheckPaymentStatusApi, PaymentSystemAPIInstance, PaymentTaskResolver } 
 const mockToken =
   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 const mockServiceToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNlcnZpY2UgVG9rZW4iLCJpYXQiOjE1MTYyMzkwMjJ9.gp3a-gh8heA-9PlRsrAMlJFq-B4myncOpjtDRHswwuA';
+  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNlcnZpY2UgVG9rZW4iLCJpYXQiOjE1MTYyMzkwMjJ9.gp3a-gh8heA-9PlRsrAMlJFq-B4myncOpjtDRHswwuA';
 
 const paymentURL: string = config.get('payments.url');
 
@@ -30,6 +30,7 @@ describe('PaymentTaskResolver class testing', () => {
   const dummyCaseID = '2122323';
   const dummyreturnUrl = 'http://localhost:3001/payment/reciever/callback';
   const applicantCaseName = 'Test';
+  const hwfRefNumber = 'HWF-1234';
   test('Should be an Instance of Axios', async () => {
     const InstanceOfPaymentSystemAPIInstance = new PaymentTaskResolver(
       paymentURL,
@@ -37,7 +38,8 @@ describe('PaymentTaskResolver class testing', () => {
       mockServiceToken,
       dummyCaseID,
       dummyreturnUrl,
-      applicantCaseName
+      applicantCaseName,
+      hwfRefNumber
     );
     const fetchData = await InstanceOfPaymentSystemAPIInstance.getPaymentCredentails();
     //due to credential failure it must fail;

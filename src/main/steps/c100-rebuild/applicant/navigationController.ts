@@ -1,5 +1,5 @@
 import { Case } from '../../../app/case/case';
-import { C100Applicant, ChildrenDetails } from '../../../app/case/definition';
+import { C100Applicant, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_APPLICANTS_PERSONAL_DETAILS,
@@ -7,13 +7,16 @@ import {
   C100_APPLICANT_ADDRESS_MANUAL,
   C100_APPLICANT_ADDRESS_SELECT,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_APPLICANT_CONTACT_DETAIL,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
-  C100_CONFIDENTIALITY_FEEDBACK,
-  C100_CONFIDENTIALITY_FEEDBACK_NO,
   C100_RESPONDENT_DETAILS_ADD,
   PageLink,
 } from '../../urls';
+import { getPartyDetails } from '../people/util';
 
 class ApplicantNavigationController {
   private applicantDetails: C100Applicant[] | [] = [];
@@ -44,8 +47,33 @@ class ApplicantNavigationController {
     let nextUrl;
 
     switch (currentPageUrl) {
-      case C100_CONFIDENTIALITY_FEEDBACK:
-      case C100_CONFIDENTIALITY_FEEDBACK_NO: {
+      case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW: {
+        const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
+
+        nextUrl = applyParms(
+          applicantData.detailsKnown === YesOrNo.YES
+            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START
+            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+          { applicantId: this.applicantId }
+        );
+        break;
+      }
+      case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START:
+      case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE: {
+        const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
+        const dataReference =
+          currentPageUrl === C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START ? 'start' : 'startAlternative';
+
+        nextUrl = applyParms(
+          applicantData[dataReference] === YesOrNo.YES
+            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK
+            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
+          { applicantId: this.applicantId }
+        );
+        break;
+      }
+      case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK:
+      case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO: {
         nextUrl = applyParms(C100_APPLICANTS_PERSONAL_DETAILS, {
           applicantId: this.applicantId,
         });

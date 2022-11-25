@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import https from 'https';
-
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
@@ -11,53 +8,67 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
-import { C100, State } from './definition';
+import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  public async retrieveCase(): Promise<RetreiveDraftCase> {
+  public async retrieveCaseById(caseId: string): Promise<RetreiveDraftCase> {
+    if (!caseId) {
+      throw new Error('caseId cannot be empty');
+    }
     try {
-      const url: string = config.get('services.cos.url') + '/cases';
-      const response = await this.axios.get<RetreiveDraftCase[]>(url);
-
-      const retreivedDraftCase = response.data.filter(
-        caseData => caseData.state === 'AWAITING_SUBMISSION_TO_HMCTS'
-      )[0] as RetreiveDraftCase;
-
-      return detransformCaseData(retreivedDraftCase);
+      const response = await this.axios.get<RetreiveDraftCase>(`${config.get('services.cos.url')}/${caseId}`);
+      return detransformCaseData(response.data);
     } catch (err) {
       this.logError(err);
-      throw new Error('Case could not be retreived.');
+      throw new Error('Case could not be retreived');
     }
   }
 
   public async createCase(): Promise<CreateCaseResponse> {
     const data = {
-      caseTypeOfApplication: C100.CASE_TYPE_OF_APPLICATION,
+      caseTypeOfApplication: C100_CASE_TYPE.C100,
     };
 
     try {
-      const response = await this.axios.post<CreateCaseResponse>('/case/create', {
-        data,
-      });
-      return { id: response.data.id };
+      const response = await this.axios.post<CreateCaseResponse>('/case/create', data);
+      const { id, caseTypeOfApplication } = response?.data;
+      return { id, caseTypeOfApplication };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
     }
   }
 
-  public async updateCase(caseId: string, caseData: Partial<Case>, returnUrl: string): Promise<UpdateCaseResponse> {
+  /**
+   * This is used to update/submit case based on the case event passed
+   * @param caseId
+   * @param caseData
+   * @param returnUrl
+   * @param caseEvent
+   * @returns
+   */
+  public async updateCase(
+    caseId: string,
+    caseData: Partial<Case>,
+    returnUrl: string,
+    caseEvent: C100_CASE_EVENT
+  ): Promise<UpdateCaseResponse> {
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
+      caseData;
     const data: UpdateCaseRequest = {
-      ...transformCaseData(caseData),
+      ...transformCaseData(rest),
+      caseTypeOfApplication: caseTypeOfApplication as string,
+      applicantCaseName,
+      c100RebuildChildPostCode,
+      helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
+      id: caseId,
     };
-    console.info(data);
-
     try {
-      const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100.CASE_UPDATE}/update-case`, data, {
+      const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${caseEvent}/update-case`, data, {
         headers: {
-          accessCode: '12345678',
+          accessCode: 'null',
         },
       });
       return { data: response.data };
@@ -70,7 +81,7 @@ export class CaseApi {
   /**
    * Delete Case
    * State: DELETED
-   * Event: C100.DELETE_CASE
+   * Event: C100_CASE_EVENT.DELETE_CASE
    * @param caseData
    * @param session
    */
@@ -81,9 +92,9 @@ export class CaseApi {
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
       }
-      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100.DELETE_CASE}/update-case`, caseData, {
+      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100_CASE_EVENT.DELETE_CASE}/update-case`, caseData, {
         headers: {
-          accessCode: '12345678',
+          accessCode: 'null',
         },
       });
       session.userCase = {} as CaseWithId;
@@ -140,9 +151,6 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
         ServiceAuthorization: `Bearer ${getServiceAuthToken()}`,
         'Content-Type': 'application/json',
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     }),
     logger
   );
@@ -174,7 +182,14 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
 };
 
 const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => {
-  let detransformedCaseData = { ...caseData };
+  let detransformedCaseData = {
+    caseId: caseData.id,
+    applicantCaseName: caseData.applicantCaseName,
+    caseTypeOfApplication: caseData.caseTypeOfApplication,
+    c100RebuildChildPostCode: caseData.c100RebuildChildPostCode,
+    helpWithFeesReferenceNumber: caseData.helpWithFeesReferenceNumber,
+    c100RebuildReturnUrl: caseData.c100RebuildReturnUrl,
+  } as RetreiveDraftCase;
 
   Object.values(updateCaseDataMapper).forEach(field => {
     if (field in caseData) {
@@ -188,14 +203,16 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
 
 interface CreateCaseResponse {
   id: string;
+  caseTypeOfApplication: string;
 }
 interface UpdateCaseResponse {
   [key: string]: any;
 }
 
-export interface RetreiveDraftCase extends UpdateCase {
-  id: string;
-  state: State;
+export interface RetreiveDraftCase extends CaseWithId {
+  caseTypeOfApplication: string;
+  c100RebuildChildPostCode?: string;
+  helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
 }
 
@@ -219,7 +236,12 @@ interface UpdateCase {
 }
 
 interface UpdateCaseRequest extends UpdateCase {
+  caseTypeOfApplication: string;
+  applicantCaseName?: string;
+  c100RebuildChildPostCode?: string;
+  helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
+  id: string;
 }
 
 export interface DocumentUploadResponse {
@@ -242,7 +264,7 @@ const updateCaseDataMapper = {
   cd: 'c100RebuildChildDetails',
   miam: 'c100RebuildMaim',
   hu: 'c100RebuildHearingUrgency',
-  odc: 'c100RebuildOtherChildrenDetails',
+  ocd: 'c100RebuildOtherChildrenDetails',
   appl: 'c100RebuildApplicantDetails',
   resp: 'c100RebuildRespondentDetails',
   oprs: 'c100RebuildOtherPersonsDetails',

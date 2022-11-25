@@ -1,35 +1,35 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Reasonable adjustments',
   headingTitle: 'I need help travelling to, or moving around court buildings',
-  //line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   select_all_apply: 'Select all that apply to you',
   parkingSpace: 'Parking space close to the venue',
-  parkingSpaceSubField: 'Describe why you need this',
+  parkingSpace_subfield: 'Describe why you need this',
   wheelchairAccess: 'Step free / wheelchair access',
   venueWheelchair: 'Use of venue wheelchair',
   accessToilet: 'Accessible toilet',
   helpUsingLift: 'Help using a lift',
   differentTypeChair: 'A different type of chair',
-  differentTypeChairSubField: 'Describe why you need',
+  differentTypeChair_subfield: 'Describe why you need',
   differentTypeChairSubFieldHint: 'For example, a chair with back support',
   guideBuilding: 'Guiding in the building',
   travellingCourtOther: 'Other',
-  travellingCourtOtherSubField: 'Describe what you need',
+  travellingCourtOther_subfield: 'Describe what you need',
   travellingCourtNoOption: 'No, I do not need any support at this time',
   errors: {
-    ra_parkingSpaceSubField: {
+    ra_parkingSpace_subfield: {
       required: 'Describe why you need a parking space close to the venue',
     },
-    ra_differentTypeChairSubField: {
+    ra_differentTypeChair_subfield: {
       required: 'Describe what type of chair you need',
     },
-    ra_travellingCourtOtherSubField: {
+    ra_travellingCourtOther_subfield: {
       required: 'Describe what help you need if travelling to, or moving around court buildings',
     },
     ra_travellingCourt: {
@@ -38,33 +38,32 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
-  //line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   parkingSpace: "Lle parcio yn agos i'r lleoliad",
-  parkingSpaceSubField: 'Disgrifiwch pam fod arnoch angen hyn',
+  parkingSpace_subfield: 'Disgrifiwch pam fod arnoch angen hyn',
   wheelchairAccess: 'Dim gris / mynediad ar gyfer cadair olwyn',
   venueWheelchair: 'Y gallu i ddefnyddio cadair olwyn a geir yn y lleoliad',
   accessToilet: 'Toiledau hygyrch',
   helpUsingLift: 'Help i ddefnyddio lifft',
   differentTypeChair: 'Math gwahanol o gadair',
-  differentTypeChairSubField: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  differentTypeChair_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   differentTypeChairSubFieldHint: 'Er enghraifft, cadair â chymorth cefn',
   guideBuilding: 'Cymorth i fynd o amgylch yr adeilad',
   travellingCourtOther: 'Arall',
-  travellingCourtOtherSubField: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  travellingCourtOther_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   travellingCourtNoOption: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   errors: {
-    ra_parkingSpaceSubField: {
+    ra_parkingSpace_subfield: {
       required: 'Describe why you need a parking space close to the venue - welsh',
     },
-    ra_differentTypeChairSubField: {
+    ra_differentTypeChair_subfield: {
       required: 'Describe what type of chair you need - welsh',
     },
-    ra_travellingCourtOtherSubField: {
+    ra_travellingCourtOther_subfield: {
       required: 'Describe what help you need if travelling to, or moving around court buildings - welsh',
     },
     ra_travellingCourt: {
@@ -91,9 +90,9 @@ export const form: FormContent = {
           label: l => l.parkingSpace,
           value: 'parkingSpace',
           subFields: {
-            ra_parkingSpaceSubField: {
+            ra_parkingSpace_subfield: {
               type: 'textarea',
-              label: l => l.parkingSpaceSubField,
+              label: l => l.parkingSpace_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,
@@ -127,9 +126,9 @@ export const form: FormContent = {
           label: l => l.differentTypeChair,
           value: 'differentTypeChair',
           subFields: {
-            ra_differentTypeChairSubField: {
+            ra_differentTypeChair_subfield: {
               type: 'textarea',
-              label: l => l.differentTypeChairSubField,
+              label: l => l.differentTypeChair_subfield,
               hint: l => l.differentTypeChairSubFieldHint,
               labelSize: null,
               attributes: {
@@ -149,9 +148,9 @@ export const form: FormContent = {
           label: l => l.travellingCourtOther,
           value: 'travellingCourtOther',
           subFields: {
-            ra_travellingCourtOtherSubField: {
+            ra_travellingCourtOther_subfield: {
               type: 'textarea',
-              label: l => l.travellingCourtOtherSubField,
+              label: l => l.travellingCourtOther_subfield,
               labelSize: null,
               attributes: {
                 rows: 1,

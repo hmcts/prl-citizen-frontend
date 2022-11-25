@@ -1,8 +1,9 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { ChildrenDetails, PartyType } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { getDataShape } from '../util';
+import { getDataShape } from '../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -10,8 +11,10 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Parental responsibility for',
+  parentalResponsibility:
+    'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility.',
   subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility.',
-  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
+  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born'.</p>
  <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p>`,
   errors: {
     statement: {
@@ -21,10 +24,12 @@ const en = {
 };
 
 const cy = {
-  title: 'Parental responsibility for - welsh',
-  subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility. - welsh',
-  bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born.</p>
-  <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p> - welsh`,
+  title: 'Cyfrifoldeb rhiant dros Steve Jones ',
+  parentalResponsibility:
+    'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility. - welsh',
+  subTitle: 'Nodwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
+  bodyHint: `<p>Er enghraifft, ‘mam y plentyn’ neu ‘tad y plentyn oedd wedi priodi â’r fam pan gafodd y plentyn ei (g)eni’.</p>
+  <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Gweler Adran E o daflen CB1 am ragor o wybodaeth</a></p> `,
   errors: {
     statement: {
       required: 'Enter an answer  - welsh',
@@ -83,7 +88,9 @@ describe('child details > parental responsibility', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().parentialResponsibility);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.CHILDREN) as ChildrenDetails).parentialResponsibility
+    );
     languageAssertions(
       'en',
       {
@@ -100,7 +107,9 @@ describe('child details > parental responsibility', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().parentialResponsibility);
+    const { errors } = generateFormFields(
+      (getDataShape(PartyType.CHILDREN) as ChildrenDetails).parentialResponsibility
+    );
     languageAssertions(
       'cy',
       {

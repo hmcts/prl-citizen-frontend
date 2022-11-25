@@ -211,7 +211,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
   const result = {};
-  for (const field of Object.keys(data)) {
+  for (const field of Object.keys(data as Record<string, any>)) {
     const value = fields[field];
 
     if (typeof value === 'function') {
@@ -322,39 +322,6 @@ export interface Case {
   previousOrOngoingProceedingsForChildren?: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish?: string;
 
-  //TODO?: Below fields should be with in respondent object.
-  serviceType?: string;
-  claimNumber?: string;
-  caseCode?: string;
-  accessCode?: string;
-  detailsKnown?: string;
-  startAlternative?: string;
-  contactDetailsPrivate?: string[];
-  miamStart?: string;
-  miamWillingness?: string;
-  miamNotWillingExplnation?: string;
-  c1A_supervisionAgreementDetails?: string;
-  c1A_agreementOtherWaysDetails?: string;
-  doYouConsent?: YesOrNo;
-  applicationReceivedDate?: CaseDate;
-  courtPermission?: YesOrNo;
-  reasonForNotConsenting?: string;
-  courtOrderDetails?: string;
-  start?: YesOrNo;
-  parents?: YesOrNo;
-  jurisdiction?: YesOrNo;
-  request?: YesOrNo;
-  iFactorsJurisdictionProvideDetails?: string;
-  iFactorsStartProvideDetails?: string;
-  iFactorsRequestProvideDetails?: string;
-  iFactorsParentsProvideDetails?: string;
-  confirmcontactdetails?: string;
-  respondentName?: string;
-  respondentFirstName?: string;
-  respondentLastName?: string;
-  caseInvites?: CaseInvite[];
-  orderCollection?: ListValue<PRLDocument>[];
-  documentsGenerated?: ListValue<PRLDocument>[];
   //applicant1CannotUploadDocuments?: DocumentType[];
   documentText?: string;
   applicantUploadFiles?: UploadedFile[];
@@ -473,6 +440,36 @@ export interface Case {
   respondentParkingDetails?: string;
   respondentDifferentChairDetails?: string;
   respondentTravellingOtherDetails?: string;
+  serviceType?: string;
+  claimNumber?: string;
+  caseCode?: string;
+  accessCode?: string;
+  detailsKnown?: string;
+  startAlternative?: string;
+  contactDetailsPrivate?: string[];
+  miamStart?: string;
+  miamWillingness?: string;
+  miamNotWillingExplnation?: string;
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
+  confirmcontactdetails?: string;
+  respondentName?: string;
+  respondentFirstName?: string;
+  respondentLastName?: string;
+  caseInvites?: CaseInvite[];
+  orderCollection?: ListValue<PRLDocument>[];
+  documentsGenerated?: ListValue<PRLDocument>[];
   //applicant1LanguagePreference?: LanguagePreference;
 
   safetyConcerns?: string;
@@ -484,8 +481,8 @@ export interface Case {
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;
   ra_disabilityRequirements?: string[];
-  needHelpWithFees?: YesOrNo;
-  feesAppliedDetails?: YesOrNo;
+  hwf_needHelpWithFees?: YesOrNo;
+  hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
   c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
@@ -507,8 +504,6 @@ export interface Case {
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
-  childFirstName?: ChildrenDetails['firstName'];
-  childLastName?: ChildrenDetails['lastName'];
   cd_children?: ChildrenDetails[];
   ocd_otherChildren?: OtherChildrenDetails[];
   ocd_hasOtherChildren?: YesOrNo;
@@ -531,6 +526,11 @@ export interface Case {
   c100TempLastName?: string;
   resp_Respondents?: C100RebuildPartyDetails[];
   appl_allApplicants?: C100Applicant[];
+  op_childrenInvolvedCourtCase?: YesOrNo;
+  op_courtOrderProtection?: YesOrNo;
+  hwn_hearingPart1?: YesOrNo;
+  c100RebuildChildPostCode?: string;
+  helpWithFeesReferenceNumber?: string;
 }
 
 export interface CaseWithId extends Case {
@@ -551,6 +551,7 @@ export interface CaseWithId extends Case {
     external_reference: string;
     next_url: string;
     status: string;
+    serviceRequestReference: string;
   };
   id: string;
   state: State;

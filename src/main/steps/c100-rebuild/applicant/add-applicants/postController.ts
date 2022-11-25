@@ -28,73 +28,66 @@ export default class AddApplicantPostController extends PostController<AnyObject
    * @param {Response} res - Response - this is the response object that is passed to the controller.
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const { applicantFirstName, applicantLastName } = req.body;
     req.session.userCase.applicantTemporaryFormData = {
-      TempFirstName: req['body']['applicantFirstName'],
-      TempLastName: req['body']['applicantLastName'],
+      TempFirstName: applicantFirstName,
+      TempLastName: applicantLastName,
     };
-    const saveAndContinueChecked = req['body']['saveAndContinue'] && req['body']['saveAndContinue'] !== undefined;
-    if (saveAndContinueChecked) {
-      const toggleCheckIfApplicantFieldIsFilled =
-        req['body']['applicantFirstName'] !== '' || req['body']['applicantLastName'] !== '';
-      const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-      const form = new Form(fields);
-      const { _csrf, ...formData } = form.getParsedBody(req.body);
-      if (
-        (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantFirstName'] === '') ||
-        (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantLastName'] === '')
-      ) {
-        req.session.errors = form.getErrors(formData);
-        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
-      }
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
+    const saveAndContinueChecked = req['body']['saveAndContinue'];
+    const NoOfApplicantLength = req.session.userCase.appl_allApplicants?.length;
+    const checkIfApplicantLengthLess = NoOfApplicantLength === 0;
+    const checkIfApplicantLengthLessAndFormError =
+      (checkIfApplicantLengthLess && applicantFirstName === '') ||
+      (checkIfApplicantLengthLess && applicantLastName === '');
+    const saveAndComeBackToggled = req.body['saveAndComeLater'];
 
-      /* Checking if the applicant fields are filled, and if they are, it is mapping the entries to the
-     values after continuing, and adding another application. If they are not filled, it is just
-     mapping the entries to the values after continuing. */
-      if (toggleCheckIfApplicantFieldIsFilled) {
-        this.errorsAndRedirect(req, res, formData, form);
-        this.addAnotherApplicant(req);
-        this.resetSessionTemporaryFormValues(req);
-        req.session.userCase.applicantTemporaryFormData = undefined;
-        const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
-          applicantId: req.session.userCase?.appl_allApplicants?.[0].id as string,
-        });
-        return super.redirect(req, res, redirectURI);
-      } else {
-        if (
-          (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantFirstName'] === '') ||
-          (req.session.userCase.appl_allApplicants?.length === 0 && req['body']['applicantLastName'] === '')
-        ) {
+    if (saveAndComeBackToggled) {
+      req.session.save();
+      return super.saveAndComeLater(req, res, req.session.userCase);
+    } else {
+      if (saveAndContinueChecked) {
+        const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
+        if (checkIfApplicantLengthLessAndFormError && !saveAndComeBackToggled) {
           req.session.errors = form.getErrors(formData);
           return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+        } else {
+          if (toggleCheckIfApplicantFieldIsFilled) {
+            this.errorsAndRedirect(req, res, formData, form);
+            if (req.session.errors && !req.session.errors.length) {
+              this.addAnotherApplicant(req);
+              this.resetSessionTemporaryFormValues(req);
+              delete req.session.userCase.applicantTemporaryFormData;
+              const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
+                applicantId: req.session.userCase?.appl_allApplicants?.[0].id as string,
+              });
+              return super.redirect(req, res, redirectURI);
+            }
+          } else {
+            if (checkIfApplicantLengthLessAndFormError) {
+              req.session.errors = form.getErrors(formData);
+              return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+            } else {
+              return this.mapEnteriesToValuesAfterContinuing(req, res);
+            }
+          }
         }
-        this.mapEnteriesToValuesAfterContinuing(req, res);
+      } else {
+        this.errorsAndRedirect(req, res, formData, form);
+        if (req.session.errors && !req.session.errors.length) {
+          const { addAnotherApplicant } = req['body'];
+          if (addAnotherApplicant === 'Yes') {
+            this.addAnotherApplicant(req);
+            this.resetSessionTemporaryFormValues(req);
+          }
+          return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+        }
       }
-    } else {
-      const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-      const form = new Form(fields);
-      const { _csrf, ...formData } = form.getParsedBody(req.body);
-      this.errorsAndRedirect(req, res, formData, form);
-      const { addAnotherApplicant } = req['body'];
-      switch (addAnotherApplicant) {
-        case 'Yes':
-          this.addAnotherApplicant(req);
-          this.resetSessionTemporaryFormValues(req);
-          break;
-        default:
-      }
-      return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
     }
   }
 
-  /**
-   * It takes the form data, the form, and the request and response objects, and if there are errors, it
-   * sets the errors in the session and redirects
-   * @param req - AppRequest<AnyObject> - The request object
-   * @param {Response} res - Response - The response object from express
-   * @param {AnyObject} formData - The data that was submitted by the user.
-   * @param {Form} form - The form object that was created in the controller.
-   * @returns The errors from the form.
-   */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   protected errorsAndRedirect(req: AppRequest<AnyObject>, res: Response, formData: Partial<Case>, form: Form) {
     req.session.errors = form.getErrors(formData);
@@ -102,18 +95,11 @@ export default class AddApplicantPostController extends PostController<AnyObject
       return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
     }
   }
-
-  /**
-   * It takes a request and a response, and returns a redirect to the root path
-   * @param req - AppRequest<AnyObject>
-   * @param {Response} res - Response - this is the response object that will be sent back to the client.
-   * @returns The response body is being returned.
-   */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public addAnotherApplicant(req: AppRequest<AnyObject>): void {
     const { applicantFirstName, applicantLastName } = req['body'];
     const applicantInformation = {
-      id: uuidv4() as string,
+      id: uuidv4(),
       applicantFirstName,
       applicantLastName,
       detailsKnown: '',
@@ -139,7 +125,6 @@ export default class AddApplicantPostController extends PostController<AnyObject
       applicantContactDetail: {
         canProvideEmail: YesNoEmpty.EMPTY,
         emailAddress: '',
-        canNotProvideEmailReason: '',
         canProvideTelephoneNumber: YesNoEmpty.EMPTY,
         telephoneNumber: '',
         canNotProvideTelephoneNumberReason: '',
@@ -203,19 +188,18 @@ export default class AddApplicantPostController extends PostController<AnyObject
           }
         }
       }
-    }
-    if (errorMessageStorage.length === 0) {
-      req.session.userCase.appl_allApplicants = newApplicantStorage;
-      req.session.userCase.applicantTemporaryFormData = undefined;
-      const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
-        applicantId: req.session.userCase.appl_allApplicants[0].id!,
-      });
-      return super.redirect(req, res, redirectURI);
-    } else {
-      req.session.userCase.appl_allApplicants = newApplicantStorage;
-      req.session.userCase.applicantTemporaryFormData = undefined;
-      req.session.errors = errorMessageStorage;
-      return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+      if (errorMessageStorage.length === 0) {
+        req.session.userCase.appl_allApplicants = newApplicantStorage;
+        delete req.session.userCase.applicantTemporaryFormData;
+        const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
+          applicantId: req.session.userCase.appl_allApplicants[0].id!,
+        });
+        return super.redirect(req, res, redirectURI);
+      } else {
+        req.session.userCase.appl_allApplicants = newApplicantStorage;
+        req.session.errors = errorMessageStorage;
+        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+      }
     }
   }
 

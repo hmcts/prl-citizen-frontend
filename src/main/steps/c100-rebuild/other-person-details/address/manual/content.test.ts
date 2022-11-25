@@ -14,18 +14,18 @@ const en = {
     PostTown: {
       required: 'Enter the town or city',
     },
-    PostCode: {
-      required: 'Enter the Post Code',
-      invalid: 'Enter the Post Code',
-    },
+
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
+    },
+    Country: {
+      required: 'Enter the country',
     },
   },
 };
 
 const cy = {
-  title: 'Address details of - welsh Dummy Test1',
+  title: 'Manylion cyfeiriad Dummy Test1',
   addressLine1Hint: 'Court documents may be sent here - welsh',
   errors: {
     AddressLine1: {
@@ -34,12 +34,12 @@ const cy = {
     PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    PostCode: {
-      required: 'Enter the Post Code - welsh',
-      invalid: 'Enter the Post Code - welsh',
-    },
+
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+    },
+    Country: {
+      required: 'Enter the country - welsh',
     },
   },
 };
@@ -92,7 +92,7 @@ describe('applicant > address > manual > content', () => {
 
   test('should contain onlycontinue button', () => {
     expect(
-      (generatedContent.form?.submit?.text as LanguageLookup)(
+      (generatedContent.form?.onlycontinue?.text as LanguageLookup)(
         generatePageContent({ language: 'en' }) as Record<string, never>
       )
     ).toBe('Continue');

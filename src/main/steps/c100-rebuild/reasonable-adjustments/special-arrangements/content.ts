@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Special arrangements',
   headingTitle: 'Do you or the children need special arrangements at court?',
@@ -19,11 +20,11 @@ const en = () => ({
   videoLinks: 'Video links',
   videoLinksHint: 'This needs to be approved by a judge',
   specialArrangementsOther: 'Other',
-  specialArrangementsOtherSubField: 'Provide details of what you or the children need',
+  specialArrangementsOther_subfield: 'Provide details of what you or the children need',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time',
   // or: 'or',
   errors: {
-    ra_specialArrangementsOtherSubField: {
+    ra_specialArrangementsOther_subfield: {
       required: 'Give details of the special arrangements you or the children need',
     },
     ra_specialArrangements: {
@@ -32,7 +33,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Trefniadau arbennig',
   headingTitle: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
@@ -48,11 +49,11 @@ const cy = () => ({
   videoLinks: 'Cyswllt fideo',
   videoLinksHint: 'Mae angen i farnwr gymeradwyo hyn',
   specialArrangementsOther: 'Arall',
-  specialArrangementsOtherSubField: 'Provide details of what you or the children need',
+  specialArrangementsOther_subfield: 'Provide details of what you or the children need',
   noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',
   // or: 'nor',
   errors: {
-    ra_specialArrangementsOtherSubField: {
+    ra_specialArrangementsOther_subfield: {
       required: 'Give details of the special arrangements you or the children need - welsh',
     },
     ra_specialArrangements: {
@@ -111,9 +112,9 @@ export const form: FormContent = {
           label: l => l.specialArrangementsOther,
           value: 'specialArrangementsOther',
           subFields: {
-            ra_specialArrangementsOtherSubField: {
+            ra_specialArrangementsOther_subfield: {
               type: 'textarea',
-              label: l => l.specialArrangementsOtherSubField,
+              label: l => l.specialArrangementsOther_subfield,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

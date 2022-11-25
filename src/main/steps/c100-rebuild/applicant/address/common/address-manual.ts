@@ -2,12 +2,13 @@
 import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   addressLine1: 'Building and street',
   town: 'Town or city',
   county: 'County',
+  country: 'Country',
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
   addressHistoryLabel: 'Have you lived at this address for more than 5 years?',
@@ -17,17 +18,17 @@ const en = () => ({
   explainNoHint: 'Start with your most recent',
 });
 
-const cy = () => ({
-  addressLine1: 'Building and street - welsh',
-  town: 'Town or city - welsh',
-  county: 'County - welsh',
-  postcode: 'Postcode - welsh',
+export const cy = () => ({
+  addressLine1: 'Adeilad a stryds',
+  town: 'Tref neu ddinas',
+  county: 'Sir',
+  postcode: 'Cod post',
   enterInternationalAddress: 'Enter an international address - welsh',
-  addressHistoryLabel: 'Have you lived at this address for more than 5 years? - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
-  explainNoLabel: 'Provide details of previous addresses you have lived at in the last 5 years - welsh',
-  explainNoHint: 'Start with your most recent - welsh',
+  addressHistoryLabel: 'A ydych wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
+  one: 'Do',
+  two: 'Naddoo',
+  explainNoLabel: 'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf',
+  explainNoHint: 'Cychwynnwch gyda’r un mwyaf diwedda',
 });
 
 export const form = (caseData: Partial<C100Applicant>): FormContent => {
@@ -39,6 +40,7 @@ export const form = (caseData: Partial<C100Applicant>): FormContent => {
     applicantAddressPostcode,
     applicantAddressHistory,
     applicantProvideDetailsOfPreviousAddresses,
+    country,
   } = caseData;
 
   return {
@@ -82,7 +84,14 @@ export const form = (caseData: Partial<C100Applicant>): FormContent => {
         attributes: {
           maxLength: 14,
         },
-        validator: isInvalidPostcode,
+      },
+      country: {
+        type: 'text',
+        classes: 'govuk-label govuk-!-width-two-thirds',
+        label: l => l.country,
+        value: country ?? 'United Kingdom',
+        labelSize: null,
+        validator: isFieldFilledIn,
       },
       addressHistory: {
         type: 'radios',

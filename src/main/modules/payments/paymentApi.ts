@@ -6,6 +6,7 @@ type PaymentRetrivalDataType = {
   external_reference: string;
   next_url: string;
   status: string;
+  serviceRequestReference: string;
 };
 
 interface PaymentApi {
@@ -24,7 +25,7 @@ export class PaymentSystemAPIInstance {
       baseURL: PaymentURL,
       headers: {
         Authorization: `Bearer ${userSystemAuthToken}`,
-        ServiceAuthorization: serviceAuthToken,
+        ServiceAuthorization: `Bearer ${serviceAuthToken}`,
       },
     });
   }
@@ -43,7 +44,7 @@ export class CheckPaymentStatusApi {
       baseURL: PaymentURL,
       headers: {
         Authorization: `Bearer ${userSystemAuthToken}`,
-        ServiceAuthorization: serviceAuthToken,
+        ServiceAuthorization: `Bearer ${serviceAuthToken}`,
         'Content-Type': 'application/json',
       },
     });
@@ -62,6 +63,7 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
   protected caseId: string;
   protected returnUrl: string;
   protected applicantCaseName: string;
+  protected hwfRefNumber: string;
 
   constructor(
     PaymentURL: string,
@@ -69,12 +71,14 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
     serviceAuthToken: string,
     caseId: string,
     returnUrl: string,
-    applicantCaseName: string
+    applicantCaseName: string,
+    hwfRefNumber: string
   ) {
     super(PaymentURL, userSystemAuthToken, serviceAuthToken);
     this.caseId = caseId;
     this.returnUrl = returnUrl;
     this.applicantCaseName = applicantCaseName;
+    this.hwfRefNumber = hwfRefNumber;
   }
 
   async getPaymentCredentails(): Promise<PaymentRetrivalDataType> {
@@ -82,11 +86,17 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
       caseId: this.caseId,
       returnUrl: this.returnUrl,
       applicantCaseName: this.applicantCaseName,
+      hwfRefNumber: this.hwfRefNumber,
     };
     try {
       const requestPaymentUpdate = await super.Instance().post('', paymentDetailsRequestBody);
-      const { payment_reference, date_created, external_reference, next_url, status }: PaymentRetrivalDataType =
-        requestPaymentUpdate['data'];
+      const {
+        payment_reference,
+        date_created,
+        external_reference,
+        next_url,
+        serviceRequestReference,
+      }: PaymentRetrivalDataType = requestPaymentUpdate['data'];
 
       return {
         payment_reference,
@@ -94,6 +104,7 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
         external_reference,
         next_url,
         status,
+        serviceRequestReference,
       };
     } catch (error) {
       console.log(error);

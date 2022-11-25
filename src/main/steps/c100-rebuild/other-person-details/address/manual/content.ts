@@ -1,8 +1,11 @@
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
-import { getOtherPersonDetails } from '../../../other-person-details/util';
-import { form as manualAddressForm, languages as manualAddressFormLanguages } from '../common/address-manual';
+import {
+  form as manualAddressForm,
+  languages as manualAddressFormLanguages,
+} from '../../../people/address/address-manual';
+import { getPartyDetails } from '../../../people/util';
 
 let updatedForm: FormContent;
 
@@ -17,18 +20,17 @@ const en = () => ({
     PostTown: {
       required: 'Enter the town or city',
     },
-    PostCode: {
-      required: 'Enter the Post Code',
-      invalid: 'Enter the Post Code',
-    },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live"',
+    },
+    Country: {
+      required: 'Enter the country',
     },
   },
 });
 
 const cy = () => ({
-  title: 'Address details of - welsh',
+  title: 'Manylion cyfeiriad',
   addressLine1Hint: 'Court documents may be sent here - welsh',
   errors: {
     AddressLine1: {
@@ -37,12 +39,11 @@ const cy = () => ({
     PostTown: {
       required: 'Enter the town or city - welsh',
     },
-    PostCode: {
-      required: 'Enter the Post Code - welsh',
-      invalid: 'Enter the Post Code - welsh',
-    },
     addressUnknown: {
       cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+    },
+    Country: {
+      required: 'Enter the country - welsh',
     },
   },
 });
@@ -54,12 +55,16 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlycontinue: {
     text: l => l.onlycontinue,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
+};
+
+export const getFormFields = (): FormContent => {
+  return updatedForm;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -69,6 +74,11 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
     fields: {
       ...formFields,
       ...(form.fields ?? {}),
+      _ctx: {
+        type: 'hidden',
+        labelHidden: true,
+        value: 'opAddressManual',
+      },
     },
   };
 
@@ -84,7 +94,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const manualAddressFormTranslations = manualAddressFormLanguages[content.language]();
   const otherPersonId = content?.additionalData?.req?.params!.otherPersonId;
-  const otherPersonDetails = getOtherPersonDetails(content.userCase!.oprs_otherPersons ?? [], otherPersonId)!;
+  const otherPersonDetails = getPartyDetails(
+    otherPersonId,
+    content.userCase?.oprs_otherPersons
+  ) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPersonDetails;
 
   return {

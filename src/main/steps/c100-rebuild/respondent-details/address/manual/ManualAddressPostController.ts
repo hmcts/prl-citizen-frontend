@@ -1,11 +1,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
+import { C100Address, C100RebuildPartyDetails, PartyType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { getRespndentDetails, transformFormData, updateRespondentDetails } from '../../util';
+import { PartyDetailsVariant, getPartyDetails, transformPartyDetails, updatePartyDetails } from '../../../people/util';
 
 import { getUpdatedForm } from './content';
 
@@ -17,28 +17,24 @@ export default class ManualAddressPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { respondentId } = req.params;
-
     const form = new Form(getUpdatedForm().fields as FormFields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    const respondentDetails = getRespndentDetails(
-      req.session.userCase.resp_Respondents!,
-      respondentId
-    ) as C100RebuildPartyDetails;
+    req.session.userCase.resp_Respondents = updatePartyDetails(
+      {
+        ...(getPartyDetails(respondentId, req.session.userCase.resp_Respondents) as C100RebuildPartyDetails),
+        address: transformPartyDetails(PartyType.RESPONDENT, PartyDetailsVariant.ADDRESS, formData) as C100Address,
+        addressUnknown: formData['addressUnknown'],
+      },
+      req.session.userCase.resp_Respondents
+    ) as C100RebuildPartyDetails[];
 
-    console.log(formData, 'formData');
-
-    Object.assign(respondentDetails, {
-      address: transformFormData('address', formData),
-      addressUnknown: formData['addressUnknown'],
-    });
-
-    req.session.userCase.resp_Respondents! = updateRespondentDetails(
-      req.session.userCase.resp_Respondents!,
-      respondentDetails
-    );
-
-    req.session.errors = form.getErrors(formData);
-    this.redirect(req, res);
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      return this.redirect(req, res);
+    } else if (saveAndComeLater) {
+      this.saveAndComeLater(req, res, req.session.userCase);
+    }
   }
 }

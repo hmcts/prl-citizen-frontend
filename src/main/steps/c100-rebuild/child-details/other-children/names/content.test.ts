@@ -1,8 +1,9 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { C100RebuildPartyDetails, PartyType } from '../../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
-import { getDataShape } from '../../util';
+import { getDataShape } from '../../../people/util';
 
 import { generateContent, generateFormFields } from './content';
 
@@ -17,28 +18,28 @@ const en = {
   removeChildLabel: 'Remove Child',
   newNameLabel: 'Enter a new name',
   errors: {
-    childFirstName: {
+    c100TempFirstName: {
       required: 'Enter the first name',
     },
-    childLastName: {
+    c100TempLastName: {
       required: 'Enter the last name',
     },
   },
 };
 
 const cy = {
-  title: 'Enter the other child’s name - welsh',
-  firstNameLabel: 'First name(s) - welsh',
-  firstNameHint: 'Include all middle names here - welsh',
-  lastNameLabel: 'Last name(s) - welsh',
-  addChildLabel: 'Add another child - welsh',
-  removeChildLabel: 'Remove child - welsh',
-  newNameLabel: 'Enter a new name - welsh',
+  title: 'Nodwch enw’r plentyn arall',
+  firstNameLabel: 'Enw(au) cyntaf',
+  firstNameHint: 'Nodwch bob enw canol yma',
+  lastNameLabel: 'Cyfenw(au)',
+  addChildLabel: 'Ychwanegu plentyn arall',
+  removeChildLabel: 'Dileu Plentyn',
+  newNameLabel: 'Nodwch enw newydd',
   errors: {
-    childFirstName: {
+    c100TempFirstName: {
       required: 'Enter the first name - welsh',
     },
-    childLastName: {
+    c100TempLastName: {
       required: 'Enter the last name - welsh',
     },
   },
@@ -95,7 +96,7 @@ describe('Add children  > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields([getDataShape()]);
+    const { errors } = generateFormFields([getDataShape(PartyType.OTHER_CHILDREN) as C100RebuildPartyDetails]);
     languageAssertions(
       'en',
       {
@@ -111,7 +112,7 @@ describe('Add children  > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields([getDataShape()]);
+    const { errors } = generateFormFields([getDataShape(PartyType.OTHER_CHILDREN) as C100RebuildPartyDetails]);
     languageAssertions(
       'cy',
       {
@@ -127,13 +128,13 @@ describe('Add children  > content', () => {
 
   test('should contain add children form fields', () => {
     const { 'fieldset-childDetails': fieldset, fieldset1 } = fields as Record<string, FormFields>;
-    const { childFirstName, childLastName, addChild } = fieldset.subFields as FormFields;
-
     const {
-      'childFirstName-1': firstName,
-      'childLastName-1': lastName,
-      removeChild,
-    } = fieldset1.subFields as FormFields;
+      c100TempFirstName: childFirstName,
+      c100TempLastName: childLastName,
+      add: addChild,
+    } = fieldset.subFields as FormFields;
+
+    const { 'firstName-1': firstName, 'lastName-1': lastName, remove: removeChild } = fieldset1.subFields as FormFields;
 
     expect(fieldset.classes).toBe('govuk-fieldset__legend--m');
     expect(fieldset.type).toBe('fieldset');

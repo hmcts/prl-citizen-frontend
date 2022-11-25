@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseDate } from '../../../../app/case/case';
 import {
   C100OrderInterface,
@@ -13,7 +14,7 @@ export * from './routeGuard';
 //import { v4 as uuid } from 'uuid';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   pageTitle: 'Provide details of court cases you or the children have been involved in',
   additionalNote:
     'If you do not have the specific details, you can skip this section and proceed with the application.',
@@ -62,7 +63,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   pageTitle: 'Darparu manylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy',
   additionalNote: "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a pharhau â'r cais.",
   emergencyProtectionOrderLabel: 'Emergency Protection Order - welsh',
