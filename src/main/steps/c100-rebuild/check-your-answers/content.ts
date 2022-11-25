@@ -274,6 +274,10 @@ export const sectionCountFormatter = sections => {
 
 const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
+  const checkIfUrgencyIsSelected =
+    userCase.hasOwnProperty('miam_urgency') &&
+    userCase['miam_urgency']?.length &&
+    !userCase['miam_urgency'].includes('none');
   let sections = [] as ANYTYPE;
   sections.push(LocationDetails(enContent, userCase), TypeOfApplication(enContent, userCase));
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.NO) {
@@ -296,17 +300,20 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
     sections.push(PastAndCurrentProceedings(enContent, userCase));
   }
+  if (checkIfUrgencyIsSelected) {
+    sections.push(WithoutNoticeHearing(enContent, userCase));
+  }
+  sections.push(TypeOfOrder(enContent, userCase));
+
+  if (!checkIfUrgencyIsSelected) {
+    sections.push(WithoutNoticeHearing(enContent, userCase));
+  }
   sections.push(
-    TypeOfOrder(enContent, userCase),
-    WithoutNoticeHearing(enContent, userCase),
     PeopleDetails(enContent),
     ChildernDetails(enContent, userCase),
-    ChildernDetailsAdditional(enContent, userCase)
+    ChildernDetailsAdditional(enContent, userCase),
+    OtherChildrenDetails(enContent, userCase)
   );
-
-  if (userCase.hasOwnProperty('ocd_hasOtherChildren') && userCase['ocd_hasOtherChildren'] === YesOrNo.YES) {
-    sections.push(OtherChildrenDetails(enContent, userCase));
-  }
 
   sections.push(
     ApplicantDetails(enContent, userCase),
@@ -347,13 +354,16 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
 
 const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
+  const checkIfUrgencyIsSelected =
+    userCase.hasOwnProperty('miam_urgency') &&
+    userCase['miam_urgency']?.length &&
+    !userCase['miam_urgency'].includes('none');
   let sections = [] as ANYTYPE;
   sections.push(LocationDetails(cyContent, userCase), TypeOfApplication(cyContent, userCase));
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.NO) {
     sections.push(LegalRepresentativeDetails(cyContent, userCase), PermissionForApplication(cyContent, userCase));
     sections.push(MiamTitle(cyContent), MiamAttendance(cyContent, userCase));
   }
-  //miam_validReason
   if (
     userCase.hasOwnProperty('miam_otherProceedings') &&
     userCase['miam_otherProceedings'] === YesOrNo.NO &&
@@ -366,23 +376,30 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   if (userCase.hasOwnProperty('miam_validReason') && userCase['miam_validReason'] === YesOrNo.YES) {
     sections.push(MiamExemption(newCyContents, userCase));
   }
+
+  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
+    sections.push(PastAndCurrentProceedings(cyContent, userCase));
+  }
+  if (checkIfUrgencyIsSelected) {
+    sections.push(WithoutNoticeHearing(cyContent, userCase));
+  }
+  sections.push(TypeOfOrder(cyContent, userCase));
+
+  if (!checkIfUrgencyIsSelected) {
+    sections.push(WithoutNoticeHearing(cyContent, userCase));
+  }
   sections.push(
-    TypeOfOrder(cyContent, userCase),
-    WithoutNoticeHearing(cyContent, userCase),
     PeopleDetails(cyContent),
     ChildernDetails(cyContent, userCase),
-    ChildernDetailsAdditional(cyContent, userCase)
+    ChildernDetailsAdditional(cyContent, userCase),
+    OtherChildrenDetails(cyContent, userCase)
   );
-  if (userCase.hasOwnProperty('ocd_hasOtherChildren') && userCase['ocd_hasOtherChildren'] === YesOrNo.YES) {
-    sections.push(OtherChildrenDetails(cyContent, userCase));
-  }
 
   sections.push(
     ApplicantDetails(cyContent, userCase),
     RespondentDetails(cyContent, userCase),
     OtherPeopleDetailsTitle(cyContent, userCase)
   );
-
   if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
     sections.push(OtherPeopleDetails(cyContent, userCase));
   }
@@ -393,6 +410,7 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   }
 
   sections.push(SafetyConcerns(cyContent, userCase));
+
   /** if user selects safty concerns as Yes then these section will display until line 352 */
   if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
     sections.push(SafetyConcerns_child(cyContent, userCase));
@@ -401,7 +419,6 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
     }
     sections.push(SafetyConcerns_others(cyContent, userCase));
   }
-
   sections.push(
     InternationalElement(cyContent, userCase),
     reasonableAdjustment(cyContent, userCase),
@@ -496,8 +513,8 @@ export const generateContent: TranslationFn = content => {
   };
   if (
     content.userCase &&
-    content.userCase.hasOwnProperty('helpWithFeesReferenceNumber') &&
-    content.userCase['helpWithFeesReferenceNumber'] !== ''
+    content.userCase.hasOwnProperty('hwf_needHelpWithFees') &&
+    content.userCase['hwf_needHelpWithFees'] !== YesOrNo.NO
   ) {
     form.submit = {
       text: l => l.StatementOfTruth['SubmitButton'],
