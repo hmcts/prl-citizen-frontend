@@ -255,3 +255,55 @@ describe('Form', () => {
     expect(1).toEqual(1);
   });
 });
+
+describe('fieldset subfield validation and parser', () => {
+  const orders = [
+    {
+      orderDetail: 'Test order one',
+      orderName: 'Order-One',
+    },
+    {
+      orderDetail: 'Test order two',
+      orderName: 'Order-Two',
+    },
+    {
+      orderDetail: 'Test order three',
+      orderName: 'Order-Three',
+    },
+  ];
+
+  const fields = {};
+  for (let index = 0; index < orders.length; index++) {
+    const count = index + 1;
+    const key = `fieldset${count}`;
+    fields[key] = {
+      type: 'fieldset',
+      classes: 'govuk-fieldset__legend--m',
+      subFields: {
+        [`orderDetail-${count}`]: {
+          type: 'text',
+          value: orders[index].orderDetail,
+          label: l => l.orderName,
+        },
+        validator: isFieldFilledIn,
+      },
+    };
+  }
+  const mockSubFields: FormContent = { fields };
+
+  const subFieldForm = new Form(<FormFields>mockSubFields.fields);
+
+  test('Should build a form with a custom fieldset', async () => {
+    const body = {
+      field: YesOrNo.YES,
+      fieldset: { ['orderDetail-1']: 'Test order one' },
+      subFields: 'orderDetail-1',
+    };
+
+    expect(subFieldForm.getParsedBody(body)).toStrictEqual({
+      field: 'Yes',
+      fieldset: { ['orderDetail-1']: 'Test order one' },
+      subFields: 'orderDetail-1',
+    });
+  });
+});

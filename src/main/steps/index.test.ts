@@ -16,7 +16,7 @@ describe('Steps', () => {
       mockReq.originalUrl = CITIZEN_HOME_URL;
       mockReq.route.path = CITIZEN_HOME_URL;
       const data = {};
-      expect(getNextStepUrl(mockReq, data)).toBe('/dashboard-v1');
+      expect(getNextStepUrl(mockReq, data)).toBe('/dashboard');
     });
 
     // it('step with content', () => {

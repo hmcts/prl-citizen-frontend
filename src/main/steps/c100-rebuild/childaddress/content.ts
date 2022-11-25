@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Where do the children live?',
   paragraph1: 'Please tell us the postcode of the children you’re making this application about.',
   paragraph2: `This information will be used to identify which court will handle your application.
@@ -19,14 +20,14 @@ const en = () => ({
   detailsContent: `We use ‘children’ as a general term to mean whether you have a child or children.
                    We do this to avoid repetition.`,
   errors: {
-    postcode: {
+    c100RebuildChildPostCode: {
       required: 'Enter a full postcode, with or without a space',
       invalid: 'Enter a valid full postcode, with or without a space',
     },
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: "Ble mae'r plant yn byw?",
   paragraph1: "Dywedwch wrthym beth yw cod post y plant y mae'r cais hwn yn ymwneud â nhw.",
   paragraph2:
@@ -40,7 +41,7 @@ const cy = () => ({
   detailsContent:
     "Rydym yn defnyddio 'plant' fel term cyffredinol i gyfeirio at blentyn neu blant. Rydyn ni'n gwneud hyn er mwyn osgoi ailadrodd.",
   errors: {
-    postcode: {
+    c100RebuildChildPostCode: {
       required: 'Enter a full postcode, with or without a space - welsh',
       invalid: 'Enter a valid full postcode, with or without a space - welsh',
     },
@@ -54,8 +55,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    postcode: {
-      id: 'postcode',
+    c100RebuildChildPostCode: {
+      id: 'c100RebuildChildPostCode',
       type: 'text',
       classes: 'govuk-input--width-10',
       label: l => l.postcodeLabel,

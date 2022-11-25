@@ -24,10 +24,10 @@ def secrets = [
     secret('AppInsightsInstrumentationKey', 'APP_INSIGHTS_INSTRUMENTATION_KEY'),
     secret('prl-citizen-frontend-idam-client-secret', 'CITIZEN_IDAM_SECRET'),
     secret('prl-cos-idam-client-secret', 'COS_API_IDAM_SECRET'),
+    secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
     secret('postcode-lookup-token', 'POSTCODE_TOKEN'),
     secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL'),
-    secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
-    secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET'),
+    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
     secret('system-update-user-username', 'SYSTEM_UPDATE_USER_USERNAME'),
     secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
@@ -39,6 +39,8 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
+env.C100_REBUILD_FLAG = false
+env.LAUNCH_DARKLY_OFFLINE_MODE = false
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
@@ -51,16 +53,23 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:preview') {
-    env.PRL_CITIZEN_WEB_URLL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
-    env.PRL_CITIZEN_URL="https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
   }
 
   after('smoketest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
+  before('smoketest:aat') {
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.service.core-compute-aat.internal/"
+  }
+
+  after('smoketest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+
   before('functionalTest:preview') {
-    env.PRL_CITIZEN_WEB_URLL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/"
     yarnBuilder.yarn('test:pa11y')
   }
 
@@ -69,7 +78,7 @@ withPipeline(type, product, component) {
   }
 
   before('functionalTest:aat') {
-    env.PRL_CITIZEN_WEB_URLL = "https://privatelaw.aat.platform.hmcts.net/"
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.service.core-compute-aat.internal/"
     yarnBuilder.yarn('test:functional:skip')
   }
 

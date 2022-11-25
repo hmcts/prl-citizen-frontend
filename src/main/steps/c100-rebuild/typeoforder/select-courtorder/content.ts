@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'What are you asking the court to do?',
   select_all_apply: 'Select all that apply',
   whoChildLiveWith: 'Decide who the children live with and when',
@@ -28,6 +29,7 @@ const en = () => ({
   medicalTreatment: 'Medical treatment',
   returningChildrenToYourCare: 'Returning the children to your care',
   returningChildrenToYourCareHint: 'If the children have been abducted, unlawfully removed or unlawfully retained',
+  whatAreYouAsking: 'What are you asking the court to do?',
   errors: {
     too_courtOrder: {
       required: 'Select  what you are asking the court to do',
@@ -41,7 +43,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: "Beth ydych chi'n gofyn i'r llys ei wneud?",
   select_all_apply: "Dewiswch bob un sy'n berthnasol",
   whoChildLiveWith: 'Penderfynu gyda phwy y bydd y plant yn byw a phryd',
@@ -52,7 +54,7 @@ const cy = () => ({
   resolveSpecificIssueHint: 'Er enghraifft, i ba ysgol y bydd y plant yn mynd iddi',
   changeChildrenNameSurname: "Newid enwau neu gyfenwau'r plant",
   changeChildrenNameSurname1: "Newid enwau neu gyfenwau'r plant",
-  allowMedicalTreatment: "Caniatáu i'r plant gael triniaeth feddygol",
+  allowMedicalTreatment: "Caniatáu i'r plant gael triniaedh feddygol",
   takingChildOnHoliday: "Mynd â'r plant ar wyliau",
   relocateChildrenDifferentUkArea: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
   relocateChildrenOutsideUk: 'Adleoli’r plant y tu allan i Gymru a Lloegr (gan gynnwys Yr Alban a Gogledd Iwerddon)',
@@ -65,6 +67,7 @@ const cy = () => ({
   returningChildrenToYourCare: "Dychwelyd y plant i'ch gofal",
   returningChildrenToYourCareHint:
     "Os yw'r plant wedi'u cipio, eu tynnu o rywle yn anghyfreithlon neu eu cadw yn rhywle yn anghyfreithlon",
+  whatAreYouAsking: 'What are you asking the court to do?',
   errors: {
     too_courtOrder: {
       required: 'Select  what you are asking the court to do - welsh',

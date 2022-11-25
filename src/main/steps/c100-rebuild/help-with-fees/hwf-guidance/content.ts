@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   hwfGuidanceTitle: 'You need to apply for help with your child arrangements application fee',
   hwfApplyLinkHint1: 'You need to',
   hwfApplyLinkHint2: 'before you continue with this child arrangements application.',
@@ -14,13 +15,13 @@ const en = () => ({
   hwfReferenceNumberLabel: 'Enter your help with fees reference number',
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C',
   errors: {
-    hwfGuidanceRefNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees',
     },
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   hwfGuidanceTitle: 'You need to apply for help with your child arrangements application fee - welsh',
   hwfApplyLinkHint1: 'You need to - welsh',
   hwfApplyLinkHint2: 'before you continue with this child arrangements application. - welsh',
@@ -32,7 +33,7 @@ const cy = () => ({
   hwfReferenceNumberLabel: 'Enter your help with fees reference number - welsh',
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C - welsh',
   errors: {
-    hwfGuidanceRefNumber: {
+    helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
     },
   },
@@ -45,7 +46,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    hwfGuidanceRefNumber: {
+    helpWithFeesReferenceNumber: {
       type: 'text',
       label: l => l.hwfReferenceNumberLabel,
       labelSize: 'm',

@@ -26,6 +26,7 @@ export const mockRequest: any = ({
         updateCase: jest.fn(),
         deleteDocument: jest.fn(),
         uploadDocument: jest.fn(),
+        retrieveCase: jest.fn(),
       },
       logger: {
         info: jest.fn(),

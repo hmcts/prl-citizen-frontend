@@ -59,20 +59,18 @@
      {% endif %}
      {% endif %}
     {% endfor %}
-{% set documentId = document.id %}
-{% set removeURL = postURL+"?removeId="+documentId+"&orderType="+orderType+"&orderId="+orderId%}
    {{ fileUpload(
         {
           uploadButtonText: uploadButton,
           fileuploadTitle: "Upload a file",
-          formPostURL: postURL+ "?orderType="+orderType+"&orderId="+orderId,
+          formPostURL: fileUploadUrl,
           sessionFilesArray: false,
           sessionFiles: document,
           uploadFileHeading: '',
           sessionNullFilesMessage: noFilesUploaded,
           removeText: remove,
           csrfToken: csrfToken,
-          fileremoveURL : removeURL
+          fileremoveURL : fileRemoveUrl
         }
       ) }}
          {% for error in sessionErrors %}

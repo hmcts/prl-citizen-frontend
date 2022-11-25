@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Reasonable adjustments',
   headingTitle: 'I need help communicating and understanding',
@@ -23,23 +24,23 @@ const en = () => ({
   intermediary: 'Intermediary',
   intermediaryHint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
-  other: 'Other',
+  communicationHelpOther: 'Other',
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
     ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding',
     },
-    ra_signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreter_subfield: {
       required: 'Describe which Sign Language interpreter you need',
     },
-    ra_communicationHelpOtherDetails: {
+    ra_communicationHelpOther_subfield: {
       required: 'Describe what you need to help with communicating and understanding',
     },
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Reasonable adjustments - welsh',
   headingTitle: 'I need help communicating and understanding - welsh',
@@ -59,17 +60,17 @@ const cy = () => ({
   intermediary: 'Intermediary - welsh',
   intermediaryHint:
     'a person to help you if you have communication needs by providing professional support to participate in a hearing - welsh',
-  other: 'Other - welsh',
+  communicationHelpOther: 'Other - welsh',
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
     ra_communicationHelp: {
       required: 'Select what help you need with communicating and understanding - welsh',
     },
-    ra_signLanguageInterpreterDetails: {
+    ra_signLanguageInterpreter_subfield: {
       required: 'Describe which Sign Language interpreter you need - welsh',
     },
-    ra_communicationHelpOtherDetails: {
+    ra_communicationHelpOther_subfield: {
       required: 'Describe what you need to help with communicating and understanding - welsh',
     },
   },
@@ -114,7 +115,7 @@ export const form: FormContent = {
           label: l => l.signLanguageInterpreter,
           value: 'signLanguageInterpreter',
           subFields: {
-            ra_signLanguageInterpreterDetails: {
+            ra_signLanguageInterpreter_subfield: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -153,10 +154,10 @@ export const form: FormContent = {
         },
         {
           name: 'ra_communicationHelp',
-          label: l => l.other,
-          value: 'other',
+          label: l => l.communicationHelpOther,
+          value: 'communicationHelpOther',
           subFields: {
-            ra_communicationHelpOtherDetails: {
+            ra_communicationHelpOther_subfield: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -168,12 +169,12 @@ export const form: FormContent = {
           },
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'ra_communicationHelp',
           label: l => l.noSupportRequired,
-          value: 'none',
+          value: 'noSupportRequired',
           behaviour: 'exclusive',
         },
       ],

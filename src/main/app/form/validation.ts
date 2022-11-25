@@ -118,7 +118,7 @@ export const isLessThanAYear: DateValidator = date => {
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-  if (!(enteredDate < oneYearAgo)) {
+  if (enteredDate >= oneYearAgo) {
     return 'lessThanAYear';
   }
 };
@@ -159,7 +159,7 @@ export const isInvalidPostcode: Validator = value => {
     return fieldNotFilledIn;
   }
 
-  if (!(value as string).match(/^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i)) {
+  if (!(value as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)) {
     return 'invalid';
   }
 };
@@ -167,6 +167,12 @@ export const isInvalidPostcode: Validator = value => {
 export const isPhoneNoValid: Validator = value => {
   if (typeof value === 'string') {
     return !value.match(/^$|^[0-9 +().-]{11,}$/) ? 'invalid' : undefined;
+  }
+};
+
+export const isAlphaNumeric: Validator = value => {
+  if (typeof value === 'string') {
+    return !value.match(/^[a-zA-Z0-9_\s]*$/) ? 'invalid' : undefined;
   }
 };
 
@@ -221,7 +227,7 @@ export const isAccessCodeValid: Validator = value => {
 };
 
 export const isNumeric: Validator = value => {
-  if (value && !(value as string).match(/^[0-9]+$/)) {
+  if (value && !(value as string).match(/^\d+$/)) {
     return ValidationError.NOT_NUMERIC;
   }
 };

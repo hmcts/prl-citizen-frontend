@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Reasonable adjustments',
   headingTitle: 'I need documents in an alternative format',
@@ -18,26 +19,26 @@ const en = () => ({
   audioTranslationDocuments: 'Audio translation of documents',
   readOutDocuments: 'Documents read out to me',
   emailInformation: 'Information emailed to me',
-  other: 'Other',
+  documentHelpOther: 'Other',
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
     ra_documentInformation: {
       required: 'Select which format you need your documents in',
     },
-    ra_specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocuments_subfield: {
       required: 'Describe which colour you need your documents in',
     },
-    ra_largePrintDocumentsDetails: {
+    ra_largePrintDocuments_subfield: {
       required: 'Describe which large print you need your documents in',
     },
-    ra_otherDetails: {
+    ra_documentHelpOther_subfield: {
       required: 'Describe which alternative format you need your documents in',
     },
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Reasonable adjustments - welsh',
   headingTitle: 'I need documents in an alternative format - welsh',
@@ -52,20 +53,20 @@ const cy = () => ({
   audioTranslationDocuments: 'Audio translation of documents - welsh',
   readOutDocuments: 'Documents read out to me - welsh',
   emailInformation: 'Information emailed to me - welsh',
-  other: 'Other - welsh',
+  documentHelpOther: 'Other - welsh',
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
     ra_documentInformation: {
       required: 'Select which format you need your documents in - welsh',
     },
-    ra_specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocuments_subfield: {
       required: 'Describe which colour you need your documents in - welsh',
     },
-    ra_largePrintDocumentsDetails: {
+    ra_largePrintDocuments_subfield: {
       required: 'Describe which large print you need your documents in - welsh',
     },
-    ra_otherDetails: {
+    ra_documentHelpOther_subfield: {
       required: 'Describe which alternative format you need your documents in - welsh',
     },
   },
@@ -89,7 +90,7 @@ export const form: FormContent = {
           label: l => l.specifiedColorDocuments,
           value: 'specifiedColorDocuments',
           subFields: {
-            ra_specifiedColorDocumentsDetails: {
+            ra_specifiedColorDocuments_subfield: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -116,7 +117,7 @@ export const form: FormContent = {
           label: l => l.largePrintDocuments,
           value: 'largePrintDocuments',
           subFields: {
-            ra_largePrintDocumentsDetails: {
+            ra_largePrintDocuments_subfield: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -144,10 +145,10 @@ export const form: FormContent = {
         },
         {
           name: 'ra_documentInformation',
-          label: l => l.other,
-          value: 'other',
+          label: l => l.documentHelpOther,
+          value: 'documentHelpOther',
           subFields: {
-            ra_otherDetails: {
+            ra_documentHelpOther_subfield: {
               type: 'textarea',
               label: l => l.describeWhatNeeded,
               labelSize: null,
@@ -159,12 +160,12 @@ export const form: FormContent = {
           },
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'ra_documentInformation',
           label: l => l.noSupportRequired,
-          value: 'none',
+          value: 'noSupportRequired',
           behaviour: 'exclusive',
         },
       ],

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   headingTitle: 'Do you need help with paying the fee for this application?',
   paragraph1: 'This application costs £',
@@ -17,13 +18,13 @@ const en = () => ({
   yesNeedHelpWithFeesPaying: 'Yes, I need help with paying the fee',
   noNeedHelpWithFeesPaying: 'No, I do not need help',
   errors: {
-    needHelpWithFees: {
+    hwf_needHelpWithFees: {
       required: 'Select yes if you already applied for help with your application fee',
     },
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   headingTitle: 'Do you need help with paying the fee for this application? - welsh',
   paragraph1: 'This application costs £',
@@ -37,7 +38,7 @@ const cy = () => ({
   yesNeedHelpWithFeesPaying: 'Yes, I need help with paying the fee - welsh',
   noNeedHelpWithFeesPaying: 'No, I do not need help - welsh',
   errors: {
-    needHelpWithFees: {
+    hwf_needHelpWithFees: {
       required: 'Select yes if you already applied for help with your application fee - welsh',
     },
   },
@@ -50,7 +51,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    needHelpWithFees: {
+    hwf_needHelpWithFees: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [

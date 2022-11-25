@@ -32,6 +32,7 @@ const en = {
   medicalTreatment: 'Medical treatment',
   returningChildrenToYourCare: 'Returning the children to your care',
   returningChildrenToYourCareHint: 'If the children have been abducted, unlawfully removed or unlawfully retained',
+  whatAreYouAsking: 'What are you asking the court to do?',
   errors: {
     too_courtOrder: {
       required: 'Select  what you are asking the court to do',
@@ -69,6 +70,7 @@ const cy = {
   returningChildrenToYourCare: "Dychwelyd y plant i'ch gofal",
   returningChildrenToYourCareHint:
     "Os yw'r plant wedi'u cipio, eu tynnu o rywle yn anghyfreithlon neu eu cadw yn rhywle yn anghyfreithlon",
+  whatAreYouAsking: 'What are you asking the court to do?',
   errors: {
     too_courtOrder: {
       required: 'Select  what you are asking the court to do - welsh',

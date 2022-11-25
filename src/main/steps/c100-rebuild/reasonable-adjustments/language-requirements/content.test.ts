@@ -19,11 +19,11 @@ const en = {
   speakInWelsh: 'I need to speak in Welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
-  needInterpreterInCertainLanguageDetailsLabel: `Give details of the language you require (including dialect, 
+  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect, 
     if applicable)`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time',
   errors: {
-    ra_needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Give details of the language you need an interpreter for',
     },
     ra_languageNeeds: {
@@ -44,11 +44,11 @@ const cy = {
   speakInWelsh: 'I need to speak in Welsh - welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh - welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language - welsh',
-  needInterpreterInCertainLanguageDetailsLabel: `Give details of the language you require (including dialect, 
+  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect, 
     if applicable) - welsh`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time - welsh',
   errors: {
-    ra_needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Give details of the language you need an interpreter for - welsh',
     },
     ra_languageNeeds: {
@@ -80,12 +80,12 @@ describe('Language requirements content', () => {
   test('should contain languageNeeds field', () => {
     const languageNeedsField = fields.ra_languageNeeds as FormOptions;
     const needInterpreterInCertainLanguageDetailsField = languageNeedsField.values[2].subFields
-      ?.ra_needInterpreterInCertainLanguageDetails as FormOptions;
+      ?.ra_needInterpreterInCertainLanguage_subfield as FormOptions;
 
     expect(languageNeedsField.type).toBe('checkboxes');
     expect(needInterpreterInCertainLanguageDetailsField.type).toBe('textarea');
     expect((needInterpreterInCertainLanguageDetailsField.label as LanguageLookup)(generatedContent)).toBe(
-      en.needInterpreterInCertainLanguageDetailsLabel
+      en.needInterpreterInCertainLanguage_subfield
     );
 
     expect((languageNeedsField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);

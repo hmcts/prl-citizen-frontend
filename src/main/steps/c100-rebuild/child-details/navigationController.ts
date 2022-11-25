@@ -1,26 +1,23 @@
 import { Case } from '../../../app/case/case';
-import { ChildrenDetails } from '../../../app/case/definition';
+import { ChildrenDetails, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   C100_CHILDERN_DETAILS_ADD,
   C100_CHILDERN_DETAILS_CHILD_MATTERS,
   C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
   C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
   C100_CHILDERN_FURTHER_INFORMATION,
+  C100_CHILDERN_LIVE_WITH,
+  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   PageLink,
 } from '../../urls';
+import { getNextPerson } from '../people/util';
 
 class ChildrenDetailsNavigationController {
   private childrenDetails: ChildrenDetails[] | [] = [];
 
   private childId: ChildrenDetails['id'] = '';
-
-  private getNextChild(): ChildrenDetails | null {
-    const childIndex = this.childrenDetails.findIndex(child => child.id === this.childId);
-    return childIndex >= 0 && childIndex < this.childrenDetails.length - 1
-      ? this.childrenDetails[childIndex + 1]
-      : null;
-  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
@@ -42,10 +39,22 @@ class ChildrenDetailsNavigationController {
         break;
       }
       case C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY: {
-        const nextChild = this.getNextChild();
+        const nextChild = getNextPerson(this.childrenDetails, this.childId);
         nextUrl = nextChild
-          ? applyParms(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, { childId: nextChild.id })
+          ? applyParms(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, { childId: nextChild.id as ChildrenDetails['id'] })
           : C100_CHILDERN_FURTHER_INFORMATION;
+        break;
+      }
+      case C100_CHILDERN_LIVE_WITH: {
+        const nextChild = getNextPerson(this.childrenDetails, this.childId);
+
+        if (nextChild) {
+          nextUrl = applyParms(C100_CHILDERN_LIVE_WITH, { childId: nextChild.id as ChildrenDetails['id'] });
+        } else if (caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES) {
+          nextUrl = C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+        } else {
+          nextUrl = C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS;
+        }
         break;
       }
       default: {

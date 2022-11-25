@@ -1,10 +1,10 @@
 import { YesOrNo } from '../../../../../app/case/definition';
-import { PageContent } from '../../../../../app/controller/GetController';
+import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
 
-const en = {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   section: 'Safety concerns',
   title: 'Do you have any other concerns about the children’s safety and wellbeing?',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with.',
@@ -13,30 +13,31 @@ const en = {
   summaryText: 'Contacts for help',
   errors: {
     c1A_childSafetyConcerns: {
-      required: 'Please select an answer',
+      required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
     },
     c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
     },
   },
-};
+});
 
-const cy: typeof en = {
-  section: 'Safety concerns',
-  title: 'Do you have any other concerns about the children’s safety and wellbeing?',
-  hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with.',
-  one: 'Yes',
-  two: 'No',
-  summaryText: 'Contacts for help',
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
+  section: 'Safety concerns - welsh',
+  title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
+  hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',
+  one: 'Yes - welsh',
+  two: 'No - welsh',
+  summaryText: 'Contacts for help - welsh',
   errors: {
     c1A_childSafetyConcerns: {
-      required: 'Please select an answer',
+      required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
     },
     c1A_childSafetyConcernsDetails: {
-      required: 'Describe what concerns you have about the children’s safety and wellbeing',
+      required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
     },
   },
-};
+});
 
 const languages = {
   en,
@@ -82,7 +83,10 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent = (content: CommonContent): PageContent => ({
-  ...languages[content.language],
-  form,
-});
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language]();
+  return {
+    ...translations,
+    form,
+  };
+};

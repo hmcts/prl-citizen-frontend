@@ -14,6 +14,7 @@ import { AuthProvider } from './modules/auth-provider';
 import { AxiosLogger } from './modules/axios-logger';
 import { CSRFToken } from './modules/csrf';
 import { ErrorHandler } from './modules/error-handler';
+import { FeatureToggleProvider } from './modules/feature-toggle';
 import { FileUpload } from './modules/fileupload';
 import { HealthCheck } from './modules/health';
 import { Helmet } from './modules/helmet';
@@ -65,6 +66,7 @@ new HealthCheck().enableFor(app);
 new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
+new FeatureToggleProvider().enable(app);
 
 setupDev(app, developmentMode);
 

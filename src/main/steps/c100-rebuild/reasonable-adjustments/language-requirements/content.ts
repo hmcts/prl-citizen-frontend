@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Language requirements',
   headingTitle: `Do you have any language 
@@ -15,11 +16,11 @@ const en = () => ({
   speakInWelsh: 'I need to speak in Welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
-  needInterpreterInCertainLanguageDetailsLabel: `Give details of the language you require (including dialect, 
+  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect, 
     if applicable)`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time',
   errors: {
-    ra_needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Give details of the language you need an interpreter for',
     },
     ra_languageNeeds: {
@@ -28,7 +29,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Language requirements - welsh',
   headingTitle: `Do you have any language 
@@ -40,11 +41,11 @@ const cy = () => ({
   speakInWelsh: 'I need to speak in Welsh - welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh - welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language - welsh',
-  needInterpreterInCertainLanguageDetailsLabel: `Give details of the language you require (including dialect, 
+  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect, 
     if applicable) - welsh`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time - welsh',
   errors: {
-    ra_needInterpreterInCertainLanguageDetails: {
+    ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Give details of the language you need an interpreter for - welsh',
     },
     ra_languageNeeds: {
@@ -81,21 +82,21 @@ export const form: FormContent = {
           label: l => l.needInterpreterInCertainLanguage,
           value: 'needInterpreterInCertainLanguage',
           subFields: {
-            ra_needInterpreterInCertainLanguageDetails: {
+            ra_needInterpreterInCertainLanguage_subfield: {
               type: 'textarea',
-              label: l => l.needInterpreterInCertainLanguageDetailsLabel,
+              label: l => l.needInterpreterInCertainLanguage_subfield,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'ra_languageNeeds',
           label: l => l.noLanguageRequirements,
-          value: 'none',
+          value: 'noLanguageRequirements',
           behaviour: 'exclusive',
         },
       ],

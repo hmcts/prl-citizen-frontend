@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Attending the court',
   headingTitle: `Would you be able to take 
@@ -19,9 +20,9 @@ const en = () => ({
   phoneHearing: 'Yes, I can take part in phone hearings',
   noVideoAndPhoneHearing: 'No, I cannot take part in either video or phone hearings',
   noVideoAndPhoneHearingReason: 'If you choose this option please tell us why in case we can assist you',
-  noVideoAndPhoneHearingExplanation: 'Explain why you are unable to take part in video or phone hearings',
+  noVideoAndPhoneHearing_subfield: 'Explain why you are unable to take part in video or phone hearings',
   errors: {
-    ra_noVideoAndPhoneHearingExplanation: {
+    ra_noVideoAndPhoneHearing_subfield: {
       required: 'Explain why you are unable to take part in neither video or phone hearings',
     },
     ra_typeOfHearing: {
@@ -30,7 +31,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Attending the court - welsh',
   headingTitle: `Would you be able to take 
@@ -46,9 +47,9 @@ const cy = () => ({
   phoneHearing: 'Yes, I can take part in phone hearings - welsh',
   noVideoAndPhoneHearing: 'No, I cannot take part in either video or phone hearings - welsh',
   noVideoAndPhoneHearingReason: 'If you choose this option please tell us why in case we can assist you - welsh',
-  noVideoAndPhoneHearingExplanation: 'Explain why you are unable to take part in video or phone hearings - welsh',
+  noVideoAndPhoneHearing_subfield: 'Explain why you are unable to take part in video or phone hearings - welsh',
   errors: {
-    ra_noVideoAndPhoneHearingExplanation: {
+    ra_noVideoAndPhoneHearing_subfield: {
       required: 'Explain why you are unable to take part in neither video or phone hearings - welsh',
     },
     ra_typeOfHearing: {
@@ -81,18 +82,18 @@ export const form: FormContent = {
           value: 'phoneHearing',
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'ra_typeOfHearing',
           label: l => l.noVideoAndPhoneHearing,
-          value: 'none',
+          value: 'noVideoAndPhoneHearing',
           hint: l => l.noVideoAndPhoneHearingReason,
           behaviour: 'exclusive',
           subFields: {
-            ra_noVideoAndPhoneHearingExplanation: {
+            ra_noVideoAndPhoneHearing_subfield: {
               type: 'textarea',
-              label: l => l.noVideoAndPhoneHearingExplanation,
+              label: l => l.noVideoAndPhoneHearing_subfield,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

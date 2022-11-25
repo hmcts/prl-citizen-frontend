@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseDate } from '../../../../app/case/case';
 import {
   C100OrderInterface,
@@ -13,7 +14,7 @@ export * from './routeGuard';
 //import { v4 as uuid } from 'uuid';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   pageTitle: 'Provide details of court cases you or the children have been involved in',
   additionalNote:
     'If you do not have the specific details, you can skip this section and proceed with the application.',
@@ -62,7 +63,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   pageTitle: 'Provide details of court cases you or the children have been involved in - welsh',
   additionalNote:
     'If you do not have the specific details, you can skip this section and proceed with the application. - welsh',
@@ -354,7 +355,7 @@ export const getFormFields = (): FormContent => {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const orderType = content?.additionalData?.req?.query?.orderType as C100OrderTypes;
+  const orderType = content?.additionalData?.req?.params?.orderType as C100OrderTypes;
   const orderSessionData = content?.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[orderType]];
   const { fields, errors } = generateFormFields(
     orderType,

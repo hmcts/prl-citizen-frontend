@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
-const en = {
+export const en = {
   section: 'MIAM exemptions',
   title: 'What are your valid reasons for not attending a MIAM?',
   courtcommunication:
@@ -24,7 +24,7 @@ const en = {
   },
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   section: 'MIAM exemptions',
   title: 'What are your valid reasons for not attending a MIAM?',
   courtcommunication:
@@ -84,7 +84,7 @@ export const form: FormContent = {
           value: MiamNonAttendReason.EXEMPT,
         },
         {
-          divider: 'or',
+          divider: l => l.divider,
         },
         {
           name: 'miam_nonAttendanceReasons',

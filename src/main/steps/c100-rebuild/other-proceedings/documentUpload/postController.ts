@@ -9,6 +9,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
+import { applyParms } from '../../../../steps/common/url-parser';
 import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 
 const C100OrderTypeNameMapper = {
@@ -48,7 +49,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
-    const { orderType, orderId } = req.query;
+    const { orderType, orderId } = req.params;
 
     const courtOrderType = orderType as C100OrderTypes;
     const courtOrderId: AnyType | undefined = orderId;
@@ -58,84 +59,119 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     ] as C100OrderInterface[];
     const orderSessionDataById = orderSessionData[courtOrderId - 1];
 
-    if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+    if (req.body.saveAndComeLater) {
+      super.post(req, res);
+    } else if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
       super.redirect(req, res, '');
     } else {
-      if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
-        req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
-        req.session.save(err => {
-          if (err) {
-            throw err;
-          }
-          res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
-        });
-      } else {
-        if (isNull(files) || files === undefined) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
-            propertyName: 'document',
-            errorType: 'required',
-          });
-        } else if (!isValidFileFormat(files)) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
-            propertyName: 'document',
-            errorType: 'fileFormat',
-          });
-        } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
-            propertyName: 'document',
-            errorType: 'fileSize',
-          });
-        } else {
-          const { documents }: AnyType = files;
+      this.ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrderType, courtOrderId);
+    }
+  }
 
-          const formData: FormData = new FormData();
+  private ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrderType, courtOrderId) {
+    if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+      req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
+      req.session.save(err => {
+        this.checkErrorsAndRedirect(err, res, orderType, orderId);
+      });
+    } else {
+      this.validateFileAndUpload(files, req, res, orderType, orderId, courtOrderType, courtOrderId).catch(err =>
+        req.locals.logger.error(err)
+      );
+    }
+  }
 
-          const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
-          const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
-          const orderTypeName = this.buildOrderTypeName(courtOrderType);
-          let fileName: string;
-          if (orderId === '1') {
-            fileName = `applicant__${orderTypeName}__${dateOfSystem}.${extensionType}`;
-          } else {
-            fileName = `applicant__${orderTypeName}_${orderId}__${dateOfSystem}.${extensionType}`;
-          }
-          formData.append('file', documents.data, {
-            contentType: documents.mimetype,
-            filename: fileName,
-          });
-          try {
-            const userDeatils = req?.session?.user;
-            const responseBody: DocumentUploadResponse = await caseApi(userDeatils, req.locals.logger).uploadDocument(
-              formData
-            );
-            const { document_url, document_filename, document_binary_url } = responseBody['document'];
-            const documentInfo = {
-              id: document_url.split('/')[document_url.split('/').length - 1],
-              url: document_url,
-              filename: document_filename,
-              binaryUrl: document_binary_url,
-            };
+  private checkErrorsAndRedirect(err, res, orderType, orderId) {
+    if (err) {
+      throw err;
+    }
+    res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
+  }
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public async validateFileAndUpload(files, req, res, orderType, orderId, courtOrderType, courtOrderId): Promise<void> {
+    if (isNull(files) || files === undefined) {
+      this.uploadFileError(req, res, orderType, orderId, {
+        propertyName: 'document',
+        errorType: 'required',
+      });
+    } else if (!isValidFileFormat(files)) {
+      this.uploadFileError(req, res, orderType, orderId, {
+        propertyName: 'document',
+        errorType: 'fileFormat',
+      });
+    } else if (isFileSizeGreaterThanMaxAllowed(files)) {
+      this.uploadFileError(req, res, orderType, orderId, {
+        propertyName: 'document',
+        errorType: 'fileSize',
+      });
+    } else {
+      req.session.errors = [];
+      const { documents }: AnyType = files;
 
-            if (
-              req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][
-                courtOrderId - 1
-              ]
-            ) {
-              req.session.userCase.op_otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
-                courtOrderId - 1
-              ].orderDocument = documentInfo;
-            }
+      const formData: FormData = new FormData();
 
-            req.session.save(() => {
-              const redirectURL = `${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`;
-              res.redirect(redirectURL);
-            });
-          } catch (error) {
-            res.json(error);
-          }
+      const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
+      const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
+      const orderTypeName = this.buildOrderTypeName(courtOrderType);
+      let fileName: string | undefined;
+      this.checkOrderTypeAndAppendDocument(
+        orderId,
+        fileName,
+        orderTypeName,
+        dateOfSystem,
+        extensionType,
+        formData,
+        documents
+      );
+
+      try {
+        const userDeatils = req?.session?.user;
+        const responseBody: DocumentUploadResponse = await caseApi(userDeatils, req.locals.logger).uploadDocument(
+          formData
+        );
+        const { document_url, document_filename, document_binary_url } = responseBody['document'];
+        const documentInfo = {
+          id: document_url.split('/')[document_url.split('/').length - 1],
+          url: document_url,
+          filename: document_filename,
+          binaryUrl: document_binary_url,
+        };
+
+        if (
+          req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
+        ) {
+          req.session.userCase.op_otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
+            courtOrderId - 1
+          ].orderDocument = documentInfo;
         }
+
+        req.session.save(() => {
+          res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
+        });
+      } catch (error) {
+        res.json(error);
       }
     }
+  }
+
+  private checkOrderTypeAndAppendDocument(
+    orderId,
+    fileName,
+    orderTypeName,
+    dateOfSystem,
+    extensionType,
+    formData,
+    documents
+  ) {
+    if (orderId === '1') {
+      fileName = `applicant__${orderTypeName}__${dateOfSystem}.${extensionType}`;
+    } else {
+      fileName = `applicant__${orderTypeName}_${orderId}__${dateOfSystem}.${extensionType}`;
+    }
+    formData.append('file', documents.data, {
+      contentType: documents.mimetype,
+      filename: fileName,
+    });
   }
 
   public checkIfDocumentAlreadyExist = (orderDataById: C100OrderInterface): boolean => {
@@ -172,7 +208,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       if (err) {
         throw err;
       }
-      res.redirect(`${C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD}?orderType=${orderType}&orderId=${orderId}`);
+      res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
     });
   }
 }

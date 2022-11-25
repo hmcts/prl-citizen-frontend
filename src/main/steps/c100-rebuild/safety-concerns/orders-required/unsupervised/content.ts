@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   section: 'Safety concerns',
   title: 'Contact between the children and the other people in this application',
   subtitle:
@@ -28,7 +29,7 @@ const en = () => ({
     },
   },
 });
-const cy = () => ({
+export const cy = () => ({
   section: 'Safety concerns - welsh',
   title: 'Contact between the children and the other people in this application - welsh',
   subtitle:
@@ -71,7 +72,7 @@ export const form: FormContent = {
         },
         {
           label: l => l.two,
-          value: YesOrNo.NO,
+          value: 'Yes, but I prefer that it is supervised',
         },
         {
           label: l => l.three,
