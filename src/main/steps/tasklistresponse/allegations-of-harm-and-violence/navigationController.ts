@@ -16,7 +16,7 @@ class SafteyConcernsNavigationController {
   private childConcerns: C1AAbuseTypes[] = [];
   private applicantConcerns: C1AAbuseTypes[] = [];
 
-  public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
+  public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, unknown>): PageLink {
     let nextUrl;
 
     this.concernsAbout = caseData?.c1A_safetyConernAbout as C1ASafteyConcernsAbout[];
@@ -122,7 +122,7 @@ class SafteyConcernsNavigationController {
 
     return pageUrl;
   }
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private pages: Record<C1ASafteyConcernsAbout, Record<string, any>> = {
     [C1ASafteyConcernsAbout.CHILDREN]: {
       dataReference: () => this.childConcerns,
