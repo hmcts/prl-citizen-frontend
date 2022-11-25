@@ -155,6 +155,20 @@ describe('OtherProceedingsNavigationController', () => {
     );
     expect(nextUrl).toBe(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY);
   });
+
+  test('Safety concern guidance -> navigate to the other order screen', async () => {
+    dummyRequest.params = {
+      orderType: 'careOrder',
+      orderId: 2,
+    };
+    const nextUrl = OtherProceedingsNavigationController.getNextUrl(
+      C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
+      dummyRequest.session.userCase,
+      dummyRequest.params
+    );
+    expect(nextUrl).toBe(applyParms(C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { orderType: 'otherOrder' }));
+  });
+
   test('Default', async () => {
     dummyRequest.params = {};
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(

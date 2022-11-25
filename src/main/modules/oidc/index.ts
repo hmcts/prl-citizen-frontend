@@ -29,18 +29,12 @@ export class OidcMiddleware {
       CALLBACK_URL,
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
-          console.log('*****Trying to login');
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
-          console.log('*****Logged in user is: ' + req.session.user.email);
-          console.log('*****Redirecting to dashboard');
           req.session.save(() => res.redirect(DASHBOARD_URL));
         } else {
-          console.log('***** Finding path');
           if (!req.session?.accessCodeLoginIn) {
-            console.log('***** Redirecting to home url');
             res.redirect(CITIZEN_HOME_URL);
           } else {
-            console.log('***** Redirecting to login');
             res.redirect(SIGN_IN_URL);
           }
         }
@@ -49,15 +43,11 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        console.log('inside app.use');
-        console.log('req.path is ' + req.path);
         if (app.locals.developmentMode) {
           req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
         }
 
-        console.log('inside oidc, finding user');
         if (req.session?.user) {
-          console.log('***** User login success');
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
@@ -68,7 +58,7 @@ export class OidcMiddleware {
             req.session.c100RebuildLdFlag !== undefined
               ? req.session.c100RebuildLdFlag
               : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
-          console.log('C100 - Launch Darkly Flag ', c100RebuildLdFlag);
+          req.locals.logger.info('C100 - Launch Darkly Flag', c100RebuildLdFlag);
           //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
           if (req.path.startsWith(C100_URL)) {
             if (c100RebuildLdFlag) {
@@ -79,13 +69,10 @@ export class OidcMiddleware {
           }
 
           if (req.session.userCase) {
-            console.log('****** inside oidc, user case found');
             if (req.session.accessCodeLoginIn) {
               try {
-                console.log('****** access code login is valid');
                 const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
                 if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
-                  console.log('****** validating access code');
                   const caseReference = req.session.userCase.caseCode;
                   const accessCode = req.session.userCase.accessCode;
                   const data = { applicantCaseName: 'Tom Jerry - updated' };
@@ -96,7 +83,6 @@ export class OidcMiddleware {
                     accessCode as string,
                     data
                   );
-                  console.log('****** validating access code, link success');
                   req.session.accessCodeLoginIn = false;
                 }
               } catch (err) {
@@ -121,16 +107,14 @@ export class OidcMiddleware {
           }
           //TODO pvt law team to revisit & correct
           if (req.path.startsWith(DASHBOARD_URL)) {
-            console.log('****** inside oidc, trying to get the cases');
             try {
               req.session.userCaseList = await getCaseDetails(req);
             } catch (e) {
-              console.log('**** getCaseDetails error', e);
+              req.locals.logger.error('**** getCaseDetails error', e);
             }
           }
           return next();
         } else {
-          console.log('****** login failed, no user details found');
           res.redirect(SIGN_IN_URL);
         }
       })

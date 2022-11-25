@@ -63,8 +63,8 @@ export class CaseApi {
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
+      id: caseId,
     };
-
     try {
       const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${caseEvent}/update-case`, data, {
         headers: {
@@ -241,6 +241,7 @@ interface UpdateCaseRequest extends UpdateCase {
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
+  id: string;
 }
 
 export interface DocumentUploadResponse {

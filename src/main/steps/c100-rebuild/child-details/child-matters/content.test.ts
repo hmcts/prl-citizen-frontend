@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { ChildrenDetails, PartyType } from '../../../../app/case/definition';
-import { FormContent, FormFields, FormInput, LanguageLookup } from '../../../../app/form/Form';
+import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { getDataShape } from '../../people/util';
@@ -172,9 +172,6 @@ describe('child details > child-matters', () => {
 
   test('should contain child matters form fields', () => {
     const { needsResolution } = fields as Record<string, FormFields>;
-    const whoChildLiveWith = needsResolution.values[0] as FormInput;
-    const childTimeSpent = needsResolution.values[1] as FormInput;
-    console.log(whoChildLiveWith, childTimeSpent);
 
     expect(needsResolution.type).toBe('checkboxes');
     expect((needsResolution.hint as Function)(generatedContent)).toBe(`${en.bodyHint}`);
