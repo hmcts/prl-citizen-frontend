@@ -296,8 +296,13 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   if (userCase.hasOwnProperty('miam_validReason') && userCase['miam_validReason'] === YesOrNo.YES) {
     sections.push(MiamExemption(newEnContents, userCase));
   }
-
-  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
+  // screening questions
+  if (
+    (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
+    (userCase.hasOwnProperty('sq_writtenAgreement') &&
+      userCase['sq_writtenAgreement'] === YesOrNo.NO &&
+      !checkIfUrgencyIsSelected)
+  ) {
     sections.push(PastAndCurrentProceedings(enContent, userCase));
   }
   if (checkIfUrgencyIsSelected) {
@@ -325,7 +330,12 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   }
   sections.push(whereDoChildLive(enContent, userCase));
 
-  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) {
+  if (
+    (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) ||
+    (userCase.hasOwnProperty('sq_writtenAgreement') &&
+      userCase['sq_writtenAgreement'] === YesOrNo.YES &&
+      checkIfUrgencyIsSelected)
+  ) {
     sections.push(PastAndCurrentProceedings(enContent, userCase));
   }
 
