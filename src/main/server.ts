@@ -1,5 +1,3 @@
-// import * as fs from 'fs';
-// import * as https from 'https';
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
@@ -12,7 +10,7 @@ import type { LoggerInstance } from 'winston';
 import { AppInsights } from './modules/appinsights';
 import { AuthProvider } from './modules/auth-provider';
 import { AxiosLogger } from './modules/axios-logger';
-import { CSRFToken } from './modules/csrf';
+//import { CSRFToken } from './modules/csrf';
 import { ErrorHandler } from './modules/error-handler';
 import { FeatureToggleProvider } from './modules/feature-toggle';
 import { HealthCheck } from './modules/health';
@@ -55,7 +53,7 @@ new Helmet(config.get('security')).enableFor(app);
 new AppInsights().enable();
 new SessionStorage().enableFor(app);
 new Nunjucks().enableFor(app);
-new CSRFToken().enableFor(app);
+//new CSRFToken().enableFor(app);
 new AuthProvider().enable();
 new OidcMiddleware().enableFor(app);
 new Webpack().enableFor(app);

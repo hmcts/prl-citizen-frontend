@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 import { Application } from 'express';
+import fileUpload from 'express-fileupload';
 import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
@@ -89,6 +90,7 @@ import {
   PAYMENT_GATEWAY_ENTRY_URL,
   PAYMENT_RETURN_URL_CALLBACK,
   C100_RETRIVE_CASE,
+  //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -170,7 +172,8 @@ export class Routes {
           : step.postController ?? PostController;
         app.post(
           step.url,
-          this.routeGuard.bind(this, step, 'post'),
+          // eslint-disable-next-line prettier/prettier
+          [this.routeGuard.bind(this, step, 'post'), fileUpload({ limits: { fileSize: 1024 * 1024 * 30 } })],
           errorHandler(new postController(step.form.fields).post)
         );
         const documentManagerController = new DocumentManagerController(step.form.fields);
