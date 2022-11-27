@@ -16,7 +16,6 @@ const copyTemplateAssets = new CopyWebpackPlugin({
     noErrorOnMissing: true
   }],
 });
-console.log(copyTemplateAssets);
 module.exports = {
   paths: { template: root, assets },
   plugins: [copyTemplateAssets],

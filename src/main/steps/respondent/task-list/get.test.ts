@@ -25,6 +25,7 @@ describe('RespondentTaskListGetController', () => {
       }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
+      additionalData: expect.anything(),
     });
   });
 });

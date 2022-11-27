@@ -25,6 +25,7 @@ describe('UploadDocumentListGetController', () => {
       }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
+      additionalData: expect.anything(),
     });
   });
 });

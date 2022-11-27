@@ -20,8 +20,8 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
   const responseSubmitted = {
     title: progressBarC100.responseSubmitted.title,
     ariaLabel: progressBarC100.responseSubmitted.ariaLabel,
-    active: isResponseSubmitted(userCase),
-    completed: cafcassSafetyChecks.completed && !true,
+    active: false,
+    completed: false,
   };
 
   const hearingAndCourtOrders = {
@@ -79,13 +79,6 @@ const isHearingOrderActive = (userCase: Partial<CaseWithId>) => {
     userCase.state === State.DECISION_OUTCOME ||
     userCase.state === State.PREPARE_FOR_HEARING_CONDUCT_HEARING
   ) {
-    return true;
-  }
-  return false;
-};
-
-const isResponseSubmitted = (userCase: Partial<CaseWithId>) => {
-  if (userCase.citizenResponseC7DocumentList) {
     return true;
   }
   return false;

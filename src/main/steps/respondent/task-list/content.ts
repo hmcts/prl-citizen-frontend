@@ -14,6 +14,7 @@ import {
 import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
+import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
   title: '',
@@ -261,6 +262,19 @@ export const generateContent: TranslationFn = content => {
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
 
+  const stages = buildProgressBarStages(content.userCase!);
+  const req = content.additionalData?.req;
+  if (content.userCase?.caseTypeOfApplication === 'C100') {
+    const partyId = getRespondentPartyDetailsCa(content.userCase, req.session.user.id)?.id;
+    if (content.userCase.citizenResponseC7DocumentList) {
+      for (let i = 0; i < content.userCase.citizenResponseC7DocumentList.length; i++) {
+        if (content.userCase.citizenResponseC7DocumentList[i].value.createdBy === partyId) {
+          stages[2].completed = true;
+        }
+      }
+    }
+  }
+
   return {
     ...translations,
     sections: generateRespondentTaskList(
@@ -270,7 +284,7 @@ export const generateContent: TranslationFn = content => {
       content.userIdamId
     ),
     banners,
-    stages: buildProgressBarStages(content.userCase!),
+    stages,
   };
 };
 

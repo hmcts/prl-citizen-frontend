@@ -25,6 +25,7 @@ describe('AccessibilityStatementGetController', () => {
       }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
+      additionalData: expect.anything(),
     });
   });
 });

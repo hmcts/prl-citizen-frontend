@@ -24,6 +24,7 @@ describe('PrivacyPolicyGetController', () => {
       }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
+      additionalData: expect.anything(),
     });
   });
 });
