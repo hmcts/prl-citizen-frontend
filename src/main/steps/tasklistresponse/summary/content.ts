@@ -1394,7 +1394,7 @@ const urls = {
   citizenUserFullName: RESPONDENT_PERSONAL_DETAILS,
   citizenUserDateOfBirthText: RESPONDENT_PERSONAL_DETAILS,
   citizenUserPlaceOfBirthText: RESPONDENT_PERSONAL_DETAILS,
-  citizenUserAddressTrxt: RESPONDENT_ADDRESS_DETAILS,
+  citizenUserAddressText: RESPONDENT_ADDRESS_DETAILS,
   postalAddress: RESPONDENT_ADDRESS_DETAILS,
   citizenUserAddressHistory: RESPONDENT_ADDRESS_HISTORY,
   citizenUserPhoneNumberText: RESPONDENT_CONTACT_DETAILS,
