@@ -12,7 +12,7 @@ export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListIte
     getRespondentDocuments(sectionTitles, taskListItems, userCase, true),
     getCafcassDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
     getOtherDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
-    getAttendingTheHearingDocs(sectionTitles, taskListItems, URL.APPLICANT),
+    getAttendingTheHearingDocs(sectionTitles, taskListItems),
   ];
 };
 
@@ -411,14 +411,14 @@ export const getOtherDocuments = (sectionTitles, taskListItems, userCase, url) =
   };
 };
 
-export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url) => {
+export const getAttendingTheHearingDocs = (sectionTitles, taskListItems) => {
   return {
     title: sectionTitles.attendingTheHearing,
     items: [
       {
         id: 'notice_of_hearing',
         text: taskListItems.notice_of_hearing,
-        href: url + URL.RESPONDENT_NOTICE_OF_HEARING,
+        href: '#',
       },
       {
         id: 'support_you_need_during_your_case',

@@ -134,6 +134,10 @@ export const getViewAllDocuments = (): SectionStatus => {
   return SectionStatus.READY_TO_VIEW;
 };
 
+export const getUploadDocuments = (): SectionStatus => {
+  return SectionStatus.TO_DO;
+};
+
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     ((userCase?.proceedingsStart === YesNoIDontKnow.NO || userCase?.proceedingsStart === YesNoIDontKnow.IDONTKNOW) &&
@@ -272,4 +276,13 @@ export const getRespondentSupportYourNeedsDetails = (userCase: Partial<CaseWithI
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
+};
+
+export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userId: string): Respondent | undefined => {
+  for (let i = 0; i < userCase.respondents!.length; i++) {
+    if (userCase.respondents![i].value.user.idamId === userId) {
+      return userCase.respondents![i];
+    }
+  }
+  return undefined;
 };
