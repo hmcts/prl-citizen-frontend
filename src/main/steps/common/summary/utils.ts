@@ -51,7 +51,6 @@ type SummaryListContent = PageContent & {
 };
 
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
-  console.log(content.title);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {
@@ -186,7 +185,6 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   let tempDetails = '<br/><br/><ul class="govuk-list govuk-list--bullet">';
   const contact_private_list = userCase['contactDetailsPrivate'];
   for (const key in contact_private_list) {
-    console.log(contact_private_list[key]);
     tempDetails =
       tempDetails +
       '<li>' +

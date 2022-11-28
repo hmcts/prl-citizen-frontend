@@ -10,7 +10,6 @@ export class LaunchDarklyClient {
 
   constructor() {
     if (!LaunchDarklyClient.client) {
-      console.log('initializing LD Client');
       const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
       LaunchDarklyClient.client = init(sdkKey, ldConfig);
     }

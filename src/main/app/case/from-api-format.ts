@@ -17,7 +17,6 @@ const checkboxConverter = (value: string | undefined) => {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
 };
-console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
   orderCollection: uploadedFilesFromApiApplicant1,

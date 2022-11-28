@@ -45,7 +45,6 @@ type SummaryListContent = PageContent & {
 };
 
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
-  console.log(content);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {
