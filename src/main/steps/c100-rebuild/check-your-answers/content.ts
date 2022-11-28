@@ -346,8 +346,8 @@ export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents) => 
     MiamTitle(contentLanguage),
     MiamAttendance(contentLanguage, userCase),
     MiamExemption(newContents, userCase),
-    TypeOfOrder(contentLanguage, userCase),
     WithoutNoticeHearing(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase),
     peopleSections(userCase, contentLanguage),
     PastAndCurrentProceedings(contentLanguage, userCase),
     SafetyConcerns(contentLanguage, userCase),
@@ -367,8 +367,8 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents) => 
     MiamTitle(contentLanguage),
     MiamAttendance(contentLanguage, userCase),
     MiamExemption(newContents, userCase),
-    WithoutNoticeHearing(contentLanguage, userCase),
     TypeOfOrder(contentLanguage, userCase),
+    WithoutNoticeHearing(contentLanguage, userCase),
     peopleSections(userCase, contentLanguage),
     PastAndCurrentProceedings(contentLanguage, userCase),
     SafetyConcerns(contentLanguage, userCase),
@@ -412,76 +412,27 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
 
 const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
-  const checkIfUrgencyIsSelected =
-    userCase.hasOwnProperty('miam_urgency') &&
-    userCase['miam_urgency']?.length &&
-    !userCase['miam_urgency'].includes('none');
   let sections = [] as ANYTYPE;
-  sections.push(LocationDetails(cyContent, userCase), TypeOfApplication(cyContent, userCase));
-  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.NO) {
-    sections.push(LegalRepresentativeDetails(cyContent, userCase), PermissionForApplication(cyContent, userCase));
-    sections.push(MiamTitle(cyContent), MiamAttendance(cyContent, userCase));
-  }
-  if (
-    userCase.hasOwnProperty('miam_otherProceedings') &&
-    userCase['miam_otherProceedings'] === YesOrNo.NO &&
-    userCase.hasOwnProperty('sq_writtenAgreement') &&
-    userCase['sq_writtenAgreement'] === YesOrNo.NO &&
-    !userCase.hasOwnProperty('miam_attendance')
-  ) {
-    sections.push(MiamExemption(newCyContents, userCase));
-  }
-  if (userCase.hasOwnProperty('miam_validReason') && userCase['miam_validReason'] === YesOrNo.YES) {
-    sections.push(MiamExemption(newCyContents, userCase));
-  }
-
-  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
-    sections.push(PastAndCurrentProceedings(cyContent, userCase));
-  }
-  if (checkIfUrgencyIsSelected) {
-    sections.push(WithoutNoticeHearing(cyContent, userCase));
-  }
-  sections.push(TypeOfOrder(cyContent, userCase));
-
-  if (!checkIfUrgencyIsSelected) {
-    sections.push(WithoutNoticeHearing(cyContent, userCase));
-  }
-  sections.push(
-    PeopleDetails(cyContent),
-    ChildernDetails(cyContent, userCase),
-    ChildernDetailsAdditional(cyContent, userCase),
-    OtherChildrenDetails(cyContent, userCase)
-  );
-
-  sections.push(
-    ApplicantDetails(cyContent, userCase),
-    RespondentDetails(cyContent, userCase),
-    OtherPeopleDetailsTitle(cyContent, userCase)
-  );
-  if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
-    sections.push(OtherPeopleDetails(cyContent, userCase));
-  }
-  sections.push(whereDoChildLive(cyContent, userCase));
-
-  if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) {
-    sections.push(PastAndCurrentProceedings(cyContent, userCase));
-  }
-
-  sections.push(SafetyConcerns(cyContent, userCase));
-
-  /** if user selects safty concerns as Yes then these section will display until line 352 */
-  if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
-    sections.push(SafetyConcerns_child(cyContent, userCase));
-    if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
-      sections.push(SafetyConcerns_yours(cyContent, userCase));
+  // if on sreening screen enable Yes
+  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
+    sections = CheckYourAnswerFlow1(userCase, cyContent).flat() as ANYTYPE;
+  } else {
+    if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
+      sections = CheckYourAnswerFlow2(userCase, cyContent).flat() as ANYTYPE;
+    } else {
+      //if miam urgency is requested miam_urgency
+      if (
+        userCase['miam_urgency'] &&
+        userCase.hasOwnProperty('miam_urgency') &&
+        !userCase['miam_urgency'].includes('none')
+      ) {
+        sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents).flat() as ANYTYPE;
+      } else {
+        sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents).flat() as ANYTYPE;
+      }
     }
-    sections.push(SafetyConcerns_others(cyContent, userCase));
   }
-  sections.push(
-    InternationalElement(cyContent, userCase),
-    reasonableAdjustment(cyContent, userCase),
-    HelpWithFee(cyContent, userCase)
-  );
+
   sections = sectionCountFormatter(sections);
   return {
     ...cyContent,
