@@ -91,8 +91,8 @@ describe('citizen-home content', () => {
     expect((languageRequirementsField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+  test('should contain Save and continue button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 

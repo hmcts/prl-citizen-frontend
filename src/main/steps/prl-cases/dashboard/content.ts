@@ -4,7 +4,6 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { summaryCaseList } from '../../common/summary/utils';
-//import { summaryCaseList } from './utils';
 
 export const enContent = {
   title: 'Your private law account',
@@ -60,10 +59,10 @@ const en = (content: CommonContent) => {
   return {
     title: enContent.title,
     sections: [
-      summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, isRespondent),
-      summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, isRespondent),
-      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
-      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),
+      summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, false),
+      summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, true),
+      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, false),
+      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, true),
     ],
     help: enContent.help,
   };
@@ -135,6 +134,8 @@ function isLinkedToRespondent(userCase: Partial<CaseWithId>): boolean {
 function isLinkedToRespondentFl401(userCase: Partial<CaseWithId>): boolean {
   for (const caseInviteEmail of userCase.caseInvites || []) {
     if (
+      userCase.respondentsFL401?.user?.idamId &&
+      caseInviteEmail.value.invitedUserId &&
       userCase.respondentsFL401?.user?.idamId === caseInviteEmail.value.invitedUserId &&
       caseInviteEmail.value.isApplicant === YesOrNo.NO
     ) {

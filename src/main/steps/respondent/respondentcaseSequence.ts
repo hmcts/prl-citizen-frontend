@@ -53,6 +53,10 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
+  RESPONDENT_RISK_ASSESSMENT,
+  RESPONDENT_SAFEGUARDING_LETTER,
+  RESPONDENT_SECTION37_REPORT,
+  RESPONDENT_SECTION7_REPORT,
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT,
@@ -478,5 +482,45 @@ export const respondentCaseSequence: Step[] = [
     url: LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${RESPONDENT}${RESPONDENT_SAFEGUARDING_LETTER}`,
+  },
+  {
+    url: `${RESPONDENT}${RESPONDENT_SAFEGUARDING_LETTER}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${RESPONDENT}${RESPONDENT_SECTION7_REPORT}`,
+  },
+  {
+    url: `${RESPONDENT}${RESPONDENT_SECTION7_REPORT}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${RESPONDENT}${RESPONDENT_SECTION37_REPORT}`,
+  },
+  {
+    url: `${RESPONDENT}${RESPONDENT_SECTION37_REPORT}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${RESPONDENT}${RESPONDENT_RISK_ASSESSMENT}`,
+  },
+  {
+    url: `${RESPONDENT}${RESPONDENT_RISK_ASSESSMENT}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
 ];

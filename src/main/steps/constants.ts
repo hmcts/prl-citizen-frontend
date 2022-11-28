@@ -26,9 +26,10 @@ export const RESPONSE_MIAM_ELEMENTS = 'miam';
 export const RESPONSE_CITIZEN_INTERNATIONAL_ELEMENTS = 'citizenInternationalElements';
 
 export const URL_PATTERN_INTERNATIONAL_FACTORS = 'international-factors';
-export const EVENT_INTERNATIONAL_ELEMENT = 'internationalElement';
+export const EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement';
 
 export const EVENT_RESPONDENT_MIAM = 'respondentMiam';
+export const UPDATE_CASE_YES = '?updateCase=Yes';
 
 export const NO_NEED_OF_SUPPORT = 'No, I do not have any language requirements at this time';
 export const NO_NEED_OF_SUPPORT_AT_THIS_TIME = 'No, I do not need any extra support at this time';

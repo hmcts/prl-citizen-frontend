@@ -124,7 +124,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
@@ -152,7 +152,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,
@@ -200,38 +200,28 @@ export class CosApiClient {
     }
   }
 
-  public async UploadDocumentListFromCitizen(
-    user: UserDetails,
-    caseId: string,
-    parentDocumentType: string,
-    documentType: string,
-    partyId: string,
-    partyName: string,
-    isApplicant: string,
-    files: UploadedFiles,
-    documentRequestedByCourt: YesOrNo
-  ): Promise<DocumentDetail> {
+  public async UploadDocumentListFromCitizen(request: UploadDocumentRequest): Promise<DocumentDetail> {
     try {
       const headers = {
         Accept: '*/*',
         'Content-Type': '*',
-        Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        Authorization: 'Bearer ' + request.user.accessToken,
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
       const formData = new FormData();
 
-      for (const [, file] of Object.entries(files)) {
+      for (const [, file] of Object.entries(request.files)) {
         formData.append('files', file.buffer, file.originalname);
       }
 
-      formData.append('documentRequestedByCourt', documentRequestedByCourt);
-      formData.append('caseId', caseId);
-      formData.append('parentDocumentType', parentDocumentType);
-      formData.append('documentType', documentType);
-      formData.append('partyId', partyId);
-      formData.append('partyName', partyName);
-      formData.append('isApplicant', isApplicant);
+      formData.append('documentRequestedByCourt', request.documentRequestedByCourt);
+      formData.append('caseId', request.caseId);
+      formData.append('parentDocumentType', request.parentDocumentType);
+      formData.append('documentType', request.documentType);
+      formData.append('partyId', request.partyId);
+      formData.append('partyName', request.partyName);
+      formData.append('isApplicant', request.isApplicant);
 
       const response = await Axios.post(
         config.get('services.cos.url') + '/upload-citizen-statement-document',
@@ -245,7 +235,7 @@ export class CosApiClient {
       };
     } catch (err) {
       console.log('Error: ', err);
-      throw new Error('Case document is not updting.');
+      throw new Error('Case document is not updating.');
     }
   }
 
@@ -272,26 +262,7 @@ export class CosApiClient {
     }
   }
 
-  public async linkCaseToCitizen(user: UserDetails, caseId: string, accessCode: string): Promise<AxiosResponse> {
-    try {
-      const headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        caseId,
-        accessCode,
-        Authorization: 'Bearer ' + user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-      };
-      const response = await Axios.post(config.get('services.cos.url') + '/citizen/link', {
-        headers,
-      });
-      return response;
-    } catch (err) {
-      throw new Error('Case could not be updated.');
-    }
-  }
-
-  public async linkCaseToCitizen1(
+  public async linkCaseToCitizen(
     user: UserDetails,
     caseId: string,
     req: AppRequest,
@@ -304,16 +275,14 @@ export class CosApiClient {
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: ('Bearer ' + user.accessToken) as string,
-        serviceAuthorization: getServiceAuthToken() as string,
-        accessCode: accessCode as string,
+        Authorization: 'Bearer ' + user.accessToken,
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        accessCode,
       };
-      //: AxiosResponse<CaseWithId>
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
       });
       return response;
-      // return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
       throw new Error('Case could not be updated.');
     }
@@ -371,6 +340,18 @@ export class CosApiClient {
     });
     return response.data;
   }
+}
+
+export interface UploadDocumentRequest {
+  user: UserDetails;
+  caseId: string;
+  parentDocumentType: string;
+  documentType: string;
+  partyId: string;
+  partyName: string;
+  isApplicant: string;
+  files: UploadedFiles;
+  documentRequestedByCourt: YesOrNo;
 }
 
 export type UploadedFiles =
