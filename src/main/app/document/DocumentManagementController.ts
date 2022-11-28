@@ -199,12 +199,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const data = toApiFormat(req?.session?.userCase);
     data.id = caseReference;
-    const updatedCaseDataFromCos = await client.updateCase(
-      loggedInCitizen,
-      caseReference,
-      data,
-      'citizen-internal-case-update'
-    );
+    const updatedCaseDataFromCos = await client.updateCase(loggedInCitizen, caseReference, data, 'citizen-case-update');
     return updatedCaseDataFromCos;
   }
 
@@ -302,15 +297,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
           uid = this.getUID(documentToGet);
         }
       });
-    }
-
-    if (filename.includes('cadafinaldocumentrequest')) {
-      if (!req.session.userCase.finalDocument?.document_binary_url) {
-        throw new Error('APPLICANT_CA_REQUEST binary url is not found');
-      }
-      filename = req.session.userCase.finalDocument.document_filename;
-      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-      uid = this.getUID(documentToGet);
     }
 
     if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
@@ -485,7 +471,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         loggedInCitizen,
         caseReference,
         data,
-        'citizen-internal-case-update'
+        'citizen-case-update'
       );
       req.session.userCase = updatedCaseDataFromCos;
     }
@@ -607,21 +593,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return redirectUrl;
   }
 
-  public async reqFiles(req: AppRequest): Promise<void> {
-    if (req.headers.accept?.includes('application/json')) {
-      throw new Error('No files were uploaded');
-    } else {
-      console.log('test.....');
-      const fileData = req.files || [];
-      console.log('File data... : ', fileData);
-      const obj = {
-        id: fileData[0]['originalname'],
-        name: fileData[0]['originalname'],
-      };
-      req.session.userCase.applicantUploadFiles?.push(obj);
-    }
-  }
-
   public async undefiendUploadFiles(req: AppRequest): Promise<void> {
     if (req?.session?.userCase?.applicantUploadFiles === undefined) {
       req.session.userCase[ApplicantUploadFiles] = [];
@@ -634,14 +605,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
   public async fileData(req: AppRequest): Promise<void> {
     if (!req.files?.length) {
-      this.reqFiles(req);
-    } else {
-      const fileData = req.files || [];
-      const obj = {
-        id: fileData[0]['originalname'],
-        name: fileData[0]['originalname'],
-      };
-      req.session.userCase.applicantUploadFiles?.push(obj);
+      if (req.headers.accept?.includes('application/json')) {
+        throw new Error('No files were uploaded');
+      }
     }
   }
 
