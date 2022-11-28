@@ -270,7 +270,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
     } catch (err) {
-      console.log(err);
+      req.locals.logger.error(err);
     }
 
     let fieldFlag = '';

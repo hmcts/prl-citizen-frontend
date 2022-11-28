@@ -6,18 +6,13 @@ import {
   en as contentHearingWithoutEn,
 } from '../../hearing-without-notice/hearing-part2/content';
 
-/**
- * It returns an object containing the contents of the English and Welsh versions of the page,
- * depending on the language selected
- * @returns A function that returns an object.
- */
 export const hearingDetailsContents = SystemLanguage => {
   const opContents = {
     en: () => {
-      return { ...contentHearingWithoutEn(), errors: '' };
+      return { ...contentHearingWithoutEn(), hearingWithoutLine1Field: contentHearingWithoutEn().subTitle, errors: '' };
     },
     cy: () => {
-      return { ...contentHearingWithoutCy(), errors: '' };
+      return { ...contentHearingWithoutCy(), hearingWithoutLine1Field: contentHearingWithoutCy().subTitle, errors: '' };
     },
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();

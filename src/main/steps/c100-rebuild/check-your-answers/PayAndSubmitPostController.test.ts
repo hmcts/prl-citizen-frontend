@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../../app/form/Form';
-import { C100_CONFIRMATIONPAGE, CHECK_ANSWERS, DASHBOARD_URL } from '../../urls';
+import { C100_CHECK_YOUR_ANSWER, C100_CONFIRMATIONPAGE, DASHBOARD_URL } from '../../urls';
 
 import PayAndSubmitPostController from './PayAndSubmitPostController';
 
@@ -77,6 +77,6 @@ describe('PayAndSubmitPostController test cases', () => {
     const controller = new PayAndSubmitPostController(mockFormContent.fields);
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS);
+    expect(res.redirect).toHaveBeenCalledWith(C100_CHECK_YOUR_ANSWER);
   });
 });

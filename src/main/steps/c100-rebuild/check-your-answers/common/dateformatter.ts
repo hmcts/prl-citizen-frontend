@@ -8,7 +8,7 @@ import { ANYTYPE } from './index';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const DATE_FORMATTOR = (date): string => {
   if (date['year'] !== '' && date['month'] !== '' && date['day'] !== '') {
-    const formated_Date = new Date(date['year'], date['month'], date['day']);
+    const formated_Date = new Date(date['year'], date['month'] - 1, date['day']);
     const month = formated_Date.toLocaleString('default', { month: 'long' });
     return formated_Date.getDate() + ' ' + month + ' ' + formated_Date.getFullYear();
   } else {

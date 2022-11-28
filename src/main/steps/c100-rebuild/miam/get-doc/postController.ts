@@ -19,7 +19,6 @@ export default class postController extends PostController<AnyObject> {
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     try {
-      console.log(req.body);
       if (req.body.goBack) {
         return res.redirect(C100_MIAM_MEDIATOR_DOCUMENT);
       } else {

@@ -82,7 +82,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
           });
       }
     } catch (error) {
-      console.log(error);
+      req.locals.logger.error(error);
       res.status(500);
     }
   }

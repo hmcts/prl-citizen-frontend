@@ -69,7 +69,6 @@ export class PostController<T extends AnyObject> {
     };
 
     req.session.errors = form.getErrors(formData);
-    console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
 
     if (req.session.errors.length) {
@@ -206,7 +205,7 @@ export class PostController<T extends AnyObject> {
         }
       }
     } catch (err) {
-      console.log('Retrieving case failed with error: ' + err);
+      req.locals.logger.error('Retrieving case failed with error: ' + err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 
