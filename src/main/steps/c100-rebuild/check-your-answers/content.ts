@@ -525,7 +525,9 @@ export const generateContent: TranslationFn = content => {
   if (
     content.userCase &&
     content.userCase.hasOwnProperty('hwf_needHelpWithFees') &&
-    content.userCase['hwf_needHelpWithFees'] !== YesOrNo.NO
+    content.userCase['hwf_needHelpWithFees'] !== YesOrNo.NO &&
+    content.userCase.hasOwnProperty('helpWithFeesReferenceNumber') &&
+    content.userCase['helpWithFeesReferenceNumber'] !== ''
   ) {
     form.submit = {
       text: l => l.StatementOfTruth['SubmitButton'],
