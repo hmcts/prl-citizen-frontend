@@ -93,7 +93,8 @@ export const cy = () => ({
   noneOfTheAbove: "Dim un o'r uchod",
   errors: {
     miam_notAttendingReasons: {
-      required: "A allwch chi gadarnhau bod unrhyw un o'r rhesymau dilys eraill dros beidio â mynychu MIAM yn berthnasol yn eich achos chi?",
+      required:
+        "A allwch chi gadarnhau bod unrhyw un o'r rhesymau dilys eraill dros beidio â mynychu MIAM yn berthnasol yn eich achos chi?",
     },
     miam_noMediatorAccessSubfields: {
       required: 'Dewiswch pam na allwch fynd i weld cyfryngwr',

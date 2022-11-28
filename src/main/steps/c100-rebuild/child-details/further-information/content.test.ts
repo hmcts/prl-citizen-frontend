@@ -47,10 +47,10 @@ const cy = {
       required: ' ‘Nodwch a yw’r gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant',
     },
     cd_childrenKnownToSocialServicesDetails: {
-      required: "Rhowch fanylion - cymraeg",
+      required: 'Rhowch fanylion - cymraeg',
     },
     cd_childrenSubjectOfProtectionPlan: {
-      required: "Nodwch a oes unrhyw un o’r plant yn destun cynllun amddiffyn plentyn - cymraeg",
+      required: 'Nodwch a oes unrhyw un o’r plant yn destun cynllun amddiffyn plentyn - cymraeg',
     },
   },
 };

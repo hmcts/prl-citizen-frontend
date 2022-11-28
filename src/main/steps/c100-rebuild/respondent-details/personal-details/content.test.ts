@@ -92,7 +92,7 @@ const cy = {
   female: 'Gwryw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
   respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man genih',
-  otherGenderDetailsLabel: "Rhywedd yr atebydd (Dewisol)",
+  otherGenderDetailsLabel: 'Rhywedd yr atebydd (Dewisol)',
   // day: 'Diwrnod',
   // month: 'Mis',
   // year: 'Blwyddyn',
@@ -114,16 +114,16 @@ const cy = {
     },
     approxDateOfBirth: {
       required: 'Nodwch ddyddiad geni bras',
-      invalidDate: "Nid yw’r dyddiad geni bras yn ddilys",
-      incompleteDay: "Rhaid i’r dyddiad geni bras gynnwys diwrnod",
-      incompleteMonth: "Rhaid i’r dyddiad geni bras gynnwys mis",
+      invalidDate: 'Nid yw’r dyddiad geni bras yn ddilys',
+      incompleteDay: 'Rhaid i’r dyddiad geni bras gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
       incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
     },
     gender: {
       required: 'Nodwch y rhywedd',
     },
-  respondentPlaceOfBirth: {
+    respondentPlaceOfBirth: {
       required: 'Nodwch y man geni',
     },
   },

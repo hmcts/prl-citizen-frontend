@@ -40,10 +40,10 @@ const cy = {
       required: 'Nodwch yr enw cyntaf',
     },
     c100TempLastName: {
-      required:  "Nodwch yr enw olaf",
+      required: 'Nodwch yr enw olaf',
     },
-  }
-}
+  },
+};
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Add children  > content', () => {

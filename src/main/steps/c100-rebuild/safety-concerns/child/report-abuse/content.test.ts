@@ -41,10 +41,13 @@ const cy = () => ({
   physicalAbusePageTitle:
     "Disgrifiwch yn gryno y cam-drin corfforol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
   psychologicalAbusePageTitle:
-  "Disgrifiwch yn gryno y cam-drin seicolegol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
-  emotionalAbusePageTitle: "Disgrifiwch yn gryno y cam-drin corfforol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
-  sexualAbusePageTitle: "Disgrifiwch yn gryno y cam-drin rhywiol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
-  financialAbusePageTitle: "Disgrifiwch yn gryno y cam-drin ariannol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    "Disgrifiwch yn gryno y cam-drin seicolegol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+  emotionalAbusePageTitle:
+    "Disgrifiwch yn gryno y cam-drin corfforol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+  sexualAbusePageTitle:
+    "Disgrifiwch yn gryno y cam-drin rhywiol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+  financialAbusePageTitle:
+    "Disgrifiwch yn gryno y cam-drin ariannol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
   introText: `<p class="govuk-body ">Llenwch yr adran hon y gorau y gallwch. Os nad ydych chi'n teimlo eich bod chi'n gallu trafod y gamdriniaeth ar hyn o bryd, gallwch wneud hynny wrth siarad efo Cafcass</p>
               <p class="govuk-body ">Bydd yr wybodaeth y byddwch yn ei rhoi yn cael ei defnyddio yn y cais. Nid yw'n gais am waharddeb cam-drin domestig.</p>
               <p class="govuk-body ">Gallwch wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">cais am waharddeb cam-drin domestig ar </a> wahân</p>`,
@@ -58,7 +61,7 @@ const cy = () => ({
   behaviourStartDateHintText: 'Nid oes angen i hyn fod yn union ddyddiad.',
   isOngoingBehaviourLabel: "Ydy'r ymddygiad yn parhau? (dewisol)",
   isOngoingBehaviourHint:
-    `<p class="govuk-body" for="respabuseongoing-hint">CFfoniwch 999 os oes argyfwng. Os nad yw'n argyfwng, ystyriwch gysylltu â'r <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> neu'r <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">tîm gofal cymdeithasol yn eich cyngor  lleol</a>.</p>`,
+    '<p class="govuk-body" for="respabuseongoing-hint">CFfoniwch 999 os oes argyfwng. Os nad yw\'n argyfwng, ystyriwch gysylltu â\'r <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> neu\'r <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">tîm gofal cymdeithasol yn eich cyngor  lleol</a>.</p>',
   YesOptionLabel: 'Ydy',
   NoOptionLabel: 'Nac ydy',
   seekHelpFromPersonOrAgencyLabel:

@@ -57,7 +57,7 @@ export const cy = () => ({
   three: 'DDdim yn gwybod',
   errors: {
     AddressLine1: {
-      required: "Nodwch linell gyntaf y cyfeiriad",
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     PostTown: {
       required: 'Nodwch y dref neu’r ddinas',

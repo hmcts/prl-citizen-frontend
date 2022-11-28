@@ -37,10 +37,10 @@ const cy = () => ({
   labelFornewName: 'Nodwch enw newydd',
   errors: {
     applicantFirstName: {
-      required: "Nodwch yr enw cyntaf",
+      required: 'Nodwch yr enw cyntaf',
     },
     applicantLastName: {
-      required: "Nodwch yr enw olaf",
+      required: 'Nodwch yr enw olaf',
     },
   },
 });

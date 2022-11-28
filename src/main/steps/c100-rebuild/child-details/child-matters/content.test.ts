@@ -55,8 +55,7 @@ const cy = {
     allowMedicalTreatment: "Caniatáu i'r plant gael triniaeth feddygol",
     takingChildOnHoliday: "Mynd â'r plant ar wyliau",
     relocateChildrenDifferentUkArea: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
-    relocateChildrenOutsideUk:
-      "Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)",
+    relocateChildrenOutsideUk: 'Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)',
   },
   issueOrderList: {
     specificHoliday: 'Gwyliau neu drefniant penodol',
@@ -65,8 +64,7 @@ const cy = {
     changeChildrenNameSurnameA: "Newid enwau neu gyfenwau'r plant",
     medicalTreatment: 'Triniaeth feddygol',
     relocateChildrenDifferentUkAreaA: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
-    relocateChildrenOutsideUkA:
-      "Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)",
+    relocateChildrenOutsideUkA: 'Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)',
     returningChildrenToYourCare: "Dychwelyd y plant i'ch gofal",
   },
   errors: {

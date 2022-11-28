@@ -64,7 +64,7 @@ const cy = {
   two: 'Naddo',
   applicantPlaceOfBirthLabel: 'Eich man geni',
   applicantPlaceOfBirthHint: 'Er enghraifft, tref neu ddinas',
-  dontKnowLabel: "Ddim yn gwybod",
+  dontKnowLabel: 'Ddim yn gwybod',
   dobLabel: 'Eich dyddiad geni',
   dobHint: 'Er enghraifft, 31 3 2016',
   previousNameLabel: 'Nodwch eich enwau blaenorol',

@@ -33,7 +33,7 @@ const cy = {
     'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   errors: {
     AddressLine1: {
-      required: "Nodwch linell gyntaf y cyfeiriad",
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     PostTown: {
       required: 'Nodwch y dref neu’r ddinas',

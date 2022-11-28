@@ -36,7 +36,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Beth yw',
-  title1: "Perthynas efo",
+  title1: 'Perthynas efo',
   mother: 'Mam',
   father: 'Tad',
   guardian: 'Gwarcheidwad',

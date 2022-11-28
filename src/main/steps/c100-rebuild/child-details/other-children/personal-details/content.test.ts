@@ -73,15 +73,15 @@ const cy = {
     },
     approxDateOfBirth: {
       required: 'Nodwch ddyddiad geni bras',
-      invalidDate: "Nid yw’r dyddiad geni bras yn ddilys",
-      incompleteDay: "Rhaid i’r dyddiad geni bras gynnwys diwrnod",
-      incompleteMonth: "Rhaid i’r dyddiad geni bras gynnwys mis",
+      invalidDate: 'Nid yw’r dyddiad geni bras yn ddilys',
+      incompleteDay: 'Rhaid i’r dyddiad geni bras gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
       incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
     },
     gender: {
       required: 'Nodwch y rhywedd',
-    }
+    },
   },
 };
 
