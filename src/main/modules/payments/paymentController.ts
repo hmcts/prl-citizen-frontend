@@ -35,12 +35,12 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
   if (hwfRefNumber || SUCCESS === response?.status) {
     await submitCase(
       req,
+      res,
       req.session.userCase!.caseId!,
       req.session.userCase,
       req.originalUrl,
       C100_CASE_EVENT.CASE_SUBMIT
     );
-    res.redirect(C100_CONFIRMATIONPAGE);
   } else {
     res.redirect(response['next_url']);
   }
@@ -68,12 +68,12 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
           //Invoke update case with 'citizen-case-submit' event & reidrect confirmation page
           await submitCase(
             req,
+            res,
             req.session.userCase!.caseId!,
             req.session.userCase,
             req.originalUrl,
             C100_CASE_EVENT.CASE_SUBMIT
           );
-          res.redirect(C100_CONFIRMATIONPAGE);
           break;
         default:
           req.session.paymentError = true;
@@ -90,10 +90,17 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
 
 async function submitCase(
   req: AppRequest,
+  res: Response,
   caseId: string,
   caseData: Partial<Case>,
   returnUrl: string,
   caseEvent: C100_CASE_EVENT
 ): Promise<void> {
-  await req.locals.C100Api.updateCase(caseId, caseData, returnUrl, caseEvent);
+  const updatedCase = await req.locals.C100Api.updateCase(caseId, caseData, returnUrl, caseEvent);
+  //update final document in session for download on confirmation
+  req.session.userCase.finalDocument = updatedCase?.finalDocument;
+  //save & redirect to confirmation page
+  req.session.save(() => {
+    res.redirect(C100_CONFIRMATIONPAGE);
+  });
 }

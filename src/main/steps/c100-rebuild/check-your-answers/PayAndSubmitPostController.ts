@@ -1,12 +1,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100_CASE_EVENT } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PaymentHandler } from '../../../modules/payments/paymentController';
-import { C100_CHECK_YOUR_ANSWER, C100_CONFIRMATIONPAGE } from '../../../steps/urls';
+import { C100_CHECK_YOUR_ANSWER } from '../../../steps/urls';
 
 @autobind
 export default class PayAndSubmitPostController extends PostController<AnyObject> {
@@ -27,21 +26,11 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
           return super.redirect(req, res, C100_CHECK_YOUR_ANSWER);
         }
 
-        //Submit case in case of help with fees is opted in else initiate payment
-        if (req.session.userCase.helpWithFeesReferenceNumber) {
-          await req.locals.C100Api.updateCase(
-            req.session.userCase!.caseId!,
-            req.session.userCase,
-            req.originalUrl,
-            C100_CASE_EVENT.CASE_SUBMIT
-          );
-
-          //redirect to help with fees confirmation page
-          res.redirect(C100_CONFIRMATIONPAGE);
-        } else {
-          //Initiate payment for case and then submit case if success
-          PaymentHandler(req, res);
-        }
+        /** Invoke create payment
+         * 1. Create only service request for case with help with fees opted
+         * 2. Create service request & payment request ref in case of pay & submit
+         * */
+        PaymentHandler(req, res);
       }
     } catch (e) {
       req.locals.logger.error('Error happened in pay & submit case', e);
