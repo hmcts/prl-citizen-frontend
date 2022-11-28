@@ -526,7 +526,7 @@ describe('DocumentManagerController', () => {
       const documentDetail = {
         status: 200,
         documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-        documentName: 'uploaded.pdf',
+        documentName: 'uploaded-file.jpg',
       };
       uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
       req.session.userCase.applicantUploadFiles = [];

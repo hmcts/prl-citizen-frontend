@@ -63,6 +63,8 @@ const cy = () => ({
   },
 });
 
+export const getUpdatedForm = (): FormContent => form;
+
 const languages = {
   en,
   cy,
