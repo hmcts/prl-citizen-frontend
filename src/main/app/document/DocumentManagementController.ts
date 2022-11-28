@@ -14,7 +14,7 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
 } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CosApiClient } from '../case/CosApiClient';
+import { CosApiClient, UploadDocumentRequest } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
 import {
   Applicant,
@@ -32,7 +32,6 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentRequest';
-import { UploadedDocumentRequest } from './UploadedDocumentRequest';
 
 const UID_LENGTH = 36;
 @autobind
@@ -281,7 +280,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     let fieldFlag = '';
     let documentToGet;
-    let uid;
+    let uid = '';
 
     if (filename === 'generate-c7-final') {
       endPoint = 'caresponse';
@@ -305,7 +304,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       });
     }
 
-    if (filename === 'cadafinaldocumentrequest') {
+    if (filename.includes('cadafinaldocumentrequest')) {
       if (!req.session.userCase.finalDocument?.document_binary_url) {
         throw new Error('APPLICANT_CA_REQUEST binary url is not found');
       }
@@ -333,7 +332,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     for (const entry of this.fileNameSearchPatternElementMap.entries()) {
       const fileNameSearchPattern = entry[0];
       if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
-        uid = this.getDocumentUIDWithOutFlag(req, entry[1].elements, entry[1].downloadFileFieldFlag);
+        const obj = this.getDocumentUIDWithOutFlag(req, entry[1].elements, entry[1].downloadFileFieldFlag);
+        uid = obj.uid;
+        filename = obj.filename;
         if (uid.trim() !== '') {
           if (entry[1]?.downloadFileFieldFlag) {
             fieldFlag = entry[1]?.downloadFileFieldFlag;
@@ -347,7 +348,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
       for (const entry of this.fileNameElementMap.entries()) {
         const searchPattern = entry[0];
         const element = entry[1];
-        uid = this.getDocumentUIDWithMultipleElements(endPoint, req, filename, searchPattern, element.elements);
+        const obj = this.getDocumentUIDWithMultipleElements(endPoint, req, filename, searchPattern, element.elements);
+        uid = obj.uid;
+        filename = obj.filename;
         if (uid !== '') {
           break;
         }
@@ -400,7 +403,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const element = elements[0];
       const childElement = elements[1];
 
-      if (endPoint === endPoint_input && req.session.userCase[`${element}`]) {
+      if (endPoint.includes(endPoint_input) && req.session.userCase[`${element}`]) {
         for (const doc of req.session.userCase[`${element}`]) {
           if (
             doc.value[`${childElement}`]?.document_url?.substring(
@@ -411,13 +414,14 @@ export class DocumentManagerController extends PostController<AnyObject> {
               throw new Error('Binary URL is not found for ' + element + ':' + childElement);
             }
             documentToGet = doc.value[`${childElement}`].document_binary_url;
+            filename = doc.value[`${childElement}`].document_filename;
             break;
           }
         }
         uid = this.getUID(documentToGet);
       }
     }
-    return uid;
+    return { uid, filename };
   }
 
   private getDocumentUIDWithOutFlag(
@@ -442,7 +446,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         flag = YesOrNo.YES;
       }
     }
-    return uid;
+    return { uid, filename: document_filename };
   }
 
   private async setFlagViewed(
@@ -681,22 +685,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
     const partyId = req.session.user.id;
 
-    const uploadedDocumentRequest = new UploadedDocumentRequest(
-      caseId,
-      files,
-      parentDocumentType,
-      documentType,
-      partyName,
-      partyId,
-      isApplicant
-    );
-
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
 
-    console.log('Calling upload request: ', uploadedDocumentRequest);
-
-    const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(
-      caseworkerUser,
+    const uploadRequest: UploadDocumentRequest = {
+      user: caseworkerUser,
       caseId,
       parentDocumentType,
       documentType,
@@ -704,8 +696,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
       partyName,
       isApplicant,
       files,
-      documentRequestedByCourt
-    );
+      documentRequestedByCourt,
+    };
+    console.log('Calling get document List From Citizen for case : ', uploadRequest.caseId);
+    const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(uploadRequest);
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {
