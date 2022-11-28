@@ -93,7 +93,7 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
         ],
       },
       {
-        title: sectionTitles.safetyconcerns,
+        title: sectionTitles.safetyConcerns,
         items: [
           {
             id: 'allegations_of_harm_and_violence',
