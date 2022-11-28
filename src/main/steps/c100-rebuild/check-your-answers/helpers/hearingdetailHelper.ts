@@ -15,14 +15,24 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey) => {
       html += HTML.P + userCase?.['hwn_doYouNeedAWithoutNoticeHearing'] + HTML.P_CLOSE;
       html +=
         userCase['hwn_doYouNeedAWithoutNoticeHearingDetails'] !== undefined
-          ? HTML.P + userCase?.['hwn_doYouNeedAWithoutNoticeHearingDetails'] + HTML.P_CLOSE
+          ? HTML.H4 +
+            keys['details'] +
+            HTML.H4_CLOSE +
+            HTML.P +
+            userCase?.['hwn_doYouNeedAWithoutNoticeHearingDetails'] +
+            HTML.P_CLOSE
           : '';
       html += HTML.RULER;
       html += HTML.H4 + keys['doYouRequireAHearingWithReducedNoticeLabel'] + HTML.H4_CLOSE;
       html += HTML.P + userCase?.['hwn_doYouRequireAHearingWithReducedNotice'] + HTML.P_CLOSE;
       html +=
         userCase['hwn_doYouRequireAHearingWithReducedNoticeDetails'] !== undefined
-          ? HTML.P + userCase?.['hwn_doYouRequireAHearingWithReducedNoticeDetails'] + HTML.P_CLOSE
+          ? HTML.H4 +
+            keys['details'] +
+            HTML.H4_CLOSE +
+            HTML.P +
+            userCase?.['hwn_doYouRequireAHearingWithReducedNoticeDetails'] +
+            HTML.P_CLOSE
           : '';
     }
     return html;
