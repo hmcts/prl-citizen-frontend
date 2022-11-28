@@ -23,7 +23,7 @@ const cyContent = {
   town: 'Tref neu ddinas',
   county: 'Sir',
   postcode: 'Cod post',
-  enterInternationalAddress: 'Enter an international address - welsh',
+  enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
   addressHistoryLabel: 'A ydych wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
   one: 'Do',
   two: 'Naddoo',

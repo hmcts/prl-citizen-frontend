@@ -43,34 +43,35 @@ const en = {
 };
 
 const cy = {
-  title: 'Which of the decisions you’re asking the court to resolve relate to - welsh',
-  bodyHint: 'Select all that apply - welsh',
+  title: 'Pa un o’r penderfyniadau rydych chi’n gofyn i’r llys eu datrys sy’n ymwneud â',
+  orderAppliedFor: 'Orders applied for - welsh',
+  bodyHint: "Dewiswch bob un sy'n berthnasol",
   childArrangementsOrder: {
-    whoChildLiveWith: 'Decide who the children live with and when - welsh',
-    childTimeSpent: 'Decide how much time the children spend with each person - welsh',
+    whoChildLiveWith: "Dewiswch bob un sy'n berthnasol",
+    childTimeSpent: 'Penderfynu faint o amser y bydd y plant yn ei dreulio gyda phob unigolyn',
   },
   stepsList: {
-    changeChildrenNameSurname: "Changing the children's names or surname - welsh",
-    allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
-    takingChildOnHoliday: 'Taking the children on holiday - welsh',
-    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
+    changeChildrenNameSurname: "Newid enwau neu gyfenwau'r plant",
+    allowMedicalTreatment: "Caniatáu i'r plant gael triniaeth feddygol",
+    takingChildOnHoliday: "Mynd â'r plant ar wyliau",
+    relocateChildrenDifferentUkArea: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
     relocateChildrenOutsideUk:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
+      "Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)",
   },
   issueOrderList: {
-    specificHoliday: 'A specific holiday or arrangement - welsh',
-    whatSchoolChildrenWillGoTo: 'What school the children will go to - welsh',
-    religiousIssue: 'A religious issue - welsh',
-    changeChildrenNameSurnameA: "Changing the children's names or surname - welsh",
-    medicalTreatment: 'Medical treatment - welsh',
-    relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales - welsh',
+    specificHoliday: 'Gwyliau neu drefniant penodol',
+    whatSchoolChildrenWillGoTo: 'I ba ysgol y bydd y plant yn mynd iddi',
+    religiousIssue: ' Mater crefyddol',
+    changeChildrenNameSurnameA: "Newid enwau neu gyfenwau'r plant",
+    medicalTreatment: 'Triniaeth feddygol',
+    relocateChildrenDifferentUkAreaA: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
     relocateChildrenOutsideUkA:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
-    returningChildrenToYourCare: 'Returning the children to your care - welsh',
+      "Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)",
+    returningChildrenToYourCare: "Dychwelyd y plant i'ch gofal",
   },
   errors: {
     needsResolution: {
-      required: 'Select at least a decision - welsh',
+      required: 'Dylech o leiaf ddewis penderfyniad',
     },
   },
 };

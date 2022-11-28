@@ -37,13 +37,13 @@ const cy = {
   newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
-      required: 'Enter the first name - welsh',
+      required: 'Nodwch yr enw cyntaf',
     },
     c100TempLastName: {
-      required: 'Enter the last name - welsh',
+      required:  "Nodwch yr enw olaf",
     },
-  },
-};
+  }
+}
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Add children  > content', () => {
