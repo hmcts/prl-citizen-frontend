@@ -431,7 +431,7 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems) => {
 
 const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {
   for (const doc of citizenResponseC7DocumentList) {
-    if (doc.value.createdBy === respondent.value.firstName + ' ' + respondent.value.lastName) {
+    if (doc.value.partyName === respondent.value.firstName + ' ' + respondent.value.lastName) {
       return {
         id: 'respondent_response_to_request_for_child_arrangements',
         text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(

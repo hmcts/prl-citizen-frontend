@@ -23,6 +23,7 @@ export const TERMS_AND_CONDITIONS: PageLink = '/terms-and-conditions';
 export const CONTACT_US: PageLink = '/contact-us';
 
 export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
+export const RESPOND_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 export const RESPONSE_TASKLIST: PageLink = '/tasklistresponse';
 export const RESPONDENT: PageLink = '/respondent';
 
