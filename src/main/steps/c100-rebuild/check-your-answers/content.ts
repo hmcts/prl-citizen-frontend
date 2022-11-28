@@ -301,28 +301,46 @@ const safteyConcenFilledSection = (userCase, contentLanguage) => {
   return additionalSafteyConcernSections;
 };
 //on Screeing screen if user selects Yes
+
+export const commonSectionsForContentLoader = (contentLanguage, userCase, newContents?) => {
+  return {
+    PostCodeAndTypeOfApplication: [
+      LocationDetails(contentLanguage, userCase),
+      TypeOfApplication(contentLanguage, userCase),
+    ],
+    ScreeingQuestions: [
+      LegalRepresentativeDetails(contentLanguage, userCase),
+      PermissionForApplication(contentLanguage, userCase),
+    ],
+    MIAM_ALL: [
+      MiamTitle(contentLanguage),
+      MiamAttendance(contentLanguage, userCase),
+      MiamExemption(newContents, userCase),
+    ],
+    IE_RA_HF: [
+      InternationalElement(contentLanguage, userCase),
+      reasonableAdjustment(contentLanguage, userCase),
+      HelpWithFee(contentLanguage, userCase),
+    ],
+  };
+};
 export const CheckYourAnswerFlow1 = (userCase, contentLanguage) => {
   return [
-    LocationDetails(contentLanguage, userCase),
-    TypeOfApplication(contentLanguage, userCase),
+    ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
     TypeOfOrder(contentLanguage, userCase),
     WithoutNoticeHearing(contentLanguage, userCase),
     peopleSections(userCase, contentLanguage),
     PastAndCurrentProceedings(contentLanguage, userCase),
     SafetyConcerns(contentLanguage, userCase),
     ...safteyConcenFilledSection(userCase, contentLanguage),
-    InternationalElement(contentLanguage, userCase),
-    reasonableAdjustment(contentLanguage, userCase),
-    HelpWithFee(contentLanguage, userCase),
+    ...commonSectionsForContentLoader(contentLanguage, userCase).IE_RA_HF,
   ];
 };
 // on Screeing screen if user selects No and user opts out of miam
 export const CheckYourAnswerFlow2 = (userCase, contentLanguage) => {
   return [
-    LocationDetails(contentLanguage, userCase),
-    TypeOfApplication(contentLanguage, userCase),
-    LegalRepresentativeDetails(contentLanguage, userCase),
-    PermissionForApplication(contentLanguage, userCase),
+    ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase).ScreeingQuestions,
     MiamTitle(contentLanguage),
     MiamAttendance(contentLanguage, userCase),
     PastAndCurrentProceedings(contentLanguage, userCase),
@@ -331,51 +349,37 @@ export const CheckYourAnswerFlow2 = (userCase, contentLanguage) => {
     peopleSections(userCase, contentLanguage),
     SafetyConcerns(contentLanguage, userCase),
     ...safteyConcenFilledSection(userCase, contentLanguage),
-    InternationalElement(contentLanguage, userCase),
-    reasonableAdjustment(contentLanguage, userCase),
-    HelpWithFee(contentLanguage, userCase),
+    ...commonSectionsForContentLoader(contentLanguage, userCase).IE_RA_HF,
   ];
 };
 // if user selects Yes for valid excemptions on maim_exemption
 export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents) => {
   return [
-    LocationDetails(contentLanguage, userCase),
-    TypeOfApplication(contentLanguage, userCase),
-    LegalRepresentativeDetails(contentLanguage, userCase),
-    PermissionForApplication(contentLanguage, userCase),
-    MiamTitle(contentLanguage),
-    MiamAttendance(contentLanguage, userCase),
-    MiamExemption(newContents, userCase),
+    ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, newContents).MIAM_ALL,
     WithoutNoticeHearing(contentLanguage, userCase),
     TypeOfOrder(contentLanguage, userCase),
     peopleSections(userCase, contentLanguage),
     PastAndCurrentProceedings(contentLanguage, userCase),
     SafetyConcerns(contentLanguage, userCase),
     ...safteyConcenFilledSection(userCase, contentLanguage),
-    InternationalElement(contentLanguage, userCase),
-    reasonableAdjustment(contentLanguage, userCase),
-    HelpWithFee(contentLanguage, userCase),
+    ...commonSectionsForContentLoader(contentLanguage, userCase).IE_RA_HF,
   ];
 };
 // if user selects No for valid excemptions on maim_exemption
 export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents) => {
   return [
-    LocationDetails(contentLanguage, userCase),
-    TypeOfApplication(contentLanguage, userCase),
-    LegalRepresentativeDetails(contentLanguage, userCase),
-    PermissionForApplication(contentLanguage, userCase),
-    MiamTitle(contentLanguage),
-    MiamAttendance(contentLanguage, userCase),
-    MiamExemption(newContents, userCase),
+    ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, newContents).MIAM_ALL,
     TypeOfOrder(contentLanguage, userCase),
     WithoutNoticeHearing(contentLanguage, userCase),
     peopleSections(userCase, contentLanguage),
     PastAndCurrentProceedings(contentLanguage, userCase),
     SafetyConcerns(contentLanguage, userCase),
     ...safteyConcenFilledSection(userCase, contentLanguage),
-    InternationalElement(contentLanguage, userCase),
-    reasonableAdjustment(contentLanguage, userCase),
-    HelpWithFee(contentLanguage, userCase),
+    ...commonSectionsForContentLoader(contentLanguage, userCase).IE_RA_HF,
   ];
 };
 
