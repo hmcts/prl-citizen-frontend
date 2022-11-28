@@ -302,7 +302,7 @@ const safteyConcenFilledSection = (userCase, contentLanguage) => {
 };
 //on Screeing screen if user selects Yes
 
-export const commonSectionsForContentLoader = (contentLanguage, userCase, newContents?) => {
+export const commonSectionsForContentLoader = (contentLanguage, userCase) => {
   return {
     PostCodeAndTypeOfApplication: [
       LocationDetails(contentLanguage, userCase),
@@ -312,11 +312,7 @@ export const commonSectionsForContentLoader = (contentLanguage, userCase, newCon
       LegalRepresentativeDetails(contentLanguage, userCase),
       PermissionForApplication(contentLanguage, userCase),
     ],
-    MIAM_ALL: [
-      MiamTitle(contentLanguage),
-      MiamAttendance(contentLanguage, userCase),
-      MiamExemption(newContents, userCase),
-    ],
+    MIAM_ALL: [MiamTitle(contentLanguage), MiamAttendance(contentLanguage, userCase)],
     IE_RA_HF: [
       InternationalElement(contentLanguage, userCase),
       reasonableAdjustment(contentLanguage, userCase),
@@ -357,7 +353,8 @@ export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents) => 
   return [
     ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
     ...commonSectionsForContentLoader(contentLanguage, userCase).ScreeingQuestions,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, newContents).MIAM_ALL,
+    ...commonSectionsForContentLoader(contentLanguage, userCase).MIAM_ALL,
+    MiamExemption(newContents, userCase),
     WithoutNoticeHearing(contentLanguage, userCase),
     TypeOfOrder(contentLanguage, userCase),
     peopleSections(userCase, contentLanguage),
@@ -372,7 +369,8 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents) => 
   return [
     ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
     ...commonSectionsForContentLoader(contentLanguage, userCase).ScreeingQuestions,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, newContents).MIAM_ALL,
+    ...commonSectionsForContentLoader(contentLanguage, userCase).MIAM_ALL,
+    MiamExemption(newContents, userCase),
     TypeOfOrder(contentLanguage, userCase),
     WithoutNoticeHearing(contentLanguage, userCase),
     peopleSections(userCase, contentLanguage),
