@@ -35,8 +35,7 @@ export class CosApiClient {
       const response = await this.client.get<string>('/');
       return response.data;
     } catch (e) {
-      //const errMsg = 'Error connecting cos';
-      //console.error(errMsg);
+      throw new Error('Could not connect to cos-api');
     }
   }
 
@@ -180,7 +179,6 @@ export class CosApiClient {
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
-      console.log('Generated document request: ', generateAndUploadDocumentRequest);
       const response = await Axios.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',
         generateAndUploadDocumentRequest,
@@ -230,7 +228,6 @@ export class CosApiClient {
         documentName: response.data?.documentName,
       };
     } catch (err) {
-      console.log('Error: ', err);
       throw new Error('Upload citizen statement document failed.');
     }
   }
