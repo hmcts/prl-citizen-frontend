@@ -72,7 +72,13 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseEn().courtInvolvement_subFields,
           ...DomesticAbuseEn().letterOfBeingVictim_subFields,
           ...DomesticAbuseEn().letterFromAuthority_subFields,
+          ...GeneralContentEn(),
           generalReasonTitle: GeneralContentEn().title,
+          domesticViolenceHead: GeneralContentEn().domesticViolence,
+          childProtectionHead: GeneralContentEn().childProtection,
+          urgentHearingHead: GeneralContentEn().urgentHearing,
+          previousMIAMOrExemptHead: GeneralContentEn().previousMIAMOrExempt,
+          validExemptionHead: GeneralContentEn().validExemption,
         } as ANYTYPE;
         return { ...data };
       },
@@ -84,7 +90,13 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseCy().courtInvolvement_subFields,
           ...DomesticAbuseCy().letterOfBeingVictim_subFields,
           ...DomesticAbuseCy().letterFromAuthority_subFields,
-          generalReasonTitle: GeneralContentCy().title,
+          ...GeneralContentCy(),
+          generalReasonTitle: GeneralContentEn().title,
+          domesticViolenceHead: GeneralContentEn().domesticViolence,
+          childProtectionHead: GeneralContentEn().childProtection,
+          urgentHearingHead: GeneralContentEn().urgentHearing,
+          previousMIAMOrExemptHead: GeneralContentEn().previousMIAMOrExempt,
+          validExemptionHead: GeneralContentEn().validExemption,
         } as ANYTYPE;
         return { ...data };
       },
