@@ -15,7 +15,7 @@ export const form: FormContent = {
   ...selectAddressForm,
   fields: () => {
     return {
-      applicantSelectAddress: selectAddressFormFields.selectAddress,
+      citizenUserSelectAddress: selectAddressFormFields.citizenUserSelectAddress,
     };
   },
   submit: {

@@ -22,10 +22,10 @@ const dummySessionData = {
   ],
 };
 
+const controller = new LegalRepresentationGetController('page', () => ({}));
+
 describe('LegalRepresentationGetController', () => {
   test('Should render the page', async () => {
-    const controller = new LegalRepresentationGetController('page', () => ({}));
-
     const req = mockRequest({ dummySessionData });
     req.session.user.id = '123';
     req.session.userCase = dummySessionData;
@@ -36,8 +36,6 @@ describe('LegalRepresentationGetController', () => {
 
   describe('Getting the users preferred language', () => {
     test('Language whelsh via session', async () => {
-      const controller = new LegalRepresentationGetController('page', () => ({}));
-
       const language = 'cy';
       const req = mockRequest({ dummySessionData });
       req.session.user.id = '123';
@@ -54,8 +52,6 @@ describe('LegalRepresentationGetController', () => {
     });
 
     test("Doesn't call render if an error page has already been rendered upstream", async () => {
-      const controller = new LegalRepresentationGetController('page', () => ({}));
-
       const req = mockRequest();
       req.session.user.id = '123';
       req.session.userCase = dummySessionData;
@@ -66,8 +62,6 @@ describe('LegalRepresentationGetController', () => {
     });
 
     test("Doesn't call render if headers have already been sent already upstream", async () => {
-      const controller = new LegalRepresentationGetController('page', () => ({}));
-
       const req = mockRequest();
       req.session.user.id = '123';
       req.session.userCase = dummySessionData;
@@ -78,8 +72,6 @@ describe('LegalRepresentationGetController', () => {
     });
 
     test('sends the current page form session state to the view', async () => {
-      const controller = new LegalRepresentationGetController('page', () => ({}));
-
       const req = mockRequest();
       req.session.user.id = '123';
       req.session.userCase = dummySessionData;
@@ -90,8 +82,6 @@ describe('LegalRepresentationGetController', () => {
 
     describe('generatePageContent()', () => {
       test('calls generatePageContent with correct arguments for new sessions', async () => {
-        const controller = new LegalRepresentationGetController('page', () => ({}));
-
         const req = mockRequest({ userCase: { state: State.Draft }, session: { errors: [] } });
         req.session.user.id = '123';
         req.session.userCase = dummySessionData;

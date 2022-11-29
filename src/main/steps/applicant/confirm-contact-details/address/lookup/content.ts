@@ -15,8 +15,11 @@ export const form: FormContent = {
   ...addressLookupForm,
   fields: () => {
     return {
-      applicantAddressPostcode: addressLookupFormFields.addressPostcode,
+      citizenUserAddressPostcode: addressLookupFormFields.citizenUserAddressPostcode,
     };
+  },
+  submit: {
+    text: l => l.onlyContinue,
   },
 };
 

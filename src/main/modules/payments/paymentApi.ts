@@ -108,7 +108,6 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
         serviceRequestReference,
       };
     } catch (error) {
-      console.log(error);
       return error;
     }
   }
