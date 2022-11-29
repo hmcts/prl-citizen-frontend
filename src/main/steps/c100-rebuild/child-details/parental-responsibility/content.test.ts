@@ -24,7 +24,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Cyfrifoldeb rhiant dros Steve Jones ',
+  title: 'Cyfrifoldeb rhiant dros',
   parentalResponsibility: 'Datganwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
   subTitle: 'Nodwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
   bodyHint: `<p>Er enghraifft, ‘mam y plentyn’ neu ‘tad y plentyn oedd wedi priodi â’r fam pan gafodd y plentyn ei (g)eni’.</p>
