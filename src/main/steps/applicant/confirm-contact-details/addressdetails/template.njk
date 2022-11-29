@@ -1,1 +1,18 @@
 {% extends "common/confirm-contact-details/addressdetails/template.njk" %}
+{% block form %}
+<p class="govuk-body govuk-!-font-weight-bold">
+{{ userCase.citizenUserAddressText }}
+</p>
+<div class="govuk-button-group">
+    <div>
+        <form action="/applicant/confirm-contact-details/checkanswers">
+        <button class="govuk-button" data-module="govuk-button">{{ onlyContinue }}</button>
+        </form>
+    </div>
+    <div>
+        <form action="/applicant/confirm-contact-details/address/lookup">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button">{{ editAddress }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

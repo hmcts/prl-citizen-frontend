@@ -24,8 +24,11 @@ const RespectiveFileContents = SystemLanguage => {
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
 };
 
-describe('dsds', function () {
-  test('should', () => {
+describe('test', function () {
+  test('should return english content', () => {
     expect(hearingDetailsContents('en').toString()).toEqual(RespectiveFileContents('en').toString());
+  });
+  test('should return cy content', () => {
+    expect(hearingDetailsContents('cy').toString()).toEqual(RespectiveFileContents('cy').toString());
   });
 });

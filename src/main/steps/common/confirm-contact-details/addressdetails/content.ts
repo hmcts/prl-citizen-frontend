@@ -3,7 +3,7 @@ import { FormContent } from '../../../../app/form/Form';
 
 const en = {
   title: 'Your address',
-  address: 'address',
+  citizenUserAddressText: 'address',
   continue: 'Save and continue',
   editAddress: 'Edit Address',
   errors: {},
@@ -11,7 +11,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Eich cyfeiriad',
-  address: 'cyfeiriad',
+  citizenUserAddressText: 'cyfeiriad',
   continue: 'Arbed a pharhau',
   editAddress: 'Golygu Cyfeiriad',
   errors: {},
@@ -24,10 +24,10 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    address: {
+    citizenUserAddressText: {
       type: 'label',
-      label: l => l.address,
-      labelSize: null,
+      label: l => l.citizenUserAddressText,
+      labelSize: 'm',
     },
   },
   submit: {

@@ -120,6 +120,13 @@ export interface Response {
   citizenInternationalElements?: CitizenInternationalElements;
   keepDetailsPrivate?: KeepDetailsPrivate;
   citizenFlags?: CitizenFlags
+  safeToCallOption?: string;
+}
+
+export interface CitizenFlags {
+  isApplicationViewed?: string,
+  isAllegationOfHarmViewed?: string
+  isAllDocumentsViewed?: string
 }
 
 
@@ -128,6 +135,15 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
 }
 
+export const enum DownloadFileFieldFlag {
+  IS_APPLICATION_VIEWED = 'isApplicationViewed',
+  IS_ALLEGATION_OF_HARM_VIEWED = 'isAllegationOfHarmViewed',
+
+}
+export interface FileProperties {
+  elements?: string[],
+  downloadFileFieldFlag?: string | DownloadFileFieldFlag
+}
 export interface CitizenInternationalElements {
   childrenLiveOutsideOfEnWl?: YesOrNo;
   childrenLiveOutsideOfEnWlDetails?: string;
@@ -841,29 +857,32 @@ export interface CaseData {
   citizenUserAdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   citizenUserEmailAddress?: string;
-  applicant1SafeToCall?: string;
+  citizenUserSafeToCall?: string;
   citizenUserPhoneNumber?: string;
   citizenUserDateOfBirth?: CaseDate;
   citizenUserDateOfBirthText?: string;
   applicant1Occupation?: string;
-  applicant1SelectAddress?: string;
+  citizenUserSelectAddress?: string;
   citizenUserPlaceOfBirth?: string;
   citizenUserPlaceOfBirthText?: string;
   applicant1PlaceOfText?: string;
-  applicant1Address1?: string;
-  applicant1Address2?: string;
-  applicant1AddressTown?: string;
-  applicant1AddressCounty?: string;
-  applicant1AddressPostcode?: string;
+  citizenUserAddress1?: string;
+  citizenUserAddress2?: string;
+  citizenUserAddressTown?: string;
+  citizenUserAddressCounty?: string;
+  citizenUserAddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
+  citizenUserManualAddress1?: string;
+  citizenUserManualAddress2?: string;
+  citizenUserManualAddressTown?: string;
+  citizenUserManualAddressCounty?: string;
   c100Applicants?: C100Applicant;
-
+citizenUserManualAddressPostcode?: string;
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
   startAlternative?: string;
-
   citizenRole?: FieldPrefix;
   fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
   doYouConsent?: YesOrNo;
@@ -873,6 +892,7 @@ export interface CaseData {
   courtOrderDetails?: string;
   miamStart?: string;
   citizenUploadedDocumentList?: UploadDocumentList[];
+  orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   start?: YesOrNo;
   parents?: YesOrNo;
   jurisdiction?: YesOrNo;
@@ -882,6 +902,15 @@ export interface CaseData {
   iFactorsRequestProvideDetails?: string;
   iFactorsParentsProvideDetails?: string;
   legalRepresentation?: YesOrNo;
+  doesOrderClosesCase?: YesOrNo;
+  selectTypeOfOrder?: SelectTypeOfOrderEnum;
+  citizenResponseC7DocumentList?: ResponseDocumentList[];
+}
+
+export const enum SelectTypeOfOrderEnum {
+  interim = 'interim',
+  general = 'general',
+  finl = 'finl',
 }
 
 export interface ConfidentialDetails {
@@ -1488,6 +1517,12 @@ export const enum YesNoDontKnow {
   empty = '',
 }
 
+export const enum YesNoIDontKnow {
+  YES = 'Yes',
+  NO = 'No',
+  IDONTKNOW = 'I'
+}
+
 export const enum SectionStatus {
   TO_DO = 'TO_DO',
   IN_PROGRESS = 'IN_PROGRESS',
@@ -1635,14 +1670,17 @@ export interface OtherProceedingEmptyTable {
 
 // // eslint-disable-next-line @typescript-eslint/no-empty-interface
 
+export interface ResponseDocumentList {
+  id: string;
+  value: ResponseDocuments;
+}
 
-
-
-
-
-
-
-
+export interface ResponseDocuments {
+  partyName: string;
+  createdBy: string;
+  dateCreated: Date;
+  citizenDocument: Document;
+}
 
 export interface Value13 {
   dateEnded: string;
@@ -2300,6 +2338,7 @@ export interface Value {
   dateCreated: string;
   documentDetails: DocumentDetails;
   citizenDocument: CitizenDocument;
+  documentRequestedByCourt: YesOrNo;
 }
 
 export interface UploadDocumentList {
@@ -2322,6 +2361,27 @@ export const enum ThePrayer {
 
 export type RespondentCaseId = string | number | undefined;
 export type RespondentCaseData = object | [] | undefined;
+
+export interface Banner {
+  bannerHeading?: string;
+  bannerHeadingLink?: string;
+  bannerHeadingText?: string;
+  bannerContent?: Content[];
+  bannerLinks?: BannerLink[];
+}
+export interface Content {
+  line1?: string;
+  line2?: string;
+}
+export interface BannerLink {
+  href?: string;
+  text?: string;
+}
+
+export interface WithoutNoticeOrderDetails {
+  orderWithoutGivingNotice?: YesOrNo;
+}
+
 
 export const enum C100_CASE_TYPE {
   C100 = 'C100',

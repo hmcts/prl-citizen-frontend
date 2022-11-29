@@ -18,6 +18,7 @@ export default class ContactDetailPostController extends PostController<AnyObjec
     const applicantId = req.params.applicantId as C100Applicant['id'];
 
     const form = new Form(getFormFields().fields as FormFields);
+    const { onlycontinue, saveAndComeLater } = req.body;
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId) as number;
@@ -30,7 +31,11 @@ export default class ContactDetailPostController extends PostController<AnyObjec
       canNotProvideTelephoneNumberReason: req.body['canNotProvideTelephoneNumberReason'] as YesNoEmpty,
       canLeaveVoiceMail: req.body['canLeaveVoiceMail'] as YesNoEmpty,
     };
-    req.session.errors = form.getErrors(formData);
-    this.redirect(req, res);
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      return super.redirect(req, res);
+    } else if (saveAndComeLater) {
+      super.saveAndComeLater(req, res, { appl_allApplicants: req.session.userCase.appl_allApplicants });
+    }
   }
 }

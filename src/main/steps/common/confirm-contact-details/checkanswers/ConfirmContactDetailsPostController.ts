@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
-//import { getSystemUser } from '../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { Applicant, Respondent } from '../../../../app/case/definition';
 import { toApiFormat } from '../../../../app/case/to-api-format';
@@ -17,6 +16,23 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
+
+  public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
+    req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+      if (respondent?.value?.user?.idamId === req.session?.user.id) {
+        Object.assign(respondent.value, setContactDetails(respondent.value, req));
+      }
+    });
+  }
+
+  public async c100Apllicant(req: AppRequest<AnyObject>): Promise<void> {
+    req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
+      if (applicant?.value?.user?.idamId === req.session?.user.id) {
+        Object.assign(applicant.value, setContactDetails(applicant.value, req));
+      }
+    });
+  }
+
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
@@ -27,26 +43,19 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     Object.assign(req.session.userCase, caseDataFromCos);
     if (req.session.userCase.caseTypeOfApplication === 'C100') {
       if (req.url.includes('respondent')) {
-        req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-          if (respondent?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(respondent.value, setContactDetails(respondent.value, req));
-          }
-        });
+        this.c100Respondent(req);
       } else {
-        req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
-          if (applicant?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(applicant.value, setContactDetails(applicant.value, req));
-          }
-        });
+        this.c100Apllicant(req);
       }
     } else {
-      if (req.url.includes('respondent')) {
-        if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
-          Object.assign(
-            req.session.userCase.respondentsFL401,
-            setContactDetails(req.session.userCase.respondentsFL401, req)
-          );
-        }
+      if (
+        req.url.includes('respondent') &&
+        req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id
+      ) {
+        Object.assign(
+          req.session.userCase.respondentsFL401,
+          setContactDetails(req.session.userCase.respondentsFL401, req)
+        );
       } else {
         if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
           Object.assign(
@@ -61,7 +70,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     caseData.id = caseReference;
     const updatedCaseDataFromCos = await client.updateCase(
       loggedInCitizen,
-      caseReference as string,
+      caseReference,
       caseData,
       'linkCitizenAccount'
     );
