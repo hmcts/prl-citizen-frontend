@@ -42,33 +42,33 @@ export const en = () => ({
 
 export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
-  headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',
-  paragraph1: 'See the National Society for Prevention of Cruelty to Children (NSPCC) guidance on - welsh',
-  spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse - welsh',
-  spottingSignsOfChildAbuseLabel: ' spotting the signs of child abuse. - welsh',
-  select_all_relevant: 'Select any options that are relevant to your situation. - welsh',
-  physicalAbuse: 'Physical abuse - welsh',
-  physicalAbuseHint: 'Behaviour such as punching, choking, kicking or hitting with an object - welsh',
-  psychologicalAbuse: 'Psychological abuse - welsh',
+  caption: 'Pryderon diogelwch',
+  headingTitle: "Pa fath o ymddygiad y mae'r plant wedi ei brofi neu mewn perygl o’i brofi?",
+  paragraph1: "Gweler canllawiau'r Gymdeithas Genedlaethol er Atal Creulondeb i Blant (NSPCC) ar ",
+  spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse',
+  spottingSignsOfChildAbuseLabel: 'adnabod arwyddion o gam-drin plant.',
+  select_all_relevant: "Dewiswch unrhyw opsiynau sy'n berthnasol i'ch sefyllfa chi. ",
+  physicalAbuse: 'Cam-drin corfforol',
+  physicalAbuseHint: 'Ymddygiad megis dyrnu, tagu, cicio neu daro gyda gwrthrych',
+  psychologicalAbuse: 'Cam-drin seicolegol',
   psychologicalAbuseHint:
-    'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder - welsh',
-  emotionalAbuse: 'Emotional abuse - welsh',
-  emotionalAbuseHint: 'Making a child feel unloved, worthless, humiliated or ignored - welsh',
-  sexualAbuse: 'Sexual abuse - welsh',
+    "Cael eu rhoi mewn sefyllfa sy'n arwain at or-bryder, iselder, neu anhwylder straen ar ôl trawma",
+  emotionalAbuse: 'Cam-drin emosiynol',
+  emotionalAbuseHint:
+    'Gwneud i blentyn deimlo fel nad oes neb yn ei garu, ei fod yn ddiwerth, yn cael ei fychanu neu ei anwybyddu',
+  sexualAbuse: 'Cam-drin rhywiol',
   sexualAbuseHint:
-    'A child being forced or persuaded to take part in sexual activities, including online. It can be without contact, for example grooming or exploitation - welsh',
-  financialAbuse: 'Financial abuse - welsh',
-  financialAbuseHint:
-    "Stealing and exploiting a child's money, or using their personal information to obtain funds - welsh",
-  witnessingDomesticAbuse: 'Witnessing domestic abuse - welsh',
+    'Plentyn yn cael ei orfodi neu ei berswadio i gymryd rhan mewn gweithgareddau rhywiol, gan gynnwys ar-lein. Gall fod heb gyswllt, er enghraifft meithrin perthynas amhriodol neu ecsploetiaeth',
+  financialAbuse: 'Cam-drin ariannol',
+  financialAbuseHint: 'Dwyn a defnyddio arian plentyn, neu ddefnyddio ei wybodaeth bersonol er mwyn cael arian',
+  witnessingDomesticAbuse: 'Gweld cam-drin domestig',
   witnessingDomesticAbuseHint:
-    "The child's emotional and mental wellbeing being impacted by domestic abuse in the home - welsh",
-  abductionAbuse: 'Abduction - welsh',
+    'Lles emosiynol a meddyliol y plentyn yn cael ei effeithio gan gam-drin domestig yn y cartref',
+  abductionAbuse: 'Cipio',
   abductionAbuseHint:
-    'A risk of the children being taken away from their caregivers, especially if they are kept abroad - welsh',
-  somethingElse: 'Something else - welsh',
-  somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
+    'Risg y bydd plant yn cael eu cymryd oddi wrth eu gofalwyr, yn enwedig os ydynt yn cael eu cadw dramor',
+  somethingElse: 'Rhywbeth arall',
+  somethingElseHint: "Unrhyw bryderon sydd gennych nad ydynt yn ffitio i'r categorïau uchod",
   errors: {
     c1A_concernAboutChild: {
       required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing - welsh',

@@ -27,15 +27,15 @@ export const en = () => ({
 
 export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
-  title: 'Have the children been impacted by drug, alcohol or substance abuse? - welsh',
-  line1: 'This could be abuse that is taking place now, or abuse that occurred in the past. - welsh',
+  caption: 'Pryderon diogelwch',
+  title: 'A fu effaith ar y plant o ganlyniad i gamddefnyddio cyffuriau, alcohol neu sylweddau?',
+  line1: "Gallai hyn fod yn gamdriniaeth sy'n digwydd nawr neu yn y gorffennol.",
   line2:
-    'For example, you think the children are impacted by living with someone who has a substance abuse problem. -welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
+    "Er enghraifft, rydych chi'n meddwl yr effeithir ar y plant oherwydd eu bod yn byw efo rhywun sydd â phroblem camddefnyddio sylweddau.",
+  one: 'Do',
+  two: 'Naddo',
   description:
-    'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing. - Welsh',
+    "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     c1A_otherConcernsDrugs: {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse - Welsh',

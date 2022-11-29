@@ -7,7 +7,7 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Further Information',
-  childrenKnownToSocialServicesLabel: 'Are any of the children known to social service?',
+  childrenKnownToSocialServicesLabel: 'Are any of the children known to social services?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a child protection plan?',

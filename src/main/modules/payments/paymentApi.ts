@@ -95,6 +95,7 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
         date_created,
         external_reference,
         next_url,
+        status,
         serviceRequestReference,
       }: PaymentRetrivalDataType = requestPaymentUpdate['data'];
 
