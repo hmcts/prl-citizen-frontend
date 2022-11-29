@@ -18,7 +18,7 @@ export const enContent = {
     addressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
     citizenUserEmailAddressText: 'Email',
-    applicant1SafeToCall: 'When it is safe to call you',
+    citizenUserSafeToCall: 'When it is safe to call you',
   },
   errors: {},
 };

@@ -31,19 +31,19 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Manylion cyfeiriad',
-  addressLine1Hint: 'Court documents may be sent here - welsh',
+  addressLine1Hint: 'Gellir anfon dogfennau’r llys yma',
   errors: {
     AddressLine1: {
-      required: 'Enter the first line of the address - welsh',
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     PostTown: {
-      required: 'Enter the town or city - welsh',
+      required: ' Nodwch y dref neu’r ddinas',
     },
     addressUnknown: {
-      cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+      cantHaveAddressAndUnknown: "Methu cael cyfeiriad a hefyd “nid wyf yn gwybod lle maen nhw'n byw ar hyn o bryd",
     },
     Country: {
-      required: 'Enter the country - welsh',
+      required: 'Nodwch y wlad',
     },
   },
 });

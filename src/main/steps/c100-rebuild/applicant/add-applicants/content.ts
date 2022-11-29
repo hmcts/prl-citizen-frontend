@@ -37,10 +37,10 @@ const cy = () => ({
   labelFornewName: 'Nodwch enw newydd',
   errors: {
     applicantFirstName: {
-      required: 'Enter the first name - welsh',
+      required: 'Nodwch yr enw cyntaf',
     },
     applicantLastName: {
-      required: 'Enter the last name - welsh',
+      required: 'Nodwch yr enw olaf',
     },
   },
 });

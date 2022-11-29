@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesNoIDontKnow, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (
   userCase: Partial<CaseWithId> | undefined,
@@ -22,6 +22,10 @@ export const getKeepYourDetailsPrivateStatus = (
     status = SectionStatus.IN_PROGRESS;
   }
   return status;
+};
+
+export const getYourApplication = (): SectionStatus => {
+  return SectionStatus.DOWNLOAD;
 };
 
 export const getConfirmOrEditYourContactDetails = (
@@ -77,22 +81,6 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
   return SectionStatus.TO_DO;
 };
 
-export const getCheckAllegationOfHarmStatus = (
-  userCase: Partial<CaseWithId> | undefined,
-  userIdamId: string
-): SectionStatus => {
-  let status = SectionStatus.DOWNLOAD;
-  userCase?.respondents?.forEach((respondent: Respondent) => {
-    if (
-      respondent?.value.user?.idamId === userIdamId &&
-      respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
-    ) {
-      status = SectionStatus.VIEW;
-    }
-  });
-  return status;
-};
-
 export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
@@ -127,48 +115,55 @@ export const getViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): 
 };
 
 export const getRespondentResponseToRequestForChildArrangements = (userCase: CaseWithId): boolean => {
-  let flag = false;
+  let flagChild = false;
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
-    flag = true;
+    flagChild = true;
   }
-  return flag;
+  return flagChild;
 };
 
 export const getRespondentAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
-  let flag = false;
+  let flagHarmViolence = false;
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
-    flag = true;
+    flagHarmViolence = true;
   }
-  return flag;
+  return flagHarmViolence;
 };
 
 export const getViewAllDocuments = (): SectionStatus => {
   return SectionStatus.READY_TO_VIEW;
 };
 
+export const getUploadDocuments = (): SectionStatus => {
+  return SectionStatus.TO_DO;
+};
+
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
-    userCase?.proceedingsStart &&
-    userCase?.proceedingsStartOrder &&
-    userCase?.emergencyOrderOptions &&
-    userCase?.supervisionOrderOption &&
-    userCase?.careOrderOptions &&
-    userCase?.childAbductionOrderOption &&
-    userCase?.caOrderOption &&
-    userCase?.financialOrderOption &&
-    userCase?.nonmolestationOrderOption &&
-    userCase?.occupationalOrderOptions &&
-    userCase?.marraigeOrderOptions &&
-    userCase?.restrainingOrderOptions &&
-    userCase?.injuctiveOrderOptions &&
-    userCase?.underTakingOrderOptions
+    ((userCase?.proceedingsStart === YesNoIDontKnow.NO || userCase?.proceedingsStart === YesNoIDontKnow.IDONTKNOW) &&
+      userCase?.proceedingsStartOrder === YesNoIDontKnow.NO) ||
+    (userCase?.proceedingsStart &&
+      userCase?.proceedingsStartOrder &&
+      userCase?.emergencyOrderOptions &&
+      userCase?.supervisionOrderOption &&
+      userCase?.careOrderOptions &&
+      userCase?.childAbductionOrderOption &&
+      userCase?.caOrderOption &&
+      userCase?.financialOrderOption &&
+      userCase?.nonmolestationOrderOption &&
+      userCase?.occupationalOrderOptions &&
+      userCase?.marraigeOrderOptions &&
+      userCase?.restrainingOrderOptions &&
+      userCase?.injuctiveOrderOptions &&
+      userCase?.underTakingOrderOptions)
   ) {
     return SectionStatus.COMPLETED;
   }
+
   if (
     userCase?.proceedingsStart ||
     userCase?.proceedingsStartOrder ||
-    userCase?.supervisionOrderOption ||
+    userCase?.emergencyOrderOptions ||
     userCase?.supervisionOrderOption ||
     userCase?.careOrderOptions ||
     userCase?.childAbductionOrderOption ||
@@ -183,6 +178,7 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId>
   ) {
     return SectionStatus.IN_PROGRESS;
   }
+
   return SectionStatus.TO_DO;
 };
 export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
@@ -190,4 +186,103 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
     return SectionStatus.COMPLETED;
   }
   return SectionStatus.TO_DO;
+};
+
+export const getFinalApplicationStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  let result = SectionStatus.DOWNLOAD;
+
+  if (!userCase?.finalDocument?.document_binary_url) {
+    return SectionStatus.NOT_AVAILABLE_YET;
+  }
+
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (
+      respondent?.value.user.idamId === userIdamId &&
+      respondent?.value?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES
+    ) {
+      result = SectionStatus.VIEW;
+    }
+  });
+
+  return result;
+};
+
+export const getCheckAllegationOfHarmStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  let status = SectionStatus.DOWNLOAD;
+
+  if (!userCase?.c1ADocument?.document_binary_url) {
+    return SectionStatus.NOT_AVAILABLE_YET;
+  }
+
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (
+      respondent?.value.user?.idamId === userIdamId &&
+      respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
+    ) {
+      status = SectionStatus.VIEW;
+    }
+  });
+  return status;
+};
+
+export const getRespondentSupportYourNeedsDetails = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
+  if (
+    userCase?.respondentAttendingToCourt &&
+    userCase?.respondentLangRequirements &&
+    userCase?.respondentSpecialArrangements &&
+    userCase?.respondentReasonableAdjustments &&
+    userCase?.respondentDocsSupport &&
+    userCase?.respondentHelpCommunication &&
+    userCase?.respondentCourtHearing &&
+    userCase?.respondentCourtComfort &&
+    userCase?.respondentTravellingToCourt
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+  if (
+    userCase?.respondentAttendingToCourt ||
+    userCase?.respondentHearingDetails ||
+    userCase?.respondentLangRequirements ||
+    userCase?.respondentLangDetails ||
+    userCase?.respondentSpecialArrangements ||
+    userCase?.respondentSpecialArrangementsDetails ||
+    userCase?.respondentReasonableAdjustments ||
+    userCase?.respondentDocsSupport ||
+    userCase?.respondentDocsDetails ||
+    userCase?.respondentLargePrintDetails ||
+    userCase?.respondentOtherDetails ||
+    userCase?.respondentHelpCommunication ||
+    userCase?.respondentSignLanguageDetails ||
+    userCase?.respondentDescribeOtherNeed ||
+    userCase?.respondentCourtHearing ||
+    userCase?.respondentSupportWorkerDetails ||
+    userCase?.respondentFamilyDetails ||
+    userCase?.respondentTherapyDetails ||
+    userCase?.respondentCommSupportOther ||
+    userCase?.respondentCourtComfort ||
+    userCase?.respondentLightingDetails ||
+    userCase?.respondentOtherProvideDetails ||
+    userCase?.respondentTravellingToCourt ||
+    userCase?.respondentParkingDetails ||
+    userCase?.respondentDifferentChairDetails ||
+    userCase?.respondentTravellingOtherDetails
+  ) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
+
+export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userId: string): Respondent | undefined => {
+  for (let i = 0; i < userCase.respondents!.length; i++) {
+    if (userCase.respondents![i].value.user.idamId === userId) {
+      return userCase.respondents![i];
+    }
+  }
+  return undefined;
 };

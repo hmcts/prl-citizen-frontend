@@ -7,7 +7,7 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Further Information',
-  childrenKnownToSocialServicesLabel: 'Are any of the children known to social service?',
+  childrenKnownToSocialServicesLabel: 'Are any of the children known to social services?',
   childrenKnownToSocialServicesHint:
     'State which child and the name of the local authority and social worker, if known',
   childrenSubjectOfProtectionPlanLabel: 'Are any of the children the subject of a child protection plan?',
@@ -42,13 +42,13 @@ export const cy = () => ({
   three: 'Ddim yn gwybod',
   errors: {
     cd_childrenKnownToSocialServices: {
-      required: 'Select if any of the children are known to social services - welsh',
+      required: ' ‘Nodwch a yw’r gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant',
     },
     cd_childrenKnownToSocialServicesDetails: {
-      required: 'Enter details - welsh',
+      required: 'Rhowch fanylion - cymraeg',
     },
     cd_childrenSubjectOfProtectionPlan: {
-      required: 'Select if any of the children are the subject of a child protection plan - welsh',
+      required: 'Nodwch a oes unrhyw un o’r plant yn destun cynllun amddiffyn plentyn - cymraeg',
     },
   },
 });

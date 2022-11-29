@@ -17,7 +17,6 @@ export const getTokenFromApi = async (): Promise<string> => {
 
   try {
     const response = await Axios.post(url, body);
-    logger.info('Service auth token refreshed');
     token = response.data;
   } catch (err) {
     logger.error('Error in refreshing service auth token ', err.message, err.response?.status, err.response?.data);

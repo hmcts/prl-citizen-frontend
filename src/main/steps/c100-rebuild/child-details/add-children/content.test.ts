@@ -35,14 +35,14 @@ const cy = {
   firstNameHint: 'Dylech gynnwys yr holl enwau canol yma',
   lastNameLabel: 'Cyfenw(au)',
   addChildLabel: 'Ychwanegu plentyn arall',
-  removeChildLabel: 'Remove child - welsh',
+  removeChildLabel: 'Symud plentyn',
   newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
-      required: 'Enter the first name - welsh',
+      required: 'Nodwch yr enw cyntaf',
     },
     c100TempLastName: {
-      required: 'Enter the last name - welsh',
+      required: 'Nodwch yr enw olaf',
     },
   },
 };

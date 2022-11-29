@@ -25,7 +25,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: 'A oes unrhyw un arall y dylai wybod am eich cais?',
   paragraph: 'Er enghraifft, dylech ddweud wrth pawb sy’n:',
   bulletPoints: [
@@ -37,7 +37,7 @@ const cy = {
   two: 'Nac oes',
   errors: {
     oprs_otherPersonCheck: {
-      required: 'Select yes if anyone else should know about the application - welsh',
+      required: 'Dewiswch ‘dylai’ os dylai unrhyw un arall wybod am y cais',
     },
   },
 };
