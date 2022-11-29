@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
@@ -103,7 +104,13 @@ export const form: FormContent = {
       type: 'checkboxes',
       classes: 'govuk-checkboxes',
       label: l => l.miamLabel,
-      values: [{ label: l => l.miamConsentStatement, value: 'Yes' }],
+      values: [
+        {
+          name: 'miam_consent',
+          label: l => l.miamConsentStatement,
+          value: YesOrNo.YES,
+        },
+      ],
       validator: isFieldFilledIn,
     },
   },
