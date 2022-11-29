@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { Case } from '../../app/case/case';
 import { C100_CASE_EVENT } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { C100_CONFIRMATIONPAGE, DASHBOARD_URL } from '../../steps/urls';
+import { C100_CHECK_YOUR_ANSWER, C100_CONFIRMATIONPAGE } from '../../steps/urls';
 
 import { CheckPaymentStatusApi, PaymentTaskResolver } from './paymentApi';
 import { PaymentHelper } from './paymentHelper';
@@ -78,7 +78,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
         default:
           req.session.paymentError = true;
           req.session.save(() => {
-            res.redirect(DASHBOARD_URL);
+            res.redirect(C100_CHECK_YOUR_ANSWER);
           });
       }
     } catch (error) {
@@ -96,11 +96,19 @@ async function submitCase(
   returnUrl: string,
   caseEvent: C100_CASE_EVENT
 ): Promise<void> {
-  const updatedCase = await req.locals.C100Api.updateCase(caseId, caseData, returnUrl, caseEvent);
-  //update final document in session for download on confirmation
-  req.session.userCase.finalDocument = updatedCase?.finalDocument;
-  //save & redirect to confirmation page
-  req.session.save(() => {
-    res.redirect(C100_CONFIRMATIONPAGE);
-  });
+  try {
+    const updatedCase = await req.locals.C100Api.updateCase(caseId, caseData, returnUrl, caseEvent);
+    //update final document in session for download on confirmation
+    req.session.userCase.finalDocument = updatedCase?.finalDocument;
+    //save & redirect to confirmation page
+    req.session.save(() => {
+      res.redirect(C100_CONFIRMATIONPAGE);
+    });
+  } catch (e) {
+    req.locals.logger.error('Error in submit case ', e);
+    req.session.paymentError = true;
+    req.session.save(() => {
+      res.redirect(C100_CHECK_YOUR_ANSWER);
+    });
+  }
 }
