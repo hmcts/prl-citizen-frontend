@@ -4,7 +4,7 @@
 {% block before_fields %}
   <label class="govuk-label govuk-label--m">{{ postcode }}</label>
   <div class="govuk-form-group float-left">
-    <p class="govuk-body govuk-!-font-size-19">{{ userCase.applicantAddressPostcode }}</p>
+    <p class="govuk-body govuk-!-font-size-19">{{ userCase.citizenUserAddressPostcode }}</p>
     <p class="govuk-body">
       <a href="{{changePostCodeUrl}}" data-link="resetPostCodeLookup" class="govuk-link govuk-!-font-size-19" aria-label="{{ change }} {{ postcode }}">{{ change }}</a>
     </p>

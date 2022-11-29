@@ -49,7 +49,7 @@ const en = {
 
 const cy = {
   title: 'Manylion cyswllt ',
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   canProvideEmailLabel: 'Allwch chi ddarparu cyfeiriad e-bost',
   canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
   emailAdddressLabel: 'Eich cyfeiriad e-bost',
@@ -64,24 +64,24 @@ const cy = {
   canNotProvideTelephoneNumberReason: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
   errors: {
     canProvideEmail: {
-      required: 'Please select email option - welsh',
+      required: ' Dewiswch opsiwn e-bost',
     },
     canProvideTelephoneNumber: {
-      required: 'Please select telephone number option - welsh',
+      required: 'Dewiswch opsiwn rhif ffôn',
     },
     emailAddress: {
-      required: 'Enter an email address or select cannot provide email address option - welsh',
-      invalid: 'Enter an email address in the correct format, like name@example.com - welsh',
+      required: 'Rhowch gyfeiriad e-bost neu  dewiswch yr opsiwn ni allaf ddarparu cyfeiriad e-bost',
+      invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
     },
     telephoneNumber: {
-      invalid: 'Enter a telephone number in the correct format - welsh',
-      required: 'Enter a telephone number or tell us why the court cannot phone you - welsh',
+      invalid: ' Nodwch gyfeirnod yr achos yn y fformat cywir',
+      required: 'Rhowch rif ffôn neu dywedwch wrthym pam na all y llys eich ffonio',
     },
     canNotProvideTelephoneNumberReason: {
-      required: 'Please tell us why you cannot provide telephone number - welsh',
+      required: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
     },
     canLeaveVoiceMail: {
-      required: 'Please select voice mail option - welsh',
+      required: 'Dewiswch opsiwn neges llais',
     },
   },
 };

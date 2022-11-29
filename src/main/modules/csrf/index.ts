@@ -2,7 +2,12 @@ import csurf from 'csurf';
 import type { Application } from 'express';
 import type { LoggerInstance } from 'winston';
 
-import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
+import {
+  C100_CONSENT_ORDER_UPLOAD,
+  C100_MIAM_UPLOAD,
+  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+  CSRF_TOKEN_ERROR_URL,
+} from '../../steps/urls';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
@@ -15,7 +20,10 @@ export class CSRFToken {
     });
 
     app.use((error, req, res, next) => {
-      if (error.code === 'EBADCSRFTOKEN') {
+      if (
+        error.code === 'EBADCSRFTOKEN' &&
+        req.path !== (C100_CONSENT_ORDER_UPLOAD || C100_MIAM_UPLOAD || C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD)
+      ) {
         logger.error(`${error.stack || error}`);
         return res.redirect(CSRF_TOKEN_ERROR_URL);
       }

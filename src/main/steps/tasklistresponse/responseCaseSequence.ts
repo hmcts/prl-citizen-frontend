@@ -10,6 +10,7 @@ import {
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
+  INTERNATIONAL_FACTORS_SAVE,
   INTERNATIONAL_FACTORS_START,
   INTERNATIONAL_FACTORS_SUMMARY,
   MIAM_ATTEND_WILLINGNESS,
@@ -18,12 +19,12 @@ import {
   MIAM_SUMMARY,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
-  RESPONDENT_ADDRESS_BLANK,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
   RESPONDENT_ADDRESS_HISTORY,
   RESPONDENT_ADDRESS_LOOKUP,
-  RESPONDENT_ADDRESS_LOOKUP_CONT,
+  RESPONDENT_ADDRESS_MANUAL,
+  RESPONDENT_ADDRESS_SELECT,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_DETAILS_KNOWN,
@@ -73,12 +74,12 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: MIAM_START,
@@ -118,10 +119,10 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_ADDRESS_LOOKUP,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ADDRESS_LOOKUP_CONT,
+    getNextStep: () => RESPONDENT_ADDRESS_SELECT,
   },
   {
-    url: RESPONDENT_ADDRESS_LOOKUP_CONT,
+    url: RESPONDENT_ADDRESS_SELECT,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_ADDRESS_CONFIRMATION,
   },
@@ -133,12 +134,12 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPONDENT_ADDRESS_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => RESPONDENT_ADDRESS_HISTORY,
   },
   {
-    url: RESPONDENT_ADDRESS_BLANK,
+    url: RESPONDENT_ADDRESS_MANUAL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => RESPONDENT_ADDRESS_HISTORY,
   },
   {
     url: RESPONDENT_ADDRESS_HISTORY,
@@ -168,7 +169,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => INTERNATIONAL_FACTORS_SAVE,
   },
   {
     url: SAFETY_MAIN_PAGE,

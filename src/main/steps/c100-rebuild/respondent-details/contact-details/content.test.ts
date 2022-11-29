@@ -40,12 +40,12 @@ const cy = {
 
   errors: {
     emailAddress: {
-      required: 'Enter an email address in the correct format, like name@example.com - welsh',
-      invalid: 'Enter an email address in the correct format, like name@example.com - welsh',
+      required: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
+      invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
     },
     telephoneNumber: {
-      required: 'Enter an answer - welsh',
-      invalid: 'is invalid - welsh',
+      required: 'Rhowch ateb',
+      invalid: 'yn annilys',
     },
   },
 };

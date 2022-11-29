@@ -1,27 +1,25 @@
 {
     "translations": {
         "en": {
-            "section": "Applicant",
-            "serviceName": "Address/postcode lookup",
-            "title": "What is the address of the person named on the application ?"
+            "section": "Your address",
+            "serviceName": "Address/postcode lookup"
         },
         "cy": {
-            "section": "Applicant (in welsh)",
-            "serviceName": "Address/postcode lookup (in welsh)",
-            "title": "What is the address of the person named on the application ? (in welsh)"
+            "section": "Your address (in welsh)",
+            "serviceName": "Address/postcode lookup (in welsh)"
         }
     },
     "errors":{
         "en": {
-            "applicantAddressPostcode": {
-                "required": "Enter a real postcode",
-                "invalid": "Enter a real postcode"
+            "citizenUserAddressPostcode": {
+                "required": "Enter a valid postcode",
+                "invalid": "Enter a valid postcode"
             }
         },
         "cy": {
-            "applicantAddressPostcode": {
-                "required": "Enter a real postcode (in welsh)",
-                "invalid": "Enter a real postcode (in welsh)"
+            "citizenUserAddressPostcode": {
+                "required": "Enter a valid postcode (in welsh)",
+                "invalid": "Enter a valid postcode (in welsh)"
             }
         }
     }

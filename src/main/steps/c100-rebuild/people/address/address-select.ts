@@ -47,7 +47,7 @@ const cy = content => {
     postcode: 'Cod post cyfredol',
     selectAddress: 'Dewiswch gyfeiriad',
     cannotFindAddress: 'Ni allaf ddod o hyd i’r cyfeiriad yn y rhestr',
-    enterAddressManually: 'Or enter address manually - welsh',
+    enterAddressManually: 'Neu theipiwch y cyfeiriad',
     options,
     changePostCodeUrl: '#',
     cantFindAddressUrl: '#',
