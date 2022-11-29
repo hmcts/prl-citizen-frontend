@@ -126,6 +126,7 @@ export const generateFormFields = (
       hint: l => l.bodyHint,
       validator: atLeastOneFieldIsChecked,
       values: [
+        ...[],
         ...(filteredChildArrangementsOrderList?.map(order => {
           return {
             name: 'needsResolution',
