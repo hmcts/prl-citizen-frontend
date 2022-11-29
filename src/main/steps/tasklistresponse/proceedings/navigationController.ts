@@ -89,7 +89,6 @@ class OtherProceedingsNavigationController {
         nextUrl = currentPage;
         break;
     }
-    console.log(caseData?.courtProceedingsOrders);
     return nextUrl;
   }
 }
