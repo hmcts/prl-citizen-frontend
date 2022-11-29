@@ -62,7 +62,7 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '#',
+              href: '/applicant/support-you-need-during-case/language-requirements',
               id: 'support-you-need-during-your-case',
               text: 'Support you need during your case',
               status: 'NOT_AVAILABLE_YET',

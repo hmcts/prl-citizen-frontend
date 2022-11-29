@@ -31,7 +31,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           id: 'support-you-need-during-your-case',
           text: taskListItems.support_you_need_during_your_case,
           status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
+          href: URL.LANGUAGE_REQUIREMENTS,
         },
       ],
     },
