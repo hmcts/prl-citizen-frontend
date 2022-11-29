@@ -8,7 +8,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Do you have a written agreement with the other people in the case, that you want the court to review?',
+  title: 'Do you have a written agreement with the other people in the case that you want the court to review?',
   writtenAgreementDetails:
     'A written agreement between the parties that is made legally binding by the court is called a consent order.',
   approvalDetails: 'If you have a draft consent order, the court will review it and may give approval.',
@@ -24,8 +24,7 @@ const en = {
 };
 
 const cy = {
-  title:
-    'Do you have a written agreement with the other people in the case, that you want the court to review? - welsh',
+  title: 'Do you have a written agreement with the other people in the case that you want the court to review? - welsh',
   writtenAgreementDetails:
     'A written agreement between the parties that is made legally binding by the court is called a consent order. - welsh',
   approvalDetails: 'If you have a draft consent order, the court will review it and may give approval. - welsh',
