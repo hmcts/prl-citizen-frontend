@@ -42,6 +42,8 @@ import {
   PRLDocument,
   PartyDetails,
   Respondent,
+  ResponseDocumentList,
+  SelectTypeOfOrderEnum,
   SpecialArrangement,
   State,
   SummaryTabForOrderAppliedFor,
@@ -50,6 +52,7 @@ import {
   UrgencyDetails,
   WelshLanguageRequirementsTable,
   WelshNeed,
+  WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
   orderInterface,
@@ -185,20 +188,20 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenUserDateOfBirth: 'citizenUserDateOfBirth',
   applicant1Occupation: 'applicant1Occupation',
   citizenUserEmailAddress: 'citizenUserEmailAddress',
-  applicant1SafeToCall: 'applicant1SafeToCall',
+  citizenUserSafeToCall: 'citizenUserSafeToCall',
   citizenUserPhoneNumber: 'citizenUserPhoneNumber',
   citizenUserPlaceOfBirth: 'citizenUserPlaceOfBirth',
-  applicant1Address1: 'applicant1Address1',
-  applicant1Address2: 'applicant1Address2',
-  applicant1AddressTown: 'applicant1AddressTown',
-  // applicant1AddressCounty: 'applicant1AddressCountry',
-  // applicant1AddressPostcode: 'applicant1AddressPostCode',
+  // citizenUserAddress1: 'citizenUserAddress1',
+  // citizenUserAddress2: 'citizenUserAddress2',
+  // citizenUserAddressTown: 'citizenUserAddressTown',
+  // citizenUserAddressCounty: 'applicant1AddressCountry',
+  // citizenUserAddressPostcode: 'applicant1AddressPostCode',
   applicant1ContactDetails: 'applicant1ContactDetails',
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
   miamStart: 'miamStart',
-
+  orderWithoutGivingNoticeToRespondent: 'orderWithoutGivingNoticeToRespondent',
   start: 'start',
   iFactorsStartProvideDetails: 'iFactorsStartProvideDetails',
   parents: 'parents',
@@ -207,6 +210,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   iFactorsJurisdictionProvideDetails: 'iFactorsJurisdictionProvideDetails',
   request: 'request',
   iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
+  doesOrderClosesCase: 'doesOrderClosesCase',
+  selectTypeOfOrder: 'selectTypeOfOrder',
+  citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -370,28 +376,30 @@ export interface Case {
   applicant1AdditionalNames?: OtherName[];
   citizenUserEmailAddress?: string;
   citizenUserEmailAddressText?: string;
-  applicant1SafeToCall?: string;
+  citizenUserSafeToCall?: string;
   citizenUserPhoneNumber?: string;
   citizenUserPhoneNumberText?: string;
   citizenUserDateOfBirth?: CaseDate;
   citizenUserDateOfBirthText?: string;
   applicant1Occupation?: string;
-  applicant1SelectAddress?: string;
+  citizenUserSelectAddress?: string;
   citizenUserPlaceOfBirth?: string;
   citizenUserPlaceOfBirthText?: string;
-  applicant1Address1?: string;
-  applicant1Address2?: string;
-  applicant1AddressTown?: string;
-  applicant1AddressCounty?: string;
-  applicant1AddressPostcode?: string;
+  citizenUserAddress1?: string;
+  citizenUserAddress2?: string;
+  citizenUserAddressTown?: string;
+  citizenUserAddressCounty?: string;
+  citizenUserAddressPostcode?: string;
+  citizenUserAddressText?: string;
+  citizenUserAddressHistory?: string;
+  isAtAddressLessThan5Years?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
-  applicant1PostalAddress1?: string;
-  applicant1PostalAddress2?: string;
-  applicant1PostalAddress3?: string;
-  applicant1PostalAddressTown?: string;
-  applicant1PostalAddressCounty?: string;
-  applicant1PostalAddressPostcode?: string;
+  citizenUserManualAddress1?: string;
+  citizenUserManualAddress2?: string;
+  citizenUserManualAddressTown?: string;
+  citizenUserManualAddressCounty?: string;
+  citizenUserManualAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case
@@ -475,7 +483,11 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
+  orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;
+  doesOrderClosesCase?: YesOrNo;
+  selectTypeOfOrder?: SelectTypeOfOrderEnum;
+  citizenResponseC7DocumentList?: ResponseDocumentList[];
 
   //C100 Rebuild
   contactDetailsPrivateAlternative?: string;
@@ -585,7 +597,7 @@ export enum FieldPrefix {
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
   APPLICANT = 'applicant',
-  RESPONDENT = 'RESPONDENT',
+  RESPONDENT = 'respondent',
 }
 
 export interface UploadedFile {

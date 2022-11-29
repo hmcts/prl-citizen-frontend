@@ -32,8 +32,8 @@ const en = {
 };
 
 const cy = {
-  title: 'What is  - welsh',
-  title1: "'s relationship to - welsh",
+  title: 'Beth yw',
+  title1: 'Perthynas efo',
   mother: 'Mam',
   father: 'Tad',
   guardian: 'Gwarcheidwad',

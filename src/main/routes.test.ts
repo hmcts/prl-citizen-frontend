@@ -5,7 +5,6 @@ import {
   ACCESSIBILITY_STATEMENT,
   CONTACT_US,
   COOKIES_PAGE,
-  HOME_URL,
   PRIVACY_POLICY,
   RESPONDENT_TASK_LIST_URL,
   TERMS_AND_CONDITIONS,
@@ -17,15 +16,6 @@ jest.mock('./steps/error/error.controller', () => {
   return {
     ErrorController: jest.fn().mockImplementation(() => {
       return { CSRFTokenError: mockCSRFTokenError, notFound: mockNotFound };
-    }),
-  };
-});
-
-const mockHomeGetController = jest.fn();
-jest.mock('./steps/home/get', () => {
-  return {
-    HomeGetController: jest.fn().mockImplementation(() => {
-      return { get: mockHomeGetController };
     }),
   };
 });
@@ -120,7 +110,6 @@ describe('Routes', () => {
 
   test('should setup routes', () => {
     expect(appMock.get).toHaveBeenCalledWith('/csrf-token-error', mockCSRFTokenError);
-    expect(appMock.get).toHaveBeenCalledWith(HOME_URL, mockHomeGetController);
     expect(appMock.get).toHaveBeenCalledWith(COOKIES_PAGE, mockCookiesGetController);
     expect(appMock.get).toHaveBeenCalledWith(PRIVACY_POLICY, mockPrivacyPolicyGetController);
     expect(appMock.get).toHaveBeenCalledWith(TERMS_AND_CONDITIONS, mockTermsAndConditionsGetController);

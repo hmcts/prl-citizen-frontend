@@ -1,7 +1,7 @@
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getCaseDetails, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { caseApi } from '../../app/case/C100CaseApi';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
@@ -43,6 +43,10 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
+        if (req.path.startsWith(CITIZEN_HOME_URL) && !req.session?.user) {
+          return next();
+        }
+
         if (app.locals.developmentMode) {
           req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
         }
@@ -74,8 +78,8 @@ export class OidcMiddleware {
                 if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
                   const caseReference = req.session.userCase.caseCode;
                   const accessCode = req.session.userCase.accessCode;
-                  const data = { applicantCaseName: 'Tom Jerry - updated' };
-                  await client.linkCaseToCitizen1(
+                  const data = { applicantCaseName: 'DUMMY CASE DATA' };
+                  await client.linkCaseToCitizen(
                     req.session.user,
                     caseReference as string,
                     req,
@@ -86,30 +90,7 @@ export class OidcMiddleware {
                 }
               } catch (err) {
                 req.session.accessCodeLoginIn = false;
-                //TODO Log error saying case linking has failed
               }
-            }
-          }
-
-          if (!req.session.userCase) {
-            //This language preference will be used while creating a case
-            // const languagePreference =
-            //   req.session['lang'] === 'cy' ? LanguagePreference.WELSH : LanguagePreference.ENGLISH;
-            // req.session.userCase = await req.locals.api.getOrCreateCase(
-            //   res.locals.serviceType,
-            //   req.session.user,
-            //   languagePreference
-            // );
-            //setting the applicant's preferred language in session
-            // req.session['lang'] =
-            // req.session.userCase.applicant1LanguagePreference === LanguagePreference.WELSH ? 'cy' : 'en';
-          }
-          //TODO pvt law team to revisit & correct
-          if (req.path.startsWith(DASHBOARD_URL)) {
-            try {
-              req.session.userCaseList = await getCaseDetails(req);
-            } catch (e) {
-              req.locals.logger.error('**** getCaseDetails error', e);
             }
           }
           return next();

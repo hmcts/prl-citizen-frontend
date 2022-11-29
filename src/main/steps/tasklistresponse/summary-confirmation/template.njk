@@ -1,0 +1,57 @@
+{% extends "common/template.njk" %}
+{% block page_content %}
+<div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6">
+            <h1 class="govuk-panel__title">
+              Response submitted successfully
+            </h1>
+            <div class="govuk-panel__body">
+              Case number <br><strong>{{userCase.id}}</strong>
+            </div>
+          </div>
+
+    <p class="govuk-body">By submitting this response you have completed the following:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Your response to the application</li>
+          </ul>
+
+          <h2 class="govuk-heading-m">What happens next</h2>
+
+    <ul class="govuk-list govuk-list--bullet govuk-list--spaced govuk-!-margin-bottom-6">
+            <li>The court will consider your response at the first hearing.</li>
+            <li>If a hearing has not been listed yet, the court will consider your response
+              after Cafcass has provided a safeguarding letter.</li>
+            <li>If you have informed the court that you need specific adjustments to take
+              part in the case, they will contact you to confirm what has been arranged.
+              If you haven't heard from the court within 3 days of the hearing,
+              call 0300 123 711 or email <a href="#" class="govuk-link">customer.service@justice.gov.uk</a>.</li>
+          </ul>
+
+    <p class="govuk-body govuk-!-font-weight-bold">You can also:</p>
+
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
+
+            <li><a href="https://helpwithchildarrangements.service.justice.gov.uk/going-to-court-other-parent" class="govuk-link" target="_blank">Read more about child arrangements</a></li>
+            <li><a href="https://www.gov.uk/find-legal-advice/find-legal-adviser" class="govuk-link" target="_blank">Find an organisation that will help you with your case</a></li>
+          </ul>
+  <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text" data-ga-category="explanations" data-ga-label="cya download draft">
+                Download your response (PDF)
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              <p class="govuk-body">
+                If you cannot open the PDF file on your device, download and install
+                <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> and try again.
+              </p>
+              <p class="govuk-body">
+                A copy of your submitted application will be in your personal dashboard.
+              </p>
+
+              <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Download your response</a>
+
+            </div>
+          
+          </details>
+         <div class="govuk-!-padding-bottom-4"></div>
+{% endblock %}

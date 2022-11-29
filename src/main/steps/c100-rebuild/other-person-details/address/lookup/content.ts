@@ -30,8 +30,8 @@ const cy = () => ({
   enterAddressManually: 'Nid wyf yn gwybod beth yw eu cod post neu maen nhw’n byw y tu allan i’r DU',
   errors: {
     PostCode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
+      required: 'Nodwch y cod post',
+      invalid: 'Rhowch god post dilys.',
     },
   },
 });

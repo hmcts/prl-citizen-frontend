@@ -3,9 +3,6 @@ import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
   const results: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
-    applicant1Address1: 'MOCK_applicant1Address1',
-    applicant1Address2: 'MOCK_applicant1Address2',
-    applicant1AddressTown: 'MOCK_applicant1AddressTown',
     applicant1ContactDetailsConsent: 'Yes',
     citizenUserEmailAddress: 'abc@gmail.com',
     citizenUserFirstNames: 'MOCK_applicant1FirstNames',
@@ -25,9 +22,6 @@ describe('from-api-format', () => {
 
   test('should convert results from api to prl citizen format', async () => {
     const privateLawFormat = fromApiFormat({
-      applicant1Address1: 'MOCK_applicant1Address1',
-      applicant1Address2: 'MOCK_applicant1Address2',
-      applicant1AddressTown: 'MOCK_applicant1AddressTown',
       applicant1ContactDetailsConsent: 'Yes',
       citizenUserEmailAddress: 'abc@gmail.com',
       citizenUserFirstNames: 'MOCK_applicant1FirstNames',

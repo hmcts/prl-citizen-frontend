@@ -46,7 +46,12 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
     : '';
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
-      ? HTML.BOTTOM_TOP_3 + FoundElement?.['seekHelpDetails'] + HTML.BOTTOM_PADDING_CLOSE
+      ? HTML.H4 +
+        keys['details'] +
+        HTML.H4_CLOSE +
+        HTML.BOTTOM_TOP_3 +
+        FoundElement?.['seekHelpDetails'] +
+        HTML.BOTTOM_PADDING_CLOSE
       : '';
   return bodyHtml;
 };

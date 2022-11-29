@@ -25,14 +25,13 @@ const en = {
 
 const cy = {
   title: 'Cyfrifoldeb rhiant dros Steve Jones ',
-  parentalResponsibility:
-    'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility. - welsh',
+  parentalResponsibility: 'Datganwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
   subTitle: 'Nodwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
   bodyHint: `<p>Er enghraifft, ‘mam y plentyn’ neu ‘tad y plentyn oedd wedi priodi â’r fam pan gafodd y plentyn ei (g)eni’.</p>
   <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Gweler Adran E o daflen CB1 am ragor o wybodaeth</a></p> `,
   errors: {
     statement: {
-      required: 'Enter an answer  - welsh',
+      required: 'Rhowch ateb',
     },
   },
 };
