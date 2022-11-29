@@ -28,24 +28,25 @@ const en = {
 };
 
 const cy = {
-  title: 'Address details of - welsh Dummy  Test1',
+  title: 'Cyfeiriad Dummy  Test1',
   subtitle:
-    "Include as much detail as you can. If there's information missing, your application may take longer to process. - welsh",
+    'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   errors: {
     AddressLine1: {
-      required: 'Enter the first line of the address - welsh',
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     PostTown: {
-      required: 'Enter the town or city - welsh',
+      required: 'Nodwch y dref neu’r ddinas',
     },
+
     addressHistory: {
-      required: 'Enter your details known - welsh',
+      required: 'Rhowch eich manylion hysbys',
     },
     addressUnknown: {
-      cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+      cantHaveAddressAndUnknown: 'Methu cael cyfeiriad a hefyd “nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
     },
     Country: {
-      required: 'Enter the country - welsh',
+      required: 'Nodwch y wlad',
     },
   },
 };

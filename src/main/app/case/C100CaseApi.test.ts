@@ -47,19 +47,20 @@ describe('CaseApi', () => {
   test('Should create a case', async () => {
     const request = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
+      c100RebuildReturnUrl: '/c100-rebuild/case-name',
     };
 
     mockedAxios.post.mockResolvedValueOnce({
       data: {
         id: '1234',
-        caseTypeOfApplication: 'C100',
+        ...request,
       },
     });
     const userCase = await api.createCase();
 
     expect(userCase).toStrictEqual({
       id: '1234',
-      caseTypeOfApplication: 'C100',
+      ...request,
     });
     expect(mockedAxios.post).toHaveBeenCalledWith('/case/create', request);
   });

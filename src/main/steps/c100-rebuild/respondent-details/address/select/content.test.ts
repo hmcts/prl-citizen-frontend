@@ -16,11 +16,11 @@ const en = {
 };
 
 const cy = {
-  title: 'Select Address of -welsh John Doe',
-  changePostCodeLabel: 'Change postcode - welsh',
+  title: 'Dewiswch gyfeiriad John Doe',
+  changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address from the list - welsh',
+      notSelected: "Dewiswch gyfeiriad o'r rhestr",
     },
   },
 };

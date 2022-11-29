@@ -12,13 +12,34 @@ import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
 import {  courtTypeOfOrderHelper } from './helpers/courtOrderHelper';
 import { nameAndGenderParser } from './helpers/generalHelper';
-import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
+import { hearingDetailsHelper, hearingDetailsQualifyForFirstHearingHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
 import { applicantAddressParser, applicantAddressParserForRespondents, applicantContactDetailsParser, applicantCourtCanLeaveVoiceMail, otherPeopleAddressParser } from './helpers/peopleHelper';
 import { resonableAdjustmentHelper } from './helpers/reasonableAdjustment';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
+
+/* eslint-disable import/namespace */
+export const CaseName = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['enterCaseName'],
+      value: userCase['applicantCaseName'],
+      changeUrl: Urls['C100_CASE_NAME'],
+    },
+  ];
+  return {
+    title: sectionTitles['caseName'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+
+
 /* eslint-disable import/namespace */
 export const LocationDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -141,7 +162,7 @@ export const WithoutNoticeHearing = (
   const SummaryData = [
     {
       key: keys['qualifyForUrgentHearing'],
-      value: userCase['hu_urgentHearingReasons'],
+      valueHtml: hearingDetailsQualifyForFirstHearingHelper(userCase, keys, 'hu_urgentHearingReasons'),
       changeUrl: Urls['C100_HEARING_URGENCY_URGENT'],
     },
     {
@@ -263,11 +284,6 @@ export const ChildernDetailsAdditional = (
       value: userCase['cd_childrenSubjectOfProtectionPlan'],
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
-    {
-      key: keys['hasOtherChildren'],
-      value: userCase['ocd_hasOtherChildren'] as string,
-      changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
-    },
   ];
   return {
     title: sectionTitles['additionationDetailsAboutChildern'],
@@ -284,6 +300,14 @@ export const OtherChildrenDetails = (
   const sessionChildData = userCase['ocd_otherChildren'];
   const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
     [];
+
+  newChildDataStorage.push(
+    {
+      key: keys['hasOtherChildren'],
+      value: userCase['ocd_hasOtherChildren'] as string,
+      changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
+    },
+  );   
   if(userCase['ocd_hasOtherChildren'] === 'Yes'){
     for (const child in sessionChildData) {
       const firstname = sessionChildData[child]['firstName'],
@@ -570,7 +594,7 @@ export const MiamExemption = (
   const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);
   const SummaryData = [
     {
-      key: keys['validResonsNotAttendingMiam'],
+      key: keys['generalReasonTitle'],
       valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },

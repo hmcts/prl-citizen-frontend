@@ -25,20 +25,20 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: "Enter the respondent's name - welsh",
-  subTitle: 'The other people who will receive this application are known as the respondents - welsh',
-  firstNameLabel: 'First name(s) - welsh',
-  firstNameHint: 'Include all middle names here - welsh',
-  lastNameLabel: 'Last name(s) - welsh',
-  addRespondentLabel: 'Add another respondent - welsh',
-  removeRespondentLabel: 'Remove respondent - welsh',
-  newNameLabel: 'Enter a new name - welsh',
+  title: 'Nodwch enw’r atebydd',
+  subTitle: 'Gelwir y bobl eraill sy’n derbyn y cais hwn yn ‘yr atebwyr.’',
+  firstNameLabel: 'Enw(au) cyntaf',
+  firstNameHint: 'Rhowch bob enw canol yma',
+  lastNameLabel: 'Cyfenw(au)',
+  addRespondentLabel: 'Ychwanegu atebydd arall',
+  removeRespondentLabel: 'Tynnu atebydd',
+  newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
-      required: 'Enter the first name - welsh',
+      required: 'Nodwch yr enw cyntaf',
     },
     c100TempLastName: {
-      required: 'Enter the last name - welsh',
+      required: 'Nodwch yr enw olaf',
     },
   },
 });
