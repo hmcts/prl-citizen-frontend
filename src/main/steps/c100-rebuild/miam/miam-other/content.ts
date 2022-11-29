@@ -53,7 +53,7 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Esemptiadau MIAM',
   title:
     "A allwch chi gadarnhau bod unrhyw un o'r rhesymau dilys eraill dros beidio â mynychu MIAM yn berthnasol yn eich achos chi?",
@@ -93,10 +93,11 @@ export const cy = () => ({
   noneOfTheAbove: "Dim un o'r uchod",
   errors: {
     miam_notAttendingReasons: {
-      required: 'Confirm if if any of the other valid reasons for not attending a MIAM apply in your case - welsh',
+      required:
+        "A allwch chi gadarnhau bod unrhyw un o'r rhesymau dilys eraill dros beidio â mynychu MIAM yn berthnasol yn eich achos chi?",
     },
     miam_noMediatorAccessSubfields: {
-      required: 'Select why you cannot access a mediator - welsh',
+      required: 'Dewiswch pam na allwch fynd i weld cyfryngwr',
     },
   },
 });

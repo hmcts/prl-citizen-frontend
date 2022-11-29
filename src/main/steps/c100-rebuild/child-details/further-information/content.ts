@@ -42,13 +42,13 @@ export const cy = () => ({
   three: 'Ddim yn gwybod',
   errors: {
     cd_childrenKnownToSocialServices: {
-      required: 'Select if any of the children are known to social services - welsh',
+      required: ' ‘Nodwch a yw’r gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant',
     },
     cd_childrenKnownToSocialServicesDetails: {
-      required: 'Enter details - welsh',
+      required: 'Rhowch fanylion - cymraeg',
     },
     cd_childrenSubjectOfProtectionPlan: {
-      required: 'Select if any of the children are the subject of a child protection plan - welsh',
+      required: 'Nodwch a oes unrhyw un o’r plant yn destun cynllun amddiffyn plentyn - cymraeg',
     },
   },
 });

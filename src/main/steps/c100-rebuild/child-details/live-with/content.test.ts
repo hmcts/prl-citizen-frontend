@@ -22,7 +22,7 @@ const cy = {
   liveWithHint: 'Dewiswch bob un sy’n berthnasol',
   errors: {
     liveWith: {
-      required: 'You must select at least one person - welsh',
+      required: 'Rhaid i chi ddewis o leiaf un unigolyn',
     },
   },
 };

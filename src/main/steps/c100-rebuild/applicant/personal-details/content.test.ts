@@ -64,11 +64,11 @@ const cy = {
   two: 'Naddo',
   applicantPlaceOfBirthLabel: 'Eich man geni',
   applicantPlaceOfBirthHint: 'Er enghraifft, tref neu ddinas',
-  dontKnowLabel: "Don't know - welsh",
+  dontKnowLabel: 'Ddim yn gwybod',
   dobLabel: 'Eich dyddiad geni',
   dobHint: 'Er enghraifft, 31 3 2016',
-  previousNameLabel: 'Enter your previous name -welsh',
-  previousNameHint: 'This should be the full legal name(including any middle names) -welsh',
+  previousNameLabel: 'Nodwch eich enwau blaenorol',
+  previousNameHint: 'Dylai hwn fod yr enw cyfreithiol llawn(gan gynnwys unrhyw enwau canol)',
   applicantGenderLabel: 'Rhyw',
   male: 'Benyw',
   female: 'Gwryw',
@@ -79,25 +79,25 @@ const cy = {
   // year: 'Blwyddyn',
   errors: {
     haveYouChangeName: {
-      required: 'Select if you’ve changed your name -welsh',
+      required: 'Dewiswch sut wnaethoch chi newid eich enw',
     },
     applPreviousName: {
-      required: 'Enter your previous name -welsh',
+      required: 'Nodwch eich enwau blaenorol',
     },
     dateOfBirth: {
-      required: 'Enter the date of birth - welsh',
-      invalidDate: 'Date of birth is not valid - welsh',
-      incompleteDay: 'Date of birth must include a day - welsh',
-      incompleteMonth: 'Date of birth must include a month - welsh',
-      incompleteYear: 'Date of birth must include a year - welsh',
-      invalidDateInFuture: 'Date of birth must be in the past - welsh',
+      required: 'Nodwch ei ddyddiad geni',
+      invalidDate: 'Nid yw’r dyddiad geni yn ddilys ‘,',
+      incompleteDay: 'Rhaid i’r dyddiad geni gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
     },
 
     gender: {
-      required: 'Select the gender - welsh',
+      required: 'Nodwch y rhywedd',
     },
     applicantPlaceOfBirth: {
-      required: 'Enter your place of birth -welsh',
+      required: 'Nodwch eich man geni',
     },
   },
 };

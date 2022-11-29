@@ -20,7 +20,7 @@ const cy = {
   changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address from the list - welsh',
+      notSelected: "Dewiswch gyfeiriad o'r rhestr",
     },
   },
 };
