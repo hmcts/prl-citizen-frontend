@@ -8,6 +8,7 @@ import { CommonContent } from '../../../steps/common/common.content';
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
+import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
 
 import { HTML } from './common/htmlSelectors';
 
@@ -15,6 +16,7 @@ import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
 import {
   ApplicantDetails,
+  CaseName,
   ChildernDetails,
   ChildernDetailsAdditional,
   HelpWithFee,
@@ -110,6 +112,7 @@ export const enContent = {
     whereTheChildrenLive: 'Where the children live',
     detailofOtherPeople: 'Details of the other people in the application',
     reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
+    caseName: '[^^sectionNo^^]. Case name',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -147,6 +150,7 @@ export const enContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
+    enterCaseName: caseNameEnContent().title,
   },
 };
 export const cyContent: typeof enContent = {
@@ -206,6 +210,7 @@ export const cyContent: typeof enContent = {
     whereTheChildrenLive: 'Where the children live',
     detailofOtherPeople: 'Details of the other people in the application',
     reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
+    caseName: '[^^sectionNo^^]. Case name',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
@@ -243,6 +248,7 @@ export const cyContent: typeof enContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
+    enterCaseName: caseNameCyContent().title,
   },
 };
 
@@ -305,6 +311,7 @@ const safteyConcenFilledSection = (userCase, contentLanguage) => {
 export const commonSectionsForContentLoader = (contentLanguage, userCase) => {
   return {
     PostCodeAndTypeOfApplication: [
+      CaseName(contentLanguage, userCase),
       LocationDetails(contentLanguage, userCase),
       TypeOfApplication(contentLanguage, userCase),
     ],
