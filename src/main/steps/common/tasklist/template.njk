@@ -51,33 +51,33 @@
 {% endmacro %}
 
 {% block content %}
+    <div class="govuk-grid-row">
+
   <div class="govuk-grid-column-full">
     {% block columnFull %}{% endblock %}
   </div>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      {% block twoThird %}
-        <h1 class="govuk-heading-xl">
-          {{title}}
-        </h1>
 
-        {% block progressBar %}{% endblock %}
-        {% block notificationBanner %}{% endblock %}
-        {% block caseDetails %}{% endblock %}
+  <div class="govuk-grid-column-two-thirds">
+    {% block twoThird %}
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      {% block progressBar %}{% endblock %}
+      <div class="govuk-!-padding-bottom-4"></div>
+      {% block notificationBanner %}{% endblock %}
+      {% block caseDetails %}{% endblock %}
 
-        <ol class="app-task-list">
-          {% for section in sections %}
-            {{ taskListSection(section, loop.index) }}
-          {% endfor %}
-        </ol>
-      {% endblock %}
-      
+      <ol class="app-task-list">
+        {% for section in sections %}
+          {{ taskListSection(section, loop.index) }}
+        {% endfor %}
+      </ol>
+    {% endblock %}
+    
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!">
+    {% block oneThird %}
+          {% include "../contact-us.njk" %}
+    {% endblock %}
     </div>
-    <div class="govuk-grid-column-one-third">
-      {% block oneThird %}
-           {% include "../contact-us.njk" %}
-      {% endblock %}
-    </div>
-
   </div>
 {% endblock %}
