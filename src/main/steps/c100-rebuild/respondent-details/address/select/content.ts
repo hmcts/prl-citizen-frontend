@@ -26,11 +26,11 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Select Address of -welsh',
-  changePostCodeLabel: 'Change postcode - welsh',
+  title: 'Dewiswch gyfeiriad',
+  changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address from the list - welsh',
+      notSelected: "Dewiswch gyfeiriad o'r rhestr",
     },
   },
 });

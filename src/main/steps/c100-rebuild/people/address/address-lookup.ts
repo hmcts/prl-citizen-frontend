@@ -10,7 +10,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  postcode: 'Current postcode - welsh',
+  postcode: 'Cod post cyfredol',
   manualAddressUrl: '#',
 });
 

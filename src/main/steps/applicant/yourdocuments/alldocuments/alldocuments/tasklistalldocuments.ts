@@ -12,7 +12,7 @@ export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListIte
     getRespondentDocuments(sectionTitles, taskListItems, userCase, true),
     getCafcassDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
     getOtherDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
-    getAttendingTheHearingDocs(sectionTitles, taskListItems, URL.APPLICANT),
+    getAttendingTheHearingDocs(sectionTitles, taskListItems),
   ];
 };
 
@@ -411,14 +411,14 @@ export const getOtherDocuments = (sectionTitles, taskListItems, userCase, url) =
   };
 };
 
-export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url) => {
+export const getAttendingTheHearingDocs = (sectionTitles, taskListItems) => {
   return {
     title: sectionTitles.attendingTheHearing,
     items: [
       {
         id: 'notice_of_hearing',
         text: taskListItems.notice_of_hearing,
-        href: url + URL.RESPONDENT_NOTICE_OF_HEARING,
+        href: '#',
       },
       {
         id: 'support_you_need_during_your_case',
@@ -431,7 +431,7 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url) =>
 
 const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {
   for (const doc of citizenResponseC7DocumentList) {
-    if (doc.value.createdBy === respondent.value.firstName + ' ' + respondent.value.lastName) {
+    if (doc.value.partyName === respondent.value.firstName + ' ' + respondent.value.lastName) {
       return {
         id: 'respondent_response_to_request_for_child_arrangements',
         text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(

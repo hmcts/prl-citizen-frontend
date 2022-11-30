@@ -16,11 +16,11 @@ const en = {
 };
 
 const cy = {
-  title: 'Address of - welsh John Jones',
+  title: 'Cyfeiriad John Jones',
   errors: {
     PostCode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
+      required: 'Nodwch y cod post',
+      invalid: 'Rhowch god post dilys.',
     },
   },
 };
@@ -54,7 +54,6 @@ describe('applicant > address > lookup > content', () => {
 
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
-    console.log(generateContent(commonContent), 'content');
   });
 
   test('should return correct english content', () => {
@@ -85,7 +84,6 @@ describe('applicant > address > lookup > content', () => {
     generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    console.log(fields, 'field');
     const addressPostcodeField = fields.PostCode as FormOptions;
 
     expect(addressPostcodeField.type).toBe('text');

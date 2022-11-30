@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 import { Application } from 'express';
+import fileUpload from 'express-fileupload';
 import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
@@ -17,6 +18,7 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
+import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
@@ -89,6 +91,8 @@ import {
   PAYMENT_GATEWAY_ENTRY_URL,
   PAYMENT_RETURN_URL_CALLBACK,
   C100_RETRIVE_CASE,
+  C100_DOWNLOAD_APPLICATION,
+  //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -119,6 +123,7 @@ export class Routes {
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
+    app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -170,7 +175,8 @@ export class Routes {
           : step.postController ?? PostController;
         app.post(
           step.url,
-          this.routeGuard.bind(this, step, 'post'),
+          // eslint-disable-next-line prettier/prettier
+          [this.routeGuard.bind(this, step, 'post'), fileUpload({ limits: { fileSize: 1024 * 1024 * 30 } })],
           errorHandler(new postController(step.form.fields).post)
         );
         const documentManagerController = new DocumentManagerController(step.form.fields);

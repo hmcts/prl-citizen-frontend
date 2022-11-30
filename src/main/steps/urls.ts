@@ -23,6 +23,7 @@ export const TERMS_AND_CONDITIONS: PageLink = '/terms-and-conditions';
 export const CONTACT_US: PageLink = '/contact-us';
 
 export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
+export const RESPOND_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 export const RESPONSE_TASKLIST: PageLink = '/tasklistresponse';
 export const RESPONDENT: PageLink = '/respondent';
 
@@ -278,6 +279,7 @@ export const C100_CHILD_ADDRESS: PageLink = `${C100_URL}/childaddress`;
 
 export const C100_CREATE_CASE: PageLink = `${C100_URL}/case/create`;
 export const C100_RETRIVE_CASE: PageLink = `${C100_URL}/case/:caseId/retrive`;
+export const C100_DOWNLOAD_APPLICATION: PageLink = `${C100_URL}/application-copy/download`;
 export const C100_CONFIRMATIONPAGE: PageLink = `${C100_URL}/confirmation-page`;
 export const C100_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/confidentiality/details-know`;
 export const C100_CONFIDENTIALITY_START: PageLink = `${C100_URL}/confidentiality/start`;

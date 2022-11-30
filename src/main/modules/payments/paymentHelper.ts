@@ -26,7 +26,7 @@ export class PaymentHelper {
       const ServiceAuthToken = await getTokenFromApi();
       token = ServiceAuthToken;
     } catch (error) {
-      console.log(error);
+      req.locals.logger.error(error);
     }
     return {
       Authorization: accessToken,

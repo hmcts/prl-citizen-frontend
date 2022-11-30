@@ -19,16 +19,16 @@ const enContent = {
 };
 
 const cyContent = {
-  addressLine1: 'Building and street - welsh',
-  town: 'Town or city - welsh',
-  county: 'County - welsh',
-  postcode: 'Postcode - welsh',
-  enterInternationalAddress: 'Enter an international address - welsh',
-  addressHistoryLabel: 'Have you lived at this address for more than 5 years? - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
-  explainNoLabel: 'Provide details of previous addresses you have lived at in the last 5 years - welsh',
-  explainNoHint: 'Start with your most recent - welsh',
+  addressLine1: 'Adeilad a stryds',
+  town: 'Tref neu ddinas',
+  county: 'Sir',
+  postcode: 'Cod post',
+  enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
+  addressHistoryLabel: 'A ydych wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
+  one: 'Do',
+  two: 'Naddoo',
+  explainNoLabel: 'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf',
+  explainNoHint: 'Cychwynnwch gyda’r un mwyaf diwedda',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */

@@ -91,8 +91,6 @@ const cy: typeof en = (content: CommonContent) => {
   } else {
     urls.citizenUserAddressText = 'addressdetails';
   }
-  //userCase.citizenUserDateOfBirthText = getFormattedDate(userCase.citizenUserDateOfBirth);
-  //console.log("userCase.citizenUserDateOfBirthText====>"+userCase.citizenUserDateOfBirthText);
   return {
     ...cyContent,
     language: content.language,

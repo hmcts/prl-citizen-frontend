@@ -120,27 +120,26 @@ export const en = () => ({
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
   serviceName: 'Child Arrangements',
-  caption: 'MIAM exemption - welsh',
-  title: 'Do you have any of the following evidence of domestic violence or abuse?',
-  select_all_apply: 'Select all that apply to you - welsh',
+  caption: 'Esemptiadau MIAM',
+  title: 'A oes gennych chi unrhyw un o’r tystiolaethau canlynol o drais domestig neu gamdriniaeth?',
+  select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   childrenInvolvedCourtCase: 'Have the children been involved in a court case? - welsh',
   courtOrderProtection: 'Have you had a court order made for your protection? - welsh',
-  inset1: 'If you are seeking a MIAM exemption, you will need to give more details. - welsh',
-  inset2: 'The court needs this information to decide if you need to attend a MIAM. - welsh',
+  inset1: 'Os ydych chi’n ceisio esemptiad rhag mynychu MIAM, bydd angen i chi roi mwy o fanylion.',
+  inset2: 'Mae’r llys angen yr wybodaeth hon i benderfynu a oes angen i chi fynychu MIAM ai peidio.',
   detailsPara:
-    'A prospective party is someone named in this application. It could refer to you, or the other people in the application (the respondents). - welsh',
-  policeInvolvement: 'The police have been involved - welsh',
+    "‘Darpar barti’ yw rhywun sy’n cael ei enwi yn y cais hwn. Gallai gyfeirio atoch chi, neu'r bobl eraill yn y cais (yr atebwyr).",
+  policeInvolvement: 'Mae’r heddlu wedi bod ynghlwm â hyn',
   policeInvolvement_hint:
-    'This may mean that someone in the application (you or the respondents) have been arrested, cautioned, charged or convicted for domestic or child abuse offences. Select all evidence you have to support your claim. - welsh',
+    'Gall hyn olygu bod rhywun yn y cais (chi neu’r atebwyr) wedi cael ei arestio, rhybuddio, ei gyhuddo neu ei gael yn euog o gyflawni troseddau cam-drin domestig neu gam-drin plant. Dewiswch yr holl dystiolaeth sydd gennych i gefnogi eich cais.',
   policeInvolvement_subFields: {
-    evidenceOfSomeoneArrest:
-      'Evidence that someone in the application has been arrested for a domestic violence offence',
-    evidenceOfPolice: 'Evidence of a police caution for a domestic violence offence',
-    evidenceOfOnGoingCriminalProceeding: 'Evidence of ongoing criminal proceedings for a domestic violence offence',
-    evidenceOfConviction: 'Evidence of a conviction for a domestic violence offence',
-    evidenceOFProtectionNotice: 'A domestic violence protection notice issued against someone in the application',
+    evidenceOfSomeoneArrest: 'Tystiolaeth bod rhywun yn y cais wedi cael ei arestio am drosedd trais domestig',
+    evidenceOfPolice: 'Tystiolaeth o rybudd gan yr heddlu am drosedd trais domestig',
+    evidenceOfOnGoingCriminalProceeding: 'Tystiolaeth o achosion troseddol parhaus am drosedd trais domestig',
+    evidenceOfConviction: 'Tystiolaeth o euogfarn berthnasol am drosedd trais domestig',
+    evidenceOFProtectionNotice: 'Hysbysiad Diogelu rhag Trais Domestig wedi ei gyhoeddi yn erbyn rhywun yn y cais',
   },
-  courtInvolvement: 'A court has already been involved - welsh',
+  courtInvolvement: 'Hysbysiad Diogelu rhag Trais Domestig wedi ei gyhoeddi yn erbyn rhywun yn y cais',
   courtInvolvement_hint:
     'A court has made an order against you or the other people in the application (or someone close to you, or them) in connection to domestic violence and abuse. Select all evidence you have to support your claim.',
   courtInvolvement_subFields: {
