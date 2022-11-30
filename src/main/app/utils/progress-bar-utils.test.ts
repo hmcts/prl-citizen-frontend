@@ -63,7 +63,7 @@ describe('progress-bar-utils', () => {
         caseTypeOfApplication: 'FL401',
       };
       const expected = [
-        { active: true, ariaLabel: 'Case opened stage', completed: true, title: 'Case<br/> opened' },
+        { active: false, ariaLabel: 'Case opened stage', completed: true, title: 'Case<br/> opened' },
         {
           active: true,
           ariaLabel: 'Hearings and court orders stage',

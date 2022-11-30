@@ -34,7 +34,7 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
   const caseOpened = {
     title: progressBarFl401.caseOpened.title,
     ariaLabel: progressBarFl401.caseOpened.ariaLabel,
-    active: true,
+    active: false,
     completed: true,
   };
 
