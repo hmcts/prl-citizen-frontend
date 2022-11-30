@@ -21,11 +21,11 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-715.service.core-compute-preview.internal'
+    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
   cos:
-    url: 'https://prl-cos-pr-726.service.core-compute-preview.internal'
+    url: 'http://prl-cos-aat.service.core-compute-aat.internal'
   documentManagement:
-    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-715.service.core-compute-preview.internal'
+    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
 health:
   timeout: 5000
   deadline: 15000

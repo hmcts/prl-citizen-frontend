@@ -124,6 +124,7 @@ export class Routes {
         `${CONSENT_TO_APPLICATION}/:caseId`,
         errorHandler(new ConsentGetController(step.view, step.generateContent).get)
       );
+      app.get(`/:caseId${RESPONDENT_TASK_LIST_URL}`, errorHandler(new GetCaseController().guideRespondentToTasklist));
       app.get(
         `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
         errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)

@@ -42,4 +42,9 @@ describe('GetCaseController', () => {
     await controller.getRespondentCase(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
+
+  test('guide respondent to tasklist', async () => {
+    await controller.guideRespondentToTasklist(req, res);
+    expect(mockMyFunction).toHaveBeenCalled();
+  });
 });
