@@ -2,12 +2,19 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% set buttonStatusFinal  = false %}
 {% set completedCount =0 %}
+{% set size = 0 %}
 
           {% for section in sections %}
-                  {% for item in section.items %}
-          {%if (item.status == 'IN_PROGRESS' or item.status == 'READY_TO_VIEW' or item.status=='TO_DO') and completedCount==0 %}
+           {% set size = size+1 %}
+             {% if(size == 1 ) %}
+              {% set buttonStatusFinal = true %}
+             {% endif%}
+           {% for item in section.items %}
+          {%if (item.status == 'IN_PROGRESS' or item.status == 'READY_TO_VIEW' or item.status=='TO_DO') and completedCount==0%}
             {% set buttonStatusFinal = true %}
             {% set completedCount =1%}
+          {% elif (size > 1 and item.status == 'COMPLETED') and completedCount !==1 %}
+            {%set buttonStatusFinal = false %}
           {% endif %}
       {% endfor %}
           {% endfor %}

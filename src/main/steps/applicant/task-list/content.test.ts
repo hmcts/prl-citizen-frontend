@@ -62,10 +62,10 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '/applicant/support-you-need-during-case/language-requirements',
+              href: '#',
               id: 'support-you-need-during-your-case',
               text: 'Support you need during your case',
-              status: 'TO_DO',
+              status: 'NOT_AVAILABLE_YET',
             },
           ],
           title: 'About you',
@@ -90,9 +90,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/keep-details-private/details_known',
+              href: '#',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.TO_DO,
+              status: SectionStatus.NOT_AVAILABLE_YET,
               text: 'Check details of your court hearings',
             },
           ],

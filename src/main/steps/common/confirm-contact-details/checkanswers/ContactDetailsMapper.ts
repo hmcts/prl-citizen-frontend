@@ -27,6 +27,15 @@ export const setContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
   if (req.session.userCase.citizenUserEmailAddress) {
     partyDetails.email = req.session.userCase.citizenUserEmailAddress;
   }
+  if (req.session.userCase.citizenUserSafeToCall) {
+    if (partyDetails.response) {
+      partyDetails.response.safeToCallOption = req.session.userCase.citizenUserSafeToCall;
+    } else {
+      partyDetails.response = {
+        safeToCallOption: req.session.userCase.citizenUserSafeToCall,
+      };
+    }
+  }
   let postalAddress;
   if (
     req.session.userCase.citizenUserAddress1 &&
@@ -111,6 +120,10 @@ export const getContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
     req.session.userCase.citizenUserEmailAddress = partyDetails.email;
   }
 
+  if (partyDetails.response && partyDetails.response.safeToCallOption) {
+    req.session.userCase.citizenUserSafeToCall = partyDetails.response.safeToCallOption;
+  }
+
   getAddressDetails(partyDetails, req);
 
   return req.session.userCase;
@@ -190,4 +203,5 @@ function clearSessionData(req: AppRequest) {
   req.session.userCase.citizenUserSelectAddress = '';
   req.session.userCase.isAtAddressLessThan5Years = '';
   req.session.userCase.citizenUserAddressHistory = '';
+  req.session.userCase.citizenUserSafeToCall = '';
 }
