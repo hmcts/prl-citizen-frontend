@@ -67,6 +67,10 @@ export const getViewAllDocuments = (): SectionStatus => {
   return SectionStatus.READY_TO_VIEW;
 };
 
+export const getUploadDocuments = (): SectionStatus => {
+  return SectionStatus.TO_DO;
+};
+
 export const getApplicantViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): boolean => {
   let flag = false;
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {

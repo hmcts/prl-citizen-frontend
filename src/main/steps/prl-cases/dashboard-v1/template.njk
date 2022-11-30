@@ -1,0 +1,38 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block page_content %}
+
+{% if paymentError === true %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: "The payment has been unsuccessful",
+      href: "#passport-issued-day"
+    }
+  ]
+}) }}
+
+{% endif %}
+<ul class="govuk-list">
+  <li>
+    <a class="govuk-link" href="/applicant/task-list">DA Applicant</a>
+  </li>
+  <li>
+    <a class="govuk-link" href="/ca-da-respondent/task-list">CA DA Respondent</a>
+  </li>
+  <li>
+    <a class="govuk-link" href="/c100-rebuild">C100 Application</a>
+  </li>
+
+</ul>
+
+
+<a class='govuk-button' href='/payments/gateway'>Pay Now </a>
+
+{% endblock %}

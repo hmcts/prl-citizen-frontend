@@ -181,3 +181,50 @@ section {
     border: .25rem solid $govuk-link-colour;
   }
 }
+
+
+.app-inverted--card {
+  margin-top: -15px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 40px 60px;
+}
+.app-inverted-text,
+.app-inset-text--inverted {
+  color: #ffffff;
+  background-color: #1d70b8;
+}
+.app-inset-text--inverted {
+  border-left: 10px solid #ffffff;
+}
+
+.app-button--inverted,
+.app-button--inverted:link,
+.app-button--inverted:visited {
+  color: #1d70b8;
+  background-color: #ffffff;
+  box-shadow: 0 2px 0 #144e81;
+}
+.app-link--inverted,
+.app-link--inverted:link,
+.app-link--inverted:active,
+.app-link--inverted:visited {
+  color: #ffffff;
+  font-weight: 700;
+}
+.app-button--l {
+  font-weight: 700;
+  font-size: 18px;
+  font-size: 1.25rem;
+  line-height: 1;
+  min-height: auto;
+  justify-content: center;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+@media screen and (min-width: 640px) {
+  .app-button--l {
+      font-size: 24px;
+      font-size: 1.5rem;
+  }
+}

@@ -1,4 +1,6 @@
+import { CaseWithId } from '../../../app/case/case';
 import { Banner, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import {
@@ -18,6 +20,7 @@ import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
   title: '',
+  respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -135,6 +138,7 @@ const en = () => ({
 
 const cy = () => ({
   title: '',
+  respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -274,6 +278,7 @@ export const generateContent: TranslationFn = content => {
       }
     }
   }
+  translations.respondentName = getRespondentName(req.session.userCase, req.session.user.id);
 
   return {
     ...translations,
@@ -286,6 +291,15 @@ export const generateContent: TranslationFn = content => {
     banners,
     stages,
   };
+};
+
+const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
+  if (userCase.caseTypeOfApplication === 'C100') {
+    const respondent = getRespondentPartyDetailsCa(userCase, userId);
+    return respondent ? respondent.value.firstName + ' ' + respondent.value.lastName : '';
+  } else {
+    return userCase.respondentsFL401?.firstName + '' + userCase.respondentsFL401?.lastName;
+  }
 };
 
 const getC100Banners = (userCase, translations, userIdamId) => {

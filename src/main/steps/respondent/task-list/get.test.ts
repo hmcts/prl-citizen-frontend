@@ -1,20 +1,43 @@
-import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { generatePageContent } from '../../common/common.content';
+import mockUserCase from '../../../../test/unit/utils/mockUserCase';
+import { Applicant, PartyDetails, Respondent } from '../../../app/case/definition';
 
-import { generateContent } from './content';
 import { RespondentTaskListGetController } from './get';
 
 describe('RespondentTaskListGetController', () => {
   const controller = new RespondentTaskListGetController();
-  const language = 'en';
 
   test('Should render the RespondentTaskList page for private law service', async () => {
-    const req = mockRequest();
+    const req = mockRequest({
+      session: {
+        user: {
+          id: '123',
+        },
+        userCase: {
+          ...mockUserCase,
+          caseTypeOfApplication: 'C100',
+          applicants: [
+            {
+              id: '',
+              value: {} as PartyDetails,
+            },
+          ] as Applicant[],
+          respondents: [
+            {
+              id: '',
+              value: {
+                user: {
+                  idamId: '123',
+                },
+              } as PartyDetails,
+            },
+          ] as Respondent[],
+        },
+      },
+    });
     const res = mockResponse();
     await controller.get(req, res);
-    const userCase = req.session.userCase;
 
     expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
