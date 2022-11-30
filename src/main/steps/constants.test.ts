@@ -19,7 +19,7 @@ describe('Constants.ts', () => {
     expect(RESPONSE_MIAM_ELEMENTS).toBe('miam');
     expect(RESPONSE_CITIZEN_INTERNATIONAL_ELEMENTS).toBe('citizenInternationalElements');
     expect(URL_PATTERN_INTERNATIONAL_FACTORS).toBe('international-factors');
-    expect(EVENT_INTERNATIONAL_ELEMENT).toBe('internationalElement');
+    expect(EVENT_INTERNATIONAL_ELEMENT).toBe('citizenInternationalElement');
     expect(EVENT_RESPONDENT_MIAM).toBe('respondentMiam');
   });
 });
