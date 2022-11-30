@@ -127,6 +127,7 @@ export interface CitizenFlags {
   isApplicationViewed?: string,
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
+  isResponseInitiated?: string
 }
 
 

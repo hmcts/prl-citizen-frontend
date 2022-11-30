@@ -207,6 +207,10 @@ export class Routes {
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
         );
         app.get(
+          `${RESPOND_TO_APPLICATION}`,
+          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setResponseInitiatedFlag)
+        );
+        app.get(
           `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
         );

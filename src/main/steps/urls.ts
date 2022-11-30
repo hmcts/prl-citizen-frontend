@@ -80,8 +80,7 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 
 /* MIAM */
 export const TASK_LIST_RESPONSE: PageLink = '/tasklistresponse';
-export const MIAM_HOME: PageLink = `${TASK_LIST_RESPONSE}`;
-export const MIAM: PageLink = `${MIAM_HOME}/miam`;
+export const MIAM: PageLink = `${TASK_LIST_RESPONSE}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
 

@@ -267,7 +267,7 @@ export const generateContent: TranslationFn = content => {
       : getFl401Banners(content.userCase, translations, content.userIdamId);
 
   const stages = buildProgressBarStages(content.userCase!);
-  const req = content.additionalData?.req;
+  const req: AppRequest = content.additionalData?.req;
   if (content.userCase?.caseTypeOfApplication === 'C100') {
     const partyId = getRespondentPartyDetailsCa(content.userCase, req.session.user.id)?.id;
     if (content.userCase.citizenResponseC7DocumentList) {

@@ -266,11 +266,6 @@ type CommonContentAdditionalData = {
   [key: string]: any;
 };
 
-type CommonContentAdditionalData = {
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  [key: string]: any;
-};
-
 export type CommonContent = typeof en & {
   language: Language;
   serviceName: string;
