@@ -1,6 +1,6 @@
 # prl-citizen-frontend
 
-## Getting Started
+### Getting Started
 
 ### Prerequisites
 
