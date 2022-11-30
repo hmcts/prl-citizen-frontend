@@ -15,6 +15,7 @@ describe('PrivacyPolicyGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
+
     expect(res.render).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({

@@ -1,0 +1,7 @@
+{% from "govuk/components/label/macro.njk" import govukLabel %}
+{{ govukLabel({
+    id: field.id if field.id else fieldName,
+    name: fieldName, 
+    type: field.type,
+    text: getContent(field.textAndHtml) | safe
+}) }}

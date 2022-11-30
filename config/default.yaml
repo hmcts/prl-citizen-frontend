@@ -21,11 +21,11 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-640.service.core-compute-preview.internal'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-715.service.core-compute-preview.internal'
   cos:
-    url: 'https://prl-cos-pr-604.service.core-compute-preview.internal'
+    url: 'https://prl-cos-pr-732.service.core-compute-preview.internal'
   documentManagement:
-    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-640.service.core-compute-preview.internal'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-715.service.core-compute-preview.internal'
 health:
   timeout: 5000
   deadline: 15000
@@ -39,5 +39,13 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey: false
+payments:
+  url: 'http://prl-cos-demo.service.core-compute-demo.internal'
 
 uploadTimeout: 60000
+featureToggles:
+  c100Rebuild: C100_REBUILD_FLAG
+  launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
+
+launchDarkly:
+  offline: false

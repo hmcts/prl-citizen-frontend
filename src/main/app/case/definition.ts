@@ -44,11 +44,11 @@ export interface Miam {
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
-  AddressLine3: string;
+  AddressLine3?: string;
   PostTown: string;
   County: string;
   PostCode: string;
-  Country: string;
+  Country?: string;
 }
 
 export interface SolicitorOrg {
@@ -576,6 +576,17 @@ export const enum Nationality {
   NOT_SURE = 'Not sure',
 }
 
+export enum MiamNonAttendReason {
+  DOMESTIC = 'domesticViolence',
+  CHILD_PROTECTION = 'childProtection',
+  URGENT = 'urgentHearing',
+  PREV_MIAM = 'previousMIAMOrExempt',
+  EXEMPT = 'validExemption',
+  NONE = 'none',
+}
+
+
+
 export const enum ContactDetails {
   EMAIL = 'email',
   PHONE = 'phone',
@@ -583,7 +594,7 @@ export const enum ContactDetails {
 
 export const enum ContactDetailsPrivate {
   EMAIL = 'email',
-  PHONE = 'phoneNumber',
+  PHONE = 'phone',
   ADDRESS = 'address'
 }
 
@@ -678,6 +689,56 @@ export interface Sibling {
   siblingPlacementOrders?: (PlacementOrder | ListValue<PlacementOrder>)[];
 }
 
+
+
+export type C100Applicant = {
+  id?: string,
+  applicantFirstName?: string | unknown,
+  applicantLastName?: string | unknown,
+  detailsKnown?: string | unknown
+  startAlternative?: string | unknown,
+  start?: string | unknown,
+  contactDetailsPrivate?: unknown | [],
+  contactDetailsPrivateAlternative?: unknown | [],
+  applicantSelectedAddress?: number,
+  applicantAddressPostcode?: string,
+  applicantAddress1?: string,
+  applicantAddress2?: string,
+  applicantAddressTown?: string,
+  applicantAddressCounty?: string,
+  country?: string,
+  applicantAddressHistory?: YesOrNo,
+  applicantProvideDetailsOfPreviousAddresses?: string;
+  personalDetails:{
+    haveYouChangeName?: YesNoEmpty;
+    applPreviousName?: string,
+    dateOfBirth?: CaseDate;
+    gender?: Gender;
+    otherGenderDetails?: string;
+    applicantPlaceOfBirth?: string;
+  };
+  relationshipDetails?: {
+    relationshipToChildren: RelationshipToChildren[];
+  };
+  applicantContactDetail?: ContactDetail;
+}
+
+export interface RelationshipToChildren {
+  relationshipType: RelationshipType;
+  otherRelationshipTypeDetails?: string;
+  childId: string;
+}
+
+export interface ContactDetail {
+  canProvideEmail?: YesNoEmpty,
+  emailAddress?: string,
+  canProvideTelephoneNumber?: YesNoEmpty,
+  telephoneNumber?: string,
+  canNotProvideTelephoneNumberReason?: string
+  canLeaveVoiceMail?: YesNoEmpty
+}
+
+export type C100ListOfApplicants = C100Applicant[];
 
 export interface CaseData {
   id: string;
@@ -816,7 +877,8 @@ export interface CaseData {
   citizenUserManualAddress2?: string;
   citizenUserManualAddressTown?: string;
   citizenUserManualAddressCounty?: string;
-  citizenUserManualAddressPostcode?: string;
+  c100Applicants?: C100Applicant;
+citizenUserManualAddressPostcode?: string;
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
@@ -1452,6 +1514,7 @@ export const enum YesNoDontKnow {
   yes = 'yes',
   no = 'no',
   dontKnow = 'dontKnow',
+  empty = '',
 }
 
 export const enum YesNoIDontKnow {
@@ -1827,6 +1890,7 @@ export const enum State {
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
+  AwaitingSubmissionToHmcts = 'AWAITING_SUBMISSION_TO_HMCTS',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingBailiffReferral = 'AwaitingBailiffReferral',
@@ -1851,8 +1915,8 @@ export const enum State {
   PendingDispute = 'PendingDispute',
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
-  successAuthentication = 'SuccessAuthentication'
-
+  successAuthentication = 'SuccessAuthentication',
+  Deleted = 'DELETED'
 }
 
 export const enum UserRole {
@@ -2210,6 +2274,7 @@ export const enum Gender {
   MALE = 'Male',
   FEMALE = 'Female',
   OTHER = 'Other',
+  EMPTY = ''
 }
 
 export interface PRLDocument {
@@ -2317,6 +2382,7 @@ export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
 
+
 export enum C1ASafteyConcernsAbout{
   CHILDREN = 'children',
   APPLICANT = 'applicant',
@@ -2356,6 +2422,7 @@ export interface C1ASafteyConcerns {
   },
   }
 
+
   export enum C1AAbuseTypes {
     PHYSICAL_ABUSE = 'physicalAbuse',
     PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
@@ -2365,4 +2432,5 @@ export interface C1ASafteyConcerns {
     ABDUCTION = 'abduction',
     WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
     SOMETHING_ELSE='somethingElse',
+
   }

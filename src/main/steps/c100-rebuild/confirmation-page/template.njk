@@ -1,0 +1,45 @@
+{% extends "common/template.njk" %}
+
+
+{% block page_content %}
+<main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
+
+          <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6">
+            <h1 class="govuk-panel__title">
+              {{successMessage}}
+            </h1>
+            <div class="govuk-panel__body">
+              {{label}} <br><strong>{{caseId}}</strong>
+            </div>
+          </div>
+          <p class="govuk-body-l">{{subContent}} 
+            {% if userEmail %}
+              {{userEmail}}
+            {% endif %}</p>
+          <h2 class="govuk-heading-m">{{subTitle1}}</h2>
+          <p class="govuk-body">{{secondaryContent | safe}}</p>
+          <div class="govuk-inset-text">
+           <p class="govuk-body">{{copyRightsTxt}}</p>
+          </div>
+          <a href="application-copy/download"  class="govuk-button">{{primaryBtnLabel}}</a>
+
+          <h2 class="govuk-heading-m">{{subTitle2}}</h2>
+          <ul class="govuk-list govuk-list--bullet govuk-list--spaced govuk-!-margin-bottom-6">
+            {% for item in list %}
+                <li>{{item | safe}}</li>
+            {% endfor %}
+          </ul>
+          <p class="govuk-body govuk-!-font-weight-bold">{{triTitle}}</p>
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
+            {% for item in secondList %}
+                <li>{{item | safe}}</li>
+            {% endfor %}
+          </ul>
+          <div class="govuk-button-group">
+              <input type="hidden" name="answers-checked" value="true">
+                <a class="govuk-button govuk-button--secondary" href="../applicanttasklist/startreply" data-module="govuk-button">
+                  {{secondaryBtnLabel}}
+                </a>
+          </div>
+        </main>
+{% endblock %}

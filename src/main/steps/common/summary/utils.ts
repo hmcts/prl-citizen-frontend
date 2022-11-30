@@ -3,9 +3,11 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
+import { State } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { applyParms } from '../url-parser';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -116,22 +118,22 @@ export const summaryCaseList = (
   const summaryData: SummaryListRow[] = [];
   summaryData.push({ key: 'Case Name', value: '<h4>Case Status</h4>' });
   for (const userCase of userCaseList) {
-    const id = userCase.id;
+    const id = userCase.id as string;
     const name = userCase.applicantCaseName;
-    const state = userCase.state;
+    const state = userCase.caseStatus?.state;
     let caseUrl = '#';
     if (userCase.caseTypeOfApplication === 'C100') {
       if (!isRespondent) {
-        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
+        if (state === State.Draft) {
+          caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
+        }
       } else {
         caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
       }
     } else if (userCase.caseTypeOfApplication === 'FL401') {
       if (!isRespondent) {
-        console.log('enetering in applicant fl401 loop....');
         caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
       } else {
-        console.log('enetering in respondent fl401 loop....');
         caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
       }
     }

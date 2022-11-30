@@ -26,7 +26,9 @@ describe('GetCaseController', () => {
           },
         ],
       },
-      caseId: '1234',
+      params: {
+        caseId: '1234',
+      },
     });
     res = mockResponse();
     mockMyFunction.mockReturnValue('hello');
