@@ -16,7 +16,7 @@
     {% endfor %}
 
     {% for link in banner.bannerLinks %}
-      <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>
+      <a class="govuk-notification-banner__link" href={{ link.href }} target="_blank">{{link.text}}</a>
       <p class="govuk-body govuk-!-margin-bottom-2"></p>
     {% endfor %}
   {% endset %}

@@ -165,7 +165,7 @@ section {
 
 .stage--active {
   .status-bar__ring {
-    background-image: url('/assets/images/icon-progress-tick.png');
+    background-image: url('/assets/images/checkTick.png');
     background-size: contain;
     background-color: $govuk-link-colour;
     background-position: center;
@@ -175,7 +175,7 @@ section {
 
 .stage--completed {
   .status-bar__ring {
-    background-image: url('/assets/images/icon-progress-tick.png');
+    background-image: url('/src/main/assets/images/tick.png');
     background-repeat: no-repeat;
     background-color: $govuk-link-colour;
     background-position: center;

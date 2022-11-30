@@ -20,8 +20,8 @@ const enContent = {
       required: 'Enter the town or city',
     },
     citizenUserManualAddressPostcode: {
-      required: 'Enter a valid postcode',
-      invalid: 'Enter a valid postcode',
+      required: 'Enter a real postcode',
+      invalid: 'Enter a real postcode',
     },
   },
 };
@@ -40,8 +40,8 @@ const cyContent = {
       required: 'Enter the town or city (in welsh)',
     },
     citizenUserManualAddressPostcode: {
-      required: 'Enter a valid postcode (in welsh)',
-      invalid: 'Enter a valid postcode (in welsh)',
+      required: 'Enter a real postcode (in welsh)',
+      invalid: 'Enter a real postcode (in welsh)',
     },
   },
 };

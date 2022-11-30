@@ -120,7 +120,6 @@ export interface Response {
   citizenInternationalElements?: CitizenInternationalElements;
   keepDetailsPrivate?: KeepDetailsPrivate;
   citizenFlags?: CitizenFlags
-  safeToCallOption?: string;
 }
 
 export interface CitizenFlags {
@@ -794,7 +793,7 @@ export interface CaseData {
   citizenUserAdditionalName?: string;
   applicant1AdditionalNames?: OtherName[];
   citizenUserEmailAddress?: string;
-  citizenUserSafeToCall?: string;
+  applicant1SafeToCall?: string;
   citizenUserPhoneNumber?: string;
   citizenUserDateOfBirth?: CaseDate;
   citizenUserDateOfBirthText?: string;

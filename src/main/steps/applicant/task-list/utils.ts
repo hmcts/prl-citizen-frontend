@@ -8,7 +8,7 @@ export const getKeepYourDetailsPrivateStatus = (
   let status = SectionStatus.TO_DO;
   let keepDetailsPrivate;
   if (userCase?.caseTypeOfApplication === 'C100') {
-    userCase?.applicants?.forEach((applicant: Applicant) => {
+    userCase?.respondents?.forEach((applicant: Applicant) => {
       if (applicant?.value.user?.idamId === userIdamId) {
         keepDetailsPrivate = applicant?.value?.response?.keepDetailsPrivate;
       }

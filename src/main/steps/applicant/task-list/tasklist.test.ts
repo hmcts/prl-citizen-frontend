@@ -44,9 +44,9 @@ describe('applicant tasklist getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '#',
+            href: '/applicant/support-you-need-during-case/language-requirements',
             id: 'support-you-need-during-your-case',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Support you need during your case',
           },
         ],
@@ -73,9 +73,9 @@ describe('applicant tasklist getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '#',
+            href: '/applicant/keep-details-private/details_known',
             id: 'check-details-of-your-court-hearings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Check details of your court hearings',
           },
         ],
@@ -152,9 +152,9 @@ describe('applicant tasklist getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '#',
+            href: '/applicant/support-you-need-during-case/language-requirements',
             id: 'support-you-need-during-your-case',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Support you need during your case',
           },
         ],
@@ -203,9 +203,9 @@ describe('applicant tasklist getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '#',
+            href: '/applicant/keep-details-private/details_known',
             id: 'check-details-of-your-court-hearings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Check details of your court hearings',
           },
         ],

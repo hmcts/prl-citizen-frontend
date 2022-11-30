@@ -1,8 +1,8 @@
 export const respondent_en = {
-  legalrepresentation: '1. Legal representation',
-  consentToTheApplication: '2. Consent to the application',
-  yourDetails: '3. Your details',
-  applicationDetails: '4. Application details',
-  safetyConcerns: '5. Safety concerns',
-  additionalInformation: '6. Additional information',
+  legalrepresentation: 'Legal representation',
+  consentToTheApplication: 'Consent to the application',
+  yourDetails: 'Your details',
+  applicationDetails: 'Application details',
+  safetyConcerns: 'Safety concerns',
+  additionalInformation: 'Additional information',
 };

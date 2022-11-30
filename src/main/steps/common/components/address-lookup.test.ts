@@ -13,8 +13,8 @@ const enContent = {
   enterAddressManually: 'I live outisde the UK',
   errors: {
     citizenUserAddressPostcode: {
-      required: 'Enter a valid postcode',
-      invalid: 'Enter a valid postcode',
+      required: 'Enter a real postcode',
+      invalid: 'Enter a real postcode',
     },
   },
 };
@@ -25,8 +25,8 @@ const cyContent = {
   enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {
     citizenUserAddressPostcode: {
-      required: 'Enter a valid postcode (in welsh)',
-      invalid: 'Enter a valid postcode (in welsh)',
+      required: 'Enter a real postcode (in welsh)',
+      invalid: 'Enter a real postcode (in welsh)',
     },
   },
 };

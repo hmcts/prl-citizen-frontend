@@ -13,12 +13,11 @@ import {
   CA_DA_SPECIAL_ARRANGEMENTS,
   CA_DA_TRAVELLING_TO_COURT,
   CONSENT_TO_APPLICATION,
-  DETAILS_KNOWN_RESPONDENT,
+  DETAILS_KNOWN,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
   INTERNATIONAL_FACTORS_START,
-  LEGAL_REPRESENTATION_START,
   MIAM_ATTEND_WILLINGNESS,
   MIAM_START,
   PROCEEDINGS_COURT_PROCEEDINGS,
@@ -27,7 +26,7 @@ import {
   RESPONDENT_ADDRESS_HISTORY,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_PERSONAL_DETAILS,
-  START_ALTERNATIVE_RESPONDENT,
+  START_ALTERNATIVE,
 } from '../../../steps/urls';
 import { summaryList } from '../../common/summary/utils';
 
@@ -124,6 +123,9 @@ const applicationDetailsfieldTypeMiam = {
 const keepYourDetailsfieldType = {
   detailsKnown: 'String',
   startAlternative: 'String',
+  address: 'String',
+  email: 'String',
+  phoneNumber: 'String',
 };
 
 const confirmYourDetailsfieldType = {
@@ -134,11 +136,36 @@ const confirmYourDetailsfieldType = {
   citizenUserAddressHistory: 'String',
   citizenUserPhoneNumberText: 'String',
   citizenUserEmailAddressText: 'String',
-  citizenUserSafeToCall: 'String',
+  applicant1SafeToCall: 'String',
 };
 
-const legalRepresantationFieldType = {
-  legalRepresentation: 'String',
+const supportYouNeedFieldType = {
+  respondentAttendingToCourt: 'String',
+  respondentHearingDetails: 'String',
+  respondentLangRequirements: 'String',
+  respondentLangDetails: 'String',
+  respondentSpecialArrangements: 'String',
+  respondentSpecialArrangementsDetails: 'String',
+  respondentReasonableAdjustments: 'String',
+  respondentDocsSupport: 'String',
+  respondentDocsDetails: 'String',
+  respondentLargePrintDetails: 'String',
+  respondentOtherDetails: 'String',
+  respondentHelpCommunication: 'String',
+  respondentSignLanguageDetails: 'String',
+  respondentDescribeOtherNeed: 'String',
+  respondentCourtHearing: 'String',
+  respondentSupportWorkerDetails: 'String',
+  respondentFamilyDetails: 'String',
+  respondentTherapyDetails: 'String',
+  respondentCommSupportOther: 'String',
+  respondentCourtComfort: 'String',
+  respondentLightingDetails: 'String',
+  respondentOtherProvideDetails: 'String',
+  respondentTravellingToCourt: 'String',
+  respondentParkingDetails: 'String',
+  respondentDifferentChairDetails: 'String',
+  respondentTravellingOtherDetails: 'String',
 };
 
 const inetnationlFactorFieldType = {
@@ -160,40 +187,17 @@ const additionalInformationfieldType = {
   proceedingsStart: 'String',
 };
 
-export const enlegalRepresntationContent = {
-  section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
-  title2: '',
-  sectionTitles: {
-    title: '1. Legal representation',
-  },
-  keys: {
-    legalRepresentation: 'Will you be using a legal representative to respond to the application?',
-  },
-  dependencies: {},
-  statementOfTruth: 'Statement of truth',
-  warning: 'Warning',
-  warningText:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-  errors: {
-    declarationCheck: {
-      required: 'Please confirm the declaration',
-    },
-  },
-  continue: 'Submit your response',
-};
-
 export const enConsentContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Please review your answers before you finish your application.',
   title2: '',
   sectionTitles: {
-    title: '2. Consent to the application',
+    title: 'Consent to the application',
   },
   keys: {
     doYouConsent: 'Do you consent to the application?',
     applicationReceivedDate: 'When did you receive the application?',
-    courtPermission: 'Does the applicant need permission from the court before making applications?',
+    courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
     courtOrderDetails: 'Details',
   },
   dependencies: {},
@@ -211,8 +215,8 @@ export const enConsentContent = {
 
 export const enKeepYourDetailsContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
-  title2: 'Keeping your details private',
+  title: 'Please review your answers before you finish your application.',
+  title2: '',
   sectionTitles: {
     title: 'Keeping your details private',
   },
@@ -220,6 +224,9 @@ export const enKeepYourDetailsContent = {
     detailsKnown: 'Do the other people named in this application (the applicants) know any of your contact details?',
     startAlternative:
       'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
+    address: 'Address',
+    email: 'Email',
+    phoneNumber: 'Phone Number',
   },
   dependencies: {},
   statementOfTruth: 'Statement of truth',
@@ -236,10 +243,10 @@ export const enKeepYourDetailsContent = {
 
 export const enContentMiam = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
-  title2: 'Mediation (MIAM)',
+  title: 'Please review your answers before you finish your application.',
+  title2: '',
   sectionTitles: {
-    title: 'Mediation (MIAM)',
+    title: 'Application details: Mediation (MIAM)',
   },
   keys: {
     miamStart: 'Have you attended a MIAM?',
@@ -261,7 +268,7 @@ export const enContentMiam = {
 
 export const enConfirmYourDetailsContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Please review your answers before you finish your application.',
   title2: '',
   sectionTitles: {
     title: 'Confirm or edit your contact details',
@@ -275,7 +282,7 @@ export const enConfirmYourDetailsContent = {
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
     citizenUserEmailAddressText: 'Email',
-    citizenUserSafeToCall: 'When it is safe to call you (optional)',
+    applicant1SafeToCall: 'When it is safe to call you (optional)',
   },
   dependencies: {},
   statementOfTruth: 'Statement of truth',
@@ -292,7 +299,7 @@ export const enConfirmYourDetailsContent = {
 
 export const enContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Please review your answers before you finish your application.',
   title2: 'Current or previous court cases',
   sectionTitles: {
     title: 'Application details: Current or previous proceeding',
@@ -689,7 +696,7 @@ export const enContent = {
 
 export const enSupportYouNeedContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Please review your answers before you finish your application.',
   sectionTitles: {
     title: 'Support you need during your case',
   },
@@ -823,7 +830,7 @@ export const enSupportYouNeedContent = {
 
 export const enInternationalContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Please review your answers before you finish your application.',
   title2: 'International element',
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
@@ -836,7 +843,7 @@ export const enInternationalContent = {
   },
   continue: 'Submit your response',
   sectionTitles: {
-    title: '5. International element',
+    title: 'Addititonal Information: International element',
   },
   keys: {
     start: 'Do the children live outside of England or Wales?',
@@ -873,15 +880,6 @@ export const enInternationalContent = {
   },
 };
 
-export const enDummyContent = {
-  sectionTitles: {
-    title2: '3. Your details',
-    title3: '4. Application details',
-  },
-  keys: {},
-  dependencies: {},
-};
-
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
@@ -892,14 +890,6 @@ const en = (content: CommonContent) => {
     language: content.language,
     sections: [
       summaryList(
-        enlegalRepresntationContent,
-        userCase,
-        urls,
-        enlegalRepresntationContent.sectionTitles.title,
-        legalRepresantationFieldType,
-        content.language
-      ),
-      summaryList(
         enConsentContent,
         userCase,
         urls,
@@ -907,7 +897,6 @@ const en = (content: CommonContent) => {
         consentFieldType,
         content.language
       ),
-      summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title2, '', content.language),
       summaryList(
         enKeepYourDetailsContent,
         userCase,
@@ -925,13 +914,28 @@ const en = (content: CommonContent) => {
         confirmYourDetailsfieldType,
         content.language
       ),
-      summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, '', content.language),
       summaryList(
         enContentMiam,
         userCase,
         urls,
         enContentMiam.sectionTitles.title,
         applicationDetailsfieldTypeMiam,
+        content.language
+      ),
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.title,
+        applicationDetailsfieldType,
+        content.language
+      ),
+      summaryList(
+        enSupportYouNeedContent,
+        userCase,
+        urls,
+        enSupportYouNeedContent.sectionTitles.title,
+        supportYouNeedFieldType,
         content.language
       ),
       summaryList(
@@ -948,10 +952,10 @@ const en = (content: CommonContent) => {
 
 const cyContent: typeof enContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Please review your answers before you finish your application.',
   title2: 'Current or previous court cases',
   sectionTitles: {
-    title: '4. Application details',
+    title: 'Application details',
   },
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
@@ -1399,12 +1403,14 @@ const urls = {
   parents: INTERNATIONAL_FACTORS_PARENTS,
   jurisdiction: INTERNATIONAL_FACTORS_JURISDICTION,
   request: INTERNATIONAL_FACTORS_REQUEST,
-  detailsKnown: DETAILS_KNOWN_RESPONDENT,
-  startAlternative: START_ALTERNATIVE_RESPONDENT,
+  detailsKnown: DETAILS_KNOWN,
+  startAlternative: START_ALTERNATIVE,
   miamWillingness: MIAM_ATTEND_WILLINGNESS,
   miamNotWillingExplnation: MIAM_ATTEND_WILLINGNESS,
   miamStart: MIAM_START,
-  legalRepresentation: LEGAL_REPRESENTATION_START,
+  address: ' ',
+  email: ' ',
+  phoneNumber: ' ',
   courtOrderDetails: ' ',
   iFactorsJurisdictionProvideDetails: ' ',
   iFactorsRequestProvideDetails: ' ',
@@ -1412,7 +1418,7 @@ const urls = {
 
 export const cyConsentContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Please review your answers before you finish your application.',
   title2: '',
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
@@ -1429,7 +1435,7 @@ export const cyConsentContent = {
   keys: {
     doYouConsent: 'Do you consent to the application?',
     applicationReceivedDate: 'When did you receive the application?',
-    courtPermission: 'Does the applicant need permission from the court before making applications?',
+    courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
     courtOrderDetails: 'Details',
   },
   dependencies: {},
@@ -1442,14 +1448,6 @@ const cy: typeof en = (content: CommonContent) => {
     ...cyContent,
     language: content.language,
     sections: [
-      summaryList(
-        enlegalRepresntationContent,
-        userCase,
-        urls,
-        enlegalRepresntationContent.sectionTitles.title,
-        legalRepresantationFieldType,
-        content.language
-      ),
       summaryList(cyConsentContent, userCase, urls, enContent.sectionTitles.title, consentFieldType, content.language),
       summaryList(
         enKeepYourDetailsContent,

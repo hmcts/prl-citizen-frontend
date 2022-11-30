@@ -1,13 +1,15 @@
-import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, YesOrNo } from '../../../app/case/definition';
 import * as URL from '../../urls';
 
 import {
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
+  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getLegalRepresentationStatus,
   getMiamStatus,
+  getYourSafetyStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -69,8 +71,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: SectionStatus.NOT_AVAILABLE_YET,
-            href: '#',
+            status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+            href: URL.CA_DA_ATTENDING_THE_COURT,
           },
         ],
       },
@@ -86,8 +88,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'current-or-previous-proceedings',
             text: taskListItems.current_or_previous_proceedings,
-            status: SectionStatus.NOT_AVAILABLE_YET,
-            href: '#',
+            status: getCurrentOrOtherProceedingsStatus(userCase),
+            href: URL.PROCEEDINGS_START,
           },
         ],
       },
@@ -97,8 +99,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'your-safety',
             text: taskListItems.your_safety,
-            status: SectionStatus.NOT_AVAILABLE_YET,
-            href: '#',
+            status: getYourSafetyStatus(userCase),
+            href: URL.SAFETY_MAIN_PAGE,
           },
         ],
       },

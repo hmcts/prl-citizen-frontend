@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { SectionStatus } from '../../../app/case/definition';
 import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
 import {
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
+  getSupportYourNeedsDetails,
   getViewAllDocuments,
   getYourApplication,
 } from './utils';
@@ -30,8 +30,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'support-you-need-during-your-case',
           text: taskListItems.support_you_need_during_your_case,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
+          status: getSupportYourNeedsDetails(userCase),
+          href: URL.LANGUAGE_REQUIREMENTS,
         },
       ],
     },
@@ -46,8 +46,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'check-details-of-your-court-hearings',
           text: taskListItems.details_of_court_hearings,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
+          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+          href: URL.APPLICANT_DETAILS_KNOWN,
         },
       ],
     },

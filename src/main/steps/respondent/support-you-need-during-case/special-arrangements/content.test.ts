@@ -22,7 +22,7 @@ const en = {
   other: 'Other',
   otherDetails: 'Provide details of what you or the children need',
   noSupport: 'No, I do not have any safety requirements at this time',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     respondentSpecialArrangements: {
       required: 'Please select an answer',
@@ -51,7 +51,7 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Provide details of what you or the children need',
   noSupport: 'No, I do not have any safety requirements at this time',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     respondentSpecialArrangements: {
       required: 'Please select an answer',
@@ -110,7 +110,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain Save and continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });
 

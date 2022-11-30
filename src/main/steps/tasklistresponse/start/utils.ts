@@ -189,12 +189,6 @@ export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId>
     return SectionStatus.COMPLETED;
   }
   if (
-    (userCase?.proceedingsStart?.match('No') || userCase?.proceedingsStart?.match('I')) &&
-    userCase?.proceedingsStartOrder?.match('No')
-  ) {
-    return SectionStatus.COMPLETED;
-  }
-  if (
     userCase?.proceedingsStart ||
     userCase?.proceedingsStartOrder ||
     userCase?.supervisionOrderOption ||

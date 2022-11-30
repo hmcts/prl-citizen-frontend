@@ -200,28 +200,38 @@ export class CosApiClient {
     }
   }
 
-  public async UploadDocumentListFromCitizen(request: UploadDocumentRequest): Promise<DocumentDetail> {
+  public async UploadDocumentListFromCitizen(
+    user: UserDetails,
+    caseId: string,
+    parentDocumentType: string,
+    documentType: string,
+    partyId: string,
+    partyName: string,
+    isApplicant: string,
+    files: UploadedFiles,
+    documentRequestedByCourt: YesOrNo
+  ): Promise<DocumentDetail> {
     try {
       const headers = {
         Accept: '*/*',
         'Content-Type': '*',
-        Authorization: 'Bearer ' + request.user.accessToken,
+        Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
       const formData = new FormData();
 
-      for (const [, file] of Object.entries(request.files)) {
+      for (const [, file] of Object.entries(files)) {
         formData.append('files', file.buffer, file.originalname);
       }
 
-      formData.append('documentRequestedByCourt', request.documentRequestedByCourt);
-      formData.append('caseId', request.caseId);
-      formData.append('parentDocumentType', request.parentDocumentType);
-      formData.append('documentType', request.documentType);
-      formData.append('partyId', request.partyId);
-      formData.append('partyName', request.partyName);
-      formData.append('isApplicant', request.isApplicant);
+      formData.append('documentRequestedByCourt', documentRequestedByCourt);
+      formData.append('caseId', caseId);
+      formData.append('parentDocumentType', parentDocumentType);
+      formData.append('documentType', documentType);
+      formData.append('partyId', partyId);
+      formData.append('partyName', partyName);
+      formData.append('isApplicant', isApplicant);
 
       const response = await Axios.post(
         config.get('services.cos.url') + '/upload-citizen-statement-document',
@@ -235,7 +245,7 @@ export class CosApiClient {
       };
     } catch (err) {
       console.log('Error: ', err);
-      throw new Error('Case document is not updating.');
+      throw new Error('Case document is not updting.');
     }
   }
 
@@ -275,9 +285,9 @@ export class CosApiClient {
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        accessCode,
+        Authorization: ('Bearer ' + user.accessToken) as string,
+        ServiceAuthorization: ('Bearer ' + getServiceAuthToken()) as string,
+        accessCode: accessCode as string,
       };
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
@@ -340,18 +350,6 @@ export class CosApiClient {
     });
     return response.data;
   }
-}
-
-export interface UploadDocumentRequest {
-  user: UserDetails;
-  caseId: string;
-  parentDocumentType: string;
-  documentType: string;
-  partyId: string;
-  partyName: string;
-  isApplicant: string;
-  files: UploadedFiles;
-  documentRequestedByCourt: YesOrNo;
 }
 
 export type UploadedFiles =

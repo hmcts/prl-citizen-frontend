@@ -89,15 +89,10 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value:
-        fieldTypes[key] === 'Date'
-          ? getFormattedDate(userCase[key], language)
-          : key === 'startAlternative' && userCase[key] !== 'undefined'
-          ? userCase[key] + getSelectedPrivateDetails(userCase)
-          : userCase[key],
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
       changeUrl: url,
     };
-    if (key !== 'citizenUserSafeToCall') {
+    if (key !== 'applicant1SafeToCall') {
       summaryData.push(row);
     }
   }
@@ -128,10 +123,8 @@ export const summaryCaseList = (
       }
     } else if (userCase.caseTypeOfApplication === 'FL401') {
       if (!isRespondent) {
-        console.log('enetering in applicant fl401 loop....');
         caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
       } else {
-        console.log('enetering in respondent fl401 loop....');
         caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
       }
     }
@@ -179,19 +172,3 @@ export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): str
   date && !isDateInputInvalid(date)
     ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
     : '';
-
-export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string => {
-  let tempDetails = '<br/><br/><ul class="govuk-list govuk-list--bullet">';
-  const contact_private_list = userCase['contactDetailsPrivate'];
-  for (const key in contact_private_list) {
-    console.log(contact_private_list[key]);
-    tempDetails =
-      tempDetails +
-      '<li>' +
-      contact_private_list[key].charAt(0).toUpperCase() +
-      contact_private_list[key].slice(1) +
-      '</li>';
-  }
-  tempDetails = tempDetails + '</ul>';
-  return tempDetails;
-};
