@@ -19,7 +19,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: 'Contact your legal representative - welsh',
   paragraph: 'If you have a legal representative and want them to complete the application for you: - welsh',
   closeApplication: 'Close the application - welsh',

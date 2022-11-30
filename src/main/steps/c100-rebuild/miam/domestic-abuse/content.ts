@@ -119,7 +119,7 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  serviceName: 'Child Arrangements',
+  serviceName: 'Trefniadau plant',
   caption: 'Esemptiadau MIAM',
   title: 'A oes gennych chi unrhyw un o’r tystiolaethau canlynol o drais domestig neu gamdriniaeth?',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
@@ -162,13 +162,13 @@ export const cy = () => ({
     'For example, a local authority or housing association has confirmed there is or has been a risk of domestic violence or abuse. Select which evidence of this you can provide.',
   letterFromAuthority_subFields: {
     letterFromMultiAgencyMember:
-      "A letter from any person who is a member of a multi-agency risk assessment conference, or local safeguarding forum. The letter confirms that one of the people in the application, or someone in that person's family, are (or have been) at risk of harm from domestic violence from a prospective party.",
+      "Llythyr gan unrhyw un sy'n aelod o gynhadledd asesu risg aml-asiantaethol, neu fforwm diogelu lleol. Mae'r llythyr yn cadarnhau bod un o'r bobl yn y cais, neu rywun yn nheulu'r unigolyn hwnnw mewn (neu wedi bod mewn) risg o niwed yn sgil trais domestig gan ddarpar barti.",
     letterFromOfficer:
-      'A letter from an officer employed by a local authority or housing association, for the purpose of supporting tenants.',
+      'Llythyr gan swyddog a gyflogir gan awdurdod lleol neu gymdeithas tai at ddiben cefnogi tenantiaid.',
     letterFromOfficer_hint:
-      "<div class='govuk-hint govuk-checkboxes__hint' id='authorityletter-hint'>The letter must contain: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'> <li>a statement that says that in their professional judgement, a prospective party poses an actual or potential risk of domestic violence towards someone else who they are (or have been) in a family relationship with.</li> <li>a description of the specific information they relied on to support this judgement</li> <li>a description of the support that they provided to the victim (or potential victim) of domestic violence from the prospective party</li> </ul> </div>",
+      "<div class='govuk-hint govuk-checkboxes__hint' id='authorityletter-hint'>Rhaid i'r llythyr gynnwys: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'> <li>datganiad sy'n dweud, yn eu barn broffesiynol nhw, bod darpar barti yn peri risg gwirioneddol neu botensial o drais domestig tuag at rywun arall y maen nhw mewn (neu wedi bod mewn) perthynas deuluol â nhw.</li> <li>disgrifiad o'r wybodaeth benodol yr oeddent yn dibynnu arni i gefnogi'r farn hon</li> <li>disgrifiad o'r cymorth a roddwyd i'r dioddefwr (neu'r dioddefwr posib) o gam-drin domestig gan y darpar blaid</li> </ul> </div>",
     letterFromPublicAuthority:
-      'A letter from a public authority confirming that a person with whom a prospective party is or was in a family relationship, was assessed as being, or at risk of being, a victim of domestic violence by that prospective party (or a copy of that assessment)',
+      "Cafodd llythyr gan awdurdod cyhoeddus sy'n cadarnhau bod unigolyn y mae darpar barti mewn perthynas deuluol ag ef/hi neu oedd yn arfer bod mewn perthynas deuluol ag ef/hi, wedi cael ei arestio gan ei fod/bod, neu mewn perygl o fod, yn ddioddefwr trais domestig gan y darpar barti hwnnw (neu gopi o'r asesiad hwnnw)",
   },
   letterOfBeingVictim_subFields: {
     letterFromHealthProfessional: 'A letter or report from an appropriate health professional',
@@ -208,24 +208,24 @@ export const cy = () => ({
   noneOfOptions: 'None of the above - welsh',
   errors: {
     miam_domesticAbuse: {
-      required: 'Select which of the following evidence of domestic violence or abuse you have - welsh',
+      required: "Dewiswch pa un o'r dystiolaeth ganlynol o gam-drin domestig neu drais sydd gennych",
     },
     miam_domesticAbuse_policeInvolvement_subfields: {
-      required: 'Select what evidence of police involvement you have- welsh',
+      required: 'Dewiswch pa dystiolaeth sydd gennych fod yr heddlu wedi bod ynghlwm â hyn',
     },
     miam_domesticAbuse_courtInvolvement_subfields: {
-      required: 'Select what evidence of court involvement you have',
+      required: 'Dewiswch pa dystiolaeth sydd gennych fod y llys wedi bod ynghlwm â hyn',
     },
     miam_domesticAbuse_letterOfBeingVictim_subfields: {
       required:
-        'Select what letter confirming that you or the other people in the application are (or have been) a victim of domestic violence or abuse you have - welsh',
+        "Dewiswch pa lythyr sydd gennych sy'n cadarnhau eich bod chi neu'r bobl eraill yn y cais (neu bobl sydd wedi bod yn rhan o’r cais) yn ddioddefwr trais domestig neu gamdriniaeth",
     },
     miam_domesticAbuse_letterFromAuthority_subfields: {
-      required: 'Select what letter from a local authority or other agency confirming a risk of harm you have - welsh',
+      required: 'Dewiswch pa lythyr gan awdurdod lleol neu asiantaeth arall yn cadarnhau risg o niwed sydd gennych',
     },
     miam_domesticAbuse_letterFromSupportService_subfields: {
       required:
-        'Select what letter from a domestic violence or abuse support service, specialist or organisation you have - welsh',
+        'Dewiswch pa lythyr gan wasanaeth cymorth trais domestig neu gamdriniaeth, arbenigwr neu sefydliad sydd gennych',
     },
   },
 });

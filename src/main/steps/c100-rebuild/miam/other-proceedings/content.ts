@@ -26,7 +26,7 @@ export const cy = () => ({
   errors: {
     miam_otherProceedings: {
       required:
-        'Select yes if the children are involved in any emergency protection, care or supervision proceedings(or have been) - welsh',
+        "Dewiswch ydy os yw'r plant ynghlwm ag unrhyw achosion amddiffyn, gofal neu  oruchwyliaeth brys (neu wedi bod ynghlwm ag achosion o’r fath)",
     },
   },
 });

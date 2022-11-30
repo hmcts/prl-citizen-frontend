@@ -36,7 +36,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Trefniadau arbennig',
   headingTitle: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
   line1:
@@ -51,14 +51,14 @@ const cy = {
   videoLinks: 'Cyswllt fideo',
   videoLinksHint: 'Mae angen i farnwr gymeradwyo hyn',
   specialArrangementsOther: 'Arall',
-  specialArrangementsOther_subfield: 'Provide details of what you or the children need',
+  specialArrangementsOther_subfield: "Dewiswch bob un sy'n berthnasol i chi",
   noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',
   errors: {
     ra_specialArrangementsOther_subfield: {
-      required: 'Give details of the special arrangements you or the children need - welsh',
+      required: "Rhowch fanylion y trefniadau arbennig sydd eu hangen arnoch chi neu'r plant",
     },
     ra_specialArrangements: {
-      required: 'Select whether you or the children need special arrangements at court - welsh',
+      required: "Dewiswch p'un a oes angen trefniadau arbennig arnoch chi neu'r plant yn y llys",
     },
   },
 };

@@ -39,7 +39,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Safety concerns - welsh',
   title: 'What type of behaviour have you experienced or are at risk of experiencing? - welsh',
   paragraph1:
@@ -65,7 +65,7 @@ const cy = {
   somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
   errors: {
     c1A_concernAboutApplicant: {
-      required: 'Specify the type of behaviour you have experienced or are at risk of experiencing - welsh',
+      required: "Nodwch y math o ymddygiad y mae'r plant wedi ei brofi neu maent mewn perygl o’i brofi",
     },
   },
 };

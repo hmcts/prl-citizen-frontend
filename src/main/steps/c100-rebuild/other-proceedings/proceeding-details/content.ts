@@ -58,7 +58,7 @@ const cy = () => ({
   otherOrder: 'Gorchmynion eraill',
   errors: {
     op_courtProceedingsOrders: {
-      required: 'Specify which court cases you or the children have been involved in - welsh',
+      required: "Nodwch pa achosion llys yr ydych chi neu'r plant wedi bod yn rhan ohonynt",
     },
   },
 });
