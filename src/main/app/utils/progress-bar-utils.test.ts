@@ -28,7 +28,7 @@ describe('progress-bar-utils', () => {
           {
             title: 'Cafcass child<br/> safety checks',
             ariaLabel: 'Cafcass child safety checks stage',
-            active: true,
+            active: false,
             completed: false,
           },
           {

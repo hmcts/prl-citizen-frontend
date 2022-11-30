@@ -13,7 +13,7 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
   const cafcassSafetyChecks = {
     title: progressBarC100.cafcassSafetyChecks.title,
     ariaLabel: progressBarC100.cafcassSafetyChecks.ariaLabel,
-    active: true,
+    active: false,
     completed: false,
   };
 
