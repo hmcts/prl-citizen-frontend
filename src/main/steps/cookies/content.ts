@@ -22,7 +22,7 @@ const en = () => ({
   websiteUsageCookiesParagraph3:
     'We allow Google to use or share our analytics data. You can find out more about how Google use this information in their <a class="govuk-link" href="https://www.google.com/policies/privacy/partners/">Privacy Policy</a>.',
   websiteUsageCookiesParagraph4:
-    'You can opt  <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">out of Google Analytics</a> if you do not want Google to have access to your information.',
+    'You can opt <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">out of Google Analytics</a> if you do not want Google to have access to your information.',
   websiteUsageCookiesParagraph5: 'List of google analytics cookies used.',
   websiteUsageCookiesAriaDescribedby: 'Google Analytics sets the following cookies',
   cookieNameHeader: 'Name',
@@ -117,7 +117,7 @@ const cy: typeof en = () => ({
   websiteUsageCookiesParagraph3:
     'Rydym yn caniatáu i Google ddefnyddio neu rannu ein data dadansoddi. Gallwch ddarganfod mwy am sut mae Google yn defnyddio’r wybodaeth hon yn eu <a class="govuk-link" href="https://www.google.com/policies/privacy/partners/">Polisi Preifatrwydd.</a>',
   websiteUsageCookiesParagraph4:
-    'You can opt  <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">out of Google Analytics</a> if you do not want Google to have access to your information. {in welsh}',
+    'You can opt <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">out of Google Analytics</a> if you do not want Google to have access to your information. {in welsh}',
   websiteUsageCookiesParagraph5: 'List of google analytics cookies used.',
   websiteUsageCookiesAriaDescribedby: 'os nad ydych eisiau i Google gael mynediad at eich gwybodaeth',
   cookieNameHeader: 'Enw’r cwci',
