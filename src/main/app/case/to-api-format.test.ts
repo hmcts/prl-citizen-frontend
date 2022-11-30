@@ -51,7 +51,7 @@ describe('to-api-format', () => {
       citizenUserPhoneNumber: '1234567890',
       citizenUserPlaceOfBirth: 'MOCK_applicant1PlaceOfBirth',
       caseCode: 'MOCK_caseCode',
-      citizenRole: 'APPLICANT',
+      citizenRole: 'applicant',
       claimNumber: 'MOCK_claimNumber',
       respondentFirstName: 'MOCK_respondentFirstName',
       respondentLastName: 'MOCK_respondentLastName',

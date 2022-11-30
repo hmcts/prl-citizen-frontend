@@ -1,5 +1,3 @@
-// import * as fs from 'fs';
-// import * as https from 'https';
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
@@ -14,6 +12,7 @@ import { AuthProvider } from './modules/auth-provider';
 import { AxiosLogger } from './modules/axios-logger';
 import { CSRFToken } from './modules/csrf';
 import { ErrorHandler } from './modules/error-handler';
+import { FeatureToggleProvider } from './modules/feature-toggle';
 import { HealthCheck } from './modules/health';
 import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
@@ -63,6 +62,7 @@ new HealthCheck().enableFor(app);
 new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
+new FeatureToggleProvider().enable(app);
 
 setupDev(app, developmentMode);
 
