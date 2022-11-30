@@ -19,11 +19,11 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Address of - welsh',
+  title: 'Cyfeiriad',
   errors: {
     addressPostcode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
+      required: 'Nodwch y cod post',
+      invalid: ' Rhowch god post dilys.',
     },
   },
 });
