@@ -1,6 +1,7 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
+
 {% extends "govuk/template.njk" %}
 
 {% block head %}
@@ -19,7 +20,7 @@
         text: signOut if isLoggedIn
       }
     ]
-  
+
   }) }}
 {% endblock %}
 
@@ -38,11 +39,13 @@
   {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>
   {% endblock %}
+
 {% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+
       {% block error_summary %}
         {% include "common/error/summary.njk" %}
       {% endblock %}
@@ -51,9 +54,9 @@
         {% if title %}
           <h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ title }}</h1>
         {% endif %}
-       
+
       {% endblock %}
-      
+
       {% if form %}
         {% block form %}
           {% include "common/form/form.njk"%}
@@ -63,8 +66,15 @@
       {% block page_content_under_form %}
       {% endblock %}
     </div>
+
     <div class="govuk-grid-column-one-third">
-        {% block page_contact_us %}
+    {% block page_safetyConcerns %}
+
+    {% endblock %}
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+       {% block page_contact_us %}
              {% include "./contact-us.njk" %}
         {% endblock %}
     </div>

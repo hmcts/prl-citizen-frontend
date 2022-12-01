@@ -139,12 +139,12 @@ export default {
   applicant1DocumentsUploaded: [{ id: 'MOCK_DOCUMENT_ID', value: { documentFileName: 'MOCK_DOCUMENT_FILE_NAME' } }],
   orderCollection: [],
   respondentsFL401: {
-    firstName: test,
-    lastName: test,
+    firstName: 'test',
+    lastName: 'test',
   },
   applicantsFL401: {
-    firstName: test,
-    lastName: test,
+    firstName: 'test',
+    lastName: 'test',
   },
   id: '1234',
 } as unknown as CaseWithId;

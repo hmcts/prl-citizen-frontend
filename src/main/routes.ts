@@ -1,17 +1,20 @@
 import fs from 'fs';
 
 import { Application } from 'express';
+import fileUpload from 'express-fileupload';
 import multer from 'multer';
 
-import { GetCaseController } from '../main/app/controller/GetCaseController';
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
+import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
+
+import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
@@ -82,6 +85,13 @@ import {
   TIMED_OUT_URL,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
+  /** C100 Rebuild URLs */
+  // eslint-disable-next-line sort-imports
+  C100_CREATE_CASE,
+  PAYMENT_GATEWAY_ENTRY_URL,
+  PAYMENT_RETURN_URL_CALLBACK,
+  C100_RETRIVE_CASE,
+  //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
 const handleUploads = multer();
@@ -110,13 +120,15 @@ export class Routes {
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
+    app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
+    app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
       const getController = getControllerFileName
         ? require(`${step.stepDir}/${getControllerFileName}`).default
-        : GetController;
+        : step.getController ?? GetController;
 
       if (step && getController) {
         app.get(
@@ -158,11 +170,11 @@ export class Routes {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
           ? require(`${step.stepDir}/${postControllerFileName}`).default
-          : PostController;
-
+          : step.postController ?? PostController;
         app.post(
           step.url,
-          this.routeGuard.bind(this, step, 'get'),
+          // eslint-disable-next-line prettier/prettier
+          [this.routeGuard.bind(this, step, 'post'), fileUpload({ limits: { fileSize: 1024 * 1024 * 30 } })],
           errorHandler(new postController(step.form.fields).post)
         );
         const documentManagerController = new DocumentManagerController(step.form.fields);
@@ -227,6 +239,21 @@ export class Routes {
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
       }
+    }
+    /**
+     * @Payment_Handler
+     */
+    app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
+    app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
+
+    app.get('/api/v1/session', (req, res) => res.json(req.session));
+  }
+
+  private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
+    if (typeof step?.routeGuard?.[httpMethod] === 'function') {
+      step.routeGuard[httpMethod].call(this, req, res, next);
+    } else {
+      next();
     }
   }
 
