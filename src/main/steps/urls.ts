@@ -173,13 +173,13 @@ export const RESPONDENT_CHECK_ANSWERS_NO: PageLink =
 export const RESPONDENT_CHECK_ANSWERS_YES: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes';
 
-export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink =
+export const PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about';
-export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: PageLink =
+export const PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/applicant/concerns-about';
-export const C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink =
+export const PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType';
-export const C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink =
+export const PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/applicant/report-abuse/:abuseType';
 
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';

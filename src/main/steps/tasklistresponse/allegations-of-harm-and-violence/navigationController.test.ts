@@ -2,10 +2,10 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
-  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
-  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
-  C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
-  C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   RESPONDENT_YOUR_CHILD_CONCERNS,
 } from '../../urls';
 
@@ -61,14 +61,14 @@ describe('SafteyConcernsNavigationController for only children', () => {
   });
 
   test('From children report abuse screen -> navigate to children physical abuse screen', async () => {
-    expect(SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
-      applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE })
+    expect(SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
+      applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE })
     );
   });
 
   test('From children physical abuse screen -> navigate to financial abuse screen', async () => {
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, {
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, {
         abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
       })
     ).toBe('/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType');
@@ -88,33 +88,33 @@ describe('SafteyConcernsNavigationController for only applicant', () => {
 
   test('From applicant report abuse screen -> navigate to applicant psychological abuse screen', async () => {
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT, caseData)
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT, caseData)
     ).toBe(
-      applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE })
+      applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE })
     );
   });
 
   test('From applicant psychological abuse screen -> navigate to emotional abuse screen', async () => {
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, caseData, {
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, caseData, {
         abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
       })
-    ).toBe(applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE }));
+    ).toBe(applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE }));
   });
 
   test('From applicant emotional abuse screen -> navigate to somethingElse abuse screen', async () => {
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, caseData, {
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, caseData, {
         abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
       })
-    ).toBe(applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }));
+    ).toBe(applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }));
   });
 });
 
 test('When someother abuse along with witnessingDomesticAbuse is selected as children abuse, from children report abuse screen -> navigate to children emotional abuse screen -> From children emotional abuse screen -> navigate to other concerns screen', async () => {
   caseData.c1A_concernAboutChild = ['emotionalAbuse', 'witnessingDomesticAbuse'];
-  expect(SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
-    applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE })
+  expect(SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
+    applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE })
   );
 });
 
@@ -130,14 +130,14 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
   });
 
   test('From children report abuse screen -> navigate to children physical abuse screen', async () => {
-    expect(SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
-      applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE })
+    expect(SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
+      applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE })
     );
   });
 
   test('From children physical abuse screen -> navigate to financial abuse screen', async () => {
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, {
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, {
         abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
       })
     ).toBe('/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType');
@@ -145,7 +145,7 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
 
   test('From children financial abuse screen -> navigate to the applicant report abuse screen', async () => {
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, {
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, {
         abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
       })
     ).toBe('/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType');
@@ -153,17 +153,17 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
 
   test('From applicant report abuse screen -> navigate to applicant somethingElse abuse screen', async () => {
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT, caseData)
-    ).toBe(applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }));
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT, caseData)
+    ).toBe(applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }));
   });
 
   test('When only somethingElse is selected as children abuse, from children report abuse screen -> navigate to the applicant report abuse screen -> From applicant report abuse screen -> navigate to applicant somethingElse abuse screen -> navigate to other concerns screen', async () => {
     caseData.c1A_concernAboutChild = ['somethingElse'];
-    expect(SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
-      C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT
+    expect(SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
+      PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT
     );
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT, caseData)
-    ).toBe(applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }));
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT, caseData)
+    ).toBe(applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }));
   });
 });

@@ -243,11 +243,7 @@ export const generatePageContent = ({
     userIdamId,
     additionalData,
     byApplicant,
-    // contactEmail,
-    additionalData,
     userId,
-    // eligibility,
-    // fee,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -287,11 +283,6 @@ export type CommonContent = typeof en & {
   additionalData?: CommonContentAdditionalData;
   userId?: string | undefined;
   userIdamId?: string;
-};
-
-type CommonContentAdditionalData = {
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  [key: string]: any;
 };
 
 export type Language = 'en' | 'cy';

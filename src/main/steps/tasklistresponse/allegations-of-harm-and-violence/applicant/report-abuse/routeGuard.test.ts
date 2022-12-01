@@ -19,7 +19,7 @@ describe('C1A Saftey Concers applicant report abuse RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     routeGuard.get(req, res, next);
-    expect(next).not.toHaveBeenCalled();
+    expect(next).toHaveBeenCalled();
   });
 
   test('Should not render the page when the guard validation fails', async () => {

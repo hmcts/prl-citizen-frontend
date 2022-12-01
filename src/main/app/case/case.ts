@@ -11,9 +11,6 @@ import {
   Applicant,
   ApplicantTable,
   AttendingTheHearingTable,
-  C1AAbuseTypes,
-  C1ASafteyConcerns,
-  C1ASafteyConcernsAbout,
   CaseData,
   CaseInvite,
   CaseStatus,
@@ -428,10 +425,6 @@ export interface Case {
 
   //CA-DA-Respondent
   respondentAttendingToCourt?: string;
-  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
-  c1A_safteyConcerns?: C1ASafteyConcerns;
-  c1A_concernAboutChild?: C1AAbuseTypes[];
-  c1A_concernAboutApplicant?: C1AAbuseTypes[];
   respondentConcernedonChildAbout?: string;
   ConcernedonSelfAbout?: string;
   respondentHearingDetails?: string;

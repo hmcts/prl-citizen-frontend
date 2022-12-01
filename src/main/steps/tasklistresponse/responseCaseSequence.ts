@@ -1,10 +1,6 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
-  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
-  C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
-  C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -21,6 +17,10 @@ import {
   MIAM_SAVE,
   MIAM_START,
   MIAM_SUMMARY,
+  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
   RESPONDENT_ADDRESS_CONFIRMATION,
@@ -272,37 +272,37 @@ export const responseCaseSequence: Step[] = [
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
-    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+    url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData, req) =>
       SafteyConcernsNavigationController.getNextUrl(
-        C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+        PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
         caseData,
         req?.params
       ),
   },
   {
-    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+    url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData, req) =>
       SafteyConcernsNavigationController.getNextUrl(
-        C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+        PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
         caseData,
         req?.params
       ),
   },
   {
-    url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+    url: PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData, req) =>
-      SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, req?.params),
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, req?.params),
   },
   {
-    url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+    url: PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData, req) =>
       SafteyConcernsNavigationController.getNextUrl(
-        C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+        PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
         caseData,
         req?.params
       ),

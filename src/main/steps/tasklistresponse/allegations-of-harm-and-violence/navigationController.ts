@@ -2,10 +2,10 @@ import { Case } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
-  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
-  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
-  C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
-  C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   PageLink,
   RESPONDENT_CHECK_ANSWERS_YES,
   RESPONDENT_TASK_LIST_URL,
@@ -29,18 +29,18 @@ class SafteyConcernsNavigationController {
         break;
       }
 
-      case C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: {
+      case PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: {
         nextUrl = this.getNextUrlSafetyConcernChild(
           this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, this.childConcerns[0])
         );
 
         break;
       }
-      case C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: {
+      case PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: {
         nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT, this.applicantConcerns[0]);
         break;
       }
-      case C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: {
+      case PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: {
         nextUrl = this.getNextUrlSafetyConcernReport(params);
         break;
       }
@@ -126,24 +126,24 @@ class SafteyConcernsNavigationController {
   private pages: Record<C1ASafteyConcernsAbout, Record<string, any>> = {
     [C1ASafteyConcernsAbout.CHILDREN]: {
       dataReference: () => this.childConcerns,
-      url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+      url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
       abuse: {
         [C1AAbuseTypes.PHYSICAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE }),
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE }),
         },
         [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, {
             abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
           }),
         },
         [C1AAbuseTypes.EMOTIONAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE }),
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE }),
         },
         [C1AAbuseTypes.SEXUAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
         },
         [C1AAbuseTypes.FINANCIAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.FINANCIAL_ABUSE }),
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.FINANCIAL_ABUSE }),
         },
         // [C1AAbuseTypes.ABDUCTION]: {
         //   url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
@@ -158,33 +158,33 @@ class SafteyConcernsNavigationController {
     },
     [C1ASafteyConcernsAbout.APPLICANT]: {
       dataReference: () => this.applicantConcerns,
-      url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+      url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
       abuse: {
         [C1AAbuseTypes.PHYSICAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
             abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
           }),
         },
         [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
             abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
           }),
         },
         [C1AAbuseTypes.EMOTIONAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
             abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
           }),
         },
         [C1AAbuseTypes.SEXUAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
         },
         [C1AAbuseTypes.FINANCIAL_ABUSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
             abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
           }),
         },
         [C1AAbuseTypes.SOMETHING_ELSE]: {
-          url: applyParms(C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }),
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }),
         },
       },
     },

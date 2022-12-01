@@ -2382,11 +2382,6 @@ export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
 
-export enum C1ASafteyConcernsAbout{
-  CHILDREN = 'children',
-  APPLICANT = 'applicant',
-  OTHER = 'otherConcerns',
-}
 
 export const enum C100_CASE_TYPE {
   C100 = 'C100',
@@ -2480,16 +2475,6 @@ export interface OtherProceedings {
   order?: C100OrderTypeInterface
 }
 
-export enum C1AAbuseTypes {
-  PHYSICAL_ABUSE = 'physicalAbuse',
-  PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
-  EMOTIONAL_ABUSE = 'emotionalAbuse',
-  SEXUAL_ABUSE = 'sexualAbuse',
-  FINANCIAL_ABUSE = 'financialAbuse',
-  ABDUCTION = 'abduction',
-  WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
-  SOMETHING_ELSE='somethingElse',
-}
 
 export enum C1ASafteyConcernsAbout{
   CHILDREN = 'children',

@@ -13,7 +13,6 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
-
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -247,14 +246,6 @@ export class Routes {
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
 
     app.get('/api/v1/session', (req, res) => res.json(req.session));
-  }
-
-  private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
-    if (typeof step?.routeGuard?.[httpMethod] === 'function') {
-      step.routeGuard[httpMethod].call(this, req, res, next);
-    } else {
-      next();
-    }
   }
 
   private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
