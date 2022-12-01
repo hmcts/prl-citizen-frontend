@@ -734,7 +734,7 @@ export const SafetyConcerns_child = (
       return {
         key: keys['detailsOfChildConcern']
           .split('[***]')
-          .join(` ${keys[field]} `)
+          .join(` ${keys[field].toLowerCase()} `)
           .split('[^^^]')
           .join(keys['againstChild']),
         value: '',  
@@ -876,7 +876,7 @@ export const SafetyConcerns_yours = (
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
     ?.map(field => {
-      const keyForFields = field === C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfChildConcern'].split('[***]').join(` ${keys['concerns']} `).split('[^^^]').join(''): keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `).split('[^^^]').join('');
+      const keyForFields = field === C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfChildConcern'].split('[***]').join(` ${keys['concerns'].toLowerCase()} `).split('[^^^]').join(''): keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field].toLowerCase()} `).split('[^^^]').join('');
       return {
         key: keyForFields,
         valueHtml: SafetyConcernsHelper(
@@ -1263,12 +1263,13 @@ export const HelpWithFee = (
       changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'], 
     },
   ];
-
+  if(userCase.hasOwnProperty('hwf_needHelpWithFees') && userCase['hwf_needHelpWithFees'] === YesOrNo.YES){
     SummaryData.push({
       key: keys['hwfApplication'],
       valueHtml: userCase['helpWithFeesReferenceNumber'],
       changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'], 
     });
+  }
   return {
     title: sectionTitles['helpWithFee'],
     rows: getSectionSummaryList(SummaryData, content),
