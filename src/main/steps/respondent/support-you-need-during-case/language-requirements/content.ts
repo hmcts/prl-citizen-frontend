@@ -14,7 +14,7 @@ const en = {
   languageinterpreter: 'I need an interpreter in a certain language',
   typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
   nointerpreter: 'No, I do not have any language requirements at this time',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     respondentLangRequirements: {
       required: 'Please select an answer',
@@ -37,7 +37,7 @@ const cy: typeof en = {
   languageinterpreter: 'I need an interpreter in a certain language',
   typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
   nointerpreter: 'No, I do not have any language requirements at this time',
-  continue: 'Continue',
+  continue: 'Save and continue',
   errors: {
     respondentLangRequirements: {
       required: 'Please select an answer',
@@ -97,7 +97,7 @@ export const form: FormContent = {
       ],
     },
   },
-  onlyContinue: {
+  submit: {
     text: l => l.continue,
   },
 };

@@ -2,7 +2,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(77);
+    expect(applicantCaseSequence).toHaveLength(69);
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/task-list');
@@ -310,37 +310,5 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[68].url).toBe('/applicant/witnessstatements');
     expect(applicantCaseSequence[68].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[68].getNextStep({})).toBe('/applicant/task-list');
-
-    expect(applicantCaseSequence[69].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
-    expect(applicantCaseSequence[69].showInSection).toBe('aboutRespondentCase');
-    expect(applicantCaseSequence[69].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/safeguarding_letter');
-
-    expect(applicantCaseSequence[70].url).toBe('/applicant/yourdocuments/alldocuments/safeguarding_letter');
-    expect(applicantCaseSequence[70].showInSection).toBe('aboutRespondentCase');
-    expect(applicantCaseSequence[70].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
-
-    expect(applicantCaseSequence[71].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
-    expect(applicantCaseSequence[71].showInSection).toBe('aboutRespondentCase');
-    expect(applicantCaseSequence[71].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/section7_report');
-
-    expect(applicantCaseSequence[72].url).toBe('/applicant/yourdocuments/alldocuments/section7_report');
-    expect(applicantCaseSequence[72].showInSection).toBe('aboutRespondentCase');
-    expect(applicantCaseSequence[72].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
-
-    expect(applicantCaseSequence[73].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
-    expect(applicantCaseSequence[73].showInSection).toBe('aboutRespondentCase');
-    expect(applicantCaseSequence[73].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/section37_report');
-
-    expect(applicantCaseSequence[74].url).toBe('/applicant/yourdocuments/alldocuments/section37_report');
-    expect(applicantCaseSequence[74].showInSection).toBe('aboutRespondentCase');
-    expect(applicantCaseSequence[74].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
-
-    expect(applicantCaseSequence[75].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
-    expect(applicantCaseSequence[75].showInSection).toBe('aboutRespondentCase');
-    expect(applicantCaseSequence[75].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/risk_assessment_16a');
-
-    expect(applicantCaseSequence[76].url).toBe('/applicant/yourdocuments/alldocuments/risk_assessment_16a');
-    expect(applicantCaseSequence[76].showInSection).toBe('aboutRespondentCase');
-    expect(applicantCaseSequence[76].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
   });
 });

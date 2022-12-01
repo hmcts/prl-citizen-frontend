@@ -106,7 +106,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you have a legal representative?',
           },
         ],
-        title: '1. Legal representation',
+        title: 'Legal representation',
       },
       {
         items: [
@@ -117,7 +117,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you consent to the application?',
           },
         ],
-        title: '2. Consent to the application',
+        title: 'Consent to the application',
       },
       {
         items: [
@@ -134,13 +134,13 @@ describe('getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '#',
+            href: '/respondent/support-you-need-during-case/attending-the-court',
             id: 'support_you_need_during_your_case',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Support you need during your case',
           },
         ],
-        title: '3. Your details',
+        title: 'Your details',
       },
       {
         items: [
@@ -151,24 +151,24 @@ describe('getRemainingTaskList', () => {
             text: 'Mediation(MIAM)',
           },
           {
-            href: '#',
+            href: '/tasklistresponse/proceedings/start',
             id: 'current-or-previous-proceedings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Current or previous proceedings',
           },
         ],
-        title: '4. Application details',
+        title: 'Application details',
       },
       {
         items: [
           {
-            href: '#',
+            href: '/tasklistresponse/safety_concerns/main_page',
             id: 'your-safety',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Your safety',
           },
         ],
-        title: '5. Safety concerns',
+        title: 'Safety concerns',
       },
       {
         items: [
@@ -179,7 +179,7 @@ describe('getRemainingTaskList', () => {
             text: 'International element',
           },
         ],
-        title: '6. Additional information',
+        title: 'Additional information',
       },
     ];
     expect(generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
@@ -216,7 +216,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you have a legal representative?',
           },
         ],
-        title: '1. Legal representation',
+        title: 'Legal representation',
       },
       {
         items: [
@@ -227,7 +227,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you consent to the application?',
           },
         ],
-        title: '2. Consent to the application',
+        title: 'Consent to the application',
       },
       {
         items: [
@@ -244,13 +244,13 @@ describe('getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '#',
+            href: '/respondent/support-you-need-during-case/attending-the-court',
             id: 'support_you_need_during_your_case',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Support you need during your case',
           },
         ],
-        title: '3. Your details',
+        title: 'Your details',
       },
       {
         items: [
@@ -261,24 +261,24 @@ describe('getRemainingTaskList', () => {
             text: 'Mediation(MIAM)',
           },
           {
-            href: '#',
+            href: '/tasklistresponse/proceedings/start',
             id: 'current-or-previous-proceedings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Current or previous proceedings',
           },
         ],
-        title: '4. Application details',
+        title: 'Application details',
       },
       {
         items: [
           {
-            href: '#',
+            href: '/tasklistresponse/safety_concerns/main_page',
             id: 'your-safety',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Your safety',
           },
         ],
-        title: '5. Safety concerns',
+        title: 'Safety concerns',
       },
       {
         items: [
@@ -289,7 +289,7 @@ describe('getRemainingTaskList', () => {
             text: 'International element',
           },
         ],
-        title: '6. Additional information',
+        title: 'Additional information',
       },
     ];
     expect(generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
@@ -314,7 +314,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you have a legal representative?',
           },
         ],
-        title: '1. Legal representation',
+        title: 'Legal representation',
       },
       {
         items: [
@@ -325,7 +325,7 @@ describe('getRemainingTaskList', () => {
             text: 'Do you consent to the application?',
           },
         ],
-        title: '2. Consent to the application',
+        title: 'Consent to the application',
       },
       {
         items: [
@@ -342,13 +342,13 @@ describe('getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '#',
+            href: '/respondent/support-you-need-during-case/attending-the-court',
             id: 'support_you_need_during_your_case',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Support you need during your case',
           },
         ],
-        title: '3. Your details',
+        title: 'Your details',
       },
       {
         items: [
@@ -359,24 +359,24 @@ describe('getRemainingTaskList', () => {
             text: 'Mediation(MIAM)',
           },
           {
-            href: '#',
+            href: '/tasklistresponse/proceedings/start',
             id: 'current-or-previous-proceedings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Current or previous proceedings',
           },
         ],
-        title: '4. Application details',
+        title: 'Application details',
       },
       {
         items: [
           {
-            href: '#',
+            href: '/tasklistresponse/safety_concerns/main_page',
             id: 'your-safety',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'COMPLETED',
             text: 'Your safety',
           },
         ],
-        title: '5. Safety concerns',
+        title: 'Safety concerns',
       },
       {
         items: [
@@ -387,7 +387,7 @@ describe('getRemainingTaskList', () => {
             text: 'International element',
           },
         ],
-        title: '6. Additional information',
+        title: 'Additional information',
       },
     ];
     expect(generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);

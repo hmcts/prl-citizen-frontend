@@ -1,4 +1,3 @@
-/* eslint-disable no-fallthrough */
 import { Applicant, PartyDetails, Respondent, YesNoDontKnow, YesOrNo } from '../../../../../app/case/definition';
 import * as URL from '../../../../urls';
 import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/utils';
@@ -40,22 +39,77 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     url = URL.RESPONDENT;
   }
 
-  const flags = {
-    isDrugDocUploaded: false,
-    isPaternityDocUploaded: false,
-    isPreviousOrdersSubmitted: false,
-    isMedicalReportsUploaded: false,
-    isLettersFromSchool: false,
-    isMedicalRecordsUpload: false,
-    isDigitalDownloadsUploaded: false,
-    isPoliceReportUploaded: false,
-    isWitnessAvailabilityUploaded: false,
-    isTenancyUploaded: false,
-  };
+  let isDrugDocUploaded = false,
+    isPaternityDocUploaded = false,
+    isPreviousOrdersSubmitted = false,
+    isMedicalReportsUploaded = false,
+    isLettersFromSchool = false,
+    isMedicalRecordsUpload = false,
+    isDigitalDownloadsUploaded = false,
+    isPoliceReportUploaded = false,
+    isWitnessAvailabilityUploaded = false,
+    isTenancyUploaded = false;
 
   for (const doc of userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.isApplicant === YesOrNo.YES) {
-      getUpdatedFlags(doc, flags);
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.drug_alcohol_tests &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isDrugDocUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.paternity_test_reports &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isPaternityDocUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_reports &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isMedicalReportsUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.previous_orders_submitted &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isPreviousOrdersSubmitted = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.letters_from_school &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isLettersFromSchool = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_records &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isMedicalRecordsUpload = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.digital_downloads &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isDigitalDownloadsUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.police_disclosures &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isPoliceReportUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.witness_availability &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isWitnessAvailabilityUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability &&
+      doc.value.isApplicant === YesOrNo.YES
+    ) {
+      isTenancyUploaded = true;
     }
   }
   const applicantItems: object[] = [];
@@ -64,15 +118,10 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
     });
     userCase.applicants.forEach((applicant: Applicant) => {
-      if (userCase.c1ADocument) {
-        applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
-      }
+      applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
     });
-    /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
     userCase.applicants.forEach((applicant: Applicant) => {
-      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-        applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
-      }
+      applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
     });
     userCase.applicants.forEach((applicant: Applicant) => {
       applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
@@ -94,7 +143,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS,
   });
 
-  if (flags.isMedicalReportsUploaded) {
+  if (isMedicalReportsUploaded) {
     applicantItems.push({
       id: 'medical_reports',
       text: taskListItems.medical_reports,
@@ -116,28 +165,28 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       href: url + URL.APPLICATION_MADE_IN_THESE_PRCEEDINGS,
     });
   }
-  if (flags.isPreviousOrdersSubmitted) {
+  if (isPreviousOrdersSubmitted) {
     applicantItems.push({
       id: 'previous_orders_submitted',
       text: taskListItems.previous_orders_submitted,
       href: url + URL.PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=Yes',
     });
   }
-  if (flags.isLettersFromSchool) {
+  if (isLettersFromSchool) {
     applicantItems.push({
       id: 'letters_from_school',
       text: taskListItems.letters_from_school,
       href: url + URL.LETTER_FROM_SCHOOL + '?byApplicant=Yes',
     });
   }
-  if (flags.isDigitalDownloadsUploaded) {
+  if (isDigitalDownloadsUploaded) {
     applicantItems.push({
       id: 'digital_downloads',
       text: taskListItems.digital_downloads,
       href: url + URL.DIGITAL_DOWNLOADS + '?byApplicant=Yes',
     });
   }
-  if (flags.isMedicalRecordsUpload) {
+  if (isMedicalRecordsUpload) {
     applicantItems.push({
       id: 'medical_records',
       text: taskListItems.medical_records,
@@ -145,35 +194,35 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     });
   }
 
-  if (flags.isPaternityDocUploaded) {
+  if (isPaternityDocUploaded) {
     applicantItems.push({
       id: 'paternity_test_reports',
       text: taskListItems.paternity_test_reports,
       href: url + URL.PATERNITY_TEST_REPORTS + '?byApplicant=Yes',
     });
   }
-  if (flags.isDrugDocUploaded) {
+  if (isDrugDocUploaded) {
     applicantItems.push({
       id: 'drug_alcohol_tests',
       text: taskListItems.drug_alcohol_tests,
       href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=Yes',
     });
   }
-  if (flags.isPoliceReportUploaded) {
+  if (isPoliceReportUploaded) {
     applicantItems.push({
       id: 'police_disclosures',
       text: taskListItems.police_disclosures,
       href: url + URL.POLICE_DISCLOSURE + '?byApplicant=Yes',
     });
   }
-  if (flags.isWitnessAvailabilityUploaded) {
+  if (isWitnessAvailabilityUploaded) {
     applicantItems.push({
       id: 'witness_availability',
       text: taskListItems.witness_availability,
       href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=Yes',
     });
   }
-  if (flags.isTenancyUploaded) {
+  if (isTenancyUploaded) {
     applicantItems.push({
       id: 'tenancy_and_mortgage_availability',
       text: taskListItems.tenancy_and_mortgage_availability,
@@ -192,44 +241,91 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   if (!isApplicant) {
     url = URL.RESPONDENT;
   }
-  const flags = {
-    isDrugDocUploaded: false,
-    isPaternityDocUploaded: false,
-    isPreviousOrdersSubmitted: false,
-    isMedicalReportsUploaded: false,
-    isLettersFromSchool: false,
-    isMedicalRecordsUpload: false,
-    isDigitalDownloadsUploaded: false,
-    isPoliceReportUploaded: false,
-    isWitnessAvailabilityUploaded: false,
-    isTenancyUploaded: false,
-  };
+  let isDrugDocUploaded = false,
+    isPaternityDocUploaded = false,
+    isPreviousOrdersSubmitted = false,
+    isMedicalReportsUploaded = false,
+    isLettersFromSchool = false,
+    isMedicalRecordsUpload = false,
+    isDigitalDownloadsUploaded = false,
+    isPoliceReportUploaded = false,
+    isWitnessAvailabilityUploaded = false,
+    isTenancyUploaded = false;
 
   for (const doc of userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.isApplicant === YesOrNo.NO) {
-      getUpdatedFlags(doc, flags);
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.drug_alcohol_tests &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isDrugDocUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.paternity_test_reports &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isPaternityDocUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_reports &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isMedicalReportsUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.previous_orders_submitted &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isPreviousOrdersSubmitted = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.letters_from_school &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isLettersFromSchool = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.medical_records &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isMedicalRecordsUpload = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.digital_downloads &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isDigitalDownloadsUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.police_disclosures &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isPoliceReportUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.witness_availability &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isWitnessAvailabilityUploaded = true;
+    }
+    if (
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability &&
+      doc.value.isApplicant === YesOrNo.NO
+    ) {
+      isTenancyUploaded = true;
     }
   }
   const respondentItems: object[] = [];
   const respondentItems2: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
     userCase.respondents.forEach((respondent: Respondent) => {
-      if (userCase.citizenResponseC7DocumentList) {
-        respondentItems.push(getResponseToCA(respondent, taskListItems, userCase.citizenResponseC7DocumentList));
-      }
-    });
-    /** uncomment and add condition when we implement Response to AOH, AOH docs for respondent  */
-    userCase.respondents.forEach((respondent: Respondent) => {
-      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-        respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
-      }
+      respondentItems.push(getResponseToCA(respondent, taskListItems));
     });
     userCase.respondents.forEach((respondent: Respondent) => {
-      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-        respondentItems.push(getAohAndViolence(respondent, taskListItems));
-      }
+      respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
     });
-
+    userCase.respondents.forEach((respondent: Respondent) => {
+      respondentItems.push(getAohAndViolence(respondent, taskListItems));
+    });
     userCase.respondents.forEach((respondent: Respondent) => {
       respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, url));
     });
@@ -250,14 +346,14 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
       href: url + URL.APPLICATION_MADE_IN_THESE_PRCEEDINGS,
     });
   }
-  if (flags.isPreviousOrdersSubmitted) {
+  if (isPreviousOrdersSubmitted) {
     respondentItems.push({
       id: 'previous_orders_submitted_respondent',
       text: taskListItems.previous_orders_submitted_respondent,
       href: url + URL.PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=No',
     });
   }
-  if (flags.isLettersFromSchool) {
+  if (isLettersFromSchool) {
     respondentItems.push({
       id: 'letters_from_school_respondent',
       text: taskListItems.letters_from_school_respondent,
@@ -270,56 +366,56 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     text: taskListItems.other_people_witness_statements_respondent,
     href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS + '?byApplicant=No',
   });
-  if (flags.isDigitalDownloadsUploaded) {
+  if (isDigitalDownloadsUploaded) {
     respondentItems2.push({
       id: 'digital_downloads_respondent',
       text: taskListItems.digital_downloads_respondent,
       href: url + URL.DIGITAL_DOWNLOADS + '?byApplicant=No',
     });
   }
-  if (flags.isMedicalRecordsUpload) {
+  if (isMedicalRecordsUpload) {
     respondentItems2.push({
       id: 'medical_records_respondent',
       text: taskListItems.medical_records_respondent,
       href: url + URL.MEDICAL_RECORDS + '?byApplicant=No',
     });
   }
-  if (flags.isMedicalReportsUploaded) {
+  if (isMedicalReportsUploaded) {
     respondentItems2.push({
       id: 'medical_reports_respondent',
       text: taskListItems.medical_reports_respondent,
       href: url + URL.MEDICAL_REPORTS + '?byApplicant=No',
     });
   }
-  if (flags.isPaternityDocUploaded) {
+  if (isPaternityDocUploaded) {
     respondentItems2.push({
       id: 'paternity_test_reports_respondent',
       text: taskListItems.paternity_test_reports_respondent,
       href: url + URL.PATERNITY_TEST_REPORTS + '?byApplicant=No',
     });
   }
-  if (flags.isDrugDocUploaded) {
+  if (isDrugDocUploaded) {
     respondentItems2.push({
       id: 'drug_alcohol_tests_respondent',
       text: taskListItems.drug_alcohol_tests_respondent,
       href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=No',
     });
   }
-  if (flags.isPoliceReportUploaded) {
+  if (isPoliceReportUploaded) {
     respondentItems2.push({
       id: 'police_disclosures_respondent',
       text: taskListItems.police_disclosures_respondent,
       href: url + URL.POLICE_DISCLOSURE + '?byApplicant=No',
     });
   }
-  if (flags.isWitnessAvailabilityUploaded) {
+  if (isWitnessAvailabilityUploaded) {
     respondentItems2.push({
       id: 'witness_availability_respondent',
       text: taskListItems.witness_availability_respondent,
       href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=No',
     });
   }
-  if (flags.isTenancyUploaded) {
+  if (isTenancyUploaded) {
     respondentItems2.push({
       id: 'tenancy_and_mortgage_availability',
       text: taskListItems.tenancy_and_mortgage_availability,
@@ -331,43 +427,6 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     title: sectionTitles.respondentsDocuments,
     items: [...respondentItems, ...respondentItems2],
   };
-};
-
-const getUpdatedFlags = (doc, flags) => {
-  switch (doc.value.documentType) {
-    case applicant_tasklist_items_all_docs_en.drug_alcohol_tests:
-      flags.isDrugDocUploaded = true;
-      break;
-    case applicant_tasklist_items_all_docs_en.paternity_test_reports:
-      flags.isPaternityDocUploaded = true;
-      break;
-    case applicant_tasklist_items_all_docs_en.medical_reports:
-      flags.isMedicalReportsUploaded = true;
-      break;
-    case applicant_tasklist_items_all_docs_en.previous_orders_submitted:
-      flags.isPreviousOrdersSubmitted = true;
-      break;
-    case applicant_tasklist_items_all_docs_en.letters_from_school:
-      flags.isLettersFromSchool = true;
-      break;
-    case applicant_tasklist_items_all_docs_en.medical_records:
-      flags.isMedicalRecordsUpload = true;
-      break;
-    case applicant_tasklist_items_all_docs_en.digital_downloads:
-      flags.isDigitalDownloadsUploaded = true;
-      break;
-    case applicant_tasklist_items_all_docs_en.police_disclosures:
-      flags.isPoliceReportUploaded = true;
-      break;
-    case applicant_tasklist_items_all_docs_en.witness_availability:
-      flags.isWitnessAvailabilityUploaded = true;
-      break;
-    case applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability:
-      flags.isTenancyUploaded = true;
-      break;
-    default:
-      break;
-  }
 };
 
 export const getCafcassDocuments = (sectionTitles, taskListItems, userCase, url) => {
@@ -423,26 +482,21 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url) =>
       {
         id: 'support_you_need_during_your_case',
         text: taskListItems.support_you_need_during_your_case,
-        href: '#',
+        href: url + URL.RESPONDENT_SUPPORT_NEEDED,
       },
     ],
   };
 };
 
-const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {
-  for (const doc of citizenResponseC7DocumentList) {
-    if (doc.value.createdBy === respondent.value.firstName + ' ' + respondent.value.lastName) {
-      return {
-        id: 'respondent_response_to_request_for_child_arrangements',
-        text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
-          '<namerespondentxxxxx>',
-          respondent.value.firstName + ' ' + respondent.value.lastName
-        ),
-        href: URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE + '/' + respondent.id,
-      };
-    }
-  }
-  return {};
+const getResponseToCA = (respondent: Respondent, taskListItems) => {
+  return {
+    id: 'respondent_response_to_request_for_child_arrangements',
+    text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
+      '<namerespondentxxxxx>',
+      respondent.value.firstName + ' ' + respondent.value.lastName
+    ),
+    href: URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE + '/' + respondent.id,
+  };
 };
 
 const getAohAndViolence = (respondent: Respondent, taskListItems) => {

@@ -298,7 +298,7 @@ describe('DocumentManagerController', () => {
           },
         },
       ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest?updatecase=Yes';
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
       req.headers.accept = 'application/pdf';
       req.query.updateCase = 'Yes';
       req.session.userCase.finalDocument = {
@@ -312,7 +312,7 @@ describe('DocumentManagerController', () => {
 
       await documentManagerController.get(req, res);
 
-      expect(mockGet).toBeCalled;
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isApplicationViewed).toEqual('Yes');
     });
   });
 
@@ -349,7 +349,7 @@ describe('DocumentManagerController', () => {
 
       await documentManagerController.get(req, res);
 
-      expect(mockGet).toBeCalled;
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isApplicationViewed).toEqual('Yes');
     });
   });
 

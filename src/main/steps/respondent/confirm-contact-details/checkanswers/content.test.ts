@@ -17,7 +17,7 @@ const en = {
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
     citizenUserEmailAddressText: 'Email',
-    citizenUserSafeToCall: 'When it is safe to call you (optional)',
+    applicant1SafeToCall: 'When it is safe to call you (optional)',
   },
   errors: {},
 };

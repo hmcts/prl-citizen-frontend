@@ -18,7 +18,7 @@ const en = () => ({
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
   respondToApplication: 'Review and submit',
-  goBack: 'Go back',
+  cancel: 'Go back',
 });
 
 const cy = () => ({
@@ -33,7 +33,7 @@ const cy = () => ({
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
   respondToApplication: 'Review and submit',
-  goBack: 'Go back',
+  cancel: 'Go back',
 });
 
 const languages = {

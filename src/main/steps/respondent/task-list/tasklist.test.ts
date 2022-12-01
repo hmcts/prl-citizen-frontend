@@ -31,8 +31,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: 'NOT_AVAILABLE_YET',
-            href: '#',
+            status: 'TO_DO',
+            href: URL.CA_DA_ATTENDING_THE_COURT,
           },
         ],
       },
@@ -53,8 +53,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_details_of_your_court_hearings',
             text: taskListItems.check_details_of_your_court_hearings,
-            status: 'NOT_AVAILABLE_YET',
-            href: '#',
+            status: 'TO_DO',
+            href: URL.INTERNATIONAL_FACTORS_START,
           },
         ],
       },
@@ -115,8 +115,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: 'NOT_AVAILABLE_YET',
-            href: '#',
+            status: 'TO_DO',
+            href: URL.CA_DA_ATTENDING_THE_COURT,
           },
         ],
       },
@@ -137,8 +137,8 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_details_of_your_court_hearings',
             text: taskListItems.check_details_of_your_court_hearings,
-            status: 'NOT_AVAILABLE_YET',
-            href: '#',
+            status: 'IN_PROGRESS',
+            href: URL.INTERNATIONAL_FACTORS_START,
           },
         ],
       },
@@ -197,9 +197,9 @@ describe('generateRespondentTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '#',
+            href: '/respondent/support-you-need-during-case/attending-the-court',
             id: 'support_you_need_during_your_case',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Support you need during your case',
           },
         ],
@@ -242,9 +242,9 @@ describe('generateRespondentTaskList', () => {
         title: sectionTitles.yourcourtHearings,
         items: [
           {
-            href: '#',
+            href: '/tasklistresponse/international-factors/start',
             id: 'check_details_of_your_court_hearings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'IN_PROGRESS',
             text: 'Check details of your court hearings',
           },
         ],
