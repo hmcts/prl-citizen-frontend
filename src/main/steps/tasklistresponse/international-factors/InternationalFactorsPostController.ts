@@ -8,7 +8,7 @@ import type { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { EVENT_INTERNATIONAL_ELEMENT, URL_PATTERN_INTERNATIONAL_FACTORS } from '../../../steps/constants';
-import { RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
 import { setInternationalFactorsDetails } from './InternationalFactorsMapper';
 @autobind
@@ -44,7 +44,7 @@ export class InternationalFactorsPostController extends PostController<AnyObject
       );
       Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
-      req.session.save(() => res.redirect(RESPONDENT_TASK_LIST_URL));
+      req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
     } catch (err) {
       throw new Error('InternationalFactorsPostController - Case could not be updated.');
     }

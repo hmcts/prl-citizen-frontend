@@ -18,15 +18,13 @@ const en = content => {
   options.push(...getAddressItems(addresses));
 
   return {
-    line1:
-      "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-    postcode: 'Postcode',
-    selectAddress: 'Select an address',
+    postcode: 'Current postcode',
+    citizenUserSelectAddress: 'Select an address',
     cannotFindAddress: 'I cannot find the address in the list',
     defaultPostcode: 'E14RRR',
     enterAddressManually: 'Or enter address manually',
     errors: {
-      selectAddress: {
+      citizenUserSelectAddress: {
         notSelected: 'Select an address',
       },
     },
@@ -50,13 +48,11 @@ const cy = content => {
   options.push(...getAddressItems(addresses));
 
   return {
-    line1:
-      "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-    postcode: 'Postcode (in welsh)',
-    selectAddress: 'Select an address (in welsh)',
+    postcode: 'Current postcode (in welsh)',
+    citizenUserSelectAddress: 'Select an address (in welsh)',
     cannotFindAddress: 'I cannot find the address in the list (in welsh)',
     errors: {
-      selectAddress: {
+      citizenUserSelectAddress: {
         notSelected: 'Select an address (in welsh)',
       },
     },
@@ -68,10 +64,9 @@ const cy = content => {
 
 export const form: FormContent = {
   fields: {
-    selectAddress: {
+    citizenUserSelectAddress: {
       type: 'select',
-      label: l => l.selectAddress,
-      labelSize: 'm',
+      label: l => l.citizenUserSelectAddress,
       validator: isAddressSelected,
       options: l => l.options,
     },

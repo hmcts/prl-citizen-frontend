@@ -12,15 +12,17 @@
               {{label}} <br><strong>{{caseId}}</strong>
             </div>
           </div>
-          <p class="govuk-body-l">{{subContent}} Sam.Richards@test.com.</p>
+          <p class="govuk-body-l">{{subContent}} 
+            {% if userEmail %}
+              {{userEmail}}
+            {% endif %}</p>
           <h2 class="govuk-heading-m">{{subTitle1}}</h2>
           <p class="govuk-body">{{secondaryContent | safe}}</p>
           <div class="govuk-inset-text">
            <p class="govuk-body">{{copyRightsTxt}}</p>
           </div>
-          <button class="govuk-button" data-module="govuk-button">
-            {{primaryBtnLabel}}
-          </button>
+          <a href="application-copy/download"  class="govuk-button">{{primaryBtnLabel}}</a>
+
           <h2 class="govuk-heading-m">{{subTitle2}}</h2>
           <ul class="govuk-list govuk-list--bullet govuk-list--spaced govuk-!-margin-bottom-6">
             {% for item in list %}

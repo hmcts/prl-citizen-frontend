@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isAlphaNumeric, isFieldFilledIn } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Enter Case Name',
   caseNameHint: 'Enter the eldest child’s full name. For example, John Smith',
 
@@ -15,7 +16,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Enter Case Name - welsh',
   caseNameHint: 'Enter the eldest child’s full name. For example, John Smith - welsh',
 

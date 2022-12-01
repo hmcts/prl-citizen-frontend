@@ -44,10 +44,10 @@ const cy = content => {
   options.push(...getAddressItems(addresses));
 
   return {
-    postcode: 'Current postcode - welsh',
-    selectAddress: 'Select an address - welsh',
-    cannotFindAddress: 'I cannot find the address in the list - welsh',
-    enterAddressManually: 'Or enter address manually - welsh',
+    postcode: 'Cod post cyfredol',
+    selectAddress: 'Dewiswch gyfeiriad',
+    cannotFindAddress: 'Ni allaf ddod o hyd i’r cyfeiriad yn y rhestr',
+    enterAddressManually: 'Neu theipiwch y cyfeiriad',
     options,
     changePostCodeUrl: '#',
     cantFindAddressUrl: '#',
