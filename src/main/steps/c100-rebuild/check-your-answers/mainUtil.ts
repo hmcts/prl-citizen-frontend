@@ -12,13 +12,34 @@ import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
 import {  courtTypeOfOrderHelper } from './helpers/courtOrderHelper';
 import { nameAndGenderParser } from './helpers/generalHelper';
-import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
+import { hearingDetailsHelper, hearingDetailsQualifyForFirstHearingHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
 import { applicantAddressParser, applicantAddressParserForRespondents, applicantContactDetailsParser, applicantCourtCanLeaveVoiceMail, otherPeopleAddressParser } from './helpers/peopleHelper';
 import { resonableAdjustmentHelper } from './helpers/reasonableAdjustment';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
+
+/* eslint-disable import/namespace */
+export const CaseName = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['enterCaseName'],
+      value: userCase['applicantCaseName'],
+      changeUrl: Urls['C100_CASE_NAME'],
+    },
+  ];
+  return {
+    title: sectionTitles['caseName'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+
+
 /* eslint-disable import/namespace */
 export const LocationDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -141,14 +162,14 @@ export const WithoutNoticeHearing = (
   const SummaryData = [
     {
       key: keys['qualifyForUrgentHearing'],
-      value: userCase['hwn_hearingPart1'],
-      changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
+      valueHtml: hearingDetailsQualifyForFirstHearingHelper(userCase, keys, 'hu_urgentHearingReasons'),
+      changeUrl: Urls['C100_HEARING_URGENCY_URGENT'],
     },
     {
       key: keys['askingNoHearing'],
       value: userCase['hearingPart1'],
       valueHtml: hearingDetailsHelper(userCase, keys, 'hwn_reasonsForApplicationWithoutNotice'),
-      changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART2'],
+      changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
     },
   ];
   return {
@@ -263,17 +284,91 @@ export const ChildernDetailsAdditional = (
       value: userCase['cd_childrenSubjectOfProtectionPlan'],
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
-    {
-      key: keys['childrenProtectionPlanHint'],
-      value: '',
-      changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
-    },
   ];
   return {
     title: sectionTitles['additionationDetailsAboutChildern'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
+
+
+/* eslint-disable import/namespace */
+export const OtherChildrenDetails = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const sessionChildData = userCase['ocd_otherChildren'];
+  const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
+    [];
+
+  newChildDataStorage.push(
+    {
+      key: keys['hasOtherChildren'],
+      value: userCase['ocd_hasOtherChildren'] as string,
+      changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
+    },
+  );   
+  if(userCase['ocd_hasOtherChildren'] === 'Yes'){
+    for (const child in sessionChildData) {
+      const firstname = sessionChildData[child]['firstName'],
+        lastname = sessionChildData[child]['lastName'],
+        id = sessionChildData[child]['id'],
+        personalDetails = sessionChildData[child]['personalDetails'];
+        const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
+      const childNo = Number(child) + 1;
+      newChildDataStorage.push(
+        {
+          key: '',
+          keyHtml: '<h4 class="app-task-list__section">Child ' + childNo + '</h4>',
+          value: '',
+          changeUrl: '',
+        },
+        {
+          key: keys['fullName'],
+          value: firstname + ' ' + lastname,
+          changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
+        },
+      );
+
+      if(isDateOfBirthUnknown){
+        newChildDataStorage.push(
+          {
+            key: keys['approxCheckboxLabel'],
+            value: personalDetails['isDateOfBirthUnknown'],
+            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+          },
+          {
+            key: keys['approxDobLabel'],
+            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
+            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+          },
+        );
+      }
+      else{
+        newChildDataStorage.push(
+          {
+            key: keys['dobLabel'],
+            value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
+            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+          },
+        );
+      }
+      newChildDataStorage.push( {
+        key: keys['childGenderLabel'],
+        value: personalDetails?.['gender'],
+        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
+        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      });
+    }
+  }  
+
+  const SummaryData = newChildDataStorage;
+  return {
+    title: sectionTitles['otherChildernDetails'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
 
 export const ApplicantDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -433,27 +528,58 @@ export const MiamAttendance = (
       value: userCase['miam_otherProceedings'],
       changeUrl: Urls['C100_MIAM_OTHER_PROCEEDINGS'],
     },
-    {
-      key: keys['attendedMiamMidiation'],
-      value: userCase['miam_attendance'],
-      changeUrl: Urls['C100_MIAM_ATTENDANCE'],
-    },
-    {
-      key: keys['midatatorDocumentTitle'],
-      value: userCase['miam_haveDocSigned'],
-      changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
-    },
-    {
-      key: keys['mediatorConfirmation'],
-      value: userCase['miam_mediatorDocument'],
-      changeUrl: Urls['C100_MIAM_MEDIATOR_CONFIRMAION'],
-    },
-    {
-      key: keys['reasonForNotAttendingMiam'],
-      value: userCase['miam_validReason'],
-      changeUrl: Urls['C100_MIAM_VALID_REASON'],
-    },
   ];
+
+  if ( userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO ) {
+    SummaryData.push(
+      {
+        key: keys['attendedMiamMidiation'],
+        value: userCase['miam_attendance'],
+        changeUrl: Urls['C100_MIAM_ATTENDANCE'],
+      },
+    );
+
+    if(userCase.hasOwnProperty('miam_attendance')) {
+      if(userCase['miam_attendance'] === YesOrNo.YES ){
+        SummaryData.push(
+          {
+            key: keys['midatatorDocumentTitle'],
+            value: userCase['miam_haveDocSigned'],
+            changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
+          },
+        );
+      }
+      else{
+        SummaryData.push(
+          {
+            key: keys['mediatorConfirmation'],
+            value: userCase['miam_mediatorDocument'],
+            changeUrl: Urls['C100_MIAM_MEDIATOR_CONFIRMAION'],
+          },
+        );
+
+        if(userCase.hasOwnProperty('miam_mediatorDocument') && userCase['miam_mediatorDocument'] === YesOrNo.YES){
+          SummaryData.push(
+            {
+              key: keys['midatatorDocumentTitle'],
+              value: userCase['miam_haveDocSigned'],
+              changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
+            },
+          );
+        }
+        else{
+          SummaryData.push(
+         
+            {
+              key: keys['reasonForNotAttendingMiam'],
+              value: userCase['miam_validReason'],
+              changeUrl: Urls['C100_MIAM_VALID_REASON'],
+            },
+          );
+        }
+      }
+    }
+  }
 
   return {
     title: sectionTitles['MiamAttendance'],
@@ -468,7 +594,7 @@ export const MiamExemption = (
   const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);
   const SummaryData = [
     {
-      key: keys['validResonsNotAttendingMiam'],
+      key: keys['generalReasonTitle'],
       valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },
@@ -559,12 +685,17 @@ export const SafetyConcerns = (
       value: userCase['c1A_haveSafetyConcerns'],
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY'],
     },
-    {
-      key: keys['whoAreConcernsAbout'],
-      valueHtml: HTML.UNORDER_LIST + dataForConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT'],
-    },
-  ];
+  ] as ANYTYPE;
+
+  if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
+    SummaryData.push(
+      {
+        key: keys['whoAreConcernsAbout'],
+        valueHtml: HTML.UNORDER_LIST + dataForConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
+        changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT'],
+      },
+    );
+  }
   return {
     title: sectionTitles['safetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -831,81 +962,6 @@ export const SafetyConcerns_others = (
   };
 };
 
-/* eslint-disable import/namespace */
-export const OtherChildrenDetails = (
-  { sectionTitles, keys, ...content }: SummaryListContent,
-  userCase: Partial<CaseWithId>
-): SummaryList | undefined => {
-  const sessionChildData = userCase['ocd_otherChildren'];
-  const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
-    [];
-    newChildDataStorage.push(
-      {
-        key: keys['hasOtherChildren'],
-        value: userCase['ocd_hasOtherChildren'] as string,
-        changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
-      },
-    );
-  if(userCase['ocd_hasOtherChildren'] === 'Yes'){
-    for (const child in sessionChildData) {
-      const firstname = sessionChildData[child]['firstName'],
-        lastname = sessionChildData[child]['lastName'],
-        id = sessionChildData[child]['id'],
-        personalDetails = sessionChildData[child]['personalDetails'];
-        const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
-      const childNo = Number(child) + 1;
-      newChildDataStorage.push(
-        {
-          key: '',
-          keyHtml: '<h4 class="app-task-list__section">Child ' + childNo + '</h4>',
-          value: '',
-          changeUrl: '',
-        },
-        {
-          key: keys['fullName'],
-          value: firstname + ' ' + lastname,
-          changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
-        },
-      );
-
-      if(isDateOfBirthUnknown){
-        newChildDataStorage.push(
-          {
-            key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          },
-          {
-            key: keys['approxDobLabel'],
-            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          },
-        );
-      }
-      else{
-        newChildDataStorage.push(
-          {
-            key: keys['dobLabel'],
-            value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          },
-        );
-      }
-      newChildDataStorage.push( {
-        key: keys['childGenderLabel'],
-        value: personalDetails?.['gender'],
-        valueHtml: personalDetails?.['gender'] + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
-        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      });
-    }
-  }  
-
-  const SummaryData = newChildDataStorage;
-  return {
-    title: sectionTitles['otherChildernDetails'],
-    rows: getSectionSummaryList(SummaryData, content),
-  };
-};
 
 
 /* eslint-disable import/namespace */
@@ -1261,41 +1317,69 @@ export const reasonableAdjustment = (
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS'], 
     },
     {
-      key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS'], 
-    },
-    {
       key: keys['specialArrangementsHeading'],
       valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements') + HTML.UNORDER_LIST_END,
       changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS'], 
     },
     {
-      key: keys['documentInformationHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION'], 
-    },
-    {
-      key: keys['communicationHelpHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP'], 
-    },
-    {
-      key: keys['supportCourtHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT'], 
-    },
-    {
-      key: keys['feelComfortableHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE'], 
-    },
-    {
-      key: keys['travellingCourtHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT'], 
+      key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements') + HTML.UNORDER_LIST_END,
+      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS'], 
     },
   ];
+  const disabilityRequirements = userCase['ra_disabilityRequirements'];
+  if(userCase.hasOwnProperty('ra_disabilityRequirements')  && Array.isArray(disabilityRequirements)){
+    disabilityRequirements.forEach(requirement => {
+      switch(requirement){
+        case 'documentsHelp': {
+          SummaryData.push(
+            {
+              key: keys['documentInformationHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation') + HTML.UNORDER_LIST_END,
+              changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION'], 
+            });
+          break;
+        } 
+        case 'communicationHelp': {
+          SummaryData.push(
+              {
+                key: keys['communicationHelpHeading'],
+                valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp') + HTML.UNORDER_LIST_END,
+                changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP'], 
+              });
+          break;
+        } 
+        case 'extraSupport': {
+          SummaryData.push(
+            {
+              key: keys['supportCourtHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt') + HTML.UNORDER_LIST_END,
+              changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT'], 
+            });
+          break;
+        } 
+        case 'feelComfortableSupport': {
+          SummaryData.push(
+            {
+              key: keys['feelComfortableHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable') + HTML.UNORDER_LIST_END,
+              changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE'], 
+            },);
+          break;
+        } 
+        case 'helpTravellingMovingBuildingSupport': {
+          SummaryData.push(
+            {
+              key: keys['travellingCourtHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt') + HTML.UNORDER_LIST_END,
+              changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT'], 
+            });
+          break;
+        } 
+
+      }
+    });
+  }
   return {
     title: sectionTitles['reasonAbleAdjustment'],
     rows: getSectionSummaryList(SummaryData, content),

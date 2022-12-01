@@ -1,23 +1,29 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { cy as urgentDetailsCy, en as urgentDetailsEn } from '../../hearing-urgency/urgent-details/content';
 import {
   cy as contentHearingWithoutCy,
   en as contentHearingWithoutEn,
 } from '../../hearing-without-notice/hearing-part2/content';
 
-/**
- * It returns an object containing the contents of the English and Welsh versions of the page,
- * depending on the language selected
- * @returns A function that returns an object.
- */
 export const hearingDetailsContents = SystemLanguage => {
   const opContents = {
     en: () => {
-      return { ...contentHearingWithoutEn(), errors: '' };
+      return {
+        ...contentHearingWithoutEn(),
+        hearingWithoutLine1Field: contentHearingWithoutEn().subTitle,
+        ...urgentDetailsEn(),
+        errors: '',
+      };
     },
     cy: () => {
-      return { ...contentHearingWithoutCy(), errors: '' };
+      return {
+        ...contentHearingWithoutCy(),
+        hearingWithoutLine1Field: contentHearingWithoutCy().subTitle,
+        ...urgentDetailsCy(),
+        errors: '',
+      };
     },
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();

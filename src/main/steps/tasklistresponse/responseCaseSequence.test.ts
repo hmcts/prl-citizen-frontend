@@ -28,7 +28,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[6].url).toBe('/respondent/keep-details-private/private_details_not_confirmed');
     expect(responseCaseSequence[6].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[6].getNextStep({})).toBe('/respondent/task-list');
+    expect(responseCaseSequence[6].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[7].url).toBe('/tasklistresponse/miam/miam-start');
     expect(responseCaseSequence[7].showInSection).toBe('aboutRespondentCase');
@@ -56,27 +56,27 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[13].url).toBe('/respondent/confirm-contact-details/addressdetails');
     expect(responseCaseSequence[13].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[13].getNextStep({})).toBe('/respondent/confirm-contact-details/addresslookup');
+    expect(responseCaseSequence[13].getNextStep({})).toBe('/respondent/confirm-contact-details/address/lookup');
 
-    expect(responseCaseSequence[14].url).toBe('/respondent/confirm-contact-details/addresslookup');
+    expect(responseCaseSequence[14].url).toBe('/respondent/confirm-contact-details/address/lookup');
     expect(responseCaseSequence[14].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[14].getNextStep({})).toBe('/respondent/confirm-contact-details/addresslookupcont');
+    expect(responseCaseSequence[14].getNextStep({})).toBe('/respondent/confirm-contact-details/address/select');
 
-    expect(responseCaseSequence[15].url).toBe('/respondent/confirm-contact-details/addresslookupcont');
+    expect(responseCaseSequence[15].url).toBe('/respondent/confirm-contact-details/address/select');
     expect(responseCaseSequence[15].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[15].getNextStep({})).toBe('/respondent/confirm-contact-details/addressconfirmation');
 
-    expect(responseCaseSequence[16].url).toBe('/respondent/confirm-contact-details/addresslookup');
+    expect(responseCaseSequence[16].url).toBe('/respondent/confirm-contact-details/address/lookup');
     expect(responseCaseSequence[16].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[16].getNextStep({})).toBe('/respondent/confirm-contact-details/addressconfirmation');
 
     expect(responseCaseSequence[17].url).toBe('/respondent/confirm-contact-details/addressconfirmation');
     expect(responseCaseSequence[17].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[17].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[17].getNextStep({})).toBe('/respondent/confirm-contact-details/addresshistory');
 
-    expect(responseCaseSequence[18].url).toBe('/respondent/confirm-contact-details/addressblank');
+    expect(responseCaseSequence[18].url).toBe('/respondent/confirm-contact-details/address/manual');
     expect(responseCaseSequence[18].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[18].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[18].getNextStep({})).toBe('/respondent/confirm-contact-details/addresshistory');
 
     expect(responseCaseSequence[19].url).toBe('/respondent/confirm-contact-details/addresshistory');
     expect(responseCaseSequence[19].showInSection).toBe('aboutRespondentCase');
@@ -100,7 +100,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[24].url).toBe('/tasklistresponse/international-factors/summary');
     expect(responseCaseSequence[24].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[24].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[24].getNextStep({})).toBe('/tasklistresponse/international-factors/save');
 
     expect(responseCaseSequence[25].url).toBe('/tasklistresponse/safety_concerns/main_page');
     expect(responseCaseSequence[25].showInSection).toBe('aboutRespondentCase');

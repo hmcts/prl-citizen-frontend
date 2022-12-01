@@ -9,12 +9,12 @@ const enContent = {
   title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Select yes if the children live outside of England or Wales',
     },
     iFactorsStartProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
@@ -27,12 +27,12 @@ const cyContent = {
   title: 'Do the children live outside of England or Wales?',
   one: 'Yes',
   two: 'No',
-  twoHint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, does their main family life take place outside of England and Wales?',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Select yes if the children live outside of England or Wales',
     },
     iFactorsStartProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',

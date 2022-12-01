@@ -36,10 +36,10 @@ export default {
   applicant1ContactDetailsConsent: YesOrNo.YES,
   citizenUserDateOfBirth: { day: '1', month: '4', year: '1990' },
   applicant1Occupation: 'MOCK_OCCUPATION',
-  applicant1Address1: 'MOCK_ADDRESS_LINE_1',
-  applicant1AddressTown: 'MOCK_ADDRESS_TOWN',
-  applicant1AddressCounty: 'MOCK_ADDRESS_COUNTY',
-  applicant1AddressPostcode: 'MOCK_ADDRESS_POSTCODE',
+  citizenUserAddress1: 'MOCK_ADDRESS_LINE_1',
+  citizenUserAddressTown: 'MOCK_ADDRESS_TOWN',
+  citizenUserAddressCounty: 'MOCK_ADDRESS_COUNTY',
+  citizenUserAddressPostcode: 'MOCK_ADDRESS_POSTCODE',
 
   applicant2FirstNames: 'MOCK_APPLICANT1_FIRST_NAMES',
   applicant2LastNames: 'MOCK_APPLICANT1_LAST_NAMES',
@@ -139,12 +139,12 @@ export default {
   applicant1DocumentsUploaded: [{ id: 'MOCK_DOCUMENT_ID', value: { documentFileName: 'MOCK_DOCUMENT_FILE_NAME' } }],
   orderCollection: [],
   respondentsFL401: {
-    firstName: test,
-    lastName: test,
+    firstName: 'test',
+    lastName: 'test',
   },
   applicantsFL401: {
-    firstName: test,
-    lastName: test,
+    firstName: 'test',
+    lastName: 'test',
   },
   id: '1234',
 } as unknown as CaseWithId;

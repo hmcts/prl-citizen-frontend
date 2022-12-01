@@ -1,6 +1,10 @@
+import config from 'config';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../case/CosApiClient';
+import { YesOrNo } from '../case/definition';
+import { Form } from '../form/Form';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -9,6 +13,7 @@ jest.mock('../document/DocumentManagementClient');
 jest.mock('../../app/auth/user/oidc');
 
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCase');
+let partyDetails;
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 const generateUserUploadedStatementDocumentMock = jest.spyOn(
   CosApiClient.prototype,
@@ -16,6 +21,10 @@ const generateUserUploadedStatementDocumentMock = jest.spyOn(
 );
 const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
 
+const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'UploadDocumentListFromCitizen');
+
+const formGetParsedBodyMock = jest.spyOn(Form.prototype, 'getParsedBody');
+const formGetErrorsMock = jest.spyOn(Form.prototype, 'getErrors');
 describe('DocumentManagerController', () => {
   let fields;
   const documentManagerController = new DocumentManagerController(fields);
@@ -31,24 +40,46 @@ describe('DocumentManagerController', () => {
     mockCreate.mockClear();
     mockDelete.mockClear();
     mockGet.mockClear();
+
+    //jest.mock('getSystemUser', () => jest.fn());
+    partyDetails = [
+      {
+        id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+        value: {
+          firstName: 'Sonali',
+          lastName: 'Citizen',
+          email: 'abc@example.net',
+          user: {
+            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            email: 'test@example.net',
+          },
+          response: {
+            citizenFlags: {
+              isAllegationOfHarmViewed: 'Yes',
+            },
+          },
+        },
+      },
+    ];
     updateCaserMock.mockClear();
     retrieveByCaseIdMock.mockClear();
   });
 
   describe('fetch file FL401-Final-Document for applicant', () => {
     test('fetch an existing file - %o', async () => {
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/FL401-Final-Document.pdf';
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
       req.headers.accept = 'application/pdf';
       req.session.userCase.finalDocument = {
         document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
-        document_filename: 'FL401FinalDocument.pdf',
+        document_filename: 'finalDocument.pdf',
         document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
       };
 
       await documentManagerController.get(req, res);
-
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-676.service.core-compute-preview.internal/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+        url:
+          config.get('services.documentManagement.url') +
+          '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
       });
     });
   });
@@ -92,9 +123,10 @@ describe('DocumentManagerController', () => {
       ];
 
       await documentManagerController.get(req, res);
-
       expect(mockGet).toHaveBeenCalledWith({
-        url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-676.service.core-compute-preview.internal/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
+        url:
+          config.get('services.documentManagement.url') +
+          '/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
       });
     });
   });
@@ -124,7 +156,60 @@ describe('DocumentManagerController', () => {
       expect(flag).toBe(true);
     });
   });
-
+  describe('test notifyBannerForNewDcoumentUploaded', () => {
+    test('notifyBannerForNewDcoumentUploaded for CA respondent', async () => {
+      req.session.userCase.caseTypeOfApplication = 'C100';
+      req.session.userCase.respondents = partyDetails;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+    test('notifyBannerForNewDcoumentUploaded for CA applicant', async () => {
+      req.session.userCase.caseTypeOfApplication = 'C100';
+      req.session.userCase.applicants = partyDetails;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.applicants[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+    test('notifyBannerForNewDcoumentUploaded for DA respondent', async () => {
+      req.session.userCase.caseTypeOfApplication = 'fl401';
+      req.session.userCase.respondentsFL401 = partyDetails[0].value;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+    test('notifyBannerForNewDcoumentUploaded for DA applicant', async () => {
+      req.session.userCase.caseTypeOfApplication = 'fl401';
+      req.session.userCase.applicantsFL401 = partyDetails[0].value;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+  });
   describe('check Allegation of Harm property saved without Response', () => {
     test('check Allegation of Harm property saved', async () => {
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
@@ -153,7 +238,7 @@ describe('DocumentManagerController', () => {
 
       await documentManagerController.get(req, res);
 
-      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
+      expect(req.session.userCase.respondents[0].value.user.email).toEqual('test@example.net');
     });
   });
 
@@ -191,6 +276,80 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
+    });
+  });
+
+  describe('check isApplicationViewed property saved with Response - value is No', () => {
+    test('check isApplicationViewed property saved', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'Yes',
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest?updatecase=Yes';
+      req.headers.accept = 'application/pdf';
+      req.query.updateCase = 'Yes';
+      req.session.userCase.finalDocument = {
+        document_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(mockGet).toBeCalled;
+    });
+  });
+
+  describe('check isApplicationViewed property saved with Response - value is null', () => {
+    test('check isApplicationViewed property saved', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isApplicationViewed: null,
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
+      req.headers.accept = 'application/pdf';
+      req.query.updateCase = 'Yes';
+      req.session.userCase.finalDocument = {
+        document_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(mockGet).toBeCalled;
     });
   });
 
@@ -351,6 +510,81 @@ describe('DocumentManagerController', () => {
       await documentManagerController.deleteDocument(req, res);
 
       expect(req.session.errors[0].errorType).toEqual('Document could not be deleted');
+    });
+  });
+  describe('check citizen document uploaded with file', () => {
+    test('check document uploaded sucesfully with file for applicant', async () => {
+      req.query.isApplicant = 'Yes';
+      req.session.userCase.start = 'Yes';
+      req.query.parentDocumentType = 'Medical Records';
+      req.query.documentType = 'Medical Records';
+      req.session.user.id = '12345678';
+      req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+      const formData = { _csrf: 'abcedfg' };
+      formGetParsedBodyMock.mockReturnValueOnce(formData);
+      formGetErrorsMock.mockReturnValueOnce([]);
+      const documentDetail = {
+        status: 200,
+        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
+        documentName: 'uploaded-file.jpg',
+      };
+      uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
+      req.session.userCase.applicantUploadFiles = [];
+      await documentManagerController.post(req, res);
+      expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded-file.jpg');
+    });
+    test('check document uploaded sucesfully with file for respondent', async () => {
+      req.query.isApplicant = 'No';
+      req.session.userCase.start = 'Yes';
+      req.query.parentDocumentType = 'Medical Records';
+      req.query.documentType = 'Medical Records';
+      req.session.user.id = '12345678';
+      req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+      const formData = { _csrf: 'abcedfg' };
+      formGetParsedBodyMock.mockReturnValueOnce(formData);
+      formGetErrorsMock.mockReturnValueOnce([]);
+      const documentDetail = {
+        status: 200,
+        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
+        documentName: 'uploaded.pdf',
+      };
+      uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
+      req.session.userCase.respondentUploadFiles = [];
+      await documentManagerController.post(req, res);
+      expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
+    });
+    test('fail to upload document with file', async () => {
+      req.query.isApplicant = 'No';
+      req.session.userCase.start = 'Yes';
+      req.query.parentDocumentType = 'Medical Records';
+      req.query.documentType = 'Medical Records';
+      req.session.user.id = '12345678';
+      req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+      const formData = { _csrf: 'abcedfg' };
+      formGetParsedBodyMock.mockReturnValueOnce(formData);
+      formGetErrorsMock.mockReturnValueOnce([]);
+      const documentDetail = {
+        status: 400,
+      };
+      uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
+      await documentManagerController.post(req, res);
+      expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
+    });
+  });
+  describe('clearUploadDocumentFormData', () => {
+    test('clearUploadDocumentFormData for applicant', async () => {
+      req.query.isApplicant = 'Yes';
+      req.session.userCase.start = 'Yes';
+      req.query.isContinue = YesOrNo.YES;
+      await documentManagerController.clearUploadDocumentFormData(req, res);
+      expect(req.session.userCase.start).toEqual(undefined);
+    });
+    test('clearUploadDocumentFormData for respondent', async () => {
+      req.query.isApplicant = 'No';
+      req.session.userCase.start = 'Yes';
+      req.query.isContinue = YesOrNo.NO;
+      await documentManagerController.clearUploadDocumentFormData(req, res);
+      expect(req.session.userCase.start).toEqual(undefined);
     });
   });
 });

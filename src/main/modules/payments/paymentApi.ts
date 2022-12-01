@@ -95,6 +95,7 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
         date_created,
         external_reference,
         next_url,
+        status,
         serviceRequestReference,
       }: PaymentRetrivalDataType = requestPaymentUpdate['data'];
 
@@ -107,7 +108,6 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
         serviceRequestReference,
       };
     } catch (error) {
-      console.log(error);
       return error;
     }
   }

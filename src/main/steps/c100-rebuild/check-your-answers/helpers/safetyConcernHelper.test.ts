@@ -1,3 +1,5 @@
+import { YesNoEmpty } from '../../../../app/case/definition';
+
 import { HTMLParser, SafetyConcernsHelper, childNameFormatter } from './satetyConcernHelper';
 
 const keys = {
@@ -40,6 +42,19 @@ describe('test cases for SaftyConcern', () => {
         },
       },
     ],
+    c1A_safteyConcerns: {
+      child: {
+        physicalAbuse: {
+          behaviourDetails: '',
+          behaviourStartDate: '',
+          isOngoingBehaviour: YesNoEmpty.YES,
+          seekHelpFromPersonOrAgency: YesNoEmpty.NO,
+          seekHelpDetails: '',
+        },
+        childField: 'childField',
+      },
+    },
+    sessionKey: 'sessionKey',
   };
   test('noSessionKey', () => {
     const sessionKey = 'sessionKey';
@@ -52,6 +67,14 @@ describe('test cases for SaftyConcern', () => {
     const sessionKey = 'sessionKey';
     const typeOfUser = 'child';
     expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser)).toBe('');
+  });
+
+  test('FoundElement and SessionKey', () => {
+    const sessionKey = 'sessionKey';
+    const typeOfUser = 'children';
+    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser)).toBe(
+      '<h4>childrenConcernedAboutLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
+    );
   });
 
   test('childNameFormatter', () => {
@@ -68,7 +91,21 @@ describe('test cases for SaftyConcern', () => {
     };
     const typeOfUser = 'child';
     expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser)).toBe(
-      '<h4>childrenConcernedAboutLabel</h4><ul>test</ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
+      '<h4>childrenConcernedAboutLabel</h4><ul><li>undefined undefined</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
+    );
+  });
+
+  test('Condition Checks', () => {
+    const bodyHtml = '';
+    const FoundElement = {
+      childrenConcernedAbout: ['childrenConcernedAbout'],
+      behaviourDetailsLabel: 'test',
+      behaviourStartDate: 'test',
+      isOngoingBehaviour: 'test',
+    };
+    const typeOfUser = 'child';
+    expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser)).toBe(
+      '<h4>childrenConcernedAboutLabel</h4><ul><li>undefined undefined</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
     );
   });
 });

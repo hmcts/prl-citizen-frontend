@@ -87,4 +87,24 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
 
     expect(res.redirect).toHaveBeenCalled();
   });
+
+  test('check saveAndComeLater condition', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ManualAddressPostController(mockFormContent.fields);
+    const req = mockRequest({
+      params: {
+        respondentId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+      },
+      body: {
+        saveAndComeLater: true,
+      },
+    });
+    const res = mockResponse();
+    generateContent(commonContent);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+  });
 });

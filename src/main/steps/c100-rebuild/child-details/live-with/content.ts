@@ -21,11 +21,11 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Who does {firstName} {lastName} currently live with? - welsh',
-  liveWithHint: 'Select all that apply - welsh',
+  title: 'Gyda phwy mae {firstName} {lastName} yn byw ar hyn o bryd?',
+  liveWithHint: 'Dewiswch bob un sy’n berthnasol',
   errors: {
     liveWith: {
-      required: 'You must select at least one person - welsh',
+      required: 'Rhaid i chi ddewis o leiaf un unigolyn',
     },
   },
 });

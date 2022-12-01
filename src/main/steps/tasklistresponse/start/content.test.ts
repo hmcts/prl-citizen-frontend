@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
@@ -44,11 +44,24 @@ describe('task-list > content', () => {
     {
       userCase: {
         ...mockUserCase,
+        respondents: [
+          {
+            id: '123',
+            value: {
+              user: {
+                idamId: '',
+              },
+              response: {
+                legalRepresentation: 'No',
+              },
+            },
+          },
+        ] as Respondent[],
         legalRepresentation: YesOrNo.NO,
       },
       expected: [
         {
-          title: 'Legal representation',
+          title: '1. Legal representation',
           items: [
             {
               id: 'do_you_have_legal_representation',
@@ -59,7 +72,7 @@ describe('task-list > content', () => {
           ],
         },
         {
-          title: 'Consent to the application',
+          title: '2. Consent to the application',
           items: [
             {
               id: 'consent-to-the-application',
@@ -84,13 +97,13 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '/respondent/support-you-need-during-case/attending-the-court',
+              href: '#',
               id: 'support_you_need_during_your_case',
-              status: 'TO_DO',
+              status: 'NOT_AVAILABLE_YET',
               text: 'Support you need during your case',
             },
           ],
-          title: 'Your details',
+          title: '3. Your details',
         },
         {
           items: [
@@ -101,24 +114,24 @@ describe('task-list > content', () => {
               text: 'Mediation(MIAM)',
             },
             {
-              href: '/tasklistresponse/proceedings/start',
+              href: '#',
               id: 'current-or-previous-proceedings',
-              status: 'TO_DO',
+              status: 'NOT_AVAILABLE_YET',
               text: 'Current or previous proceedings',
             },
           ],
-          title: 'Application details',
+          title: '4. Application details',
         },
         {
           items: [
             {
-              href: '/tasklistresponse/safety_concerns/main_page',
+              href: '#',
               id: 'your-safety',
-              status: 'TO_DO',
+              status: 'NOT_AVAILABLE_YET',
               text: 'Your safety',
             },
           ],
-          title: 'Safety concerns',
+          title: '5. Safety concerns',
         },
         {
           items: [
@@ -129,7 +142,7 @@ describe('task-list > content', () => {
               text: 'International element',
             },
           ],
-          title: 'Additional information',
+          title: '6. Additional information',
         },
       ],
     },
@@ -144,7 +157,7 @@ describe('task-list > content', () => {
       userCase: mockUserCase,
       expected: [
         {
-          title: 'Legal representation',
+          title: '1. Legal representation',
           items: [
             {
               id: 'do_you_have_legal_representation',

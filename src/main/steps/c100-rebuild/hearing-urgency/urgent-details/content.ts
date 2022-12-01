@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
-const en = () => ({
+export const en = () => ({
   title: 'Tell us about your situation',
   reasonForUrgentHearing: 'Reason you are asking for an urgent hearing',
   riskOfSafety: "Risk to my safety or the children's safety",
@@ -40,7 +41,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Tell us about your situation - Welsh',
   reasonForUrgentHearing: 'Reason you are asking for an urgent hearing - Welsh',
   riskOfSafety: "Risk to my safety or the children's safety - Welsh",
@@ -92,22 +93,22 @@ export const form: FormContent = {
         {
           name: 'hu_reasonOfUrgentHearing',
           label: l => l.riskOfSafety,
-          value: 'risk of safety',
+          value: 'riskOfSafety',
         },
         {
           name: 'hu_reasonOfUrgentHearing',
           label: l => l.riskOfChildAbduction,
-          value: 'risk of child abduction',
+          value: 'riskOfChildAbduction',
         },
         {
           name: 'hu_reasonOfUrgentHearing',
           label: l => l.overseasLegalProceeding,
-          value: 'overseas legal proceeding',
+          value: 'overseasLegalProceeding',
         },
         {
           name: 'hu_reasonOfUrgentHearing',
           label: l => l.otherRisks,
-          value: 'other risks',
+          value: 'otherRisks',
         },
       ],
     },

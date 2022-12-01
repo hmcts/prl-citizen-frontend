@@ -9,7 +9,7 @@ const newDate = DATE_FORMATTOR(DateObject);
 
 describe('test cases for date formatter', () => {
   test('should run the test and parse date successfully', () => {
-    expect(newDate).toBe('15 November 2018');
+    expect(newDate).toBe('15 October 2018');
   });
 
   test('should run the test and shouldn"t parse date successfully', () => {

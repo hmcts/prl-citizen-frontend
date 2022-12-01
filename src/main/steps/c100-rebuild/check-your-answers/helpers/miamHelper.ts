@@ -24,23 +24,7 @@ interface IMiamScreenData {
 InstanceOfMiamHelper.__proto__.miamExemptionParser = (userCase, keys) => {
   if (userCase.hasOwnProperty('miam_nonAttendanceReasons')) {
     const nonAttenDanceReaseons = userCase['miam_nonAttendanceReasons']
-      .flatMap(reason => {
-        if (reason === 'domesticViolence') {
-          return [keys['domesticViolence']];
-        } else if (reason === 'childProtection') {
-          return [keys['childProtection']];
-        } else if (reason === 'urgentHearing') {
-          return [keys['urgentHearing']];
-        } else if (reason === 'previousMIAMOrExempt') {
-          return [keys['previousMIAMOrExempt']];
-        } else if (reason === 'validExemption') {
-          return [keys['validExemption']];
-        } else if (reason === 'noReason') {
-          return [keys['validExemption']];
-        } else {
-          return '';
-        }
-      })
+      .flatMap(reason => keys[`${reason}Head`])
       .map(element => {
         return HTML.NESTED_LIST_ITEM + element + HTML.LIST_ITEM_END;
       });

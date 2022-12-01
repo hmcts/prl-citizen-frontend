@@ -4,7 +4,7 @@ import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import * as oidc from '../../../../app/auth/user/oidc';
 import * as steps from '../../../../steps';
 
-import { getContactDetails, setContactDetails } from './ContactDetailsMapper';
+import { getAddressDetails, getContactDetails, setAddressFields, setContactDetails } from './ContactDetailsMapper';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
@@ -26,7 +26,7 @@ describe('ContactDetailsMapper', () => {
     getNextStepUrlMock.mockClear();
   });
 
-  test('Should return error while Failed to map data', async () => {
+  test('Should return error while Failed to map contact data', async () => {
     //const errors = [{ propertyName: 'citizenUserPhoneNumber', errorType: 'invalid' }];
     const body = { citizenUserPhoneNumber: 'invalid phone number' };
 
@@ -35,6 +35,23 @@ describe('ContactDetailsMapper', () => {
     let flag = false;
     try {
       getContactDetails(req.session.userCase.respondentsFL401, req);
+      flag = true;
+    } catch (e) {
+      flag = false;
+    }
+
+    expect(flag).toEqual(false);
+  });
+
+  test('Should return error while Failed to map address data', async () => {
+    //const errors = [{ propertyName: 'citizenUserPhoneNumber', errorType: 'invalid' }];
+    const body = { citizenUserAddress: 'invalid address' };
+
+    const req = mockRequest({ body });
+
+    let flag = false;
+    try {
+      getAddressDetails(req.session.userCase.respondentsFL401, req);
       flag = true;
     } catch (e) {
       flag = false;
@@ -52,6 +69,40 @@ describe('ContactDetailsMapper', () => {
     let flag = false;
     try {
       setContactDetails(req.session.userCase.respondentsFL401, req);
+      flag = true;
+    } catch (e) {
+      flag = false;
+    }
+
+    expect(flag).toEqual(true);
+  });
+
+  test('Should  map set address data', async () => {
+    //const errors = [{ propertyName: 'citizenUserPhoneNumber', errorType: 'invalid' }];
+    const body = { citizenUserAddress: 'invalid address' };
+
+    const req = mockRequest({ body });
+
+    let flag = false;
+    try {
+      setAddressFields(req);
+      flag = true;
+    } catch (e) {
+      flag = false;
+    }
+
+    expect(flag).toEqual(true);
+  });
+
+  test('Should  map set text fields', async () => {
+    //const errors = [{ propertyName: 'citizenUserPhoneNumber', errorType: 'invalid' }];
+    const body = { citizenUserPhoneNumber: 'invalid phone number' };
+
+    const req = mockRequest({ body });
+
+    let flag = false;
+    try {
+      setAddressFields(req);
       flag = true;
     } catch (e) {
       flag = false;

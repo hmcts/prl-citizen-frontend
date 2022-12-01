@@ -76,7 +76,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       });
     } else {
       this.validateFileAndUpload(files, req, res, orderType, orderId, courtOrderType, courtOrderId).catch(err =>
-        console.log(err)
+        req.locals.logger.error(err)
       );
     }
   }
