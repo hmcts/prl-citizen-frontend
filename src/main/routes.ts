@@ -1,7 +1,6 @@
 import fs from 'fs';
 
 import { Application } from 'express';
-import fileUpload from 'express-fileupload';
 import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
@@ -176,7 +175,7 @@ export class Routes {
         app.post(
           step.url,
           // eslint-disable-next-line prettier/prettier
-          [this.routeGuard.bind(this, step, 'post'), fileUpload({ limits: { fileSize: 1024 * 1024 * 30 } })],
+          [this.routeGuard.bind(this, step, 'post'), handleUploads.array('files[]', 5)],
           errorHandler(new postController(step.form.fields).post)
         );
         const documentManagerController = new DocumentManagerController(step.form.fields);
