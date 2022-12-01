@@ -33,9 +33,6 @@ export class CosApiClient {
   public async get(): Promise<string | undefined> {
     try {
       const response = await this.client.get<string>('/');
-      const userCase = null;
-      console.info(userCase);
-      console.info(JSON.stringify(response.data));
       return response.data;
     } catch (e) {
       //const errMsg = 'Error connecting cos';
@@ -83,7 +80,6 @@ export class CosApiClient {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data);
 
     return response.data;
   }
@@ -136,7 +132,7 @@ export class CosApiClient {
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Case could not be updated with c7 response fom respondent.');
     }
   }
 
@@ -168,7 +164,7 @@ export class CosApiClient {
         documentName: response.data?.document_filename,
       };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('failed to generate c7 document.');
     }
   }
 
@@ -196,42 +192,32 @@ export class CosApiClient {
         documentName: response.data?.documentName,
       };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Generate citizen statement document failed.');
     }
   }
 
-  public async UploadDocumentListFromCitizen(
-    user: UserDetails,
-    caseId: string,
-    parentDocumentType: string,
-    documentType: string,
-    partyId: string,
-    partyName: string,
-    isApplicant: string,
-    files: UploadedFiles,
-    documentRequestedByCourt: YesOrNo
-  ): Promise<DocumentDetail> {
+  public async UploadDocumentListFromCitizen(request: UploadDocumentRequest): Promise<DocumentDetail> {
     try {
       const headers = {
         Accept: '*/*',
         'Content-Type': '*',
-        Authorization: 'Bearer ' + user.accessToken,
+        Authorization: 'Bearer ' + request.user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
       const formData = new FormData();
 
-      for (const [, file] of Object.entries(files)) {
+      for (const [, file] of Object.entries(request.files)) {
         formData.append('files', file.buffer, file.originalname);
       }
 
-      formData.append('documentRequestedByCourt', documentRequestedByCourt);
-      formData.append('caseId', caseId);
-      formData.append('parentDocumentType', parentDocumentType);
-      formData.append('documentType', documentType);
-      formData.append('partyId', partyId);
-      formData.append('partyName', partyName);
-      formData.append('isApplicant', isApplicant);
+      formData.append('documentRequestedByCourt', request.documentRequestedByCourt);
+      formData.append('caseId', request.caseId);
+      formData.append('parentDocumentType', request.parentDocumentType);
+      formData.append('documentType', request.documentType);
+      formData.append('partyId', request.partyId);
+      formData.append('partyName', request.partyName);
+      formData.append('isApplicant', request.isApplicant);
 
       const response = await Axios.post(
         config.get('services.cos.url') + '/upload-citizen-statement-document',
@@ -245,7 +231,7 @@ export class CosApiClient {
       };
     } catch (err) {
       console.log('Error: ', err);
-      throw new Error('Case document is not updting.');
+      throw new Error('Upload citizen statement document failed.');
     }
   }
 
@@ -285,16 +271,16 @@ export class CosApiClient {
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: ('Bearer ' + user.accessToken) as string,
-        ServiceAuthorization: ('Bearer ' + getServiceAuthToken()) as string,
-        accessCode: accessCode as string,
+        Authorization: 'Bearer ' + user.accessToken,
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        accessCode,
       };
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
       });
       return response;
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Failed to link case to citizen.');
     }
   }
 
@@ -329,7 +315,7 @@ export class CosApiClient {
       return response;
       // return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Case could not be updated - updateRespondentCase');
     }
   }
 
@@ -340,16 +326,38 @@ export class CosApiClient {
    * @returns The response from the API is being returned.
    */
   public async retrieveCasesByUserId(user: UserDetails): Promise<CaseWithId[]> {
-    const response = await Axios.get(config.get('services.cos.url') + '/cases', {
-      headers: {
-        Authorization: 'Bearer ' + user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
+    try {
+      const response = await Axios.get(config.get('services.cos.url') + '/cases', {
+        headers: {
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return response.data.map(_case => ({
+        ..._case.caseData,
+        caseStatus: {
+          state: _case.stateName,
+        },
+      }));
+    } catch (e) {
+      throw new Error('Could not retrive cases - retrieveCasesByUserId');
+    }
   }
+}
+
+export interface UploadDocumentRequest {
+  user: UserDetails;
+  caseId: string;
+  parentDocumentType: string;
+  documentType: string;
+  partyId: string;
+  partyName: string;
+  isApplicant: string;
+  files: UploadedFiles;
+  documentRequestedByCourt: YesOrNo;
 }
 
 export type UploadedFiles =

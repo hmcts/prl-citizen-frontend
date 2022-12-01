@@ -150,7 +150,15 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  onlycontinue?: {
+    text: Label;
+    classes?: string;
+  };
   saveAsDraft?: {
+    text: Label;
+    classes?: string;
+  };
+  saveAndComeLater?: {
     text: Label;
     classes?: string;
   };
@@ -162,10 +170,11 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
-  saveAndComeLater?: {
+  goBack?: {
     text: Label;
     classes?: string;
   };
+
   fields: FormFields | FormFieldsFn;
 }
 
@@ -242,7 +251,6 @@ interface CaseWithFormData extends CaseWithId {
   addAnotherName?: string;
   addAnotherNameHidden?: string;
 }
-
 export interface GenerateDynamicFormFields {
   fields: FormContent['fields'];
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any

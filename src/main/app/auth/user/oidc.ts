@@ -24,16 +24,12 @@ export const getUserDetails = async (
   const secret: string = config.get('services.idam.citizenClientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
-  console.log('******* Trying to get user details');
 
   const code = encodeURIComponent(rawCode);
   const data = `client_id=${id}&client_secret=${secret}&grant_type=authorization_code&redirect_uri=${callbackUrl}&code=${code}`;
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
-  console.log('******* Recieved response');
   const jwt: IdTokenJwtPayload = jwt_decode(response.data.id_token);
-  console.log('******* Recieved jwt');
-  console.log('******* Recieved user: ');
   return {
     accessToken: response.data.access_token,
     id: jwt.uid,
@@ -64,10 +60,8 @@ export const getSystemUser = async (): Promise<UserDetails> => {
 };
 
 export const getCaseDetails = async (req: AppRequest): Promise<CaseWithId[]> => {
-  console.log('******* retrieveing the case details');
   const cosApiClient = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
   const response = await cosApiClient.retrieveCasesByUserId(req.session.user);
-  console.log('******* got the response for case details');
   return response;
 };
 

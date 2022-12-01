@@ -62,9 +62,8 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(req.params).toEqual({
-      caseId: '1234244',
-      orderType: 'otherOrder',
       orderId: '1',
+      orderType: 'otherOrder',
     });
 
     expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
@@ -118,7 +117,6 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(req.params).toEqual({
-      caseId: '1234244',
       orderType: 'otherOrder',
       orderId: '1',
     });
@@ -261,7 +259,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/2/documentUpload');
   });
 
   test('Should upload document for first order and redirect back to current page', async () => {

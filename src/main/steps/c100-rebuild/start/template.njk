@@ -1,0 +1,47 @@
+{% extends "common/template.njk" %}
+
+{% block content %}
+<div class="govuk-grid-row app-inverted--card app-inverted-text">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-thirds">
+            <span class="govuk-caption-xl app-inverted-text">{{caption}}</span>
+            <h1 class="govuk-heading-xl govuk-!-margin-bottom-7 app-inverted-text">{{headingTitle}}</h1>
+            <p class="govuk-body app-inverted-text">{{subTitle1}}</p>
+            <ul class="govuk-list govuk-list--bullet app-inverted-text app-inverted-narrow-width">
+                {% for item in firstList %}
+                    <li>{{item}}</li>
+                {% endfor %}
+            </ul>
+            <p class="govuk-body app-inverted-text">{{subTitle2}}</p>
+            <ul class="govuk-list govuk-list--bullet app-inverted-text app-inverted-narrow-width">
+                {% for item in secondList %}
+                    <li>{{item | safe}}</li>
+                {% endfor %}
+            </ul>
+            <div class="govuk-grid-row ">
+                <div class="govuk-grid-column-full">
+                    <p class="govuk-body app-inverted-text">{{paraGraph1}}</p>
+                    <p class="govuk-body app-inverted-text">{{paraGraph2}}</p>
+                    <p class="govuk-body app-inverted-text">{{paraGraph3}}</p>
+                </div>
+            </div>
+            <div class="govuk-inset-text app-inset-text--inverted app-inverted-narrow-width">
+                <p class="app-inverted-text">
+                    {{paraGraph4 | safe}}
+                </p>
+            </div>
+            <div class="govuk-button-group govuk-!-margin-top-6">
+                <div class="govuk-button-group govuk-!-margin-top-6">
+                    <a href="/c100-rebuild/case/create" class="govuk-button app-button--l app-button--inverted" data-prevent-double-click="true" role="button" draggable="false" data-module="govuk-button" href="case-name">
+                        {{btnText}}
+                    </a>
+                    <a href="/dashboard" class="govuk-link app-link--inverted">
+                        {{btnLinkText}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

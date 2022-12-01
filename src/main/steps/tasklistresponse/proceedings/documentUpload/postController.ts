@@ -15,7 +15,7 @@ import { AnyObject, PostController } from '../../../../app/controller/PostContro
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
+import { OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 
 const C100OrderTypeNameMapper = {
   childArrangementOrder: 'Child Arrangements Order',
@@ -75,7 +75,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           if (err) {
             throw err;
           }
-          res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
+          res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
         });
       } else {
         if (isNull(files) || files === undefined) {
@@ -135,7 +135,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             }
 
             req.session.save(() => {
-              res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
+              res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
             });
           } catch (error) {
             res.json(error);
@@ -179,7 +179,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       if (err) {
         throw err;
       }
-      res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
+      res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
     });
   }
 }

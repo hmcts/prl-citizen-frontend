@@ -7,8 +7,8 @@ import {
 } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
-  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   COURT_PROCEEDINGS_SUMMARY,
+  OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_ORDER_DETAILS,
   PageLink,
@@ -53,7 +53,7 @@ class OtherProceedingsNavigationController {
         const orderId = this.getOrderId();
         if (orderId) {
           // if any order has order copy to be uploaded
-          nextUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
+          nextUrl = applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
         } else {
           // none of the orders in the current order type have order copy to be uploaded
           const nextOrderType = this.getNextOrderType();
@@ -66,11 +66,11 @@ class OtherProceedingsNavigationController {
         }
         break;
       }
-      case C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: {
+      case OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: {
         const nextOrderId = this.getNextOrderId();
         if (nextOrderId) {
           // if there are any more orders with order copy
-          nextUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
+          nextUrl = applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
             orderType: this.orderType,
             orderId: nextOrderId,
           });

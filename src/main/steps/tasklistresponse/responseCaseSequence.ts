@@ -3,7 +3,6 @@ import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
-  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -20,6 +19,7 @@ import {
   MIAM_SAVE,
   MIAM_START,
   MIAM_SUMMARY,
+  OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_ORDER_DETAILS,
   PROCEEDINGS_START,
@@ -222,14 +222,10 @@ export const responseCaseSequence: Step[] = [
     },
   },
   {
-    url: C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+    url: OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
-      return OtherProceedingsNavigationController.getNextUrl(
-        C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
-        caseData,
-        req!.params
-      );
+      return OtherProceedingsNavigationController.getNextUrl(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, caseData, req!.params);
     },
   },
   {

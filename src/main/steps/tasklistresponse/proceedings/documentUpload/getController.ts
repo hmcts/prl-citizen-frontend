@@ -13,7 +13,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { Language, generatePageContent } from '../../../common/common.content';
-import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
+import { OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 export type URL_OF_FILE_UPLOAD = string;
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyType = any;
@@ -80,8 +80,8 @@ export default class DocumentUpload extends GetController {
         orderType,
         orderId,
         document: currentOrderDocument,
-        fileUploadUrl: applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }),
-        fileRemoveUrl: applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
+        fileUploadUrl: applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }),
+        fileRemoveUrl: applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
           orderType,
           orderId,
           removeId: currentOrderDocument.id,
@@ -116,7 +116,7 @@ export default class DocumentUpload extends GetController {
         if (err) {
           throw err;
         }
-        res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
+        res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
       });
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

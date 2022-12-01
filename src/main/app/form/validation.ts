@@ -3,11 +3,13 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate } from '../case/case';
-import { AllowedFileExtentionList, C100MaxFileSize } from '../case/definition';
+import { AllowedFileExtentionList, C100MaxFileSize, OtherName } from '../case/definition';
 
 dayjs.extend(customParseFormat);
 
-export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
+export type Validator = (
+  value: string | string[] | CaseDate | Partial<Case> | OtherName[] | File | undefined
+) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 
 export const enum ValidationError {
@@ -26,7 +28,14 @@ export const isFieldFilledIn: Validator = value => {
 };
 
 export const atLeastOneFieldIsChecked: Validator = fields => {
-  if (!fields || (fields as []).length === 0) {
+  let _fields;
+  if (Array.isArray(fields)) {
+    _fields = fields;
+    _fields = _fields.filter(nestedItem => nestedItem !== '');
+  } else {
+    _fields = fields;
+  }
+  if (!_fields || (_fields as []).length === 0) {
     return ValidationError.REQUIRED;
   }
 };
@@ -60,7 +69,7 @@ export const areDateFieldsFilledIn: DateValidator = fields => {
 };
 
 export const doesArrayHaveValues: Validator = value => {
-  if (!value || !(value as string[])?.length) {
+  if (!value || !(value as (string | OtherName)[])?.length) {
     return ValidationError.REQUIRED;
   }
 };
@@ -156,6 +165,12 @@ export const isInvalidPostcode: Validator = value => {
 export const isPhoneNoValid: Validator = value => {
   if (typeof value === 'string') {
     return !value.match(/^$|^[0-9 +().-]{11,}$/) ? 'invalid' : undefined;
+  }
+};
+
+export const isAlphaNumeric: Validator = value => {
+  if (typeof value === 'string') {
+    return !value.match(/^[a-zA-Z0-9_\s]*$/) ? 'invalid' : undefined;
   }
 };
 

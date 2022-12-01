@@ -9,7 +9,7 @@
             classes: field.classes,
             isPageHeading: true
           }
-        }) 
+        })
       %}
       {% for fieldName, field in field.subFields %}
       {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}

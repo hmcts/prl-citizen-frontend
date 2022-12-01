@@ -1,8 +1,8 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { applyParms } from '../../common/url-parser';
 import {
-  C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   COURT_PROCEEDINGS_SUMMARY,
+  OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_ORDER_DETAILS,
 } from '../../urls';
@@ -77,7 +77,7 @@ describe('OtherProceedingsNavigationController', () => {
       dummyRequest.session.userCase,
       dummyRequest.params
     );
-    expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'careOrder', orderId: '2' }));
+    expect(nextUrl).toBe(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'careOrder', orderId: '2' }));
   });
 
   test('From care order doc uplaod screen for orderId 2 -> navigate to the care order document upload screen for orderId 4', async () => {
@@ -86,11 +86,11 @@ describe('OtherProceedingsNavigationController', () => {
       orderId: 2,
     };
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
-      C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+      OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
       dummyRequest.session.userCase,
       dummyRequest.params
     );
-    expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'careOrder', orderId: '4' }));
+    expect(nextUrl).toBe(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'careOrder', orderId: '4' }));
   });
 
   test('From care order doc uplaod screen for orderId 4 -> navigate to the emergency protection order screen', async () => {
@@ -99,7 +99,7 @@ describe('OtherProceedingsNavigationController', () => {
       orderId: 4,
     };
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
-      C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+      OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
       dummyRequest.session.userCase,
       dummyRequest.params
     );
@@ -127,7 +127,7 @@ describe('OtherProceedingsNavigationController', () => {
       dummyRequest.session.userCase,
       dummyRequest.params
     );
-    expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'otherOrder', orderId: '1' }));
+    expect(nextUrl).toBe(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'otherOrder', orderId: '1' }));
   });
 
   test('From other order document upload screen for orderId 1 -> navigate to supervision order screen', async () => {
@@ -136,7 +136,7 @@ describe('OtherProceedingsNavigationController', () => {
       orderId: 1,
     };
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
-      C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+      OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
       dummyRequest.session.userCase,
       dummyRequest.params
     );

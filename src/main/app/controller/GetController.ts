@@ -52,6 +52,14 @@ export class GetController {
       req.session.errors = undefined;
     }
 
+    /* It clears the session data for the contact details if the user has navigated to the start of the
+  confidentiality section */
+    //TO BE REMOVED
+    this.clearConfidentialitySessionSaveData(req);
+
+    if (!req.session.hasOwnProperty('paymentError')) {
+      req.session.paymentError = false;
+    }
     /**
      * Added for C100 Rebuild
      * Handled scenario where caption is not present as query param
@@ -60,6 +68,8 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
+      caseId: req.session.userCase?.caseId,
+      paymentError: req.session.paymentError,
       document_type,
       name,
     };
@@ -120,6 +130,20 @@ export class GetController {
     });
   }
 
+  /**
+   * It clears the session data for the contact details if the user has navigated to the start of the
+   * confidentiality section
+   * @param {AppRequest} req - AppRequest - this is the request object that is passed to the controller.
+   */
+  //TO BE REMOVED
+  public clearConfidentialitySessionSaveData(req: AppRequest): void {
+    if (req.originalUrl === Urls.C100_CONFIDENTIALITY_START && req.session.userCase) {
+      req.session.userCase['contactDetailsPrivateAlternative'] = undefined;
+    }
+    if (req.originalUrl === Urls.C100_CONFIDENTIALITY_START_ALTERNATIVE && req.session.userCase) {
+      req.session.userCase['contactDetailsPrivate'] = undefined;
+    }
+  }
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
