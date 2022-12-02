@@ -47,12 +47,12 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
-new FileUpload().enableFor(app);
 new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new Helmet(config.get('security')).enableFor(app);
 new AppInsights().enable();
+new FileUpload().enableFor(app);
 new SessionStorage().enableFor(app);
 new Nunjucks().enableFor(app);
 new CSRFToken().enableFor(app);
