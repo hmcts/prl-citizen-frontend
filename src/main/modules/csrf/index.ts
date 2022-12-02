@@ -6,7 +6,6 @@ import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
 export class CSRFToken {
   public enableFor(app: Application): void {
     app.use(csurf(), (req, res, next) => {
-      console.log(req);
       res.locals.csrfToken = req.csrfToken();
       next();
     });
