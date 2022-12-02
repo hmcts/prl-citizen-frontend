@@ -71,7 +71,7 @@ describe('SafteyConcernsNavigationController for only children', () => {
       SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, {
         abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
       })
-    ).toBe('/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType');
+    ).toBe('/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/financialAbuse');
   });
 });
 
@@ -140,7 +140,7 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
       SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, {
         abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
       })
-    ).toBe('/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType');
+    ).toBe('/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/financialAbuse');
   });
 
   test('From children financial abuse screen -> navigate to the applicant report abuse screen', async () => {
@@ -148,7 +148,7 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
       SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, {
         abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
       })
-    ).toBe('/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType');
+    ).toBe('/tasklistresponse/allegations-of-harm-and-violence/applicant/concerns-about');
   });
 
   test('From applicant report abuse screen -> navigate to applicant somethingElse abuse screen', async () => {

@@ -1,6 +1,12 @@
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_LOCATION,
+  C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT,
+  C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
+  C1A_SAFETY_ONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED,
+  C1A_SAFETY_ONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS,
+  C1A_SAFETY_ONCERNS_ABDUCTION_THREATS,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -303,6 +309,47 @@ export const responseCaseSequence: Step[] = [
     getNextStep: (caseData, req) =>
       SafteyConcernsNavigationController.getNextUrl(
         PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_LOCATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
+  },
+  {
+    url: C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.c1A_passportOffice === YesOrNo.YES
+        ? C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT
+        : C1A_SAFETY_ONCERNS_ABDUCTION_THREATS,
+  },
+  {
+    url: C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT,
+    showInSection: Sections.C100,
+    getNextStep: () => C1A_SAFETY_ONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED,
+  },
+  {
+    url: C1A_SAFETY_ONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED,
+    showInSection: Sections.C100,
+    getNextStep: () => C1A_SAFETY_ONCERNS_ABDUCTION_THREATS,
+  },
+  {
+    url: C1A_SAFETY_ONCERNS_ABDUCTION_THREATS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      caseData.c1A_childAbductedBefore === YesOrNo.YES
+        ? C1A_SAFETY_ONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS
+        : SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_ONCERNS_ABDUCTION_THREATS, caseData, req?.params),
+  },
+  {
+    url: C1A_SAFETY_ONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C1A_SAFETY_ONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS,
         caseData,
         req?.params
       ),

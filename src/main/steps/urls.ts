@@ -181,6 +181,20 @@ export const PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType';
 export const PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/applicant/report-abuse/:abuseType';
+export const C1A_SAFETY_ONCERNS_ABDUCTION: PageLink = '/tasklistresponse/allegations-of-harm-and-violence/abduction';
+
+export const C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_LOCATION: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/child-location';
+export const C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-amount';
+export const C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office';
+export const C1A_SAFETY_ONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office-notified';
+export const C1A_SAFETY_ONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/previousabductions';
+export const C1A_SAFETY_ONCERNS_ABDUCTION_THREATS: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/threats';
 
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
