@@ -24,5 +24,6 @@ npm-debug.log.*
 .settings/
 dist/
 public/
+src/main/public/app/*
 
 coverage
