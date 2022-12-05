@@ -11,8 +11,14 @@ import {
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { getFormFields as getAddChildrenFormFields } from '../child-details/add-children/content';
-import { getFormFields as getAddOtherChildrenFormFields } from '../child-details/other-children/names/content';
+import {
+  form as childrenForm,
+  generateFormFields as generateChildrenFormFields,
+} from '../child-details/add-children/content';
+import {
+  generateFormFields as generateOtherChildrenFormFields,
+  form as otherChildrenForm,
+} from '../child-details/other-children/names/content';
 import { getFormFields as getAddOtherPersonFormFields } from '../other-person-details/add-other-persons/content';
 import { getFormFields as getAddRespondentsFormFields } from '../respondent-details/add-respondents/content';
 
@@ -35,12 +41,22 @@ export default class AddPersonPostController {
       cd: {
         dataReference: 'cd_children',
         context: PartyType.CHILDREN,
-        formRef: getAddChildrenFormFields,
+        formRef: () => ({
+          fields: {
+            ...generateChildrenFormFields(this.request.session.userCase.cd_children ?? []).fields,
+            ...(childrenForm.fields ?? {}),
+          },
+        }),
       },
       oc: {
         dataReference: 'ocd_otherChildren',
         context: PartyType.OTHER_CHILDREN,
-        formRef: getAddOtherChildrenFormFields,
+        formRef: () => ({
+          fields: {
+            ...generateOtherChildrenFormFields(this.request.session.userCase.ocd_otherChildren ?? []).fields,
+            ...(otherChildrenForm.fields ?? {}),
+          },
+        }),
       },
       resp: {
         dataReference: 'resp_Respondents',
