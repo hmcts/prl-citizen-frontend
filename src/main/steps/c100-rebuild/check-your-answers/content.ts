@@ -73,11 +73,8 @@ export const enContent = {
     heading: 'Confirm before you submit the application',
     warning:
       'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-    inset: '',
-    insetTextPayAndSubmit:
-      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Pay and submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
-    insetTextSubmit:
-      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
+    inset:
+      '<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select Pay and submit your application to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>',
     check: 'I believe that the facts stated in this application are true',
     lastPara:
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
@@ -100,7 +97,7 @@ export const enContent = {
     AdvisingCourt: "[^^sectionNo^^]. What you're asking the court to decide", //section 6
     WithoutNoticeHearing: '[^^sectionNo^^]. Hearing details', //section 7
     peopleDetails: '[^^sectionNo^^]. Details of the people in the application ', // section 8
-    ChildernDetails: "Children's details",
+    ChildernDetails: "Childen's details",
     ApplicantDetails: 'Details of the applicants',
     InternationalElement: '[^^sectionNo^^]. International elements', //section 11
     otherProceedings: '[^^sectionNo^^]. Past and current proceeding', //section 9
@@ -174,11 +171,8 @@ export const cyContent: typeof enContent = {
     heading: 'Confirm before you submit the application - welsh',
     warning:
       'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-    inset: '',
-    insetTextPayAndSubmit:
-      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Pay and submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
-    insetTextSubmit:
-      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
+    inset:
+      '<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select Pay and submit your application to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>',
     check: 'I believe that the facts stated in this application are true',
     lastPara:
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
@@ -493,17 +487,6 @@ const languages = {
 };
 export const generateContent: TranslationFn = content => {
   const newContents = content['language'] === 'en' ? enContent : cyContent;
-  const hwfConditions =
-    content.userCase &&
-    content.userCase.hasOwnProperty('hwf_needHelpWithFees') &&
-    content.userCase['hwf_needHelpWithFees'] !== YesOrNo.NO &&
-    content.userCase.hasOwnProperty('helpWithFeesReferenceNumber') &&
-    content.userCase['helpWithFeesReferenceNumber'] !== '';
-  if (hwfConditions) {
-    newContents.StatementOfTruth.inset = newContents.StatementOfTruth.insetTextSubmit;
-  } else {
-    newContents.StatementOfTruth.inset = newContents.StatementOfTruth.insetTextPayAndSubmit;
-  }
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
@@ -546,7 +529,13 @@ export const generateContent: TranslationFn = content => {
     type: 'textAndHtml',
     textAndHtml: HTML.BREAK + `${newContents.StatementOfTruth['lastPara']}` + HTML.BREAK + HTML.BREAK + HTML.BREAK,
   };
-  if (hwfConditions) {
+  if (
+    content.userCase &&
+    content.userCase.hasOwnProperty('hwf_needHelpWithFees') &&
+    content.userCase['hwf_needHelpWithFees'] !== YesOrNo.NO &&
+    content.userCase.hasOwnProperty('helpWithFeesReferenceNumber') &&
+    content.userCase['helpWithFeesReferenceNumber'] !== ''
+  ) {
     form.submit = {
       text: l => l.StatementOfTruth['SubmitButton'],
     };
@@ -555,6 +544,7 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
+
   return {
     ...translations,
     form,
