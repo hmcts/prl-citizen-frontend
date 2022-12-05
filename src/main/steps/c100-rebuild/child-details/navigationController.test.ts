@@ -10,6 +10,7 @@ import {
 import ChildrenDetailsNavigationController from './navigationController';
 
 let mock;
+let mockTwo;
 
 describe('ChildrenDetailsNavigationController', () => {
   beforeEach(() => {
@@ -19,6 +20,72 @@ describe('ChildrenDetailsNavigationController', () => {
       },
       session: {
         userCase: {
+          cd_children: [
+            {
+              id: '7483640e-0817-4ddc-b709-6723f7925474',
+              firstName: 'child1',
+              lastName: 'child1',
+              personalDetails: {
+                dateOfBirth: {
+                  year: '',
+                  month: '',
+                  day: '',
+                },
+                isDateOfBirthUnknown: 'Yes',
+                approxDateOfBirth: {
+                  year: '1987',
+                  month: '12',
+                  day: '12',
+                },
+                sex: 'Male',
+              },
+              childMatters: {
+                needsResolution: [],
+              },
+              parentialResponsibility: {
+                statement: 'child 1 responsibility',
+              },
+              liveWith: [],
+            },
+            {
+              id: '7483640e-0817-4ddc-b709-6723f7925635',
+              firstName: 'child2',
+              lastName: 'child2',
+              personalDetails: {
+                dateOfBirth: {
+                  year: '1987',
+                  month: '12',
+                  day: '12',
+                },
+                isDateOfBirthUnknown: '',
+                approxDateOfBirth: {
+                  year: '',
+                  month: '',
+                  day: '',
+                },
+                sex: 'Female',
+              },
+              childMatters: {
+                needsResolution: [],
+              },
+              parentialResponsibility: {
+                statement: 'child 2 responsibility',
+              },
+              liveWith: [],
+            },
+          ],
+        },
+      },
+    });
+
+    mockTwo = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925635',
+      },
+      session: {
+        userCase: {
+          sq_writtenAgreement: 'No',
+          miam_otherProceedings: 'Yes',
           cd_children: [
             {
               id: '7483640e-0817-4ddc-b709-6723f7925474',
@@ -156,6 +223,10 @@ describe('ChildrenDetailsNavigationController', () => {
     expect(
       ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, mock.session.userCase, mock.params)
     ).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+
+    expect(
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, mockTwo.session.userCase, mockTwo.params)
+    ).toBe('/c100-rebuild/safety-concerns/concern-guidance');
   });
 
   test('From a screen where the next step is not computed using ChildrenDetailsNavigationController.getNextUrl -> navigate to the same screen when navigation controller is invoked from any other screen', async () => {
