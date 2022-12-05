@@ -11,13 +11,13 @@ import { getPartyDetails, updatePartyDetails } from '../../people/util';
 import { getFormFields, getPeople } from './content';
 
 @autobind
-export default class childLiveWithPostController extends PostController<AnyObject> {
+export default class ChildLiveWithPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const childId = req.params.childId as ChildrenDetails['id'];
+    const childId = req.params.childId;
     const form = new Form(getFormFields().fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);

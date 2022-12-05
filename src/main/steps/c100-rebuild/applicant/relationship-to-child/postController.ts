@@ -2,7 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100Applicant, ChildrenDetails } from '../../../../app/case/definition';
+import { C100Applicant } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -17,7 +17,7 @@ export default class ApplicantRelationshipToChildPostController extends PostCont
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const childId = req.params.childId as ChildrenDetails['id'];
+    const childId = req.params.childId;
     const applicantId = req.params.applicantId as C100Applicant['id'];
     const form = new Form(getFormFields().fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
