@@ -204,11 +204,11 @@ export class CosApiClient {
         Authorization: 'Bearer ' + request.user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
-
       const formData = new FormData();
 
       for (const [, file] of Object.entries(request.files)) {
-        formData.append('files', file.buffer, file.originalname);
+        //formData.append('files', file.data, file.name);
+        formData.append('files', file.data, file.name);
       }
 
       formData.append('documentRequestedByCourt', request.documentRequestedByCourt);

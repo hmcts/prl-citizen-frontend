@@ -86,17 +86,12 @@ export const LegalRepresentativeDetails = (
       value: userCase['sq_legalRepresentation'],
       changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION'],
     },
+    {
+      key: keys['doyouWantLegalRespresentatorToCompleteApplication'],
+      value: userCase['sq_legalRepresentationApplication'],
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION'],
+    },
   ];
-  if(userCase.hasOwnProperty('sq_legalRepresentation') && userCase['sq_legalRepresentation'] === YesOrNo.YES){
-    SummaryData.push(
-      {
-        key: keys['doyouWantLegalRespresentatorToCompleteApplication'],
-        value: userCase['sq_legalRepresentationApplication'],
-        changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION'],
-      },
-    );
-  }
-
   return {
     title: sectionTitles['legalRepresentativeDetails'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -107,8 +102,12 @@ export const PermissionForApplication = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy') ? (HTML.UNORDER_LIST + userCase['sq_permissionsWhy']?.map(props => HTML.LIST_ITEM + keys[props] + ': ' + userCase[`sq_${props}_subfield`] + HTML.LIST_ITEM_END) + HTML.UNORDER_LIST_END).split(',').join('') : '';
   const SummaryData = [
+    {
+      key: keys['whyCourtGrantSubmittingPermission'],
+      value: userCase['sq_permissionsRequest'],
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'], 
+    },
     {
       key: keys['reasonPermissionRequired'],
       value: userCase['sq_courtPermissionRequired'],
@@ -116,13 +115,9 @@ export const PermissionForApplication = (
     },
     {
       key: keys['whyPermissionRequiredFromCourt'],
-      valueHtml: valForPermissionWhy,
+      valueHtml: userCase.hasOwnProperty('sq_permissionsWhy') ? (HTML.UNORDER_LIST + userCase['sq_permissionsWhy']?.map(props => HTML.LIST_ITEM + keys[props] + HTML.LIST_ITEM_END) + HTML.UNORDER_LIST_END).split(',').join('')
+      : '',
       changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_WHY'],
-    },
-    {
-      key: keys['whyCourtGrantSubmittingPermission'],
-      value: userCase['sq_permissionsRequest'],
-      changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'], 
     },
   ];
   return {
@@ -734,7 +729,7 @@ export const SafetyConcerns_child = (
       return {
         key: keys['detailsOfChildConcern']
           .split('[***]')
-          .join(` ${keys[field]?.toLowerCase()} `)
+          .join(` ${keys[field]} `)
           .split('[^^^]')
           .join(keys['againstChild']),
         value: '',  
@@ -876,7 +871,7 @@ export const SafetyConcerns_yours = (
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
     ?.map(field => {
-      const keyForFields = field === C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfChildConcern'].split('[***]').join(` ${keys['concerns']?.toLowerCase()} `).split('[^^^]').join(''): keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]?.toLowerCase()} `).split('[^^^]').join('');
+      const keyForFields = field === C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfChildConcern'].split('[***]').join(` ${keys['concerns']} `).split('[^^^]').join(''): keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `).split('[^^^]').join('');
       return {
         key: keyForFields,
         valueHtml: SafetyConcernsHelper(
@@ -1263,13 +1258,12 @@ export const HelpWithFee = (
       changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'], 
     },
   ];
-  if(userCase.hasOwnProperty('hwf_needHelpWithFees') && userCase['hwf_needHelpWithFees'] === YesOrNo.YES){
+
     SummaryData.push({
       key: keys['hwfApplication'],
       valueHtml: userCase['helpWithFeesReferenceNumber'],
       changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'], 
     });
-  }
   return {
     title: sectionTitles['helpWithFee'],
     rows: getSectionSummaryList(SummaryData, content),
