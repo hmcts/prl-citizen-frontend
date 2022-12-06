@@ -75,7 +75,7 @@ const en = () => ({
         text: 'Check the application (PDF)',
       },
       {
-        href: RESPOND_TO_APPLICATION,
+        href: RESPOND_TO_APPLICATION + '/updateFlag',
         text: 'Respond to the application',
       },
     ],
@@ -193,7 +193,7 @@ const cy = () => ({
         text: 'Check the application (PDF)',
       },
       {
-        href: RESPOND_TO_APPLICATION,
+        href: RESPOND_TO_APPLICATION + '/updateFlag',
         text: 'Respond to the application',
       },
     ],
