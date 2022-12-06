@@ -2,11 +2,18 @@ import { Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
 import {
+  APPLICANT,
   APPLICANT_TASK_LIST_URL,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
   C100_CASE_NAME,
   DASHBOARD_URL,
+  RESPONDENT,
   RESPONDENT_TASK_LIST_URL,
+  RESPONDENT_VIEW_ALL_DOCUMENTS,
+  RESPOND_TO_APPLICATION,
+  RESPONSE_TASKLIST,
   SIGN_IN_URL,
+  VIEW_ALL_DOCUMENTS,
 } from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
 
@@ -88,14 +95,30 @@ export class GetCaseController {
     }
   }
 
-  public async guideRespondentToTasklist(req: AppRequest, res: Response): Promise<void> {
+  public async fetchAndRedirectToTasklist(req: AppRequest, res: Response): Promise<void> {
     if (!req.session.user) {
-      res.redirect(SIGN_IN_URL);
+      res.redirect(SIGN_IN_URL + '?callback=' + req.originalUrl);
     } else {
-      const caseId = req.originalUrl.split('/')[1];
+      const caseId = req.originalUrl.split('/').pop();
       if (caseId) {
+        let url = DASHBOARD_URL;
         req.session.userCase = await GetCaseController.assignUserCase(req, caseId);
-        req.session.save(() => res.redirect(RESPONDENT_TASK_LIST_URL));
+        if (req.originalUrl.includes(RESPONDENT)) {
+          if (req.originalUrl.includes(RESPONDENT_TASK_LIST_URL)) {
+            url = RESPONDENT_TASK_LIST_URL;
+          } else if (req.originalUrl.includes(VIEW_ALL_DOCUMENTS)) {
+            url = RESPONDENT_VIEW_ALL_DOCUMENTS;
+          }
+        } else if (req.originalUrl.includes(APPLICANT)) {
+          if (req.originalUrl.includes(APPLICANT_TASK_LIST_URL)) {
+            url = APPLICANT_TASK_LIST_URL;
+          } else if (req.originalUrl.includes(VIEW_ALL_DOCUMENTS)) {
+            url = APPLICANT_VIEW_ALL_DOCUMENTS;
+          }
+        } else if (req.originalUrl.includes(RESPONSE_TASKLIST)) {
+          url = RESPOND_TO_APPLICATION;
+        }
+        req.session.save(() => res.redirect(url));
       } else {
         res.redirect(DASHBOARD_URL);
       }

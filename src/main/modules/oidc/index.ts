@@ -8,7 +8,15 @@ import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
-import { C100_URL, CALLBACK_URL, CITIZEN_HOME_URL, DASHBOARD_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
+import {
+  C100_URL,
+  CALLBACK_URL,
+  CITIZEN_HOME_URL,
+  DASHBOARD_URL,
+  PageLink,
+  SIGN_IN_URL,
+  SIGN_OUT_URL,
+} from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -19,9 +27,16 @@ export class OidcMiddleware {
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
 
-    app.get(SIGN_IN_URL, (req, res) =>
-      res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL))
-    );
+    app.get(SIGN_IN_URL, (req, res) => {
+      let callback: PageLink = CALLBACK_URL;
+      if (req.query?.callback && req.query?.callback !== '/') {
+        const url = encodeURIComponent(req.query?.callback as string);
+        callback = `${CALLBACK_URL}?callback=${url}` as PageLink;
+      }
+      console.log(callback);
+      const url = getRedirectUrl(`${protocol}${res.locals.host}${port}`, callback);
+      res.redirect(url);
+    });
 
     app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
 
@@ -115,7 +130,8 @@ export class OidcMiddleware {
           }
           return next();
         } else {
-          res.redirect(SIGN_IN_URL);
+          const url = encodeURIComponent(req.originalUrl);
+          res.redirect(SIGN_IN_URL + `?callback=${url}`);
         }
       })
     );

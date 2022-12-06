@@ -44,7 +44,7 @@ describe('GetCaseController', () => {
   });
 
   test('guide respondent to tasklist', async () => {
-    await controller.guideRespondentToTasklist(req, res);
+    await controller.fetchAndRedirectToTasklist(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
 });
