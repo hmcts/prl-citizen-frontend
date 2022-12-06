@@ -3,77 +3,77 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
 
 const en = () => ({
-  addressLine1: 'Building and street',
-  town: 'Town or city',
-  county: 'County',
-  postcode: 'Postcode',
+  citizenUserManualAddress1: 'Building and street',
+  citizenUserManualAddressTown: 'Town or city',
+  citizenUserManualAddressCounty: 'County',
+  citizenUserManualAddressPostcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
   errors: {
-    address1: {
+    citizenUserManualAddress1: {
       required: 'Enter the first line of the address',
     },
-    addressTown: {
+    citizenUserManualAddressTown: {
       required: 'Enter the town or city',
     },
-    addressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+    citizenUserManualAddressPostcode: {
+      required: 'Enter a valid postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 });
 
 const cy = () => ({
-  addressLine1: 'Building and street (in welsh)',
-  town: 'Town or city (in welsh)',
-  county: 'County (in welsh)',
-  postcode: 'Postcode (in welsh)',
+  citizenUserManualAddress1: 'Building and street (in welsh)',
+  citizenUserManualAddressTown: 'Town or city (in welsh)',
+  citizenUserManualAddressCounty: 'County (in welsh)',
+  citizenUserManualAddressPostcode: 'Postcode (in welsh)',
   enterInternationalAddress: 'Enter an international address (in welsh)',
   errors: {
-    address1: {
+    citizenUserManualAddress1: {
       required: 'Enter the first line of the address (in welsh)',
     },
-    addressTown: {
+    citizenUserManualAddressTown: {
       required: 'Enter the town or city (in welsh)',
     },
-    addressPostcode: {
-      required: 'Enter a real postcode (in welsh)',
-      invalid: 'Enter a real postcode (in welsh)',
+    citizenUserManualAddressPostcode: {
+      required: 'Enter a valid postcode (in welsh)',
+      invalid: 'Enter a valid postcode (in welsh)',
     },
   },
 });
 
 export const form: FormContent = {
   fields: {
-    address1: {
+    citizenUserManualAddress1: {
       type: 'text',
       classes: 'govuk-label',
-      label: l => l.addressLine1,
+      label: l => l.citizenUserManualAddress1,
       labelSize: null,
       validator: isFieldFilledIn,
     },
-    address2: {
+    citizenUserManualAddress2: {
       type: 'text',
       classes: 'govuk-label',
-      label: l => l.addressLine2,
+      label: l => l.citizenUserManualAddress2,
       labelSize: null,
     },
-    addressTown: {
+    citizenUserManualAddressTown: {
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
-      label: l => l.town,
+      label: l => l.citizenUserManualAddressTown,
       labelSize: null,
       validator: isFieldFilledIn,
     },
-    addressCounty: {
+    citizenUserManualAddressCounty: {
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
-      label: l => l.county,
+      label: l => l.citizenUserManualAddressCounty,
       labelSize: null,
     },
-    addressPostcode: {
+    citizenUserManualAddressPostcode: {
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
-      label: l => l.postcode,
+      label: l => l.citizenUserManualAddressPostcode,
       labelSize: null,
       attributes: {
         maxLength: 14,
@@ -82,7 +82,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.onlyContinue,
   },
 };
 

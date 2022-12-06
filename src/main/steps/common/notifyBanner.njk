@@ -1,0 +1,27 @@
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% for banner in banners %}
+  {% set html %}
+    {% if banner.bannerHeading %}
+      <p class="govuk-notification-banner__heading">
+        {{ banner.bannerHeading }}
+        {% if banner.bannerHeadingLink %}
+        <a class="govuk-notification-banner__link" href={{ banner.bannerHeadingLink }}>{{banner.bannerHeadingLinkText}}</a>.
+        {% endif %}
+      </p>
+    {% endif %}
+    {% for content in banner.bannerContent %}
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ content.line1 }}</p>
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ content.line2 }}</p>
+    {% endfor %}
+
+    {% for link in banner.bannerLinks %}
+      <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>
+      <p class="govuk-body govuk-!-margin-bottom-2"></p>
+    {% endfor %}
+  {% endset %}
+
+  {{ govukNotificationBanner({
+  html: html
+}) }}
+{% endfor %}

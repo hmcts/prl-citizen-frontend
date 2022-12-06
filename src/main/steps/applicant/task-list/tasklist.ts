@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { SectionStatus } from '../../../app/case/definition';
 import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
 import {
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
-  getSupportYourNeedsDetails,
+  getUploadDocuments,
   getViewAllDocuments,
   getYourApplication,
 } from './utils';
@@ -30,8 +31,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'support-you-need-during-your-case',
           text: taskListItems.support_you_need_during_your_case,
-          status: getSupportYourNeedsDetails(userCase),
-          href: URL.LANGUAGE_REQUIREMENTS,
+          status: SectionStatus.NOT_AVAILABLE_YET,
+          href: '#',
         },
       ],
     },
@@ -46,8 +47,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'check-details-of-your-court-hearings',
           text: taskListItems.details_of_court_hearings,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-          href: URL.APPLICANT_DETAILS_KNOWN,
+          status: SectionStatus.NOT_AVAILABLE_YET,
+          href: '#',
         },
       ],
     },
@@ -57,7 +58,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'upload-document',
           text: taskListItems.upload_document,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+          status: getUploadDocuments(),
           href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
         },
         {

@@ -6,7 +6,7 @@ import { contact_cy, contact_en } from './contact';
 
 const en = {
   title: 'Enter your access details',
-  line1: 'Enter the claim number from the email or letter we sent you.',
+  line1: 'Enter the case number from the email or letter we sent you.',
   caseCodeLabel: 'Your case code',
   caseCodeLabelHint: 'You will find this on the email or letter we sent you',
   accessCodeLabel: 'Your access code',
@@ -34,7 +34,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Enter your access details',
-  line1: 'Enter the claim number from the email or letter we sent you.',
+  line1: 'Enter the case number from the email or letter we sent you.',
   caseCodeLabel: 'Your case code',
   caseCodeLabelHint: 'You will find this on the email or letter we sent you',
   accessCodeLabel: 'Your access code',

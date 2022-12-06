@@ -1,0 +1,18 @@
+{% extends "common/respondent-summary/template.njk" %}
+{% block page_content %}
+{% if section %}
+    <span class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</span>
+  {% endif %}
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">Warning</span>
+            Your response will be shared with the other people in this case.
+        </strong>
+
+    </div>
+  {% if title %}
+    <p class="govuk-body-l">{{ title }}</p>
+  {% endif %}
+ 
+{% endblock %}

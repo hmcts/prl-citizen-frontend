@@ -18,10 +18,10 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)? - welsh  ',
-  paragraph1: 'The MIAM must be about the same issue that is being dealt with in this application. - welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
+  title: 'A ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
+  paragraph1: 'Rhaid i’r MIAM fod mewn perthynas â’r un mater sy’n cael ei drafod yn y cais hwn.',
+  one: 'Do',
+  two: 'Naddo',
   errors: {
     miam_attendance: {
       required: 'Select yes if you have attended a Mediation Information and Assessment Meeting(MIAM) - welsh',

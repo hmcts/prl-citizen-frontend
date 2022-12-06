@@ -30,15 +30,14 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Safety concerns - welsh',
-  title: 'Provide details of the previous abductions - welsh',
-  line1: 'Give a short description of the previous incidents of abduction. - welsh',
-  c1A_previousAbductionsShortDescHint: 'Include any previous attempts to threaten or abduct the children. - welsh',
-  c1A_policeOrInvestigatorInvolved:
-    'Were the police, private investigators or any other organisation involved? - welsh',
-  c1A_policeOrInvestigatorInvolvedHint: 'Including in the UK or overseas. - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
+  caption: 'Pryderon diogelwch',
+  title: 'Darparwch fanylion am y digwyddiadau blaenorol o gipio',
+  line1: "Rhowch ddisgrifiad byr o'r digwyddiadau blaenorol o gipio.",
+  c1A_previousAbductionsShortDescHint: "Dylech gynnwys unrhyw ymdrechion blaenorol i fygwth neu gipio'r plant.",
+  c1A_policeOrInvestigatorInvolved: 'A oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall ynghlwm â hyn?',
+  c1A_policeOrInvestigatorInvolvedHint: 'Gan gynnwys yn y DU neu dramor.',
+  one: 'Oedd',
+  two: 'Nac oedd',
   otherDetails: 'Provide more details - welsh',
   errors: {
     c1A_previousAbductionsShortDesc: {

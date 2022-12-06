@@ -25,22 +25,22 @@ export const en = () => ({
   },
 });
 
-export const cy = () => ({
-  title: 'Contact details of - welsh ',
+const cy = () => ({
+  title: 'Manylion cyswllt',
   subTitle:
-    'Include as much detail as you can. If there’s information missing, your application may take longer to process. - welsh',
-  donKnowEmailAddress: "I don't know their email - welsh",
-  emailAddress: 'Email address - welsh',
-  telephoneNumber: 'Telephone number - welsh',
-  donKnowTelephoneNumber: "I don't know their telephone number - welsh",
+    'Dylech gynnwys cymaint o fanylion â phosib. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
+  donKnowEmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
+  emailAddress: 'Cyfeiriad e-bost',
+  telephoneNumber: 'Rhif ffôn',
+  donKnowTelephoneNumber: 'Nid wyf yn gwybod beth yw eu rhif ffônNid wyf yn gwybod beth yw eu rhif ffôn',
   errors: {
     emailAddress: {
-      required: 'Enter an email address in the correct format, like name@example.com - welsh',
-      invalid: 'Enter an email address in the correct format, like name@example.com - welsh',
+      required: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
+      invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
     },
     telephoneNumber: {
-      required: 'Enter an answer - welsh',
-      invalid: 'is invalid - welsh',
+      required: 'Rhowch ateb',
+      invalid: 'yn annilys',
     },
   },
 });
