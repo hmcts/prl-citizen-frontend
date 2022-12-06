@@ -51,7 +51,7 @@ const cy = {
   videoLinks: 'Cyswllt fideo',
   videoLinksHint: 'Mae angen i farnwr gymeradwyo hyn',
   specialArrangementsOther: 'Arall',
-  specialArrangementsOther_subfield: "Dewiswch bob un sy'n berthnasol i chi",
+  specialArrangementsOther_subfield: 'Darparwch fanylion am yr hyn rydych chi neu’r plant ei angen',
   noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',
   errors: {
     ra_specialArrangementsOther_subfield: {

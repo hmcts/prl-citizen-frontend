@@ -43,7 +43,7 @@ const cy = {
   option1: 'Mam',
   option2: 'Tad',
   option3: 'Arall',
-  otherDetails: 'Provide more details - welsh',
+  otherDetails: 'Darparwch fwy o fanylion',
   errors: {
     c1A_childrenMoreThanOnePassport: {
       required: 'Dewis oes os oes gan y plant fwy nag un pasbort',
@@ -52,7 +52,7 @@ const cy = {
       required: "Nodwch pwy sydd ym meddiant pasbortau'r plant ",
     },
     c1A_provideOtherDetails: {
-      required: 'Please provide the details - welsh',
+      required: 'Darparwch fwy o fanylion',
     },
   },
 };

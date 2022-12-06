@@ -21,7 +21,7 @@ export const en = () => ({
 export const cy = () => ({
   serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
-  headingTitle: 'Who are you concerned about? - welsh',
+  headingTitle: 'Am bwy ydych chi’n poeni amdano/amdani?',
   select_all_relevant: "Dewiswch bob opsiwn sy'n berthnasol i chi",
   childrenInThisApplication: 'Y plant yn y cais hwn',
   yourself: 'Chi eich hun',

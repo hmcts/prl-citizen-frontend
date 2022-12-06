@@ -62,7 +62,7 @@ export const cy = () => ({
     'Rhywun i’ch helpu os oes gennych anghenion cyfathreby drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
   communicationHelpOther: 'Arall',
   noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  describeWhatNeeded: 'Describe what you need',
+  describeWhatNeeded: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   errors: {
     ra_communicationHelp: {
       required: 'Dewiswch pa help sydd ei angen arnoch gyda chyfathrebu a deall pethau',

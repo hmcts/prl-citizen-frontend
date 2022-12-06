@@ -38,7 +38,7 @@ export const cy = () => ({
   c1A_policeOrInvestigatorInvolvedHint: 'Gan gynnwys yn y DU neu dramor.',
   one: 'Oedd',
   two: 'Nac oedd',
-  otherDetails: 'Provide more details - welsh',
+  otherDetails: 'Darparwch fwy o fanylion',
   errors: {
     c1A_previousAbductionsShortDesc: {
       required: 'Disgrifiwch yn fyr y digwyddiadau blaenorol o herwgydio',
