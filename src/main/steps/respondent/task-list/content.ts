@@ -269,7 +269,11 @@ export const generateContent: TranslationFn = content => {
   const stages = buildProgressBarStages(content.userCase!);
   const req: AppRequest = content.additionalData?.req;
   if (content.userCase?.caseTypeOfApplication === 'C100') {
-    const partyId = getRespondentPartyDetailsCa(content.userCase, req.session.user.id)?.id;
+    const respondent = getRespondentPartyDetailsCa(content.userCase, req.session.user.id);
+    if (respondent?.value.response.citizenFlags?.isResponseInitiated) {
+      stages[2].active = true;
+    }
+    const partyId = respondent?.id;
     if (content.userCase.citizenResponseC7DocumentList) {
       for (let i = 0; i < content.userCase.citizenResponseC7DocumentList.length; i++) {
         if (content.userCase.citizenResponseC7DocumentList[i].value.createdBy === partyId) {

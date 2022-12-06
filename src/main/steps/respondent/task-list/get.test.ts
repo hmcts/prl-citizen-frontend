@@ -30,6 +30,9 @@ describe('RespondentTaskListGetController', () => {
                 user: {
                   idamId: '123',
                 },
+                response: {
+                  citizenFlags: {},
+                },
               } as PartyDetails,
             },
           ] as Respondent[],
