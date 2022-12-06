@@ -16,6 +16,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     try {
+      req.session.paymentError = false;
       if (req.body.saveAndComeLater) {
         this.saveAndComeLater(req, res, req.session.userCase);
       } else {
