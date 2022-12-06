@@ -34,7 +34,7 @@ export class OidcMiddleware {
         callback = `${CALLBACK_URL}?callback=${url}` as PageLink;
       }
       console.log(callback);
-      const url = getRedirectUrl(`${protocol}${res.locals.host}${port}`, callback);
+      const url = getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL);
       res.redirect(url);
     });
 
