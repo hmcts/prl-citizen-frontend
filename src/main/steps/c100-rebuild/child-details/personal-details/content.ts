@@ -25,6 +25,9 @@ export const en = () => ({
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Child's gender (Optional)",
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -50,36 +53,39 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Provide details for - welsh',
-  dobLabel: 'Date of birth - welsh',
-  dateHint: 'For example, 31 3 2016 - welsh',
-  approxCheckboxLabel: 'I don’t know their date of birth - welsh',
-  approxDobLabel: 'Approximate date of birth - welsh',
-  childGenderLabel: 'Gender - welsh',
-  male: 'Male - welsh',
-  female: 'Female - welsh',
-  other: 'They identify in another way - welsh',
-  otherGenderDetailsLabel: "Child's gender (Optional) - welsh",
+  title: 'Darparwch fanylion am',
+  dobLabel: 'Dyddiad geni',
+  dateHint: 'Er enghraifft, 31 3 2016',
+  approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
+  approxDobLabel: 'Dyddiad geni bras',
+  childGenderLabel: 'Rhyw',
+  male: 'Benyw',
+  female: 'Gwryw',
+  other: 'Maen nhw’n uniaethu mewn ffordd arall',
+  otherGenderDetailsLabel: 'Rhyw y plentyn (Dewisol)',
+  // day: 'Diwrnod',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     dateOfBirth: {
-      required: 'Enter the date of birth - welsh',
-      invalidDate: 'Date of birth is not valid - welsh',
-      incompleteDay: 'Date of birth must include a day - welsh',
-      incompleteMonth: 'Date of birth must include a month - welsh',
-      incompleteYear: 'Date of birth must include a year - welsh',
-      invalidDateInFuture: 'Date of birth must be in the past - welsh',
-      cannotHaveBothApproxAndExact: 'Cannot have a date of birth and also "I dont know their date of birth" - welsh',
+      required: 'Nodwch ei ddyddiad geni',
+      invalidDate: 'Nid yw’r dyddiad geni yn ddilys',
+      incompleteDay: 'DRhaid i’r dyddiad geni gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
+      cannotHaveBothApproxAndExact: 'Methu cael dyddiad geni a hefyd “ nid wyf yn gwybod beth yw ei ddyddiad geni',
     },
     approxDateOfBirth: {
-      required: 'Enter the approx date of birth - welsh',
-      invalidDate: 'Approx date of birth is not valid - welsh',
-      incompleteDay: 'Approx date of birth must include a day - welsh',
-      incompleteMonth: 'Approx date of birth must include a month - welsh',
-      incompleteYear: 'Approx date of birth must include a year - welsh',
-      invalidDateInFuture: 'Approx date of birth must be in the past - welsh',
+      required: 'Nodwch ddyddiad geni bras',
+      invalidDate: 'Nid yw’r dyddiad geni bras yn ddilys',
+      incompleteDay: 'Rhaid i’r dyddiad geni bras gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
     },
     gender: {
-      required: 'Select the gender - welsh',
+      required: 'Nodwch y rhywedd',
     },
   },
 });
@@ -119,6 +125,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
       values: [
         {
           label: l => l.dateFormat['day'],
+          //label: l => l.day,
           name: 'day',
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
@@ -126,6 +133,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         },
         {
           label: l => l.dateFormat['month'],
+          //label: l => l.month,
           name: 'month',
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
@@ -133,6 +141,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         },
         {
           label: l => l.dateFormat['year'],
+          //label: l => l.year,
           name: 'year',
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
@@ -169,6 +178,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
               values: [
                 {
                   label: l => l.dateFormat['day'],
+                  //label: l => l.day,
                   name: 'day',
                   value: approxDateOfBirth!.day,
                   classes: 'govuk-input--width-2',
@@ -176,6 +186,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 },
                 {
                   label: l => l.dateFormat['month'],
+                  //label: l => l.month,
                   name: 'month',
                   value: approxDateOfBirth!.month,
                   classes: 'govuk-input--width-2',
@@ -183,6 +194,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 },
                 {
                   label: l => l.dateFormat['year'],
+                  //label: l => l.year,
                   name: 'year',
                   value: approxDateOfBirth!.year,
                   classes: 'govuk-input--width-4',

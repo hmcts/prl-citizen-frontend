@@ -61,17 +61,17 @@ const en = {
 
 const cy = {
   serviceName: 'Child arrangements - welsh',
-  title: 'Safety concerns - welsh',
+  title: 'Pryderon diogelwch',
   caption:
-    'The court needs to know about any violent or abusive behaviour that puts you or the children at risk of harm. - welsh',
-  behaviourHeader: 'Abusive behaviour',
+    "Mae’r llys angen gwybod am unrhyw ymddygiad treisgar neu ddifrïol sy'n eich rhoi chi neu'r plant mewn risg o niwed.",
+  behaviourHeader: 'Ymddygiad difrïol',
   abusiveBehaviours: [
-    'The court needs to know about any violent or abusive behaviour by the other people in this application. - welsh',
-    'This could be abuse that occured in the past, or abuse that is happening now. - welsh',
-    'Abuse is when someone causes you or the children harm or distress. - welsh',
-    "Harm to a child means ill treatment or damage to the child's health and development. This could include, for example, damage suffered from seeing or hearing the ill treatment of another person. - welsh",
+    'Mae’r llys angen gwybod am unrhyw ymddygiad treisgar neu ddifrïol gan y bobl eraill yn y cais hwn.',
+    "Gallai hyn fod yn gamdriniaeth a ddigwyddodd yn y gorffennol, neu gamdriniaeth sy'n digwydd nawr.",
+    "Camdriniaeth yw pan fo rhywun yn achosi niwed neu ofid i chi neu'r plant.",
+    'Mae niwed i blentyn yn golygu camdriniaeth neu niwed i iechyd a datblygiad y plentyn. Gallai hyn gynnwys, er enghraifft, ddioddef o weld neu glywed unigolyn arall yn caei ei gam-drin.',
   ],
-  abuseCouldBe: 'Abuse could be: - welsh',
+  abuseCouldBe: 'Gallai camdriniaeth fod yn:',
   abuseList: [
     'physical or sexual - welsh',
     'psychological - welsh',

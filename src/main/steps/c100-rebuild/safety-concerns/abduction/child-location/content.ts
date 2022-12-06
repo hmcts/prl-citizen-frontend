@@ -28,18 +28,18 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  section: 'Safety concerns - welsh',
-  title: 'Why do you think the children may be abducted or kept outside the UK without your consent? - welsh',
+  section: 'Pryderon diogelwch',
+  title: "Pam rydych chi'n meddwl y gallai'r plant gael eu cipio neu eu cadw y tu allan i'r DU heb eich caniatâd?",
   warningText: {
-    text: 'Contact the police or social services if a child you’re responsible for is at risk of being taken out of the UK without your consent. - welsh',
-    iconFallbackText: 'Warning - welsh',
+    text: " Cysylltwch â'r heddlu neu'r gwasanaethau cymdeithasol os yw plentyn yr ydych yn gyfrifol amdano/amdani mewn perygl o gael ei dynnu/thynnu allan o'r DU heb eich caniatâd.",
+    iconFallbackText: 'Rhybudd',
   },
-  safetyConcernsText: 'Briefly explain your concerns, including: - welsh',
-  safetyConcernsBullet1: 'Who might take them - welsh',
-  safetyConcernsBullet2: 'Where they might be taken or kept - welsh',
-  childsCurrentLocationText: 'Where are the children now? - welsh',
+  safetyConcernsText: 'Esboniwch eich pryderon yn gryno, gan gynnwys:',
+  safetyConcernsBullet1: 'pwy allai eu cymryd',
+  safetyConcernsBullet2: 'lle y gellid mynd â nhw neu eu cadw',
+  childsCurrentLocationText: "Lle mae'r plant nawr?",
   childsCurrentLocationHint:
-    'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses. - welsh',
+    'Os ydyn nhw y tu allan i Gymru neu Loegr, dylech gynnwys pa wlad maen nhw ynddi a pha mor hir maen nhw wedi bod yno. Does dim angen i chi gynnwys unrhyw gyfeiriadau.',
   errors: {
     c1A_abductionReasonOutsideUk: {
       required:

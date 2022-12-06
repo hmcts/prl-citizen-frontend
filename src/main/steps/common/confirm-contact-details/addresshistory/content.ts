@@ -12,10 +12,10 @@ const en = {
     'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
   continue: 'Continue',
   errors: {
-    addressHistory: {
+    isAtAddressLessThan5Years: {
       required: 'Enter your details known',
     },
-    provideDetailsOfPreviousAddresses: {
+    citizenUserAddressHistory: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
     },
@@ -30,10 +30,10 @@ const cy: typeof en = {
     'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
   continue: 'Continue',
   errors: {
-    addressHistory: {
+    isAtAddressLessThan5Years: {
       required: 'Enter your details known',
     },
-    provideDetailsOfPreviousAddresses: {
+    citizenUserAddressHistory: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
     },
@@ -58,7 +58,7 @@ export const generateContent = (content: CommonContent): PageContent => ({
 });
 
 export const addressHistoryFields = (): FormFields => ({
-  addressHistory: {
+  isAtAddressLessThan5Years: {
     type: 'radios',
     classes: 'govuk-radios',
     label: l => l.label,
@@ -72,7 +72,7 @@ export const addressHistoryFields = (): FormFields => ({
         label: l => l.two,
         value: 'No',
         subFields: {
-          provideDetailsOfPreviousAddresses: {
+          citizenUserAddressHistory: {
             type: 'textarea',
             label: l => l.explainNoLabel,
             id: 'provideDetailsOfPreviousAddresses',

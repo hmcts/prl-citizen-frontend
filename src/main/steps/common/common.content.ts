@@ -1,8 +1,6 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
-// import { Fee } from '../../app/case/definition';
-// import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 import { C100_URL } from '../../steps/urls';
 
@@ -29,7 +27,7 @@ const en = {
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
-  errorSummaryHeading: 'There is a problem',
+  errorSummaryHeading: 'There is a problem on this page',
   saveAndSignOut: 'Save and sign out',
   saveAndComeLater: 'Save and come back later',
   goBack: 'Go back',
@@ -126,7 +124,7 @@ const cy: typeof en = {
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.(in welsh)',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
-  back: 'Back (in welsh)',
+  back: 'Yn ôl',
   continue: 'Save and continue (in welsh)',
   change: 'Change  (in welsh)',
   upload: 'Uwchlwytho',
@@ -138,9 +136,9 @@ const cy: typeof en = {
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem (in welsh)',
+  errorSummaryHeading: 'There is a problem on this page (in welsh)',
   saveAndSignOut: 'Cadw ac allgofnodi',
-  saveAndComeLater: 'Save and come back later - welsh',
+  saveAndComeLater: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
   goBack: 'Go back - welsh',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
@@ -189,13 +187,13 @@ const cy: typeof en = {
     "Mae ein holl asiantau sgwrsio dros y we yn brysur yn helpu pobl eraill. Dewch yn ôl nes ymlaen neu cysylltwch â ni trwy un o'r dulliau uchod.",
   sendUsAMessage: 'Anfonwch neges atom',
   sendUsAMessageDetails: 'Byddwn yn ymdrechu i ymateb o fewn 5 diwrnod.',
-  findOutCharges: 'Find out about call charges',
-  openNewWindow: 'opens in a new window',
+  findOutCharges: 'Rhagor o wybodaeth am gostau galwadau',
+  openNewWindow: 'yn agor mewn ffenestr newydd',
   telephone: 'Ffoniwch',
-  telephoneNumber: '0300 303 5171',
+  telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
   onlyContinue: 'Continue (in welsh)',
-  onlycontinue: 'Continue (in welsh)',
+  onlycontinue: 'Parhau',
   divider: 'neu',
 };
 
@@ -234,7 +232,7 @@ export const generatePageContent = ({
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(additionalData, commonTranslations);
-  // const contactEmail = 'todo@test.com';
+
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
@@ -243,12 +241,11 @@ export const generatePageContent = ({
     userEmail,
     name,
     userCaseList,
-    // contactEmail,
     addresses,
     caption,
     document_type,
-    byApplicant,
     userIdamId,
+    byApplicant,
     // contactEmail,
     additionalData,
     userId,
@@ -286,8 +283,7 @@ export type CommonContent = typeof en & {
   name?: string;
   caption?: string;
   document_type?: string;
-  // contactEmail?: string;
-  // referenceNumber?: string;
+
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   byApplicant?: string;

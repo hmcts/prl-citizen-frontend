@@ -1,3 +1,4 @@
+import { YesNoDontKnow } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
@@ -53,15 +54,15 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.one,
-          value: 'Yes',
+          value: YesNoDontKnow.yes,
         },
         {
           label: l => l.two,
-          value: 'No',
+          value: YesNoDontKnow.no,
         },
         {
           label: l => l.three,
-          value: 'I',
+          value: YesNoDontKnow.dontKnow,
         },
       ],
       validator: isFieldFilledIn,
