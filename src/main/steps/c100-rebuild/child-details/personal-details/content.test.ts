@@ -32,6 +32,7 @@ const en = {
       incompleteYear: 'Date of birth must include a year',
       invalidDateInFuture: 'Date of birth must be in the past',
       cannotHaveBothApproxAndExact: 'Cannot have a date of birth and also "I dont know their date of birth"',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     approxDateOfBirth: {
       required: 'Enter the approx date of birth',
@@ -70,6 +71,7 @@ const cy = {
       incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
       cannotHaveBothApproxAndExact: 'Methu cael dyddiad geni a hefyd “ nid wyf yn gwybod beth yw ei ddyddiad geni',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
     },
     approxDateOfBirth: {
       required: 'Nodwch ddyddiad geni bras',
