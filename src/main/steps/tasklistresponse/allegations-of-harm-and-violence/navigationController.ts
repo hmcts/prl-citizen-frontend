@@ -8,11 +8,12 @@ import {
   C1A_SAFETY_ONCERNS_ABDUCTION_THREATS,
   PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
   PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   PageLink,
   RESPONDENT_CHECK_ANSWERS_YES,
-  RESPONDENT_TASK_LIST_URL,
+  // RESPONDENT_TASK_LIST_URL,
 } from '../../../steps/urls';
 
 class SafteyConcernsNavigationController {
@@ -195,9 +196,9 @@ class SafteyConcernsNavigationController {
         // [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE]: {
         //   url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
         // },
-        // [C1AAbuseTypes.SOMETHING_ELSE]: {
-        //   url: C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
-        // },
+        [C1AAbuseTypes.SOMETHING_ELSE]: {
+          url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+        },
       },
     },
     [C1ASafteyConcernsAbout.APPLICANT]: {
@@ -233,7 +234,7 @@ class SafteyConcernsNavigationController {
       },
     },
     [C1ASafteyConcernsAbout.OTHER]: {
-      url: RESPONDENT_TASK_LIST_URL,
+      url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
     },
   };
 }

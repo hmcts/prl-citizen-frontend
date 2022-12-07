@@ -181,6 +181,14 @@ export const PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType';
 export const PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/applicant/report-abuse/:abuseType';
+export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/drugs';
+export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/other-issues';
+export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action';
+export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised';
 export const C1A_SAFETY_ONCERNS_ABDUCTION: PageLink = '/tasklistresponse/allegations-of-harm-and-violence/abduction';
 
 export const C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_LOCATION: PageLink =

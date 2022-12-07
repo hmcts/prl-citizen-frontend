@@ -76,12 +76,12 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  onlycontinue: {
-    text: l => l.onlycontinue,
+  onlyContinue: {
+    text: l => l.onlyContinue,
   },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
+  // saveAndComeLater: {
+  //   text: l => l.saveAndComeLater,
+  // },
 };
 
 export const generateContent: TranslationFn = content => {

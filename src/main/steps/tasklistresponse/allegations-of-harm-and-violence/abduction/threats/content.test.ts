@@ -2,7 +2,7 @@ import languageAssertions from '../../../../../../test/unit/utils/languageAssert
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { Validator, isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateContent } from '../../../../c100-rebuild/safety-concerns/abduction/threats/content';
-import { CommonContent, generatePageContent } from '../../../../common/common.content';
+import { CommonContent } from '../../../../common/common.content';
 
 jest.mock('../../../../../app/form/validation');
 
@@ -57,14 +57,9 @@ describe('miam->have document signed by mediator or not', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
   });
 
-  test('should contain Continue button', () => {
-    expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Continue');
-  });
-  test('should contain saveAndComeLater button', () => {
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
-  });
+  // test('should contain Continue button', () => {
+  //   expect(
+  //     (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+  //   ).toBe('Continue');
+  // });
 });
