@@ -92,6 +92,8 @@ import {
   PAYMENT_RETURN_URL_CALLBACK,
   C100_RETRIVE_CASE,
   C100_DOWNLOAD_APPLICATION,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+  RESPONDENT_VIEW_ALL_DOCUMENTS,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -111,6 +113,14 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
     app.get(`${RESPOND_TO_APPLICATION}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(
+      `${APPLICANT_VIEW_ALL_DOCUMENTS}/:caseId`,
+      errorHandler(new GetCaseController().fetchAndRedirectToTasklist)
+    );
+    app.get(
+      `${RESPONDENT_VIEW_ALL_DOCUMENTS}/:caseId`,
+      errorHandler(new GetCaseController().fetchAndRedirectToTasklist)
+    );
     app.get(`${CA_RESPONDENT_RESPONSE_SUBMIT}`, errorHandler(new RespondentSubmitResponseController().save));
     app.get(
       `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
