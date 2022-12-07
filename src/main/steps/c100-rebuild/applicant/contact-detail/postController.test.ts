@@ -66,4 +66,31 @@ describe('ContactDetail Post Controller', () => {
 
     expect(res.redirect).toHaveBeenCalled();
   });
+
+  test('Should navigagte to the next page when there are no errors when saveAndComeLater button is clicked', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ContactDetailPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        applicantId: 'a68f0076-5e0a-4751-85f0-f9d911eaa4ac',
+      },
+      body: {
+        saveAndComeLater: true,
+      },
+      session: {
+        lang: language,
+        userCase: {
+          ...commonContent.userCase,
+        },
+      },
+    });
+    const res = mockResponse();
+    generateContent(commonContent);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+  });
 });
