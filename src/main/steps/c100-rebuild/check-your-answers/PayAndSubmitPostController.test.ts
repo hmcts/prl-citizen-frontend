@@ -28,6 +28,31 @@ describe('PayAndSubmitPostController test cases', () => {
     fields: {},
   } as unknown as FormContent;
 
+  test('Should submit case when help with fees reference number is present and navigate to confirmation page', async () => {
+    req = mockRequest({
+      body: {
+        saveAndContinue: true,
+      },
+      session: {
+        userCase: {
+          caseId: '1234567890123456',
+          helpWithFeesReferenceNumber: 'HWF-1234',
+        },
+      },
+    });
+    const caseData = {
+      ...finalDocument,
+    };
+    mockedAxios.post.mockResolvedValue({ data: caseData });
+    req.locals.C100Api.updateCase.mockResolvedValue({
+      ...caseData,
+    });
+    const controller = new PayAndSubmitPostController(mockFormContent.fields);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+  });
+
   test('Should invoke save and come back later and navigate to dashboard', async () => {
     req = mockRequest({
       body: {
