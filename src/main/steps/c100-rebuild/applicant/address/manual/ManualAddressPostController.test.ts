@@ -82,4 +82,53 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
 
     expect(res.redirect).toHaveBeenCalled();
   });
+
+  test('should call redirect with correct params', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ManualAddressPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+      },
+      body: {
+        applicantFirstName: 'Dummy ',
+        id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        applicantLastName: 'Test1',
+        applicantAddressPostcode: 'AG11NB',
+        address1: 'UK',
+        address2: 'UK1',
+        addressTown: 'London',
+        addressCounty: 'UK',
+        addressHistory: 'Yes',
+        provideDetailsOfPreviousAddresses: 'NA',
+        onlycontinue: true,
+      },
+      session: {
+        lang: language,
+        userCase: {
+          appl_allApplicants: [
+            {
+              id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+              applicantFirstName: 'Dummy',
+              applicantLastName: 'Test1',
+              address1: 'UK',
+              address2: 'UK1',
+              addressTown: 'London',
+              addressCounty: 'UK',
+              addressHistory: 'Yes',
+              provideDetailsOfPreviousAddresses: 'NA',
+            },
+          ],
+        },
+      },
+    });
+    const res = mockResponse();
+    generateContent(commonContent);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+  });
 });
