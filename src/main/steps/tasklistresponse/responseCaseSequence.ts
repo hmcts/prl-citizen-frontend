@@ -25,6 +25,7 @@ import {
   MIAM_SUMMARY,
   PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
   PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
   PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION,
   PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
   PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER,
@@ -366,11 +367,6 @@ export const responseCaseSequence: Step[] = [
   {
     url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER,
-  },
-  {
-    url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER,
-    showInSection: Sections.AboutRespondentCase,
     getNextStep: () => PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION,
   },
   {
@@ -382,5 +378,10 @@ export const responseCaseSequence: Step[] = [
     url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+    showInSection: Sections.C100,
+    getNextStep: () => PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   },
 ];

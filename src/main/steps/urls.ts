@@ -190,6 +190,8 @@ export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION: PageLink =
 export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised';
 export const C1A_SAFETY_ONCERNS_ABDUCTION: PageLink = '/tasklistresponse/allegations-of-harm-and-violence/abduction';
+export const PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/no-feedback';
 
 export const C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_LOCATION: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/abduction/child-location';
