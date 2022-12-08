@@ -50,7 +50,7 @@ describe('PayAndSubmitPostController test cases', () => {
     const controller = new PayAndSubmitPostController(mockFormContent.fields);
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+    expect(res.redirect).not.toHaveBeenCalled();
   });
 
   test('Should invoke save and come back later and navigate to dashboard', async () => {
