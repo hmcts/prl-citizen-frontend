@@ -52,7 +52,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Application upload - welsh',
+  serviceName: 'Cais wedi’i lwytho',
   titleList: {
     childArrangementOrder: 'Llwytho Gorchymyn Trefniadau Plant',
     emergencyProtectionOrder: 'Llwytho Gorchymyn Diogelu Brys',
