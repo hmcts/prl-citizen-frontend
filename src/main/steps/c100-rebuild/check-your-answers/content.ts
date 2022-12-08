@@ -85,6 +85,10 @@ export const enContent = {
     statementOfTruth: {
       required: 'Confirm that you believe the information in this application is true',
     },
+    paymentError: {
+      title: 'There is a problem',
+      content: 'Your application is not submitted. Please try again',
+    },
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -182,6 +186,10 @@ export const cyContent: typeof enContent = {
   errors: {
     statementOfTruth: {
       required: 'Confirm that you believe the information in this application is true',
+    },
+    paymentError: {
+      title: 'There is a problem - welsh',
+      content: 'Your application is not submitted. Please try again - welsh',
     },
   },
   sectionTitles: {
