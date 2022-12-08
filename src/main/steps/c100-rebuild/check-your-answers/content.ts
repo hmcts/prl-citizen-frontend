@@ -260,7 +260,7 @@ export const cyContent: typeof enContent = {
   },
 };
 
-const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
+export const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
   const safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected =
     userCase.hasOwnProperty(safteyConcernsAboutKey) &&
     userCase[safteyConcernsAboutKey]?.length === 1 &&
