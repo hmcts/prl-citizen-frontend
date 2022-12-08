@@ -6,11 +6,14 @@ import {
   ChildernDetails,
   ChildernDetailsAdditional,
   HelpWithFee,
+  InternationalElement,
   LegalRepresentativeDetails,
   LocationDetails,
+  MiamAttendance,
   OtherChildrenDetails,
   OtherPeopleDetails,
   OtherPeopleDetailsTitle,
+  PastAndCurrentProceedings,
   PeopleDetails,
   PermissionForApplication,
   RespondentDetails,
@@ -606,6 +609,41 @@ describe('test cases for main util', () => {
       applicantCaseName: 'test',
     } as ANYTYPE;
     const CaseName_fun = CaseName({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    expect(CaseName_fun?.rows).not.toBe([]);
+    expect(CaseName_fun?.title).toBe(undefined);
+  });
+
+  /**
+   *   InternationalElement,
+  PastAndCurrentProceedings
+   */
+
+  test('MiamAttendance - util', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    } as ANYTYPE;
+    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    expect(CaseName_fun?.rows).not.toBe([]);
+    expect(CaseName_fun?.title).toBe('MiamAttendance');
+  });
+
+  test('InternationalElement - util', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    } as ANYTYPE;
+    const CaseName_fun = InternationalElement({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    expect(CaseName_fun?.rows).not.toBe([]);
+    expect(CaseName_fun?.title).toBe('InternationalElement');
+  });
+
+  test('PastAndCurrentProceedings - util', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+    } as ANYTYPE;
+    const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe(undefined);
   });

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { YesOrNo } from '../../../app/case/definition';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
@@ -5,6 +6,7 @@ import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/c
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
+//import { ANYTYPE } from './common/index';
 import { cyContent, enContent, form, sectionCountFormatter, toggleApplicantSafetyConcerns } from './content';
 
 const enTestContent = {
@@ -265,9 +267,5 @@ describe('Content.ts toggle test cases', () => {
     ).toEqual(form.toString());
   });
 
-  //peopleSections
-
-  test('cy should be an object', () => {
-    expect(typeof cyContent).toBe('object');
-  });
+  //generateContent
 });
