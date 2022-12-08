@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   C100_OTHER_PROCEEDINGS_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
   C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
@@ -67,6 +68,15 @@ describe('OtherProceedingsNavigationController', () => {
       dummyRequest.params
     );
     expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: 'careOrder' }));
+  });
+
+  test('From other proceedings various -> navigate to safety concerns screen', async () => {
+    const nextUrl = OtherProceedingsNavigationController.getNextUrl(
+      C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+      dummyRequest.session.userCase,
+      dummyRequest.params
+    );
+    expect(nextUrl).toBe('/c100-rebuild/safety-concerns/concern-guidance');
   });
 
   test('From care order screen -> navigate to the care order document upload screen for orderId 2', async () => {
