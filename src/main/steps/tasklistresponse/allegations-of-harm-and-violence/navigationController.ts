@@ -2,16 +2,16 @@ import { Case } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
-  C1A_SAFETY_ONCERNS_ABDUCTION,
-  C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_LOCATION,
-  C1A_SAFETY_ONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS,
-  C1A_SAFETY_ONCERNS_ABDUCTION_THREATS,
-  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+  C1A_SAFETY_CONCERNS_ABDUCTION,
+  C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+  C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS,
+  C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
   PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
   PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
   PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
-  PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE,
   PageLink,
   RESPONDENT_CHECK_ANSWERS_YES,
   // RESPONDENT_TASK_LIST_URL,
@@ -44,17 +44,17 @@ class SafteyConcernsNavigationController {
       }
 
       case PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE:
-      case C1A_SAFETY_ONCERNS_ABDUCTION_THREATS:
-      case C1A_SAFETY_ONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS: {
+      case C1A_SAFETY_CONCERNS_ABDUCTION_THREATS:
+      case C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS: {
         nextUrl = this.getNextUrlSafetyConcernAbduct(params, currentPageUrl);
         break;
       }
 
-      case PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: {
+      case PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT: {
         nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT, this.applicantConcerns[0]);
         break;
       }
-      case PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: {
+      case PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE: {
         nextUrl = this.getNextUrlSafetyConcernReport(params);
         break;
       }
@@ -68,7 +68,7 @@ class SafteyConcernsNavigationController {
 
   private getNextUrlSafetyConcernAbduct(params, currentPageUrl) {
     const abuseType =
-      params?.abuseType ?? (currentPageUrl.includes(C1A_SAFETY_ONCERNS_ABDUCTION) ? C1AAbuseTypes.ABDUCTION : null);
+      params?.abuseType ?? (currentPageUrl.includes(C1A_SAFETY_CONCERNS_ABDUCTION) ? C1AAbuseTypes.ABDUCTION : null);
     let returnUrl = this.getNextPageUrl(C1ASafteyConcernsAbout.CHILDREN, abuseType);
 
     //Flow-3
@@ -84,7 +84,7 @@ class SafteyConcernsNavigationController {
       //Flow-1 or Flow-2
       /* 
     Flow-1 or Flow-2: If there is no page left to navigate for child, then the next page url should be other concerns page.
-    Flow-2: If the next page url is applicant abuse selection page, then the next page url url should be other concerns page.
+    Flow-2: If the next page url is respondent abuse selection page, then the next page url url should be other concerns page.
     */
       if (
         !returnUrl ||
@@ -116,8 +116,8 @@ class SafteyConcernsNavigationController {
 
   private getNextUrlSafetyConcernReport(params) {
     /* 
-          Flow-2: If there is no page left to navigate for applicant, then the next page url should be child guidelines selection page.
-          Flow-3: If there is no page left to navigate for applicant, then the next page url should be other concerns page.
+          Flow-2: If there is no page left to navigate for respondent, then the next page url should be child guidelines selection page.
+          Flow-3: If there is no page left to navigate for respondent, then the next page url should be other concerns page.
           */
     const returnUrl =
       this.getNextPageUrl(C1ASafteyConcernsAbout.APPLICANT, params?.abuseType) ??
@@ -192,10 +192,10 @@ class SafteyConcernsNavigationController {
           url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.FINANCIAL_ABUSE }),
         },
         [C1AAbuseTypes.ABDUCTION]: {
-          url: C1A_SAFETY_ONCERNS_ABDUCTION_CHILD_LOCATION,
+          url: C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
         },
         [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE]: {
-          url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+          url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
         },
         [C1AAbuseTypes.SOMETHING_ELSE]: {
           url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
@@ -207,33 +207,33 @@ class SafteyConcernsNavigationController {
     },
     [C1ASafteyConcernsAbout.APPLICANT]: {
       dataReference: () => this.applicantConcerns,
-      url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+      url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
       abuse: {
         [C1AAbuseTypes.PHYSICAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
             abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
           }),
         },
         [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
             abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
           }),
         },
         [C1AAbuseTypes.EMOTIONAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
             abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
           }),
         },
         [C1AAbuseTypes.SEXUAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
         },
         [C1AAbuseTypes.FINANCIAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
             abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
           }),
         },
         [C1AAbuseTypes.SOMETHING_ELSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }),
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }),
         },
       },
     },
