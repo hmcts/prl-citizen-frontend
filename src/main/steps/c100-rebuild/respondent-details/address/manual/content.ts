@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseWithId } from '../../../../../app/case/case';
 import { C100RebuildPartyDetails, YesNoDontKnow } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -103,8 +104,6 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
   return updatedForm;
 };
 
-export const getUpdatedForm = (): FormContent => updatedForm;
-
 export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): GenerateDynamicFormFields => {
   const { addressHistory, provideDetailsOfPreviousAddresses } = caseData.address!;
   return {
@@ -148,6 +147,15 @@ export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): 
     },
     errors: { en: {}, cy: {} },
   };
+};
+
+export const getUpdatedForm = (
+  caseData: Partial<CaseWithId>,
+  respondentId: C100RebuildPartyDetails['id']
+): FormContent => {
+  const respondentData = getPartyDetails(respondentId, caseData?.resp_Respondents) as C100RebuildPartyDetails;
+
+  return updatedFormFields(form, generateFormFields(respondentData ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

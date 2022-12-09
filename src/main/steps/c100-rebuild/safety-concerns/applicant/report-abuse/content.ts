@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -180,8 +181,10 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (caseData: Partial<CaseWithId>, abuseType: C1AAbuseTypes): FormContent => {
+  const sessionData: C1ASafteyConcernsAbuse = caseData?.c1A_safteyConcerns?.applicant?.[abuseType];
+
+  return updateFormFields(form, generateFormFields(sessionData ?? getDataShape().abuse).fields);
 };
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any

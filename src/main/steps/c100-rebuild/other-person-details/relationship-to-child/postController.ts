@@ -19,7 +19,7 @@ export default class OtherPersonsRelationshipToChildPostController extends PostC
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const childId = req.params.childId as ChildrenDetails['id'];
     const otherPersonId = req.params.otherPersonId as C100RebuildPartyDetails['id'];
-    const form = new Form(getFormFields().fields as FormFields);
+    const form = new Form(getFormFields(req.session.userCase, otherPersonId, childId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { relationshipType, otherRelationshipTypeDetails } = formData as Record<string, any>;

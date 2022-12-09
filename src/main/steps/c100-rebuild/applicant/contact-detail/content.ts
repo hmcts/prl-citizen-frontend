@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseWithId } from '../../../../app/case/case';
 import { C100Applicant, YesNoEmpty } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -213,8 +214,9 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (caseData: Partial<CaseWithId>, applicantId: C100Applicant['id']): FormContent => {
+  const applicantData = caseData?.appl_allApplicants?.find(i => i.id === applicantId) as C100Applicant;
+  return updateFormFields(form, generateFormFields(applicantData?.applicantContactDetail ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

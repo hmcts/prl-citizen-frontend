@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseWithId } from '../../../../app/case/case';
 import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -53,10 +54,6 @@ export const updateFormFields = (form: FormContent, formFields: FormContent['fie
   return updatedForm;
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
-};
-
 export const generateFormFields = (
   parentialResponsibility: ChildrenDetails['parentialResponsibility']
 ): GenerateDynamicFormFields => {
@@ -90,6 +87,12 @@ export const form: FormContent = {
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
+};
+
+export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']): FormContent => {
+  const childDetails = getPartyDetails(childId, caseData?.cd_children) as ChildrenDetails;
+
+  return updateFormFields(form, generateFormFields(childDetails?.parentialResponsibility ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {
