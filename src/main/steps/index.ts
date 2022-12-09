@@ -136,7 +136,6 @@ export type StepWithContent = Step & {
   view: string;
   routeGuard?: RouteGuard;
 };
-
 const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] => {
   const dir = __dirname;
 
