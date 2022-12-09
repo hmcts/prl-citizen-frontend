@@ -62,7 +62,7 @@
           name: "files[]",
           attributes: {
             multiple: true,
-            accept: "image/jpeg,image/tiff,image/png,application/pdf"
+            accept: "image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           },
           label: {
             text: chooseFilePhoto
@@ -71,7 +71,7 @@
         }) }}
         {{ govukButton({
           text: upload,
-          type: "submit",
+          type: "submit", 
           classes: "govuk-button--secondary govuk-!-margin-bottom-0"
         }) }}
       </form>
