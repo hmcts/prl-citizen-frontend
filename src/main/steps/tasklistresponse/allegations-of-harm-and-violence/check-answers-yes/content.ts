@@ -10,7 +10,7 @@ const en = {
   summaryText: 'Contacts for help',
   childconcern: 'The children in this application',
   selfconcern: 'Yourself',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     c1A_safetyConernAbout: {
       required: 'Specify who you are concerned about',
@@ -25,7 +25,7 @@ const cy: typeof en = {
   summaryText: 'Contacts for help - in welsh',
   childconcern: 'The children in this application - in welsh',
   selfconcern: 'Yourself - in welsh',
-  continue: 'Save and continue - in welsh',
+  continue: 'Continue - in welsh',
   errors: {
     c1A_safetyConernAbout: {
       required: 'Specify who you are concerned about - in welsh',
@@ -56,7 +56,7 @@ export const form: FormContent = {
         {
           name: 'c1A_safetyConernAbout',
           label: l => l.selfconcern,
-          value: C1ASafteyConcernsAbout.APPLICANT,
+          value: C1ASafteyConcernsAbout.RESPONDENT,
         },
       ],
     },

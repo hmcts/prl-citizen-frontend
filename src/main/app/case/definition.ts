@@ -2480,6 +2480,7 @@ export enum C1ASafteyConcernsAbout{
   CHILDREN = 'children',
   APPLICANT = 'applicant',
   OTHER = 'otherConcerns',
+  RESPONDENT = 'respondent',
 }
 
 export interface C1ASafteyConcernsAbuse{
@@ -2500,6 +2501,14 @@ export interface C1ASafteyConcerns {
     financialAbuse?: C1ASafteyConcernsAbuse;
   },
   applicant?:{
+    physicalAbuse?:C1ASafteyConcernsAbuse;
+    psychologicalAbuse?:C1ASafteyConcernsAbuse;
+    emotionalAbuse?:C1ASafteyConcernsAbuse;
+    sexualAbuse?:C1ASafteyConcernsAbuse;
+    financialAbuse?: C1ASafteyConcernsAbuse;
+    somethingElse?: C1ASafteyConcernsAbuse;
+  },
+  respondent?:{
     physicalAbuse?:C1ASafteyConcernsAbuse;
     psychologicalAbuse?:C1ASafteyConcernsAbuse;
     emotionalAbuse?:C1ASafteyConcernsAbuse;

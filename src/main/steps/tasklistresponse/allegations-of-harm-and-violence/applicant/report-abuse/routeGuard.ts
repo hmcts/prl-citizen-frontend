@@ -9,7 +9,7 @@ export const routeGuard = {
   get: (req: AppRequest, res: Response, next: NextFunction) => {
     const abuseType = req.params?.abuseType as C1AAbuseTypes;
 
-    if (!isValidAbuseType(abuseType, C1ASafteyConcernsAbout.APPLICANT, req.session.userCase)) {
+    if (!isValidAbuseType(abuseType, C1ASafteyConcernsAbout.RESPONDENT, req.session.userCase)) {
       return res.redirect('/error');
     }
     next();

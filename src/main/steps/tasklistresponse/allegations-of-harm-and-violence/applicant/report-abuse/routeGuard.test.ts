@@ -12,7 +12,7 @@ describe('C1A Saftey Concers applicant report abuse RouteGuard', () => {
       },
       session: {
         userCase: {
-          c1A_concernAboutApplicant: [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE, C1AAbuseTypes.FINANCIAL_ABUSE],
+          c1A_concernAboutRespondent: [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE, C1AAbuseTypes.FINANCIAL_ABUSE],
         },
       },
     });
@@ -29,7 +29,7 @@ describe('C1A Saftey Concers applicant report abuse RouteGuard', () => {
       },
       session: {
         userCase: {
-          c1A_concernAboutApplicant: [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE, C1AAbuseTypes.FINANCIAL_ABUSE],
+          c1A_concernAboutRespondent: [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE, C1AAbuseTypes.FINANCIAL_ABUSE],
         },
       },
     });

@@ -20,14 +20,14 @@ import {
 class SafteyConcernsNavigationController {
   private concernsAbout: C1ASafteyConcernsAbout[] = [];
   private childConcerns: C1AAbuseTypes[] = [];
-  private applicantConcerns: C1AAbuseTypes[] = [];
+  private respondentConcerns: C1AAbuseTypes[] = [];
 
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, unknown>): PageLink {
     let nextUrl;
 
     this.concernsAbout = caseData?.c1A_safetyConernAbout as C1ASafteyConcernsAbout[];
     this.childConcerns = caseData?.c1A_concernAboutChild as C1AAbuseTypes[];
-    this.applicantConcerns = caseData?.c1A_concernAboutApplicant as C1AAbuseTypes[];
+    this.respondentConcerns = caseData?.c1A_concernAboutRespondent as C1AAbuseTypes[];
 
     switch (currentPageUrl) {
       case RESPONDENT_CHECK_ANSWERS_YES: {
@@ -51,7 +51,7 @@ class SafteyConcernsNavigationController {
       }
 
       case PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: {
-        nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT, this.applicantConcerns[0]);
+        nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT, this.respondentConcerns[0]);
         break;
       }
       case PRL_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: {
@@ -72,24 +72,24 @@ class SafteyConcernsNavigationController {
     let returnUrl = this.getNextPageUrl(C1ASafteyConcernsAbout.CHILDREN, abuseType);
 
     //Flow-3
-    if (this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT])) {
+    if (this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.RESPONDENT])) {
       /* 
-    1. If there is no page left to navigate for child, then the next page url should be applicant abuse selection page.
-    2. If the next page url is other concerns page, then the next page url should be applicant abuse selection page.
+    1. If there is no page left to navigate for child, then the next page url should be respondent abuse selection page.
+    2. If the next page url is other concerns page, then the next page url should be respondent abuse selection page.
     */
       if (!returnUrl || returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE)) {
-        returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT);
+        returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT);
       }
     } else {
       //Flow-1 or Flow-2
       /* 
     Flow-1 or Flow-2: If there is no page left to navigate for child, then the next page url should be other concerns page.
-    Flow-2: If the next page url is applicant abuse selection page, then the next page url url should be other concerns page.
+    Flow-2: If the next page url is respondent abuse selection page, then the next page url url should be other concerns page.
     */
       if (
         !returnUrl ||
-        (this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true) &&
-          returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT))
+        (this.checkForConcerns(C1ASafteyConcernsAbout.RESPONDENT, true) &&
+          returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT))
       ) {
         returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
       }
@@ -101,12 +101,12 @@ class SafteyConcernsNavigationController {
   private getNextUrlSafetyConcernChild(returnUrl) {
     if (
       returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE) &&
-      this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT])
+      this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.RESPONDENT])
     ) {
-      returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT);
+      returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT);
     } else if (
       returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE) &&
-      this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true)
+      this.checkForConcerns(C1ASafteyConcernsAbout.RESPONDENT, true)
     ) {
       returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
     }
@@ -116,12 +116,12 @@ class SafteyConcernsNavigationController {
 
   private getNextUrlSafetyConcernReport(params) {
     /* 
-          Flow-2: If there is no page left to navigate for applicant, then the next page url should be child guidelines selection page.
-          Flow-3: If there is no page left to navigate for applicant, then the next page url should be other concerns page.
+          Flow-2: If there is no page left to navigate for respondent, then the next page url should be child guidelines selection page.
+          Flow-3: If there is no page left to navigate for respondent, then the next page url should be other concerns page.
           */
     const returnUrl =
-      this.getNextPageUrl(C1ASafteyConcernsAbout.APPLICANT, params?.abuseType) ??
-      (this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true)
+      this.getNextPageUrl(C1ASafteyConcernsAbout.RESPONDENT, params?.abuseType) ??
+      (this.checkForConcerns(C1ASafteyConcernsAbout.RESPONDENT, true)
         ? this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, undefined, 'guidelines')
         : this.getPageUrl(C1ASafteyConcernsAbout.OTHER));
 
@@ -205,8 +205,8 @@ class SafteyConcernsNavigationController {
         url: PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
       },
     },
-    [C1ASafteyConcernsAbout.APPLICANT]: {
-      dataReference: () => this.applicantConcerns,
+    [C1ASafteyConcernsAbout.RESPONDENT]: {
+      dataReference: () => this.respondentConcerns,
       url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
       abuse: {
         [C1AAbuseTypes.PHYSICAL_ABUSE]: {
@@ -240,6 +240,7 @@ class SafteyConcernsNavigationController {
     [C1ASafteyConcernsAbout.OTHER]: {
       url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
     },
+    applicant: {},
   };
 }
 

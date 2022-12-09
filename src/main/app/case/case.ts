@@ -529,6 +529,7 @@ export interface Case {
   sq_courtPermissionRequired?: YesOrNo;
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_concernAboutRespondent?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];

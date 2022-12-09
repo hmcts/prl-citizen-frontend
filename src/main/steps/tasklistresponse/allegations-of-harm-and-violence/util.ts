@@ -28,7 +28,7 @@ export const isValidAbuseType = (
       [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE, C1AAbuseTypes.ABDUCTION, C1AAbuseTypes.SOMETHING_ELSE].includes(
         abuseType
       )) ||
-    (ctx === C1ASafteyConcernsAbout.APPLICANT &&
+    (ctx === C1ASafteyConcernsAbout.RESPONDENT &&
       [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE, C1AAbuseTypes.ABDUCTION].includes(abuseType))
   ) {
     return false;
@@ -37,7 +37,7 @@ export const isValidAbuseType = (
   return !!(
     Object.values(C1AAbuseTypes).includes(abuseType) &&
     caseData?.[
-      ctx === C1ASafteyConcernsAbout.CHILDREN ? 'c1A_concernAboutChild' : 'c1A_concernAboutApplicant'
+      ctx === C1ASafteyConcernsAbout.CHILDREN ? 'c1A_concernAboutChild' : 'c1A_concernAboutRespondent'
     ]?.includes(abuseType)
   );
 };

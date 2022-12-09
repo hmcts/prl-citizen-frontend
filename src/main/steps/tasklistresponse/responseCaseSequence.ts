@@ -377,11 +377,11 @@ export const responseCaseSequence: Step[] = [
   {
     url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
-    showInSection: Sections.C100,
+    showInSection: Sections.AboutRespondentCase,
     getNextStep: () => PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   },
 ];

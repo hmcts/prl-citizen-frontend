@@ -32,7 +32,7 @@ const en = () => ({
     'A risk of the children being taken away from their caregivers, especially if they are kept abroad',
   somethingElse: 'Something else',
   somethingElseHint: 'Any concerns you have that do not fit into the above categories',
-  onlyContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     c1A_concernAboutChild: {
       required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing',
@@ -69,7 +69,7 @@ const cy = () => ({
     'A risk of the children being taken away from their caregivers, especially if they are kept abroad - welsh',
   somethingElse: 'Something else - welsh',
   somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
-  onlyContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     c1A_concernAboutChild: {
       required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing - welsh',

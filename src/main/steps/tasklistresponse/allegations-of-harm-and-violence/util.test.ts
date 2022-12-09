@@ -7,7 +7,7 @@ const dummyRequest = mockRequest({
   session: {
     userCase: {
       c1A_concernAboutChild: ['physicalAbuse', 'psychologicalAbuse'],
-      c1A_concernAboutApplicant: ['financialAbuse', 'somethingElse'],
+      c1A_concernAboutRespondent: ['financialAbuse', 'somethingElse'],
     },
   },
 });
@@ -39,7 +39,7 @@ describe('C1A Saftey Concerns util', () => {
   });
   test('isValidAbuseType for applicant should return true if the abuse type is valid', async () => {
     expect(
-      isValidAbuseType(C1AAbuseTypes.FINANCIAL_ABUSE, C1ASafteyConcernsAbout.APPLICANT, dummyRequest.session.userCase)
+      isValidAbuseType(C1AAbuseTypes.FINANCIAL_ABUSE, C1ASafteyConcernsAbout.RESPONDENT, dummyRequest.session.userCase)
     ).toBe(true);
   });
   test('isValidAbuseType for applicant should return false if the abuse type is invalid', async () => {
