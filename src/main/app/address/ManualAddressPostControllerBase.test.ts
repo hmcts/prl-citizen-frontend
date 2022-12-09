@@ -13,7 +13,6 @@ describe('ManualAddressPostControllerBase', () => {
   beforeEach(() => {
     req = mockRequest();
     res = mockResponse();
-    // req.route.path="/"
     controller = new ManualAddressPostControllerBase({}, FieldPrefix.APPLICANT1);
   });
   test('ManualAddressPostControllerBase', async () => {

@@ -25,8 +25,6 @@ describe('ResponseTaskListGetController', () => {
           userEmail: 'test@example.com',
           additionalData: { req },
         }),
-        // ...defaultViewArgs,
-        // userCase: req.session.userCase,
       })
     );
   });
