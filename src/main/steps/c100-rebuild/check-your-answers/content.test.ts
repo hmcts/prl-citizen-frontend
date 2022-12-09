@@ -6,8 +6,16 @@ import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/c
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
-//import { ANYTYPE } from './common/index';
-import { cyContent, enContent, form, sectionCountFormatter, toggleApplicantSafetyConcerns } from './content';
+import { ANYTYPE } from './common/index';
+import {
+  cyContent,
+  enContent,
+  form,
+  generateContent,
+  languages,
+  sectionCountFormatter,
+  toggleApplicantSafetyConcerns,
+} from './content';
 
 const enTestContent = {
   serviceName: 'Check your answers ',
@@ -265,6 +273,111 @@ describe('Content.ts toggle test cases', () => {
         },
       }.toString()
     ).toEqual(form.toString());
+  });
+
+  test('en - language', () => {
+    expect(languages.en).not.toEqual('');
+  });
+  test('cy - language', () => {
+    expect(languages.cy).not.toEqual('');
+  });
+  const contents = {
+    language: 'en',
+    phase: '',
+    applyForChildArrangements: '',
+    applyForDissolution: '',
+    c100ServiceName: '',
+    feedback: '',
+    languageToggle: '',
+    govUk: '',
+    back: '',
+    continue: '',
+    next: '',
+    change: '',
+    upload: '',
+    download: '',
+    delete: '',
+    warning: '',
+    required: '',
+    notAnswered: '',
+    errorSaving: '',
+    errorSendingInvite: '',
+    ogl: '',
+    errorSummaryHeading: '',
+    saveAndSignOut: '',
+    saveAndComeLater: '',
+    goBack: '',
+    saveAsDraft: '',
+    onlyContinue: '',
+    onlycontinue: '',
+    cancel: '',
+    signOut: '',
+    signIn: '',
+    accessibility: '',
+    cookies: '',
+    privacyPolicy: '',
+    termsAndConditions: '',
+    marriage: '',
+    divorce: '',
+    civilPartnership: '',
+    endingCivilPartnership: '',
+    husband: '',
+    wife: '',
+    partner: '',
+    civilPartner: '',
+    withHim: '',
+    withHer: '',
+    months: [],
+    dateFormat: { day: '', month: '', year: '' },
+    yes: '',
+    no: '',
+    notSure: '',
+    english: '',
+    welsh: '',
+    contactUsForHelp: '',
+    webChat: '',
+    webChatDetails: '',
+    sendUsAMessage: '',
+    sendUsAMessageDetails: '',
+    telephone: '',
+    telephoneNumber: '',
+    telephoneDetails: '',
+    findOutCharges: '',
+    openNewWindow: '',
+    habitualResidentHelpText1: '',
+    habitualResidentHelpText2: '',
+    cookiesHeading: '',
+    cookiesLine1: '',
+    cookiesLine2: '',
+    acceptAnalyticsCookies: '',
+    rejectAnalyticsCookies: '',
+    viewCookies: '',
+    hideMessage: '',
+    cookiesConfirmationMessage: '',
+    changeCookiesHeading: '',
+    allowAnalyticsCookies: '',
+    useAnalyticsCookies: '',
+    doNotUseAnalyticsCookies: '',
+    save: '',
+    cookiesSaved: '',
+    additionalCookies: '',
+    goToHomepage: '',
+    apmCookiesHeadings: '',
+    useApmCookies: '',
+    doNotUseApmCookies: '',
+    divider: '',
+    serviceName: '',
+    userCase: {
+      miam_domesticAbuse: [],
+      applicantCaseName: 'test',
+      enterCaseName: '',
+      sq_writtenAgreement: 'Yes',
+      miam_otherProceedings: 'Yes',
+    },
+  };
+  const commonContents = generateContent(contents as ANYTYPE) as Record<string, never>;
+  test('generateContents', () => {
+    expect(commonContents).not.toEqual('');
   });
 
   //generateContent
