@@ -13,6 +13,8 @@ const en = {
   courtOrderProtection: 'Have you had a court order made for your protection?',
   one: 'Yes',
   two: 'No',
+  one1: 'Yes',
+  two1: 'No',
   errors: {
     op_childrenInvolvedCourtCase: {
       required: 'Select yes if the children have been involved in a previous court case',
@@ -27,14 +29,16 @@ const cy = {
   headingTitle: 'Ydych chi neu’r plant erioed wedi bod ynghlwm ag achos llys?',
   childrenInvolvedCourtCase: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
   courtOrderProtection: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
+  one: 'Do',
+  two: 'Naddo',
+  one1: 'Oes',
+  two1: 'Nac oes',
   errors: {
     op_childrenInvolvedCourtCase: {
-      required: 'Select yes if the children have been involved in a previous court case - welsh',
+      required: "Dewiswch do os yw'r plant wedi bod yn rhan o achos llys yn flaenorol",
     },
     op_courtOrderProtection: {
-      required: 'Select yes if you have had a court order made for your protection - welsh',
+      required: "Dewiswch do os yw'r plant wedi bod yn rhan o achos llys yn flaenorol",
     },
   },
 };

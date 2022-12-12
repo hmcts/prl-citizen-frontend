@@ -23,7 +23,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements',
+  serviceName: 'Trefniadau plant',
   title: 'A oes gennych chi resymau dilys dros beidio â mynychu MIAM?',
   paragraph1: 'Rhaid i chi fynychu MIAM cyn gwneud cais oni bai bod gennych resymau dilys dros beidio â mynychu.',
   applyForVrLink:
@@ -34,7 +34,7 @@ export const cy = () => ({
   two: 'Nac oes',
   errors: {
     miam_validReason: {
-      required: 'Select yes if you have valid reasons for not attending a MIAM - welsh',
+      required: 'Dewiswch oes os oes gennych resymau dilys dros beidio â mynychu MIAM',
     },
   },
 });

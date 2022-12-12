@@ -41,7 +41,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements',
+  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
   line1:
@@ -62,16 +62,16 @@ export const cy = () => ({
     'Rhywun i’ch helpu os oes gennych anghenion cyfathreby drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
   communicationHelpOther: 'Arall',
   noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  describeWhatNeeded: 'Describe what you need',
+  describeWhatNeeded: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   errors: {
     ra_communicationHelp: {
-      required: 'Select what help you need with communicating and understanding - welsh',
+      required: 'Dewiswch pa help sydd ei angen arnoch gyda chyfathrebu a deall pethau',
     },
     ra_signLanguageInterpreter_subfield: {
-      required: 'Describe which Sign Language interpreter you need - welsh',
+      required: 'Disgrifiwch pa gyfieithydd Iaith Arwyddion sydd ei angen arnoch',
     },
     ra_communicationHelpOther_subfield: {
-      required: 'Describe what you need to help with communicating and understanding - welsh',
+      required: 'Disgrifiwch yr hyn sydd ei angen arnoch i helpu gyda chyfathrebu a deall pethau',
     },
   },
 });

@@ -28,7 +28,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: 'A fu effaith ar y plant o ganlyniad i gamddefnyddio cyffuriau, alcohol neu sylweddau?',
   line1: "Gallai hyn fod yn gamdriniaeth sy'n digwydd nawr neu yn y gorffennol.",
@@ -40,10 +40,12 @@ const cy = {
     "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     c1A_otherConcernsDrugs: {
-      required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse - Welsh',
+      required:
+        "Dewiswch ydynt os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
     },
     c1A_otherConcernsDrugsDetails: {
-      required: 'Describe how the children have been impacted by drug, alcohol or substance abuse - Welsh',
+      required:
+        "Dewiswch ydynt os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
     },
   },
 };

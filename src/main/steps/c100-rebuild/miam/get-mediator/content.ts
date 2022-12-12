@@ -40,7 +40,7 @@ const cy = () => ({
                 than going to court. - Welsh`,
   formActionUrl: 'https://www.familymediationcouncil.org.uk/find-local-mediator/',
   minimumDistance: '5',
-  findButtonText: 'Find a mediator',
+  findButtonText: 'Dod o hyd i gyfryngwr',
 });
 
 const languages = {
