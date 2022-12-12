@@ -24,7 +24,7 @@ export default class CheckYourAnswersGetController extends GetController {
     }
     await req.locals.C100Api.updateCase(
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      req.session.userCase!.caseId!,
+      req.session.userCase?.caseId as string,
       req.session.userCase,
       req.originalUrl,
       C100_CASE_EVENT.CASE_UPDATE
