@@ -18,7 +18,7 @@ export default class ContactPreferencePostController extends PostController<AnyO
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const applicantId = req.params.applicantId as C100Applicant['id'];
-    const form = new Form(getFormFields().fields as FormFields);
+    const form = new Form(getFormFields(req.session.userCase, applicantId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const applicantContactDetail = getApplicantDetails(
