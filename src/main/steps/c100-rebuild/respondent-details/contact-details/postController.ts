@@ -27,7 +27,7 @@ export default class ContactDetailsPostController extends PostController<AnyObje
     >;
     const respondentContactDetails = getPartyDetails(
       respondentId,
-      req.session.userCase.resp_Respondents!
+      req.session.userCase.resp_Respondents
     ) as C100RebuildPartyDetails;
     respondentContactDetails.contactDetails = {
       donKnowEmailAddress,
@@ -37,7 +37,7 @@ export default class ContactDetailsPostController extends PostController<AnyObje
     };
     req.session.userCase.resp_Respondents = updatePartyDetails(
       respondentContactDetails,
-      req.session.userCase.resp_Respondents!
+      req.session.userCase.resp_Respondents
     ) as C100RebuildPartyDetails[];
 
     if (onlycontinue) {
