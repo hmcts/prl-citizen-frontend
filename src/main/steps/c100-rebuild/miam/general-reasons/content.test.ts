@@ -43,7 +43,7 @@ const cy = {
   divider: 'neu',
   errors: {
     miam_nonAttendanceReasons: {
-      required: 'Select your valid reasons for not attending a MIAM',
+      required: 'Dewiswch eich rhesymau dilys dros beidio â mynychu MIAM',
     },
   },
 };

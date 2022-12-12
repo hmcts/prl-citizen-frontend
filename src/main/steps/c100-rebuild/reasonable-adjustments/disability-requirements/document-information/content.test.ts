@@ -42,7 +42,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen dogfennau mewn fformat arall',
   line1:
@@ -58,19 +58,19 @@ const cy = {
   emailInformation: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   documentHelpOther: 'Arall',
   noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  describeWhatNeeded: 'Describe what you need - welsh',
+  describeWhatNeeded: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   errors: {
     ra_documentInformation: {
-      required: 'Select which format you need your documents in - welsh',
+      required: 'Dewiswch pa fformat y mae arnoch angen eich dogfennau ynddo',
     },
     ra_specifiedColorDocuments_subfield: {
-      required: 'Describe which colour you need your documents in - welsh',
+      required: 'Disgrifiwch ym mha liw yr ydych angen eich dogfennau',
     },
     ra_largePrintDocuments_subfield: {
-      required: 'Describe which large print you need your documents in - welsh',
+      required: 'Disgrifiwch ym mha brint bras yr ydych angen eich dogfennau',
     },
     ra_documentHelpOther_subfield: {
-      required: 'Describe which alternative format you need your documents in - welsh',
+      required: 'Disgrifiwch ym mha fformat amgen y mae arnoch angen eich dogfennau',
     },
   },
 };

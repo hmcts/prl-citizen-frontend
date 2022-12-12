@@ -12,6 +12,7 @@ import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_APPLICANT_CONTACT_DETAIL,
+  C100_APPLICANT_CONTACT_PREFERENCES,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
   C100_RESPONDENT_DETAILS_ADD,
   PageLink,
@@ -117,6 +118,13 @@ class ApplicantNavigationController {
         break;
       }
       case C100_APPLICANT_CONTACT_DETAIL: {
+        nextUrl = applyParms(C100_APPLICANT_CONTACT_PREFERENCES, {
+          applicantId: this.applicantId!,
+        });
+        break;
+      }
+      // contact preferences case
+      case C100_APPLICANT_CONTACT_PREFERENCES: {
         const nextApplicant = this.getNextApplicant();
 
         nextUrl = nextApplicant
@@ -126,6 +134,7 @@ class ApplicantNavigationController {
           : C100_RESPONDENT_DETAILS_ADD;
         break;
       }
+      // contact preferences case
       default: {
         nextUrl = currentPageUrl;
         break;

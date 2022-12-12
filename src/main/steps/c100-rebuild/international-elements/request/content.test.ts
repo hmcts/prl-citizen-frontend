@@ -35,11 +35,11 @@ const cy = {
   errors: {
     ie_internationalRequest: {
       required:
-        'Select yes if another country has asked (or been asked) for information or help for the children - Welsh',
+        "Dewiswch ydynt os oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant",
     },
     ie_provideDetailsRequest: {
       required:
-        'Provide details about another country asking (or being asked) for information or help for the children - Welsh ',
+        "Darparwch fanylion am wlad arall sy'n gofyn (neu y gofynnir iddo) am wybodaeth neu gymorth ar gyfer y plant",
     },
   },
 };

@@ -25,7 +25,7 @@ export default class ApplicantRelationshipToChildPostController extends PostCont
     const { relationshipType, otherRelationshipTypeDetails } = formData as Record<string, any>;
     const applicantDetails = getApplicantDetails(
       req.session.userCase.appl_allApplicants!,
-      applicantId!
+      applicantId
     ) as C100Applicant;
 
     if (applicantDetails.relationshipDetails!.relationshipToChildren.length) {

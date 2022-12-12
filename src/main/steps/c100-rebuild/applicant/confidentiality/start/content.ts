@@ -47,10 +47,10 @@ export const cy = () => ({
   Email: 'E-bost',
   errors: {
     start: {
-      required: 'Select yes if you want to keep your details private - Welsh',
+      required: 'Dewiswch oes os ydych eisiau cadw eich mnylion yn gyfrinachol',
     },
     contactDetailsPrivate: {
-      required: 'Select which contact details you want to keep private - Welsh',
+      required: "Dewiswch pa fanylion cyswllt rydych chi eisiau eu cadw'n gyfrinachol",
     },
   },
 });

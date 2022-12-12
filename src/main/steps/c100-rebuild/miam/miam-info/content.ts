@@ -50,7 +50,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: 'Mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
   paragraph1:
     'Before completing this application you’re legally required to attend a Mediation Information and Assessment Meeting (MIAM), unless <a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label=" you’re exempt."> you’re exempt.</a> - welsh',
@@ -88,7 +88,7 @@ export const cy = () => ({
   errors: {
     miam_consent: {
       required:
-        'Confirm that you understand that you have to attend a MIAM or provide a valid reason for not attending. - welsh',
+        'Cadarnhewch eich bod yn deall bod yn rhaid i chi  fynychu MIAM neu ddarparu rheswm dilys dros beidio â mynychu',
     },
   },
 });
