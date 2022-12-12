@@ -38,6 +38,24 @@ describe('NeedHelpWithFeesGetController', () => {
     await controller.get(req, res);
     req.originalUrl = Urls.C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     expect(req.originalUrl).toBe(req.originalUrl);
+    expect(req.session.userCase).toEqual({
+      c100ApplicationFees: '232',
+      id: '1234',
+      state: 'AwaitingPayment',
+    });
+  });
+
+  test('Testing controller native methods to ensure right validation when userCase is empty', async () => {
+    const controller = new NeedHelpWithFeesGetController('page', () => ({}), FieldPrefix.APPLICANT);
+
+    const req = mockRequest({ session: { userCase: null } });
+    const res = mockResponse();
+    await controller.get(req, res);
+    req.originalUrl = Urls.C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
+    expect(req.originalUrl).toBe(req.originalUrl);
+    expect(req.session.userCase).toEqual({
+      c100ApplicationFees: '232',
+    });
   });
 
   describe('Getting the users preferred language', () => {

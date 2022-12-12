@@ -35,7 +35,7 @@ export class DocumentManagementClient {
     formData.append('classification', classification);
 
     for (const [, file] of Object.entries(files)) {
-      formData.append('files', file.buffer, file.originalname);
+      formData.append('files', file.data, file.name);
     }
 
     const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/documents', formData, {

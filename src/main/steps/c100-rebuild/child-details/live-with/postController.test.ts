@@ -161,6 +161,57 @@ describe('PersonaldetailsPostController Post Controller', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
+  test('Should update case child live with applicant when save and come back button', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new PersonaldetailsPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
+      body: {
+        liveWith: [
+          {
+            id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+            firstName: 'Bob',
+            lastName: 'Silly',
+            partyType: PartyType.APPLICANT,
+          },
+        ],
+        appl_allApplicants: [
+          {
+            id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+            firstName: 'Bob',
+            lastName: 'Silly',
+            partyType: PartyType.APPLICANT,
+          },
+        ],
+        saveAndComeLater: true,
+      },
+      session: {
+        lang: language,
+        userCase: {
+          ...commonContent.userCase,
+          appl_allApplicants: [
+            {
+              id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+              firstName: 'Bob',
+              lastName: 'Silly',
+              partyType: PartyType.APPLICANT,
+            },
+          ],
+        },
+      },
+    });
+    const res = mockResponse();
+    generateContent(commonContent);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
   test('Should update case child live with respondent when save and come back button is clicked', async () => {
     const mockFormContent = {
       fields: {},

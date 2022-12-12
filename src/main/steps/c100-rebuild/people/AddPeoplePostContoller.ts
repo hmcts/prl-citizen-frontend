@@ -115,7 +115,7 @@ export default class AddPersonPostController {
 
       if (!req.session.errors.length) {
         this.addPerson(c100TempFirstName, c100TempLastName);
-      } else if (req.session.userCase[dataReference].length && !fullName) {
+      } else if (req.session.userCase[dataReference].length && !c100TempFirstName && !c100TempLastName) {
         req.session.errors = req.session.errors.filter(
           error => !['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName)
         );
