@@ -46,10 +46,10 @@ const cy = {
   otherDetails: 'Provide more details - welsh',
   errors: {
     c1A_childrenMoreThanOnePassport: {
-      required: 'Select yes if the children have more than one passport - welsh',
+      required: 'Dewis oes os oes gan y plant fwy nag un pasbort',
     },
     c1A_possessionChildrenPassport: {
-      required: "Specify who is in possession of the children's passports - welsh",
+      required: "Nodwch pwy sydd ym meddiant pasbortau'r plant ",
     },
     c1A_provideOtherDetails: {
       required: 'Please provide the details - welsh',

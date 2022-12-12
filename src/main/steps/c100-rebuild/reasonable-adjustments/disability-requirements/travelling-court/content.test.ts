@@ -43,7 +43,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
   //line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
@@ -63,16 +63,18 @@ const cy = {
   travellingCourtNoOption: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   errors: {
     ra_parkingSpace_subfield: {
-      required: 'Describe why you need a parking space close to the venue - welsh',
+      required: "Disgrifiwch pam fod arnoch angen lle parcio yn agos i'r lleoliad",
     },
     ra_differentTypeChair_subfield: {
-      required: 'Describe what type of chair you need - welsh',
+      required: 'Disgrifiwch pa fath o gadair sydd ei hangen arnoch',
     },
     ra_travellingCourtOther_subfield: {
-      required: 'Describe what help you need if travelling to, or moving around court buildings - welsh',
+      required:
+        "Disgrifiwch pa help sydd ei angen arnoch os ydych chi'n teithio i adeiladau'r llys, neu symud o gwmpas adeiladau'r llys",
     },
     ra_travellingCourt: {
-      required: 'Select what help you need if travelling to, or moving around court buildings - welsh',
+      required:
+        "Dewiswch pa gymorth sydd ei angen arnoch os ydych chi'n teithio i adeiladau'r llys, neu symud o gwmpas adeiladau'r llys",
     },
   },
 };

@@ -66,11 +66,11 @@ export const en = () => ({
 export const cy = () => ({
   pageTitle: 'Darparu manylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy',
   additionalNote: "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a pharhau â'r cais.",
-  emergencyProtectionOrderLabel: 'Emergency Protection Order - welsh',
-  childArrangementOrderLabel: 'Child Arrangements Order - welsh',
-  supervisionOrderLabel: 'Supervision Order - welsh',
-  careOrderLabel: 'Care Order - welsh',
-  childAbductionOrderLabel: 'Child Abduction Order - welsh',
+  emergencyProtectionOrderLabel: 'Gorchymyn Diogelu Brys',
+  childArrangementOrderLabel: 'Gorchymyn Trefniadau Plant',
+  supervisionOrderLabel: 'Gorchymyn goruchwylio',
+  careOrderLabel: 'Gorchymyn Gofal',
+  childAbductionOrderLabel: 'Herwgydio Plentyn',
   contactOrderForDivorceLabel:
     'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership - welsh',
   contactOrderForAdoptionLabel:

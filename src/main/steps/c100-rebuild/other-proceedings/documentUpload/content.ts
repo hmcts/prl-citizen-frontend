@@ -90,13 +90,10 @@ const cy = () => ({
   errors: {
     document: {
       required: 'Please choose a file. - welsh',
-      multipleFiles: `You can upload only one file. 
-            If you wish to upload a new file, delete the existing 
-            file and upload a new one - welsh`,
-      fileFormat: `The file you uploaded is in the wrong format.
-          Upload your file again in the correct format - welsh`,
-      fileSize: `The file you uploaded is too large.
-           Maximum file size allowed is 20MB - welsh`,
+      multipleFiles:
+        "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
+      fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
+      fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr",
     },
   },
 });

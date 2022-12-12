@@ -37,7 +37,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: 'Llwytho eich tystysgrif MIAM',
   youNeed:
     'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, tystysgrif-miam.doc.',
@@ -55,13 +55,10 @@ const cy = {
   errors: {
     document: {
       required: 'Please choose a file. - welsh',
-      multipleFiles: `You can upload only one file. - welsh 
-            If you wish to upload a new file, delete the existing - welsh
-            file and upload a new one - welsh`,
-      fileSize: `The file you uploaded is too large.
-            Maximum file size allowed is 20MB - welsh`,
-      fileFormat: `The file you uploaded is in the wrong format.
-            Upload your file again in the correct format -welsh`,
+      multipleFiles:
+        "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
+      fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
+      fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
     },
   },
 };
