@@ -22,7 +22,7 @@ export default class ContactDetailPostController extends PostController<AnyObjec
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId) as number;
-    req.session.userCase!.appl_allApplicants![applicantIndex].applicantContactDetail = {
+    req.session.userCase.appl_allApplicants![applicantIndex].applicantContactDetail = {
       ...req.session.userCase?.appl_allApplicants?.[applicantIndex].applicantContactDetail,
       canProvideEmail: req.body['canProvideEmail'] as YesNoEmpty,
       emailAddress: req.body['emailAddress'] as string,

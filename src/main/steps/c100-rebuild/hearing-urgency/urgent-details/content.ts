@@ -43,11 +43,11 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Tell us about your situation - Welsh',
-  reasonForUrgentHearing: 'Reason you are asking for an urgent hearing - Welsh',
-  riskOfSafety: "Risk to my safety or the children's safety - Welsh",
-  riskOfChildAbduction: 'Risk that the children will be abducted - Welsh',
-  overseasLegalProceeding: 'Legal proceedings taking place overseas - Welsh',
-  otherRisks: 'Other risks - Welsh',
+  reasonForUrgentHearing: 'Rheswm eich bod yn gofyn am wrandawiad brys',
+  riskOfSafety: "Risg i'm diogelwch fy hun neu ddiogelwch y plant ",
+  riskOfChildAbduction: 'Perygl y bydd y plant yn cael eu herwgipio',
+  overseasLegalProceeding: 'Achosion cyfreithiol yn digwydd dramor',
+  otherRisks: 'Risgiau eraill',
   giveDetailsOtherRisks: 'Give details of the risk in your case - Welsh',
   giveDetailsOtherRisksHint:
     'The court will only give you an earlier hearing date if there are risk factors in your case. Otherwise, your request will be rejected. - Welsh',
@@ -61,19 +61,19 @@ export const cy = () => ({
 
   errors: {
     hu_reasonOfUrgentHearing: {
-      required: 'Select the reason why you are asking for an urgent hearing',
+      required: 'Dewiswch y rhesymau pam rydych yn gofyn am wrandawiad brys',
     },
     hu_otherRiskDetails: {
-      required: 'Give details of the risk in your case that support your need for an urgent hearing',
+      required: "Rhowch fanylion y risg sy'n cefnogi'ch angen am wrandawiad brys",
     },
     hu_timeOfHearingDetails: {
-      required: 'Enter how soon you need the hearing to take place',
+      required: "Nodwch pa mor fuan y mae angen i'r gwrandawiad gael ei gynnal",
     },
     hu_hearingWithNext48HrsDetails: {
-      required: 'Select yes if you need a hearing within the next 48 hours',
+      required: 'Dewiswch oes os oes angen gwrandawiad arnoch o fewn y 48 awr nesaf',
     },
     hu_hearingWithNext48HrsMsg: {
-      required: 'Provide details of what you have done to inform the respondents of your application',
+      required: "Darparwch fanylion yr hyn rydych chi wedi'i wneud i hysbysu’r atebwyr yn eich cais",
     },
   },
 });

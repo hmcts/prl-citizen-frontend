@@ -40,7 +40,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf eisiau dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
   line1:
@@ -58,19 +58,19 @@ export const cy = () => ({
   supportCourtNoOption: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   errors: {
     ra_supportWorkerCarer_subfield: {
-      required: 'Enter the name of the support worker or carer you will bring - welsh',
+      required: "Rhowch enw'r gweithiwr cymorth neu'r gofalwr y byddwch yn dod efo chi",
     },
     ra_friendFamilyMember_subfield: {
-      required: 'Enter the name of a friend or family member you will bring - welsh',
+      required: "Rhowch enw ffrind neu aelod o'r teulu byddwch yn dod efo chi",
     },
     ra_therapyAnimal_subfield: {
-      required: 'Describe which therapy animal you will bring - welsh',
+      required: 'Disgrifiwch pa anifail therapi y byddwch yn dod efo chi',
     },
     ra_supportCourtOther_subfield: {
-      required: 'Describe which support you need to bring with you to a hearing - welsh',
+      required: 'Disgrifiwch pa gefnogaeth sydd angen arnoch i chi ddod efo chi i’r gwrandawiad',
     },
     ra_supportCourt: {
-      required: 'Select which support you need to bring with you to a hearing - welsh',
+      required: 'Dewiswch pa gefnogaeth rydych angen dod efo chi i’r gwrandawiad',
     },
   },
 });

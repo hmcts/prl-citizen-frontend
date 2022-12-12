@@ -17,7 +17,7 @@ export default class PersonaldetailsPostController extends PostController<AnyObj
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const respondentId = req.params.respondentId as C100RebuildPartyDetails['id'];
+    const respondentId = req.params.respondentId;
     const form = new Form(getFormFields(req.session.userCase, respondentId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);

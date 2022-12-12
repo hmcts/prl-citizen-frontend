@@ -24,7 +24,7 @@ export const cy = () => ({
   two: 'Naddo',
   errors: {
     miam_attendance: {
-      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting(MIAM) - welsh',
+      required: 'Dewiswch do os ydych wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
     },
   },
 });

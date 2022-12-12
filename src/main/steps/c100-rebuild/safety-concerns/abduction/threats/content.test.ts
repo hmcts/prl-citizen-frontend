@@ -26,7 +26,7 @@ const cy = {
   errors: {
     c1A_childAbductedBefore: {
       required:
-        'Select yes if the children have been abducted or kept outside the UK without your consent before - welsh',
+        "Dewiswch ydynt os yw'r plant wedi cael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd o'r blaen",
     },
   },
 };

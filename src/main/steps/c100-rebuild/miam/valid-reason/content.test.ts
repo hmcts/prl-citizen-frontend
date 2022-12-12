@@ -19,7 +19,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements',
+  serviceName: 'Trefniadau plant',
   title: 'A oes gennych chi resymau dilys dros beidio â mynychu MIAM?',
   paragraph1: 'Rhaid i chi fynychu MIAM cyn gwneud cais oni bai bod gennych resymau dilys dros beidio â mynychu.',
   applyForVrLink:

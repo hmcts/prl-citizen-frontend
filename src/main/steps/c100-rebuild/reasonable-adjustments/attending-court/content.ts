@@ -32,7 +32,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Mynychu’r llys',
   headingTitle: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
   paragraph1: 'Os bydd eich achos yn mynd i wrandawiad, gellir ei gynnal naill ai:',
@@ -46,13 +46,14 @@ export const cy = () => ({
   phoneHearing: 'YGallaf gymryd rhan mewn gwrandawiad dros y ffôn',
   noVideoAndPhoneHearing: 'Ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
   noVideoAndPhoneHearingReason: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
-  noVideoAndPhoneHearing_subfield: 'Explain why you are unable to take part in video or phone hearings - welsh',
+  noVideoAndPhoneHearing_subfield:
+    'Esboniwch pam nad ydych yn gallu cymryd rhan mewn gwrandawiad drwy fideo na gwrandawiad dros y ffôn',
   errors: {
     ra_noVideoAndPhoneHearing_subfield: {
-      required: 'Explain why you are unable to take part in neither video or phone hearings - welsh',
+      required: 'Esboniwch pam nad ydych yn gallu cymryd rhan mewn gwrandawiad drwy fideo na gwrandawiad dros y ffôn',
     },
     ra_typeOfHearing: {
-      required: 'Select whether you can take part in a video or phone hearing - welsh',
+      required: 'Dewiswch a allwch gymryd rhan mewn naill ai gwrandawiad drwy fideo neu wrandawiad dros y ffôn',
     },
   },
 });

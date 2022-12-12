@@ -38,7 +38,7 @@ export default class ChildDetailsPostController {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const childId = req.params.childId as ChildrenDetails['id'];
+    const childId = req.params.childId;
     const { _ctx, onlycontinue, saveAndComeLater, ...formFields } = req.body;
 
     this.contextReference = this.featureContext[_ctx as string];
@@ -76,7 +76,7 @@ export default class ChildDetailsPostController {
 
     req.session.userCase.cd_children = updatePartyDetails(
       {
-        ...(getPartyDetails(childId, req.session.userCase.cd_children!) as ChildrenDetails),
+        ...getPartyDetails(childId, req.session.userCase.cd_children!),
         ...data,
       },
       req.session.userCase.cd_children
