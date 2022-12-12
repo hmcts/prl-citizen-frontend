@@ -2,6 +2,7 @@ import { mockRequest } from '../../utils/mockRequest';
 
 export const checkYourAnswerFlow4 = mockRequest({
   session: {
+    save: () => ({}),
     userCase: {
       caseId: 1670246363889755,
       caseTypeOfApplication: 'C100',
