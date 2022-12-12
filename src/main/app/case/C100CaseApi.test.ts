@@ -5,8 +5,8 @@ import { LoggerInstance } from 'winston';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { UserDetails } from '../controller/AppRequest';
 
-import { CaseApi } from './C100CaseApi';
-import { C100_CASE_EVENT, C100_CASE_TYPE } from './definition';
+import { CaseApi, caseApi } from './C100CaseApi';
+import { C100_CASE_EVENT, C100_CASE_TYPE, CaseData } from './definition';
 
 jest.mock('axios');
 
@@ -42,6 +42,10 @@ describe('CaseApi', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+  });
+  test('Should create api', async () => {
+    caseApi(userDetails, mockLogger);
+    expect(api).toBeCalled;
   });
 
   test('Should create a case', async () => {
@@ -83,19 +87,29 @@ describe('CaseApi', () => {
     //mock
     const caseData = {
       ...mockData,
+      miam: 'c100RebuildMaim',
     };
     mockedAxios.post.mockResolvedValueOnce({ data: caseData });
     const updatedCaseData = await api.updateCase(
       '1234',
       caseData,
+      '{"miam":"c100RebuildMaim"}',
       'c100-rebuild/dummyUrl',
       C100_CASE_EVENT.CASE_UPDATE
     );
 
     expect(updatedCaseData).toStrictEqual({ data: caseData });
     expect(mockedAxios.post).toHaveBeenCalledWith(
-      '1234/citizen-case-update/update-case',
-      { ...mockData },
+      '1234/c100-rebuild/dummyUrl/update-case',
+      {
+        caseTypeOfApplication: C100_CASE_TYPE.C100,
+        c100RebuildChildPostCode: 'AB2 3BV',
+        helpWithFeesReferenceNumber: 'HWF-1234',
+        c100RebuildMaim: '{"miam":"c100RebuildMaim"}',
+        c100RebuildReturnUrl: '{"miam":"c100RebuildMaim"}',
+        applicantCaseName: 'C100 test case',
+        id: '1234',
+      },
       {
         headers: { accessCode: 'null' },
       }
@@ -117,7 +131,38 @@ describe('CaseApi', () => {
     );
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
+  test('Should throw error if there is no caseID', async () => {
+    mockedAxios.post.mockRejectedValue({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'GET',
+      },
+    });
 
+    await expect(api.retrieveCaseById()).rejects.toThrow('caseId cannot be empty');
+  });
+  test('Should retrive case', async () => {
+    const response = {
+      caseTypeOfApplication: C100_CASE_TYPE.C100,
+      c100RebuildChildPostCode: 'AB2 3BV',
+      helpWithFeesReferenceNumber: 'HWF-1234',
+      c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
+      applicantCaseName: 'C100 test case',
+      id: '1234',
+    };
+    mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseData>);
+    const actual = await api.retrieveCaseById('1234');
+    expect(actual).toEqual({
+      applicantCaseName: 'C100 test case',
+      c100RebuildChildPostCode: 'AB2 3BV',
+      c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
+      caseId: '1234',
+      caseTypeOfApplication: 'C100',
+      helpWithFeesReferenceNumber: 'HWF-1234',
+    });
+  });
   test('Should throw error when case could not be retrieved', async () => {
     mockedAxios.get.mockRejectedValue({
       response: {
