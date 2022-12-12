@@ -58,7 +58,7 @@ const cy = {
   emailInformation: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   documentHelpOther: 'Arall',
   noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  describeWhatNeeded: 'Describe what you need - welsh',
+  describeWhatNeeded: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   errors: {
     ra_documentInformation: {
       required: 'Dewiswch pa fformat y mae arnoch angen eich dogfennau ynddo',
