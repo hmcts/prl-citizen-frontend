@@ -20,6 +20,8 @@ export const getUserDetails = async (
   rawCode: string,
   callbackUrlPageLink: PageLink
 ): Promise<UserDetails> => {
+  console.log('Entering into userdetails in oidc.ts.... |||||| loop3');
+
   const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.citizenClientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
@@ -42,8 +44,11 @@ export const getUserDetails = async (
     familyName: jwt.family_name,
   };
 };
+console.log('******* entering dashboard{{{}}}...');
 
 export const getSystemUser = async (): Promise<UserDetails> => {
+  console.log('******* entering user details{{{}}}.... loop 10');
+
   const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.citizenClientSecret');
   const tokenUrl: string = config.get('services.idam.tokenURL');
@@ -54,6 +59,8 @@ export const getSystemUser = async (): Promise<UserDetails> => {
   const data = `grant_type=password&username=${systemUsername}&password=${systemPassword}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
   const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
   const jwt: IdTokenJwtPayload = jwt_decode(response.data.id_token);
+  console.log('******* entering user details before return{{{}}}.... loop 11');
+
   return {
     accessToken: response.data.access_token,
     id: jwt.uid,

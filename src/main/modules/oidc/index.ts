@@ -27,9 +27,12 @@ export class OidcMiddleware {
       CALLBACK_URL,
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
+          console.log('Entering into if loop in oidc index.... |||||| loop1');
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
           req.session.save(() => res.redirect('/dashboard'));
         } else {
+          console.log('Entering into else loop in oidc index.... |||||| loop2');
+
           if (!req.session?.accessCodeLoginIn) {
             res.redirect(CITIZEN_HOME_URL);
           } else {

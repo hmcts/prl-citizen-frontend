@@ -84,6 +84,9 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
 };
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
+  console.log('Entering into steps file index.ts.... |||||| loop4');
+  const caseId = req.session.userCase.id;
+  console.log('Entering Case ID....{{{}}}: ', caseId);
   const [path, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
