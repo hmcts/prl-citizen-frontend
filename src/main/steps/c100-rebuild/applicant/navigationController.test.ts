@@ -93,7 +93,7 @@ describe('ApplicantDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/respondent-details/add-respondents');
+    ).toBe('/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/contact-preference');
   });
 
   test('From RELATIONSHIP CHILD screen -> navigate to ADDRESS LOOKUP screen', async () => {
