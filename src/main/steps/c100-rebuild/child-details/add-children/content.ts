@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../app/case/case';
 import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -56,10 +57,6 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
       ...(form.fields ?? {}),
     },
   };
-  return updatedForm;
-};
-
-export const getFormFields = (): FormContent => {
   return updatedForm;
 };
 
@@ -160,6 +157,10 @@ export const form: FormContent = {
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
+};
+
+export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
+  return updateFormFields(form, generateFormFields(caseData?.cd_children ?? []).fields);
 };
 
 export const generateContent: TranslationFn = content => {

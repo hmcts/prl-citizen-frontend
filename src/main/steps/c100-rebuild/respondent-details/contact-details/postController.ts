@@ -18,7 +18,7 @@ export default class ContactDetailsPostController extends PostController<AnyObje
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const respondentId = req.params.respondentId;
-    const form = new Form(getFormFields().fields as FormFields);
+    const form = new Form(getFormFields(req.session.userCase, respondentId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { donKnowEmailAddress, emailAddress, telephoneNumber, donKnowTelephoneNumber } = formData as Record<

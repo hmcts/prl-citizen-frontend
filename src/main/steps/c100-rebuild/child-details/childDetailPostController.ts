@@ -2,6 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { CaseWithId } from '../../../app/case/case';
 import { ChildrenDetails, PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
@@ -12,7 +13,7 @@ import { getFormFields as getChildMatters } from './child-matters/content';
 import { getFormFields as getChildParentalResponsibility } from './parental-responsibility/content';
 import { getFormFields as getChildPersonalDetails } from './personal-details/content';
 
-type ContextReference = { formRef: () => FormContent };
+type ContextReference = { formRef: (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']) => FormContent };
 type FeatureContext = { [key: string]: ContextReference };
 @autobind
 export default class ChildDetailsPostController {
@@ -21,7 +22,6 @@ export default class ChildDetailsPostController {
   private contextReference: ContextReference;
 
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    this.parent = new PostController(fields);
     this.parent = new PostController(fields);
     this.featureContext = {
       pd: {
@@ -43,7 +43,7 @@ export default class ChildDetailsPostController {
 
     this.contextReference = this.featureContext[_ctx as string];
     const { formRef } = this.contextReference;
-    const form = new Form(formRef().fields as FormFields);
+    const form = new Form(formRef(req.session.userCase, childId).fields as FormFields);
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
     let data;

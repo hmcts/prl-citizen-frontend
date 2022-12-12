@@ -1,4 +1,4 @@
-import { CaseDate } from '../../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../../app/case/case';
 import { ChildrenDetails, Gender, OtherChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -276,8 +276,9 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (caseData: Partial<CaseWithId>, otherChildId: OtherChildrenDetails['id']): FormContent => {
+  const childDetails = getPartyDetails(otherChildId, caseData?.ocd_otherChildren) as ChildrenDetails;
+  return updateFormFields(form, generateFormFields(childDetails?.personalDetails ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

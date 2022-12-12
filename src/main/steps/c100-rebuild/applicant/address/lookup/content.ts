@@ -5,6 +5,8 @@ import { applyParms } from '../../../../../steps/common/url-parser';
 import { C100_APPLICANT_ADDRESS_MANUAL } from '../../../../../steps/urls';
 import { form as lookupAddressForm, languages as lookupAddressFormLanguages } from '../common/address-lookup';
 
+import { CaseWithId } from './../../../../../app/case/case';
+
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -56,7 +58,11 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
   return updatedForm;
 };
 
-export const getUpdatedForm = (): FormContent => updatedForm;
+export const getUpdatedForm = (caseData: Partial<CaseWithId>, applicantId: C100Applicant['id']): FormContent => {
+  const applicantData = caseData?.appl_allApplicants?.find(i => i.id === applicantId) as C100Applicant;
+
+  return updatedFormFields(form, generateFormFields(applicantData ?? {}).fields);
+};
 
 export const generateFormFields = (caseData: Partial<C100Applicant>): GenerateDynamicFormFields => {
   return { fields: lookupAddressForm(caseData).fields, errors: { en: {}, cy: {} } };

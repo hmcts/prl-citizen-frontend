@@ -19,7 +19,7 @@ export default class RespondentsRelationshipToChildPostController extends PostCo
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const childId = req.params.childId;
     const respondentId = req.params.respondentId;
-    const form = new Form(getFormFields().fields as FormFields);
+    const form = new Form(getFormFields(req.session.userCase, respondentId, childId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { relationshipType, otherRelationshipTypeDetails } = formData as Record<string, any>;

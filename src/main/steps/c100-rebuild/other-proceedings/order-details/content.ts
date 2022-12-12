@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseDate } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import {
   C100OrderInterface,
   C100OrderTypeKeyMapper,
@@ -347,9 +347,13 @@ export const form: FormContent = {
     text: l => l.saveAndComeLater,
   },
 };
+export const getFormFields = (caseData: Partial<CaseWithId>, orderType: C100OrderTypes): FormContent => {
+  const orderSessionData = caseData?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[orderType]];
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+  return updateFormFields(
+    form,
+    generateFormFields(orderType, !orderSessionData?.length ? [getOrderSessionDataShape()] : orderSessionData).fields
+  );
 };
 
 export const generateContent: TranslationFn = content => {
