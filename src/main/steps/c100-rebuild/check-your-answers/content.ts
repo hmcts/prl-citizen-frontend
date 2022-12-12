@@ -260,7 +260,7 @@ export const cyContent: typeof enContent = {
   },
 };
 
-const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
+export const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
   const safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected =
     userCase.hasOwnProperty(safteyConcernsAboutKey) &&
     userCase[safteyConcernsAboutKey]?.length === 1 &&
@@ -397,7 +397,7 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents) => 
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
+export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
   // if on sreening screen enable Yes
@@ -427,7 +427,7 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   };
 };
 
-const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
+export const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
   // if on sreening screen enable Yes
@@ -489,7 +489,7 @@ export const form: FormContent = {
   },
 };
 
-const languages = {
+export const languages = {
   en,
   cy,
 };
