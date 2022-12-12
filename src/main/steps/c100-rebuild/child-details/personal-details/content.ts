@@ -47,6 +47,7 @@ export const en = () => ({
       incompleteMonth: 'Approx date of birth must include a month',
       incompleteYear: 'Approx date of birth must include a year',
       invalidDateInFuture: 'Approx date of birth must be in the past',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     gender: {
       required: 'Select the gender',
@@ -86,6 +87,7 @@ export const cy = () => ({
       incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
       incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
     },
     gender: {
       required: 'Nodwch y rhywedd',
@@ -210,6 +212,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 formData?.isDateOfBirthUnknown === YesNoEmpty.YES
                   ? areDateFieldsFilledIn(value as CaseDate) ||
                     isDateInputInvalid(value as CaseDate) ||
+                    isMoreThan18Years(value as CaseDate) ||
                     isFutureDate(value as CaseDate)
                   : '',
             },
