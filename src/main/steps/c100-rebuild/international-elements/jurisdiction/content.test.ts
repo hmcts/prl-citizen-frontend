@@ -27,7 +27,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
   line1:
     'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
@@ -37,11 +37,11 @@ const cy = {
   errors: {
     ie_internationalJurisdiction: {
       required:
-        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales? - Welsh',
+        'Dewiswch ydynt os oes unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
     },
     ie_provideDetailsJurisdiction: {
       required:
-        'Provide details about another person in the application applying for a similar order in a country outside England or Wales? - Welsh ',
+        "Darparwch fanylion am unigolyn arall yn y cais sy'n gwneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?",
     },
   },
 };

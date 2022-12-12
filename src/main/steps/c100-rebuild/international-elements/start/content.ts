@@ -23,7 +23,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
   line1: "Er enghraifft, a yw eu bywyd teuluol wedi'i leoli yn bennaf y tu allan i Gymru a Lloegr?",
   one: 'Ydynt',

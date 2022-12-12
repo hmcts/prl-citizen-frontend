@@ -16,9 +16,14 @@ import { getFormFields as getAddOtherChildrenFormFields } from '../child-details
 import { getFormFields as getAddOtherPersonFormFields } from '../other-person-details/add-other-persons/content';
 import { getFormFields as getAddRespondentsFormFields } from '../respondent-details/add-respondents/content';
 
+import { CaseWithId } from './../../../app/case/case';
 import { getDataShape, transformAddPeople } from './util';
 
-type ContextReference = { dataReference: string; context: PartyType; formRef: () => FormContent };
+type ContextReference = {
+  dataReference: string;
+  context: PartyType;
+  formRef: (caseData: Partial<CaseWithId>) => FormContent;
+};
 type FeatureContext = { [key: string]: ContextReference };
 
 @autobind
@@ -87,7 +92,7 @@ export default class AddPersonPostController {
       return this.parent.redirect(req, res, req.originalUrl);
     }
 
-    const form = new Form(formRef().fields as FormFields);
+    const form = new Form(formRef(req.session.userCase).fields as FormFields);
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { c100TempFirstName, c100TempLastName, ...rest } = formData;
 
@@ -115,7 +120,7 @@ export default class AddPersonPostController {
 
       if (!req.session.errors.length) {
         this.addPerson(c100TempFirstName, c100TempLastName);
-      } else if (req.session.userCase[dataReference].length && !fullName) {
+      } else if (req.session.userCase[dataReference].length && !c100TempFirstName && !c100TempLastName) {
         req.session.errors = req.session.errors.filter(
           error => !['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName)
         );

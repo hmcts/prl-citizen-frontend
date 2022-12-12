@@ -40,7 +40,7 @@ export const cy = () => ({
   none: 'Dim un o’r uchod',
   errors: {
     miam_childProtectionEvidence: {
-      required: 'Select what evidence of child safety concerns you have - Welsh',
+      required: 'Dewiswch pa dystiolaeth o bryderon diogelwch plant sydd gennych',
     },
   },
 });

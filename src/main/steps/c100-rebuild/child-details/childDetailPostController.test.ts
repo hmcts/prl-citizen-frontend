@@ -34,7 +34,7 @@ const commonContent = {
           needsResolution: [],
         },
         parentialResponsibility: {
-          statement: 'fgfdgfg',
+          statement: 'parentialResponsibility',
         },
       },
     ],
@@ -56,6 +56,9 @@ describe('ChildDetailsPostController - personal detail common Post Controller', 
     const controller = new ChildDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
       body: {
         _ctx: 'pd',
         onlycontinue: true,
@@ -81,6 +84,9 @@ describe('ChildDetailsPostController - personal detail common Post Controller', 
     const controller = new ChildDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
       body: {
         _ctx: 'pd',
         saveAndComeLater: true,
@@ -108,6 +114,9 @@ describe('ChildDetailsPostController - parential responsibility common Post Cont
     const controller = new ChildDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
       body: {
         _ctx: 'pr',
         onlycontinue: true,
@@ -133,6 +142,9 @@ describe('ChildDetailsPostController - parential responsibility common Post Cont
     const controller = new ChildDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
       body: {
         _ctx: 'pr',
         saveAndComeLater: true,
@@ -160,6 +172,9 @@ describe('ChildDetailsPostController -  child matter common Post Controller', ()
     const controller = new ChildDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
       body: {
         _ctx: 'cm',
         onlycontinue: true,
@@ -185,6 +200,9 @@ describe('ChildDetailsPostController -  child matter common Post Controller', ()
     const controller = new ChildDetailsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
       body: {
         _ctx: 'cm',
         saveAndComeLater: true,
