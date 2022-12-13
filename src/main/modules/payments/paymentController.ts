@@ -15,7 +15,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
   const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
   const { Authorization, ServiceAuthorization, returnUrL, caseId, applicantCaseName, hwfRefNumber } =
     paymentHelperTranspiler;
-  const paymentApiEndpoint = config.get('payments.url');
+  const paymentApiEndpoint = config.get('services.cos.url');
   const createPaymentEndpoint = '/fees-and-payment-apis/create-payment';
   const baseURL = paymentApiEndpoint + createPaymentEndpoint;
 
@@ -61,7 +61,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
     try {
       const { caseId } = req.session.userCase;
       const PaymentURL =
-        config.get('payments.url') +
+        config.get('services.cos.url') +
         `/fees-and-payment-apis/retrievePaymentStatus/${req.session.userCase?.paymentDetails?.['payment_reference']}/${caseId}`;
       const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
       const { Authorization, ServiceAuthorization } = paymentHelperTranspiler;
