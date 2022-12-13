@@ -23,7 +23,7 @@ services:
   case:
     url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-715.service.core-compute-preview.internal'
   cos:
-    url: 'https://github.com/hmcts/prl-citizen-frontend/pull/694'
+    url: 'https://prl-cos-pr-745.service.core-compute-preview.internal'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-715.service.core-compute-preview.internal'
 health:
