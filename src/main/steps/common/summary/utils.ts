@@ -110,6 +110,40 @@ export const summaryList = (
   };
 };
 
+function retrieveCaseAndApplyParams(userCase, isRespondent) {
+  const id = userCase.id as string;
+  const name = userCase.applicantCaseName;
+  const state = userCase.caseStatus?.state;
+  let caseUrl = '#';
+
+  switch (userCase.caseTypeOfApplication) {
+    case 'C100':
+      if (!isRespondent) {
+        if (state === State.Draft) {
+          caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
+        }
+      } else {
+        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
+      }
+      break;
+    case 'FL401':
+      if (!isRespondent) {
+        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
+      } else {
+        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
+      }
+      break;
+  }
+
+  const row = {
+    key: name,
+    value: state,
+    changeUrl: id,
+    caseLink: caseUrl,
+  };
+  return row;
+}
+
 export const summaryCaseList = (
   userCaseList: Partial<CaseWithId>[],
   sectionTitle?: string,
@@ -118,32 +152,7 @@ export const summaryCaseList = (
   const summaryData: SummaryListRow[] = [];
   summaryData.push({ key: 'Case Name', value: '<h4>Case Status</h4>' });
   for (const userCase of userCaseList) {
-    const id = userCase.id as string;
-    const name = userCase.applicantCaseName;
-    const state = userCase.caseStatus?.state;
-    let caseUrl = '#';
-    if (userCase.caseTypeOfApplication === 'C100') {
-      if (!isRespondent) {
-        if (state === State.Draft) {
-          caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
-        }
-      } else {
-        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
-      }
-    } else if (userCase.caseTypeOfApplication === 'FL401') {
-      if (!isRespondent) {
-        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
-      } else {
-        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
-      }
-    }
-    const row = {
-      key: name,
-      value: state,
-      changeUrl: id,
-      caseLink: caseUrl,
-    };
-
+    const row = retrieveCaseAndApplyParams(userCase, isRespondent);
     summaryData.push(row);
   }
 
