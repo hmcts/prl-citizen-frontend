@@ -210,6 +210,19 @@ export const ChildernDetails = (
       childMatters = sessionChildData[child]['childMatters'],
       parentialResponsibility = sessionChildData[child]['parentialResponsibility'];
     const childNo = Number(child) + 1;
+    let childResolution = '';
+//needsResolution
+    if(Array.isArray(sessionChildData[child]['childMatters']['needsResolution'])){
+      childResolution += 
+      Object.values(childMatters['needsResolution']).map(
+        (field: ANYTYPE) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
+      );
+    }
+    else{
+      childResolution += keys[sessionChildData[child]['childMatters']['needsResolution']];
+    }
+
+
     newChildDataStorage.push(
       {
         key: '',
@@ -238,9 +251,8 @@ export const ChildernDetails = (
         value: '',
         valueHtml: (
           HTML.UNORDER_LIST +
-          Object.values(childMatters['needsResolution']).map(
-            (field: ANYTYPE) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
-          ) +
+          childResolution
+          +
           HTML.UNORDER_LIST_END
         )
           ?.split(',')
