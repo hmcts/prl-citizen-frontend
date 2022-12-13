@@ -25,7 +25,7 @@ const en = {
   labelPostHintText: 'All communication from the court will be sent by post.',
   errors: {
     applicantContactPreferences: {
-      required: 'Select one (or both) options below',
+      required: 'Please select a contact preference',
     },
   },
 };
@@ -47,7 +47,7 @@ const cy = () => ({
   labelPostHintText: 'All communication from the court will be sent by post. - welsh',
   errors: {
     applicantContactPreferences: {
-      required: 'Select one (or both) options below - welsh',
+      required: 'Please select a contact preference - welsh',
     },
   },
 });
