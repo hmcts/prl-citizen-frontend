@@ -211,7 +211,6 @@ export const ChildernDetails = (
       parentialResponsibility = sessionChildData[child]['parentialResponsibility'];
     const childNo = Number(child) + 1;
     let childResolution = '';
-//needsResolution
     if(Array.isArray(sessionChildData[child]['childMatters']['needsResolution'])){
       childResolution += 
       Object.values(childMatters['needsResolution']).map(
