@@ -516,7 +516,22 @@ export const ApplicantDetails = (
           changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
         });
 
-    //contactDetailsOf
+        const applicantContactPreferences = sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences;
+        let applicantContactPre = '';
+    
+        if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
+          applicantContactPre += HTML.UNORDER_LIST;
+          applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + preferences + HTML.LIST_ITEM_END );
+          applicantContactPre += HTML.UNORDER_LIST_END;
+        }
+        newApplicantData.push(
+          {
+            key: keys['contactPrefernces'],
+            value: '',
+            valueHtml: `${applicantContactPre}`,
+            changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_PREFERENCES'], { applicantId: sessionApplicantData[applicant]['id'] }),
+          }
+        );
   }
   return {
     title: sectionTitles['ApplicantDetails'],
