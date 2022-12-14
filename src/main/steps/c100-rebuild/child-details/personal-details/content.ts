@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseDate } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import { ChildrenDetails, Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -9,6 +9,7 @@ import {
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
+  isMoreThan18Years,
 } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
@@ -37,6 +38,7 @@ export const en = () => ({
       incompleteYear: 'Date of birth must include a year',
       invalidDateInFuture: 'Date of birth must be in the past',
       cannotHaveBothApproxAndExact: 'Cannot have a date of birth and also "I dont know their date of birth"',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     approxDateOfBirth: {
       required: 'Enter the approx date of birth',
@@ -45,6 +47,7 @@ export const en = () => ({
       incompleteMonth: 'Approx date of birth must include a month',
       incompleteYear: 'Approx date of birth must include a year',
       invalidDateInFuture: 'Approx date of birth must be in the past',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     gender: {
       required: 'Select the gender',
@@ -75,6 +78,7 @@ export const cy = () => ({
       incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
       cannotHaveBothApproxAndExact: 'Methu cael dyddiad geni a hefyd “ nid wyf yn gwybod beth yw ei ddyddiad geni',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
     },
     approxDateOfBirth: {
       required: 'Nodwch ddyddiad geni bras',
@@ -83,6 +87,7 @@ export const cy = () => ({
       incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
       incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
     },
     gender: {
       required: 'Nodwch y rhywedd',
@@ -153,6 +158,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
           ? areDateFieldsFilledIn(value as CaseDate) ||
             isDateInputInvalid(value as CaseDate) ||
+            isMoreThan18Years(value as CaseDate) ||
             isFutureDate(value as CaseDate)
           : formData?.isDateOfBirthUnknown === YesNoEmpty.YES
           ? formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
@@ -206,6 +212,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 formData?.isDateOfBirthUnknown === YesNoEmpty.YES
                   ? areDateFieldsFilledIn(value as CaseDate) ||
                     isDateInputInvalid(value as CaseDate) ||
+                    isMoreThan18Years(value as CaseDate) ||
                     isFutureDate(value as CaseDate)
                   : '',
             },
@@ -269,8 +276,10 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']): FormContent => {
+  const childDetails = getPartyDetails(childId, caseData?.cd_children) as ChildrenDetails;
+
+  return updateFormFields(form, generateFormFields(childDetails?.personalDetails ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

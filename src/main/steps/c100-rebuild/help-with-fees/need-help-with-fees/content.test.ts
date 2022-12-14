@@ -27,7 +27,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   headingTitle: 'Do you need help with paying the fee for this application? - welsh',
   paragraph1: 'This application costs £',
   paragraph2:
@@ -37,11 +37,11 @@ const cy = {
   seeEligbilityHyperLink:
     '<a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" target="_blank" aria-label="See if you are eligible for Help with Fees.">See if you are eligible for Help with Fees. - welsh</a>',
   select_all_apply: 'Select all that apply - welsh',
-  yesNeedHelpWithFeesPaying: 'Yes, I need help with paying the fee - welsh',
-  noNeedHelpWithFeesPaying: 'No, I do not need help - welsh',
+  yesNeedHelpWithFeesPaying: 'Oes, rwyf eisiau help i dalu’r ffi',
+  noNeedHelpWithFeesPaying: 'Nac oes, ni wyf eisiau help',
   errors: {
     hwf_needHelpWithFees: {
-      required: 'Select yes if you already applied for help with your application fee - welsh',
+      required: 'Dewiswch oes os ydych chi eisiau help i dalu’r ffi am y cais hwn',
     },
   },
 };

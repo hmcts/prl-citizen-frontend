@@ -1,4 +1,10 @@
-import { ChildrenDetails, RelationshipToChildren, RelationshipType } from '../../../../app/case/definition';
+import { CaseWithId } from '../../../../app/case/case';
+import {
+  C100Applicant,
+  ChildrenDetails,
+  RelationshipToChildren,
+  RelationshipType,
+} from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
@@ -32,7 +38,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Beth yw',
-  title1: 'Perthynas efo',
+  title1: ' Perthynas efo',
   mother: 'Mam',
   father: 'Tad',
   guardian: 'Gwarcheidwad',
@@ -142,8 +148,16 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (
+  caseData: Partial<CaseWithId>,
+  applicantId: C100Applicant['id'],
+  childId: ChildrenDetails['id']
+): FormContent => {
+  const applicantDetails = getApplicantDetails(caseData?.appl_allApplicants ?? [], applicantId);
+  const relationshipFound = applicantDetails?.relationshipDetails?.relationshipToChildren?.find(
+    relationshipToChild => relationshipToChild.childId === childId
+  );
+  return updateFormFields(form, generateFormFields(relationshipFound ?? ({} as RelationshipToChildren)).fields);
 };
 
 export const generateContent: TranslationFn = content => {
@@ -153,7 +167,7 @@ export const generateContent: TranslationFn = content => {
   const applicantDetails = getApplicantDetails(content.userCase!.appl_allApplicants ?? [], applicantId)!;
   const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
 
-  const relationshipFound = applicantDetails.relationshipDetails!.relationshipToChildren.find(
+  const relationshipFound = applicantDetails.relationshipDetails!.relationshipToChildren?.find(
     relationshipToChild => relationshipToChild.childId === childId
   );
   const { fields } = generateFormFields(relationshipFound ?? ({} as RelationshipToChildren));

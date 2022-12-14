@@ -29,14 +29,14 @@ const cy = {
   hwfReferenceNumberLabel: 'Enter your help with fees reference number - welsh',
   hwfReferenceNumberHint: `You received this number when you applied for help with fees - welsh.<br/>
   For example, HWF-A1B-23C - welsh`,
-  one: 'Yes - welsh',
-  two: 'No - welsh',
+  one: 'Do',
+  two: 'Naddo',
   errors: {
     hwf_feesAppliedDetails: {
-      required: 'Select yes if you already applied for help with your application fee - welsh',
+      required: 'Dewiswch do os ydych eisoes wedi gwneud cais am help i dalu ffi eich cais',
     },
     helpWithFeesReferenceNumber: {
-      required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
+      required: 'ENodwch y cyfeirnod Help i dalu Ffioedd a gawsoch pan wnaethoch chi wneud cais am Help i dalu Ffioedd',
     },
   },
 };

@@ -65,16 +65,16 @@ export const enContent = {
   continue: 'Accept and continue',
   Yes: 'Yes',
   No: 'No ',
-  SummaryDetail: 'Download a draft of your application (PDF)',
-  SummaryDetailInnerText:
-    "<p class='govuk-body'>            If you cannot open the PDF file after downloading, download and install            <a href='https://get.adobe.com/uk/reader/' class='govuk-link' rel='external' target='_blank'>Adobe Acrobat Reader</a> to try again.          </p><p class='govuk-body'>            Please note this draft is for your records. Only the completed application will be admitted in court.          </p><a class='govuk-button ga-pageLink govuk-button--secondary' role='button' draggable='false' data-module='govuk-button' data-ga-category='check your answers' data-ga-label='download draft' download='' href='/steps/completion/summary.pdf'>Download draft application</a>",
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
     warning:
       'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-    inset:
-      '<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select Pay and submit your application to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>',
+    inset: '',
+    insetTextPayAndSubmit:
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Pay and submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
+    insetTextSubmit:
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
     check: 'I believe that the facts stated in this application are true',
     lastPara:
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
@@ -84,6 +84,10 @@ export const enContent = {
   errors: {
     statementOfTruth: {
       required: 'Confirm that you believe the information in this application is true',
+    },
+    paymentError: {
+      title: 'There is a problem',
+      content: 'Your application is not submitted. Please try again',
     },
   },
   sectionTitles: {
@@ -97,7 +101,7 @@ export const enContent = {
     AdvisingCourt: "[^^sectionNo^^]. What you're asking the court to decide", //section 6
     WithoutNoticeHearing: '[^^sectionNo^^]. Hearing details', //section 7
     peopleDetails: '[^^sectionNo^^]. Details of the people in the application ', // section 8
-    ChildernDetails: "Childen's details",
+    ChildernDetails: "Children's details",
     ApplicantDetails: 'Details of the applicants',
     InternationalElement: '[^^sectionNo^^]. International elements', //section 11
     otherProceedings: '[^^sectionNo^^]. Past and current proceeding', //section 9
@@ -163,16 +167,16 @@ export const cyContent: typeof enContent = {
   continue: 'Accept and continue - welsh',
   Yes: 'Yes - welsh',
   No: 'No - welsh',
-  SummaryDetail: 'Download a draft of your application (PDF)- welsh',
-  SummaryDetailInnerText:
-    "<p class='govuk-body'>            If you cannot open the PDF file after downloading, download and install            <a href='https://get.adobe.com/uk/reader/' class='govuk-link' rel='external' target='_blank'>Adobe Acrobat Reader</a> to try again.          </p><p class='govuk-body'>            Please note this draft is for your records. Only the completed application will be admitted in court.          </p><a class='govuk-button ga-pageLink govuk-button--secondary' role='button' draggable='false' data-module='govuk-button' data-ga-category='check your answers' data-ga-label='download draft' download='' href='/steps/completion/summary.pdf'>Download draft application</a>",
   StatementOfTruth: {
     title: 'Statement of Truth - welsh',
     heading: 'Confirm before you submit the application - welsh',
     warning:
       'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-    inset:
-      '<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select Pay and submit your application to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>',
+    inset: '',
+    insetTextPayAndSubmit:
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Pay and submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
+    insetTextSubmit:
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
     check: 'I believe that the facts stated in this application are true',
     lastPara:
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
@@ -182,6 +186,10 @@ export const cyContent: typeof enContent = {
   errors: {
     statementOfTruth: {
       required: 'Confirm that you believe the information in this application is true',
+    },
+    paymentError: {
+      title: 'There is a problem - welsh',
+      content: 'Your application is not submitted. Please try again - welsh',
     },
   },
   sectionTitles: {
@@ -252,7 +260,7 @@ export const cyContent: typeof enContent = {
   },
 };
 
-const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
+export const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
   const safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected =
     userCase.hasOwnProperty(safteyConcernsAboutKey) &&
     userCase[safteyConcernsAboutKey]?.length === 1 &&
@@ -389,7 +397,7 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents) => 
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
+export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
   // if on sreening screen enable Yes
@@ -419,7 +427,7 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   };
 };
 
-const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
+export const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
   // if on sreening screen enable Yes
@@ -481,12 +489,23 @@ export const form: FormContent = {
   },
 };
 
-const languages = {
+export const languages = {
   en,
   cy,
 };
 export const generateContent: TranslationFn = content => {
   const newContents = content['language'] === 'en' ? enContent : cyContent;
+  const hwfConditions =
+    content.userCase &&
+    content.userCase.hasOwnProperty('hwf_needHelpWithFees') &&
+    content.userCase['hwf_needHelpWithFees'] !== YesOrNo.NO &&
+    content.userCase.hasOwnProperty('helpWithFeesReferenceNumber') &&
+    content.userCase['helpWithFeesReferenceNumber'] !== '';
+  if (hwfConditions) {
+    newContents.StatementOfTruth.inset = newContents.StatementOfTruth.insetTextSubmit;
+  } else {
+    newContents.StatementOfTruth.inset = newContents.StatementOfTruth.insetTextPayAndSubmit;
+  }
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
@@ -529,13 +548,7 @@ export const generateContent: TranslationFn = content => {
     type: 'textAndHtml',
     textAndHtml: HTML.BREAK + `${newContents.StatementOfTruth['lastPara']}` + HTML.BREAK + HTML.BREAK + HTML.BREAK,
   };
-  if (
-    content.userCase &&
-    content.userCase.hasOwnProperty('hwf_needHelpWithFees') &&
-    content.userCase['hwf_needHelpWithFees'] !== YesOrNo.NO &&
-    content.userCase.hasOwnProperty('helpWithFeesReferenceNumber') &&
-    content.userCase['helpWithFeesReferenceNumber'] !== ''
-  ) {
+  if (hwfConditions) {
     form.submit = {
       text: l => l.StatementOfTruth['SubmitButton'],
     };
@@ -544,7 +557,6 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
-
   return {
     ...translations,
     form,
