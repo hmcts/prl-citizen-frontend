@@ -139,7 +139,7 @@ const cy: typeof en = {
   errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAndComeLater: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
-  goBack: 'Go back - welsh',
+  goBack: 'Yn ôl',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
   signIn: 'Sign in (in welsh)',

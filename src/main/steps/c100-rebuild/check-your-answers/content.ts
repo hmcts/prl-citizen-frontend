@@ -162,7 +162,7 @@ export const cyContent: typeof enContent = {
   serviceName: 'Check your answers - welsh ',
   section: '',
   title: 'Check your Answers -welsh',
-  change: 'change - welsh',
+  change: 'Golygu',
   topWarning: 'Your answers will be shared with the other people in this case. - welsh',
   makingSure: 'Please review your answers before you finish your application.- welsh',
   continue: 'Accept and continue - welsh',
