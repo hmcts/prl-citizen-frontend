@@ -149,12 +149,12 @@ export const cy = () => ({
     fmlAct1996:
       'Ymgymeriad a roddwyd yng Nghymru a Lloegr dan adran 46 neu 63E Deddf Cyfraith Teulu 1996 (neu a roddwyd yn Yr Alban neu yng Ngogledd Iwerddon yn lle gwaharddeb gwarchod) gan ddarpar barti, ar yr amod na roddwyd traws-ymgymeriad mewn perthynas â thrais domestig gan ddarpar barti arall',
     ukdomesticVoilcenceUK:
-      'There has been a finding of fact in proceedings in the United Kingdom, that proves that someone in the case has committed domestic violence',
+      "Bu canfyddiad ffeithiol mewn achosion yn y Deyrnas Unedig, sy'n profi fod rhywun yn yr achos wedi cyflawni trais domestig",
     ukPotentialVictim:
-      'An expert report was produced as evidence in proceedings in the United Kingdom, and it showed that a person with whom a prospective party is or was in a family relationship was a victim (or potential victim) of domestic abuse by that person',
+      "Cyflwynwyd adroddiad arbenigol fel tystiolaeth mewn achos yn y Deyrnas Unedig, ac roedd yn dangos bod y sawl yr oedd darpar barti yn ymwneud ag ef neu a oedd mewn perthynas deuluol ag ef yn ddioddefwr (neu'n ddioddefwr posib) o gam-drin domestig gan yr unigolyn hwnnw",
   },
   letterOfBeingVictim:
-    'A letter confirms that you or the other people in the application are (or have been) a victim of domestic violence or abuse - welsh',
+    "Mae llythyr yn cadarnhau eich bod chi neu'r bobl eraill yn y cais yn (neu wedi bod yn) ddioddefwr trais domestig neu gamdriniaeth",
   letterOfBeingVictim_hint:
     'Gallai hyn olygu bod gweithiwr iechyd proffesiynol wedi cadarnhau anafiadau sydd (neu a oedd) wedi digwydd o ganlyniad i drais domestig a chamdriniaeth. Dewiswch pa dystiolaeth y gallwch ei darparu.',
   letterFromAuthority: 'awdurdod lleol neu asiantaeth arall yn cadarnhau risg o niwed',
