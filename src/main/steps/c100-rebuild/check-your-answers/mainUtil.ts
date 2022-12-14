@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../app/case/case';
@@ -386,6 +387,22 @@ export const OtherChildrenDetails = (
 };
 
 
+export const ApplicantDetailNameParser = (personalDetails, keys): string => {
+  let changeNameInformation = '' as string;
+  const hasNameChanged = personalDetails['haveYouChangeName'];
+  changeNameInformation += hasNameChanged;
+  if(hasNameChanged === 'Yes'){
+    changeNameInformation += HTML.RULER;
+    changeNameInformation += HTML.H4;
+    changeNameInformation += keys['details'];
+    changeNameInformation += HTML.H4_CLOSE;
+    changeNameInformation += HTML.BOTTOM_PADDING_3;
+    changeNameInformation +=  personalDetails['applPreviousName'];
+    changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
+  }
+  return changeNameInformation;
+};
+
 export const ApplicantDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
@@ -416,18 +433,7 @@ export const ApplicantDetails = (
       }
       return html;
     };
-    let changeNameInformation = '';
-    const hasNameChanged = personalDetails['haveYouChangeName'];
-    changeNameInformation += hasNameChanged;
-    if(hasNameChanged === 'Yes'){
-      changeNameInformation += HTML.RULER;
-      changeNameInformation += HTML.H4;
-      changeNameInformation +=keys['details'];
-      changeNameInformation += HTML.H4_CLOSE;
-      changeNameInformation += HTML.BOTTOM_PADDING_3;
-      changeNameInformation +=  personalDetails['applPreviousName'];
-      changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
-    }
+ 
     newApplicantData.push(
       {
         key: '',
@@ -461,7 +467,7 @@ export const ApplicantDetails = (
       {
         key: keys['haveYouChangeNameLabel'],
         value: '',
-        valueHtml: changeNameInformation,
+        valueHtml: ApplicantDetailNameParser(personalDetails, keys),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
