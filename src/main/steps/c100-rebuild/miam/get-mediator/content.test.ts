@@ -38,11 +38,9 @@ const cy = {
     'Mynychu’r MIAM',
     'Gofyn i’r cyfryngwr am ddogfen sy’n cadarnhau eich presenoldeb',
   ],
-  paragraph1: `Alternatively you can 
+  paragraph1: `Neu , gallwch 
                 <a href="https://helpwithchildarrangements.service.justice.gov.uk" 
-                class="govuk-link" rel="external" target="_blank">read the child 
-                arrangements guide</a> to see if there’s a more suitable option 
-                than going to court. - Welsh`,
+                class="govuk-link" rel="external" target="_blank">ddarllen y canllaw trefniadau plant</a> i weld a oes opsiwn mwy addas na mynd i’r llys.`,
   formActionUrl: 'https://www.familymediationcouncil.org.uk/find-local-mediator/',
   minimumDistance: '5',
   findButtonText: 'Dod o hyd i gyfryngwr',
