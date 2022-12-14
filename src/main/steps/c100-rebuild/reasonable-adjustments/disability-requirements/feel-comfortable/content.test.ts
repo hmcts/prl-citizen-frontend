@@ -34,7 +34,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
   line1:
@@ -49,13 +49,13 @@ const cy = {
   feelComportableNoOption: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   errors: {
     ra_appropriateLighting_subfield: {
-      required: 'Describe the appropriate lighting you need - welsh',
+      required: 'Disgrifiwch y goleuadau priodol sydd ei angen arnoch',
     },
     feelComportableSubField: {
-      required: 'Describe what you need to feel comfortable during a court hearing - welsh',
+      required: "Disgrifiwch yr hyn sydd angen arnoch i deimlo'n gyfforddus yn ystod y gwrandawiad llys",
     },
     ra_feelComportable: {
-      required: 'Select what you need to feel comfortable during a court hearing - welsh',
+      required: "Dewiswch beth sydd angen arnoch i deimlo'n gyfforddus yn ystod y gwrandawiad llys",
     },
   },
 };

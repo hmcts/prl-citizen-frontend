@@ -21,7 +21,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: 'Will you be using a legal representative in these proceedings? - welsh',
   one: 'Yes - welsh',
   two: 'No - welsh',

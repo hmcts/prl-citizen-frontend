@@ -53,7 +53,7 @@ describe('respondent > address > lookup > AddressLookupPostController', () => {
           resp_Respondents: [
             {
               id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-              firstName: 'Dummy',
+              firstName: 'Test1',
               lastName: 'Test1',
               address: {
                 PostCode: 'AG11NB',
@@ -90,6 +90,11 @@ describe('respondent > address > lookup > AddressLookupPostController', () => {
           resp_Respondents: [
             {
               id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+              firstName: 'Test1',
+              lastName: 'Test1',
+              address: {
+                PostCode: 'AG11NB',
+              },
             },
           ],
         },

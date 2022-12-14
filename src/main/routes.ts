@@ -1,8 +1,6 @@
 import fs from 'fs';
 
 import { Application } from 'express';
-import fileUpload from 'express-fileupload';
-import multer from 'multer';
 
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
@@ -95,8 +93,6 @@ import {
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
-const handleUploads = multer();
-
 export class Routes {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
@@ -176,11 +172,11 @@ export class Routes {
         app.post(
           step.url,
           // eslint-disable-next-line prettier/prettier
-          [this.routeGuard.bind(this, step, 'post'), fileUpload({ limits: { fileSize: 1024 * 1024 * 30 } })],
+          this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
         );
         const documentManagerController = new DocumentManagerController(step.form.fields);
-        app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
+        app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
         app.get(
           `${DOCUMENT_MANAGER}/deleteDocument/:documentId`,
           errorHandler(documentManagerController.deleteDocument)

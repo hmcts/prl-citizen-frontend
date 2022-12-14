@@ -38,7 +38,7 @@ const cy = {
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C - welsh',
   errors: {
     helpWithFeesReferenceNumber: {
-      required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
+      required: 'Nodwch y cyfeirnod Help i dalu Ffioedd a gawsoch pan wnaethoch chi wneud cais am Help i dalu Ffioedd',
     },
   },
 };

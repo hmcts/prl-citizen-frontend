@@ -43,7 +43,7 @@ const cy = {
   two: 'No - Welsh',
   errors: {
     hu_urgentHearingReasons: {
-      required: 'Select yes if you have a good reason to request an urgent hearing - welsh',
+      required: 'Dewiswch oes os oes gennych reswm da dros ofyn am wrandawiad brys',
     },
   },
 };
