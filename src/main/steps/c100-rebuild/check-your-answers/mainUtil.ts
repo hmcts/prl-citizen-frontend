@@ -984,7 +984,62 @@ export const SafetyConcerns_others = (
   };
 };
 
+const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent, keys, id, contactDetails ) => {
+  const newRespondentStorage = [] as ANYTYPE;
+  if(!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')){
+    newRespondentStorage.push({
+      key: keys['addressDetails'],
+      value: '',
+      valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys),
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
+    },
+    );
+   }
+   if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
+    newRespondentStorage.push({
+      key: keys['explainNoLabel'],
+      value: sessionRespondentData[respondent]?.['addressUnknown'],
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
+    },
+    );
+   }
+    
+    newRespondentStorage.push(
+      {
+        key: 'Email',
+        value: contactDetails?.['emailAddress'],
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+      },
+    );
 
+    if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
+      newRespondentStorage.push(
+        {
+          key: 'I dont know their email address',
+          value: contactDetails?.['donKnowEmailAddress'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        },
+      );
+    }
+    newRespondentStorage.push(
+      {
+        key: 'Telephone number',
+        value: contactDetails?.['telephoneNumber'],
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+      }
+    );
+    if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
+      newRespondentStorage.push(
+        {
+          key: 'I dont know their telephone number',
+          value: contactDetails?.['donKnowTelephoneNumber'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        },
+      );
+    }
+
+    return newRespondentStorage;
+};
 
 /* eslint-disable import/namespace */
 export const RespondentDetails = (
@@ -1079,59 +1134,8 @@ export const RespondentDetails = (
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], { respondentId: id, childId: element['childId'] }),
         });
       });
-      
-     if(!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')){
-      newRespondentStorage.push({
-        key: keys['addressDetails'],
-        value: '',
-        valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys),
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
-      },
-      );
-     }
-     if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
-      newRespondentStorage.push({
-        key: keys['explainNoLabel'],
-        value: sessionRespondentData[respondent]?.['addressUnknown'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
-      },
-      );
-     }
-      
-      newRespondentStorage.push(
-        {
-          key: 'Email',
-          value: contactDetails?.['emailAddress'],
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        },
-      );
-
-      if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
-        newRespondentStorage.push(
-          {
-            key: 'I dont know their email address',
-            value: contactDetails?.['donKnowEmailAddress'],
-            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-          },
-        );
-      }
-      newRespondentStorage.push(
-        {
-          key: 'Telephone number',
-          value: contactDetails?.['telephoneNumber'],
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        }
-      );
-      if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
-        newRespondentStorage.push(
-          {
-            key: 'I dont know their telephone number',
-            value: contactDetails?.['donKnowTelephoneNumber'],
-            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-          },
-        );
-      }
-  
+      //section 1 insertion 
+     newRespondentStorage.push(...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails ));
     }
    
   const SummaryData = newRespondentStorage;
