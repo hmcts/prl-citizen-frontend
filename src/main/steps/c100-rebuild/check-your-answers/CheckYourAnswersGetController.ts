@@ -29,6 +29,11 @@ export default class CheckYourAnswersGetController extends GetController {
       req.originalUrl,
       C100_CASE_EVENT.CASE_UPDATE
     );
+    //clear payment error
+    setTimeout(() => {
+      req.session.paymentError = false;
+    }, 1000);
+
     super.get(req, res);
   }
 }
