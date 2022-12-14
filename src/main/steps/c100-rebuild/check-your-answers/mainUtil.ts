@@ -212,10 +212,12 @@ export const ChildernDetails = (
     const childNo = Number(child) + 1;
     let childResolution = '';
     if(Array.isArray(sessionChildData[child]['childMatters']['needsResolution'])){
+      childResolution +=  HTML.UNORDER_LIST ;
       childResolution += 
       Object.values(childMatters['needsResolution']).map(
         (field: ANYTYPE) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
       );
+      childResolution +=  HTML.UNORDER_LIST_END ;
     }
     else{
       childResolution += keys[sessionChildData[child]['childMatters']['needsResolution']];
@@ -249,10 +251,7 @@ export const ChildernDetails = (
         key: keys['orderAppliedFor'],
         value: '',
         valueHtml: (
-          HTML.UNORDER_LIST +
           childResolution
-          +
-          HTML.UNORDER_LIST_END
         )
           ?.split(',')
           .join(''),
