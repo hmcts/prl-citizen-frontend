@@ -112,7 +112,7 @@ async function submitCase(
     req.session.paymentError = false;
     const updatedCase = await req.locals.C100Api.updateCase(caseId, caseData, returnUrl, caseEvent);
     //update final document in session for download on confirmation
-    req.session.userCase.finalDocument = updatedCase?.draftOrderDoc;
+    req.session.userCase.finalDocument = updatedCase.data?.draftOrderDoc;
     //save & redirect to confirmation page
     req.session.save(() => {
       res.redirect(C100_CONFIRMATIONPAGE);
