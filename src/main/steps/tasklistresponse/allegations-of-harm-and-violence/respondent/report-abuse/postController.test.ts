@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { C1AAbuseTypes } from '../../../../../app/case/definition';
+import { PRL_C1AAbuseTypes } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
@@ -27,7 +27,7 @@ describe('SafteyConcernsApplicantAbusePostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       params: {
-        abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
+        abuseType: PRL_C1AAbuseTypes.PHYSICAL_ABUSE,
       },
       body: {
         onlycontinue: true,
@@ -51,7 +51,7 @@ describe('SafteyConcernsApplicantAbusePostController Post Controller', () => {
     const language = 'en';
     const req = mockRequest({
       params: {
-        abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
+        abuseType: PRL_C1AAbuseTypes.PHYSICAL_ABUSE,
       },
       body: {
         saveAndComeLater: true,

@@ -70,6 +70,9 @@ import {
   OtherChildrenDetails,
   C100RebuildPartyDetails,
   C100Applicant,
+  PRL_C1ASafteyConcernsAbout,
+  PRL_C1ASafteyConcerns,
+  PRL_C1AAbuseTypes,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -501,10 +504,13 @@ export interface Case {
   hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
   c1A_haveSafetyConcerns?: YesOrNo;
+  PRL_c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
   c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
+  PRL_c1A_safetyConernAbout?: PRL_C1ASafteyConcernsAbout[];
   c1A_safteyConcerns?: C1ASafteyConcerns;
+  PRL_c1A_safteyConcerns?: PRL_C1ASafteyConcerns;
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_consent?: string;
@@ -528,8 +534,10 @@ export interface Case {
   sq_legalRepresentationApplication?: YesOrNo;
   sq_courtPermissionRequired?: YesOrNo;
   c1A_concernAboutChild?: C1AAbuseTypes[];
+  PRL_c1A_concernAboutChild?: PRL_C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
   c1A_concernAboutRespondent?: C1AAbuseTypes[];
+  PRL_c1A_concernAboutRespondent?: PRL_C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];

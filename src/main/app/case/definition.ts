@@ -2483,7 +2483,23 @@ export enum C1ASafteyConcernsAbout{
   RESPONDENT = 'respondent',
 }
 
+export enum PRL_C1ASafteyConcernsAbout{
+  CHILDREN = 'children',
+  APPLICANT = 'applicant',
+  OTHER = 'otherConcerns',
+  RESPONDENT = 'respondent',
+}
+
 export interface C1ASafteyConcernsAbuse{
+  behaviourDetails?: string;
+  behaviourStartDate?: string;
+  isOngoingBehaviour?:YesNoEmpty;
+  seekHelpFromPersonOrAgency?: YesNoEmpty;
+  seekHelpDetails?: string;
+  childrenConcernedAbout?: string;
+}
+
+export interface PRL_C1ASafteyConcernsAbuse{
   behaviourDetails?: string;
   behaviourStartDate?: string;
   isOngoingBehaviour?:YesNoEmpty;
@@ -2518,6 +2534,32 @@ export interface C1ASafteyConcerns {
   },
   }
 
+  export interface PRL_C1ASafteyConcerns {
+    child?: {
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    applicant?:{
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    respondent?:{
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    }
+
   export enum C1AAbuseTypes {
     PHYSICAL_ABUSE = 'physicalAbuse',
     PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
@@ -2527,6 +2569,17 @@ export interface C1ASafteyConcerns {
     ABDUCTION = 'abduction',
     WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
     SOMETHING_ELSE='somethingElse',
+}
+
+export enum PRL_C1AAbuseTypes {
+  PHYSICAL_ABUSE = 'physicalAbuse',
+  PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
+  EMOTIONAL_ABUSE = 'emotionalAbuse',
+  SEXUAL_ABUSE = 'sexualAbuse',
+  FINANCIAL_ABUSE = 'financialAbuse',
+  ABDUCTION = 'abduction',
+  WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
+  SOMETHING_ELSE='somethingElse',
 }
 
 export type ChildrenDetails = {

@@ -72,8 +72,8 @@ describe('C1A safetyconcerns > applicant > report abuse > content', () => {
   const commonContent = {
     language: 'en',
     userCase: {
-      c1A_safteyConcerns: {
-        applicant: {
+      PRL_c1A_safteyConcerns: {
+        respondent: {
           physicalAbuse: {
             behaviourDetails: '',
             behaviourStartDate: '',

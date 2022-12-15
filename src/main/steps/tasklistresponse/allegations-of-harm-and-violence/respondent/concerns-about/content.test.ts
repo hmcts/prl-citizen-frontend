@@ -32,7 +32,7 @@ const en = {
   somethingElse: 'Something else',
   somethingElseHint: 'Any concerns you have that do not fit into the above categories',
   errors: {
-    c1A_concernAboutRespondent: {
+    PRL_c1A_concernAboutRespondent: {
       required: 'Specify the type of behaviour you have experienced or are at risk of experiencing',
     },
   },
@@ -64,7 +64,7 @@ const cy = {
   somethingElse: 'Something else - welsh',
   somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
   errors: {
-    c1A_concernAboutRespondent: {
+    PRL_c1A_concernAboutRespondent: {
       required: 'Specify the type of behaviour you have experienced or are at risk of experiencing - welsh',
     },
   },
@@ -91,7 +91,7 @@ describe('safetyconcerns > child > concern about > content', () => {
   });
 
   test('should contain specialArrangements field', () => {
-    const applicantConcernAboutField = fields.c1A_concernAboutRespondent as FormOptions;
+    const applicantConcernAboutField = fields.PRL_c1A_concernAboutRespondent as FormOptions;
 
     expect(applicantConcernAboutField.type).toBe('checkboxes');
     expect((applicantConcernAboutField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);

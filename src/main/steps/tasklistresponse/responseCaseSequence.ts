@@ -269,7 +269,7 @@ export const responseCaseSequence: Step[] = [
     url: RESPONDENT_YOUR_CHILD_CONCERNS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: data =>
-      data.yourchildconcernsstart === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
+      data.PRL_c1A_haveSafetyConcerns === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_YES,

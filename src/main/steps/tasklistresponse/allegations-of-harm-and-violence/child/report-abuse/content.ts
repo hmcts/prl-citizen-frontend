@@ -1,4 +1,4 @@
-import { C1AAbuseTypes, C1ASafteyConcernsAbuse, Child, YesNoEmpty } from '../../../../../app/case/definition';
+import { Child, PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { getDataShape } from '../../util';
@@ -88,7 +88,10 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (data: C1ASafteyConcernsAbuse, childrenData: Child[]): GenerateDynamicFormFields => {
+export const generateFormFields = (
+  data: PRL_C1ASafteyConcernsAbuse,
+  childrenData: Child[]
+): GenerateDynamicFormFields => {
   const fields = {
     childrenConcernedAbout: {
       type: 'checkboxes',
@@ -204,14 +207,14 @@ export const getFormFields = (): FormContent => {
 };
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getPageTitle = (abuseType: C1AAbuseTypes, translations: Record<string, any>) => {
+const getPageTitle = (abuseType: PRL_C1AAbuseTypes, translations: Record<string, any>) => {
   return translations[`${abuseType}PageTitle`];
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const abuseType: C1AAbuseTypes = content.additionalData!.req.params.abuseType;
-  const sessionData: C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.child?.[abuseType];
+  const abuseType: PRL_C1AAbuseTypes = content.additionalData!.req.params.abuseType;
+  const sessionData: PRL_C1ASafteyConcernsAbuse = content.userCase?.PRL_c1A_safteyConcerns?.child?.[abuseType];
   const sessionChildrenData = content.userCase?.children ?? [];
   const { fields } = generateFormFields(sessionData ?? getDataShape().abuse, sessionChildrenData);
 
