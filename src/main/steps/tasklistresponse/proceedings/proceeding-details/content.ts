@@ -166,9 +166,6 @@ export const form: FormContent = {
   onlyContinue: {
     text: l => l.onlyContinue,
   },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
 };
 
 export const generateContent: TranslationFn = content => {

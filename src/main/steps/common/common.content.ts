@@ -83,7 +83,7 @@ const en = {
   sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0742',
-  telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
+  telephoneDetails: 'Monday to Friday, 8am to 8pm',
   findOutCharges: 'Find out about call charges',
   openNewWindow: 'opens in a new window',
   habitualResidentHelpText1:

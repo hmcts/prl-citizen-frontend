@@ -7,7 +7,7 @@ import { otherProceedingsContents } from '../proceedingUtils';
 export const enContent = {
   serviceName: 'Check your answers ',
   section: '',
-  title: 'Check your Answers',
+  title: 'Check your answers',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
   makingSure: 'Please review your answers before you finish your application.',
@@ -38,7 +38,7 @@ const en = (content: CommonContent) => {
 const cyContent: typeof enContent = {
   serviceName: 'Check your answers ',
   section: '',
-  title: 'Check your Answers',
+  title: 'Check your answers',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
   makingSure: 'Please review your answers before you finish your application.',

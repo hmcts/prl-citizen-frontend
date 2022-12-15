@@ -27,9 +27,6 @@ export const form: FormContent = {
   onlyContinue: {
     text: l => l.onlyContinue,
   },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
 };
 interface OrderDocument {
   fileName?: string;

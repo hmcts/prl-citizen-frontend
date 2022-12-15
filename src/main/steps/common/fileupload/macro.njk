@@ -49,8 +49,9 @@
   }) }}
 </form>
 </div>
-
 {% if params.sessionFiles !== undefined and params.sessionFilesArray === true  %}
+<div class="uploadedfilessummary">
+<h2 class="app-task-list__section">Your documents</h2>
   <div id="uploadGroup" tabindex="0" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ params.uploadFileHeading }}</h2>
     <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if params.sessionFiles |length %} hidden{% endif %}" id="noFilesUploaded">{{ params.sessionNullFilesMessage }}</p>
@@ -65,8 +66,11 @@
        {%endfor%}
     </ul>
   </div>
+  </div>
   {%else%}
   {% if params.sessionFiles.id !== undefined and params.sessionFiles.filename !== "" %}
+  <div class="uploadedfilessummary">
+<h2 class="app-task-list__section">Your documents</h2>
     <ul id="filesUploaded" class="govuk-list">
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
             <dt class="govuk-summary-list__value"> {{ params.sessionFiles.filename }} </dt>
@@ -75,6 +79,7 @@
           </dd>
           </li>
       </ul>
+</div>
    {%endif%}
 {%endif%}
 
