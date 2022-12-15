@@ -97,7 +97,6 @@ export const LegalRepresentativeDetails = (
       },
     );
   }
-
   return {
     title: sectionTitles['legalRepresentativeDetails'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -222,7 +221,6 @@ export const ChildernDetails = (
       childResolution += keys[sessionChildData[child]['childMatters']['needsResolution']];
     }
 
-
     newChildDataStorage.push(
       {
         key: '',
@@ -234,12 +232,32 @@ export const ChildernDetails = (
         key: keys['fullName'],
         value: firstname + ' ' + lastname,
         changeUrl: Urls['C100_CHILDERN_DETAILS_ADD'],
-      },
+      });
+
+      if(personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES){
+        newChildDataStorage.push(
+          {
+            key: keys['approxCheckboxLabel'],
+            value: personalDetails['isDateOfBirthUnknown'],
+            changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
+          },
+          {
+            key: keys['approxDobLabel'],
+            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
+            changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
+          },
+        );
+      }
+      else{
+      newChildDataStorage.push(
       {
         key: keys['dobLabel'],
         value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-      },
+      });
+    }
+
+      newChildDataStorage.push(
       {
         key: keys['childGenderLabel'],
         value: '',
