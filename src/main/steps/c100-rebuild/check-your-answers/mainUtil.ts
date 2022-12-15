@@ -210,6 +210,20 @@ export const ChildernDetails = (
       childMatters = sessionChildData[child]['childMatters'],
       parentialResponsibility = sessionChildData[child]['parentialResponsibility'];
     const childNo = Number(child) + 1;
+    let childResolution = '';
+    if(Array.isArray(sessionChildData[child]['childMatters']['needsResolution'])){
+      childResolution +=  HTML.UNORDER_LIST ;
+      childResolution += 
+      Object.values(childMatters['needsResolution']).map(
+        (field: ANYTYPE) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
+      );
+      childResolution +=  HTML.UNORDER_LIST_END ;
+    }
+    else{
+      childResolution += keys[sessionChildData[child]['childMatters']['needsResolution']];
+    }
+
+
     newChildDataStorage.push(
       {
         key: '',
@@ -237,11 +251,7 @@ export const ChildernDetails = (
         key: keys['orderAppliedFor'],
         value: '',
         valueHtml: (
-          HTML.UNORDER_LIST +
-          Object.values(childMatters['needsResolution']).map(
-            (field: ANYTYPE) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
-          ) +
-          HTML.UNORDER_LIST_END
+          childResolution
         )
           ?.split(',')
           .join(''),
@@ -505,7 +515,22 @@ export const ApplicantDetails = (
           changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
         });
 
-    //contactDetailsOf
+        const applicantContactPreferences = sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences;
+        let applicantContactPre = '';
+    
+        if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
+          applicantContactPre += HTML.UNORDER_LIST;
+          applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + preferences + HTML.LIST_ITEM_END );
+          applicantContactPre += HTML.UNORDER_LIST_END;
+        }
+        newApplicantData.push(
+          {
+            key: keys['contactPrefernces'],
+            value: '',
+            valueHtml: `${applicantContactPre}`,
+            changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_PREFERENCES'], { applicantId: sessionApplicantData[applicant]['id'] }),
+          }
+        );
   }
   return {
     title: sectionTitles['ApplicantDetails'],
