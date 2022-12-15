@@ -29,6 +29,9 @@ export const IndividualOrderFieldsParser = (keys, order) => {
     ['orderEndDate']: {
       question: keys['orderEndDateLabel'],
     },
+    ['orderDocument']: {
+      question: 'Copy uploaded?',
+    },
   };
   let Val = '';
   Object.entries(newOrders).forEach((entry, index) => {
@@ -43,6 +46,16 @@ export const IndividualOrderFieldsParser = (keys, order) => {
       } else {
         const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
         const valueDetails = HTML.P + value + HTML.P_CLOSE;
+        Val += keyDetails + valueDetails + rulerForLastElement;
+      }
+    } else if (key === 'orderDocument') {
+      if (value !== 'undefined') {
+        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const valueDetails = HTML.P + 'Yes' + HTML.P_CLOSE;
+        Val += keyDetails + valueDetails + rulerForLastElement;
+      } else {
+        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const valueDetails = HTML.P + 'No' + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       }
     }
