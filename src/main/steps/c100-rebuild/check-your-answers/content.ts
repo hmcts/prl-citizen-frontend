@@ -155,6 +155,7 @@ export const enContent = {
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
     enterCaseName: caseNameEnContent().title,
+    contactPrefernces: 'Contact preferences',
   },
 };
 export const cyContent: typeof enContent = {
@@ -257,6 +258,7 @@ export const cyContent: typeof enContent = {
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
     enterCaseName: caseNameCyContent().title,
+    contactPrefernces: 'Contact preferences - welsh',
   },
 };
 
