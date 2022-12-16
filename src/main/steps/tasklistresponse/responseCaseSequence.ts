@@ -328,7 +328,7 @@ export const responseCaseSequence: Step[] = [
     url: C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
     showInSection: Sections.C100,
     getNextStep: data =>
-      data.c1A_passportOffice === YesOrNo.YES
+      data.PRL_c1A_passportOffice === YesOrNo.YES
         ? C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT
         : C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
   },
@@ -346,7 +346,7 @@ export const responseCaseSequence: Step[] = [
     url: C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      caseData.c1A_childAbductedBefore === YesOrNo.YES
+      caseData.PRL_c1A_childAbductedBefore === YesOrNo.YES
         ? C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS
         : SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_ABDUCTION_THREATS, caseData, req?.params),
   },

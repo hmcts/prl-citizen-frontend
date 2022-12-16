@@ -20,7 +20,7 @@ const en = {
   option3: 'Other',
   otherDetails: 'Provide more details',
   errors: {
-    c1A_childrenMoreThanOnePassport: {
+    PRL_c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport',
     },
     c1A_possessionChildrenPassport: {
@@ -45,7 +45,7 @@ const cy = {
   option3: 'Other - welsh',
   otherDetails: 'Provide more details - welsh',
   errors: {
-    c1A_childrenMoreThanOnePassport: {
+    PRL_c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport - welsh',
     },
     c1A_possessionChildrenPassport: {
@@ -74,7 +74,7 @@ describe('safetyconcerns > abduction > passport amount > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const childrenMoreThanOnePassportField = fields.c1A_childrenMoreThanOnePassport as FormOptions;
+    const childrenMoreThanOnePassportField = fields.PRL_c1A_childrenMoreThanOnePassport as FormOptions;
 
     expect(childrenMoreThanOnePassportField.type).toBe('radios');
     expect(childrenMoreThanOnePassportField.classes).toBe('govuk-radios');

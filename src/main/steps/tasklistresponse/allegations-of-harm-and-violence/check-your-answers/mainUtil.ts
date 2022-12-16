@@ -139,6 +139,7 @@ export const SafetyConcerns_child = (
     PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
   }
 
+
   const abdutionScreenData = [
     {
       key: keys['childLocation'],

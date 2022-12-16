@@ -19,7 +19,7 @@ export const en = () => ({
   option3: 'Other',
   otherDetails: 'Provide more details',
   errors: {
-    c1A_childrenMoreThanOnePassport: {
+    PRL_c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport',
     },
     c1A_possessionChildrenPassport: {
@@ -44,7 +44,7 @@ export const cy = () => ({
   option3: 'Other - welsh',
   otherDetails: 'Provide more details - welsh',
   errors: {
-    c1A_childrenMoreThanOnePassport: {
+    PRL_c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport - welsh',
     },
     c1A_possessionChildrenPassport: {
@@ -63,7 +63,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_childrenMoreThanOnePassport: {
+    PRL_c1A_childrenMoreThanOnePassport: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.childrenMoreThanOnePassport,
