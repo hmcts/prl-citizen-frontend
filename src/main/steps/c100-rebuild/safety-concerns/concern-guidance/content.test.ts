@@ -94,7 +94,7 @@ const cy = {
   ],
   warningText: {
     text: "Bydd yr wybodaeth y byddwch yn ei rhoi yn yr adran hon hefyd yn cael ei rhannu â'r bobl eraill yn y cais hwn, fel eu bod nhw yn gallu ymateb i'r hyn yr ydych chi wedi'i ddweud.",
-    iconFallbackText: 'Rhybudd',
+    iconFallbackText: 'Warning',
   },
   notReadyDescAbuseHeader: "Os nad ydych yn teimlo'n barod i siarad am y gamdriniaeth ar hyn o bryd",
   cafcassLine1:
