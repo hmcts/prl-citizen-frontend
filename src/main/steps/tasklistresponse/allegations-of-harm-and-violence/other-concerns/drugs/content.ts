@@ -4,7 +4,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   title: 'Have the children been impacted by drug, alcohol or substance abuse?',
@@ -15,16 +15,16 @@ const en = () => ({
   description:
     'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
   errors: {
-    c1A_otherConcernsDrugs: {
+    PRL_c1A_otherConcernsDrugs: {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse',
     },
-    c1A_otherConcernsDrugsDetails: {
+    PRL_c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
   title: 'Have the children been impacted by drug, alcohol or substance abuse? - welsh',
@@ -36,10 +36,10 @@ const cy = () => ({
   description:
     'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing. - Welsh',
   errors: {
-    c1A_otherConcernsDrugs: {
+    PRL_c1A_otherConcernsDrugs: {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse - Welsh',
     },
-    c1A_otherConcernsDrugsDetails: {
+    PRL_c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse - Welsh',
     },
   },
@@ -52,7 +52,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_otherConcernsDrugs: {
+    PRL_c1A_otherConcernsDrugs: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -60,7 +60,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            c1A_otherConcernsDrugsDetails: {
+            PRL_c1A_otherConcernsDrugsDetails: {
               type: 'textarea',
               label: l => l.description,
               labelSize: null,

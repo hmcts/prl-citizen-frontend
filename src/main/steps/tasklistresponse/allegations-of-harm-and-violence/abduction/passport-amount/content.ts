@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
@@ -5,7 +6,7 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../.
 import { generateContent as commonContent } from '../content';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   caption: 'Safety concerns',
   title: 'Provide details of the children’s passports',
   childrenMoreThanOnePassport: 'Do the children have more than one passport?',
@@ -29,8 +30,8 @@ const en = () => ({
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'Safety concerns - welsh',
   title: 'Provide details of the children’s passports - welsh',
   childrenMoreThanOnePassport: 'Do the children have more than one passport? - welsh',
@@ -81,24 +82,24 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
     c1A_possessionChildrenPassport: {
-      id: 'c1A_possessionChildrenPassport',
+      id: 'PRL_c1A_possessionChildrenPassport',
       type: 'checkboxes',
       label: l => l.possessionChildrenPassport,
       hint: l => l.select_all_relevant,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'c1A_possessionChildrenPassport',
+          name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option1,
           value: 'Mother',
         },
         {
-          name: 'c1A_possessionChildrenPassport',
+          name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option2,
           value: 'Father',
         },
         {
-          name: 'c1A_possessionChildrenPassport',
+          name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option3,
           value: 'Other',
           subFields: {

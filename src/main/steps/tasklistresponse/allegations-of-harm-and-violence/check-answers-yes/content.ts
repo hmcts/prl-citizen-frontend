@@ -53,7 +53,7 @@ export const form: FormContent = {
         {
           name: 'PRL_c1A_safetyConernAbout',
           label: l => l.yourself,
-          value: PRL_C1ASafteyConcernsAbout.APPLICANT,
+          value: PRL_C1ASafteyConcernsAbout.RESPONDENT,
         },
       ],
     },

@@ -2485,9 +2485,10 @@ export enum C1ASafteyConcernsAbout{
 
 export enum PRL_C1ASafteyConcernsAbout{
   CHILDREN = 'children',
+  RESPONDENT = 'respondent',
   APPLICANT = 'applicant',
   OTHER = 'otherConcerns',
-  RESPONDENT = 'respondent',
+  
 }
 
 export interface C1ASafteyConcernsAbuse{

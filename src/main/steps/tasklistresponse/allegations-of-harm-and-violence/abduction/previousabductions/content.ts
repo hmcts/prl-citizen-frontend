@@ -5,7 +5,7 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/valida
 import { generateContent as parentContent } from '../content';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   caption: 'Safety concerns',
   title: 'Provide details of the previous abductions',
   line1: 'Give a short description of the previous incidents of abduction.',
@@ -28,7 +28,8 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'Safety concerns - welsh',
   title: 'Provide details of the previous abductions - welsh',
   line1: 'Give a short description of the previous incidents of abduction. - welsh',
@@ -61,7 +62,7 @@ export const form: FormContent = {
   fields: {
     c1A_previousAbductionsShortDesc: {
       type: 'textarea',
-      name: 'c1A_previousAbductionsShortDesc',
+      name: 'PRL_c1A_previousAbductionsShortDesc',
       hint: l => l.c1A_previousAbductionsShortDescHint,
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },

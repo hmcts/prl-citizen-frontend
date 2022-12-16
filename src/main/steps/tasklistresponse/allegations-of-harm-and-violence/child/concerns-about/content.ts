@@ -3,8 +3,8 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
-
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing?',
@@ -39,8 +39,8 @@ const en = () => ({
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
   headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',

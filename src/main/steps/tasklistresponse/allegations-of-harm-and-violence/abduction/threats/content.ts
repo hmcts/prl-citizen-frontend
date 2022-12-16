@@ -1,10 +1,11 @@
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
-
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   caption: 'Safety concerns',
   title: 'Have the children been abducted or kept outside the UK without your consent before?',
   one: 'Yes',
@@ -15,8 +16,8 @@ const en = () => ({
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'Safety concerns - welsh',
   title: 'Have the children been abducted or kept outside the UK without your consent before? - welsh',
   one: 'Yes - welsh',

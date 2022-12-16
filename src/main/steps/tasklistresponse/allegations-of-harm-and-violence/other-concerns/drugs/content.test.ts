@@ -18,10 +18,10 @@ const en = {
   description:
     'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
   errors: {
-    c1A_otherConcernsDrugs: {
+    PRL_c1A_otherConcernsDrugs: {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse',
     },
-    c1A_otherConcernsDrugsDetails: {
+    PRL_c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
     },
   },
@@ -39,10 +39,10 @@ const cy = {
   description:
     'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing. - Welsh',
   errors: {
-    c1A_otherConcernsDrugs: {
+    PRL_c1A_otherConcernsDrugs: {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse - Welsh',
     },
-    c1A_otherConcernsDrugsDetails: {
+    PRL_c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse - Welsh',
     },
   },
@@ -65,12 +65,12 @@ describe('Safety concern > other-concerns> drugs', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.c1A_otherConcernsDrugs as FormOptions;
+    const applyingWithField = fields.PRL_c1A_otherConcernsDrugs as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    const field2 = applyingWithField.values[0].subFields!.c1A_otherConcernsDrugsDetails;
+    const field2 = applyingWithField.values[0].subFields!.PRL_c1A_otherConcernsDrugsDetails;
     expect((field2?.label as Function)(generatedContent)).toBe(en.description);
     expect(field2.type).toBe('textarea');
     (field2.validator as Function)('Yes');

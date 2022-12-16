@@ -2,8 +2,8 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
-
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   section: 'Safety concerns',
   title: 'Contact between the children and the other people in this application',
   subtitle:
@@ -19,16 +19,17 @@ const en = () => ({
   yes: 'Yes',
   no: 'No',
   errors: {
-    c1A_supervisionAgreementDetails: {
+    PRL_c1A_supervisionAgreementDetails: {
       required: 'Select whether you agree to the children spending time with the other people in this application',
     },
-    c1A_agreementOtherWaysDetails: {
+    PRL_c1A_agreementOtherWaysDetails: {
       required:
         'Select yes if you agree to the other people in this application being in touch with the children in other ways',
     },
   },
 });
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   section: 'Safety concerns - welsh',
   title: 'Contact between the children and the other people in this application - welsh',
   subtitle:
@@ -44,9 +45,9 @@ const cy = () => ({
   yes: 'Yes - welsh',
   no: 'No - welsh',
   errors: {
-    c1A_supervisionAgreementDetails:
+    PRL_c1A_supervisionAgreementDetails:
       'Select whether you agree to the children spending time with the other people in this application - welsh',
-    c1A_agreementOtherWaysDetails:
+    PRL_c1A_agreementOtherWaysDetails:
       'Select yes if you agree to the other people in this application being in touch with the children in other ways - welsh',
   },
 });
@@ -58,7 +59,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_supervisionAgreementDetails: {
+    PRL_c1A_supervisionAgreementDetails: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.selectSupervisionAgreementLabel,
@@ -80,7 +81,7 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-    c1A_agreementOtherWaysDetails: {
+    PRL_c1A_agreementOtherWaysDetails: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.supervisionAgreementOtherWaysLabel,

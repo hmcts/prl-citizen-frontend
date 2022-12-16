@@ -18,7 +18,7 @@ const en = {
     '<strong>Specific issue:</strong> this order sets out a decision on specific issues, which could include medical treatment, education or a foreign holiday.',
   ],
   errors: {
-    c1A_keepingSafeStatement: {
+    PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe',
     },
   },
@@ -36,7 +36,7 @@ const cy = {
     '<strong>Specific issue:</strong> this order sets out a decision on specific issues, which could include medical treatment, education or a foreign holiday. - welsh',
   ],
   errors: {
-    c1A_keepingSafeStatement: {
+    PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe - welsh',
     },
   },
@@ -64,7 +64,7 @@ describe('safety-concerns > orders-required > orders-required content', () => {
   });
 
   test('should contain a c1A statement mandatory textarea', () => {
-    const keepingSafeStatement = fields.c1A_keepingSafeStatement as FormOptions;
+    const keepingSafeStatement = fields.PRL_c1A_keepingSafeStatement as FormOptions;
     expect(keepingSafeStatement.type).toBe('textarea');
   });
 

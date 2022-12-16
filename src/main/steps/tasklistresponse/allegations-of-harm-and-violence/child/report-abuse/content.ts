@@ -4,8 +4,8 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
-
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   caption: 'Safety concerns',
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to',
   psychologicalAbusePageTitle: 'Briefly describe the psychological abuse against the children if you feel able to',
@@ -35,8 +35,8 @@ const en = () => ({
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'Safety concerns - Welsh',
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to - Welsh',
   psychologicalAbusePageTitle:

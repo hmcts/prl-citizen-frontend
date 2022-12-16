@@ -3,7 +3,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   caption: 'Safety concerns',
   title: 'What do you want the court to do to keep you and the children safe?',
   paragraph:
@@ -15,13 +15,13 @@ const en = () => ({
     '<strong>Specific issue:</strong> this order sets out a decision on specific issues, which could include medical treatment, education or a foreign holiday.',
   ],
   errors: {
-    c1A_keepingSafeStatement: {
+    PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe',
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'Safety concerns - welsh',
   title: 'What do you want the court to do to keep you and the children safe? - welsh',
   paragraph:
@@ -33,7 +33,7 @@ const cy = () => ({
     '<strong>Specific issue:</strong> this order sets out a decision on specific issues, which could include medical treatment, education or a foreign holiday. - welsh',
   ],
   errors: {
-    c1A_keepingSafeStatement: {
+    PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe - welsh',
     },
   },
@@ -46,7 +46,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_keepingSafeStatement: {
+    PRL_c1A_keepingSafeStatement: {
       type: 'textarea',
       attributes: { rows: 10 },
       validator: value => isFieldFilledIn(value),
