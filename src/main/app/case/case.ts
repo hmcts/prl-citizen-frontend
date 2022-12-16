@@ -511,8 +511,8 @@ export interface Case {
   PRL_c1A_safetyConernAbout?: PRL_C1ASafteyConcernsAbout[];
   c1A_safteyConcerns?: C1ASafteyConcerns;
   PRL_c1A_safteyConcerns?: PRL_C1ASafteyConcerns;
-  // PRL_c1A_abductionReasonOutsideUk?:string;
-  // PRL_c1A_childsCurrentLocation?:string;
+  PRL_c1A_abductionReasonOutsideUk?: string;
+  PRL_c1A_childsCurrentLocation?: string;
   // PRL_c1A_childrenMoreThanOnePassport?:YesOrNo;
   // PRL_c1A_possessionChildrenPassport?:string;
   // PRL_c1A_provideOtherDetails?:string;
@@ -533,10 +533,10 @@ export interface Case {
   c1A_passportOffice?: YesOrNo;
   PRL_c1A_passportOffice?: YesOrNo;
   // PRL_c1A_abductionPassportOfficeNotified?:YesOrNo;
-  // PRL_c1A_previousAbductionsShortDesc?:string;
-  // PRL_c1A_policeOrInvestigatorInvolved?:YesOrNo;
-  // PRL_c1A_policeOrInvestigatorOtherDetails?:string;
-  // PRL_c1A_childAbductedBefore?:YesOrNo;
+  PRL_c1A_previousAbductionsShortDesc?: string;
+  PRL_c1A_policeOrInvestigatorInvolved?: YesOrNo;
+  PRL_c1A_policeOrInvestigatorOtherDetails?: string;
+  PRL_c1A_childAbductedBefore?: YesOrNo;
   PRL_c1A_otherConcernsDrugs?: YesOrNo;
   PRL_c1A_otherConcernsDrugsDetails?: string;
   PRL_c1A_childSafetyConcerns?: YesOrNo;

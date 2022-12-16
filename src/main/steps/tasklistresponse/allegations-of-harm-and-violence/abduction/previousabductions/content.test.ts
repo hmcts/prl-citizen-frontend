@@ -18,13 +18,13 @@ const en = {
   two: 'No',
   otherDetails: 'Provide more details',
   errors: {
-    c1A_previousAbductionsShortDesc: {
+    PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction',
     },
-    c1A_policeOrInvestigatorInvolved: {
+    PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved',
     },
-    c1A_policeOrInvestigatorOtherDetails: {
+    PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement',
     },
   },
@@ -42,13 +42,13 @@ const cy = {
   two: 'No - welsh',
   otherDetails: 'Provide more details - welsh',
   errors: {
-    c1A_previousAbductionsShortDesc: {
+    PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction - welsh',
     },
-    c1A_policeOrInvestigatorInvolved: {
+    PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved - welsh',
     },
-    c1A_policeOrInvestigatorOtherDetails: {
+    PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement - welsh',
     },
   },
@@ -71,7 +71,7 @@ describe('safetyconcerns > abduction > previous abductions > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const previousAbductionsShortDescField = fields.c1A_previousAbductionsShortDesc as FormOptions;
+    const previousAbductionsShortDescField = fields.PRL_c1A_previousAbductionsShortDesc as FormOptions;
 
     expect(previousAbductionsShortDescField.type).toBe('textarea');
     expect((previousAbductionsShortDescField.hint as LanguageLookup)(generatedContent)).toBe(
@@ -81,7 +81,7 @@ describe('safetyconcerns > abduction > previous abductions > content', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text');
 
-    const policeOrInvestigatorInvolvedField = fields.c1A_policeOrInvestigatorInvolved as FormOptions;
+    const policeOrInvestigatorInvolvedField = fields.PRL_c1A_policeOrInvestigatorInvolved as FormOptions;
     expect(policeOrInvestigatorInvolvedField.classes).toBe('govuk-radios');
     expect((policeOrInvestigatorInvolvedField.label as LanguageLookup)(generatedContent)).toBe(
       en.c1A_policeOrInvestigatorInvolved
@@ -93,7 +93,7 @@ describe('safetyconcerns > abduction > previous abductions > content', () => {
     expect((policeOrInvestigatorInvolvedField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
 
     const policeOrInvestigatorOtherDetails = policeOrInvestigatorInvolvedField.values[0].subFields!
-      .c1A_policeOrInvestigatorOtherDetails as FormInput;
+      .PRL_c1A_policeOrInvestigatorOtherDetails as FormInput;
 
     expect(policeOrInvestigatorOtherDetails.type).toBe('textarea');
     expect((policeOrInvestigatorOtherDetails.label as LanguageLookup)(generatedContent)).toBe(en.otherDetails);

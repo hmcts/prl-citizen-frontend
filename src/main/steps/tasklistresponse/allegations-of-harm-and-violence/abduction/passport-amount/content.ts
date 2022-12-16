@@ -82,24 +82,24 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
     c1A_possessionChildrenPassport: {
-      id: 'PRL_c1A_possessionChildrenPassport',
+      id: 'c1A_possessionChildrenPassport',
       type: 'checkboxes',
       label: l => l.possessionChildrenPassport,
       hint: l => l.select_all_relevant,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'PRL_c1A_possessionChildrenPassport',
+          name: 'c1A_possessionChildrenPassport',
           label: l => l.option1,
           value: 'Mother',
         },
         {
-          name: 'PRL_c1A_possessionChildrenPassport',
+          name: 'c1A_possessionChildrenPassport',
           label: l => l.option2,
           value: 'Father',
         },
         {
-          name: 'PRL_c1A_possessionChildrenPassport',
+          name: 'c1A_possessionChildrenPassport',
           label: l => l.option3,
           value: 'Other',
           subFields: {

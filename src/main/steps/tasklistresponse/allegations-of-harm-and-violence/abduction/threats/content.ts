@@ -11,7 +11,7 @@ export const en = () => ({
   one: 'Yes',
   two: 'No',
   errors: {
-    c1A_childAbductedBefore: {
+    PRL_c1A_childAbductedBefore: {
       required: 'Select yes if the children have been abducted or kept outside the UK without your consent before',
     },
   },
@@ -23,7 +23,7 @@ export const cy = () => ({
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {
-    c1A_childAbductedBefore: {
+    PRL_c1A_childAbductedBefore: {
       required:
         'Select yes if the children have been abducted or kept outside the UK without your consent before - welsh',
     },
@@ -37,7 +37,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_childAbductedBefore: {
+    PRL_c1A_childAbductedBefore: {
       type: 'radios',
       classes: 'govuk-radios',
 

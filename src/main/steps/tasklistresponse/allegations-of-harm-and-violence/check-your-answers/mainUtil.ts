@@ -106,90 +106,90 @@ export const SafetyConcerns_child = (
   /**
    * @policeOrInvestigatorsOtherDetails session Values
    */
-  // let policeOrInvestigatorsOtherDetailsHTML = '';
-  // policeOrInvestigatorsOtherDetailsHTML += userCase['PRL_c1A_policeOrInvestigatorInvolved'];
-  //  policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('PRL_c1A_policeOrInvestigatorOtherDetails')
-  //   ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['PRL_c1A_policeOrInvestigatorOtherDetails']
-  //   :  '' ;
+  let policeOrInvestigatorsOtherDetailsHTML = '';
+  policeOrInvestigatorsOtherDetailsHTML += userCase['PRL_c1A_policeOrInvestigatorInvolved'];
+   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('PRL_c1A_policeOrInvestigatorOtherDetails')
+    ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['PRL_c1A_policeOrInvestigatorOtherDetails']
+    :  '' ;
   /**
-   * @c1A_childAbductedBefore session Values
+   * @PRL_c1A_childAbductedBefore session Values
    */
-  // let PRL_c1A_childAbductedBefore = '';
-  // PRL_c1A_childAbductedBefore += userCase?.['PRL_c1A_passportOffice'];
-  // if (userCase.hasOwnProperty('PRL_c1A_passportOffice') && userCase.PRL_c1A_passportOffice === 'Yes') {
-  //   PRL_c1A_childAbductedBefore += HTML.RULER;
-  //   PRL_c1A_childAbductedBefore += HTML.H4;
-  //   PRL_c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
-  //   PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
-  //   PRL_c1A_childAbductedBefore += userCase['PRL_c1A_childrenMoreThanOnePassport'];
-  //   PRL_c1A_childAbductedBefore += HTML.RULER;
-  //   PRL_c1A_childAbductedBefore += HTML.H4;
-  //   PRL_c1A_childAbductedBefore += keys['possessionChildrenPassport'];
-  //   PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
-  //   PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST;
-  //   PRL_c1A_childAbductedBefore += userCase['PRL_c1A_possessionChildrenPassport']
-  //     .filter(element => element !== 'Other')
-  //     .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
-  //     .toString()
-  //     .split(',')
-  //     .join('');
-  //   if(userCase['PRL_c1A_possessionChildrenPassport'].some(element => element === 'Other')){
-  //     PRL_c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['PRL_c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
-  //   }  
-  //   PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
-  // }
+  let PRL_c1A_childAbductedBefore = '';
+  PRL_c1A_childAbductedBefore += userCase?.['PRL_c1A_passportOffice'];
+  if (userCase.hasOwnProperty('PRL_c1A_passportOffice') && userCase.PRL_c1A_passportOffice === 'Yes') {
+    PRL_c1A_childAbductedBefore += HTML.RULER;
+    PRL_c1A_childAbductedBefore += HTML.H4;
+    PRL_c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
+    PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
+    PRL_c1A_childAbductedBefore += userCase['PRL_c1A_childrenMoreThanOnePassport'];
+    PRL_c1A_childAbductedBefore += HTML.RULER;
+    PRL_c1A_childAbductedBefore += HTML.H4;
+    PRL_c1A_childAbductedBefore += keys['possessionChildrenPassport'];
+    PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
+    PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST;
+    PRL_c1A_childAbductedBefore += userCase['PRL_c1A_possessionChildrenPassport']
+      .filter(element => element !== 'Other')
+      .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
+      .toString()
+      .split(',')
+      .join('');
+    if(userCase['PRL_c1A_possessionChildrenPassport'].some(element => element === 'Other')){
+      PRL_c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['PRL_c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
+    }  
+    PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
+  }
 
-  // const abdutionScreenData = [
-  //   {
-  //     key: keys['childLocation'],
-  //     valueHtml: userCase['PRL_c1A_abductionReasonOutsideUk'],
-  //     changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
-  //   },
-  //   {
-  //     key: keys['childsCurrentLocationText'],
-  //     valueHtml: userCase['PRL_c1A_childsCurrentLocation'],
-  //     changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
-  //   },
-  //   {
-  //     key: keys['passportOffice'],
-  //     valueHtml: PRL_c1A_childAbductedBefore,
-  //     changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE'],
-  //   },
-  //   {
-  //     key: keys['haspassportOfficeNotified'],
-  //     valueHtml: userCase['PRL_c1A_abductionPassportOfficeNotified'],
-  //     changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED'],
-  //   },
-  //   {
-  //     key: keys['abducionThreats'],
-  //     valueHtml: userCase['PRL_c1A_childAbductedBefore'] as string,
-  //     changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_THREATS'],
-  //   },
+  const abdutionScreenData = [
+    {
+      key: keys['childLocation'],
+      valueHtml: userCase['PRL_c1A_abductionReasonOutsideUk'],
+      changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
+    },
+    {
+      key: keys['childsCurrentLocationText'],
+      valueHtml: userCase['PRL_c1A_childsCurrentLocation'],
+      changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
+    },
+    {
+      key: keys['passportOffice'],
+      valueHtml: PRL_c1A_childAbductedBefore,
+      changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE'],
+    },
+    {
+      key: keys['haspassportOfficeNotified'],
+      valueHtml: userCase['PRL_c1A_abductionPassportOfficeNotified'],
+      changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED'],
+    },
+    {
+      key: keys['abducionThreats'],
+      valueHtml: userCase['PRL_c1A_childAbductedBefore'] as string,
+      changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_THREATS'],
+    },
     
-  // ];
-  // if(userCase.hasOwnProperty('PRL_c1A_childAbductedBefore') && userCase['PRL_c1A_childAbductedBefore'] === 'Yes'){
-  //   abdutionScreenData.push(
-  //     {
-  //       key: keys['previousAbduction'],
-  //       valueHtml: userCase['PRL_c1A_previousAbductionsShortDesc'],
-  //       changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS'],
-  //     },
-  //     {
-  //       key: keys['c1A_policeOrInvestigatorInvolved'],
-  //       valueHtml: policeOrInvestigatorsOtherDetailsHTML,
-  //       changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS'],
-  //     },
-  //   );
-  // }
+  ];
+  if(userCase.hasOwnProperty('PRL_c1A_childAbductedBefore') && userCase['PRL_c1A_childAbductedBefore'] === 'Yes'){
+    abdutionScreenData.push(
+      {
+        key: keys['previousAbduction'],
+        valueHtml: userCase['PRL_c1A_previousAbductionsShortDesc'],
+        changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS'],
+      },
+      {
+        key: keys['c1A_policeOrInvestigatorInvolved'],
+        valueHtml: policeOrInvestigatorsOtherDetailsHTML,
+        changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS'],
+      },
+    );
+  }
   /**
    * @StrictChecks whether abduction data is enabled
    */
-  // if (
-  //   userCase.hasOwnProperty('PRL_c1A_concernAboutChild') &&
-  //   userCase['PRL_c1A_concernAboutChild']?.some(Element => Element === PRL_C1AAbuseTypes.ABDUCTION)
-  // ) {
-  //   SummaryData.push(...abdutionScreenData);
-  // }
+  if (
+    userCase.hasOwnProperty('PRL_c1A_concernAboutChild') &&
+    userCase['PRL_c1A_concernAboutChild']?.some(Element => Element === PRL_C1AAbuseTypes.ABDUCTION)
+  ) {
+    SummaryData.push(...abdutionScreenData);
+  }
   return {
     title: sectionTitles['childSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),

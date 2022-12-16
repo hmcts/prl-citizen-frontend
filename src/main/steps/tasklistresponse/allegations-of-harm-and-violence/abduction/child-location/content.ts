@@ -18,10 +18,10 @@ export const en = () => ({
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses.',
   errors: {
-    c1A_abductionReasonOutsideUk: {
+    PRL_c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
     },
-    c1A_childsCurrentLocation: {
+    PRL_c1A_childsCurrentLocation: {
       required: 'Describe where the children are now',
     },
   },
@@ -41,11 +41,11 @@ export const cy = () => ({
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses. - welsh',
   errors: {
-    c1A_abductionReasonOutsideUk: {
+    PRL_c1A_abductionReasonOutsideUk: {
       required:
         'Explain why you think the children may be abducted or kept outside of the UK without your consent - welsh',
     },
-    c1A_childsCurrentLocation: {
+    PRL_c1A_childsCurrentLocation: {
       required: 'Describe where the children are now - welsh',
     },
   },
@@ -58,7 +58,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_abductionReasonOutsideUk: {
+    PRL_c1A_abductionReasonOutsideUk: {
       type: 'textarea',
       labelSize: 's',
       attributes: {
@@ -66,7 +66,7 @@ export const form: FormContent = {
       },
       validator: isFieldFilledIn,
     },
-    c1A_childsCurrentLocation: {
+    PRL_c1A_childsCurrentLocation: {
       type: 'textarea',
       labelSize: 's',
       label: l => l.childsCurrentLocationText,
@@ -80,9 +80,6 @@ export const form: FormContent = {
   onlyContinue: {
     text: l => l.onlyContinue,
   },
-  // saveAndComeLater: {
-  //   text: l => l.saveAndComeLater,
-  // },
 };
 
 export const generateContent: TranslationFn = content => {

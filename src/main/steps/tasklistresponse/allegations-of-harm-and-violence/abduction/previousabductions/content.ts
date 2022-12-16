@@ -16,13 +16,13 @@ export const en = () => ({
   two: 'No',
   otherDetails: 'Provide more details',
   errors: {
-    c1A_previousAbductionsShortDesc: {
+    PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction',
     },
-    c1A_policeOrInvestigatorInvolved: {
+    PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved',
     },
-    c1A_policeOrInvestigatorOtherDetails: {
+    PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement',
     },
   },
@@ -41,13 +41,13 @@ export const cy = () => ({
   two: 'No - welsh',
   otherDetails: 'Provide more details - welsh',
   errors: {
-    c1A_previousAbductionsShortDesc: {
+    PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction - welsh',
     },
-    c1A_policeOrInvestigatorInvolved: {
+    PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved - welsh',
     },
-    c1A_policeOrInvestigatorOtherDetails: {
+    PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement - welsh',
     },
   },
@@ -60,13 +60,13 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_previousAbductionsShortDesc: {
+    PRL_c1A_previousAbductionsShortDesc: {
       type: 'textarea',
       name: 'PRL_c1A_previousAbductionsShortDesc',
       hint: l => l.c1A_previousAbductionsShortDescHint,
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
-    c1A_policeOrInvestigatorInvolved: {
+    PRL_c1A_policeOrInvestigatorInvolved: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.c1A_policeOrInvestigatorInvolved,
@@ -77,7 +77,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            c1A_policeOrInvestigatorOtherDetails: {
+            PRL_c1A_policeOrInvestigatorOtherDetails: {
               type: 'textarea',
               label: l => l.otherDetails,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
