@@ -39,18 +39,18 @@ const languages = {
 export const form: FormContent = {
   fields: {
     c1A_abductionPassportOfficeNotified: {
-      id: 'PRL_c1A_abductionPassportOfficeNotified',
+      id: 'c1A_abductionPassportOfficeNotified',
       type: 'radios',
       classes: 'govuk-radios',
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'PRL_c1A_abductionPassportOfficeNotified',
+          name: 'c1A_abductionPassportOfficeNotified',
           label: l => l.Yes,
           value: YesOrNo.YES,
         },
         {
-          name: 'PRL_c1A_abductionPassportOfficeNotified',
+          name: 'c1A_abductionPassportOfficeNotified',
           label: l => l.No,
           value: YesOrNo.NO,
         },

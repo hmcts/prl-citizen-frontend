@@ -513,9 +513,9 @@ export interface Case {
   PRL_c1A_safteyConcerns?: PRL_C1ASafteyConcerns;
   PRL_c1A_abductionReasonOutsideUk?: string;
   PRL_c1A_childsCurrentLocation?: string;
-  // PRL_c1A_childrenMoreThanOnePassport?:YesOrNo;
-  // PRL_c1A_possessionChildrenPassport?:string;
-  // PRL_c1A_provideOtherDetails?:string;
+  PRL_c1A_childrenMoreThanOnePassport?: YesOrNo;
+  PRL_c1A_possessionChildrenPassport?: string[];
+  PRL_c1A_provideOtherDetails?: string;
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_consent?: string;

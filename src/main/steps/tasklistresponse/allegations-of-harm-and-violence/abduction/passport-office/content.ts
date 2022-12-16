@@ -11,7 +11,7 @@ export const en = () => ({
   one: 'Yes',
   two: 'No',
   errors: {
-    c1A_passportOffice: {
+    PRL_c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport',
     },
   },
@@ -24,7 +24,7 @@ export const cy = () => ({
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    c1A_passportOffice: {
+    PRL_c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport - welsh',
     },
   },
@@ -37,7 +37,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_passportOffice: {
+    PRL_c1A_passportOffice: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [

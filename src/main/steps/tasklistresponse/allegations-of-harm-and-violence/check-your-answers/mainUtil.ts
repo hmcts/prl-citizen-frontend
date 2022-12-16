@@ -127,15 +127,15 @@ export const SafetyConcerns_child = (
     PRL_c1A_childAbductedBefore += keys['possessionChildrenPassport'];
     PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
     PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST;
-    PRL_c1A_childAbductedBefore += userCase['PRL_c1A_possessionChildrenPassport']
-      .filter(element => element !== 'Other')
-      .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
-      .toString()
-      .split(',')
-      .join('');
-    if(userCase['PRL_c1A_possessionChildrenPassport'].some(element => element === 'Other')){
-      PRL_c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['PRL_c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
-    }  
+    // PRL_c1A_childAbductedBefore += userCase['PRL_c1A_possessionChildrenPassport']
+    //   .filter(element => element !== 'Other')
+    //   .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
+    //   .toString()
+    //   .split(',')
+    //   .join('');
+    // if(userCase['PRL_c1A_possessionChildrenPassport'].some(element => element === 'Other')){
+    //   PRL_c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['PRL_c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
+    // }  
     PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
   }
 
