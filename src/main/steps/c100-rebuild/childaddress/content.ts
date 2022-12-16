@@ -34,7 +34,7 @@ export const cy = () => ({
     "Bydd yr wybodaeth hon yn cael ei defnyddio i nodi pa lys fydd yn delio a’ch cais. Os oes gan y plant gôd post gwahanol, nodwch yr un sydd fwyaf cyfleus i'r rhan fwyaf o'r plant yn y cais.",
   warningText: {
     text: "Dim ond os yw'r plant yn byw gyda chi yn eich cyfeiriad y dylech nodi eich cod post eich hun, neu os nad ydych chi'n gwybod ble mae'r plant yn byw.",
-    iconFallbackText: 'Warning - welsh',
+    iconFallbackText: 'Warning',
   },
   postcodeLabel: 'Cod post',
   detailsLabel: "Pam rydyn ni'n defnyddio'r term 'plant'",
