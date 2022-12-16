@@ -70,6 +70,9 @@ describe('applicant personal details > applying-with > content', () => {
     const applyingWithField = fields.c100RebuildChildPostCode as FormOptions;
     expect(applyingWithField.type).toBe('text');
     expect(applyingWithField.classes).toBe('govuk-input--width-10');
+    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(en.postcodeLabel);
+    expect(applyingWithField.labelSize).toBe(null);
+    expect((applyingWithField.section as LanguageLookup)(generatedContent)).toBe(undefined);
   });
   test('should contain Continue button', () => {
     expect(
