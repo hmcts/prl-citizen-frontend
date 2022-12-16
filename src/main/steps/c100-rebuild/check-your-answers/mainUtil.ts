@@ -374,7 +374,7 @@ export const OtherChildrenDetails = (
         },
       );
 
-      newChildDataStorage.push(... DateOfBirthChildFormatter(personalDetails, id, keys, 'other'));
+      newChildDataStorage.push(...DateOfBirthChildFormatter(personalDetails, id, keys, 'other'));
       newChildDataStorage.push( {
         key: keys['childGenderLabel'],
         value: personalDetails?.['gender'],
