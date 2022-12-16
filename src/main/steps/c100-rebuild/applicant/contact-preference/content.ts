@@ -23,7 +23,7 @@ export const en = () => ({
   labelPostHintText: 'All communication from the court will be sent by post.',
   errors: {
     applicantContactPreferences: {
-      required: 'Select one (or both) options below',
+      required: 'Please select a contact preference',
     },
   },
 });
@@ -45,7 +45,7 @@ export const cy = () => ({
   labelPostHintText: 'All communication from the court will be sent by post. - welsh',
   errors: {
     applicantContactPreferences: {
-      required: 'Select one (or both) options below - welsh',
+      required: 'Please select a contact preference - welsh',
     },
   },
 });
@@ -89,6 +89,7 @@ export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFiel
           name: 'applicantContactPreferences',
           value: applicantContactPreferencesEnum.DIGITAL,
           hint: l => l.labelDitigalHintText,
+          disabled: !data?.applicantContactDetail?.emailAddress,
         },
         {
           label: l => l.labelPost,

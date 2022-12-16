@@ -50,30 +50,15 @@ export default class AddApplicantPostController extends PostController<AnyObject
     } else {
       if (saveAndContinueChecked) {
         const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
-        if (checkIfApplicantLengthLessAndFormError && !saveAndComeBackToggled) {
-          req.session.errors = form.getErrors(formData);
-          return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
-        } else {
-          if (toggleCheckIfApplicantFieldIsFilled) {
-            this.errorsAndRedirect(req, res, formData, form);
-            if (req.session.errors && !req.session.errors.length) {
-              this.addAnotherApplicant(req);
-              this.resetSessionTemporaryFormValues(req);
-              delete req.session.userCase.applicantTemporaryFormData;
-              const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
-                applicantId: req.session.userCase?.appl_allApplicants?.[0].id as string,
-              });
-              return super.redirect(req, res, redirectURI);
-            }
-          } else {
-            if (checkIfApplicantLengthLessAndFormError) {
-              req.session.errors = form.getErrors(formData);
-              return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
-            } else {
-              return this.mapEnteriesToValuesAfterContinuing(req, res);
-            }
-          }
-        }
+        this.checkIfApplicantLengthLessAndFormError(
+          req,
+          res,
+          checkIfApplicantLengthLessAndFormError,
+          toggleCheckIfApplicantFieldIsFilled,
+          saveAndComeBackToggled,
+          formData,
+          form
+        );
       } else {
         this.errorsAndRedirect(req, res, formData, form);
         if (req.session.errors && !req.session.errors.length) {
@@ -85,6 +70,63 @@ export default class AddApplicantPostController extends PostController<AnyObject
           return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
         }
       }
+    }
+  }
+
+  private checkIfApplicantLengthLessAndFormError(
+    req,
+    res,
+    checkIfApplicantLengthLessAndFormError,
+    toggleCheckIfApplicantFieldIsFilled,
+    saveAndComeBackToggled,
+    formData,
+    form
+  ) {
+    if (checkIfApplicantLengthLessAndFormError && !saveAndComeBackToggled) {
+      req.session.errors = form.getErrors(formData);
+      return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+    } else {
+      this.toggleCheckIfApplicantFieldIsFilled(
+        req,
+        res,
+        toggleCheckIfApplicantFieldIsFilled,
+        formData,
+        form,
+        checkIfApplicantLengthLessAndFormError
+      );
+    }
+  }
+
+  private toggleCheckIfApplicantFieldIsFilled(
+    req,
+    res,
+    toggleCheckIfApplicantFieldIsFilled,
+    formData,
+    form,
+    checkIfApplicantLengthLessAndFormError
+  ) {
+    if (toggleCheckIfApplicantFieldIsFilled) {
+      this.errorsAndRedirect(req, res, formData, form);
+      this.checkSessionErrors(req, res);
+    } else {
+      if (checkIfApplicantLengthLessAndFormError) {
+        req.session.errors = form.getErrors(formData);
+        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+      } else {
+        return this.mapEnteriesToValuesAfterContinuing(req, res);
+      }
+    }
+  }
+
+  private checkSessionErrors(req, res) {
+    if (req.session.errors && !req.session.errors.length) {
+      this.addAnotherApplicant(req);
+      this.resetSessionTemporaryFormValues(req);
+      delete req.session.userCase.applicantTemporaryFormData;
+      const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
+        applicantId: req.session.userCase?.appl_allApplicants?.[0].id as string,
+      });
+      return super.redirect(req, res, redirectURI);
     }
   }
 
@@ -153,39 +195,17 @@ export default class AddApplicantPostController extends PostController<AnyObject
         const applicantFirstName = req.body[`ApplicantFirstName-${currentIndexPositioninBody}`] as string;
         const applicantLastName = req.body[`ApplicantLastName-${currentIndexPositioninBody}`] as string;
         if (applicantFirstName !== '' && applicantLastName !== '') {
-          if (req.session.userCase.appl_allApplicants) {
-            const { id } = req.session.userCase.appl_allApplicants[applicant];
-            const applicantObject = {
-              ...req.session.userCase.appl_allApplicants[applicant],
-              id,
-              applicantFirstName,
-              applicantLastName,
-            };
-            newApplicantStorage.push(applicantObject);
-          }
+          this.checkNameAndPush(req, applicant, newApplicantStorage, applicantFirstName, applicantLastName);
         } else {
-          if (applicantFirstName === '') {
-            errorMessageStorage.push({
-              propertyName: 'ApplicantFirstName-' + currentIndexPositioninBody,
-              errorType: 'required',
-            } as never);
-          }
-          if (applicantLastName === '') {
-            errorMessageStorage.push({
-              propertyName: 'ApplicantLastName-' + currentIndexPositioninBody,
-              errorType: 'required',
-            } as never);
-          }
-          if (req.session.userCase.appl_allApplicants) {
-            const { id } = req.session.userCase.appl_allApplicants[applicant];
-            const applicantObject = {
-              ...req.session.userCase.appl_allApplicants[applicant],
-              id,
-              applicantFirstName,
-              applicantLastName,
-            };
-            newApplicantStorage.push(applicantObject);
-          }
+          this.checkNameAndThrowError(
+            req,
+            applicantFirstName,
+            applicantLastName,
+            errorMessageStorage,
+            currentIndexPositioninBody,
+            applicant,
+            newApplicantStorage
+          );
         }
       }
       if (errorMessageStorage.length === 0) {
@@ -200,6 +220,58 @@ export default class AddApplicantPostController extends PostController<AnyObject
         req.session.errors = errorMessageStorage;
         return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
       }
+    }
+  }
+
+  /**
+   * a private method that checks the first & last name is NOT EMPTY and pushes it to the newApplicantStorage
+   */
+  private checkNameAndPush(req, applicant, newApplicantStorage, applicantFirstName, applicantLastName) {
+    if (req.session.userCase.appl_allApplicants) {
+      const { id } = req.session.userCase.appl_allApplicants[applicant];
+      const applicantObject = {
+        ...req.session.userCase.appl_allApplicants[applicant],
+        id,
+        applicantFirstName,
+        applicantLastName,
+      };
+      newApplicantStorage.push(applicantObject);
+    }
+  }
+
+  /**
+   * a private method that checks that first and last name ARE empty and throws and error
+   */
+  private checkNameAndThrowError(
+    req,
+    applicantFirstName,
+    applicantLastName,
+    errorMessageStorage,
+    currentIndexPositioninBody,
+    applicant,
+    newApplicantStorage
+  ) {
+    if (applicantFirstName === '') {
+      errorMessageStorage.push({
+        propertyName: 'ApplicantFirstName-' + currentIndexPositioninBody,
+        errorType: 'required',
+      } as never);
+    }
+    if (applicantLastName === '') {
+      errorMessageStorage.push({
+        propertyName: 'ApplicantLastName-' + currentIndexPositioninBody,
+        errorType: 'required',
+      } as never);
+    }
+    if (req.session.userCase.appl_allApplicants) {
+      const { id } = req.session.userCase.appl_allApplicants[applicant];
+      const applicantObject = {
+        ...req.session.userCase.appl_allApplicants[applicant],
+        id,
+        applicantFirstName,
+        applicantLastName,
+      };
+      newApplicantStorage.push(applicantObject);
     }
   }
 
