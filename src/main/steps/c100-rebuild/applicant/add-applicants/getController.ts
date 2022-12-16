@@ -64,23 +64,20 @@ export default class AddApplicants extends GetController {
   public removeApplicantUsingId = (req: AppRequest, res: Response) => {
     if (req.query.hasOwnProperty('action') && req.query.hasOwnProperty('applicantId')) {
       const { action, applicantId } = req.query;
-      switch (action) {
-        case 'remove':
-          if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
-            req.session.userCase['appl_allApplicants'] = req.session.userCase.appl_allApplicants.filter(
-              applicant => applicant['id'] !== applicantId
-            );
-            return req.session.save(err => {
-              if (err) {
-                console.log(err);
-              }
-              res.redirect(C100_APPLICANT_ADD_APPLICANTS);
-            });
-          }
-          break;
-
-        default:
-          res.redirect('error');
+      if (action === 'remove') {
+        if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
+          req.session.userCase['appl_allApplicants'] = req.session.userCase.appl_allApplicants.filter(
+            applicant => applicant['id'] !== applicantId
+          );
+          return req.session.save(err => {
+            if (err) {
+              console.log(err);
+            }
+            res.redirect(C100_APPLICANT_ADD_APPLICANTS);
+          });
+        }
+      } else {
+        res.redirect('error');
       }
     }
   };
