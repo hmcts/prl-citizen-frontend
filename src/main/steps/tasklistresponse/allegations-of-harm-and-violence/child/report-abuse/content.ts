@@ -18,6 +18,7 @@ export const en = () => ({
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+  allchildLabel: 'All the children in above application',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -50,6 +51,7 @@ export const cy = () => ({
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
+  allchildLabel: 'All the children in above application - Welsh',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - Welsh (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
@@ -99,6 +101,15 @@ export const generateFormFields = (
       labelSize: 's',
       label: l => l.childrenConcernedAboutLabel,
       values: [
+        {
+          name: 'childrenConcernedAbout',
+          label: l => l.allchildLabel,
+          value: 'All the children in application',
+          exclusive: true,
+        },
+        {
+          divider: true,
+        },
         ...childrenData.map(childObj => {
           return {
             name: 'childrenConcernedAbout',
