@@ -41,7 +41,7 @@ describe('SafetyConcernsPostController', () => {
     jest.clearAllMocks;
   });
 
-  test('Should update the miam details if user id matches with respondent attendedMiam NO willingToAttendMiam NO reasonNotAttendingMiam YES', async () => {
+  test('Should update the case without safety concerns', async () => {
     const response = {
       miam: {
         attendedMiam: 'No',
@@ -61,12 +61,11 @@ describe('SafetyConcernsPostController', () => {
 
     await safetyConcernsPostController.post(req, res);
 
-    expect(req.session.userCase.respondents[0].value.response.miam.attendedMiam).toEqual('No');
-    expect(req.session.userCase.respondents[0].value.response.miam.willingToAttendMiam).toEqual('No');
-    expect(req.session.userCase.respondents[0].value.response.miam.reasonNotAttendingMiam).toEqual('dummy_value');
+    expect(retrieveByCaseIdMock).toBeCalled;
+    expect(updateCaserMock).toBeCalled;
   });
 
-  test('Should update the miam details if user id matches with respondent attendedMiam NO willingToAttendMiam YES', async () => {
+  test('Should update the case with safety concerns', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     const response = {
       miam: {
@@ -74,7 +73,7 @@ describe('SafetyConcernsPostController', () => {
         willingToAttendMiam: 'Yes',
       },
     };
-
+    req.url = 'allegations-of-harm-and-violence';
     respondents[0].value.response = response;
     req.session.userCase.respondents = respondents;
 
@@ -82,23 +81,7 @@ describe('SafetyConcernsPostController', () => {
     req.session.userCase.miamWillingness = 'Yes';
 
     await safetyConcernsPostController.post(req, res);
-
-    expect(req.session.userCase.respondents[0].value.response.miam.attendedMiam).toEqual('No');
-    expect(req.session.userCase.respondents[0].value.response.miam.willingToAttendMiam).toEqual('Yes');
-  });
-
-  test('Should update the miam details if user id matches with respondent attendedMiam YES', async () => {
-    const response = {
-      miam: {
-        attendedMiam: 'Yes',
-      },
-    };
-
-    respondents[0].value.response = response;
-    req.session.userCase.respondents = respondents;
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    req.session.userCase.miamStart = 'Yes';
-    await safetyConcernsPostController.post(req, res);
-    expect(req.session.userCase.respondents[0].value.response.miam.attendedMiam).toEqual('Yes');
+    expect(retrieveByCaseIdMock).toBeCalled;
+    expect(updateCaserMock).toBeCalled;
   });
 });
