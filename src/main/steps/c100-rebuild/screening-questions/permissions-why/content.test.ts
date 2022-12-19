@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -92,6 +93,29 @@ describe('Screening questions > permissions-why', () => {
     const sq_courtOrderPrevent_subfield = permissionsWhyField.values[1].subFields
       ?.sq_courtOrderPrevent_subfield as FormOptions;
     expect(sq_courtOrderPrevent_subfield.type).toBe('textarea');
+    expect((sq_courtOrderPrevent_subfield.hint as LanguageLookup)(generatedContent)).toBe(
+      'Provide details of the court order in place'
+    );
+    expect(sq_courtOrderPrevent_subfield.attributes).toStrictEqual({
+      rows: 4,
+    });
+
+    const response =
+      fields.sq_permissionsWhy.values[0].subFields!.sq_doNotHaveParentalResponsibility_subfield.validator('Test');
+    expect(response).toEqual(undefined);
+    expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
+    expect(isTextAreaValid).toHaveBeenCalledWith('Test');
+
+    const response2 = fields.sq_permissionsWhy.values[1].subFields!.sq_courtOrderPrevent_subfield.validator();
+    expect(response2).toEqual(undefined);
+    expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
+    expect(isTextAreaValid).toHaveBeenCalledWith('Test');
+
+    expect(
+      (
+        fields.sq_permissionsWhy.values[0].subFields!.sq_doNotHaveParentalResponsibility_subfield.hint as LanguageLookup
+      )(generatedContent)
+    ).toBe('Provide details');
     const sq_anotherReason_subfield = permissionsWhyField.values[2].subFields?.sq_anotherReason_subfield as FormOptions;
     expect(sq_anotherReason_subfield.type).toBe('textarea');
   });
