@@ -36,7 +36,7 @@ const cy = content => {
     {
       attributes: { id: 'totalAddressesFound' },
       value: -1,
-      text: `${addresses.length} address${addresses?.length !== 1 ? 'es' : ''} found - welsh`,
+      text: `Daethpwyd o hyd i ${addresses.length} o gyfeiriad${addresses?.length !== 1 ? 'au' : ''}`,
       selected: true,
     },
   ];
