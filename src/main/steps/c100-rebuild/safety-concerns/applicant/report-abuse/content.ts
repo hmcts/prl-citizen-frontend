@@ -17,8 +17,10 @@ const en = () => ({
   introText: `<p class="govuk-body ">Complete this section as best you can. If you don't feel able to discuss the abuse at this stage, you can do so when you speak to Cafcass.</p>
   <p class="govuk-body ">The information that you give will be used in the application. It is not a request for a domestic abuse injunction.</p>
   <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately.</p>`,
-  warningText:
-    'We will share the information that you give in this section with the other person in the case (the applicant) so that they can respond to what you have said.',
+  warningText: {
+    text: 'We will share the information that you give in this section with the other person in the case (the applicant) so that they can respond to what you have said.',
+    iconFallbackText: 'Warning',
+  },
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -49,9 +51,11 @@ const cy = () => ({
   somethingElsePageTitle: 'Disgrifiwch y gamdriniaeth yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
   introText: `<p class="govuk-body ">Llenwch yr adran hon y gorau y gallwch. Os nad ydych chi'n teimlo eich bod chi'n gallu trafod y gamdriniaeth ar hyn o bryd, gallwch wneud hynny wrth siarad efo Cafcass</p>
                 <p class="govuk-body ">Bydd yr wybodaeth y byddwch yn ei rhoi yn cael ei defnyddio yn y cais. Nid yw'n gais am waharddeb cam-drin domestig.</p>
-                <p class="govuk-body ">Gallwch<a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank"> wneud cais am waharddeb cam-drin domestig </a>ar wahân</p>`,
-  warningText:
-    "Byddwn yn rhannu'r wybodaeth y byddwch yn ei rhoi yn yr adran hon gyda'r unigolyn arall yn yr achos er mwyn iddo allu ymateb i'r hyn rydych chi wedi'i ddweud.",
+                <p class="govuk-body ">Gallwch wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">cais am waharddeb cam-drin domestig ar </a> wahân</p>`,
+  warningText: {
+    text: "Byddwn yn rhannu'r wybodaeth y byddwch yn ei rhoi yn yr adran hon gyda'r unigolyn arall yn yr achos er mwyn iddo allu ymateb i'r hyn rydych chi wedi'i ddweud.",
+    iconFallbackText: 'Rhybudd',
+  },
   behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt. (dewisol)",
   behaviourDetailsHintText:
     "Cadwch eich ateb yn fyr. Bydd cyfle i chi roi mwy o fanylion i'r llys yn ddiweddarach yn yr achos.",

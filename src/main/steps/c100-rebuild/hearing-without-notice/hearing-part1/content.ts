@@ -28,7 +28,7 @@ export const cy = () => ({
     "Bydd gwrandawiadau sy'n digwydd heb rybudd i'r bobl eraill ond yn cael eu cyfiawnhau lle mae brys eithriadol ynglŷn â'ch achos, neu fod rheswm da dros beidio â dweud wrth y bobl eraill am eich cais (naill ai oherwydd y gallent gymryd camau i rwystro'r cais neu oherwydd y gallai gwneud hynny beri niwed i chi neu’r plant).",
   warningText: {
     text: "Os gofynnwch am wrandawiad heb rybudd, efallai y bydd y llys yn gofyn i chi fynychu ar yr un diwrnod ag y byddwch yn cyflwyno eich cais. Byddant yn cysylltu â chi i ddweud pryd y bydd angen i chi fynd i'r llys.",
-    iconFallbackText: 'Warning',
+    iconFallbackText: 'Rhybudd',
   },
   one: 'Ydw',
   two: 'Nac ydw',

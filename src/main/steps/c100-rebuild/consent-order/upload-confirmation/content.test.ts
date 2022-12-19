@@ -11,9 +11,9 @@ const en = {
 };
 
 const cy = {
-  title: 'Upload the draft of your consent order - welsh',
-  confirmationText: 'Your consent order draft has been uploaded - welsh',
-  secondaryTitle: 'Your documents for Consent order - welsh',
+  title: 'Llwytho drafft o’r gorchymyn cydsynio i fyny',
+  confirmationText: 'Mae’r drafft o’r gorchymyn cydsynio wedi ei lwytho',
+  secondaryTitle: 'Eich dogfennau ar gyfer Gorchymyn cydsynio',
 };
 describe('applicant personal details > applying-with > content', () => {
   const commonContent = { language: 'en' } as CommonContent;

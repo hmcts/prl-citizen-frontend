@@ -44,12 +44,12 @@ const cy = () => ({
   contact_details_private:
     "Nodwch pa fanylion cyswllt rydych chi eisiau eu cadw'n breifat. Gwnewch yn siŵr eich bod ond yn dewis manylion nad yw'r atebwyr eisoes yn gwybod amdanynt.",
   address: 'Cyfeiriad',
-  homePhoneNumber: 'Home phone number - Welsh',
-  mobilePhoneNumber: 'Mobile phone number - Welsh',
+  homePhoneNumber: 'Rhif ffôn cartref',
+  mobilePhoneNumber: 'Rhif ffôn symudol',
   Email: 'E-bost',
   errors: {
     startAlternative: {
-      required: 'Select yes if you want to keep your details private',
+      required: "Dewiswch 'ydw' os ydych am gadw eich manylion yn breifat",
     },
     contactDetailsPrivateAlternative: {
       required:
