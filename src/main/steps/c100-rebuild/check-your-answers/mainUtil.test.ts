@@ -4,6 +4,7 @@ import { PartyType, YesOrNo } from '../../../app/case/definition';
 import { ANYTYPE } from './common/index';
 import {
   ApplicantDetails,
+  ApplicantDetails_applicantContactPreferences,
   CaseName,
   ChildernDetails,
   ChildernDetailsAdditional,
@@ -27,7 +28,6 @@ import {
   WithoutNoticeHearing,
   reasonableAdjustment,
   whereDoChildLive,
-  ApplicantDetails_applicantContactPreferences
 } from './mainUtil';
 
 const sectionTitles = {
