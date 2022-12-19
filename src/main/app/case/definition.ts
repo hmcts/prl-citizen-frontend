@@ -121,6 +121,7 @@ export interface Response {
   keepDetailsPrivate?: KeepDetailsPrivate;
   citizenFlags?: CitizenFlags
   safeToCallOption?: string;
+  safetyConcerns?: C1ASafteyConcerns;
 }
 
 export interface CitizenFlags {
@@ -2489,7 +2490,7 @@ export interface C1ASafteyConcernsAbuse{
   isOngoingBehaviour?:YesNoEmpty;
   seekHelpFromPersonOrAgency?: YesNoEmpty;
   seekHelpDetails?: string;
-  childrenConcernedAbout?: string;
+  childrenConcernedAbout?: string[];
 }
 
 export interface C1ASafteyConcerns {

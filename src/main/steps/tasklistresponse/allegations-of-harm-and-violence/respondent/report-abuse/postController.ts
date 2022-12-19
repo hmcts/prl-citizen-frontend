@@ -21,11 +21,11 @@ export default class SafteyConcernsApplicantAbusePostController extends PostCont
     const form = new Form(getFormFields().fields as FormFields);
     const { onlyContinue, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const applicantAbuseData: Partial<Case> = {
+    const respondentAbuseData: Partial<Case> = {
       c1A_safteyConcerns: {
         ...(req.session.userCase?.c1A_safteyConcerns ?? {}),
-        applicant: {
-          ...((req.session.userCase?.c1A_safteyConcerns?.applicant ?? {}) as C1ASafteyConcerns['applicant']),
+        respondent: {
+          ...((req.session.userCase?.c1A_safteyConcerns?.respondent ?? {}) as C1ASafteyConcerns['respondent']),
           [abuseType]: transformAbuseFormData(formData),
         },
       },
@@ -33,7 +33,7 @@ export default class SafteyConcernsApplicantAbusePostController extends PostCont
 
     req.session.userCase = {
       ...(req.session?.userCase ?? {}),
-      ...applicantAbuseData,
+      ...respondentAbuseData,
     };
 
     if (onlyContinue) {
