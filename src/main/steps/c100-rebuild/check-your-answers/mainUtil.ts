@@ -358,7 +358,6 @@ export const OtherChildrenDetails = (
         lastname = sessionChildData[child]['lastName'],
         id = sessionChildData[child]['id'],
         personalDetails = sessionChildData[child]['personalDetails'];
-       // const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
       const childNo = Number(child) + 1;
       newChildDataStorage.push(
         {
