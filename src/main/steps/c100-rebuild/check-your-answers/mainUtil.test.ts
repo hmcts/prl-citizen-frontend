@@ -27,6 +27,7 @@ import {
   WithoutNoticeHearing,
   reasonableAdjustment,
   whereDoChildLive,
+  ApplicantDetails_applicantContactPreferences
 } from './mainUtil';
 
 const sectionTitles = {
@@ -869,4 +870,11 @@ describe('test cases for main util', () => {
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe(undefined);
   });
+  test('ApplicantDetails_applicantContactPreferences - util', () => {
+    const contactPref = ['email'];
+    const contactprefrences = ApplicantDetails_applicantContactPreferences(contactPref);
+    expect(contactprefrences).toBe('<ul><li>email</li></ul>');
+  });
+
+  //ApplicantDetails_applicantContactPreferences
 });
