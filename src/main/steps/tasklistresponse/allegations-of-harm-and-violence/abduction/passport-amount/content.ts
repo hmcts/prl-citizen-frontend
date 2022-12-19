@@ -22,10 +22,10 @@ export const en = () => ({
     PRL_c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport',
     },
-    c1A_possessionChildrenPassport: {
+    PRL_c1A_possessionChildrenPassport: {
       required: "Specify who is in possession of the children's passports",
     },
-    c1A_provideOtherDetails: {
+    PRL_c1A_provideOtherDetails: {
       required: 'Please provide the details',
     },
   },
@@ -47,10 +47,10 @@ export const cy = () => ({
     PRL_c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport - welsh',
     },
-    c1A_possessionChildrenPassport: {
+    PRL_c1A_possessionChildrenPassport: {
       required: "Specify who is in possession of the children's passports - welsh",
     },
-    c1A_provideOtherDetails: {
+    PRL_c1A_provideOtherDetails: {
       required: 'Please provide the details - welsh',
     },
   },
@@ -81,29 +81,29 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-    c1A_possessionChildrenPassport: {
-      id: 'c1A_possessionChildrenPassport',
+    PRL_c1A_possessionChildrenPassport: {
+      id: 'PRL_c1A_possessionChildrenPassport',
       type: 'checkboxes',
       label: l => l.possessionChildrenPassport,
       hint: l => l.select_all_relevant,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'c1A_possessionChildrenPassport',
+          name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option1,
           value: 'Mother',
         },
         {
-          name: 'c1A_possessionChildrenPassport',
+          name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option2,
           value: 'Father',
         },
         {
-          name: 'c1A_possessionChildrenPassport',
+          name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option3,
           value: 'Other',
           subFields: {
-            c1A_provideOtherDetails: {
+            PRL_c1A_provideOtherDetails: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,

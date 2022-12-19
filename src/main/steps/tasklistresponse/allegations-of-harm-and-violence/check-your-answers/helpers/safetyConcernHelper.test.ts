@@ -13,30 +13,32 @@ const childField = 'childField';
 describe('test cases for SaftyConcern', () => {
   const id = '7483640e-0817-4ddc-b709-6723f7925474';
   const userCase = {
-    cd_children: [
+    children: [
       {
         id: '7483640e-0817-4ddc-b709-6723f7925474',
-        firstName: 'Bob',
-        lastName: 'Silly',
-        personalDetails: {
-          dateOfBirth: {
-            year: '',
-            month: '',
-            day: '',
+        value: {
+          firstName: 'Bob',
+          lastName: 'Silly',
+          personalDetails: {
+            dateOfBirth: {
+              year: '',
+              month: '',
+              day: '',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            approxDateOfBirth: {
+              year: '1987',
+              month: '12',
+              day: '12',
+            },
+            sex: 'Male',
           },
-          isDateOfBirthUnknown: 'Yes',
-          approxDateOfBirth: {
-            year: '1987',
-            month: '12',
-            day: '12',
+          childMatters: {
+            needsResolution: [],
           },
-          sex: 'Male',
-        },
-        childMatters: {
-          needsResolution: [],
-        },
-        parentialResponsibility: {
-          statement: 'lorem ipsum dolor sit am',
+          parentialResponsibility: {
+            statement: 'lorem ipsum dolor sit am',
+          },
         },
       },
     ],

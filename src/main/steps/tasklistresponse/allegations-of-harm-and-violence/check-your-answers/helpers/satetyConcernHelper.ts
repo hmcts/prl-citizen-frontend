@@ -5,10 +5,14 @@ import { ANYTYPE } from '../common/index';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const childNameFormatter = (childId, userCase) => {
-  const sessionChildKey = 'cd_children';
+  const sessionChildKey = 'children';
   const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId) as ANYTYPE;
   return (
-    HTML.LIST_ITEM + founChildDetails[0]?.['firstName'] + ' ' + founChildDetails[0]?.['lastName'] + HTML.LIST_ITEM_END
+    HTML.LIST_ITEM +
+    founChildDetails[0]?.value?.['firstName'] +
+    ' ' +
+    founChildDetails[0]?.value?.['lastName'] +
+    HTML.LIST_ITEM_END
   );
 };
 

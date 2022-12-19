@@ -532,7 +532,7 @@ export interface Case {
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
   PRL_c1A_passportOffice?: YesOrNo;
-  // PRL_c1A_abductionPassportOfficeNotified?:YesOrNo;
+  PRL_c1A_abductionPassportOfficeNotified?: YesOrNo;
   PRL_c1A_previousAbductionsShortDesc?: string;
   PRL_c1A_policeOrInvestigatorInvolved?: YesOrNo;
   PRL_c1A_policeOrInvestigatorOtherDetails?: string;
