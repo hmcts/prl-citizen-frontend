@@ -26,21 +26,20 @@ const en = {
 };
 
 const cy = {
-  title: 'Is there any reason that you would need permission from the court to make this application? - welsh',
+  title: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
   paragraphsOne: [
-    'In some cases, the court will need to give permission before the application can be made. - welsh',
-    'You will not need permission if you are the: - welsh',
+    "Mewn rhai achosion, bydd angen i'r llys roi caniatâd cyn y gellir gwneud y cais.",
+    "Ni fydd angen caniatâd arnoch os mai chi yw'r:",
   ],
-  bulletPoints: ['parent - welsh', 'guardian - welsh', 'special guardian - welsh'],
+  bulletPoints: ['rhiant', 'gwarcheidwad', 'gwarcheidwad arbennig'],
   paragraphsTwo: [
-    'If you are not sure if you need permission, see <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Section C of the Form CB1 guidance</a> - welsh',
+    'Os nad ydych yn siŵr os oes angen caniatâd arnoch, gweler <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1"> Adran C canllawiau Ffurflen CB1</a>',
   ],
-  one: 'Yes - welsh',
-  two: 'No - welsh',
+  one: 'Oes',
+  two: 'Nac oes',
   errors: {
     sq_courtPermissionRequired: {
-      required:
-        'Select yes if there is any reason why you would need permission from the court to make this application - welsh',
+      required: 'Dewiswch ‘oes’ os oes unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn',
     },
   },
 };
