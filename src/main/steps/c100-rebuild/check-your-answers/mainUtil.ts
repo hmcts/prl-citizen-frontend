@@ -407,6 +407,18 @@ export const ApplicantDetailNameParser = (personalDetails, keys): string => {
   return changeNameInformation;
 };
 
+
+export const ApplicantDetails_applicantContactPreferences = (applicantContactPreferences) => {
+  let applicantContactPre = '';
+    
+  if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
+    applicantContactPre += HTML.UNORDER_LIST;
+    applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + preferences + HTML.LIST_ITEM_END );
+    applicantContactPre += HTML.UNORDER_LIST_END;
+  }
+  return applicantContactPre;
+};
+
 export const ApplicantDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
@@ -527,13 +539,7 @@ export const ApplicantDetails = (
         });
 
         const applicantContactPreferences = sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences;
-        let applicantContactPre = '';
-    
-        if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
-          applicantContactPre += HTML.UNORDER_LIST;
-          applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + preferences + HTML.LIST_ITEM_END );
-          applicantContactPre += HTML.UNORDER_LIST_END;
-        }
+        const applicantContactPre = ApplicantDetails_applicantContactPreferences(applicantContactPreferences);
         newApplicantData.push(
           {
             key: keys['contactPrefernces'],
