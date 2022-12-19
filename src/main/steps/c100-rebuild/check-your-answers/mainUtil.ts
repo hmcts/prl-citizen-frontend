@@ -410,7 +410,7 @@ export const ApplicantDetailNameParser = (personalDetails, keys): string => {
 export const ApplicantDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
-): SummaryList | undefined => {
+): SummaryList | undefined | ANYTYPE => {
   const sessionApplicantData = userCase['appl_allApplicants'];
   const newApplicantData: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
     [];
