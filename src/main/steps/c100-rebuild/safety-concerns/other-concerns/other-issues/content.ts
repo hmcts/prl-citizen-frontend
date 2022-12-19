@@ -32,13 +32,13 @@ export const cy = () => ({
   two: 'Nac oes - welsh',
   summaryText: 'Cysylltiadau am gymorth',
   detail:
-    "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy - welsh'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
+    "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     c1A_childSafetyConcerns: {
       required: 'Dewiswch oes os oes gennych unrhyw bryderon am eich diogelwch neu ddiogelwch y plant',
     },
     c1A_childSafetyConcernsDetails: {
-      required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
+      required: 'Disgrifiwch unrhyw bryderon sydd gennych am ddiogelwch a lles y plant',
     },
   },
 });

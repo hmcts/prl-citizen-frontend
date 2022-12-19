@@ -60,7 +60,10 @@ export const enContent = {
   section: '',
   title: 'Check your Answers',
   change: 'Edit',
-  topWarning: 'Your answers will be shared with the other people in this case.',
+  topWarning: {
+    text: 'Your answers will be shared with the other people in this case.',
+    iconFallbackText: 'Warning',
+  },
   makingSure: 'Please review your answers before you finish your application.',
   continue: 'Accept and continue',
   Yes: 'Yes',
@@ -159,34 +162,37 @@ export const enContent = {
   },
 };
 export const cyContent: typeof enContent = {
-  serviceName: 'Check your answers - welsh ',
+  serviceName: 'Gwiriwch eich atebion',
   section: '',
-  title: 'Check your Answers -welsh',
-  change: 'change - welsh',
-  topWarning: 'Your answers will be shared with the other people in this case. - welsh',
-  makingSure: 'Please review your answers before you finish your application.- welsh',
-  continue: 'Accept and continue - welsh',
-  Yes: 'Yes - welsh',
-  No: 'No - welsh',
+  title: 'Gwiriwch eich atebion',
+  change: ' Golygu',
+  topWarning: {
+    text: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
+    iconFallbackText: 'Rhybudd',
+  },
+  makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',
+  continue: 'Derbyn a pharhau',
+  Yes: 'Ie',
+  No: 'Na',
   StatementOfTruth: {
-    title: 'Statement of Truth - welsh',
-    heading: 'Confirm before you submit the application - welsh',
+    title: 'Datganiad Gwirionedd',
+    heading: 'Cadarnhau cyn ichi gyflwyno’r cais',
     warning:
-      'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+      'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
     inset: '',
     insetTextPayAndSubmit:
-      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Pay and submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
+      ' <p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch cadw a dychwelyd yn nes ymlaen i gadw eich cais, neu dewiswch Talu a chyflwyno eich cais i gwblhau eich cais ar-lein.</p><p>Gallwch lwytho copi o’r cais i lawr mewn fformat PDF gan ddefnyddio’r ddolen.</p>',
     insetTextSubmit:
       "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
-    check: 'I believe that the facts stated in this application are true',
+    check: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir',
     lastPara:
-      'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
-    payAndSubmitButton: 'Pay and submit your application',
-    SubmitButton: 'Submit your application',
+      'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
+    payAndSubmitButton: 'Talu a cyflwyno eich cais',
+    SubmitButton: 'Cyflwyno eich cais',
   },
   errors: {
     statementOfTruth: {
-      required: 'Confirm that you believe the information in this application is true',
+      required: 'Cadarnhewch eich bod yn credu bod yr wybodaeth yn y cais hwn yn wir',
     },
     paymentError: {
       title: 'There is a problem - welsh',
@@ -194,69 +200,68 @@ export const cyContent: typeof enContent = {
     },
   },
   sectionTitles: {
-    locationDetails: '[^^sectionNo^^]. Location details', // section 1
-    typeOfApplication: '[^^sectionNo^^]. Type of application', //section 2,
-    legalRepresentativeDetails: '[^^sectionNo^^]. Legal representative details', //section 3
-    permissionForApplication: '[^^sectionNo^^]. Permission to make the application', //section 4
-    Miam: '[^^sectionNo^^]. MIAM: Mediation Information and Assessment Meeting', //section 5
-    MiamAttendance: 'MIAM attendance - welsh',
-    MiamExemption: 'MIAM exemption - welsh',
-    AdvisingCourt: "[^^sectionNo^^]. What you're asking the court to decide - welsh", //section 6
-    WithoutNoticeHearing: '[^^sectionNo^^]. Hearing details - welsh', //section 7
-    peopleDetails: '[^^sectionNo^^]. Details of the people in the application - welsh', // section 8
-    ChildernDetails: "Childen's details - welsh",
-    ApplicantDetails: 'Details of the applicants - welsh',
-    InternationalElement: '[^^sectionNo^^]. International elements - welsh', //section 11
-    otherProceedings: '[^^sectionNo^^]. Past and current proceeding - welsh', //section 9
-    safetyConcerns: '[^^sectionNo^^]. Safety concerns - welsh', //section 10
-    additionationDetailsAboutChildern: 'Additional details about the children - welsh',
-    childSafetyConcerns: 'Safety concerns: the children in the application ',
-    yourSafetyConcerns: 'Safety concern: your safety',
-    otherSafetyConcerns: 'Safety concern: other concerns that you have',
-    otherChildernDetails: 'Other Children details',
-    detailsOfRespondent: 'Details of the respondents',
-    helpWithFee: '[^^sectionNo^^]. Help with Fees', //section 13
-    whereTheChildrenLive: 'Where the children live',
-    detailofOtherPeople: 'Details of the other people in the application',
-    reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
-    caseName: '[^^sectionNo^^]. Case name',
+    locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1
+    typeOfApplication: '[^^sectionNo^^]. Math o gais', //section 2,
+    legalRepresentativeDetails: '[^^sectionNo^^]. Manylion cynrychiolydd cyfreithiol', //section 3
+    permissionForApplication: '[^^sectionNo^^]. Caniatâd i wneud cais', //section 4
+    Miam: '[^^sectionNo^^]. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu', //section 5
+    MiamAttendance: 'Mynychu MIAM',
+    MiamExemption: 'Esemptiad MIAM',
+    AdvisingCourt: '[^^sectionNo^^]. Beth yr ydych chi’n gofyn i’r llys ei benderfynu', //section 6
+    WithoutNoticeHearing: '[^^sectionNo^^].  Manylion y gwrandawiad', //section 7
+    peopleDetails: '[^^sectionNo^^]. Manylion y bobl yn y cais', // section 8
+    ChildernDetails: 'Manylion y plant',
+    ApplicantDetails: 'Manylion y ceiswyr',
+    InternationalElement: '[^^sectionNo^^]. Elfennau rhyngwladol', //section 11
+    otherProceedings: '[^^sectionNo^^]. Achosion yn y gorffennol ac achosion cyfredol', //section 9
+    safetyConcerns: '[^^sectionNo^^]. Pryderon am ddiogelwch', //section 10
+    additionationDetailsAboutChildern: 'Manylion ychwanegol am y plant',
+    childSafetyConcerns: 'Pryderon am ddiogelwch: y plant yn y cais ',
+    yourSafetyConcerns: 'Pryder am ddiogelwch: eich diogelwch chi',
+    otherSafetyConcerns: 'Pryder am ddiogelwch: pryderon eraill sydd gennych',
+    otherChildernDetails: 'Manylion plant eraill',
+    detailsOfRespondent: 'Manylion yr atebwyr',
+    helpWithFee: '[^^sectionNo^^].  Help i dalu ffioedd', //section 13
+    whereTheChildrenLive: 'Ble mae’r plant yn byw',
+    detailofOtherPeople: 'Manylion y bobl eraill yn y cais',
+    reasonAbleAdjustment: '[^^sectionNo^^]. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos', //section 12
+    caseName: '[^^sectionNo^^]. Enw’r Achos',
   },
   keys: {
-    wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
-    qualifyForUrgentHearing: 'Does your situation qualify for an urgent first hearing? - welsh',
-    askingNoHearing: 'Are you asking for a without notice hearing? - welsh',
-    phoneNumber: 'Phone number -welsh',
-    emailAddress: 'Contact number of the person named on the application - welsh',
+    wantingCourtToDo: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+    qualifyForUrgentHearing: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+    askingNoHearing: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+    phoneNumber: ' Rhif ffôn',
+    emailAddress: 'C Rhif cyswllt yr un a enwir yn y cais',
     domesticVoilenceHeading: DomesticAbuseCy().title,
     childProtectionHeading: ChildProtectionCy().title,
     midatatorDocumentTitle: CyMidiationDocument().title,
-    previousAddress: 'Previous Addresses',
-    none: 'none',
-    details: 'Details',
-    fullName: 'Full name - welsh',
-    respondents: 'Respondent',
+    previousAddress: 'Cyfeiriad blaenorol',
+    none: 'dim',
+    details: 'Manylion',
+    fullName: 'Enw llawn',
+    respondents: 'Atebydd',
     urgentHearingHeading:
-      'Do you require an urgent hearing because you or the children are at risk for any of the following reasons? - welsh',
+      'Oes angen gwrandawiad brys arnoch chi am eich bod chi neu’r plant mewn perygl am unrhyw un o’r rhesymau canlynol?',
     previousMIAMOrExemptHeading:
-      'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend? - welsh',
+      'A allwch chi gadarnhau eich bod wedi mynychu MIAM yn flaenorol, neu fod gennych reswm dilys dros beidio â mynychu?’,',
     validExemptionHeading:
-      'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case? - welsh',
+      'A allwch chi gadarnhau bod unrhyw un o’r rhesymau dilys eraill dros beidio â mynychu MIAM yn berthnasol?',
     //child concern screens
-    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
-    concerns: 'concerns',
-    againstChild: 'against the child',
-    applicantDetails: 'Applicant [^^^] - Your details - welsh',
+    detailsOfChildConcern: 'Disgrifiwch y  [***] [^^^] yn fyr os ydych yn teimlo eich bod yn gallu gwneud hynny',
+    concerns: 'pryderon',
+    againstChild: 'yn erbyn y plentyn',
+    applicantDetails: 'Ceisydd [^^^] - Eich manylion',
     //respondent-details
-    relationshipTo: 'Relationship to',
-    whoDoesLiveWith: 'Who does [^childName^] currently live with?',
-    otherPerson: 'Other person',
-    contactDetailsOf: 'Contact details of [^applicantName^]',
-    addressDetails: 'Address details',
-    doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
-    courtOrderPrevent:
-      'There is a court order preventing me from making an application without first getting the permission of the court',
-    anotherReason: 'Another reason',
-    dontKnow: "Don't know",
+    relationshipTo: 'Perthynas â',
+    whoDoesLiveWith: 'Gyda phwy mae [^childName^] yn byw ar hyn o bryd?',
+    otherPerson: 'Rhywun arall',
+    contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
+    addressDetails: 'Manylion cyfeiriad',
+    doNotHaveParentalResponsibility: 'Nid oes gennyf gyfrifoldeb rhiant dros y plant',
+    courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
+    anotherReason: 'Rheswm arall',
+    dontKnow: 'Ddim yn gwybod',
     enterCaseName: caseNameCyContent().title,
     contactPrefernces: 'Contact preferences - welsh',
   },

@@ -28,7 +28,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Does your situation qualify for an urgent first hearing? - welsh',
+  title: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
   paragraphs: [
     'In many cases the first hearing will take place within 2 months. But the court may agree to an earlier first hearing (urgent hearing) if it is necessary. - welsh',
     'For example, there may be an immediate risk of harm to you or the children. - welsh',
@@ -36,7 +36,7 @@ const cy = {
   ],
   warningText: {
     text: 'Only ask for an urgent hearing if you have a good reason. The court will only agree to an urgent hearing if they think the situation is critical. - welsh',
-    iconFallbackText: 'Warning',
+    iconFallbackText: 'Rhybudd',
   },
   label: 'Do you have a good reason to request an urgent hearing? - welsh',
   one: 'Yes - Welsh',

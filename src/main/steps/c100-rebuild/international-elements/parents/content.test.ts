@@ -40,11 +40,11 @@ const cy = {
   errors: {
     ie_internationalParents: {
       required:
-        "Dewiswch ydynt os yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+        "Dewiswch 'ie' os yw rhieni’r plant neu unrhyw un sy’n bwysig i’r plant yn byw y tu allan i Gymru neu Loegr",
     },
     ie_provideDetailsParents: {
       required:
-        "Darparwch fanylion am rieni’r plant (neu unrhyw un arwyddocaol i'r plant) sy'n byw y tu allan i Gymru a Lloegr",
+        "Darparwch fanylion am rieni’r plant neu unrhyw un sy’n bwysig i'r plant sy'n byw y tu allan i Gymru neu Loegr",
     },
   },
 };

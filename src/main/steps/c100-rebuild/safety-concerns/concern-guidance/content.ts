@@ -91,7 +91,7 @@ const cy = () => ({
   ],
   warningText: {
     text: 'The information that you give in this section will also be shared with the other people in this application, so they are able to respond to what you have said. - welsh',
-    iconFallbackText: 'Warning - welsh',
+    iconFallbackText: 'Rhybudd',
   },
   notReadyDescAbuseHeader: "If you don't feel ready to describe the abuse at this stage - welsh",
   cafcassLine1: "If you don't feel ready to talk about the abuse right now, you can do so when you speak to - welsh",

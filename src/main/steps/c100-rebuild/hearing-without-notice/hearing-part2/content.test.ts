@@ -54,7 +54,7 @@ const cy = {
   provideDetails: 'Rhowch fanylion',
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
-      required: 'Enter details - welsh',
+      required: 'Rhowch fanylion',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Select yes if the other person may obstruct - welsh',
@@ -63,10 +63,10 @@ const cy = {
       required: "Select yes if there's no time to give notice - welsh",
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
-      required: 'Enter details - welsh',
+      required: 'Rhowch fanylion',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
-      required: 'Enter details - welsh',
+      required: 'Rhowch fanylion',
     },
   },
 };

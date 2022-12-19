@@ -44,7 +44,7 @@ const en = {
 
 const cy = {
   title: 'Pa un o’r penderfyniadau rydych chi’n gofyn i’r llys eu datrys sy’n ymwneud â',
-  orderAppliedFor: 'Orders applied for - welsh',
+  orderAppliedFor: 'Gorchmynion y gwnaed cais amdanynt',
   bodyHint: "Dewiswch bob un sy'n berthnasol",
   childArrangementsOrder: {
     whoChildLiveWith: "Dewiswch bob un sy'n berthnasol",
