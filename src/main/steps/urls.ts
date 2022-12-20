@@ -456,3 +456,4 @@ export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_
 export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
 
 export const C100_CASE_NAME: PageLink = `${C100_URL}/case-name`;
+export const CA_RE1SPONDENT: PageLink = '/respondent/proceedings/court-proceedings';

@@ -32,6 +32,7 @@ const en = {
     },
     hu_timeOfHearingDetails: {
       required: 'Enter how soon you need the hearing to take place',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Select yes if you need a hearing within the next 48 hours',
@@ -69,6 +70,7 @@ const cy = {
     },
     hu_timeOfHearingDetails: {
       required: "Nodwch pa mor fuan y mae angen i'r gwrandawiad gael ei gynnal",
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(Welsh)',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Dewiswch oes os oes angen gwrandawiad arnoch o fewn y 48 awr nesaf',

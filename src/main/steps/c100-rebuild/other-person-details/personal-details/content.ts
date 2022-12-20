@@ -5,8 +5,10 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { covertToDateObject } from '../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
+  isAlphaNumeric,
   isDateInputInvalid,
   isFieldFilledIn,
+  isFieldLetters,
   isFutureDate,
 } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
@@ -41,6 +43,7 @@ const en = () => ({
     },
     previousFullName: {
       required: 'Enter their previous name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     gender: {
       required: 'Select the gender',
@@ -61,6 +64,9 @@ const en = () => ({
       incompleteMonth: 'Approx date of birth must include a month',
       incompleteYear: 'Approx date of birth must include a year',
       invalidDateInFuture: 'Approx date of birth must be in the past',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 });
@@ -93,6 +99,8 @@ const cy = () => ({
     },
     previousFullName: {
       required: 'Nodwch eu henw blaenorol',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
     },
     gender: {
       required: 'Dewiswch y rhywedd',
@@ -113,6 +121,9 @@ const cy = () => ({
       incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
       incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.- Welsh',
     },
   },
 });
@@ -170,7 +181,7 @@ export const generateFormFields = (
               hint: l => l.previousFullNameHintText,
               labelSize: null,
               value: previousFullName,
-              validator: isFieldFilledIn,
+              validator: value => isFieldFilledIn(value) || isFieldLetters(value),
             },
           },
         },
@@ -208,6 +219,7 @@ export const generateFormFields = (
               label: l => l.otherGenderTextLabel,
               labelSize: null,
               value: otherGenderDetails,
+              validator: value => isAlphaNumeric(value),
             },
           },
         },

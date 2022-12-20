@@ -19,12 +19,18 @@ const enContent = {
   errors: {
     citizenUserFirstNames: {
       required: 'Enter Your first name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserLastNames: {
       required: 'Enter Your last name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserPlaceOfBirth: {
       required: 'Enter Your Place of birth',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
+    previousName: {
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserDateOfBirth: {
       required: 'Enter your date of birth',
@@ -49,12 +55,21 @@ const cyContent: typeof enContent = {
   errors: {
     citizenUserFirstNames: {
       required: 'Rhowch Eich enw cyntaf',
+      invalid:
+        ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
     },
     citizenUserLastNames: {
       required: 'Rhowch Eich Enw Diwethaf',
+      invalid:
+        ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
     },
     citizenUserPlaceOfBirth: {
       required: 'Rhowch Eich Man Geni',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(Welsh)',
+    },
+    previousName: {
+      invalid:
+        ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
     },
     citizenUserDateOfBirth: {
       required: 'Enter your date of birth',

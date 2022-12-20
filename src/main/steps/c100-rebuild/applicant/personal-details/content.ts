@@ -6,8 +6,10 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { covertToDateObject } from '../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
+  isAlphaNumeric,
   isDateInputInvalid,
   isFieldFilledIn,
+  isFieldLetters,
   isFutureDate,
 } from '../../../../app/form/validation';
 import { getApplicantDetails } from '../util';
@@ -42,6 +44,7 @@ export const en = () => ({
     },
     applPreviousName: {
       required: 'Enter your previous name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -56,6 +59,10 @@ export const en = () => ({
     },
     applicantPlaceOfBirth: {
       required: 'Enter your place of birth',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 });
@@ -88,6 +95,7 @@ export const cy = () => ({
     },
     applPreviousName: {
       required: 'Nodwch eich enwau blaenorol',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.- Welsh',
     },
     dateOfBirth: {
       required: 'Nodwch ei ddyddiad geni',
@@ -103,6 +111,10 @@ export const cy = () => ({
     },
     applicantPlaceOfBirth: {
       required: 'Nodwch eich man geni',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only. - welsh',
     },
   },
 });
@@ -153,7 +165,7 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
               label: l => l.previousNameLabel,
               hint: l => l.previousNameHint,
               value: applPreviousName,
-              validator: isFieldFilledIn,
+              validator: value => isFieldFilledIn(value) || isFieldLetters(value),
             },
           },
         },
@@ -189,6 +201,7 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
               label: l => l.otherGenderDetailsLabel,
               labelSize: null,
               value: otherGenderDetails,
+              validator: value => isAlphaNumeric(value),
             },
           },
         },
@@ -242,7 +255,7 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
       hint: l => l.applicantPlaceOfBirthHint,
       value: applicantPlaceOfBirth,
       labelSize: 'm',
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
     },
   };
 

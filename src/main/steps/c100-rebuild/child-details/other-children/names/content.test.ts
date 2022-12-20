@@ -20,9 +20,11 @@ const en = {
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     c100TempLastName: {
       required: 'Enter the last name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
 };
@@ -38,9 +40,13 @@ const cy = {
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
     },
     c100TempLastName: {
       required: 'Nodwch yr enw olaf',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
     },
   },
 };

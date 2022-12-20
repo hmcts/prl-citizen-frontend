@@ -6,8 +6,10 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { covertToDateObject } from '../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
+  isAlphaNumeric,
   isDateInputInvalid,
   isFieldFilledIn,
+  isFieldLetters,
   isFutureDate,
 } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
@@ -44,6 +46,7 @@ export const en = () => ({
     },
     previousFullName: {
       required: 'Enter their previous name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -67,6 +70,10 @@ export const en = () => ({
     },
     respondentPlaceOfBirth: {
       required: 'Enter their place of birth',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 });
@@ -101,6 +108,8 @@ export const cy = () => ({
     },
     previousFullName: {
       required: 'Nodwch eu henw blaenorol',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
     },
     dateOfBirth: {
       required: 'Nodwch ei ddyddiad geni',
@@ -124,6 +133,10 @@ export const cy = () => ({
     },
     respondentPlaceOfBirth: {
       required: 'Nodwch y man geni',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
     },
   },
 });
@@ -185,7 +198,7 @@ export const generateFormFields = (
               label: l => l.previousName,
               hint: l => l.previousNameHint,
               value: previousFullName,
-              validator: isFieldFilledIn,
+              validator: value => isFieldFilledIn(value) || isFieldLetters(value),
             },
           },
         },
@@ -226,6 +239,7 @@ export const generateFormFields = (
               label: l => l.otherGenderDetailsLabel,
               labelSize: null,
               value: otherGenderDetails,
+              validator: value => isAlphaNumeric(value),
             },
           },
         },
@@ -338,7 +352,7 @@ export const generateFormFields = (
       labelSize: 'm',
       //  validator: value => isFieldFilledIn(value),
       validator: (value, formData) =>
-        formData?.respondentPlaceOfBirthUnknown === YesOrNo.YES ? '' : isFieldFilledIn(value),
+        formData?.respondentPlaceOfBirthUnknown === YesOrNo.YES ? '' : isFieldFilledIn(value) || isAlphaNumeric(value),
     },
     respondentPlaceOfBirthUnknown: {
       type: 'checkboxes',
