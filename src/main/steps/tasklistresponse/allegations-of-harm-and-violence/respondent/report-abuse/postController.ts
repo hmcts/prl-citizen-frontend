@@ -11,7 +11,7 @@ import { transformAbuseFormData } from '../../util';
 import { getFormFields } from './content';
 
 @autobind
-export default class SafteyConcernsRespondentAbusePostController extends PostController<AnyObject> {
+export default class SafteyConcernsApplicantAbusePostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
