@@ -30,7 +30,7 @@ const cy = () => ({
   ],
   warningText: {
     text: 'Do not complete the application yourself if you plan to have a legal representative fill it in. - welsh',
-    iconFallbackText: 'Warning - welsh',
+    iconFallbackText: 'Warning',
   },
 });
 
