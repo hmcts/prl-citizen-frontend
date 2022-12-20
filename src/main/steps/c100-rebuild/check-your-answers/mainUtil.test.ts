@@ -1,4 +1,6 @@
 /* eslint-disable import/no-unresolved */
+import { PartyType, YesOrNo } from '../../../app/case/definition';
+
 import { ANYTYPE } from './common/index';
 import {
   ApplicantDetails,
@@ -192,6 +194,17 @@ describe('test cases for main util', () => {
     expect(LegalRepresentativeDetailsObj?.title).toBe(undefined);
   });
 
+  test('LegalRepresentativeDetails > sq_legalRepresentation > yes', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      sq_legalRepresentation: YesOrNo.YES,
+    };
+    const LegalRepresentativeDetailsObj = LegalRepresentativeDetails({ sectionTitles, keys, content }, userCase);
+    expect(LegalRepresentativeDetailsObj?.rows).not.toBe([]);
+    expect(LegalRepresentativeDetailsObj?.title).toBe(undefined);
+  });
+
   test('PermissionForApplication', () => {
     const userCase = {
       id: 'id',
@@ -235,6 +248,64 @@ describe('test cases for main util', () => {
             },
             gender: 'Male',
             otherGenderDetails: '',
+            applicantPlaceOfBirth: 'okdsdsd',
+          },
+          applicantContactDetail: {
+            canProvideEmail: 'No',
+            emailAddress: '',
+            telephoneNumber: '+447205308786',
+            canNotProvideTelephoneNumberReason: '',
+            canLeaveVoiceMail: 'Yes',
+            canProvideTelephoneNumber: 'Yes',
+          },
+          applicantAddressPostcode: '',
+          applicantAddress1: 'dasdas',
+          applicantAddress2: '',
+          applicantAddressTown: 'dada',
+          applicantAddressCounty: '',
+          applicantAddressHistory: 'Yes',
+          applicantProvideDetailsOfPreviousAddresses: '',
+          country: 'United Kingdom',
+        },
+      ],
+    } as ANYTYPE;
+    const PermissionForApplicationObj = ApplicantDetails({ sectionTitles, keys, content }, userCase);
+    expect(PermissionForApplicationObj).not.toBe(null);
+  });
+
+  test('ApplicantDetails > alternative', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      appl_allApplicants: [
+        {
+          id: '00ad391d-60b1-450d-ba05-674809fee4e5',
+          applicantFirstName: 'dsdsadsadasdasdsadas',
+          applicantLastName: 'hfgfgfvf',
+          detailsKnown: 'Yes',
+          startAlternative: 'No',
+          start: '',
+          contactDetailsPrivate: [],
+          contactDetailsPrivateAlternative: [],
+          relationshipDetails: {
+            relationshipToChildren: [
+              {
+                childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                relationshipType: 'Other',
+                otherRelationshipTypeDetails: 'test',
+              },
+            ],
+          },
+          personalDetails: {
+            haveYouChangeName: 'Yes',
+            applPreviousName: 'sasdasd',
+            dateOfBirth: {
+              year: '1999',
+              month: '11',
+              day: '11',
+            },
+            gender: 'Other',
+            otherGenderDetails: 'Test',
             applicantPlaceOfBirth: 'okdsdsd',
           },
           applicantContactDetail: {
@@ -312,6 +383,39 @@ describe('test cases for main util', () => {
     expect(childrenDetailsObj?.rows).not.toBe([]);
   });
 
+  test('ChildrenDetails > otherGenderDetails', () => {
+    const userCase = {
+      id: 'id',
+      cd_children: [
+        {
+          id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+          firstName: 'Nir',
+          lastName: 'Sin',
+          personalDetails: {
+            haveYouChangeName: 'No',
+            applPreviousName: '',
+            dateOfBirth: {
+              year: '1999',
+              month: '11',
+              day: '11',
+            },
+            gender: 'Other',
+            otherGenderDetails: 'test',
+            applicantPlaceOfBirth: 'okdsdsd',
+          },
+          childMatters: {
+            needsResolution: 'relocateChildrenOutsideUk',
+          },
+          parentialResponsibility: {
+            statement: 'ok',
+          },
+        },
+      ],
+    } as ANYTYPE;
+    const childrenDetailsObj = ChildernDetails({ sectionTitles, keys, content }, userCase);
+    expect(childrenDetailsObj?.rows).not.toBe([]);
+  });
+
   test('OtherChildrenDetails', () => {
     const userCase = {
       id: 'id',
@@ -344,6 +448,127 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const otherChildrenDetailsObj = OtherChildrenDetails({ sectionTitles, keys, content }, userCase);
     expect(otherChildrenDetailsObj?.rows).not.toBe([]);
+  });
+
+  test('OtherChildrenDetails > isDateOfBirthUnknown', () => {
+    const userCase = {
+      id: 'id',
+      ocd_hasOtherChildren: 'Yes',
+      ocd_otherChildren: [
+        {
+          id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+          firstName: 'Nir',
+          lastName: 'Sin',
+          personalDetails: {
+            haveYouChangeName: 'No',
+            applPreviousName: '',
+            approxDateOfBirth: {
+              year: '1999',
+              month: '11',
+              day: '11',
+            },
+            gender: 'Male',
+            otherGenderDetails: '',
+            applicantPlaceOfBirth: 'okdsdsd',
+          },
+          childMatters: {
+            needsResolution: 'relocateChildrenOutsideUk',
+          },
+          parentialResponsibility: {
+            statement: 'ok',
+          },
+          isDateOfBirthUnknown: YesOrNo.YES,
+        },
+      ],
+    } as ANYTYPE;
+    const otherChildrenDetailsObj = OtherChildrenDetails({ sectionTitles, keys, content }, userCase);
+    expect(otherChildrenDetailsObj?.rows).not.toBe([]);
+    expect(otherChildrenDetailsObj).toEqual({
+      rows: [
+        {
+          actions: {
+            items: [
+              {
+                href: '/c100-rebuild/child-details/has-other-children',
+                text: undefined,
+                visuallyHiddenText: 'undefined',
+              },
+            ],
+          },
+          key: {},
+          value: {
+            text: 'Yes',
+          },
+        },
+        {
+          key: {
+            html: '<h4 class="app-task-list__section">Child 1</h4>',
+          },
+          value: {},
+        },
+        {
+          actions: {
+            items: [
+              {
+                href: '/c100-rebuild/child-details/other-children/names',
+                text: undefined,
+                visuallyHiddenText: 'fullName',
+              },
+            ],
+          },
+          key: {
+            text: 'fullName',
+          },
+          value: {
+            text: 'Nir Sin',
+          },
+        },
+        {
+          actions: {
+            items: [
+              {
+                href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
+                text: undefined,
+                visuallyHiddenText: 'undefined',
+              },
+            ],
+          },
+          key: {},
+          value: {},
+        },
+        {
+          actions: {
+            items: [
+              {
+                href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
+                text: undefined,
+                visuallyHiddenText: 'undefined',
+              },
+            ],
+          },
+          key: {},
+          value: {
+            text: '11 November 1999',
+          },
+        },
+        {
+          actions: {
+            items: [
+              {
+                href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
+                text: undefined,
+                visuallyHiddenText: 'undefined',
+              },
+            ],
+          },
+          key: {},
+          value: {
+            text: 'Male',
+          },
+        },
+      ],
+      title: undefined,
+    });
   });
 
   test('otherPeopleDetails', () => {
@@ -435,6 +660,49 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const whereDoChildLiveObj = whereDoChildLive({ sectionTitles, keys, content }, userCase);
     expect(whereDoChildLiveObj?.rows).not.toBe([]);
+    expect(whereDoChildLiveObj?.title).toBe(undefined);
+  });
+
+  test('whereDoChildLive > alternative', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      cd_children: [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          firstName: 'Bob',
+          lastName: 'Silly',
+          liveWith: [
+            {
+              id: '2',
+              firstName: 'test',
+              lastName: 'parent',
+              partyType: PartyType.RESPONDENT,
+            },
+          ],
+        },
+      ],
+    } as ANYTYPE;
+    const whereDoChildLiveObj = whereDoChildLive({ sectionTitles, keys, content }, userCase);
+    expect(whereDoChildLiveObj?.rows).toEqual([
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with',
+              text: undefined,
+              visuallyHiddenText: 'whoDoesLiveWith',
+            },
+          ],
+        },
+        key: {
+          text: 'whoDoesLiveWith',
+        },
+        value: {
+          html: '<ul><li>test parent</li></ul>',
+        },
+      },
+    ]);
     expect(whereDoChildLiveObj?.title).toBe(undefined);
   });
 
@@ -622,6 +890,44 @@ describe('test cases for main util', () => {
     const userCase = {
       id: 'id',
       state: undefined,
+    } as ANYTYPE;
+    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    expect(CaseName_fun?.rows).not.toBe([]);
+    expect(CaseName_fun?.title).toBe('MiamAttendance');
+  });
+
+  test('MiamAttendance - util > miam_otherProceedings > No', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      miam_otherProceedings: YesOrNo.NO,
+      miam_attendance: YesOrNo.NO,
+    } as ANYTYPE;
+    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    expect(CaseName_fun?.rows).not.toBe([]);
+    expect(CaseName_fun?.title).toBe('MiamAttendance');
+  });
+
+  test('MiamAttendance - util > miam_attendance > Yes', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      miam_otherProceedings: YesOrNo.NO,
+      miam_attendance: YesOrNo.YES,
+      miam_mediatorDocument: YesOrNo.YES,
+    } as ANYTYPE;
+    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    expect(CaseName_fun?.rows).not.toBe([]);
+    expect(CaseName_fun?.title).toBe('MiamAttendance');
+  });
+
+  test('MiamAttendance - util > miam_attendance > Yes > miam_mediatorDocument > No', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      miam_otherProceedings: YesOrNo.NO,
+      miam_attendance: YesOrNo.YES,
+      miam_mediatorDocument: YesOrNo.NO,
     } as ANYTYPE;
     const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
     expect(CaseName_fun?.rows).not.toBe([]);

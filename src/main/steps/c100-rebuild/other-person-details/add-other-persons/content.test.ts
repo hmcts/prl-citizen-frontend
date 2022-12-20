@@ -114,7 +114,7 @@ describe('Add other person  > content', () => {
     } = fields as Record<string, FormFields>;
     const { c100TempFirstName: FirstName, c100TempLastName: LastName, add: add } = fieldset.subFields as FormFields;
 
-    // const { 'firstName-1': firstName, 'lastName-1': lastName, remove: remove } = fieldset1.subFields as FormFields;
+    // const { 'firstName-1': firstName, 'lastName-1': lastName, remove: remove } = fieldset[0] as FormFields;
 
     expect(fieldset.classes).toBe('govuk-fieldset__legend--m');
     expect(fieldset.type).toBe('fieldset');

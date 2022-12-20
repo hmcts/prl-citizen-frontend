@@ -14,6 +14,7 @@ import {
 } from '../../applicant/confidentiality/details-know/content';
 import { cy as contentStartCy, en as contentStartEn } from '../../applicant/confidentiality/start/content';
 import { cy as contentContactCy, en as contentContactEn } from '../../applicant/contact-detail/content';
+import { cy as contactPreferencesCY, en as contactPreferencesEN } from '../../applicant/contact-preference/content';
 import {
   cy as contentPersonalDetailsCy,
   en as contentPersonalDetailsEn,
@@ -37,6 +38,7 @@ import {
   cy as contentPermissionWhyCy,
   en as contentPermissionWhyEn,
 } from '../../screening-questions/permissions-why/content';
+
 //consent-agreement
 
 /**
@@ -63,6 +65,8 @@ export const ApplicantElements = SystemLanguage => {
         reasonPermissionRequired: contentPermissionEn().title,
         whyPermissionRequiredFromCourt: contentPermissionWhyEn().title,
         explainNoLabel: peopleEN().explainNoLabel,
+        Digital: contactPreferencesEN().labelDigital,
+        Post: contactPreferencesEN().labelPost,
         errors: '',
       };
     },
@@ -70,7 +74,7 @@ export const ApplicantElements = SystemLanguage => {
       return {
         ...contentContactCy(),
         ...contentPersonalDetailsCy(),
-        ...opersonDetailsEn(),
+        ...opersonDetailsCy(),
         anyotherPersonYouwantList: opersonDetailsCy().title,
         anyOtherPeopleKnowDetails: contentDetailKnownCy().headingTitle,
         doYouWantToKeep: contentStartCy().headingTitle,
@@ -84,6 +88,8 @@ export const ApplicantElements = SystemLanguage => {
         reasonPermissionRequired: contentPermissionCy().title,
         whyPermissionRequiredFromCourt: contentPermissionWhyCy().title,
         explainNoLabel: peopleCY().explainNoLabel,
+        Digital: contactPreferencesCY().labelDigital,
+        Post: contactPreferencesCY().labelPost,
         errors: '',
       };
     },
