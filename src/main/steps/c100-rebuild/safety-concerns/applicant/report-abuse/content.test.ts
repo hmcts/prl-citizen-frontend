@@ -63,6 +63,7 @@ const cy = () => ({
   isOngoingBehaviourLabel: "Ydy'r ymddygiad yn parhau? (dewisol)",
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">CFfoniwch 999 os oes argyfwng. Os nad yw\'n argyfwng, ystyriwch gysylltu â\'r <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> neu\'r <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">tîm gofal cymdeithasol yn eich cyngor  lleol</a>.</p>',
+  YesOptionLabel: 'Ydy',
   NoOptionLabel: 'Nac ydy',
   seekHelpFromPersonOrAgencyLabel:
     'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol? (dewisol)',
