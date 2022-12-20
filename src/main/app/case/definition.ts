@@ -121,7 +121,7 @@ export interface Response {
   keepDetailsPrivate?: KeepDetailsPrivate;
   citizenFlags?: CitizenFlags
   safeToCallOption?: string;
-  safetyConcerns?: C1ASafteyConcerns;
+  safetyConcerns?: PRL_C1ASafteyConcerns_total;
 }
 
 export interface CitizenFlags {
@@ -2561,6 +2561,32 @@ export interface C1ASafteyConcerns {
       somethingElse?: PRL_C1ASafteyConcernsAbuse;
     },
     }
+
+    export interface PRL_C1ASafteyConcerns_total {
+     c1asafetyconcerns:PRL_C1ASafteyConcerns,
+      otherconcerns:{
+        c1A_keepingSafeStatement?:string;
+        c1A_supervisionAgreementDetails?:string;
+        c1A_agreementOtherWaysDetails?:YesOrNo;
+        c1A_otherConcernsDrugs?:YesOrNo;
+        c1A_otherConcernsDrugsDetails?:string;
+        c1A_childSafetyConcerns?:YesOrNo;
+        c1A_childSafetyConcernsDetails?:string;
+      },
+      abductions:{
+        c1A_abductionReasonOutsideUk?:string;
+        c1A_childsCurrentLocation?:string;
+        c1A_childrenMoreThanOnePassport?:YesOrNo;
+        c1A_possessionChildrenPassport?:string[];
+        c1A_provideOtherDetails?:string;
+        c1A_passportOffice?:YesOrNo;
+        c1A_abductionPassportOfficeNotified?:YesOrNo;
+        c1A_previousAbductionsShortDesc?:string;
+        c1A_policeOrInvestigatorInvolved?:YesOrNo;
+        c1A_policeOrInvestigatorOtherDetails?:string;
+        c1A_childAbductedBefore?:YesOrNo;
+      }
+      }
 
   export enum C1AAbuseTypes {
     PHYSICAL_ABUSE = 'physicalAbuse',

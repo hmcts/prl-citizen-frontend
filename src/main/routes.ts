@@ -91,7 +91,7 @@ import {
   PAYMENT_GATEWAY_ENTRY_URL,
   PAYMENT_RETURN_URL_CALLBACK,
   C100_RETRIVE_CASE,
-  PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED,
+  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -240,7 +240,7 @@ export class Routes {
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
         app.get(
-          PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED,
+          C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
         );
       }

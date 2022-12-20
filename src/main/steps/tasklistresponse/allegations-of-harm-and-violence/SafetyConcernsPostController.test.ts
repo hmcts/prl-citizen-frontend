@@ -65,7 +65,7 @@ describe('SafetyConcernsPostController', () => {
     expect(updateCaserMock).toBeCalled;
   });
 
-  test('Should update the case with safety concerns', async () => {
+  test.skip('Should update the case with safety concerns', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     const response = {
       miam: {

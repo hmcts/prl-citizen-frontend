@@ -26,6 +26,7 @@ export class SafetyConcernsPostController extends PostController<AnyObject> {
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       Object.assign(req.session.userCase, caseDataFromCos);
 
+      // console.log(req.session.userCase);
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
           if (req.url.includes('allegations-of-harm-and-violence')) {
