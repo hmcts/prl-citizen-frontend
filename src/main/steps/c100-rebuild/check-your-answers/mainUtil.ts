@@ -193,6 +193,35 @@ export const PeopleDetails = ({ sectionTitles, keys, ...content }: SummaryListCo
 };
 
 //peopleDetails
+export const DateOfBirthChildFormatter = (personalDetails, id, keys, childType) => {
+  const redirectURL = childType === 'current' ? Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'] : Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS']; 
+  const newChildDataStorage = [] as ANYTYPE;
+  if(personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES){
+    newChildDataStorage.push(
+      {
+        key: keys['approxCheckboxLabel'],
+        value: personalDetails['isDateOfBirthUnknown'],
+        changeUrl: applyParms(redirectURL, { childId: id }),
+      },
+      {
+        key: keys['approxDobLabel'],
+        value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
+        changeUrl: applyParms(redirectURL, { childId: id }),
+      },
+    );
+  }
+  else{
+  newChildDataStorage.push(
+  {
+    key: keys['dobLabel'],
+    value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
+    changeUrl: applyParms(redirectURL, { childId: id }),
+  });
+  }
+  return newChildDataStorage;
+};
+
+
 
 /* eslint-disable import/namespace */
 export const ChildernDetails = (
@@ -235,29 +264,10 @@ export const ChildernDetails = (
         value: firstname + ' ' + lastname,
         changeUrl: Urls['C100_CHILDERN_DETAILS_ADD'],
       });
-
-      if(personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES){
-        newChildDataStorage.push(
-          {
-            key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
-            changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-          },
-          {
-            key: keys['approxDobLabel'],
-            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
-            changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-          },
-        );
-      }
-      else{
-      newChildDataStorage.push(
-      {
-        key: keys['dobLabel'],
-        value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
-        changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-      });
-    }
+      /**
+       * @ChildBirthDetails
+       */
+      newChildDataStorage.push(...DateOfBirthChildFormatter(personalDetails, id, keys, 'current'));
 
       newChildDataStorage.push(
       {
@@ -348,7 +358,6 @@ export const OtherChildrenDetails = (
         lastname = sessionChildData[child]['lastName'],
         id = sessionChildData[child]['id'],
         personalDetails = sessionChildData[child]['personalDetails'];
-        const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== ''; 
       const childNo = Number(child) + 1;
       newChildDataStorage.push(
         {
@@ -364,29 +373,7 @@ export const OtherChildrenDetails = (
         },
       );
 
-      if(isDateOfBirthUnknown){
-        newChildDataStorage.push(
-          {
-            key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          },
-          {
-            key: keys['approxDobLabel'],
-            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          },
-        );
-      }
-      else{
-        newChildDataStorage.push(
-          {
-            key: keys['dobLabel'],
-            value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          },
-        );
-      }
+      newChildDataStorage.push(...DateOfBirthChildFormatter(personalDetails, id, keys, 'other'));
       newChildDataStorage.push( {
         key: keys['childGenderLabel'],
         value: personalDetails?.['gender'],
@@ -420,10 +407,22 @@ export const ApplicantDetailNameParser = (personalDetails, keys): string => {
   return changeNameInformation;
 };
 
+
+export const ApplicantDetails_applicantContactPreferences = (applicantContactPreferences) => {
+  let applicantContactPre = '';
+    
+  if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
+    applicantContactPre += HTML.UNORDER_LIST;
+    applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + preferences + HTML.LIST_ITEM_END );
+    applicantContactPre += HTML.UNORDER_LIST_END;
+  }
+  return applicantContactPre;
+};
+
 export const ApplicantDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
-): SummaryList | undefined => {
+): SummaryList | undefined | ANYTYPE => {
   const sessionApplicantData = userCase['appl_allApplicants'];
   const newApplicantData: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
     [];
@@ -540,13 +539,7 @@ export const ApplicantDetails = (
         });
 
         const applicantContactPreferences = sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences;
-        let applicantContactPre = '';
-    
-        if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
-          applicantContactPre += HTML.UNORDER_LIST;
-          applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + preferences + HTML.LIST_ITEM_END );
-          applicantContactPre += HTML.UNORDER_LIST_END;
-        }
+        const applicantContactPre = ApplicantDetails_applicantContactPreferences(applicantContactPreferences);
         newApplicantData.push(
           {
             key: keys['contactPrefernces'],

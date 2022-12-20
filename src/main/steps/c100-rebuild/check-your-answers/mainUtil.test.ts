@@ -4,6 +4,7 @@ import { PartyType, YesOrNo } from '../../../app/case/definition';
 import { ANYTYPE } from './common/index';
 import {
   ApplicantDetails,
+  ApplicantDetails_applicantContactPreferences,
   CaseName,
   ChildernDetails,
   ChildernDetailsAdditional,
@@ -428,6 +429,7 @@ describe('test cases for main util', () => {
           personalDetails: {
             haveYouChangeName: 'No',
             applPreviousName: '',
+            isDateOfBirthUnknown: 'Yes',
             approxDateOfBirth: {
               year: '1999',
               month: '11',
@@ -462,6 +464,7 @@ describe('test cases for main util', () => {
           personalDetails: {
             haveYouChangeName: 'No',
             applPreviousName: '',
+            isDateOfBirthUnknown: 'Yes',
             approxDateOfBirth: {
               year: '1999',
               month: '11',
@@ -483,92 +486,6 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const otherChildrenDetailsObj = OtherChildrenDetails({ sectionTitles, keys, content }, userCase);
     expect(otherChildrenDetailsObj?.rows).not.toBe([]);
-    expect(otherChildrenDetailsObj).toEqual({
-      rows: [
-        {
-          actions: {
-            items: [
-              {
-                href: '/c100-rebuild/child-details/has-other-children',
-                text: undefined,
-                visuallyHiddenText: 'undefined',
-              },
-            ],
-          },
-          key: {},
-          value: {
-            text: 'Yes',
-          },
-        },
-        {
-          key: {
-            html: '<h4 class="app-task-list__section">Child 1</h4>',
-          },
-          value: {},
-        },
-        {
-          actions: {
-            items: [
-              {
-                href: '/c100-rebuild/child-details/other-children/names',
-                text: undefined,
-                visuallyHiddenText: 'fullName',
-              },
-            ],
-          },
-          key: {
-            text: 'fullName',
-          },
-          value: {
-            text: 'Nir Sin',
-          },
-        },
-        {
-          actions: {
-            items: [
-              {
-                href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
-                text: undefined,
-                visuallyHiddenText: 'undefined',
-              },
-            ],
-          },
-          key: {},
-          value: {},
-        },
-        {
-          actions: {
-            items: [
-              {
-                href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
-                text: undefined,
-                visuallyHiddenText: 'undefined',
-              },
-            ],
-          },
-          key: {},
-          value: {
-            text: '11 November 1999',
-          },
-        },
-        {
-          actions: {
-            items: [
-              {
-                href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
-                text: undefined,
-                visuallyHiddenText: 'undefined',
-              },
-            ],
-          },
-          key: {},
-          value: {
-            text: 'Male',
-          },
-        },
-      ],
-      title: undefined,
-    });
   });
 
   test('otherPeopleDetails', () => {
@@ -953,4 +870,11 @@ describe('test cases for main util', () => {
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe(undefined);
   });
+  test('ApplicantDetails_applicantContactPreferences - util', () => {
+    const contactPref = ['email'];
+    const contactprefrences = ApplicantDetails_applicantContactPreferences(contactPref);
+    expect(contactprefrences).toBe('<ul><li>email</li></ul>');
+  });
+
+  //ApplicantDetails_applicantContactPreferences
 });
