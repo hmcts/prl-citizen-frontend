@@ -95,7 +95,8 @@ export const cy = () => ({
     },
     applPreviousName: {
       required: 'Nodwch eich enwau blaenorol',
-      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.- Welsh',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
     },
     dateOfBirth: {
       required: 'Nodwch ei ddyddiad geni',
@@ -111,7 +112,7 @@ export const cy = () => ({
     },
     applicantPlaceOfBirth: {
       required: 'Nodwch eich man geni',
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only. - welsh',
     },
     otherGenderDetails: {
       invalid: 'You have entered an invalid character. Enter using letters and numbers only. - welsh',
