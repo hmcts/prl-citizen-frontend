@@ -53,7 +53,7 @@ describe('common > components > address-select', () => {
       {
         attributes: { id: 'totalAddressesFound' },
         selected: true,
-        text: 'Daethpwyd o hyd i 0 o gyfeiriadau',
+        text: 'Daethpwyd o hyd i 0 cyfeiriad',
         value: -1,
       },
     ]);
@@ -81,7 +81,7 @@ describe('common > components > address-select', () => {
         {
           attributes: { id: 'totalAddressesFound' },
           selected: true,
-          text: 'Daethpwyd o hyd i 1 o gyfeiriad',
+          text: 'Daethpwyd o hyd i 1 cyfeiriad',
           value: -1,
         },
         { text: 'MOCK_FULL_ADDRESS_1', value: 0 },
@@ -103,7 +103,7 @@ describe('common > components > address-select', () => {
         {
           attributes: { id: 'totalAddressesFound' },
           selected: true,
-          text: 'Daethpwyd o hyd i 0 o gyfeiriadau',
+          text: 'Daethpwyd o hyd i 0 cyfeiriad',
           value: -1,
         },
       ]);
