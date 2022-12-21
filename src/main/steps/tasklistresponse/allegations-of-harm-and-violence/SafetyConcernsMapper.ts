@@ -5,28 +5,28 @@ import type { AppRequest } from '../../../app/controller/AppRequest';
 export const setSafetyConcerns = (respondent: Respondent, req: AppRequest): Respondent => {
   const otherConcerns =
     {
-      c1A_keepingSafeStatement: req.session.userCase.PRL_c1A_keepingSafeStatement,
-      c1A_supervisionAgreementDetails: req.session.userCase.PRL_c1A_supervisionAgreementDetails,
-      c1A_agreementOtherWaysDetails: req.session.userCase.PRL_c1A_agreementOtherWaysDetails,
-      c1A_otherConcernsDrugs: req.session.userCase.PRL_c1A_otherConcernsDrugs,
-      c1A_otherConcernsDrugsDetails: req.session.userCase.PRL_c1A_otherConcernsDrugsDetails,
-      c1A_childSafetyConcerns: req.session.userCase.PRL_c1A_childSafetyConcerns,
-      c1A_childSafetyConcernsDetails: req.session.userCase.PRL_c1A_childSafetyConcernsDetails,
+      c1AkeepingSafeStatement: req.session.userCase.PRL_c1A_keepingSafeStatement,
+      c1AsupervisionAgreementDetails: req.session.userCase.PRL_c1A_supervisionAgreementDetails,
+      c1AagreementOtherWaysDetails: req.session.userCase.PRL_c1A_agreementOtherWaysDetails,
+      c1AotherConcernsDrugs: req.session.userCase.PRL_c1A_otherConcernsDrugs,
+      c1AotherConcernsDrugsDetails: req.session.userCase.PRL_c1A_otherConcernsDrugsDetails,
+      c1AchildSafetyConcerns: req.session.userCase.PRL_c1A_childSafetyConcerns,
+      c1AchildSafetyConcernsDetails: req.session.userCase.PRL_c1A_childSafetyConcernsDetails,
     } ?? {};
 
   const Abductions =
     {
-      c1A_abductionReasonOutsideUk: req.session.userCase.PRL_c1A_abductionReasonOutsideUk,
-      c1A_childsCurrentLocation: req.session.userCase.PRL_c1A_childsCurrentLocation,
-      c1A_childrenMoreThanOnePassport: req.session.userCase.PRL_c1A_childrenMoreThanOnePassport,
-      c1A_possessionChildrenPassport: req.session.userCase.PRL_c1A_possessionChildrenPassport,
-      c1A_provideOtherDetails: req.session.userCase.PRL_c1A_provideOtherDetails,
-      c1A_passportOffice: req.session.userCase.PRL_c1A_passportOffice,
-      c1A_abductionPassportOfficeNotified: req.session.userCase.PRL_c1A_abductionPassportOfficeNotified,
-      c1A_previousAbductionsShortDesc: req.session.userCase.PRL_c1A_previousAbductionsShortDesc,
-      c1A_policeOrInvestigatorInvolved: req.session.userCase.PRL_c1A_policeOrInvestigatorInvolved,
-      c1A_policeOrInvestigatorOtherDetails: req.session.userCase.PRL_c1A_policeOrInvestigatorOtherDetails,
-      c1A_childAbductedBefore: req.session.userCase.PRL_c1A_childAbductedBefore,
+      c1AabductionReasonOutsideUk: req.session.userCase.PRL_c1A_abductionReasonOutsideUk,
+      c1AchildsCurrentLocation: req.session.userCase.PRL_c1A_childsCurrentLocation,
+      c1AchildrenMoreThanOnePassport: req.session.userCase.PRL_c1A_childrenMoreThanOnePassport,
+      c1ApossessionChildrenPassport: req.session.userCase.PRL_c1A_possessionChildrenPassport,
+      c1AprovideOtherDetails: req.session.userCase.PRL_c1A_provideOtherDetails,
+      c1ApassportOffice: req.session.userCase.PRL_c1A_passportOffice,
+      c1AabductionPassportOfficeNotified: req.session.userCase.PRL_c1A_abductionPassportOfficeNotified,
+      c1ApreviousAbductionsShortDesc: req.session.userCase.PRL_c1A_previousAbductionsShortDesc,
+      c1ApoliceOrInvestigatorInvolved: req.session.userCase.PRL_c1A_policeOrInvestigatorInvolved,
+      c1ApoliceOrInvestigatorOtherDetails: req.session.userCase.PRL_c1A_policeOrInvestigatorOtherDetails,
+      c1AchildAbductedBefore: req.session.userCase.PRL_c1A_childAbductedBefore,
     } ?? {};
   if (req.session.userCase.PRL_c1A_concernAboutChild) {
     const safetyConcerns = req.session.userCase.PRL_c1A_safteyConcerns ?? {};

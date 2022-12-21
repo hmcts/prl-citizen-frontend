@@ -2565,26 +2565,26 @@ export interface C1ASafteyConcerns {
     export interface PRL_C1ASafteyConcerns_total {
      c1asafetyconcerns:PRL_C1ASafteyConcerns,
       otherconcerns:{
-        c1A_keepingSafeStatement?:string;
-        c1A_supervisionAgreementDetails?:string;
-        c1A_agreementOtherWaysDetails?:YesOrNo;
-        c1A_otherConcernsDrugs?:YesOrNo;
-        c1A_otherConcernsDrugsDetails?:string;
-        c1A_childSafetyConcerns?:YesOrNo;
-        c1A_childSafetyConcernsDetails?:string;
+        c1AkeepingSafeStatement?:string;
+        c1AsupervisionAgreementDetails?:string;
+        c1AagreementOtherWaysDetails?:YesOrNo;
+        c1AotherConcernsDrugs?:YesOrNo;
+        c1AotherConcernsDrugsDetails?:string;
+        c1AchildSafetyConcerns?:YesOrNo;
+        c1AchildSafetyConcernsDetails?:string;
       },
       abductions:{
-        c1A_abductionReasonOutsideUk?:string;
-        c1A_childsCurrentLocation?:string;
-        c1A_childrenMoreThanOnePassport?:YesOrNo;
-        c1A_possessionChildrenPassport?:string[];
-        c1A_provideOtherDetails?:string;
-        c1A_passportOffice?:YesOrNo;
-        c1A_abductionPassportOfficeNotified?:YesOrNo;
-        c1A_previousAbductionsShortDesc?:string;
-        c1A_policeOrInvestigatorInvolved?:YesOrNo;
-        c1A_policeOrInvestigatorOtherDetails?:string;
-        c1A_childAbductedBefore?:YesOrNo;
+        c1AabductionReasonOutsideUk?:string;
+        c1AchildsCurrentLocation?:string;
+        c1AchildrenMoreThanOnePassport?:YesOrNo;
+        c1ApossessionChildrenPassport?:string[];
+        c1AprovideOtherDetails?:string;
+        c1ApassportOffice?:YesOrNo;
+        c1AabductionPassportOfficeNotified?:YesOrNo;
+        c1ApreviousAbductionsShortDesc?:string;
+        c1ApoliceOrInvestigatorInvolved?:YesOrNo;
+        c1ApoliceOrInvestigatorOtherDetails?:string;
+        c1AchildAbductedBefore?:YesOrNo;
       }
       }
 
