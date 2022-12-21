@@ -32,18 +32,17 @@ export const cy = () => ({
   serviceName: 'Trefniadau plant',
   title: 'Pryderon diogelwch',
   headingTitle: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
-  paragraph1:
-    '<p> Efallai bod gennych bryderon am eich diogelwch ar hyn o bryd, neu eich diogelwch yn y dyfodol. </p> - Welsh',
+  paragraph1: '<p> Efallai bod gennych bryderon am eich diogelwch ar hyn o bryd, neu eich diogelwch yn y dyfodol. </p>',
   paragraph2:
     "<p>Os ydych chi neu'r plant wedi profi camdriniaeth neu yn teimlo'n anniogel, mae cymorth ar gael <a href='https://www.gov.uk/guidance/domestic-abuse-how-to-get-help' class='govuk-link' target='blank' aria-label='See a list of organisations that can help'>Gweler rhestr o sefydliadau a all helpu.</a>. </p> ",
-  listOfOrganisationsHyperlink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help - Welsh',
+  listOfOrganisationsHyperlink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
   listOfOrganisationLabel: 'Gweler rhestr o sefydliadau a all helpu.',
-  identifySignsOfChildAbuseHyperlink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/ - Welsh',
+  identifySignsOfChildAbuseHyperlink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/',
   identifySignsOfChildAbuseLabel: ' Adnabod arwyddion o gam-drin plant',
-  identifySignsOfDomesticAbuseHyperlink: 'https://supportnav.org.uk/what-is-domestic-abuse - Welsh',
+  identifySignsOfDomesticAbuseHyperlink: 'https://supportnav.org.uk/what-is-domestic-abuse',
   identifySignsOfDomesticAbuseLabel: 'Adnabod arwyddion o gam-drin domestig',
   infoSafetyConcernsYes:
-    'The information you give will be considered as part of your application. If you need to make <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">an application for a domestic abuse injunction</a>. you can do this separately. - Welsh',
+    'The information you give will be considered as part of your application. If you need to make <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">an application for a domestic abuse injunction</a>. you can do this separately.',
   warningMessage:
     "Efallai y byddwch chi'n ystyried rhai o'r cwestiynau hyn yn anodd i’w hateb neu eu bod yn peri gofid i chi. Cymerwch eich amser a cheisiwch eu hateb cystal ag y gallwch.",
   yesHaveSafetyConcerns: 'Oes',

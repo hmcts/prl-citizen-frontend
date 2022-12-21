@@ -117,6 +117,26 @@ describe('Urgent Hearing', () => {
     const hu_hearingWithNext48HrsDetails = fields.hu_hearingWithNext48HrsDetails as FormOptions;
     expect(hu_hearingWithNext48HrsDetails.type).toBe('radios');
     expect((hu_hearingWithNext48HrsDetails.label as LanguageLookup)(generatedContent)).toBe(en.hearingWithNext48Hrs);
+    expect(hu_hearingWithNext48HrsDetails.values[0].value).toBe('Yes');
+    expect((hu_hearingWithNext48HrsDetails.values[0].label as LanguageLookup)(generatedContent)).toBe('Yes');
+    expect(hu_hearingWithNext48HrsDetails.values[0].subFields!.hu_hearingWithNext48HrsMsg.type).toBe('textarea');
+    expect(
+      (hu_hearingWithNext48HrsDetails.values[0].subFields!.hu_hearingWithNext48HrsMsg.label as LanguageLookup)(
+        generatedContent
+      )
+    ).toBe(en.hearingWithNext48HrsDetails);
+    expect(
+      (hu_hearingWithNext48HrsDetails.values[0].subFields!.hu_hearingWithNext48HrsMsg.hint as LanguageLookup)(
+        generatedContent
+      )
+    ).toBe(en.hearingWithNext48HrsDetailsHint);
+    expect(hu_hearingWithNext48HrsDetails.values[1].value).toBe('No');
+    expect((hu_hearingWithNext48HrsDetails.values[1].label as LanguageLookup)(generatedContent)).toBe('No');
+
+    const hu_otherRiskDetails = fields.hu_otherRiskDetails as FormOptions;
+    expect(hu_otherRiskDetails.type).toBe('textarea');
+    expect((hu_otherRiskDetails.label as LanguageLookup)(generatedContent)).toBe(en.giveDetailsOtherRisks);
+    expect((hu_otherRiskDetails.hint as LanguageLookup)(generatedContent)).toBe(en.giveDetailsOtherRisksHint);
   });
 
   test('should contain Continue button', () => {

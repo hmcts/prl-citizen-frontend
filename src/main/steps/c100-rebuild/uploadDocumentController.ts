@@ -30,17 +30,14 @@ export default class UploadDocumentController {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
     req.session.errors = [];
-    let paramCert: string;
-    let redirectUrl: string;
-    let fileNamePrefix: string;
+    let paramCert = '';
+    let fileNamePrefix = '';
 
-    if (req.url === '/c100-rebuild/miam/upload') {
+    if (req.url.includes(C100_MIAM_UPLOAD)) {
       paramCert = 'miam_certificate';
-      redirectUrl = `${C100_MIAM_UPLOAD}`;
       fileNamePrefix = 'applicant__miam_certificate__';
-    } else {
+    } else if (req.url.includes(C100_CONSENT_ORDER_UPLOAD)) {
       paramCert = 'co_certificate';
-      redirectUrl = `${C100_CONSENT_ORDER_UPLOAD}`;
       fileNamePrefix = 'applicant__consent_order_draft__';
     }
 
@@ -51,7 +48,7 @@ export default class UploadDocumentController {
     } else if (this.checkSaveandContinueDocumentExist(req, certificate)) {
       this.parent.redirect(req, res, '');
     } else {
-      this.checkFileCondition(certificate, req, res, redirectUrl, files, fileNamePrefix, paramCert);
+      this.checkFileCondition(certificate, req, res, req.originalUrl, files, fileNamePrefix, paramCert);
     }
   }
 
