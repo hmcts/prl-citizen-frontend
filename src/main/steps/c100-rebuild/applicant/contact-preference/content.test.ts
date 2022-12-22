@@ -32,7 +32,7 @@ const en = {
 
 const cy = () => ({
   title: 'Contact Preferences for - welsh',
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   paragraphs: [
     'You can choose to receive case updates by email or post. - welsh',
     'If you receive updates by email, the updates will also be available to view in your dashboard. - welsh',
