@@ -65,7 +65,7 @@ export default class AddApplicants extends GetController {
     if (req.query.hasOwnProperty('action') && req.query.hasOwnProperty('applicantId')) {
       const { action, applicantId } = req.query;
       if (action === 'remove') {
-        if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
+        if (req.session.userCase?.appl_allApplicants) {
           req.session.userCase['appl_allApplicants'] = req.session.userCase.appl_allApplicants.filter(
             applicant => applicant['id'] !== applicantId
           );
