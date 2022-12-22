@@ -90,18 +90,18 @@ const cy = {
   addOrderLabel: 'Ychwanegu gorchymyn arall',
   errors: {
     orderDate: {
-      invalidDate: 'Order date must be a real date - welsh',
-      incompleteDay: 'Order date must include a day - welsh',
-      incompleteMonth: 'Order date must include a month - welsh',
-      incompleteYear: 'Order date must include a year - welsh',
-      invalidDateInFuture: 'Order date must be in the past - welsh',
+      invalidDate: 'Rhaid i ddyddiad y gorchymyn fod yn ddyddiad go iawn',
+      incompleteDay: 'Rhaid i ddyddiad y gorchymyn gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i ddyddiad y gorchymyn gynnwys mis',
+      incompleteYear: 'Rhaid i ddyddiad y gorchymyn gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i ddyddiad y gorchymyn gynnwys blwyddyn',
     },
     orderEndDate: {
-      invalidDate: 'Order end date must be a real date - welsh',
-      incompleteDay: 'Order end date must include a day - welsh',
-      incompleteMonth: 'Order end date must include a month - welsh',
-      incompleteYear: 'Order end date must include a year - welsh',
-      invalidDateInFuture: 'Order end date must be in the past - welsh',
+      invalidDate: 'Rhaid i ddyddiad dod i ben y gorchymyn fod yn ddyddiad go iawn',
+      incompleteDay: 'Rhaid i ddyddiad dod i ben y gorchymyn gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i ddyddiad dod i ben y gorchymyn gynnwys mis',
+      incompleteYear: 'Rhaid i ddyddiad dod i ben y gorchymyn gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i ddyddiad dod i ben y gorchymyn fod yn y gorffennol',
     },
   },
 };

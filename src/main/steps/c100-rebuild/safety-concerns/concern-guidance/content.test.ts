@@ -93,8 +93,8 @@ const cy = {
     "Bydd y llys yn defnyddio'r wybodaeth y byddwch yn ei darparu i drin eich achos yn gywir",
   ],
   warningText: {
-    text: "Bydd yr wybodaeth y byddwch yn ei rhoi yn yr adran hon hefyd yn cael ei rhannu â'r bobl eraill yn y cais hwn, fel eu bod nhw yn gallu ymateb i'r hyn yr ydych chi wedi'i ddweud.",
-    iconFallbackText: 'Warning',
+    text: 'The information that you give in this section will also be shared with the other people in this application, so they are able to respond to what you have said. - welsh',
+    iconFallbackText: 'Rhybudd',
   },
   notReadyDescAbuseHeader: "Os nad ydych yn teimlo'n barod i siarad am y gamdriniaeth ar hyn o bryd",
   cafcassLine1:
