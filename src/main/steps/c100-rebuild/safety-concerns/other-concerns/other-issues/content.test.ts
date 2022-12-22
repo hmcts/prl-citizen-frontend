@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { YesOrNo } from '../../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
@@ -24,17 +25,17 @@ const en = {
 };
 
 const cy = {
-  section: 'Pryderon diogelwch - welsh',
-  title: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant? - welsh',
-  hint: "Er enghraifft, nid yw eu hanghenion sylfaenol yn cael eu diwallu (a elwir yn esgeuluso plant) neu rydych chi'n poeni am rywun y gallai fod ganddynt gysylltiad â nhw. - welsh",
-  one: 'Oes - welsh',
-  two: 'Nac oes - welsh',
+  section: 'Pryderon diogelwch',
+  title: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant?',
+  hint: "Er enghraifft, nid yw eu hanghenion sylfaenol yn cael eu diwallu (a elwir yn esgeuluso plant) neu rydych chi'n poeni am rywun y gallai fod ganddynt gysylltiad â nhw.",
+  one: 'Oes',
+  two: 'Nac oes',
   summaryText: 'Cysylltiadau am gymorth',
   detail:
     "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy - welsh'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     c1A_childSafetyConcerns: {
-      required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
+      required: 'Dewiswch oes os oes gennych unrhyw bryderon am eich diogelwch neu ddiogelwch y plant',
     },
     c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
@@ -76,6 +77,16 @@ describe('safety_concerns > other_concerns > content', () => {
     expect(childSafetyConcerns.type).toBe('radios');
     expect(childSafetyConcerns.classes).toBe('govuk-radios');
     expect((childSafetyConcerns.section as Function)(generatedContent)).toBe(en.section);
+    expect((childSafetyConcerns.label as Function)(generatedContent)).toBe(undefined);
+    expect((childSafetyConcerns.hint as Function)(generatedContent)).toBe(en.hint);
+    expect(childSafetyConcerns.values[0].value).toBe(YesOrNo.YES);
+    expect((childSafetyConcerns.values[0].label as Function)(generatedContent)).toBe(en.one);
+    expect(
+      (childSafetyConcerns.values[0].subFields!.c1A_childSafetyConcernsDetails.label as Function)(generatedContent)
+    ).toBe(en.detail);
+    expect(childSafetyConcerns.values[0].subFields!.c1A_childSafetyConcernsDetails.type).toBe('textarea');
+    expect(childSafetyConcerns.values[1].value).toBe(YesOrNo.NO);
+    expect((childSafetyConcerns.values[1].label as Function)(generatedContent)).toBe(en.two);
   });
 
   test('should contain continue button', () => {

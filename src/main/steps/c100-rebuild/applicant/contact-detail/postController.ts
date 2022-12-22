@@ -17,12 +17,12 @@ export default class ContactDetailPostController extends PostController<AnyObjec
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const applicantId = req.params.applicantId as C100Applicant['id'];
 
-    const form = new Form(getFormFields().fields as FormFields);
+    const form = new Form(getFormFields(req.session.userCase, applicantId).fields as FormFields);
     const { onlycontinue, saveAndComeLater } = req.body;
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId) as number;
-    req.session.userCase!.appl_allApplicants![applicantIndex].applicantContactDetail = {
+    req.session.userCase.appl_allApplicants![applicantIndex].applicantContactDetail = {
       ...req.session.userCase?.appl_allApplicants?.[applicantIndex].applicantContactDetail,
       canProvideEmail: req.body['canProvideEmail'] as YesNoEmpty,
       emailAddress: req.body['emailAddress'] as string,

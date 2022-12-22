@@ -93,14 +93,10 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
-};
-
 export const generateFormFields = (
   childMatters: ChildrenDetails['childMatters'],
   caseData: Partial<CaseWithId> = {},
-  translations: Record<string, any>
+  translations?: Record<string, any>
 ): GenerateDynamicFormFields => {
   const { too_courtOrder, too_stopOtherPeopleDoingSomethingSubField, too_resolveSpecificIssueSubField } = caseData;
   const { needsResolution } = childMatters;
@@ -128,21 +124,21 @@ export const generateFormFields = (
         ...(filteredChildArrangementsOrderList?.map(order => {
           return {
             name: 'needsResolution',
-            label: translations.childArrangementsOrder![order],
+            label: translations?.childArrangementsOrder?.[order],
             value: order,
           };
         }) ?? []),
         ...(filteredOtherPeopleDoingSomething?.map(order => {
           return {
             name: 'needsResolution',
-            label: translations.stepsList![order],
+            label: translations?.stepsList?.[order],
             value: order,
           };
         }) ?? []),
         ...(<[]>too_resolveSpecificIssueSubField?.map(order => {
           return {
             name: 'needsResolution',
-            label: translations.issueOrderList![order],
+            label: translations?.issueOrderList?.[order],
             value: order,
           };
         }) ?? []),
@@ -172,6 +168,12 @@ export const form: FormContent = {
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
+};
+
+export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']): FormContent => {
+  const childDetails = getPartyDetails(childId, caseData?.cd_children) as ChildrenDetails;
+
+  return updateFormFields(form, generateFormFields(childDetails.childMatters ?? {}, caseData ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

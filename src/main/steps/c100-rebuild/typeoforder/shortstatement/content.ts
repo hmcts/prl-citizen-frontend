@@ -33,7 +33,7 @@ const cy = () => ({
   ],
   errors: {
     too_shortStatement: {
-      required: 'Describe what you want the court to do regarding the children in this application - welsh',
+      required: "Disgrifiwch yr hyn rydych chi eisiau i'r llys ei wneud ynglŷn â'r plant yn y cais hwn",
     },
   },
 });

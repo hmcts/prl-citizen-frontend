@@ -45,7 +45,7 @@ export const cy = () => ({
       required: ' ‘Nodwch a yw’r gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant',
     },
     cd_childrenKnownToSocialServicesDetails: {
-      required: 'Rhowch fanylion - cymraeg',
+      required: 'Rhowch fanylion',
     },
     cd_childrenSubjectOfProtectionPlan: {
       required: 'Nodwch a oes unrhyw un o’r plant yn destun cynllun amddiffyn plentyn - cymraeg',

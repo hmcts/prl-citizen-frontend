@@ -19,6 +19,9 @@ export const getDataShape = (): C100Applicant => ({
     otherGenderDetails: '',
     applicantPlaceOfBirth: '',
   },
+  applicantContactDetail: {
+    applicantContactPreferences: [],
+  },
 });
 
 export const getApplicantDetails = (
@@ -30,10 +33,10 @@ export const updateApplicantDetails = (applicants: C100Applicant[], applicantDet
   applicants.map(applicant => (applicant.id === applicantDetails.id ? applicantDetails : applicant));
 
 export const transformFormData = (
-  context: 'personalDetails',
+  context: 'personalDetails' | 'applicantContactDetail',
   formData: Record<string, any>
 ): Partial<C100Applicant> => {
-  const dataShape = getDataShape()[context];
+  const dataShape = getDataShape()[context]!;
 
   return Object.entries(dataShape).reduce((transformedData: Partial<C100Applicant>, [fieldName, defaultValue]) => {
     if (fieldName in formData && !(fieldName in transformedData)) {

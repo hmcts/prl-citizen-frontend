@@ -25,7 +25,7 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const orderType = req.params.orderType as C100OrderTypes;
     const orderTypeCaseKey = C100OrderTypeKeyMapper[orderType];
-    const form = new Form(getFormFields().fields as FormFields);
+    const form = new Form(getFormFields(req.session.userCase, orderType).fields as FormFields);
     const { addOrder, onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const newData: Partial<Case> = {

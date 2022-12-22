@@ -119,7 +119,7 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law" (in welsh)',
   applyForDissolution: 'Private Law"(in welsh)',
-  c100ServiceName: 'Child arrangements - welsh',
+  c100ServiceName: 'Trefniadau plant',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.(in welsh)',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
@@ -136,10 +136,10 @@ const cy: typeof en = {
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem on this page (in welsh)',
+  errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAndComeLater: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
-  goBack: 'Go back - welsh',
+  goBack: 'Yn ôl',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
   signIn: 'Sign in (in welsh)',

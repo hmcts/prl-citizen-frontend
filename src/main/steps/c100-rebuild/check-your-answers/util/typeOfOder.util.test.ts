@@ -49,13 +49,13 @@ describe('test cases for typeOfCourtOrderContents', () => {
       childTimeSpent: 'Penderfynu faint o amser y bydd y plant yn ei dreulio gyda phob unigolyn',
       errors: {
         too_courtOrder: {
-          required: 'Select  what you are asking the court to do - welsh',
+          required: "Dewiswch beth yr ydych yn gofyn i'r llys ei wneud",
         },
         too_resolveSpecificIssueSubField: {
-          required: 'Specify what issue you want the court to resolve - welsh',
+          required: "Nodwch pa fater rydych chi eisiau i'r llys ei ddatrys",
         },
         too_stopOtherPeopleDoingSomethingSubField: {
-          required: 'Specify what you want the court to stop the other people in the application doing - welsh',
+          required: "Nodwch beth rydych chi eisiau i'r llys atal y bobl eraill yn y cais rhag ei wneud",
         },
       },
       medicalTreatment: 'Triniaeth feddygol',
@@ -77,7 +77,7 @@ describe('test cases for typeOfCourtOrderContents', () => {
       stopOtherPeopleDoingSomethingHint: "Er enghraifft, symud y plant i fyw dramor neu gipio'r plant",
       takingChildOnHoliday: "Mynd â'r plant ar wyliau",
       title: "Beth ydych chi'n gofyn i'r llys ei wneud?",
-      whatAreYouAsking: 'What are you asking the court to do?',
+      whatAreYouAsking: "Beth ydych chi'n gofyn i'r llys ei wneud?",
       whatSchoolChildrenWillGoTo: 'I ba ysgol y bydd y plant yn mynd iddi',
       whoChildLiveWith: 'Penderfynu gyda phwy y bydd y plant yn byw a phryd',
     });
