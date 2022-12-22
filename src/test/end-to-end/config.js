@@ -1,8 +1,8 @@
-const defaultPassword = 'Adoption@1234';
+const defaultPassword = 'C100@1234';
 
 module.exports = {
   citizenFrontEnd: {
-    email: 'prlc100@test.com',
+    email: 'elize.reyes@hmcts.net',
     password: defaultPassword,
     caseCode: '1234567812345678',
     accessCode: '1234567y'
