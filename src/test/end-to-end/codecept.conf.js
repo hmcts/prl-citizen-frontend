@@ -1,3 +1,5 @@
+const CitizenLoginPage = require("./pages/C100-Rebuild/CitizenLoginPage");
+
 exports.config = {
   tests: './tests/C100Rebuild-BaseFlow.js',
   output: './output',
@@ -25,7 +27,9 @@ exports.config = {
       minTimeout: 2000
     }
   },
-  include: { I: './steps_file.js' },
+  include: { I: './steps_file.js',
+  CitizenLoginPage: './src/test/end-to-end/pages/C100-Rebuild/CitizenLoginPage.js' },
+  
   bootstrap: null,
   mocha: {},
   name: 'prl-ccd-definitions'
