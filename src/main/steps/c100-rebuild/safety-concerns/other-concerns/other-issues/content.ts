@@ -25,17 +25,17 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  section: 'Pryderon diogelwch - welsh',
-  title: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant? - welsh',
-  hint: "Er enghraifft, nid yw eu hanghenion sylfaenol yn cael eu diwallu (a elwir yn esgeuluso plant) neu rydych chi'n poeni am rywun y gallai fod ganddynt gysylltiad â nhw. - welsh",
-  one: 'Oes - welsh',
-  two: 'Nac oes - welsh',
+  section: 'Pryderon diogelwch',
+  title: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant?',
+  hint: "Er enghraifft, nid yw eu hanghenion sylfaenol yn cael eu diwallu (a elwir yn esgeuluso plant) neu rydych chi'n poeni am rywun y gallai fod ganddynt gysylltiad â nhw.",
+  one: 'Oes',
+  two: 'Nac oes',
   summaryText: 'Cysylltiadau am gymorth',
   detail:
     "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy - welsh'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     c1A_childSafetyConcerns: {
-      required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
+      required: 'Dewiswch oes os oes gennych unrhyw bryderon am eich diogelwch neu ddiogelwch y plant',
     },
     c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',

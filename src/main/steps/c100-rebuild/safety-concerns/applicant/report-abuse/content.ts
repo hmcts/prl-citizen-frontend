@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -48,7 +49,7 @@ const cy = () => ({
   somethingElsePageTitle: 'Disgrifiwch y gamdriniaeth yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
   introText: `<p class="govuk-body ">Llenwch yr adran hon y gorau y gallwch. Os nad ydych chi'n teimlo eich bod chi'n gallu trafod y gamdriniaeth ar hyn o bryd, gallwch wneud hynny wrth siarad efo Cafcass</p>
                 <p class="govuk-body ">Bydd yr wybodaeth y byddwch yn ei rhoi yn cael ei defnyddio yn y cais. Nid yw'n gais am waharddeb cam-drin domestig.</p>
-                <p class="govuk-body ">Gallwch wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">cais am waharddeb cam-drin domestig ar </a> wahân</p>`,
+                <p class="govuk-body ">Gallwch<a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank"> wneud cais am waharddeb cam-drin domestig </a>ar wahân</p>`,
   warningText:
     "Byddwn yn rhannu'r wybodaeth y byddwch yn ei rhoi yn yr adran hon gyda'r unigolyn arall yn yr achos er mwyn iddo allu ymateb i'r hyn rydych chi wedi'i ddweud.",
   behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt. (dewisol)",
@@ -59,6 +60,7 @@ const cy = () => ({
   isOngoingBehaviourLabel: "Ydy'r ymddygiad yn parhau? (dewisol)",
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">CFfoniwch 999 os oes argyfwng. Os nad yw\'n argyfwng, ystyriwch gysylltu â\'r <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> neu\'r <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">tîm gofal cymdeithasol yn eich cyngor  lleol</a>.</p>',
+  YesOptionLabel: 'Ydy',
   NoOptionLabel: 'Nac ydy',
   seekHelpFromPersonOrAgencyLabel:
     'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol? (dewisol)',
@@ -180,8 +182,10 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (caseData: Partial<CaseWithId>, abuseType: C1AAbuseTypes): FormContent => {
+  const sessionData: C1ASafteyConcernsAbuse = caseData?.c1A_safteyConcerns?.applicant?.[abuseType];
+
+  return updateFormFields(form, generateFormFields(sessionData ?? getDataShape().abuse).fields);
 };
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any

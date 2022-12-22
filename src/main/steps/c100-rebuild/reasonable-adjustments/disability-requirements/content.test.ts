@@ -36,7 +36,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle:
     'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
@@ -58,7 +58,7 @@ const cy = {
   errors: {
     ra_disabilityRequirements: {
       required:
-        'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case - welsh',
+        "Dewiswch p'un a oes gennych anabledd corfforol, meddyliol neu ddysgu ai peidio neu gyflwr iechyd sy'n golygu eich bod angen cymorth yn ystod eich achos",
     },
   },
 };

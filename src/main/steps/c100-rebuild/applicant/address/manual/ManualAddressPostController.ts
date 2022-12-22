@@ -17,7 +17,7 @@ export default class ManualAddressPostController extends PostController<AnyObjec
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { applicantId } = req.params;
-    const form = new Form(getUpdatedForm().fields as FormFields);
+    const form = new Form(getUpdatedForm(req.session.userCase, applicantId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 

@@ -33,10 +33,16 @@
  {#This is the file upload section#}
 <form action="{{params.formPostURL}}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="_csrf" id="csrfToken" value="{{ params.csrfToken }}">
+{% set selectedFileType = "image/jpeg,image/tiff,image/png,application/pdf,image/jpg,image/bmp,image/tif,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"%}
+
 {{ govukFileUpload({
   id: "document",
   name: "documents",
-  classes: "govuk-!-margin-bottom-3 ",
+   attributes: {
+            multiple: true,
+            accept: selectedFileType
+  },
+  classes: "govuk-!-margin-bottom-3",
   label: {
     text: params.fileuploadTitle,
     classes: params.fileuploadTitleClass

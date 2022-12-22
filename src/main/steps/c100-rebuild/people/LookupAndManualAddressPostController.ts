@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 
+import { CaseWithId } from '../../../app/case/case';
 import { C100Address, C100RebuildPartyDetails, PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
@@ -10,7 +11,11 @@ import { getFormFields as getManualFormFields } from '../other-person-details/ad
 
 import { PartyDetailsVariant, getPartyDetails, transformPartyDetails, updatePartyDetails } from './util';
 
-type ContextReference = { dataReference: string; context: PartyType; formRef: () => FormContent };
+type ContextReference = {
+  dataReference: string;
+  context: PartyType;
+  formRef: (caseData: Partial<CaseWithId>, otherPersonId: C100RebuildPartyDetails['id']) => FormContent;
+};
 type FeatureContext = { [key: string]: ContextReference };
 
 @autobind
@@ -37,16 +42,16 @@ export default class LookupAndManualAddressPostController {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const { otherPersonId } = req.params;
     const { _ctx, add, remove: removePersonId, onlycontinue, saveAndComeLater, ...formFields } = req.body;
 
     this.contextReference = this.featureContext[_ctx as string];
 
     const { dataReference, formRef } = this.contextReference;
     req.session.errors = [];
-    const form = new Form(formRef().fields as FormFields);
+    const form = new Form(formRef(req.session.userCase, otherPersonId).fields as FormFields);
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    const { otherPersonId } = req.params;
     req.session.userCase[dataReference] = updatePartyDetails(
       {
         ...(getPartyDetails(otherPersonId, req.session.userCase[dataReference]) as C100RebuildPartyDetails),

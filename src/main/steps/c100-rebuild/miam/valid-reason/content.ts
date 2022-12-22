@@ -23,18 +23,18 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements',
+  serviceName: 'Trefniadau plant',
   title: 'A oes gennych chi resymau dilys dros beidio â mynychu MIAM?',
   paragraph1: 'Rhaid i chi fynychu MIAM cyn gwneud cais oni bai bod gennych resymau dilys dros beidio â mynychu.',
   applyForVrLink:
-    'If you\'re unsure, you can check the <a href="https://www.justice.gov.uk/courts/procedure-rules/family/practice_directions/pd_part_03a" class="govuk-link" target="_blank" aria-label="list of valid reasons">list of valid reasons</a>. - Welsh',
+    'Os ydych yn ansicr, gallwch <a href="https://www.justice.gov.uk/courts/procedure-rules/family/practice_directions/pd_part_03a" class="govuk-link" target="_blank" aria-label="list of valid reasons">wirio’r rhestr o resymau dilys</a>.',
   paragraph2:
     'Os ydych chi’n honni bod gennych resymau dilys dros beidio â mynychu MIAM, bydd y llys angen mwy o wybodaeth gennych',
   one: 'Oes',
   two: 'Nac oes',
   errors: {
     miam_validReason: {
-      required: 'Select yes if you have valid reasons for not attending a MIAM - welsh',
+      required: 'Dewiswch oes os oes gennych resymau dilys dros beidio â mynychu MIAM',
     },
   },
 });

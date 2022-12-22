@@ -52,6 +52,33 @@ const dummy = [
   },
 ];
 
+const dummyTwo = [
+  {
+    changeUrl: 'C100_INTERNATIONAL_ELEMENTS_START',
+    key: 'liveOutSideUk',
+    valueHtml: '<p></p>',
+  },
+  {
+    changeUrl: 'C100_INTERNATIONAL_ELEMENTS_PARENTS',
+    key: 'basedOutSideEnglandOrWales',
+    valueHtml: '<p></p>',
+  },
+  {
+    changeUrl: 'C100_INTERNATIONAL_ELEMENTS_JURISDICTION',
+    key: 'anotherPersonSameOrder',
+    valueHtml: '<p></p>',
+  },
+  {
+    changeUrl: 'C100_INTERNATIONAL_ELEMENTS_REQUEST',
+    key: 'otherCountryRequestInfo',
+    valueHtml: '<p></p>',
+  },
+];
+
 test('InternaElementHelper', () => {
   expect(InternationElementHelper(userCase, keys, Urls)).toStrictEqual(dummy);
+});
+
+test('InternaElementHelper without valueHTML', () => {
+  expect(InternationElementHelper({}, keys, Urls)).toStrictEqual(dummyTwo);
 });

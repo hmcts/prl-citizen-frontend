@@ -147,6 +147,7 @@ import {
   C100_CHECK_YOUR_ANSWER,
   C100_CASE_NAME,
   C100_CREATE_CASE,
+  C100_APPLICANT_CONTACT_PREFERENCES,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
@@ -1011,5 +1012,11 @@ export const C100Sequence: Step[] = [
     url: C100_CASE_NAME,
     showInSection: Sections.C100,
     getNextStep: () => C100_CHILD_ADDRESS,
+  },
+  {
+    url: C100_APPLICANT_CONTACT_PREFERENCES,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_CONTACT_PREFERENCES, caseData, req?.params),
   },
 ];

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseWithId } from '../../../../app/case/case';
 import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -24,7 +25,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Cyfrifoldeb rhiant dros Steve Jones ',
+  title: 'Cyfrifoldeb rhiant dros',
   parentalResponsibility: 'Datganwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
   subTitle: 'Nodwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
   bodyHint: `<p>Er enghraifft, ‘mam y plentyn’ neu ‘tad y plentyn oedd wedi priodi â’r fam pan gafodd y plentyn ei (g)eni’.</p>
@@ -50,10 +51,6 @@ export const updateFormFields = (form: FormContent, formFields: FormContent['fie
     },
   };
 
-  return updatedForm;
-};
-
-export const getFormFields = (): FormContent => {
   return updatedForm;
 };
 
@@ -90,6 +87,12 @@ export const form: FormContent = {
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
+};
+
+export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']): FormContent => {
+  const childDetails = getPartyDetails(childId, caseData?.cd_children) as ChildrenDetails;
+
+  return updateFormFields(form, generateFormFields(childDetails?.parentialResponsibility ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

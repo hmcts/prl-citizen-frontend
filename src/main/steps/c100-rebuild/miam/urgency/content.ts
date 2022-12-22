@@ -39,7 +39,7 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Esemptiadau MIAM',
   title:
     "A oes angen gwrandawiad brys arnoch chi am eich bod chi neu'r plant mewn perygl am unrhyw un o'r rhesymau canlynol?",
@@ -67,7 +67,7 @@ export const cy = () => ({
   noneOfTheAbove: "Dim un o'r uchod",
   errors: {
     miam_urgency: {
-      required: 'Select what reason you have to require an urgent hearing - welsh',
+      required: 'Dewiswch eich rheswm dros ofyn am wrandawiad brys',
     },
   },
 });
