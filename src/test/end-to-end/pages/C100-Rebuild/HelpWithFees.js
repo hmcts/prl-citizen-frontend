@@ -19,6 +19,7 @@ module.exports = {
         await I.retry(retryCount).waitForText(HelpWithFees.alreadyAppliedEnterRef);
         await I.retry(retryCount).fillField(this.fields.helpWithFeeRef, HelpWithFees.helpWithFeesRefNo);
         await I.retry(retryCount).click('Continue');
+        I.waitForNavigation();
     },
     async helpWithFeeEvent() {
         await this.helpWithFee();

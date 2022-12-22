@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - Base flow');
 
-Scenario('C100 Rebuild - basic journey @cross-browser', async ({ I }) => {
+Scenario('C100 Rebuild - basic journey',  async ({ I }) => {
   await I.loginAsCitizenUserNamePassWord();
   await I.createC100Application();
   await I.addCaseNameAndPostCode();
@@ -17,5 +17,5 @@ Scenario('C100 Rebuild - basic journey @cross-browser', async ({ I }) => {
   await I.internationElements();
   await I.reasonableAdjustments();
   await I.helpWithFeeEvent();
-  await I.checkYourAnswers();
+  await I.checkYourAnswersEvent();
   }).retry({ retries: 3, minTimeout: 30000 });
