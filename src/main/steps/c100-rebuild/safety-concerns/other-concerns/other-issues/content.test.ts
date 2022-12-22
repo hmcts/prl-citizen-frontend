@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { YesOrNo } from '../../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
@@ -76,6 +77,16 @@ describe('safety_concerns > other_concerns > content', () => {
     expect(childSafetyConcerns.type).toBe('radios');
     expect(childSafetyConcerns.classes).toBe('govuk-radios');
     expect((childSafetyConcerns.section as Function)(generatedContent)).toBe(en.section);
+    expect((childSafetyConcerns.label as Function)(generatedContent)).toBe(undefined);
+    expect((childSafetyConcerns.hint as Function)(generatedContent)).toBe(en.hint);
+    expect(childSafetyConcerns.values[0].value).toBe(YesOrNo.YES);
+    expect((childSafetyConcerns.values[0].label as Function)(generatedContent)).toBe(en.one);
+    expect(
+      (childSafetyConcerns.values[0].subFields!.c1A_childSafetyConcernsDetails.label as Function)(generatedContent)
+    ).toBe(en.detail);
+    expect(childSafetyConcerns.values[0].subFields!.c1A_childSafetyConcernsDetails.type).toBe('textarea');
+    expect(childSafetyConcerns.values[1].value).toBe(YesOrNo.NO);
+    expect((childSafetyConcerns.values[1].label as Function)(generatedContent)).toBe(en.two);
   });
 
   test('should contain continue button', () => {

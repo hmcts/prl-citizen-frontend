@@ -1,5 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -63,13 +65,27 @@ describe('applicant personal details > applying-with > content', () => {
 
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
+    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(undefined);
+    expect((applyingWithField.section as LanguageLookup)(generatedContent)).toBe(undefined);
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
+    expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
     expect(subFields.type).toBe('checkboxes');
     expect((subFields.label as LanguageLookup)(generatedContent)).toBe(en.contact_details_private);
     expect((subFields.values[0].label as LanguageLookup)(generatedContent)).toBe(en.address);
     expect((subFields.values[1].label as LanguageLookup)(generatedContent)).toBe(en.homePhoneNumber);
     expect((subFields.values[2].label as LanguageLookup)(generatedContent)).toBe(en.mobilePhoneNumber);
     expect((subFields.values[3].label as LanguageLookup)(generatedContent)).toBe(en.Email);
+
+    fields.start.values[0].subFields!.contactDetailsPrivate.validator(YesOrNo.YES, {
+      start: YesOrNo.YES,
+      contactDetailsPrivate: ['Email'],
+    });
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(['Email']);
+
+    const response = fields.start.values[0].subFields!.contactDetailsPrivate.validator(YesOrNo.YES, {
+      start: YesOrNo.NO,
+    });
+    expect(response).toEqual('');
   });
   test('should contain Continue button', () => {
     expect(
