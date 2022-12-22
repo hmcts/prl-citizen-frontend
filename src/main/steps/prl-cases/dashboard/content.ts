@@ -64,14 +64,24 @@ const en = (content: CommonContent) => {
     title: enContent.title,
     sections: [
       {
-        ...summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, isRespondent),
+        ...summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, false),
         help: `
         <p class="govuk-body">${enContent.CAApplicationNote}</p>
         <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${enContent.createCAApplication}</a></h1>`,
+        id: 'C100-applicant',
       },
-      summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, true),
-      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, false),
-      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, true),
+      {
+        ...summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, true),
+        id: 'C100-respondent',
+      },
+      {
+        ...summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, false),
+        id: 'fl401-applicant',
+      },
+      {
+        ...summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, true),
+        id: 'fl401-respondent',
+      },
     ],
     help: enContent.help,
   };
@@ -106,14 +116,24 @@ const cy = (content: CommonContent) => {
     title: cyContent.title,
     sections: [
       {
-        ...summaryCaseList(c100CaseListApplicant, cyContent.sectionTitles.yourCAapplication, isRespondent),
+        ...summaryCaseList(c100CaseListApplicant, cyContent.sectionTitles.yourCAapplication, false),
         help: `
         <p class="govuk-body">${cyContent.CAApplicationNote}</p>
         <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${cyContent.createCAApplication}</a></h1>`,
+        id: 'C100-applicant',
       },
-      summaryCaseList(c100CaseListRespondent, cyContent.sectionTitles.youtCArespondentApplication, true),
-      summaryCaseList(fl401CaseListApplicant, cyContent.sectionTitles.daApplicationsMadeByYou, false),
-      summaryCaseList(fl401CaseListRespondent, cyContent.sectionTitles.daApplicationsAgainstYou, true),
+      {
+        ...summaryCaseList(c100CaseListRespondent, cyContent.sectionTitles.youtCArespondentApplication, true),
+        id: 'C100-respondent',
+      },
+      {
+        ...summaryCaseList(fl401CaseListApplicant, cyContent.sectionTitles.daApplicationsMadeByYou, false),
+        id: 'fl401-applicant',
+      },
+      {
+        ...summaryCaseList(fl401CaseListRespondent, cyContent.sectionTitles.daApplicationsAgainstYou, true),
+        id: 'fl401-respondent',
+      },
     ],
     help: cyContent.help,
   };
