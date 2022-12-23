@@ -107,10 +107,9 @@ export default class AddPersonPostController {
     if (add) {
       if (fullName) {
         req.session.errors = form.getErrors(formData);
-        console.log('*********', req.session.errors.length);
-        //  if(!req.session.errors.length) {
-        this.addPerson(c100TempFirstName, c100TempLastName);
-        //}
+        if (!req.session.errors.length) {
+          this.addPerson(c100TempFirstName, c100TempLastName);
+        }
       } else {
         req.session.errors = form
           .getErrors(formData)
