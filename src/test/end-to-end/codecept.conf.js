@@ -1,5 +1,5 @@
 exports.config = {
-  tests: './tests/C100Rebuild-BaseFlow.js',
+  tests: './tests/*.js',
   output: './output',
   helpers: {
     Puppeteer: {
