@@ -46,6 +46,9 @@ const en = {
     gender: {
       required: 'Select the gender',
     },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
   },
 };
 
@@ -85,6 +88,9 @@ const cy = {
     },
     gender: {
       required: 'Nodwch y rhywedd',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only. - Welsh',
     },
   },
 };

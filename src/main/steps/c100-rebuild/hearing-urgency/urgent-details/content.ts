@@ -2,7 +2,12 @@
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import {
+  atLeastOneFieldIsChecked,
+  isAlphaNumeric,
+  isFieldFilledIn,
+  isTextAreaValid,
+} from '../../../../app/form/validation';
 
 export const en = () => ({
   title: 'Tell us about your situation',
@@ -31,6 +36,7 @@ export const en = () => ({
     },
     hu_timeOfHearingDetails: {
       required: 'Enter how soon you need the hearing to take place',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Select yes if you need a hearing within the next 48 hours',
@@ -68,6 +74,7 @@ export const cy = () => ({
     },
     hu_timeOfHearingDetails: {
       required: "Nodwch pa mor fuan y mae angen i'r gwrandawiad gael ei gynnal",
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(Welsh)',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Dewiswch oes os oes angen gwrandawiad arnoch o fewn y 48 awr nesaf',
@@ -124,7 +131,7 @@ export const form: FormContent = {
       name: 'hu_timeOfHearingDetails',
       classes: 'govuk-input',
       label: l => l.timeOfHearing,
-      validator: value => isFieldFilledIn(value),
+      validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
     },
     hu_hearingWithNext48HrsDetails: {
       type: 'radios',
