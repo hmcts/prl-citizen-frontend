@@ -23,7 +23,7 @@
     "sonar-scan": "sonar-scanner",
     "test:smoke": "echo 'smoke tests disabled temporarily for setup' && exit 0",
     "test:functional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js",
-    "test:fullfunctional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js",
+    "test:fullfunctional": "run-p test:pa11y",
     "cichecks": "yarn && run-p build lint test",
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",
     "test:crossbrowser-e2e": "echo 'nope' && exit 0",
