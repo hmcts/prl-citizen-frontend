@@ -14,7 +14,7 @@ module.exports = {
     submit: 'input[type="submit"]'
   },
 
-  async loginAsCitizen() {
+  async loginAsCitizenUserNamePassWord() {
     try {
       await I.retry(retryCount).amOnPage(baseUrl);
       await I.retry(retryCount).click('Accept additional cookies');

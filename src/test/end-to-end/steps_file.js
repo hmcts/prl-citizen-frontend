@@ -37,9 +37,6 @@ module.exports = () => {
     loginAsCitizen() {
       return Login.loginAsCitizen();
     },
-    loginAsCitizenUserNamePassWord() {
-      return CitizenLoginPage.loginAsCitizen();
-    },
     internationalElement() {
       return InternationalElement.clickInternationalElementHappyPath();
     },
@@ -61,6 +58,9 @@ module.exports = () => {
     // supportYouNeedDuringYourCase() {
     //   return SupportYouNeed.supportYouNeedHappyPath();
     // },
+    loginAsCitizenUserNamePassWord() {
+      return CitizenLoginPage.loginAsCitizenUserNamePassWord();
+    },
     createC100Application() {
       return CreateApplication.createNewC100Application();
     },
