@@ -16,6 +16,7 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
+import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
@@ -90,6 +91,7 @@ import {
   PAYMENT_RETURN_URL_CALLBACK,
   C100_RETRIVE_CASE,
   C100_DOWNLOAD_APPLICATION,
+  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -235,6 +237,10 @@ export class Routes {
         app.get(
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
+        );
+        app.get(
+          SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
+          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
         );
       }
     }

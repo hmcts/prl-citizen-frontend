@@ -1,3 +1,4 @@
+import { CourtComfortEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -64,22 +65,22 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.appropriatelighting,
-          value: 'appropriate lighting',
+          value: CourtComfortEnum.appropriatelighting,
         },
         {
           name: 'courtComfort',
           label: l => l.break,
-          value: 'Regular breaks',
+          value: CourtComfortEnum.breaks,
         },
         {
           name: 'courtComfort',
           label: l => l.space,
-          value: 'space to move around',
+          value: CourtComfortEnum.space,
         },
         {
           name: 'courtComfort',
           label: l => l.other,
-          value: 'other',
+          value: CourtComfortEnum.other,
           subFields: {
             otherProvideDetails: {
               type: 'textarea',
@@ -95,7 +96,7 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: CourtComfortEnum.nosupport,
           exclusive: true,
         },
       ],

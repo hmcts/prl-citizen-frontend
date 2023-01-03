@@ -71,6 +71,14 @@ import {
   OtherChildrenDetails,
   C100RebuildPartyDetails,
   C100Applicant,
+  SafetyArrangemensEnum,
+  TravellingToCourtEnum,
+  ReasonableAdjustmentsEnum,
+  DocsSupportEnum,
+  CourtHearingEnum,
+  CourtComfortEnum,
+  LanguageRequirementsEnum,
+  HelpCommunicationEnum,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -404,22 +412,22 @@ export interface Case {
 
   //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case
-  languageRequirements?: string;
+  languageRequirements?: LanguageRequirementsEnum[];
   languageDetails?: string;
-  reasonableAdjustments?: string;
-  helpCommunication?: string;
+  reasonableAdjustments?: ReasonableAdjustmentsEnum[];
+  helpCommunication?: HelpCommunicationEnum[];
   describeOtherNeed?: string;
-  courtHearing?: string;
+  courtHearing?: CourtHearingEnum[];
   communicationSupportOther?: string;
-  docsSupport?: string;
+  docsSupport?: DocsSupportEnum[];
   otherDetails?: string;
-  courtComfort?: string;
+  courtComfort?: CourtComfortEnum[];
   otherProvideDetails?: string;
-  safetyArrangements?: string;
+  safetyArrangements?: SafetyArrangemensEnum[];
   safetyArrangementsDetails?: string;
-  travellingToCourt?: string;
+  travellingToCourt?: TravellingToCourtEnum[];
   travellingOtherDetails?: string;
-  unableForCourtProceedings?: string;
+  unableForCourtProceedings?: YesOrNo;
   courtProceedingProvideDetails?: string;
 
   //CA-DA-Respondent

@@ -1,3 +1,4 @@
+import { ReasonableAdjustmentsEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -80,37 +81,37 @@ export const form: FormContent = {
           name: 'reasonableAdjustments',
           label: l => l.docsformat,
           hint: l => l.docsformathint,
-          value: 'document format',
+          value: ReasonableAdjustmentsEnum.docsformat,
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.commhelp,
           hint: l => l.commhelphint,
-          value: 'comminication help',
+          value: ReasonableAdjustmentsEnum.commhelp,
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.hearingsupport,
           hint: l => l.hearingsupporthint,
-          value: 'hearing support',
+          value: ReasonableAdjustmentsEnum.hearingsupport,
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.hearingcomfort,
           hint: l => l.hearingcomforthint,
-          value: 'hearing comfort',
+          value: ReasonableAdjustmentsEnum.hearingcomfort,
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.travellinghelp,
           hint: l => l.travellinghelphint,
-          value: 'travel help',
+          value: ReasonableAdjustmentsEnum.travellinghelp,
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.unabletotakecourtproceedings,
           hint: l => l.unabletotakecourtproceedingshint,
-          value: 'unable to take court proceedings',
+          value: ReasonableAdjustmentsEnum.unabletotakecourtproceedings,
         },
         {
           divider: true,
@@ -118,7 +119,7 @@ export const form: FormContent = {
         {
           name: 'reasonableAdjustments',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: ReasonableAdjustmentsEnum.nosupport,
           exclusive: true,
         },
       ],

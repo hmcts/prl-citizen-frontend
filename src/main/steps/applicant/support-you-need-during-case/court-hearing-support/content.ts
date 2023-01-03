@@ -1,3 +1,4 @@
+import { CourtHearingEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -66,27 +67,27 @@ export const form: FormContent = {
         {
           name: 'courtHearing',
           label: l => l.supportworker,
-          value: 'support worker or carer',
+          value: CourtHearingEnum.supportworker,
         },
         {
           name: 'courtHearing',
           label: l => l.familymember,
-          value: 'friend or family member',
+          value: CourtHearingEnum.familymember,
         },
         {
           name: 'courtHearing',
           label: l => l.assistance,
-          value: 'assistance',
+          value: CourtHearingEnum.assistance,
         },
         {
           name: 'courtHearing',
           label: l => l.animal,
-          value: 'animal',
+          value: CourtHearingEnum.animal,
         },
         {
           name: 'courtHearing',
           label: l => l.other,
-          value: 'other',
+          value: CourtHearingEnum.other,
           subFields: {
             communicationSupportOther: {
               type: 'textarea',
@@ -102,7 +103,7 @@ export const form: FormContent = {
         {
           name: 'courtHearing',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: CourtHearingEnum.nosupport,
           exclusive: true,
         },
       ],

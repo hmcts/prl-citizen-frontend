@@ -1,3 +1,4 @@
+import { DocsSupportEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -74,42 +75,42 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.docsprint,
-          value: 'Documents in colour print',
+          value: DocsSupportEnum.docsprint,
         },
         {
           name: 'docsSupport',
           label: l => l.docsreadformat,
-          value: 'documents in read format',
+          value: DocsSupportEnum.docsreadformat,
         },
         {
           name: 'docsSupport',
           label: l => l.brailledocs,
-          value: 'Braille documents',
+          value: DocsSupportEnum.brailledocs,
         },
         {
           name: 'docsSupport',
           label: l => l.largeprintdocs,
-          value: 'Large print documents',
+          value: DocsSupportEnum.largeprintdocs,
         },
         {
           name: 'docsSupport',
           label: l => l.docsaudio,
-          value: 'Audio translation of documents',
+          value: DocsSupportEnum.docsaudio,
         },
         {
           name: 'docsSupport',
           label: l => l.readoutdocs,
-          value: 'Documents read out to me',
+          value: DocsSupportEnum.readoutdocs,
         },
         {
           name: 'docsSupport',
           label: l => l.emailInfo,
-          value: 'email information',
+          value: DocsSupportEnum.emailInfo,
         },
         {
           name: 'docsSupport',
           label: l => l.other,
-          value: 'other',
+          value: DocsSupportEnum.other,
           subFields: {
             otherDetails: {
               type: 'textarea',
@@ -125,7 +126,7 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: DocsSupportEnum.nosupport,
           exclusive: true,
         },
       ],

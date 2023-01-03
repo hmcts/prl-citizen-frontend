@@ -1,14 +1,18 @@
 import { CaseWithId } from '../../../../../main/app/case/case';
-import { ApplicantReasonableAdjustments } from '../../../../../main/app/case/definition';
+import {
+  CourtComfortEnum,
+  CourtHearingEnum,
+  DocsSupportEnum,
+  HelpCommunicationEnum,
+  LanguageRequirementsEnum,
+  ReasonableAdjustmentsEnum,
+  SafetyArrangemensEnum,
+  TravellingToCourtEnum,
+} from '../../../../../main/app/case/definition';
 import { TranslationFn } from '../../../../../main/app/controller/GetController';
 import { FormContent } from '../../../../../main/app/form/Form';
 import { CommonContent } from '../../../../../main/steps/common/common.content';
 import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
-import {
-  NO_I_DO_NOT_NEED_OF_SUPPORT_AT_THIS_TIME,
-  NO_NEED_OF_SUPPORT,
-  NO_NEED_OF_SUPPORT_AT_THIS_TIME,
-} from '../../../../../main/steps/constants';
 import {
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
@@ -183,7 +187,7 @@ export const generateContent: TranslationFn = content => {
 };
 
 function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
-  if (userCase.reasonableAdjustments?.includes(ApplicantReasonableAdjustments.DOCUMENTS_SUPPORT)) {
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustmentsEnum.docsformat)) {
     Object.assign(urls, { docsSupport: DOCUMENTS_SUPPORT });
     Object.assign(urls, { otherDetails: DOCUMENTS_SUPPORT });
 
@@ -191,7 +195,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(enContent.keys, { otherDetails: 'Describe what you need' });
   }
 
-  if (userCase.reasonableAdjustments?.includes(ApplicantReasonableAdjustments.COMMUNICATION_HELP)) {
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustmentsEnum.commhelp)) {
     Object.assign(urls, { helpCommunication: COMMUNICATION_HELP });
     Object.assign(urls, { describeOtherNeed: COMMUNICATION_HELP });
 
@@ -199,7 +203,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(enContent.keys, { describeOtherNeed: 'Describe what you need' });
   }
 
-  if (userCase.reasonableAdjustments?.includes(ApplicantReasonableAdjustments.COURT_HEARING_SUPPORT)) {
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustmentsEnum.hearingsupport)) {
     Object.assign(urls, { courtHearing: COURT_HEARING_SUPPORT });
     Object.assign(urls, { communicationSupportOther: COURT_HEARING_SUPPORT });
 
@@ -207,7 +211,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(enContent.keys, { communicationSupportOther: 'Describe what you need' });
   }
 
-  if (userCase.reasonableAdjustments?.includes(ApplicantReasonableAdjustments.COURT_HEARING_COMFORT)) {
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustmentsEnum.hearingcomfort)) {
     Object.assign(urls, { courtComfort: COURT_HEARING_COMFORT });
     Object.assign(urls, { otherProvideDetails: COURT_HEARING_COMFORT });
 
@@ -217,7 +221,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(enContent.keys, { otherProvideDetails: 'Describe what you need' });
   }
 
-  if (userCase.reasonableAdjustments?.includes(ApplicantReasonableAdjustments.TRAVELLING_TO_COURT)) {
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustmentsEnum.travellinghelp)) {
     Object.assign(urls, { travellingToCourt: TRAVELLING_TO_COURT });
     Object.assign(urls, { travellingOtherDetails: TRAVELLING_TO_COURT });
 
@@ -225,7 +229,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(enContent.keys, { travellingOtherDetails: 'Describe what you need' });
   }
 
-  if (userCase.reasonableAdjustments?.includes(ApplicantReasonableAdjustments.UNABLE_TO_TAKE_COURT_PROCEEDINGS)) {
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustmentsEnum.unabletotakecourtproceedings)) {
     Object.assign(urls, { unableForCourtProceedings: UNABLE_TO_TAKE_COURT_PROCEEDINGS });
     Object.assign(urls, { courtProceedingProvideDetails: UNABLE_TO_TAKE_COURT_PROCEEDINGS });
 
@@ -235,7 +239,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(enContent.keys, { courtProceedingProvideDetails: 'Provie details' });
   }
 
-  if (userCase.reasonableAdjustments?.includes(ApplicantReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustmentsEnum.nosupport)) {
     //delete all fields //
     deleteLanguageRequirementsFields(userCase);
     deleteDocsSupportFields(userCase);
@@ -247,27 +251,27 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     deleteSafetyArrangementsFields(userCase);
   }
 
-  if (userCase.languageRequirements?.includes(NO_NEED_OF_SUPPORT)) {
+  if (userCase.languageRequirements?.includes(LanguageRequirementsEnum.nointerpreter)) {
     deleteLanguageRequirementsFields(userCase);
   }
 
-  if (userCase.docsSupport?.includes(NO_I_DO_NOT_NEED_OF_SUPPORT_AT_THIS_TIME)) {
+  if (userCase.docsSupport?.includes(DocsSupportEnum.nosupport)) {
     deleteDocsSupportFields(userCase);
   }
 
-  if (userCase.helpCommunication?.includes(NO_NEED_OF_SUPPORT_AT_THIS_TIME)) {
+  if (userCase.helpCommunication?.includes(HelpCommunicationEnum.nosupport)) {
     deleteHelpCommunicationFields(userCase);
   }
 
-  if (userCase.courtHearing?.includes(NO_NEED_OF_SUPPORT_AT_THIS_TIME)) {
+  if (userCase.courtHearing?.includes(CourtHearingEnum.nosupport)) {
     deleteCourtHearingFields(userCase);
   }
 
-  if (userCase.courtComfort?.includes(NO_NEED_OF_SUPPORT_AT_THIS_TIME)) {
+  if (userCase.courtComfort?.includes(CourtComfortEnum.nosupport)) {
     deleteCourtComfortFields(userCase);
   }
 
-  if (userCase.travellingToCourt?.includes(NO_NEED_OF_SUPPORT_AT_THIS_TIME)) {
+  if (userCase.travellingToCourt?.includes(TravellingToCourtEnum.nosupport)) {
     deleteTravellingToCourtFields(userCase);
   }
 
@@ -275,7 +279,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     deleteUnableForCourtProceedingsFields(userCase);
   }
 
-  if (userCase.safetyArrangements?.includes(NO_NEED_OF_SUPPORT_AT_THIS_TIME)) {
+  if (userCase.safetyArrangements?.includes(SafetyArrangemensEnum.nosupport)) {
     deleteSafetyArrangementsFields(userCase);
   }
 }

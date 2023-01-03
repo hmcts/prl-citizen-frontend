@@ -1,3 +1,4 @@
+import { SafetyArrangemensEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -76,39 +77,39 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.waitingroom,
-          value: 'separate waiting room',
+          value: SafetyArrangemensEnum.waitingroom,
         },
         {
           name: 'safetyArrangements',
           label: l => l.separateexitentry,
-          value: 'separate exits and entrances',
+          value: SafetyArrangemensEnum.separateexitentry,
         },
         {
           name: 'safetyArrangements',
           label: l => l.screens,
           hint: l => l.screenshint,
-          value: 'screens to separate',
+          value: SafetyArrangemensEnum.screens,
         },
         {
           name: 'safetyArrangements',
           label: l => l.toilet,
-          value: 'separate toilets',
+          value: SafetyArrangemensEnum.toilet,
         },
         {
           name: 'safetyArrangements',
           label: l => l.advancedview,
-          value: 'other',
+          value: SafetyArrangemensEnum.advancedview,
         },
         {
           name: 'safetyArrangements',
           label: l => l.videolinks,
           hint: l => l.videolinkshint,
-          value: 'other',
+          value: SafetyArrangemensEnum.videolinks,
         },
         {
           name: 'safetyArrangements',
           label: l => l.other,
-          value: 'other',
+          value: SafetyArrangemensEnum.other,
           subFields: {
             safetyArrangementsDetails: {
               type: 'textarea',
@@ -124,7 +125,7 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: SafetyArrangemensEnum.nosupport,
           exclusive: true,
         },
       ],

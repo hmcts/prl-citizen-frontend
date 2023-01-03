@@ -1,3 +1,4 @@
+import { HelpCommunicationEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -87,59 +88,59 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.hearingloop,
-          value: 'hearing loop',
+          value: HelpCommunicationEnum.hearingloop,
         },
         {
           name: 'helpCommunication',
           label: l => l.infraredreceiver,
-          value: 'infrared receiver',
+          value: HelpCommunicationEnum.infraredreceiver,
         },
         {
           name: 'helpCommunication',
           label: l => l.needspeakinghelp,
-          value: 'speaking help',
+          value: HelpCommunicationEnum.needspeakinghelp,
         },
         {
           name: 'helpCommunication',
           label: l => l.lipspeaker,
           hint: l => l.lipspeakerhint,
-          value: 'lip speaker',
+          value: HelpCommunicationEnum.lipspeaker,
         },
         {
           name: 'helpCommunication',
           label: l => l.signlanguage,
-          value: 'sign language interpreter',
+          value: HelpCommunicationEnum.signlanguage,
         },
         {
           name: 'helpCommunication',
           label: l => l.speechreporter,
-          value: 'speech to text reporter',
+          value: HelpCommunicationEnum.speechreporter,
         },
         {
           name: 'helpCommunication',
           label: l => l.extratime,
-          value: 'extra time to think and explain myself',
+          value: HelpCommunicationEnum.extratime,
         },
         {
           name: 'helpCommunication',
           label: l => l.courtvisit,
-          value: 'vist to court before hearing',
+          value: HelpCommunicationEnum.courtvisit,
         },
         {
           name: 'helpCommunication',
           label: l => l.courthearing,
-          value: 'court hearing',
+          value: HelpCommunicationEnum.courthearing,
         },
         {
           name: 'helpCommunication',
           label: l => l.intermediary,
           hint: l => l.intermediaryhint,
-          value: 'intermediary',
+          value: HelpCommunicationEnum.intermediary,
         },
         {
           name: 'helpCommunication',
           label: l => l.other,
-          value: 'Other',
+          value: HelpCommunicationEnum.other,
           subFields: {
             describeOtherNeed: {
               type: 'textarea',
@@ -155,7 +156,7 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: HelpCommunicationEnum.nosupport,
           exclusive: true,
         },
       ],

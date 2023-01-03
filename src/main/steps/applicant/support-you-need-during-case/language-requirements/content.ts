@@ -1,3 +1,4 @@
+import { LanguageRequirementsEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -65,17 +66,17 @@ export const form: FormContent = {
         {
           name: 'languageRequirements',
           label: l => l.speakwelsh,
-          value: 'I need to speak in Welsh',
+          value: LanguageRequirementsEnum.speakwelsh,
         },
         {
           name: 'languageRequirements',
           label: l => l.readandwritewelsh,
-          value: 'I need to read and write in Welsh',
+          value: LanguageRequirementsEnum.readandwritewelsh,
         },
         {
           name: 'languageRequirements',
           label: l => l.languageinterpreter,
-          value: 'I need an interpreter in a certain language',
+          value: LanguageRequirementsEnum.languageinterpreter,
           subFields: {
             languageDetails: {
               type: 'textarea',
@@ -91,7 +92,7 @@ export const form: FormContent = {
         {
           name: 'languageRequirements',
           label: l => l.nointerpreter,
-          value: 'No, I do not have any language requirements at this time',
+          value: LanguageRequirementsEnum.nointerpreter,
           exclusive: true,
         },
       ],

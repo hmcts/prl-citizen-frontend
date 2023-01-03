@@ -121,18 +121,118 @@ export interface Response {
   keepDetailsPrivate?: KeepDetailsPrivate;
   citizenFlags?: CitizenFlags
   safeToCallOption?: string;
+  supportYouNeed?: ReasonableAdjustmentsSupport;
+}
+
+export interface ReasonableAdjustmentsSupport {
+  helpCommunication?: HelpCommunicationEnum[],
+  describeOtherNeed?: string,
+  courtComfort?: CourtComfortEnum[],
+  otherProvideDetails?: string,
+  courtHearing?: CourtHearingEnum[],
+  communicationSupportOther?: string,
+  docsSupport?: DocsSupportEnum[],
+  otherDetails?: string,
+  languageRequirements?: LanguageRequirementsEnum[], 
+  languageDetails?: string,
+  reasonableAdjustments?: ReasonableAdjustmentsEnum[],
+  safetyArrangements?: SafetyArrangemensEnum[],
+  safetyArrangementsDetails?: string,
+  travellingToCourt?: TravellingToCourtEnum[],
+  travellingOtherDetails?: string,
+  unableForCourtProceedings?: YesOrNo,
+  courtProceedingProvideDetails?: string,
+}
+
+export const enum TravellingToCourtEnum {
+  parkingspace = 'Parking space close to the venue',
+  stepfree = 'Step free / wheelchair access',
+  wheelchair = 'Use of venue wheelchair',
+  toilet = 'Accessible toilet',
+  lift = 'Help using a lift',
+  differentchair = 'A different type of chair',
+  building = 'Guiding in the building',
+  other = 'Other',
+  nosupport = 'No, I do not need any extra support at this time',
+}
+
+export const enum HelpCommunicationEnum {
+  hearingloop = 'hearingloop',
+  infraredreceiver = 'infraredreceiver',
+  needspeakinghelp = 'needspeakinghelp',
+  lipspeaker = 'lipspeaker',
+  signlanguage = 'signlanguage',
+  speechreporter = 'speechreporter',
+  extratime = 'extratime',
+  courtvisit = 'courtvisit',
+  courthearing = 'courthearing',
+  intermediary = 'intermediary',
+  other = 'other',
+  nosupport = 'nosupport',
+}
+
+export const enum CourtComfortEnum {
+  appropriatelighting = 'appropriatelighting',
+  breaks = 'breaks',
+  space = 'space',
+  other = 'other',
+  nosupport = 'nosupport',
+}
+
+export const enum SafetyArrangemensEnum {
+  waitingroom= 'Separate waiting room',
+  separateexitentry= 'Separate exits and entrances',
+  screens= 'Screens so you and the other people in the case cannot see each other',
+  toilet= 'Separate toilets',
+  advancedview= 'Advanced viewing of the court',
+  videolinks= 'Video links',
+  other= 'Other',
+  nosupport = 'No, I do not need any extra support at this time',
+}
+
+export const enum ReasonableAdjustmentsEnum {
+  docsformat= 'I need documents in an alternative format',
+  commhelp= 'I need help communicating and understanding',
+  hearingsupport= 'I need to bring support with me to a hearing',
+  hearingcomfort= 'I need something to feel comfortable during a hearing',
+  travellinghelp= 'I need help travelling to, or moving around court buildings',
+  unabletotakecourtproceedings= 'Is there a reason you are unable to take part in the court proceedings?',
+  nosupport= 'No, I do not need any extra support at this time',
+}
+
+export const enum LanguageRequirementsEnum {
+  speakwelsh = 'I need to speak in Welsh',
+  readandwritewelsh = 'I need to read and write in Welsh',
+  languageinterpreter = 'I need an interpreter in a certain language',
+  nointerpreter = 'No, I do not have any language requirements at this time',
+  
+}
+
+export const enum DocsSupportEnum {
+  docsprint = 'I need documents printed in a particular colour or font',
+  docsreadformat = 'Documents in an easy read format',
+  brailledocs = 'Braille documents',
+  largeprintdocs = 'Documents in large print',
+  docsaudio = 'Audio translation of documents',
+  readoutdocs = 'Documents read out to me',
+  emailInfo = 'Information emailed to me',
+  other = 'Other',
+  nosupport = 'I do not need any of this support at this time',
+}
+
+export const enum CourtHearingEnum {
+  supportworker = 'A support worker or carer',
+  familymember = 'A friend or family member',
+  assistance = 'Assistance / guide dog',
+  animal = 'Therapy animal',
+  other = 'Other',
+  nosupport = 'No, I do not need any extra support at this time',
 }
 
 export interface CitizenFlags {
   isApplicationViewed?: string,
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
-}
-
-
-export interface CitizenFlags {
-  isApplicationViewed?: string,
-  isAllegationOfHarmViewed?: string
 }
 
 export const enum DownloadFileFieldFlag {
