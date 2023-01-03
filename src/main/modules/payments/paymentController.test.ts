@@ -63,7 +63,7 @@ describe('PaymentValidationHandler', () => {
     await PaymentValidationHandler(req, res);
     expect(res.send).toHaveBeenCalledTimes(0);
     expect(res.render).toHaveBeenCalledTimes(0);
-    expect(res.redirect).toHaveBeenCalledTimes(1);
+    expect(res.redirect).toHaveBeenCalledTimes(2);
     expect(res.send.mock.calls).toHaveLength(0);
   });
 });

@@ -31,8 +31,7 @@ export class CommonDataLoader {
     const storage: ANYTYPE = [];
     UserCase[key].forEach(element => {
       if (UserCase.hasOwnProperty(`${key}_${element}`)) {
-        let val = UserCase[`${key}_${element}`].filter(item => item !== '');
-        val = element + '_subFields';
+        const val = element + '_subFields';
         storage.push(val);
       } else {
         storage.push(element);

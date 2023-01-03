@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseDate } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import {
   C100OrderInterface,
   C100OrderTypeKeyMapper,
@@ -66,24 +66,24 @@ export const en = () => ({
 export const cy = () => ({
   pageTitle: 'Darparu manylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy',
   additionalNote: "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a pharhau â'r cais.",
-  emergencyProtectionOrderLabel: 'Emergency Protection Order - welsh',
-  childArrangementOrderLabel: 'Child Arrangements Order - welsh',
-  supervisionOrderLabel: 'Supervision Order - welsh',
-  careOrderLabel: 'Care Order - welsh',
-  childAbductionOrderLabel: 'Child Abduction Order - welsh',
+  emergencyProtectionOrderLabel: 'Gorchymyn Diogelu Brys',
+  childArrangementOrderLabel: 'Gorchymyn Trefniadau Plant',
+  supervisionOrderLabel: 'Gorchymyn goruchwylio',
+  careOrderLabel: 'Gorchymyn Gofal',
+  childAbductionOrderLabel: 'Herwgydio Plentyn',
   contactOrderForDivorceLabel:
-    'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership - welsh',
+    'Gorchymyn Cyswllt neu Orchymyn Preswylio (Adran 8 Deddf Plant 1989) a wnaed fel rhan o achos ysgariad neu achos diddymu partneriaeth sifil',
   contactOrderForAdoptionLabel:
-    'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order - welsh',
-  childMaintenanceOrderLabel: 'Child Maintenance Order - welsh',
-  financialOrderLabel: 'Financial Order - welsh',
-  nonMolestationOrderLabel: 'Non-molestation Order - welsh',
-  occupationOrderLabel: 'Occupation Order - welsh',
-  forcedMarriageProtectionOrderLabel: 'Forced Marriage Protection Order - welsh',
-  restrainingOrderLabel: 'Restraining Order - welsh',
-  otherInjuctionOrderLabel: 'Other Injunction Order - welsh',
-  undertakingOrderLabel: 'Undertaking Order - welsh',
-  otherOrderLabel: 'Other Order - welsh',
+    'Gorchymyn Cyswllt neu Orchymyn Preswylio (Adran 8 Deddf Plant 1989) a wnaed mewn perthynas â Gorchymyn Mabwysiadu',
+  childMaintenanceOrderLabel: 'Gorchymyn Cynhaliaeth Plant',
+  financialOrderLabel: 'Gorchmynion Ariannol',
+  nonMolestationOrderLabel: 'Gorchymyn Rhag Molestu',
+  occupationOrderLabel: 'Gorchymyn Anheddu',
+  forcedMarriageProtectionOrderLabel: 'Gorchymyn Amddiffyn rhag Priodas dan Orfod',
+  restrainingOrderLabel: 'Gorchymyn Atal',
+  otherInjuctionOrderLabel: 'Gorchymyn Gwahardd Arall',
+  undertakingOrderLabel: 'Gorchymyn Ymgymeriad',
+  otherOrderLabel: 'Gorchymyn Arall',
   courtIssuedLabel: 'Pa lys gyhoeddodd y gorchymyn? (dewisol)',
   caseNumberLabel: 'Rhif yr achos (dewisol)',
   caseNumberHint: 'Er enghraifft, BS19F99999',
@@ -347,9 +347,13 @@ export const form: FormContent = {
     text: l => l.saveAndComeLater,
   },
 };
+export const getFormFields = (caseData: Partial<CaseWithId>, orderType: C100OrderTypes): FormContent => {
+  const orderSessionData = caseData?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[orderType]];
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+  return updateFormFields(
+    form,
+    generateFormFields(orderType, !orderSessionData?.length ? [getOrderSessionDataShape()] : orderSessionData).fields
+  );
 };
 
 export const generateContent: TranslationFn = content => {

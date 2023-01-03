@@ -33,7 +33,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - Welsh',
+  serviceName: 'Trefniadau plant',
   title: 'Pryderon diogelwch',
   headingTitle: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
   paragraph1:
@@ -54,7 +54,7 @@ const cy = {
   noHaveSafetyConcerns: 'Nac oes',
   errors: {
     c1A_haveSafetyConcerns: {
-      required: 'Select yes if you have any concerns for your safety or the safety of the children - Welsh',
+      required: 'Dewiswch oes os oes gennych unrhyw bryderon am eich diogelwch neu ddiogelwch y plant',
     },
   },
 };

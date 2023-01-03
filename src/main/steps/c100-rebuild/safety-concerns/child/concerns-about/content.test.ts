@@ -43,7 +43,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   headingTitle: "Pa fath o ymddygiad y mae'r plant wedi ei brofi neu mewn perygl o’i brofi?",
   paragraph1: "Gweler canllawiau'r Gymdeithas Genedlaethol er Atal Creulondeb i Blant (NSPCC) ar ",
@@ -73,7 +73,7 @@ const cy = {
   somethingElseHint: "Unrhyw bryderon sydd gennych nad ydynt yn ffitio i'r categorïau uchod",
   errors: {
     c1A_concernAboutChild: {
-      required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing - welsh',
+      required: "Nodwch y math o ymddygiad y mae'r plant wedi ei brofi neu maent mewn perygl o’i brofi",
     },
   },
 };
