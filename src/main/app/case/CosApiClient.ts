@@ -35,8 +35,7 @@ export class CosApiClient {
       const response = await this.client.get<string>('/');
       return response.data;
     } catch (e) {
-      //const errMsg = 'Error connecting cos';
-      //console.error(errMsg);
+      throw new Error('Could not connect to cos-api client.');
     }
   }
 
@@ -312,7 +311,6 @@ export class CosApiClient {
         headers,
       });
       return response;
-      // return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
       throw new Error('Case could not be updated - updateRespondentCase');
     }

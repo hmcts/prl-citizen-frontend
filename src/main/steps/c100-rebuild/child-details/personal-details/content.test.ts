@@ -32,6 +32,7 @@ const en = {
       incompleteYear: 'Date of birth must include a year',
       invalidDateInFuture: 'Date of birth must be in the past',
       cannotHaveBothApproxAndExact: 'Cannot have a date of birth and also "I dont know their date of birth"',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     approxDateOfBirth: {
       required: 'Enter the approx date of birth',
@@ -40,6 +41,7 @@ const en = {
       incompleteMonth: 'Approx date of birth must include a month',
       incompleteYear: 'Approx date of birth must include a year',
       invalidDateInFuture: 'Approx date of birth must be in the past',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     gender: {
       required: 'Select the gender',
@@ -70,6 +72,7 @@ const cy = {
       incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
       cannotHaveBothApproxAndExact: 'Methu cael dyddiad geni a hefyd “ nid wyf yn gwybod beth yw ei ddyddiad geni',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
     },
     approxDateOfBirth: {
       required: 'Nodwch ddyddiad geni bras',
@@ -78,6 +81,7 @@ const cy = {
       incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
       incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
     },
     gender: {
       required: 'Nodwch y rhywedd',
@@ -180,6 +184,45 @@ describe('child details > personal details', () => {
     expect(dateOfBirth.classes).toBe('govuk-date-input');
     expect((dateOfBirth.hint as Function)(generatedContent)).toBe(en.dateHint);
     expect((dateOfBirth.label as Function)(generatedContent)).toBe(en.dobLabel);
+    expect(
+      (dateOfBirth.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(dateOfBirth.values[0].value).toBe('12');
+    expect(dateOfBirth.values[0].classes).toBe('govuk-input--width-2');
+    expect(dateOfBirth.values[0].attributes).toStrictEqual({ inputMode: 'numeric', maxLength: 2, pattern: '[0-9]*' });
+    expect(
+      (dateOfBirth.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(dateOfBirth.values[1].value).toBe('12');
+    expect(dateOfBirth.values[1].classes).toBe('govuk-input--width-2');
+    expect(dateOfBirth.values[1].attributes).toStrictEqual({ inputMode: 'numeric', maxLength: 2, pattern: '[0-9]*' });
+    expect(
+      (dateOfBirth.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(dateOfBirth.values[2].value).toBe('1987');
+    expect(dateOfBirth.values[2].classes).toBe('govuk-input--width-4');
+    expect(dateOfBirth.values[2].attributes).toStrictEqual({ inputMode: 'numeric', maxLength: 4, pattern: '[0-9]*' });
     (dateOfBirth.validator as Validator)(commonContent.userCase!.cd_children![0].personalDetails.dateOfBirth);
     expect(areDateFieldsFilledIn).toHaveBeenCalledWith({
       day: '12',
@@ -205,6 +248,28 @@ describe('child details > personal details', () => {
     expect((isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.label as Function)(generatedContent)).toBe(
       en.approxDobLabel
     );
+
+    expect(
+      (isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].name as Function).toBe('day');
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].value as Function).toBe('');
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].classes as Function).toBe(
+      'govuk-input--width-2'
+    );
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].attributes as Function).toStrictEqual({
+      inputMode: 'numeric',
+      maxLength: 2,
+      pattern: '[0-9]*',
+    });
+
     (isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.validator as Validator)(
       commonContent.userCase!.cd_children![0].personalDetails.dateOfBirth
     );

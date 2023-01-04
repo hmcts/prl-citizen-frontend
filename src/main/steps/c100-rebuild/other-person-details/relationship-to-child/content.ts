@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../app/case/case';
 import {
   C100RebuildPartyDetails,
   ChildrenDetails,
@@ -36,7 +37,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Beth yw',
-  title1: 'Perthynas efo',
+  title1: ' Perthynas efo',
   mother: 'Mam',
   father: 'Tad',
   guardian: 'Gwarcheidwad',
@@ -146,8 +147,17 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (
+  caseData: Partial<CaseWithId>,
+  otherPersonId: C100RebuildPartyDetails['id'],
+  childId: ChildrenDetails['id']
+): FormContent => {
+  const otherPersonDetails = getPartyDetails(otherPersonId, caseData.oprs_otherPersons) as C100RebuildPartyDetails;
+  const relationshipFound = otherPersonDetails?.relationshipDetails.relationshipToChildren?.find(
+    relationshipToChild => relationshipToChild.childId === childId
+  );
+
+  return updateFormFields(form, generateFormFields(relationshipFound ?? ({} as RelationshipToChildren)).fields);
 };
 
 export const generateContent: TranslationFn = content => {

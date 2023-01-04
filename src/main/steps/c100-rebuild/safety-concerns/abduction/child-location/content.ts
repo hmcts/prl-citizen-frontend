@@ -43,10 +43,10 @@ export const cy = () => ({
   errors: {
     c1A_abductionReasonOutsideUk: {
       required:
-        'Explain why you think the children may be abducted or kept outside of the UK without your consent - welsh',
+        "Esboniwch pam rydych chi'n meddwl y gallai'r plant gael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd",
     },
     c1A_childsCurrentLocation: {
-      required: 'Describe where the children are now - welsh',
+      required: "Disgrifiwch lle mae'r plant erbyn hyn",
     },
   },
 });

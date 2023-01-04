@@ -5,7 +5,7 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { getDataShape } from '../../people/util';
 
-import { generateContent, generateFormFields } from './content';
+import { generateContent, generateFormFields, getFormFields } from './content';
 
 jest.mock('../../../../app/form/validation');
 
@@ -79,6 +79,9 @@ describe('child details > child-matters', () => {
   const commonContent = {
     language: 'en',
     userCase: {
+      too_resolveSpecificIssueSubField: ['needsResolution'],
+      too_stopOtherPeopleDoingSomethingSubField: ['needsResolution'],
+      too_courtOrder: ['needsResolution', 'stopOtherPeopleDoingSomething', 'resolveSpecificIssue'],
       cd_children: [
         {
           id: '7483640e-0817-4ddc-b709-6723f7925474',
@@ -129,11 +132,12 @@ describe('child details > child-matters', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(
+    const { errors, ...rest } = generateFormFields(
       (getDataShape(PartyType.CHILDREN) as ChildrenDetails).childMatters,
       dummySessionData,
       dummyTranslations
     );
+    expect(rest).not.toBe(undefined);
     languageAssertions(
       'en',
       {
@@ -185,9 +189,29 @@ describe('child details > child-matters', () => {
     (needsResolution.validator as Function)('issueOrderList');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('issueOrderList');
 
-    // expect(childArrangementsOrder.whoChildLiveWith.name).toBe('needsResolution');
-    // expect(whoChildLiveWith.value).toBe('whoChildLiveWith');
-    // expect((whoChildLiveWith.label as Function)(generatedContent)).toBe(en.whoChildLiveWithLabel);
+    expect(needsResolution.values).toStrictEqual([
+      {
+        label: undefined,
+        name: 'needsResolution',
+        value: 'needsResolution',
+      },
+      {
+        label: undefined,
+        name: 'needsResolution',
+        value: 'needsResolution',
+      },
+      {
+        label: undefined,
+        name: 'needsResolution',
+        value: 'needsResolution',
+      },
+    ]);
+
+    expect(
+      getFormFields({ ...commonContent.userCase }, '7483640e-0817-4ddc-b709-6723f7925474') as FormContent
+    ).not.toBe(undefined);
+    // expect(needsResolution.values[0].needsResolution.value).toBe('whoChildLiveWith');
+    // expect((needsResolution.values[0].needsResolution.label as Function)(generatedContent)).toBe(en.childArrangementsOrder.whoChildLiveWith);
 
     // expect(childTimeSpent.name).toBe('needsResolution');
     // expect(childTimeSpent.value).toBe('childTimeSpent');

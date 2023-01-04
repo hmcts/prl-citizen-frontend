@@ -25,7 +25,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
   line1:
     'Gall bod pryderon amddiffyn plant, gall bod llys angen help gyda chais am achos arall, gall bod angen gorfodi gorchymyn dramor, neu gall bod ymdrechion yn cael eu gwneud i ddychwelyd plant i Gymru neu Loegr.',
@@ -35,11 +35,11 @@ export const cy = () => ({
   errors: {
     ie_internationalRequest: {
       required:
-        'Select yes if another country has asked (or been asked) for information or help for the children - Welsh',
+        "Dewiswch ydynt os oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant",
     },
     ie_provideDetailsRequest: {
       required:
-        'Provide details about another country asking (or being asked) for information or help for the children - Welsh ',
+        "Darparwch fanylion am wlad arall sy'n gofyn (neu y gofynnir iddo) am wybodaeth neu gymorth ar gyfer y plant",
     },
   },
 });

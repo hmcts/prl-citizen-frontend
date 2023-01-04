@@ -39,8 +39,6 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey: false
-payments:
-  url: 'http://prl-cos-demo.service.core-compute-demo.internal'
 
 uploadTimeout: 60000
 featureToggles:
