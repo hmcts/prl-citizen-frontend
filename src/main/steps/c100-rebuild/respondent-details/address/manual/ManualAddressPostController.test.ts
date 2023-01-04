@@ -100,6 +100,27 @@ describe('applicant1 > address > lookup > ManualAddressPostController', () => {
       body: {
         saveAndComeLater: true,
       },
+      session: {
+        lang: 'en',
+        userCase: {
+          resp_Respondents: [
+            {
+              firstName: 'Dummy ',
+              id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+              lastName: 'Test1',
+              address: {
+                AddressLine1: 'UK',
+                AddressLine2: 'UK1',
+                PostTown: 'London',
+                County: 'UK',
+                PostCode: 'AG11NB',
+                addressHistory: 'Yes',
+                provideDetailsOfPreviousAddresses: 'NA',
+              },
+            },
+          ],
+        },
+      },
     });
     const res = mockResponse();
     generateContent(commonContent);

@@ -34,7 +34,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  headingTitle: 'Provide details of court cases you or the children have been involved in - welsh',
+  headingTitle: 'Darparwch fanylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy',
   select_all_apply:
     "Dewiswch bopeth sy'n berthnasol i chi neu'r plant. Os oes gennych fanylion penodol, byddwch yn gallu darparu'r wybodaeth honno yn fuan.",
   childArrangementOrder: 'Gorchymyn Trefniadau Plant',
@@ -47,7 +47,7 @@ const cy = () => ({
   contactOrderForDivorce:
     'Gorchymyn cyswllt neu orchymyn preswylio a wnaed fel rhan o achos ysgaru neu achos diddymu partneriaeth sifil',
   contactOrderForAdoption: 'Gorchymyn cyswllt neu orchymyn preswylio a wnaed mewn perthynas â Gorchymyn Mabwysiadu',
-  childMaintenanceOrder: 'An order relating to child maintenance - welsh',
+  childMaintenanceOrder: 'Gorchymyn yn ymwneud â chynhaliaeth plant',
   financialOrder: 'Gorchymyn Ariannol o dan Atodlen 1 Deddf Plant 1989',
   nonMolestationOrder: 'Gorchymyn Rhag Molestu',
   occupationOrder: 'Gorchymyn Anheddu',
@@ -58,7 +58,7 @@ const cy = () => ({
   otherOrder: 'Gorchmynion eraill',
   errors: {
     op_courtProceedingsOrders: {
-      required: 'Specify which court cases you or the children have been involved in - welsh',
+      required: "Nodwch pa achosion llys yr ydych chi neu'r plant wedi bod yn rhan ohonynt",
     },
   },
 });

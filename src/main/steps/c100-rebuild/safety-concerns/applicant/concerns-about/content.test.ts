@@ -39,33 +39,33 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
-  title: 'What type of behaviour have you experienced or are at risk of experiencing? - welsh',
+  serviceName: 'Trefniadau plant',
+  caption: 'Pryderon diogelwch',
+  title: 'Pa fath o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi?',
   paragraph1:
-    'Describe the abusive behaviour that you are concerned about. If you are not sure that the behaviour is abusive,- welsh',
-  seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse - welsh',
-  seeGuidanceLabel: ' see the guidance. - welsh',
-  select_all_relevant: 'Select any options that are relevant to your situation.- welsh',
-  physicalAbuse: 'Physical abuse - welsh',
-  physicalAbuseHint: 'Behaviour such as punching, choking, kicking or hitting with an object - welsh',
-  psychologicalAbuse: 'Psychological abuse - welsh',
+    'Disgrifiwch yr ymddygiad camdriniol rydych yn bryderus amdano. Os ydych yn ansicr a yw’r ymddygiad yn ymddygiad camdriniol',
+  seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse',
+  seeGuidanceLabel: 'gweler y canllawiau.',
+  select_all_relevant: "Dewiswch unrhyw opsiynau sy'n berthnasol i'ch sefyllfa.",
+  physicalAbuse: 'Cam-drin corfforol',
+  physicalAbuseHint: 'Ymddygiad megis dyrnu, tagu, cicio neu daro gyda gwrthrych',
+  psychologicalAbuse: 'Cam-drin seicolegol',
   psychologicalAbuseHint:
-    'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder - welsh',
-  emotionalAbuse: 'Emotional abuse - welsh',
+    "Cael eich rhoi mewn sefyllfa sy'n arwain at or-bryder, iselder, neu anhwylder straen ar ôl trawma",
+  emotionalAbuse: 'Cam-drin emosiynol',
   emotionalAbuseHint:
-    'Emotional abuse could be spoken (verbal) or not involving words or speech (non-verbal). Examples may include name calling, constant criticism, controlling behaviour, not letting you have an opinion - welsh',
-  sexualAbuse: 'Sexual abuse - welsh',
+    'Gall cam-drin emosiynol fod ar lafar (geiriol) neu ddim yn ymwneud â geiriau neu siarad (di-eiriau). Gall enghreifftiau o hyn gynnwys galw enwau, beirniadaeth gyson, ymddygiad rheolaethol, a pheidio â chaniatáu i chi roi barn',
+  sexualAbuse: 'Cam-drin rhywiol',
   sexualAbuseHint:
-    'Include being forced or pressured to have sex without consent, being threatened into an unwanted sexual activity, or unwanted touching or groping - welsh',
-  financialAbuse: 'Financial abuse - welsh',
+    'Yn cynnwys cael eich gorfodi neu’ch rhoi dan bwysau i gael rhyw heb gydsyniad, cael eich bygwth i gyflawni gweithred rywiol ddigroeso, neu gael eich cyffwrdd neu eich ymbalfalu yn ddigroeso',
+  financialAbuse: 'Cam-drin ariannol',
   financialAbuseHint:
-    'Examples of financial abuse can be not allowing a person to work, stopping someone saving their own money, or withholding money or credit cards - welsh',
-  somethingElse: 'Something else - welsh',
-  somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
+    'Mae enghreifftiau o gam-drin ariannol yn cynnwys peidio â chaniatáu i rywun weithio, atal rhywun rhag cynilo arian ei hun, neu gadw arian neu gardiau credyd oddi wrthynt',
+  somethingElse: 'Rhywbeth arall',
+  somethingElseHint: "Unrhyw bryderon sydd gennych nad ydynt yn ffitio i'r categorïau uchod",
   errors: {
     c1A_concernAboutApplicant: {
-      required: 'Specify the type of behaviour you have experienced or are at risk of experiencing - welsh',
+      required: "Nodwch y math o ymddygiad y mae'r plant wedi ei brofi neu maent mewn perygl o’i brofi",
     },
   },
 };

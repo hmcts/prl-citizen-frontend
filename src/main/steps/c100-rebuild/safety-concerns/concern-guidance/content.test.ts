@@ -60,7 +60,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: 'Pryderon diogelwch',
   caption:
     "Mae’r llys angen gwybod am unrhyw ymddygiad treisgar neu ddifrïol sy'n eich rhoi chi neu'r plant mewn risg o niwed.",

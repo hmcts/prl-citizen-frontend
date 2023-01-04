@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { FormContent } from '../../../../app/form/Form';
+import { YesOrNo } from '../../../../app/case/definition';
+import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 
 import AddApplicantPostController from './postController';
 
@@ -76,6 +77,88 @@ describe('PostController', () => {
         id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
         applicantFirstName: '',
         applicantLastName: '',
+        detailsKnown: '',
+        startAlternative: '',
+        start: 'Yes',
+        contactDetailsPrivate: ['email'],
+        contactDetailsPrivateAlternative: ['email'],
+      },
+      {
+        id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+        applicantFirstName: undefined,
+        applicantLastName: undefined,
+        detailsKnown: '',
+        startAlternative: '',
+        start: 'Yes',
+        contactDetailsPrivate: ['email'],
+        contactDetailsPrivateAlternative: ['email'],
+      },
+    ]);
+  });
+
+  test('Adding Applicant after clicking on saveAndComeLater Button with FormFieldFn > saveAndComeLater', async () => {
+    const mockFields: FormContent = {
+      fields: () => ({}),
+    };
+    mockFields.fields = mockFields.fields as FormFieldsFn;
+    const controller = new AddApplicantPostController(mockFields.fields);
+    const req = mockRequest();
+    req.session.userCase['appl_allApplicants'] = dummyData;
+    req.body = {
+      'ApplicantFirstName-1': '',
+      'ApplicantLastName-1': '',
+      saveAndComeLater: true,
+    };
+    req.session.save = function () {
+      return req.session;
+    };
+    controller.post(req, mockResponse());
+    expect(req.session.userCase['appl_allApplicants']).toEqual([
+      {
+        id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        applicantFirstName: 'Test1',
+        applicantLastName: 'Test2',
+        detailsKnown: '',
+        startAlternative: '',
+        start: 'Yes',
+        contactDetailsPrivate: ['email'],
+        contactDetailsPrivateAlternative: ['email'],
+      },
+      {
+        id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+        applicantFirstName: 'Test2',
+        applicantLastName: 'Test2',
+        detailsKnown: '',
+        startAlternative: '',
+        start: 'Yes',
+        contactDetailsPrivate: ['email'],
+        contactDetailsPrivateAlternative: ['email'],
+      },
+    ]);
+  });
+
+  test('Adding Applicant after clicking on saveAndComeLater Button with FormFieldFn', async () => {
+    const mockFields: FormContent = {
+      fields: () => ({}),
+    };
+    mockFields.fields = mockFields.fields as FormFieldsFn;
+    const controller = new AddApplicantPostController(mockFields.fields);
+    const req = mockRequest();
+    req.session.userCase['appl_allApplicants'] = dummyData;
+    req.body = {
+      applicantFirstName: '',
+      applicantLastName: '',
+      saveAndContinue: true,
+    };
+    req.session.save = function () {
+      return req.session;
+    };
+    controller.post(req, mockResponse());
+    expect(req.session.userCase['appl_allApplicants']).toEqual([
+      {
+        id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        applicantFirstName: undefined,
+        applicantLastName: undefined,
         detailsKnown: '',
         startAlternative: '',
         start: 'Yes',
@@ -208,6 +291,29 @@ describe('PostController', () => {
     (req.session.errors = [{ errorType: 'required', propertyName: 'needsResolution' }]),
       controller.post(req, mockResponse());
     expect(req.session.userCase['appl_allApplicants']).toHaveLength(0);
+  });
+
+  test('Adding Applicant after if both body appliantfirst and applicantlastname without values, saveAndContinue unchecked > addAnotherApplicant', async () => {
+    const mockFields = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddApplicantPostController(mockFields.fields);
+    const req = mockRequest();
+    req.session.userCase['appl_allApplicants'] = [];
+    req.session.save = function () {
+      return req.session;
+    };
+    req.body = {
+      saveAndContinue: undefined,
+      'ApplicantFirstName-1': '',
+      'ApplicantLastName-1': '',
+      applicantFirstName: '',
+      applicantLastName: '',
+      addAnotherApplicant: YesOrNo.YES,
+    };
+    (req.session.errors = [{ errorType: 'required', propertyName: 'needsResolution' }]),
+      controller.post(req, mockResponse());
+    expect(req.session.userCase['appl_allApplicants']).toHaveLength(1);
   });
 
   test('Redirecting Add Applicant clicking on Continue Button', async () => {

@@ -35,7 +35,7 @@ export const cy = () => ({
   ],
   errors: {
     c1A_keepingSafeStatement: {
-      required: 'Describe what do you want the court to do to keep you and the children safe - welsh',
+      required: "Disgrifiwch beth ydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel",
     },
   },
 });

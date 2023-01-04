@@ -52,7 +52,7 @@ export class CaseApi {
    */
   public async updateCase(
     caseId: string,
-    caseData: Partial<Case>,
+    caseData: Partial<CaseWithId>,
     returnUrl: string,
     caseEvent: C100_CASE_EVENT
   ): Promise<UpdateCaseResponse> {
@@ -66,6 +66,8 @@ export class CaseApi {
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
       id: caseId,
+      paymentServiceRequestReferenceNumber: caseData.paymentDetails?.serviceRequestReference,
+      paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
     };
     try {
       const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${caseEvent}/update-case`, data, {
@@ -129,6 +131,18 @@ export class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Document could not be deleted.');
+    }
+  }
+
+  public async downloadDraftApplication(docId: string): Promise<void> {
+    try {
+      const response = await this.axios.get(`/${docId}/download`, {
+        responseType: 'arraybuffer',
+      });
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Draft application could not be downloaded.');
     }
   }
 
@@ -245,6 +259,8 @@ interface UpdateCaseRequest extends UpdateCase {
   helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
   id: string;
+  paymentServiceRequestReferenceNumber?: string;
+  paymentReferenceNumber?: string;
 }
 
 export interface DocumentUploadResponse {

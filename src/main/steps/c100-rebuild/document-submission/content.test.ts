@@ -26,7 +26,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - Welsh',
+  serviceName: 'Trefniadau plant',
   headingTitle: 'How would you like to submit your application to court? - Welsh',
   paragraph1:
     'Your completed application can be sent straight to the court electronically, or you can print it and send it by post if you prefer. - Welsh',

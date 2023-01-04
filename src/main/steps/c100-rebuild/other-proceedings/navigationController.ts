@@ -53,12 +53,14 @@ class OtherProceedingsNavigationController {
 
     switch (currentPage) {
       case C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS: {
+        const nextUrl1 =
+          caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
+            ? C100_TYPE_ORDER_SELECT_COURT_ORDER
+            : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
         nextUrl =
           caseData.op_childrenInvolvedCourtCase === YesOrNo.YES || caseData.op_courtOrderProtection === YesOrNo.YES
             ? C100_OTHER_PROCEEDINGS_DETAILS
-            : caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
-            ? C100_TYPE_ORDER_SELECT_COURT_ORDER
-            : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+            : nextUrl1;
         break;
       }
       case C100_OTHER_PROCEEDINGS_DETAILS:
