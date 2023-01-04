@@ -15,11 +15,11 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
-  title: 'You do not have to attend a MIAM - welsh',
+  serviceName: 'Trefniadau plant',
+  title: 'Nid oes rhaid ichi fynychu MIAM',
   safetyConcerns:
-    'As there are (or have been) safety concerns about the children, you do not have to attend a Mediation Information and Assessment Meeting (MIAM). - welsh  ',
-  giveDetails: 'You will be asked to give details of the proceedings in the following screens. - welsh  ',
+    'Gan fod pryderon diogelwch (neu fod problemau diogelwch wedi bod) mewn perthynas â’r plant, nid oes rhaid i chi fynychu Cyfarfod Asesu Gwybodaeth am Gyfryngu (MIAM).',
+  giveDetails: 'Gofynnir i chi roi manylion yr achos yn y sgriniau canlynol.',
 };
 
 describe('applicant personal details > applying-with > content', () => {

@@ -21,11 +21,11 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Who does {firstName} {lastName} currently live with? - welsh',
-  liveWithHint: 'Select all that apply - welsh',
+  title: 'Gyda phwy mae {firstName} {lastName} yn byw ar hyn o bryd?',
+  liveWithHint: 'Dewiswch bob un sy’n berthnasol',
   errors: {
     liveWith: {
-      required: 'You must select at least one person - welsh',
+      required: 'Rhaid i chi ddewis o leiaf un unigolyn',
     },
   },
 });
@@ -85,10 +85,6 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
-};
-
 export const getPeople = (caseData: Partial<CaseWithId>): People[] => {
   if (!people.length) {
     people = [
@@ -114,6 +110,11 @@ export const getPeople = (caseData: Partial<CaseWithId>): People[] => {
   }
 
   return people;
+};
+
+export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']): FormContent => {
+  const { liveWith } = getPartyDetails(childId, caseData?.cd_children) as ChildrenDetails;
+  return updateFormFields(form, generateFormFields(getPeople(caseData), liveWith).fields);
 };
 
 export const generateContent: TranslationFn = content => {

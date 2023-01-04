@@ -7,7 +7,7 @@ import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { C100_MIAM_MEDIATOR_DOCUMENT, DASHBOARD_URL } from '../../../urls';
 
 @autobind
-export default class postController extends PostController<AnyObject> {
+export default class GetdocPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }

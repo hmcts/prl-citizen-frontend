@@ -51,11 +51,14 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { files }: AppRequest<AnyObject> = req;
     const { orderType, orderId } = req.params;
 
-    const courtOrderType = orderType as C100OrderTypes;
     const courtOrderId: AnyType | undefined = orderId;
+    const courtOrder = {
+      courtOrderType: orderType as C100OrderTypes,
+      courtOrderId,
+    };
 
     const orderSessionData = req.session.userCase?.op_otherProceedings?.order?.[
-      C100OrderTypeKeyMapper[courtOrderType]
+      C100OrderTypeKeyMapper[courtOrder.courtOrderType]
     ] as C100OrderInterface[];
     const orderSessionDataById = orderSessionData[courtOrderId - 1];
 
@@ -64,20 +67,26 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     } else if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
       super.redirect(req, res, '');
     } else {
-      this.ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrderType, courtOrderId);
+      this.ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrder);
     }
   }
 
-  private ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrderType, courtOrderId) {
+  private ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrder) {
     if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
       req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
       req.session.save(err => {
         this.checkErrorsAndRedirect(err, res, orderType, orderId);
       });
     } else {
-      this.validateFileAndUpload(files, req, res, orderType, orderId, courtOrderType, courtOrderId).catch(err =>
-        req.locals.logger.error(err)
-      );
+      this.validateFileAndUpload(
+        files,
+        req,
+        res,
+        orderType,
+        orderId,
+        courtOrder.courtOrderType,
+        courtOrder.courtOrderId
+      ).catch(err => req.locals.logger.error(err));
     }
   }
 

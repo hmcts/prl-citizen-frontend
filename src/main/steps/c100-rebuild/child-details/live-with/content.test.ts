@@ -18,11 +18,11 @@ const en = {
 };
 
 const cy = {
-  title: 'Who does {{firstName}} {{lastName}} currently live with? - welsh',
-  liveWithHint: 'Select all that apply - welsh',
+  title: 'Gyda phwy mae {firstName} {lastName} yn byw ar hyn o bryd?',
+  liveWithHint: 'Dewiswch bob un sy’n berthnasol',
   errors: {
     liveWith: {
-      required: 'You must select at least one person - welsh',
+      required: 'Rhaid i chi ddewis o leiaf un unigolyn',
     },
   },
 };
@@ -87,7 +87,7 @@ describe('child > live with', () => {
   test('should return correct welsh content', () => {
     languageAssertions(
       'cy',
-      { ...cy, title: 'Who does Child1-firstName Child1-lastName currently live with? - welsh' },
+      { ...cy, title: 'Gyda phwy mae Child1-firstName Child1-lastName yn byw ar hyn o bryd?' },
       () => generateContent({ ...commonContent, language: 'cy' })
     );
   });

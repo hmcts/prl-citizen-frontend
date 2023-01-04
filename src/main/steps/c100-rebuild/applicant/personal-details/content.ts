@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseDate } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import { C100Applicant, Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -33,6 +33,9 @@ export const en = () => ({
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Applicant's gender (Optional)",
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     haveYouChangeName: {
       required: 'Select if you’ve changed your name',
@@ -58,46 +61,48 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Provide details for - welsh',
-  haveYouChangeNameLabel: 'Have you changed your name? - welsh',
-
+  title: 'Darparwch fanylion am ',
+  haveYouChangeNameLabel: 'A ydych wedi newid eich enw?',
   haveYouChangeNameHint:
-    'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
-  one: 'Yes',
-  two: 'No',
-  applicantPlaceOfBirthLabel: 'Your place of birth - welsh',
-  applicantPlaceOfBirthHint: 'For example, town or city - welsh',
-  dontKnowLabel: "Don't know - welsh",
-  dobLabel: 'Your date of birth - welsh',
-  dobHint: 'For example, 31 3 2016 - welsh',
-  previousNameLabel: 'Enter your previous name -welsh',
-  previousNameHint: 'This should be the full legal name(including any middle names) -welsh',
-  applicantGenderLabel: 'Gender - welsh',
-  male: 'Male - welsh',
-  female: 'Female - welsh',
-  other: 'They identify in another way - welsh',
-  otherGenderDetailsLabel: "applicant's gender (Optional) - welsh",
+    'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
+  one: 'Do',
+  two: 'Naddo',
+  applicantPlaceOfBirthLabel: 'Eich man geni',
+  applicantPlaceOfBirthHint: 'Er enghraifft, tref neu ddinas',
+  dontKnowLabel: 'Ddim yn gwybod',
+  dobLabel: 'Eich dyddiad geni',
+  dobHint: 'Er enghraifft, 31 3 2016',
+  previousNameLabel: 'Nodwch eich enwau blaenorol',
+  previousNameHint: 'Dylai hwn fod yr enw cyfreithiol llawn(gan gynnwys unrhyw enwau canol)',
+  applicantGenderLabel: 'Rhyw',
+  male: 'Benyw',
+  female: 'Gwryw',
+  other: 'Maen nhw’n uniaethu mewn ffordd arall',
+  otherGenderDetailsLabel: "Rhyw'r Ceisydd (Dewisol)",
+  // day: 'Diwrnod',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     haveYouChangeName: {
-      required: 'Select if you’ve changed your name -welsh',
+      required: 'Dewiswch sut wnaethoch chi newid eich enw',
     },
     applPreviousName: {
-      required: 'Enter your previous name -welsh',
+      required: 'Nodwch eich enwau blaenorol',
     },
     dateOfBirth: {
-      required: 'Enter the date of birth - welsh',
-      invalidDate: 'Date of birth is not valid - welsh',
-      incompleteDay: 'Date of birth must include a day - welsh',
-      incompleteMonth: 'Date of birth must include a month - welsh',
-      incompleteYear: 'Date of birth must include a year - welsh',
-      invalidDateInFuture: 'Date of birth must be in the past - welsh',
+      required: 'Nodwch ei ddyddiad geni',
+      invalidDate: 'Nid yw’r dyddiad geni yn ddilys ‘,',
+      incompleteDay: 'Rhaid i’r dyddiad geni gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
     },
 
     gender: {
-      required: 'Select the gender - welsh',
+      required: 'Nodwch y rhywedd',
     },
     applicantPlaceOfBirth: {
-      required: 'Enter your place of birth -welsh',
+      required: 'Nodwch eich man geni',
     },
   },
 });
@@ -200,20 +205,23 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
       values: [
         {
           label: l => l.dateFormat['day'],
-          name: 'day',
+          //label: l => l.day,
+          name: 'day', //l=>l.dateFormat['day'],
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: l => l.dateFormat['month'],
+          //label: l => l.dateFormat['month'],
+          label: l => l.month,
           name: 'month',
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: l => l.dateFormat['year'],
+          //label: l => l.dateFormat['year'],
+          label: l => l.year,
           name: 'year',
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
@@ -257,8 +265,9 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (caseData: Partial<CaseWithId>, applicantId: C100Applicant['id']): FormContent => {
+  const applicantDetails = getApplicantDetails(caseData.appl_allApplicants ?? [], applicantId);
+  return updateFormFields(form, generateFormFields(applicantDetails?.personalDetails ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

@@ -43,36 +43,38 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
-  caption: 'Reasonable adjustments - welsh',
-  headingTitle: 'I need help travelling to, or moving around court buildings - welsh',
+  serviceName: 'Trefniadau plant',
+  caption: 'Addasiadau rhesymol',
+  headingTitle: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
   //line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
-  select_all_apply: 'Select all that apply to you - welsh',
-  parkingSpace: 'Parking space close to the venue - welsh',
-  parkingSpace_subfield: 'Describe why you need this - welsh',
-  wheelchairAccess: 'Step free / wheelchair access - welsh',
-  venueWheelchair: 'Use of venue wheelchair - welsh',
-  accessToilet: 'Accessible toilet - welsh',
-  helpUsingLift: 'Help using a lift - welsh',
-  differentTypeChair: 'A different type of chair - welsh',
-  differentTypeChair_subfield: 'Describe why you need - welsh',
-  differentTypeChairSubFieldHint: 'For example, a chair with back support - welsh',
-  guideBuilding: 'Guiding in the building - welsh',
-  travellingCourtOther: 'Other - welsh',
-  travellingCourtOther_subfield: 'Describe what you need - welsh',
-  travellingCourtNoOption: 'No, I do not need any support at this time - welsh',
+  select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
+  parkingSpace: "Lle parcio yn agos i'r lleoliad",
+  parkingSpace_subfield: 'Disgrifiwch pam fod arnoch angen hyn',
+  wheelchairAccess: 'Dim gris / mynediad ar gyfer cadair olwyn',
+  venueWheelchair: 'Y gallu i ddefnyddio cadair olwyn a geir yn y lleoliad',
+  accessToilet: 'Toiledau hygyrch',
+  helpUsingLift: 'Help i ddefnyddio lifft',
+  differentTypeChair: 'Math gwahanol o gadair',
+  differentTypeChair_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  differentTypeChairSubFieldHint: 'Er enghraifft, cadair â chymorth cefn',
+  guideBuilding: 'Cymorth i fynd o amgylch yr adeilad',
+  travellingCourtOther: 'Arall',
+  travellingCourtOther_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  travellingCourtNoOption: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   errors: {
     ra_parkingSpace_subfield: {
-      required: 'Describe why you need a parking space close to the venue - welsh',
+      required: "Disgrifiwch pam fod arnoch angen lle parcio yn agos i'r lleoliad",
     },
     ra_differentTypeChair_subfield: {
-      required: 'Describe what type of chair you need - welsh',
+      required: 'Disgrifiwch pa fath o gadair sydd ei hangen arnoch',
     },
     ra_travellingCourtOther_subfield: {
-      required: 'Describe what help you need if travelling to, or moving around court buildings - welsh',
+      required:
+        "Disgrifiwch pa help sydd ei angen arnoch os ydych chi'n teithio i adeiladau'r llys, neu symud o gwmpas adeiladau'r llys",
     },
     ra_travellingCourt: {
-      required: 'Select what help you need if travelling to, or moving around court buildings - welsh',
+      required:
+        "Dewiswch pa gymorth sydd ei angen arnoch os ydych chi'n teithio i adeiladau'r llys, neu symud o gwmpas adeiladau'r llys",
     },
   },
 };

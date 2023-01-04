@@ -6,6 +6,7 @@ import {
   doesArrayHaveValues,
   isAccessCodeValid,
   isAddressSelected,
+  isAlphaNumeric,
   isCaseCodeValid,
   isDateInputInvalid,
   isEmailValid,
@@ -237,6 +238,20 @@ describe('Validation', () => {
       { mockTel: '+1 (0)12345678901$', expected: 'invalid' },
     ])('validates a phone number when %o', ({ mockTel, expected }) => {
       expect(isPhoneNoValid(mockTel)).toEqual(expected);
+    });
+  });
+
+  describe('isAlphaNumeric', () => {
+    it.each([
+      { mockRef: '', expected: undefined },
+      { mockRef: 'a', expected: undefined },
+      { mockRef: 'A', expected: undefined },
+      { mockRef: '1', expected: undefined },
+      { mockRef: 'Aa1', expected: undefined },
+      { mockRef: '!!!!', expected: 'invalid' },
+      { mockRef: 'Aa1!', expected: 'invalid' },
+    ])('validates only alphanumeric strings', ({ mockRef, expected }) => {
+      expect(isAlphaNumeric(mockRef)).toEqual(expected);
     });
   });
 

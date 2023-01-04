@@ -29,11 +29,8 @@ describe('CosApiClient', () => {
   it('logs errors if it fails to fetch data', async () => {
     const mockGet = jest.fn().mockRejectedValueOnce({ data: { some: 'error' } });
     mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
-    //const req = mockRequest();
-    //const client = new CosApiClient(getUserDetails, 'http://return-url');
-
     const client = new CosApiClient('abc', 'http://return-url');
 
-    await client.get();
+    await expect(client.get()).rejects.toThrow('Could not connect to cos-api client.');
   });
 });

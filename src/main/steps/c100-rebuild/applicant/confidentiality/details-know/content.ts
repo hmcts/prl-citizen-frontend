@@ -19,15 +19,14 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: 'Keeping your contact details private  - welsh',
-  headingTitle:
-    'Do the other people named in this application (the respondents) know any of your contact details? - welsh  ',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
-  three: "I don't know - Welsh",
+  caption: 'Cadw eich manylion cyswllt yn breifat',
+  headingTitle: "A yw'r bobl eraill a enwir yn y cais hwn (yr atebwyr) yn gwybod beth yw eich manylion cyswllt?",
+  one: 'Ydynt',
+  two: 'Nac ydynt',
+  three: 'Nid wyf yn gwybod ',
   errors: {
     detailsKnown: {
-      required: 'Select yes if the other people in the application know your contact details - welsh',
+      required: "Dewiswch ydy os yw'r bobl eraill yn y cais yn gwybod eich manylion cyswllt",
     },
   },
 });

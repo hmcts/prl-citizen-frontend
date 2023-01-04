@@ -17,12 +17,12 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Has a mediator confirmed that you do not need to attend a MIAM? - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
+  title: 'A oes cyfryngwr wedi cadarnhau nad oes angen i chi fynychu MIAM?',
+  one: 'Oes',
+  two: 'Nac oes',
   errors: {
     miam_mediatorDocument: {
-      required: 'Select yes if a mediator has confirmed that you do not need to attend a MIAM? - welsh',
+      required: 'Dewiswch oes os oes cyfryngwr wedi cadarnhau nad oes angen i chi fynychu MIAM',
     },
   },
 });

@@ -30,25 +30,24 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Safety concerns - welsh',
-  title: 'Provide details of the previous abductions - welsh',
-  line1: 'Give a short description of the previous incidents of abduction. - welsh',
-  c1A_previousAbductionsShortDescHint: 'Include any previous attempts to threaten or abduct the children. - welsh',
-  c1A_policeOrInvestigatorInvolved:
-    'Were the police, private investigators or any other organisation involved? - welsh',
-  c1A_policeOrInvestigatorInvolvedHint: 'Including in the UK or overseas. - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
-  otherDetails: 'Provide more details - welsh',
+  caption: 'Pryderon diogelwch',
+  title: 'Darparwch fanylion am y digwyddiadau blaenorol o gipio',
+  line1: "Rhowch ddisgrifiad byr o'r digwyddiadau blaenorol o gipio.",
+  c1A_previousAbductionsShortDescHint: "Dylech gynnwys unrhyw ymdrechion blaenorol i fygwth neu gipio'r plant.",
+  c1A_policeOrInvestigatorInvolved: 'A oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall ynghlwm â hyn?',
+  c1A_policeOrInvestigatorInvolvedHint: 'Gan gynnwys yn y DU neu dramor.',
+  one: 'Oedd',
+  two: 'Nac oedd',
+  otherDetails: 'Darparwch fwy o fanylion',
   errors: {
     c1A_previousAbductionsShortDesc: {
-      required: 'Briefly describe the previous incidents of abduction - welsh',
+      required: 'Disgrifiwch yn fyr y digwyddiadau blaenorol o herwgydio',
     },
     c1A_policeOrInvestigatorInvolved: {
-      required: 'Select yes if the police, private investigators or any other organisation was involved - welsh',
+      required: 'Dewiswch oedd os oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall yn rhan o hyn?',
     },
     c1A_policeOrInvestigatorOtherDetails: {
-      required: 'Provide details of the police, private investigators or any other organisation involvement - welsh',
+      required: 'Darparwch fanylion yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall oedd yn rhan o hyn',
     },
   },
 });

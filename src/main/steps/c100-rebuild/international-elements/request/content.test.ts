@@ -26,20 +26,20 @@ const en = {
 };
 
 const cy = {
-  title: 'Has another country asked (or been asked) for information or help for the children? - welsh',
+  title: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
   line1:
-    'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales. - welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
-  provideDetails: 'Provide details - Welsh',
+    'Gall bod pryderon amddiffyn plant, gall bod llys angen help gyda chais am achos arall, gall bod angen gorfodi gorchymyn dramor, neu gall bod ymdrechion yn cael eu gwneud i ddychwelyd plant i Gymru neu Loegr.',
+  one: 'Oes',
+  two: 'Nac oes',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     ie_internationalRequest: {
       required:
-        'Select yes if another country has asked (or been asked) for information or help for the children - Welsh',
+        "Dewiswch ydynt os oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant",
     },
     ie_provideDetailsRequest: {
       required:
-        'Provide details about another country asking (or being asked) for information or help for the children - Welsh ',
+        "Darparwch fanylion am wlad arall sy'n gofyn (neu y gofynnir iddo) am wybodaeth neu gymorth ar gyfer y plant",
     },
   },
 };

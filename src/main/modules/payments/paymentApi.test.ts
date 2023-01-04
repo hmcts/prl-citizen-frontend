@@ -7,7 +7,7 @@ const mockToken =
 const mockServiceToken =
   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNlcnZpY2UgVG9rZW4iLCJpYXQiOjE1MTYyMzkwMjJ9.gp3a-gh8heA-9PlRsrAMlJFq-B4myncOpjtDRHswwuA';
 
-const paymentURL: string = config.get('payments.url');
+const paymentURL: string = config.get('services.cos.url');
 
 /* Testing the CheckPaymentStatusApi class. */
 describe('CheckPaymentStatusApi class testing', () => {

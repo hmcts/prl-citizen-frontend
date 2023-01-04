@@ -72,20 +72,18 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'You don’t have to attend a MIAM - welsh',
-  paragraph1: 'You’ve said you have a valid reason for not attending a MIAM - welsh',
-  paragraph2: 'The reasons you’ve given are: - welsh',
+  title: 'Nid oes raid i chi fynychu MIAM',
+  paragraph1: 'Rydych wedi dweud bod gennych reswm dilys dros beidio â mynychu MIAM',
+  paragraph2: 'Y rhesymau rydych wedi’u rhoi yw:',
   insetText: {
-    text: `You’ll be asked to provide more information about your circumstances at the first court hearing.
-            Where evidence is needed to support an exemption, this should be taken to the hearing.
-            If the court is not satisfied that you’re exempt, you may be directed to attend a MIAM. - welsh`,
+    text: 'Gofynnir ichi ddarparu mwy o wybodaeth am eich amgylchiadau yn y gwrandawiad llys cyntaf. Lle bo angen tystiolaeth i gefnogi esemptiad, dylid dod â’r dystiolaeth i’r gwrandawiad. Os na fydd y llys yn fodlon eich bod wedi’ch esemptio, efallai fe’ch cyfarwyddir i fynychu MIAM.',
   },
   nonAttendanceReasons: {
-    domesticViolence: 'Domestic violence or abuse evidence - welsh',
-    childProtection: 'Child protection concerns - welsh',
-    urgentHearing: 'Urgency - welsh',
-    previousMIAMOrExempt: 'Previous MIAM attendance or MIAM exemption - welsh',
-    validExemption: 'Other exemptions - welsh',
+    domesticViolence: 'Tystiolaeth o drais neu gam-drin domestig',
+    childProtection: 'Pryderon amddiffyn plant',
+    urgentHearing: 'Cais brys',
+    previousMIAMOrExempt: 'Eisoes wedi mynychu MIAM neu esemptiad MIAM',
+    validExemption: 'Esemptiadau eraill',
   },
   abuseList: {
     policeInvolvement: DomesticAbuseCy().policeInvolvement_subFields,

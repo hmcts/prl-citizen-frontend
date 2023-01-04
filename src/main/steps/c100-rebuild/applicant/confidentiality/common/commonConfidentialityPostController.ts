@@ -33,10 +33,6 @@ export default class ApplicantCommonConfidentialityController {
     if (!this.request.body['saveAndComeLater']) {
       this.request.session.errors = form.getErrors(formData);
     }
-
-    if (this.request.session.errors && this.request.session.errors.length) {
-      return this.parent.redirect(this.request, res, this.request.originalUrl);
-    }
     const { applicantId } = req['params'];
     switch (this.request.body._ctx) {
       case this.contextNavigators.START: {
@@ -53,6 +49,9 @@ export default class ApplicantCommonConfidentialityController {
       }
     }
     this.request.session.userCase.appl_allApplicants = this.applicantData;
+    if (this.request.session.errors && this.request.session.errors.length) {
+      return this.parent.redirect(this.request, res, this.request.originalUrl);
+    }
     if (this.request.body.saveAndComeLater) {
       return this.parent.saveAndComeLater(this.request, res, this.request.session.userCase);
     } else {

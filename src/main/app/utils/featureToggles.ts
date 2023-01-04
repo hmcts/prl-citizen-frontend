@@ -34,10 +34,12 @@ export class FeatureToggles {
   }
 
   async isC100reBuildEnabled(): Promise<boolean> {
-    return this.launchDarklyClient.serviceVariation(
+    const isC100RebuildEnabled = this.launchDarklyClient.serviceVariation(
       'c100-rebuild',
       toBoolean(config.get<boolean>('featureToggles.c100Rebuild'))
     );
+    console.log('C100 - Launch Darkly Flag', isC100RebuildEnabled);
+    return isC100RebuildEnabled;
   }
 }
 

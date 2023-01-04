@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../../app/case/case';
 import { C100Applicant } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -78,7 +79,11 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
   return updatedForm;
 };
 
-export const getUpdatedForm = (): FormContent => updatedForm;
+export const getUpdatedForm = (caseData: Partial<CaseWithId>, applicantId: C100Applicant['id']): FormContent => {
+  const applicantData = caseData?.appl_allApplicants?.find(i => i.id === applicantId) as C100Applicant;
+
+  return updatedFormFields(form, generateFormFields(applicantData ?? {}).fields);
+};
 
 export const generateFormFields = (caseData: Partial<C100Applicant>): GenerateDynamicFormFields => {
   return { fields: manualAddressForm(caseData).fields, errors: { en: {}, cy: {} } };
