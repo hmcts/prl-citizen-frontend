@@ -40,7 +40,7 @@ export interface Miam {
   attendedMiam?: string;
   willingToAttendMiam?: string;
   reasonNotAttendingMiam?: string;
- }
+}
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
@@ -127,6 +127,7 @@ export interface CitizenFlags {
   isApplicationViewed?: string,
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
+  isResponseInitiated?: string
 }
 
 
@@ -168,11 +169,11 @@ export interface KeepDetailsPrivate {
   confidentialityList?: ConfidentialityList[];
 }
 
- export enum ConfidentialityList{
-   phoneNumber = 'phoneNumber',
-   email = 'email',
-   address = 'address',
- }
+export enum ConfidentialityList {
+  phoneNumber = 'phoneNumber',
+  email = 'email',
+  address = 'address',
+}
 
 export interface Applicant {
   id: string;
@@ -219,11 +220,11 @@ export interface SolicitorAddress2 {
   AddressLine3: string;
 }
 
-export interface AddressGlobal extends Address {}
+export interface AddressGlobal extends Address { }
 
-export interface AddressGlobalUK extends Address {}
+export interface AddressGlobalUK extends Address { }
 
-export interface AddressUK extends Address {}
+export interface AddressUK extends Address { }
 
 export interface CaseLink {
   CaseReference: string;
@@ -235,7 +236,7 @@ export interface Document {
   document_binary_url: string;
 }
 
-export interface DynamicElementIndicator {}
+export interface DynamicElementIndicator { }
 
 export interface DynamicList {
   value: DynamicListElement;
@@ -1916,7 +1917,19 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication',
-  Deleted = 'DELETED'
+  AWAITING_SUBMISSION_TO_HMCTS = "Draft",
+  AWAITING_FL401_SUBMISSION_TO_HMCTS = "Draft",
+  SUBMITTED_NOT_PAID = "Pending",
+  SUBMITTED_PAID = "Submitted",
+  AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
+  CASE_ISSUE = "Case Issued",
+  CASE_WITHDRAWN = "Withdrawn",
+  GATEKEEPING = "Gatekeeping",
+  PREPARE_FOR_HEARING_CONDUCT_HEARING = "Hearing",
+  DECISION_OUTCOME = "DECISION_OUTCOME",
+  ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
+  CASE_HEARING = "Prepare for hearing",
+  DELETED = "Deleted",
 }
 
 export const enum UserRole {

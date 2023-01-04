@@ -26,6 +26,7 @@ describe('TermsAndConditionsGetController', () => {
         }),
         ...defaultViewArgs,
         userCase: req.session.userCase,
+        additionalData: expect.anything(),
       })
     );
   });
