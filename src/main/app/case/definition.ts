@@ -145,15 +145,15 @@ export interface ReasonableAdjustmentsSupport {
 }
 
 export const enum TravellingToCourtEnum {
-  parkingspace = 'Parking space close to the venue',
-  stepfree = 'Step free / wheelchair access',
-  wheelchair = 'Use of venue wheelchair',
-  toilet = 'Accessible toilet',
-  lift = 'Help using a lift',
-  differentchair = 'A different type of chair',
-  building = 'Guiding in the building',
-  other = 'Other',
-  nosupport = 'No, I do not need any extra support at this time',
+  parkingspace = 'parkingspace',
+  stepfree = 'stepfree',
+  wheelchair = 'wheelchair',
+  toilet = 'toilet',
+  lift = 'lift',
+  differentchair = 'differentchair',
+  building = 'building',
+  other = 'other',
+  nosupport = 'nosupport',
 }
 
 export const enum HelpCommunicationEnum {
@@ -180,53 +180,53 @@ export const enum CourtComfortEnum {
 }
 
 export const enum SafetyArrangemensEnum {
-  waitingroom= 'Separate waiting room',
-  separateexitentry= 'Separate exits and entrances',
-  screens= 'Screens so you and the other people in the case cannot see each other',
-  toilet= 'Separate toilets',
-  advancedview= 'Advanced viewing of the court',
-  videolinks= 'Video links',
-  other= 'Other',
-  nosupport = 'No, I do not need any extra support at this time',
+  waitingroom= 'waitingroom',
+  separateexitentry= 'separateexitentry',
+  screens= 'screens',
+  toilet= 'toilet',
+  advancedview= 'advancedview',
+  videolinks= 'videolinks',
+  other= 'other',
+  nosupport = 'nosupport',
 }
 
 export const enum ReasonableAdjustmentsEnum {
-  docsformat= 'I need documents in an alternative format',
-  commhelp= 'I need help communicating and understanding',
-  hearingsupport= 'I need to bring support with me to a hearing',
-  hearingcomfort= 'I need something to feel comfortable during a hearing',
-  travellinghelp= 'I need help travelling to, or moving around court buildings',
-  unabletotakecourtproceedings= 'Is there a reason you are unable to take part in the court proceedings?',
-  nosupport= 'No, I do not need any extra support at this time',
+  docsformat= 'docsformat',
+  commhelp= 'commhelp',
+  hearingsupport= 'hearingsupport',
+  hearingcomfort= 'hearingcomfort',
+  travellinghelp= 'travellinghelp',
+  unabletotakecourtproceedings= 'unabletotakecourtproceedings',
+  nosupport= 'nosupport',
 }
 
 export const enum LanguageRequirementsEnum {
-  speakwelsh = 'I need to speak in Welsh',
-  readandwritewelsh = 'I need to read and write in Welsh',
-  languageinterpreter = 'I need an interpreter in a certain language',
-  nointerpreter = 'No, I do not have any language requirements at this time',
+  speakwelsh = 'speakwelsh',
+  readandwritewelsh = 'readandwritewelsh',
+  languageinterpreter = 'languageinterpreter',
+  nointerpreter = 'nointerpreter',
   
 }
 
 export const enum DocsSupportEnum {
-  docsprint = 'I need documents printed in a particular colour or font',
-  docsreadformat = 'Documents in an easy read format',
-  brailledocs = 'Braille documents',
-  largeprintdocs = 'Documents in large print',
-  docsaudio = 'Audio translation of documents',
-  readoutdocs = 'Documents read out to me',
-  emailInfo = 'Information emailed to me',
-  other = 'Other',
-  nosupport = 'I do not need any of this support at this time',
+  docsprint = 'docsprint',
+  docsreadformat = 'docsreadformat',
+  brailledocs = 'brailledocs',
+  largeprintdocs = 'largeprintdocs',
+  docsaudio = 'docsaudio',
+  readoutdocs = 'readoutdocs',
+  emailInfo = 'emailInfo',
+  other = 'other',
+  nosupport = 'nosupport',
 }
 
 export const enum CourtHearingEnum {
-  supportworker = 'A support worker or carer',
-  familymember = 'A friend or family member',
-  assistance = 'Assistance / guide dog',
-  animal = 'Therapy animal',
-  other = 'Other',
-  nosupport = 'No, I do not need any extra support at this time',
+  supportworker = 'supportworker',
+  familymember = 'familymember',
+  assistance = 'assistance',
+  animal = 'animal',
+  other = 'other',
+  nosupport = 'nosupport',
 }
 
 export interface CitizenFlags {

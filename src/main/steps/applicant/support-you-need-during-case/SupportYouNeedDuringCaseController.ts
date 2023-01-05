@@ -2,12 +2,12 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { Respondent } from '../../../app/case/definition';
+import { Applicant, Respondent } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
 import type { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { RESPOND_TO_APPLICATION } from '../../../steps/urls';
+import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
 import { setSupportDetails } from './SupportYouNeedDuringYourCaseService';
 @autobind
@@ -25,13 +25,23 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       Object.assign(req.session.userCase, caseDataFromCos);
 
-      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-        if (respondent?.value?.user?.idamId === req.session?.user.id) {
-          if (req.url.includes('support-you-need-during-case')) {
-            setSupportDetails(respondent, req);
+      if (req.url.includes('respondent')) {
+        req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+          if (respondent?.value?.user?.idamId === req.session?.user.id) {
+            if (req.url.includes('support-you-need-during-case')) {
+              setSupportDetails(respondent, req);
+            }
           }
-        }
-      });
+        });
+      } else if (req.url.includes('applicant')) {
+        req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
+          if (applicant?.value?.user?.idamId === req.session?.user.id) {
+            if (req.url.includes('support-you-need-during-case')) {
+              setSupportDetails(applicant, req);
+            }
+          }
+        });
+      }
 
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = caseReference;
@@ -42,7 +52,13 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
         'legalRepresentation'
       );
       Object.assign(req.session.userCase, updatedCaseDataFromCos);
-      req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
+      let return_url = RESPONDENT_TASK_LIST_URL;
+      if (req.url.includes('applicant')) {
+        return_url = APPLICANT_TASK_LIST_URL;
+      } else if (req.url.includes('tasklistresponse')) {
+        return_url = RESPOND_TO_APPLICATION;
+      }
+      req.session.save(() => res.redirect(return_url));
     } catch (err) {
       throw new Error('SafetyConcernsPostController - Case could not be updated.');
     }

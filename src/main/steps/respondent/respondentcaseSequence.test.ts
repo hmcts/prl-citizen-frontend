@@ -363,7 +363,7 @@ describe('respondent1Sequence', () => {
 
     expect(respondentCaseSequence[75].url).toBe('/respondent/support-you-need-during-case/summary');
     expect(respondentCaseSequence[75].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[75].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[75].getNextStep({})).toBe('/respondent/support-you-need-during-case/save');
 
     expect(respondentCaseSequence[76].url).toBe('/tasklistresponse/start');
     expect(respondentCaseSequence[76].showInSection).toBe('aboutRespondentCase');

@@ -71,7 +71,6 @@ import {
   OtherChildrenDetails,
   C100RebuildPartyDetails,
   C100Applicant,
-  SafetyArrangemensEnum,
   TravellingToCourtEnum,
   ReasonableAdjustmentsEnum,
   DocsSupportEnum,
@@ -79,6 +78,7 @@ import {
   CourtComfortEnum,
   LanguageRequirementsEnum,
   HelpCommunicationEnum,
+  SafetyArrangemensEnum,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
