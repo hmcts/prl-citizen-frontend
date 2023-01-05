@@ -21,7 +21,7 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    url: 'https://xui-prl-ccd-definitions-pr-825.service.core-compute-preview.internal'
   cos:
     url: 'http://prl-cos-aat.service.core-compute-aat.internal'
   documentManagement:
