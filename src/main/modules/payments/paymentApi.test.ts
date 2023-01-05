@@ -2,10 +2,8 @@ import config from 'config';
 
 import { CheckPaymentStatusApi, PaymentSystemAPIInstance, PaymentTaskResolver } from './paymentApi';
 
-const mockToken =
-  'Bearer authToken';
-const mockServiceToken =
-  'Bearer serviceToken';
+const mockToken = 'Bearer authToken';
+const mockServiceToken = 'Bearer serviceToken';
 
 const paymentURL: string = config.get('services.cos.url');
 
