@@ -3,9 +3,9 @@ import config from 'config';
 import { CheckPaymentStatusApi, PaymentSystemAPIInstance, PaymentTaskResolver } from './paymentApi';
 
 const mockToken =
-  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+  'Bearer authToken';
 const mockServiceToken =
-  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNlcnZpY2UgVG9rZW4iLCJpYXQiOjE1MTYyMzkwMjJ9.gp3a-gh8heA-9PlRsrAMlJFq-B4myncOpjtDRHswwuA';
+  'Bearer serviceToken';
 
 const paymentURL: string = config.get('services.cos.url');
 
