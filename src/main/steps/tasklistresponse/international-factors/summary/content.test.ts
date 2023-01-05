@@ -17,9 +17,10 @@ const en = {
     iFactorsStartProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
-    parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
+    parents:
+      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
     request: 'Has another country asked (or been asked) for information or help for the children?',
-    start: 'Do the children live outside of England or Wales?',
+    start: "Are the children's lives mainly based outside of England and Wales?",
   },
   dependencies: {
     iFactorsStartProvideDetails: {
@@ -59,9 +60,10 @@ const cy: typeof en = {
     iFactorsStartProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
-    parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
+    parents:
+      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
     request: 'Has another country asked (or been asked) for information or help for the children?',
-    start: 'Do the children live outside of England or Wales?',
+    start: "Are the children's lives mainly based outside of England and Wales?",
   },
   dependencies: {
     iFactorsStartProvideDetails: {
