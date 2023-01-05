@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - Base flow');
 
-Scenario('C100 Rebuild - basic journey',  async I => {
+Scenario('C100 Rebuild - basic journey @cross-browser',  async I => {
   await I.loginAsCitizenUserNamePassWord();
   await I.createC100Application();
   await I.addCaseNameAndPostCode();
