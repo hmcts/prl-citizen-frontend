@@ -23,7 +23,7 @@ describe('initAuthToken', () => {
       .calledWith('services.authProvider.url')
       .mockReturnValue('http://rpe-service-auth-provider')
       .calledWith('services.authProvider.microservice')
-      .mockReturnValue('adoption_web')
+      .mockReturnValue('prl_citizen_frontend')
       .calledWith('services.authProvider.secret')
       .mockReturnValue('mock-secret');
   });
@@ -32,8 +32,8 @@ describe('initAuthToken', () => {
     mockedAxios.post.mockResolvedValue('token');
 
     initAuthToken();
-    expect(mockedAxios.post).toHaveBeenCalledWith('http://rpe-service-auth-provider/lease', {
-      microservice: 'adoption_web',
+    expect(mockedAxios.post).toHaveBeenCalledWith('http://rpe-service-auth-provider/testing-support/lease', {
+      microservice: 'prl_citizen_frontend',
       oneTimePassword: expect.anything(),
     });
   });

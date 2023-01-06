@@ -1,7 +1,17 @@
 export const respondent_en = {
-  respondentYourDetails: 'Your details',
-  applicationDetails: 'Application details',
-  consentToTheApplication: 'Consent to the application',
-  respondentAdditionalInformation: 'Additional information',
-  respondentSafetyConcerns: 'Safety concerns',
+  yourDocuments: 'Your documents',
+  ordersFromTheCourt: 'Orders from the court',
+  yourResponse: 'Your response',
+  yourcourtHearings: 'Your court hearings',
+  theApplication: 'The application',
+  aboutYou: 'About you',
+};
+
+export const respondent_cy = {
+  yourDocuments: 'Your documents - welsh',
+  ordersFromTheCourt: 'Orders from the court - welsh',
+  yourResponse: 'Your response - welsh',
+  yourcourtHearings: 'Your court hearings - welsh',
+  theApplication: 'The application - welsh',
+  aboutYou: 'About you - welsh',
 };

@@ -10,20 +10,37 @@ nodejs:
   devcpuRequests: 500m
   autoscaling:
     enabled: false
+  environment:
+    NODE_ENV: production
+    REFORM_TEAM: prl
+    REFORM_SERVICE_NAME: prl-citizen-frontend
+    SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
+    IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
+    CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-714.service.core-compute-preview.internal'
+    EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
+    DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-715.service.core-compute-preview.internal'
+    COS_URL: 'https://prl-cos-pr-745.service.core-compute-preview.internal'
+    REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
+    LAUNCH_DARKLY_OFFLINE_MODE: false
+    C100_REBUILD_FLAG: false
   keyVaults:
     prl:
       resourceGroup: prl
       secrets:
         - AppInsightsInstrumentationKey
         - prl-citizen-frontend-idam-client-secret
-        - microservicekey-prl-citizen-frontend
+        - postcode-lookup-token
         - prl-cos-idam-client-secret
+        - microservicekey-prl-citizen-frontend
         - microservicekey-prl-cos-api
         - system-update-user-username
         - system-update-user-password
         - idam-solicitor-username
         - idam-solicitor-password
-        - postcode-lookup-token
+        - launchDarkly-sdk-key
+        - citizen-upload-docs-email
+        - redis-access-key
 idam-pr:
   enabled: true
   redirect_uris:

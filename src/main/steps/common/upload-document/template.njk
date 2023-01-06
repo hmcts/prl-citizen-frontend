@@ -1,0 +1,74 @@
+{% extends "common/page.njk" %}
+
+{% macro taskName(item) %}
+  <span class="app-task-list__task-name">
+    {% if item.href %}
+      <a id="{{item.id}}" class="govuk-link" href="{{item.href}}" aria-describedby="{{item.id}}-status">
+        {{item.text}}
+      </a>
+    {% else %}
+      <p id="{{item.id}}" class="govuk-body govuk-!-margin-bottom-0" aria-describedby="{{item.id}}-status">
+        {{item.text}}
+      </p>
+    {% endif %}
+  </span>
+{% endmacro %}
+
+
+{% macro taskListItem(item) %}
+  {% if item.id %}
+    <li class="app-task-list__item">
+      {{ taskName(item) }}
+    </li>
+  {% else %}
+    <p class="govuk-!-font-weight-bold govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{item.text}}</p>
+  {% endif %}
+{% endmacro %}
+
+{% macro taskListSection(section, index) %}
+  <li>
+    <h2 class="app-task-list__section">
+      <span class="app-task-list__section-number"></span>{{section.title}}
+    </h2>
+    <ul class="app-task-list__items">
+      {% for item in section.items %}
+        {{ taskListItem(item) }}
+      {% endfor %}
+    </ul>
+  </li>
+{% endmacro %}
+
+{% block content %}
+  <div class="govuk-grid-column-full"></div>
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        {% block backLink %}
+     <a href="#" class="govuk-back-link">{{ back }}</a>
+   {% endblock %}
+      <h1 class="govuk-heading-xl">
+        {{title}}
+      </h1>
+
+  <div class="govuk-form-group">
+  
+    <fieldset class="govuk-fieldset">
+      <p class="govuk-body">{{userCase.respondentName}}</p>
+      <p class="govuk-body">Case number #{{userCase.id}}</p>
+    </fieldset>
+    
+  </div>
+
+      <ol class="app-task-list">
+        {% for section in sections %}
+          {{ taskListSection(section, loop.index) }}
+        {% endfor %}
+      </ol>
+    </div>
+    <div class="govuk-grid-column-one-third">
+           {% include "../contact-us.njk" %}
+    </div>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,178 @@
+import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent } from '../../../../app/form/Form';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+
+const en = {
+  section: 'Reasonable adjustments',
+  title: 'I need help travelling to, or moving around court buildings',
+  optionHint: 'Select all that apply to you',
+  summaryText: 'Contacts for help',
+  parkingspace: 'Parking space close to the venue',
+  parkingSpaceDetails: 'Describe why you need this',
+  stepfree: 'Step free / wheelchair access',
+  wheelchair: 'Use of venue wheelchair',
+  toilet: 'Accessible toilet',
+  lift: 'Help using a lift',
+  differentchair: 'A different type of chair',
+  differentChairDetails: 'Describe what you need',
+  differentChairDetailsHint: 'For example, a chair with back support',
+  building: 'Guiding in the building',
+  other: 'Other',
+  otherDetails: 'Describe what you need',
+  nosupport: 'No, I do not need any extra support at this time',
+  continue: 'Continue',
+  errors: {
+    respondentTravellingToCourt: {
+      required: 'Please select an answer',
+    },
+    respondentParkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    respondentDifferentChairDetails: {
+      required: 'Please describe different chair details',
+    },
+    respondentTravellingOtherDetails: {
+      required: 'Please describe your need in detail',
+    },
+  },
+};
+
+const cy: typeof en = {
+  section: 'Reasonable adjustments',
+  title: 'I need help travelling to, or moving around court buildings',
+  optionHint: 'Select all that apply to you',
+  summaryText: 'Contacts for help',
+  parkingspace: 'Parking space close to the venue',
+  parkingSpaceDetails: 'Describe why you need this',
+  stepfree: 'Step free / wheelchair access',
+  wheelchair: 'Use of venue wheelchair',
+  toilet: 'Accessible toilet',
+  lift: 'Help using a lift',
+  differentchair: 'A different type of chair',
+  differentChairDetails: 'Describe what you need',
+  differentChairDetailsHint: 'For example, a chair with back support',
+  building: 'Guiding in the building',
+  other: 'Other',
+  otherDetails: 'Describe what you need',
+  nosupport: 'No, I do not need any extra support at this time',
+  continue: 'Continue',
+  errors: {
+    respondentTravellingToCourt: {
+      required: 'Please select an answer',
+    },
+    respondentParkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    respondentDifferentChairDetails: {
+      required: 'Please describe different chair details',
+    },
+    respondentTravellingOtherDetails: {
+      required: 'Please describe your need in detail',
+    },
+  },
+};
+
+const languages = {
+  en,
+  cy,
+};
+
+export const form: FormContent = {
+  fields: {
+    respondentTravellingToCourt: {
+      type: 'checkboxes',
+      labelHidden: true,
+      hint: l => l.optionHint,
+      section: l => l.section,
+      values: [
+        {
+          name: 'respondentTravellingToCourt',
+          label: l => l.parkingspace,
+          value: 'parking space close to the venue',
+          subFields: {
+            respondentParkingDetails: {
+              type: 'textarea',
+              label: l => l.parkingSpaceDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
+        },
+        {
+          name: 'respondentTravellingToCourt',
+          label: l => l.stepfree,
+          value: 'step free / wheelchair access',
+        },
+        {
+          name: 'respondentTravellingToCourt',
+          label: l => l.wheelchair,
+          value: 'use of venue wheelchair',
+        },
+        {
+          name: 'respondentTravellingToCourt',
+          label: l => l.toilet,
+          value: 'accessible toilet',
+        },
+        {
+          name: 'respondentTravellingToCourt',
+          label: l => l.lift,
+          value: 'help using a lift',
+        },
+        {
+          name: 'respondentTravellingToCourt',
+          label: l => l.differentchair,
+          value: 'a different type of chair',
+          subFields: {
+            respondentDifferentChairDetails: {
+              type: 'textarea',
+              label: l => l.differentChairDetails,
+              hint: l => l.differentChairDetailsHint,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
+        },
+        {
+          name: 'respondentTravellingToCourt',
+          label: l => l.building,
+          value: 'guiding in the building',
+        },
+        {
+          name: 'respondentTravellingToCourt',
+          label: l => l.other,
+          value: 'other',
+          subFields: {
+            respondentTravellingOtherDetails: {
+              type: 'textarea',
+              label: l => l.otherDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
+        },
+
+        {
+          divider: true,
+        },
+        {
+          name: 'respondentTravellingToCourt',
+          label: l => l.nosupport,
+          value: 'no need of support',
+          exclusive: true,
+        },
+      ],
+      validator: atLeastOneFieldIsChecked,
+    },
+  },
+  onlyContinue: {
+    text: l => l.continue,
+  },
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language];
+  return {
+    ...translations,
+    form,
+  };
+};

@@ -1,14 +1,14 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
-// import { Fee } from '../../app/case/definition';
-// import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
+import { C100_URL } from '../../steps/urls';
 
 const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
   applyForDissolution: 'Private Law',
+  c100ServiceName: 'Child arrangements',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
@@ -27,9 +27,13 @@ const en = {
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
-  errorSummaryHeading: 'There is a problem',
+  errorSummaryHeading: 'There is a problem on this page',
   saveAndSignOut: 'Save and sign out',
+  saveAndComeLater: 'Save and come back later',
+  goBack: 'Go back',
   saveAsDraft: 'Save as draft',
+  onlyContinue: 'Continue',
+  onlycontinue: 'Continue',
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -107,6 +111,7 @@ const en = {
   apmCookiesHeadings: 'Allow cookies that measure website application performance monitoring?',
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
+  divider: 'or',
 };
 
 const cy: typeof en = {
@@ -114,11 +119,12 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law" (in welsh)',
   applyForDissolution: 'Private Law"(in welsh)',
+  c100ServiceName: 'Trefniadau plant',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.(in welsh)',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
-  back: 'Back (in welsh)',
+  back: 'Yn ôl',
   continue: 'Save and continue (in welsh)',
   change: 'Change  (in welsh)',
   upload: 'Uwchlwytho',
@@ -130,8 +136,10 @@ const cy: typeof en = {
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem (in welsh)',
+  errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
+  saveAndComeLater: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
+  goBack: 'Go back - welsh',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
   signIn: 'Sign in (in welsh)',
@@ -179,11 +187,14 @@ const cy: typeof en = {
     "Mae ein holl asiantau sgwrsio dros y we yn brysur yn helpu pobl eraill. Dewch yn ôl nes ymlaen neu cysylltwch â ni trwy un o'r dulliau uchod.",
   sendUsAMessage: 'Anfonwch neges atom',
   sendUsAMessageDetails: 'Byddwn yn ymdrechu i ymateb o fewn 5 diwrnod.',
-  findOutCharges: 'Find out about call charges',
-  openNewWindow: 'opens in a new window',
+  findOutCharges: 'Rhagor o wybodaeth am gostau galwadau',
+  openNewWindow: 'yn agor mewn ffenestr newydd',
   telephone: 'Ffoniwch',
-  telephoneNumber: '0300 303 5171',
+  telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  onlyContinue: 'Continue (in welsh)',
+  onlycontinue: 'Parhau',
+  divider: 'neu',
 };
 
 export const generatePageContent = ({
@@ -191,7 +202,15 @@ export const generatePageContent = ({
   pageContent,
   userCase,
   userEmail,
+  userCaseList,
+  caption,
+  name,
+  byApplicant,
+  document_type,
   addresses = [],
+  userIdamId,
+  additionalData,
+  userId,
 }: // eligibility,
 // fee,
 {
@@ -199,21 +218,37 @@ export const generatePageContent = ({
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
+  caption?: string;
+  document_type?: string;
+  userCaseList?: Partial<CaseWithId>[];
   addresses?: [];
+  name?: string;
+  byApplicant?: string;
+  userIdamId?: string;
+  additionalData?: CommonContentAdditionalData;
+  userId?: string | undefined;
   // eligibility?: Eligibility;
   // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
-  const serviceName = getServiceName(commonTranslations);
-  // const contactEmail = 'todo@test.com';
+  const serviceName = getServiceName(additionalData, commonTranslations);
+
   const content: CommonContent = {
     ...commonTranslations,
     serviceName,
     language,
     userCase,
     userEmail,
-    // contactEmail,
+    name,
+    userCaseList,
     addresses,
+    caption,
+    document_type,
+    userIdamId,
+    byApplicant,
+    // contactEmail,
+    additionalData,
+    userId,
     // eligibility,
     // fee,
   };
@@ -225,8 +260,17 @@ export const generatePageContent = ({
   return content;
 };
 
-const getServiceName = (translations: typeof en): string => {
-  return capitalize(translations.applyForChildArrangements);
+const getServiceName = (addtionalReqData: CommonContentAdditionalData | undefined, translations: typeof en): string => {
+  let serviceName = translations.applyForChildArrangements;
+  if (addtionalReqData?.req?.path?.startsWith(C100_URL)) {
+    serviceName = translations.c100ServiceName;
+  }
+  return capitalize(serviceName);
+};
+
+type CommonContentAdditionalData = {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  [key: string]: any;
 };
 
 export type CommonContent = typeof en & {
@@ -235,12 +279,19 @@ export type CommonContent = typeof en & {
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
   userEmail?: string;
-  // contactEmail?: string;
-  // referenceNumber?: string;
+  userCaseList?: Partial<CaseWithId>[];
+  name?: string;
+  caption?: string;
+  document_type?: string;
+
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
+  byApplicant?: string;
+  additionalData?: CommonContentAdditionalData;
+  userId?: string | undefined;
   // eligibility?: Eligibility;
   // fee?: Fee;
+  userIdamId?: string;
 };
 
 export type Language = 'en' | 'cy';

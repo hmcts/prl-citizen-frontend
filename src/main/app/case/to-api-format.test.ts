@@ -9,16 +9,13 @@ import { OrNull, toApiDate, toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
   const results: OrNull<Partial<Case>> = {
-    applicant1Address1: 'MOCK_applicant1Address1',
-    applicant1Address2: 'MOCK_applicant1Address2',
-    applicant1AddressTown: 'MOCK_applicant1AddressTown',
-    applicant1EmailAddress: 'abc@gmail.com',
-    applicant1FirstNames: 'MOCK_applicant1FirstNames',
-    applicant1FullName: 'MOCK_applicant1FullName',
-    applicant1LastNames: 'MOCK_applicant1LastNames',
+    citizenUserEmailAddress: 'abc@gmail.com',
+    citizenUserFirstNames: 'MOCK_applicant1FirstNames',
+    citizenUserFullName: 'MOCK_applicant1FullName',
+    citizenUserLastNames: 'MOCK_applicant1LastNames',
     applicant1Occupation: 'MOCK_applicant1Occupation',
-    applicant1PhoneNumber: '1234567890',
-    applicant1PlaceOfBirth: 'MOCK_applicant1PlaceOfBirth',
+    citizenUserPhoneNumber: '1234567890',
+    citizenUserPlaceOfBirth: 'MOCK_applicant1PlaceOfBirth',
     caseCode: 'MOCK_caseCode',
     claimNumber: 'MOCK_claimNumber',
     respondentFirstName: 'MOCK_respondentFirstName',
@@ -41,23 +38,20 @@ describe('to-api-format', () => {
     expect(apiFormat).toBe(expected);
   });
 
-  test('should convert results from adoption-web to CCD api format', async () => {
+  test('should convert results from citizen-web to CCD api format', async () => {
     const apiFormat = toApiFormat(results as Partial<Case>);
     expect(apiFormat).toStrictEqual({
-      applicant1Address1: 'MOCK_applicant1Address1',
-      applicant1Address2: 'MOCK_applicant1Address2',
-      applicant1AddressTown: 'MOCK_applicant1AddressTown',
       applicant1ContactDetailsConsent: 'Yes',
-      applicant1EmailAddress: 'abc@gmail.com',
-      applicant1FirstNames: 'MOCK_applicant1FirstNames',
-      applicant1FullName: 'MOCK_applicant1FullName',
+      citizenUserEmailAddress: 'abc@gmail.com',
+      citizenUserFirstNames: 'MOCK_applicant1FirstNames',
+      citizenUserFullName: 'MOCK_applicant1FullName',
       applicant1HasOtherNames: 'Yes',
-      applicant1LastNames: 'MOCK_applicant1LastNames',
+      citizenUserLastNames: 'MOCK_applicant1LastNames',
       applicant1Occupation: 'MOCK_applicant1Occupation',
-      applicant1PhoneNumber: '1234567890',
-      applicant1PlaceOfBirth: 'MOCK_applicant1PlaceOfBirth',
+      citizenUserPhoneNumber: '1234567890',
+      citizenUserPlaceOfBirth: 'MOCK_applicant1PlaceOfBirth',
       caseCode: 'MOCK_caseCode',
-      citizenRole: 'APPLICANT',
+      citizenRole: 'applicant',
       claimNumber: 'MOCK_claimNumber',
       respondentFirstName: 'MOCK_respondentFirstName',
       respondentLastName: 'MOCK_respondentLastName',

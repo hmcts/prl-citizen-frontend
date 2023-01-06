@@ -14,6 +14,13 @@ export class Form {
     const fields = checkFields || this.fields;
 
     const parsedBody = Object.entries(fields)
+      .reduce((_fields: [string, FormField][], [key, field]) => {
+        _fields =
+          field.type === 'fieldset' && Object.keys(field?.subFields ?? {}).length
+            ? [..._fields, ...(Object.entries(field.subFields) as [string, FormField][])]
+            : [..._fields, [key, field]];
+        return _fields;
+      }, [])
       .map(setupCheckboxParser(!!body.saveAndSignOut))
       .filter(([, field]) => typeof field?.parser === 'function')
       .flatMap(([key, field]) => {
@@ -65,23 +72,29 @@ export class Form {
     return errors;
   }
 
+  public populateFieldNames(value: FormInput, fieldNames: Set<string>, fieldKey: string): Set<string> {
+    if (value.name) {
+      fieldNames.add(value.name);
+    } else {
+      fieldNames.add(fieldKey);
+    }
+    if (value.subFields) {
+      for (const field of Object.keys(value.subFields)) {
+        fieldNames.add(field);
+      }
+    }
+
+    return fieldNames;
+  }
+
   public getFieldNames(): Set<string> {
     const fields = this.fields;
-    const fieldNames: Set<string> = new Set();
+    let fieldNames: Set<string> = new Set();
     for (const fieldKey in fields) {
       const stepField = fields[fieldKey] as FormOptions;
       if (stepField.values && stepField.type !== 'date') {
         for (const [, value] of Object.entries(stepField.values)) {
-          if (value.name) {
-            fieldNames.add(value.name);
-          } else {
-            fieldNames.add(fieldKey);
-          }
-          if (value.subFields) {
-            for (const field of Object.keys(value.subFields)) {
-              fieldNames.add(field);
-            }
-          }
+          fieldNames = this.populateFieldNames(value, fieldNames, fieldKey);
         }
       } else {
         fieldNames.add(fieldKey);
@@ -107,7 +120,13 @@ export type LanguageLookup = (lang: Record<string, never>) => string;
 
 type Parser = (value: Record<string, unknown> | string[]) => void;
 
-type Label = string | LanguageLookup;
+export type LabelFormFormatter = {
+  text?: string | never;
+  classes?: string;
+  isPageHeading?: boolean;
+};
+
+type Label = LabelFormFormatter | string | LanguageLookup;
 
 type Warning = Label;
 
@@ -127,7 +146,19 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  onlyContinue?: {
+    text: Label;
+    classes?: string;
+  };
+  onlycontinue?: {
+    text: Label;
+    classes?: string;
+  };
   saveAsDraft?: {
+    text: Label;
+    classes?: string;
+  };
+  saveAndComeLater?: {
     text: Label;
     classes?: string;
   };
@@ -136,6 +167,10 @@ export interface FormContent {
     classes?: string;
   };
   editAddress?: {
+    text: Label;
+    classes?: string;
+  };
+  goBack?: {
     text: Label;
     classes?: string;
   };
@@ -186,9 +221,11 @@ export interface FormInput {
   options?: DropdownOptionsLookup;
   disabled?: boolean;
   detailsHtml?: Label;
+  textAndHtml?: Label;
   link?: string;
-  divider?: boolean;
+  divider?: boolean | Label;
   exclusive?: boolean;
+  behaviour?: string;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
@@ -213,4 +250,9 @@ interface CaseWithFormData extends CaseWithId {
   sendToApplicant2ForReview?: string;
   addAnotherName?: string;
   addAnotherNameHidden?: string;
+}
+export interface GenerateDynamicFormFields {
+  fields: FormContent['fields'];
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  errors: Record<string, any>;
 }

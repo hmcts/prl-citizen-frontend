@@ -29,7 +29,6 @@ import path from 'path';
 import express from 'express';
 import nunjucks from 'nunjucks';
 
-import { PrivateLaw } from '../../app/case/definition';
 import { FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
@@ -37,11 +36,15 @@ export class Nunjucks {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
-    const env = nunjucks.configure([path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, hmctsFrontendPath], {
-      autoescape: true,
-      watch: app.locals.developmentMode,
-      express: app,
-    });
+    const commonForC100 = path.join(__dirname, '..', '..', 'steps', 'c100-rebuild', 'common');
+    const env = nunjucks.configure(
+      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, hmctsFrontendPath, commonForC100],
+      {
+        autoescape: true,
+        watch: app.locals.developmentMode,
+        express: app,
+      }
+    );
 
     env.addGlobal('getContent', function (prop): string {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
@@ -76,8 +79,9 @@ export class Nunjucks {
           html: this.env.globals.getContent.call(this, i.hint),
         },
         //divider: this.env.globals.getContent.call(this, i.divider),
-        divider: i.divider && 'or',
-        behaviour: i.exclusive && 'exclusive',
+        divider:
+          typeof i.divider === 'function' ? this.env.globals.getContent.call(this, i.divider) : i.divider && 'or',
+        behaviour: (i.exclusive && 'exclusive') || this.env.globals.getContent.call(this, i.behaviour),
         open: i.open,
         conditional: (() => {
           if (i.warning) {
@@ -120,10 +124,27 @@ export class Nunjucks {
       return new nunjucks.runtime.SafeString(jsonString);
     });
 
+    env.addFilter('uniqueConfidentials', array => {
+      return [...new Map(array.map(item => [item['name'], item])).values()];
+    });
+
+    env.addFilter('orderStringParser', str => {
+      const orderNumber = str
+        .split('')
+        .map(num => {
+          if (Number.isInteger(Number(num))) {
+            return num;
+          }
+        })
+        .filter(num => num !== undefined)
+        .join('');
+      return orderNumber;
+    });
+
     app.use((req, res, next) => {
       res.locals.host = req.headers['x-forwarded-host'] || req.hostname;
       res.locals.pagePath = req.path;
-      res.locals.serviceType = PrivateLaw.PRIVATELAW;
+      res.locals.serviceType = 'PRLAPPS';
       next();
     });
   }

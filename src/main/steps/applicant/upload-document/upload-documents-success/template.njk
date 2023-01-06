@@ -1,0 +1,45 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <div class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-29" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__header">
+      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+        {{sucess}}
+      </h2>
+    </div>
+    <div class="govuk-notification-banner__content">
+      <h2 class="govuk-notification-banner__heading">
+        {{status}}
+      </h2>
+    </div>
+  </div>
+  <div class="uploadedfiles govuk-!-margin-bottom-3" style=" display: inline-block">
+
+    <h2 class="govuk-heading-s{% if userCase.applicantUploadFiles.length==0 %} hidden{% endif %}">{{documentDetails}}{{caption}}</h2>
+    <ul id="filesUploadedList" class="govuk-list">
+      <dl class="govuk-summary-list">
+        {% for file in userCase.applicantUploadFiles %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__value">
+              {{ file.name }}
+            </dt>
+
+          </div>
+        {% endfor %}
+      </dl>
+    </ul>
+  </div>
+  <div class="govuk-button-group">
+    <form action="/document-manager/clearUploadDocumentFormData?_csrf={{ csrfToken }}&isApplicant=Yes" method="post">
+      <input type="hidden" name="answers-checked" value="true">
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button" value="Save and come back later">Upload another document</button>
+    </form>
+    <form action="/document-manager/clearUploadDocumentFormData?_csrf={{ csrfToken }}&isApplicant=Yes&isContinue=Yes" method="post" novalidate="">
+
+              <button class="govuk-button" data-module="govuk-button" value="Continue">
+                Continue
+              </button>
+
+            </form>
+  </div>
+{% endblock %}

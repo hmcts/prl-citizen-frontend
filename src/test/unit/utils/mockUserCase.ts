@@ -1,8 +1,7 @@
 import { CaseWithId } from '../../../main/app/case/case';
-import { ApplyingWith, Gender, Nationality, YesNoNotsure, YesOrNo } from '../../../main/app/case/definition';
+import { YesNoNotsure, YesOrNo } from '../../../main/app/case/definition';
 
 export default {
-  applyingWith: ApplyingWith.ALONE,
   dateChildMovedIn: { day: 12, month: 10, year: '2020' },
   adopAgencyOrLAs: [
     {
@@ -27,19 +26,20 @@ export default {
   socialWorkerTeamEmail: 'socialworkerteam@email.com',
   hasAnotherAdopAgencyOrLA: YesOrNo.YES,
 
-  applicant1FirstNames: 'MOCK_APPLICANT1_FIRST_NAMES',
-  applicant1LastNames: 'MOCK_APPLICANT1_LAST_NAMES',
+  citizenUserFirstNames: 'MOCK_APPLICANT1_FIRST_NAMES',
+  citizenUserLastNames: 'MOCK_APPLICANT1_LAST_NAMES',
   applicant1HasOtherNames: YesOrNo.YES,
   applicant1AdditionalNames: [{ firstNames: 'MOCK_ADDITIONAL_FIRST_NAMES', lastNames: 'MOCK_ADDITIONAL_LAST_NAMES' }],
-  applicant1EmailAddress: 'applicant1@email.com',
-  applicant1PhoneNumber: '01234567893',
+  citizenUserEmailAddress: 'applicant1@email.com',
+  applicantSafeCallTime: '10:30',
+  citizenUserPhoneNumber: '01234567893',
   applicant1ContactDetailsConsent: YesOrNo.YES,
-  applicant1DateOfBirth: { day: '1', month: '4', year: '1990' },
+  citizenUserDateOfBirth: { day: '1', month: '4', year: '1990' },
   applicant1Occupation: 'MOCK_OCCUPATION',
-  applicant1Address1: 'MOCK_ADDRESS_LINE_1',
-  applicant1AddressTown: 'MOCK_ADDRESS_TOWN',
-  applicant1AddressCounty: 'MOCK_ADDRESS_COUNTY',
-  applicant1AddressPostcode: 'MOCK_ADDRESS_POSTCODE',
+  citizenUserAddress1: 'MOCK_ADDRESS_LINE_1',
+  citizenUserAddressTown: 'MOCK_ADDRESS_TOWN',
+  citizenUserAddressCounty: 'MOCK_ADDRESS_COUNTY',
+  citizenUserAddressPostcode: 'MOCK_ADDRESS_POSTCODE',
 
   applicant2FirstNames: 'MOCK_APPLICANT1_FIRST_NAMES',
   applicant2LastNames: 'MOCK_APPLICANT1_LAST_NAMES',
@@ -57,8 +57,7 @@ export default {
   childrenFirstName: 'CHILDREN_FIRST_NAMES',
   childrenLastName: 'CHILDREN_LAST_NAMES',
   childrenDateOfBirth: { day: 9, month: 8, year: 2020 },
-  childrenSexAtBirth: Gender.MALE,
-  childrenNationality: [Nationality.BRITHISH, Nationality.OTHER],
+
   childrenAdditionalNationalities: ['MOCK_COUNTRY'],
   childrenFirstNameAfterAdoption: 'MOCK_FIRST_NAME_AFTER_ADOPTION',
   childrenLastNameAfterAdoption: 'MOCK_LAST_NAME_AFTER_ADOPTION',
@@ -82,7 +81,7 @@ export default {
   birthMotherFirstNames: 'BIRTH_MOTHER_FIRST_NAMES',
   birthMotherLastNames: 'BIRTH_MOTHER_LAST_NAMES',
   birthMotherStillAlive: YesNoNotsure.YES,
-  birthMotherNationality: [Nationality.BRITHISH, Nationality.OTHER],
+
   birthMotherAdditionalNationalities: ['MOCK_COUNTRY'],
   birthMotherOccupation: 'MOCK_OCCUPATION',
   birthMotherAddressKnown: YesOrNo.YES,
@@ -98,7 +97,7 @@ export default {
   birthFatherFirstNames: 'BIRTH_FATHER_FIRST_NAMES',
   birthFatherLastNames: 'BIRTH_FATHER_LAST_NAMES',
   birthFatherStillAlive: YesNoNotsure.YES,
-  birthFatherNationality: [Nationality.BRITHISH],
+
   birthFatherOccupation: 'MOCK_OCCUPATION',
   birthFatherAddressKnown: YesOrNo.YES,
   birthFatherAddress1: 'MOCK_ADDRESS_LINE1',
@@ -138,4 +137,14 @@ export default {
   familyCourtName: 'MOCK_FAMILY_COURT',
   applicant1UploadedFiles: [{ id: 'MOCK_DOCUMENT_ID', name: 'MOCK_DOCUMENT_FILE_NAME' }],
   applicant1DocumentsUploaded: [{ id: 'MOCK_DOCUMENT_ID', value: { documentFileName: 'MOCK_DOCUMENT_FILE_NAME' } }],
+  orderCollection: [],
+  respondentsFL401: {
+    firstName: 'test',
+    lastName: 'test',
+  },
+  applicantsFL401: {
+    firstName: 'test',
+    lastName: 'test',
+  },
+  id: '1234',
 } as unknown as CaseWithId;
