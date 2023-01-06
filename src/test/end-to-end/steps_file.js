@@ -22,6 +22,8 @@ const InternationElement = require('./pages/C100-Rebuild/InternationElement');
 const ReasonableAdjustments = require('./pages/C100-Rebuild/ReasonableAdjustments');
 const HelpWithFees = require('./pages/C100-Rebuild/HelpWithFees');
 const CheckYourAnswers = require('./pages/C100-Rebuild/CheckYourAnswers');
+const ConsentOrder = require('./pages/C100-Rebuild/ConsentOrder');
+const CheckYourAnswersSimple = require('./pages/C100-Rebuild/CheckYourAnswersSimple');
 
 
 module.exports = () => {
@@ -56,6 +58,9 @@ module.exports = () => {
     },
     screeningQuestions() {
       return ScreeningQuestions.screeningQuestions();
+    },
+    withDraftConsentOrder() {
+      return ScreeningQuestions.withDraftConsentOrder();
     },
     goToMiam() {
       return GoToMiam.goToMiam();
@@ -95,6 +100,12 @@ module.exports = () => {
     },
     checkYourAnswersEvent() {
       return CheckYourAnswers.checkYourAnswersEvent();
+    },
+    checkYourAnswersSimpleEvent() {
+      return CheckYourAnswersSimple.checkYourAnswersSimple();
+    },
+    draftConsentOrder() {
+      return ConsentOrder.draftConsentOrder();
     }
   });
 };

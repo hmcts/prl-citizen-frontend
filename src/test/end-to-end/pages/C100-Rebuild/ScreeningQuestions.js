@@ -5,6 +5,7 @@ const retryCount = 3;
 module.exports = {
     fields: {
         writtenAgreementNo: '//*[@id="sq_writtenAgreement-2"]',
+        writtenAgreementYes: '//*[@id="sq_writtenAgreement"]',
         testingText: 'Testing text area',
         reachingAgreementYes: '//*[@id="sq_alternativeRoutes"]',
         alternativeOptionTextBox: '//*[@id="sq_agreementReason"]',
@@ -19,6 +20,12 @@ module.exports = {
         permissionReasonWhy3: '//*[@id="sq_permissionsWhy-3"]',
         reasonWhy3: '//*[@id="sq_anotherReason_subfield"]',
         explainWhyCourtDetails: '//*[@id="sq_permissionsRequest"]',
+    },
+    async writtenAgreementYes() {
+        await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle);
+        await I.retry(retryCount).click(this.fields.writtenAgreementYes);
+        await I.retry(retryCount).click('Continue');
+        I.waitForNavigation();
     },
     async writtenAgreementButton() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle);
@@ -71,4 +78,8 @@ module.exports = {
         await this.permissionFromCourtWhy();
         await this.whyCourtShouldGrant();
     },
+
+    async withDraftConsentOrder() {
+        await this.writtenAgreementYes();
+    }
 };
