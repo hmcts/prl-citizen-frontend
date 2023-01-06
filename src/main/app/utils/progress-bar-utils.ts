@@ -21,14 +21,14 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
     title: progressBarC100.responseSubmitted.title,
     ariaLabel: progressBarC100.responseSubmitted.ariaLabel,
     active: true,
-    completed: cafcassSafetyChecks.completed && !true,
+    completed: cafcassSafetyChecks.completed && false,
   };
 
   const hearingAndCourtOrders = {
     title: progressBarC100.hearingAndCourtOrders.title,
     ariaLabel: progressBarC100.hearingAndCourtOrders.ariaLabel,
     active: false,
-    completed: responseSubmitted.completed && !true,
+    completed: responseSubmitted.completed && false,
   };
 
   const caseOpened = {
@@ -67,7 +67,6 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
 };
 
 const isFinalOrderActive = (userCase: Partial<CaseWithId>) => {
-  console.log(JSON.stringify(userCase.selectTypeOfOrder));
   if (userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl) {
     return true;
   }
@@ -75,7 +74,6 @@ const isFinalOrderActive = (userCase: Partial<CaseWithId>) => {
 };
 
 const iscaseClosedActive = (userCase: Partial<CaseWithId>) => {
-  console.log(JSON.stringify(userCase.doesOrderClosesCase));
   if (userCase.doesOrderClosesCase === YesOrNo.YES) {
     return true;
   }

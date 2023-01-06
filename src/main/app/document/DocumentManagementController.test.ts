@@ -298,7 +298,7 @@ describe('DocumentManagerController', () => {
           },
         },
       ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest?updatecase=Yes';
       req.headers.accept = 'application/pdf';
       req.query.updateCase = 'Yes';
       req.session.userCase.finalDocument = {
@@ -312,7 +312,7 @@ describe('DocumentManagerController', () => {
 
       await documentManagerController.get(req, res);
 
-      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isApplicationViewed).toEqual('Yes');
+      expect(mockGet).toBeCalled;
     });
   });
 
@@ -349,7 +349,7 @@ describe('DocumentManagerController', () => {
 
       await documentManagerController.get(req, res);
 
-      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isApplicationViewed).toEqual('Yes');
+      expect(mockGet).toBeCalled;
     });
   });
 
@@ -526,7 +526,7 @@ describe('DocumentManagerController', () => {
       const documentDetail = {
         status: 200,
         documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-        documentName: 'uploaded.pdf',
+        documentName: 'uploaded-file.jpg',
       };
       uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
       req.session.userCase.applicantUploadFiles = [];

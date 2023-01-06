@@ -1,0 +1,9 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+
+{% block page_content %}
+<h1 class="govuk-heading-xl">{{title}}</h1>
+<div class="govuk-inset-text">{{subTitle}}</div>
+{% endblock %}

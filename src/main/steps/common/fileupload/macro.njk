@@ -1,0 +1,89 @@
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+
+ {# Usage -----------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+   {{ fileUpload(
+        {
+          uploadButtonText: uploadButton,
+          fileuploadTitle: "Select documents to upload",
+          fileuploadTitleClass: "govuk-!-font-weight-bold",
+          formPostURL: postURL ,
+          sessionFilesArray: false,
+          sessionFiles: userCase.miam_certificate,
+          uploadFileHeading: '',
+          sessionNullFilesMessage: noFilesUploaded,
+          removeText: remove,
+          csrfToken: csrfToken
+          fileremoveURL : removeURL
+        }
+      ) }}
+
+      This macro has been implemented as part of C100 other-proceedings/documentUpload and  miam/upload 
+      please look at those components for examples.
+  -----------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+ #}
+
+{% macro fileUpload(params) %}           
+<div class="govuk-form-group govuk-inset-text">
+ {#This is the file upload section#}
+<form action="{{params.formPostURL}}" method="post" enctype="multipart/form-data">
+<input type="hidden" name="_csrf" id="csrfToken" value="{{ params.csrfToken }}">
+{% set selectedFileType = "image/jpeg,image/tiff,image/png,application/pdf,image/jpg,image/bmp,image/tif,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"%}
+
+{{ govukFileUpload({
+  id: "document",
+  name: "documents",
+   attributes: {
+            multiple: true,
+            accept: selectedFileType
+  },
+  classes: "govuk-!-margin-bottom-3",
+  label: {
+    text: params.fileuploadTitle,
+    classes: params.fileuploadTitleClass
+  }
+})}}
+  {{ govukButton({
+    text: params.uploadButtonText,
+    type: "upload document",
+    classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
+  }) }}
+</form>
+</div>
+
+{% if params.sessionFiles !== undefined and params.sessionFilesArray === true  %}
+  <div id="uploadGroup" tabindex="0" class="uploadGroup">
+    <h2 class="govuk-heading-s">{{ params.uploadFileHeading }}</h2>
+    <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if params.sessionFiles |length %} hidden{% endif %}" id="noFilesUploaded">{{ params.sessionNullFilesMessage }}</p>
+    <ul id="filesUploaded" class="govuk-list">
+      {% for files in params.sessionFiles %}
+        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
+          <dt class="govuk-summary-list__value"> {{ files.filename }} </dt>
+          <dd class="govuk-summary-list__actions">
+          <a href="{{postURL}}?removeId={{files.id}}" class="govuk-link--no-visited-state float-right ">{{ params.removeText }}</a>
+        </dd>
+        </li>
+       {%endfor%} 
+    </ul>
+  </div> 
+  {%else%}
+  {% if params.sessionFiles.id !== undefined and params.sessionFiles.filename !== "" %}
+    <ul id="filesUploaded" class="govuk-list">
+      <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
+            <dt class="govuk-summary-list__value"> {{ params.sessionFiles.filename }} </dt>
+            <dd class="govuk-summary-list__actions">
+            <a href="{% if params.fileremoveURL != undefined %}{{params.fileremoveURL}}{% else %}{{postURL}}?removeId={{params.sessionFiles.id}}{% endif %}" class="govuk-link--no-visited-state float-right ">{{ params.removeText }}</a>
+          </dd>
+          </li>
+      </ul>  
+   {%endif%}   
+{%endif%}
+
+{% endmacro %}
+
+
