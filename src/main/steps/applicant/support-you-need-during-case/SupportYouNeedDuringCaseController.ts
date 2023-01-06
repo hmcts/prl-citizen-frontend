@@ -9,7 +9,7 @@ import { AnyObject, PostController } from '../../../app/controller/PostControlle
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
-import { setSupportDetails } from './SupportYouNeedDuringYourCaseService';
+import { setSupportDetailsApplicant, setSupportDetailsRespondent } from './SupportYouNeedDuringYourCaseService';
 @autobind
 export class SupportYouNeedDuringYourCaseController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -25,11 +25,11 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       Object.assign(req.session.userCase, caseDataFromCos);
 
-      if (req.url.includes('respondent')) {
+      if (req.url.includes('respondent') || req.url.includes('tasklistresponse')) {
         req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
           if (respondent?.value?.user?.idamId === req.session?.user.id) {
             if (req.url.includes('support-you-need-during-case')) {
-              setSupportDetails(respondent, req);
+              setSupportDetailsRespondent(respondent, req);
             }
           }
         });
@@ -37,7 +37,7 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
         req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
           if (applicant?.value?.user?.idamId === req.session?.user.id) {
             if (req.url.includes('support-you-need-during-case')) {
-              setSupportDetails(applicant, req);
+              setSupportDetailsApplicant(applicant, req);
             }
           }
         });

@@ -125,23 +125,35 @@ export interface Response {
 }
 
 export interface ReasonableAdjustmentsSupport {
-  helpCommunication?: HelpCommunicationEnum[],
+  helpCommunication?: string[],
   describeOtherNeed?: string,
-  courtComfort?: CourtComfortEnum[],
+  courtComfort?: string[],
   otherProvideDetails?: string,
-  courtHearing?: CourtHearingEnum[],
+  courtHearing?: string[],
   communicationSupportOther?: string,
-  docsSupport?: DocsSupportEnum[],
+  docsSupport?: string[],
   otherDetails?: string,
-  languageRequirements?: LanguageRequirementsEnum[], 
+  languageRequirements?: string[], 
   languageDetails?: string,
-  reasonableAdjustments?: ReasonableAdjustmentsEnum[],
-  safetyArrangements?: SafetyArrangemensEnum[],
+  reasonableAdjustments?: string[],
+  safetyArrangements?: string[],
   safetyArrangementsDetails?: string,
-  travellingToCourt?: TravellingToCourtEnum[],
+  travellingToCourt?: string[],
   travellingOtherDetails?: string,
   unableForCourtProceedings?: YesOrNo,
   courtProceedingProvideDetails?: string,
+  //respondent support you need 
+  attendingToCourt?: string[],
+  hearingDetails?: string,
+  respondentSignLanguageDetails?: string,
+  respondentLightingDetails?: string,
+  respondentSupportWorkerDetails?: string,
+  respondentFamilyDetails?: string,
+  respondentTherapyDetails?: string,
+  respondentDocsDetails?: string,
+  respondentLargePrintDetails?: string,
+  respondentParkingDetails?: string,
+  respondentDifferentChairDetails?: string,
 }
 
 export const enum TravellingToCourtEnum {

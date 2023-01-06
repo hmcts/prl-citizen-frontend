@@ -93,6 +93,7 @@ import {
   C100_DOWNLOAD_APPLICATION,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+  C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -245,6 +246,10 @@ export class Routes {
         );
         app.get(
           CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
+        );
+        app.get(
+          C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
           errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
         );
       }

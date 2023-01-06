@@ -71,14 +71,6 @@ import {
   OtherChildrenDetails,
   C100RebuildPartyDetails,
   C100Applicant,
-  TravellingToCourtEnum,
-  ReasonableAdjustmentsEnum,
-  DocsSupportEnum,
-  CourtHearingEnum,
-  CourtComfortEnum,
-  LanguageRequirementsEnum,
-  HelpCommunicationEnum,
-  SafetyArrangemensEnum,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -412,48 +404,48 @@ export interface Case {
 
   //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case
-  languageRequirements?: LanguageRequirementsEnum[];
+  languageRequirements?: string[];
   languageDetails?: string;
-  reasonableAdjustments?: ReasonableAdjustmentsEnum[];
-  helpCommunication?: HelpCommunicationEnum[];
+  reasonableAdjustments?: string[];
+  helpCommunication?: string[];
   describeOtherNeed?: string;
-  courtHearing?: CourtHearingEnum[];
+  courtHearing?: string[];
   communicationSupportOther?: string;
-  docsSupport?: DocsSupportEnum[];
+  docsSupport?: string[];
   otherDetails?: string;
-  courtComfort?: CourtComfortEnum[];
+  courtComfort?: string[];
   otherProvideDetails?: string;
-  safetyArrangements?: SafetyArrangemensEnum[];
+  safetyArrangements?: string[];
   safetyArrangementsDetails?: string;
-  travellingToCourt?: TravellingToCourtEnum[];
+  travellingToCourt?: string[];
   travellingOtherDetails?: string;
   unableForCourtProceedings?: YesOrNo;
   courtProceedingProvideDetails?: string;
 
   //CA-DA-Respondent
-  respondentAttendingToCourt?: string;
+  respondentAttendingToCourt?: string[];
   respondentHearingDetails?: string;
-  respondentLangRequirements?: string;
+  respondentLangRequirements?: string[];
   respondentLangDetails?: string;
-  respondentSpecialArrangements?: string;
+  respondentSpecialArrangements?: string[];
   respondentSpecialArrangementsDetails?: string;
-  respondentReasonableAdjustments?: string;
-  respondentDocsSupport?: string;
+  respondentReasonableAdjustments?: string[];
+  respondentDocsSupport?: string[];
   respondentDocsDetails?: string;
   respondentLargePrintDetails?: string;
   respondentOtherDetails?: string;
-  respondentHelpCommunication?: string;
+  respondentHelpCommunication?: string[];
   respondentSignLanguageDetails?: string;
   respondentDescribeOtherNeed?: string;
-  respondentCourtHearing?: string;
+  respondentCourtHearing?: string[];
   respondentSupportWorkerDetails?: string;
   respondentFamilyDetails?: string;
   respondentTherapyDetails?: string;
   respondentCommSupportOther?: string;
-  respondentCourtComfort?: string;
+  respondentCourtComfort?: string[];
   respondentLightingDetails?: string;
   respondentOtherProvideDetails?: string;
-  respondentTravellingToCourt?: string;
+  respondentTravellingToCourt?: string[];
   respondentParkingDetails?: string;
   respondentDifferentChairDetails?: string;
   respondentTravellingOtherDetails?: string;

@@ -69,8 +69,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: SectionStatus.NOT_AVAILABLE_YET,
-            href: '#',
+            status: SectionStatus.TO_DO,
+            href: URL.C7_ATTENDING_THE_COURT,
           },
         ],
       },
