@@ -238,9 +238,13 @@ describe('PostController', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(req.path);
-    expect(req.session.errors).toEqual(errors); */
-    expect(1).toEqual(1);
+    expect(res.redirect).toHaveBeenCalledWith(req.path);
+    expect(req.session.errors).toEqual([
+      {
+        errorType: 'invalid',
+        propertyName: 'citizenUserPhoneNumber',
+      },
+    ]);
   });
 });
 

@@ -150,7 +150,15 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  onlycontinue?: {
+    text: Label;
+    classes?: string;
+  };
   saveAsDraft?: {
+    text: Label;
+    classes?: string;
+  };
+  saveAndComeLater?: {
     text: Label;
     classes?: string;
   };
@@ -166,6 +174,11 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  goBack?: {
+    text: Label;
+    classes?: string;
+  };
+
   fields: FormFields | FormFieldsFn;
 }
 
@@ -241,6 +254,11 @@ interface CaseWithFormData extends CaseWithId {
   sendToApplicant2ForReview?: string;
   addAnotherName?: string;
   addAnotherNameHidden?: string;
+}
+export interface GenerateDynamicFormFields {
+  fields: FormContent['fields'];
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  errors: Record<string, any>;
 }
 
 export interface GenerateDynamicFormFields {

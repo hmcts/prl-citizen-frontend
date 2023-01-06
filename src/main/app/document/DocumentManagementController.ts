@@ -200,12 +200,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const data = toApiFormat(req?.session?.userCase);
     data.id = caseReference;
-    const updatedCaseDataFromCos = await client.updateCase(
-      loggedInCitizen,
-      caseReference,
-      data,
-      'citizen-internal-case-update'
-    );
+    const updatedCaseDataFromCos = await client.updateCase(loggedInCitizen, caseReference, data, 'citizen-case-update');
     return updatedCaseDataFromCos;
   }
 
@@ -276,7 +271,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
     } catch (err) {
-      console.log(err);
+      req.locals.logger.error(err);
     }
 
     let fieldFlag = '';
@@ -481,7 +476,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         loggedInCitizen,
         caseReference,
         data,
-        'citizen-internal-case-update'
+        'citizen-case-update'
       );
       req.session.userCase = updatedCaseDataFromCos;
     }
@@ -603,21 +598,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return redirectUrl;
   }
 
-  public async reqFiles(req: AppRequest): Promise<void> {
-    if (req.headers.accept?.includes('application/json')) {
-      throw new Error('No files were uploaded');
-    } else {
-      console.log('test.....');
-      const fileData = req.files || [];
-      console.log('File data... : ', fileData);
-      const obj = {
-        id: fileData[0]['originalname'],
-        name: fileData[0]['originalname'],
-      };
-      req.session.userCase.applicantUploadFiles?.push(obj);
-    }
-  }
-
   public async undefiendUploadFiles(req: AppRequest): Promise<void> {
     if (req?.session?.userCase?.applicantUploadFiles === undefined) {
       req.session.userCase[ApplicantUploadFiles] = [];
@@ -630,14 +610,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
   public async fileData(req: AppRequest): Promise<void> {
     if (!req.files?.length) {
-      this.reqFiles(req);
-    } else {
-      const fileData = req.files || [];
-      const obj = {
-        id: fileData[0]['originalname'],
-        name: fileData[0]['originalname'],
-      };
-      req.session.userCase.applicantUploadFiles?.push(obj);
+      if (req.headers.accept?.includes('application/json')) {
+        throw new Error('No files were uploaded');
+      }
     }
   }
 
@@ -667,8 +642,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.session.userCase && req.session.userCase.start) {
       documentRequestedByCourt = req.session.userCase.start;
     }
-
-    console.log('documentRequestedByCourt option: ', documentRequestedByCourt);
 
     let parentDocumentType;
     let documentType;
@@ -704,8 +677,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
       partyName,
       isApplicant,
       files,
-      documentRequestedByCourt
-    );
+      documentRequestedByCourt,
+    };
+    const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(uploadRequest);
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {

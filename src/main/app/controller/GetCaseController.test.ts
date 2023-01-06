@@ -26,6 +26,9 @@ describe.skip('GetCaseController', () => {
         access_token: token,
         id_token: token,
       },
+      params: {
+        caseId: '1234',
+      },
     });
     let flag = false;
     try {

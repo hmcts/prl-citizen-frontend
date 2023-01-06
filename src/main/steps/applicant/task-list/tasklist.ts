@@ -5,6 +5,7 @@ import * as URL from '../../urls';
 import {
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
+  getUploadDocuments,
   getSupportYourNeedsDetails,
   getViewAllDocuments,
   getYourApplication,
@@ -57,7 +58,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'upload-document',
           text: taskListItems.upload_document,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+          status: getUploadDocuments(),
           href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
         },
         {

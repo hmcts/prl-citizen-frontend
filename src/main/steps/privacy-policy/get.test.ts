@@ -11,6 +11,17 @@ describe('PrivacyPolicyGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toHaveBeenCalledWith(expect.anything(), expect.anything());
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        userEmail: 'test@example.com',
+        userCase: req.session.userCase,
+      }),
+      ...defaultViewArgs,
+      userCase: req.session.userCase,
+      paymentError: false,
+      caseId: undefined,
+    });
   });
 });

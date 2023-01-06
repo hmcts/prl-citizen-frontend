@@ -13,7 +13,6 @@ export default class DashboardGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    console.log('Inside Dashboard controller');
     req.session.userCaseList = await getCaseDetails(req);
 
     const language = super.getPreferredLanguage(req) as Language;

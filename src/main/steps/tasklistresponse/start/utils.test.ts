@@ -173,7 +173,7 @@ describe('utils', () => {
           proceedingsStart: undefined,
           proceedingsStartOrder: undefined,
           emergencyOrderOptions: undefined,
-          supervisionOrderOption: YesOrNo.NO,
+          supervisionOrderOption: undefined,
           careOrderOptions: undefined,
           childAbductionOrderOption: undefined,
           caOrderOption: undefined,
@@ -185,7 +185,63 @@ describe('utils', () => {
           injuctiveOrderOptions: undefined,
           underTakingOrderOptions: undefined,
         },
-        expected: SectionStatus.IN_PROGRESS,
+        expected: SectionStatus.COMPLETED,
+      },
+      {
+        data: {
+          ...mockUserCase,
+          proceedingsStart: 'I',
+          proceedingsStartOrder: YesOrNo.NO,
+          emergencyOrderOptions: undefined,
+          supervisionOrderOption: undefined,
+          careOrderOptions: undefined,
+          childAbductionOrderOption: undefined,
+          caOrderOption: undefined,
+          financialOrderOption: undefined,
+          nonmolestationOrderOption: undefined,
+          occupationalOrderOptions: undefined,
+          marraigeOrderOptions: undefined,
+          restrainingOrderOptions: undefined,
+          injuctiveOrderOptions: undefined,
+          underTakingOrderOptions: undefined,
+        },
+        expected: SectionStatus.COMPLETED,
+      },
+      {
+        data: {
+          ...mockUserCase,
+          proceedingsStart: 'undefined',
+          proceedingsStartOrder: 'undefined',
+          emergencyOrderOptions: YesOrNo.NO,
+          supervisionOrderOption: YesOrNo.NO,
+          careOrderOptions: YesOrNo.NO,
+          childAbductionOrderOption: YesOrNo.NO,
+          caOrderOption: YesOrNo.NO,
+          financialOrderOption: YesOrNo.NO,
+          nonmolestationOrderOption: YesOrNo.NO,
+          occupationalOrderOptions: YesOrNo.NO,
+          marraigeOrderOptions: YesOrNo.NO,
+          restrainingOrderOptions: YesOrNo.NO,
+          injuctiveOrderOptions: YesOrNo.NO,
+          underTakingOrderOptions: YesOrNo.NO,
+        },
+        expected: SectionStatus.COMPLETED,
+      },
+      {
+        data: {
+          ...mockUserCase,
+          proceedingsStart: YesOrNo.NO,
+          proceedingsStartOrder: YesOrNo.NO,
+        },
+        expected: SectionStatus.COMPLETED,
+      },
+      {
+        data: {
+          ...mockUserCase,
+          proceedingsStart: 'I',
+          proceedingsStartOrder: YesOrNo.NO,
+        },
+        expected: SectionStatus.COMPLETED,
       },
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getCurrentOrOtherProceedingsStatus({ ...userCase, ...data })).toBe(expected);
@@ -256,6 +312,20 @@ describe('utils', () => {
           anotherPersonOrderOutsideEnWlDetails: 'test3',
           anotherCountryAskedInformation: 'Yes',
           anotherCountryAskedInformationDetaails: 'test4',
+        },
+      };
+      partyDetails[0].value.response = completedresponse;
+      userCase.respondents = partyDetails;
+      expect(getInternationalFactorsStatus(userCase, '123456')).toBe(SectionStatus.COMPLETED);
+    });
+
+    test('getInternationalFactorsStatus COMPLETED with NO cases', async () => {
+      const completedresponse = {
+        citizenInternationalElements: {
+          childrenLiveOutsideOfEnWl: YesOrNo.NO,
+          parentsAnyOneLiveOutsideEnWl: YesOrNo.NO,
+          anotherPersonOrderOutsideEnWl: YesOrNo.NO,
+          anotherCountryAskedInformation: YesOrNo.NO,
         },
       };
       partyDetails[0].value.response = completedresponse;

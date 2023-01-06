@@ -154,7 +154,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'upload-document',
             text: taskListItems.upload_document,
-            status: 'IN_PROGRESS',
+            status: 'TO_DO',
             href: URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
           },
         ],
@@ -261,7 +261,7 @@ describe('generateRespondentTaskList', () => {
           {
             href: '/respondent/upload-document',
             id: 'upload-document',
-            status: 'IN_PROGRESS',
+            status: 'TO_DO',
             text: 'Upload Documents',
           },
         ],

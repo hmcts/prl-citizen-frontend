@@ -33,13 +33,9 @@ export class CosApiClient {
   public async get(): Promise<string | undefined> {
     try {
       const response = await this.client.get<string>('/');
-      const userCase = null;
-      console.info(userCase);
-      console.info(JSON.stringify(response.data));
       return response.data;
     } catch (e) {
-      //const errMsg = 'Error connecting cos';
-      //console.error(errMsg);
+      throw new Error('Could not connect to cos-api client.');
     }
   }
 
@@ -83,7 +79,6 @@ export class CosApiClient {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data);
 
     return response.data;
   }
@@ -136,7 +131,7 @@ export class CosApiClient {
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Case could not be updated with c7 response fom respondent.');
     }
   }
 
@@ -168,7 +163,7 @@ export class CosApiClient {
         documentName: response.data?.document_filename,
       };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('failed to generate c7 document.');
     }
   }
 
@@ -196,7 +191,7 @@ export class CosApiClient {
         documentName: response.data?.documentName,
       };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Generate citizen statement document failed.');
     }
   }
 
@@ -218,11 +213,10 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
-
       const formData = new FormData();
 
-      for (const [, file] of Object.entries(files)) {
-        formData.append('files', file.buffer, file.originalname);
+      for (const [, file] of Object.entries(request.files)) {
+        formData.append('files', file.data, file.name);
       }
 
       formData.append('documentRequestedByCourt', documentRequestedByCourt);
@@ -245,7 +239,7 @@ export class CosApiClient {
       };
     } catch (err) {
       console.log('Error: ', err);
-      throw new Error('Case document is not updting.');
+      throw new Error('Upload citizen statement document failed.');
     }
   }
 
@@ -294,7 +288,7 @@ export class CosApiClient {
       });
       return response;
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Failed to link case to citizen.');
     }
   }
 
@@ -327,9 +321,8 @@ export class CosApiClient {
         headers,
       });
       return response;
-      // return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Case could not be updated - updateRespondentCase');
     }
   }
 
@@ -340,15 +333,25 @@ export class CosApiClient {
    * @returns The response from the API is being returned.
    */
   public async retrieveCasesByUserId(user: UserDetails): Promise<CaseWithId[]> {
-    const response = await Axios.get(config.get('services.cos.url') + '/cases', {
-      headers: {
-        Authorization: 'Bearer ' + user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
+    try {
+      const response = await Axios.get(config.get('services.cos.url') + '/cases', {
+        headers: {
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return response.data.map(_case => ({
+        ..._case.caseData,
+        caseStatus: {
+          state: _case.stateName,
+        },
+      }));
+    } catch (e) {
+      throw new Error('Could not retrive cases - retrieveCasesByUserId');
+    }
   }
 }
 

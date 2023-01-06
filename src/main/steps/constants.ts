@@ -8,6 +8,7 @@ export enum Sections {
   AboutRespondentCase = 'aboutRespondentCase',
   AboutApplicantCase = 'aboutApplicantCase',
   AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
+  C100 = 'c100',
 }
 
 export interface Step {
@@ -16,6 +17,10 @@ export interface Step {
   showInCompleteSection?: Sections;
   excludeFromContinueApplication?: boolean;
   getNextStep: (data: Partial<CaseWithId>, req?: AppRequest) => PageLink;
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getController?: any;
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  postController?: any;
   sanitizeQueryString?: (fromurl: string, toUrl: string, queryString: Record<string, string>) => Record<string, string>;
 }
 

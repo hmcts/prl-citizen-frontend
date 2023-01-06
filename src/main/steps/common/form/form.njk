@@ -67,6 +67,34 @@
           }) if getContent(form.saveAsDraft.text)
         }}
 
+         {{
+          govukButton({
+            text: getContent(form.onlycontinue.text),
+            classes: form.submit.classes,
+            preventDoubleClick: true,
+            type: "submit",
+            name: "onlycontinue",
+            value: true,
+            attributes: {
+              id: 'main-form-save-as-draft'
+            }
+          }) if getContent(form.onlycontinue.text)
+        }}
+
+         {{
+          govukButton({
+            text: getContent(form.saveAndComeLater.text),
+            classes: form.saveAndComeLater.classes if form.saveAndComeLater.classes !== undefined else "govuk-button--secondary",
+            preventDoubleClick: true,
+            type: "submit",
+            name: "saveAndComeLater",
+            value: true,
+            attributes: {
+              id: 'main-form-save-as-draft'
+            }
+          }) if getContent(form.saveAndComeLater.text)
+        }}
+
         {{
           govukButton({
             text: getContent(form.editAddress.text),
@@ -100,12 +128,12 @@
             classes: "govuk-button--secondary",
             preventDoubleClick: true,
             type: "submit",
-            name: "Go back",
+            name: "goBack",
             value: true,
             attributes: {
-              id: 'main-form-cancel'
+              id: 'main-form-goBack'
             }
-          }) if getContent(form.cancel.text)
+          }) if getContent(form.goBack.text)
         }}
       </div>
     {% endblock %}

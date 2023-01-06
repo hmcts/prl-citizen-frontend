@@ -58,7 +58,20 @@ import {
   YesNoDontKnow,
   YesOrNo,
   orderInterface,
+  //C100 Rebuild
+  // eslint-disable-next-line sort-imports
+  C100DocumentInfo,
+  C100OrderTypes,
+  C1ASafteyConcerns,
+  MiamNonAttendReason,
+  OtherProceedings,
   //DocumentType,
+  ChildrenDetails,
+  C1ASafteyConcernsAbout,
+  C1AAbuseTypes,
+  OtherChildrenDetails,
+  C100RebuildPartyDetails,
+  C100Applicant,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -206,7 +219,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
   const result = {};
-  for (const field of Object.keys(data)) {
+  for (const field of Object.keys(data as Record<string, any>)) {
     const value = fields[field];
 
     if (typeof value === 'function') {
@@ -480,11 +493,89 @@ export interface Case {
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+
+  //C100 Rebuild
+  contactDetailsPrivateAlternative?: string;
+  c100ApplicationFees?: string;
+  ra_disabilityRequirements?: string[];
+  hwf_needHelpWithFees?: YesOrNo;
+  hwf_feesAppliedDetails?: YesOrNo;
+  caseId?: string;
+  c1A_haveSafetyConcerns?: YesOrNo;
+  op_courtProceedingsOrders?: C100OrderTypes[];
+  op_otherProceedings?: OtherProceedings;
+  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
+  c1A_safteyConcerns?: C1ASafteyConcerns;
+  miam_otherProceedings?: string;
+  miam_haveDocSigned?: string;
+  miam_consent?: string;
+  miam_attendance?: YesOrNo;
+  miam_validReason?: YesOrNo;
+  miam_certificate?: C100DocumentInfo;
+  miam_mediatorDocument?: YesOrNo;
+  miam_nonAttendanceReasons?: MiamNonAttendReason[];
+  miam_domesticAbuse?: string[];
+  miam_childProtectionEvidence?: string[];
+  miam_urgency?: string[];
+  miam_previousAttendance?: string[];
+  miam_notAttendingReasons?: string[];
+  hu_urgentHearingReasons?: YesOrNo;
+  c1A_passportOffice?: YesOrNo;
+  cd_children?: ChildrenDetails[];
+  ocd_otherChildren?: OtherChildrenDetails[];
+  ocd_hasOtherChildren?: YesOrNo;
+  sq_writtenAgreement?: string;
+  sq_legalRepresentation?: YesOrNo;
+  sq_legalRepresentationApplication?: YesOrNo;
+  sq_courtPermissionRequired?: YesOrNo;
+  c1A_concernAboutChild?: C1AAbuseTypes[];
+  c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_childAbductedBefore?: YesOrNo;
+  co_certificate?: C100DocumentInfo;
+  too_courtOrder?: string[];
+  too_stopOtherPeopleDoingSomethingSubField?: string[];
+  too_resolveSpecificIssueSubField?: string[];
+  otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
+  otherPersonLastName?: C100RebuildPartyDetails['lastName'];
+  oprs_otherPersonCheck?: YesOrNo;
+  oprs_otherPersons?: C100RebuildPartyDetails[];
+  c100TempFirstName?: string;
+  c100TempLastName?: string;
+  resp_Respondents?: C100RebuildPartyDetails[];
+  appl_allApplicants?: C100Applicant[];
+  op_childrenInvolvedCourtCase?: YesOrNo;
+  op_courtOrderProtection?: YesOrNo;
+  hwn_hearingPart1?: YesOrNo;
+  c100RebuildChildPostCode?: string;
+  helpWithFeesReferenceNumber?: string;
 }
 
 export interface CaseWithId extends Case {
+  paymentSuccessDetails?: {
+    amount: string;
+    reference: string;
+    ccd_case_number: string;
+    case_reference: string;
+    channel: string;
+    method: string;
+    status: string;
+    external_reference: string;
+    payment_group_reference: string;
+  };
+  paymentDetails?: {
+    payment_reference: string;
+    date_created: string;
+    external_reference: string;
+    next_url: string;
+    status: string;
+    serviceRequestReference: string;
+  };
   id: string;
   state: State;
+  applicantTemporaryFormData?: {
+    TempFirstName?: string | unknown;
+    TempLastName?: string | unknown;
+  };
 }
 
 export enum Checkbox {
@@ -510,7 +601,7 @@ export enum FieldPrefix {
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
-  APPLICANT = 'APPLICANT',
+  APPLICANT = 'applicant',
   RESPONDENT = 'respondent',
 }
 

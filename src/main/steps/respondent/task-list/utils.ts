@@ -134,6 +134,10 @@ export const getViewAllDocuments = (): SectionStatus => {
   return SectionStatus.READY_TO_VIEW;
 };
 
+export const getUploadDocuments = (): SectionStatus => {
+  return SectionStatus.TO_DO;
+};
+
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     (userCase?.proceedingsStart === YesOrNo.NO && userCase?.proceedingsStartOrder === YesOrNo.NO) ||
@@ -224,4 +228,60 @@ export const getCheckAllegationOfHarmStatus = (
     }
   });
   return status;
+};
+
+export const getRespondentSupportYourNeedsDetails = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
+  if (
+    userCase?.respondentAttendingToCourt &&
+    userCase?.respondentLangRequirements &&
+    userCase?.respondentSpecialArrangements &&
+    userCase?.respondentReasonableAdjustments &&
+    userCase?.respondentDocsSupport &&
+    userCase?.respondentHelpCommunication &&
+    userCase?.respondentCourtHearing &&
+    userCase?.respondentCourtComfort &&
+    userCase?.respondentTravellingToCourt
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+  if (
+    userCase?.respondentAttendingToCourt ||
+    userCase?.respondentHearingDetails ||
+    userCase?.respondentLangRequirements ||
+    userCase?.respondentLangDetails ||
+    userCase?.respondentSpecialArrangements ||
+    userCase?.respondentSpecialArrangementsDetails ||
+    userCase?.respondentReasonableAdjustments ||
+    userCase?.respondentDocsSupport ||
+    userCase?.respondentDocsDetails ||
+    userCase?.respondentLargePrintDetails ||
+    userCase?.respondentOtherDetails ||
+    userCase?.respondentHelpCommunication ||
+    userCase?.respondentSignLanguageDetails ||
+    userCase?.respondentDescribeOtherNeed ||
+    userCase?.respondentCourtHearing ||
+    userCase?.respondentSupportWorkerDetails ||
+    userCase?.respondentFamilyDetails ||
+    userCase?.respondentTherapyDetails ||
+    userCase?.respondentCommSupportOther ||
+    userCase?.respondentCourtComfort ||
+    userCase?.respondentLightingDetails ||
+    userCase?.respondentOtherProvideDetails ||
+    userCase?.respondentTravellingToCourt ||
+    userCase?.respondentParkingDetails ||
+    userCase?.respondentDifferentChairDetails ||
+    userCase?.respondentTravellingOtherDetails
+  ) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
+
+export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userId: string): Respondent | undefined => {
+  for (let i = 0; i < userCase.respondents!.length; i++) {
+    if (userCase.respondents![i].value.user.idamId === userId) {
+      return userCase.respondents![i];
+    }
+  }
+  return undefined;
 };

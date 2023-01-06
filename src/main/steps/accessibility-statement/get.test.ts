@@ -11,6 +11,17 @@ describe('AccessibilityStatementGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toBeCalled;
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        userCase,
+        userEmail: 'test@example.com',
+      }),
+      ...defaultViewArgs,
+      userCase: req.session.userCase,
+      paymentError: false,
+      caseId: undefined,
+    });
   });
 });
