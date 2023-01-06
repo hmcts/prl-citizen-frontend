@@ -2,11 +2,13 @@ import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { caseApi } from '../../app/case/C100CaseApi';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 // import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { CALLBACK_URL, CITIZEN_HOME_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
+import { getFeatureToggle } from '../../app/utils/featureToggles';
+import { C100_URL, CALLBACK_URL, CITIZEN_HOME_URL, DASHBOARD_URL, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -28,7 +30,7 @@ export class OidcMiddleware {
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
-          req.session.save(() => res.redirect('/dashboard'));
+          req.session.save(() => res.redirect(DASHBOARD_URL));
         } else {
           if (!req.session?.accessCodeLoginIn) {
             res.redirect(CITIZEN_HOME_URL);
@@ -44,9 +46,30 @@ export class OidcMiddleware {
         if (req.path.startsWith(CITIZEN_HOME_URL) && !req.session?.user) {
           return next();
         }
+
+        if (app.locals.developmentMode) {
+          req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
+        }
+
         if (req.session?.user) {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
+
+          if (!req.locals.C100Api) {
+            req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
+          }
+          const c100RebuildLdFlag: boolean =
+            req.session.c100RebuildLdFlag !== undefined
+              ? req.session.c100RebuildLdFlag
+              : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
+          //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
+          if (req.path.startsWith(C100_URL)) {
+            if (c100RebuildLdFlag) {
+              return next();
+            } else {
+              return res.redirect(DASHBOARD_URL);
+            }
+          }
 
           if (req.session.userCase) {
             if (req.session.accessCodeLoginIn) {
@@ -56,7 +79,7 @@ export class OidcMiddleware {
                   const caseReference = req.session.userCase.caseCode;
                   const accessCode = req.session.userCase.accessCode;
                   const data = { applicantCaseName: 'DUMMY CASE DATA' };
-                  await client.linkCaseToCitizen1(
+                  await client.linkCaseToCitizen(
                     req.session.user,
                     caseReference as string,
                     req,

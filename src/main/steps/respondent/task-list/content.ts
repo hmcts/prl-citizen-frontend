@@ -1,4 +1,6 @@
+import { CaseWithId } from '../../../app/case/case';
 import { Banner, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import {
@@ -14,9 +16,11 @@ import {
 import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
+import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
   title: '',
+  respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -134,6 +138,7 @@ const en = () => ({
 
 const cy = () => ({
   title: '',
+  respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -260,7 +265,10 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
-  console.log(JSON.stringify(buildProgressBarStages(content.userCase!)));
+
+  const req: AppRequest = content.additionalData?.req;
+
+  translations.respondentName = getRespondentName(req.session.userCase, req.session.user.id);
 
   return {
     ...translations,
@@ -275,10 +283,17 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
+const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
+  if (userCase.caseTypeOfApplication === 'C100') {
+    const respondent = getRespondentPartyDetailsCa(userCase, userId);
+    return respondent ? respondent.value.firstName + ' ' + respondent.value.lastName : '';
+  } else {
+    return userCase.respondentsFL401?.firstName + '' + userCase.respondentsFL401?.lastName;
+  }
+};
+
 const getC100Banners = (userCase, translations, userIdamId) => {
   const banners: Banner[] = [];
-  banners.push(translations.caRespondentServedBanner);
-  banners.push(translations.cafcassBanner);
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (
       respondent?.value.user?.idamId === userIdamId &&

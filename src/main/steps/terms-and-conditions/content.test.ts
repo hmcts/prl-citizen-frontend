@@ -12,7 +12,7 @@ const en = {
   theUseOfTheService:
     'The use of the Service includes the Manage Organisation and Manage Cases applications (sometimes known as ‘MyHMCTS’) and Judicial Case Manager (JCM).',
   theTermYouIncludes:
-    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service.',
+    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service (HMCTS).',
   youAlsoAgreeThat: 'You also agree that you have a legitimate need to use the Service.',
   whoWeAre: 'Who we are',
   thisServiceIs: 'This Service is managed by HM Courts and Tribunals service.',
@@ -36,7 +36,7 @@ const en = {
     'You will not make false claims or denials relating to the use of the Service (for example, falsely denying any access, editing, reproduction or viewing of digital case material).',
   youWillAlways:
     'You will always check that recipients of material available through the Service are authorised to do so and that information is not accidentally or deliberately released to any unauthorised third party.',
-  youWIllOnly:
+  youWillOnly:
     'You will only access the Service from devices that have appropriate security controls installed, enabled and up to date (including, as appropriate, firewalls, anti-virus and spyware software, encryption of data and operating system security patches).',
   youWillNotAttempt: 'You will not attempt to bypass or subvert systems access controls.',
   whenUsingWifi:
@@ -66,7 +66,7 @@ const cy: typeof en = {
   theUseOfTheService:
     'The use of the Service includes the Manage Organisation and Manage Cases applications (sometimes known as ‘MyHMCTS’) and Judicial Case Manager (JCM). {in welsh}',
   theTermYouIncludes:
-    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service. {in welsh}',
+    'The term ‘you’ includes yourself and all users of the Service in your organisation. The terms ‘we’ and ‘us’ refer to HM Courts and Tribunals Service (HMCTS). {in welsh}',
   youAlsoAgreeThat: 'You also agree that you have a legitimate need to use the Service. {in welsh}',
   whoWeAre: 'Who we are {in welsh}',
   thisServiceIs: 'This Service is managed by HM Courts and Tribunals service. {in welsh}',
@@ -90,7 +90,7 @@ const cy: typeof en = {
     'You will not make false claims or denials relating to the use of the Service (for example, falsely denying any access, editing, reproduction or viewing of digital case material). {in welsh}',
   youWillAlways:
     'You will always check that recipients of material available through the Service are authorised to do so and that information is not accidentally or deliberately released to any unauthorised third party. {in welsh}',
-  youWIllOnly:
+  youWillOnly:
     'You will only access the Service from devices that have appropriate security controls installed, enabled and up to date (including, as appropriate, firewalls, anti-virus and spyware software, encryption of data and operating system security patches). {in welsh}',
   youWillNotAttempt: 'You will not attempt to bypass or subvert systems access controls. {in welsh}',
   whenUsingWifi:

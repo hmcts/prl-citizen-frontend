@@ -47,6 +47,10 @@ import {
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
   REASONABLE_ADJUSTMENTS,
+  RESPONDENT_RISK_ASSESSMENT,
+  RESPONDENT_SAFEGUARDING_LETTER,
+  RESPONDENT_SECTION37_REPORT,
+  RESPONDENT_SECTION7_REPORT,
   SAFETY_ARRANGEMENTS,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
@@ -416,5 +420,45 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_ATTENDING_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${APPLICANT}${RESPONDENT_SAFEGUARDING_LETTER}`,
+  },
+  {
+    url: `${APPLICANT}${RESPONDENT_SAFEGUARDING_LETTER}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${APPLICANT}${RESPONDENT_SECTION7_REPORT}`,
+  },
+  {
+    url: `${APPLICANT}${RESPONDENT_SECTION7_REPORT}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${APPLICANT}${RESPONDENT_SECTION37_REPORT}`,
+  },
+  {
+    url: `${APPLICANT}${RESPONDENT_SECTION37_REPORT}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => `${APPLICANT}${RESPONDENT_RISK_ASSESSMENT}`,
+  },
+  {
+    url: `${APPLICANT}${RESPONDENT_RISK_ASSESSMENT}`,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
 ];

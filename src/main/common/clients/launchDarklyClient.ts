@@ -1,39 +1,35 @@
-import config = require('config');
-import * as ld from 'ldclient-node';
-import { LDFlagValue } from 'ldclient-node';
+import config from 'config';
+import { LDClient, LDFlagValue, LDUser, init } from 'launchdarkly-node-server-sdk';
 
-const sdkKey: string = config.get<string>('secrets.prl.launchDarkly-sdk-key');
 const ldConfig = {
-  offline: config.get<boolean>('launchDarkly.offline'),
+  offline: false,
 };
 
 export class LaunchDarklyClient {
-  private static client: ld.LDClient;
+  private static client: LDClient;
 
   constructor() {
     if (!LaunchDarklyClient.client) {
-      LaunchDarklyClient.client = ld.init(sdkKey, ldConfig);
+      const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
+      LaunchDarklyClient.client = init(sdkKey, ldConfig);
     }
   }
 
-  /*async userVariation(user: User, roles: string[], featureKey: string, offlineDefault): Promise<ld.LDFlagValue> {
-    const ldUser: ld.LDUser = {
-      key: user.id,
-      custom: {
-        roles,
-      },
-    };
-    return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
-  }*/
+  async initializeLD(): Promise<void> {
+    if (LaunchDarklyClient.client) {
+      await LaunchDarklyClient.client.waitForInitialization();
+    }
+  }
 
-  async serviceVariation(featureKey: string, offlineDefault: LDFlagValue): Promise<ld.LDFlagValue> {
+  async serviceVariation(featureKey: string, offlineDefault: LDFlagValue): Promise<LDFlagValue> {
     const roles: string[] = [];
-    const ldUser: ld.LDUser = {
+    const ldUser: LDUser = {
       key: 'citizen-frontend',
       custom: {
         roles,
       },
     };
+
     return LaunchDarklyClient.client.variation(featureKey, ldUser, offlineDefault);
   }
 }

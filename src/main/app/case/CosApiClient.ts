@@ -20,7 +20,7 @@ export class CosApiClient {
       baseURL: config.get('services.cos.url'),
       headers: {
         Authorization: 'Bearer ' + authToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         'return-url': returnUrl,
       },
     });
@@ -33,13 +33,9 @@ export class CosApiClient {
   public async get(): Promise<string | undefined> {
     try {
       const response = await this.client.get<string>('/');
-      const userCase = null;
-      console.info(userCase);
-      console.info(JSON.stringify(response.data));
       return response.data;
     } catch (e) {
-      //const errMsg = 'Error connecting cos';
-      //console.error(errMsg);
+      throw new Error('Could not connect to cos-api client.');
     }
   }
 
@@ -57,7 +53,7 @@ export class CosApiClient {
     const response = await Axios.get(config.get('services.cos.url') + `/${caseId}`, {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -76,14 +72,13 @@ export class CosApiClient {
     const response = await Axios.get(config.get('services.cos.url') + '/validate-access-code', {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         caseId,
         accessCode,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data);
 
     return response.data;
   }
@@ -99,7 +94,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         accessCode: 'Dummy accessCode',
       };
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
@@ -124,7 +119,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
@@ -136,7 +131,7 @@ export class CosApiClient {
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Case could not be updated with c7 response fom respondent.');
     }
   }
 
@@ -152,7 +147,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,
@@ -168,7 +163,7 @@ export class CosApiClient {
         documentName: response.data?.document_filename,
       };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('failed to generate c7 document.');
     }
   }
 
@@ -181,7 +176,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
       console.log('Generated document request: ', generateAndUploadDocumentRequest);
@@ -196,42 +191,31 @@ export class CosApiClient {
         documentName: response.data?.documentName,
       };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Generate citizen statement document failed.');
     }
   }
 
-  public async UploadDocumentListFromCitizen(
-    user: UserDetails,
-    caseId: string,
-    parentDocumentType: string,
-    documentType: string,
-    partyId: string,
-    partyName: string,
-    isApplicant: string,
-    files: UploadedFiles,
-    documentRequestedByCourt: YesOrNo
-  ): Promise<DocumentDetail> {
+  public async UploadDocumentListFromCitizen(request: UploadDocumentRequest): Promise<DocumentDetail> {
     try {
       const headers = {
         Accept: '*/*',
         'Content-Type': '*',
-        Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        Authorization: 'Bearer ' + request.user.accessToken,
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
-
       const formData = new FormData();
 
-      for (const [, file] of Object.entries(files)) {
-        formData.append('files', file.buffer, file.originalname);
+      for (const [, file] of Object.entries(request.files)) {
+        formData.append('files', file.data, file.name);
       }
 
-      formData.append('documentRequestedByCourt', documentRequestedByCourt);
-      formData.append('caseId', caseId);
-      formData.append('parentDocumentType', parentDocumentType);
-      formData.append('documentType', documentType);
-      formData.append('partyId', partyId);
-      formData.append('partyName', partyName);
-      formData.append('isApplicant', isApplicant);
+      formData.append('documentRequestedByCourt', request.documentRequestedByCourt);
+      formData.append('caseId', request.caseId);
+      formData.append('parentDocumentType', request.parentDocumentType);
+      formData.append('documentType', request.documentType);
+      formData.append('partyId', request.partyId);
+      formData.append('partyName', request.partyName);
+      formData.append('isApplicant', request.isApplicant);
 
       const response = await Axios.post(
         config.get('services.cos.url') + '/upload-citizen-statement-document',
@@ -245,7 +229,7 @@ export class CosApiClient {
       };
     } catch (err) {
       console.log('Error: ', err);
-      throw new Error('Case document is not updting.');
+      throw new Error('Upload citizen statement document failed.');
     }
   }
 
@@ -258,7 +242,7 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
       const response = await Axios.post(
@@ -272,26 +256,7 @@ export class CosApiClient {
     }
   }
 
-  public async linkCaseToCitizen(user: UserDetails, caseId: string, accessCode: string): Promise<AxiosResponse> {
-    try {
-      const headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        caseId,
-        accessCode,
-        Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
-      };
-      const response = await Axios.post(config.get('services.cos.url') + '/citizen/link', {
-        headers,
-      });
-      return response;
-    } catch (err) {
-      throw new Error('Case could not be updated.');
-    }
-  }
-
-  public async linkCaseToCitizen1(
+  public async linkCaseToCitizen(
     user: UserDetails,
     caseId: string,
     req: AppRequest,
@@ -304,18 +269,16 @@ export class CosApiClient {
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: ('Bearer ' + user.accessToken) as string,
-        serviceAuthorization: getServiceAuthToken() as string,
-        accessCode: accessCode as string,
+        Authorization: 'Bearer ' + user.accessToken,
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        accessCode,
       };
-      //: AxiosResponse<CaseWithId>
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
       });
       return response;
-      // return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Failed to link case to citizen.');
     }
   }
 
@@ -341,16 +304,15 @@ export class CosApiClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
       //: AxiosResponse<CaseWithId>
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
       });
       return response;
-      // return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Case could not be updated - updateRespondentCase');
     }
   }
 
@@ -361,16 +323,38 @@ export class CosApiClient {
    * @returns The response from the API is being returned.
    */
   public async retrieveCasesByUserId(user: UserDetails): Promise<CaseWithId[]> {
-    const response = await Axios.get(config.get('services.cos.url') + '/cases', {
-      headers: {
-        Authorization: 'Bearer ' + user.accessToken,
-        serviceAuthorization: getServiceAuthToken(),
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
+    try {
+      const response = await Axios.get(config.get('services.cos.url') + '/cases', {
+        headers: {
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return response.data.map(_case => ({
+        ..._case.caseData,
+        caseStatus: {
+          state: _case.stateName,
+        },
+      }));
+    } catch (e) {
+      throw new Error('Could not retrive cases - retrieveCasesByUserId');
+    }
   }
+}
+
+export interface UploadDocumentRequest {
+  user: UserDetails;
+  caseId: string;
+  parentDocumentType: string;
+  documentType: string;
+  partyId: string;
+  partyName: string;
+  isApplicant: string;
+  files: UploadedFiles;
+  documentRequestedByCourt: YesOrNo;
 }
 
 export type UploadedFiles =

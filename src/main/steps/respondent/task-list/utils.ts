@@ -81,22 +81,6 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
   return SectionStatus.TO_DO;
 };
 
-export const getCheckAllegationOfHarmStatus = (
-  userCase: Partial<CaseWithId> | undefined,
-  userIdamId: string
-): SectionStatus => {
-  let status = SectionStatus.DOWNLOAD;
-  userCase?.respondents?.forEach((respondent: Respondent) => {
-    if (
-      respondent?.value.user?.idamId === userIdamId &&
-      respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
-    ) {
-      status = SectionStatus.VIEW;
-    }
-  });
-  return status;
-};
-
 export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
@@ -150,6 +134,10 @@ export const getViewAllDocuments = (): SectionStatus => {
   return SectionStatus.READY_TO_VIEW;
 };
 
+export const getUploadDocuments = (): SectionStatus => {
+  return SectionStatus.TO_DO;
+};
+
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     ((userCase?.proceedingsStart === YesNoIDontKnow.NO || userCase?.proceedingsStart === YesNoIDontKnow.IDONTKNOW) &&
@@ -198,4 +186,103 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
     return SectionStatus.COMPLETED;
   }
   return SectionStatus.TO_DO;
+};
+
+export const getFinalApplicationStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  let result = SectionStatus.DOWNLOAD;
+
+  if (!userCase?.finalDocument?.document_binary_url) {
+    return SectionStatus.NOT_AVAILABLE_YET;
+  }
+
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (
+      respondent?.value.user.idamId === userIdamId &&
+      respondent?.value?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES
+    ) {
+      result = SectionStatus.VIEW;
+    }
+  });
+
+  return result;
+};
+
+export const getCheckAllegationOfHarmStatus = (
+  userCase: Partial<CaseWithId> | undefined,
+  userIdamId: string
+): SectionStatus => {
+  let status = SectionStatus.DOWNLOAD;
+
+  if (!userCase?.c1ADocument?.document_binary_url) {
+    return SectionStatus.NOT_AVAILABLE_YET;
+  }
+
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (
+      respondent?.value.user?.idamId === userIdamId &&
+      respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
+    ) {
+      status = SectionStatus.VIEW;
+    }
+  });
+  return status;
+};
+
+export const getRespondentSupportYourNeedsDetails = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
+  if (
+    userCase?.respondentAttendingToCourt &&
+    userCase?.respondentLangRequirements &&
+    userCase?.respondentSpecialArrangements &&
+    userCase?.respondentReasonableAdjustments &&
+    userCase?.respondentDocsSupport &&
+    userCase?.respondentHelpCommunication &&
+    userCase?.respondentCourtHearing &&
+    userCase?.respondentCourtComfort &&
+    userCase?.respondentTravellingToCourt
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+  if (
+    userCase?.respondentAttendingToCourt ||
+    userCase?.respondentHearingDetails ||
+    userCase?.respondentLangRequirements ||
+    userCase?.respondentLangDetails ||
+    userCase?.respondentSpecialArrangements ||
+    userCase?.respondentSpecialArrangementsDetails ||
+    userCase?.respondentReasonableAdjustments ||
+    userCase?.respondentDocsSupport ||
+    userCase?.respondentDocsDetails ||
+    userCase?.respondentLargePrintDetails ||
+    userCase?.respondentOtherDetails ||
+    userCase?.respondentHelpCommunication ||
+    userCase?.respondentSignLanguageDetails ||
+    userCase?.respondentDescribeOtherNeed ||
+    userCase?.respondentCourtHearing ||
+    userCase?.respondentSupportWorkerDetails ||
+    userCase?.respondentFamilyDetails ||
+    userCase?.respondentTherapyDetails ||
+    userCase?.respondentCommSupportOther ||
+    userCase?.respondentCourtComfort ||
+    userCase?.respondentLightingDetails ||
+    userCase?.respondentOtherProvideDetails ||
+    userCase?.respondentTravellingToCourt ||
+    userCase?.respondentParkingDetails ||
+    userCase?.respondentDifferentChairDetails ||
+    userCase?.respondentTravellingOtherDetails
+  ) {
+    return SectionStatus.IN_PROGRESS;
+  }
+  return SectionStatus.TO_DO;
+};
+
+export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userId: string): Respondent | undefined => {
+  for (let i = 0; i < userCase.respondents!.length; i++) {
+    if (userCase.respondents![i].value.user.idamId === userId) {
+      return userCase.respondents![i];
+    }
+  }
+  return undefined;
 };

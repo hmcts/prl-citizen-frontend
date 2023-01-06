@@ -4,9 +4,9 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { DeleteDocumentRequest } from '../document/DeleteDocumentRequest';
 import { GenerateAndUploadDocumentRequest } from '../document/GenerateAndUploadDocumentRequest';
 
-import { CosApiClient } from './CosApiClient';
+import { CosApiClient, UploadDocumentRequest } from './CosApiClient';
 import { CaseWithId } from './case';
-import { YesOrNo } from './definition';
+import { CaseData, YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
@@ -91,17 +91,18 @@ describe('CosApiClient', () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
     const files = [];
-    const actual = await client.UploadDocumentListFromCitizen(
-      req.session.user,
-      '123456',
-      'test',
-      'test',
-      '12345',
-      'a test',
-      'Yes',
+    const request: UploadDocumentRequest = {
+      user: req.session.user,
+      caseId: '123456',
+      parentDocumentType: 'test',
+      documentType: 'test',
+      partyId: '12345',
+      partyName: 'a test',
+      isApplicant: 'Yes',
       files,
-      YesOrNo.YES
-    );
+      documentRequestedByCourt: YesOrNo.YES,
+    };
+    const actual = await client.UploadDocumentListFromCitizen(request);
     expect(actual).toEqual(response);
   });
 
@@ -124,24 +125,10 @@ describe('CosApiClient', () => {
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
-    let flag = false;
-    try {
-      await client.linkCaseToCitizen(req.session.user, '1234567', '45678789');
-    } catch (err) {
-      flag = true;
-    }
-    expect(flag).toBe(false);
-  });
-
-  test('linkCaseToCitizen1', async () => {
-    const response = { id: '1234567' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
-    const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
     const caseData = toApiFormat(req?.session?.userCase);
     let flag = false;
     try {
-      await client.linkCaseToCitizen1(req.session.user, '1234567', req, '123456789', caseData);
+      await client.linkCaseToCitizen(req.session.user, '1234567', req, '123456789', caseData);
     } catch (err) {
       flag = true;
     }
@@ -164,11 +151,184 @@ describe('CosApiClient', () => {
   });
 
   test('retrieveCasesByUserId', async () => {
+    const response = {
+      id: '200',
+      state: 'SUCCESS',
+      data: [
+        {
+          caseData: { id: '1234', postCode: 'xyz' },
+          stateName: 'Draft',
+        },
+      ],
+    };
+    mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const actual = await client.retrieveCasesByUserId(req.session.user);
+    expect(actual).toEqual([
+      {
+        id: '1234',
+        postCode: 'xyz',
+        caseStatus: {
+          state: 'Draft',
+        },
+      },
+    ]);
+  });
+
+  test('generateC7Document', async () => {
+    const response = {
+      status: 'test',
+      data: {
+        document_binary_url: 'test',
+        document_filename: 'test',
+      },
+    };
+    const data = {} as Partial<CaseData>;
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const actual = await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data);
+    expect(actual).not.toBeUndefined;
+  });
+
+  test('generateC7Document throws exception', async () => {
+    const data = {} as Partial<CaseData>;
+    mockedAxios.post.mockRejectedValueOnce;
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    let flag = false;
+    try {
+      await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data);
+    } catch (error) {
+      flag = true;
+    }
+    expect(flag).toEqual(true);
+  });
+});
+describe('CosApiClientWithError', () => {
+  test('retrieveByCaseIdWithError', async () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
-    const actual = await client.retrieveCasesByUserId(req.session.user);
-    expect(actual).toEqual(response);
+    const id = '';
+    let flag = true;
+    try {
+      await client.retrieveByCaseId(id, req.session.user);
+    } catch {
+      flag = false;
+    }
+    expect(flag).toEqual(false);
+  });
+
+  test('validateAccessCodeWithError', async () => {
+    const response = { id: '200', state: 'SUCCESS' };
+    mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const id = '';
+    let flag = true;
+    try {
+      await client.validateAccessCode(id, '1234', req.session.user);
+    } catch {
+      flag = false;
+    }
+    expect(flag).toEqual(false);
+  });
+
+  test('updateCaseWithError', async () => {
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const caseData = toApiFormat(req?.session?.userCase);
+    let flag = true;
+    try {
+      await client.updateCase(req.session.user, '123456', caseData, 'update');
+    } catch {
+      flag = false;
+    }
+
+    expect(flag).toEqual(false);
+  });
+
+  test('submitRespondentResponseWithError', async () => {
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const caseData = toApiFormat(req?.session?.userCase);
+    let flag = true;
+    try {
+      await client.submitRespondentResponse(req.session.user, '123456', '123456', caseData);
+    } catch {
+      flag = false;
+    }
+
+    expect(flag).toEqual(false);
+  });
+
+  test('generateUserUploadedStatementDocument', async () => {
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const uploadDocumentDetails = {
+      documentRequestedByCourt: 'No',
+      caseId: '123456',
+      freeTextUploadStatements: 'test',
+      parentDocumentType: 'test',
+      documentType: 'test',
+      partyName: 'test',
+      partyId: '123456789',
+      isApplicant: 'Yes',
+    };
+    let flag = true;
+    const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
+    try {
+      await client.generateUserUploadedStatementDocument(req.session.user, generateAndUploadDocumentRequest);
+    } catch {
+      flag = false;
+    }
+
+    expect(flag).toEqual(false);
+  });
+
+  test('UploadDocumentListFromCitizenWithError', async () => {
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const files = [];
+    const request: UploadDocumentRequest = {
+      user: req.session.user,
+      caseId: '123456',
+      parentDocumentType: 'test',
+      documentType: 'test',
+      partyId: '12345',
+      partyName: 'a test',
+      isApplicant: 'Yes',
+      files,
+      documentRequestedByCourt: YesOrNo.YES,
+    };
+    let flag = true;
+    try {
+      await client.UploadDocumentListFromCitizen(request);
+    } catch {
+      flag = false;
+    }
+
+    expect(flag).toEqual(false);
+  });
+
+  test('deleteCitizenStatementDocumentWithError', async () => {
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const deleteDocumentDetails = {
+      caseId: '1234567',
+      documentId: 'documentIdToDelete',
+    };
+    const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
+    let flag = true;
+    try {
+      await client.deleteCitizenStatementDocument(req.session.user, deleteDocumentRequest);
+    } catch {
+      flag = false;
+    }
+
+    expect(flag).toEqual(false);
   });
 });

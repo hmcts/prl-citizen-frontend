@@ -8,7 +8,7 @@ import { applicant_en } from './section-titles';
 import { applicant_tasklist_items_en } from './tasklist-items';
 
 const enContent = {
-  title: 'Applicant',
+  title: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -34,7 +34,28 @@ const cyContent = {
   taskListItems: applicant_tasklist_items_en,
 };
 describe('task-list > content', () => {
-  const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: mockUserCase,
+    additionalData: {
+      req: {
+        session: {
+          user: { id: '' },
+          userCase: {
+            ...mockUserCase,
+            respondentsFL401: {
+              firstName: '',
+              lastName: '',
+            },
+            applicantsFL401: {
+              firstName: '',
+              lastName: '',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
@@ -65,7 +86,7 @@ describe('task-list > content', () => {
               href: '/applicant/support-you-need-during-case/attending-the-court',
               id: 'support-you-need-during-your-case',
               text: 'Support you need during your case',
-              status: 'TO_DO',
+              status: 'NOT_AVAILABLE_YET',
             },
           ],
           title: 'About you',
@@ -90,9 +111,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/keep-details-private/details_known',
+              href: '#',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.TO_DO,
+              status: SectionStatus.NOT_AVAILABLE_YET,
               text: 'Check details of your court hearings',
             },
           ],
