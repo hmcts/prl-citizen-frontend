@@ -9,9 +9,6 @@ import { OrNull, toApiDate, toApiFormat } from './to-api-format';
 
 describe('to-api-format', () => {
   const results: OrNull<Partial<Case>> = {
-    applicant1Address1: 'MOCK_applicant1Address1',
-    applicant1Address2: 'MOCK_applicant1Address2',
-    applicant1AddressTown: 'MOCK_applicant1AddressTown',
     citizenUserEmailAddress: 'abc@gmail.com',
     citizenUserFirstNames: 'MOCK_applicant1FirstNames',
     citizenUserFullName: 'MOCK_applicant1FullName',
@@ -44,9 +41,6 @@ describe('to-api-format', () => {
   test('should convert results from citizen-web to CCD api format', async () => {
     const apiFormat = toApiFormat(results as Partial<Case>);
     expect(apiFormat).toStrictEqual({
-      applicant1Address1: 'MOCK_applicant1Address1',
-      applicant1Address2: 'MOCK_applicant1Address2',
-      applicant1AddressTown: 'MOCK_applicant1AddressTown',
       applicant1ContactDetailsConsent: 'Yes',
       citizenUserEmailAddress: 'abc@gmail.com',
       citizenUserFirstNames: 'MOCK_applicant1FirstNames',
@@ -57,7 +51,7 @@ describe('to-api-format', () => {
       citizenUserPhoneNumber: '1234567890',
       citizenUserPlaceOfBirth: 'MOCK_applicant1PlaceOfBirth',
       caseCode: 'MOCK_caseCode',
-      citizenRole: 'APPLICANT',
+      citizenRole: 'applicant',
       claimNumber: 'MOCK_claimNumber',
       respondentFirstName: 'MOCK_respondentFirstName',
       respondentLastName: 'MOCK_respondentLastName',

@@ -57,12 +57,12 @@
               <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
                 {{uploadFileHeading}}
               </label>
-      <form action="/document-manager?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}" method="post" enctype="multipart/form-data">
+      <form action="/document-manager?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=Yes" method="post" enctype="multipart/form-data">
         {{ govukFileUpload({
           name: "files[]",
           attributes: {
             multiple: true,
-            accept: "image/jpeg,image/tiff,image/png,application/pdf"
+            accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           },
           label: {
             text: chooseFilePhoto
@@ -81,10 +81,10 @@
     <h2 class="govuk-heading-s{% if userCase.applicantUploadFiles.length==0 %} hidden{% endif %}">{{ uploadFiles }}</h2>
     <ul id="filesUploadedList" class="govuk-list">
     <dl class="govuk-summary-list">
-      {% for file in userCase.applicantUploadFiles %}  
+      {% for file in userCase.applicantUploadFiles %}
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__value">
-                {{ file.name }} 
+                {{ file.name }}
               </dt>
               <dd class="govuk-summary-list__actions">
                 <a class="govuk-link" href="/document-manager/deleteDocument/{{file.id}}?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=Yes">
@@ -94,7 +94,7 @@
             </div>
           {% endfor %}
       </dl>
-    </ul> 
+    </ul>
   </div>
 
  <div class="govuk-form-group">
@@ -112,11 +112,9 @@
 
                  </strong>
                </div>
-              
-
             </fieldset>
           </div>
 
 {% endblock %}
 
- </div>  
+ </div>

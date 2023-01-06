@@ -12,7 +12,7 @@ const en = {
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',
@@ -28,7 +28,7 @@ const cy: typeof en = {
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
   summaryText: 'Contacts for help',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',
@@ -76,7 +76,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

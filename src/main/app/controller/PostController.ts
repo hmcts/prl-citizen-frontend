@@ -3,19 +3,19 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import PreProcessCaseData from '../../steps/c100-rebuild/PreProcessCaseData';
+import { ApplicantUploadFiles, RespondentUploadFiles, UploadDocumentSucess } from '../../steps/constants';
+import { C100_URL, DASHBOARD_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
+import { C100_CASE_EVENT, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
 
-const UploadDocumentSucess = 'upload-documents-success';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
@@ -35,11 +35,11 @@ export class PostController<T extends AnyObject> {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
-      await this.getCaseList(req, res, form, formData);
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
+    } else if (req.body.saveAndComeLater) {
+      await this.saveAndComeLater(req, res, formData);
     } else {
-      //await this.getCaseList(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
     }
   }
@@ -63,14 +63,21 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    Object.assign(req.session.userCase, formData);
+    req.session.userCase = {
+      ...(req.session.userCase ?? {}),
+      ...formData,
+    };
+
     req.session.errors = form.getErrors(formData);
-    console.log('errors are:', req.session.errors);
     this.filterErrorsForSaveAsDraft(req);
 
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
+
+    req.session.userCase = {
+      ...PreProcessCaseData.clean(this.fields, formData, req.session.userCase, !req.path.startsWith(C100_URL)),
+    };
 
     if (req.originalUrl.includes(UploadDocumentSucess)) {
       if (req?.session?.userCase?.applicantUploadFiles) {
@@ -100,11 +107,8 @@ export class PostController<T extends AnyObject> {
     try {
       Object.assign(req.session.userCase, formData);
       // call here to get the case details //
-      const caseworkerUser = await getSystemUser();
-      req.locals.api = getCaseApi(caseworkerUser, req.locals.logger);
-      const caseReference = req.session.userCase.caseCode;
-      const caseData = await req.locals.api.getCaseById(caseReference as string);
-      console.log('Saving data for case : ' + JSON.stringify(caseData.id));
+      const citizenUser = req.session.user;
+      req.locals.api = getCaseApi(citizenUser, req.locals.logger);
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
@@ -121,8 +125,6 @@ export class PostController<T extends AnyObject> {
     data: Partial<CaseData>
   ): Promise<CaseWithId> {
     try {
-      console.log(eventName);
-
       req.session.userCase = await req.locals.api.triggerEventWithData(
         req.session.userCase.id,
         formData,
@@ -203,7 +205,7 @@ export class PostController<T extends AnyObject> {
         }
       }
     } catch (err) {
-      console.log('Retrieving case failed with error: ' + err);
+      req.locals.logger.error('Retrieving case failed with error: ' + err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
     }
 
@@ -249,22 +251,31 @@ export class PostController<T extends AnyObject> {
     this.redirect(req, res);
   }
 
-  private async getCaseList(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    req.session.errors = form.getErrors(formData);
-
-    this.filterErrorsForSaveAsDraft(req);
-
-    if (req.session.errors.length) {
-      return this.redirect(req, res);
+  /** Added for C100 Rebuild */
+  protected async saveAndComeLater(
+    req: AppRequest<T>,
+    res: Response,
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
+    formData: Partial<CaseWithId> | any
+  ): Promise<void> {
+    if (req.path.startsWith(C100_URL)) {
+      try {
+        req.session.errors = [];
+        Object.assign(req.session.userCase, formData);
+        await req.locals.C100Api.updateCase(
+          req.session.userCase!.caseId!,
+          req.session.userCase,
+          req.originalUrl,
+          C100_CASE_EVENT.CASE_UPDATE
+        );
+        req.session.userCase = {} as CaseWithId;
+        this.redirect(req, res, DASHBOARD_URL);
+      } catch (e) {
+        this.redirect(req, res, req.originalUrl);
+      }
+    } else {
+      this.redirect(req, res, req.originalUrl);
     }
-
-    const caseworkerUser = await getSystemUser();
-
-    const cosApiClient = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-    const caseDataFromCos = await cosApiClient.retrieveCasesByUserId(req.session.user);
-    console.log('retrieved casedata for case : ' + caseDataFromCos);
-
-    this.redirect(req, res);
   }
 }
 

@@ -9,7 +9,7 @@ let token;
 export const getTokenFromApi = async (): Promise<string> => {
   logger.info('Refreshing service auth token');
 
-  const url: string = config.get('services.authProvider.url') + '/lease';
+  const url: string = config.get('services.authProvider.url') + '/testing-support/lease';
   const microservice: string = config.get('services.authProvider.microservice');
   const secret: string = config.get('services.authProvider.secret');
   const oneTimePassword = authenticator.generate(secret);
@@ -17,7 +17,6 @@ export const getTokenFromApi = async (): Promise<string> => {
 
   try {
     const response = await Axios.post(url, body);
-    logger.info('Service auth token refreshed');
     token = response.data;
   } catch (err) {
     logger.error('Error in refreshing service auth token ', err.message, err.response?.status, err.response?.data);

@@ -2,25 +2,23 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "section": "Applicant",
-            "serviceName": "Select Address",
-            "title": "What's your home address?"
+            "section": "Your address",
+            "serviceName": "Select Address"
         },
         "cy": {
             "continue": "Continue",
-            "section": "Applicant (in welsh)",
-            "serviceName": "Select Address (in welsh)",
-            "title": "What's your home address? (in welsh)"
+            "section": "Your address (in welsh)",
+            "serviceName": "Select Address (in welsh)"
         }
     },
     "errors":{
         "en": {
-            "applicantSelectAddress": {
+            "citizenUserSelectAddress": {
                 "notSelected": "Select an address"
             }
         },
         "cy": {
-            "applicantSelectAddress": {
+            "citizenUserSelectAddress": {
                 "notSelected": "Select an address (in welsh)"
             }
         }

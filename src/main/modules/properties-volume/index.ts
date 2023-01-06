@@ -13,19 +13,22 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
       this.setSecret('secrets.prl.postcode-lookup-token', 'services.postcodeLookup.token');
       this.setSecret('secrets.prl.prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
-      this.setSecret('secrets.prl.microservicekey-prl-cos-api', 'services.authProvider.secret');
+      this.setSecret('secrets.prl.launchDarkly-sdk-key', 'featureToggles.launchDarklyKey');
+      this.setSecret('secrets.prl.microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setSecret('secrets.prl.system-update-user-username', 'services.idam.systemUsername');
       this.setSecret('secrets.prl.system-update-user-password', 'services.idam.systemPassword');
       this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
       this.setSecret('secrets.prl.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.prl.redis-access-key', 'session.secret');
     } else {
-      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
-      this.setLocalSecret('microservicekey-prl-cos-api', 'services.authProvider.secret');
+      this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
+      this.setLocalSecret('prl-cos-idam-client-secret', 'services.idam.cosApiClientSecret');
+      this.setLocalSecret('microservicekey-prl-citizen-frontend', 'services.authProvider.secret');
       this.setLocalSecret('system-update-user-username', 'services.idam.systemUsername');
       this.setLocalSecret('system-update-user-password', 'services.idam.systemPassword');
-      //this.setLocalEndpoints();
+      this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
+      this.setLocalSecret('citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
     }
   }
 

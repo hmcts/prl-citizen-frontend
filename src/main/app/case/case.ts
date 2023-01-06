@@ -42,6 +42,8 @@ import {
   PRLDocument,
   PartyDetails,
   Respondent,
+  ResponseDocumentList,
+  SelectTypeOfOrderEnum,
   SpecialArrangement,
   State,
   SummaryTabForOrderAppliedFor,
@@ -50,10 +52,24 @@ import {
   UrgencyDetails,
   WelshLanguageRequirementsTable,
   WelshNeed,
+  WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
   orderInterface,
+  //C100 Rebuild
+  // eslint-disable-next-line sort-imports
+  C100DocumentInfo,
+  C100OrderTypes,
+  C1ASafteyConcerns,
+  MiamNonAttendReason,
+  OtherProceedings,
   //DocumentType,
+  ChildrenDetails,
+  C1ASafteyConcernsAbout,
+  C1AAbuseTypes,
+  OtherChildrenDetails,
+  C100RebuildPartyDetails,
+  C100Applicant,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -172,20 +188,20 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenUserDateOfBirth: 'citizenUserDateOfBirth',
   applicant1Occupation: 'applicant1Occupation',
   citizenUserEmailAddress: 'citizenUserEmailAddress',
-  applicant1SafeToCall: 'applicant1SafeToCall',
+  citizenUserSafeToCall: 'citizenUserSafeToCall',
   citizenUserPhoneNumber: 'citizenUserPhoneNumber',
   citizenUserPlaceOfBirth: 'citizenUserPlaceOfBirth',
-  applicant1Address1: 'applicant1Address1',
-  applicant1Address2: 'applicant1Address2',
-  applicant1AddressTown: 'applicant1AddressTown',
-  // applicant1AddressCounty: 'applicant1AddressCountry',
-  // applicant1AddressPostcode: 'applicant1AddressPostCode',
+  // citizenUserAddress1: 'citizenUserAddress1',
+  // citizenUserAddress2: 'citizenUserAddress2',
+  // citizenUserAddressTown: 'citizenUserAddressTown',
+  // citizenUserAddressCounty: 'applicant1AddressCountry',
+  // citizenUserAddressPostcode: 'applicant1AddressPostCode',
   applicant1ContactDetails: 'applicant1ContactDetails',
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
   //applicant1LanguagePreference: 'applicant1LanguagePreference',
   citizenRole: 'citizenRole',
   miamStart: 'miamStart',
-
+  orderWithoutGivingNoticeToRespondent: 'orderWithoutGivingNoticeToRespondent',
   start: 'start',
   iFactorsStartProvideDetails: 'iFactorsStartProvideDetails',
   parents: 'parents',
@@ -194,11 +210,14 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   iFactorsJurisdictionProvideDetails: 'iFactorsJurisdictionProvideDetails',
   request: 'request',
   iFactorsRequestProvideDetails: 'iFactorsRequestProvideDetails',
+  doesOrderClosesCase: 'doesOrderClosesCase',
+  selectTypeOfOrder: 'selectTypeOfOrder',
+  citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
   const result = {};
-  for (const field of Object.keys(data)) {
+  for (const field of Object.keys(data as Record<string, any>)) {
     const value = fields[field];
 
     if (typeof value === 'function') {
@@ -357,28 +376,30 @@ export interface Case {
   applicant1AdditionalNames?: OtherName[];
   citizenUserEmailAddress?: string;
   citizenUserEmailAddressText?: string;
-  applicant1SafeToCall?: string;
+  citizenUserSafeToCall?: string;
   citizenUserPhoneNumber?: string;
   citizenUserPhoneNumberText?: string;
   citizenUserDateOfBirth?: CaseDate;
   citizenUserDateOfBirthText?: string;
   applicant1Occupation?: string;
-  applicant1SelectAddress?: string;
+  citizenUserSelectAddress?: string;
   citizenUserPlaceOfBirth?: string;
   citizenUserPlaceOfBirthText?: string;
-  applicant1Address1?: string;
-  applicant1Address2?: string;
-  applicant1AddressTown?: string;
-  applicant1AddressCounty?: string;
-  applicant1AddressPostcode?: string;
+  citizenUserAddress1?: string;
+  citizenUserAddress2?: string;
+  citizenUserAddressTown?: string;
+  citizenUserAddressCounty?: string;
+  citizenUserAddressPostcode?: string;
+  citizenUserAddressText?: string;
+  citizenUserAddressHistory?: string;
+  isAtAddressLessThan5Years?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;
-  applicant1PostalAddress1?: string;
-  applicant1PostalAddress2?: string;
-  applicant1PostalAddress3?: string;
-  applicant1PostalAddressTown?: string;
-  applicant1PostalAddressCounty?: string;
-  applicant1PostalAddressPostcode?: string;
+  citizenUserManualAddress1?: string;
+  citizenUserManualAddress2?: string;
+  citizenUserManualAddressTown?: string;
+  citizenUserManualAddressCounty?: string;
+  citizenUserManualAddressPostcode?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case
@@ -462,12 +483,94 @@ export interface Case {
   safetyConcerns?: string;
 
   citizenRole?: FieldPrefix;
+  orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;
+  doesOrderClosesCase?: YesOrNo;
+  selectTypeOfOrder?: SelectTypeOfOrderEnum;
+  citizenResponseC7DocumentList?: ResponseDocumentList[];
+
+  //C100 Rebuild
+  contactDetailsPrivateAlternative?: string;
+  c100ApplicationFees?: string;
+  ra_disabilityRequirements?: string[];
+  hwf_needHelpWithFees?: YesOrNo;
+  hwf_feesAppliedDetails?: YesOrNo;
+  caseId?: string;
+  c1A_haveSafetyConcerns?: YesOrNo;
+  op_courtProceedingsOrders?: C100OrderTypes[];
+  op_otherProceedings?: OtherProceedings;
+  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
+  c1A_safteyConcerns?: C1ASafteyConcerns;
+  miam_otherProceedings?: string;
+  miam_haveDocSigned?: string;
+  miam_consent?: string;
+  miam_attendance?: YesOrNo;
+  miam_validReason?: YesOrNo;
+  miam_certificate?: C100DocumentInfo;
+  miam_mediatorDocument?: YesOrNo;
+  miam_nonAttendanceReasons?: MiamNonAttendReason[];
+  miam_domesticAbuse?: string[];
+  miam_childProtectionEvidence?: string[];
+  miam_urgency?: string[];
+  miam_previousAttendance?: string[];
+  miam_notAttendingReasons?: string[];
+  hu_urgentHearingReasons?: YesOrNo;
+  c1A_passportOffice?: YesOrNo;
+  cd_children?: ChildrenDetails[];
+  ocd_otherChildren?: OtherChildrenDetails[];
+  ocd_hasOtherChildren?: YesOrNo;
+  sq_writtenAgreement?: string;
+  sq_legalRepresentation?: YesOrNo;
+  sq_legalRepresentationApplication?: YesOrNo;
+  sq_courtPermissionRequired?: YesOrNo;
+  c1A_concernAboutChild?: C1AAbuseTypes[];
+  c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_childAbductedBefore?: YesOrNo;
+  co_certificate?: C100DocumentInfo;
+  too_courtOrder?: string[];
+  too_stopOtherPeopleDoingSomethingSubField?: string[];
+  too_resolveSpecificIssueSubField?: string[];
+  otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
+  otherPersonLastName?: C100RebuildPartyDetails['lastName'];
+  oprs_otherPersonCheck?: YesOrNo;
+  oprs_otherPersons?: C100RebuildPartyDetails[];
+  c100TempFirstName?: string;
+  c100TempLastName?: string;
+  resp_Respondents?: C100RebuildPartyDetails[];
+  appl_allApplicants?: C100Applicant[];
+  op_childrenInvolvedCourtCase?: YesOrNo;
+  op_courtOrderProtection?: YesOrNo;
+  hwn_hearingPart1?: YesOrNo;
+  c100RebuildChildPostCode?: string;
+  helpWithFeesReferenceNumber?: string;
 }
 
 export interface CaseWithId extends Case {
+  paymentSuccessDetails?: {
+    amount: string;
+    reference: string;
+    ccd_case_number: string;
+    case_reference: string;
+    channel: string;
+    method: string;
+    status: string;
+    external_reference: string;
+    payment_group_reference: string;
+  };
+  paymentDetails?: {
+    payment_reference: string;
+    date_created: string;
+    external_reference: string;
+    next_url: string;
+    status: string;
+    serviceRequestReference: string;
+  };
   id: string;
   state: State;
+  applicantTemporaryFormData?: {
+    TempFirstName?: string | unknown;
+    TempLastName?: string | unknown;
+  };
 }
 
 export enum Checkbox {
@@ -493,8 +596,8 @@ export enum FieldPrefix {
   BIRTH_FATHER = 'birthFather',
   BIRTH_MOTHER = 'birthMother',
   OTHER_PARENT = 'otherParent',
-  APPLICANT = 'APPLICANT',
-  RESPONDENT = 'RESPONDENT',
+  APPLICANT = 'applicant',
+  RESPONDENT = 'respondent',
 }
 
 export interface UploadedFile {

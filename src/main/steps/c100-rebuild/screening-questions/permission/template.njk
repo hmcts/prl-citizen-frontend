@@ -1,0 +1,22 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+
+    <h1 class="govuk-heading-xl">{{title}}</h1>
+
+    {% for paragraph in paragraphsOne %}
+            <p class="govuk-body">{{ paragraph }}</p>
+    {% endfor %}
+
+<ul class="govuk-list govuk-list--bullet govuk-!-margin-left-7 govuk-!-margin-bottom-6">
+    {% for bullet in bulletPoints %}
+            <li>{{ bullet }}</li>
+    {% endfor %}
+</ul>
+
+    {% for paragraph in paragraphsTwo %}
+            <p class="govuk-body">{{ paragraph | safe }}</p>
+    {% endfor %}
+
+
+{% endblock %}

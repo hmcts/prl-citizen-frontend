@@ -8,7 +8,7 @@ import { generateContent } from './content';
 
 const enContent = {
   title: 'Enter your access details',
-  line1: 'Enter the claim number from the email or letter we sent you.',
+  line1: 'Enter the case number from the email or letter we sent you.',
   caseCodeLabel: 'Your case code',
   caseCodeLabelHint: 'You will find this on the email or letter we sent you',
   accessCodeLabel: 'Your access code',
@@ -36,7 +36,7 @@ const enContent = {
 
 const cyContent = {
   title: 'Enter your access details',
-  line1: 'Enter the claim number from the email or letter we sent you.',
+  line1: 'Enter the case number from the email or letter we sent you.',
   caseCodeLabel: 'Your case code',
   caseCodeLabelHint: 'You will find this on the email or letter we sent you',
   accessCodeLabel: 'Your access code',
@@ -77,7 +77,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Enter your access details');
-    expect(generatedContent.line1).toEqual('Enter the claim number from the email or letter we sent you.');
+    expect(generatedContent.line1).toEqual('Enter the case number from the email or letter we sent you.');
     expect(generatedContent.caseCodeLabel).toEqual('Your case code');
   });
 

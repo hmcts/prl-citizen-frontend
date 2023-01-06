@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { FieldPrefix } from '../../app/case/case';
+import { APPLICANT_ADDRESS_LOOKUP, RESPONDENT_ADDRESS_LOOKUP } from '../../steps/urls';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -14,7 +15,7 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const postcode = req.body[`${this.fieldPrefix}AddressPostcode`] as string;
+    const postcode = req.body['citizenUserAddressPostcode'] as string;
 
     let addresses;
 
@@ -26,11 +27,40 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
 
     Object.assign(req.session.userCase, formData);
 
-    if (req.session.errors.length === 0) {
-      addresses = await getAddressesFromPostcode(postcode, req.locals.logger);
-    }
-    req.session.addresses = addresses;
+    const redirectUrl = this.setRedirectUrl();
 
-    this.redirect(req, res);
+    if (!req.body.citizenUserAddressPostcode) {
+      req.session.errors = [];
+      req.session.errors?.push({
+        propertyName: 'citizenUserAddressPostcode',
+        errorType: 'required',
+      });
+      req.session.save(() => res.redirect(redirectUrl));
+    } else if (!(req.body.citizenUserAddressPostcode as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)) {
+      req.session.errors = [];
+      req.session.errors?.push({
+        propertyName: 'citizenUserAddressPostcode',
+        errorType: 'invalid',
+      });
+      req.session.save(() => res.redirect(redirectUrl));
+    } else {
+      req.session.errors = [];
+      if (postcode) {
+        addresses = await getAddressesFromPostcode(postcode, req.locals.logger);
+      }
+      req.session.addresses = addresses;
+
+      this.redirect(req, res);
+    }
+  }
+
+  private setRedirectUrl() {
+    let redirectUrl;
+    if (this.fieldPrefix === FieldPrefix.RESPONDENT) {
+      redirectUrl = RESPONDENT_ADDRESS_LOOKUP;
+    } else {
+      redirectUrl = APPLICANT_ADDRESS_LOOKUP;
+    }
+    return redirectUrl;
   }
 }
