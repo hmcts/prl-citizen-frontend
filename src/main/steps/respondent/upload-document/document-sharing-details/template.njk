@@ -1,0 +1,36 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <div class="govuk-form-group">
+    <h1 class="govuk-heading-xl">
+      <span class="govuk-caption-l">{{caption}}</span>
+      {{document_type}}
+    </h1>
+    <div class=" govuk-!-margin-bottom-3">
+      {% if section %}
+        <span class="govuk-heading-l">{{ section }}</span>
+      {% endif %}
+      <div class="govuk-warning-text govuk-!-margin-bottom-4">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text govuk-!-margin-bottom-4">
+          <span class="govuk-warning-text__assistive">{{warning}}</span>
+          {{warningTxt}}
+        </strong>
+
+        <p class="govuk-body govuk-!-margin-left-7">{{documentSharedLine1}}</p>
+
+        <p class="govuk-body govuk-!-margin-left-7">{{documentSharedLine2}}</p>
+
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-left-7 govuk-!-margin-bottom-6">
+          <li>{{documentSharedLine3}}</li>
+          <li>{{documentSharedLine4}}</li>
+          <li>{{documentSharedLine5}}</li>
+        </ul>
+        <p class="govuk-body govuk-!-margin-left-7">{{documentSharedLine6}}{{email}}</p>
+        <p class="govuk-body govuk-!-margin-left-7">{{documentSharedLine7}}</p>
+
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

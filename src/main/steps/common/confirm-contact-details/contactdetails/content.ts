@@ -1,35 +1,39 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
+import { isEmailValid, isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   title: 'Your contact details',
-  phoneNumber: 'UK telephone number',
-  email: 'Email address',
+  citizenUserPhoneNumber: 'UK telephone number',
+  citizenUserEmailAddress: 'Email address',
+  citizenUserSafeToCall: 'When it is safe to call you (optional)',
+  safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',
   errors: {
-    phoneNumber: {
-      required: 'Enter UK telephone number',
+    citizenUserPhoneNumber: {
+      required: 'Enter a valid UK telephone number',
       invalid: 'Enter a valid UK telephone number',
     },
-    email: {
-      required: 'Enter Email address',
-      invalid: 'Enter an email address in the correct format, like name@example.com',
+    citizenUserEmailAddress: {
+      required: 'Enter a valid email address',
+      invalid: 'Enter a valid email address, like name@example.com',
     },
   },
 };
 
 const cy: typeof en = {
   title: 'Eich manylion cyswllt',
-  phoneNumber: 'Rhif ffôn y DU',
-  email: 'Cyfeiriad ebost',
+  citizenUserPhoneNumber: 'Rhif ffôn y DU',
+  citizenUserEmailAddress: 'Cyfeiriad ebost',
+  citizenUserSafeToCall: 'When it is safe to call you (optional)',
+  safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',
   errors: {
-    phoneNumber: {
+    citizenUserPhoneNumber: {
       required: 'Rhowch rif ffôn y DU',
       invalid: 'Rhowch rif ffôn dilys yn y DU',
     },
-    email: {
+    citizenUserEmailAddress: {
       required: 'Rhowch gyfeiriad e-bost',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, fel name@example.com',
     },
@@ -43,19 +47,25 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    phoneNumber: {
+    citizenUserPhoneNumber: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.phoneNumber,
+      label: l => l.citizenUserPhoneNumber,
       labelSize: null,
-      validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
     },
-    email: {
+    citizenUserEmailAddress: {
       type: 'text',
       classes: 'govuk-input--width-20',
-      label: l => l.email,
+      label: l => l.citizenUserEmailAddress,
       labelSize: null,
       validator: value => isFieldFilledIn(value) || isEmailValid(value),
+    },
+    citizenUserSafeToCall: {
+      type: 'text',
+      classes: 'govuk-input--width-20',
+      hint: l => l.safeToCallHint,
+      label: l => l.citizenUserSafeToCall,
+      labelSize: null,
     },
   },
   submit: {

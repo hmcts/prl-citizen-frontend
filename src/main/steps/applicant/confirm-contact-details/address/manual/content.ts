@@ -11,14 +11,14 @@ const MANUAL_ADDRESS = 'manual-address';
 const manualAddressFormFields = manualAddressForm.fields as FormFields;
 
 export const form: FormContent = {
-  ...manualAddressForm,
+  //...manualAddressForm,
   fields: () => {
     return {
-      applicantAddress1: manualAddressFormFields.address1,
-      applicantAddress2: manualAddressFormFields.address2,
-      applicantAddressTown: manualAddressFormFields.addressTown,
-      applicantAddressCounty: manualAddressFormFields.addressCounty,
-      applicantAddressPostcode: manualAddressFormFields.addressPostcode,
+      citizenUserManualAddress1: manualAddressFormFields.citizenUserManualAddress1,
+      citizenUserManualAddress2: manualAddressFormFields.citizenUserManualAddress2,
+      citizenUserManualAddressTown: manualAddressFormFields.citizenUserManualAddressTown,
+      citizenUserManualAddressCounty: manualAddressFormFields.citizenUserManualAddressCounty,
+      citizenUserManualAddressPostcode: manualAddressFormFields.citizenUserManualAddressPostcode,
     };
   },
   submit: {

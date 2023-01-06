@@ -1,0 +1,7 @@
+{% extends "common/form/form.njk"%}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block before_fields %}
+    {{ govukWarningText(getContent(warningText)) }}
+{% endblock %}

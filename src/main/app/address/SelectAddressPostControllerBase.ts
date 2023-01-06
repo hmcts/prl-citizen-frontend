@@ -21,26 +21,16 @@ export default class SelectAddressPostControllerBase extends PostController<AnyO
 
     Object.assign(req.session.userCase, formData);
 
-    if (req.session.errors.length === 0) {
-      const selectedAddressIndex = Number(formData[`${this.fieldPrefix}SelectAddress`]);
-      if (selectedAddressIndex >= 0) {
-        //eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const selectedAddress = req.session.addresses[selectedAddressIndex] as any;
+    const selectedAddressIndex = Number(formData['citizenUserSelectAddress']);
+    if (selectedAddressIndex >= 0) {
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const selectedAddress = req.session.addresses[selectedAddressIndex] as any;
 
-        req.session.userCase[`${this.fieldPrefix}Address1`] = selectedAddress.street1;
-        req.session.userCase[`${this.fieldPrefix}Address2`] = selectedAddress.street2;
-        req.session.userCase[`${this.fieldPrefix}AddressTown`] = selectedAddress.town;
-        req.session.userCase[`${this.fieldPrefix}AddressCounty`] = selectedAddress.county;
-        req.session.userCase[`${this.fieldPrefix}AddressPostcode`] = selectedAddress.postcode;
-
-        formData[`${this.fieldPrefix}Address1`] = selectedAddress.street1;
-        formData[`${this.fieldPrefix}Address2`] = selectedAddress.street2;
-        formData[`${this.fieldPrefix}AddressTown`] = selectedAddress.town;
-        formData[`${this.fieldPrefix}AddressCounty`] = selectedAddress.county;
-        formData[`${this.fieldPrefix}AddressPostcode`] = selectedAddress.postcode;
-
-        //req.session.userCase = await this.save(req, formData, this.getEventName(req));
-      }
+      req.session.userCase.citizenUserAddress1 = selectedAddress.street1;
+      req.session.userCase.citizenUserAddress2 = selectedAddress.street2;
+      req.session.userCase.citizenUserAddressTown = selectedAddress.town;
+      req.session.userCase.citizenUserAddressCounty = selectedAddress.county;
+      req.session.userCase.citizenUserAddressPostcode = selectedAddress.postcode;
     }
 
     this.redirect(req, res);

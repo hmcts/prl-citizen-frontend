@@ -1,81 +1,118 @@
-// import * as supertest from 'supertest';
+import fs from 'fs';
 
-// import { app } from '../../main/app';
+import Axios from 'axios';
+import puppeteer from 'puppeteer';
 
-// const pa11y = require('pa11y');
+import * as urls from '../../main/steps/urls';
+import { config } from '../config';
 
-// const agent = supertest.agent(app);
+const IGNORED_URLS = [
+  urls.SIGN_IN_URL,
+  urls.SIGN_OUT_URL,
+  urls.CALLBACK_URL,
+  urls.CITIZEN_HOME_URL,
+  urls.FIND_OUT_ABOUT_CAFCASS,
+  urls.FIND_OUT_ABOUT_CAFCASS_CYMRU,
+];
 
-// class Pa11yResult {
-//   documentTitle: string;
-//   pageUrl: string;
-//   issues: PallyIssue[];
+const pa11y = require('pa11y');
+const axios = Axios.create({ baseURL: config.TEST_URL });
 
-//   constructor(documentTitle: string, pageUrl: string, issues: PallyIssue[]) {
-//     this.documentTitle = documentTitle;
-//     this.pageUrl = pageUrl;
-//     this.issues = issues;
-//   }
-// }
+interface Pa11yResult {
+  documentTitle: string;
+  pageUrl: string;
+  issues: PallyIssue[];
+}
 
-// class PallyIssue {
-//   code: string;
-//   context: string;
-//   message: string;
-//   selector: string;
-//   type: string;
-//   typeCode: number;
+interface PallyIssue {
+  code: string;
+  context: string;
+  message: string;
+  selector: string;
+  type: string;
+  typeCode: number;
+}
 
-//   constructor(code: string, context: string, message: string, selector: string, type: string, typeCode: number) {
-//     this.code = code;
-//     this.context = context;
-//     this.message = message;
-//     this.selector = selector;
-//     this.type = type;
-//     this.typeCode = typeCode;
-//   }
-// }
+function ensurePageCallWillSucceed(url: string): Promise<void> {
+  return axios.get(url);
+}
 
-// function ensurePageCallWillSucceed(url: string): Promise<void> {
-//   return agent.get(url).then((res: supertest.Response) => {
-//     if (res.redirect) {
-//       throw new Error(`Call to ${url} resulted in a redirect to ${res.get('Location')}`);
-//     }
-//     if (res.serverError) {
-//       throw new Error(`Call to ${url} resulted in internal server error`);
-//     }
-//   });
-// }
+function runPally(url: string, browser): Promise<Pa11yResult> {
+  let screenCapture: string | boolean = false;
+  if (!config.TestHeadlessBrowser) {
+    const screenshotDir = `${__dirname}/../../../functional-output/pa11y`;
+    fs.mkdirSync(screenshotDir, { recursive: true });
+    screenCapture = `${screenshotDir}/${url.replace(/^\/$/, 'home').replace('/', '')}.png`;
+  }
 
-// function runPally(url: string): Promise<Pa11yResult> {
-//   return pa11y(url, {
-//     hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
-//   });
-// }
+  const fullUrl = `${config.TEST_URL}${url}`;
+  return pa11y(fullUrl, {
+    browser,
+    screenCapture,
+    hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
+  });
+}
 
-// function expectNoErrors(messages: PallyIssue[]): void {
-//   const errors = messages.filter(m => m.type === 'error');
+function expectNoErrors(messages: PallyIssue[]): void {
+  const errors = messages.filter(m => m.type === 'error');
 
-//   if (errors.length > 0) {
-//     const errorsAsJson = `${JSON.stringify(errors, null, 2)}`;
-//     throw new Error(`There are accessibility issues: \n${errorsAsJson}\n`);
-//   }
-// }
+  if (errors.length > 0) {
+    const errorsAsJson = `${JSON.stringify(errors, null, 2)}`;
+    throw new Error(`There are accessibility issues: \n${errorsAsJson}\n`);
+  }
+}
 
-// function testAccessibility(url: string): void {
-//   describe(`Page ${url}`, () => {
-//     test('should have no accessibility errors', async () => {
-//       await ensurePageCallWillSucceed(url);
-//       const result = await runPally(agent.get(url).url);
-//       expect(result.issues).toEqual(expect.any(Array));
-//       expectNoErrors(result.issues);
-//     });
-//   });
-// }
+jest.retryTimes(3);
+jest.setTimeout(30000);
 
-// describe('Accessibility', () => {
-//   // testing accessibility of the home page
-//   testAccessibility('/');
+describe('Accessibility', () => {
+  let browser;
+  let cookies;
+  let hasAfterAllRun = false;
 
-//   // TODO: include each path of your application in accessibility checks
-// });
+  const setup = async () => {
+    if (hasAfterAllRun) {
+      return;
+    }
+    if (browser) {
+      await browser.close();
+    }
+
+    browser = await puppeteer.launch({ ignoreHTTPSErrors: true });
+    browser.on('disconnected', setup);
+
+    // Login once only for other pages to reuse session
+    const page = await browser.newPage();
+    await page.goto(config.TEST_URL);
+    await page.type('#username', process.env.CITIZEN_USERNAME);
+    await page.type('#password', process.env.CITIZEN_PASSWORD);
+    await page.click('input[type="submit"]');
+    cookies = await page.cookies(config.TEST_URL);
+    await page.close();
+  };
+
+  beforeAll(setup);
+
+  beforeEach(async () => {
+    const page = await browser.newPage();
+    await page.goto(config.TEST_URL);
+    await page.setCookie(...cookies);
+    await page.goto(`${config.TEST_URL}/info`);
+    await page.close();
+  });
+
+  afterAll(async () => {
+    hasAfterAllRun = true;
+    await browser.close();
+  });
+
+  const urlsNoSignOut = Object.values(urls).filter(url => !IGNORED_URLS.includes(url));
+  describe.each(urlsNoSignOut)('Page %s', url => {
+    test('should have no accessibility errors', async () => {
+      await ensurePageCallWillSucceed(url);
+      const result = await runPally(url, browser);
+      expect(result.issues).toEqual(expect.any(Array));
+      expectNoErrors(result.issues);
+    });
+  });
+});

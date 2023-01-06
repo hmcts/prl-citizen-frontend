@@ -1,0 +1,40 @@
+{% extends "common/template.njk" %}
+ {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+ {% from "govuk/components/table/macro.njk" import govukTable %}
+
+ {% block page_content %}
+   {% set html %}
+   <h3 class="govuk-notification-banner__heading">
+     {{headingTitle}}
+   </h3>
+
+   {% endset %}
+
+   {{ govukNotificationBanner({
+   html:  html,
+   type: "success"
+ }) }}
+
+   {% set orderDocuments = [] %}
+   {% for orderDocument in data.documents %}
+     {% set editLink %}
+     <a class="govuk-link" href="{{orderDocument.editUrl}}">Edit</a>
+     {% endset %}
+
+     {% set orderDocuments = (orderDocuments.push([
+       {
+         text: orderDocument.fileName
+       }, {
+         html: editLink
+       }
+     ]), orderDocuments) %}
+   {% endfor %}
+
+   {{ govukTable({
+   caption: "What you have uploaded",
+   captionClasses: "govuk-table__caption--l",
+   firstCellIsHeader: false,
+   rows: orderDocuments
+ }) }}
+
+ {% endblock %}

@@ -2,8 +2,9 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
-import { Case, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, Checkbox, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, YesOrNo } from './definition';
+import { fromApiApplicant1 as uploadedFilesFromApiApplicant1 } from './formatter/uploaded-files';
 
 dayjs.extend(advancedFormat);
 
@@ -19,8 +20,9 @@ const checkboxConverter = (value: string | undefined) => {
 console.log(checkboxConverter);
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
-  // applicant1DateOfBirth: data => ({
-  //   applicant1DateOfBirth: fromApiDate(data.applicant1DateOfBirth),
+  orderCollection: uploadedFilesFromApiApplicant1,
+  // citizenUserDateOfBirth: data => ({
+  //   citizenUserDateOfBirth: fromApiDate(data.citizenUserDateOfBirth),
   // }),
   // applicant1AdditionalNames: data => ({
   //   applicant1AdditionalNames: data.applicant1AdditionalNames?.map(item => ({ id: item.id, ...item.value })),
@@ -61,8 +63,8 @@ const fields: FromApiConverters = {
   // dateChildMovedIn: data => ({
   //   dateChildMovedIn: fromApiDate(data.dateChildMovedIn),
   // }),
-  // applicant1DateOfBirth: data => ({
-  //   applicant1DateOfBirth: fromApiDate(data.applicant1DateOfBirth),
+  // citizenUserDateOfBirth: data => ({
+  //   citizenUserDateOfBirth: fromApiDate(data.citizenUserDateOfBirth),
   // }),
   // applicant2DateOfBirth: data => ({
   //   applicant2DateOfBirth: fromApiDate(data.applicant2DateOfBirth),
@@ -88,14 +90,13 @@ const fields: FromApiConverters = {
   // }),
 };
 
-const fromApiDate = date => {
+export const fromApiDate = (date: string | undefined): CaseDate => {
   if (!date) {
-    return;
+    return { year: '', month: '', day: '' };
   }
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [y, m, d] = date.split('-');
   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
-console.log(fromApiDate);
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);

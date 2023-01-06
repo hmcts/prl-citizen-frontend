@@ -1,3 +1,4 @@
+//import { hasUncaughtExceptionCaptureCallback } from 'process';
 import { FormContent, FormFields, FormOptions } from '../../../app/form/Form';
 import { isInvalidPostcode } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -7,29 +8,25 @@ import { generateContent } from './address-lookup';
 jest.mock('../../../app/form/validation');
 
 const enContent = {
-  line1:
-    "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-  postcode: 'Postcode',
+  citizenUserAddressPostcode: 'Your current postcode',
   findAddress: 'Find address',
-  enterAddressManually: 'Or enter address manually',
+  enterAddressManually: 'I live outisde the UK',
   errors: {
-    addressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+    citizenUserAddressPostcode: {
+      required: 'Enter a valid postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
 };
 
 const cyContent = {
-  line1:
-    "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-  postcode: 'Postcode (in welsh)',
+  citizenUserAddressPostcode: 'Your current postcode (in welsh)',
   findAddress: 'Find address (in welsh)',
-  enterAddressManually: 'Or enter address manually (in welsh)',
+  enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {
-    addressPostcode: {
-      required: 'Enter a real postcode (in welsh)',
-      invalid: 'Enter a real postcode (in welsh)',
+    citizenUserAddressPostcode: {
+      required: 'Enter a valid postcode (in welsh)',
+      invalid: 'Enter a valid postcode (in welsh)',
     },
   },
 };
@@ -37,16 +34,17 @@ const cyContent = {
 /* eslint-disable @typescript-eslint/ban-types */
 describe('common > components > address-lookup > content', () => {
   const commonContent = { language: 'en', userCase: {} } as CommonContent;
+  const commonContentcy = { language: 'cy', userCase: {} } as CommonContent;
   let generatedContent;
+  let generatedContentcy;
 
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
+    generatedContentcy = generateContent(commonContentcy);
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.line1).toEqual(enContent.line1);
-    expect(generatedContent.postcode).toEqual(enContent.postcode);
-    expect(generatedContent.findAddress).toEqual(enContent.findAddress);
+    expect(generatedContent.citizenUserAddressPostcode).toEqual(enContent.citizenUserAddressPostcode);
     expect(generatedContent.enterAddressManually).toEqual(enContent.enterAddressManually);
     expect(generatedContent.errors).toEqual(enContent.errors);
     expect(generatedContent.manualAddressUrl).toEqual('#');
@@ -54,25 +52,38 @@ describe('common > components > address-lookup > content', () => {
 
   test('should return correct welsh content', () => {
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.line1).toEqual(cyContent.line1);
-    expect(generatedContent.postcode).toEqual(cyContent.postcode);
-    expect(generatedContent.findAddress).toEqual(cyContent.findAddress);
+    expect(generatedContent.citizenUserAddressPostcode).toEqual(cyContent.citizenUserAddressPostcode);
     expect(generatedContent.enterAddressManually).toEqual(cyContent.enterAddressManually);
     expect(generatedContent.errors).toEqual(cyContent.errors);
     expect(generatedContent.manualAddressUrl).toEqual('#');
   });
 
-  test('should contain addressPostcode field', () => {
+  test('should contain citizenUserAddressPostcode field', () => {
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const addressPostcodeField = fields.addressPostcode as FormOptions;
+    const addressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
 
     expect(addressPostcodeField.type).toBe('text');
     expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
-    expect((addressPostcodeField.label as Function)(generatedContent)).toBe('Postcode');
+    expect((addressPostcodeField.label as Function)(generatedContent)).toBe(enContent.citizenUserAddressPostcode);
     expect(addressPostcodeField.labelSize).toBe('m');
     expect(addressPostcodeField.attributes!.maxLength).toBe(14);
     expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+  });
+
+  test('should contain citizenUserAddressPostcode field with welsh', () => {
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const addressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
+
+    expect(addressPostcodeField.type).toBe('text');
+    expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
+    expect((addressPostcodeField.label as Function)(generatedContentcy)).toBe(cyContent.citizenUserAddressPostcode);
+    expect(addressPostcodeField.labelSize).toBe('m');
+    expect(addressPostcodeField.attributes!.maxLength).toBe(14);
+    expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
+    expect((form.submit?.text as Function)(generatedContentcy)).toBe('Continue (in welsh)');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

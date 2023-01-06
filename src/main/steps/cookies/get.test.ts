@@ -10,12 +10,12 @@ describe('CookiesGetController', () => {
   const controller = new CookiesGetController();
   const language = 'en';
 
-  test('Should render the cookie page with adoption service content', async () => {
+  test('Should render the cookie page with privatelaw service content', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toBeCalledWith(expect.anything(), {
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...generatePageContent({
         language,
         pageContent: generateContent,
@@ -24,6 +24,8 @@ describe('CookiesGetController', () => {
       }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
+      paymentError: false,
+      caseId: undefined,
     });
   });
 });
