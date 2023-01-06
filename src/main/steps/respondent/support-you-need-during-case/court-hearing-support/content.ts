@@ -17,7 +17,7 @@ const en = {
   animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any support at this time',
+  nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentCourtHearing: {
@@ -53,7 +53,7 @@ const cy: typeof en = {
   animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any support at this time',
+  nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentCourtHearing: {

@@ -55,7 +55,7 @@ export const generateContent: TranslationFn = content => {
       );
       drugCitizenDocs.push({
         href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
-        createdDate: doc.value.dateCreated,
+        createdDate: doc.value.documentDetails.documentUploadedDate,
         fileName: doc.value.citizenDocument.document_filename,
       });
     }

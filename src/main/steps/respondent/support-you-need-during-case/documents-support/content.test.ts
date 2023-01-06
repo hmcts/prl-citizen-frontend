@@ -126,7 +126,7 @@ describe('citizen-home content', () => {
     expect((docsSupportField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Continue button', () => {
+  test('should contain Save and continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });

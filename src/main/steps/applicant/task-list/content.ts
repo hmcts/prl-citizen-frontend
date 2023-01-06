@@ -1,4 +1,5 @@
 import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER } from '../../../steps/urls';
@@ -6,9 +7,11 @@ import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANN
 import { applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
 import { applicant_tasklist_items_en } from './tasklist-items';
+import { getApplicantPartyDetails } from './utils';
 
 const en = () => ({
-  title: 'Applicant',
+  title: '',
+  applicantName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -67,6 +70,7 @@ const en = () => ({
 
 const cy = () => ({
   title: ' ',
+  applicantName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -133,6 +137,8 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
+  const req: AppRequest = content.additionalData?.req;
+  translations.applicantName = getApplicantName(req.session.userCase, req.session.user.id);
   return {
     ...translations,
     sections: generateApplicantTaskList(
@@ -144,6 +150,18 @@ export const generateContent: TranslationFn = content => {
     banners,
     stages: buildProgressBarStages(content.userCase!),
   };
+};
+
+const getApplicantName = (userCase, userId) => {
+  if (userCase.caseTypeOfApplication === 'C100') {
+    const applicant = getApplicantPartyDetails(userCase, userId);
+    if (applicant) {
+      return applicant.value.firstName + ' ' + applicant.value.lastName;
+    }
+  } else {
+    return userCase.applicantsFL401.firstName + ' ' + userCase.applicantsFL401.lastName;
+  }
+  return '';
 };
 
 const getC100Banners = (userCase, translations, userIdamId) => {

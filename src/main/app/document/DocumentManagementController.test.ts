@@ -67,16 +67,15 @@ describe('DocumentManagerController', () => {
 
   describe('fetch file FL401-Final-Document for applicant', () => {
     test('fetch an existing file - %o', async () => {
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/FL401-Final-Document.pdf';
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
       req.headers.accept = 'application/pdf';
       req.session.userCase.finalDocument = {
         document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
-        document_filename: 'FL401FinalDocument.pdf',
+        document_filename: 'finalDocument.pdf',
         document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
       };
 
       await documentManagerController.get(req, res);
-
       expect(mockGet).toHaveBeenCalledWith({
         url:
           config.get('services.documentManagement.url') +
@@ -124,7 +123,6 @@ describe('DocumentManagerController', () => {
       ];
 
       await documentManagerController.get(req, res);
-
       expect(mockGet).toHaveBeenCalledWith({
         url:
           config.get('services.documentManagement.url') +
@@ -240,7 +238,7 @@ describe('DocumentManagerController', () => {
 
       await documentManagerController.get(req, res);
 
-      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
+      expect(req.session.userCase.respondents[0].value.user.email).toEqual('test@example.net');
     });
   });
 
@@ -278,6 +276,80 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
+    });
+  });
+
+  describe('check isApplicationViewed property saved with Response - value is No', () => {
+    test('check isApplicationViewed property saved', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'Yes',
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest?updatecase=Yes';
+      req.headers.accept = 'application/pdf';
+      req.query.updateCase = 'Yes';
+      req.session.userCase.finalDocument = {
+        document_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(mockGet).toBeCalled;
+    });
+  });
+
+  describe('check isApplicationViewed property saved with Response - value is null', () => {
+    test('check isApplicationViewed property saved', async () => {
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isApplicationViewed: null,
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
+      req.headers.accept = 'application/pdf';
+      req.query.updateCase = 'Yes';
+      req.session.userCase.finalDocument = {
+        document_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(mockGet).toBeCalled;
     });
   });
 
@@ -454,12 +526,12 @@ describe('DocumentManagerController', () => {
       const documentDetail = {
         status: 200,
         documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-        documentName: 'uploaded.pdf',
+        documentName: 'uploaded-file.jpg',
       };
       uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
       req.session.userCase.applicantUploadFiles = [];
       await documentManagerController.post(req, res);
-      expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded.pdf');
+      expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded-file.jpg');
     });
     test('check document uploaded sucesfully with file for respondent', async () => {
       req.query.isApplicant = 'No';

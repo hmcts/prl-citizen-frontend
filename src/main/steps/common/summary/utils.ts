@@ -3,9 +3,11 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
+import { State } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
-import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { applyParms } from '../url-parser';
 interface GovUkNunjucksSummary {
   key: {
     text?: string;
@@ -89,10 +91,15 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : userCase[key],
+      value:
+        fieldTypes[key] === 'Date'
+          ? getFormattedDate(userCase[key], language)
+          : key === 'startAlternative' && userCase[key] !== 'undefined'
+          ? userCase[key] + getSelectedPrivateDetails(userCase)
+          : userCase[key],
       changeUrl: url,
     };
-    if (key !== 'applicant1SafeToCall') {
+    if (key !== 'citizenUserSafeToCall') {
       summaryData.push(row);
     }
   }
@@ -111,13 +118,15 @@ export const summaryCaseList = (
   const summaryData: SummaryListRow[] = [];
   summaryData.push({ key: 'Case Name', value: '<h4>Case Status</h4>' });
   for (const userCase of userCaseList) {
-    const id = userCase.id;
+    const id = userCase.id as string;
     const name = userCase.applicantCaseName;
-    const state = userCase.state;
+    const state = userCase.caseStatus?.state;
     let caseUrl = '#';
     if (userCase.caseTypeOfApplication === 'C100') {
       if (!isRespondent) {
-        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
+        if (state === State.Draft) {
+          caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
+        }
       } else {
         caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
       }
@@ -172,3 +181,19 @@ export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): str
   date && !isDateInputInvalid(date)
     ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
     : '';
+
+export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string => {
+  let tempDetails = '<br/><br/><ul class="govuk-list govuk-list--bullet">';
+  const contact_private_list = userCase['contactDetailsPrivate'];
+  for (const key in contact_private_list) {
+    console.log(contact_private_list[key]);
+    tempDetails =
+      tempDetails +
+      '<li>' +
+      contact_private_list[key].charAt(0).toUpperCase() +
+      contact_private_list[key].slice(1) +
+      '</li>';
+  }
+  tempDetails = tempDetails + '</ul>';
+  return tempDetails;
+};

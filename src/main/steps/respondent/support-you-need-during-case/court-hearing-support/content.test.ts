@@ -19,7 +19,7 @@ const en = {
   animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any support at this time',
+  nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentCourtHearing: {
@@ -55,7 +55,7 @@ const cy: typeof en = {
   animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any support at this time',
+  nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentCourtHearing: {
@@ -125,7 +125,7 @@ describe('citizen-home content', () => {
     expect((courthearingField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Continue button', () => {
+  test('should contain Save and continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });

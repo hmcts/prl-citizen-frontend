@@ -25,7 +25,7 @@ const en = {
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'No, I do not need any support at this time',
+  noSupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentHelpCommunication: {
@@ -63,7 +63,7 @@ const cy: typeof en = {
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'No, I do not need any support at this time',
+  noSupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentHelpCommunication: {

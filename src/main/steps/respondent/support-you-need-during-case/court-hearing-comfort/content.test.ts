@@ -16,7 +16,7 @@ const en = {
   space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any support at this time',
+  nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentCourtComfort: {
@@ -43,7 +43,7 @@ const cy: typeof en = {
   space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any support at this time',
+  nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentCourtComfort: {
@@ -102,7 +102,7 @@ describe('citizen-home content', () => {
     expect((courtcomfortField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Continue button', () => {
+  test('should contain Save and continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });

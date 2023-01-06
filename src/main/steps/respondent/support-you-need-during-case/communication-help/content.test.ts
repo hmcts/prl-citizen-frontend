@@ -27,7 +27,7 @@ const en = {
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'No, I do not need any support at this time',
+  noSupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentHelpCommunication: {
@@ -65,7 +65,7 @@ const cy: typeof en = {
     'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'No, I do not need any support at this time',
+  noSupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
     respondentHelpCommunication: {
@@ -137,7 +137,7 @@ describe('citizen-home content', () => {
     expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Continue button', () => {
+  test('should contain Save and continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });

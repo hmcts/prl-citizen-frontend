@@ -1,0 +1,28 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+
+{% block page_content %}
+
+<h2 class="govuk-heading-xl">{{title}}</h2>
+{% set html %}
+  <h2 class="govuk-notification-banner__heading">{{confirmationText}}</h2>
+{% endset %}
+
+{{ govukNotificationBanner({
+  html: html,
+  type: 'success'
+}) }}
+
+<h2 class="app-task-list__section govuk-heading-l">{{secondaryTitle}}</h2>
+
+{% if userCase.co_certificate and userCase.co_certificate !== undefined %}
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__value">
+        {{userCase.co_certificate.filename}}
+      </dt>
+    </div>
+  </dl>
+{% endif %}
+{% endblock %}
