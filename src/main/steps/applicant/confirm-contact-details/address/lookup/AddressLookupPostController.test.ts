@@ -1,4 +1,5 @@
 import AddressLookupPostControllerBase from '../../../../../app/address/AddressLookupPostControllerBase';
+import { FieldPrefix } from '../../../../../app/case/case';
 
 import AddressLookupPostController from './AddressLookupPostController';
 
@@ -14,6 +15,6 @@ describe('applicant1 > address > lookup > AddressLookupPostController', () => {
   });
 
   test('should call super constructor with correct params', async () => {
-    expect(controller.fieldPrefix).toBe('APPLICANT');
+    expect(controller.fieldPrefix).toBe(FieldPrefix.APPLICANT);
   });
 });

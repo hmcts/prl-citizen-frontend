@@ -1,0 +1,17 @@
+{% extends "common/template.njk" %}
+
+
+{% block page_content %}
+<span class="govuk-caption-xl">{{caption}} for {{applicantName}}</span>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{headingTitle}}</h1>
+<p class="govuk-body-m">{{p1}}</p>
+<ul class="govuk-list govuk-list--bullet">
+
+      {% for privateDetails in listOfCofidentialInfromations %}
+                <li>{{privateDetails}}</li>
+      {% endfor %}
+
+</ul>
+<h2 class="govuk-heading-m">{{heading3}}</h2>
+<p class="govuk-body-m govuk-!-margin-bottom-9">{{p2}}</p>
+{% endblock %}
