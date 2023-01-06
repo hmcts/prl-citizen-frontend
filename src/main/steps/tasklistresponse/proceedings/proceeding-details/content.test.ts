@@ -16,7 +16,7 @@ const en = {
   schedule1Hint: 'Schedule 1 Children Act 1989',
   emergencyProtectionOrder: 'Emergency Protection Order',
   supervisionOrder: 'Supervision Order',
-  caseOrder: 'Care Order',
+  careOrder: 'Care Order',
   childAbduction: 'Child Abduction',
   contactOrderForDivorce:
     'A contact or residence order made within proceedings for a divorce or dissolution of civil partnership',
@@ -46,7 +46,7 @@ const cy = {
   schedule1Hint: 'Schedule 1 Children Act 1989 - welsh',
   emergencyProtectionOrder: 'Emergency Protection Order - welsh',
   supervisionOrder: 'Supervision Order - welsh',
-  caseOrder: 'Care Order - welsh',
+  careOrder: 'Care Order - welsh',
   childAbduction: 'Child Abduction - welsh',
   contactOrderForDivorce:
     'A contact or residence order made within proceedings for a divorce or dissolution of civil partnership - welsh',
@@ -100,7 +100,7 @@ describe('proceeding details screen', () => {
       en.emergencyProtectionOrder
     );
     expect((courtProceedingsOrderField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.supervisionOrder);
-    expect((courtProceedingsOrderField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.caseOrder);
+    expect((courtProceedingsOrderField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.careOrder);
     expect((courtProceedingsOrderField.values[4].label as LanguageLookup)(generatedContent)).toBe(en.childAbduction);
     expect((courtProceedingsOrderField.values[5].label as LanguageLookup)(generatedContent)).toBe(
       en.contactOrderForDivorce

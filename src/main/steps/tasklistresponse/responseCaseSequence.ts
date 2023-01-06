@@ -24,6 +24,7 @@ import {
   PROCEEDINGS_ORDER_DETAILS,
   PROCEEDINGS_START,
   PROCEEDINGS_SUMMARY,
+  PROCEEDING_SAVE,
   PageLink,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
@@ -236,7 +237,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => PROCEEDING_SAVE,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,

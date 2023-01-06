@@ -17,10 +17,10 @@ nodejs:
     SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
-    CCD_URL: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-810.service.core-compute-preview.internal'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
-    DOCUMENT_MANAGEMENT_URL: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal/'
-    COS_URL: 'http://prl-cos-aat.service.core-compute-aat.internal'
+    DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-810.service.core-compute-preview.internal'
+    COS_URL: 'https://prl-cos-pr-826.service.core-compute-preview.internal'
     REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
     LAUNCH_DARKLY_OFFLINE_MODE: false
     C100_REBUILD_FLAG: false

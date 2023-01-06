@@ -88,7 +88,7 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'current-or-previous-proceedings',
             text: taskListItems.current_or_previous_proceedings,
             status: getCurrentOrOtherProceedingsStatus(userCase),
-            href: URL.PROCEEDINGS_START,
+            href: URL.PROCEEDINGS_START + '/' + userCase.id,
           },
         ],
       },

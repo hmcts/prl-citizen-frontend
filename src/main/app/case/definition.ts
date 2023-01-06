@@ -119,9 +119,40 @@ export interface Response {
   miam?: Miam;
   citizenInternationalElements?: CitizenInternationalElements;
   keepDetailsPrivate?: KeepDetailsPrivate;
-  citizenFlags?: CitizenFlags
+  citizenFlags?: CitizenFlags;
+  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
 }
 
+export interface CurrentOrPreviousProceedings {
+  haveChildrenBeenInvolvedInCourtCase?: YesOrNo;
+  courtOrderMadeForProtection?: YesOrNo;
+  proceedingsList?: ProceedingDetailsData[];
+}
+
+export interface ProceedingDetailsData {
+  id: string;
+  value: Proceedings;
+}
+
+export interface Proceedings {
+  orderType?: string;
+  proceedingDetails?: ProceedingsOrderDataInterface[];
+}
+
+export interface ProceedingsOrderDataInterface {
+  id: string;
+  value: OtherProceedingDetails;
+}
+
+export interface OtherProceedingDetails {
+  orderDetail: string;
+  caseNo: string;
+  orderDate: Date;
+  currentOrder: YesNoEmpty;
+  orderEndDate: Date;
+  orderCopy: YesNoEmpty;
+  orderDocument?: Document;
+}
 export interface CitizenFlags {
   isApplicationViewed?: string,
   isAllegationOfHarmViewed?: string

@@ -151,7 +151,7 @@ describe('getRemainingTaskList', () => {
             text: 'Mediation(MIAM)',
           },
           {
-            href: '/tasklistresponse/proceedings/start',
+            href: '/tasklistresponse/proceedings/start/1234',
             id: 'current-or-previous-proceedings',
             status: 'TO_DO',
             text: 'Current or previous proceedings',
@@ -261,7 +261,7 @@ describe('getRemainingTaskList', () => {
             text: 'Mediation(MIAM)',
           },
           {
-            href: '/tasklistresponse/proceedings/start',
+            href: '/tasklistresponse/proceedings/start/1234',
             id: 'current-or-previous-proceedings',
             status: 'TO_DO',
             text: 'Current or previous proceedings',
@@ -359,7 +359,7 @@ describe('getRemainingTaskList', () => {
             text: 'Mediation(MIAM)',
           },
           {
-            href: '/tasklistresponse/proceedings/start',
+            href: '/tasklistresponse/proceedings/start/1234',
             id: 'current-or-previous-proceedings',
             status: 'TO_DO',
             text: 'Current or previous proceedings',
