@@ -40,36 +40,37 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
-  caption: 'Reasonable adjustments - welsh',
-  headingTitle: 'I need to bring support with me to a court hearing - welsh',
-  line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',
-  select_all_apply: 'Select all that apply to you - welsh',
-  supportWorkerCarer: 'A support worker or carer - welsh',
-  supportWorkerCarer_subfield: 'Tell us who you will bring - welsh',
-  friendFamilyMember: 'A friend or family member - welsh',
-  friendFamilyMember_subfield: 'Tell us who you will bring - welsh',
-  assistanceGuideDog: 'Assistance / guide dog - welsh',
-  therapyAnimal: 'Therapy animal - welsh',
-  therapyAnimal_subfield: 'Describe what you need - welsh',
-  supportCourtOther: 'Other - welsh',
-  supportCourtOther_subfield: 'Describe what you need - welsh',
-  supportCourtNoOption: 'No, I do not need any support at this time - welsh',
+  serviceName: 'Trefniadau plant',
+  caption: 'Addasiadau rhesymol',
+  headingTitle: 'Rwyf eisiau dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
+  line1:
+    'Ystyriwch wrandawiad wyneb yn wyneb, dros y ffôn neu drwy fideo, rhag ofn nad yw’r math o wrandawiad a ffefrir gennych yn bosibl',
+  select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
+  supportWorkerCarer: 'Gweithiwr cymorth neu ofalwr',
+  supportWorkerCarer_subfield: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
+  friendFamilyMember: "ffrind neu aelod o'r teulu",
+  friendFamilyMember_subfield: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
+  assistanceGuideDog: 'Ci cymorth / ci tywys',
+  therapyAnimal: 'Anifail therapi',
+  therapyAnimal_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  supportCourtOther: 'Arall',
+  supportCourtOther_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  supportCourtNoOption: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   errors: {
     ra_supportWorkerCarer_subfield: {
-      required: 'Enter the name of the support worker or carer you will bring - welsh',
+      required: "Rhowch enw'r gweithiwr cymorth neu'r gofalwr y byddwch yn dod efo chi",
     },
     ra_friendFamilyMember_subfield: {
-      required: 'Enter the name of a friend or family member you will bring - welsh',
+      required: "Rhowch enw ffrind neu aelod o'r teulu byddwch yn dod efo chi",
     },
     ra_therapyAnimal_subfield: {
-      required: 'Describe which therapy animal you will bring - welsh',
+      required: 'Disgrifiwch pa anifail therapi y byddwch yn dod efo chi',
     },
     ra_supportCourtOther_subfield: {
-      required: 'Describe which support you need to bring with you to a hearing - welsh',
+      required: 'Disgrifiwch pa gefnogaeth sydd angen arnoch i chi ddod efo chi i’r gwrandawiad',
     },
     ra_supportCourt: {
-      required: 'Select which support you need to bring with you to a hearing - welsh',
+      required: 'Dewiswch pa gefnogaeth rydych angen dod efo chi i’r gwrandawiad',
     },
   },
 });

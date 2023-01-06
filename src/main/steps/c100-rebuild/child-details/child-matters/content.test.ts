@@ -5,7 +5,7 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { getDataShape } from '../../people/util';
 
-import { generateContent, generateFormFields } from './content';
+import { generateContent, generateFormFields, getFormFields } from './content';
 
 jest.mock('../../../../app/form/validation');
 
@@ -43,34 +43,33 @@ const en = {
 };
 
 const cy = {
-  title: 'Which of the decisions you’re asking the court to resolve relate to - welsh',
-  bodyHint: 'Select all that apply - welsh',
+  title: 'Pa un o’r penderfyniadau rydych chi’n gofyn i’r llys eu datrys sy’n ymwneud â',
+  orderAppliedFor: 'Orders applied for - welsh',
+  bodyHint: "Dewiswch bob un sy'n berthnasol",
   childArrangementsOrder: {
-    whoChildLiveWith: 'Decide who the children live with and when - welsh',
-    childTimeSpent: 'Decide how much time the children spend with each person - welsh',
+    whoChildLiveWith: "Dewiswch bob un sy'n berthnasol",
+    childTimeSpent: 'Penderfynu faint o amser y bydd y plant yn ei dreulio gyda phob unigolyn',
   },
   stepsList: {
-    changeChildrenNameSurname: "Changing the children's names or surname - welsh",
-    allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
-    takingChildOnHoliday: 'Taking the children on holiday - welsh',
-    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
-    relocateChildrenOutsideUk:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
+    changeChildrenNameSurname: "Newid enwau neu gyfenwau'r plant",
+    allowMedicalTreatment: "Caniatáu i'r plant gael triniaeth feddygol",
+    takingChildOnHoliday: "Mynd â'r plant ar wyliau",
+    relocateChildrenDifferentUkArea: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
+    relocateChildrenOutsideUk: 'Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)',
   },
   issueOrderList: {
-    specificHoliday: 'A specific holiday or arrangement - welsh',
-    whatSchoolChildrenWillGoTo: 'What school the children will go to - welsh',
-    religiousIssue: 'A religious issue - welsh',
-    changeChildrenNameSurnameA: "Changing the children's names or surname - welsh",
-    medicalTreatment: 'Medical treatment - welsh',
-    relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales - welsh',
-    relocateChildrenOutsideUkA:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
-    returningChildrenToYourCare: 'Returning the children to your care - welsh',
+    specificHoliday: 'Gwyliau neu drefniant penodol',
+    whatSchoolChildrenWillGoTo: 'I ba ysgol y bydd y plant yn mynd iddi',
+    religiousIssue: ' Mater crefyddol',
+    changeChildrenNameSurnameA: "Newid enwau neu gyfenwau'r plant",
+    medicalTreatment: 'Triniaeth feddygol',
+    relocateChildrenDifferentUkAreaA: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
+    relocateChildrenOutsideUkA: 'Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)',
+    returningChildrenToYourCare: "Dychwelyd y plant i'ch gofal",
   },
   errors: {
     needsResolution: {
-      required: 'Select at least a decision - welsh',
+      required: 'Dylech o leiaf ddewis penderfyniad',
     },
   },
 };
@@ -80,6 +79,9 @@ describe('child details > child-matters', () => {
   const commonContent = {
     language: 'en',
     userCase: {
+      too_resolveSpecificIssueSubField: ['needsResolution'],
+      too_stopOtherPeopleDoingSomethingSubField: ['needsResolution'],
+      too_courtOrder: ['needsResolution', 'stopOtherPeopleDoingSomething', 'resolveSpecificIssue'],
       cd_children: [
         {
           id: '7483640e-0817-4ddc-b709-6723f7925474',
@@ -130,11 +132,12 @@ describe('child details > child-matters', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(
+    const { errors, ...rest } = generateFormFields(
       (getDataShape(PartyType.CHILDREN) as ChildrenDetails).childMatters,
       dummySessionData,
       dummyTranslations
     );
+    expect(rest).not.toBe(undefined);
     languageAssertions(
       'en',
       {
@@ -186,9 +189,29 @@ describe('child details > child-matters', () => {
     (needsResolution.validator as Function)('issueOrderList');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('issueOrderList');
 
-    // expect(childArrangementsOrder.whoChildLiveWith.name).toBe('needsResolution');
-    // expect(whoChildLiveWith.value).toBe('whoChildLiveWith');
-    // expect((whoChildLiveWith.label as Function)(generatedContent)).toBe(en.whoChildLiveWithLabel);
+    expect(needsResolution.values).toStrictEqual([
+      {
+        label: undefined,
+        name: 'needsResolution',
+        value: 'needsResolution',
+      },
+      {
+        label: undefined,
+        name: 'needsResolution',
+        value: 'needsResolution',
+      },
+      {
+        label: undefined,
+        name: 'needsResolution',
+        value: 'needsResolution',
+      },
+    ]);
+
+    expect(
+      getFormFields({ ...commonContent.userCase }, '7483640e-0817-4ddc-b709-6723f7925474') as FormContent
+    ).not.toBe(undefined);
+    // expect(needsResolution.values[0].needsResolution.value).toBe('whoChildLiveWith');
+    // expect((needsResolution.values[0].needsResolution.label as Function)(generatedContent)).toBe(en.childArrangementsOrder.whoChildLiveWith);
 
     // expect(childTimeSpent.name).toBe('needsResolution');
     // expect(childTimeSpent.value).toBe('childTimeSpent');

@@ -43,7 +43,7 @@ const cy = {
   two: 'No - Welsh',
   errors: {
     hu_urgentHearingReasons: {
-      required: 'Select yes if you have a good reason to request an urgent hearing - welsh',
+      required: 'Dewiswch oes os oes gennych reswm da dros ofyn am wrandawiad brys',
     },
   },
 };
@@ -68,6 +68,10 @@ describe('applicant personal details > applying-with > content', () => {
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(
+      'Do you have a good reason to request an urgent hearing?'
+    );
+    expect((applyingWithField.section as LanguageLookup)(generatedContent)).toBe(undefined);
   });
 
   test('should contain Continue button', () => {

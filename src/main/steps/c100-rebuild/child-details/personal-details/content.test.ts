@@ -20,6 +20,9 @@ const en = {
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Child's gender (Optional)",
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -29,6 +32,7 @@ const en = {
       incompleteYear: 'Date of birth must include a year',
       invalidDateInFuture: 'Date of birth must be in the past',
       cannotHaveBothApproxAndExact: 'Cannot have a date of birth and also "I dont know their date of birth"',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     approxDateOfBirth: {
       required: 'Enter the approx date of birth',
@@ -37,6 +41,7 @@ const en = {
       incompleteMonth: 'Approx date of birth must include a month',
       incompleteYear: 'Approx date of birth must include a year',
       invalidDateInFuture: 'Approx date of birth must be in the past',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     gender: {
       required: 'Select the gender',
@@ -45,36 +50,41 @@ const en = {
 };
 
 const cy = {
-  title: 'Provide details for - welsh',
-  dobLabel: 'Date of birth - welsh',
-  dateHint: 'For example, 31 3 2016 - welsh',
-  approxCheckboxLabel: 'I don’t know their date of birth - welsh',
-  approxDobLabel: 'Approximate date of birth - welsh',
-  childGenderLabel: 'Gender - welsh',
-  male: 'Male - welsh',
-  female: 'Female - welsh',
-  other: 'They identify in another way - welsh',
-  otherGenderDetailsLabel: "Child's gender (Optional) - welsh",
+  title: 'Darparwch fanylion am',
+  dobLabel: 'Dyddiad geni',
+  dateHint: 'Er enghraifft, 31 3 2016',
+  approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
+  approxDobLabel: 'Dyddiad geni bras',
+  childGenderLabel: 'Rhyw',
+  male: 'Benyw',
+  female: 'Gwryw',
+  other: 'Maen nhw’n uniaethu mewn ffordd arall',
+  otherGenderDetailsLabel: 'Rhyw y plentyn (Dewisol)',
+  // day: 'Diwrnod',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     dateOfBirth: {
-      required: 'Enter the date of birth - welsh',
-      invalidDate: 'Date of birth is not valid - welsh',
-      incompleteDay: 'Date of birth must include a day - welsh',
-      incompleteMonth: 'Date of birth must include a month - welsh',
-      incompleteYear: 'Date of birth must include a year - welsh',
-      invalidDateInFuture: 'Date of birth must be in the past - welsh',
-      cannotHaveBothApproxAndExact: 'Cannot have a date of birth and also "I dont know their date of birth" - welsh',
+      required: 'Nodwch ei ddyddiad geni',
+      invalidDate: 'Nid yw’r dyddiad geni yn ddilys',
+      incompleteDay: 'DRhaid i’r dyddiad geni gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
+      cannotHaveBothApproxAndExact: 'Methu cael dyddiad geni a hefyd “ nid wyf yn gwybod beth yw ei ddyddiad geni',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
     },
     approxDateOfBirth: {
-      required: 'Enter the approx date of birth - welsh',
-      invalidDate: 'Approx date of birth is not valid - welsh',
-      incompleteDay: 'Approx date of birth must include a day - welsh',
-      incompleteMonth: 'Approx date of birth must include a month - welsh',
-      incompleteYear: 'Approx date of birth must include a year - welsh',
-      invalidDateInFuture: 'Approx date of birth must be in the past - welsh',
+      required: 'Nodwch ddyddiad geni bras',
+      invalidDate: 'Nid yw’r dyddiad geni bras yn ddilys',
+      incompleteDay: 'Rhaid i’r dyddiad geni bras gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
     },
     gender: {
-      required: 'Select the gender - welsh',
+      required: 'Nodwch y rhywedd',
     },
   },
 };
@@ -174,6 +184,45 @@ describe('child details > personal details', () => {
     expect(dateOfBirth.classes).toBe('govuk-date-input');
     expect((dateOfBirth.hint as Function)(generatedContent)).toBe(en.dateHint);
     expect((dateOfBirth.label as Function)(generatedContent)).toBe(en.dobLabel);
+    expect(
+      (dateOfBirth.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(dateOfBirth.values[0].value).toBe('12');
+    expect(dateOfBirth.values[0].classes).toBe('govuk-input--width-2');
+    expect(dateOfBirth.values[0].attributes).toStrictEqual({ inputMode: 'numeric', maxLength: 2, pattern: '[0-9]*' });
+    expect(
+      (dateOfBirth.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(dateOfBirth.values[1].value).toBe('12');
+    expect(dateOfBirth.values[1].classes).toBe('govuk-input--width-2');
+    expect(dateOfBirth.values[1].attributes).toStrictEqual({ inputMode: 'numeric', maxLength: 2, pattern: '[0-9]*' });
+    expect(
+      (dateOfBirth.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(dateOfBirth.values[2].value).toBe('1987');
+    expect(dateOfBirth.values[2].classes).toBe('govuk-input--width-4');
+    expect(dateOfBirth.values[2].attributes).toStrictEqual({ inputMode: 'numeric', maxLength: 4, pattern: '[0-9]*' });
     (dateOfBirth.validator as Validator)(commonContent.userCase!.cd_children![0].personalDetails.dateOfBirth);
     expect(areDateFieldsFilledIn).toHaveBeenCalledWith({
       day: '12',
@@ -199,6 +248,28 @@ describe('child details > personal details', () => {
     expect((isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.label as Function)(generatedContent)).toBe(
       en.approxDobLabel
     );
+
+    expect(
+      (isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].name as Function).toBe('day');
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].value as Function).toBe('');
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].classes as Function).toBe(
+      'govuk-input--width-2'
+    );
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].attributes as Function).toStrictEqual({
+      inputMode: 'numeric',
+      maxLength: 2,
+      pattern: '[0-9]*',
+    });
+
     (isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.validator as Validator)(
       commonContent.userCase!.cd_children![0].personalDetails.dateOfBirth
     );

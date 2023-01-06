@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../app/case/case';
@@ -12,13 +13,34 @@ import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
 import {  courtTypeOfOrderHelper } from './helpers/courtOrderHelper';
 import { nameAndGenderParser } from './helpers/generalHelper';
-import { hearingDetailsHelper } from './helpers/hearingdetailHelper';
+import { hearingDetailsHelper, hearingDetailsQualifyForFirstHearingHelper } from './helpers/hearingdetailHelper';
 import { MiamHelper } from './helpers/miamHelper';
 import { applicantAddressParser, applicantAddressParserForRespondents, applicantContactDetailsParser, applicantCourtCanLeaveVoiceMail, otherPeopleAddressParser } from './helpers/peopleHelper';
 import { resonableAdjustmentHelper } from './helpers/reasonableAdjustment';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
+
+/* eslint-disable import/namespace */
+export const CaseName = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const SummaryData = [
+    {
+      key: keys['enterCaseName'],
+      value: userCase['applicantCaseName'],
+      changeUrl: Urls['C100_CASE_NAME'],
+    },
+  ];
+  return {
+    title: sectionTitles['caseName'],
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+
+
 /* eslint-disable import/namespace */
 export const LocationDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -65,12 +87,16 @@ export const LegalRepresentativeDetails = (
       value: userCase['sq_legalRepresentation'],
       changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION'],
     },
-    {
-      key: keys['doyouWantLegalRespresentatorToCompleteApplication'],
-      value: userCase['sq_legalRepresentationApplication'],
-      changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION'],
-    },
   ];
+  if(userCase.hasOwnProperty('sq_legalRepresentation') && userCase['sq_legalRepresentation'] === YesOrNo.YES){
+    SummaryData.push(
+      {
+        key: keys['doyouWantLegalRespresentatorToCompleteApplication'],
+        value: userCase['sq_legalRepresentationApplication'],
+        changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION'],
+      },
+    );
+  }
   return {
     title: sectionTitles['legalRepresentativeDetails'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -81,12 +107,8 @@ export const PermissionForApplication = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
+  const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy') ? (HTML.UNORDER_LIST + userCase['sq_permissionsWhy']?.map(props => HTML.LIST_ITEM + keys[props] + ': ' + userCase[`sq_${props}_subfield`] + HTML.LIST_ITEM_END) + HTML.UNORDER_LIST_END).split(',').join('') : '';
   const SummaryData = [
-    {
-      key: keys['whyCourtGrantSubmittingPermission'],
-      value: userCase['sq_permissionsRequest'],
-      changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'], 
-    },
     {
       key: keys['reasonPermissionRequired'],
       value: userCase['sq_courtPermissionRequired'],
@@ -94,9 +116,13 @@ export const PermissionForApplication = (
     },
     {
       key: keys['whyPermissionRequiredFromCourt'],
-      valueHtml: userCase.hasOwnProperty('sq_permissionsWhy') ? (HTML.UNORDER_LIST + userCase['sq_permissionsWhy']?.map(props => HTML.LIST_ITEM + keys[props] + HTML.LIST_ITEM_END) + HTML.UNORDER_LIST_END).split(',').join('')
-      : '',
+      valueHtml: valForPermissionWhy,
       changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_WHY'],
+    },
+    {
+      key: keys['whyCourtGrantSubmittingPermission'],
+      value: userCase['sq_permissionsRequest'],
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'], 
     },
   ];
   return {
@@ -141,7 +167,7 @@ export const WithoutNoticeHearing = (
   const SummaryData = [
     {
       key: keys['qualifyForUrgentHearing'],
-      value: userCase['hu_urgentHearingReasons'],
+      valueHtml: hearingDetailsQualifyForFirstHearingHelper(userCase, keys, 'hu_urgentHearingReasons'),
       changeUrl: Urls['C100_HEARING_URGENCY_URGENT'],
     },
     {
@@ -184,6 +210,19 @@ export const ChildernDetails = (
       childMatters = sessionChildData[child]['childMatters'],
       parentialResponsibility = sessionChildData[child]['parentialResponsibility'];
     const childNo = Number(child) + 1;
+    let childResolution = '';
+    if(Array.isArray(sessionChildData[child]['childMatters']['needsResolution'])){
+      childResolution +=  HTML.UNORDER_LIST ;
+      childResolution += 
+      Object.values(childMatters['needsResolution']).map(
+        (field: ANYTYPE) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
+      );
+      childResolution +=  HTML.UNORDER_LIST_END ;
+    }
+    else{
+      childResolution += keys[sessionChildData[child]['childMatters']['needsResolution']];
+    }
+
     newChildDataStorage.push(
       {
         key: '',
@@ -195,12 +234,32 @@ export const ChildernDetails = (
         key: keys['fullName'],
         value: firstname + ' ' + lastname,
         changeUrl: Urls['C100_CHILDERN_DETAILS_ADD'],
-      },
+      });
+
+      if(personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES){
+        newChildDataStorage.push(
+          {
+            key: keys['approxCheckboxLabel'],
+            value: personalDetails['isDateOfBirthUnknown'],
+            changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
+          },
+          {
+            key: keys['approxDobLabel'],
+            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth']),
+            changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
+          },
+        );
+      }
+      else{
+      newChildDataStorage.push(
       {
         key: keys['dobLabel'],
         value: DATE_FORMATTOR(personalDetails['dateOfBirth']),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-      },
+      });
+    }
+
+      newChildDataStorage.push(
       {
         key: keys['childGenderLabel'],
         value: '',
@@ -211,11 +270,7 @@ export const ChildernDetails = (
         key: keys['orderAppliedFor'],
         value: '',
         valueHtml: (
-          HTML.UNORDER_LIST +
-          Object.values(childMatters['needsResolution']).map(
-            (field: ANYTYPE) => `${HTML.LIST_ITEM}${keys[field]}${HTML.LIST_ITEM_END}`
-          ) +
-          HTML.UNORDER_LIST_END
+          childResolution
         )
           ?.split(',')
           .join(''),
@@ -263,11 +318,6 @@ export const ChildernDetailsAdditional = (
       value: userCase['cd_childrenSubjectOfProtectionPlan'],
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
-    {
-      key: keys['hasOtherChildren'],
-      value: userCase['ocd_hasOtherChildren'] as string,
-      changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
-    },
   ];
   return {
     title: sectionTitles['additionationDetailsAboutChildern'],
@@ -284,6 +334,14 @@ export const OtherChildrenDetails = (
   const sessionChildData = userCase['ocd_otherChildren'];
   const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
     [];
+
+  newChildDataStorage.push(
+    {
+      key: keys['hasOtherChildren'],
+      value: userCase['ocd_hasOtherChildren'] as string,
+      changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
+    },
+  );   
   if(userCase['ocd_hasOtherChildren'] === 'Yes'){
     for (const child in sessionChildData) {
       const firstname = sessionChildData[child]['firstName'],
@@ -346,6 +404,22 @@ export const OtherChildrenDetails = (
 };
 
 
+export const ApplicantDetailNameParser = (personalDetails, keys): string => {
+  let changeNameInformation = '' as string;
+  const hasNameChanged = personalDetails['haveYouChangeName'];
+  changeNameInformation += hasNameChanged;
+  if(hasNameChanged === 'Yes'){
+    changeNameInformation += HTML.RULER;
+    changeNameInformation += HTML.H4;
+    changeNameInformation += keys['details'];
+    changeNameInformation += HTML.H4_CLOSE;
+    changeNameInformation += HTML.BOTTOM_PADDING_3;
+    changeNameInformation +=  personalDetails['applPreviousName'];
+    changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
+  }
+  return changeNameInformation;
+};
+
 export const ApplicantDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
@@ -376,18 +450,7 @@ export const ApplicantDetails = (
       }
       return html;
     };
-    let changeNameInformation = '';
-    const hasNameChanged = personalDetails['haveYouChangeName'];
-    changeNameInformation += hasNameChanged;
-    if(hasNameChanged === 'Yes'){
-      changeNameInformation += HTML.RULER;
-      changeNameInformation += HTML.H4;
-      changeNameInformation +=keys['details'];
-      changeNameInformation += HTML.H4_CLOSE;
-      changeNameInformation += HTML.BOTTOM_PADDING_3;
-      changeNameInformation +=  personalDetails['applPreviousName'];
-      changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
-    }
+ 
     newApplicantData.push(
       {
         key: '',
@@ -421,7 +484,7 @@ export const ApplicantDetails = (
       {
         key: keys['haveYouChangeNameLabel'],
         value: '',
-        valueHtml: changeNameInformation,
+        valueHtml: ApplicantDetailNameParser(personalDetails, keys),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -476,7 +539,22 @@ export const ApplicantDetails = (
           changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
         });
 
-    //contactDetailsOf
+        const applicantContactPreferences = sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences;
+        let applicantContactPre = '';
+    
+        if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
+          applicantContactPre += HTML.UNORDER_LIST;
+          applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + preferences + HTML.LIST_ITEM_END );
+          applicantContactPre += HTML.UNORDER_LIST_END;
+        }
+        newApplicantData.push(
+          {
+            key: keys['contactPrefernces'],
+            value: '',
+            valueHtml: `${applicantContactPre}`,
+            changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_PREFERENCES'], { applicantId: sessionApplicantData[applicant]['id'] }),
+          }
+        );
   }
   return {
     title: sectionTitles['ApplicantDetails'],
@@ -570,7 +648,7 @@ export const MiamExemption = (
   const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);
   const SummaryData = [
     {
-      key: keys['validResonsNotAttendingMiam'],
+      key: keys['generalReasonTitle'],
       valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },
@@ -705,7 +783,7 @@ export const SafetyConcerns_child = (
       return {
         key: keys['detailsOfChildConcern']
           .split('[***]')
-          .join(` ${keys[field]} `)
+          .join(` ${keys[field]?.toLowerCase()} `)
           .split('[^^^]')
           .join(keys['againstChild']),
         value: '',  
@@ -847,7 +925,7 @@ export const SafetyConcerns_yours = (
         element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
     ?.map(field => {
-      const keyForFields = field === C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfChildConcern'].split('[***]').join(` ${keys['concerns']} `).split('[^^^]').join(''): keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `).split('[^^^]').join('');
+      const keyForFields = field === C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfChildConcern'].split('[***]').join(` ${keys['concerns']?.toLowerCase()} `).split('[^^^]').join(''): keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]?.toLowerCase()} `).split('[^^^]').join('');
       return {
         key: keyForFields,
         valueHtml: SafetyConcernsHelper(
@@ -938,7 +1016,62 @@ export const SafetyConcerns_others = (
   };
 };
 
+const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent, keys, id, contactDetails ) => {
+  const newRespondentStorage = [] as ANYTYPE;
+  if(!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')){
+    newRespondentStorage.push({
+      key: keys['addressDetails'],
+      value: '',
+      valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys),
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
+    },
+    );
+   }
+   if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
+    newRespondentStorage.push({
+      key: keys['explainNoLabel'],
+      value: sessionRespondentData[respondent]?.['addressUnknown'],
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
+    },
+    );
+   }
+    
+    newRespondentStorage.push(
+      {
+        key: 'Email',
+        value: contactDetails?.['emailAddress'],
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+      },
+    );
 
+    if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
+      newRespondentStorage.push(
+        {
+          key: 'I dont know their email address',
+          value: contactDetails?.['donKnowEmailAddress'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        },
+      );
+    }
+    newRespondentStorage.push(
+      {
+        key: 'Telephone number',
+        value: contactDetails?.['telephoneNumber'],
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+      }
+    );
+    if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
+      newRespondentStorage.push(
+        {
+          key: 'I dont know their telephone number',
+          value: contactDetails?.['donKnowTelephoneNumber'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        },
+      );
+    }
+
+    return newRespondentStorage;
+};
 
 /* eslint-disable import/namespace */
 export const RespondentDetails = (
@@ -1033,59 +1166,8 @@ export const RespondentDetails = (
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], { respondentId: id, childId: element['childId'] }),
         });
       });
-      
-     if(!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')){
-      newRespondentStorage.push({
-        key: keys['addressDetails'],
-        value: '',
-        valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys),
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
-      },
-      );
-     }
-     if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
-      newRespondentStorage.push({
-        key: keys['explainNoLabel'],
-        value: sessionRespondentData[respondent]?.['addressUnknown'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
-      },
-      );
-     }
-      
-      newRespondentStorage.push(
-        {
-          key: 'Email',
-          value: contactDetails?.['emailAddress'],
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        },
-      );
-
-      if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
-        newRespondentStorage.push(
-          {
-            key: 'I dont know their email address',
-            value: contactDetails?.['donKnowEmailAddress'],
-            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-          },
-        );
-      }
-      newRespondentStorage.push(
-        {
-          key: 'Telephone number',
-          value: contactDetails?.['telephoneNumber'],
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        }
-      );
-      if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
-        newRespondentStorage.push(
-          {
-            key: 'I dont know their telephone number',
-            value: contactDetails?.['donKnowTelephoneNumber'],
-            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-          },
-        );
-      }
-  
+      //section 1 insertion 
+     newRespondentStorage.push(...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails ));
     }
    
   const SummaryData = newRespondentStorage;
@@ -1234,12 +1316,13 @@ export const HelpWithFee = (
       changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'], 
     },
   ];
-
+  if(userCase.hasOwnProperty('hwf_needHelpWithFees') && userCase['hwf_needHelpWithFees'] === YesOrNo.YES){
     SummaryData.push({
       key: keys['hwfApplication'],
       valueHtml: userCase['helpWithFeesReferenceNumber'],
       changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'], 
     });
+  }
   return {
     title: sectionTitles['helpWithFee'],
     rows: getSectionSummaryList(SummaryData, content),

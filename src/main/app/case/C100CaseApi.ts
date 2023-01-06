@@ -4,6 +4,7 @@ import config from 'config';
 import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
+import { C100_CASE_NAME } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { AppSession, UserDetails } from '../controller/AppRequest';
 
@@ -28,12 +29,13 @@ export class CaseApi {
   public async createCase(): Promise<CreateCaseResponse> {
     const data = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
+      c100RebuildReturnUrl: C100_CASE_NAME, //added to handle deafult returnURL incase save & come back is not invoked at all
     };
 
     try {
       const response = await this.axios.post<CreateCaseResponse>('/case/create', data);
-      const { id, caseTypeOfApplication } = response?.data;
-      return { id, caseTypeOfApplication };
+      const { id, caseTypeOfApplication, c100RebuildReturnUrl } = response?.data;
+      return { id, caseTypeOfApplication, c100RebuildReturnUrl };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -50,7 +52,7 @@ export class CaseApi {
    */
   public async updateCase(
     caseId: string,
-    caseData: Partial<Case>,
+    caseData: Partial<CaseWithId>,
     returnUrl: string,
     caseEvent: C100_CASE_EVENT
   ): Promise<UpdateCaseResponse> {
@@ -64,6 +66,8 @@ export class CaseApi {
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
       id: caseId,
+      paymentServiceRequestReferenceNumber: caseData.paymentDetails?.serviceRequestReference,
+      paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
     };
     try {
       const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${caseEvent}/update-case`, data, {
@@ -127,6 +131,18 @@ export class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Document could not be deleted.');
+    }
+  }
+
+  public async downloadDraftApplication(docId: string): Promise<void> {
+    try {
+      const response = await this.axios.get(`/${docId}/download`, {
+        responseType: 'arraybuffer',
+      });
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Draft application could not be downloaded.');
     }
   }
 
@@ -204,6 +220,7 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
 interface CreateCaseResponse {
   id: string;
   caseTypeOfApplication: string;
+  c100RebuildReturnUrl: string;
 }
 interface UpdateCaseResponse {
   [key: string]: any;
@@ -242,6 +259,8 @@ interface UpdateCaseRequest extends UpdateCase {
   helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
   id: string;
+  paymentServiceRequestReferenceNumber?: string;
+  paymentReferenceNumber?: string;
 }
 
 export interface DocumentUploadResponse {

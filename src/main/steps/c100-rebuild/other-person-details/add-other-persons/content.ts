@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../app/case/case';
 import { C100RebuildPartyDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -24,19 +25,19 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: "Enter the other person's name - welsh",
-  firstNameLabel: 'First name(s) - welsh',
-  firstNameHint: 'Include all middle names here - welsh',
-  lastNameLabel: 'Last name(s) - welsh',
-  addOtherPersonLabel: 'Add another person - welsh',
-  removeOtherPersonLabel: 'Remove person - welsh',
-  newNameLabel: 'Enter a new name - welsh',
+  title: 'Nodwch enw’r unigolyn arall',
+  firstNameLabel: 'Enw(au) cyntaf',
+  firstNameHint: 'Nodwch bob enw canol yma',
+  lastNameLabel: 'Cyfenw(au)',
+  addOtherPersonLabel: 'Ychwanegu unigolyn arall',
+  removeOtherPersonLabel: 'Symud unigolyn',
+  newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
-      required: 'Enter the first name - welsh',
+      required: 'Nodwch yr enw cyntaf',
     },
     c100TempLastName: {
-      required: 'Enter the last name - welsh',
+      required: 'Nodwch yr enw olaf',
     },
   },
 });
@@ -54,10 +55,6 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
       ...(form.fields ?? {}),
     },
   };
-  return updatedForm;
-};
-
-export const getFormFields = (): FormContent => {
   return updatedForm;
 };
 
@@ -155,6 +152,10 @@ export const form: FormContent = {
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
+};
+
+export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
+  return updateFormFields(form, generateFormFields(caseData?.oprs_otherPersons ?? []).fields);
 };
 
 export const generateContent: TranslationFn = content => {

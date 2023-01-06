@@ -14,7 +14,7 @@ const en = () => ({
 
 const cy = () => ({
   headingTitle:
-    'You have uploaded details of your past and current proceedings. These will be reviewed by the court once you submit the application. - welsh',
+    "Rydych wedi llwytho manylion eich achosion yn y gorffennol a'ch achosion presennol. Bydd y rhain yn cael eu hadolygu gan y llys ar ôl i chi gyflwyno’r cais.",
 });
 
 const languages = {

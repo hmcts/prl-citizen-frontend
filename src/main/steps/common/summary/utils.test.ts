@@ -1,7 +1,7 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
-import { SummaryList, summaryList } from './utils';
+import { SummaryList, summaryCaseList, summaryList } from './utils';
 
 const enContent = {
   section: 'Check your details',
@@ -102,6 +102,32 @@ describe('common > summary > utils', () => {
       expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
         expected
       );
+    });
+  });
+
+  describe('Return correct Summary Case List', () => {
+    test.each([
+      {
+        userCase: {
+          ...mockUserCase,
+          caseStatus: { state: '' },
+          applicantCaseName: 'test',
+          caseTypeOfApplication: 'C100',
+        },
+        expected: {
+          title: '',
+          rows: [
+            { key: { text: 'Case Name' }, value: { html: '<h4>Case Status</h4>' } },
+            {
+              key: { text: 'test' },
+              value: {},
+              actions: { items: [{ href: '#', text: '1234', visuallyHiddenText: '1234' }] },
+            },
+          ],
+        },
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(expected).toEqual(summaryCaseList([userCase], '', false));
     });
   });
 });

@@ -19,16 +19,15 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements',
-  title: 'Do you have valid reasons for not attending a MIAM? - Welsh',
-  paragraph1:
-    'You must attend a MIAM before making an application unless you have valid reasons not to attend. - Welsh',
+  serviceName: 'Trefniadau plant',
+  title: 'A oes gennych chi resymau dilys dros beidio â mynychu MIAM?',
+  paragraph1: 'Rhaid i chi fynychu MIAM cyn gwneud cais oni bai bod gennych resymau dilys dros beidio â mynychu.',
   applyForVrLink:
     'If you\'re unsure, you can check the <a href="https://www.justice.gov.uk/courts/procedure-rules/family/practice_directions/pd_part_03a" class="govuk-link" target="_blank" aria-label="list of valid reasons">list of valid reasons</a>. - Welsh',
   paragraph2:
-    "If you're claiming that you have valid reasons not to attend a MIAM, the court will need more information from you. - Welsh",
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
+    'Os ydych chi’n honni bod gennych resymau dilys dros beidio â mynychu MIAM, bydd y llys angen mwy o wybodaeth gennych',
+  one: 'Oes',
+  two: 'Nac oes',
 };
 
 describe('applicant personal details > applying-with > content', () => {

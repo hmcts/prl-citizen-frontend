@@ -25,19 +25,19 @@ const en = {
 };
 
 const cy = {
-  title: 'Describe what you want the court to do regarding the children in this application - welsh',
+  title: "Disgrifiwch yr hyn rydych chi eisiau i'r llys ei wneud o ran y plant yn y cais hwn",
   subHeading:
-    'Summarise what you want the court to do. Give your answer in bullet points and short paragraphs. - welsh',
-  setOut: 'You should set out: - welsh',
+    "Crynhoi'r hyn rydych chi eisiau i'r llys ei wneud. Rhowch eich ateb mewn pwyntiau bwled a pharagraffau byr.",
+  setOut: 'Dylech nodi:',
   listOfsetOut: [
-    'any previous parenting plans between you and the other people in the case - welsh',
-    'what happened in the previous agreements, and if they broke down - welsh',
-    'why you are bringing this matter to the court - welsh',
-    'what you would like the court to do - welsh',
+    "unrhyw drefniadau rhianta blaenorol rhyngoch chi a'r bobl eraill yn yr achos",
+    'beth ddigwyddodd yn y trefniadau blaenorol, ac os bu iddynt chwalu',
+    "pam rydych chi'n dod â'r mater hwn i'r llys",
+    "beth rydych chi am i'r llys ei wneud",
   ],
   errors: {
     too_shortStatement: {
-      required: 'Describe what you want the court to do regarding the children in this application - welsh',
+      required: "Disgrifiwch yr hyn rydych chi eisiau i'r llys ei wneud ynglŷn â'r plant yn y cais hwn",
     },
   },
 };

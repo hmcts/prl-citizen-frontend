@@ -29,25 +29,25 @@ const en = () => ({
 });
 
 const cy = () => ({
-  caption: 'Keeping your contact details private  - welsh',
-  headingTitle: `Do you want to keep your contact details private from 
-  the other people named in the application (the respondents)? - welsh`,
-  paragraph1: `The information you give us will be shared with the respondents. 
-  This includes your contact details. - welsh`,
-  paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
-  you can ask the court to keep your contact details private. - welsh`,
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
-  contact_details_private: 'Specify which contact details you want to keep private. - welsh',
-  address: 'Address - welsh',
-  telephoneNumber: 'Telephone number - welsh',
-  Email: 'Email - welsh',
+  caption: 'Cadw eich manylion cyswllt yn breifat',
+  headingTitle:
+    'Ydych chi eisiau cadw eich manylion cyswllt yn breifat oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
+  paragraph1:
+    "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r atebwyr. Mae hyn yn cynnwys eich manylion cyswllt.",
+  paragraph2:
+    "Er enghraifft, os ydych chi'n credu bod y bobl eraill yn yr achos yn peri risg i chi neu'r plant, gallwch ofyn i'r llys gadw eich manylion cyswllt yn breifat.",
+  one: 'Ydw',
+  two: 'Nac ydw',
+  contact_details_private: "Nodwch pa fanylion cyswllt rydych chi eisiau eu cadw'n breifat.",
+  address: 'Cyfeiriad',
+  telephoneNumber: 'Rhif ffôn',
+  Email: 'E-bost',
   errors: {
     startAlternative: {
-      required: 'Select yes if you want to keep your details private',
+      required: 'Dewiswch oes os ydych eisiau cadw eich mnylion yn gyfrinachol',
     },
     contactDetailsPrivateAlternative: {
-      required: 'Select which contact details you want to keep private. - welsh',
+      required: "Dewiswch pa fanylion cyswllt rydych chi eisiau eu cadw'n gyfrinachol",
     },
   },
 });

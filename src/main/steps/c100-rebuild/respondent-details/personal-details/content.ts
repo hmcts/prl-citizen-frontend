@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseDate } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -35,6 +35,9 @@ export const en = () => ({
   other: 'They identify in another way',
   respondentPlaceOfBirthUnknown: 'I don’t know their place of birth',
   otherGenderDetailsLabel: "Respondent's gender (Optional)",
+  // day: 'Day',
+  // month: 'Month',
+  // year: 'Year',
   errors: {
     hasNameChanged: {
       required: 'Select if they’ve changed their name',
@@ -69,55 +72,58 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Provide details for - welsh',
-  hasNameChanged: 'Have they changed their name? - welsh',
+  title: 'Darparu manylion am',
+  hasNameChanged: 'A ydynt wedi newid eu henw?',
   hasNameChangedHint:
-    'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names - welsh',
-  one: 'Yes',
-  two: 'No',
-  respondentPlaceOfBirth: 'Place of birth',
-  respondentPlaceOfBirthHint: 'For example, town or city',
-  dontKnow: "Don't know - welsh",
-  dobLabel: 'Date of birth - welsh',
-  approxCheckboxLabel: 'I don’t know their date of birth - welsh',
-  approxDobLabel: 'Approximate date of birth - welsh',
-  previousName: 'Enter their previous name -welsh',
-  previousNameHint: 'This should be the full legal name(including any middle names) -welsh',
-  respondentGenderLabel: 'Gender - welsh',
-  male: 'Male - welsh',
-  female: 'Female - welsh',
-  other: 'They identify in another way - welsh',
-  respondentPlaceOfBirthUnknown: 'I don’t know their place of birth - welsh',
-  otherGenderDetailsLabel: "Respondent's gender (Optional) - welsh",
+    'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
+  one: 'Do',
+  two: 'Naddo',
+  respondentPlaceOfBirth: 'Lleoliad geni',
+  respondentPlaceOfBirthHint: 'Er enghraifft, tref neu ddinas',
+  dontKnow: 'Ddim yn gwybod',
+  dobLabel: 'Dyddiad geni',
+  approxCheckboxLabel: 'Nid wyf yn gwybod beth yw eu dyddiad geni',
+  approxDobLabel: 'Dyddiad geni bras',
+  previousName: 'Nodwch eu henw blaenorol',
+  previousNameHint: 'Dylai hwn fod yr enw cyfreithiol llawn (gan gynnwys unrhyw enwau canol)',
+  respondentGenderLabel: 'Rhyw',
+  male: 'Benyw',
+  female: 'Gwryw',
+  other: 'Maen nhw’n uniaethu mewn ffordd arall',
+  respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man genih',
+  otherGenderDetailsLabel: 'Rhywedd yr atebydd (Dewisol)',
+  // day: 'Diwrnod',
+  // month: 'Mis',
+  // year: 'Blwyddyn',
   errors: {
     hasNameChanged: {
-      required: 'Select if they’ve changed their name -welsh',
+      required: 'Nodwch os ydyw wedi newid ei enw',
     },
     previousFullName: {
-      required: 'Enter their previous name -welsh',
+      required: 'Nodwch eu henw blaenorol',
     },
     dateOfBirth: {
-      required: 'Enter the date of birth - welsh',
-      invalidDate: 'Date of birth is not valid - welsh',
-      incompleteDay: 'Date of birth must include a day - welsh',
-      incompleteMonth: 'Date of birth must include a month - welsh',
-      incompleteYear: 'Date of birth must include a year - welsh',
-      invalidDateInFuture: 'Date of birth must be in the past - welsh',
-      cannotHaveBothApproxAndExact: 'Cannot have a date of birth and also "I dont know their date of birth" - welsh',
+      required: 'Nodwch ei ddyddiad geni',
+      invalidDate: 'Nid yw’r dyddiad geni yn ddilys',
+      incompleteDay: 'DRhaid i’r dyddiad geni gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
+      cannotHaveBothApproxAndExact: 'Methu cael dyddiad geni a hefyd “ nid wyf yn gwybod beth yw ei ddyddiad geni',
     },
     approxDateOfBirth: {
-      required: 'Enter the approx date of birth - welsh',
-      invalidDate: 'Approx date of birth is not valid - welsh',
-      incompleteDay: 'Approx date of birth must include a day - welsh',
-      incompleteMonth: 'Approx date of birth must include a month - welsh',
-      incompleteYear: 'Approx date of birth must include a year - welsh',
-      invalidDateInFuture: 'Approx date of birth must be in the past - welsh',
+      required: 'Nodwch ddyddiad geni bras',
+      invalidDate: 'Nid yw’r dyddiad geni bras yn ddilys',
+      incompleteDay: 'Rhaid i’r dyddiad geni bras gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
     },
     gender: {
-      required: 'Select the gender - welsh',
+      required: 'Nodwch y rhywedd',
     },
     respondentPlaceOfBirth: {
-      required: 'Enter their place of birth -welsh',
+      required: 'Nodwch y man geni',
     },
   },
 });
@@ -235,6 +241,7 @@ export const generateFormFields = (
       values: [
         {
           label: l => l.dateFormat['day'],
+          //label: l => l.day,
           name: 'day',
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
@@ -242,6 +249,7 @@ export const generateFormFields = (
         },
         {
           label: l => l.dateFormat['month'],
+          //label: l => l.month,
           name: 'month',
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
@@ -249,6 +257,7 @@ export const generateFormFields = (
         },
         {
           label: l => l.dateFormat['year'],
+          //label: l => l.year,
           name: 'year',
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
@@ -285,6 +294,7 @@ export const generateFormFields = (
               values: [
                 {
                   label: l => l.dateFormat['day'],
+                  //label: l => l.day,
                   name: 'day',
                   value: approxDateOfBirth!.day,
                   classes: 'govuk-input--width-2',
@@ -292,6 +302,7 @@ export const generateFormFields = (
                 },
                 {
                   label: l => l.dateFormat['month'],
+                  //label: l => l.month,
                   name: 'month',
                   value: approxDateOfBirth!.month,
                   classes: 'govuk-input--width-2',
@@ -299,6 +310,7 @@ export const generateFormFields = (
                 },
                 {
                   label: l => l.dateFormat['year'],
+                  //label: l => l.year,
                   name: 'year',
                   value: approxDateOfBirth!.year,
                   classes: 'govuk-input--width-4',
@@ -364,8 +376,12 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (
+  caseData: Partial<CaseWithId>,
+  respondentId: C100RebuildPartyDetails['id']
+): FormContent => {
+  const respondentDetails = getPartyDetails(respondentId, caseData?.resp_Respondents) as C100RebuildPartyDetails;
+  return updateFormFields(form, generateFormFields(respondentDetails.personalDetails ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

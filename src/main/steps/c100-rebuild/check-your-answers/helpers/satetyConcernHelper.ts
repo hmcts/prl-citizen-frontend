@@ -6,7 +6,7 @@ import { ANYTYPE } from '../common/index';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const childNameFormatter = (childId, userCase) => {
   const sessionChildKey = 'cd_children';
-  const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId) as ANYTYPE;
+  const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId);
   return (
     HTML.LIST_ITEM + founChildDetails[0]?.['firstName'] + ' ' + founChildDetails[0]?.['lastName'] + HTML.LIST_ITEM_END
   );
@@ -46,7 +46,12 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
     : '';
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
-      ? HTML.BOTTOM_TOP_3 + FoundElement?.['seekHelpDetails'] + HTML.BOTTOM_PADDING_CLOSE
+      ? HTML.H4 +
+        keys['details'] +
+        HTML.H4_CLOSE +
+        HTML.BOTTOM_TOP_3 +
+        FoundElement?.['seekHelpDetails'] +
+        HTML.BOTTOM_PADDING_CLOSE
       : '';
   return bodyHtml;
 };

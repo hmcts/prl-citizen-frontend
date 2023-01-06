@@ -16,10 +16,10 @@ export default class SelectAddressPostController extends PostController<AnyObjec
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const form = new Form(getUpdatedForm().fields as FormFields);
+    const { respondentId } = req?.params;
+    const form = new Form(getUpdatedForm(req.session.userCase, respondentId).fields as FormFields);
     const { onlycontinue, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const { respondentId } = req?.params;
     const selectedAddressIndex = Number(formData['selectAddress']);
 
     if (selectedAddressIndex >= 0) {
