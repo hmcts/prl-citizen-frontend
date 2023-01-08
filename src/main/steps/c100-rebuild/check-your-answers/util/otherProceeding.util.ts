@@ -7,7 +7,7 @@ import { DATE_FORMATTOR } from '../common/dateformatter';
 import { HTML } from '../common/htmlSelectors';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const IndividualOrderFieldsParser = (keys, order) => {
+export const IndividualOrderFieldsParser = (keys, order, language) => {
   const newOrders = order;
   const Mapper = {
     ['orderDetail']: {
@@ -37,7 +37,7 @@ export const IndividualOrderFieldsParser = (keys, order) => {
     if (key !== 'id' && key !== 'orderDocument') {
       if (typeof entry[1] === 'object' && entry[1] !== null) {
         const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + DATE_FORMATTOR(value) + HTML.P_CLOSE;
+        const valueDetails = HTML.P + DATE_FORMATTOR(value, language) + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       } else {
         const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
@@ -62,7 +62,7 @@ export const IndividualOrderFieldsParser = (keys, order) => {
  *   changeUrl: string
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessionKey) => {
+export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessionKey, language) => {
   if (UserCase.hasOwnProperty(sessionKey)) {
     const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
     UserCase[sessionKey].forEach(order => {
@@ -72,7 +72,7 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessio
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({
             key: `${keys[order + 'Label']} ${IndexNumber}`,
-            valueHtml: IndividualOrderFieldsParser(keys, nestedOrder),
+            valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
             changeUrl: applyParms(URLS['C100_OTHER_PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
           });
         });

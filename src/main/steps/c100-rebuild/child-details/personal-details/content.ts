@@ -78,7 +78,7 @@ export const cy = () => ({
       incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
       cannotHaveBothApproxAndExact: 'Methu cael dyddiad geni a hefyd “ nid wyf yn gwybod beth yw ei ddyddiad geni',
-      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
+      invalidDateOver18: 'Rhowch ddyddiad geni sy’n addas ar gyfer unigolyn dan 18 oed',
     },
     approxDateOfBirth: {
       required: 'Nodwch ddyddiad geni bras',
@@ -87,7 +87,7 @@ export const cy = () => ({
       incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
       incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
-      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
+      invalidDateOver18: 'Rhowch ddyddiad geni sy’n addas ar gyfer unigolyn dan 18 oed',
     },
     gender: {
       required: 'Nodwch y rhywedd',
