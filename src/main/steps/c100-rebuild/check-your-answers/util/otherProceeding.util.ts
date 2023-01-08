@@ -5,6 +5,7 @@ import { cy, en } from '../../other-proceedings/current-previous-proceedings/con
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 import { DATE_FORMATTOR } from '../common/dateformatter';
 import { HTML } from '../common/htmlSelectors';
+import { getYesNoTranslation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order, language) => {
@@ -41,7 +42,12 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
         Val += keyDetails + valueDetails + rulerForLastElement;
       } else {
         const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + value + HTML.P_CLOSE;
+        let valueDetails = '';
+        if (key === 'currentOrder') {
+          valueDetails = HTML.P + getYesNoTranslation(language, value, 'ieTranslation') + HTML.P_CLOSE;
+        } else {
+          valueDetails = HTML.P + value + HTML.P_CLOSE;
+        }
         Val += keyDetails + valueDetails + rulerForLastElement;
       }
     }

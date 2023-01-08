@@ -315,6 +315,10 @@ export const cyContent = {
       'Yes, I need help with paying the fee': 'Oes, rwyf eisiau help i dalu’r ffi',
       'No, I do not need help': 'Nac oes, ni wyf eisiau help',
     },
+    ieTranslation: {
+      Yes: 'Ie',
+      No: 'Na',
+    },
   },
 };
 
