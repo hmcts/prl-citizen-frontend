@@ -1516,10 +1516,10 @@ function contactTranslation(preferences: string, language: string | undefined) {
     if(language==='cy'){
         switch(preferences){
             case 'Digital': {
-                return 'Digital - welsh';
+                return 'Digidol';
 }
             case 'Post': {
-                return 'Post - welsh';
+                return 'Drwy’r post';
 }
             }
         }
