@@ -192,7 +192,7 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
-  onlyContinue: 'Continue (in welsh)',
+  onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
 };

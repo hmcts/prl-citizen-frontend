@@ -31,23 +31,23 @@ const en = {
 };
 
 const cy = () => ({
-  title: 'Contact Preferences for - welsh',
+  title: 'Dewisiadau cyswllt ar gyfer',
   serviceName: 'Trefniadau plant',
   paragraphs: [
-    'You can choose to receive case updates by email or post. - welsh',
-    'If you receive updates by email, the updates will also be available to view in your dashboard. - welsh',
-    'This includes updates on: - welsh',
+    'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
+    'Os byddwch yn dewis cael diweddariadau drwy e-bost, byddwch hefyd yn gallu gweld y diweddariadau yn eich dangosfwrdd.',
+    'Mae hyn yn cynnwys diweddariadau ar:',
   ],
-  listOfBullets: ['court orders - welsh', 'hearings - welsh', 'decisions in your case - welsh'],
-  contactPreferenceLabel: 'How would you prefer to be contacted? - welsh',
-  contactPreferenceHintText: 'Select one (or both) of these options. - welsh',
-  labelDigital: 'Digital - welsh',
-  labelDitigalHintText: 'All communication from the court will be sent by email. - welsh',
-  labelPost: 'Post - welsh',
-  labelPostHintText: 'All communication from the court will be sent by post. - welsh',
+  listOfBullets: ['gorchmynion llys', 'gwrandawiadau', 'penderfyniadau ynghylch eich achos'],
+  contactPreferenceLabel: 'Sut hoffech inni gysylltu â chi?',
+  contactPreferenceHintText: 'Dewiswch un o’r opsiynau hyn (neu’r ddau).',
+  labelDigital: 'Digidol',
+  labelDitigalHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy e-bost.',
+  labelPost: 'Drwy’r post',
+  labelPostHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy’r post.',
   errors: {
     applicantContactPreferences: {
-      required: 'Please select a contact preference - welsh',
+      required: 'Dewiswch sut hoffech inni gysylltu â chi',
     },
   },
 });

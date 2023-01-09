@@ -113,6 +113,7 @@ const enTestContent = {
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
     enterCaseName: caseNameEnContent().title,
+    child: 'Child',
   },
 };
 const cyTestContent = {
@@ -134,7 +135,7 @@ const cyTestContent = {
     insetTextPayAndSubmit:
       ' <p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch cadw a dychwelyd yn nes ymlaen i gadw eich cais, neu dewiswch Talu a chyflwyno eich cais i gwblhau eich cais ar-lein.</p><p>Gallwch lwytho copi o’r cais i lawr mewn fformat PDF gan ddefnyddio’r ddolen.</p>',
     insetTextSubmit:
-      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
+      '<p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch ‘Cadw a dychwelyd yn hwyrach ymlaen’ i gadw eich cais, neu dewiswch ‘Cyflwyno eich cais’ i gwblhau eich cais ar-lein.</p><p>Gallwch ddefnyddio’r ddolen a ddarparwyd i chi i lawrlwytho copi PDF o’r cais yr ydych wedi’i gyflwyno.</p>',
     check: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir',
     lastPara:
       'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
@@ -146,8 +147,8 @@ const cyTestContent = {
       required: 'Cadarnhewch eich bod yn credu bod yr wybodaeth yn y cais hwn yn wir',
     },
     paymentError: {
-      title: 'There is a problem - welsh',
-      content: 'Your application is not submitted. Please try again - welsh',
+      title: 'Mae yna broblem',
+      content: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
     },
   },
   sectionTitles: {
@@ -214,6 +215,7 @@ const cyTestContent = {
     anotherReason: 'Rheswm arall',
     dontKnow: 'Ddim yn gwybod',
     enterCaseName: caseNameCyContent().title,
+    child: 'Plant',
   },
 };
 
