@@ -13,5 +13,8 @@ module.exports = {
     confirmValidReasonPageTitle: 'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
     dontHaveToAttendMiamPageTitle: 'You don’t have to attend a MIAM',
     altDontHaveToAttendMiamPageTitle: 'You do not have to attend a MIAM',
+    miamDocumentSignedPageTitle: 'Do you have a document signed by the mediator?',
+    uploadMiamCertificatePageTitle: 'Upload your MIAM certificate',
+    miamCertificateSummaryPageTitle: 'Your MIAM certificate has been uploaded',
     buttonContinue: 'Continue',
 };

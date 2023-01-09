@@ -65,6 +65,9 @@ module.exports = () => {
     goToMiam() {
       return GoToMiam.goToMiam();
     },
+    miamSignedDocument() {
+      return GoToMiam.miamSignedDocument();
+    },
     miamUrgent() {
       return GoToMiam.miamUrgent();
     },

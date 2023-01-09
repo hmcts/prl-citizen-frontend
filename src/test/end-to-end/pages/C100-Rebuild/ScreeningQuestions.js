@@ -21,16 +21,11 @@ module.exports = {
         reasonWhy3: '//*[@id="sq_anotherReason_subfield"]',
         explainWhyCourtDetails: '//*[@id="sq_permissionsRequest"]',
     },
-    async writtenAgreementYes() {
+    async writtenAgreementButton(agreementOption) {
         await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle);
-        await I.retry(retryCount).click(this.fields.writtenAgreementYes);
+        await I.retry(retryCount).click(agreementOption ? this.fields.writtenAgreementYes : this.fields.writtenAgreementNo);
         await I.retry(retryCount).click('Continue');
         I.waitForNavigation();
-    },
-    async writtenAgreementButton() {
-        await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle);
-        await I.retry(retryCount).click(this.fields.writtenAgreementNo);
-        await I.retry(retryCount).click('Continue');
     },
     async beforeYouGoToCourt() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.beforeYouGoToCourtPageTitle);
@@ -70,7 +65,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async screeningQuestions() {
-        await this.writtenAgreementButton();
+        await this.writtenAgreementButton(false);
         await this.beforeYouGoToCourt();
         await this.otherWaysToReachAnAgreement();
         await this.usingLegalRepresentative();
@@ -80,6 +75,6 @@ module.exports = {
     },
 
     async withDraftConsentOrder() {
-        await this.writtenAgreementYes();
+        await this.writtenAgreementButton(true);
     }
 };

@@ -6,8 +6,12 @@ module.exports = {
     miamOtherProceedingsYes: '//*[@id="miam_otherProceedings"]',
     miamOtherProceedingsNo: '//*[@id="miam_otherProceedings-2"]',
     iamConsentNo: '//*[@id="miam_consent"]',
+    miamAttendanceYes: '//*[@id="miam_attendance"]',
     miamAttendanceNo: '//*[@id="miam_attendance-2"]',
     miamMediatorDocumentNo: '//*[@id="miam_mediatorDocument-2"]',
+    //Miam Document
+    haveDocSignedYes: '//*[@id="miam_haveDocSigned"]',
+    haveDocSignedNo: '//*[@id="miam_haveDocSigned-2"]',
     //Valid Reasons for not attending MIAM
     validReasonYes: '//*[@id="miam_validReason"]',
     validReason1: '//*[@id="miam_nonAttendanceReasons"]',
@@ -57,14 +61,9 @@ module.exports = {
     notAttendingReason5: '//*[@id="miam_notAttendingReasons-5"]',
     notAttendingReason6: '//*[@id="miam_notAttendingReasons-6"]',
   },
-  async miamOtherProceedingsFlow() {
+  async miamOtherProceedings(otherProceedingsOption) {
     await I.retry(retryCount).waitForText(MiamContent.otherProceedingsPageTitle);
-    await I.retry(retryCount).click(this.fields.miamOtherProceedingsYes);
-    await I.retry(retryCount).click('Continue');
-  },
-  async miamOtherProceedings() {
-    await I.retry(retryCount).waitForText(MiamContent.otherProceedingsPageTitle);
-    await I.retry(retryCount).click(this.fields.miamOtherProceedingsNo);
+    await I.retry(retryCount).click(otherProceedingsOption ? this.fields.miamOtherProceedingsYes : this.fields.miamOtherProceedingsNo);
     await I.retry(retryCount).click('Continue');
   },
   async attendingMiam() {
@@ -73,10 +72,29 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.iamConsentNo);
     await I.retry(retryCount).click('Continue');
   },
-  async attendedMiam() {
+  async attendedMiam(attendedOption) {
     await I.retry(retryCount).waitForText(MiamContent.attendedMiamPageTitle);
-    await I.retry(retryCount).click(this.fields.miamAttendanceNo);
+    await I.retry(retryCount).click(attendedOption ? this.fields.miamAttendanceYes : this.fields.miamAttendanceNo);
     await I.retry(retryCount).click('Continue');
+  },
+  async miamDocumentSigned(documentSignedOption) {
+    await I.retry(retryCount).waitForText(MiamContent.miamDocumentSignedPageTitle);
+    await I.retry(retryCount).click(documentSignedOption ? this.fields.haveDocSignedYes : this.fields.haveDocSignedNo);
+    await I.retry(retryCount).click('Continue');
+  },
+  async uploadMiamCertificate() {
+     const uploadTime = 5;
+     await I.retry(retryCount).waitForText(MiamContent.uploadMiamCertificatePageTitle);
+     await I.retry(retryCount).attachFile('//*[@id="document"]', '../resource/dummy.pdf');
+     await I.runAccessibilityTest();
+     await I.retry(retryCount).wait(uploadTime);
+     await I.retry(retryCount).click('Upload file');
+     await I.retry(retryCount).wait(uploadTime);
+     await I.retry(retryCount).click('Continue');    
+  },
+  async miamCertificateSummary() {
+     await I.retry(retryCount).waitForText(MiamContent.miamCertificateSummaryPageTitle);
+     await I.retry(retryCount).click('Continue');
   },
   async medidatorConfirmed() {
     await I.retry(retryCount).waitForText(MiamContent.medidatorConfirmedPageTitle);
@@ -166,10 +184,11 @@ module.exports = {
     await I.retry(retryCount).waitForText(MiamContent.altDontHaveToAttendMiamPageTitle);
     await I.retry(retryCount).click('Continue');
   },
+  //Basic Flow
   async goToMiam() {
-    await this.miamOtherProceedings();
+    await this.miamOtherProceedings(false);
     await this.attendingMiam();
-    await this.attendedMiam();
+    await this.attendedMiam(false); 
     await this.medidatorConfirmed();
     await this.validReasonsMiam();
     await this.validReasonWhat();
@@ -179,8 +198,20 @@ module.exports = {
     await this.confirmValidReason();
     await this.dontHaveToAttendMiam();
   },
+
+ //Basic Flow with signed document
+ async miamSignedDocument() {
+  await this.miamOtherProceedings(false);
+  await this.attendingMiam();
+  await this.attendedMiam(true);
+  await this.miamDocumentSigned(true);
+  await this.uploadMiamCertificate();
+  await this.miamCertificateSummary();
+},
+
+  //Miam Urgency Flow
   async miamUrgent() {
-    await this.miamOtherProceedings();
+    await this.miamOtherProceedings(false);
     await this.attendingMiam();
     await this.attendedMiam();
     await this.medidatorConfirmed();
@@ -189,8 +220,10 @@ module.exports = {
     await this.urgentHearingRisks();
     await this.dontHaveToAttendMiam();
   },
+
+  //Other Proceedings Flow
   async miamOtherProceedingsEvent() {
-    await this.miamOtherProceedingsFlow();
+    await this.miamOtherProceedings(true);
     await this.altDontHaveToAttendMiam();
   }
 };
