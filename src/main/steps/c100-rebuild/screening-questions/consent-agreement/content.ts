@@ -12,6 +12,7 @@ export const en = () => ({
   one: 'Yes',
   two: 'No',
   infoDetail: 'You will be asked to upload the draft consent order later in the application.',
+  findOut: 'Find out more about alternative routes of reaching an agreement.',
   errors: {
     sq_writtenAgreement: {
       required:
@@ -29,6 +30,7 @@ export const cy = () => ({
   one: 'Oes',
   two: 'Nac oes',
   infoDetail: "Gofynnir i chi lwytho'r gorchymyn cydsynio drafft yn nes ymlaen yn y cais.",
+  findOut: 'Find out more about alternative routes of reaching an agreement.',
   errors: {
     sq_writtenAgreement: {
       required:

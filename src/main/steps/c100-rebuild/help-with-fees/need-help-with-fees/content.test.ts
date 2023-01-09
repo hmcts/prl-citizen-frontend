@@ -31,7 +31,7 @@ const cy = {
   headingTitle: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
   paragraph1: 'Cost y cais hwn £',
   paragraph2:
-    '. You may be able to get help with paying the fee if \n you have little or no savings, and either: - welsh',
+    '. Mae’n bosibl y gallwch gael help i dalu’r ffi os  \n nad oes gennych fawr ddim cynilion, neu ddim cynilion o gwbl, a naill ai:',
   line1: 'cael budd-daliadau penodol',
   line2: 'ar incwm isel',
   seeEligbilityHyperLink:
