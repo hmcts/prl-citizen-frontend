@@ -65,6 +65,9 @@ module.exports = () => {
     goToMiam() {
       return GoToMiam.goToMiam();
     },
+    miamUrgent(){
+      return GoToMiam.miamUrgent();
+    },
     typeOfOrder() {
       return TypeOfOrder.typeOfOrder();
     },

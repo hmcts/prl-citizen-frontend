@@ -11,6 +11,7 @@ module.exports = {
     validReasonYes: '//*[@id="miam_validReason"]',
     validReason1: '//*[@id="miam_nonAttendanceReasons"]',
     validReason2: '//*[@id="miam_nonAttendanceReasons-2"]',
+    validReason3: '//*[@id="miam_nonAttendanceReasons-3"]',
     validReason4: '//*[@id="miam_nonAttendanceReasons-4"]',
     validReason5: '//*[@id="miam_nonAttendanceReasons-5"]',
     //Evidence of Domestic Abuse
@@ -29,6 +30,16 @@ module.exports = {
     //Child Protection
     childProtection1: '//*[@id="miam_childProtectionEvidence"]',
     childProtection2: '//*[@id="miam_childProtectionEvidence-2"]',
+    //Urgent Hearing
+    urgentHearing1: '//*[@id="miam_urgency"]',
+    urgentHearing2: '//*[@id="miam_urgency-2"]',
+    urgentHearing3: '//*[@id="miam_urgency-3"]',
+    urgentHearing4: '//*[@id="miam_urgency-4"]',
+    urgentHearing5: '//*[@id="miam_urgency-5"]',
+    urgentHearing6: '//*[@id="miam_urgency-6"]',
+    urgentHearing7: '//*[@id="miam_urgency-7"]',
+    urgentHearing8: '//*[@id="miam_urgency-8"]',
+    urgentHearing9: '//*[@id="miam_urgency-9"]',
     //Previous Attendance
     previousAttendance: '//*[@id="miam_previousAttendance"]',
     previousAttendance2: '//*[@id="miam_previousAttendance-2"]',
@@ -77,6 +88,25 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.validReason2);
     await I.retry(retryCount).click(this.fields.validReason4);
     await I.retry(retryCount).click(this.fields.validReason5);
+    await I.retry(retryCount).click('Continue');
+  },
+  async validReasonUrgent() {
+    await I.retry(retryCount).waitForText(MiamContent.validReasonWhatPageTitle);
+    await I.retry(retryCount).click(this.fields.validReason3);
+    await I.retry(retryCount).click('Continue');
+  },
+  async urgentHearingRisks() {
+    await I.retry(retryCount).waitForText(MiamContent.urgentHearingTitle);
+    await I.retry(retryCount).click(this.fields.urgentHearing1);
+    await I.retry(retryCount).click(this.fields.urgentHearing2);
+    I.wait('2');
+    await I.retry(retryCount).click(this.fields.urgentHearing3);
+    await I.retry(retryCount).click(this.fields.urgentHearing4);
+    await I.retry(retryCount).click(this.fields.urgentHearing5);
+    await I.retry(retryCount).click(this.fields.urgentHearing6);
+    await I.retry(retryCount).click(this.fields.urgentHearing7);
+    await I.retry(retryCount).click(this.fields.urgentHearing8);
+    await I.retry(retryCount).click(this.fields.urgentHearing9);
     await I.retry(retryCount).click('Continue');
   },
   async evidenceDomesticAbuse() {
@@ -139,4 +169,14 @@ module.exports = {
     await this.confirmValidReason();
     await this.dontHaveToAttendMiam();
   },
+  async miamUrgent() {
+    await this.miamOtherProceedings();
+    await this.attendingMiam();
+    await this.attendedMiam();
+    await this.medidatorConfirmed();
+    await this.validReasonsMiam();
+    await this.validReasonUrgent();
+    await this.urgentHearingRisks();
+    await this.dontHaveToAttendMiam();
+  }
 };
