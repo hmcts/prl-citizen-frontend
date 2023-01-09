@@ -1,0 +1,16 @@
+module.exports = {
+    testingText: 'Testing Text',
+    otherProceedingPageTitle: 'Have you or the children ever been involved in court proceedings?',
+    otherProceedingTopSubHeading: 'Have the children been involved in a court case?',
+    otherProceedingBottomSubHeading: 'Have you had a court order made for your protection?',
+    proceedingDetailsPageTitle: 'Provide details of court cases you or the children have been involved in',
+    provideDetailsOfCourtCasesPageTitle: 'Provide details of court cases you or the children have been involved in',
+    provideDetailsOfCourtCasesSubHeading: 'Child Arrangements Order',
+    caseNumber: 'CN-12345678',
+    day: '24',
+    month: '02',
+    year: '2005',
+    uploadOrderPageTitle: 'Upload Child Arrangements Order',
+    uploadOrderSummaryInfo: 'You have uploaded details of your past and current proceedings. These will be reviewed by the court once you submit the application.',
+    uploadOrderSummary: 'What you have uploaded',
+};
