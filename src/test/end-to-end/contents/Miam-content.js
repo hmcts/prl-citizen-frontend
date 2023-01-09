@@ -8,8 +8,13 @@ module.exports = {
     validReasonWhatPageTitle: 'What are your valid reasons for not attending a MIAM?',
     evidenceDomesticAbusePageTitle: 'Do you have any of the following evidence of domestic violence or abuse?',
     evidenceChildProtectionPageTitle: 'What evidence of child protection concerns do you have?',
+    urgentHearingTitle: 'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
     previousAttendMiamPageTitle: 'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     confirmValidReasonPageTitle: 'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
     dontHaveToAttendMiamPageTitle: 'You don’t have to attend a MIAM',
+    altDontHaveToAttendMiamPageTitle: 'You do not have to attend a MIAM',
+    miamDocumentSignedPageTitle: 'Do you have a document signed by the mediator?',
+    uploadMiamCertificatePageTitle: 'Upload your MIAM certificate',
+    miamCertificateSummaryPageTitle: 'Your MIAM certificate has been uploaded',
     buttonContinue: 'Continue',
 };

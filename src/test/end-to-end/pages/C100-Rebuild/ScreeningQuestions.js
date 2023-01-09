@@ -5,6 +5,7 @@ const retryCount = 3;
 module.exports = {
     fields: {
         writtenAgreementNo: '//*[@id="sq_writtenAgreement-2"]',
+        writtenAgreementYes: '//*[@id="sq_writtenAgreement"]',
         testingText: 'Testing text area',
         reachingAgreementYes: '//*[@id="sq_alternativeRoutes"]',
         alternativeOptionTextBox: '//*[@id="sq_agreementReason"]',
@@ -20,10 +21,11 @@ module.exports = {
         reasonWhy3: '//*[@id="sq_anotherReason_subfield"]',
         explainWhyCourtDetails: '//*[@id="sq_permissionsRequest"]',
     },
-    async writtenAgreementButton() {
+    async writtenAgreementButton(agreementOption) {
         await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle);
-        await I.retry(retryCount).click(this.fields.writtenAgreementNo);
+        await I.retry(retryCount).click(agreementOption ? this.fields.writtenAgreementYes : this.fields.writtenAgreementNo);
         await I.retry(retryCount).click('Continue');
+        I.waitForNavigation();
     },
     async beforeYouGoToCourt() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.beforeYouGoToCourtPageTitle);
@@ -63,7 +65,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async screeningQuestions() {
-        await this.writtenAgreementButton();
+        await this.writtenAgreementButton(false);
         await this.beforeYouGoToCourt();
         await this.otherWaysToReachAnAgreement();
         await this.usingLegalRepresentative();
@@ -71,4 +73,7 @@ module.exports = {
         await this.permissionFromCourtWhy();
         await this.whyCourtShouldGrant();
     },
+    async withDraftConsentOrder() {
+        await this.writtenAgreementButton(true);
+    }
 };

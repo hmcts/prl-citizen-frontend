@@ -1,13 +1,11 @@
 const EnterPinPage = require('./pages/EnterPinPage');
 const Login = require('./pages/LoginPage');
-const CitizenLoginPage = require('./pages/C100-Rebuild/CitizenLoginPage');
-// const CitizenLoginPage = require('./pages/C100-Rebuild/CitizenLoginPage');
+//const HomePage = require('./pages/HomePage');
 const InternationalElement = require('./pages/InternationalElement');
 const CurrentOrPreviousProceedings = require('./pages/CurrentOrPreviousProceedings');
 const ConsentToApplication = require('./pages/ConsentToApplication');
-const SupportYouNeedApplicant = require('./pages/SupportYouNeedDuringYourCase-Applicant');
-const SupportYouNeedRespondent = require('./pages/SupportYouNeedDuringYourCase-RespondentCADA');
-const UploadDocuments = require('./pages/UploadDocuments');
+//const SupportYouNeed = require('./pages/SupportYouNeedDuringYourCase');
+const CitizenLoginPage = require('./pages/C100-Rebuild/CitizenLoginPage');
 const CreateApplication = require('./pages/C100-Rebuild/CreateApplication');
 const CaseNameAndPostCode = require('./pages/C100-Rebuild/CaseNameAndPostCode');
 const ScreeningQuestions = require('./pages/C100-Rebuild/ScreeningQuestions'); 
@@ -24,9 +22,8 @@ const InternationElement = require('./pages/C100-Rebuild/InternationElement');
 const ReasonableAdjustments = require('./pages/C100-Rebuild/ReasonableAdjustments');
 const HelpWithFees = require('./pages/C100-Rebuild/HelpWithFees');
 const CheckYourAnswers = require('./pages/C100-Rebuild/CheckYourAnswers');
-
-const SupportYouNeedRespondent = require('./pages/SupportYouNeedDuringYourCase-RespondentCADA');
-const UploadDocuments = require('./pages/UploadDocuments');
+const ConsentOrder = require('./pages/C100-Rebuild/ConsentOrder');
+const CheckYourAnswersSimple = require('./pages/C100-Rebuild/CheckYourAnswersSimple');
 
 
 module.exports = () => {
@@ -47,15 +44,6 @@ module.exports = () => {
     consentToApplication() {
       return ConsentToApplication.consentToApplicationHappyPath();
     },
-    supportYouNeedDuringYourCaseApplicant() {
-      return SupportYouNeedApplicant.supportYouNeedHappyPath();
-    },
-    supportYouNeedDuringYourCaseRespondent() {
-      return SupportYouNeedRespondent.supportYouNeedHappyPath();
-    },
-    uploadDocuments () {
-        return UploadDocuments.clickUploadDocuments();
-    },
     // supportYouNeedDuringYourCase() {
     //   return SupportYouNeed.supportYouNeedHappyPath();
     // },
@@ -71,8 +59,20 @@ module.exports = () => {
     screeningQuestions() {
       return ScreeningQuestions.screeningQuestions();
     },
+    withDraftConsentOrder() {
+      return ScreeningQuestions.withDraftConsentOrder();
+    },
     goToMiam() {
       return GoToMiam.goToMiam();
+    },
+    miamSignedDocument() {
+      return GoToMiam.miamSignedDocument();
+    },
+    miamUrgent() {
+      return GoToMiam.miamUrgent();
+    },
+    miamOtherProceedingsEvent() {
+      return GoToMiam.miamOtherProceedingsEvent();
     },
     typeOfOrder() {
       return TypeOfOrder.typeOfOrder();
@@ -109,6 +109,12 @@ module.exports = () => {
     },
     checkYourAnswersEvent() {
       return CheckYourAnswers.checkYourAnswersEvent();
+    },
+    checkYourAnswersSimpleEvent() {
+      return CheckYourAnswersSimple.checkYourAnswersSimple();
+    },
+    draftConsentOrder() {
+      return ConsentOrder.draftConsentOrder();
     }
   });
 };
