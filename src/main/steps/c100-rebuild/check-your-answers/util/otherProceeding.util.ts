@@ -45,6 +45,8 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
         let valueDetails = '';
         if (key === 'currentOrder') {
           valueDetails = HTML.P + getYesNoTranslation(language, value, 'ieTranslation') + HTML.P_CLOSE;
+        } else if (key === 'copyOfOrderLabel') {
+          valueDetails = HTML.P + getYesNoTranslation(language, value, 'oesTranslation') + HTML.P_CLOSE;
         } else {
           valueDetails = HTML.P + value + HTML.P_CLOSE;
         }

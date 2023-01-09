@@ -80,7 +80,7 @@ describe('test cases for hearing details', () => {
         sessionKey,
         language
       )
-    ).toBe('No ');
+    ).toBe('No');
   });
 
   test('hearingDetailsQualifyForFirstHearingHelper > values undefined > alternative', () => {
@@ -97,7 +97,7 @@ describe('test cases for hearing details', () => {
         language
       )
     ).toBe(
-      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>reasonForUrgentHearing</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>giveDetailsOtherRisks</h4><p>hu_otherRiskDetails</p><h4>timeOfHearing</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><p>No </p>'
+      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>reasonForUrgentHearing</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>giveDetailsOtherRisks</h4><p>hu_otherRiskDetails</p><h4>timeOfHearing</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><p>No</p>'
     );
   });
 });

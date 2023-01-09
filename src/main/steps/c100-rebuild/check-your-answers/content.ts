@@ -67,7 +67,10 @@ export const enContent = {
   makingSure: 'Please review your answers before you finish your application.',
   continue: 'Accept and continue',
   Yes: 'Yes',
-  No: 'No ',
+  No: 'No',
+  'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
+  'No, I would prefer the other people do not spend time with the children':
+    'No, I would prefer the other people do not spend time with the children',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -83,6 +86,19 @@ export const enContent = {
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
     payAndSubmitButton: 'Pay and submit your application',
     SubmitButton: 'Submit your application',
+    Mother: 'Mother',
+    Father: 'Father',
+    Guardian: 'Guardian',
+    'Special Guardian': 'Special Guardian',
+    None: 'None',
+    Other: 'Other',
+    Digital: 'Digital',
+    Post: 'Post',
+    address: 'Address',
+    telephone: 'Telephone',
+    email: 'E-mail',
+    Male: 'Male',
+    Female: 'Female',
   },
   errors: {
     statementOfTruth: {
@@ -191,6 +207,19 @@ export const cyContent = {
       'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
     payAndSubmitButton: 'Talu a cyflwyno eich cais',
     SubmitButton: 'Cyflwyno eich cais',
+    Mother: 'Mam',
+    Father: 'Tad',
+    Guardian: 'Gwarcheidwad',
+    'Special Guardian': 'Gwarcheidwad Arbennig',
+    None: 'Nain/Taid',
+    Other: 'Arall',
+    Digital: 'Digidol',
+    Post: 'Drwy’r post',
+    address: 'Cyfeiriad',
+    telephone: 'Rhif ffôn',
+    email: 'E-bost',
+    Male: 'Gwryw',
+    Female: 'Benyw',
   },
   errors: {
     statementOfTruth: {
@@ -489,7 +518,7 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   };
 };
 
-export const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
+export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
   // if on sreening screen enable Yes
