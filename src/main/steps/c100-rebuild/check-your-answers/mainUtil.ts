@@ -1475,22 +1475,6 @@ export const genderChose=(choice, language): string=> {
   if(language==='cy'){
     value = cyContent?.[choice];
   }
-//   if (choice !== '') {
-//     if(language==='cy'){
-//         switch(choice){
-//             case 'Male': {
-//                 return 'Gwryw';
-// }
-//             case 'Female': {
-//                 return 'Benyw';
-// }
-//             case 'Other': {
-//   return 'Arall';
-// }
-//             }
-//         }
-//         else {return choice;}
-//     }
     return value ||'';
 };
 const translation=(choice, language)=> {
@@ -1498,21 +1482,6 @@ const translation=(choice, language)=> {
 if(language==='cy'){
   value = cyContent?.[choice];
 }
-//     if(language==='cy'){
-//         switch(choice){
-//             case 'address': {
-//                 return 'Cyfeiriad';
-// }
-//             case 'telephone': {
-//                 return 'Rhif ffôn';
-// }
-//             case 'email': {
-//   return 'E-bost';
-// }
-//             }
-//         }
-
-//         else {return choice;}
     return value ||'';
 };
 
@@ -1521,17 +1490,6 @@ const contactTranslation=(preferences, language)=> {
 if(language==='cy'){
   value = cyContent?.[preferences];
 }
-//     if(language==='cy'){
-//         switch(preferences){
-//             case 'Digital': {
-//                 return 'Digidol';
-// }
-//             case 'Post': {
-//                 return 'Drwy’r post';
-// }
-//             }
-//         }
-//         else {return preferences;}
     return value ||'';
 };
 export const getYesNoTranslation = (language, data, ctx): string=>{
@@ -1546,28 +1504,6 @@ let value = enContent?.[choice];
 if(language==='cy'){
   value = cyContent?.[choice];
 }
-//     switch(choice){
-//         case 'Mother': {
-//             return 'Mam';
-//         }
-//         case 'Father': {
-//             return 'Tad';
-//         }
-//         case 'Guardian': {
-//             return 'Gwarcheidwad';
-//         }
-//         case 'Special Guardian': {
-//             return 'Gwarcheidwad Arbennig';
-//         }
-//         case 'None': {
-//             return 'Nain/Taid';
-//         }
-//         case 'Other': {
-//             return 'Arall ';
-//         }
-//       }
-//   }
-// else {return choice;}
 return value || '';
 };
 
