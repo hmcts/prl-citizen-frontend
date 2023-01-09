@@ -1470,7 +1470,7 @@ export const reasonableAdjustment = (
   };
 };
 
-export function genderChose(choice: string, language: string|undefined): string {
+export const genderChose=(choice, language): string=> {
   let value = enContent?.[choice];
   if(language==='cy'){
     value = cyContent?.[choice];
@@ -1492,8 +1492,8 @@ export function genderChose(choice: string, language: string|undefined): string 
 //         else {return choice;}
 //     }
     return value ||'';
-}
-function translation(choice: string, language: string | undefined) {
+};
+const translation=(choice, language)=> {
   let value = enContent?.[choice];
 if(language==='cy'){
   value = cyContent?.[choice];
@@ -1514,9 +1514,9 @@ if(language==='cy'){
 
 //         else {return choice;}
     return value ||'';
-}
+};
 
-function contactTranslation(preferences: string, language: string | undefined) {
+const contactTranslation=(preferences, language)=> {
   let value = enContent?.[preferences];
 if(language==='cy'){
   value = cyContent?.[preferences];
@@ -1533,7 +1533,7 @@ if(language==='cy'){
 //         }
 //         else {return preferences;}
     return value ||'';
-}
+};
 export const getYesNoTranslation = (language, data, ctx): string=>{
   let value = enContent?.[data];
   if(language === 'cy') {
@@ -1541,7 +1541,7 @@ export const getYesNoTranslation = (language, data, ctx): string=>{
   }
   return value || '';
   };
-function relationshipTranslation(choice: string, language: string | undefined): string {
+const relationshipTranslation=(choice, language): string=> {
 let value = enContent?.[choice];
 if(language==='cy'){
   value = cyContent?.[choice];
@@ -1569,5 +1569,5 @@ if(language==='cy'){
 //   }
 // else {return choice;}
 return value || '';
-}
+};
 
