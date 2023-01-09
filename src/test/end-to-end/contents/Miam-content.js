@@ -12,5 +12,6 @@ module.exports = {
     previousAttendMiamPageTitle: 'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
     confirmValidReasonPageTitle: 'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
     dontHaveToAttendMiamPageTitle: 'You don’t have to attend a MIAM',
+    altDontHaveToAttendMiamPageTitle: 'You do not have to attend a MIAM',
     buttonContinue: 'Continue',
 };

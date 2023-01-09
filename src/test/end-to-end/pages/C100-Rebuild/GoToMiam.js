@@ -3,6 +3,7 @@ const I = actor();
 const retryCount = 3;
 module.exports = {
   fields: {
+    miamOtherProceedingsYes: '//*[@id="miam_otherProceedings"]',
     miamOtherProceedingsNo: '//*[@id="miam_otherProceedings-2"]',
     iamConsentNo: '//*[@id="miam_consent"]',
     miamAttendanceNo: '//*[@id="miam_attendance-2"]',
@@ -55,6 +56,11 @@ module.exports = {
     notAttendingReason4: '//*[@id="miam_notAttendingReasons-4"]',
     notAttendingReason5: '//*[@id="miam_notAttendingReasons-5"]',
     notAttendingReason6: '//*[@id="miam_notAttendingReasons-6"]',
+  },
+  async miamOtherProceedingsFlow() {
+    await I.retry(retryCount).waitForText(MiamContent.otherProceedingsPageTitle);
+    await I.retry(retryCount).click(this.fields.miamOtherProceedingsYes);
+    await I.retry(retryCount).click('Continue');
   },
   async miamOtherProceedings() {
     await I.retry(retryCount).waitForText(MiamContent.otherProceedingsPageTitle);
@@ -156,6 +162,10 @@ module.exports = {
     await I.retry(retryCount).waitForText(MiamContent.dontHaveToAttendMiamPageTitle);
     await I.retry(retryCount).click('Continue');
   },
+  async altDontHaveToAttendMiam() {
+    await I.retry(retryCount).waitForText(MiamContent.altDontHaveToAttendMiamPageTitle);
+    await I.retry(retryCount).click('Continue');
+  },
   async goToMiam() {
     await this.miamOtherProceedings();
     await this.attendingMiam();
@@ -178,5 +188,9 @@ module.exports = {
     await this.validReasonUrgent();
     await this.urgentHearingRisks();
     await this.dontHaveToAttendMiam();
+  },
+  async miamOtherProceedingsEvent() {
+    await this.miamOtherProceedingsFlow();
+    await this.altDontHaveToAttendMiam();
   }
 };
