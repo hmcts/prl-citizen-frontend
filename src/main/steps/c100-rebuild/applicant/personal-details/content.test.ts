@@ -89,7 +89,7 @@ const cy = {
     applPreviousName: {
       required: 'Nodwch eich enwau blaenorol',
       invalid:
-        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     dateOfBirth: {
       required: 'Nodwch ei ddyddiad geni',

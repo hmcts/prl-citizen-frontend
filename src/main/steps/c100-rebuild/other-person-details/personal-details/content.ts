@@ -100,7 +100,7 @@ const cy = () => ({
     previousFullName: {
       required: 'Nodwch eu henw blaenorol',
       invalid:
-        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     gender: {
       required: 'Dewiswch y rhywedd',

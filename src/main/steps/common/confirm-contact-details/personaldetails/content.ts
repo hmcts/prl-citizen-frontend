@@ -59,12 +59,12 @@ const cy: typeof en = {
     citizenUserFirstNames: {
       required: 'Rhowch Eich enw cyntaf',
       invalid:
-        ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
+        ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     citizenUserLastNames: {
       required: 'Rhowch Eich Enw Diwethaf',
       invalid:
-        ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
+        ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     citizenUserPlaceOfBirth: {
       required: 'Rhowch Eich Man Geni',
@@ -72,7 +72,7 @@ const cy: typeof en = {
     },
     previousName: {
       invalid:
-        ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
+        ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     citizenUserDateOfBirth: {
       required: 'Enter your date of birth',

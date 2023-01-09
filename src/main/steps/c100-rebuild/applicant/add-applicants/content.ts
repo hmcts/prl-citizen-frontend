@@ -41,12 +41,12 @@ const cy = () => ({
     applicantFirstName: {
       required: 'Nodwch yr enw cyntaf',
       invalid:
-        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     applicantLastName: {
       required: 'Nodwch yr enw olaf',
       invalid:
-        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
   },
 });
@@ -79,7 +79,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
           labelSize: 'none',
           classes: 'govuk-input govuk-!-width-one-half',
           label: l => l.firstName,
-          validator: value => isFieldFilledIn(value as string) || isFieldLetters(value),
+          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
         },
         [`ApplicantLastName-${count}`]: {
           type: 'text',
