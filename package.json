@@ -23,9 +23,9 @@
     "sonar-scan": "sonar-scanner",
     "test:smoke": "echo 'smoke tests disabled temporarily for setup' && exit 0",
     "test:functional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js",
-    "test:fullfunctional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js",
+    "test:fullfunctional": "run-p test:pa11y",
     "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
-    "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
+    "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",    
     "cichecks": "yarn && run-p build lint test",
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",
     "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
@@ -168,14 +168,13 @@
     "webpack-node-externals": "^3.0.0"
   },
   "resolutions": {
-    "babel-loader/loader-utils": "^2.0.4",
-    "decode-uri-component": "^0.2.1",
-    "qs": "^6.9.7",
-    "got": "^11.8.5",
-    "minimatch": "^3.0.5",
-    "flat": "^5.0.1",
-    "serialize-javascript": "^3.1.0",
-    "json5": "^2.2.2",
-    "engine.io": "^6.2.1"
+    "moment": "2.29.4",
+    "validator": "13.7.0",
+    "serialize-javascript": ">=3.1.0",
+    "axios": ">=0.21.2",
+    "got": "11.8.5",
+    "glob-parent": ">=6.0.1",
+    "ssri": ">=6.0.2",
+    "minimatch": " >=3.0.5"
   }
 }
