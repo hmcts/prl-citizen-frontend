@@ -25,7 +25,6 @@ module.exports = {
         await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle);
         await I.retry(retryCount).click(agreementOption ? this.fields.writtenAgreementYes : this.fields.writtenAgreementNo);
         await I.retry(retryCount).click('Continue');
-        I.waitForNavigation();
     },
     async beforeYouGoToCourt() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.beforeYouGoToCourtPageTitle);
