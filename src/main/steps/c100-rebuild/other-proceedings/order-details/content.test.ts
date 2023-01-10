@@ -40,6 +40,10 @@ const en = {
   isCurrentOrderLabel: 'Is this a current order? (optional)',
   copyOfOrderLabel: 'Do you have a copy of the order? (optional)',
   addOrderLabel: 'Add another order',
+  yes1: 'Yes',
+  no1: 'No',
+  yes2: 'Yes',
+  no2: 'No',
   errors: {
     orderDate: {
       invalidDate: 'Order date must be a real date',
@@ -88,6 +92,10 @@ const cy = {
   isCurrentOrderLabel: 'Ai gorchymyn cyfredol yw hwn? (dewisol)',
   copyOfOrderLabel: 'A oes gennych chi gopi o’r gorchymyn? (dewisol)',
   addOrderLabel: 'Ychwanegu gorchymyn arall',
+  yes1: 'Ie',
+  no1: 'Na',
+  yes2: 'Oes',
+  no2: 'Nac oes',
   errors: {
     orderDate: {
       invalidDate: 'Rhaid i ddyddiad y gorchymyn fod yn ddyddiad go iawn',

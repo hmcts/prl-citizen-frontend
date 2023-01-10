@@ -30,25 +30,25 @@ const dummy = [
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_START',
     key: 'liveOutSideUk',
     valueHtml:
-      '<p>ie_internationalStart</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsStart</p>',
+      '<p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsStart</p>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_PARENTS',
     key: 'basedOutSideEnglandOrWales',
     valueHtml:
-      '<p>ie_internationalParents</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsParents</p>',
+      '<p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsParents</p>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_JURISDICTION',
     key: 'anotherPersonSameOrder',
     valueHtml:
-      '<p>ie_internationalJurisdiction</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsJurisdiction</p>',
+      '<p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsJurisdiction</p>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_REQUEST',
     key: 'otherCountryRequestInfo',
     valueHtml:
-      '<p>ie_internationalRequest</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsRequest</p>',
+      '<p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsRequest</p>',
   },
 ];
 
@@ -74,11 +74,11 @@ const dummyTwo = [
     valueHtml: '<p></p>',
   },
 ];
-
+const language = 'en';
 test('InternaElementHelper', () => {
-  expect(InternationElementHelper(userCase, keys, Urls)).toStrictEqual(dummy);
+  expect(InternationElementHelper(userCase, keys, Urls, language)).toStrictEqual(dummy);
 });
 
 test('InternaElementHelper without valueHTML', () => {
-  expect(InternationElementHelper({}, keys, Urls)).toStrictEqual(dummyTwo);
+  expect(InternationElementHelper({}, keys, Urls, language)).toStrictEqual(dummyTwo);
 });

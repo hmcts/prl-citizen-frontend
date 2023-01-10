@@ -6,10 +6,10 @@ import { ANYTYPE } from './index';
  * @returns A string
  */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const DATE_FORMATTOR = (date): string => {
+export const DATE_FORMATTOR = (date, language): string => {
   if (date['year'] !== '' && date['month'] !== '' && date['day'] !== '') {
     const formated_Date = new Date(date['year'], date['month'] - 1, date['day']);
-    const month = formated_Date.toLocaleString('default', { month: 'long' });
+    const month = formated_Date.toLocaleString(language || 'default', { month: 'long' });
     return formated_Date.getDate() + ' ' + month + ' ' + formated_Date.getFullYear();
   } else {
     const formattedDate = Object.values(date)

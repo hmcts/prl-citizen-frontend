@@ -37,7 +37,7 @@ const cy = {
   serviceName: 'Trefniadau plant',
   caption: 'Cychwyn arni',
   headingTitle: 'Beth fydd arnoch ei angen i gwblhau eich cais',
-  subTitle1: 'You will need to have: - welsh',
+  subTitle1: 'Bydd angen i chi gael:',
   subTitle2: 'Efallai y byddwch hefyd angen:',
   paraGraph1:
     "Os ydych yn gwneud cais am orchymyn i ffurfioli trefniant (gorchymyn cydsynio) gwnewch yn siŵr bod gennych gytundeb ysgrifenedig wedi’i lofnodi gan yr atebydd mewn lle, cyn i  chi ddechrau'r cais.",
