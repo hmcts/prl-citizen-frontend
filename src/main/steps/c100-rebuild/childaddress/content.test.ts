@@ -42,8 +42,8 @@ const cy = {
     "Rydym yn defnyddio 'plant' fel term cyffredinol i gyfeirio at blentyn neu blant. Rydyn ni'n gwneud hyn er mwyn osgoi ailadrodd.",
   errors: {
     c100RebuildChildPostCode: {
-      required: 'Enter a full postcode, with or without a space - welsh',
-      invalid: 'Enter a valid full postcode, with or without a space - welsh',
+      required: 'Rhowch god post llawn, gyda neu heb fwlch yn y canol',
+      invalid: 'Rhowch god post llawn dilys, gyda neu heb fwlch yn y canol',
     },
   },
 };
