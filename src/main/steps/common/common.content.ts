@@ -117,8 +117,8 @@ const en = {
 const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
-  applyForChildArrangements: 'Private Law" (in welsh)',
-  applyForDissolution: 'Private Law"(in welsh)',
+  applyForChildArrangements: 'Cyfraith breifat',
+  applyForDissolution: 'Cyfraith breifat',
   c100ServiceName: 'Trefniadau plant',
   feedback:
     'Mae hwn yn wasanaeth newydd - bydd eich <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">adborth</a> yn ein helpu ni i’w wella.',
@@ -143,10 +143,10 @@ const cy: typeof en = {
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Allgofnodi',
   signIn: 'Sign in (in welsh)',
-  accessibility: 'Accessibility statement(in welsh)',
-  cookies: 'Cookies (in welsh)',
-  privacyPolicy: 'Privacy policy (in welsh)',
-  termsAndConditions: 'Terms and conditions (in welsh)',
+  accessibility: 'Datganiad hygyrchedd',
+  cookies: 'Cwcis',
+  privacyPolicy: 'Polisi preifatrwydd',
+  termsAndConditions: 'Telerau ac amodau',
   marriage: 'priodas',
   divorce: 'ysgariad',
   endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
