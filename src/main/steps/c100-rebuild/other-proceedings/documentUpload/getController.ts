@@ -30,7 +30,7 @@ export default class DocumentUpload extends GetController {
 
   public async removeDocument(req: AppRequest, res: Response): Promise<void> {
     const { removeId, orderType, orderId } = req.params;
-    this.removeExistingDocument(removeId as string, req, res, orderType as string, orderId as string);
+    this.removeExistingDocument(removeId, req, res, orderType, orderId);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

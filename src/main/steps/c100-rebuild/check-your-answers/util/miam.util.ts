@@ -31,8 +31,7 @@ export class CommonDataLoader {
     const storage: ANYTYPE = [];
     UserCase[key].forEach(element => {
       if (UserCase.hasOwnProperty(`${key}_${element}`)) {
-        let val = UserCase[`${key}_${element}`].filter(item => item !== '');
-        val = element + '_subFields';
+        const val = element + '_subFields';
         storage.push(val);
       } else {
         storage.push(element);
@@ -91,12 +90,12 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseCy().letterOfBeingVictim_subFields,
           ...DomesticAbuseCy().letterFromAuthority_subFields,
           ...GeneralContentCy(),
-          generalReasonTitle: GeneralContentEn().title,
-          domesticViolenceHead: GeneralContentEn().domesticViolence,
-          childProtectionHead: GeneralContentEn().childProtection,
-          urgentHearingHead: GeneralContentEn().urgentHearing,
-          previousMIAMOrExemptHead: GeneralContentEn().previousMIAMOrExempt,
-          validExemptionHead: GeneralContentEn().validExemption,
+          generalReasonTitle: GeneralContentCy().title,
+          domesticViolenceHead: GeneralContentCy().domesticViolence,
+          childProtectionHead: GeneralContentCy().childProtection,
+          urgentHearingHead: GeneralContentCy().urgentHearing,
+          previousMIAMOrExemptHead: GeneralContentCy().previousMIAMOrExempt,
+          validExemptionHead: GeneralContentCy().validExemption,
         } as ANYTYPE;
         return { ...data };
       },

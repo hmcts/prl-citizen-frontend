@@ -1,4 +1,4 @@
-import { CaseDate } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -78,8 +78,8 @@ const cy = () => ({
   DontKnowOptionLabel: 'Ddim yn gwybod',
   genderLabelText: 'Rhyw',
   otherGenderTextLabel: 'Rhowch fanylion',
-  maleOptionLabel: 'Benyw',
-  femaleOptionLabel: 'Gwryw',
+  maleOptionLabel: 'Gwryw',
+  femaleOptionLabel: 'Benyw',
   otherOptionLabel: 'Maen nhw’n uniaethu mewn ffordd arall',
   dobLabel: 'Dyddiad geni',
   approxCheckboxLabel: 'Nid wyf yn gwybod beth yw eu dyddiad geni',
@@ -334,8 +334,12 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (
+  caseData: Partial<CaseWithId>,
+  otherPersonId: C100RebuildPartyDetails['id']
+): FormContent => {
+  const otherPersonDetails = getPartyDetails(otherPersonId, caseData?.oprs_otherPersons) as C100RebuildPartyDetails;
+  return updateFormFields(form, generateFormFields(otherPersonDetails?.personalDetails ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

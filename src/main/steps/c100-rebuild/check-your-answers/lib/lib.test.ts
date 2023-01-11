@@ -29,4 +29,31 @@ describe('Lib Test', () => {
       expect(Element.actions).not.toBe(undefined);
     });
   });
+  test('matching the lib boilerplate for the respective fields with out key and value', () => {
+    const rowSpecimenData = [
+      {
+        key: '',
+        keyHtml: 'keyHtml',
+        value: '',
+        valueHtml: '',
+        changeUrl: '/c100/miam_attendance',
+        classes: 'classes',
+      },
+      {
+        key: '',
+        keyHtml: 'keyHtml',
+        value: '',
+        valueHtml: '',
+        changeUrl: '/c100/miam_exemption',
+        classes: 'classes',
+      },
+    ];
+
+    const pagedata = getSectionSummaryList(rowSpecimenData, {});
+    pagedata.forEach(Element => {
+      expect(Element.key).not.toBe(undefined);
+      expect(Element.classes).toBe('classes');
+      expect(Element.actions).not.toBe(undefined);
+    });
+  });
 });

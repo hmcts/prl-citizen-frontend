@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../../app/case/case';
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -51,10 +52,6 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
-};
-
 // eslint-disable-next-line @typescript-eslint/no-shadow
 const updatedFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
   updatedForm = {
@@ -77,6 +74,15 @@ export const getUpdatedForm = (): FormContent => updatedForm;
 
 export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): GenerateDynamicFormFields => {
   return { fields: lookupAddressForm(caseData).fields, errors: { en: {}, cy: {} } };
+};
+
+export const getFormFields = (
+  caseData: Partial<CaseWithId>,
+  otherPersonId: C100RebuildPartyDetails['id']
+): FormContent => {
+  const otherPersonDetails = getPartyDetails(otherPersonId, caseData?.oprs_otherPersons) as C100RebuildPartyDetails;
+
+  return updatedFormFields(form, generateFormFields(otherPersonDetails ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

@@ -34,7 +34,7 @@ const cy = {
   title: "Pam rydych chi'n meddwl y gallai'r plant gael eu cipio neu eu cadw y tu allan i'r DU heb eich caniatâd?",
   warningText: {
     text: " Cysylltwch â'r heddlu neu'r gwasanaethau cymdeithasol os yw plentyn yr ydych yn gyfrifol amdano/amdani mewn perygl o gael ei dynnu/thynnu allan o'r DU heb eich caniatâd.",
-    iconFallbackText: 'Rhybudd',
+    iconFallbackText: 'Warning',
   },
   safetyConcernsText: 'Esboniwch eich pryderon yn gryno, gan gynnwys:',
   safetyConcernsBullet1: 'pwy allai eu cymryd',
@@ -45,10 +45,10 @@ const cy = {
   errors: {
     c1A_abductionReasonOutsideUk: {
       required:
-        'Explain why you think the children may be abducted or kept outside of the UK without your consent - welsh',
+        "Esboniwch pam rydych chi'n meddwl y gallai'r plant gael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd",
     },
     c1A_childsCurrentLocation: {
-      required: 'Describe where the children are now - welsh',
+      required: "Disgrifiwch lle mae'r plant erbyn hyn",
     },
   },
 };

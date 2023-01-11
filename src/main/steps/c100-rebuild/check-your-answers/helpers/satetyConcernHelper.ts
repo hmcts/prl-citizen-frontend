@@ -2,18 +2,19 @@
 import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
+import { getYesNoTranslation } from '../mainUtil';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const childNameFormatter = (childId, userCase) => {
   const sessionChildKey = 'cd_children';
-  const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId) as ANYTYPE;
+  const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId);
   return (
     HTML.LIST_ITEM + founChildDetails[0]?.['firstName'] + ' ' + founChildDetails[0]?.['lastName'] + HTML.LIST_ITEM_END
   );
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser) => {
+export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser, language) => {
   if (typeOfUser === 'child') {
     bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
     if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
@@ -38,11 +39,15 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   bodyHtml += HTML.P + FoundElement.hasOwnProperty('behaviourStartDate') && FoundElement['behaviourStartDate'];
   bodyHtml += HTML.RULER;
   bodyHtml += HTML.H4 + keys['isOngoingBehaviourLabel'] + HTML.H4_CLOSE;
-  bodyHtml += FoundElement.hasOwnProperty('isOngoingBehaviour') ? FoundElement['isOngoingBehaviour'] : '';
+  bodyHtml += FoundElement.hasOwnProperty('isOngoingBehaviour')
+    ? getYesNoTranslation(language, FoundElement['isOngoingBehaviour'], 'ydyTranslation')
+    : '';
   bodyHtml += HTML.RULER;
   bodyHtml += HTML.H4 + keys['seekHelpFromPersonOrAgencyLabel'] + HTML.H4_CLOSE;
   bodyHtml += FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency')
-    ? HTML.BOTTOM_PADDING_3 + FoundElement?.['seekHelpFromPersonOrAgency'] + HTML.BOTTOM_PADDING_CLOSE
+    ? HTML.BOTTOM_PADDING_3 +
+      getYesNoTranslation(language, FoundElement?.['seekHelpFromPersonOrAgency'], 'doTranslation') +
+      HTML.BOTTOM_PADDING_CLOSE
     : '';
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
@@ -57,7 +62,7 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser) => {
+export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser, language) => {
   const subFieldKey = 'c1A_safteyConcerns' as string;
   const user = typeOfUser === C1ASafteyConcernsAbout.CHILDREN ? 'child' : C1ASafteyConcernsAbout.APPLICANT;
   let html = '';
@@ -65,7 +70,7 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
     if (userCase.hasOwnProperty(subFieldKey)) {
       const FoundElement = userCase[subFieldKey]?.[user]?.[childField];
       if (FoundElement !== undefined) {
-        html = HTMLParser(keys, FoundElement, html, userCase, user);
+        html = HTMLParser(keys, FoundElement, html, userCase, user, language);
       }
     }
     return html;

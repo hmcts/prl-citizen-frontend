@@ -58,7 +58,8 @@ const cy = {
   noneOfTheAbove: "Dim un o'r uchod",
   errors: {
     miam_previousAttendance: {
-      required: 'Confirm if you previously attended a MIAM, or had a valid reason not to attend - welsh',
+      required:
+        'Cadarnhewch os bu i chi fynychu MIAM yn flaenorol, neu os fod gennych reswm dilys dros beidio â mynychu MIAM',
     },
   },
 };

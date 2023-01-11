@@ -48,6 +48,25 @@ describe('DocumentUpload Get Controller', () => {
     expect(res.redirect).not.toHaveBeenCalledWith('error');
   });
 
+  test('If headers have already been sent', async () => {
+    const controller = new EmergencyDocumentUpload('page', () => ({}), FieldPrefix.APPLICANT);
+    const language = 'en';
+    const req = mockRequest({});
+    const res = mockResponse();
+    res.headersSent = true;
+    req.session.lang = language;
+    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.session.userCase = ORDER_DETAILS;
+    req.params = {
+      orderType: 'otherOrder',
+      orderId: '1',
+    };
+
+    await controller.get(req, res);
+
+    expect(res.redirect).not.toHaveBeenCalledWith('error');
+  });
+
   test('should remove document when removedId is passed', async () => {
     const controller = new EmergencyDocumentUpload('page', () => ({}), FieldPrefix.APPLICANT);
     const language = 'en';
@@ -96,6 +115,43 @@ describe('DocumentUpload Get Controller', () => {
         //eslint-disable-next-line jest/no-conditional-expect
         expect(err).not.toBe('MOCK_ERROR');
       }
+    });
+  });
+
+  describe('DocumentUpload Get Controller > removeExistingDocument > error', () => {
+    test('should render the page', async () => {
+      const controller = new EmergencyDocumentUpload('page', () => ({}), FieldPrefix.APPLICANT);
+      const req = mockRequest({
+        session: {
+          user: { email: 'test@example.com' },
+
+          save: jest.fn(done => done('MOCK_ERROR')),
+        },
+      });
+      const res = mockResponse();
+
+      await controller.removeDocument(req, res);
+
+      expect(res.redirect).not.toHaveBeenCalledWith('error');
+    });
+
+    test('req.session.errors > !Empty', async () => {
+      const controller = new EmergencyDocumentUpload('page', () => ({}), FieldPrefix.APPLICANT);
+      const language = 'en';
+      const req = mockRequest({});
+      const res = mockResponse();
+      req.session.lang = language;
+      req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+      req.session.userCase = ORDER_DETAILS;
+      req.session.errors = ['MOCK_ERRORS'];
+      req.params = {
+        orderType: 'otherOrder',
+        orderId: '1',
+      };
+
+      await controller.get(req, res);
+
+      expect(res.redirect).not.toHaveBeenCalledWith('error');
     });
   });
 });

@@ -25,7 +25,7 @@ export const cy = () => ({
   two: 'Nac oes',
   errors: {
     miam_haveDocSigned: {
-      required: 'Select yes if you have a document signed by the mediator - welsh',
+      required: "Dewiswch oes os oes gennych ddogfen wedi'i llofnodi gan gyfryngwr",
     },
   },
 });

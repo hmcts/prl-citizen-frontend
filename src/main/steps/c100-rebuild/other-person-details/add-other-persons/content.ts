@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../app/case/case';
 import { C100RebuildPartyDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -54,10 +55,6 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
       ...(form.fields ?? {}),
     },
   };
-  return updatedForm;
-};
-
-export const getFormFields = (): FormContent => {
   return updatedForm;
 };
 
@@ -155,6 +152,10 @@ export const form: FormContent = {
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
+};
+
+export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
+  return updateFormFields(form, generateFormFields(caseData?.oprs_otherPersons ?? []).fields);
 };
 
 export const generateContent: TranslationFn = content => {

@@ -22,19 +22,19 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  hwfGuidanceTitle: 'You need to apply for help with your child arrangements application fee - welsh',
-  hwfApplyLinkHint1: 'You need to - welsh',
-  hwfApplyLinkHint2: 'before you continue with this child arrangements application. - welsh',
+  hwfGuidanceTitle: 'Mae angen ichi wneud cais am help i dalu ffi eich cais trefniadau plant',
+  hwfApplyLinkHint1: 'Mae angen ichi',
+  hwfApplyLinkHint2: 'cyn ichi fwrw ymlaen â’r cais trefniadau plant hwn.',
   applyForHwfLink:
-    '<a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank" aria-label="apply for help with fees (opens in a new tab)">apply for help with fees (opens in a new tab) - welsh</a>',
-  hwfGuidanceC100Hint: "Enter 'C100' when you are asked for your court or tribunal form number. - welsh",
-  hwfGuidanceHint2: `After you have applied for help with fees, you will receive a reference number.
-  Add this reference number below to proceed with the child arrangements application. - welsh`,
-  hwfReferenceNumberLabel: 'Enter your help with fees reference number - welsh',
-  hwfReferenceNumberHint: 'For example, HWF-A1B-23C - welsh',
+    '<a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank" aria-label="apply for help with fees (opens in a new tab)">gwneud cais am help i dalu ffioedd (mae\'n agor mewn tab newydd)</a>',
+  hwfGuidanceC100Hint: 'Nodwch ‘C100’ pan ofynnir wrthych am rif ffurflen llys neu dribiwnlys.',
+  hwfGuidanceHint2: `Wedi ichi wneud cais am help i dalu ffioedd, byddwch yn cael cyfeirnod.
+  Nodwch y cyfeirnod hwnnw isod i fwrw ymlaen â’r cais trefniadau plant.`,
+  hwfReferenceNumberLabel: 'Nodwch eich cyfeirnod help i dalu ffioedd',
+  hwfReferenceNumberHint: 'Er enghraifft, HWF-A1B-23C',
   errors: {
     helpWithFeesReferenceNumber: {
-      required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
+      required: 'Nodwch y cyfeirnod Help i dalu Ffioedd a gawsoch pan wnaethoch chi wneud cais am Help i dalu Ffioedd',
     },
   },
 });

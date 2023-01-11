@@ -15,6 +15,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     try {
+      req.session.paymentError = false;
       if (req.body.saveAndComeLater) {
         this.saveAndComeLater(req, res, req.session.userCase);
       } else {
@@ -33,6 +34,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
         PaymentHandler(req, res);
       }
     } catch (e) {
+      req.session.paymentError = true;
       req.locals.logger.error('Error happened in pay & submit case', e);
       res.redirect(C100_CHECK_YOUR_ANSWER);
     }

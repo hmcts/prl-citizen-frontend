@@ -60,21 +60,40 @@ export const enContent = {
   section: '',
   title: 'Check your Answers',
   change: 'Edit',
-  topWarning: 'Your answers will be shared with the other people in this case.',
+  topWarning: {
+    text: 'Your answers will be shared with the other people in this case.',
+    iconFallbackText: 'Warning',
+  },
   makingSure: 'Please review your answers before you finish your application.',
   continue: 'Accept and continue',
   Yes: 'Yes',
-  No: 'No ',
-  SummaryDetail: 'Download a draft of your application (PDF)',
-  SummaryDetailInnerText:
-    "<p class='govuk-body'>            If you cannot open the PDF file after downloading, download and install            <a href='https://get.adobe.com/uk/reader/' class='govuk-link' rel='external' target='_blank'>Adobe Acrobat Reader</a> to try again.          </p><p class='govuk-body'>            Please note this draft is for your records. Only the completed application will be admitted in court.          </p><a class='govuk-button ga-pageLink govuk-button--secondary' role='button' draggable='false' data-module='govuk-button' data-ga-category='check your answers' data-ga-label='download draft' download='' href='/steps/completion/summary.pdf'>Download draft application</a>",
+  No: 'No',
+  'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
+  'No, I would prefer the other people do not spend time with the children':
+    'No, I would prefer the other people do not spend time with the children',
+  Mother: 'Mother',
+  Father: 'Father',
+  Guardian: 'Guardian',
+  'Special Guardian': 'Special Guardian',
+  None: 'None',
+  Other: 'Other',
+  Digital: 'Digital',
+  Post: 'Post',
+  address: 'Address',
+  telephone: 'Telephone',
+  email: 'E-mail',
+  Male: 'Male',
+  Female: 'Female',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
     warning:
       'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-    inset:
-      '<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select Pay and submit your application to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>',
+    inset: '',
+    insetTextPayAndSubmit:
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Pay and submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
+    insetTextSubmit:
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
     check: 'I believe that the facts stated in this application are true',
     lastPara:
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
@@ -84,6 +103,10 @@ export const enContent = {
   errors: {
     statementOfTruth: {
       required: 'Confirm that you believe the information in this application is true',
+    },
+    paymentError: {
+      title: 'There is a problem',
+      content: 'Your application is not submitted. Please try again',
     },
   },
   sectionTitles: {
@@ -97,7 +120,7 @@ export const enContent = {
     AdvisingCourt: "[^^sectionNo^^]. What you're asking the court to decide", //section 6
     WithoutNoticeHearing: '[^^sectionNo^^]. Hearing details', //section 7
     peopleDetails: '[^^sectionNo^^]. Details of the people in the application ', // section 8
-    ChildernDetails: "Childen's details",
+    ChildernDetails: "Children's details",
     ApplicantDetails: 'Details of the applicants',
     InternationalElement: '[^^sectionNo^^]. International elements', //section 11
     otherProceedings: '[^^sectionNo^^]. Past and current proceeding', //section 9
@@ -151,108 +174,184 @@ export const enContent = {
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
     enterCaseName: caseNameEnContent().title,
+    contactPrefernces: 'Contact preferences',
+    child: 'Child',
+    reasonForNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
   },
 };
-export const cyContent: typeof enContent = {
-  serviceName: 'Check your answers - welsh ',
+export const cyContent = {
+  serviceName: 'Gwiriwch eich atebion',
   section: '',
-  title: 'Check your Answers -welsh',
-  change: 'change - welsh',
-  topWarning: 'Your answers will be shared with the other people in this case. - welsh',
-  makingSure: 'Please review your answers before you finish your application.- welsh',
-  continue: 'Accept and continue - welsh',
-  Yes: 'Yes - welsh',
-  No: 'No - welsh',
-  SummaryDetail: 'Download a draft of your application (PDF)- welsh',
-  SummaryDetailInnerText:
-    "<p class='govuk-body'>            If you cannot open the PDF file after downloading, download and install            <a href='https://get.adobe.com/uk/reader/' class='govuk-link' rel='external' target='_blank'>Adobe Acrobat Reader</a> to try again.          </p><p class='govuk-body'>            Please note this draft is for your records. Only the completed application will be admitted in court.          </p><a class='govuk-button ga-pageLink govuk-button--secondary' role='button' draggable='false' data-module='govuk-button' data-ga-category='check your answers' data-ga-label='download draft' download='' href='/steps/completion/summary.pdf'>Download draft application</a>",
+  title: 'Gwiriwch eich atebion',
+  change: ' Golygu',
+  topWarning: {
+    text: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
+    iconFallbackText: 'Rhybudd',
+  },
+  makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',
+  continue: 'Derbyn a pharhau',
+  Yes: 'Ie',
+  No: 'Na',
+  Mother: 'Mam',
+  Father: 'Tad',
+  Guardian: 'Gwarcheidwad',
+  'Special Guardian': 'Gwarcheidwad Arbennig',
+  None: 'Nain/Taid',
+  Other: 'Arall',
+  Digital: 'Digidol',
+  Post: 'Drwy’r post',
+  address: 'Cyfeiriad',
+  telephone: 'Rhif ffôn',
+  email: 'E-bost',
+  Male: 'Gwryw',
+  Female: 'Benyw',
   StatementOfTruth: {
-    title: 'Statement of Truth - welsh',
-    heading: 'Confirm before you submit the application - welsh',
+    title: 'Datganiad Gwirionedd',
+    heading: 'Cadarnhau cyn ichi gyflwyno’r cais',
     warning:
-      'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-    inset:
-      '<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select Pay and submit your application to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>',
-    check: 'I believe that the facts stated in this application are true',
+      'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
+    inset: '',
+    insetTextPayAndSubmit:
+      ' <p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch cadw a dychwelyd yn nes ymlaen i gadw eich cais, neu dewiswch Talu a chyflwyno eich cais i gwblhau eich cais ar-lein.</p><p>Gallwch lwytho copi o’r cais i lawr mewn fformat PDF gan ddefnyddio’r ddolen.</p>',
+    insetTextSubmit:
+      '<p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch ‘Cadw a dychwelyd yn hwyrach ymlaen’ i gadw eich cais, neu dewiswch ‘Cyflwyno eich cais’ i gwblhau eich cais ar-lein.</p><p>Gallwch ddefnyddio’r ddolen a ddarparwyd i chi i lawrlwytho copi PDF o’r cais yr ydych wedi’i gyflwyno.</p>',
+    check: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir',
     lastPara:
-      'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
-    payAndSubmitButton: 'Pay and submit your application',
-    SubmitButton: 'Submit your application',
+      'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
+    payAndSubmitButton: 'Talu a cyflwyno eich cais',
+    SubmitButton: 'Cyflwyno eich cais',
   },
   errors: {
     statementOfTruth: {
-      required: 'Confirm that you believe the information in this application is true',
+      required: 'Cadarnhewch eich bod yn credu bod yr wybodaeth yn y cais hwn yn wir',
+    },
+    paymentError: {
+      title: 'Mae yna broblem',
+      content: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
     },
   },
   sectionTitles: {
-    locationDetails: '[^^sectionNo^^]. Location details', // section 1
-    typeOfApplication: '[^^sectionNo^^]. Type of application', //section 2,
-    legalRepresentativeDetails: '[^^sectionNo^^]. Legal representative details', //section 3
-    permissionForApplication: '[^^sectionNo^^]. Permission to make the application', //section 4
-    Miam: '[^^sectionNo^^]. MIAM: Mediation Information and Assessment Meeting', //section 5
-    MiamAttendance: 'MIAM attendance - welsh',
-    MiamExemption: 'MIAM exemption - welsh',
-    AdvisingCourt: "[^^sectionNo^^]. What you're asking the court to decide - welsh", //section 6
-    WithoutNoticeHearing: '[^^sectionNo^^]. Hearing details - welsh', //section 7
-    peopleDetails: '[^^sectionNo^^]. Details of the people in the application - welsh', // section 8
-    ChildernDetails: "Childen's details - welsh",
-    ApplicantDetails: 'Details of the applicants - welsh',
-    InternationalElement: '[^^sectionNo^^]. International elements - welsh', //section 11
-    otherProceedings: '[^^sectionNo^^]. Past and current proceeding - welsh', //section 9
-    safetyConcerns: '[^^sectionNo^^]. Safety concerns - welsh', //section 10
-    additionationDetailsAboutChildern: 'Additional details about the children - welsh',
-    childSafetyConcerns: 'Safety concerns: the children in the application ',
-    yourSafetyConcerns: 'Safety concern: your safety',
-    otherSafetyConcerns: 'Safety concern: other concerns that you have',
-    otherChildernDetails: 'Other Children details',
-    detailsOfRespondent: 'Details of the respondents',
-    helpWithFee: '[^^sectionNo^^]. Help with Fees', //section 13
-    whereTheChildrenLive: 'Where the children live',
-    detailofOtherPeople: 'Details of the other people in the application',
-    reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
-    caseName: '[^^sectionNo^^]. Case name',
+    locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1
+    typeOfApplication: '[^^sectionNo^^]. Math o gais', //section 2,
+    legalRepresentativeDetails: '[^^sectionNo^^]. Manylion cynrychiolydd cyfreithiol', //section 3
+    permissionForApplication: '[^^sectionNo^^]. Caniatâd i wneud cais', //section 4
+    Miam: '[^^sectionNo^^]. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu', //section 5
+    MiamAttendance: 'Mynychu MIAM',
+    MiamExemption: 'Esemptiad MIAM',
+    AdvisingCourt: '[^^sectionNo^^]. Beth yr ydych chi’n gofyn i’r llys ei benderfynu', //section 6
+    WithoutNoticeHearing: '[^^sectionNo^^].  Manylion y gwrandawiad', //section 7
+    peopleDetails: '[^^sectionNo^^]. Manylion y bobl yn y cais', // section 8
+    ChildernDetails: 'Manylion y plant',
+    ApplicantDetails: 'Manylion y ceiswyr',
+    InternationalElement: '[^^sectionNo^^]. Elfennau rhyngwladol', //section 11
+    otherProceedings: '[^^sectionNo^^]. Achosion yn y gorffennol ac achosion cyfredol', //section 9
+    safetyConcerns: '[^^sectionNo^^]. Pryderon am ddiogelwch', //section 10
+    additionationDetailsAboutChildern: 'Manylion ychwanegol am y plant',
+    childSafetyConcerns: 'Pryderon am ddiogelwch: y plant yn y cais ',
+    yourSafetyConcerns: 'Pryder am ddiogelwch: eich diogelwch chi',
+    otherSafetyConcerns: 'Pryder am ddiogelwch: pryderon eraill sydd gennych',
+    otherChildernDetails: 'Manylion plant eraill',
+    detailsOfRespondent: 'Manylion yr atebwyr',
+    helpWithFee: '[^^sectionNo^^].  Help i dalu ffioedd', //section 13
+    whereTheChildrenLive: 'Ble mae’r plant yn byw',
+    detailofOtherPeople: 'Manylion y bobl eraill yn y cais',
+    reasonAbleAdjustment: '[^^sectionNo^^]. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos', //section 12
+    caseName: '[^^sectionNo^^]. Enw’r Achos',
   },
   keys: {
-    wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application - welsh',
-    qualifyForUrgentHearing: 'Does your situation qualify for an urgent first hearing? - welsh',
-    askingNoHearing: 'Are you asking for a without notice hearing? - welsh',
-    phoneNumber: 'Phone number -welsh',
-    emailAddress: 'Contact number of the person named on the application - welsh',
+    wantingCourtToDo: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+    qualifyForUrgentHearing: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+    askingNoHearing: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+    phoneNumber: ' Rhif ffôn',
+    emailAddress: 'C Rhif cyswllt yr un a enwir yn y cais',
     domesticVoilenceHeading: DomesticAbuseCy().title,
     childProtectionHeading: ChildProtectionCy().title,
     midatatorDocumentTitle: CyMidiationDocument().title,
-    previousAddress: 'Previous Addresses',
-    none: 'none',
-    details: 'Details',
-    fullName: 'Full name - welsh',
-    respondents: 'Respondent',
+    previousAddress: 'Cyfeiriad blaenorol',
+    none: 'dim',
+    details: 'Manylion',
+    fullName: 'Enw llawn',
+    respondents: 'Atebydd',
     urgentHearingHeading:
-      'Do you require an urgent hearing because you or the children are at risk for any of the following reasons? - welsh',
+      'Oes angen gwrandawiad brys arnoch chi am eich bod chi neu’r plant mewn perygl am unrhyw un o’r rhesymau canlynol?',
     previousMIAMOrExemptHeading:
-      'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend? - welsh',
+      'A allwch chi gadarnhau eich bod wedi mynychu MIAM yn flaenorol, neu fod gennych reswm dilys dros beidio â mynychu?’,',
     validExemptionHeading:
-      'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case? - welsh',
+      'A allwch chi gadarnhau bod unrhyw un o’r rhesymau dilys eraill dros beidio â mynychu MIAM yn berthnasol?',
     //child concern screens
-    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
-    concerns: 'concerns',
-    againstChild: 'against the child',
-    applicantDetails: 'Applicant [^^^] - Your details - welsh',
+    detailsOfChildConcern: 'Disgrifiwch y  [***] [^^^] yn fyr os ydych yn teimlo eich bod yn gallu gwneud hynny',
+    concerns: 'pryderon',
+    againstChild: 'yn erbyn y plentyn',
+    applicantDetails: 'Ceisydd [^^^] - Eich manylion',
     //respondent-details
-    relationshipTo: 'Relationship to',
-    whoDoesLiveWith: 'Who does [^childName^] currently live with?',
-    otherPerson: 'Other person',
-    contactDetailsOf: 'Contact details of [^applicantName^]',
-    addressDetails: 'Address details',
-    doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
-    courtOrderPrevent:
-      'There is a court order preventing me from making an application without first getting the permission of the court',
-    anotherReason: 'Another reason',
-    dontKnow: "Don't know",
+    relationshipTo: 'Perthynas â',
+    whoDoesLiveWith: 'Gyda phwy mae [^childName^] yn byw ar hyn o bryd?',
+    otherPerson: 'Rhywun arall',
+    contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
+    addressDetails: 'Manylion cyfeiriad',
+    doNotHaveParentalResponsibility: 'Nid oes gennyf gyfrifoldeb rhiant dros y plant',
+    courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
+    anotherReason: 'Rheswm arall',
+    dontKnow: 'Ddim yn gwybod',
     enterCaseName: caseNameCyContent().title,
+    contactPrefernces: 'Dewisiadau cyswllt',
+    child: 'Plant',
+    reasonForNotAttendingMiam: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+  },
+  yesNo: {
+    ydynTranslation: {
+      Yes: 'Ydyn',
+      No: 'Nac Ydyn',
+    },
+    oesTranslation: {
+      Yes: 'Oes',
+      No: 'Nac oes',
+    },
+    byddafTranslation: {
+      Yes: 'Byddaf',
+      No: 'Na fyddaf',
+    },
+    doTranslation: {
+      Yes: 'Do',
+      No: 'Naddo',
+    },
+    ydwTranslation: {
+      Yes: 'Ydw',
+      No: 'Nac ydw',
+    },
+    ydyntTranslation: {
+      Yes: 'Ydynt',
+      No: 'Nac ydynt',
+      'I dont know': 'Nid wyf yn gwybod ',
+    },
+    ydyTranslation: {
+      Yes: 'Ydy',
+      No: 'Nac ydy',
+    },
+    ydwSpecial: {
+      Yes: 'Ydw',
+      'Yes, but I prefer that it is supervised': 'Ydw, ond byddai’n well gennyf i’r cyswllt gael ei oruchwylio',
+      'No, I would prefer the other people do not spend time with the children':
+        "Nac ydw, byddai'n well gennyf pe na bai’r bobl eraill yn treulio amser gyda'r plant",
+    },
+    gallaiTranslation: {
+      Yes: 'Gallai',
+      No: 'Na allai',
+    },
+    oesSpecial: {
+      Yes: 'Oes',
+      No: 'Nac oes',
+      'Yes, I need help with paying the fee': 'Oes, rwyf eisiau help i dalu’r ffi',
+      'No, I do not need help': 'Nac oes, ni wyf eisiau help',
+    },
+    ieTranslation: {
+      Yes: 'Ie',
+      No: 'Na',
+    },
   },
 };
 
-const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
+export const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
   const safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected =
     userCase.hasOwnProperty(safteyConcernsAboutKey) &&
     userCase[safteyConcernsAboutKey]?.length === 1 &&
@@ -277,127 +376,127 @@ export const sectionCountFormatter = sections => {
   });
   return sections;
 };
-export const peopleSections = (userCase, contentLanguage) => {
+export const peopleSections = (userCase, contentLanguage, language) => {
   const otherPeopleSection =
     userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES
-      ? OtherPeopleDetails(contentLanguage, userCase)
+      ? OtherPeopleDetails(contentLanguage, userCase, language)
       : [];
   return [
     PeopleDetails(contentLanguage),
-    ChildernDetails(contentLanguage, userCase),
-    ChildernDetailsAdditional(contentLanguage, userCase),
-    OtherChildrenDetails(contentLanguage, userCase),
-    ApplicantDetails(contentLanguage, userCase),
-    RespondentDetails(contentLanguage, userCase),
-    OtherPeopleDetailsTitle(contentLanguage, userCase),
+    ChildernDetails(contentLanguage, userCase, language),
+    ChildernDetailsAdditional(contentLanguage, userCase, language),
+    OtherChildrenDetails(contentLanguage, userCase, language),
+    ApplicantDetails(contentLanguage, userCase, language),
+    RespondentDetails(contentLanguage, userCase, language),
+    OtherPeopleDetailsTitle(contentLanguage, userCase, language),
     otherPeopleSection,
     whereDoChildLive(contentLanguage, userCase),
   ];
 };
 
-const safteyConcenFilledSection = (userCase, contentLanguage) => {
+const safteyConcenFilledSection = (userCase, contentLanguage, language) => {
   const additionalSafteyConcernSections = [] as ANYTYPE;
   if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
-    additionalSafteyConcernSections.push(SafetyConcerns_child(contentLanguage, userCase));
+    additionalSafteyConcernSections.push(SafetyConcerns_child(contentLanguage, userCase, language));
     if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
-      additionalSafteyConcernSections.push(SafetyConcerns_yours(contentLanguage, userCase));
+      additionalSafteyConcernSections.push(SafetyConcerns_yours(contentLanguage, userCase, language));
     }
-    additionalSafteyConcernSections.push(SafetyConcerns_others(contentLanguage, userCase));
+    additionalSafteyConcernSections.push(SafetyConcerns_others(contentLanguage, userCase, language));
   }
   return additionalSafteyConcernSections;
 };
 //on Screeing screen if user selects Yes
 
-export const commonSectionsForContentLoader = (contentLanguage, userCase) => {
+export const commonSectionsForContentLoader = (contentLanguage, userCase, language) => {
   return {
     PostCodeAndTypeOfApplication: [
       CaseName(contentLanguage, userCase),
       LocationDetails(contentLanguage, userCase),
-      TypeOfApplication(contentLanguage, userCase),
+      TypeOfApplication(contentLanguage, userCase, language),
     ],
     ScreeingQuestions: [
-      LegalRepresentativeDetails(contentLanguage, userCase),
-      PermissionForApplication(contentLanguage, userCase),
+      LegalRepresentativeDetails(contentLanguage, userCase, language),
+      PermissionForApplication(contentLanguage, userCase, language),
     ],
-    MIAM_ALL: [MiamTitle(contentLanguage), MiamAttendance(contentLanguage, userCase)],
+    MIAM_ALL: [MiamTitle(contentLanguage), MiamAttendance(contentLanguage, userCase, language)],
     IE_RA_HF: [
-      InternationalElement(contentLanguage, userCase),
+      InternationalElement(contentLanguage, userCase, language),
       reasonableAdjustment(contentLanguage, userCase),
-      HelpWithFee(contentLanguage, userCase),
+      HelpWithFee(contentLanguage, userCase, language),
     ],
   };
 };
-export const CheckYourAnswerFlow1 = (userCase, contentLanguage) => {
+export const CheckYourAnswerFlow1 = (userCase, contentLanguage, language) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
     TypeOfOrder(contentLanguage, userCase),
-    WithoutNoticeHearing(contentLanguage, userCase),
-    peopleSections(userCase, contentLanguage),
-    PastAndCurrentProceedings(contentLanguage, userCase),
-    SafetyConcerns(contentLanguage, userCase),
-    ...safteyConcenFilledSection(userCase, contentLanguage),
-    ...commonSectionsForContentLoader(contentLanguage, userCase).IE_RA_HF,
+    WithoutNoticeHearing(contentLanguage, userCase, language),
+    peopleSections(userCase, contentLanguage, language),
+    PastAndCurrentProceedings(contentLanguage, userCase, language),
+    SafetyConcerns(contentLanguage, userCase, language),
+    ...safteyConcenFilledSection(userCase, contentLanguage, language),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
   ];
 };
 // on Screeing screen if user selects No and user opts out of miam
-export const CheckYourAnswerFlow2 = (userCase, contentLanguage) => {
+export const CheckYourAnswerFlow2 = (userCase, contentLanguage, language) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
-    ...commonSectionsForContentLoader(contentLanguage, userCase).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
     MiamTitle(contentLanguage),
-    MiamAttendance(contentLanguage, userCase),
-    PastAndCurrentProceedings(contentLanguage, userCase),
+    MiamAttendance(contentLanguage, userCase, language),
+    PastAndCurrentProceedings(contentLanguage, userCase, language),
     TypeOfOrder(contentLanguage, userCase),
-    WithoutNoticeHearing(contentLanguage, userCase),
-    peopleSections(userCase, contentLanguage),
-    SafetyConcerns(contentLanguage, userCase),
-    ...safteyConcenFilledSection(userCase, contentLanguage),
-    ...commonSectionsForContentLoader(contentLanguage, userCase).IE_RA_HF,
+    WithoutNoticeHearing(contentLanguage, userCase, language),
+    peopleSections(userCase, contentLanguage, language),
+    SafetyConcerns(contentLanguage, userCase, language),
+    ...safteyConcenFilledSection(userCase, contentLanguage, language),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
   ];
 };
 // if user selects Yes for valid excemptions on maim_exemption
-export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents) => {
+export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, language) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
-    ...commonSectionsForContentLoader(contentLanguage, userCase).ScreeingQuestions,
-    ...commonSectionsForContentLoader(contentLanguage, userCase).MIAM_ALL,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
     MiamExemption(newContents, userCase),
-    WithoutNoticeHearing(contentLanguage, userCase),
+    WithoutNoticeHearing(contentLanguage, userCase, language),
     TypeOfOrder(contentLanguage, userCase),
-    peopleSections(userCase, contentLanguage),
-    PastAndCurrentProceedings(contentLanguage, userCase),
-    SafetyConcerns(contentLanguage, userCase),
-    ...safteyConcenFilledSection(userCase, contentLanguage),
-    ...commonSectionsForContentLoader(contentLanguage, userCase).IE_RA_HF,
+    peopleSections(userCase, contentLanguage, language),
+    PastAndCurrentProceedings(contentLanguage, userCase, language),
+    SafetyConcerns(contentLanguage, userCase, language),
+    ...safteyConcenFilledSection(userCase, contentLanguage, language),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
   ];
 };
 // if user selects No for valid excemptions on maim_exemption
-export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents) => {
+export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, language) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase).PostCodeAndTypeOfApplication,
-    ...commonSectionsForContentLoader(contentLanguage, userCase).ScreeingQuestions,
-    ...commonSectionsForContentLoader(contentLanguage, userCase).MIAM_ALL,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
     MiamExemption(newContents, userCase),
     TypeOfOrder(contentLanguage, userCase),
-    WithoutNoticeHearing(contentLanguage, userCase),
-    peopleSections(userCase, contentLanguage),
-    PastAndCurrentProceedings(contentLanguage, userCase),
-    SafetyConcerns(contentLanguage, userCase),
-    ...safteyConcenFilledSection(userCase, contentLanguage),
-    ...commonSectionsForContentLoader(contentLanguage, userCase).IE_RA_HF,
+    WithoutNoticeHearing(contentLanguage, userCase, language),
+    peopleSections(userCase, contentLanguage, language),
+    PastAndCurrentProceedings(contentLanguage, userCase, language),
+    SafetyConcerns(contentLanguage, userCase, language),
+    ...safteyConcenFilledSection(userCase, contentLanguage, language),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
   ];
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
+export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
   // if on sreening screen enable Yes
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, enContent).flat() as ANYTYPE;
+    sections = CheckYourAnswerFlow1(userCase, enContent, content.language).flat() as ANYTYPE;
   } else {
     if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
-      sections = CheckYourAnswerFlow2(userCase, enContent).flat() as ANYTYPE;
+      sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
       if (
@@ -405,9 +504,9 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
         userCase.hasOwnProperty('miam_urgency') &&
         !userCase['miam_urgency'].includes('none')
       ) {
-        sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents).flat() as ANYTYPE;
+        sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
       } else {
-        sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents).flat() as ANYTYPE;
+        sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
       }
     }
   }
@@ -419,15 +518,15 @@ const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   };
 };
 
-const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
+export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
   // if on sreening screen enable Yes
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, cyContent).flat() as ANYTYPE;
+    sections = CheckYourAnswerFlow1(userCase, cyContent, content.language).flat() as ANYTYPE;
   } else {
     if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
-      sections = CheckYourAnswerFlow2(userCase, cyContent).flat() as ANYTYPE;
+      sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
       if (
@@ -435,9 +534,9 @@ const cy: typeof en = (content: CommonContent, newCyContents?: ANYTYPE) => {
         userCase.hasOwnProperty('miam_urgency') &&
         !userCase['miam_urgency'].includes('none')
       ) {
-        sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents).flat() as ANYTYPE;
+        sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
       } else {
-        sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents).flat() as ANYTYPE;
+        sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
       }
     }
   }
@@ -481,12 +580,23 @@ export const form: FormContent = {
   },
 };
 
-const languages = {
+export const languages = {
   en,
   cy,
 };
 export const generateContent: TranslationFn = content => {
   const newContents = content['language'] === 'en' ? enContent : cyContent;
+  const hwfConditions =
+    content.userCase &&
+    content.userCase.hasOwnProperty('hwf_needHelpWithFees') &&
+    content.userCase['hwf_needHelpWithFees'] !== YesOrNo.NO &&
+    content.userCase.hasOwnProperty('helpWithFeesReferenceNumber') &&
+    content.userCase['helpWithFeesReferenceNumber'] !== '';
+  if (hwfConditions) {
+    newContents.StatementOfTruth.inset = newContents.StatementOfTruth.insetTextSubmit;
+  } else {
+    newContents.StatementOfTruth.inset = newContents.StatementOfTruth.insetTextPayAndSubmit;
+  }
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
@@ -529,13 +639,7 @@ export const generateContent: TranslationFn = content => {
     type: 'textAndHtml',
     textAndHtml: HTML.BREAK + `${newContents.StatementOfTruth['lastPara']}` + HTML.BREAK + HTML.BREAK + HTML.BREAK,
   };
-  if (
-    content.userCase &&
-    content.userCase.hasOwnProperty('hwf_needHelpWithFees') &&
-    content.userCase['hwf_needHelpWithFees'] !== YesOrNo.NO &&
-    content.userCase.hasOwnProperty('helpWithFeesReferenceNumber') &&
-    content.userCase['helpWithFeesReferenceNumber'] !== ''
-  ) {
+  if (hwfConditions) {
     form.submit = {
       text: l => l.StatementOfTruth['SubmitButton'],
     };
@@ -544,7 +648,6 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
-
   return {
     ...translations,
     form,

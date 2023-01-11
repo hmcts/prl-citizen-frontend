@@ -425,6 +425,8 @@ export const C100_APPLICANT_ADDRESS_LOOKUP: PageLink = `${C100_APPLICANT_ADDRESS
 export const C100_APPLICANT_ADDRESS_SELECT: PageLink = `${C100_APPLICANT_ADDRESS}/select`;
 export const C100_APPLICANT_ADDRESS_MANUAL: PageLink = `${C100_APPLICANT_ADDRESS}/manual`;
 export const C100_APPLICANT_CONTACT_DETAIL: PageLink = `${C100_URL}/applicant/:applicantId/contact-detail`;
+/**@C100 applicant contact preferences*/
+export const C100_APPLICANT_CONTACT_PREFERENCES: PageLink = `${C100_URL}/applicant/:applicantId/contact-preference`;
 
 /** @C100 Respondent Details */
 export const C100_RESPONDENT_DETAILS: PageLink = `${C100_URL}/respondent-details`;
