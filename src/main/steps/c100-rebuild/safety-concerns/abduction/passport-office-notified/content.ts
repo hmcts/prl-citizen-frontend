@@ -19,14 +19,14 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: "Ydy'r swyddfa basbort wedi cael gwybod?",
   Yes: 'Ydy',
   No: 'Nac ydy',
   errors: {
     c1A_abductionPassportOfficeNotified: {
-      required: 'Select yes if the passport office has been notified - welsh',
+      required: "Dewiswch ydy os yw'r swyddfa basbort wedi cael ei hysbysu",
     },
   },
 });

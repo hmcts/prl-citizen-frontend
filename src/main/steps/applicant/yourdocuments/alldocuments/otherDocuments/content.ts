@@ -53,9 +53,10 @@ export const generateContent: TranslationFn = content => {
       const uid = doc.value.documentOther?.document_url.substring(
         doc.value.documentOther.document_url.lastIndexOf('/') + 1
       );
+      const documentCreatedDate = doc.value['dateCreated'];
       orders.push({
         href: `${MANAGE_DOCUMENTS_DOWNLOAD}/${uid}`,
-        createdDate: 'Not present',
+        createdDate: documentCreatedDate,
         fileName: doc.value.documentOther?.document_filename,
       });
     }

@@ -5,8 +5,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
 import { PaymentHandler, PaymentValidationHandler } from './paymentController';
 
-const mockToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+const mockToken = 'authToken';
 
 const dummyCaseID = '2122323';
 
@@ -63,7 +62,7 @@ describe('PaymentValidationHandler', () => {
     await PaymentValidationHandler(req, res);
     expect(res.send).toHaveBeenCalledTimes(0);
     expect(res.render).toHaveBeenCalledTimes(0);
-    expect(res.redirect).toHaveBeenCalledTimes(1);
+    expect(res.redirect).toHaveBeenCalledTimes(2);
     expect(res.send.mock.calls).toHaveLength(0);
   });
 });

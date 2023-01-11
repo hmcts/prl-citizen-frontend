@@ -22,7 +22,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: 'Diogelwch y plant',
   firstParagraph:

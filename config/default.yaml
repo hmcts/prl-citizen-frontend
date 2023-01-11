@@ -23,7 +23,7 @@ services:
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
   cos:
-    url: 'http://prl-cos-aat.service.core-compute-aat.internal'
+    url: 'https://prl-cos-pr-745.service.core-compute-preview.internal'
   documentManagement:
     url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
 health:
@@ -39,8 +39,6 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey: false
-payments:
-  url: 'http://prl-cos-demo.service.core-compute-demo.internal'
 
 uploadTimeout: 60000
 featureToggles:

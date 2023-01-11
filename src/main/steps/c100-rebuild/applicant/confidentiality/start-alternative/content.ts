@@ -44,10 +44,10 @@ const cy = () => ({
   Email: 'E-bost',
   errors: {
     startAlternative: {
-      required: 'Select yes if you want to keep your details private',
+      required: 'Dewiswch oes os ydych eisiau cadw eich mnylion yn gyfrinachol',
     },
     contactDetailsPrivateAlternative: {
-      required: 'Select which contact details you want to keep private. - welsh',
+      required: "Dewiswch pa fanylion cyswllt rydych chi eisiau eu cadw'n gyfrinachol",
     },
   },
 });

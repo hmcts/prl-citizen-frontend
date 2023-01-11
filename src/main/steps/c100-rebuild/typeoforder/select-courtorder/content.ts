@@ -67,16 +67,16 @@ export const cy = () => ({
   returningChildrenToYourCare: "Dychwelyd y plant i'ch gofal",
   returningChildrenToYourCareHint:
     "Os yw'r plant wedi'u cipio, eu tynnu o rywle yn anghyfreithlon neu eu cadw yn rhywle yn anghyfreithlon",
-  whatAreYouAsking: 'What are you asking the court to do?',
+  whatAreYouAsking: "Beth ydych chi'n gofyn i'r llys ei wneud?",
   errors: {
     too_courtOrder: {
-      required: 'Select  what you are asking the court to do - welsh',
+      required: "Dewiswch beth yr ydych yn gofyn i'r llys ei wneud",
     },
     too_stopOtherPeopleDoingSomethingSubField: {
-      required: 'Specify what you want the court to stop the other people in the application doing - welsh',
+      required: "Nodwch beth rydych chi eisiau i'r llys atal y bobl eraill yn y cais rhag ei wneud",
     },
     too_resolveSpecificIssueSubField: {
-      required: 'Specify what issue you want the court to resolve - welsh',
+      required: "Nodwch pa fater rydych chi eisiau i'r llys ei ddatrys",
     },
   },
 });
