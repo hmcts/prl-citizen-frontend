@@ -121,7 +121,7 @@ const cy: typeof en = {
   applyForDissolution: 'Private Law"(in welsh)',
   c100ServiceName: 'Trefniadau plant',
   feedback:
-    'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.(in welsh)',
+    'Mae hwn yn wasanaeth newydd - bydd eich <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">adborth</a> yn ein helpu ni i’w wella.',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
   back: 'Yn ôl',
@@ -141,7 +141,7 @@ const cy: typeof en = {
   saveAndComeLater: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
   goBack: 'Yn ôl',
   saveAsDraft: 'Save as draft (in welsh)',
-  signOut: 'Sign out (in welsh)',
+  signOut: 'Allgofnodi',
   signIn: 'Sign in (in welsh)',
   accessibility: 'Accessibility statement(in welsh)',
   cookies: 'Cookies (in welsh)',

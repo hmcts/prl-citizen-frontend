@@ -20,6 +20,7 @@ const en = {
   buttonAddApplicant: 'Add another applicant',
   removeApplicant: 'Remove applicant',
   labelFornewName: 'Enter a new name',
+  Applicant: 'Applicant',
   errors: {
     applicantFirstName: {
       required: 'Enter the first name',
@@ -40,6 +41,7 @@ const cy = {
   buttonAddApplicant: 'Ychwanegu ceisydd arall',
   removeApplicant: 'Dileu Ceisydd',
   labelFornewName: 'Nodwch enw newydd',
+  Applicant: 'Ceisydd',
   errors: {
     applicantFirstName: {
       required: 'Nodwch yr enw cyntaf',

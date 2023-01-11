@@ -14,6 +14,7 @@ const en = () => ({
   addChildLabel: 'Add another child',
   removeChildLabel: 'Remove Child',
   newNameLabel: 'Enter a new name',
+  Child: 'Child',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
@@ -32,6 +33,7 @@ const cy = () => ({
   addChildLabel: 'Ychwanegu plentyn arall',
   removeChildLabel: 'Dileu Plentyn',
   newNameLabel: 'Nodwch enw newydd',
+  Child: 'Plant',
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',
@@ -72,7 +74,7 @@ export const generateFormFields = (children: OtherChildrenDetails[]): GenerateDy
 
     fields[key] = {
       type: 'fieldset',
-      label: () => `Child ${count}`,
+      label: l => `${l.Child} ${count}`,
       classes: 'govuk-fieldset__legend--m',
       subFields: {
         [`firstName-${count}`]: {

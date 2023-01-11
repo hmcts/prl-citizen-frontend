@@ -14,6 +14,7 @@ const en = () => ({
   addOtherPersonLabel: 'Add another person',
   removeOtherPersonLabel: 'Remove person',
   newNameLabel: 'Enter a new name',
+  Person: 'Person',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
@@ -32,6 +33,7 @@ const cy = () => ({
   addOtherPersonLabel: 'Ychwanegu unigolyn arall',
   removeOtherPersonLabel: 'Symud unigolyn',
   newNameLabel: 'Nodwch enw newydd',
+  Person: 'Person',
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',
@@ -72,7 +74,7 @@ export const generateFormFields = (otherPersons: C100RebuildPartyDetails[]): Gen
 
     fields[key] = {
       type: 'fieldset',
-      label: () => `Person ${count}`,
+      label: l => `${l.Person} ${count}`,
       classes: 'govuk-fieldset__legend--m',
       subFields: {
         [`firstName-${count}`]: {

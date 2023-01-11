@@ -830,7 +830,7 @@ export const SafetyConcerns_child = (
    * @policeOrInvestigatorsOtherDetails session Values
    */
   let policeOrInvestigatorsOtherDetailsHTML = '';
-  policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorInvolved'];
+  policeOrInvestigatorsOtherDetailsHTML +=  getYesNoTranslation(language,userCase['c1A_policeOrInvestigatorInvolved'],'OeddTranslation');
    policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
     :  '' ;
@@ -838,13 +838,13 @@ export const SafetyConcerns_child = (
    * @c1A_childAbductedBefore session Values
    */
   let c1A_childAbductedBefore = '';
-  c1A_childAbductedBefore += userCase?.['c1A_passportOffice'];
+  c1A_childAbductedBefore += getYesNoTranslation(language,userCase?.['c1A_passportOffice'],'oesTranslation');
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += userCase['c1A_childrenMoreThanOnePassport'];
+    c1A_childAbductedBefore += getYesNoTranslation(language,userCase['c1A_childrenMoreThanOnePassport'],'oesTranslation');
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
@@ -852,7 +852,7 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
     c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
       .filter(element => element !== 'Other')
-      .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
+      .map(relatives => HTML.LIST_ITEM + relationshipTranslation(relatives,language)+ HTML.LIST_ITEM_END)
       .toString()
       .split(',')
       .join('');
@@ -880,12 +880,12 @@ export const SafetyConcerns_child = (
     },
     {
       key: keys['haspassportOfficeNotified'],
-      valueHtml: userCase['c1A_abductionPassportOfficeNotified'],
+      valueHtml: getYesNoTranslation(language,userCase['c1A_abductionPassportOfficeNotified'],'ydyTranslation'),
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION'],
     },
     {
       key: keys['abducionThreats'],
-      valueHtml: userCase['c1A_childAbductedBefore'] as string,
+      valueHtml: getYesNoTranslation(language,userCase['c1A_childAbductedBefore'],'OeddTranslation'),
       changeUrl: Urls['C100_C1A_CHILD_ABDUCTION_THREATS'],
     },
 
@@ -1475,22 +1475,6 @@ export const genderChose=(choice, language): string=> {
   if(language==='cy'){
     value = cyContent?.[choice];
   }
-//   if (choice !== '') {
-//     if(language==='cy'){
-//         switch(choice){
-//             case 'Male': {
-//                 return 'Gwryw';
-// }
-//             case 'Female': {
-//                 return 'Benyw';
-// }
-//             case 'Other': {
-//   return 'Arall';
-// }
-//             }
-//         }
-//         else {return choice;}
-//     }
     return value ||'';
 };
 const translation=(choice, language)=> {
@@ -1498,21 +1482,6 @@ const translation=(choice, language)=> {
 if(language==='cy'){
   value = cyContent?.[choice];
 }
-//     if(language==='cy'){
-//         switch(choice){
-//             case 'address': {
-//                 return 'Cyfeiriad';
-// }
-//             case 'telephone': {
-//                 return 'Rhif ffôn';
-// }
-//             case 'email': {
-//   return 'E-bost';
-// }
-//             }
-//         }
-
-//         else {return choice;}
     return value ||'';
 };
 
@@ -1521,17 +1490,6 @@ const contactTranslation=(preferences, language)=> {
 if(language==='cy'){
   value = cyContent?.[preferences];
 }
-//     if(language==='cy'){
-//         switch(preferences){
-//             case 'Digital': {
-//                 return 'Digidol';
-// }
-//             case 'Post': {
-//                 return 'Drwy’r post';
-// }
-//             }
-//         }
-//         else {return preferences;}
     return value ||'';
 };
 export const getYesNoTranslation = (language, data, ctx): string=>{
@@ -1546,28 +1504,6 @@ let value = enContent?.[choice];
 if(language==='cy'){
   value = cyContent?.[choice];
 }
-//     switch(choice){
-//         case 'Mother': {
-//             return 'Mam';
-//         }
-//         case 'Father': {
-//             return 'Tad';
-//         }
-//         case 'Guardian': {
-//             return 'Gwarcheidwad';
-//         }
-//         case 'Special Guardian': {
-//             return 'Gwarcheidwad Arbennig';
-//         }
-//         case 'None': {
-//             return 'Nain/Taid';
-//         }
-//         case 'Other': {
-//             return 'Arall ';
-//         }
-//       }
-//   }
-// else {return choice;}
 return value || '';
 };
 

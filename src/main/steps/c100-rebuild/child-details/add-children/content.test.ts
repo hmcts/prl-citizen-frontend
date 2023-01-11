@@ -18,6 +18,7 @@ const en = {
   addChildLabel: 'Add another child',
   removeChildLabel: 'Remove Child',
   newNameLabel: 'Enter a new name',
+  Child: 'Child',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
@@ -37,6 +38,7 @@ const cy = {
   addChildLabel: 'Ychwanegu plentyn arall',
   removeChildLabel: 'Symud plentyn',
   newNameLabel: 'Nodwch enw newydd',
+  Child: 'Plant',
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',

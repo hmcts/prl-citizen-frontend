@@ -570,7 +570,9 @@ describe('test cases for main util', () => {
             ],
           },
           key: {},
-          value: {},
+          value: {
+            text: 'Male',
+          },
         },
       ],
       title: undefined,
