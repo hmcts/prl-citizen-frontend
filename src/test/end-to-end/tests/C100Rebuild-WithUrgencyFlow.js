@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - with urgency flow');
 
-Scenario('C100 Rebuild - urgent hearing flow @cross-browser',  async  I  => {
+Scenario('C100 Rebuild - urgent hearing flow @cross-browser',  async ({ I }) => {
     await I.loginAsCitizenUserNamePassWord();
     await I.createC100Application();
     await I.addCaseNameAndPostCode();
