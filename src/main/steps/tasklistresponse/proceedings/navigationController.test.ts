@@ -1,10 +1,10 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { applyParms } from '../../common/url-parser';
 import {
+  COURT_PROCEEDINGS_SUMMARY,
   OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_ORDER_DETAILS,
-  PROCEEDINGS_SUMMARY,
 } from '../../urls';
 
 import OtherProceedingsNavigationController from './navigationController';
@@ -152,6 +152,6 @@ describe('OtherProceedingsNavigationController', () => {
       dummyRequest.session.userCase,
       dummyRequest.params
     );
-    expect(nextUrl).toBe(PROCEEDINGS_SUMMARY);
+    expect(nextUrl).toBe(COURT_PROCEEDINGS_SUMMARY);
   });
 });
