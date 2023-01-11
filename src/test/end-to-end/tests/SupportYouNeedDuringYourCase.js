@@ -1,6 +1,6 @@
 Feature('Feature - 2');
 
-Scenario('International Element - basic journey @cross-browser', async ({ I }) => {
+Scenario('International Element - basic journey @cross-browser', async  I  => {
   await I.enterPinPageHappyPath();
   await I.loginAsCitizen();
   await I.supportYouNeedDuringYourCase();
