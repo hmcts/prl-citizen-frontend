@@ -74,14 +74,12 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
         };
         proceedingDetails.push(proceedingData);
       }
-      currentOrPreviousProceedings.haveChildrenBeenInvolvedInCourtCase = req.session.userCase.proceedingsStart;
-      currentOrPreviousProceedings.courtOrderMadeForProtection = req.session.userCase.proceedingsStartOrder;
       currentOrPreviousProceedings.proceedingsList = proceedingDetails;
     });
-    respondentDetails.value.response.currentOrPreviousProceedings = currentOrPreviousProceedings;
-  } else {
-    respondentDetails.value.response.currentOrPreviousProceedings = currentOrPreviousProceedings;
   }
+  currentOrPreviousProceedings.haveChildrenBeenInvolvedInCourtCase = req.session.userCase.proceedingsStart;
+  currentOrPreviousProceedings.courtOrderMadeForProtection = req.session.userCase.proceedingsStartOrder;
+  respondentDetails.value.response.currentOrPreviousProceedings = currentOrPreviousProceedings;
 
   return respondentDetails;
 };

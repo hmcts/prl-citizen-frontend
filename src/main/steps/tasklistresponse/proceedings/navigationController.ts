@@ -48,6 +48,7 @@ class OtherProceedingsNavigationController {
     const proceedingStart = caseData?.proceedingsStart;
     const proceedingOrderType = caseData?.proceedingsStartOrder;
     this.orders = this.getOrdersByType(caseData);
+    let orderDocumentPresent = false;
     let nextUrl;
 
     switch (currentPage) {
@@ -73,7 +74,17 @@ class OtherProceedingsNavigationController {
           if (nextOrderType) {
             nextUrl = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
           } else {
-            nextUrl = COURT_PROCEEDINGS_SUMMARY;
+            this.orders.forEach(order => {
+              if (order.orderDocument) {
+                orderDocumentPresent = true;
+              }
+            });
+
+            if (orderDocumentPresent) {
+              nextUrl = COURT_PROCEEDINGS_SUMMARY;
+            } else {
+              nextUrl = PROCEEDINGS_SUMMARY;
+            }
           }
         }
         break;
