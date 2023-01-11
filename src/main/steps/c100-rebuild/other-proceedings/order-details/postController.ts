@@ -4,10 +4,8 @@ import { Response } from 'express';
 import { Case } from '../../../../app/case/case';
 import {
   C100OrderInterface,
-  C100OrderTypeInterface,
   C100OrderTypeKeyMapper,
   C100OrderTypes,
-  OtherProceedings,
   YesNoEmpty,
 } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
@@ -25,14 +23,14 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const orderType = req.params.orderType as C100OrderTypes;
     const orderTypeCaseKey = C100OrderTypeKeyMapper[orderType];
-    const form = new Form(getFormFields().fields as FormFields);
+    const form = new Form(getFormFields(req.session.userCase, orderType).fields as FormFields);
     const { addOrder, onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const newData: Partial<Case> = {
       op_otherProceedings: {
-        ...((req.session?.userCase?.op_otherProceedings ?? {}) as OtherProceedings),
+        ...(req.session?.userCase?.op_otherProceedings ?? {}),
         order: {
-          ...((req.session.userCase?.op_otherProceedings?.order ?? {}) as C100OrderTypeInterface),
+          ...(req.session.userCase?.op_otherProceedings?.order ?? {}),
           [orderTypeCaseKey]: this.transformFormData(
             formData,
             req.session?.userCase?.op_otherProceedings?.order?.[orderTypeCaseKey]

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseDate } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import { C100RebuildPartyDetails, Gender, YesNoDontKnow, YesNoEmpty, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -87,8 +87,8 @@ export const cy = () => ({
   previousName: 'Nodwch eu henw blaenorol',
   previousNameHint: 'Dylai hwn fod yr enw cyfreithiol llawn (gan gynnwys unrhyw enwau canol)',
   respondentGenderLabel: 'Rhyw',
-  male: 'Benyw',
-  female: 'Gwryw',
+  male: 'Gwryw',
+  female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
   respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man genih',
   otherGenderDetailsLabel: 'Rhywedd yr atebydd (Dewisol)',
@@ -376,8 +376,12 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (
+  caseData: Partial<CaseWithId>,
+  respondentId: C100RebuildPartyDetails['id']
+): FormContent => {
+  const respondentDetails = getPartyDetails(respondentId, caseData?.resp_Respondents) as C100RebuildPartyDetails;
+  return updateFormFields(form, generateFormFields(respondentDetails.personalDetails ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

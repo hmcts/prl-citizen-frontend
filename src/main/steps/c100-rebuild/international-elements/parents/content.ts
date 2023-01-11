@@ -27,7 +27,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title:
     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
   line1:
@@ -38,11 +38,11 @@ export const cy = () => ({
   errors: {
     ie_internationalParents: {
       required:
-        "Select yes if the children's parents or anyone significant to the children living outside of England or Wales - Welsh",
+        "Dewiswch 'ie' os yw rhieni’r plant neu unrhyw un sy’n bwysig i’r plant yn byw y tu allan i Gymru neu Loegr",
     },
     ie_provideDetailsParents: {
       required:
-        "Provide details about the children's parents or anyone significant to the children living outside of England or Wales - Welsh ",
+        "Darparwch fanylion am rieni’r plant neu unrhyw un sy’n bwysig i'r plant sy'n byw y tu allan i Gymru neu Loegr",
     },
   },
 });

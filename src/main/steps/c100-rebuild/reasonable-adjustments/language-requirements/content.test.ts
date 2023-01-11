@@ -33,7 +33,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Gofynion ieithyddol',
   headingTitle: 'A oes gennych chi unrhyw ofynion ieithyddol?',
   line1:
@@ -42,15 +42,15 @@ const cy = {
   speakInWelsh: "Rwy'n dymuno siarad Cymraeg",
   readAndWriteInWelsh: "Rwy'n dymuno darllen ac ysgrifennu yn Gymraeg",
   needInterpreterInCertainLanguage: "Rwy'n dymuno cael cyfieithydd mewn iaith benodol",
-  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect, 
-    if applicable) - welsh`,
+  needInterpreterInCertainLanguage_subfield:
+    'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yn berthnasol)',
   noLanguageRequirements: 'Nac oes, nid oes gennyf unrhyw ofynion ieithyddol ar hyn o bryd',
   errors: {
     ra_needInterpreterInCertainLanguage_subfield: {
-      required: 'Give details of the language you need an interpreter for - welsh',
+      required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei gyfer',
     },
     ra_languageNeeds: {
-      required: 'Select whether you have any language requirements - welsh',
+      required: 'Nodwch a oes gennych chi unrhyw ofynion ieithyddol',
     },
   },
 };

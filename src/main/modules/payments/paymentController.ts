@@ -12,37 +12,46 @@ const SUCCESS = 'Success';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const PaymentHandler = async (req: AppRequest, res: Response) => {
-  const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
-  const { Authorization, ServiceAuthorization, returnUrL, caseId, applicantCaseName, hwfRefNumber } =
-    paymentHelperTranspiler;
-  const paymentApiEndpoint = config.get('payments.url');
-  const createPaymentEndpoint = '/fees-and-payment-apis/create-payment';
-  const baseURL = paymentApiEndpoint + createPaymentEndpoint;
+  try {
+    const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
+    const { Authorization, ServiceAuthorization, returnUrL, caseId, applicantCaseName, hwfRefNumber } =
+      paymentHelperTranspiler;
+    const paymentApiEndpoint = config.get('services.cos.url');
+    const createPaymentEndpoint = '/fees-and-payment-apis/create-payment';
+    const baseURL = paymentApiEndpoint + createPaymentEndpoint;
 
-  const paymentCreator = new PaymentTaskResolver(
-    baseURL,
-    Authorization,
-    ServiceAuthorization,
-    caseId,
-    returnUrL,
-    applicantCaseName as string,
-    hwfRefNumber as string
-  );
-  const response = await paymentCreator.getPaymentCredentails();
-  req.session.userCase.paymentDetails = response;
-  //if previous payment is success then invoke submit case else redirect gov.uk
-  //if help with fees opted then submit case & redirect to confirmation page
-  if (hwfRefNumber || SUCCESS === response?.status) {
-    await submitCase(
-      req,
-      res,
-      req.session.userCase!.caseId!,
-      req.session.userCase,
-      req.originalUrl,
-      C100_CASE_EVENT.CASE_SUBMIT
+    const paymentCreator = new PaymentTaskResolver(
+      baseURL,
+      Authorization,
+      ServiceAuthorization,
+      caseId,
+      returnUrL,
+      applicantCaseName as string,
+      hwfRefNumber as string
     );
-  } else {
-    res.redirect(response['next_url']);
+    const response = await paymentCreator.getPaymentCredentails();
+
+    req.session.userCase.paymentDetails = response;
+    //if previous payment is success then invoke submit case else redirect gov.uk
+    //if help with fees opted then submit case & redirect to confirmation page
+    if (hwfRefNumber || SUCCESS === response?.status) {
+      submitCase(
+        req,
+        res,
+        req.session.userCase!.caseId!,
+        req.session.userCase,
+        req.originalUrl,
+        C100_CASE_EVENT.CASE_SUBMIT
+      );
+    } else {
+      res.redirect(response['next_url']);
+    }
+  } catch (e) {
+    req.locals.logger.error('Error in create service request/payment reference', e);
+    req.session.paymentError = true;
+    req.session.save(() => {
+      res.redirect(C100_CHECK_YOUR_ANSWER);
+    });
   }
 };
 
@@ -54,7 +63,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
     try {
       const { caseId } = req.session.userCase;
       const PaymentURL =
-        config.get('payments.url') +
+        config.get('services.cos.url') +
         `/fees-and-payment-apis/retrievePaymentStatus/${req.session.userCase?.paymentDetails?.['payment_reference']}/${caseId}`;
       const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
       const { Authorization, ServiceAuthorization } = paymentHelperTranspiler;
@@ -66,7 +75,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
         case 'Success':
           req.session.userCase.paymentSuccessDetails = checkPayment['data'];
           //Invoke update case with 'citizen-case-submit' event & reidrect confirmation page
-          await submitCase(
+          submitCase(
             req,
             res,
             req.session.userCase!.caseId!,
@@ -84,6 +93,9 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
     } catch (error) {
       req.locals.logger.error(error);
       res.status(500);
+      req.session.save(() => {
+        res.redirect(C100_CHECK_YOUR_ANSWER);
+      });
     }
   }
 };
@@ -97,9 +109,10 @@ async function submitCase(
   caseEvent: C100_CASE_EVENT
 ): Promise<void> {
   try {
+    req.session.paymentError = false;
     const updatedCase = await req.locals.C100Api.updateCase(caseId, caseData, returnUrl, caseEvent);
     //update final document in session for download on confirmation
-    req.session.userCase.finalDocument = updatedCase?.finalDocument;
+    req.session.userCase.finalDocument = updatedCase.data?.draftOrderDoc;
     //save & redirect to confirmation page
     req.session.save(() => {
       res.redirect(C100_CONFIRMATIONPAGE);

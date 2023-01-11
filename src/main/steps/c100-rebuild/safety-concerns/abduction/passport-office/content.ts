@@ -19,14 +19,14 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title: "A oes gan unrhyw un o'r plant basbort?",
   caption: 'Pryderon diogelwch',
   one: 'Oes',
   two: 'Nac oes',
   errors: {
     c1A_passportOffice: {
-      required: 'Select yes if any of the children have a passport - welsh',
+      required: "Dewiswch oes os oes gan unrhyw un o'r plant basbort",
     },
   },
 });

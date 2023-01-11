@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../../app/case/case';
 import { C100Applicant } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -29,23 +30,22 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Address of - welsh',
+  title: 'Cyfeiriad',
   errors: {
     address1: {
-      required: 'Enter the first line of the address - welsh',
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     addressTown: {
-      required: 'Enter the town or city - welsh',
+      required: 'Nodwch y dref neu’r ddinas',
     },
     addressHistory: {
-      required: 'Enter your details known - welsh',
+      required: 'Rhowch eich manylion hysbys',
     },
     provideDetailsOfPreviousAddresses: {
-      required:
-        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
+      required: 'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf',
     },
     country: {
-      required: 'Enter the country - welsh',
+      required: 'Nodwch y wlad',
     },
   },
 });
@@ -78,7 +78,11 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
   return updatedForm;
 };
 
-export const getUpdatedForm = (): FormContent => updatedForm;
+export const getUpdatedForm = (caseData: Partial<CaseWithId>, applicantId: C100Applicant['id']): FormContent => {
+  const applicantData = caseData?.appl_allApplicants?.find(i => i.id === applicantId) as C100Applicant;
+
+  return updatedFormFields(form, generateFormFields(applicantData ?? {}).fields);
+};
 
 export const generateFormFields = (caseData: Partial<C100Applicant>): GenerateDynamicFormFields => {
   return { fields: manualAddressForm(caseData).fields, errors: { en: {}, cy: {} } };

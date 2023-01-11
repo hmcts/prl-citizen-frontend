@@ -762,8 +762,14 @@ export interface ContactDetail {
   emailAddress?: string,
   canProvideTelephoneNumber?: YesNoEmpty,
   telephoneNumber?: string,
-  canNotProvideTelephoneNumberReason?: string
-  canLeaveVoiceMail?: YesNoEmpty
+  canNotProvideTelephoneNumberReason?: string,
+  canLeaveVoiceMail?: YesNoEmpty,
+  applicantContactPreferences?: String[];
+}
+
+export enum applicantContactPreferencesEnum {
+  DIGITAL = 'Digital',
+  POST = 'Post',
 }
 
 export type C100ListOfApplicants = C100Applicant[];

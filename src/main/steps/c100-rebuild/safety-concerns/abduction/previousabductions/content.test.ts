@@ -39,16 +39,16 @@ const cy = {
   c1A_policeOrInvestigatorInvolvedHint: 'Gan gynnwys yn y DU neu dramor.',
   one: 'Oedd',
   two: 'Nac oedd',
-  otherDetails: 'Provide more details - welsh',
+  otherDetails: 'Darparwch fwy o fanylion',
   errors: {
     c1A_previousAbductionsShortDesc: {
-      required: 'Briefly describe the previous incidents of abduction - welsh',
+      required: 'Disgrifiwch yn fyr y digwyddiadau blaenorol o herwgydio',
     },
     c1A_policeOrInvestigatorInvolved: {
-      required: 'Select yes if the police, private investigators or any other organisation was involved - welsh',
+      required: 'Dewiswch oedd os oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall yn rhan o hyn?',
     },
     c1A_policeOrInvestigatorOtherDetails: {
-      required: 'Provide details of the police, private investigators or any other organisation involvement - welsh',
+      required: 'Darparwch fanylion yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall oedd yn rhan o hyn',
     },
   },
 };

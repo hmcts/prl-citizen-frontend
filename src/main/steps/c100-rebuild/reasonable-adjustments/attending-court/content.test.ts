@@ -27,7 +27,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Mynychu’r llys',
   headingTitle: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
   paragraph1: 'Os bydd eich achos yn mynd i wrandawiad, gellir ei gynnal naill ai:',
@@ -38,10 +38,11 @@ const cy = {
   line3: 'dros y ffôn',
   select_all_apply: "Dewiswch bob un sy'n berthnasol",
   videoHearing: 'Gallaf gymryd rhan mewn gwrandawiad fideo',
-  phoneHearing: 'YGallaf gymryd rhan mewn gwrandawiad dros y ffôn',
+  phoneHearing: 'Gallaf gymryd rhan mewn gwrandawiad dros y ffôn',
   noVideoAndPhoneHearing: 'Ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
   noVideoAndPhoneHearingReason: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
-  noVideoAndPhoneHearing_subfield: 'Explain why you are unable to take part in video or phone hearings - welsh',
+  noVideoAndPhoneHearing_subfield:
+    'Esboniwch pam nad ydych yn gallu cymryd rhan mewn gwrandawiad drwy fideo na gwrandawiad dros y ffôn',
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('applicant personal details > applying-with > content', () => {

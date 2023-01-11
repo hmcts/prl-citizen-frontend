@@ -1,4 +1,4 @@
-import { CaseDate } from '../../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../../app/case/case';
 import { ChildrenDetails, Gender, OtherChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -8,6 +8,7 @@ import {
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
+  isMoreThan18Years,
 } from '../../../../../app/form/validation';
 import { getPartyDetails } from '../../../people/util';
 export * from '../routeGuard';
@@ -41,6 +42,7 @@ const en = () => ({
       incompleteYear: 'Date of birth must include a year',
       invalidDateInFuture: 'Date of birth must be in the past',
       cannotHaveBothApproxAndExact: 'Cannot have a date of birth and also "I dont know their date of birth"',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     approxDateOfBirth: {
       required: 'Enter the approx date of birth',
@@ -49,6 +51,7 @@ const en = () => ({
       incompleteMonth: 'Approx date of birth must include a month',
       incompleteYear: 'Approx date of birth must include a year',
       invalidDateInFuture: 'Approx date of birth must be in the past',
+      invalidDateOver18: 'Enter a date of birth under 18 years of age',
     },
     gender: {
       required: 'Select the gender',
@@ -63,8 +66,8 @@ const cy = () => ({
   approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
   approxDobLabel: 'Dyddiad geni bras',
   childGenderLabel: 'Rhyw',
-  male: 'Benyw',
-  female: 'Gwryw',
+  male: 'Gwryw',
+  female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
   otherGenderDetailsLabel: 'Rhyw y plentyn (Dewisol)',
   // day: 'Diwrnod',
@@ -79,6 +82,7 @@ const cy = () => ({
       incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
       cannotHaveBothApproxAndExact: 'Methu cael dyddiad geni a hefyd “ nid wyf yn gwybod beth yw ei ddyddiad geni',
+      invalidDateOver18: 'Rhowch ddyddiad geni sy’n addas ar gyfer unigolyn dan 18 oed',
     },
     approxDateOfBirth: {
       required: 'Nodwch ddyddiad geni bras',
@@ -87,6 +91,7 @@ const cy = () => ({
       incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
       incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
+      invalidDateOver18: 'Rhowch ddyddiad geni sy’n addas ar gyfer unigolyn dan 18 oed',
     },
     gender: {
       required: 'Nodwch y rhywedd',
@@ -158,6 +163,7 @@ export const generateFormFields = (
       validator: (value, formData) =>
         formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
           ? areDateFieldsFilledIn(value as CaseDate) ||
+            isMoreThan18Years(value as CaseDate) ||
             isDateInputInvalid(value as CaseDate) ||
             isFutureDate(value as CaseDate)
           : formData?.isDateOfBirthUnknown === YesNoEmpty.YES
@@ -211,6 +217,7 @@ export const generateFormFields = (
               validator: (value, formData) =>
                 formData?.isDateOfBirthUnknown === YesNoEmpty.YES
                   ? areDateFieldsFilledIn(value as CaseDate) ||
+                    isMoreThan18Years(value as CaseDate) ||
                     isDateInputInvalid(value as CaseDate) ||
                     isFutureDate(value as CaseDate)
                   : '',
@@ -269,8 +276,9 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (caseData: Partial<CaseWithId>, otherChildId: OtherChildrenDetails['id']): FormContent => {
+  const childDetails = getPartyDetails(otherChildId, caseData?.ocd_otherChildren) as ChildrenDetails;
+  return updateFormFields(form, generateFormFields(childDetails?.personalDetails ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

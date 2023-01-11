@@ -22,7 +22,6 @@ export const en = () => ({
   specialArrangementsOther: 'Other',
   specialArrangementsOther_subfield: 'Provide details of what you or the children need',
   noSafetyRequirements: 'No, I do not have any safety requirements at this time',
-  // or: 'or',
   errors: {
     ra_specialArrangementsOther_subfield: {
       required: 'Give details of the special arrangements you or the children need',
@@ -34,7 +33,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Trefniadau arbennig',
   headingTitle: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
   line1:
@@ -49,15 +48,14 @@ export const cy = () => ({
   videoLinks: 'Cyswllt fideo',
   videoLinksHint: 'Mae angen i farnwr gymeradwyo hyn',
   specialArrangementsOther: 'Arall',
-  specialArrangementsOther_subfield: 'Provide details of what you or the children need',
+  specialArrangementsOther_subfield: 'Darparwch fanylion am yr hyn rydych chi neu’r plant ei angen',
   noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',
-  // or: 'nor',
   errors: {
     ra_specialArrangementsOther_subfield: {
-      required: 'Give details of the special arrangements you or the children need - welsh',
+      required: "Rhowch fanylion y trefniadau arbennig sydd eu hangen arnoch chi neu'r plant",
     },
     ra_specialArrangements: {
-      required: 'Select whether you or the children need special arrangements at court - welsh',
+      required: "Dewiswch p'un a oes angen trefniadau arbennig arnoch chi neu'r plant yn y llys",
     },
   },
 });

@@ -34,7 +34,7 @@ export const cy = () => ({
     "Bydd yr wybodaeth hon yn cael ei defnyddio i nodi pa lys fydd yn delio a’ch cais. Os oes gan y plant gôd post gwahanol, nodwch yr un sydd fwyaf cyfleus i'r rhan fwyaf o'r plant yn y cais.",
   warningText: {
     text: "Dim ond os yw'r plant yn byw gyda chi yn eich cyfeiriad y dylech nodi eich cod post eich hun, neu os nad ydych chi'n gwybod ble mae'r plant yn byw.",
-    iconFallbackText: 'Warning - welsh',
+    iconFallbackText: 'Rhybudd',
   },
   postcodeLabel: 'Cod post',
   detailsLabel: "Pam rydyn ni'n defnyddio'r term 'plant'",
@@ -42,8 +42,8 @@ export const cy = () => ({
     "Rydym yn defnyddio 'plant' fel term cyffredinol i gyfeirio at blentyn neu blant. Rydyn ni'n gwneud hyn er mwyn osgoi ailadrodd.",
   errors: {
     c100RebuildChildPostCode: {
-      required: 'Enter a full postcode, with or without a space - welsh',
-      invalid: 'Enter a valid full postcode, with or without a space - welsh',
+      required: 'Rhowch god post llawn, gyda neu heb fwlch yn y canol',
+      invalid: 'Rhowch god post llawn dilys, gyda neu heb fwlch yn y canol',
     },
   },
 });
