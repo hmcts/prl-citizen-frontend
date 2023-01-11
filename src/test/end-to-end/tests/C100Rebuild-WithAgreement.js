@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - draft consent flow');
 
-Scenario('C100 Rebuild - draft consent flow @cross-browser',  async ({ I }) => {
+Scenario('C100 Rebuild - draft consent flow @cross-browser',  async  I  => {
    await I.loginAsCitizenUserNamePassWord();
    await I.createC100Application();
    await I.addCaseNameAndPostCode();
