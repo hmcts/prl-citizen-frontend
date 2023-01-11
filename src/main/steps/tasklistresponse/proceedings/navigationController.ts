@@ -4,6 +4,7 @@ import {
   ProceedingsOrderTypeKeyMapper,
   ProceedingsOrderTypes,
   YesNoEmpty,
+  YesOrNo,
 } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
@@ -11,6 +12,8 @@ import {
   OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_ORDER_DETAILS,
+  PROCEEDINGS_START,
+  PROCEEDINGS_SUMMARY,
   PageLink,
 } from '../../urls';
 
@@ -42,10 +45,20 @@ class OtherProceedingsNavigationController {
     this.selectedOrderTypes = caseData?.courtProceedingsOrders ?? [];
     this.orderType = params?.orderType as ProceedingsOrderTypes;
     this.orderId = params?.orderId;
+    const proceedingStart = caseData?.proceedingsStart;
+    const proceedingOrderType = caseData?.proceedingsStartOrder;
     this.orders = this.getOrdersByType(caseData);
     let nextUrl;
 
     switch (currentPage) {
+      case PROCEEDINGS_START:
+        if (proceedingStart === YesOrNo.YES || proceedingOrderType === YesOrNo.YES) {
+          nextUrl = PROCEEDINGS_COURT_PROCEEDINGS;
+        } else {
+          caseData.courtProceedingsOrders = [];
+          nextUrl = PROCEEDINGS_SUMMARY;
+        }
+        break;
       case PROCEEDINGS_COURT_PROCEEDINGS:
         nextUrl = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: this.selectedOrderTypes[0] });
         break;
@@ -60,7 +73,6 @@ class OtherProceedingsNavigationController {
           if (nextOrderType) {
             nextUrl = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
           } else {
-            // there is no other order type present
             nextUrl = COURT_PROCEEDINGS_SUMMARY;
           }
         }

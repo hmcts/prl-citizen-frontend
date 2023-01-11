@@ -18,6 +18,7 @@ import { ANYTYPE } from './dateformatter';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppRequest): Respondent => {
+  const respondentDetails = respondent;
   const currentOrPreviousProceedings: CurrentOrPreviousProceedings = {};
   const proceedingDetails: ProceedingDetailsData[] = [];
 
@@ -26,7 +27,6 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
       if (UserCase['otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
         const proceedingDetailsList: ProceedingsOrderDataInterface[] = [];
         const orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
-        console.log(`${order}`);
         orderDetails.forEach(nestedOrder => {
           const orderDocumentDetails: Document = {
             document_url: nestedOrder?.orderDocument?.url,
@@ -35,12 +35,12 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
           };
           if (nestedOrder.orderDocument) {
             const otherDetailsInfo: OtherProceedingDetails = {
-              orderDetail: nestedOrder.orderDetail,
-              caseNo: nestedOrder.caseNo,
-              currentOrder: nestedOrder.currentOrder,
-              orderCopy: nestedOrder.orderCopy,
-              orderDate: getLocalDate(nestedOrder.orderDate),
-              orderEndDate: getLocalDate(nestedOrder.orderEndDate),
+              orderDetail: nestedOrder?.orderDetail,
+              caseNo: nestedOrder?.caseNo,
+              currentOrder: nestedOrder?.currentOrder,
+              orderCopy: nestedOrder?.orderCopy,
+              orderDate: getLocalDate(nestedOrder?.orderDate),
+              orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
               orderDocument: orderDocumentDetails,
             };
             const proceedingDetailsInfo: ProceedingsOrderDataInterface = {
@@ -50,12 +50,12 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
             proceedingDetailsList.push(proceedingDetailsInfo);
           } else {
             const otherDetailsInfo: OtherProceedingDetails = {
-              orderDetail: nestedOrder.orderDetail,
-              caseNo: nestedOrder.caseNo,
-              currentOrder: nestedOrder.currentOrder,
-              orderCopy: nestedOrder.orderCopy,
-              orderDate: getLocalDate(nestedOrder.orderDate),
-              orderEndDate: getLocalDate(nestedOrder.orderEndDate),
+              orderDetail: nestedOrder?.orderDetail,
+              caseNo: nestedOrder?.caseNo,
+              currentOrder: nestedOrder?.currentOrder,
+              orderCopy: nestedOrder?.orderCopy,
+              orderDate: getLocalDate(nestedOrder?.orderDate),
+              orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
             };
             const proceedingDetailsInfo: ProceedingsOrderDataInterface = {
               id: '',
@@ -78,17 +78,18 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
       currentOrPreviousProceedings.courtOrderMadeForProtection = req.session.userCase.proceedingsStartOrder;
       currentOrPreviousProceedings.proceedingsList = proceedingDetails;
     });
-    respondent.value.response.currentOrPreviousProceedings = currentOrPreviousProceedings;
+    respondentDetails.value.response.currentOrPreviousProceedings = currentOrPreviousProceedings;
   } else {
-    respondent.value.response.currentOrPreviousProceedings = currentOrPreviousProceedings;
+    respondentDetails.value.response.currentOrPreviousProceedings = currentOrPreviousProceedings;
   }
 
-  return respondent;
+  return respondentDetails;
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getProceedingDetails = (respondent: Respondent, req: AppRequest): Partial<CaseWithId> => {
-  const currentProceedings = respondent.value.response.currentOrPreviousProceedings;
+  const respondentDetails = respondent;
+  const currentProceedings = respondentDetails.value.response.currentOrPreviousProceedings;
   const courtProceedingsOrders: ProceedingsOrderTypes[] = [];
   const proceedingOrderTypeInterface: ProceedingsOrderTypeInterface = {};
   if (currentProceedings) {
@@ -100,24 +101,20 @@ export const getProceedingDetails = (respondent: Respondent, req: AppRequest): P
       const orderType = proceedings.value.orderType as ProceedingsOrderTypes;
       courtProceedingsOrders.push(orderType);
       req.session.userCase.courtProceedingsOrders = courtProceedingsOrders;
-      let id = 1;
+      const id = 0;
       proceedings.value.proceedingDetails?.forEach(proceeding => {
-        console.log(proceeding.value.caseNo);
-        console.log(getDisplayDate(proceeding.value.orderDate));
-
         const proceedingOrderInterface: ProceedingsOrderInterface = {
           id: getNextId(id),
-          caseNo: proceeding.value.caseNo,
-          currentOrder: proceeding.value.currentOrder,
-          orderCopy: proceeding.value.orderCopy,
-          orderDate: getDisplayDate(proceeding.value.orderDate),
-          orderEndDate: getDisplayDate(proceeding.value.orderEndDate),
-          orderDetail: proceeding.value.orderDetail,
+          caseNo: proceeding.value?.caseNo,
+          currentOrder: proceeding.value?.currentOrder,
+          orderCopy: proceeding.value?.orderCopy,
+          orderDate: getDisplayDate(proceeding.value?.orderDate),
+          orderEndDate: getDisplayDate(proceeding.value?.orderEndDate),
+          orderDetail: proceeding.value?.orderDetail,
         };
-        if (proceeding.value.orderDocument) {
-          proceedingOrderInterface.orderDocument = getDocumentInfo(proceeding.value.orderDocument);
+        if (proceeding.value?.orderDocument) {
+          proceedingOrderInterface.orderDocument = getDocumentInfo(proceeding.value?.orderDocument);
         }
-        id = id + 1;
         proceedingOrderInterfaceList.push(proceedingOrderInterface);
       });
 
@@ -131,7 +128,7 @@ export const getProceedingDetails = (respondent: Respondent, req: AppRequest): P
 };
 
 function getLocalDate(orderDate: string): Date {
-  if (orderDate['year'] !== '' && orderDate['month'] !== '' && orderDate['day'] !== '') {
+  if (orderDate) {
     const formated_Date = new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
     return formated_Date;
   } else {
@@ -146,13 +143,20 @@ function getLocalDate(orderDate: string): Date {
   }
 }
 
-function getDisplayDate(orderDate: Date): CaseDate {
-  const dateString = orderDate.toLocaleString('default', { month: 'long' });
-  const formated_Date = {
-    year: dateString.split('-')[0],
-    month: dateString.split('-')[1],
-    day: dateString.split('-')[2],
+function getDisplayDate(orderDate: Date | undefined): CaseDate {
+  let formated_Date = {
+    year: '',
+    month: '',
+    day: '',
   };
+  if (orderDate) {
+    const dateString = orderDate.toLocaleString('default', { month: 'long' });
+    formated_Date = {
+      year: dateString.split('-')[0],
+      month: dateString.split('-')[1],
+      day: dateString.split('-')[2],
+    };
+  }
   return formated_Date;
 }
 
@@ -168,5 +172,6 @@ function getDocumentInfo(
   return orderDocumentInfo;
 }
 function getNextId(id: number): string {
+  id = id + 1;
   return id.toString();
 }

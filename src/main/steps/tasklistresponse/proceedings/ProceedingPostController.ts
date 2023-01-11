@@ -33,7 +33,6 @@ export class ProceedingPostController extends PostController<AnyObject> {
       });
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = caseReference;
-      console.log('*** Case Data **** ' + caseData);
       const updatedCaseDataFromCos = await client.updateCase(
         caseworkerUser,
         caseReference,

@@ -203,10 +203,9 @@ export const responseCaseSequence: Step[] = [
   {
     url: PROCEEDINGS_START,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
-        ? PROCEEDINGS_COURT_PROCEEDINGS
-        : COURT_PROCEEDINGS_SUMMARY,
+    getNextStep: (caseData: Partial<Case>): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_START, caseData);
+    },
   },
   {
     url: PROCEEDINGS_COURT_PROCEEDINGS,
