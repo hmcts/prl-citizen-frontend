@@ -16,13 +16,13 @@ const enContent = {
 };
 
 const cyContent = {
-  addressLine1: 'Building and street - welsh',
-  town: 'Town or city - welsh',
-  county: 'County - welsh',
-  country: 'Country - welsh',
-  postcode: 'Postcode - welsh',
-  enterInternationalAddress: 'Enter an international address - welsh',
-  explainNoLabel: 'I dont know where they currently live - welsh',
+  addressLine1: 'Adeilad a stryd',
+  town: 'Tref neu ddinas',
+  county: 'Sir',
+  country: 'Gwlad',
+  postcode: 'Cod post',
+  enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
+  explainNoLabel: 'nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
