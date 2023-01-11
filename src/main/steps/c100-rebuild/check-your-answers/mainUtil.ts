@@ -415,10 +415,10 @@ export const OtherChildrenDetails = (
 };
 
 
-export const ApplicantDetailNameParser = (personalDetails, keys): string => {
+export const ApplicantDetailNameParser = (personalDetails, keys,language): string => {
   let changeNameInformation = '' as string;
   const hasNameChanged = personalDetails['haveYouChangeName'];
-  changeNameInformation += hasNameChanged;
+  changeNameInformation += getYesNoTranslation(language,hasNameChanged,'doTranslation');
   if(hasNameChanged === 'Yes'){
     changeNameInformation += HTML.RULER;
     changeNameInformation += HTML.H4;
@@ -496,7 +496,7 @@ export const ApplicantDetails = (
       {
         key: keys['haveYouChangeNameLabel'],
         value: '',
-        valueHtml: getYesNoTranslation(language,ApplicantDetailNameParser(personalDetails, keys),'doTranslation'),
+        valueHtml: ApplicantDetailNameParser(personalDetails, keys,language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
