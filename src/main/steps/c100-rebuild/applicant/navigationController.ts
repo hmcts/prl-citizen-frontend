@@ -119,7 +119,7 @@ class ApplicantNavigationController {
       }
       case C100_APPLICANT_CONTACT_DETAIL: {
         nextUrl = applyParms(C100_APPLICANT_CONTACT_PREFERENCES, {
-          applicantId: this.applicantId!,
+          applicantId: this.applicantId,
         });
         break;
       }

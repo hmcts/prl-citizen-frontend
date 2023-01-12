@@ -17,7 +17,7 @@ export class Form {
       .reduce((_fields: [string, FormField][], [key, field]) => {
         _fields =
           field.type === 'fieldset' && Object.keys(field?.subFields ?? {}).length
-            ? [..._fields, ...(Object.entries(field.subFields) as [string, FormField][])]
+            ? [..._fields, ...(Object.entries(field.subFields) as [])]
             : [..._fields, [key, field]];
         return _fields;
       }, [])
