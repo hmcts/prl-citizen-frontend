@@ -51,41 +51,32 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     isWitnessAvailabilityUploaded: false,
     isTenancyUploaded: false,
   };
-
+  const isC100Application = () => {
+    userCase.applicants.forEach((applicant: Applicant) => {
+      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
+        applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
+      } else if (userCase.c1ADocument) {
+        applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
+      }
+      applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
+      applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
+      applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
+    });
+  };
+  const isNotC100Application = () => {
+    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
+    applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+  };
   for (const doc of userCase?.citizenUploadedDocumentList || []) {
     if (doc.value.isApplicant === YesOrNo.YES) {
       getUpdatedFlags(doc, flags);
     }
   }
   const applicantItems: object[] = [];
-  if (userCase.caseTypeOfApplication === 'C100') {
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
-    });
-    userCase.applicants.forEach((applicant: Applicant) => {
-      if (userCase.c1ADocument) {
-        applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
-      }
-    });
-    /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
-    userCase.applicants.forEach((applicant: Applicant) => {
-      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-        applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
-      }
-    });
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
-    });
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
-    });
-  } else {
-    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
-    applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
-    applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
-    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
-    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
-  }
+  userCase.caseTypeOfApplication === 'C100' ? isC100Application() : isNotC100Application();
 
   applicantItems.push({
     id: 'other_people_witness_statements',
@@ -215,24 +206,11 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     userCase.respondents.forEach((respondent: Respondent) => {
       if (userCase.citizenResponseC7DocumentList) {
         respondentItems.push(getResponseToCA(respondent, taskListItems, userCase.citizenResponseC7DocumentList));
-      }
-    });
-    /** uncomment and add condition when we implement Response to AOH, AOH docs for respondent  */
-    userCase.respondents.forEach((respondent: Respondent) => {
-      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
+      } else if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
         respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
-      }
-    });
-    userCase.respondents.forEach((respondent: Respondent) => {
-      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
         respondentItems.push(getAohAndViolence(respondent, taskListItems));
       }
-    });
-
-    userCase.respondents.forEach((respondent: Respondent) => {
       respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, url));
-    });
-    userCase.respondents.forEach((respondent: Respondent) => {
       respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase, url));
     });
   } else {
