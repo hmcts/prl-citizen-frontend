@@ -7,7 +7,7 @@ import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION, DASHBOARD_URL } from '../../../urls';
 
 @autobind
-export default class postController extends PostController<AnyObject> {
+export default class ContactPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }

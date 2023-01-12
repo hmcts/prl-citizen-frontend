@@ -13,7 +13,7 @@ describe('service-type content', () => {
 
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.title).toEqual('Your private law account (welsh)');
+    expect(generatedContent.title).toEqual('Eich cyfrif cyfraith breifat');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

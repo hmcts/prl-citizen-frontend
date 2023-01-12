@@ -17,13 +17,13 @@ const en = {
 };
 
 const cy = {
-  title: 'Enter Case Name - welsh',
-  caseNameHint: 'Enter the eldest child’s full name. For example, John Smith - welsh',
+  title: 'Nodwch enw’r achos',
+  caseNameHint: 'Nodwch enw llawn y plentyn hynaf. Er enghraifft, John Smith',
 
   errors: {
     applicantCaseName: {
-      required: 'Case Name is required - welsh',
-      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only. -Welsh',
+      required: 'Mae angen enw’r achos',
+      invalid: 'Nodwch enw achos dilys i barhau',
     },
   },
 };
