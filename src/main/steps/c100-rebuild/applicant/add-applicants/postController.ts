@@ -40,35 +40,33 @@ export default class AddApplicantPostController extends PostController<AnyObject
     const NoOfApplicantLength = req.session.userCase.appl_allApplicants?.length;
     const checkIfApplicantLengthLess = NoOfApplicantLength === 0;
     const checkIfApplicantLengthLessAndFormError =
-      (checkIfApplicantLengthLess && applicantFirstName === '') ||
-      (checkIfApplicantLengthLess && applicantLastName === '');
+      checkIfApplicantLengthLess && (applicantFirstName === '' || applicantLastName === '');
     const saveAndComeBackToggled = req.body['saveAndComeLater'];
 
     if (saveAndComeBackToggled) {
       req.session.save();
       return super.saveAndComeLater(req, res, req.session.userCase);
+    }
+    if (saveAndContinueChecked) {
+      const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
+      this.checkIfApplicantLengthLessAndFormError(
+        req,
+        res,
+        checkIfApplicantLengthLessAndFormError,
+        toggleCheckIfApplicantFieldIsFilled,
+        saveAndComeBackToggled,
+        formData,
+        form
+      );
     } else {
-      if (saveAndContinueChecked) {
-        const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
-        this.checkIfApplicantLengthLessAndFormError(
-          req,
-          res,
-          checkIfApplicantLengthLessAndFormError,
-          toggleCheckIfApplicantFieldIsFilled,
-          saveAndComeBackToggled,
-          formData,
-          form
-        );
-      } else {
-        this.errorsAndRedirect(req, res, formData, form);
-        if (req.session.errors && !req.session.errors.length) {
-          const { addAnotherApplicant } = req['body'];
-          if (addAnotherApplicant === 'Yes') {
-            this.addAnotherApplicant(req);
-            this.resetSessionTemporaryFormValues(req);
-          }
-          return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+      this.errorsAndRedirect(req, res, formData, form);
+      if (req.session.errors?.length === 0) {
+        const { addAnotherApplicant } = req['body'];
+        if (addAnotherApplicant === 'Yes') {
+          this.addAnotherApplicant(req);
+          this.resetSessionTemporaryFormValues(req);
         }
+        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
       }
     }
   }

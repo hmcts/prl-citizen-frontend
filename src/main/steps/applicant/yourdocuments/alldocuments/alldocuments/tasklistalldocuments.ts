@@ -36,9 +36,8 @@ export const getOrdersFromCourt = (sectionTitles, taskListItems, userCase, url) 
 
 export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, isApplicant) => {
   let url = URL.APPLICANT;
-  if (!isApplicant) {
-    url = URL.RESPONDENT;
-  }
+  const urlr = URL.RESPONDENT;
+  url = !isApplicant ? urlr : url;
 
   const flags = {
     isDrugDocUploaded: false,

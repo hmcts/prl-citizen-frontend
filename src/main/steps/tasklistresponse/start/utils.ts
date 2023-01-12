@@ -108,7 +108,7 @@ export const getInternationalFactorsStatus = (
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (respondent?.value.user?.idamId === userIdamId) {
       const internationalElements = respondent?.value?.response?.citizenInternationalElements;
-      if (
+      statusFlag =
         internationalElements?.childrenLiveOutsideOfEnWl ||
         internationalElements?.childrenLiveOutsideOfEnWlDetails ||
         internationalElements?.parentsAnyOneLiveOutsideEnWl ||
@@ -117,52 +117,34 @@ export const getInternationalFactorsStatus = (
         internationalElements?.anotherPersonOrderOutsideEnWlDetails ||
         internationalElements?.anotherCountryAskedInformation ||
         internationalElements?.anotherCountryAskedInformationDetaails
-      ) {
-        statusFlag = SectionStatus.IN_PROGRESS;
-      }
+          ? SectionStatus.IN_PROGRESS
+          : statusFlag;
 
       let flagStart = false;
       let flagParents = false;
       let flagJurisdication = false;
       let flagRequest = false;
-
-      if (internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.NO) {
-        flagStart = true;
-      }
-      if (internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO) {
-        flagParents = true;
-      }
-      if (internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.NO) {
-        flagJurisdication = true;
-      }
-      if (internationalElements?.anotherCountryAskedInformation === YesOrNo.NO) {
-        flagRequest = true;
-      }
-
-      if (internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.YES) {
-        if (internationalElements?.childrenLiveOutsideOfEnWlDetails) {
-          flagStart = true;
-        }
-      }
-      if (internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES) {
-        if (internationalElements?.parentsAnyOneLiveOutsideEnWlDetails) {
-          flagParents = true;
-        }
-      }
-      if (internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.YES) {
-        if (internationalElements?.anotherPersonOrderOutsideEnWlDetails) {
-          flagJurisdication = true;
-        }
-      }
-      if (internationalElements?.anotherCountryAskedInformation === YesOrNo.YES) {
-        if (internationalElements?.anotherCountryAskedInformationDetaails) {
-          flagRequest = true;
-        }
-      }
-
-      if (flagStart && flagParents && flagJurisdication && flagRequest) {
-        statusFlag = SectionStatus.COMPLETED;
-      }
+      flagStart = !!(
+        internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.NO ||
+        (internationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.YES &&
+          internationalElements?.childrenLiveOutsideOfEnWlDetails)
+      );
+      flagParents = !!(
+        internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO ||
+        (internationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES &&
+          internationalElements?.parentsAnyOneLiveOutsideEnWlDetails)
+      );
+      flagJurisdication = !!(
+        internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.NO ||
+        (internationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.YES &&
+          internationalElements?.anotherPersonOrderOutsideEnWlDetails)
+      );
+      flagRequest = !!(
+        internationalElements?.anotherCountryAskedInformation === YesOrNo.NO ||
+        (internationalElements?.anotherCountryAskedInformation === YesOrNo.YES &&
+          internationalElements?.anotherCountryAskedInformationDetaails)
+      );
+      statusFlag = flagStart && flagParents && flagJurisdication && flagRequest ? SectionStatus.COMPLETED : statusFlag;
     }
   });
 
