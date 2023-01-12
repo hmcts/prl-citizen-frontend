@@ -225,7 +225,7 @@ describe('generateRespondentTaskList', () => {
         title: sectionTitles.yourResponse,
         items: [
           {
-            href: '/tasklistresponse/start',
+            href: '/tasklistresponse/start/updateFlag',
             id: 'respond_to_application',
             status: 'IN_PROGRESS',
             text: 'Respond to the application',

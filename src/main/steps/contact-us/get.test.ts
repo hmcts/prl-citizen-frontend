@@ -26,6 +26,7 @@ describe('ContactUsGetController', () => {
         }),
         ...defaultViewArgs,
         userCase: req.session.userCase,
+        additionalData: expect.anything(),
       })
     );
   });
