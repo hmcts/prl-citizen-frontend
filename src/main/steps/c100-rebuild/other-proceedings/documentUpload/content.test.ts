@@ -94,7 +94,7 @@ const cy = {
   remove: ' Dileu',
   errors: {
     document: {
-      required: 'Please choose a file. - welsh',
+      required: 'Dewiswch ffeil',
       multipleFiles:
         "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
       fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",

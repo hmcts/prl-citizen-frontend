@@ -30,23 +30,22 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Address of - welsh',
+  title: 'Cyfeiriad',
   errors: {
     address1: {
-      required: 'Enter the first line of the address - welsh',
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     addressTown: {
-      required: 'Enter the town or city - welsh',
+      required: 'Nodwch y dref neu’r ddinas',
     },
     addressHistory: {
-      required: 'Enter your details known - welsh',
+      required: 'Rhowch eich manylion hysbys',
     },
     provideDetailsOfPreviousAddresses: {
-      required:
-        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address - welsh',
+      required: 'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf',
     },
     country: {
-      required: 'Enter the country - welsh',
+      required: 'Nodwch y wlad',
     },
   },
 });

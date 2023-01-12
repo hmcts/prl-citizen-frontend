@@ -5,10 +5,7 @@
 <span class="govuk-caption-xl">{{caption}}</span>
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{title}}</h1>
 {{introText | safe}}
-{{ govukWarningText({
-  text: warningText,
-  iconFallbackText: "Warning"
-}) }}
+{{ govukWarningText(getContent(warningText)) }}
 {% endblock %}
 {% block page_safetyConcerns %}
 {% include "../template.njk"%}<br>

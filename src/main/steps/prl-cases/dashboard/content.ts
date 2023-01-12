@@ -21,14 +21,14 @@ export const enContent = {
 };
 
 export const cyContent = {
-  title: 'Your private law account (welsh)',
-  CAApplicationNote: 'Case once submitted cannot be accessed. (welsh)',
-  createCAApplication: 'Start new C100 application (welsh)',
+  title: 'Eich cyfrif cyfraith breifat',
+  CAApplicationNote: 'Unwaith y bydd achos wedi’i gyflwyno, ni ellir cael mynediad ato wedyn.',
+  createCAApplication: 'Dechrau cais C100 newydd',
   sectionTitles: {
-    yourCAapplication: 'C100 applications where you are an applicant',
-    youtCArespondentApplication: 'C100 applications where you are an respondent',
-    daApplicationsMadeByYou: 'FL401 applications where you are an applicant',
-    daApplicationsAgainstYou: 'FL401 applications where you are an respondent',
+    yourCAapplication: 'Ceisiadau C100 lle rydych yn geisydd',
+    youtCArespondentApplication: 'Ceisiadau C100 lle rydych yn atebydd',
+    daApplicationsMadeByYou: 'Ceisiadau FL401 lle rydych yn geisydd',
+    daApplicationsAgainstYou: 'Ceisiadau FL401 lle rydych yn atebydd',
   },
   help: 'To view or progress your case click on your case number.',
   keys: {},
