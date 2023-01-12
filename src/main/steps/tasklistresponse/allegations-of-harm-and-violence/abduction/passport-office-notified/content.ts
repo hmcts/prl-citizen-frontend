@@ -1,30 +1,31 @@
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
-
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   title: 'Has the passport office been notified? ',
   Yes: 'Yes',
   No: 'No',
   errors: {
-    c1A_abductionPassportOfficeNotified: {
+    PRL_c1A_abductionPassportOfficeNotified: {
       required: 'Select yes if the passport office has been notified',
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
   title: 'Has the passport office been notified? - welsh',
   Yes: 'Yes - welsh',
   No: 'No - welsh',
   errors: {
-    c1A_abductionPassportOfficeNotified: {
+    PRL_c1A_abductionPassportOfficeNotified: {
       required: 'Select yes if the passport office has been notified - welsh',
     },
   },
@@ -37,19 +38,19 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_abductionPassportOfficeNotified: {
-      id: 'c1A_abductionPassportOfficeNotified',
+    PRL_c1A_abductionPassportOfficeNotified: {
+      id: 'PRL_c1A_abductionPassportOfficeNotified',
       type: 'radios',
       classes: 'govuk-radios',
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'c1A_abductionPassportOfficeNotified',
+          name: 'PRL_c1A_abductionPassportOfficeNotified',
           label: l => l.Yes,
           value: YesOrNo.YES,
         },
         {
-          name: 'c1A_abductionPassportOfficeNotified',
+          name: 'PRL_c1A_abductionPassportOfficeNotified',
           label: l => l.No,
           value: YesOrNo.NO,
         },

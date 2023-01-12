@@ -1,28 +1,29 @@
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
-
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   caption: 'Safety concerns',
   title: 'Have the children been abducted or kept outside the UK without your consent before?',
   one: 'Yes',
   two: 'No',
   errors: {
-    c1A_childAbductedBefore: {
+    PRL_c1A_childAbductedBefore: {
       required: 'Select yes if the children have been abducted or kept outside the UK without your consent before',
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'Safety concerns - welsh',
   title: 'Have the children been abducted or kept outside the UK without your consent before? - welsh',
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {
-    c1A_childAbductedBefore: {
+    PRL_c1A_childAbductedBefore: {
       required:
         'Select yes if the children have been abducted or kept outside the UK without your consent before - welsh',
     },
@@ -36,7 +37,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_childAbductedBefore: {
+    PRL_c1A_childAbductedBefore: {
       type: 'radios',
       classes: 'govuk-radios',
 

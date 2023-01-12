@@ -9,7 +9,7 @@ const enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    yourchildconcernsstart: 'Do you have any concerns for your safety or the safety of the children?',
+    PRL_c1A_haveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
   },
   errors: {},
 };
@@ -21,7 +21,7 @@ const cyContent: typeof enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    yourchildconcernsstart: 'Do you have any concerns for your safety or the safety of the children?',
+    PRL_c1A_haveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
   },
   errors: {},
 };

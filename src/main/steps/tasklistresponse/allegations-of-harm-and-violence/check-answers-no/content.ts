@@ -10,7 +10,7 @@ export const enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    yourchildconcernsstart: 'Do you have any concerns for your safety or the safety of the children?',
+    PRL_c1A_haveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
   },
   errors: {},
 };
@@ -31,16 +31,16 @@ const cyContent: typeof enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    yourchildconcernsstart: 'Do you have any concerns for your safety or the safety of the children?',
+    PRL_c1A_haveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
   },
   errors: {},
 };
 
 const urls = {
-  yourchildconcernsstart: 'your-or-child-safety-concerns',
+  PRL_c1A_haveSafetyConcerns: 'your-or-child-safety-concerns',
 };
 const fieldType = {
-  yourchildconcernsstart: 'String',
+  PRL_c1A_haveSafetyConcerns: 'String',
 };
 
 const cy: typeof en = (content: CommonContent) => {

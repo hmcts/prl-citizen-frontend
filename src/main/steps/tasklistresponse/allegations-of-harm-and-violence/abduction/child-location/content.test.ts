@@ -20,10 +20,10 @@ const en = {
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses.',
   errors: {
-    c1A_abductionReasonOutsideUk: {
+    PRL_c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
     },
-    c1A_childsCurrentLocation: {
+    PRL_c1A_childsCurrentLocation: {
       required: 'Describe where the children are now',
     },
   },
@@ -43,11 +43,11 @@ const cy = {
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses. - welsh',
   errors: {
-    c1A_abductionReasonOutsideUk: {
+    PRL_c1A_abductionReasonOutsideUk: {
       required:
         'Explain why you think the children may be abducted or kept outside of the UK without your consent - welsh',
     },
-    c1A_childsCurrentLocation: {
+    PRL_c1A_childsCurrentLocation: {
       required: 'Describe where the children are now - welsh',
     },
   },
@@ -75,15 +75,15 @@ describe('Safety concern > abduction > child-location', () => {
   });
 
   test('should contain safety concerns > abduction > child-location fields', () => {
-    const c1A_abductionReasonOutsideUk = fields.c1A_abductionReasonOutsideUk as FormOptions;
+    const c1A_abductionReasonOutsideUk = fields.PRL_c1A_abductionReasonOutsideUk as FormOptions;
     expect(c1A_abductionReasonOutsideUk.type).toBe('textarea');
-    (c1A_abductionReasonOutsideUk.validator as Function)('c1A_safetyConcerns');
+    (c1A_abductionReasonOutsideUk.validator as Function)('PRL_c1A_safetyConcerns');
 
-    const c1A_childsCurrentLocation = fields.c1A_childsCurrentLocation as FormOptions;
+    const c1A_childsCurrentLocation = fields.PRL_c1A_childsCurrentLocation as FormOptions;
     expect(c1A_childsCurrentLocation.type).toBe('textarea');
     expect((c1A_childsCurrentLocation.label as LanguageLookup)(generatedContent)).toBe(en.childsCurrentLocationText);
     expect((c1A_childsCurrentLocation.hint as LanguageLookup)(generatedContent)).toBe(en.childsCurrentLocationHint);
-    (c1A_childsCurrentLocation.validator as Function)('c1A_safetyConcerns');
+    (c1A_childsCurrentLocation.validator as Function)('PRL_c1A_safetyConcerns');
   });
 
   test('should contain Save and continue button', () => {

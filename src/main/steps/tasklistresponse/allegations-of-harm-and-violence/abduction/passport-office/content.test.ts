@@ -12,7 +12,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   errors: {
-    c1A_passportOffice: {
+    PRL_c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport',
     },
   },
@@ -25,7 +25,7 @@ const cy = {
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    c1A_passportOffice: {
+    PRL_c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport - welsh',
     },
   },
@@ -46,7 +46,7 @@ describe('safetyconcerns > abduction > passport-office', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.c1A_passportOffice as FormOptions;
+    const applyingWithField = fields.PRL_c1A_passportOffice as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);

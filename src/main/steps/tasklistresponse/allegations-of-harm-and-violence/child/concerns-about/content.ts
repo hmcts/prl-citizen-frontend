@@ -1,10 +1,10 @@
-import { C1AAbuseTypes } from '../../../../../app/case/definition';
+import { PRL_C1AAbuseTypes } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
-
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing?',
@@ -34,13 +34,13 @@ const en = () => ({
   somethingElseHint: 'Any concerns you have that do not fit into the above categories',
   onlyContinue: 'Continue',
   errors: {
-    c1A_concernAboutChild: {
+    PRL_c1A_concernAboutChild: {
       required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing',
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
   headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',
@@ -71,7 +71,7 @@ const cy = () => ({
   somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
   onlyContinue: 'Continue',
   errors: {
-    c1A_concernAboutChild: {
+    PRL_c1A_concernAboutChild: {
       required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing - welsh',
     },
   },
@@ -84,60 +84,60 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_concernAboutChild: {
-      id: 'c1A_concernAboutChild',
+    PRL_c1A_concernAboutChild: {
+      id: 'PRL_c1A_concernAboutChild',
       type: 'checkboxes',
       hint: l => l.select_all_relevant,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'c1A_concernAboutChild',
+          name: 'PRL_c1A_concernAboutChild',
           label: l => l.physicalAbuse,
           hint: l => l.physicalAbuseHint,
-          value: C1AAbuseTypes.PHYSICAL_ABUSE,
+          value: PRL_C1AAbuseTypes.PHYSICAL_ABUSE,
         },
         {
-          name: 'c1A_concernAboutChild',
+          name: 'PRL_c1A_concernAboutChild',
           label: l => l.psychologicalAbuse,
           hint: l => l.psychologicalAbuseHint,
-          value: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
+          value: PRL_C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
         },
         {
-          name: 'c1A_concernAboutChild',
+          name: 'PRL_c1A_concernAboutChild',
           label: l => l.emotionalAbuse,
           hint: l => l.emotionalAbuseHint,
-          value: C1AAbuseTypes.EMOTIONAL_ABUSE,
+          value: PRL_C1AAbuseTypes.EMOTIONAL_ABUSE,
         },
         {
-          name: 'c1A_concernAboutChild',
+          name: 'PRL_c1A_concernAboutChild',
           label: l => l.sexualAbuse,
           hint: l => l.sexualAbuseHint,
-          value: C1AAbuseTypes.SEXUAL_ABUSE,
+          value: PRL_C1AAbuseTypes.SEXUAL_ABUSE,
         },
 
         {
-          name: 'c1A_concernAboutChild',
+          name: 'PRL_c1A_concernAboutChild',
           label: l => l.financialAbuse,
           hint: l => l.financialAbuseHint,
-          value: C1AAbuseTypes.FINANCIAL_ABUSE,
+          value: PRL_C1AAbuseTypes.FINANCIAL_ABUSE,
         },
         {
-          name: 'c1A_concernAboutChild',
+          name: 'PRL_c1A_concernAboutChild',
           label: l => l.abductionAbuse,
           hint: l => l.abductionAbuseHint,
-          value: C1AAbuseTypes.ABDUCTION,
+          value: PRL_C1AAbuseTypes.ABDUCTION,
         },
         {
-          name: 'c1A_concernAboutChild',
+          name: 'PRL_c1A_concernAboutChild',
           label: l => l.witnessingDomesticAbuse,
           hint: l => l.witnessingDomesticAbuseHint,
-          value: C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE,
+          value: PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE,
         },
         {
-          name: 'c1A_concernAboutChild',
+          name: 'PRL_c1A_concernAboutChild',
           label: l => l.somethingElse,
           hint: l => l.somethingElseHint,
-          value: C1AAbuseTypes.SOMETHING_ELSE,
+          value: PRL_C1AAbuseTypes.SOMETHING_ELSE,
         },
       ],
     },

@@ -7,6 +7,8 @@ import {
   C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED,
   C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS,
   C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
+  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS,
+  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -269,7 +271,7 @@ export const responseCaseSequence: Step[] = [
     url: RESPONDENT_YOUR_CHILD_CONCERNS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: data =>
-      data.yourchildconcernsstart === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
+      data.PRL_c1A_haveSafetyConcerns === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
   },
   {
     url: RESPONDENT_CHECK_ANSWERS_YES,
@@ -327,7 +329,7 @@ export const responseCaseSequence: Step[] = [
     url: C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
     showInSection: Sections.C100,
     getNextStep: data =>
-      data.c1A_passportOffice === YesOrNo.YES
+      data.PRL_c1A_passportOffice === YesOrNo.YES
         ? C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT
         : C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
   },
@@ -345,7 +347,7 @@ export const responseCaseSequence: Step[] = [
     url: C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      caseData.c1A_childAbductedBefore === YesOrNo.YES
+      caseData.PRL_c1A_childAbductedBefore === YesOrNo.YES
         ? C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS
         : SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_ABDUCTION_THREATS, caseData, req?.params),
   },
@@ -377,7 +379,12 @@ export const responseCaseSequence: Step[] = [
   {
     url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS,
+  },
+  {
+    url: C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   },
   {
     url: PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,

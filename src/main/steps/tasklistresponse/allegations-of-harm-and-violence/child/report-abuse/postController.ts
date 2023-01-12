@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case } from '../../../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcerns } from '../../../../../app/case/definition';
+import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcerns } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -17,15 +17,15 @@ export default class SafteyConcernsAbusePostController extends PostController<An
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const abuseType = req.params.abuseType as C1AAbuseTypes;
+    const abuseType = req.params.abuseType as PRL_C1AAbuseTypes;
     const form = new Form(getFormFields().fields as FormFields);
     const { onlyContinue, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const childAbuseData: Partial<Case> = {
-      c1A_safteyConcerns: {
-        ...(req.session.userCase?.c1A_safteyConcerns ?? {}),
+      PRL_c1A_safteyConcerns: {
+        ...(req.session.userCase?.PRL_c1A_safteyConcerns ?? {}),
         child: {
-          ...((req.session.userCase?.c1A_safteyConcerns?.child ?? {}) as C1ASafteyConcerns['child']),
+          ...((req.session.userCase?.PRL_c1A_safteyConcerns?.child ?? {}) as PRL_C1ASafteyConcerns['child']),
           [abuseType]: transformAbuseFormData(formData),
         },
       },

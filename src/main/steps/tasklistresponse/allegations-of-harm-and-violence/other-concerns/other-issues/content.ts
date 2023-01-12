@@ -2,8 +2,8 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
-
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   section: 'Safety concerns',
   title: 'Do you have any other concerns about the children’s safety and wellbeing?',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with.',
@@ -11,16 +11,16 @@ const en = () => ({
   two: 'No',
   summaryText: 'Contacts for help',
   errors: {
-    c1A_childSafetyConcerns: {
+    PRL_c1A_childSafetyConcerns: {
       required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
     },
-    c1A_childSafetyConcernsDetails: {
+    PRL_c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   section: 'Safety concerns - welsh',
   title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',
@@ -28,10 +28,10 @@ const cy = () => ({
   two: 'No - welsh',
   summaryText: 'Contacts for help - welsh',
   errors: {
-    c1A_childSafetyConcerns: {
+    PRL_c1A_childSafetyConcerns: {
       required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
     },
-    c1A_childSafetyConcernsDetails: {
+    PRL_c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
     },
   },
@@ -44,8 +44,8 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_childSafetyConcerns: {
-      id: 'c1A_childSafetyConcerns',
+    PRL_c1A_childSafetyConcerns: {
+      id: 'PRL_c1A_childSafetyConcerns',
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.label,
@@ -56,7 +56,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            c1A_childSafetyConcernsDetails: {
+            PRL_c1A_childSafetyConcernsDetails: {
               type: 'textarea',
               label:
                 'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',

@@ -1,37 +1,36 @@
-import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { PRL_C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
-const en = {
-  section: 'Safety concerns',
-  title: 'Who are you concerned about?',
-  optionHint: 'Select all options that are relevant to you.',
-  summaryText: 'Contacts for help',
-  childconcern: 'The children in this application',
-  selfconcern: 'Yourself',
-  continue: 'Continue',
+export const en = () => ({
+  serviceName: 'Child arrangements',
+  caption: 'Safety concerns',
+  headingTitle: 'Who are you concerned about?',
+  select_all_relevant: 'Select all options that are relevant to you.',
+  childrenInThisApplication: 'The children in this application',
+  yourself: 'Yourself',
   errors: {
-    c1A_safetyConernAbout: {
+    PRL_c1A_safetyConernAbout: {
       required: 'Specify who you are concerned about',
     },
   },
-};
+});
 
-const cy: typeof en = {
-  section: 'Safety concerns - in welsh',
-  title: 'Who are you concerned about? - in welsh',
-  optionHint: 'Select all options that are relevant to you. - in welsh',
-  summaryText: 'Contacts for help - in welsh',
-  childconcern: 'The children in this application - in welsh',
-  selfconcern: 'Yourself - in welsh',
-  continue: 'Continue - in welsh',
+export const cy = () => ({
+  serviceName: 'Child arrangements - welsh',
+  caption: 'Safety concerns - welsh',
+  headingTitle: 'Who are you concerned about? - welsh',
+  select_all_relevant: 'Select all options that are relevant to you. - welsh',
+  childrenInThisApplication: 'The children in this application - welsh',
+  yourself: 'Yourself - welsh',
   errors: {
-    c1A_safetyConernAbout: {
-      required: 'Specify who you are concerned about - in welsh',
+    PRL_c1A_safetyConernAbout: {
+      required: 'Specify who you are concerned about - welsh',
     },
   },
-};
+});
 
 const languages = {
   en,
@@ -40,23 +39,21 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_safetyConernAbout: {
-      id: 'c1A_safetyConernAbout',
+    PRL_c1A_safetyConernAbout: {
+      id: 'PRL_c1A_safetyConernAbout',
       type: 'checkboxes',
-      labelHidden: true,
-      hint: l => l.optionHint,
-      section: l => l.section,
+      hint: l => l.select_all_relevant,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'c1A_safetyConernAbout',
-          label: l => l.childconcern,
-          value: C1ASafteyConcernsAbout.CHILDREN,
+          name: 'PRL_c1A_safetyConernAbout',
+          label: l => l.childrenInThisApplication,
+          value: PRL_C1ASafteyConcernsAbout.CHILDREN,
         },
         {
-          name: 'c1A_safetyConernAbout',
-          label: l => l.selfconcern,
-          value: C1ASafteyConcernsAbout.RESPONDENT,
+          name: 'PRL_c1A_safetyConernAbout',
+          label: l => l.yourself,
+          value: PRL_C1ASafteyConcernsAbout.RESPONDENT,
         },
       ],
     },
@@ -67,7 +64,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const translations = languages[content.language]();
   return {
     ...translations,
     form,

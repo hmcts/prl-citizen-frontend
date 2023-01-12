@@ -73,7 +73,7 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
   const commonContent = {
     language: 'en',
     userCase: {
-      c1A_safteyConcerns: {
+      PRL_c1A_safteyConcerns: {
         child: {
           physicalAbuse: {
             childrenConcernedAbout: '',

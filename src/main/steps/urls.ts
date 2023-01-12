@@ -206,6 +206,12 @@ export const C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS: PageLink =
 export const C1A_SAFETY_CONCERNS_ABDUCTION_THREATS: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/abduction/threats';
 
+export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers';
+
+export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers/save';
+
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
 export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';

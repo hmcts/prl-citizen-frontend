@@ -1,5 +1,5 @@
 import { Case } from '../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout } from '../../../app/case/definition';
+import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
   C1A_SAFETY_CONCERNS_ABDUCTION,
@@ -18,16 +18,16 @@ import {
 } from '../../../steps/urls';
 
 class SafteyConcernsNavigationController {
-  private concernsAbout: C1ASafteyConcernsAbout[] = [];
-  private childConcerns: C1AAbuseTypes[] = [];
-  private respondentConcerns: C1AAbuseTypes[] = [];
+  private concernsAbout: PRL_C1ASafteyConcernsAbout[] = [];
+  private childConcerns: PRL_C1AAbuseTypes[] = [];
+  private respondentConcerns: PRL_C1AAbuseTypes[] = [];
 
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, unknown>): PageLink {
     let nextUrl;
 
-    this.concernsAbout = caseData?.c1A_safetyConernAbout as C1ASafteyConcernsAbout[];
-    this.childConcerns = caseData?.c1A_concernAboutChild as C1AAbuseTypes[];
-    this.respondentConcerns = caseData?.c1A_concernAboutRespondent as C1AAbuseTypes[];
+    this.concernsAbout = caseData?.PRL_c1A_safetyConernAbout as PRL_C1ASafteyConcernsAbout[];
+    this.childConcerns = caseData?.PRL_c1A_concernAboutChild as PRL_C1AAbuseTypes[];
+    this.respondentConcerns = caseData?.PRL_c1A_concernAboutRespondent as PRL_C1AAbuseTypes[];
 
     switch (currentPageUrl) {
       case RESPONDENT_CHECK_ANSWERS_YES: {
@@ -37,7 +37,7 @@ class SafteyConcernsNavigationController {
 
       case PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: {
         nextUrl = this.getNextUrlSafetyConcernChild(
-          this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, this.childConcerns[0])
+          this.getPageUrl(PRL_C1ASafteyConcernsAbout.CHILDREN, this.childConcerns[0])
         );
 
         break;
@@ -51,7 +51,7 @@ class SafteyConcernsNavigationController {
       }
 
       case PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT: {
-        nextUrl = this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT, this.respondentConcerns[0]);
+        nextUrl = this.getPageUrl(PRL_C1ASafteyConcernsAbout.RESPONDENT, this.respondentConcerns[0]);
         break;
       }
       case PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE: {
@@ -68,17 +68,21 @@ class SafteyConcernsNavigationController {
 
   private getNextUrlSafetyConcernAbduct(params, currentPageUrl) {
     const abuseType =
-      params?.abuseType ?? (currentPageUrl.includes(C1A_SAFETY_CONCERNS_ABDUCTION) ? C1AAbuseTypes.ABDUCTION : null);
-    let returnUrl = this.getNextPageUrl(C1ASafteyConcernsAbout.CHILDREN, abuseType);
+      params?.abuseType ??
+      (currentPageUrl.includes(C1A_SAFETY_CONCERNS_ABDUCTION) ? PRL_C1AAbuseTypes.ABDUCTION : null);
+    let returnUrl = this.getNextPageUrl(PRL_C1ASafteyConcernsAbout.CHILDREN, abuseType);
 
     //Flow-3
-    if (this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.RESPONDENT])) {
+    if (this.checkForConcerns([PRL_C1ASafteyConcernsAbout.CHILDREN, PRL_C1ASafteyConcernsAbout.RESPONDENT])) {
       /*
     1. If there is no page left to navigate for child, then the next page url should be respondent abuse selection page.
     2. If the next page url is other concerns page, then the next page url should be respondent abuse selection page.
     */
-      if (!returnUrl || returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE)) {
-        returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT);
+      if (
+        !returnUrl ||
+        returnUrl === this.getPageUrl(PRL_C1ASafteyConcernsAbout.CHILDREN, PRL_C1AAbuseTypes.SOMETHING_ELSE)
+      ) {
+        returnUrl = this.getPageUrl(PRL_C1ASafteyConcernsAbout.RESPONDENT);
       }
     } else {
       //Flow-1 or Flow-2
@@ -88,10 +92,10 @@ class SafteyConcernsNavigationController {
     */
       if (
         !returnUrl ||
-        (this.checkForConcerns(C1ASafteyConcernsAbout.RESPONDENT, true) &&
-          returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT))
+        (this.checkForConcerns(PRL_C1ASafteyConcernsAbout.RESPONDENT, true) &&
+          returnUrl === this.getPageUrl(PRL_C1ASafteyConcernsAbout.RESPONDENT))
       ) {
-        returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
+        returnUrl = this.getPageUrl(PRL_C1ASafteyConcernsAbout.OTHER);
       }
     }
 
@@ -100,15 +104,15 @@ class SafteyConcernsNavigationController {
 
   private getNextUrlSafetyConcernChild(returnUrl) {
     if (
-      returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE) &&
-      this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.RESPONDENT])
+      returnUrl === this.getPageUrl(PRL_C1ASafteyConcernsAbout.CHILDREN, PRL_C1AAbuseTypes.SOMETHING_ELSE) &&
+      this.checkForConcerns([PRL_C1ASafteyConcernsAbout.CHILDREN, PRL_C1ASafteyConcernsAbout.RESPONDENT])
     ) {
-      returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT);
+      returnUrl = this.getPageUrl(PRL_C1ASafteyConcernsAbout.RESPONDENT);
     } else if (
-      returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE) &&
-      this.checkForConcerns(C1ASafteyConcernsAbout.RESPONDENT, true)
+      returnUrl === this.getPageUrl(PRL_C1ASafteyConcernsAbout.CHILDREN, PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE) &&
+      this.checkForConcerns(PRL_C1ASafteyConcernsAbout.RESPONDENT, true)
     ) {
-      returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
+      returnUrl = this.getPageUrl(PRL_C1ASafteyConcernsAbout.OTHER);
     }
 
     return returnUrl;
@@ -120,15 +124,19 @@ class SafteyConcernsNavigationController {
           Flow-3: If there is no page left to navigate for respondent, then the next page url should be other concerns page.
           */
     const returnUrl =
-      this.getNextPageUrl(C1ASafteyConcernsAbout.RESPONDENT, params?.abuseType) ??
-      (this.checkForConcerns(C1ASafteyConcernsAbout.RESPONDENT, true)
-        ? this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, undefined, 'guidelines')
-        : this.getPageUrl(C1ASafteyConcernsAbout.OTHER));
+      this.getNextPageUrl(PRL_C1ASafteyConcernsAbout.RESPONDENT, params?.abuseType) ??
+      (this.checkForConcerns(PRL_C1ASafteyConcernsAbout.RESPONDENT, true)
+        ? this.getPageUrl(PRL_C1ASafteyConcernsAbout.CHILDREN, undefined, 'guidelines')
+        : this.getPageUrl(PRL_C1ASafteyConcernsAbout.OTHER));
 
     return returnUrl;
   }
 
-  private getPageUrl(concernFor: C1ASafteyConcernsAbout, abuseType?: C1AAbuseTypes, other?: string): PageLink | null {
+  private getPageUrl(
+    concernFor: PRL_C1ASafteyConcernsAbout,
+    abuseType?: PRL_C1AAbuseTypes,
+    other?: string
+  ): PageLink | null {
     const concern = this.pages?.[concernFor];
     let pageUrl = null;
 
@@ -147,7 +155,10 @@ class SafteyConcernsNavigationController {
     return pageUrl;
   }
 
-  private checkForConcerns(concernFor: C1ASafteyConcernsAbout | C1ASafteyConcernsAbout[], isOnly?: boolean): boolean {
+  private checkForConcerns(
+    concernFor: PRL_C1ASafteyConcernsAbout | PRL_C1ASafteyConcernsAbout[],
+    isOnly?: boolean
+  ): boolean {
     concernFor = Array.isArray(concernFor) ? concernFor : [concernFor];
 
     return concernFor.every(concern => {
@@ -156,7 +167,7 @@ class SafteyConcernsNavigationController {
     });
   }
 
-  private getNextPageUrl(concernFor: C1ASafteyConcernsAbout, abuseType: C1AAbuseTypes | null): PageLink | null {
+  private getNextPageUrl(concernFor: PRL_C1ASafteyConcernsAbout, abuseType: PRL_C1AAbuseTypes | null): PageLink | null {
     let pageUrl: PageLink | null = null;
 
     const dataReference = this.pages[concernFor].dataReference();
@@ -169,35 +180,35 @@ class SafteyConcernsNavigationController {
     return pageUrl;
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private pages: Record<C1ASafteyConcernsAbout, Record<string, any>> = {
-    [C1ASafteyConcernsAbout.CHILDREN]: {
+  private pages: Record<PRL_C1ASafteyConcernsAbout, Record<string, any>> = {
+    [PRL_C1ASafteyConcernsAbout.CHILDREN]: {
       dataReference: () => this.childConcerns,
       url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
       abuse: {
-        [C1AAbuseTypes.PHYSICAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE }),
+        [PRL_C1AAbuseTypes.PHYSICAL_ABUSE]: {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: PRL_C1AAbuseTypes.PHYSICAL_ABUSE }),
         },
-        [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE]: {
+        [PRL_C1AAbuseTypes.PSYCHOLOGICAL_ABUSE]: {
           url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, {
-            abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
+            abuseType: PRL_C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
           }),
         },
-        [C1AAbuseTypes.EMOTIONAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE }),
+        [PRL_C1AAbuseTypes.EMOTIONAL_ABUSE]: {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: PRL_C1AAbuseTypes.EMOTIONAL_ABUSE }),
         },
-        [C1AAbuseTypes.SEXUAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
+        [PRL_C1AAbuseTypes.SEXUAL_ABUSE]: {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: PRL_C1AAbuseTypes.SEXUAL_ABUSE }),
         },
-        [C1AAbuseTypes.FINANCIAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.FINANCIAL_ABUSE }),
+        [PRL_C1AAbuseTypes.FINANCIAL_ABUSE]: {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: PRL_C1AAbuseTypes.FINANCIAL_ABUSE }),
         },
-        [C1AAbuseTypes.ABDUCTION]: {
+        [PRL_C1AAbuseTypes.ABDUCTION]: {
           url: C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
         },
-        [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE]: {
+        [PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE]: {
           url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
         },
-        [C1AAbuseTypes.SOMETHING_ELSE]: {
+        [PRL_C1AAbuseTypes.SOMETHING_ELSE]: {
           url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
         },
       },
@@ -205,39 +216,43 @@ class SafteyConcernsNavigationController {
         url: PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
       },
     },
-    [C1ASafteyConcernsAbout.RESPONDENT]: {
+    [PRL_C1ASafteyConcernsAbout.RESPONDENT]: {
       dataReference: () => this.respondentConcerns,
       url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
       abuse: {
-        [C1AAbuseTypes.PHYSICAL_ABUSE]: {
+        [PRL_C1AAbuseTypes.PHYSICAL_ABUSE]: {
           url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
-            abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
+            abuseType: PRL_C1AAbuseTypes.PHYSICAL_ABUSE,
           }),
         },
-        [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE]: {
+        [PRL_C1AAbuseTypes.PSYCHOLOGICAL_ABUSE]: {
           url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
-            abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
+            abuseType: PRL_C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
           }),
         },
-        [C1AAbuseTypes.EMOTIONAL_ABUSE]: {
+        [PRL_C1AAbuseTypes.EMOTIONAL_ABUSE]: {
           url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
-            abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
+            abuseType: PRL_C1AAbuseTypes.EMOTIONAL_ABUSE,
           }),
         },
-        [C1AAbuseTypes.SEXUAL_ABUSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
-        },
-        [C1AAbuseTypes.FINANCIAL_ABUSE]: {
+        [PRL_C1AAbuseTypes.SEXUAL_ABUSE]: {
           url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
-            abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
+            abuseType: PRL_C1AAbuseTypes.SEXUAL_ABUSE,
           }),
         },
-        [C1AAbuseTypes.SOMETHING_ELSE]: {
-          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }),
+        [PRL_C1AAbuseTypes.FINANCIAL_ABUSE]: {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
+            abuseType: PRL_C1AAbuseTypes.FINANCIAL_ABUSE,
+          }),
+        },
+        [PRL_C1AAbuseTypes.SOMETHING_ELSE]: {
+          url: applyParms(PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE, {
+            abuseType: PRL_C1AAbuseTypes.SOMETHING_ELSE,
+          }),
         },
       },
     },
-    [C1ASafteyConcernsAbout.OTHER]: {
+    [PRL_C1ASafteyConcernsAbout.OTHER]: {
       url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
     },
     applicant: {},

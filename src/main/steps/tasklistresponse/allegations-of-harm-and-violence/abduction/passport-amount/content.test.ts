@@ -20,13 +20,13 @@ const en = {
   option3: 'Other',
   otherDetails: 'Provide more details',
   errors: {
-    c1A_childrenMoreThanOnePassport: {
+    PRL_c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport',
     },
-    c1A_possessionChildrenPassport: {
+    PRL_c1A_possessionChildrenPassport: {
       required: "Specify who is in possession of the children's passports",
     },
-    c1A_provideOtherDetails: {
+    PRL_c1A_provideOtherDetails: {
       required: 'Please provide the details',
     },
   },
@@ -45,13 +45,13 @@ const cy = {
   option3: 'Other - welsh',
   otherDetails: 'Provide more details - welsh',
   errors: {
-    c1A_childrenMoreThanOnePassport: {
+    PRL_c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport - welsh',
     },
-    c1A_possessionChildrenPassport: {
+    PRL_c1A_possessionChildrenPassport: {
       required: "Specify who is in possession of the children's passports - welsh",
     },
-    c1A_provideOtherDetails: {
+    PRL_c1A_provideOtherDetails: {
       required: 'Please provide the details - welsh',
     },
   },
@@ -60,7 +60,7 @@ const cy = {
 /* eslint-disable @typescript-eslint/ban-types */
 describe('safetyconcerns > abduction > passport amount > content', () => {
   const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
-  // eslint-disable-next-line jest/expect-expect
+  //eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
   });
@@ -74,7 +74,7 @@ describe('safetyconcerns > abduction > passport amount > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const childrenMoreThanOnePassportField = fields.c1A_childrenMoreThanOnePassport as FormOptions;
+    const childrenMoreThanOnePassportField = fields.PRL_c1A_childrenMoreThanOnePassport as FormOptions;
 
     expect(childrenMoreThanOnePassportField.type).toBe('radios');
     expect(childrenMoreThanOnePassportField.classes).toBe('govuk-radios');
@@ -84,9 +84,9 @@ describe('safetyconcerns > abduction > passport amount > content', () => {
     expect((childrenMoreThanOnePassportField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((childrenMoreThanOnePassportField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
 
-    const possessionChildrenPassportField = fields.c1A_possessionChildrenPassport as FormOptions;
+    const possessionChildrenPassportField = fields.PRL_c1A_possessionChildrenPassport as FormOptions;
     const provideOtherDetails = possessionChildrenPassportField.values[2].subFields!
-      .c1A_provideOtherDetails as FormInput;
+      .PRL_c1A_provideOtherDetails as FormInput;
 
     expect(possessionChildrenPassportField.type).toBe('checkboxes');
     expect((possessionChildrenPassportField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);

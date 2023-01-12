@@ -12,10 +12,10 @@ const en = {
   two: 'No',
   summaryText: 'Contacts for help',
   errors: {
-    c1A_childSafetyConcerns: {
+    PRL_c1A_childSafetyConcerns: {
       required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
     },
-    c1A_childSafetyConcernsDetails: {
+    PRL_c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
     },
   },
@@ -29,10 +29,10 @@ const cy = {
   two: 'No - welsh',
   summaryText: 'Contacts for help - welsh',
   errors: {
-    c1A_childSafetyConcerns: {
+    PRL_c1A_childSafetyConcerns: {
       required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
     },
-    c1A_childSafetyConcernsDetails: {
+    PRL_c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
     },
   },
@@ -68,7 +68,7 @@ describe('safety_concerns > other_concerns > content', () => {
   });
 
   test('should contain childSafetyConcerns field', () => {
-    const childSafetyConcerns = fields.c1A_childSafetyConcerns as FormOptions;
+    const childSafetyConcerns = fields.PRL_c1A_childSafetyConcerns as FormOptions;
     expect(childSafetyConcerns.type).toBe('radios');
     expect(childSafetyConcerns.classes).toBe('govuk-radios');
     expect((childSafetyConcerns.section as Function)(generatedContent)).toBe(en.section);

@@ -1,4 +1,4 @@
-import { C1AAbuseTypes } from '../../../../../app/case/definition';
+import { PRL_C1AAbuseTypes } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
@@ -31,7 +31,7 @@ const en = () => ({
   somethingElseHint: 'Any concerns you have that do not fit into the above categories',
   continue: 'Continue',
   errors: {
-    c1A_concernAboutRespondent: {
+    PRL_c1A_concernAboutRespondent: {
       required: 'Specify the type of behaviour you have experienced or are at risk of experiencing',
     },
   },
@@ -64,7 +64,7 @@ const cy = () => ({
   somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
   continue: 'Continue',
   errors: {
-    c1A_concernAboutRespondent: {
+    PRL_c1A_concernAboutRespondent: {
       required: 'Specify the type of behaviour you have experienced or are at risk of experiencing - welsh',
     },
   },
@@ -77,48 +77,48 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_concernAboutRespondent: {
-      id: 'c1A_concernAboutRespondent',
+    PRL_c1A_concernAboutRespondent: {
+      id: 'PRL_c1A_concernAboutRespondent',
       type: 'checkboxes',
       hint: l => l.select_all_relevant,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'c1A_concernAboutRespondent',
+          name: 'PRL_c1A_concernAboutRespondent',
           label: l => l.physicalAbuse,
           hint: l => l.physicalAbuseHint,
-          value: C1AAbuseTypes.PHYSICAL_ABUSE,
+          value: PRL_C1AAbuseTypes.PHYSICAL_ABUSE,
         },
         {
-          name: 'c1A_concernAboutRespondent',
+          name: 'PRL_c1A_concernAboutRespondent',
           label: l => l.psychologicalAbuse,
           hint: l => l.psychologicalAbuseHint,
-          value: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
+          value: PRL_C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
         },
         {
-          name: 'c1A_concernAboutRespondent',
+          name: 'PRL_c1A_concernAboutRespondent',
           label: l => l.emotionalAbuse,
           hint: l => l.emotionalAbuseHint,
-          value: C1AAbuseTypes.EMOTIONAL_ABUSE,
+          value: PRL_C1AAbuseTypes.EMOTIONAL_ABUSE,
         },
         {
-          name: 'c1A_concernAboutRespondent',
+          name: 'PRL_c1A_concernAboutRespondent',
           label: l => l.sexualAbuse,
           hint: l => l.sexualAbuseHint,
-          value: C1AAbuseTypes.SEXUAL_ABUSE,
+          value: PRL_C1AAbuseTypes.SEXUAL_ABUSE,
         },
 
         {
-          name: 'c1A_concernAboutRespondent',
+          name: 'PRL_c1A_concernAboutRespondent',
           label: l => l.financialAbuse,
           hint: l => l.financialAbuseHint,
-          value: C1AAbuseTypes.FINANCIAL_ABUSE,
+          value: PRL_C1AAbuseTypes.FINANCIAL_ABUSE,
         },
         {
-          name: 'c1A_concernAboutRespondent',
+          name: 'PRL_c1A_concernAboutRespondent',
           label: l => l.somethingElse,
           hint: l => l.somethingElseHint,
-          value: C1AAbuseTypes.SOMETHING_ELSE,
+          value: PRL_C1AAbuseTypes.SOMETHING_ELSE,
         },
       ],
     },

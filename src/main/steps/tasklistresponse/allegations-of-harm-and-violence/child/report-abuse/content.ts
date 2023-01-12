@@ -1,11 +1,11 @@
-import { C1AAbuseTypes, C1ASafteyConcernsAbuse, Child, YesNoEmpty } from '../../../../../app/case/definition';
+import { Child, PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
-
-const en = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const en = () => ({
   caption: 'Safety concerns',
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to',
   psychologicalAbusePageTitle: 'Briefly describe the psychological abuse against the children if you feel able to',
@@ -18,6 +18,7 @@ const en = () => ({
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+  allchildLabel: 'All the children in above application',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -35,8 +36,8 @@ const en = () => ({
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   caption: 'Safety concerns - Welsh',
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to - Welsh',
   psychologicalAbusePageTitle:
@@ -50,6 +51,7 @@ const cy = () => ({
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
+  allchildLabel: 'All the children in above application - Welsh',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - Welsh (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
@@ -88,7 +90,10 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (data: C1ASafteyConcernsAbuse, childrenData: Child[]): GenerateDynamicFormFields => {
+export const generateFormFields = (
+  data: PRL_C1ASafteyConcernsAbuse,
+  childrenData: Child[]
+): GenerateDynamicFormFields => {
   const fields = {
     childrenConcernedAbout: {
       type: 'checkboxes',
@@ -96,6 +101,15 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse, childrenData: C
       labelSize: 's',
       label: l => l.childrenConcernedAboutLabel,
       values: [
+        {
+          name: 'childrenConcernedAbout',
+          label: l => l.allchildLabel,
+          value: 'All the children in application',
+          exclusive: true,
+        },
+        {
+          divider: true,
+        },
         ...childrenData.map(childObj => {
           return {
             name: 'childrenConcernedAbout',
@@ -204,14 +218,14 @@ export const getFormFields = (): FormContent => {
 };
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getPageTitle = (abuseType: C1AAbuseTypes, translations: Record<string, any>) => {
+const getPageTitle = (abuseType: PRL_C1AAbuseTypes, translations: Record<string, any>) => {
   return translations[`${abuseType}PageTitle`];
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const abuseType: C1AAbuseTypes = content.additionalData!.req.params.abuseType;
-  const sessionData: C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.child?.[abuseType];
+  const abuseType: PRL_C1AAbuseTypes = content.additionalData!.req.params.abuseType;
+  const sessionData: PRL_C1ASafteyConcernsAbuse = content.userCase?.PRL_c1A_safteyConcerns?.child?.[abuseType];
   const sessionChildrenData = content.userCase?.children ?? [];
   const { fields } = generateFormFields(sessionData ?? getDataShape().abuse, sessionChildrenData);
 

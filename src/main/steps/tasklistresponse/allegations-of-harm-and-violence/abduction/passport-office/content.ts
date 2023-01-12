@@ -4,27 +4,27 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   serviceName: 'Child arrangements',
   title: 'Do any of the children have a passport?',
   caption: 'Safety concerns',
   one: 'Yes',
   two: 'No',
   errors: {
-    c1A_passportOffice: {
+    PRL_c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport',
     },
   },
 });
-
-const cy = () => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   title: 'Do any of the children have a passport? - welsh',
   caption: 'Safety concerns - welsh',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {
-    c1A_passportOffice: {
+    PRL_c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport - welsh',
     },
   },
@@ -37,7 +37,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    c1A_passportOffice: {
+    PRL_c1A_passportOffice: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
