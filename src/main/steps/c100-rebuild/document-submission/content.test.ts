@@ -27,18 +27,18 @@ const en = {
 
 const cy = {
   serviceName: 'Trefniadau plant',
-  headingTitle: 'How would you like to submit your application to court? - Welsh',
+  headingTitle: 'Sut hoffech chi gyflwyno eich cais i’r llys?',
   paragraph1:
-    'Your completed application can be sent straight to the court electronically, or you can print it and send it by post if you prefer. - Welsh',
-  submitElectronically: 'Submit electronically - Welsh',
-  sendByPost: 'Print and send by post - Welsh',
-  emailTitle: 'Enter an email address if you would like to get a confirmation - Welsh',
+    'Gallwch anfon y cais yn syth i’r llys yn electronig, neu gallwch ei argraffu a’i anfon drwy’r post os yw’n well gennych wneud hynny.',
+  submitElectronically: 'Cyflwyno’n electronig',
+  sendByPost: 'Argraffu ac anfon drwy’r post',
+  emailTitle: "Nodwch gyfeiriad e-bost os hoffech i'r llys anfon cadarnhad atoch",
   errors: {
     documentSubmission: {
-      required: 'Select yes if you want to submit your application to the court electronically - Welsh',
+      required: "Dewiswch 'ydw' os ydych am gyflwyno eich cais i’r llys yn electronig",
     },
     emailAddress: {
-      invalid: 'Provide a valid email address - Welsh',
+      invalid: 'Darparwch gyfeiriad e-bost dilys',
     },
   },
 };

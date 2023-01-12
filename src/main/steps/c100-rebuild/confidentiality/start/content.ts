@@ -31,8 +31,8 @@ const en = () => ({
 
 const cy = () => ({
   caption: 'Cadw eich manylion cyswllt yn breifat',
-  headingTitle: `Do you want to keep your contact details private from 
-  the other people named in the application (the applicants)? - welsh`,
+  headingTitle:
+    'Ydych chi eisiau cadw eich manylion cyswllt yn breifat oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
   paragraph1:
     "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r atebwyr. Mae hyn yn cynnwys eich manylion cyswllt.",
   paragraph2:
@@ -41,15 +41,15 @@ const cy = () => ({
   two: 'Nac ydw',
   contact_details_private: "Nodwch pa fanylion cyswllt rydych chi eisiau eu cadw'n breifat.",
   address: 'Cyfeiriad',
-  homePhoneNumber: 'Home phone number - Welsh',
-  mobilePhoneNumber: 'Mobile phone number - Welsh',
+  homePhoneNumber: 'Rhif ffôn cartref',
+  mobilePhoneNumber: 'Rhif ffôn symudol',
   Email: 'E-bost',
   errors: {
     start: {
-      required: 'Select yes if you want to keep your details private - Welsh',
+      required: "Dewiswch 'ydw' os ydych am gadw eich manylion yn breifat",
     },
     contactDetailsPrivate: {
-      required: 'Select which contact details you want to keep private - Welsh',
+      required: "Nodwch pa fanylion cyswllt rydych chi eisiau eu cadw'n breifat",
     },
   },
 });

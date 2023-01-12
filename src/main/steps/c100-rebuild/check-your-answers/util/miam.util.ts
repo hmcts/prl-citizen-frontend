@@ -90,12 +90,12 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseCy().letterOfBeingVictim_subFields,
           ...DomesticAbuseCy().letterFromAuthority_subFields,
           ...GeneralContentCy(),
-          generalReasonTitle: GeneralContentEn().title,
-          domesticViolenceHead: GeneralContentEn().domesticViolence,
-          childProtectionHead: GeneralContentEn().childProtection,
-          urgentHearingHead: GeneralContentEn().urgentHearing,
-          previousMIAMOrExemptHead: GeneralContentEn().previousMIAMOrExempt,
-          validExemptionHead: GeneralContentEn().validExemption,
+          generalReasonTitle: GeneralContentCy().title,
+          domesticViolenceHead: GeneralContentCy().domesticViolence,
+          childProtectionHead: GeneralContentCy().childProtection,
+          urgentHearingHead: GeneralContentCy().urgentHearing,
+          previousMIAMOrExemptHead: GeneralContentCy().previousMIAMOrExempt,
+          validExemptionHead: GeneralContentCy().validExemption,
         } as ANYTYPE;
         return { ...data };
       },

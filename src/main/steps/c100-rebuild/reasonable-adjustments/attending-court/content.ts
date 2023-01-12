@@ -43,7 +43,7 @@ export const cy = () => ({
   line3: 'dros y ffôn',
   select_all_apply: "Dewiswch bob un sy'n berthnasol",
   videoHearing: 'Gallaf gymryd rhan mewn gwrandawiad fideo',
-  phoneHearing: 'YGallaf gymryd rhan mewn gwrandawiad dros y ffôn',
+  phoneHearing: 'Gallaf gymryd rhan mewn gwrandawiad dros y ffôn',
   noVideoAndPhoneHearing: 'Ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
   noVideoAndPhoneHearingReason: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
   noVideoAndPhoneHearing_subfield:
