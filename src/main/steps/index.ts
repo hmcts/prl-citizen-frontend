@@ -1,4 +1,3 @@
-// import s from 'connect-redis';
 import * as fs from 'fs';
 
 import { NextFunction, Response } from 'express';
@@ -35,42 +34,6 @@ const stepForms: Record<string, Form> = {};
     }
   }
 });
-
-// const getNextIncompleteStep = (
-//   data: CaseWithId,
-//   step: Step,
-//   sequence: Step[],
-//   removeExcluded = false,
-//   checkedSteps: Step[] = []
-// ): string => {
-//   const stepForm = stepForms[step.url];
-//   // if this step has a form
-//   if (stepForm !== undefined) {
-//     if (!stepForm.isComplete(data)) {
-//       return removeExcluded && checkedSteps.length && step.excludeFromContinueApplication
-//         ? checkedSteps[checkedSteps.length - 1].url
-//         : step.url;
-//     } else {
-//       const nextStepUrl = step.getNextStep(data);
-//       const nextStep = sequence.find(s => s.url === nextStepUrl);
-
-//       return nextStep
-//         ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
-//         : CITIZEN_HOME_URL;
-//     }
-//   }
-
-//   // if the page has no form then ask it where to go
-//   return step.getNextStep(data);
-// };
-
-// export const getNextIncompleteStepUrl = (req: AppRequest): string => {
-//   const { queryString } = getPathAndQueryString(req);
-//   const sequence = getUserSequence();
-//   const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true);
-
-//   return `${url}${queryString}`;
-// };
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -110,10 +73,6 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
 };
-
-// const getUserSequence = () => {
-//   return edgecaseSequence;
-// };
 
 const getStepFiles = (stepDir: string) => {
   const stepContentFile = `${stepDir}/content.ts`;

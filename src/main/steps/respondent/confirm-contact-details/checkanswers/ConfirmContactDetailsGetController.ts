@@ -9,7 +9,6 @@ import {
 } from '../../../../steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsGetController';
 import { setTextFields } from '../../../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
 
-//import { LanguagePreference } from '../../../../app/case/definition';
 @autobind
 export default class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
