@@ -21,14 +21,14 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
     title: progressBarC100.responseSubmitted.title,
     ariaLabel: progressBarC100.responseSubmitted.ariaLabel,
     active: true,
-    completed: cafcassSafetyChecks.completed && false,
+    completed: cafcassSafetyChecks.completed && cafcassSafetyChecks.completed !== Boolean('0'),
   };
 
   const hearingAndCourtOrders = {
     title: progressBarC100.hearingAndCourtOrders.title,
     ariaLabel: progressBarC100.hearingAndCourtOrders.ariaLabel,
     active: false,
-    completed: responseSubmitted.completed && false,
+    completed: responseSubmitted.completed && responseSubmitted.completed !== Boolean('0'),
   };
 
   const caseOpened = {
