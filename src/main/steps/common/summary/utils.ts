@@ -88,15 +88,18 @@ export const summaryList = (
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
     const keyLabel = keys[key];
+    const getSelectedprivaedet = userCase[key] + getSelectedPrivateDetails(userCase);
+    const setkey = key1 => {
+      if (key1 === 'startAlternative' && userCase[key1] !== 'undefined') {
+        return getSelectedprivaedet;
+      }
+      return userkey;
+    };
+    const userkey = userCase[key];
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value:
-        fieldTypes[key] === 'Date'
-          ? getFormattedDate(userCase[key], language)
-          : key === 'startAlternative' && userCase[key] !== 'undefined'
-          ? userCase[key] + getSelectedPrivateDetails(userCase)
-          : userCase[key],
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : setkey(key)!,
       changeUrl: url,
     };
     if (key !== 'citizenUserSafeToCall') {
@@ -131,11 +134,9 @@ export const summaryCaseList = (
         caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
       }
     } else if (userCase.caseTypeOfApplication === 'FL401') {
-      if (!isRespondent) {
-        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
-      } else {
-        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
-      }
+      const App_ID = APPLICANT_TASK_LIST_URL + '/' + id;
+      const Res_ID = RESPONDENT_TASK_LIST_URL + '/' + id;
+      caseUrl = !isRespondent ? App_ID : Res_ID;
     }
     const row = {
       key: name,
@@ -148,7 +149,7 @@ export const summaryCaseList = (
   }
 
   return {
-    title: sectionTitle || '',
+    title: sectionTitle!,
     rows: getSectionCaseList(summaryData),
   };
 };
