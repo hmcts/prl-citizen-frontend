@@ -1,21 +1,30 @@
 {% extends "common/template.njk" %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 
 {% block content %}
 {% block page_content %}
  {% block backLink %}
-      <a href="#" class="govuk-back-link">{{ back }}</a>
+    
     {% endblock %}
       {% block error_summary %}
         {% include "common/error/summary.njk" %}
-      {% endblock %}    
+      {% endblock %}   
+
+{% if paymentError === true %}
+  {{ govukErrorSummary({
+    titleText: errors.paymentError.title,
+    errorList: [
+      {
+        html: "<div class='govuk-heading-s hmcts-badge--red'>"+errors.paymentError.content+"</div>"
+      }
+    ]
+  }) }}
+{% endif %}
 
 <h1 class="govuk-heading-xl govuk-!-margin-top-5">{{title}}</h1>
-{{ govukWarningText({
-  text: topWarning,
-  iconFallbackText: "Warning"
-}) }}
+{{ govukWarningText(getContent(topWarning)) }}
 <p class="govuk-body-l">{{makingSure}}</p>
 
 

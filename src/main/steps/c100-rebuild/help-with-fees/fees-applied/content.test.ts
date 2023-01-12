@@ -25,18 +25,18 @@ const en = {
 };
 
 const cy = {
-  feesAppliedDetailsTitle: 'Have you already applied for help with your application fee? - welsh',
-  hwfReferenceNumberLabel: 'Enter your help with fees reference number - welsh',
-  hwfReferenceNumberHint: `You received this number when you applied for help with fees - welsh.<br/>
-  For example, HWF-A1B-23C - welsh`,
-  one: 'Yes - welsh',
-  two: 'No - welsh',
+  feesAppliedDetailsTitle: 'A ydych chi eisoes wedi gwneud cais am help i dalu ffi’r cais?',
+  hwfReferenceNumberLabel: 'Rhowch eich cyfeirnod help i dalu ffioedd',
+  hwfReferenceNumberHint: `Cawsoch y rhif hwn pan wnaethoch gais am help i dalu ffioedd.<br/>
+  Er enghraifft, HWF-A1B-23C`,
+  one: 'Do',
+  two: 'Naddo',
   errors: {
     hwf_feesAppliedDetails: {
-      required: 'Select yes if you already applied for help with your application fee - welsh',
+      required: 'Dewiswch do os ydych eisoes wedi gwneud cais am help i dalu ffi eich cais',
     },
     helpWithFeesReferenceNumber: {
-      required: 'Enter the help with fees reference number you received when you applied for help with fees - welsh',
+      required: 'ENodwch y cyfeirnod Help i dalu Ffioedd a gawsoch pan wnaethoch chi wneud cais am Help i dalu Ffioedd',
     },
   },
 };

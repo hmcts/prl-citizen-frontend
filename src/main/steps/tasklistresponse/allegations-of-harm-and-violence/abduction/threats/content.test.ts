@@ -19,14 +19,14 @@ const en = {
 };
 
 const cy = {
-  caption: 'Safety concerns - welsh',
-  title: 'Have the children been abducted or kept outside the UK without your consent before? - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
+  caption: 'Pryderon diogelwch',
+  title: "Ydy'r plant wedi cael eu cipio neu eu cadw y tu allan i'r DU heb eich caniatâd o'r blaen?",
+  one: 'Ydyn',
+  two: 'Nac ydyn',
   errors: {
     c1A_childAbductedBefore: {
       required:
-        'Select yes if the children have been abducted or kept outside the UK without your consent before - welsh',
+        "Dewiswch ydynt os yw'r plant wedi cael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd o'r blaen",
     },
   },
 };

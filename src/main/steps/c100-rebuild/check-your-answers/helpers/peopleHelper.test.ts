@@ -1,88 +1,112 @@
-import {
-  applicantAddressParser,
-  applicantAddressParserForRespondents,
-  applicantContactDetailsParser,
-  otherPeopleAddressParser,
-} from './peopleHelper';
+import { YesNoEmpty } from '../../../../app/case/definition';
+
+import { HTMLParser, SafetyConcernsHelper, childNameFormatter } from './satetyConcernHelper';
 
 const keys = {
-  applicantAddress1: 'Enter applicant address',
-  applicantAddress2: 'Enter applicant address2',
-  applicantAddressTown: 'Enter applicant town',
-  applicantAddressCounty: 'Enter applicant county',
-  applicantAddressPostcode: 'Enter locality',
-  haveLivedMore: 'Has applicant lived more',
-  applicantAddressHistory: 'Enter applicant address history',
-  previousAddress: 'Has previous address',
-  applicantProvideDetailsOfPreviousAddresses: 'has previous address',
-  canProvideEmailLabel: 'Can provide email',
-  canNotProvideEmailLabel: 'cannot provide email',
-  canProvideTelephoneNumberLabel: 'cannot provide phone number',
+  childrenConcernedAboutLabel: 'childrenConcernedAboutLabel',
+  behaviourDetailsLabel: 'behaviourDetailsLabel',
+  behaviourStartDateLabel: 'behaviourStartDateLabel',
+  isOngoingBehaviourLabel: 'isOngoingBehaviourLabel',
+  seekHelpFromPersonOrAgencyLabel: 'seekHelpFromPersonOrAgencyLabel',
 };
 
-describe('peopleHelper address details parsers test case', () => {
-  test('applicantAddressParser', () => {
-    const assertableData = {
-      applicantAddress1: 'Test street 1',
-      applicantAddress2: 'Test street 2',
-      applicantAddressTown: 'Test town',
-      applicantAddressCounty: 'Test county',
-      applicantAddressPostcode: 'X11 111',
-      haveLivedMore: 'Yes',
-      applicantAddressHistory: 'No',
-      applicantProvideDetailsOfPreviousAddresses: 'Test',
-    };
+const childField = 'childField';
 
-    expect(applicantAddressParser(assertableData, keys)).toBe(
-      'Test street 1<br>Test street 2<br>Test town<br>Test county<br><br>X11 111<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>Has applicant lived more</h4>No<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>Has previous address</h4><div class="govuk-!-padding-bottom-3">Test</div>'
+describe('test cases for SaftyConcern', () => {
+  const language = 'en';
+  const id = '7483640e-0817-4ddc-b709-6723f7925474';
+  const userCase = {
+    cd_children: [
+      {
+        id: '7483640e-0817-4ddc-b709-6723f7925474',
+        firstName: 'Bob',
+        lastName: 'Silly',
+        personalDetails: {
+          dateOfBirth: {
+            year: '',
+            month: '',
+            day: '',
+          },
+          isDateOfBirthUnknown: 'Yes',
+          approxDateOfBirth: {
+            year: '1987',
+            month: '12',
+            day: '12',
+          },
+          sex: 'Male',
+        },
+        childMatters: {
+          needsResolution: [],
+        },
+        parentialResponsibility: {
+          statement: 'lorem ipsum dolor sit am',
+        },
+      },
+    ],
+    c1A_safteyConcerns: {
+      child: {
+        physicalAbuse: {
+          behaviourDetails: '',
+          behaviourStartDate: '',
+          isOngoingBehaviour: YesNoEmpty.YES,
+          seekHelpFromPersonOrAgency: YesNoEmpty.NO,
+          seekHelpDetails: '',
+        },
+        childField: 'childField',
+      },
+    },
+    sessionKey: 'sessionKey',
+  };
+  test('noSessionKey', () => {
+    const sessionKey = 'sessionKey';
+    const typeOfUser = 'child';
+
+    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe('');
+  });
+
+  test('noFoundElement', () => {
+    const sessionKey = 'sessionKey';
+    const typeOfUser = 'child';
+    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe('');
+  });
+
+  test('FoundElement and SessionKey', () => {
+    const sessionKey = 'sessionKey';
+    const typeOfUser = 'children';
+    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe(
+      '<h4>childrenConcernedAboutLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
     );
   });
 
-  test('applicantAddressParserForRespondents', () => {
-    const assertableData = {
-      AddressLine1: 'Test street 1',
-      AddressLine2: 'Test street 2',
-      PostTown: 'Test town',
-      County: 'Test county',
-      PostCode: 'X11 111',
-      Country: 'Test Country',
-      addressHistory: 'dontKnow',
-      provideDetailsOfPreviousAddresses: 'Test',
-    };
+  test('childNameFormatter', () => {
+    expect(childNameFormatter(id, userCase)).toBe('<li>Bob Silly</li>');
+  });
 
-    expect(applicantAddressParserForRespondents(assertableData, keys)).toBe(
-      'Test street 1<br>Test street 2<br>Test town<br>Test county<br><br>X11 111<br>Test Country<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><div class="govuk-!-padding-bottom-3">undefined</div>'
+  test('HTMLParser', () => {
+    const bodyHtml = '';
+    const FoundElement = {
+      childrenConcernedAbout: 'test',
+      behaviourDetailsLabel: 'test',
+      behaviourStartDate: 'test',
+      isOngoingBehaviour: 'test',
+    };
+    const typeOfUser = 'child';
+    expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser, language)).toBe(
+      '<h4>childrenConcernedAboutLabel</h4><ul><li>undefined undefined</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
     );
   });
 
-  test('otherPeopleAddressParser', () => {
-    const assertableData = {
-      AddressLine1: 'Test street 1',
-      AddressLine2: 'Test street 2',
-      PostTown: 'Test town',
-      County: 'Test county',
-      PostCode: 'X11 111',
-      Country: 'Test Country',
-      addressHistory: 'dontKnow',
-      provideDetailsOfPreviousAddresses: 'Test',
+  test('Condition Checks', () => {
+    const bodyHtml = '';
+    const FoundElement = {
+      childrenConcernedAbout: ['childrenConcernedAbout'],
+      behaviourDetailsLabel: 'test',
+      behaviourStartDate: 'test',
+      isOngoingBehaviour: 'test',
     };
-
-    expect(otherPeopleAddressParser(assertableData)).toBe(
-      'Test street 1<br>Test street 2<br>Test town<br>Test county<br><br>X11 111<br>Test Country<br>'
-    );
-  });
-});
-
-describe('Contact details Parser test case', () => {
-  test('applicantContactDetailsParser', () => {
-    const assertableData = {
-      canProvideEmail: 'Yes',
-      canProvideTelephoneNumber: 'Yes',
-      canNotProvideTelephoneNumberReason: 'I dont want',
-    };
-
-    expect(applicantContactDetailsParser(assertableData, keys)).toBe(
-      '<h4>Can provide email</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>cannot provide phone number</h4><div class="govuk-!-padding-bottom-3">undefined</div>'
+    const typeOfUser = 'child';
+    expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser, language)).toBe(
+      '<h4>childrenConcernedAboutLabel</h4><ul><li>undefined undefined</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
     );
   });
 });

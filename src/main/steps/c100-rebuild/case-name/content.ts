@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isAlphaNumeric, isFieldFilledIn } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Enter Case Name',
   caseNameHint: 'Enter the eldest child’s full name. For example, John Smith',
 
@@ -15,14 +16,14 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
-  title: 'Enter Case Name - welsh',
-  caseNameHint: 'Enter the eldest child’s full name. For example, John Smith - welsh',
+export const cy = () => ({
+  title: 'Nodwch enw’r achos',
+  caseNameHint: 'Nodwch enw llawn y plentyn hynaf. Er enghraifft, John Smith',
 
   errors: {
     applicantCaseName: {
-      required: 'Case Name is required - welsh',
-      invalid: 'Please enter a valid case name to proceed - welsh',
+      required: 'Mae angen enw’r achos',
+      invalid: 'Nodwch enw achos dilys i barhau',
     },
   },
 });

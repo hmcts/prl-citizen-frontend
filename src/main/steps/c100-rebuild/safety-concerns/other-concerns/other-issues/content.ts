@@ -11,6 +11,8 @@ export const en = () => ({
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
+  detail:
+    'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
   errors: {
     c1A_childSafetyConcerns: {
       required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
@@ -23,18 +25,20 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  section: 'Safety concerns - welsh',
-  title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
-  hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
-  summaryText: 'Contacts for help - welsh',
+  section: 'Pryderon diogelwch',
+  title: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant?',
+  hint: "Er enghraifft, nid yw eu hanghenion sylfaenol yn cael eu diwallu (a elwir yn esgeuluso plant) neu rydych chi'n poeni am rywun y gallai fod ganddynt gysylltiad â nhw.",
+  one: 'Oes',
+  two: 'Nac oes',
+  summaryText: 'Cysylltiadau am gymorth',
+  detail:
+    "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     c1A_childSafetyConcerns: {
-      required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
+      required: 'Dewiswch oes os oes gennych unrhyw bryderon am eich diogelwch neu ddiogelwch y plant',
     },
     c1A_childSafetyConcernsDetails: {
-      required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
+      required: 'Disgrifiwch unrhyw bryderon sydd gennych am ddiogelwch a lles y plant',
     },
   },
 });
@@ -60,8 +64,7 @@ export const form: FormContent = {
           subFields: {
             c1A_childSafetyConcernsDetails: {
               type: 'textarea',
-              label:
-                'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
+              label: l => l.detail,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

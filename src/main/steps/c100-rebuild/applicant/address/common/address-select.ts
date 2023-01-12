@@ -36,7 +36,7 @@ const cy = content => {
     {
       attributes: { id: 'totalAddressesFound' },
       value: -1,
-      text: `${addresses.length} address${addresses?.length !== 1 ? 'es' : ''} found - welsh`,
+      text: `Daethpwyd o hyd i ${addresses.length} cyfeiriad`,
       selected: true,
     },
   ];
@@ -44,10 +44,10 @@ const cy = content => {
   options.push(...getAddressItems(addresses));
 
   return {
-    postcode: 'Current postcode - welsh',
-    selectAddress: 'Select an address - welsh',
-    cannotFindAddress: 'I cannot find the address in the list - welsh',
-    enterAddressManually: 'Or enter address manually - welsh',
+    postcode: 'Cod post cyfredol',
+    selectAddress: 'Dewiswch gyfeiriad',
+    cannotFindAddress: 'Ni allaf ddod o hyd i’r cyfeiriad yn y rhestr',
+    enterAddressManually: 'Neu theipiwch y cyfeiriad',
     options,
     changePostCodeUrl: '#',
     cantFindAddressUrl: '#',

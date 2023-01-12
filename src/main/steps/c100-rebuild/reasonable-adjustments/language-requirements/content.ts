@@ -30,26 +30,24 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements - welsh',
-  caption: 'Language requirements - welsh',
-  headingTitle: `Do you have any language 
-  requirements? - welsh`,
-  line1: `Think about all communication with the court, as well as what you might 
-  need at a hearing. Consider remote and in-person hearings, in case your preferred 
-  hearing type is not possible. - welsh`,
-  select_all_apply: 'Select all that apply to you - welsh',
-  speakInWelsh: 'I need to speak in Welsh - welsh',
-  readAndWriteInWelsh: 'I need to read and write in Welsh - welsh',
-  needInterpreterInCertainLanguage: 'I need an interpreter in a certain language - welsh',
-  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect, 
-    if applicable) - welsh`,
-  noLanguageRequirements: 'No, I do not have any language requirements at this time - welsh',
+  serviceName: 'Trefniadau plant',
+  caption: 'Gofynion ieithyddol',
+  headingTitle: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+  line1:
+    'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl',
+  select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
+  speakInWelsh: "Rwy'n dymuno siarad Cymraeg",
+  readAndWriteInWelsh: "Rwy'n dymuno darllen ac ysgrifennu yn Gymraeg",
+  needInterpreterInCertainLanguage: "Rwy'n dymuno cael cyfieithydd mewn iaith benodol",
+  needInterpreterInCertainLanguage_subfield:
+    'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yn berthnasol)',
+  noLanguageRequirements: 'Nac oes, nid oes gennyf unrhyw ofynion ieithyddol ar hyn o bryd',
   errors: {
     ra_needInterpreterInCertainLanguage_subfield: {
-      required: 'Give details of the language you need an interpreter for - welsh',
+      required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei gyfer',
     },
     ra_languageNeeds: {
-      required: 'Select whether you have any language requirements - welsh',
+      required: 'Nodwch a oes gennych chi unrhyw ofynion ieithyddol',
     },
   },
 });

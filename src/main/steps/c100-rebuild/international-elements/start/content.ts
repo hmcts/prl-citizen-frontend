@@ -23,18 +23,18 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
-  title: "Are the children's lives mainly based outside of England and Wales? - welsh",
-  line1: 'For example, is their family life mainly based outside of England and Wales? - welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
-  provideDetails: 'Provide details - Welsh',
+  serviceName: 'Trefniadau plant',
+  title: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+  line1: "Er enghraifft, a yw eu bywyd teuluol wedi'i leoli yn bennaf y tu allan i Gymru a Lloegr?",
+  one: 'Ydynt',
+  two: 'Nac ydynt',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     ie_internationalStart: {
-      required: 'Select yes if the children live outside of England or Wales - Welsh',
+      required: "Dewiswch 'ydy' os yw'r plant yn byw y tu allan i Gymru neu Loegr",
     },
     ie_provideDetailsStart: {
-      required: 'Provide details about the children living outside of England or Wales - Welsh',
+      required: "Darparwch fanylion am y plant sy'n byw y tu allan i Gymru neu Loegr",
     },
   },
 });

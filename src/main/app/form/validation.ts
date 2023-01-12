@@ -241,6 +241,6 @@ export const isFileSizeGreaterThanMaxAllowed = (files: any): boolean => {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 export const isValidFileFormat = (files: any): boolean => {
   const { documents }: AnyType = files;
-  const extension = documents.name.split('.')[documents.name.split('.').length - 1];
+  const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
   return AllowedFileExtentionList.indexOf(extension) > -1;
 };

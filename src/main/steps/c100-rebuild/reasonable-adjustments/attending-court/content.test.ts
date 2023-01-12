@@ -27,22 +27,22 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child Arrangements - welsh',
-  caption: 'Attending the court - welsh',
-  headingTitle: `Would you be able to take 
-  part in hearings by video and phone? - welsh`,
-  paragraph1: 'If your case goes to a hearing, it can take place either: - welsh',
-  paragraph2: `Some hearings use a combination of these methods. 
-  The approach taken will be decided by a judge. - welsh`,
-  line1: "in person, in a room at a venue ('face-to-face') - welsh",
-  line2: 'by video (where you can join from a place suitable to you) - welsh',
-  line3: 'by phone - welsh',
-  select_all_apply: 'Select all that apply - welsh',
-  videoHearing: 'Yes, I can take part in video hearings - welsh',
-  phoneHearing: 'Yes, I can take part in phone hearings - welsh',
-  noVideoAndPhoneHearing: 'No, I cannot take part in either video or phone hearings - welsh',
-  noVideoAndPhoneHearingReason: 'If you choose this option please tell us why in case we can assist you - welsh',
-  noVideoAndPhoneHearing_subfield: 'Explain why you are unable to take part in video or phone hearings - welsh',
+  serviceName: 'Trefniadau plant',
+  caption: 'Mynychu’r llys',
+  headingTitle: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+  paragraph1: 'Os bydd eich achos yn mynd i wrandawiad, gellir ei gynnal naill ai:',
+  paragraph2:
+    "Mae rhai gwrandawiadau yn defnyddio cyfuniad o'r dulliau hyn. Y Barnwr fydd yn penderfynu pa ddull fydd yn cael ei ddefnyddio.",
+  line1: "yn bersonol, mewn ystafell mewn lleoliad penodol ('wyneb yn wyneb')",
+  line2: "trwy fideo (lle gallwch chi ymuno o leoliad sy'n addas i chi)",
+  line3: 'dros y ffôn',
+  select_all_apply: "Dewiswch bob un sy'n berthnasol",
+  videoHearing: 'Gallaf gymryd rhan mewn gwrandawiad fideo',
+  phoneHearing: 'Gallaf gymryd rhan mewn gwrandawiad dros y ffôn',
+  noVideoAndPhoneHearing: 'Ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
+  noVideoAndPhoneHearingReason: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
+  noVideoAndPhoneHearing_subfield:
+    'Esboniwch pam nad ydych yn gallu cymryd rhan mewn gwrandawiad drwy fideo na gwrandawiad dros y ffôn',
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('applicant personal details > applying-with > content', () => {

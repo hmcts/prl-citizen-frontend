@@ -17,8 +17,8 @@ export default class ContactDetailsPostController extends PostController<AnyObje
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const respondentId = req.params.respondentId as C100RebuildPartyDetails['id'];
-    const form = new Form(getFormFields().fields as FormFields);
+    const respondentId = req.params.respondentId;
+    const form = new Form(getFormFields(req.session.userCase, respondentId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { donKnowEmailAddress, emailAddress, telephoneNumber, donKnowTelephoneNumber } = formData as Record<
@@ -27,7 +27,7 @@ export default class ContactDetailsPostController extends PostController<AnyObje
     >;
     const respondentContactDetails = getPartyDetails(
       respondentId,
-      req.session.userCase.resp_Respondents!
+      req.session.userCase.resp_Respondents
     ) as C100RebuildPartyDetails;
     respondentContactDetails.contactDetails = {
       donKnowEmailAddress,
@@ -37,7 +37,7 @@ export default class ContactDetailsPostController extends PostController<AnyObje
     };
     req.session.userCase.resp_Respondents = updatePartyDetails(
       respondentContactDetails,
-      req.session.userCase.resp_Respondents!
+      req.session.userCase.resp_Respondents
     ) as C100RebuildPartyDetails[];
 
     if (onlycontinue) {

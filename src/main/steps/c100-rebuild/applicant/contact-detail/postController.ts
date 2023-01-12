@@ -17,11 +17,12 @@ export default class ContactDetailPostController extends PostController<AnyObjec
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const applicantId = req.params.applicantId as C100Applicant['id'];
 
-    const form = new Form(getFormFields().fields as FormFields);
+    const form = new Form(getFormFields(req.session.userCase, applicantId).fields as FormFields);
+    const { onlycontinue, saveAndComeLater } = req.body;
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId) as number;
-    req.session.userCase!.appl_allApplicants![applicantIndex].applicantContactDetail = {
+    req.session.userCase.appl_allApplicants![applicantIndex].applicantContactDetail = {
       ...req.session.userCase?.appl_allApplicants?.[applicantIndex].applicantContactDetail,
       canProvideEmail: req.body['canProvideEmail'] as YesNoEmpty,
       emailAddress: req.body['emailAddress'] as string,
@@ -30,7 +31,11 @@ export default class ContactDetailPostController extends PostController<AnyObjec
       canNotProvideTelephoneNumberReason: req.body['canNotProvideTelephoneNumberReason'] as YesNoEmpty,
       canLeaveVoiceMail: req.body['canLeaveVoiceMail'] as YesNoEmpty,
     };
-    req.session.errors = form.getErrors(formData);
-    this.redirect(req, res);
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      return super.redirect(req, res);
+    } else if (saveAndComeLater) {
+      super.saveAndComeLater(req, res, { appl_allApplicants: req.session.userCase.appl_allApplicants });
+    }
   }
 }

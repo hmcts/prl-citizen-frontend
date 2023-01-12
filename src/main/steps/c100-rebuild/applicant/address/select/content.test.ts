@@ -16,11 +16,11 @@ const en = {
 };
 
 const cy = {
-  title: 'Select Address of -welsh firstName lastName',
-  changePostCodeLabel: 'Change postcode - welsh',
+  title: 'Dewiswch gyfeiriad firstName lastName',
+  changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {
-      notSelected: 'Select an address from the list -  welsh',
+      notSelected: 'Dewiswch gyfeiriad',
     },
   },
 };

@@ -25,22 +25,21 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
-  title:
-    'Could another person in the application apply for a similar order in a country outside England or Wales? - welsh',
+  serviceName: 'Trefniadau plant',
+  title: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
   line1:
-    'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments. - welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
-  provideDetails: 'Provide details - Welsh',
+    'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
+  one: 'Gallai',
+  two: 'Na allai',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     ie_internationalJurisdiction: {
       required:
-        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales? - Welsh',
+        'Dewiswch ydynt os oes unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
     },
     ie_provideDetailsJurisdiction: {
       required:
-        'Provide details about another person in the application applying for a similar order in a country outside England or Wales? - Welsh ',
+        "Darparwch fanylion am unigolyn arall yn y cais sy'n gwneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?",
     },
   },
 });

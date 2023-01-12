@@ -45,35 +45,33 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Which of the decisions you’re asking the court to resolve relate to - welsh',
-  orderAppliedFor: 'Orders applied for - welsh',
-  bodyHint: 'Select all that apply - welsh',
+  title: 'Pa un o’r penderfyniadau rydych chi’n gofyn i’r llys eu datrys sy’n ymwneud â',
+  orderAppliedFor: 'Gorchmynion y gwnaed cais amdanynt',
+  bodyHint: "Dewiswch bob un sy'n berthnasol",
   childArrangementsOrder: {
-    whoChildLiveWith: 'Decide who the children live with and when - welsh',
-    childTimeSpent: 'Decide how much time the children spend with each person - welsh',
+    whoChildLiveWith: "Dewiswch bob un sy'n berthnasol",
+    childTimeSpent: 'Penderfynu faint o amser y bydd y plant yn ei dreulio gyda phob unigolyn',
   },
   stepsList: {
-    changeChildrenNameSurname: "Changing the children's names or surname - welsh",
-    allowMedicalTreatment: 'Allowing medical treatment to be carried out on the children - welsh',
-    takingChildOnHoliday: 'Taking the children on holiday - welsh',
-    relocateChildrenDifferentUkArea: 'Relocating the children to a different area in England and Wales - welsh',
-    relocateChildrenOutsideUk:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
+    changeChildrenNameSurname: "Newid enwau neu gyfenwau'r plant",
+    allowMedicalTreatment: "Caniatáu i'r plant gael triniaeth feddygol",
+    takingChildOnHoliday: "Mynd â'r plant ar wyliau",
+    relocateChildrenDifferentUkArea: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
+    relocateChildrenOutsideUk: 'Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)',
   },
   issueOrderList: {
-    specificHoliday: 'A specific holiday or arrangement - welsh',
-    whatSchoolChildrenWillGoTo: 'What school the children will go to - welsh',
-    religiousIssue: 'A religious issue - welsh',
-    changeChildrenNameSurnameA: "Changing the children's names or surname - welsh",
-    medicalTreatment: 'Medical treatment - welsh',
-    relocateChildrenDifferentUkAreaA: 'Relocating the children to a different area in England and Wales - welsh',
-    relocateChildrenOutsideUkA:
-      'Relocating the children outside of England and Wales (including Scotland and Northern Ireland) - welsh',
-    returningChildrenToYourCare: 'Returning the children to your care - welsh',
+    specificHoliday: 'Gwyliau neu drefniant penodol',
+    whatSchoolChildrenWillGoTo: 'I ba ysgol y bydd y plant yn mynd iddi',
+    religiousIssue: ' Mater crefyddol',
+    changeChildrenNameSurnameA: "Newid enwau neu gyfenwau'r plant",
+    medicalTreatment: 'Triniaeth feddygol',
+    relocateChildrenDifferentUkAreaA: "Adleoli'r plant i ardal wahanol yng Nghymru a Lloegr",
+    relocateChildrenOutsideUkA: 'Adleoli’r plant y tu allan i Gymru a Lloegr(gan gynnwys Yr Alban a Gogledd Iwerddon)',
+    returningChildrenToYourCare: "Dychwelyd y plant i'ch gofal",
   },
   errors: {
     needsResolution: {
-      required: 'Select at least a decision - welsh',
+      required: 'Dylech o leiaf ddewis penderfyniad',
     },
   },
 });
@@ -95,14 +93,10 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
-};
-
 export const generateFormFields = (
   childMatters: ChildrenDetails['childMatters'],
   caseData: Partial<CaseWithId> = {},
-  translations: Record<string, any>
+  translations?: Record<string, any>
 ): GenerateDynamicFormFields => {
   const { too_courtOrder, too_stopOtherPeopleDoingSomethingSubField, too_resolveSpecificIssueSubField } = caseData;
   const { needsResolution } = childMatters;
@@ -126,24 +120,25 @@ export const generateFormFields = (
       hint: l => l.bodyHint,
       validator: atLeastOneFieldIsChecked,
       values: [
+        ...[],
         ...(filteredChildArrangementsOrderList?.map(order => {
           return {
             name: 'needsResolution',
-            label: translations.childArrangementsOrder![order],
+            label: translations?.childArrangementsOrder?.[order],
             value: order,
           };
         }) ?? []),
         ...(filteredOtherPeopleDoingSomething?.map(order => {
           return {
             name: 'needsResolution',
-            label: translations.stepsList![order],
+            label: translations?.stepsList?.[order],
             value: order,
           };
         }) ?? []),
         ...(<[]>too_resolveSpecificIssueSubField?.map(order => {
           return {
             name: 'needsResolution',
-            label: translations.issueOrderList![order],
+            label: translations?.issueOrderList?.[order],
             value: order,
           };
         }) ?? []),
@@ -173,6 +168,12 @@ export const form: FormContent = {
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
+};
+
+export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']): FormContent => {
+  const childDetails = getPartyDetails(childId, caseData?.cd_children) as ChildrenDetails;
+
+  return updateFormFields(form, generateFormFields(childDetails.childMatters ?? {}, caseData ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

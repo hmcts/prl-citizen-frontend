@@ -269,8 +269,9 @@ export class PostController<T extends AnyObject> {
           C100_CASE_EVENT.CASE_UPDATE
         );
         req.session.userCase = {} as CaseWithId;
-      } finally {
         this.redirect(req, res, DASHBOARD_URL);
+      } catch (e) {
+        this.redirect(req, res, req.originalUrl);
       }
     } else {
       this.redirect(req, res, req.originalUrl);

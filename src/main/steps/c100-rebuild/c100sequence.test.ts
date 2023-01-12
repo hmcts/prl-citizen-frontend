@@ -13,7 +13,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(122);
+    expect(C100Sequence).toHaveLength(123);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -780,7 +780,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[117].url).toBe('/c100-rebuild/applicant/:applicantId/contact-detail');
     expect(C100Sequence[117].showInSection).toBe('c100');
     expect(C100Sequence[117].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
-      '/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/details-know'
+      '/c100-rebuild/applicant/2732dd53-2e6c-46f9-88cd-08230e735b08/contact-preference'
     );
 
     expect(C100Sequence[118].url).toBe('/c100-rebuild/consent-order/upload');
@@ -798,5 +798,11 @@ describe('C100Sequence', () => {
     expect(C100Sequence[121].url).toBe('/c100-rebuild/case-name');
     expect(C100Sequence[121].showInSection).toBe('c100');
     expect(C100Sequence[121].getNextStep({})).toBe('/c100-rebuild/childaddress');
+
+    expect(C100Sequence[122].url).toBe('/c100-rebuild/applicant/:applicantId/contact-preference');
+    expect(C100Sequence[122].showInSection).toBe('c100');
+    expect(C100Sequence[122].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
+      '/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/details-know'
+    );
   });
 });

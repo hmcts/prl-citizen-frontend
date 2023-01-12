@@ -29,22 +29,22 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   title:
-    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales? - welsh",
+    "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
   line1:
-    'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales. - welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
-  provideDetails: 'Provide details - Welsh',
+    "Er enghraifft, gallai hyn gynnwys nain neu berthynas agos arall. Efallai bod ganddynt waith, eiddo neu ysgol sydd wedi'i leoli'n bennaf y tu allan i Gymru a Lloegr.",
+  one: 'Ydynt',
+  two: 'Nac ydynt',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     ie_internationalParents: {
       required:
-        "Select yes if the children's parents or anyone significant to the children living outside of England or Wales - Welsh",
+        "Dewiswch 'ie' os yw rhieni’r plant neu unrhyw un sy’n bwysig i’r plant yn byw y tu allan i Gymru neu Loegr",
     },
     ie_provideDetailsParents: {
       required:
-        "Provide details about the children's parents or anyone significant to the children living outside of England or Wales - Welsh ",
+        "Darparwch fanylion am rieni’r plant neu unrhyw un sy’n bwysig i'r plant sy'n byw y tu allan i Gymru neu Loegr",
     },
   },
 };

@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../../app/case/case';
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -25,13 +26,13 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Address of - welsh',
-  subTitle: 'Documents relating to this application will be sent here. - welsh',
-  enterAddressManually: "I don't know their postcode or they live outside the UK - welsh",
+  title: 'Cyfeiriad',
+  subTitle: 'Bydd dogfennau sy’n ymwneud â’r cais hwn yn cael eu hanfon yno.',
+  enterAddressManually: 'Nid wyf yn gwybod beth yw eu cod post neu maen nhw’n byw y tu allan i’r DU',
   errors: {
     PostCode: {
-      required: 'Enter the postcode - welsh',
-      invalid: 'Enter a valid postcode - welsh',
+      required: 'Nodwch y cod post',
+      invalid: 'Rhowch god post dilys.',
     },
   },
 });
@@ -64,10 +65,17 @@ const updatedFormFields = (form: FormContent, formFields: FormContent['fields'])
   return updatedForm;
 };
 
-export const getUpdatedForm = (): FormContent => updatedForm;
-
 export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): GenerateDynamicFormFields => {
   return { fields: lookupAddressForm(caseData).fields, errors: { en: {}, cy: {} } };
+};
+
+export const getUpdatedForm = (
+  caseData: Partial<CaseWithId>,
+  respondentId: C100RebuildPartyDetails['id']
+): FormContent => {
+  const respondentData = getPartyDetails(respondentId, caseData?.resp_Respondents) as C100RebuildPartyDetails;
+
+  return updatedFormFields(form, generateFormFields(respondentData ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {

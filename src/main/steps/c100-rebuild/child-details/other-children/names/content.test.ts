@@ -28,19 +28,19 @@ const en = {
 };
 
 const cy = {
-  title: 'Enter the other child’s name - welsh',
-  firstNameLabel: 'First name(s) - welsh',
-  firstNameHint: 'Include all middle names here - welsh',
-  lastNameLabel: 'Last name(s) - welsh',
-  addChildLabel: 'Add another child - welsh',
-  removeChildLabel: 'Remove child - welsh',
-  newNameLabel: 'Enter a new name - welsh',
+  title: 'Nodwch enw’r plentyn arall',
+  firstNameLabel: 'Enw(au) cyntaf',
+  firstNameHint: 'Nodwch bob enw canol yma',
+  lastNameLabel: 'Cyfenw(au)',
+  addChildLabel: 'Ychwanegu plentyn arall',
+  removeChildLabel: 'Dileu Plentyn',
+  newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
-      required: 'Enter the first name - welsh',
+      required: 'Nodwch yr enw cyntaf',
     },
     c100TempLastName: {
-      required: 'Enter the last name - welsh',
+      required: 'Nodwch yr enw olaf',
     },
   },
 };

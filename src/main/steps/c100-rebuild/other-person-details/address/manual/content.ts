@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../../app/case/case';
 import { C100RebuildPartyDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
@@ -30,20 +31,20 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Address details of - welsh',
-  addressLine1Hint: 'Court documents may be sent here - welsh',
+  title: 'Manylion cyfeiriad',
+  addressLine1Hint: 'Gellir anfon dogfennau’r llys yma',
   errors: {
     AddressLine1: {
-      required: 'Enter the first line of the address - welsh',
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     PostTown: {
-      required: 'Enter the town or city - welsh',
+      required: ' Nodwch y dref neu’r ddinas',
     },
     addressUnknown: {
-      cantHaveAddressAndUnknown: 'Cannot have an address and also "I dont know where they currently live" - welsh',
+      cantHaveAddressAndUnknown: "Methu cael cyfeiriad a hefyd “nid wyf yn gwybod lle maen nhw'n byw ar hyn o bryd",
     },
     Country: {
-      required: 'Enter the country - welsh',
+      required: 'Nodwch y wlad',
     },
   },
 });
@@ -61,10 +62,6 @@ export const form: FormContent = {
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
   },
-};
-
-export const getFormFields = (): FormContent => {
-  return updatedForm;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -90,6 +87,16 @@ export const getUpdatedForm = (): FormContent => updatedForm;
 export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): GenerateDynamicFormFields => {
   return { fields: manualAddressForm(caseData).fields, errors: { en: {}, cy: {} } };
 };
+
+export const getFormFields = (
+  caseData: Partial<CaseWithId>,
+  otherPersonId: C100RebuildPartyDetails['id']
+): FormContent => {
+  const otherPersonDetails = getPartyDetails(otherPersonId, caseData?.oprs_otherPersons) as C100RebuildPartyDetails;
+
+  return updatedFormFields(form, generateFormFields(otherPersonDetails ?? {}).fields);
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const manualAddressFormTranslations = manualAddressFormLanguages[content.language]();
