@@ -1,18 +1,22 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../../main/app/case/definition';
 import { HTML } from '../common/htmlSelectors';
+import { getYesNoTranslation } from '../mainUtil';
 
-export const hearingDetailsHelper = (userCase, keys, sessionKey) => {
+export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
   if (userCase.hasOwnProperty(sessionKey)) {
     let html = '';
-    html += userCase['hwn_hearingPart1'];
+    html += getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation');
     if (userCase.hasOwnProperty('hwn_hearingPart1') && userCase['hwn_hearingPart1'] === 'Yes') {
       html += HTML.RULER;
       html += HTML.H4 + keys['hearingWithoutLine1Field'] + HTML.H4_CLOSE;
       html += HTML.P + userCase?.['hwn_reasonsForApplicationWithoutNotice'] + HTML.P_CLOSE;
       html += HTML.RULER;
       html += HTML.H4 + keys['doYouNeedAWithoutNoticeHearingLabel'] + HTML.H4_CLOSE;
-      html += HTML.P + userCase?.['hwn_doYouNeedAWithoutNoticeHearing'] + HTML.P_CLOSE;
+      html +=
+        HTML.P +
+        getYesNoTranslation(language, userCase?.['hwn_doYouNeedAWithoutNoticeHearing'], 'ydwTranslation') +
+        HTML.P_CLOSE;
       html +=
         userCase['hwn_doYouNeedAWithoutNoticeHearingDetails'] !== undefined
           ? HTML.H4 +
@@ -24,7 +28,10 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey) => {
           : '';
       html += HTML.RULER;
       html += HTML.H4 + keys['doYouRequireAHearingWithReducedNoticeLabel'] + HTML.H4_CLOSE;
-      html += HTML.P + userCase?.['hwn_doYouRequireAHearingWithReducedNotice'] + HTML.P_CLOSE;
+      html +=
+        HTML.P +
+        getYesNoTranslation(language, userCase?.['hwn_doYouRequireAHearingWithReducedNotice'], 'ydwTranslation') +
+        HTML.P_CLOSE;
       html +=
         userCase['hwn_doYouRequireAHearingWithReducedNoticeDetails'] !== undefined
           ? HTML.H4 +
@@ -39,10 +46,10 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey) => {
   }
 };
 
-export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessionKey) => {
+export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessionKey, language) => {
   if (userCase.hasOwnProperty(sessionKey)) {
     let html = '';
-    html += userCase['hu_urgentHearingReasons'];
+    html += getYesNoTranslation(language, userCase['hu_urgentHearingReasons'], 'oesTranslation');
     if (userCase.hasOwnProperty('hu_urgentHearingReasons') && userCase['hu_urgentHearingReasons'] === 'Yes') {
       html += HTML.RULER;
       html += HTML.H4 + keys['reasonForUrgentHearing'] + HTML.H4_CLOSE;
@@ -67,7 +74,10 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
           : '';
       html += HTML.RULER;
       html += HTML.H4 + keys['hearingWithNext48Hrs'] + HTML.H4_CLOSE;
-      html += HTML.P + userCase?.['hu_hearingWithNext48HrsDetails'] + HTML.P_CLOSE;
+      html +=
+        HTML.P +
+        getYesNoTranslation(language, userCase?.['hu_hearingWithNext48HrsDetails'], 'doTranslation') +
+        HTML.P_CLOSE;
       if (
         userCase.hasOwnProperty('hu_hearingWithNext48HrsDetails') &&
         userCase['hu_hearingWithNext48HrsDetails'] === YesOrNo.YES

@@ -24,10 +24,7 @@
 {% endif %}
 
 <h1 class="govuk-heading-xl govuk-!-margin-top-5">{{title}}</h1>
-{{ govukWarningText({
-  text: topWarning,
-  iconFallbackText: "Warning"
-}) }}
+{{ govukWarningText(getContent(topWarning)) }}
 <p class="govuk-body-l">{{makingSure}}</p>
 
 
