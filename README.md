@@ -1,6 +1,8 @@
 # prl-citizen-frontend
 
-### Getting Started
+Updated with Release 3.0
+
+## Getting Started
 
 ### Prerequisites
 

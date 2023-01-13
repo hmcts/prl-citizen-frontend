@@ -16,18 +16,17 @@ describe('ResponseTaskListGetController', () => {
     await controller.get(req, res);
     const userCase = req.session.userCase;
 
-    expect(res.render).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        ...generatePageContent({
-          language,
-          pageContent: generateContent,
-          userCase,
-          userEmail: 'test@example.com',
-        }),
-        ...defaultViewArgs,
-        userCase: req.session.userCase,
-      })
-    );
+    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
+      ...generatePageContent({
+        language,
+        pageContent: generateContent,
+        userCase,
+        userEmail: 'test@example.com',
+      }),
+      ...defaultViewArgs,
+      userCase: req.session.userCase,
+      additionalData: expect.anything(),
+      paymentError: false,
+    });
   });
 });
