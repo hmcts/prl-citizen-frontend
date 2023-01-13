@@ -10,6 +10,7 @@ export const respondent_tasklist_items_en = {
   upload_document: 'Upload Documents',
   view_all_orders_from_the_court: 'View all orders from the court',
   view_all_documents: 'View all documents',
+  respond_to_application_hint: 'Go to view all documents to check the response.',
 };
 
 export const respondent_tasklist_items_cy = {
@@ -25,4 +26,5 @@ export const respondent_tasklist_items_cy = {
   view_all_orders_from_the_court: 'View all orders from the court - welsh',
   view_all_documents: 'View all documents - welsh',
   your_safety: 'Your safety - welsh',
+  respond_to_application_hint: 'Go to view all documents to check the response. - welsh',
 };
