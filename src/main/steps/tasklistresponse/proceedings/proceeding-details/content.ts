@@ -12,7 +12,7 @@ const en = () => ({
   schedule1Hint: 'Schedule 1 Children Act 1989',
   emergencyProtectionOrder: 'Emergency Protection Order',
   supervisionOrder: 'Supervision Order',
-  caseOrder: 'Care Order',
+  careOrder: 'Care Order',
   childAbduction: 'Child Abduction',
   contactOrderForDivorce:
     'A contact or residence order made within proceedings for a divorce or dissolution of civil partnership',
@@ -42,7 +42,7 @@ const cy = () => ({
   schedule1Hint: 'Schedule 1 Children Act 1989 - welsh',
   emergencyProtectionOrder: 'Emergency Protection Order - welsh',
   supervisionOrder: 'Supervision Order - welsh',
-  caseOrder: 'Care Order - welsh',
+  careOrder: 'Care Order - welsh',
   childAbduction: 'Child Abduction - welsh',
   contactOrderForDivorce:
     'A contact or residence order made within proceedings for a divorce or dissolution of civil partnership - welsh',
@@ -94,7 +94,7 @@ export const form: FormContent = {
         },
         {
           name: 'courtProceedingsOrders',
-          label: l => l.caseOrder,
+          label: l => l.careOrder,
           value: 'careOrder',
         },
         {

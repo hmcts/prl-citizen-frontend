@@ -114,7 +114,7 @@ describe('task-list > content', () => {
               text: 'Mediation(MIAM)',
             },
             {
-              href: '/tasklistresponse/proceedings/start',
+              href: '/tasklistresponse/proceedings/start/1234567',
               id: 'current-or-previous-proceedings',
               status: 'TO_DO',
               text: 'Current or previous proceedings',

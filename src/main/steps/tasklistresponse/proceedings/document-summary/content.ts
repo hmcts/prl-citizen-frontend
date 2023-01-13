@@ -2,7 +2,7 @@ import { ProceedingsOrderTypeInterface } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../../steps/urls';
+import { OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../../steps/urls';
 import { getAllOrderDocuments } from '../util';
 export * from './routeGuard';
 
@@ -44,7 +44,7 @@ const getOrderDocuments = (
     documents = ordersWithDocument.map(order => {
       return {
         fileName: order.orderDocument?.filename,
-        editUrl: applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: order.orderType, orderId: order.id }),
+        editUrl: applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: order.orderType, orderId: order.id }),
       };
     });
   }
