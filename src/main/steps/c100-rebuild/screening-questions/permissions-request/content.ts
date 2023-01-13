@@ -15,11 +15,11 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Explain why the court should grant you permission to submit this application - welsh',
-  line: 'Give your answer in bullet points and short sentences. Explain your relationship to the children in the case and why you should be allowed to make the application. - welsh',
+  title: "Esboniwch pam y dylai'r llys roi caniatâd i chi gyflwyno'r cais hwn",
+  line: "Rhowch eich ateb mewn pwyntiau bwled a brawddegau byr. Esboniwch eich perthynas â'r plant yn yr achos a pham y dylech gael caniatâd i wneud y cais.",
   errors: {
     sq_permissionsRequest: {
-      required: 'Describe what you want the court to do regarding the children in this application - welsh',
+      required: "Esboniwch pam y dylai'r llys roi caniatâd i chi gyflwyno'r cais hwn",
     },
   },
 });

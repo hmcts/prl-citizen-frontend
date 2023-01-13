@@ -27,7 +27,7 @@ const cy = {
   two: 'Nac ydw',
   errors: {
     hwn_hearingPart1: {
-      required: "Select yes if you're asking for a without notice - welsh",
+      required: 'Dewiswch ‘ydw’ os ydych yn gofyn i’r gwrandawiad gael ei gynnal heb roi rhybudd',
     },
   },
 };

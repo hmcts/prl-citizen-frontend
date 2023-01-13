@@ -34,11 +34,11 @@ const keysTwo = {
   giveDetailsOtherRisks: 'giveDetailsOtherRisks',
   timeOfHearing: 'timeOfHearing',
 };
-
+const language = 'en';
 describe('test cases for hearing details', () => {
   test('hearingDetailsHelper', () => {
-    expect(hearingDetailsHelper(userCase, keys, sessionKey)).toBe(
-      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>hearingWithoutLine1Field</h4><p>hwn_reasonsForApplicationWithoutNotice</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouNeedAWithoutNoticeHearingLabel</h4><p>hwn_doYouNeedAWithoutNoticeHearing</p><h4>undefined</h4><p>hwn_doYouNeedAWithoutNoticeHearingDetails</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouRequireAHearingWithReducedNoticeLabel</h4><p>hwn_doYouRequireAHearingWithReducedNotice</p><h4>undefined</h4><p>hwn_doYouRequireAHearingWithReducedNoticeDetails</p>'
+    expect(hearingDetailsHelper(userCase, keys, sessionKey, language)).toBe(
+      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>hearingWithoutLine1Field</h4><p>hwn_reasonsForApplicationWithoutNotice</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouNeedAWithoutNoticeHearingLabel</h4><p></p><h4>undefined</h4><p>hwn_doYouNeedAWithoutNoticeHearingDetails</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouRequireAHearingWithReducedNoticeLabel</h4><p></p><h4>undefined</h4><p>hwn_doYouRequireAHearingWithReducedNoticeDetails</p>'
     );
   });
 
@@ -52,15 +52,16 @@ describe('test cases for hearing details', () => {
           hwn_doYouRequireAHearingWithReducedNoticeDetails: undefined,
         },
         keys,
-        sessionKey
+        sessionKey,
+        language
       )
     ).toBe(
-      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>hearingWithoutLine1Field</h4><p>hwn_reasonsForApplicationWithoutNotice</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouNeedAWithoutNoticeHearingLabel</h4><p>hwn_doYouNeedAWithoutNoticeHearing</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouRequireAHearingWithReducedNoticeLabel</h4><p>hwn_doYouRequireAHearingWithReducedNotice</p>'
+      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>hearingWithoutLine1Field</h4><p>hwn_reasonsForApplicationWithoutNotice</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouNeedAWithoutNoticeHearingLabel</h4><p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouRequireAHearingWithReducedNoticeLabel</h4><p></p>'
     );
   });
 
   test('hearingDetailsQualifyForFirstHearingHelper > Alternatice useCase', () => {
-    expect(hearingDetailsQualifyForFirstHearingHelper(userCaseTwo, keysTwo, sessionKey)).toBe(
+    expect(hearingDetailsQualifyForFirstHearingHelper(userCaseTwo, keysTwo, sessionKey, language)).toBe(
       'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>reasonForUrgentHearing</h4><ul><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>giveDetailsOtherRisks</h4><p>hu_otherRiskDetails</p><h4>timeOfHearing</h4><p>hu_timeOfHearingDetails</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><p>Yes</p><h4>undefined</h4><p>hu_hearingWithNext48HrsMsg</p>'
     );
   });
@@ -76,7 +77,8 @@ describe('test cases for hearing details', () => {
           hu_hearingWithNext48HrsDetails: 'No',
         },
         keysTwo,
-        sessionKey
+        sessionKey,
+        language
       )
     ).toBe('No');
   });
@@ -91,7 +93,8 @@ describe('test cases for hearing details', () => {
           hu_urgentHearingReasons: 'Yes',
         },
         keysTwo,
-        sessionKey
+        sessionKey,
+        language
       )
     ).toBe(
       'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>reasonForUrgentHearing</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>giveDetailsOtherRisks</h4><p>hu_otherRiskDetails</p><h4>timeOfHearing</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><p>No</p>'

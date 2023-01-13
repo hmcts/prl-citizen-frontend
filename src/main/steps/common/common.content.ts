@@ -139,7 +139,7 @@ const cy: typeof en = {
   errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAndComeLater: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
-  goBack: 'Go back - welsh',
+  goBack: 'Yn ôl',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
   signIn: 'Sign in (in welsh)',
@@ -192,7 +192,7 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
-  onlyContinue: 'Continue (in welsh)',
+  onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
 };
@@ -211,9 +211,7 @@ export const generatePageContent = ({
   userIdamId,
   additionalData,
   userId,
-}: // eligibility,
-// fee,
-{
+}: {
   language: Language;
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
@@ -227,8 +225,6 @@ export const generatePageContent = ({
   userIdamId?: string;
   additionalData?: CommonContentAdditionalData;
   userId?: string | undefined;
-  // eligibility?: Eligibility;
-  // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(additionalData, commonTranslations);
@@ -246,11 +242,8 @@ export const generatePageContent = ({
     document_type,
     userIdamId,
     byApplicant,
-    // contactEmail,
     additionalData,
     userId,
-    // eligibility,
-    // fee,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -289,8 +282,6 @@ export type CommonContent = typeof en & {
   byApplicant?: string;
   additionalData?: CommonContentAdditionalData;
   userId?: string | undefined;
-  // eligibility?: Eligibility;
-  // fee?: Fee;
   userIdamId?: string;
 };
 
