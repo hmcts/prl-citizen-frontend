@@ -66,8 +66,8 @@ const en = (content: CommonContent) => {
 
 const cyContent: typeof enContent = {
   section: ' ',
-  title: 'Check your answers',
-  title2: 'International element',
+  title: 'Gwirio eich atebion',
+  title2: 'Elfennau rhyngwladol',
   sectionTitles: {
     respondentAdditionalInformation: 'International elements',
   },

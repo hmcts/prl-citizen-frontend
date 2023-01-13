@@ -394,7 +394,7 @@ const enContent = {
 
 const cyContent = {
   section: ' ',
-  title: 'Check your answers',
+  title: 'Gwirio eich atebion',
   title2: 'Current or previous court cases',
   sectionTitles: {
     applicationDetails: '',
