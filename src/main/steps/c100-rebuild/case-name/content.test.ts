@@ -11,7 +11,7 @@ const en = {
   errors: {
     applicantCaseName: {
       required: 'Case Name is required',
-      invalid: 'Please enter a valid case name to proceed',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
 };

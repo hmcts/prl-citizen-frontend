@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isAlphaNumeric, isFieldFilledIn } from '../../../app/form/validation';
+import { isFieldFilledIn, isFieldLetters } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -11,7 +11,7 @@ export const en = () => ({
   errors: {
     applicantCaseName: {
       required: 'Case Name is required',
-      invalid: 'Please enter a valid case name to proceed',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
 });
@@ -41,7 +41,7 @@ export const form: FormContent = {
       classes: 'govuk-input--width-20',
       hint: hint => hint.caseNameHint,
       labelSize: null,
-      validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
+      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
     },
   },
   submit: {
