@@ -5,8 +5,9 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 const en = {
   section: ' ',
-  title: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
-  hint: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
+  title:
+    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+  hint: 'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales.',
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
@@ -23,8 +24,9 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
-  hint: 'Including for example, a grandparent or any other close relative. They may work, own property or have children in school outside of England or Wales.',
+  title:
+    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+  hint: 'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales.',
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
