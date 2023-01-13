@@ -1,21 +1,41 @@
 Feature('C100 Rebuild - Basic Miam Document flow');
 
-Scenario('C100 Rebuild - basic miam document journey @cross-browser',  async I => {
-  await I.loginAsCitizenUserNamePassWord();
-  await I.createC100Application();
-  await I.addCaseNameAndPostCode();
-  await I.screeningQuestions();
-  await I.miamSignedDocument();
-  await I.typeOfOrder();
-  await I.urgencyWithoutNotice();
-  await I.childrenDetails();
-  await I.applicantDetails();
-  await I.respondentDetails();
-  await I.otherPersonDetails();
-  await I.otherProceedings();
-  await I.safetyConcerns();
-  await I.internationElements();
-  await I.reasonableAdjustments();
-  await I.helpWithFeeEvent();
-  await I.checkYourAnswersEvent();
+
+Scenario('C100 Rebuild - basic miam document journey @cross-browser', 
+async ({
+  CitizenLoginPage,
+  CreateApplication,
+  CaseNameAndPostCode,
+  ScreeningQuestions,
+  GoToMiam,
+  TypeOfOrder,
+  UrgencyWithoutNotice,
+  ChildrenDetails,
+  ApplicantDetails,
+  RespondentDetails,
+  OtherPersonDetails,
+  OtherProceedings,
+  SafetyConcerns,
+  InternationElements,
+  ReasonableAdjustments,
+  HelpWithFees,
+  CheckYourAnswers,
+}) => {
+  await CitizenLoginPage.loginAsCitizenUserNamePassWord();
+  await CreateApplication.createC100Application();
+  await CaseNameAndPostCode.addCaseNameAndPostCode();
+  await ScreeningQuestions.screeningQuestions();
+  await GoToMiam.miamSignedDocument();
+  await TypeOfOrder.typeOfOrder();
+  await UrgencyWithoutNotice.urgencyWithoutNotice();
+  await ChildrenDetails.childrenDetails();
+  await ApplicantDetails.applicantDetails();
+  await RespondentDetails.respondentDetails();
+  await OtherPersonDetails.otherPersonDetails();
+  await OtherProceedings.otherProceedings();
+  await SafetyConcerns.safetyConcerns();
+  await InternationElements.internationElements();
+  await ReasonableAdjustments.reasonableAdjustments();
+  await HelpWithFees.helpWithFeeEvent();
+  await CheckYourAnswers.checkYourAnswersEvent();
   }).retry({ retries: 3, minTimeout: 30000 });

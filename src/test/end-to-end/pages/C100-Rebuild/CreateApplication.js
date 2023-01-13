@@ -1,4 +1,4 @@
-const I = actor();
+const { I } = inject();
 const retryCount = 3;
 
 module.exports = {

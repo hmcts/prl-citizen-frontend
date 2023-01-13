@@ -1,4 +1,4 @@
-const I = actor();
+const { I } = inject();
 const config = require('../../config');
 
 const retryCount = 3;

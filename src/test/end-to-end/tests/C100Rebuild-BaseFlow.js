@@ -1,4 +1,4 @@
-Feature('C100 Rebuild - Base flow').retry(1);
+Feature('C100 Rebuild - Base flow');
 
 Scenario(
   'C100 Rebuild - basic journey @cross-browser', 
@@ -38,4 +38,4 @@ async ({
     await ReasonableAdjustments.reasonableAdjustments();
     await HelpWithFees.helpWithFeeEvent();
     await CheckYourAnswers.checkYourAnswersEvent();
-});
+  }).retry({ retries: 3, minTimeout: 30000 });
