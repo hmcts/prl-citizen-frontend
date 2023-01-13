@@ -8,10 +8,10 @@ export const respondent_en = {
 };
 
 export const respondent_cy = {
-  yourDocuments: 'Your documents - welsh',
-  ordersFromTheCourt: 'Orders from the court - welsh',
-  yourResponse: 'Your response - welsh',
-  yourcourtHearings: 'Your court hearings - welsh',
-  theApplication: 'The application - welsh',
-  aboutYou: 'About you - welsh',
+  yourDocuments: 'Eich dogfennau',
+  ordersFromTheCourt: 'Gorchmynion gan y llys',
+  yourResponse: 'Eich ymateb',
+  yourcourtHearings: 'Eich gwrandawiadau llys',
+  theApplication: 'Y cais',
+  aboutYou: 'Amdanoch chi',
 };
