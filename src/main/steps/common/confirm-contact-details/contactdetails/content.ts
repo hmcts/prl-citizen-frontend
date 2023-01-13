@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isEmailValid, isFieldFilledIn } from '../../../../app/form/validation';
+import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 
 const en = {
   title: 'Your contact details',
@@ -17,6 +17,9 @@ const en = {
     citizenUserEmailAddress: {
       required: 'Enter a valid email address',
       invalid: 'Enter a valid email address, like name@example.com',
+    },
+    citizenUserSafeToCall: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 };
@@ -37,6 +40,9 @@ const cy: typeof en = {
       required: 'Rhowch gyfeiriad e-bost',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, fel name@example.com',
     },
+    citizenUserSafeToCall: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(in Welsh)',
+    },
   },
 };
 
@@ -52,6 +58,7 @@ export const form: FormContent = {
       classes: 'govuk-input--width-20',
       label: l => l.citizenUserPhoneNumber,
       labelSize: null,
+      validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
     },
     citizenUserEmailAddress: {
       type: 'text',
@@ -66,6 +73,7 @@ export const form: FormContent = {
       hint: l => l.safeToCallHint,
       label: l => l.applicant1SafeToCall,
       labelSize: null,
+      validator: value => isAlphaNumeric(value),
     },
   },
   submit: {

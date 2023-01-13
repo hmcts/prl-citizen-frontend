@@ -3,6 +3,14 @@ import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
+  C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+  C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT,
+  C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
+  C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED,
+  C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS,
+  C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
+  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS,
+  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -20,6 +28,15 @@ import {
   MIAM_START,
   MIAM_SUMMARY,
   OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
+  PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+  PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION,
+  PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+  PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER,
+  PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED,
+  PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_ORDER_DETAILS,
   PROCEEDINGS_START,
@@ -32,7 +49,10 @@ import {
   RESPONDENT_ADDRESS_LOOKUP,
   RESPONDENT_ADDRESS_MANUAL,
   RESPONDENT_ADDRESS_SELECT,
+  RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
+  RESPONDENT_CHECK_ANSWERS_NO,
+  RESPONDENT_CHECK_ANSWERS_YES,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_FIND_ADDRESS,
@@ -47,11 +67,13 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
+  RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
 } from '../urls';
 
+import SafteyConcernsNavigationController from './allegations-of-harm-and-violence/navigationController';
 import OtherProceedingsNavigationController from './proceedings/navigationController';
 
 export const responseCaseSequence: Step[] = [
@@ -262,5 +284,139 @@ export const responseCaseSequence: Step[] = [
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
+  },
+  {
+    url: RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_YOUR_CHILD_CONCERNS,
+  },
+  {
+    url: RESPONDENT_YOUR_CHILD_CONCERNS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: data =>
+      data.PRL_c1A_haveSafetyConcerns === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
+  },
+  {
+    url: RESPONDENT_CHECK_ANSWERS_YES,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(RESPONDENT_CHECK_ANSWERS_YES, caseData, req?.params),
+  },
+  {
+    url: RESPONDENT_CHECK_ANSWERS_NO,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, req?.params),
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
+  },
+  {
+    url: C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
+    showInSection: Sections.C100,
+    getNextStep: data =>
+      data.PRL_c1A_passportOffice === YesOrNo.YES
+        ? C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT
+        : C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
+  },
+  {
+    url: C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT,
+    showInSection: Sections.C100,
+    getNextStep: () => C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED,
+  },
+  {
+    url: C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED,
+    showInSection: Sections.C100,
+    getNextStep: () => C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
+  },
+  {
+    url: C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      caseData.PRL_c1A_childAbductedBefore === YesOrNo.YES
+        ? C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS
+        : SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_ABDUCTION_THREATS, caseData, req?.params),
+  },
+  {
+    url: C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      SafteyConcernsNavigationController.getNextUrl(
+        C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS,
+        caseData,
+        req?.params
+      ),
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER,
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION,
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED,
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS,
+  },
+  {
+    url: C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
+  },
+  {
+    url: PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   },
 ];

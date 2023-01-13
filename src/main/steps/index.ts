@@ -141,7 +141,6 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
   const dir = __dirname;
 
   const results: StepWithContent[] = [];
-
   if (sequence?.length) {
     for (const step of sequence) {
       const { url } = parseUrl(step.url);

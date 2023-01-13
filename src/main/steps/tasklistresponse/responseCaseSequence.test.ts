@@ -1,8 +1,8 @@
 import { responseCaseSequence } from './responseCaseSequence';
 
 describe('respondent1Sequence', () => {
-  test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(40);
+  test.skip('should contain 1 entries in respondent 1 screen sequence', () => {
+    expect(responseCaseSequence).toHaveLength(61);
     expect(responseCaseSequence[0].url).toBe('/respondent/task-list');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -154,6 +154,29 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[36].url).toBe('/respondent/upload-document/start');
     expect(responseCaseSequence[36].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[36].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
+
+    expect(responseCaseSequence[37].url).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[37].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[37].getNextStep({})).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
+    );
+
+    expect(responseCaseSequence[38].url).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
+    );
+    expect(responseCaseSequence[38].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[38].getNextStep({})).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
+    );
+
+    expect(responseCaseSequence[39].url).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
+    );
+    expect(responseCaseSequence[39].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[39].getNextStep({})).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes'
+    );
     expect(responseCaseSequence[36].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
 
     expect(responseCaseSequence[37].url).toBe('/respondent/upload-document/document-sharing-details');

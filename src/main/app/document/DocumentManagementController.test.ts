@@ -113,9 +113,9 @@ describe('DocumentManagerController', () => {
           id: '2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
           value: {
             document_url:
-              'http://dm-store-aat.service.core-compute-aat.internal/documents/95f7c1be-f880-49db-b192-6632f43742b4',
+              config.get('services.documentManagement.url') + '/documents/95f7c1be-f880-49db-b192-6632f43742b4',
             document_binary_url:
-              'http://dm-store-aat.service.core-compute-aat.internal/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
+              config.get('services.documentManagement.url') + '/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
             document_filename: 'FL401C8Document.pdf',
             document_hash: null,
           },
@@ -228,10 +228,9 @@ describe('DocumentManagerController', () => {
       req.headers.accept = 'application/pdf';
       req.query.updateCase = 'Yes';
       req.session.userCase.c1ADocument = {
-        document_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
         document_filename: 'C100.pdf',
         document_hash: null,
       };
@@ -265,10 +264,9 @@ describe('DocumentManagerController', () => {
       req.headers.accept = 'application/pdf';
       req.query.updateCase = 'Yes';
       req.session.userCase.c1ADocument = {
-        document_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
         document_filename: 'C100.pdf',
         document_hash: null,
       };
@@ -302,10 +300,9 @@ describe('DocumentManagerController', () => {
       req.headers.accept = 'application/pdf';
       req.query.updateCase = 'Yes';
       req.session.userCase.finalDocument = {
-        document_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
         document_filename: 'C100.pdf',
         document_hash: null,
       };
@@ -339,10 +336,9 @@ describe('DocumentManagerController', () => {
       req.headers.accept = 'application/pdf';
       req.query.updateCase = 'Yes';
       req.session.userCase.finalDocument = {
-        document_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
-          'http://dm-store-aat.service.core-compute-aat.internal/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
         document_filename: 'C100.pdf',
         document_hash: null,
       };
