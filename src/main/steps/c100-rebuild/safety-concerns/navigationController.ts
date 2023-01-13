@@ -97,6 +97,7 @@ class SafteyConcernsNavigationController {
     [C1ASafteyConcernsAbout.OTHER]: {
       url: C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
     },
+    respondent: {},
   };
 
   private getPageUrl(concernFor: C1ASafteyConcernsAbout, abuseType?: C1AAbuseTypes, other?: string): PageLink | null {
