@@ -8,6 +8,7 @@ describe('nameAndGenderParser test case', () => {
     details: 'Enter details',
     otherGender: 'Other Gender',
   };
+  const language = 'en';
   test('nameAndGenderParser functionality testing with changed name as Dont know', () => {
     const personalDetails = {
       dateOfBirth: {
@@ -25,7 +26,7 @@ describe('nameAndGenderParser test case', () => {
       otherGenderDetails: '',
       hasNameChanged: 'dontKnow',
     };
-    const data = nameAndGenderParser(personalDetails, keys, HTML);
+    const data = nameAndGenderParser(personalDetails, keys, HTML, language);
     expect(data).toEqual({ changeNameInformation: "Don't know", childGender: 'Male' });
   });
 
@@ -46,7 +47,7 @@ describe('nameAndGenderParser test case', () => {
       otherGenderDetails: '',
       hasNameChanged: 'yes',
     };
-    const data = nameAndGenderParser(personalDetails, keys, HTML);
+    const data = nameAndGenderParser(personalDetails, keys, HTML, language);
     expect(data).toEqual({
       changeNameInformation:
         'yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>Enter details</h4><div class="govuk-!-padding-bottom-3">undefined</div>',

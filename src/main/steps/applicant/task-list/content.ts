@@ -137,6 +137,7 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
+  const stages = content.userCase?.caseTypeOfApplication === 'C100' ? [] : buildProgressBarStages(content.userCase!);
   const req: AppRequest = content.additionalData?.req;
   translations.applicantName = getApplicantName(req.session.userCase, req.session.user.id);
   return {
@@ -148,7 +149,7 @@ export const generateContent: TranslationFn = content => {
       content.userIdamId
     ),
     banners,
-    stages: buildProgressBarStages(content.userCase!),
+    stages,
   };
 };
 

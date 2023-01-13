@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isAlphaNumeric, isFieldFilledIn } from '../../../app/form/validation';
+import { isFieldFilledIn, isFieldLetters } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -11,19 +11,19 @@ export const en = () => ({
   errors: {
     applicantCaseName: {
       required: 'Case Name is required',
-      invalid: 'Please enter a valid case name to proceed',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
 });
 
 export const cy = () => ({
-  title: 'Enter Case Name - welsh',
-  caseNameHint: 'Enter the eldest child’s full name. For example, John Smith - welsh',
+  title: 'Nodwch enw’r achos',
+  caseNameHint: 'Nodwch enw llawn y plentyn hynaf. Er enghraifft, John Smith',
 
   errors: {
     applicantCaseName: {
-      required: 'Case Name is required - welsh',
-      invalid: 'Please enter a valid case name to proceed - welsh',
+      required: 'Mae angen enw’r achos',
+      invalid: 'Nodwch enw achos dilys i barhau',
     },
   },
 });
@@ -41,7 +41,7 @@ export const form: FormContent = {
       classes: 'govuk-input--width-20',
       hint: hint => hint.caseNameHint,
       labelSize: null,
-      validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
+      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
     },
   },
   submit: {

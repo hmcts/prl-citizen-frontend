@@ -40,7 +40,7 @@ export interface Miam {
   attendedMiam?: string;
   willingToAttendMiam?: string;
   reasonNotAttendingMiam?: string;
- }
+}
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
@@ -121,12 +121,14 @@ export interface Response {
   keepDetailsPrivate?: KeepDetailsPrivate;
   citizenFlags?: CitizenFlags
   safeToCallOption?: string;
+  safetyConcerns?: PRL_C1ASafteyConcerns_total;
 }
 
 export interface CitizenFlags {
   isApplicationViewed?: string,
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
+  isResponseInitiated?: string
 }
 
 
@@ -168,11 +170,11 @@ export interface KeepDetailsPrivate {
   confidentialityList?: ConfidentialityList[];
 }
 
- export enum ConfidentialityList{
-   phoneNumber = 'phoneNumber',
-   email = 'email',
-   address = 'address',
- }
+export enum ConfidentialityList {
+  phoneNumber = 'phoneNumber',
+  email = 'email',
+  address = 'address',
+}
 
 export interface Applicant {
   id: string;
@@ -219,11 +221,11 @@ export interface SolicitorAddress2 {
   AddressLine3: string;
 }
 
-export interface AddressGlobal extends Address {}
+export interface AddressGlobal extends Address { }
 
-export interface AddressGlobalUK extends Address {}
+export interface AddressGlobalUK extends Address { }
 
-export interface AddressUK extends Address {}
+export interface AddressUK extends Address { }
 
 export interface CaseLink {
   CaseReference: string;
@@ -235,7 +237,7 @@ export interface Document {
   document_binary_url: string;
 }
 
-export interface DynamicElementIndicator {}
+export interface DynamicElementIndicator { }
 
 export interface DynamicList {
   value: DynamicListElement;
@@ -1922,7 +1924,19 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication',
-  Deleted = 'DELETED'
+  AWAITING_SUBMISSION_TO_HMCTS = "Draft",
+  AWAITING_FL401_SUBMISSION_TO_HMCTS = "Draft",
+  SUBMITTED_NOT_PAID = "Pending",
+  SUBMITTED_PAID = "Submitted",
+  AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
+  CASE_ISSUE = "Case Issued",
+  CASE_WITHDRAWN = "Withdrawn",
+  GATEKEEPING = "Gatekeeping",
+  PREPARE_FOR_HEARING_CONDUCT_HEARING = "Hearing",
+  DECISION_OUTCOME = "DECISION_OUTCOME",
+  ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
+  CASE_HEARING = "Prepare for hearing",
+  DELETED = "Deleted",
 }
 
 export const enum UserRole {
@@ -2481,21 +2495,20 @@ export interface OtherProceedings {
   order?: C100OrderTypeInterface
 }
 
-export enum C1AAbuseTypes {
-  PHYSICAL_ABUSE = 'physicalAbuse',
-  PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
-  EMOTIONAL_ABUSE = 'emotionalAbuse',
-  SEXUAL_ABUSE = 'sexualAbuse',
-  FINANCIAL_ABUSE = 'financialAbuse',
-  ABDUCTION = 'abduction',
-  WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
-  SOMETHING_ELSE='somethingElse',
-}
 
 export enum C1ASafteyConcernsAbout{
   CHILDREN = 'children',
   APPLICANT = 'applicant',
   OTHER = 'otherConcerns',
+  RESPONDENT = 'respondent',
+}
+
+export enum PRL_C1ASafteyConcernsAbout{
+  CHILDREN = 'children',
+  RESPONDENT = 'respondent',
+  APPLICANT = 'applicant',
+  OTHER = 'otherConcerns',
+  
 }
 
 export interface C1ASafteyConcernsAbuse{
@@ -2504,7 +2517,16 @@ export interface C1ASafteyConcernsAbuse{
   isOngoingBehaviour?:YesNoEmpty;
   seekHelpFromPersonOrAgency?: YesNoEmpty;
   seekHelpDetails?: string;
-  childrenConcernedAbout?: string;
+  childrenConcernedAbout?: string[];
+}
+
+export interface PRL_C1ASafteyConcernsAbuse{
+  behaviourDetails?: string;
+  behaviourStartDate?: string;
+  isOngoingBehaviour?:YesNoEmpty;
+  seekHelpFromPersonOrAgency?: YesNoEmpty;
+  seekHelpDetails?: string;
+  childrenConcernedAbout?: string[];
 }
 
 export interface C1ASafteyConcerns {
@@ -2523,9 +2545,91 @@ export interface C1ASafteyConcerns {
     financialAbuse?: C1ASafteyConcernsAbuse;
     somethingElse?: C1ASafteyConcernsAbuse;
   },
+  respondent?:{
+    physicalAbuse?:C1ASafteyConcernsAbuse;
+    psychologicalAbuse?:C1ASafteyConcernsAbuse;
+    emotionalAbuse?:C1ASafteyConcernsAbuse;
+    sexualAbuse?:C1ASafteyConcernsAbuse;
+    financialAbuse?: C1ASafteyConcernsAbuse;
+    somethingElse?: C1ASafteyConcernsAbuse;
+  },
   }
 
-  export type ChildrenDetails = {
+  export interface PRL_C1ASafteyConcerns {
+    child?: {
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    applicant?:{
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    respondent?:{
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    }
+
+    export interface PRL_C1ASafteyConcerns_total {
+     c1asafetyconcerns:PRL_C1ASafteyConcerns,
+      otherconcerns:{
+        c1AkeepingSafeStatement?:string;
+        c1AsupervisionAgreementDetails?:string;
+        c1AagreementOtherWaysDetails?:YesOrNo;
+        c1AotherConcernsDrugs?:YesOrNo;
+        c1AotherConcernsDrugsDetails?:string;
+        c1AchildSafetyConcerns?:YesOrNo;
+        c1AchildSafetyConcernsDetails?:string;
+      },
+      abductions:{
+        c1AabductionReasonOutsideUk?:string;
+        c1AchildsCurrentLocation?:string;
+        c1AchildrenMoreThanOnePassport?:YesOrNo;
+        c1ApossessionChildrenPassport?:string[];
+        c1AprovideOtherDetails?:string;
+        c1ApassportOffice?:YesOrNo;
+        c1AabductionPassportOfficeNotified?:YesOrNo;
+        c1ApreviousAbductionsShortDesc?:string;
+        c1ApoliceOrInvestigatorInvolved?:YesOrNo;
+        c1ApoliceOrInvestigatorOtherDetails?:string;
+        c1AchildAbductedBefore?:YesOrNo;
+      }
+      }
+
+  export enum C1AAbuseTypes {
+    PHYSICAL_ABUSE = 'physicalAbuse',
+    PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
+    EMOTIONAL_ABUSE = 'emotionalAbuse',
+    SEXUAL_ABUSE = 'sexualAbuse',
+    FINANCIAL_ABUSE = 'financialAbuse',
+    ABDUCTION = 'abduction',
+    WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
+    SOMETHING_ELSE='somethingElse',
+}
+
+export enum PRL_C1AAbuseTypes {
+  PHYSICAL_ABUSE = 'physicalAbuse',
+  PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
+  EMOTIONAL_ABUSE = 'emotionalAbuse',
+  SEXUAL_ABUSE = 'sexualAbuse',
+  FINANCIAL_ABUSE = 'financialAbuse',
+  ABDUCTION = 'abduction',
+  WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
+  SOMETHING_ELSE='somethingElse',
+}
+
+export type ChildrenDetails = {
     id: string;
     firstName: string;
     lastName: string;

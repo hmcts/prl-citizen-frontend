@@ -9,6 +9,7 @@ import {
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
+  getSupportYourNeedsDetails,
   getViewAllDocuments,
   getYourApplication,
 } from './utils';
@@ -47,6 +48,16 @@ describe('utils', () => {
         },
         expected: SectionStatus.TO_DO,
       },
+      // {
+      //   data: {
+      //     ...mockUserCase,
+      //     detailsKnown: 'undefined',
+      //     startAlternative: undefined,
+      //     confidentialDetails:'string',
+
+      //   },
+      //   expected: SectionStatus.IN_PROGRESS,
+      // },
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getKeepYourDetailsPrivateStatus({ ...userCase, ...data }, '123456')).toBe(expected);
     });
@@ -68,9 +79,21 @@ describe('utils', () => {
         },
         expected: SectionStatus.IN_PROGRESS,
       },
+      // {
+      //   data: {
+      //     ...mockUserCase,
+      //     citizenUserFullName:'Test',
+      //     citizenUserDateOfBirth: {
+      //       year: 'string',
+      //       month: 'string',
+      //       day: 'string',
+      //     },
+      //     citizenUserPlaceOfBirth: 'string',
+      //   },
+      //   expected: SectionStatus.COMPLETED,
+      // },
       {
         data: {
-          ...mockUserCase,
           citizenUserFullName: 'Test',
           citizenUserDateOfBirth: {
             year: 'string',
@@ -153,6 +176,33 @@ describe('utils', () => {
       {
         data: {
           ...mockUserCase,
+          orderCollection: [
+            {
+              id: '1234',
+              value: {
+                dateCreated: 'date',
+                orderType: 'type',
+                orderDocument: {
+                  document_url: 'string',
+                  document_filename: 'string',
+                  document_binary_url: 'string',
+                  document_hash: 'string',
+                },
+                otherDetails: {
+                  createdBy: 'string',
+                  orderCreatedDate: 'string',
+                  orderMadeDate: 'string',
+                  orderRecipients: 'string',
+                },
+              },
+            },
+          ],
+        },
+        expected: true,
+      },
+      {
+        data: {
+          ...mockUserCase,
           orderCollection: [],
         },
         expected: false,
@@ -201,6 +251,22 @@ describe('utils', () => {
       {
         data: {
           ...mockUserCase,
+          miamStart: 'Yes',
+          miamWillingness: undefined,
+        },
+        expected: 'IN_PROGRESS',
+      },
+      {
+        data: {
+          ...mockUserCase,
+          miamStart: undefined,
+          miamWillingness: 'Yes',
+        },
+        expected: 'IN_PROGRESS',
+      },
+      {
+        data: {
+          ...mockUserCase,
           miamStart: undefined,
           miamWillingness: undefined,
         },
@@ -208,6 +274,58 @@ describe('utils', () => {
       },
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getMiamStatus(data)).toBe(expected);
+    });
+  });
+
+  describe('getSupportYourNeedsDetails', () => {
+    test.each([
+      {
+        data: {
+          ...mockUserCase,
+          languageRequirements: 'test',
+          reasonableAdjustments: 'test',
+          helpCommunication: 'test',
+          courtHearing: 'test',
+          docsSupport: 'test',
+          courtComfort: 'tets',
+          safetyArrangements: 'tes',
+          travellingToCourt: 'test',
+          unableForCourtProceedings: 'test',
+        },
+        expected: 'COMPLETED',
+      },
+      {
+        data: {
+          ...mockUserCase,
+          languageRequirements: undefined,
+          reasonableAdjustments: 'test',
+          helpCommunication: undefined,
+          courtHearing: 'test',
+          docsSupport: undefined,
+          courtComfort: 'tets',
+          safetyArrangements: undefined,
+          travellingToCourt: 'test',
+          unableForCourtProceedings: undefined,
+        },
+        expected: 'IN_PROGRESS',
+      },
+      {
+        data: {
+          ...mockUserCase,
+          languageRequirements: undefined,
+          reasonableAdjustments: undefined,
+          helpCommunication: undefined,
+          courtHearing: undefined,
+          docsSupport: undefined,
+          courtComfort: undefined,
+          safetyArrangements: undefined,
+          travellingToCourt: undefined,
+          unableForCourtProceedings: undefined,
+        },
+        expected: 'TO_DO',
+      },
+    ])('should return correct status %#', async ({ data, expected }) => {
+      expect(getSupportYourNeedsDetails(data)).toBe(expected);
     });
   });
 });

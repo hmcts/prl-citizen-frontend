@@ -2,6 +2,7 @@ import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition
 import * as URL from '../../urls';
 
 import {
+  getAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
   getInternationalFactorsStatus,
@@ -95,10 +96,10 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
         title: sectionTitles.safetyConcerns,
         items: [
           {
-            id: 'your-safety',
-            text: taskListItems.your_safety,
-            status: SectionStatus.NOT_AVAILABLE_YET,
-            href: '#',
+            id: 'allegations_of_harm_and_violence',
+            text: taskListItems.allegations_of_harm_and_violence,
+            status: getAllegationOfHarmStatus(userCase),
+            href: URL.RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
           },
         ],
       },

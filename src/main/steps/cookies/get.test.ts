@@ -1,4 +1,3 @@
-import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { generatePageContent } from '../common/common.content';
@@ -15,17 +14,17 @@ describe('CookiesGetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toHaveBeenCalledWith(expect.anything(), {
-      ...generatePageContent({
-        language,
-        pageContent: generateContent,
-        userEmail: 'test@example.com',
-        userCase: req.session.userCase,
-      }),
-      ...defaultViewArgs,
-      userCase: req.session.userCase,
-      paymentError: false,
-      caseId: undefined,
-    });
+    expect(res.render).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...generatePageContent({
+          language,
+          pageContent: generateContent,
+          userEmail: 'test@example.com',
+          userCase: req.session.userCase,
+          additionalData: { req },
+        }),
+      })
+    );
   });
 });

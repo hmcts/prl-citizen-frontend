@@ -2,7 +2,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { OtherChildrenDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { isFieldFilledIn, isFieldLetters } from '../../../../../app/form/validation';
 
 let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -17,9 +17,11 @@ const en = () => ({
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     c100TempLastName: {
       required: 'Enter the last name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
 });
@@ -35,9 +37,13 @@ const cy = () => ({
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     c100TempLastName: {
       required: 'Nodwch yr enw olaf',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
   },
 });
@@ -81,7 +87,7 @@ export const generateFormFields = (children: OtherChildrenDetails[]): GenerateDy
           labelSize: 'm',
           classes: 'govuk-!-width-one-half',
           label: l => l.firstNameLabel,
-          validator: isFieldFilledIn,
+          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
         },
         [`lastName-${count}`]: {
           type: 'text',
@@ -89,7 +95,7 @@ export const generateFormFields = (children: OtherChildrenDetails[]): GenerateDy
           value: lastName,
           classes: 'govuk-!-width-one-half',
           labelSize: 'm',
-          validator: isFieldFilledIn,
+          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
         },
         remove: {
           type: 'button',
@@ -123,14 +129,14 @@ export const form: FormContent = {
           label: l => l.firstNameLabel,
           hint: hint => hint.firstNameHint,
           labelSize: 'none',
-          validator: isFieldFilledIn,
+          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
         },
         c100TempLastName: {
           type: 'text',
           classes: 'govuk-!-width-one-half',
           label: l => l.lastNameLabel,
           labelSize: 'none',
-          validator: isFieldFilledIn,
+          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
         },
         add: {
           type: 'button',

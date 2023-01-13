@@ -179,7 +179,7 @@ describe('Add children', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('Should add another child and redirect to the same page, when add another child button is clicked', async () => {
+  test('Should add another child, throw error and redirect to the same page, when add another child button is clicked', async () => {
     const mockFormContent = {
       fields: {},
     } as unknown as FormContent;
@@ -189,6 +189,8 @@ describe('Add children', () => {
       body: {
         c100TempFirstName: 'Jane',
         c100TempLastName: 'Doe',
+        'firstName-1': 'Bob',
+        'lastName-1': 'Silly',
         _ctx: 'cd',
         add: 'Yes',
       },
@@ -467,6 +469,8 @@ describe('Add other children', () => {
       body: {
         c100TempFirstName: 'Jane',
         c100TempLastName: 'Doe',
+        'firstName-1': 'Bob',
+        'lastName-1': 'Silly',
         _ctx: 'oc',
         add: 'Yes',
       },
@@ -492,6 +496,36 @@ describe('Add other children', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
+  test('Should add another child, throw error and redirect to the same page, when add another child button is clicked', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddPeoplePostContoller(mockFormContent.fields);
+
+    const req = mockRequest({
+      body: {
+        c100TempFirstName: 'Jane',
+        c100TempLastName: 'Doe',
+        'firstName-1': 'Bob1',
+        'lastName-1': 'Silly',
+        _ctx: 'oc',
+        add: 'Yes',
+      },
+      session: {
+        lang: 'en',
+        userCase: {
+          ocd_otherChildren: [mockData[0]],
+        },
+      },
+    });
+    const res = mockResponse();
+    otherChildrenGenerateContent(commonContent);
+    await controller.post(req, res);
+
+    expect(req.session.userCase.ocd_otherChildren).toHaveLength(1);
+
+    expect(res.redirect).toHaveBeenCalled();
+  });
   test('Should not add another child and redirect to the same page with an error, when add another child button is clicked', async () => {
     const mockFormContent = {
       fields: {},

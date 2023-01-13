@@ -1,4 +1,3 @@
-import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { generatePageContent } from '../../common/common.content';
@@ -24,9 +23,8 @@ describe('ResponseTaskListGetController', () => {
           pageContent: generateContent,
           userCase,
           userEmail: 'test@example.com',
+          additionalData: { req },
         }),
-        ...defaultViewArgs,
-        userCase: req.session.userCase,
       })
     );
   });
