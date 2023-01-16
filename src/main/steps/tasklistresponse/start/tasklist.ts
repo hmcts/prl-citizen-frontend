@@ -5,6 +5,7 @@ import {
   getAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
+  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getLegalRepresentationStatus,
@@ -87,8 +88,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'current-or-previous-proceedings',
             text: taskListItems.current_or_previous_proceedings,
-            status: SectionStatus.NOT_AVAILABLE_YET,
-            href: '#',
+            status: getCurrentOrOtherProceedingsStatus(userCase),
+            href: URL.PROCEEDINGS_START + '/' + userCase.id,
           },
         ],
       },
