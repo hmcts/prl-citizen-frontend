@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { SectionStatus } from '../../../app/case/definition';
 import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
@@ -6,7 +7,7 @@ import {
   getApplicantViewAllHearingsFromTheCourt,
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
-  getSupportYourNeedsDetails,
+  getUploadDocuments,
   getViewAllDocuments,
   getYourApplication,
 } from './utils';
@@ -32,7 +33,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           id: 'support-you-need-during-your-case',
           text: taskListItems.support_you_need_during_your_case,
           status: getSupportYourNeedsDetails(userCase),
-          href: URL.LANGUAGE_REQUIREMENTS,
+          href: URL.APPLICANT_ATTENDING_THE_COURT,
         },
       ],
     },
@@ -58,7 +59,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'upload-document',
           text: taskListItems.upload_document,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+          status: getUploadDocuments(),
           href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
         },
         {

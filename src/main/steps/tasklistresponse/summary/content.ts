@@ -1,10 +1,11 @@
+import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { Respondent, YesOrNo } from '../../../app/case/definition';
+import { fromApiDate } from '../../../app/case/from-api-format';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
 import {
-  ADDRESS_DETAILS,
-  ADDRESS_HISTORY,
   CA_DA_ATTENDING_THE_COURT,
   CA_DA_COMMUNICATION_HELP,
   CA_DA_COURT_HEARING_COMFORT,
@@ -15,16 +16,21 @@ import {
   CA_DA_SPECIAL_ARRANGEMENTS,
   CA_DA_TRAVELLING_TO_COURT,
   CONSENT_TO_APPLICATION,
-  CONTACT_DETAILS,
-  DETAILS_KNOWN,
+  DETAILS_KNOWN_RESPONDENT,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
   INTERNATIONAL_FACTORS_START,
-  PERSONAL_DETAILS,
+  LEGAL_REPRESENTATION_START,
+  MIAM_ATTEND_WILLINGNESS,
+  MIAM_START,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
-  START_ALTERNATIVE,
+  RESPONDENT_ADDRESS_DETAILS,
+  RESPONDENT_ADDRESS_HISTORY,
+  RESPONDENT_CONTACT_DETAILS,
+  RESPONDENT_PERSONAL_DETAILS,
+  START_ALTERNATIVE_RESPONDENT,
 } from '../../../steps/urls';
 import { summaryList } from '../../common/summary/utils';
 
@@ -109,6 +115,13 @@ const consentFieldType = {
   doYouConsent: 'String',
   applicationReceivedDate: 'Date',
   courtPermission: 'String',
+  courtOrderDetails: 'String',
+};
+
+const applicationDetailsfieldTypeMiam = {
+  miamStart: 'String',
+  miamWillingness: 'String',
+  miamNotWillingExplnation: 'String',
 };
 
 const keepYourDetailsfieldType = {
@@ -117,43 +130,18 @@ const keepYourDetailsfieldType = {
 };
 
 const confirmYourDetailsfieldType = {
-  applicant1FullName: 'String',
-  applicant1DateOfBirthText: 'String',
-  applicant1PlaceOfBirthText: 'String',
-  address: 'String',
-  addressHistory: 'String',
-  applicant1PhoneNumber: 'String',
-  applicant1EmailAddress: 'String',
-  applicant1SafeToCall: 'String',
+  citizenUserFullName: 'String',
+  citizenUserDateOfBirthText: 'String',
+  citizenUserPlaceOfBirthText: 'String',
+  citizenUserAddressText: 'String',
+  citizenUserAddressHistory: 'String',
+  citizenUserPhoneNumberText: 'String',
+  citizenUserEmailAddressText: 'String',
+  citizenUserSafeToCall: 'String',
 };
 
-const supportYouNeedFieldType = {
-  respondentAttendingToCourt: 'String',
-  respondentHearingDetails: 'String',
-  respondentLangRequirements: 'String',
-  respondentLangDetails: 'String',
-  respondentSpecialArrangements: 'String',
-  respondentSpecialArrangementsDetails: 'String',
-  respondentReasonableAdjustments: 'String',
-  respondentDocsSupport: 'String',
-  respondentDocsDetails: 'String',
-  respondentLargePrintDetails: 'String',
-  respondentOtherDetails: 'String',
-  respondentHelpCommunication: 'String',
-  respondentSignLanguageDetails: 'String',
-  respondentDescribeOtherNeed: 'String',
-  respondentCourtHearing: 'String',
-  respondentSupportWorkerDetails: 'String',
-  respondentFamilyDetails: 'String',
-  respondentTherapyDetails: 'String',
-  respondentCommSupportOther: 'String',
-  respondentCourtComfort: 'String',
-  respondentLightingDetails: 'String',
-  respondentOtherProvideDetails: 'String',
-  respondentTravellingToCourt: 'String',
-  respondentParkingDetails: 'String',
-  respondentDifferentChairDetails: 'String',
-  respondentTravellingOtherDetails: 'String',
+const legalRepresantationFieldType = {
+  legalRepresentation: 'String',
 };
 
 const inetnationlFactorFieldType = {
@@ -175,17 +163,41 @@ const additionalInformationfieldType = {
   proceedingsStart: 'String',
 };
 
+export const enlegalRepresntationContent = {
+  section: 'Check your answers',
+  title: 'Please review your answers before you complete your response.',
+  title2: '',
+  sectionTitles: {
+    title: '1. Legal representation',
+  },
+  keys: {
+    legalRepresentation: 'Will you be using a legal representative to respond to the application?',
+  },
+  dependencies: {},
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
+  continue: 'Submit your response',
+};
+
 export const enConsentContent = {
   section: 'Check your answers',
   title: 'Please review your answers before you complete your response.',
   title2: '',
   sectionTitles: {
-    consentToTheApplication: 'Consent to the application',
+    title: '2. Consent to the application',
   },
   keys: {
-    doYouConsent: 'Do you provide your consent to the application?',
+    doYouConsent: 'Do you consent to the application?',
     applicationReceivedDate: 'When did you receive the application?',
-    courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
+    courtPermission: 'Does the applicant need permission from the court before making applications?',
+    courtOrderDetails: 'Details',
   },
   dependencies: {},
   statementOfTruth: 'Statement of truth',
@@ -203,9 +215,9 @@ export const enConsentContent = {
 export const enKeepYourDetailsContent = {
   section: 'Check your answers',
   title: 'Please review your answers before you complete your response.',
-  title2: '',
+  title2: 'Keeping your details private',
   sectionTitles: {
-    keepYourDetailsPrivate: 'Keeping your details private',
+    title: 'Keeping your details private',
   },
   keys: {
     detailsKnown: 'Do the other people named in this application (the applicants) know any of your contact details?',
@@ -225,22 +237,48 @@ export const enKeepYourDetailsContent = {
   continue: 'Submit your response',
 };
 
+export const enContentMiam = {
+  section: 'Check your answers',
+  title: 'Please review your answers before you complete your response.',
+  title2: 'Mediation (MIAM)',
+  sectionTitles: {
+    title: 'Mediation (MIAM)',
+  },
+  keys: {
+    miamStart: 'Have you attended a MIAM?',
+    miamWillingness: 'Would you be willing to attend a MIAM?',
+    miamNotWillingExplnation: 'Explain why you are not willing to attend a MIAM?',
+  },
+  dependencies: {},
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Please confirm the declaration',
+    },
+  },
+  continue: 'Submit your response',
+};
+
 export const enConfirmYourDetailsContent = {
   section: 'Check your answers',
   title: 'Please review your answers before you complete your response.',
   title2: '',
   sectionTitles: {
-    confirmYourDetails: 'Confirm or edit your contact details',
+    title: 'Confirm or edit your contact details',
   },
   keys: {
-    applicant1FullName: 'Name',
-    applicant1DateOfBirthText: 'Date of birth',
-    applicant1PlaceOfBirthText: 'Place of birth',
-    address: 'Address',
-    addressHistory: 'Address history',
-    applicant1PhoneNumber: 'Phone number',
-    applicant1EmailAddress: 'Email',
-    applicant1SafeToCall: 'When it is safe to call you (optional)',
+    citizenUserFullName: 'Name',
+    citizenUserDateOfBirthText: 'Date of birth',
+    citizenUserPlaceOfBirthText: 'Place of birth',
+    citizenUserAddressText: 'Address',
+    postalAddress: 'Postal Address',
+    citizenUserAddressHistory: 'Address history',
+    citizenUserPhoneNumberText: 'Phone number',
+    citizenUserEmailAddressText: 'Email',
+    citizenUserSafeToCall: 'When it is safe to call you (optional)',
   },
   dependencies: {},
   statementOfTruth: 'Statement of truth',
@@ -260,7 +298,7 @@ export const enContent = {
   title: 'Please review your answers before you complete your response.',
   title2: 'Current or previous court cases',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    title: 'Application details: Current or previous proceeding',
   },
   keys: {
     proceedingsStart: 'Have the children been involved in a court case?',
@@ -656,7 +694,7 @@ export const enSupportYouNeedContent = {
   section: 'Check your answers',
   title: 'Please review your answers before you complete your response.',
   sectionTitles: {
-    aboutYou: 'Support you need during your case',
+    title: 'Support you need during your case',
   },
   keys: {
     respondentAttendingToCourt: 'Would you be able to take part in hearings by video and phone?',
@@ -801,7 +839,7 @@ export const enInternationalContent = {
   },
   continue: 'Submit your response',
   sectionTitles: {
-    respondentAdditionalInformation: 'International element',
+    title: '5. International element',
   },
   keys: {
     start: 'Do the children live outside of England or Wales?',
@@ -838,60 +876,73 @@ export const enInternationalContent = {
   },
 };
 
+export const enDummyContent = {
+  sectionTitles: {
+    title2: '3. Your details',
+    title3: '4. Application details',
+  },
+  keys: {},
+  dependencies: {},
+};
+
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  populateSummaryData(content.userCase, content.userIdamId);
   const userCase = content.userCase!;
 
-  updateContent(enContent, userCase, urls);
+  // updateContent(enContent, userCase, urls);
   return {
     ...enContent,
     language: content.language,
     sections: [
       summaryList(
+        enlegalRepresntationContent,
+        userCase,
+        urls,
+        enlegalRepresntationContent.sectionTitles.title,
+        legalRepresantationFieldType,
+        content.language
+      ),
+      summaryList(
         enConsentContent,
         userCase,
         urls,
-        enConsentContent.sectionTitles.consentToTheApplication,
+        enConsentContent.sectionTitles.title,
         consentFieldType,
         content.language
       ),
+      summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title2, '', content.language),
       summaryList(
         enKeepYourDetailsContent,
         userCase,
         urls,
-        enKeepYourDetailsContent.sectionTitles.keepYourDetailsPrivate,
+        enKeepYourDetailsContent.sectionTitles.title,
         keepYourDetailsfieldType,
         content.language
       ),
+
       summaryList(
         enConfirmYourDetailsContent,
         userCase,
         urls,
-        enConfirmYourDetailsContent.sectionTitles.confirmYourDetails,
+        enConfirmYourDetailsContent.sectionTitles.title,
         confirmYourDetailsfieldType,
         content.language
       ),
+      summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, '', content.language),
       summaryList(
-        enContent,
+        enContentMiam,
         userCase,
         urls,
-        enContent.sectionTitles.applicationDetails,
-        applicationDetailsfieldType,
-        content.language
-      ),
-      summaryList(
-        enSupportYouNeedContent,
-        userCase,
-        urls,
-        enSupportYouNeedContent.sectionTitles.aboutYou,
-        supportYouNeedFieldType,
+        enContentMiam.sectionTitles.title,
+        applicationDetailsfieldTypeMiam,
         content.language
       ),
       summaryList(
         enInternationalContent,
         userCase,
         urls,
-        enInternationalContent.sectionTitles.respondentAdditionalInformation,
+        enInternationalContent.sectionTitles.title,
         inetnationlFactorFieldType,
         content.language
       ),
@@ -904,7 +955,7 @@ const cyContent: typeof enContent = {
   title: 'Please review your answers before you complete your response.',
   title2: 'Current or previous court cases',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    title: '4. Application details',
   },
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
@@ -1340,19 +1391,24 @@ const urls = {
   respondentParkingDetails: CA_DA_TRAVELLING_TO_COURT,
   respondentDifferentChairDetails: CA_DA_TRAVELLING_TO_COURT,
   respondentTravellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
-  applicant1FullName: PERSONAL_DETAILS,
-  applicant1DateOfBirthText: PERSONAL_DETAILS,
-  applicant1PlaceOfBirthText: PERSONAL_DETAILS,
-  address: ADDRESS_DETAILS,
-  addressHistory: ADDRESS_HISTORY,
-  applicant1PhoneNumber: CONTACT_DETAILS,
-  applicant1EmailAddress: CONTACT_DETAILS,
+  citizenUserFullName: RESPONDENT_PERSONAL_DETAILS,
+  citizenUserDateOfBirthText: RESPONDENT_PERSONAL_DETAILS,
+  citizenUserPlaceOfBirthText: RESPONDENT_PERSONAL_DETAILS,
+  citizenUserAddressText: RESPONDENT_ADDRESS_DETAILS,
+  postalAddress: RESPONDENT_ADDRESS_DETAILS,
+  citizenUserAddressHistory: RESPONDENT_ADDRESS_HISTORY,
+  citizenUserPhoneNumberText: RESPONDENT_CONTACT_DETAILS,
+  citizenUserEmailAddressText: RESPONDENT_CONTACT_DETAILS,
   start: INTERNATIONAL_FACTORS_START,
   parents: INTERNATIONAL_FACTORS_PARENTS,
   jurisdiction: INTERNATIONAL_FACTORS_JURISDICTION,
   request: INTERNATIONAL_FACTORS_REQUEST,
-  detailsKnown: DETAILS_KNOWN,
-  startAlternative: START_ALTERNATIVE,
+  detailsKnown: DETAILS_KNOWN_RESPONDENT,
+  startAlternative: START_ALTERNATIVE_RESPONDENT,
+  miamWillingness: MIAM_ATTEND_WILLINGNESS,
+  miamNotWillingExplnation: MIAM_ATTEND_WILLINGNESS,
+  miamStart: MIAM_START,
+  legalRepresentation: LEGAL_REPRESENTATION_START,
 };
 
 export const cyConsentContent = {
@@ -1372,9 +1428,10 @@ export const cyConsentContent = {
     consentToTheApplication: 'Consent to the application',
   },
   keys: {
-    doYouConsent: 'Do you provide your consent to the application?',
+    doYouConsent: 'Do you consent to the application?',
     applicationReceivedDate: 'When did you receive the application?',
-    courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
+    courtPermission: 'Does the applicant need permission from the court before making applications?',
+    courtOrderDetails: 'Details',
   },
   dependencies: {},
   continue: 'Submit your response',
@@ -1387,18 +1444,19 @@ const cy: typeof en = (content: CommonContent) => {
     language: content.language,
     sections: [
       summaryList(
-        cyConsentContent,
+        enlegalRepresntationContent,
         userCase,
         urls,
-        enContent.sectionTitles.applicationDetails,
-        consentFieldType,
+        enlegalRepresntationContent.sectionTitles.title,
+        legalRepresantationFieldType,
         content.language
       ),
+      summaryList(cyConsentContent, userCase, urls, enContent.sectionTitles.title, consentFieldType, content.language),
       summaryList(
         enKeepYourDetailsContent,
         userCase,
         urls,
-        enKeepYourDetailsContent.sectionTitles.keepYourDetailsPrivate,
+        enKeepYourDetailsContent.sectionTitles.title,
         keepYourDetailsfieldType,
         content.language
       ),
@@ -1406,7 +1464,7 @@ const cy: typeof en = (content: CommonContent) => {
         enConfirmYourDetailsContent,
         userCase,
         urls,
-        enConfirmYourDetailsContent.sectionTitles.confirmYourDetails,
+        enConfirmYourDetailsContent.sectionTitles.title,
         confirmYourDetailsfieldType,
         content.language
       ),
@@ -1414,23 +1472,16 @@ const cy: typeof en = (content: CommonContent) => {
         enContent,
         userCase,
         urls,
-        enContent.sectionTitles.applicationDetails,
+        enContent.sectionTitles.title,
         applicationDetailsfieldType,
         content.language
       ),
+      summaryList(enContent, userCase, urls, enContent.sectionTitles.title, safetyConcernsfieldType, content.language),
       summaryList(
         enContent,
         userCase,
         urls,
-        enContent.sectionTitles.applicationDetails,
-        safetyConcernsfieldType,
-        content.language
-      ),
-      summaryList(
-        enContent,
-        userCase,
-        urls,
-        enContent.sectionTitles.applicationDetails,
+        enContent.sectionTitles.title,
         additionalInformationfieldType,
         content.language
       ),
@@ -1484,252 +1535,173 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
+function populateSummaryData(
+  userCase: Partial<import('../../../app/case/case').CaseWithId> | undefined,
+  userIdamId: string | undefined
+) {
+  userCase?.respondents?.forEach((respondent: Respondent) => {
+    if (userIdamId === respondent.value.user.idamId) {
+      /* Keep detais private */
+      userCase.detailsKnown = respondent.value.response.keepDetailsPrivate?.otherPeopleKnowYourContactDetails;
+      userCase.startAlternative = respondent.value.response.keepDetailsPrivate?.confidentiality;
+      userCase.contactDetailsPrivate = respondent.value.response.keepDetailsPrivate?.confidentialityList;
+      /** consent to application */
+      if (respondent?.value?.response?.consent?.consentToTheApplication === YesOrNo.NO) {
+        userCase.doYouConsent = YesOrNo.NO;
+        userCase.reasonForNotConsenting = respondent?.value?.response?.consent.noConsentReason;
+      } else {
+        userCase.doYouConsent = YesOrNo.YES;
+        userCase.reasonForNotConsenting = '';
+      }
+      if (respondent?.value?.response?.consent?.permissionFromCourt === YesOrNo.NO) {
+        userCase.courtPermission = YesOrNo.NO;
+        userCase.courtOrderDetails = '';
+      } else {
+        userCase.courtPermission = YesOrNo.YES;
+        userCase.courtOrderDetails = respondent?.value?.response?.consent?.courtOrderDetails;
+      }
+      userCase.applicationReceivedDate = fromApiDate(respondent?.value?.response?.consent?.applicationReceivedDate);
 
-function updateContent(enContentTemp, userCaseTemp, urlsTemp) {
-  if (userCaseTemp.proceedingsStart === 'No' && userCaseTemp.proceedingsStartOrder === 'No') {
-    clearObject(enContentTemp.keys, urlsTemp);
-    addProceedingsStart(enContentTemp, urlsTemp);
-    addProceedingsStartOrder(enContentTemp, urlsTemp);
-  } else if (userCaseTemp.proceedingsStart === 'Yes' || userCaseTemp.proceedingsStartOrder === 'Yes') {
-    if (
-      userCaseTemp.emergencyOrderOptions === 'No' ||
-      userCaseTemp.supervisionOrderOption === 'No' ||
-      userCaseTemp.careOrderOptions === 'No' ||
-      userCaseTemp.childAbductionOrderOption === 'No' ||
-      userCaseTemp.caOrderOption === 'No' ||
-      userCaseTemp.financialOrderOption === 'No' ||
-      userCaseTemp.nonmolestationOrderOption === 'No' ||
-      userCaseTemp.occupationalOrderOptions === 'No' ||
-      userCaseTemp.marraigeOrderOptions === 'No' ||
-      userCaseTemp.restrainingOrderOptions === 'No' ||
-      userCaseTemp.injuctiveOrderOptions === 'No' ||
-      userCaseTemp.underTakingOrderOptions === 'No'
-    ) {
-      clearObject(enContentTemp.keys, urlsTemp);
-      addProceedingsStart(enContentTemp, urlsTemp);
-      addProceedingsStartOrder(enContentTemp, urlsTemp);
-      addEmergencyOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addSuperVisionOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addCareOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addchildAbductionOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addCaOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addFinancialOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addNonmolestationOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addOccupationOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addMarriageOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addRestrainingOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addInjunctiveOrder(enContentTemp, urlsTemp, userCaseTemp);
-      addUndertakingOrder(enContentTemp, urlsTemp, userCaseTemp);
+      /** Miam */
+      if (respondent?.value?.response?.miam?.attendedMiam === YesOrNo.YES) {
+        userCase.miamStart = YesOrNo.YES;
+        userCase.miamWillingness = YesOrNo.NO;
+        userCase.miamNotWillingExplnation = '';
+      } else if (respondent?.value?.response?.miam?.attendedMiam === YesOrNo.NO) {
+        if (respondent?.value?.response?.miam?.willingToAttendMiam === YesOrNo.YES) {
+          userCase.miamStart = YesOrNo.NO;
+          userCase.miamWillingness = YesOrNo.YES;
+          userCase.miamNotWillingExplnation = '';
+        } else if (respondent?.value?.response?.miam?.willingToAttendMiam === YesOrNo.NO) {
+          userCase.miamStart = YesOrNo.NO;
+          userCase.miamWillingness = YesOrNo.NO;
+          userCase.miamNotWillingExplnation = respondent?.value?.response?.miam?.reasonNotAttendingMiam;
+        }
+      }
+
+      /** International Elements */
+
+      if (respondent?.value?.response?.citizenInternationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.NO) {
+        userCase.start = YesOrNo.NO;
+        userCase.iFactorsStartProvideDetails = '';
+      }
+      if (respondent?.value?.response?.citizenInternationalElements?.childrenLiveOutsideOfEnWl === YesOrNo.YES) {
+        userCase.start = YesOrNo.YES;
+        userCase.iFactorsStartProvideDetails =
+          respondent?.value?.response?.citizenInternationalElements?.childrenLiveOutsideOfEnWlDetails;
+      }
+      if (respondent?.value?.response?.citizenInternationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO) {
+        userCase.parents = YesOrNo.NO;
+        userCase.iFactorsParentsProvideDetails = '';
+      }
+      if (respondent?.value?.response?.citizenInternationalElements?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES) {
+        userCase.parents = YesOrNo.YES;
+        userCase.iFactorsParentsProvideDetails =
+          respondent?.value?.response?.citizenInternationalElements?.parentsAnyOneLiveOutsideEnWlDetails;
+      }
+      if (respondent?.value?.response?.citizenInternationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.NO) {
+        userCase.jurisdiction = YesOrNo.NO;
+        userCase.iFactorsJurisdictionProvideDetails = '';
+      }
+      if (respondent?.value?.response?.citizenInternationalElements?.anotherPersonOrderOutsideEnWl === YesOrNo.YES) {
+        userCase.jurisdiction = YesOrNo.YES;
+        userCase.iFactorsJurisdictionProvideDetails =
+          respondent?.value?.response?.citizenInternationalElements?.anotherPersonOrderOutsideEnWlDetails;
+      }
+      if (respondent?.value?.response?.citizenInternationalElements?.anotherCountryAskedInformation === YesOrNo.NO) {
+        userCase.request = YesOrNo.NO;
+        userCase.iFactorsRequestProvideDetails = '';
+      }
+      if (respondent?.value?.response?.citizenInternationalElements?.anotherCountryAskedInformation === YesOrNo.YES) {
+        userCase.request = YesOrNo.YES;
+        userCase.iFactorsRequestProvideDetails =
+          respondent?.value?.response?.citizenInternationalElements?.anotherCountryAskedInformationDetaails;
+      }
+
+      /** Confirm your details*/
+      if (respondent?.value?.firstName) {
+        userCase.citizenUserFirstNames = respondent?.value?.firstName;
+      }
+      if (respondent?.value?.lastName) {
+        userCase.citizenUserLastNames = respondent?.value?.lastName;
+      }
+      if (!userCase.citizenUserFirstNames || !userCase.citizenUserLastNames) {
+        userCase.citizenUserFullName = '';
+      } else {
+        userCase.citizenUserFullName = userCase.citizenUserFirstNames + ' ' + userCase.citizenUserLastNames;
+      }
+      if (respondent?.value?.placeOfBirth) {
+        userCase.citizenUserPlaceOfBirth = respondent?.value?.placeOfBirth;
+      }
+      if (respondent?.value?.dateOfBirth) {
+        userCase.citizenUserDateOfBirth = fromApiDate(respondent?.value?.dateOfBirth);
+      }
+      if (respondent?.value?.phoneNumber) {
+        userCase.citizenUserPhoneNumber = respondent?.value?.phoneNumber;
+      }
+      if (respondent?.value?.email) {
+        userCase.citizenUserEmailAddress = respondent?.value?.email;
+      }
+
+      if (!userCase.citizenUserPlaceOfBirth) {
+        userCase.citizenUserPlaceOfBirthText = '';
+      } else {
+        userCase.citizenUserPlaceOfBirthText = userCase.citizenUserPlaceOfBirth;
+      }
+      if (!userCase.citizenUserDateOfBirth) {
+        userCase.citizenUserDateOfBirthText = '';
+      } else {
+        userCase.citizenUserDateOfBirthText = getFormattedDate(userCase.citizenUserDateOfBirth);
+      }
+      if (!userCase.citizenUserPhoneNumber) {
+        userCase.citizenUserPhoneNumberText = '';
+      } else {
+        userCase.citizenUserPhoneNumberText = userCase.citizenUserPhoneNumber;
+      }
+      if (!userCase.citizenUserEmailAddress) {
+        userCase.citizenUserEmailAddressText = '';
+      } else {
+        userCase.citizenUserEmailAddressText = userCase.citizenUserEmailAddress;
+      }
+
+      if (respondent?.value.address) {
+        if (respondent?.value.address.AddressLine1) {
+          userCase.citizenUserAddress1 = respondent?.value.address.AddressLine1;
+        }
+        if (respondent?.value.address.AddressLine2) {
+          userCase.citizenUserAddress2 = respondent?.value.address.AddressLine2;
+        }
+        if (respondent?.value.address.PostTown) {
+          userCase.citizenUserAddressTown = respondent?.value.address.PostTown;
+        }
+        if (respondent?.value.address.County) {
+          userCase.citizenUserAddressCounty = respondent?.value.address.County;
+        }
+        if (respondent?.value.address.PostCode) {
+          userCase.citizenUserAddressPostcode = respondent?.value.address.PostCode;
+        }
+      }
+      if (respondent?.value.addressLivedLessThan5YearsDetails) {
+        userCase.citizenUserAddressHistory = respondent?.value.addressLivedLessThan5YearsDetails;
+      }
+
+      if (!userCase.citizenUserAddress1 && !userCase.citizenUserAddressTown && !userCase.citizenUserAddressPostcode) {
+        userCase.citizenUserAddressText = '';
+      } else {
+        userCase.citizenUserAddressText = userCase.citizenUserAddress1 + ' ';
+        if (userCase.citizenUserAddress2) {
+          userCase.citizenUserAddressText = userCase.citizenUserAddressText + userCase.citizenUserAddress2 + ' ';
+        }
+        if (userCase.citizenUserAddressTown) {
+          userCase.citizenUserAddressText = userCase.citizenUserAddressText + userCase.citizenUserAddressTown + ' ';
+        }
+        if (userCase.citizenUserAddressPostcode) {
+          userCase.citizenUserAddressText = userCase.citizenUserAddressText + userCase.citizenUserAddressPostcode;
+        }
+      }
+      if (YesOrNo.YES === userCase.isAtAddressLessThan5Years) {
+        userCase.citizenUserAddressHistory = '';
+      }
     }
-  }
-}
-
-function addProceedingsStart(enContenttemp, urlstemp) {
-  Object.assign(enContenttemp.keys, { proceedingsStart: 'Have the children been involved in a court case?' });
-  Object.assign(urlstemp, { proceedingsStart: PROCEEDINGS_START });
-}
-
-function addProceedingsStartOrder(enContenttemp, urlstemp) {
-  Object.assign(enContenttemp.keys, { proceedingsStartOrder: 'Have you had a court order made for your protection?' });
-  Object.assign(urlstemp, { proceedingsStartOrder: PROCEEDINGS_START });
-}
-
-function addEmergencyOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { emergencyOrderOptions: 'Emergency Protection Order' });
-  Object.assign(urlstemp, { emergencyOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.emergencyOrderOptions === 'Yes') {
-    addEmergencyOrderSubFields(enContenttemp);
-  }
-}
-
-function addEmergencyOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'emergencyOrder.issueOrderDetails': 'Which court issued this order?' });
-  //Object.assign(urlstemp, {});
-}
-
-function addSuperVisionOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { supervisionOrderOption: 'Supervision Order' });
-  Object.assign(urlstemp, { supervisionOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.supervisionOrderOption === 'Yes') {
-    addSuperVisionOrderSubFields(enContenttemp);
-  }
-}
-
-function addSuperVisionOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'supervisionOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-
-function addCareOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { careOrderOptions: 'Care Order' });
-  Object.assign(urlstemp, { careOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.careOrderOptions === 'Yes') {
-    addCareOrderSubFields(enContenttemp);
-  }
-}
-
-function addCareOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'careOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'careOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'careOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'careOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'careOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-
-function addchildAbductionOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { childAbductionOrderOption: 'Child Abduction' });
-  Object.assign(urlstemp, { childAbductionOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.childAbductionOrderOption === 'Yes') {
-    addchildAbductionOrderSubFields(enContenttemp);
-  }
-}
-
-function addchildAbductionOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'childAbductionOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-
-function addCaOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { caOrderOption: 'Child Arrangements Order' });
-  Object.assign(urlstemp, { caOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.caOrderOption === 'Yes') {
-    addCaOrderSubFields(enContenttemp);
-  }
-}
-function addCaOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'caOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'caOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'caOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'caOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'careOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-
-function addFinancialOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, {
-    financialOrderOption: 'Financial Order under Schedule 1 of the Children Act 1989',
   });
-  Object.assign(urlstemp, { financialOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.financialOrderOption === 'Yes') {
-    addFinancialOrderSubFields(enContenttemp);
-  }
-}
-
-function addFinancialOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'financialOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'financialOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'financialOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'financialOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'careOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-
-function addNonmolestationOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { nonmolestationOrderOption: 'Non-molestation Order' });
-  Object.assign(urlstemp, { nonmolestationOrderOption: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.nonmolestationOrderOption === 'Yes') {
-    addNonmolestationOrderSubFields(enContenttemp);
-  }
-}
-
-function addNonmolestationOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'nonmolestationOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-
-function addOccupationOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { occupationalOrderOptions: 'Occupation Order' });
-  Object.assign(urlstemp, { occupationalOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.occupationalOrderOptions === 'Yes') {
-    addOccupationOrderSubFields(enContenttemp);
-  }
-}
-
-function addOccupationOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'occupationOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'occupationOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'occupationOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'occupationOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'occupationOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-
-function addMarriageOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { marraigeOrderOptions: 'Forced Marriage Protection Order' });
-  Object.assign(urlstemp, { marraigeOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.marraigeOrderOptions === 'Yes') {
-    addMarriagerderSubFields(enContenttemp);
-  }
-}
-
-function addMarriagerderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'marraigeOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-function addRestrainingOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { restrainingOrderOptions: 'Restraining Order' });
-  Object.assign(urlstemp, { restrainingOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.restrainingOrderOptions === 'Yes') {
-    addRestrainingOrderSubFields(enContenttemp);
-  }
-}
-
-function addRestrainingOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'restrainingOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-function addInjunctiveOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { injuctiveOrderOptions: 'Other Injunctive Order' });
-  Object.assign(urlstemp, { injuctiveOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.injuctiveOrderOptions === 'Yes') {
-    addInjunctiveOrderSubFields(enContenttemp);
-  }
-}
-
-function addInjunctiveOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'injuctiveOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-function addUndertakingOrder(enContenttemp, urlstemp, userCaseTemp) {
-  Object.assign(enContenttemp.keys, { underTakingOrderOptions: 'Undertaking in Place of an Order' });
-  Object.assign(urlstemp, { underTakingOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS });
-  if (userCaseTemp.underTakingOrderOptions === 'Yes') {
-    addUndertakingOrderSubFields(enContenttemp);
-  }
-}
-
-function addUndertakingOrderSubFields(enContenttemp) {
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.caseNoDetails': 'Case number' });
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.orderDateDetails': 'What date was it made' });
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.orderTimeDetails': 'How long was the order for?' });
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.currentOrderDetails': 'Is this a current order?' });
-  Object.assign(enContenttemp.keys, { 'underTakingOrder.issueOrderDetails': 'Which court issued this order?' });
-}
-
-function clearObject(enContenttemp, urlstemp) {
-  for (const key in enContenttemp) {
-    delete enContenttemp[key];
-  }
-  for (const key in urlstemp) {
-    delete urlstemp[key];
-  }
 }

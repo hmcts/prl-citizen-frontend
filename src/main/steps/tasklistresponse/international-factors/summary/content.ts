@@ -19,28 +19,6 @@ export const enContent = {
     respondentAdditionalInformation: 'International elements',
   },
   keys: {},
-  dependencies: {
-    iFactorsStartProvideDetails: {
-      dependantOn: 'start',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsParentsProvideDetails: {
-      dependantOn: 'parents',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsJurisdictionProvideDetails: {
-      dependantOn: 'jurisdiction',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsRequestProvideDetails: {
-      dependantOn: 'request',
-      value: 'Yes',
-      display: true,
-    },
-  },
   errors: {},
 };
 
@@ -72,28 +50,6 @@ const cyContent: typeof enContent = {
     respondentAdditionalInformation: 'International elements',
   },
   keys: {},
-  dependencies: {
-    iFactorsStartProvideDetails: {
-      dependantOn: 'start',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsParentsProvideDetails: {
-      dependantOn: 'parents',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsJurisdictionProvideDetails: {
-      dependantOn: 'jurisdiction',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsRequestProvideDetails: {
-      dependantOn: 'request',
-      value: 'Yes',
-      display: true,
-    },
-  },
   errors: {},
 };
 
@@ -101,13 +57,9 @@ let urls;
 
 const fieldType = {
   start: 'String',
-  iFactorsStartProvideDetails: 'String',
   parents: 'String',
-  iFactorsParentsProvideDetails: 'String',
   jurisdiction: 'String',
-  iFactorsJurisdictionProvideDetails: 'String',
   request: 'String',
-  iFactorsRequestProvideDetails: 'String',
 };
 
 const cy: typeof en = (content: CommonContent) => {
@@ -152,41 +104,21 @@ export const generateContent: TranslationFn = content => {
 };
 
 function updateUserCaseUrls(userCase: Partial<CaseWithId>, isEnglish: YesOrNo) {
-  if (userCase.start === YesOrNo.NO) {
-    userCase.iFactorsStartProvideDetails = '';
-  }
-  if (userCase.parents === YesOrNo.NO) {
-    userCase.iFactorsParentsProvideDetails = '';
-  }
-  if (userCase.jurisdiction === YesOrNo.NO) {
-    userCase.iFactorsJurisdictionProvideDetails = '';
-  }
-  if (userCase.request === YesOrNo.NO) {
-    userCase.iFactorsRequestProvideDetails = '';
-  }
-
   urls = {
     start: INTERNATIONAL_FACTORS_START,
-    iFactorsStartProvideDetails: INTERNATIONAL_FACTORS_START,
     parents: INTERNATIONAL_FACTORS_PARENTS,
-    iFactorsParentsProvideDetails: INTERNATIONAL_FACTORS_PARENTS,
     jurisdiction: INTERNATIONAL_FACTORS_JURISDICTION,
-    iFactorsJurisdictionProvideDetails: INTERNATIONAL_FACTORS_JURISDICTION,
     request: INTERNATIONAL_FACTORS_REQUEST,
-    iFactorsRequestProvideDetails: INTERNATIONAL_FACTORS_REQUEST,
   };
 
   if (isEnglish === YesOrNo.YES) {
     enContent.keys = {
-      start: 'Do the children live outside of England or Wales?',
-      iFactorsStartProvideDetails: 'Provide details',
-      parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
-      iFactorsParentsProvideDetails: 'Provide details',
+      start: "Are the children's lives mainly based outside of England and Wales?",
+      parents:
+        "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
       jurisdiction:
         'Could another person in the application apply for a similar order in a country outside England or Wales?',
-      iFactorsJurisdictionProvideDetails: 'Provide details',
       request: 'Has another country asked (or been asked) for information or help for the children?',
-      iFactorsRequestProvideDetails: 'Provide details',
     };
 
     for (const key in enContent.keys) {
@@ -197,15 +129,12 @@ function updateUserCaseUrls(userCase: Partial<CaseWithId>, isEnglish: YesOrNo) {
     }
   } else if (isEnglish === YesOrNo.NO) {
     cyContent.keys = {
-      start: 'Do the children live outside of England or Wales?',
-      iFactorsStartProvideDetails: 'Provide details',
-      parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
-      iFactorsParentsProvideDetails: 'Provide details',
+      start: "Are the children's lives mainly based outside of England and Wales?",
+      parents:
+        "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
       jurisdiction:
         'Could another person in the application apply for a similar order in a country outside England or Wales?',
-      iFactorsJurisdictionProvideDetails: 'Provide details',
       request: 'Has another country asked (or been asked) for information or help for the children?',
-      iFactorsRequestProvideDetails: 'Provide details',
     };
 
     for (const key in cyContent.keys) {

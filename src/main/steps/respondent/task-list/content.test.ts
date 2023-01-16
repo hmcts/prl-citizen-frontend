@@ -8,6 +8,7 @@ import { respondent_cy, respondent_en } from './section-titles';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
   title: '',
+  respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -22,6 +23,7 @@ const enContent = {
 };
 const cyContent = {
   title: '',
+  respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -35,7 +37,28 @@ const cyContent = {
   taskListItems: respondent_tasklist_items_cy,
 };
 describe('task-list > content', () => {
-  const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: mockUserCase,
+    additionalData: {
+      req: {
+        session: {
+          user: { id: '' },
+          userCase: {
+            ...mockUserCase,
+            respondentsFL401: {
+              firstName: '',
+              lastName: '',
+            },
+            applicantsFL401: {
+              firstName: '',
+              lastName: '',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));

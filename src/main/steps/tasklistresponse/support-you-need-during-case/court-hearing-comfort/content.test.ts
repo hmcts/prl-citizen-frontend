@@ -6,8 +6,8 @@ import { generateContent } from './content';
 
 const en = {
   section: 'Reasonable adjustments',
-  title: 'I need something to make me feel comfortable during a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need something to feel comfortable during a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
@@ -16,11 +16,11 @@ const en = {
   space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  nosupport: 'No, I do not need any support at this time',
+  continue: 'Continue',
   errors: {
     respondentCourtComfort: {
-      required: 'Please select an answer',
+      required: 'Select what you need to feel comfortable during a court hearing',
     },
     respondentLightingDetails: {
       required: 'Please describe lighting detail',
@@ -33,8 +33,8 @@ const en = {
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
-  title: 'I need something to make me feel comfortable during a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need something to feel comfortable during a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
@@ -43,11 +43,11 @@ const cy: typeof en = {
   space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  nosupport: 'No, I do not need any support at this time',
+  continue: 'Continue',
   errors: {
     respondentCourtComfort: {
-      required: 'Please select an answer',
+      required: 'Select what you need to feel comfortable during a court hearing',
     },
     respondentLightingDetails: {
       required: 'Please describe lighting detail',
@@ -72,10 +72,10 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('I need something to make me feel comfortable during a court hearing');
+    expect(generatedContent.title).toEqual('I need something to feel comfortable during a court hearing');
     expect(generatedContent.section).toEqual('Reasonable adjustments');
     expect(generatedContent.courtcommunication).toEqual(
-      'Think about what you would need if the hearing was in person, by phone or video.'
+      'Consider in-person, phone or video, in case your preferred hearing type is not possible'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
@@ -83,7 +83,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.break).toEqual('Regular breaks');
     expect(generatedContent.space).toEqual('Space to be able to get up and move around');
     expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.nosupport).toEqual('No, I do not need any extra support at this time');
+    expect(generatedContent.nosupport).toEqual('No, I do not need any support at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -102,8 +102,8 @@ describe('citizen-home content', () => {
     expect((courtcomfortField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 

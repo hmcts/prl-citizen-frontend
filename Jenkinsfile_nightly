@@ -1,7 +1,11 @@
 #!groovy
 
 properties([
-  pipelineTriggers([cron('0 1 * * 1-5')])
+  // H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
+  pipelineTriggers([cron('0 1 * * 1-5')]),
+  parameters([
+    string(name: 'FRONTEND_URL', defaultValue: 'https://privatelaw.aat.platform.hmcts.net/', description: 'The URL you want to run tests against')
+  ])
 ])
 
 @Library("Infrastructure")
@@ -14,7 +18,18 @@ def component = "citizen-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
+// SAUCELABS config - configured on Jenkins
+env.SAUCE_USERNAME = 'username'
+env.SAUCE_ACCESS_KEY = 'privatekey'
+env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
 
+static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
+  [$class     : 'AzureKeyVaultSecret',
+   secretType : 'Secret',
+   name       : secretName,
+   envVariable: envVar
+  ]
+}
 
 def secrets = [
   'prl-${env}': [
@@ -24,7 +39,7 @@ def secrets = [
     secret('postcode-lookup-token', 'POSTCODE_TOKEN'),
     secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL'),
     secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
-    secret('microservicekey-prl-cos-api', 'SERVICE_AUTH_SECRET'),
+    secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
     secret('system-update-user-username', 'SYSTEM_UPDATE_USER_USERNAME'),
     secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
@@ -32,36 +47,28 @@ def secrets = [
   ]
 ]
 
-
-
-static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
-  [$class     : 'AzureKeyVaultSecret',
-   secretType : 'Secret',
-   name       : secretName,
-   version    : '',
-   envVariable: envVar
-  ]
-}
-
 def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
   env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
+  env.PRL_CITIZEN_URL = params.FRONTEND_URL
   loadVaultSecrets(secrets)
+  // enableMutationTest()
   enableFortifyScan()
   enableFullFunctionalTest(120)
+  enableCrossBrowserTest(['chrome', 'firefox','microsoft'])
+  enableFortifyScan()
   enableSecurityScan()
 
-  after('test') {
+  afterAlways('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
   }
 
   before('crossBrowserTest') {
-
   }
 
-  after('crossBrowserTest') {
+  afterAlways('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
@@ -69,13 +76,12 @@ withNightlyPipeline(type, product, component) {
     env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
   }
 
-  after('fullFunctionalTest') {
+  afterAlways('fullFunctionalTest') {
     archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
-  after('fortify-scan') {
+  afterAlways('fortify-scan') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/**/*'
   }
 }
-

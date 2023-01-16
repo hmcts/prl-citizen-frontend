@@ -7,11 +7,12 @@ const en = () => ({
   enterAddressManually: 'I live outisde the UK',
   errors: {
     citizenUserAddressPostcode: {
-      required: 'Enter a real postcode',
-      invalid: 'Enter a real postcode',
+      required: 'Enter a valid postcode',
+      invalid: 'Enter a valid postcode',
     },
   },
   manualAddressUrl: '#',
+  onlyContinue: 'Continue',
 });
 
 const cy = () => ({
@@ -19,11 +20,12 @@ const cy = () => ({
   enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {
     citizenUserAddressPostcode: {
-      required: 'Enter a real postcode (in welsh)',
-      invalid: 'Enter a real postcode (in welsh)',
+      required: 'Enter a valid postcode (in welsh)',
+      invalid: 'Enter a valid postcode (in welsh)',
     },
   },
   manualAddressUrl: '#',
+  onlyContinue: 'Continue (in welsh)',
 });
 
 export const form: FormContent = {

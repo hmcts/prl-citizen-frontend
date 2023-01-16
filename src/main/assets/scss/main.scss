@@ -74,3 +74,159 @@ section {
 .float-right {
   float: right !important;
 }
+
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+
+.status-bar {
+  @include for-tablet-portrait-up {
+    display: flex;
+    padding: 3.125rem 2rem;
+    margin-bottom: 3rem;
+  }
+  &__stage {
+    display: flex;
+    position: relative;
+    @include for-tablet-portrait-up {
+      flex-direction: column;
+      &:not(:first-child) {
+        width: 100%;
+      }
+    }
+
+    @include for-tablet-portrait-up {
+      &:first-child {
+        .status-bar__title {
+          font-family: "GDS Transport", arial, sans-serif;
+          width: 10rem;
+          left: calc(-5rem + 1.375rem);
+        }
+      }
+
+      &:not(:first-child) {
+        .status-bar__title {
+          font-family: "GDS Transport", arial, sans-serif;
+          width: 100%;
+          left: calc(50% - 1.375rem);
+        }
+      }
+    }
+
+    &:not(:first-child) {
+      height: 4.75rem;
+      @include for-tablet-portrait-up {
+        height: auto;
+      }
+
+      > .status-bar__ring {
+        position: relative;
+        top: 2rem;
+        @include for-tablet-portrait-up {
+          top: 0;
+          left: calc(100% - 2.75rem);
+        }
+      }
+
+      &:before {
+        display: block;
+        content: '';
+        box-sizing: border-box;
+        border: solid .1875rem $govuk-border-colour;
+        height: 2rem;
+        position: absolute;
+        left: 1.1875rem;
+        @include for-tablet-portrait-up {
+          height: auto;
+          width: calc(100% - 2.75rem);
+          left: 0;
+          top: calc(100% / 2 - 0.1875rem);
+        }
+      }
+    }
+  }
+
+  &__title {
+    position: absolute;
+    left: 3rem;
+    bottom: 0;
+    @include for-tablet-portrait-up {
+      top: 4rem;
+      text-align: center;
+    }
+  }
+
+  &__ring {
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: .25rem solid $govuk-border-colour;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}
+
+.stage--active {
+  .status-bar__ring {
+    background-repeat: no-repeat;
+    background-color: $govuk-link-colour;
+    background-position: center;
+    border: .25rem solid $govuk-link-colour;
+  }
+}
+
+.stage--completed {
+  .status-bar__ring {
+    background-image: url('/assets/images/icon-progress-tick.png');
+    background-repeat: no-repeat;
+    background-color: $govuk-link-colour;
+    background-position: center;
+    border: .25rem solid $govuk-link-colour;
+  }
+}
+
+
+.app-inverted--card {
+  margin-top: -15px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 40px 60px;
+}
+.app-inverted-text,
+.app-inset-text--inverted {
+  color: #ffffff;
+  background-color: #1d70b8;
+}
+.app-inset-text--inverted {
+  border-left: 10px solid #ffffff;
+}
+
+.app-button--inverted,
+.app-button--inverted:link,
+.app-button--inverted:visited {
+  color: #1d70b8;
+  background-color: #ffffff;
+  box-shadow: 0 2px 0 #144e81;
+}
+.app-link--inverted,
+.app-link--inverted:link,
+.app-link--inverted:active,
+.app-link--inverted:visited {
+  color: #ffffff;
+  font-weight: 700;
+}
+.app-button--l {
+  font-weight: 700;
+  font-size: 18px;
+  font-size: 1.25rem;
+  line-height: 1;
+  min-height: auto;
+  justify-content: center;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+@media screen and (min-width: 640px) {
+  .app-button--l {
+      font-size: 24px;
+      font-size: 1.5rem;
+  }
+}

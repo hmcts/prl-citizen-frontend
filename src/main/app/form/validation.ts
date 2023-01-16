@@ -3,13 +3,17 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate } from '../case/case';
-//import { OtherName } from '../case/definition';
+import { AllowedFileExtentionList, C100MaxFileSize, OtherName } from '../case/definition';
 
 dayjs.extend(customParseFormat);
 
-export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
+export type Validator = (
+  value: string | string[] | CaseDate | Partial<Case> | OtherName[] | File | undefined
+) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+export type AnyType = any;
 export const enum ValidationError {
   REQUIRED = 'required',
   NOT_SELECTED = 'notSelected',
@@ -26,7 +30,14 @@ export const isFieldFilledIn: Validator = value => {
 };
 
 export const atLeastOneFieldIsChecked: Validator = fields => {
-  if (!fields || (fields as []).length === 0) {
+  let _fields;
+  if (Array.isArray(fields)) {
+    _fields = fields;
+    _fields = _fields.filter(nestedItem => nestedItem !== '');
+  } else {
+    _fields = fields;
+  }
+  if (!_fields || (_fields as []).length === 0) {
     return ValidationError.REQUIRED;
   }
 };
@@ -60,7 +71,7 @@ export const areDateFieldsFilledIn: DateValidator = fields => {
 };
 
 export const doesArrayHaveValues: Validator = value => {
-  if (!value || !(value as string[])?.length) {
+  if (!value || !(value as (string | OtherName)[])?.length) {
     return ValidationError.REQUIRED;
   }
 };
@@ -107,7 +118,7 @@ export const isLessThanAYear: DateValidator = date => {
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-  if (!(enteredDate < oneYearAgo)) {
+  if (enteredDate >= oneYearAgo) {
     return 'lessThanAYear';
   }
 };
@@ -148,7 +159,7 @@ export const isInvalidPostcode: Validator = value => {
     return fieldNotFilledIn;
   }
 
-  if (!(value as string).match(/^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i)) {
+  if (!(value as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)) {
     return 'invalid';
   }
 };
@@ -156,6 +167,12 @@ export const isInvalidPostcode: Validator = value => {
 export const isPhoneNoValid: Validator = value => {
   if (typeof value === 'string') {
     return !value.match(/^$|^[0-9 +().-]{11,}$/) ? 'invalid' : undefined;
+  }
+};
+
+export const isAlphaNumeric: Validator = value => {
+  if (typeof value === 'string') {
+    return !value.match(/^[a-zA-Z0-9_\s]*$/) ? 'invalid' : undefined;
   }
 };
 
@@ -210,7 +227,20 @@ export const isAccessCodeValid: Validator = value => {
 };
 
 export const isNumeric: Validator = value => {
-  if (value && !(value as string).match(/^[0-9]+$/)) {
+  if (value && !(value as string).match(/^\d+$/)) {
     return ValidationError.NOT_NUMERIC;
   }
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+export const isFileSizeGreaterThanMaxAllowed = (files: any): boolean => {
+  const { documents }: AnyType = files;
+  return documents.size > C100MaxFileSize;
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+export const isValidFileFormat = (files: any): boolean => {
+  const { documents }: AnyType = files;
+  const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
+  return AllowedFileExtentionList.indexOf(extension) > -1;
 };

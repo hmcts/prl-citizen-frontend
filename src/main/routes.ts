@@ -1,21 +1,22 @@
 import fs from 'fs';
 
 import { Application } from 'express';
-import multer from 'multer';
 
-import { GetCaseController } from '../main/app/controller/GetCaseController';
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
+import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
-import { stepsWithContent } from './steps/';
+import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
+import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
+import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
@@ -28,6 +29,7 @@ import RespondentConfirmContactDetailsPostController from './steps/respondent/co
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
+import { SafetyConcernsPostController } from './steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsPostController';
 import { InternationalFactorsGetController } from './steps/tasklistresponse/international-factors/InternationalFactorsGetController';
 import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
 import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
@@ -48,6 +50,8 @@ import {
   APPLICANT_TASK_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
+  CA_RESPONDENT_GENERATE_C7_DRAFT,
+  CA_RESPONDENT_GENERATE_C7_Final,
   CA_RESPONDENT_RESPONSE_SUBMIT,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   CONSENT_SAVE,
@@ -66,6 +70,7 @@ import {
   PRIVACY_POLICY,
   RESPONDENT,
   RESPONDENT_ADDRESS_LOOKUP,
+  RESPONDENT_CA_RESPONSE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
@@ -79,9 +84,16 @@ import {
   TIMED_OUT_URL,
   YOUR_APPLICATION_FL401,
   YOUR_APPLICATION_WITNESS_STATEMENT,
+  /** C100 Rebuild URLs */
+  // eslint-disable-next-line sort-imports
+  C100_CREATE_CASE,
+  PAYMENT_GATEWAY_ENTRY_URL,
+  PAYMENT_RETURN_URL_CALLBACK,
+  C100_RETRIVE_CASE,
+  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
+  C100_DOWNLOAD_APPLICATION,
+  //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
-
-const handleUploads = multer();
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -98,21 +110,32 @@ export class Routes {
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getApplicantCase));
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getRespondentCase));
     app.get(`${CA_RESPONDENT_RESPONSE_SUBMIT}`, errorHandler(new RespondentSubmitResponseController().save));
+    app.get(
+      `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
+      errorHandler(new RespondentSubmitResponseController().getDraftDocument)
+    );
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
+    app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
+    app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
+    app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
       const getController = getControllerFileName
         ? require(`${step.stepDir}/${getControllerFileName}`).default
-        : GetController;
+        : step.getController ?? GetController;
 
       if (step && getController) {
-        app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+        app.get(
+          step.url,
+          this.routeGuard.bind(this, step, 'get'),
+          errorHandler(new getController(step.view, step.generateContent).get)
+        );
       }
       app.get(
         `${CONSENT_TO_APPLICATION}/:caseId`,
@@ -148,16 +171,21 @@ export class Routes {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
           ? require(`${step.stepDir}/${postControllerFileName}`).default
-          : PostController;
-
-        app.post(step.url, errorHandler(new postController(step.form.fields).post));
+          : step.postController ?? PostController;
+        app.post(
+          step.url,
+          // eslint-disable-next-line prettier/prettier
+          this.routeGuard.bind(this, step, 'post'),
+          errorHandler(new postController(step.form.fields).post)
+        );
         const documentManagerController = new DocumentManagerController(step.form.fields);
-        app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
+        app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
         app.get(
           `${DOCUMENT_MANAGER}/deleteDocument/:documentId`,
           errorHandler(documentManagerController.deleteDocument)
         );
         app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
+        app.get(`${CA_RESPONDENT_GENERATE_C7_Final}`, errorHandler(documentManagerController.get));
         app.post(
           `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
           errorHandler(documentManagerController.clearUploadDocumentFormData)
@@ -165,7 +193,7 @@ export class Routes {
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
-
+        app.get(APPLICANT_CA_DA_REQUEST, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
 
@@ -175,9 +203,14 @@ export class Routes {
         app.get(`${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${APPLICANT}${RESPONDENT_CA_RESPONSE}/:uid`, errorHandler(documentManagerController.get));
         app.get(
           `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
+        );
+        app.get(
+          `${RESPOND_TO_APPLICATION}/updateFlag`,
+          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setResponseInitiatedFlag)
         );
         app.get(
           `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
@@ -210,7 +243,26 @@ export class Routes {
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
+        app.get(
+          C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
+          errorHandler(new SafetyConcernsPostController(step.form.fields).post)
+        );
       }
+    }
+    /**
+     * @Payment_Handler
+     */
+    app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
+    app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
+
+    app.get('/api/v1/session', (req, res) => res.json(req.session));
+  }
+
+  private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
+    if (typeof step?.routeGuard?.[httpMethod] === 'function') {
+      step.routeGuard[httpMethod].call(this, req, res, next);
+    } else {
+      next();
     }
   }
 }

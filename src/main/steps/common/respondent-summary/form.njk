@@ -7,11 +7,14 @@
     {% for item in sections %}
     {% if item %}
         <h2 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h2>
+
+       {% if item.rows.length > 0 %}
         {{ govukSummaryList({
           classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
           rows: item.rows
         })
       }}
+      {% endif %}
       {% endif %}
     {% endfor %}
   {% endif %}
@@ -38,7 +41,7 @@
                </div>
 <div class="govuk-inset-text">
           <p>Once you submit your response, you cannot make any further changes.
-            Please select 'Save and come back later' to save your answers or select 'Submit your response'
+            Please select 'Submit your response'
             to complete your online response.</p>
             <p>You can download a copy of your submitted response using the link below.</p>
         </div>

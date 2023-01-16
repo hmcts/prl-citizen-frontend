@@ -27,6 +27,15 @@ export const setContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
   if (req.session.userCase.citizenUserEmailAddress) {
     partyDetails.email = req.session.userCase.citizenUserEmailAddress;
   }
+  if (req.session.userCase.citizenUserSafeToCall) {
+    if (partyDetails.response) {
+      partyDetails.response.safeToCallOption = req.session.userCase.citizenUserSafeToCall;
+    } else {
+      partyDetails.response = {
+        safeToCallOption: req.session.userCase.citizenUserSafeToCall,
+      };
+    }
+  }
   let postalAddress;
   if (
     req.session.userCase.citizenUserAddress1 &&
@@ -58,6 +67,31 @@ export const setContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
   return partyDetails;
 };
 
+export function getAddressDetails(partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> {
+  if (partyDetails.address) {
+    if (partyDetails.address.AddressLine1) {
+      req.session.userCase.citizenUserAddress1 = partyDetails.address.AddressLine1;
+    }
+    if (partyDetails.address.AddressLine2) {
+      req.session.userCase.citizenUserAddress2 = partyDetails.address.AddressLine2;
+    }
+    if (partyDetails.address.PostTown) {
+      req.session.userCase.citizenUserAddressTown = partyDetails.address.PostTown;
+    }
+    if (partyDetails.address.County) {
+      req.session.userCase.citizenUserAddressCounty = partyDetails.address.County;
+    }
+    if (partyDetails.address.PostCode) {
+      req.session.userCase.citizenUserAddressPostcode = partyDetails.address.PostCode;
+    }
+  }
+  if (partyDetails.addressLivedLessThan5YearsDetails) {
+    req.session.userCase.citizenUserAddressHistory = partyDetails.addressLivedLessThan5YearsDetails;
+  }
+
+  return req.session.userCase;
+}
+
 export const getContactDetails = (partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> => {
   clearSessionData(req);
 
@@ -85,28 +119,44 @@ export const getContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
   if (partyDetails.email) {
     req.session.userCase.citizenUserEmailAddress = partyDetails.email;
   }
-  if (partyDetails.address) {
-    if (partyDetails.address.AddressLine1) {
-      req.session.userCase.citizenUserAddress1 = partyDetails.address.AddressLine1;
-    }
-    if (partyDetails.address.AddressLine2) {
-      req.session.userCase.citizenUserAddress2 = partyDetails.address.AddressLine2;
-    }
-    if (partyDetails.address.PostTown) {
-      req.session.userCase.citizenUserAddressTown = partyDetails.address.PostTown;
-    }
-    if (partyDetails.address.County) {
-      req.session.userCase.citizenUserAddressCounty = partyDetails.address.County;
-    }
-    if (partyDetails.address.PostCode) {
-      req.session.userCase.citizenUserAddressPostcode = partyDetails.address.PostCode;
-    }
+
+  if (partyDetails.response && partyDetails.response.safeToCallOption) {
+    req.session.userCase.citizenUserSafeToCall = partyDetails.response.safeToCallOption;
   }
-  if (partyDetails.addressLivedLessThan5YearsDetails) {
-    req.session.userCase.citizenUserAddressHistory = partyDetails.addressLivedLessThan5YearsDetails;
-  }
+
+  getAddressDetails(partyDetails, req);
+
   return req.session.userCase;
 };
+
+export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
+  if (
+    !req.session.userCase.citizenUserAddress1 &&
+    !req.session.userCase.citizenUserAddressTown &&
+    !req.session.userCase.citizenUserAddressPostcode
+  ) {
+    req.session.userCase.citizenUserAddressText = '';
+  } else {
+    req.session.userCase.citizenUserAddressText = req.session.userCase.citizenUserAddress1 + ' ';
+    if (req.session.userCase.citizenUserAddress2) {
+      req.session.userCase.citizenUserAddressText =
+        req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddress2 + ' ';
+    }
+    if (req.session.userCase.citizenUserAddressTown) {
+      req.session.userCase.citizenUserAddressText =
+        req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddressTown + ' ';
+    }
+    if (req.session.userCase.citizenUserAddressPostcode) {
+      req.session.userCase.citizenUserAddressText =
+        req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddressPostcode;
+    }
+  }
+  if (YesOrNo.YES === req.session.userCase.isAtAddressLessThan5Years) {
+    req.session.userCase.citizenUserAddressHistory = '';
+  }
+
+  return req.session.userCase;
+}
 
 export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   if (req.session.userCase.citizenUserFirstNames && req.session.userCase.citizenUserLastNames) {
@@ -133,30 +183,9 @@ export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   } else {
     req.session.userCase.citizenUserEmailAddressText = req.session.userCase.citizenUserEmailAddress;
   }
-  if (
-    !req.session.userCase.citizenUserAddress1 &&
-    !req.session.userCase.citizenUserAddressTown &&
-    !req.session.userCase.citizenUserAddressPostcode
-  ) {
-    req.session.userCase.citizenUserAddressText = '';
-  } else {
-    req.session.userCase.citizenUserAddressText = req.session.userCase.citizenUserAddress1 + ' ';
-    if (req.session.userCase.citizenUserAddress2) {
-      req.session.userCase.citizenUserAddressText =
-        req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddress2 + ' ';
-    }
-    if (req.session.userCase.citizenUserAddressTown) {
-      req.session.userCase.citizenUserAddressText =
-        req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddressTown + ' ';
-    }
-    if (req.session.userCase.citizenUserAddressPostcode) {
-      req.session.userCase.citizenUserAddressText =
-        req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddressPostcode;
-    }
-  }
-  if (YesOrNo.YES === req.session.userCase.isAtAddressLessThan5Years) {
-    req.session.userCase.citizenUserAddressHistory = '';
-  }
+
+  setAddressFields(req);
+
   return req.session.userCase;
 };
 function clearSessionData(req: AppRequest) {
@@ -174,4 +203,5 @@ function clearSessionData(req: AppRequest) {
   req.session.userCase.citizenUserSelectAddress = '';
   req.session.userCase.isAtAddressLessThan5Years = '';
   req.session.userCase.citizenUserAddressHistory = '';
+  req.session.userCase.citizenUserSafeToCall = '';
 }

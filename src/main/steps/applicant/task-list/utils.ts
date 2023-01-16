@@ -8,7 +8,7 @@ export const getKeepYourDetailsPrivateStatus = (
   let status = SectionStatus.TO_DO;
   let keepDetailsPrivate;
   if (userCase?.caseTypeOfApplication === 'C100') {
-    userCase?.respondents?.forEach((applicant: Applicant) => {
+    userCase?.applicants?.forEach((applicant: Applicant) => {
       if (applicant?.value.user?.idamId === userIdamId) {
         keepDetailsPrivate = applicant?.value?.response?.keepDetailsPrivate;
       }
@@ -74,6 +74,10 @@ export const getViewAllDocuments = (): SectionStatus => {
   return SectionStatus.READY_TO_VIEW;
 };
 
+export const getUploadDocuments = (): SectionStatus => {
+  return SectionStatus.TO_DO;
+};
+
 export const getApplicantViewAllOrdersFromTheCourtAllDocuments = (userCase: CaseWithId): boolean => {
   let flag = false;
   if (userCase && userCase.orderCollection && userCase.orderCollection.length > 0) {
@@ -132,4 +136,13 @@ export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus 
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
+};
+
+export const getApplicantPartyDetails = (userCase: Partial<CaseWithId>, userId: string): Applicant | undefined => {
+  for (let i = 0; i < userCase.applicants!.length; i++) {
+    if (userCase.applicants![i].value.user.idamId === userId) {
+      return userCase.applicants![i];
+    }
+  }
+  return undefined;
 };

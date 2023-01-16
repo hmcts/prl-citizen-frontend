@@ -12,7 +12,7 @@ const en = {
   summaryText: 'Contacts for help',
   one: 'Yes',
   two: 'No',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     unableForCourtProceedings: {
       required: 'Please select an answer',
@@ -31,7 +31,7 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   one: 'Yes',
   two: 'No',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     unableForCourtProceedings: {
       required: 'Please select an answer',
@@ -82,7 +82,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

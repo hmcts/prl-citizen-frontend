@@ -4,10 +4,11 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { summaryCaseList } from '../../common/summary/utils';
-//import { summaryCaseList } from './utils';
 
 export const enContent = {
   title: 'Your private law account',
+  CAApplicationNote: 'Case once submitted cannot be accessed.',
+  createCAApplication: 'Start new C100 application',
   sectionTitles: {
     yourCAapplication: 'C100 applications where you are an applicant',
     youtCArespondentApplication: 'C100 applications where you are an respondent',
@@ -20,12 +21,14 @@ export const enContent = {
 };
 
 export const cyContent = {
-  title: 'Your private law account (welsh)',
+  title: 'Eich cyfrif cyfraith breifat',
+  CAApplicationNote: 'Unwaith y bydd achos wedi’i gyflwyno, ni ellir cael mynediad ato wedyn.',
+  createCAApplication: 'Dechrau cais C100 newydd',
   sectionTitles: {
-    yourCAapplication: 'C100 applications where you are an applicant',
-    youtCArespondentApplication: 'C100 applications where you are an respondent',
-    daApplicationsMadeByYou: 'FL401 applications where you are an applicant',
-    daApplicationsAgainstYou: 'FL401 applications where you are an respondent',
+    yourCAapplication: 'Ceisiadau C100 lle rydych yn geisydd',
+    youtCArespondentApplication: 'Ceisiadau C100 lle rydych yn atebydd',
+    daApplicationsMadeByYou: 'Ceisiadau FL401 lle rydych yn geisydd',
+    daApplicationsAgainstYou: 'Ceisiadau FL401 lle rydych yn atebydd',
   },
   help: 'To view or progress your case click on your case number.',
   keys: {},
@@ -60,10 +63,25 @@ const en = (content: CommonContent) => {
   return {
     title: enContent.title,
     sections: [
-      summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, isRespondent),
-      summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, isRespondent),
-      summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
-      summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),
+      {
+        ...summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, false),
+        help: `
+        <p class="govuk-body">${enContent.CAApplicationNote}</p>
+        <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${enContent.createCAApplication}</a></h1>`,
+        id: 'C100-applicant',
+      },
+      {
+        ...summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, true),
+        id: 'C100-respondent',
+      },
+      {
+        ...summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, false),
+        id: 'fl401-applicant',
+      },
+      {
+        ...summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, true),
+        id: 'fl401-respondent',
+      },
     ],
     help: enContent.help,
   };
@@ -97,10 +115,25 @@ const cy = (content: CommonContent) => {
   return {
     title: cyContent.title,
     sections: [
-      summaryCaseList(c100CaseListApplicant, cyContent.sectionTitles.yourCAapplication, isRespondent),
-      summaryCaseList(c100CaseListRespondent, cyContent.sectionTitles.youtCArespondentApplication, isRespondent),
-      summaryCaseList(fl401CaseListApplicant, cyContent.sectionTitles.daApplicationsMadeByYou, isRespondentFL401),
-      summaryCaseList(fl401CaseListRespondent, cyContent.sectionTitles.daApplicationsAgainstYou, isRespondentFL401),
+      {
+        ...summaryCaseList(c100CaseListApplicant, cyContent.sectionTitles.yourCAapplication, false),
+        help: `
+        <p class="govuk-body">${cyContent.CAApplicationNote}</p>
+        <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${cyContent.createCAApplication}</a></h1>`,
+        id: 'C100-applicant',
+      },
+      {
+        ...summaryCaseList(c100CaseListRespondent, cyContent.sectionTitles.youtCArespondentApplication, true),
+        id: 'C100-respondent',
+      },
+      {
+        ...summaryCaseList(fl401CaseListApplicant, cyContent.sectionTitles.daApplicationsMadeByYou, false),
+        id: 'fl401-applicant',
+      },
+      {
+        ...summaryCaseList(fl401CaseListRespondent, cyContent.sectionTitles.daApplicationsAgainstYou, true),
+        id: 'fl401-respondent',
+      },
     ],
     help: cyContent.help,
   };
@@ -135,6 +168,8 @@ function isLinkedToRespondent(userCase: Partial<CaseWithId>): boolean {
 function isLinkedToRespondentFl401(userCase: Partial<CaseWithId>): boolean {
   for (const caseInviteEmail of userCase.caseInvites || []) {
     if (
+      userCase.respondentsFL401?.user?.idamId &&
+      caseInviteEmail.value.invitedUserId &&
       userCase.respondentsFL401?.user?.idamId === caseInviteEmail.value.invitedUserId &&
       caseInviteEmail.value.isApplicant === YesOrNo.NO
     ) {

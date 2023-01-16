@@ -1,15 +1,14 @@
-import { Respondent, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import * as URL from '../../urls';
 
 import {
+  getAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
-  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getLegalRepresentationStatus,
   getMiamStatus,
-  getYourSafetyStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -39,7 +38,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
   ];
 };
 
-const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   if (userCase?.legalRepresentation === YesOrNo.NO) {
     return [
       {
@@ -71,8 +70,8 @@ const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-            href: URL.CA_DA_ATTENDING_THE_COURT,
+            status: SectionStatus.NOT_AVAILABLE_YET,
+            href: '#',
           },
         ],
       },
@@ -88,8 +87,8 @@ const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId
           {
             id: 'current-or-previous-proceedings',
             text: taskListItems.current_or_previous_proceedings,
-            status: getCurrentOrOtherProceedingsStatus(userCase),
-            href: URL.PROCEEDINGS_START,
+            status: SectionStatus.NOT_AVAILABLE_YET,
+            href: '#',
           },
         ],
       },
@@ -97,10 +96,10 @@ const getRemainingTaskList = (sectionTitles, taskListItems, userCase, userIdamId
         title: sectionTitles.safetyConcerns,
         items: [
           {
-            id: 'your-safety',
-            text: taskListItems.your_safety,
-            status: getYourSafetyStatus(userCase),
-            href: URL.SAFETY_MAIN_PAGE,
+            id: 'allegations_of_harm_and_violence',
+            text: taskListItems.allegations_of_harm_and_violence,
+            status: getAllegationOfHarmStatus(userCase),
+            href: URL.RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
           },
         ],
       },

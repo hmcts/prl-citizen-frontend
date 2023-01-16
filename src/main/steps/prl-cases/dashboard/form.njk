@@ -5,13 +5,17 @@
   {% if sections %}
     {% for item in sections %}
     {% if item %}
-        <h1 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h1>
-        <p>{{item.help}}</p>
-        {{ govukSummaryList.govukSummaryList({
-          classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
-          rows: item.rows
-        })
-      }}
+         {% if item.id === 'C100-applicant' or ( item.id !== 'C100-applicant' and item.rows.length > 1 )%}
+          <h1 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h1>
+          <p>{{item.help | safe}}</p>
+         {% endif %}
+         {% if item.rows.length > 1 %}
+            {{ govukSummaryList.govukSummaryList({
+              classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
+              rows: item.rows
+            })
+          }}
+        {% endif %}
       {% endif %}
     {% endfor %}
   {% endif %}

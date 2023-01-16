@@ -99,6 +99,5 @@ export const fromApiDate = (date: string | undefined): CaseDate => {
   const [y, m, d] = date.split('-');
   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
-console.log(fromApiDate);
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
