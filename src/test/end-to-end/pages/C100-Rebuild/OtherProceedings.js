@@ -21,11 +21,13 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.childrenInvolvedCourtCaseYesButton);
     await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingBottomSubHeading);
     await I.retry(retryCount).click(this.fields.courtOrderProtectionYesButton);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async proceedingDetails() {
     await I.retry(retryCount).waitForText(OtherProceedings.proceedingDetailsPageTitle);
     await I.retry(retryCount).click(this.fields.courtProceedingsOrdersButton);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async provideDetailsOfCourtCases() {
@@ -38,7 +40,7 @@ module.exports = {
     await I.retry(retryCount).fillField(this.fields.dateMadeYear, OtherProceedings.year);
     await I.retry(retryCount).click(this.fields.currentOrderYes);
     await I.retry(retryCount).click(this.fields.copyOfOrderYes);
-    //await I.retry(retryCount).click(this.fields.copyOfOrderNo);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async uploadOrder() {
@@ -53,6 +55,7 @@ module.exports = {
   async uploadOrderSummary() {
     await I.retry(retryCount).waitForText(OtherProceedings.uploadOrderSummaryInfo);
     await I.retry(retryCount).waitForText(OtherProceedings.uploadOrderSummary);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async otherProceedings() {

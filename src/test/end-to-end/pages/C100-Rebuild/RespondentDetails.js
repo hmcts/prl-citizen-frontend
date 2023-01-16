@@ -23,6 +23,7 @@ module.exports = {
     await I.retry(retryCount).waitForText(RespondentDetails.enterRespondentDetailsPageTitle);
     await I.retry(retryCount).fillField(this.fields.firstNameField, RespondentDetails.firstName);
     await I.retry(retryCount).fillField(this.fields.lastNameField, RespondentDetails.lastName);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async provideDetailsForRespondent() {
@@ -37,17 +38,20 @@ module.exports = {
     await I.retry(retryCount).fillField(this.fields.yearDOB, RespondentDetails.year);
     await I.retry(retryCount).waitForText(RespondentDetails.placeOfBirthText);
     await I.retry(retryCount).fillField(this.fields.respondentPlaceOfBirthField, RespondentDetails.placeOfBirth);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
     async respondentRelationship() {
     await I.retry(retryCount).waitForText(RespondentDetails.respondentRelationshipPageTitle);
     await I.retry(retryCount).click(this.fields.fatherOption);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
     async addressOfRespondent() {
     await I.retry(retryCount).waitForText(RespondentDetails.addressOfRespondentPageTitle);
     await I.retry(retryCount).waitForText(RespondentDetails.addressOfRespondentSubHeading);
     await I.retry(retryCount).fillField(this.fields.respondentPostCode, RespondentDetails.postcode);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
     async addressLookUpPage() {
@@ -64,12 +68,14 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.addressHistoryNoButton);
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsNoHintText);
     await I.retry(retryCount).fillField(this.fields.provideDetailsOfPreviousAddressesField, RespondentDetails.previousAddressPostCode);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
     async contactDetailsOfResp() {
     await I.retry(retryCount).waitForText(RespondentDetails.contactDetailsOfRespPageTitle);
     await I.retry(retryCount).click(this.fields.donKnowEmailAddressButton);
     await I.retry(retryCount).click(this.fields.donKnowTelephoneNumberButton);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async respondentDetails() {

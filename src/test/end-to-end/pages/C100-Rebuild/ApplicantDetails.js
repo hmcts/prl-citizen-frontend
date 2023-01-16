@@ -84,12 +84,14 @@ module.exports = {
     async addressLookUp() {
     await I.retry(retryCount).waitForText(ApplicantDetails.addressLookUpPageTitle);
     await I.retry(retryCount).selectOption(this.fields.addressList, ApplicantDetails.lookUpOption);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
    },
     async confirmAddress() {
     await I.retry(retryCount).waitForText(ApplicantDetails.confirmAddressPageTitle);
     await I.retry(retryCount).waitForText(ApplicantDetails.confirmAddressSubHeading);
     await I.retry(retryCount).click(this.fields.addressHistoryYes);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
     async contactDetails() {
@@ -100,12 +102,14 @@ module.exports = {
     await I.retry(retryCount).fillField(this.fields.telephoneNumberField, ApplicantDetails.phoneNumber);
     await I.retry(retryCount).waitForText(ApplicantDetails.contactDetailsSubHeading);
     await I.retry(retryCount).click(this.fields.canLeaveVoiceMailButton);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
     async contactPreferences() {
     await I.retry(retryCount).waitForText(ApplicantDetails.contactPreferencesPageTitle);
     await I.retry(retryCount).click(this.fields.digitalOption);
     await I.retry(retryCount).click(this.fields.postOption);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async applicantDetails() {

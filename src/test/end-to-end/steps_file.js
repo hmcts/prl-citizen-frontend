@@ -5,7 +5,7 @@ const CurrentOrPreviousProceedings = require('./pages/CurrentOrPreviousProceedin
 const ConsentToApplication = require('./pages/ConsentToApplication');
 const SupportYouNeedApplicant = require('./pages/SupportYouNeedDuringYourCase-Applicant');
 const SupportYouNeedRespondent = require('./pages/SupportYouNeedDuringYourCase-RespondentCADA');
-const UploadDocuments = require('./pages/UploadDocuments');
+const UploadDocuments = require('./pages/uploadDocuments');
 const CitizenLoginPage = require('./pages/C100-Rebuild/CitizenLoginPage');
 const CreateApplication = require('./pages/C100-Rebuild/CreateApplication');
 const CaseNameAndPostCode = require('./pages/C100-Rebuild/CaseNameAndPostCode');
@@ -52,7 +52,7 @@ module.exports = () => {
       return SupportYouNeedRespondent.supportYouNeedHappyPath();
     },
     uploadDocuments () {
-        return UploadDocuments.clickUploadDocuments();
+      return UploadDocuments.clickUploadDocuments();
     },
     loginAsCitizenUserNamePassWord() {
       return CitizenLoginPage.loginAsCitizenUserNamePassWord();

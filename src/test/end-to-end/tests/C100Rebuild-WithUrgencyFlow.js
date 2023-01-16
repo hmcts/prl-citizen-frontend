@@ -20,7 +20,7 @@ Scenario('C100 Rebuild - urgent hearing flow @cross-browser',  async ({
     CheckYourAnswersSimple,
   }) => {
     await CitizenLoginPage.loginAsCitizenUserNamePassWord();
-    await CreateApplication.createC100Application();
+    await CreateApplication.createNewC100Application();
     await CaseNameAndPostCode.addCaseNameAndPostCode();
     await ScreeningQuestions.screeningQuestions();
     await GoToMiam.miamUrgent();

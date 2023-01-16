@@ -45,6 +45,7 @@ module.exports = {
     async withoutNoticeHearing() {
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeHearingPageTitle);  
         await I.retry(retryCount).click(this.fields.withoutNoticeYes);
+        I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async withoutNoticeDetails() {
@@ -54,6 +55,7 @@ module.exports = {
         await I.retry(retryCount).fillField(this.fields.obstructOrderDetails, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.noTimeNoticeYes);
         await I.retry(retryCount).fillField(this.fields.noTimeNoticeDetails, this.fields.testingText);
+        I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async urgencyWithoutNotice() {

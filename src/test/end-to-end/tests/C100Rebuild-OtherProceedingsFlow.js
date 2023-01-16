@@ -21,7 +21,7 @@ async ({
   CheckYourAnswersSimple,
 }) => {
   await CitizenLoginPage.loginAsCitizenUserNamePassWord();
-  await CreateApplication.createC100Application();
+  await CreateApplication.createNewC100Application();
   await CaseNameAndPostCode.addCaseNameAndPostCode();
   await ScreeningQuestions.screeningQuestions();
   await GoToMiam.miamOtherProceedingsEvent();

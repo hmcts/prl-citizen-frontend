@@ -19,12 +19,14 @@ module.exports = {
    async otherPerson() {
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonPageTitle);
     await I.retry(retryCount).click(this.fields.otherPersonCheckYesButton);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async otherPersonName() {
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonNamePageTitle);
     await I.retry(retryCount).fillField(this.fields.firstNameField, OtherPersonDetails.firstName);
     await I.retry(retryCount).fillField(this.fields.lastNameField, OtherPersonDetails.lastName);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async otherPersonDetailsInfo() {
@@ -37,17 +39,20 @@ module.exports = {
     await I.retry(retryCount).fillField(this.fields.dayDOB, OtherPersonDetails.day);
     await I.retry(retryCount).fillField(this.fields.monthDOB, OtherPersonDetails.month);
     await I.retry(retryCount).fillField(this.fields.yearDOB, OtherPersonDetails.year);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async otherPersonRelationship() {
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonRelationshipPageTitle);
     await I.retry(retryCount).click(this.fields.grandparentOptionButton);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
     async addressOfOtherPerson() {
     await I.retry(retryCount).waitForText(OtherPersonDetails.addressOfOtherPersonPageTitle);
     await I.retry(retryCount).waitForText(OtherPersonDetails.addressOfOtherPersonSubHeading);
     await I.retry(retryCount).fillField(this.fields.otherPersonPostCodeField, OtherPersonDetails.postcode);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
     async addressLookUpPage() {
@@ -59,11 +64,13 @@ module.exports = {
   },
     async confirmAddress() {
     await I.retry(retryCount).waitForText(OtherPersonDetails.confirmAddressPageTitle);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async currentlyLiveWith() {
     await I.retry(retryCount).waitForText(OtherPersonDetails.currentlyLiveWithPageTitle);
     await I.retry(retryCount).click(this.fields.liveWithFirstOptionButton);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async otherPersonDetails() {

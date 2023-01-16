@@ -15,6 +15,7 @@ module.exports = {
   },
   async uploadDraftOrderSummary() {
     await I.retry(retryCount).waitForText(ConsentOrder.consentOrderUploaded);
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async draftConsentOrder() {

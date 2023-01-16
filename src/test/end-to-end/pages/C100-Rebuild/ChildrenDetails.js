@@ -27,8 +27,10 @@ module.exports = {
     async childDetailsName() {
         await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsNamePageTitle);
         await I.retry(retryCount).click(this.fields.mainForm);
+        I.wait('2');
         await I.retry(retryCount).fillField(this.fields.tempFirstName, ChildrenDetails.childFirstName);
         await I.retry(retryCount).fillField(this.fields.tempLastName, ChildrenDetails.childLastName);
+        I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async childDetailsDOB() {
@@ -38,17 +40,20 @@ module.exports = {
         await I.retry(retryCount).fillField(this.fields.yearDOB, ChildrenDetails.year);
         await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsDOBSubHeading)
         await I.retry(retryCount).click(this.fields.femaleGender);
+        I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async decisionsCourtToResolve() {
         await I.retry(retryCount).waitForText(ChildrenDetails.decisionsCourtToResolvePageTitle);
         await I.retry(retryCount).click(this.fields.needsResolution);
         await I.retry(retryCount).click(this.fields.needsResolution2);
+        I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async parentalResponsibility() {
         await I.retry(retryCount).waitForText(ChildrenDetails.parentalResponsibilityPageTitle);
         await I.retry(retryCount).fillField(this.fields.statement, ChildrenDetails.testingText);
+        I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async furtherInformation() {
@@ -57,17 +62,20 @@ module.exports = {
         await I.retry(retryCount).fillField(this.fields.childrenKnownToSocialServicesDetail, ChildrenDetails.testingText);
         await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationSubHeading)
         await I.retry(retryCount).click(this.fields.childrenSubjectOfProtectionPlan);
+        I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async otherChildren() {
         await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenPageTitle);
         await I.retry(retryCount).click(this.fields.otherChildrenYes);
+        I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async otherChildrenName() {
         await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenNamePageTitle);
         await I.retry(retryCount).fillField(this.fields.tempFirstName, ChildrenDetails.firstName);
         await I.retry(retryCount).fillField(this.fields.tempLastName, ChildrenDetails.surname);
+        I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async childrenDetails() {
