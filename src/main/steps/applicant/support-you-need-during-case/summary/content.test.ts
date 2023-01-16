@@ -13,7 +13,7 @@ const en = {
   keys: {
     communicationSupportOther: 'Describe what you need',
     courtComfort: 'I need something to make me feel comfortable during a court hearing',
-    courtHearing: 'I would need to bring support with me to a court hearing',
+    courtHearing: 'I need to bring support with me to a court hearing',
     courtProceedingProvideDetails: 'Provie details',
     describeOtherNeed: 'Describe what you need',
     docsSupport: 'I need documents in an alternative format',
@@ -79,7 +79,7 @@ const cy: typeof en = {
   keys: {
     communicationSupportOther: 'Describe what you need',
     courtComfort: 'I need something to make me feel comfortable during a court hearing',
-    courtHearing: 'I would need to bring support with me to a court hearing',
+    courtHearing: 'I need to bring support with me to a court hearing',
     courtProceedingProvideDetails: 'Provie details',
     describeOtherNeed: 'Describe what you need',
     docsSupport: 'I need documents in an alternative format',
