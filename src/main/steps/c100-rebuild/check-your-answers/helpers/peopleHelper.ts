@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { HTML } from '../common/htmlSelectors';
+import { getYesNoTranslation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const applicantAddressParser = (sessionApplicantData, keys) => {
+export const applicantAddressParser = (sessionApplicantData, keys,language) => {
   let html = '' as string;
   html+= sessionApplicantData.hasOwnProperty('applicantAddress1') && sessionApplicantData['applicantAddress1'] !==  '' ?  sessionApplicantData['applicantAddress1'] + HTML.BREAK  : '';
   html+= sessionApplicantData.hasOwnProperty('applicantAddress2') &&  sessionApplicantData['applicantAddress2'] !==  '' ?  sessionApplicantData['applicantAddress2'] + HTML.BREAK  : '';
@@ -11,14 +12,14 @@ export const applicantAddressParser = (sessionApplicantData, keys) => {
   html+= sessionApplicantData.hasOwnProperty('applicantAddressPostcode') &&  sessionApplicantData['applicantAddressPostcode'] !==  '' ?   sessionApplicantData['applicantAddressPostcode']+ HTML.RULER : '';
   if(sessionApplicantData.hasOwnProperty('applicantAddressHistory')){
     html += HTML.H4 + keys['haveLivedMore'] + HTML.H4_CLOSE;
-    html += sessionApplicantData?.['applicantAddressHistory'];
+    html += getYesNoTranslation(language,sessionApplicantData?.['applicantAddressHistory'],'doTranslation');
     if(sessionApplicantData['applicantAddressHistory'] === 'No'){
       html += HTML.RULER;
       html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BOTTOM_PADDING_3;
       sessionApplicantData.hasOwnProperty('applicantProvideDetailsOfPreviousAddresses')&& (html += sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'] );
       html += HTML.BOTTOM_PADDING_CLOSE;
     }
-   
+
   }
  return html;
 };
@@ -74,7 +75,7 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys): strin
     html += sessionApplicantData['canNotProvideTelephoneNumberReason'];
     html += HTML.BOTTOM_PADDING_CLOSE;
     //canNotProvideMobileNumberReason
-  }  
+  }
  return html;
 };
 
@@ -84,10 +85,10 @@ export const applicantCourtCanLeaveVoiceMail = (sessionApplicantData, keys) => {
   let html = '' as string;
   if(sessionApplicantData['canLeaveVoiceMail'] === 'Yes'){
     html +=  keys['voiceMailYesLabel'];
-  } 
+  }
   if(sessionApplicantData['canLeaveVoiceMail'] === 'No'){
     html += keys['voiceMailNoLabel'];
-  } 
+  }
  return html;
 };
 

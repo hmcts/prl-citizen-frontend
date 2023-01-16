@@ -30,6 +30,9 @@ describe('RespondentTaskListGetController', () => {
                 user: {
                   idamId: '123',
                 },
+                response: {
+                  citizenFlags: {},
+                },
               } as PartyDetails,
             },
           ] as Respondent[],
@@ -38,7 +41,6 @@ describe('RespondentTaskListGetController', () => {
     });
     const res = mockResponse();
     await controller.get(req, res);
-
-    expect(res.render).toHaveBeenCalled;
+    expect(res.render).toBeCalled;
   });
 });

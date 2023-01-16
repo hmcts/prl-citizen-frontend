@@ -29,6 +29,7 @@ import RespondentConfirmContactDetailsPostController from './steps/respondent/co
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
+import { SafetyConcernsPostController } from './steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsPostController';
 import { InternationalFactorsGetController } from './steps/tasklistresponse/international-factors/InternationalFactorsGetController';
 import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
 import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
@@ -89,6 +90,7 @@ import {
   PAYMENT_GATEWAY_ENTRY_URL,
   PAYMENT_RETURN_URL_CALLBACK,
   C100_RETRIVE_CASE,
+  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   C100_DOWNLOAD_APPLICATION,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
@@ -206,6 +208,10 @@ export class Routes {
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
         );
         app.get(
+          `${RESPOND_TO_APPLICATION}/updateFlag`,
+          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setResponseInitiatedFlag)
+        );
+        app.get(
           `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
         );
@@ -235,6 +241,10 @@ export class Routes {
         app.get(
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
+        );
+        app.get(
+          C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
+          errorHandler(new SafetyConcernsPostController(step.form.fields).post)
         );
       }
     }

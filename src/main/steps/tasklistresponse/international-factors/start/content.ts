@@ -5,36 +5,40 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 const en = {
   section: ' ',
-  title: 'Do the children live outside of England or Wales?',
+  title: "Are the children's lives mainly based outside of England and Wales?",
   one: 'Yes',
   two: 'No',
-  hint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, is their family life mainly based outside of England and Wales?',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
-      required: 'Select yes if the children live outside of England or Wales',
+      required:
+        "Select yes if the children's parents (or anyone significant to the children) are mainly based outside of England and Wales",
     },
     iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
     },
   },
 };
 
 const cy: typeof en = {
   section: ' ',
-  title: 'Do the children live outside of England or Wales?',
+  title: "Are the children's lives mainly based outside of England and Wales?",
   one: 'Yes',
   two: 'No',
-  hint: 'For example, does their main family life take place outside of England and Wales?',
+  hint: 'For example, is their family life mainly based outside of England and Wales?',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
-      required: 'Select yes if the children live outside of England or Wales',
+      required:
+        "Select yes if the children's parents (or anyone significant to the children) are mainly based outside of England and Wales",
     },
     iFactorsStartProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
     },
   },
 };
