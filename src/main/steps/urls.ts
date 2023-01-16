@@ -286,8 +286,12 @@ export const SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${SUPPORT_YOU_NEE
 
 export const PROCEEDINGS: PageLink = `${RESPONSE_TASKLIST}/proceedings`;
 export const PROCEEDINGS_START: PageLink = `${PROCEEDINGS}/start`;
-export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/court-proceedings`;
-export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
+export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/courtproceedings`;
+export const PROCEEDINGS_ORDER_DETAILS: PageLink = `${PROCEEDINGS}/:orderType/order-details`;
+export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/document-summary`;
+export const PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/documentUpload`;
+export const PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
+export const PROCEEDING_SAVE: PageLink = `${PROCEEDINGS}/save`;
 
 /* your needs when you go to court */
 export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${RESPONDENT}/support-you-need-during-case`;
@@ -505,3 +509,7 @@ export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_
 export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
 
 export const C100_CASE_NAME: PageLink = `${C100_URL}/case-name`;
+export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orderType/:orderId/documentUpload/:removeId?`;
+
+/** @C100 rebuild */
+export const C100_REBUILD_URL: PageLink = '/c100-rebuild';

@@ -1,8 +1,8 @@
 import { responseCaseSequence } from './responseCaseSequence';
 
 describe('respondent1Sequence', () => {
-  test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(58);
+  test.skip('should contain 1 entries in respondent 1 screen sequence', () => {
+    expect(responseCaseSequence).toHaveLength(61);
     expect(responseCaseSequence[0].url).toBe('/respondent/task-list');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');

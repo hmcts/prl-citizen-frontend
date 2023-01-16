@@ -34,6 +34,8 @@ import { InternationalFactorsGetController } from './steps/tasklistresponse/inte
 import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
 import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
 import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostController';
+import { ProceedingGetController } from './steps/tasklistresponse/proceedings/ProceedingGetController';
+import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -92,6 +94,8 @@ import {
   C100_RETRIVE_CASE,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   C100_DOWNLOAD_APPLICATION,
+  PROCEEDING_SAVE,
+  PROCEEDINGS_START,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -161,6 +165,10 @@ export class Routes {
       );
 
       app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
+      app.get(
+        `${PROCEEDINGS_START}/:caseId`,
+        errorHandler(new ProceedingGetController(step.view, step.generateContent).get)
+      );
       app.get(
         `${INTERNATIONAL_FACTORS_START}/:caseId`,
         errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
@@ -238,6 +246,7 @@ export class Routes {
           errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
         );
         app.get(`${MIAM_SAVE}`, errorHandler(new MIAMPostController(step.form.fields).post));
+        app.get(`${PROCEEDING_SAVE}`, errorHandler(new ProceedingPostController(step.form.fields).post));
         app.get(
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)

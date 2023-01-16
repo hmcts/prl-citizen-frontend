@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Respondent, SectionStatus, YesNoIDontKnow, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 
 export const getKeepYourDetailsPrivateStatus = (
   userCase: Partial<CaseWithId> | undefined,
@@ -139,43 +139,14 @@ export const getUploadDocuments = (): SectionStatus => {
 };
 
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (
-    ((userCase?.proceedingsStart === YesNoIDontKnow.NO || userCase?.proceedingsStart === YesNoIDontKnow.IDONTKNOW) &&
-      userCase?.proceedingsStartOrder === YesNoIDontKnow.NO) ||
-    (userCase?.proceedingsStart &&
-      userCase?.proceedingsStartOrder &&
-      userCase?.emergencyOrderOptions &&
-      userCase?.supervisionOrderOption &&
-      userCase?.careOrderOptions &&
-      userCase?.childAbductionOrderOption &&
-      userCase?.caOrderOption &&
-      userCase?.financialOrderOption &&
-      userCase?.nonmolestationOrderOption &&
-      userCase?.occupationalOrderOptions &&
-      userCase?.marraigeOrderOptions &&
-      userCase?.restrainingOrderOptions &&
-      userCase?.injuctiveOrderOptions &&
-      userCase?.underTakingOrderOptions)
-  ) {
+  if (userCase?.proceedingsStart === YesOrNo.NO && userCase?.proceedingsStartOrder === YesOrNo.NO) {
     return SectionStatus.COMPLETED;
   }
 
-  if (
-    userCase?.proceedingsStart ||
-    userCase?.proceedingsStartOrder ||
-    userCase?.emergencyOrderOptions ||
-    userCase?.supervisionOrderOption ||
-    userCase?.careOrderOptions ||
-    userCase?.childAbductionOrderOption ||
-    userCase?.caOrderOption ||
-    userCase?.financialOrderOption ||
-    userCase?.nonmolestationOrderOption ||
-    userCase?.occupationalOrderOptions ||
-    userCase?.marraigeOrderOptions ||
-    userCase?.restrainingOrderOptions ||
-    userCase?.injuctiveOrderOptions ||
-    userCase?.underTakingOrderOptions
-  ) {
+  if (userCase?.proceedingsStart === YesOrNo.YES && userCase?.proceedingsStartOrder === YesOrNo.YES) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.proceedingsStart || userCase?.proceedingsStartOrder) {
     return SectionStatus.IN_PROGRESS;
   }
 
