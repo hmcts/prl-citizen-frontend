@@ -349,27 +349,27 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_UPLOAD_DOCUMENT,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
@@ -429,42 +429,42 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPONDENT_SAFEGUARDING_LETTER}`,
   },
   {
     url: `${APPLICANT}${RESPONDENT_SAFEGUARDING_LETTER}`,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPONDENT_SECTION7_REPORT}`,
   },
   {
     url: `${APPLICANT}${RESPONDENT_SECTION7_REPORT}`,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPONDENT_SECTION37_REPORT}`,
   },
   {
     url: `${APPLICANT}${RESPONDENT_SECTION37_REPORT}`,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPONDENT_RISK_ASSESSMENT}`,
   },
   {
     url: `${APPLICANT}${RESPONDENT_RISK_ASSESSMENT}`,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
 ];
