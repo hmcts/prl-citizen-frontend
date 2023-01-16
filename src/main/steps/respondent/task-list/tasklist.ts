@@ -11,6 +11,7 @@ import {
   getKeepYourDetailsPrivateStatus,
   getUploadDocuments,
   getViewAllDocuments,
+  getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
 } from './utils';
 
@@ -52,8 +53,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'check_details_of_your_court_hearings',
           text: taskListItems.check_details_of_your_court_hearings,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
+          status: getViewAllHearingsFromTheCourt(userCase),
+          href: URL.RESPONDENT_YOURHEARINGS_HEARINGS,
         },
       ],
     },

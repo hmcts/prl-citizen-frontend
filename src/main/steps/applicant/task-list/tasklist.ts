@@ -4,6 +4,7 @@ import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-lis
 import * as URL from '../../urls';
 
 import {
+  getApplicantViewAllHearingsFromTheCourt,
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
   getUploadDocuments,
@@ -47,8 +48,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
         {
           id: 'check-details-of-your-court-hearings',
           text: taskListItems.details_of_court_hearings,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
+          status: getApplicantViewAllHearingsFromTheCourt(userCase),
+          href: URL.APPLICANT_YOURHEARINGS_HEARINGS,
         },
       ],
     },

@@ -845,6 +845,7 @@ export interface CaseData {
   previousOrOngoingProceedingsForChildren: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
+  hearingCollection?: HearingsList[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
@@ -2304,6 +2305,19 @@ export interface PRLDocument {
   otherDetails: OtherDetails;
 }
 
+export interface HearingsList {
+  prev?: Hearings[],
+  next?: Hearings,
+}
+export interface Hearings {
+  date?: string;
+  time?: string;
+  typeOfHearing?: string;
+  courtName?: string;
+  courtAddress?: string;
+  hearingOutcome?: string;
+}
+
 export interface OtherDetails {
   createdBy: string;
   orderCreatedDate: string;
@@ -2508,7 +2522,7 @@ export enum PRL_C1ASafteyConcernsAbout{
   RESPONDENT = 'respondent',
   APPLICANT = 'applicant',
   OTHER = 'otherConcerns',
-  
+
 }
 
 export interface C1ASafteyConcernsAbuse{
@@ -2705,7 +2719,7 @@ export type ChildrenDetails = {
     OTHER = 'Other',
     EMPTY = ''
   }
-  
+
   export interface C100Address extends Address {
     selectedAddress?: number,
     addressHistory?: YesNoDontKnow,

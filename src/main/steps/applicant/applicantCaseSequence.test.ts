@@ -129,7 +129,11 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[26].url).toBe('/applicant/support-you-need-during-case/safety-arrangements');
     expect(applicantCaseSequence[26].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[26].getNextStep({})).toBe('/applicant/support-you-need-during-case/summary');
+    expect(applicantCaseSequence[26].getNextStep({})).toBe('/applicant/task-list');
+
+    expect(applicantCaseSequence[69].url).toBe('/applicant/yourhearings/hearings');
+    expect(applicantCaseSequence[69].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[69].getNextStep({})).toBe('/applicant/task-list');
 
     expect(applicantCaseSequence[27].url).toBe('/applicant/support-you-need-during-case/summary');
     expect(applicantCaseSequence[27].showInSection).toBe('aboutApplicantCase');

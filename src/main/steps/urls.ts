@@ -98,6 +98,12 @@ export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 export const MIAM_SAVE: PageLink = `${MIAM}/save`;
 /* MIAM */
 
+/* your hearings */
+export const YOURHEARINGS: PageLink = '/yourhearings';
+export const HEARINGS: PageLink = '/hearings';
+export const RESPONDENT_YOURHEARINGS_HEARINGS: PageLink = `${RESPONDENT}${YOURHEARINGS}${HEARINGS}`;
+/* your hearings */
+
 /* safety concerns */
 export const SAFETY_CONCERNS: PageLink = `${RESPONSE_TASKLIST}/safety_concerns`;
 export const SAFETY_MAIN_PAGE: PageLink = `${SAFETY_CONCERNS}/main_page`;
@@ -320,6 +326,9 @@ export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = '/tasklistrespons
 export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
   '/tasklistresponse/legalrepresentation/solicitornotdirect';
 export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
+
+/* Applicant Hearings */
+export const APPLICANT_YOURHEARINGS_HEARINGS: PageLink = `${APPLICANT}${YOURHEARINGS}${HEARINGS}`;
 
 /**   @C100 features */
 /* This is a route for the C100 application. */
