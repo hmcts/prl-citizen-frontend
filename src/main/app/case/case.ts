@@ -25,6 +25,7 @@ import {
   ExistingProceedings,
   Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
+  HearingsList,
   InternationalElementTable,
   InterpreterNeed,
   ListValue,
@@ -173,6 +174,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   previousOrOngoingProceedingsForChildren: 'previousOrOngoingProceedingsForChildren',
   welshLanguageRequirementApplicationNeedEnglish: 'welshLanguageRequirementApplicationNeedEnglish',
   orderCollection: 'orderCollection',
+  hearingCollection: 'hearingCollection',
   respondentName: 'respondentName',
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
@@ -332,6 +334,37 @@ export interface Case {
   previousOrOngoingProceedingsForChildren?: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish?: string;
   //TODO?: Below fields should be with in respondent object.
+  serviceType?: string;
+  claimNumber?: string;
+  caseCode?: string;
+  accessCode?: string;
+  detailsKnown?: string;
+  startAlternative?: string;
+  contactDetailsPrivate?: string[];
+  miamStart?: string;
+  miamWillingness?: string;
+  miamNotWillingExplnation?: string;
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
+  confirmcontactdetails?: string;
+  respondentName?: string;
+  respondentFirstName?: string;
+  respondentLastName?: string;
+  caseInvites?: CaseInvite[];
+  orderCollection?: ListValue<PRLDocument>[];
+  hearingCollection?: HearingsList[];
+  documentsGenerated?: ListValue<PRLDocument>[];
   yourchildconcernsstart?: YesOrNo;
   cameoutofallegationsharmwithNo?: boolean;
   //applicant1CannotUploadDocuments?: DocumentType[];
@@ -456,40 +489,7 @@ export interface Case {
   respondentParkingDetails?: string;
   respondentDifferentChairDetails?: string;
   respondentTravellingOtherDetails?: string;
-  serviceType?: string;
-  claimNumber?: string;
-  caseCode?: string;
-  accessCode?: string;
-  detailsKnown?: string;
-  startAlternative?: string;
-  contactDetailsPrivate?: string[];
-  miamStart?: string;
-  miamWillingness?: string;
-  miamNotWillingExplnation?: string;
-  doYouConsent?: YesOrNo;
-  applicationReceivedDate?: CaseDate;
-  courtPermission?: YesOrNo;
-  reasonForNotConsenting?: string;
-  courtOrderDetails?: string;
-  start?: YesOrNo;
-  parents?: YesOrNo;
-  jurisdiction?: YesOrNo;
-  request?: YesOrNo;
-  iFactorsJurisdictionProvideDetails?: string;
-  iFactorsStartProvideDetails?: string;
-  iFactorsRequestProvideDetails?: string;
-  iFactorsParentsProvideDetails?: string;
-  confirmcontactdetails?: string;
-  respondentName?: string;
-  respondentFirstName?: string;
-  respondentLastName?: string;
-  caseInvites?: CaseInvite[];
-  orderCollection?: ListValue<PRLDocument>[];
-  documentsGenerated?: ListValue<PRLDocument>[];
-  //applicant1LanguagePreference?: LanguagePreference;
-
   safetyConcerns?: string;
-
   citizenRole?: FieldPrefix;
   orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;

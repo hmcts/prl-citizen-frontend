@@ -15,7 +15,7 @@ const en = {
   readandwritewelsh: 'I need to read and write in Welsh',
   languageinterpreter: 'I need an interpreter in a certain language',
   nointerpreter: 'No, I do not have any language requirements at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentLangRequirements: {
       required: 'Please select an answer',
@@ -37,7 +37,7 @@ const cy: typeof en = {
   readandwritewelsh: 'I need to read and write in Welsh',
   languageinterpreter: 'I need an interpreter in a certain language',
   nointerpreter: 'No, I do not have any language requirements at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentLangRequirements: {
       required: 'Please select an answer',
@@ -91,8 +91,8 @@ describe('citizen-home content', () => {
     expect((languageRequirementsField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 

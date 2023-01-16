@@ -11,7 +11,9 @@ import {
   getKeepYourDetailsPrivateStatus,
   getUploadDocuments,
   getViewAllDocuments,
+  getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
+  isApplicationResponded,
 } from './utils';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -52,8 +54,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'check_details_of_your_court_hearings',
           text: taskListItems.check_details_of_your_court_hearings,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
+          status: getViewAllHearingsFromTheCourt(userCase),
+          href: URL.RESPONDENT_YOURHEARINGS_HEARINGS,
         },
       ],
     },
@@ -128,6 +130,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
 
 const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId) => {
   if (userCase?.caseTypeOfApplication === 'C100') {
+    const hasCitizenResponse = isApplicationResponded(userCase);
     return [
       {
         title: sectionTitles.yourResponse,
@@ -136,13 +139,15 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             id: 'respond_to_application',
             text: taskListItems.respond_to_application,
             status: getInternationalFactorsStatus(userCase),
-            href: URL.RESPOND_TO_APPLICATION + '/updateFlag',
+            href: !hasCitizenResponse ? URL.RESPOND_TO_APPLICATION + '/updateFlag' : null,
+            hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
           {
             id: 'respond_to_allegations_of_harm_and_violence',
             text: taskListItems.respond_to_allegations_of_harm_and_violence,
             status: getInternationalFactorsStatus(userCase),
-            href: URL.INTERNATIONAL_FACTORS_START,
+            href: !hasCitizenResponse ? URL.INTERNATIONAL_FACTORS_START : null,
+            hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
         ],
       },

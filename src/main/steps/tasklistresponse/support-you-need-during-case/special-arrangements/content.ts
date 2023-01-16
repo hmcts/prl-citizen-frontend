@@ -20,7 +20,7 @@ const en = {
   other: 'Other',
   otherDetails: 'Provide details of what you or the children need',
   noSupport: 'No, I do not have any safety requirements at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentSpecialArrangements: {
       required: 'Please select an answer',
@@ -49,7 +49,7 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Provide details of what you or the children need',
   noSupport: 'No, I do not have any safety requirements at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentSpecialArrangements: {
       required: 'Please select an answer',
@@ -131,7 +131,7 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

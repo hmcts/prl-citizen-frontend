@@ -14,13 +14,13 @@ const en = {
   noHearings: 'No, I cannot take part in either video or phone hearings',
   noHearingsHint: 'If you choose this option please tell us why in case we can assist you',
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentAttendingToCourt: {
-      required: 'Please select an answer',
+      required: 'Select whether you can take part in a video or phone hearing',
     },
     respondentHearingDetails: {
-      required: 'Please provide the details',
+      required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
 };
@@ -37,13 +37,13 @@ const cy: typeof en = {
   noHearings: 'No, I cannot take part in either video or phone hearings',
   noHearingsHint: 'If you choose this option please tell us why in case we can assist you',
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     respondentAttendingToCourt: {
-      required: 'Please select an answer',
+      required: 'Select whether you can take part in a video or phone hearing',
     },
     respondentHearingDetails: {
-      required: 'Please provide the details',
+      required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
 };
@@ -93,7 +93,7 @@ export const form: FormContent = {
       ],
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

@@ -165,6 +165,7 @@ export class Routes {
       );
 
       app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
+
       app.get(
         `${PROCEEDINGS_START}/:caseId`,
         errorHandler(new ProceedingGetController(step.view, step.generateContent).get)
