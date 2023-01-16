@@ -5,6 +5,7 @@ import {
   APPLICANT_ADDRESS_DETAILS,
   APPLICANT_ADDRESS_HISTORY,
   APPLICANT_ADDRESS_LOOKUP,
+  APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
   APPLICANT_CONTACT_DETAILS_SAVE,
@@ -51,7 +52,6 @@ import {
   RESPONDENT_SECTION37_REPORT,
   RESPONDENT_SECTION7_REPORT,
   SAFETY_ARRANGEMENTS,
-  SUPPORT_YOU_NEED_DURING_CASE,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   TRAVELLING_TO_COURT,
@@ -142,7 +142,12 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
-    url: SUPPORT_YOU_NEED_DURING_CASE,
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_ATTENDING_THE_COURT,
+  },
+  {
+    url: APPLICANT_ATTENDING_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => LANGUAGE_REQUIREMENTS,
   },
@@ -403,6 +408,16 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_WITNESS_STATEMENTS_DA,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_ATTENDING_THE_COURT,
+  },
+  {
+    url: APPLICANT_ATTENDING_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },

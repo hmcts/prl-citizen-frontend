@@ -16,10 +16,10 @@ const en = {
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
   continue: 'Continue',
   errors: {
-    respondentAttendingToCourt: {
+    applicantAttendingToCourt: {
       required: 'Select whether you can take part in a video or phone hearing',
     },
-    respondentHearingDetails: {
+    applicantHearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
@@ -39,10 +39,10 @@ const cy: typeof en = {
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
   continue: 'Continue',
   errors: {
-    respondentAttendingToCourt: {
+    applicantAttendingToCourt: {
       required: 'Select whether you can take part in a video or phone hearing',
     },
-    respondentHearingDetails: {
+    applicantHearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
@@ -55,7 +55,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentAttendingToCourt: {
+    applicantAttendingToCourt: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
@@ -63,12 +63,12 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'respondentAttendingToCourt',
+          name: 'applicantAttendingToCourt',
           label: l => l.videoHearings,
           value: 'video hearings',
         },
         {
-          name: 'respondentAttendingToCourt',
+          name: 'applicantAttendingToCourt',
           label: l => l.phoneHearings,
           value: 'phone hearings',
         },
@@ -76,13 +76,13 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentAttendingToCourt',
+          name: 'applicantAttendingToCourt',
           label: l => l.noHearings,
           hint: l => l.noHearingsHint,
           value: 'no hearings',
           exclusive: true,
           subFields: {
-            respondentHearingDetails: {
+            applicantHearingDetails: {
               type: 'textarea',
               label: l => l.noHearingDetails,
               labelSize: null,
