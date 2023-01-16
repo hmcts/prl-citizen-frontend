@@ -1,7 +1,6 @@
 Feature('C100 Rebuild - Base flow');
 
-Scenario(
-  'C100 Rebuild - basic journey @cross-browser', 
+Scenario('C100 Rebuild - basic journey @cross-browser', 
 async ({
   CitizenLoginPage,
   CreateApplication,

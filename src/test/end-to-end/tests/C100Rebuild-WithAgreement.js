@@ -1,8 +1,7 @@
-const CheckYourAnswersSimple = require("../pages/C100-Rebuild/CheckYourAnswersSimple");
-
 Feature('C100 Rebuild - draft consent flow');
 
-Scenario('C100 Rebuild - draft consent flow @cross-browser',  async ({
+Scenario('C100 Rebuild - draft consent flow @cross-browser',  
+async ({
    CitizenLoginPage,
    CreateApplication,
    CaseNameAndPostCode,
