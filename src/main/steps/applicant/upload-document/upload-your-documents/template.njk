@@ -5,6 +5,11 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
+
+{% block pageTitle %}
+  {{ serviceName }}-{{ pagetitle }}-applicant-{{title}}-{{ govUk }}
+{% endblock %}
+
 <div class="govuk-form-group">
 {% block page_content %}
 <div class="govuk-form-group">

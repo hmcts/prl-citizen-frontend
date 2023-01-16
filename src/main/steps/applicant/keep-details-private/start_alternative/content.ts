@@ -2,6 +2,7 @@ import { Case } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 
 const en = {
   section: 'Keeping your contact details private',
@@ -16,6 +17,7 @@ const en = {
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   address: 'Home address',
+  pagetitle: '',
   postalAddress: 'Postal address',
   Phone_number: 'Telephone number',
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
@@ -45,6 +47,7 @@ const cy: typeof en = {
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   address: 'Home address',
+  pagetitle: '',
   postalAddress: 'Postal address',
   Phone_number: 'Telephone number',
   Email: 'Email',
@@ -129,6 +132,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form,

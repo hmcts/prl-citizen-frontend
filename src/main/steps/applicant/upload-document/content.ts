@@ -1,4 +1,5 @@
 import { TranslationFn } from '../../../app/controller/GetController';
+import { typeofcaseuser } from '../../../steps/typeofcaseuserutil';
 import * as URL from '../../urls';
 
 import { document_list_en } from './section-titles';
@@ -9,6 +10,7 @@ const en = () => ({
   section: 'Upload documents',
   title: 'Select the type of document',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
+  pagetitle: '',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_en,
 });
@@ -17,6 +19,7 @@ const cy = () => ({
   section: 'Upload documents',
   title: 'Select the type of document',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
+  pagetitle: '',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_cy,
 });
@@ -28,6 +31,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     sections: generateUploadDocumentList(

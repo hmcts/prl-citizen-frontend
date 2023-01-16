@@ -1,11 +1,12 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 const en = {
   title: 'Postal address',
   addressLine1: 'Building and street',
   addressLine2: 'Address line 2',
   addressLine3: 'Address line 3',
+  pagetitle: '',
   town: 'Town or city',
   country: 'Country',
   postcode: 'Postcode',
@@ -18,6 +19,7 @@ const cy: typeof en = {
   addressLine1: 'Building and street',
   addressLine2: 'Address line 2',
   addressLine3: 'Address line 3',
+  pagetitle: '',
   town: 'Town or city',
   country: 'Country',
   postcode: 'Postcode',
@@ -66,6 +68,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form,

@@ -1,5 +1,9 @@
 {% extends "common/template.njk" %}
 
+{% block pageTitle %}
+  {{ serviceName }}-{{ pagetitle }}-applicant-Select an address-{{ govUk }}
+{% endblock %}
+
 {% block form %}
   {% include "./form.njk"%}
 {% endblock %}

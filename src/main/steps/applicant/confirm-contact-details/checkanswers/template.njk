@@ -1,4 +1,11 @@
 {% extends "common/summary/template.njk" %}
+
+
+{% block pageTitle %}
+  {{ serviceName }}-{{ pagetitle }}-applicant-Check your answers-{{ govUk }}
+{% endblock %}
+
+
 {% block page_content %}
   {% if section %}
     <span class="govuk-heading-l">{{ section }}</span>

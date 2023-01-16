@@ -2,6 +2,7 @@ import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/def
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
+import { typeofcaseuser } from '../../../steps/typeofcaseuserutil';
 import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER } from '../../../steps/urls';
 
 import { applicant_en } from './section-titles';
@@ -22,7 +23,7 @@ const en = () => ({
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
-
+  pagetitle: '',
   viewDocumentBanner: {
     bannerHeading: 'You have a new document to view',
     bannerContent: [
@@ -81,7 +82,7 @@ const cy = () => ({
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
-
+  pagetitle: '',
   viewDocumentBanner: {
     bannerHeading: 'You have a new document to view (in Welsh)',
     bannerContent: [
@@ -140,6 +141,7 @@ export const generateContent: TranslationFn = content => {
   const stages = content.userCase?.caseTypeOfApplication === 'C100' ? [] : buildProgressBarStages(content.userCase!);
   const req: AppRequest = content.additionalData?.req;
   translations.applicantName = getApplicantName(req.session.userCase, req.session.user.id);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     sections: generateApplicantTaskList(

@@ -1,12 +1,13 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 const en = {
   section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
   line1: 'You have told us you want to keep these contact details private:',
   address: 'Home address',
   email: 'Email',
+  pagetitle: '',
   postalAddress: 'Postal address',
   phone: 'Telephone number',
   line2: 'What the court will do',
@@ -21,6 +22,7 @@ const cy: typeof en = {
   line1: 'You have told us you want to keep these contact details private:',
   address: 'Home address',
   email: 'Email',
+  pagetitle: '',
   postalAddress: 'Postal address',
   phone: 'Telephone number',
   line2: 'What the court will do',
@@ -43,6 +45,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form,

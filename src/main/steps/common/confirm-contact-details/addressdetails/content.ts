@@ -1,9 +1,10 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 const en = {
   title: 'Your address',
   citizenUserAddressText: 'address',
+  pagetitle: '',
   continue: 'Save and continue',
   editAddress: 'Edit Address',
   errors: {},
@@ -12,6 +13,7 @@ const en = {
 const cy: typeof en = {
   title: 'Eich cyfeiriad',
   citizenUserAddressText: 'cyfeiriad',
+  pagetitle: '',
   continue: 'Arbed a pharhau',
   editAddress: 'Golygu Cyfeiriad',
   errors: {},
@@ -40,6 +42,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form,

@@ -1,5 +1,9 @@
 {% extends "common/template.njk" %}
 
+{% block pageTitle %}
+  {{ serviceName }}-{{ pagetitle }}-applicant-{{title}}-{{ govUk }}
+{% endblock %}
+
 {% block page_content %}
   <h1 class="govuk-heading-xl">
     <span class="govuk-caption-l">{{section}}</span>

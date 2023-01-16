@@ -1,5 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 
 const emailId = 'example@test.com';
 
@@ -8,6 +9,7 @@ const en = {
   email: emailId,
   continue: 'Continue',
   warning: 'Warning',
+  pagetitle: '',
   warningTxt: 'When you upload a document, it will  be shared with the other people in the case.',
   documentSharedLine1:
     'If there is information that should not be shared, remove it from the document. If this is not possible, do not upload the document. Instead, you can ask  the court to restrict who can see the document. ',
@@ -24,6 +26,7 @@ const cy: typeof en = {
   email: emailId,
   continue: 'Continue',
   warning: 'Warning',
+  pagetitle: '',
   warningTxt: 'When you upload a document, it will  be shared with the other people in the case.',
   documentSharedLine1:
     'If there is information that should not be shared, remove it from the document. If this is not possible, do not upload the document. Instead, you can ask  the court to restrict who can see the document. ',
@@ -50,6 +53,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form,

@@ -1,11 +1,12 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
-
 export const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
+  pagetitle: '',
   sectionTitles: {
     applicationDetails: 'Application details',
   },
@@ -43,6 +44,7 @@ const en = (content: CommonContent) => {
 const cyContent: typeof enContent = {
   section: 'Check your details (Welsh)',
   title: 'Read the information to make sure it is correct, and add any missing details (Welsh)',
+  pagetitle: '',
   sectionTitles: {
     applicationDetails: 'Manylion y cais',
   },
@@ -112,6 +114,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form,

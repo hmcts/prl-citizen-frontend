@@ -1,13 +1,14 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 const en = {
   section: 'Keeping your contact details private',
   title: 'Do the other people named in this application (the applicants) know any of your contact details?',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
+  pagetitle: '',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   continue: 'Continue',
@@ -24,6 +25,7 @@ const cy: typeof en = {
   one: 'Yes',
   two: 'No',
   three: "I don't know",
+  pagetitle: '',
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
   continue: 'Continue',
@@ -70,6 +72,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form,

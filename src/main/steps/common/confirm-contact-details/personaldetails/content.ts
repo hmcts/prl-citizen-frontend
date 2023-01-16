@@ -9,6 +9,7 @@ import {
   isFieldLetters,
   isFutureDate,
 } from '../../../../app/form/validation';
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 
 const en = {
   title: 'Your name and date of birth',
@@ -16,6 +17,7 @@ const en = {
   citizenUserLastNames: 'Your last name',
   previousName: 'Previous name(s), if any (optional)',
   citizenUserPlaceOfBirth: 'Place of birth',
+  pagetitle: '',
   citizenUserDateOfBirth: 'Your date of birth',
   hintDateOfBirth: 'For example - 31 3 1980',
   continue: 'Continue',
@@ -50,6 +52,7 @@ const cy: typeof en = {
   title: 'Eich enw a dyddiad geni',
   citizenUserFirstNames: 'Eich enw cyntaf',
   citizenUserLastNames: 'Eich enw olaf',
+  pagetitle: '',
   previousName: 'Enw(au) blaenorol, os o gwbl (dewisol)',
   citizenUserPlaceOfBirth: 'Man geni',
   citizenUserDateOfBirth: 'Eich dyddiad geni',
@@ -159,6 +162,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase!.caseTypeOfApplication);
   return {
     ...translations,
     form,

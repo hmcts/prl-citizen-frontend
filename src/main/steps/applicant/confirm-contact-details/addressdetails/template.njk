@@ -1,4 +1,9 @@
 {% extends "common/confirm-contact-details/addressdetails/template.njk" %}
+
+{% block pageTitle %}
+  {{ serviceName }}-{{ pagetitle }}-applicant-Address Details-{{ govUk }}
+{% endblock %}
+
 {% block form %}
 <p class="govuk-body govuk-!-font-weight-bold">
 {{ userCase.citizenUserAddressText }}

@@ -1,6 +1,10 @@
 
 {% extends "common/template.njk" %}
 
+{% block pageTitle %}
+  {{ serviceName }}-{{ pagetitle }}-applicant-{{title}}-{{ govUk }}
+{% endblock %}
+
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block page_content %}

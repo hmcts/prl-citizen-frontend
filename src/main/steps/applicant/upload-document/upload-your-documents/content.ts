@@ -3,13 +3,14 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 const en = {
   section: 'Provide the document',
   title: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Continue',
+  pagetitle: '',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
@@ -44,6 +45,7 @@ const cy: typeof en = {
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Continue',
+  pagetitle: '',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
@@ -113,7 +115,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },

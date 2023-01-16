@@ -1,5 +1,9 @@
 {% extends "../../common/dashboard-page.njk" %}
 
+{% block pageTitle %}
+  {{ serviceName }} - Dashboard - {{ govUk }}
+{% endblock %}
+
 {% block page_content %}
   {% if section %}
     <span class="govuk-heading-l">{{ section }}</span>

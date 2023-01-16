@@ -1,12 +1,13 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 const en = {
   title: 'Your contact details',
   citizenUserPhoneNumber: 'UK telephone number',
   citizenUserEmailAddress: 'Email address',
   citizenUserSafeToCall: 'When it is safe to call you (optional)',
+  pagetitle: '',
   safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',
   errors: {
@@ -28,6 +29,7 @@ const cy: typeof en = {
   title: 'Eich manylion cyswllt',
   citizenUserPhoneNumber: 'Rhif ffôn y DU',
   citizenUserEmailAddress: 'Cyfeiriad ebost',
+  pagetitle: '',
   citizenUserSafeToCall: 'When it is safe to call you (optional)',
   safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',
@@ -83,6 +85,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form,

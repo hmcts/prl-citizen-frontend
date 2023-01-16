@@ -3,11 +3,12 @@ import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
-
+//import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 const en = {
   title: 'Have you lived at this address for more than 5 years?',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   explainNoLabel:
     'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
   continue: 'Continue',
@@ -26,6 +27,7 @@ const cy: typeof en = {
   title: 'Have you lived at this address for more than 5 years?',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   explainNoLabel:
     'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
   continue: 'Continue',
@@ -54,6 +56,7 @@ export const form: FormContent = {
 
 export const generateContent = (content: CommonContent): PageContent => ({
   ...languages[content.language],
+  // languages:{...languages[content.language],languages[content.language].pagetitle:typeofcaseuser(content.language,content.userCase?.caseTypeOfApplication)},
   form: { ...form, fields: addressHistoryFields() },
 });
 

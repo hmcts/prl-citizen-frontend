@@ -1,11 +1,12 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-
+import { typeofcaseuser } from '../../../steps/typeofcaseuserutil';
 const en = () => {
   return {
     section: 'All documents',
     title: 'Orders from the court',
     summaryText: 'Contacts for help',
+    pagetitle: '',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -16,6 +17,7 @@ const cy: typeof en = () => {
     section: 'All documents',
     title: 'Orders from the court',
     summaryText: 'Contacts for help',
+    pagetitle: '',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -44,6 +46,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },

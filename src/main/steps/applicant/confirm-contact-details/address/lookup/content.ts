@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
+import { typeofcaseuser } from '../../../../../steps/typeofcaseuserutil';
 import {
   form as addressLookupForm,
   generateContent as addressLookupGenerateContent,
@@ -32,6 +33,7 @@ export const generateContent: TranslationFn = content => {
   const en = () => {
     return {
       ...translations.en,
+      pagetitle: '',
       errors: {
         ...errors.en,
       },
@@ -41,6 +43,7 @@ export const generateContent: TranslationFn = content => {
   const cy = () => {
     return {
       ...translations.cy,
+      pagetitle: '',
       errors: {
         ...errors.cy,
       },
@@ -55,6 +58,7 @@ export const generateContent: TranslationFn = content => {
 
   const addressLookupContent = addressLookupGenerateContent(content);
   const translationContent = languages[content.language]();
+  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
 
   return {
     ...addressLookupContent,
