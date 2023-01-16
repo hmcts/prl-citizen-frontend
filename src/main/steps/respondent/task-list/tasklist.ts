@@ -12,6 +12,7 @@ import {
   getUploadDocuments,
   getViewAllDocuments,
   getViewAllOrdersFromTheCourt,
+  isApplicationResponded,
 } from './utils';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -128,6 +129,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
 
 const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId) => {
   if (userCase?.caseTypeOfApplication === 'C100') {
+    const hasCitizenResponse = isApplicationResponded(userCase);
     return [
       {
         title: sectionTitles.yourResponse,
@@ -136,13 +138,15 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             id: 'respond_to_application',
             text: taskListItems.respond_to_application,
             status: getInternationalFactorsStatus(userCase),
-            href: URL.RESPOND_TO_APPLICATION,
+            href: !hasCitizenResponse ? URL.RESPOND_TO_APPLICATION : null,
+            hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
           {
             id: 'respond_to_allegations_of_harm_and_violence',
             text: taskListItems.respond_to_allegations_of_harm_and_violence,
             status: getInternationalFactorsStatus(userCase),
-            href: URL.INTERNATIONAL_FACTORS_START,
+            href: !hasCitizenResponse ? URL.INTERNATIONAL_FACTORS_START : null,
+            hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
         ],
       },

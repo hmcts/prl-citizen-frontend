@@ -286,3 +286,6 @@ export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userI
   }
   return undefined;
 };
+
+export const isApplicationResponded = (userCase: Partial<CaseWithId>): boolean =>
+  userCase?.citizenResponseC7DocumentList ? userCase.citizenResponseC7DocumentList.length > 0 : false;
