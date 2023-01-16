@@ -1,52 +1,75 @@
-import { CourtHearingEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
-  title: 'I would need to bring support with me to a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need to bring support with me to a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
+  supportWorkerDetails: 'Tell us who you will bring',
   familymember: 'A friend or family member',
+  familyMemberDetails: 'Tell us who you will bring',
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
+  animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
     courtHearing: {
-      required: 'Please select an answer',
+      required: 'Select what help you need to bring support with you to a court hearing',
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+    },
+    supportWorkerProvideDetails: {
+      required: 'Please provide the support worker details',
+    },
+    familyMemberProvideDetails: {
+      required: 'Please provide the family member details',
+    },
+    animalProvideDetails: {
+      required: 'Please provide the therapy animal details',
     },
   },
 };
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
-  title: 'I would need to bring support with me to a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need to bring support with me to a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
+  supportWorkerDetails: 'Tell us who you will bring',
   familymember: 'A friend or family member',
+  familyMemberDetails: 'Tell us who you will bring',
   assistance: 'Assistance / guide dog',
   animal: 'Therapy animal',
+  animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
     courtHearing: {
-      required: 'Please select an answer',
+      required: 'Select what help you need to bring support with you to a court hearing',
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+    },
+    supportWorkerProvideDetails: {
+      required: 'Please provide the support worker details',
+    },
+    familyMemberProvideDetails: {
+      required: 'Please provide the family member details',
+    },
+    animalProvideDetails: {
+      required: 'Please provide the therapy animal details',
     },
   },
 };
@@ -67,32 +90,57 @@ export const form: FormContent = {
         {
           name: 'courtHearing',
           label: l => l.supportworker,
-          value: CourtHearingEnum.supportworker,
+          value: 'support worker or carer',
+          subFields: {
+                      supportWorkerProvideDetails: {
+                        type: 'textarea',
+                        label: l => l.supportWorkerDetails,
+                        attributes: {
+                          rows: 1,
+                        },
+                        labelSize: null,
+                        validator: value => isFieldFilledIn(value),
+                      },
+                    },
         },
         {
           name: 'courtHearing',
           label: l => l.familymember,
-          value: CourtHearingEnum.familymember,
+          value: 'friend or family member',
+          subFields: {
+                      familyMemberProvideDetails: {
+                        type: 'textarea',
+                        label: l => l.familyMemberDetails,
+                        attributes: {
+                          rows: 1,
+                        },
+                        labelSize: null,
+                        validator: value => isFieldFilledIn(value),
+                      },
+                    },
         },
         {
           name: 'courtHearing',
           label: l => l.assistance,
-          value: CourtHearingEnum.assistance,
+          value: 'assistance',
         },
         {
           name: 'courtHearing',
           label: l => l.animal,
-          value: CourtHearingEnum.animal,
+          value: 'animal',
         },
         {
           name: 'courtHearing',
           label: l => l.other,
-          value: CourtHearingEnum.other,
+          value: 'other',
           subFields: {
             communicationSupportOther: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
+              attributes: {
+                              rows: 2,
+                            },
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
@@ -103,7 +151,7 @@ export const form: FormContent = {
         {
           name: 'courtHearing',
           label: l => l.nosupport,
-          value: CourtHearingEnum.nosupport,
+          value: 'no need of support',
           exclusive: true,
         },
       ],

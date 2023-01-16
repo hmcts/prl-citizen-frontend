@@ -17,10 +17,10 @@ const en = {
   continue: 'Continue',
   errors: {
     respondentAttendingToCourt: {
-      required: 'Please select an answer',
+      required: 'Select whether you can take part in a video or phone hearing',
     },
     respondentHearingDetails: {
-      required: 'Please provide the details',
+      required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
 };
@@ -40,10 +40,10 @@ const cy: typeof en = {
   continue: 'Continue',
   errors: {
     respondentAttendingToCourt: {
-      required: 'Please select an answer',
+      required: 'Select whether you can take part in a video or phone hearing',
     },
     respondentHearingDetails: {
-      required: 'Please provide the details',
+      required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
 };

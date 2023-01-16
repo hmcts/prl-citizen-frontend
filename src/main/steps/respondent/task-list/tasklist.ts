@@ -11,6 +11,7 @@ import {
   getKeepYourDetailsPrivateStatus,
   getUploadDocuments,
   getViewAllDocuments,
+  getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
   isApplicationResponded,
 } from './utils';
@@ -53,8 +54,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
         {
           id: 'check_details_of_your_court_hearings',
           text: taskListItems.check_details_of_your_court_hearings,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
+          status: getViewAllHearingsFromTheCourt(userCase),
+          href: URL.RESPONDENT_YOURHEARINGS_HEARINGS,
         },
       ],
     },
@@ -138,7 +139,7 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             id: 'respond_to_application',
             text: taskListItems.respond_to_application,
             status: getInternationalFactorsStatus(userCase),
-            href: !hasCitizenResponse ? URL.RESPOND_TO_APPLICATION : null,
+            href: !hasCitizenResponse ? URL.RESPOND_TO_APPLICATION + '/updateFlag' : null,
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
           {

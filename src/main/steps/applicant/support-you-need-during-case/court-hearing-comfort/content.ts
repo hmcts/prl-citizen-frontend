@@ -1,50 +1,57 @@
-import { CourtComfortEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
-  title: 'I need something to make me feel comfortable during a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need something to feel comfortable during a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
+  appropriateLightingDetails: 'Describe what you need',
   break: 'Regular breaks',
   space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
     courtComfort: {
-      required: 'Please select an answer',
+      required: 'Select what help you need to feel comfortable during a court hearing',
     },
     otherProvideDetails: {
       required: 'Please describe your need in detail',
+    },
+    appropriateLightingProvideDetails: {
+      required: 'Please describe appropriate lighting in detail',
     },
   },
 };
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
-  title: 'I need something to make me feel comfortable during a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need something to feel comfortable during a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
+  appropriateLightingDetails: 'Describe what you need',
   break: 'Regular breaks',
   space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
     courtComfort: {
-      required: 'Please select an answer',
+      required: 'Select what help you need to feel comfortable during a court hearing',
     },
     otherProvideDetails: {
       required: 'Please describe your need in detail',
+    },
+    appropriateLightingProvideDetails: {
+      required: 'Please describe appropriate lighting in detail',
     },
   },
 };
@@ -65,25 +72,39 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.appropriatelighting,
-          value: CourtComfortEnum.appropriatelighting,
+          value: 'appropriate lighting',
+          subFields: {
+                      appropriateLightingProvideDetails: {
+                        type: 'textarea',
+                        attributes: {
+                          rows: 1,
+                        },
+                        label: l => l.appropriateLightingDetails,
+                        labelSize: null,
+                        validator: value => isFieldFilledIn(value),
+                      },
+                    },
         },
         {
           name: 'courtComfort',
           label: l => l.break,
-          value: CourtComfortEnum.breaks,
+          value: 'Regular breaks',
         },
         {
           name: 'courtComfort',
           label: l => l.space,
-          value: CourtComfortEnum.space,
+          value: 'space to move around',
         },
         {
           name: 'courtComfort',
           label: l => l.other,
-          value: CourtComfortEnum.other,
+          value: 'other',
           subFields: {
             otherProvideDetails: {
               type: 'textarea',
+              attributes: {
+                rows: 2,
+              },
               label: l => l.otherDetails,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
@@ -96,7 +117,7 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.nosupport,
-          value: CourtComfortEnum.nosupport,
+          value: 'no need of support',
           exclusive: true,
         },
       ],

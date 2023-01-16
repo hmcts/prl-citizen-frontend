@@ -36,6 +36,18 @@ export const enContent = {
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+    docsSupport: 'I need documents in an alternative format',
+    otherDetails: 'Describe what you need',
+    helpCommunication: 'I need help communicating and understanding',
+    describeOtherNeed: 'Describe what you need',
+    courtHearing: 'I need to bring support with me to a court hearing',
+    communicationSupportOther: 'Describe what you need',
+    courtComfort: 'I need something to make me feel comfortable during a court hearing',
+    otherProvideDetails: 'Describe what you need',
+    travellingToCourt: 'I need help travelling to, or moving around court buildings',
+    travellingOtherDetails: 'Describe what you need',
+    unableForCourtProceedings: 'I need something to make me feel comfortable during a court hearing',
+    courtProceedingProvideDetails: 'Provie details',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',
     safetyArrangementsDetails: 'Describe what you need',
   },
@@ -103,10 +115,21 @@ const cyContent: typeof enContent = {
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+    docsSupport: 'I need documents in an alternative format',
+    otherDetails: 'Describe what you need',
+    helpCommunication: 'I need help communicating and understanding',
+    describeOtherNeed: 'Describe what you need',
+    courtHearing: 'I need to bring support with me to a court hearing',
+    communicationSupportOther: 'Describe what you need',
+    courtComfort: 'I need something to make me feel comfortable during a court hearing',
+    otherProvideDetails: 'Describe what you need',
+    travellingToCourt: 'I need help travelling to, or moving around court buildings',
+    travellingOtherDetails: 'Describe what you need',
+    unableForCourtProceedings: 'I need something to make me feel comfortable during a court hearing',
+    courtProceedingProvideDetails: 'Provie details',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',
     safetyArrangementsDetails: 'Describe what you need',
   },
-
   dependencies: {
     languageDetails: {
       dependantOn: 'languageRequirements',
@@ -158,7 +181,6 @@ const urls = {
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
-
   return {
     ...cyContent,
     language: content.language,
@@ -293,9 +315,6 @@ function deleteUnableForCourtProceedingsFields(userCase: Partial<CaseWithId>) {
 
   delete urls['unableForCourtProceedings'];
   delete urls['courtProceedingProvideDetails'];
-
-  delete enContent.keys['unableForCourtProceedings'];
-  delete enContent.keys['courtProceedingProvideDetails'];
 }
 
 function deleteTravellingToCourtFields(userCase: Partial<CaseWithId>) {
@@ -304,8 +323,6 @@ function deleteTravellingToCourtFields(userCase: Partial<CaseWithId>) {
   delete urls['travellingToCourt'];
   delete urls['travellingOtherDetails'];
 
-  delete enContent.keys['travellingToCourt'];
-  delete enContent.keys['travellingOtherDetails'];
 }
 
 function deleteCourtComfortFields(userCase: Partial<CaseWithId>) {
@@ -314,8 +331,6 @@ function deleteCourtComfortFields(userCase: Partial<CaseWithId>) {
   delete urls['courtComfort'];
   delete urls['otherProvideDetails'];
 
-  delete enContent.keys['courtComfort'];
-  delete enContent.keys['otherProvideDetails'];
 }
 
 function deleteCourtHearingFields(userCase: Partial<CaseWithId>) {
@@ -323,9 +338,6 @@ function deleteCourtHearingFields(userCase: Partial<CaseWithId>) {
 
   delete urls['courtHearing'];
   delete urls['communicationSupportOther'];
-
-  delete enContent.keys['coucourtHearingrtComfort'];
-  delete enContent.keys['communicationSupportOther'];
 }
 
 function deleteHelpCommunicationFields(userCase: Partial<CaseWithId>) {
@@ -333,9 +345,6 @@ function deleteHelpCommunicationFields(userCase: Partial<CaseWithId>) {
 
   delete urls['helpCommunication'];
   delete urls['describeOtherNeed'];
-
-  delete enContent.keys['helpCommunication'];
-  delete enContent.keys['describeOtherNeed'];
 }
 
 function deleteLanguageRequirementsFields(userCase: Partial<CaseWithId>) {
@@ -347,7 +356,4 @@ function deleteDocsSupportFields(userCase: Partial<CaseWithId>) {
 
   delete urls['docsSupport'];
   delete urls['otherDetails'];
-
-  delete enContent.keys['docsSupport'];
-  delete enContent.keys['otherDetails'];
 }
