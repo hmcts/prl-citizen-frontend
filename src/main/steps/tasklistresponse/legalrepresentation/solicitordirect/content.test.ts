@@ -28,7 +28,7 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Transfer your case to your legal representative - welsh',
+  title: "Trosglwyddo eich achos i'ch cynrychiolydd cyfreithiol",
   line1: 'To transfer your case to your legal representative, provide them with your Case number. - welsh',
   line2:
     "Once your case is passed to your representative, you won't be able to edit your response. They will handle your case and receive any updates from the court. - welsh",
