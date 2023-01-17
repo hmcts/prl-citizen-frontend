@@ -155,17 +155,13 @@ describe('respondent1Sequence', () => {
       '/tasklistresponse/support-you-need-during-case/language-requirements'
     );
 
-    expect(responseCaseSequence[38].url).toBe(
-      '/tasklistresponse/support-you-need-during-case/language-requirements'
-    );
+    expect(responseCaseSequence[38].url).toBe('/tasklistresponse/support-you-need-during-case/language-requirements');
     expect(responseCaseSequence[38].showInSection).toBe('aboutCaAndDaRespondentCase');
     expect(responseCaseSequence[38].getNextStep({})).toBe(
       '/tasklistresponse/support-you-need-during-case/special-arrangements'
     );
 
-    expect(responseCaseSequence[39].url).toBe(
-      '/tasklistresponse/support-you-need-during-case/special-arrangements'
-    );
+    expect(responseCaseSequence[39].url).toBe('/tasklistresponse/support-you-need-during-case/special-arrangements');
     expect(responseCaseSequence[39].showInSection).toBe('aboutCaAndDaRespondentCase');
     expect(responseCaseSequence[39].getNextStep({})).toBe(
       '/tasklistresponse/support-you-need-during-case/reasonable-adjustments'

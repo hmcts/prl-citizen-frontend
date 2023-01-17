@@ -322,7 +322,6 @@ function deleteTravellingToCourtFields(userCase: Partial<CaseWithId>) {
 
   delete urls['travellingToCourt'];
   delete urls['travellingOtherDetails'];
-
 }
 
 function deleteCourtComfortFields(userCase: Partial<CaseWithId>) {
@@ -330,7 +329,6 @@ function deleteCourtComfortFields(userCase: Partial<CaseWithId>) {
 
   delete urls['courtComfort'];
   delete urls['otherProvideDetails'];
-
 }
 
 function deleteCourtHearingFields(userCase: Partial<CaseWithId>) {

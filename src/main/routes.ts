@@ -259,9 +259,9 @@ export class Routes {
           errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
         );
         app.get(
-                  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
-                  errorHandler(new SafetyConcernsPostController(step.form.fields).post)
-                );
+          C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
+          errorHandler(new SafetyConcernsPostController(step.form.fields).post)
+        );
       }
     }
     /**

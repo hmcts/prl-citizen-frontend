@@ -1,4 +1,4 @@
-import { HelpCommunicationEnum } from 'app/case/definition';
+import { HelpCommunicationEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -118,17 +118,17 @@ export const form: FormContent = {
           name: 'helpCommunication',
           label: l => l.signlanguage,
           value: HelpCommunicationEnum.signlanguage,
-           subFields: {
-                      describeSignLanguageDetails: {
-                        type: 'textarea',
-                        attributes: {
-                          rows: 1,
-                        },
-                        label: l => l.signLanguageDetails,
-                        labelSize: null,
-                        validator: value => isFieldFilledIn(value),
-                      },
-                    },
+          subFields: {
+            describeSignLanguageDetails: {
+              type: 'textarea',
+              attributes: {
+                rows: 1,
+              },
+              label: l => l.signLanguageDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value),
+            },
+          },
         },
         {
           name: 'helpCommunication',

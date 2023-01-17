@@ -74,16 +74,16 @@ export const form: FormContent = {
           label: l => l.appropriatelighting,
           value: 'appropriate lighting',
           subFields: {
-                      appropriateLightingProvideDetails: {
-                        type: 'textarea',
-                        attributes: {
-                          rows: 1,
-                        },
-                        label: l => l.appropriateLightingDetails,
-                        labelSize: null,
-                        validator: value => isFieldFilledIn(value),
-                      },
-                    },
+            appropriateLightingProvideDetails: {
+              type: 'textarea',
+              attributes: {
+                rows: 1,
+              },
+              label: l => l.appropriateLightingDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value),
+            },
+          },
         },
         {
           name: 'courtComfort',

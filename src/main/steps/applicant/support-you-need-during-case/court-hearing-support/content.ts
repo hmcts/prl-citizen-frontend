@@ -92,32 +92,32 @@ export const form: FormContent = {
           label: l => l.supportworker,
           value: 'support worker or carer',
           subFields: {
-                      supportWorkerProvideDetails: {
-                        type: 'textarea',
-                        label: l => l.supportWorkerDetails,
-                        attributes: {
-                          rows: 1,
-                        },
-                        labelSize: null,
-                        validator: value => isFieldFilledIn(value),
-                      },
-                    },
+            supportWorkerProvideDetails: {
+              type: 'textarea',
+              label: l => l.supportWorkerDetails,
+              attributes: {
+                rows: 1,
+              },
+              labelSize: null,
+              validator: value => isFieldFilledIn(value),
+            },
+          },
         },
         {
           name: 'courtHearing',
           label: l => l.familymember,
           value: 'friend or family member',
           subFields: {
-                      familyMemberProvideDetails: {
-                        type: 'textarea',
-                        label: l => l.familyMemberDetails,
-                        attributes: {
-                          rows: 1,
-                        },
-                        labelSize: null,
-                        validator: value => isFieldFilledIn(value),
-                      },
-                    },
+            familyMemberProvideDetails: {
+              type: 'textarea',
+              label: l => l.familyMemberDetails,
+              attributes: {
+                rows: 1,
+              },
+              labelSize: null,
+              validator: value => isFieldFilledIn(value),
+            },
+          },
         },
         {
           name: 'courtHearing',
@@ -139,8 +139,8 @@ export const form: FormContent = {
               label: l => l.otherDetails,
               labelSize: null,
               attributes: {
-                              rows: 2,
-                            },
+                rows: 2,
+              },
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },

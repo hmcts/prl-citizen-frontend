@@ -150,8 +150,8 @@ export const form: FormContent = {
               label: l => l.otherDetails,
               labelSize: null,
               attributes: {
-                              rows: 2,
-                            },
+                rows: 2,
+              },
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
