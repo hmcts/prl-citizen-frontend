@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { State } from '../../../app/case/definition';
 import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
@@ -13,8 +14,11 @@ import {
 } from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+  const isCaseClosed = userCase.state === State.ALL_FINAL_ORDERS_ISSUED;
+
   return [
-    {
+    !isCaseClosed
+      ? {
       title: sectionTitles.applicantYourDetails,
       items: [
         {
@@ -36,12 +40,12 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           href: URL.APPLICANT_ATTENDING_THE_COURT,
         },
       ],
-    },
+    } : null,
     {
       title: sectionTitles.yourApplication,
       items: [...getTheApplication(taskListItems, userCase)],
     },
-    ...getYourResponse(sectionTitles, taskListItems, userCase, userIdamId),
+    ...(!isCaseClosed ? getYourResponse(sectionTitles, taskListItems, userCase, userIdamId) : []),
     {
       title: sectionTitles.courtHearings,
       items: [
@@ -62,12 +66,14 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           status: getUploadDocuments(),
           href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
         },
-        {
-          id: 'view-all-documents',
-          text: taskListItems.view_all_documents,
-          status: getViewAllDocuments(),
-          href: URL.APPLICANT_VIEW_ALL_DOCUMENTS,
-        },
+        !isCaseClosed
+          ? {
+              id: 'view-all-documents',
+              text: taskListItems.view_all_documents,
+              status: getViewAllDocuments(),
+              href: URL.APPLICANT_VIEW_ALL_DOCUMENTS,
+            }
+          : null,
       ],
     },
     {
