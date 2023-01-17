@@ -3,37 +3,7 @@
 
 import { CaseWithId } from '../../../../app/case/case';
 import { PageContent } from '../../../../app/controller/GetController';
-interface GovUkNunjucksSummary {
-  key: {
-    text?: string;
-    html?: string;
-    classes?: string;
-  };
-  value: {
-    text?: string;
-    html?: string;
-  };
-  actions?: {
-    items?: [
-      {
-        href: string;
-        text: string;
-        visuallyHiddenText: string;
-      }
-    ];
-  };
-  classes?: string;
-}
-
-interface SummaryListRow {
-  key?: string;
-  keyHtml?: string;
-  value?: string;
-  valueHtml?: string;
-  changeUrl?: string;
-  classes?: string;
-}
-
+import { GovUkNunjucksSummary, SummaryListRow } from '../../summary/utils';
 export interface SummaryList {
   title: string;
   rows: GovUkNunjucksSummary[];

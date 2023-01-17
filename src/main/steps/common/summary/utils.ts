@@ -8,7 +8,7 @@ import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
-interface GovUkNunjucksSummary {
+export interface GovUkNunjucksSummary {
   key: {
     text?: string;
     html?: string;
@@ -30,7 +30,7 @@ interface GovUkNunjucksSummary {
   classes?: string;
 }
 
-interface SummaryListRow {
+export interface SummaryListRow {
   key?: string;
   keyHtml?: string;
   value?: string;
