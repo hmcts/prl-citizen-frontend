@@ -19,28 +19,29 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
   return [
     !isCaseClosed
       ? {
-      title: sectionTitles.applicantYourDetails,
-      items: [
-        {
-          id: 'keep-your-details-private',
-          text: taskListItems.keep_your_details_private,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-          href: URL.APPLICANT_DETAILS_KNOWN + '/' + userCase.id,
-        },
-        {
-          id: 'confirm-or-edit-your-contact-details',
-          text: taskListItems.confirm_or_edit_your_contact_details,
-          status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
-          href: URL.APPLICANT_CHECK_ANSWERS + '/' + userCase.id,
-        },
-        {
-          id: 'support-you-need-during-your-case',
-          text: taskListItems.support_you_need_during_your_case,
-          status: getSupportYourNeedsDetails(userCase),
-          href: URL.APPLICANT_ATTENDING_THE_COURT,
-        },
-      ],
-    } : null,
+          title: sectionTitles.applicantYourDetails,
+          items: [
+            {
+              id: 'keep-your-details-private',
+              text: taskListItems.keep_your_details_private,
+              status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+              href: URL.APPLICANT_DETAILS_KNOWN + '/' + userCase.id,
+            },
+            {
+              id: 'confirm-or-edit-your-contact-details',
+              text: taskListItems.confirm_or_edit_your_contact_details,
+              status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
+              href: URL.APPLICANT_CHECK_ANSWERS + '/' + userCase.id,
+            },
+            {
+              id: 'support-you-need-during-your-case',
+              text: taskListItems.support_you_need_during_your_case,
+              status: getSupportYourNeedsDetails(userCase),
+              href: URL.APPLICANT_ATTENDING_THE_COURT,
+            },
+          ],
+        }
+      : null,
     {
       title: sectionTitles.yourApplication,
       items: [...getTheApplication(taskListItems, userCase)],
