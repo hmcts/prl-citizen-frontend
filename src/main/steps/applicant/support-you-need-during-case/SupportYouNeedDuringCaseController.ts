@@ -9,7 +9,7 @@ import { AnyObject, PostController } from '../../../app/controller/PostControlle
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
-import { setSupportDetailsApplicant, setSupportDetailsRespondent } from './SupportYouNeedDuringYourCaseService';
+import { setSupportDetails } from './SupportYouNeedDuringYourCaseService';
 @autobind
 export class SupportYouNeedDuringYourCaseController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -29,7 +29,7 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
         req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
           if (respondent?.value?.user?.idamId === req.session?.user.id) {
             if (req.url.includes('support-you-need-during-case')) {
-              setSupportDetailsRespondent(respondent, req);
+              setSupportDetails(respondent, req);
             }
           }
         });
@@ -37,12 +37,14 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
         req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
           if (applicant?.value?.user?.idamId === req.session?.user.id) {
             if (req.url.includes('support-you-need-during-case')) {
-              setSupportDetailsApplicant(applicant, req);
+              setSupportDetails(applicant, req);
             }
           }
         });
       }
 
+      console.log("UserCase=====>" + JSON.stringify(req.session.userCase));
+      
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = caseReference;
       const updatedCaseDataFromCos = await client.updateCase(
