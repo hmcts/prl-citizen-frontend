@@ -8,12 +8,12 @@ describe('service-type content', () => {
   const commonContent = { language: 'en', userCaseList: [{}, {}] } as CommonContent;
   test('should return correct english content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'en' });
-    expect(generatedContent.title).toEqual('Your private law account');
+    expect(generatedContent.title).toEqual('Child arrangements and family injunction cases');
   });
 
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.title).toEqual('Eich cyfrif cyfraith breifat');
+    expect(generatedContent.title).toEqual('Child arrangements and family injunction cases (in welsh)');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
