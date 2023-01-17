@@ -147,15 +147,15 @@ export interface ReasonableAdjustmentsSupport {
   //respondent support you need
   attendingToCourt?: string[],
   hearingDetails?: string,
-  respondentSignLanguageDetails?: string,
-  respondentLightingDetails?: string,
-  respondentSupportWorkerDetails?: string,
-  respondentFamilyDetails?: string,
-  respondentTherapyDetails?: string,
-  respondentDocsDetails?: string,
-  respondentLargePrintDetails?: string,
-  respondentParkingDetails?: string,
-  respondentDifferentChairDetails?: string,
+  signLanguageDetails?: string,
+  lightingDetails?: string,
+  supportWorkerDetails?: string,
+  familyProviderDetails?: string,
+  therapyDetails?: string,
+  docsDetails?: string,
+  largePrintDetails?: string,
+  parkingDetails?: string,
+  differentChairDetails?: string,
 }
 
 export const enum TravellingToCourtEnum {

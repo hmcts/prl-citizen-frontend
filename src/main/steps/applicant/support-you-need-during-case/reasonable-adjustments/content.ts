@@ -108,12 +108,6 @@ export const form: FormContent = {
           value: ReasonableAdjustmentsEnum.travellinghelp,
         },
         {
-          name: 'reasonableAdjustments',
-          label: l => l.unabletotakecourtproceedings,
-          hint: l => l.unabletotakecourtproceedingshint,
-          value: ReasonableAdjustmentsEnum.unabletotakecourtproceedings,
-        },
-        {
           divider: true,
         },
         {

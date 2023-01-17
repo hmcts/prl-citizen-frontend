@@ -4,23 +4,40 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 export const setSupportDetailsApplicant = (applicant: Applicant, req: AppRequest): Respondent => {
   applicant.value.response = {
     supportYouNeed: {
-      communicationSupportOther: req.session.userCase?.communicationSupportOther,
-      courtComfort: req.session.userCase?.courtComfort,
-      courtHearing: req.session.userCase?.courtHearing,
-      courtProceedingProvideDetails: req.session.userCase?.courtProceedingProvideDetails,
-      describeOtherNeed: req.session.userCase?.describeOtherNeed,
-      docsSupport: req.session.userCase.docsSupport,
+      attendingToCourt: req.session.userCase?.attendingToCourt,
+      hearingDetails: req.session.userCase?.hearingDetails,
+
       helpCommunication: req.session.userCase?.helpCommunication,
-      languageDetails: req.session.userCase?.languageDetails,
-      otherDetails: req.session.userCase.otherDetails,
+      describeOtherNeed: req.session.userCase?.describeOtherNeed,
+      signLanguageDetails: req.session.userCase?.describeSignLanguageDetails,
+
+      courtComfort: req.session.userCase?.courtComfort,
+      lightingDetails: req.session.userCase?.lightingProvideDetails,
       otherProvideDetails: req.session.userCase?.otherProvideDetails,
-      unableForCourtProceedings: req.session.userCase?.unableForCourtProceedings,
-      reasonableAdjustments: req.session.userCase.reasonableAdjustments,
+
+      courtHearing: req.session.userCase?.courtHearing,
+      supportWorkerDetails: req.session.userCase?.supportWorkerDetails,
+      therapyDetails: req.session.userCase.therapyDetails,
+      familyProviderDetails: req.session.userCase?.familyProviderDetails,
+      communicationSupportOther: req.session.userCase?.communicationSupportOther,
+
+      docsSupport: req.session.userCase.docsSupport,
+      docsDetails: req.session.userCase.docsDetails,
+      largePrintDetails: req.session.userCase.largePrintDetails,
+      otherDetails: req.session.userCase.otherDetails,
+
       languageRequirements: req.session.userCase.languageRequirements,
+      languageDetails: req.session.userCase?.languageDetails,
+
+      reasonableAdjustments: req.session.userCase.reasonableAdjustments,
+
       safetyArrangements: req.session.userCase.safetyArrangements,
       safetyArrangementsDetails: req.session.userCase.safetyArrangementsDetails,
-      travellingOtherDetails: req.session.userCase.travellingOtherDetails,
+
       travellingToCourt: req.session.userCase.travellingToCourt,
+      parkingDetails: req.session.userCase.parkingDetails,
+      differentChairDetails: req.session.userCase.differentChairDetails,
+      travellingOtherDetails: req.session.userCase.travellingOtherDetails,
     },
   };
   return applicant;
@@ -29,32 +46,40 @@ export const setSupportDetailsApplicant = (applicant: Applicant, req: AppRequest
 export const setSupportDetailsRespondent = (respondent: Respondent, req: AppRequest): Respondent => {
   respondent.value.response = {
     supportYouNeed: {
-      docsSupport: req.session.userCase.respondentDocsSupport,
-      respondentDocsDetails: req.session.userCase.respondentDocsDetails,
-      respondentLargePrintDetails: req.session.userCase.respondentLargePrintDetails,
-      otherDetails: req.session.userCase.respondentOtherDetails,
-      languageDetails: req.session.userCase?.respondentLangDetails,
-      languageRequirements: req.session.userCase.respondentLangRequirements,
-      reasonableAdjustments: req.session.userCase.respondentReasonableAdjustments,
+      attendingToCourt: req.session.userCase.attendingToCourt,
+      hearingDetails: req.session.userCase.hearingDetails,
+
+      helpCommunication: req.session.userCase?.helpCommunication,
+      signLanguageDetails: req.session.userCase.describeSignLanguageDetails,
+      describeOtherNeed: req.session.userCase?.describeOtherNeed,
+
+      courtComfort: req.session.userCase?.courtComfort,
+      lightingDetails: req.session.userCase?.lightingProvideDetails,
+      otherProvideDetails: req.session.userCase?.otherProvideDetails,
+
+      courtHearing: req.session.userCase?.courtHearing,
+      supportWorkerDetails: req.session.userCase?.supportWorkerDetails,
+      familyProviderDetails: req.session.userCase?.familyProviderDetails,
+      therapyDetails: req.session.userCase.therapyDetails,
+      communicationSupportOther: req.session.userCase?.communicationSupportOther,
+
+      docsSupport: req.session.userCase.docsSupport,
+      docsDetails: req.session.userCase.docsDetails,
+      largePrintDetails: req.session.userCase.largePrintDetails,
+      otherDetails: req.session.userCase.otherDetails,
+
+      languageRequirements: req.session.userCase.languageRequirements,
+      languageDetails: req.session.userCase?.languageDetails,
+
+      reasonableAdjustments: req.session.userCase.reasonableAdjustments,
+
+      safetyArrangements: req.session.userCase.safetyArrangements,
+      safetyArrangementsDetails: req.session.userCase.safetyArrangementsDetails,
+
+      travellingToCourt: req.session.userCase.travellingToCourt,
+      parkingDetails: req.session.userCase.parkingDetails,
+      differentChairDetails: req.session.userCase.differentChairDetails,
       travellingOtherDetails: req.session.userCase.respondentTravellingOtherDetails,
-      travellingToCourt: req.session.userCase.respondentTravellingToCourt,
-      respondentDifferentChairDetails: req.session.userCase.respondentDifferentChairDetails,
-      respondentParkingDetails: req.session.userCase.respondentParkingDetails,
-      respondentTherapyDetails: req.session.userCase.respondentTherapyDetails,
-      attendingToCourt: req.session.userCase.respondentAttendingToCourt,
-      hearingDetails: req.session.userCase.respondentHearingDetails,
-      helpCommunication: req.session.userCase?.respondentHelpCommunication,
-      communicationSupportOther: req.session.userCase?.respondentCommSupportOther,
-      respondentSignLanguageDetails: req.session.userCase.respondentSignLanguageDetails,
-      courtComfort: req.session.userCase?.respondentCourtComfort,
-      otherProvideDetails: req.session.userCase?.respondentOtherProvideDetails,
-      respondentLightingDetails: req.session.userCase?.respondentLightingDetails,
-      courtHearing: req.session.userCase?.respondentCourtHearing,
-      respondentSupportWorkerDetails: req.session.userCase?.respondentSupportWorkerDetails,
-      respondentFamilyDetails: req.session.userCase?.respondentFamilyDetails,
-      describeOtherNeed: req.session.userCase?.respondentDescribeOtherNeed,
-      safetyArrangements: req.session.userCase.respondentSpecialArrangements,
-      safetyArrangementsDetails: req.session.userCase.respondentSpecialArrangementsDetails,
     },
   };
   return respondent;

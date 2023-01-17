@@ -14,7 +14,7 @@ const dummyRequest = mockRequest({
   query: {},
   session: {
     userCase: {
-      respondentReasonableAdjustments: [
+      reasonableAdjustments: [
         'document format',
         'comminication help',
         'hearing support',
@@ -51,7 +51,7 @@ describe('ReasonableAdjustmentsNavigationController', () => {
       query: {},
       session: {
         userCase: {
-          respondentReasonableAdjustments: ['document format', 'hearing comfort'],
+          reasonableAdjustments: ['document format', 'hearing comfort'],
         },
       },
     });

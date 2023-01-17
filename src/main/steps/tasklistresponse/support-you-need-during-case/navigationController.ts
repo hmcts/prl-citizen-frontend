@@ -61,7 +61,7 @@ class ReasonableAdjustmentsNavigationController {
   }
 
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>): PageLink {
-    this.selectedPages = caseData.respondentReasonableAdjustments;
+    this.selectedPages = caseData.reasonableAdjustments;
 
     let url: PageLink;
 

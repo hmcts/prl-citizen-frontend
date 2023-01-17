@@ -23,7 +23,7 @@ const en = {
     otherProvideDetails: {
       required: 'Please describe your need in detail',
     },
-    appropriateLightingProvideDetails: {
+    lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
     },
   },
@@ -50,7 +50,7 @@ const cy: typeof en = {
     otherProvideDetails: {
       required: 'Please describe your need in detail',
     },
-    appropriateLightingProvideDetails: {
+    lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
     },
   },
@@ -74,7 +74,7 @@ export const form: FormContent = {
           label: l => l.appropriatelighting,
           value: 'appropriate lighting',
           subFields: {
-            appropriateLightingProvideDetails: {
+            lightingProvideDetails: {
               type: 'textarea',
               attributes: {
                 rows: 1,

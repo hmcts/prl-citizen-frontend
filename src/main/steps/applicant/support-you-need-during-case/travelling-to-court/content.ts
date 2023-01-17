@@ -26,6 +26,12 @@ const en = {
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
+    parkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    differentChairDetails: {
+      required: 'Please describe different chair details',
+    },
   },
 };
 
@@ -52,6 +58,12 @@ const cy: typeof en = {
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
+    parkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    differentChairDetails: {
+      required: 'Please describe different chair details',
+    },
   },
 };
 
@@ -72,6 +84,14 @@ export const form: FormContent = {
           name: 'travellingToCourt',
           label: l => l.parkingspace,
           value: TravellingToCourtEnum.parkingspace,
+          subFields: {
+            parkingDetails: {
+              type: 'textarea',
+              label: l => l.parkingSpaceDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'travellingToCourt',
@@ -97,6 +117,15 @@ export const form: FormContent = {
           name: 'travellingToCourt',
           label: l => l.differentchair,
           value: TravellingToCourtEnum.differentchair,
+          subFields: {
+            differentChairDetails: {
+              type: 'textarea',
+              label: l => l.differentChairDetails,
+              hint: l => l.differentChairDetailsHint,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'travellingToCourt',

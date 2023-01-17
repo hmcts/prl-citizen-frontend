@@ -24,98 +24,98 @@ export const enContent = {
     aboutYou: 'About you',
   },
   keys: {
-    respondentAttendingToCourt: 'Would you be able to take part in hearings by video and phone?',
-    respondentHearingDetails: 'Please provide the details',
-    respondentLangRequirements: 'Do you have any language requirements?',
-    respondentLangDetails: 'Please provide language details',
-    respondentSpecialArrangements: 'Do you or the children need special safety arrangements at court?',
-    respondentSpecialArrangementsDetails: 'Please describe your need in detail',
-    respondentReasonableAdjustments:
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
+    languageRequirements: 'Do you have any language requirements?',
+    languageDetails: 'Please provide language details',
+    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
+    safetyArrangementsDetails: 'Please describe your need in detail',
+    reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
   },
   dependencies: {
-    respondentHearingDetails: {
-      dependentOn: 'respondentAttendingToCourt',
+    hearingDetails: {
+      dependentOn: 'attendingToCourt',
       value: 'no hearings',
       display: true,
     },
-    respondentLangDetails: {
-      dependentOn: 'respondentLangRequirements',
+    languageDetails: {
+      dependentOn: 'languageRequirements',
       value: 'I need an interpreter in a certain language',
       display: true,
     },
-    respondentSpecialArrangementsDetails: {
-      dependentOn: 'respondentSpecialArrangements',
+    safetyArrangementsDetails: {
+      dependentOn: 'safetyArrangements',
       value: 'other',
       display: true,
     },
-    respondentDocsDetails: {
-      dependentOn: 'respondentDocsSupport',
+    docsDetails: {
+      dependentOn: 'docsSupport',
       value: 'Documents in colour print',
       display: true,
     },
-    respondentLargePrintDetails: {
-      dependentOn: 'respondentDocsSupport',
+    largePrintDetails: {
+      dependentOn: 'docsSupport',
       value: 'Large print documents',
       display: true,
     },
-    respondentOtherDetails: {
-      dependentOn: 'respondentDocsSupport',
+    otherDetails: {
+      dependentOn: 'docsSupport',
       value: 'other',
       display: true,
     },
-    respondentSignLanguageDetails: {
-      dependentOn: 'respondentHelpCommunication',
+    describeSignLanguageDetails: {
+      dependentOn: 'helpCommunication',
       value: 'sign language interpreter',
       display: true,
     },
-    respondentDescribeOtherNeed: {
-      dependentOn: 'respondentHelpCommunication',
+    describeOtherNeed: {
+      dependentOn: 'helpCommunication',
       value: 'Other',
       display: true,
     },
-    respondentSupportWorkerDetails: {
-      dependentOn: 'respondentCourtHearing',
+    supportWorkerDetails: {
+      dependentOn: 'courtHearing',
       value: 'support worker or carer',
       display: true,
     },
-    respondentFamilyDetails: {
-      dependentOn: 'respondentCourtHearing',
+    familyProviderDetails: {
+      dependentOn: 'courtHearing',
       value: 'friend or family member',
       display: true,
     },
-    respondentTherapyDetails: {
-      dependentOn: 'respondentCourtHearing',
+    therapyDetails: {
+      dependentOn: 'courtHearing',
       value: 'animal',
       display: true,
     },
-    respondentCommSupportOther: {
-      dependentOn: 'respondentCourtHearing',
+    communicationSupportOther: {
+      dependentOn: 'courtHearing',
       value: 'other',
       display: true,
     },
-    respondentLightingDetails: {
-      dependentOn: 'respondentCourtComfort',
+    lightingProvideDetails: {
+      dependentOn: 'courtComfort',
       value: 'appropriate lighting',
       display: true,
     },
-    respondentOtherProvideDetails: {
-      dependentOn: 'respondentCourtComfort',
+    otherProvideDetails: {
+      dependentOn: 'courtComfort',
       value: 'Other',
       display: true,
     },
-    respondentParkingDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    parkingDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'parking space close to the venue',
       display: true,
     },
-    respondentDifferentChairDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    differentChairDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'a different type of chair',
       display: true,
     },
     respondentTravellingOtherDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+      dependentOn: 'travellingToCourt',
       value: 'Other',
       display: true,
     },
@@ -142,98 +142,98 @@ const cyContent: typeof enContent = {
     aboutYou: 'About you',
   },
   keys: {
-    respondentAttendingToCourt: 'Would you be able to take part in hearings by video and phone?',
-    respondentHearingDetails: 'Please provide the details',
-    respondentLangRequirements: 'Do you have any language requirements?',
-    respondentLangDetails: 'Please provide language details',
-    respondentSpecialArrangements: 'Do you or the children need special safety arrangements at court?',
-    respondentSpecialArrangementsDetails: 'Please describe your need in detail',
-    respondentReasonableAdjustments:
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
+    languageRequirements: 'Do you have any language requirements?',
+    languageDetails: 'Please provide language details',
+    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
+    safetyArrangementsDetails: 'Please describe your need in detail',
+    reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
   },
   dependencies: {
-    respondentHearingDetails: {
-      dependentOn: 'respondentAttendingToCourt',
+    hearingDetails: {
+      dependentOn: 'attendingToCourt',
       value: 'no hearings',
       display: true,
     },
-    respondentLangDetails: {
-      dependentOn: 'respondentLangRequirements',
+    languageDetails: {
+      dependentOn: 'languageRequirements',
       value: 'I need an interpreter in a certain language',
       display: true,
     },
-    respondentSpecialArrangementsDetails: {
-      dependentOn: 'respondentSpecialArrangements',
+    safetyArrangementsDetails: {
+      dependentOn: 'safetyArrangements',
       value: 'other',
       display: true,
     },
-    respondentDocsDetails: {
-      dependentOn: 'respondentDocsSupport',
+    docsDetails: {
+      dependentOn: 'docsSupport',
       value: 'Documents in colour print',
       display: true,
     },
-    respondentLargePrintDetails: {
-      dependentOn: 'respondentDocsSupport',
+    largePrintDetails: {
+      dependentOn: 'docsSupport',
       value: 'Large print documents',
       display: true,
     },
-    respondentOtherDetails: {
-      dependentOn: 'respondentDocsSupport',
+    otherDetails: {
+      dependentOn: 'docsSupport',
       value: 'other',
       display: true,
     },
-    respondentSignLanguageDetails: {
-      dependentOn: 'respondentHelpCommunication',
+    describeSignLanguageDetails: {
+      dependentOn: 'helpCommunication',
       value: 'sign language interpreter',
       display: true,
     },
-    respondentDescribeOtherNeed: {
-      dependentOn: 'respondentHelpCommunication',
+    describeOtherNeed: {
+      dependentOn: 'helpCommunication',
       value: 'Other',
       display: true,
     },
-    respondentSupportWorkerDetails: {
-      dependentOn: 'respondentCourtHearing',
+    supportWorkerDetails: {
+      dependentOn: 'courtHearing',
       value: 'support worker or carer',
       display: true,
     },
-    respondentFamilyDetails: {
-      dependentOn: 'respondentCourtHearing',
+    familyProviderDetails: {
+      dependentOn: 'courtHearing',
       value: 'friend or family member',
       display: true,
     },
-    respondentTherapyDetails: {
-      dependentOn: 'respondentCourtHearing',
+    therapyDetails: {
+      dependentOn: 'courtHearing',
       value: 'animal',
       display: true,
     },
-    respondentCommSupportOther: {
-      dependentOn: 'respondentCourtHearing',
+    communicationSupportOther: {
+      dependentOn: 'courtHearing',
       value: 'other',
       display: true,
     },
-    respondentLightingDetails: {
-      dependentOn: 'respondentCourtComfort',
+    lightingProvideDetails: {
+      dependentOn: 'courtComfort',
       value: 'appropriate lighting',
       display: true,
     },
-    respondentOtherProvideDetails: {
-      dependentOn: 'respondentCourtComfort',
+    otherProvideDetails: {
+      dependentOn: 'courtComfort',
       value: 'Other',
       display: true,
     },
-    respondentParkingDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    parkingDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'parking space close to the venue',
       display: true,
     },
-    respondentDifferentChairDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    differentChairDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'a different type of chair',
       display: true,
     },
     respondentTravellingOtherDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+      dependentOn: 'travellingToCourt',
       value: 'Other',
       display: true,
     },
@@ -242,13 +242,13 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  respondentAttendingToCourt: CA_DA_ATTENDING_THE_COURT,
-  respondentHearingDetails: CA_DA_ATTENDING_THE_COURT,
-  respondentLangRequirements: CA_DA_LANGUAGE_REQUIREMENTS,
-  respondentLangDetails: CA_DA_LANGUAGE_REQUIREMENTS,
-  respondentSpecialArrangements: CA_DA_SPECIAL_ARRANGEMENTS,
-  respondentSpecialArrangementsDetails: CA_DA_SPECIAL_ARRANGEMENTS,
-  respondentReasonableAdjustments: CA_DA_REASONABLE_ADJUSTMENTS,
+  attendingToCourt: CA_DA_ATTENDING_THE_COURT,
+  hearingDetails: CA_DA_ATTENDING_THE_COURT,
+  languageRequirements: CA_DA_LANGUAGE_REQUIREMENTS,
+  languageDetails: CA_DA_LANGUAGE_REQUIREMENTS,
+  safetyArrangements: CA_DA_SPECIAL_ARRANGEMENTS,
+  safetyArrangementsDetails: CA_DA_SPECIAL_ARRANGEMENTS,
+  reasonableAdjustments: CA_DA_REASONABLE_ADJUSTMENTS,
 };
 
 const cy: typeof en = (content: CommonContent) => {
@@ -283,99 +283,99 @@ export const generateContent: TranslationFn = content => {
 };
 
 function filterSelectedUrls(userCase: Partial<CaseWithId>) {
-  if (userCase.respondentReasonableAdjustments?.includes(ReasonableAdjustments.DOCUMENTS_SUPPORT)) {
-    Object.assign(urls, { respondentDocsSupport: CA_DA_DOCUMENTS_SUPPORT });
-    Object.assign(urls, { respondentDocsDetails: CA_DA_DOCUMENTS_SUPPORT });
-    Object.assign(urls, { respondentLargePrintDetails: CA_DA_DOCUMENTS_SUPPORT });
-    Object.assign(urls, { respondentOtherDetails: CA_DA_DOCUMENTS_SUPPORT });
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.DOCUMENTS_SUPPORT)) {
+    Object.assign(urls, { docsSupport: CA_DA_DOCUMENTS_SUPPORT });
+    Object.assign(urls, { docsDetails: CA_DA_DOCUMENTS_SUPPORT });
+    Object.assign(urls, { largePrintDetails: CA_DA_DOCUMENTS_SUPPORT });
+    Object.assign(urls, { otherDetails: CA_DA_DOCUMENTS_SUPPORT });
 
-    Object.assign(enContent.keys, { respondentDocsSupport: 'I need documents in an alternative format' });
-    Object.assign(enContent.keys, { respondentDocsDetails: 'Please provide the docs details' });
-    Object.assign(enContent.keys, { respondentLargePrintDetails: 'Please provide the large print details' });
-    Object.assign(enContent.keys, { respondentOtherDetails: 'Please provide the other details' });
+    Object.assign(enContent.keys, { docsSupport: 'I need documents in an alternative format' });
+    Object.assign(enContent.keys, { docsDetails: 'Please provide the docs details' });
+    Object.assign(enContent.keys, { largePrintDetails: 'Please provide the large print details' });
+    Object.assign(enContent.keys, { otherDetails: 'Please provide the other details' });
   }
 
-  if (userCase.respondentReasonableAdjustments?.includes(ReasonableAdjustments.COMMUNICATION_HELP)) {
-    Object.assign(urls, { respondentHelpCommunication: CA_DA_COMMUNICATION_HELP });
-    Object.assign(urls, { respondentSignLanguageDetails: CA_DA_COMMUNICATION_HELP });
-    Object.assign(urls, { respondentDescribeOtherNeed: CA_DA_COMMUNICATION_HELP });
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COMMUNICATION_HELP)) {
+    Object.assign(urls, { helpCommunication: CA_DA_COMMUNICATION_HELP });
+    Object.assign(urls, { describeSignLanguageDetails: CA_DA_COMMUNICATION_HELP });
+    Object.assign(urls, { describeOtherNeed: CA_DA_COMMUNICATION_HELP });
 
-    Object.assign(enContent.keys, { respondentHelpCommunication: 'I need help communicating and understanding' });
-    Object.assign(enContent.keys, { respondentSignLanguageDetails: 'Please provide sign language details' });
-    Object.assign(enContent.keys, { respondentDescribeOtherNeed: 'Please provide the details' });
+    Object.assign(enContent.keys, { helpCommunication: 'I need help communicating and understanding' });
+    Object.assign(enContent.keys, { describeSignLanguageDetails: 'Please provide sign language details' });
+    Object.assign(enContent.keys, { describeOtherNeed: 'Please provide the details' });
   }
 
-  if (userCase.respondentReasonableAdjustments?.includes(ReasonableAdjustments.COURT_HEARING_SUPPORT)) {
-    Object.assign(urls, { respondentCourtHearing: CA_DA_COURT_HEARING_SUPPORT });
-    Object.assign(urls, { respondentSupportWorkerDetails: CA_DA_COURT_HEARING_SUPPORT });
-    Object.assign(urls, { respondentFamilyDetails: CA_DA_COURT_HEARING_SUPPORT });
-    Object.assign(urls, { respondentTherapyDetails: CA_DA_COURT_HEARING_SUPPORT });
-    Object.assign(urls, { respondentCommSupportOther: CA_DA_COURT_HEARING_SUPPORT });
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COURT_HEARING_SUPPORT)) {
+    Object.assign(urls, { courtHearing: CA_DA_COURT_HEARING_SUPPORT });
+    Object.assign(urls, { supportWorkerDetails: CA_DA_COURT_HEARING_SUPPORT });
+    Object.assign(urls, { familyProviderDetails: CA_DA_COURT_HEARING_SUPPORT });
+    Object.assign(urls, { therapyDetails: CA_DA_COURT_HEARING_SUPPORT });
+    Object.assign(urls, { communicationSupportOther: CA_DA_COURT_HEARING_SUPPORT });
 
     Object.assign(enContent.keys, {
-      respondentCourtHearing: 'I would need to bring support with me to a court hearing',
+      courtHearing: 'I would need to bring support with me to a court hearing',
     });
-    Object.assign(enContent.keys, { respondentSupportWorkerDetails: 'Please provide support worker details' });
-    Object.assign(enContent.keys, { respondentFamilyDetails: 'Please provide family member details' });
-    Object.assign(enContent.keys, { respondentTherapyDetails: 'Please provide therapy animal details' });
-    Object.assign(enContent.keys, { respondentCommSupportOther: 'Please provide the details' });
+    Object.assign(enContent.keys, { supportWorkerDetails: 'Please provide support worker details' });
+    Object.assign(enContent.keys, { familyProviderDetails: 'Please provide family member details' });
+    Object.assign(enContent.keys, { therapyDetails: 'Please provide therapy animal details' });
+    Object.assign(enContent.keys, { communicationSupportOther: 'Please provide the details' });
   }
 
-  if (userCase.respondentReasonableAdjustments?.includes(ReasonableAdjustments.COURT_HEARING_COMFORT)) {
-    Object.assign(urls, { respondentCourtComfort: CA_DA_COURT_HEARING_COMFORT });
-    Object.assign(urls, { respondentLightingDetails: CA_DA_COURT_HEARING_COMFORT });
-    Object.assign(urls, { respondentOtherProvideDetails: CA_DA_COURT_HEARING_COMFORT });
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COURT_HEARING_COMFORT)) {
+    Object.assign(urls, { courtComfort: CA_DA_COURT_HEARING_COMFORT });
+    Object.assign(urls, { lightingProvideDetails: CA_DA_COURT_HEARING_COMFORT });
+    Object.assign(urls, { otherProvideDetails: CA_DA_COURT_HEARING_COMFORT });
 
     Object.assign(enContent.keys, {
-      respondentCourtComfort: 'I need something to make me feel comfortable during a court hearing',
+      courtComfort: 'I need something to make me feel comfortable during a court hearing',
     });
-    Object.assign(enContent.keys, { respondentLightingDetails: 'Please describe appropriate lighting details' });
-    Object.assign(enContent.keys, { respondentOtherProvideDetails: 'Please describe your need in detail' });
+    Object.assign(enContent.keys, { lightingProvideDetails: 'Please describe appropriate lighting details' });
+    Object.assign(enContent.keys, { otherProvideDetails: 'Please describe your need in detail' });
   }
 
-  if (userCase.respondentReasonableAdjustments?.includes(ReasonableAdjustments.TRAVELLING_TO_COURT)) {
-    Object.assign(urls, { respondentTravellingToCourt: CA_DA_TRAVELLING_TO_COURT });
-    Object.assign(urls, { respondentParkingDetails: CA_DA_TRAVELLING_TO_COURT });
-    Object.assign(urls, { respondentDifferentChairDetails: CA_DA_TRAVELLING_TO_COURT });
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.TRAVELLING_TO_COURT)) {
+    Object.assign(urls, { travellingToCourt: CA_DA_TRAVELLING_TO_COURT });
+    Object.assign(urls, { parkingDetails: CA_DA_TRAVELLING_TO_COURT });
+    Object.assign(urls, { differentChairDetails: CA_DA_TRAVELLING_TO_COURT });
     Object.assign(urls, { respondentTravellingOtherDetails: CA_DA_TRAVELLING_TO_COURT });
 
     Object.assign(enContent.keys, {
-      respondentTravellingToCourt: 'I need help travelling to, or moving around court buildings',
+      travellingToCourt: 'I need help travelling to, or moving around court buildings',
     });
-    Object.assign(enContent.keys, { respondentParkingDetails: 'Please describe parking space details' });
-    Object.assign(enContent.keys, { respondentDifferentChairDetails: 'Please describe different chair details' });
+    Object.assign(enContent.keys, { parkingDetails: 'Please describe parking space details' });
+    Object.assign(enContent.keys, { differentChairDetails: 'Please describe different chair details' });
     Object.assign(enContent.keys, { respondentTravellingOtherDetails: 'Please describe your need in detail' });
   }
 
-  if (userCase.respondentDocsSupport?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+  if (userCase.docsSupport?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
     deleteDocumentSupportFields();
   }
-  if (userCase.respondentHelpCommunication?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+  if (userCase.helpCommunication?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
     deleteCommunicationHelpFields();
   }
-  if (userCase.respondentCourtHearing?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+  if (userCase.courtHearing?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
     deleteCourtHearingFields();
   }
-  if (userCase.respondentCourtComfort?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+  if (userCase.courtComfort?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
     deleteCourtComfortFields();
   }
-  if (userCase.respondentTravellingToCourt?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+  if (userCase.travellingToCourt?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
     deleteTravellingToCourtFields();
   }
 
-  if (!userCase?.respondentAttendingToCourt?.includes(NO_HEARINGS)) {
-    userCase.respondentHearingDetails = '';
+  if (!userCase?.attendingToCourt?.includes(NO_HEARINGS)) {
+    userCase.hearingDetails = '';
   }
 
-  if (userCase?.respondentLangRequirements?.includes(NO_NEED_OF_SUPPORT)) {
-    userCase.respondentLangDetails = '';
+  if (userCase?.languageRequirements?.includes(NO_NEED_OF_SUPPORT)) {
+    userCase.languageDetails = '';
   }
 
-  if (!userCase?.respondentSpecialArrangements?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
-    userCase.respondentSpecialArrangementsDetails = '';
+  if (!userCase?.safetyArrangements?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+    userCase.safetyArrangementsDetails = '';
   }
 
-  if (userCase.respondentReasonableAdjustments?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
     deleteDocumentSupportFields();
     deleteCommunicationHelpFields();
     deleteCourtHearingFields();
@@ -384,59 +384,59 @@ function filterSelectedUrls(userCase: Partial<CaseWithId>) {
   }
 }
 function deleteTravellingToCourtFields() {
-  delete urls['respondentTravellingToCourt'];
-  delete urls['respondentParkingDetails'];
-  delete urls['respondentDifferentChairDetails'];
+  delete urls['travellingToCourt'];
+  delete urls['parkingDetails'];
+  delete urls['differentChairDetails'];
   delete urls['respondentTravellingOtherDetails'];
 
-  delete enContent.keys['respondentTravellingToCourt'];
-  delete enContent.keys['respondentParkingDetails'];
-  delete enContent.keys['respondentDifferentChairDetails'];
+  delete enContent.keys['travellingToCourt'];
+  delete enContent.keys['parkingDetails'];
+  delete enContent.keys['differentChairDetails'];
   delete enContent.keys['respondentTravellingOtherDetails'];
 }
 
 function deleteCourtComfortFields() {
-  delete urls['respondentCourtComfort'];
-  delete urls['respondentLightingDetails'];
-  delete urls['respondentOtherProvideDetails'];
+  delete urls['courtComfort'];
+  delete urls['lightingProvideDetails'];
+  delete urls['otherProvideDetails'];
 
-  delete enContent.keys['respondentCourtComfort'];
-  delete enContent.keys['respondentLightingDetails'];
-  delete enContent.keys['respondentOtherProvideDetails'];
+  delete enContent.keys['courtComfort'];
+  delete enContent.keys['lightingProvideDetails'];
+  delete enContent.keys['otherProvideDetails'];
 }
 
 function deleteCourtHearingFields() {
-  delete urls['respondentCourtHearing'];
-  delete urls['respondentSupportWorkerDetails'];
-  delete urls['respondentFamilyDetails'];
-  delete urls['respondentTherapyDetails'];
-  delete urls['respondentCommSupportOther'];
+  delete urls['courtHearing'];
+  delete urls['supportWorkerDetails'];
+  delete urls['familyProviderDetails'];
+  delete urls['therapyDetails'];
+  delete urls['communicationSupportOther'];
 
-  delete enContent.keys['respondentCourtHearing'];
-  delete enContent.keys['respondentSupportWorkerDetails'];
-  delete enContent.keys['respondentFamilyDetails'];
-  delete enContent.keys['respondentTherapyDetails'];
-  delete enContent.keys['respondentCommSupportOther'];
+  delete enContent.keys['courtHearing'];
+  delete enContent.keys['supportWorkerDetails'];
+  delete enContent.keys['familyProviderDetails'];
+  delete enContent.keys['therapyDetails'];
+  delete enContent.keys['communicationSupportOther'];
 }
 
 function deleteCommunicationHelpFields() {
-  delete urls['respondentHelpCommunication'];
-  delete urls['respondentSignLanguageDetails'];
-  delete urls['respondentSignLanguageDetails'];
+  delete urls['helpCommunication'];
+  delete urls['describeSignLanguageDetails'];
+  delete urls['describeSignLanguageDetails'];
 
-  delete enContent.keys['respondentHelpCommunication'];
-  delete enContent.keys['respondentSignLanguageDetails'];
-  delete enContent.keys['respondentSignLanguageDetails'];
+  delete enContent.keys['helpCommunication'];
+  delete enContent.keys['describeSignLanguageDetails'];
+  delete enContent.keys['describeSignLanguageDetails'];
 }
 
 function deleteDocumentSupportFields() {
-  delete urls['respondentDocsSupport'];
-  delete urls['respondentDocsDetails'];
-  delete urls['respondentLargePrintDetails'];
-  delete urls['respondentOtherDetails'];
+  delete urls['docsSupport'];
+  delete urls['docsDetails'];
+  delete urls['largePrintDetails'];
+  delete urls['otherDetails'];
 
-  delete enContent.keys['respondentDocsSupport'];
-  delete enContent.keys['respondentDocsDetails'];
-  delete enContent.keys['respondentLargePrintDetails'];
-  delete enContent.keys['respondentOtherDetails'];
+  delete enContent.keys['docsSupport'];
+  delete enContent.keys['docsDetails'];
+  delete enContent.keys['largePrintDetails'];
+  delete enContent.keys['otherDetails'];
 }

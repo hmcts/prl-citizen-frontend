@@ -21,12 +21,19 @@ const en = {
   otherDetails: 'Describe what you need',
   nosupport: 'I do not need any of this support at this time',
   continue: 'Continue',
+  largePrintDocsDetails: 'Describe what you need',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
     },
     otherDetails: {
       required: 'Please provide the details',
+    },
+    largePrintDetails: {
+      required: 'Please provide the large print details',
+    },
+    docsDetails: {
+      required: 'Please provide the docs details',
     },
   },
 };
@@ -49,12 +56,19 @@ const cy: typeof en = {
   otherDetails: 'Describe what you need',
   nosupport: 'I do not need any of this support at this time',
   continue: 'Continue',
+  largePrintDocsDetails: 'Describe what you need',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
     },
     otherDetails: {
       required: 'Please provide the details',
+    },
+    largePrintDetails: {
+      required: 'Please provide the large print details',
+    },
+    docsDetails: {
+      required: 'Please provide the docs details',
     },
   },
 };
@@ -76,6 +90,14 @@ export const form: FormContent = {
           name: 'docsSupport',
           label: l => l.docsprint,
           value: DocsSupportEnum.docsprint,
+          subFields: {
+            docsDetails: {
+              type: 'textarea',
+              label: l => l.docsColourDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'docsSupport',
@@ -91,6 +113,14 @@ export const form: FormContent = {
           name: 'docsSupport',
           label: l => l.largeprintdocs,
           value: DocsSupportEnum.largeprintdocs,
+          subFields: {
+            largePrintDetails: {
+              type: 'textarea',
+              label: l => l.largePrintDocsDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'docsSupport',

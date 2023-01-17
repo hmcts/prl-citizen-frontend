@@ -19,13 +19,13 @@ const en = {
   nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtComfort: {
+    courtComfort: {
       required: 'Select what help you need to feel comfortable during a court hearing',
     },
-    respondentLightingDetails: {
+    lightingProvideDetails: {
       required: 'Please describe lighting detail',
     },
-    respondentOtherProvideDetails: {
+    otherProvideDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -46,13 +46,13 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtComfort: {
+    courtComfort: {
       required: 'Select what help you need to feel comfortable during a court hearing',
     },
-    respondentLightingDetails: {
+    lightingProvideDetails: {
       required: 'Please describe lighting detail',
     },
-    respondentOtherProvideDetails: {
+    otherProvideDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -97,7 +97,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const courtcomfortField = fields.respondentCourtComfort as FormOptions;
+    const courtcomfortField = fields.courtComfort as FormOptions;
     expect(courtcomfortField.type).toBe('checkboxes');
     expect((courtcomfortField.section as Function)(generatedContent)).toBe(en.section);
   });

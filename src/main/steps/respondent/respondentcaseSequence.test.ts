@@ -427,7 +427,7 @@ describe('respondent1Sequence', () => {
 const reasonableAdjustmentsMockData = mockRequest({
   session: {
     userCase: {
-      respondentReasonableAdjustments: [
+      reasonableAdjustments: [
         'document format',
         'comminication help',
         'hearing support',

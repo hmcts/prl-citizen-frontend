@@ -17,10 +17,10 @@ const en = {
   nointerpreter: 'No, I do not have any language requirements at this time',
   continue: 'Continue',
   errors: {
-    respondentLangRequirements: {
+    languageRequirements: {
       required: 'Please select an answer',
     },
-    respondentLangDetails: {
+    languageDetails: {
       required: 'Please provide language details',
     },
   },
@@ -39,10 +39,10 @@ const cy: typeof en = {
   nointerpreter: 'No, I do not have any language requirements at this time',
   continue: 'Continue',
   errors: {
-    respondentLangRequirements: {
+    languageRequirements: {
       required: 'Please select an answer',
     },
-    respondentLangDetails: {
+    languageDetails: {
       required: 'Please provide language details',
     },
   },
@@ -86,7 +86,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain languageRequirementsField field', () => {
-    const languageRequirementsField = fields.respondentLangRequirements as FormOptions;
+    const languageRequirementsField = fields.languageRequirements as FormOptions;
     expect(languageRequirementsField.type).toBe('checkboxes');
     expect((languageRequirementsField.section as Function)(generatedContent)).toBe(en.section);
   });

@@ -24,13 +24,13 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentTravellingToCourt: {
+    travellingToCourt: {
       required: 'Please select an answer',
     },
-    respondentParkingDetails: {
+    parkingDetails: {
       required: 'Please describe parking space details',
     },
-    respondentDifferentChairDetails: {
+    differentChairDetails: {
       required: 'Please describe different chair details',
     },
     respondentTravellingOtherDetails: {
@@ -59,13 +59,13 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentTravellingToCourt: {
+    travellingToCourt: {
       required: 'Please select an answer',
     },
-    respondentParkingDetails: {
+    parkingDetails: {
       required: 'Please describe parking space details',
     },
-    respondentDifferentChairDetails: {
+    differentChairDetails: {
       required: 'Please describe different chair details',
     },
     respondentTravellingOtherDetails: {
@@ -114,7 +114,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const travellingtoCourtField = fields.respondentTravellingToCourt as FormOptions;
+    const travellingtoCourtField = fields.travellingToCourt as FormOptions;
     expect(travellingtoCourtField.type).toBe('checkboxes');
     expect((travellingtoCourtField.section as Function)(generatedContent)).toBe(en.section);
   });

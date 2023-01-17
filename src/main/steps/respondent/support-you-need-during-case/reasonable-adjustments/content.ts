@@ -23,7 +23,7 @@ const en = {
   noSupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentReasonableAdjustments: {
+    reasonableAdjustments: {
       required: 'Please select an answer',
     },
   },
@@ -50,7 +50,7 @@ const cy: typeof en = {
   noSupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentReasonableAdjustments: {
+    reasonableAdjustments: {
       required: 'Please select an answer',
     },
   },
@@ -63,7 +63,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentReasonableAdjustments: {
+    reasonableAdjustments: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
@@ -71,31 +71,31 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'respondentReasonableAdjustments',
+          name: 'reasonableAdjustments',
           label: l => l.docsFormat,
           hint: l => l.docsFormatHint,
           value: 'document format',
         },
         {
-          name: 'respondentReasonableAdjustments',
+          name: 'reasonableAdjustments',
           label: l => l.commHelp,
           hint: l => l.commHelpHint,
           value: 'comminication help',
         },
         {
-          name: 'respondentReasonableAdjustments',
+          name: 'reasonableAdjustments',
           label: l => l.hearingSupport,
           hint: l => l.hearingSupportHint,
           value: 'hearing support',
         },
         {
-          name: 'respondentReasonableAdjustments',
+          name: 'reasonableAdjustments',
           label: l => l.hearingComfort,
           hint: l => l.hearingComfortHint,
           value: 'hearing comfort',
         },
         {
-          name: 'respondentReasonableAdjustments',
+          name: 'reasonableAdjustments',
           label: l => l.travellingHelp,
           hint: l => l.travellingHelpHint,
           value: 'travel help',
@@ -104,7 +104,7 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentReasonableAdjustments',
+          name: 'reasonableAdjustments',
           label: l => l.noSupport,
           value: 'no need of support',
           exclusive: true,

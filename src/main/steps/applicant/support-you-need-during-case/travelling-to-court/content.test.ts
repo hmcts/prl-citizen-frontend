@@ -27,6 +27,12 @@ const en = {
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
+    parkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    differentChairDetails: {
+      required: 'Please describe different chair details',
+    },
   },
 };
 
@@ -53,6 +59,13 @@ const cy: typeof en = {
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
+    parkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    differentChairDetails: {
+      required: 'Please describe different chair details',
+    },
+    
   },
 };
 

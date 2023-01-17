@@ -26,14 +26,17 @@ const en = {
     communicationSupportOther: {
       required: 'Please provide the details',
     },
-    supportWorkerProvideDetails: {
+    supportWorkerDetails: {
       required: 'Please provide the support worker details',
     },
-    familyMemberProvideDetails: {
+    familyProviderDetails: {
       required: 'Please provide the family member details',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
+    },
+    therapyDetails: {
+      required: 'Please provide therapy animal details',
     },
   },
 };
@@ -62,14 +65,17 @@ const cy: typeof en = {
     communicationSupportOther: {
       required: 'Please provide the details',
     },
-    supportWorkerProvideDetails: {
+    supportWorkerDetails: {
       required: 'Please provide the support worker details',
     },
-    familyMemberProvideDetails: {
+    familyProviderDetails: {
       required: 'Please provide the family member details',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
+    },
+    therapyDetails: {
+      required: 'Please provide therapy animal details',
     },
   },
 };
@@ -92,7 +98,7 @@ export const form: FormContent = {
           label: l => l.supportworker,
           value: 'support worker or carer',
           subFields: {
-            supportWorkerProvideDetails: {
+            supportWorkerDetails: {
               type: 'textarea',
               label: l => l.supportWorkerDetails,
               attributes: {
@@ -108,7 +114,7 @@ export const form: FormContent = {
           label: l => l.familymember,
           value: 'friend or family member',
           subFields: {
-            familyMemberProvideDetails: {
+            familyProviderDetails: {
               type: 'textarea',
               label: l => l.familyMemberDetails,
               attributes: {
@@ -128,6 +134,17 @@ export const form: FormContent = {
           name: 'courtHearing',
           label: l => l.animal,
           value: 'animal',
+          subFields: {
+            therapyDetails: {
+              type: 'textarea',
+              label: l => l.animalDetails,
+              attributes: {
+                rows: 1,
+              },
+              labelSize: null,
+              validator: value => isFieldFilledIn(value),
+            },
+          },
         },
         {
           name: 'courtHearing',
