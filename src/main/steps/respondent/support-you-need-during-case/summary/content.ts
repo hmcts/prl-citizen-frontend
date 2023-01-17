@@ -114,7 +114,7 @@ export const enContent = {
       value: 'a different type of chair',
       display: true,
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       dependentOn: 'travellingToCourt',
       value: 'Other',
       display: true,
@@ -232,7 +232,7 @@ const cyContent: typeof enContent = {
       value: 'a different type of chair',
       display: true,
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       dependentOn: 'travellingToCourt',
       value: 'Other',
       display: true,
@@ -337,14 +337,14 @@ function filterSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(urls, { travellingToCourt: CA_DA_TRAVELLING_TO_COURT });
     Object.assign(urls, { parkingDetails: CA_DA_TRAVELLING_TO_COURT });
     Object.assign(urls, { differentChairDetails: CA_DA_TRAVELLING_TO_COURT });
-    Object.assign(urls, { respondentTravellingOtherDetails: CA_DA_TRAVELLING_TO_COURT });
+    Object.assign(urls, { travellingOtherDetails: CA_DA_TRAVELLING_TO_COURT });
 
     Object.assign(enContent.keys, {
       travellingToCourt: 'I need help travelling to, or moving around court buildings',
     });
     Object.assign(enContent.keys, { parkingDetails: 'Please describe parking space details' });
     Object.assign(enContent.keys, { differentChairDetails: 'Please describe different chair details' });
-    Object.assign(enContent.keys, { respondentTravellingOtherDetails: 'Please describe your need in detail' });
+    Object.assign(enContent.keys, { travellingOtherDetails: 'Please describe your need in detail' });
   }
 
   if (userCase.docsSupport?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
@@ -387,12 +387,12 @@ function deleteTravellingToCourtFields() {
   delete urls['travellingToCourt'];
   delete urls['parkingDetails'];
   delete urls['differentChairDetails'];
-  delete urls['respondentTravellingOtherDetails'];
+  delete urls['travellingOtherDetails'];
 
   delete enContent.keys['travellingToCourt'];
   delete enContent.keys['parkingDetails'];
   delete enContent.keys['differentChairDetails'];
-  delete enContent.keys['respondentTravellingOtherDetails'];
+  delete enContent.keys['travellingOtherDetails'];
 }
 
 function deleteCourtComfortFields() {

@@ -474,7 +474,6 @@ export interface Case {
   travellingToCourt?: string[];
   parkingDetails?: string;
   differentChairDetails?: string;
-  respondentTravellingOtherDetails?: string;
   //applicant1LanguagePreference?: LanguagePreference;
 
   safetyConcerns?: string;

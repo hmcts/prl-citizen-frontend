@@ -33,7 +33,7 @@ const en = {
     differentChairDetails: {
       required: 'Please describe different chair details',
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -68,7 +68,7 @@ const cy: typeof en = {
     differentChairDetails: {
       required: 'Please describe different chair details',
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
   },

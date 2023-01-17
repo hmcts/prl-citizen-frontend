@@ -31,7 +31,7 @@ const en = {
     differentChairDetails: {
       required: 'Please describe different chair details',
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -66,7 +66,7 @@ const cy: typeof en = {
     differentChairDetails: {
       required: 'Please describe different chair details',
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -142,7 +142,7 @@ export const form: FormContent = {
           label: l => l.other,
           value: 'other',
           subFields: {
-            respondentTravellingOtherDetails: {
+            travellingOtherDetails: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,

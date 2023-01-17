@@ -278,7 +278,7 @@ export const getRespondentSupportYourNeedsDetails = (userCase: Partial<CaseWithI
     userCase?.travellingToCourt ||
     userCase?.parkingDetails ||
     userCase?.differentChairDetails ||
-    userCase?.respondentTravellingOtherDetails
+    userCase?.travellingOtherDetails
   ) {
     return SectionStatus.IN_PROGRESS;
   }

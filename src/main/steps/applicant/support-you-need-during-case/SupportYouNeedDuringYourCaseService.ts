@@ -79,7 +79,7 @@ export const setSupportDetailsRespondent = (respondent: Respondent, req: AppRequ
       travellingToCourt: req.session.userCase.travellingToCourt,
       parkingDetails: req.session.userCase.parkingDetails,
       differentChairDetails: req.session.userCase.differentChairDetails,
-      travellingOtherDetails: req.session.userCase.respondentTravellingOtherDetails,
+      travellingOtherDetails: req.session.userCase.travellingOtherDetails,
     },
   };
   return respondent;

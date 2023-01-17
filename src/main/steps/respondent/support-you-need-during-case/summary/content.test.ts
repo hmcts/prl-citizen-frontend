@@ -101,7 +101,7 @@ const en = {
       value: 'a different type of chair',
       display: true,
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       dependentOn: 'travellingToCourt',
       value: 'Other',
       display: true,
@@ -207,7 +207,7 @@ const cy: typeof en = {
       value: 'a different type of chair',
       display: true,
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       dependentOn: 'travellingToCourt',
       value: 'Other',
       display: true,

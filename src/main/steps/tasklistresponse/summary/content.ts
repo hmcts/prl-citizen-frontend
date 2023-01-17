@@ -723,7 +723,7 @@ export const enSupportYouNeedContent = {
     travellingToCourt: 'I need help travelling to, or moving around court buildings',
     parkingDetails: 'Please describe parking space details',
     differentChairDetails: 'Please describe different chair details',
-    respondentTravellingOtherDetails: 'Please describe your need in detail',
+    travellingOtherDetails: 'Please describe your need in detail',
   },
   dependencies: {
     hearingDetails: {
@@ -806,7 +806,7 @@ export const enSupportYouNeedContent = {
       value: 'a different type of chair',
       display: true,
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       dependentOn: 'travellingToCourt',
       value: 'Other',
       display: true,
@@ -1390,7 +1390,7 @@ const urls = {
   travellingToCourt: CA_DA_TRAVELLING_TO_COURT,
   parkingDetails: CA_DA_TRAVELLING_TO_COURT,
   differentChairDetails: CA_DA_TRAVELLING_TO_COURT,
-  respondentTravellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
+  travellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
   citizenUserFullName: RESPONDENT_PERSONAL_DETAILS,
   citizenUserDateOfBirthText: RESPONDENT_PERSONAL_DETAILS,
   citizenUserPlaceOfBirthText: RESPONDENT_PERSONAL_DETAILS,
