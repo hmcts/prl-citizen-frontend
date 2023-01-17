@@ -77,7 +77,6 @@ export const respondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
-
   {
     url: CONSENT_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
