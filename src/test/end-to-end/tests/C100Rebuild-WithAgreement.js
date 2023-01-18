@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - draft consent flow');
 
-Scenario('C100 Rebuild - draft consent flow @cross-browser',  
+Scenario('C100 Rebuild - draft consent flow',  
 async ({
    CitizenLoginPage,
    CreateApplication,

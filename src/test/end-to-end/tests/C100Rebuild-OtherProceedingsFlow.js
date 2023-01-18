@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - other proceedings flow');
 
-Scenario('C100 Rebuild - other proceedings flow flow @cross-browser',  
+Scenario('C100 Rebuild - other proceedings flow',  
 async ({
   CitizenLoginPage,
   CreateApplication,

@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - with urgency flow');
 
-Scenario('C100 Rebuild - urgent hearing flow @cross-browser',  async ({
+Scenario('C100 Rebuild - urgent hearing flow',  async ({
     CitizenLoginPage,
     CreateApplication,
     CaseNameAndPostCode,
