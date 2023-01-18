@@ -311,7 +311,7 @@ describe('respondent-tasklistalldocuments', () => {
       false
     );
     expect(actual.title).toEqual(applicant_all_docs_en.respondentsDocuments);
-    expect(actual.items).toHaveLength(12);
+    expect(actual.items).toHaveLength(14);
   });
 
   test('getApplicantDocuments for respondent, DA', async () => {
@@ -333,6 +333,6 @@ describe('respondent-tasklistalldocuments', () => {
       false
     );
     expect(actual.title).toEqual(applicant_all_docs_en.respondentsDocuments);
-    expect(actual.items).toHaveLength(15);
+    expect(actual.items).toHaveLength(17);
   });
 });
