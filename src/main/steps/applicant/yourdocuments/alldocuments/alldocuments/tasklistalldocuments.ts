@@ -84,13 +84,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS,
   });
 
-  if (flags.isMedicalReportsUploaded) {
-    applicantItems.push({
-      id: 'medical_reports',
-      text: taskListItems.medical_reports,
-      href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
-    });
-  }
+  applicantItems.push(isMedicalReportsUploadedd(taskListItems, url, flags.isMedicalReportsUploaded));
 
   if (userCase.miamCertificationDocumentUpload) {
     applicantItems.push({
@@ -106,49 +100,19 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       href: url + URL.APPLICATION_MADE_IN_THESE_PRCEEDINGS,
     });
   }
-  if (flags.isPreviousOrdersSubmitted) {
-    applicantItems.push({
-      id: 'previous_orders_submitted',
-      text: taskListItems.previous_orders_submitted,
-      href: url + URL.PREVIOUS_ORDERS_SUBMITTED + '?byApplicant=Yes',
-    });
-  }
-  if (flags.isLettersFromSchool) {
-    applicantItems.push({
-      id: 'letters_from_school',
-      text: taskListItems.letters_from_school,
-      href: url + URL.LETTER_FROM_SCHOOL + '?byApplicant=Yes',
-    });
-  }
-  if (flags.isDigitalDownloadsUploaded) {
-    applicantItems.push({
-      id: 'digital_downloads',
-      text: taskListItems.digital_downloads,
-      href: url + URL.DIGITAL_DOWNLOADS + '?byApplicant=Yes',
-    });
-  }
-  if (flags.isMedicalRecordsUpload) {
-    applicantItems.push({
-      id: 'medical_records',
-      text: taskListItems.medical_records,
-      href: url + URL.MEDICAL_RECORDS + '?byApplicant=Yes',
-    });
-  }
 
-  if (flags.isPaternityDocUploaded) {
-    applicantItems.push({
-      id: 'paternity_test_reports',
-      text: taskListItems.paternity_test_reports,
-      href: url + URL.PATERNITY_TEST_REPORTS + '?byApplicant=Yes',
-    });
-  }
-  if (flags.isDrugDocUploaded) {
-    applicantItems.push({
-      id: 'drug_alcohol_tests',
-      text: taskListItems.drug_alcohol_tests,
-      href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=Yes',
-    });
-  }
+  applicantItems.push(isPreviousOrdersSubmittedd(taskListItems, url, flags.isPreviousOrdersSubmitted));
+
+  applicantItems.push(isLettersFromSchoold(taskListItems, url, flags.isLettersFromSchool));
+
+  applicantItems.push(isDigitalDownloadsUploadedd(taskListItems, url, flags.isDigitalDownloadsUploaded));
+
+  applicantItems.push(isMedicalRecordsUploadd(taskListItems, url, flags.isMedicalRecordsUpload));
+
+  applicantItems.push(isPaternityDocUploadedd(taskListItems, url, flags.isPaternityDocUploaded));
+
+  applicantItems.push(isDrugDocUploadedd(taskListItems, url, flags.isDrugDocUploaded));
+
   if (flags.isPoliceReportUploaded) {
     applicantItems.push({
       id: 'police_disclosures',
@@ -175,6 +139,77 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     title: sectionTitles.applicantsDocuments,
     items: applicantItems,
   };
+};
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const isMedicalReportsUploadedd = (taskListItems, url, isMedicalReportsUploaded): any => {
+  if (isMedicalReportsUploaded) {
+    return {
+      id: 'medical_reports',
+      text: taskListItems.medical_reports,
+      href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
+    };
+  }
+};
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const isPreviousOrdersSubmittedd = (taskListItems, url, isMedicalReportsUploaded): any => {
+  if (isMedicalReportsUploaded) {
+    return {
+      id: 'medical_reports',
+      text: taskListItems.medical_reports,
+      href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
+    };
+  }
+};
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const isLettersFromSchoold = (taskListItems, url, isMedicalReportsUploaded): any => {
+  if (isMedicalReportsUploaded) {
+    return {
+      id: 'medical_reports',
+      text: taskListItems.medical_reports,
+      href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
+    };
+  }
+};
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const isDigitalDownloadsUploadedd = (taskListItems, url, isMedicalReportsUploaded): any => {
+  if (isMedicalReportsUploaded) {
+    return {
+      id: 'medical_reports',
+      text: taskListItems.medical_reports,
+      href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
+    };
+  }
+};
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const isMedicalRecordsUploadd = (taskListItems, url, isMedicalReportsUploaded): any => {
+  if (isMedicalReportsUploaded) {
+    return {
+      id: 'medical_reports',
+      text: taskListItems.medical_reports,
+      href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
+    };
+  }
+};
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const isPaternityDocUploadedd = (taskListItems, url, isMedicalReportsUploaded): any => {
+  if (isMedicalReportsUploaded) {
+    return {
+      id: 'medical_reports',
+      text: taskListItems.medical_reports,
+      href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
+    };
+  }
+};
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const isDrugDocUploadedd = (taskListItems, url, isMedicalReportsUploaded): any => {
+  if (isMedicalReportsUploaded) {
+    return {
+      id: 'medical_reports',
+      text: taskListItems.medical_reports,
+      href: url + URL.MEDICAL_REPORTS + '?byApplicant=Yes',
+    };
+  }
 };
 
 export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, isApplicant) => {
