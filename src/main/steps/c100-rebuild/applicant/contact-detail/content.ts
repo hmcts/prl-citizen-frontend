@@ -49,7 +49,7 @@ export const en = () => ({
 export const cy = () => ({
   title: 'Manylion cyswllt ',
   serviceName: 'Trefniadau plant',
-  canProvideEmailLabel: 'Allwch chi ddarparu cyfeiriad e-bost',
+  canProvideEmailLabel: 'Gallaf ddarparu cyfeiriad e-bost',
   canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
   emailAdddressLabel: 'Eich cyfeiriad e-bost',
   telephoneNumberLabel: 'Eich rhif ffôn',

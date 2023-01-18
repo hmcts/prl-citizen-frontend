@@ -19,7 +19,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  addressLine1: 'Adeilad a stryds',
+  addressLine1: 'Adeilad a stryd',
   town: 'Tref neu ddinas',
   county: 'Sir',
   postcode: 'Cod post',
@@ -28,7 +28,7 @@ export const cy = () => ({
   one: 'Do',
   two: 'Naddoo',
   explainNoLabel: 'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf',
-  explainNoHint: 'Cychwynnwch gyda’r un mwyaf diwedda',
+  explainNoHint: 'Cychwynnwch gyda’r un mwyaf diweddar',
 });
 
 export const form = (caseData: Partial<C100Applicant>): FormContent => {

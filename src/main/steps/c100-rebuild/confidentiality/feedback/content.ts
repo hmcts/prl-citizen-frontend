@@ -15,7 +15,7 @@ const cy = () => ({
   headingTitle: 'Bydd y llys yn cadw eich manylion cyswllt yn breifat.',
   p1: "Rydych wedi dweud wrthym eich bod eisiau cadw'r manylion cyswllt yma yn breifat:",
   heading3: 'Beth fydd y llys yn ei wneud',
-  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass (Children and Family Court Advisory and Support Service) neu Cafcass CYMRU oni bai ei fod trwy orchymyn y llys.",
+  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass (Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd) neu Cafcass CYMRU oni bai ei fod trwy orchymyn y llys.",
 });
 
 const languages = {
