@@ -54,12 +54,15 @@ import {
   RESPONDENT_SECTION7_REPORT,
   SAFETY_ARRANGEMENTS,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   TRAVELLING_TO_COURT,
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
+
+import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
 
 export const applicantCaseSequence: Step[] = [
   {
@@ -160,37 +163,43 @@ export const applicantCaseSequence: Step[] = [
   {
     url: REASONABLE_ADJUSTMENTS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => DOCUMENTS_SUPPORT,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(REASONABLE_ADJUSTMENTS, caseData),
   },
   {
     url: DOCUMENTS_SUPPORT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => COMMUNICATION_HELP,
+    getNextStep: caseData => ApplicantReasonableAdjustmentsNavigationController.getNextUrl(DOCUMENTS_SUPPORT, caseData),
   },
   {
     url: COMMUNICATION_HELP,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => COURT_HEARING_SUPPORT,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(COMMUNICATION_HELP, caseData),
   },
   {
     url: COURT_HEARING_SUPPORT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => COURT_HEARING_COMFORT,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(COURT_HEARING_SUPPORT, caseData),
   },
   {
     url: COURT_HEARING_COMFORT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => TRAVELLING_TO_COURT,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(COURT_HEARING_COMFORT, caseData),
   },
   {
     url: TRAVELLING_TO_COURT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => UNABLE_TO_TAKE_COURT_PROCEEDINGS,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(TRAVELLING_TO_COURT, caseData),
   },
   {
     url: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => SAFETY_ARRANGEMENTS,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(UNABLE_TO_TAKE_COURT_PROCEEDINGS, caseData),
   },
   {
     url: SAFETY_ARRANGEMENTS,
@@ -200,7 +209,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,

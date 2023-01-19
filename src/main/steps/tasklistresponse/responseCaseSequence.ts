@@ -11,6 +11,17 @@ import {
   C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
+  C7_ATTENDING_THE_COURT,
+  C7_COMMUNICATION_HELP,
+  C7_COURT_HEARING_COMFORT,
+  C7_COURT_HEARING_SUPPORT,
+  C7_DOCUMENTS_SUPPORT,
+  C7_LANGUAGE_REQUIREMENTS,
+  C7_REASONABLE_ADJUSTMENTS,
+  C7_SPECIAL_ARRANGEMENTS,
+  C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+  C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  C7_TRAVELLING_TO_COURT,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -75,6 +86,7 @@ import {
 
 import SafteyConcernsNavigationController from './allegations-of-harm-and-violence/navigationController';
 import OtherProceedingsNavigationController from './proceedings/navigationController';
+import ReasonableAdjustmentsNavigationController from './support-you-need-during-case/navigationController';
 
 export const responseCaseSequence: Step[] = [
   {
@@ -284,6 +296,61 @@ export const responseCaseSequence: Step[] = [
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: C7_ATTENDING_THE_COURT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_LANGUAGE_REQUIREMENTS,
+  },
+  {
+    url: C7_LANGUAGE_REQUIREMENTS,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_SPECIAL_ARRANGEMENTS,
+  },
+  {
+    url: C7_SPECIAL_ARRANGEMENTS,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_REASONABLE_ADJUSTMENTS,
+  },
+  {
+    url: C7_REASONABLE_ADJUSTMENTS,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_REASONABLE_ADJUSTMENTS, caseData),
+  },
+  {
+    url: C7_DOCUMENTS_SUPPORT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_DOCUMENTS_SUPPORT, caseData),
+  },
+  {
+    url: C7_COMMUNICATION_HELP,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_COMMUNICATION_HELP, caseData),
+  },
+  {
+    url: C7_COURT_HEARING_SUPPORT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_COURT_HEARING_SUPPORT, caseData),
+  },
+  {
+    url: C7_COURT_HEARING_COMFORT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_COURT_HEARING_COMFORT, caseData),
+  },
+  {
+    url: C7_TRAVELLING_TO_COURT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_TRAVELLING_TO_COURT, caseData),
+  },
+  {
+    url: C7_TRAVELLING_TO_COURT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  },
+  {
+    url: C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   },
   {
     url: RESPOND_TO_APPLICATION,

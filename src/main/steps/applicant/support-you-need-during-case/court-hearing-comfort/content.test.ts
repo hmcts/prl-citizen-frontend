@@ -24,7 +24,7 @@ const en = {
     otherProvideDetails: {
       required: 'Please describe your need in detail',
     },
-    appropriateLightingProvideDetails: {
+    lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
     },
   },
@@ -50,7 +50,7 @@ const cy: typeof en = {
     otherProvideDetails: {
       required: 'Please describe your need in detail',
     },
-    appropriateLightingProvideDetails: {
+    lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
     },
   },

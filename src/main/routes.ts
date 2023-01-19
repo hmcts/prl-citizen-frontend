@@ -16,6 +16,7 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
+import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
@@ -96,6 +97,9 @@ import {
   C100_DOWNLOAD_APPLICATION,
   PROCEEDING_SAVE,
   PROCEEDINGS_START,
+  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
+  CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+  C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -165,7 +169,6 @@ export class Routes {
       );
 
       app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
-
       app.get(
         `${PROCEEDINGS_START}/:caseId`,
         errorHandler(new ProceedingGetController(step.view, step.generateContent).get)
@@ -251,6 +254,18 @@ export class Routes {
         app.get(
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
+        );
+        app.get(
+          SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
+          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
+        );
+        app.get(
+          CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
+        );
+        app.get(
+          C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
         );
         app.get(
           C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
