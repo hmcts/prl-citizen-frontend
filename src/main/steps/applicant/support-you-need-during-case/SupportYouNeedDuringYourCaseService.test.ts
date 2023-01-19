@@ -42,6 +42,6 @@ describe('support you need during case service tests', () => {
       },
     });
 
-    expect(setSupportDetails(req.session.userCase.respondents[0].value.response, req)).not.toBeUndefined;
+    expect(setSupportDetails(req)).not.toBeUndefined;
   });
 });

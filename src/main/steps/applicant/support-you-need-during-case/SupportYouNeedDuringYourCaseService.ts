@@ -1,8 +1,8 @@
 import { Applicant, Respondent, Response } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 
-export const setSupportDetails = (response: Response, req: AppRequest): Response => {
-  response = {
+export const setSupportDetails = (req: AppRequest): Response => {
+  const res = {
     supportYouNeed: {
       attendingToCourt: req.session.userCase?.attendingToCourt,
       hearingDetails: req.session.userCase?.hearingDetails,
@@ -40,7 +40,7 @@ export const setSupportDetails = (response: Response, req: AppRequest): Response
       travellingOtherDetails: req.session.userCase.travellingOtherDetails,
     },
   };
-  return response;
+  return res;
 };
 
 export const getSupportDetails = (respondent: Respondent | Applicant, req: AppRequest): AppRequest => {
