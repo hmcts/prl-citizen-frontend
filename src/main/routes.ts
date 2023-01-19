@@ -95,6 +95,8 @@ import {
   C100_RETRIVE_CASE,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   C100_DOWNLOAD_APPLICATION,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+  RESPONDENT_VIEW_ALL_DOCUMENTS,
   PROCEEDING_SAVE,
   PROCEEDINGS_START,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
@@ -115,8 +117,16 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getApplicantCase));
-    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getRespondentCase));
+    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(`${RESPOND_TO_APPLICATION}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(
+      `${APPLICANT_VIEW_ALL_DOCUMENTS}/:caseId`,
+      errorHandler(new GetCaseController().fetchAndRedirectToTasklist)
+    );
+    app.get(
+      `${RESPONDENT_VIEW_ALL_DOCUMENTS}/:caseId`,
+      errorHandler(new GetCaseController().fetchAndRedirectToTasklist)
+    );
     app.get(`${CA_RESPONDENT_RESPONSE_SUBMIT}`, errorHandler(new RespondentSubmitResponseController().save));
     app.get(
       `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
@@ -149,6 +159,7 @@ export class Routes {
         `${CONSENT_TO_APPLICATION}/:caseId`,
         errorHandler(new ConsentGetController(step.view, step.generateContent).get)
       );
+      app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
       app.get(
         `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
         errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
