@@ -1,11 +1,11 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
-import { typeofcaseuser } from '../../../../../steps/typeofcaseuserutil';
 import {
   form as addressLookupForm,
   generateContent as addressLookupGenerateContent,
 } from '../../../../common/components/address-lookup';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 import { APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
 
 const LOOKUP_ADDRESS = 'address-lookup';
@@ -58,7 +58,7 @@ export const generateContent: TranslationFn = content => {
 
   const addressLookupContent = addressLookupGenerateContent(content);
   const translationContent = languages[content.language]();
-  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
+  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
 
   return {
     ...addressLookupContent,

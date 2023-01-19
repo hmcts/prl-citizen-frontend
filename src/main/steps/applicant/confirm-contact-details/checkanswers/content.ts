@@ -2,6 +2,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { generateContent as checkAnswersGenerateContent } from '../../../common/confirm-contact-details/checkanswers/content';
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 
 export const enContent = {
   section: 'Check your details',
@@ -34,5 +35,6 @@ export const generateContent: TranslationFn = content => {
   const checkAnswersContent = checkAnswersGenerateContent(content);
   return {
     ...checkAnswersContent,
+    pagetitle: typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true),
   };
 };

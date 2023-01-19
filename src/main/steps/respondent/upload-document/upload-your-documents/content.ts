@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: 'Provide the document',
   title: 'Provide the documents',
@@ -9,6 +9,7 @@ const en = {
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Continue',
   add: 'Submit',
+  pagetitle: '',
   uploadFiles: 'Your documents',
   remove: 'Remove',
   textAreaDocUploadText1: 'You can use this box to:',
@@ -43,6 +44,7 @@ const cy: typeof en = {
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Continue',
   add: 'Submit',
+  pagetitle: '',
   uploadFiles: 'Your documents',
   remove: 'Remove',
   textAreaDocUploadText1: 'You can use this box to:',
@@ -111,6 +113,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },

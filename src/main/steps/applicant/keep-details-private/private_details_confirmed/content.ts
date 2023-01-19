@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
@@ -45,7 +45,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
   return {
     ...translations,
     form,

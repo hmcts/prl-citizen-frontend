@@ -5,6 +5,7 @@ import {
   form as selectAddressForm,
   generateContent as selectAddressGenerateContent,
 } from '../../../../common/components/address-select';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 import { RESPONDENT_ADDRESS_MANUAL, RESPONDENT_FIND_ADDRESS } from '../../../../urls';
 
 const selectAddressFormFields = selectAddressForm.fields as FormFields;
@@ -32,6 +33,7 @@ export const generateContent: TranslationFn = content => {
   const en = () => {
     return {
       ...translations.en,
+      pagetitle: '',
       errors: {
         ...errors.en,
       },
@@ -42,6 +44,7 @@ export const generateContent: TranslationFn = content => {
   const cy = () => {
     return {
       ...translations.cy,
+      pagetitle: '',
       errors: {
         ...errors.cy,
       },
@@ -57,7 +60,7 @@ export const generateContent: TranslationFn = content => {
 
   const selectAddressContent = selectAddressGenerateContent(content);
   const translationContent = languages[content.language]();
-
+  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...selectAddressContent,
     ...translationContent,

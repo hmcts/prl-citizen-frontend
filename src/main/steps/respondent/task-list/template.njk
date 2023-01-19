@@ -1,6 +1,9 @@
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "common/progress-bar.njk" import progressBar with context %}
 
+{% block pageTitle %}
+  {{ serviceName }}-{{ pagetitle }}-tasklist-{{ govUk }}
+{% endblock %}
 {% extends "common/tasklist/template.njk" %}
 {% block caseDetails %}
 {% endblock %}

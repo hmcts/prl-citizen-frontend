@@ -1,10 +1,11 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: 'Safety requirements',
   title: 'Do you or the children need special safety arrangements at court?',
+  pagetitle: '',
   courtcommunication:
     'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
   optionHint: 'Select all that apply to you',
@@ -34,6 +35,7 @@ const en = {
 const cy: typeof en = {
   section: 'Safety requirements',
   title: 'Do you or the children need special safety arrangements at court?',
+  pagetitle: '',
   courtcommunication:
     'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
   optionHint: 'Select all that apply to you',
@@ -138,6 +140,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
   return {
     ...translations,
     form,

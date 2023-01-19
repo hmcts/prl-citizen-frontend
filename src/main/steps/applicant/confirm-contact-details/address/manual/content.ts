@@ -1,11 +1,11 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
-import { typeofcaseuser } from '../../../../../steps/typeofcaseuserutil';
 import {
   form as manualAddressForm,
   generateContent as manualAddressGenerateContent,
 } from '../../../../common/components/address-manual';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 
 const MANUAL_ADDRESS = 'manual-address';
 
@@ -59,7 +59,7 @@ export const generateContent: TranslationFn = content => {
 
   const manualAddressContent = manualAddressGenerateContent(content);
   const translationContent = languages[content.language]();
-  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
+  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
 
   return {
     ...manualAddressContent,

@@ -1,5 +1,5 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { typeofcaseuser } from '../../../../../steps/typeofcaseuserutil';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 
 import { applicant_all_docs_en } from './section-titles-all-documents';
 import { applicant_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
@@ -39,7 +39,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
   return {
     ...translations,
     sections: generateApplicantTaskListAllDocuments(

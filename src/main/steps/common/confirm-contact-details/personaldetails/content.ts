@@ -9,7 +9,6 @@ import {
   isFieldLetters,
   isFutureDate,
 } from '../../../../app/form/validation';
-import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 
 const en = {
   title: 'Your name and date of birth',
@@ -162,7 +161,6 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  translations.pagetitle = typeofcaseuser(content.language, content.userCase!.caseTypeOfApplication);
   return {
     ...translations,
     form,

@@ -2,11 +2,12 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: ' ',
   title: 'Has the court asked for this document?',
   one: 'Yes',
+  pagetitle: '',
   two: 'No',
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
@@ -23,6 +24,7 @@ const cy: typeof en = {
   section: ' ',
   title: 'Has the court asked for this document?',
   one: 'Yes',
+  pagetitle: '',
   two: 'No',
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
@@ -69,6 +71,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

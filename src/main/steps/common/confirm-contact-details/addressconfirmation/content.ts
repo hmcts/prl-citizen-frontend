@@ -1,7 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
-import { typeofcaseuser } from '../../../../steps/typeofcaseuserutil';
 const en = {
   title: 'Your Address',
   citizenUserAddress1: 'Building and street',
@@ -95,7 +94,6 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
   return {
     ...translations,
     form,

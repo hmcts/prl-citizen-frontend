@@ -1,5 +1,6 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { applicant_tasklist_items_all_docs_en as respondent_tasklist_items_all_docs_en } from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 
 import { respondent_all_docs_en } from './section-titles-all-documents';
 import { generateRespondentTaskListAllDocuments } from './tasklistalldocuments';
@@ -11,6 +12,7 @@ const en = () => {
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
+    pagetitle: '',
     continue: 'Go back',
     sectionTitles: respondent_all_docs_en,
     taskListItems: respondent_tasklist_items_all_docs_en,
@@ -23,6 +25,7 @@ const cy: typeof en = () => {
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
+    pagetitle: '',
     continue: 'Go back',
     sectionTitles: respondent_all_docs_en,
     taskListItems: respondent_tasklist_items_all_docs_en,
@@ -36,6 +39,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     sections: generateRespondentTaskListAllDocuments(

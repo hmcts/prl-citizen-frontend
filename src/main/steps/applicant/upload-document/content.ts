@@ -1,5 +1,5 @@
 import { TranslationFn } from '../../../app/controller/GetController';
-import { typeofcaseuser } from '../../../steps/typeofcaseuserutil';
+import { typeofcaseuser } from '../../common/typeofcaseuser';
 import * as URL from '../../urls';
 
 import { document_list_en } from './section-titles';
@@ -31,7 +31,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
   return {
     ...translations,
     sections: generateUploadDocumentList(

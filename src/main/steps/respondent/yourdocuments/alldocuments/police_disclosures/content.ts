@@ -1,12 +1,13 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 const en = () => {
   return {
     section: 'All documents',
     title: 'Police reports',
     threeHint: 'This is a 8 character code',
+    pagetitle: '',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
@@ -17,6 +18,7 @@ const cy: typeof en = () => {
   return {
     section: 'All documents',
     title: 'Police reports',
+    pagetitle: '',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -47,6 +49,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (doc.value.documentType === 'Police reports' && content.byApplicant === doc.value.isApplicant) {

@@ -1,13 +1,14 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 const en = () => {
   return {
     section: 'All documents',
     title: 'Paternity test reports',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
+    pagetitle: '',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -19,6 +20,7 @@ const cy: typeof en = () => {
     title: 'Paternity test reports',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
+    pagetitle: '',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -47,6 +49,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   const paternityCitizenDocs: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (doc.value.documentType === 'Paternity test reports') {

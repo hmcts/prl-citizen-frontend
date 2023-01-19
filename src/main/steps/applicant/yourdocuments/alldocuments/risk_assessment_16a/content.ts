@@ -1,11 +1,12 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 const en = () => {
   return {
     section: 'All documents',
     title: 'Risk Assessment 16 A',
     threeHint: 'This is a 8 character code',
+    pagetitle: '',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
@@ -17,6 +18,7 @@ const cy: typeof en = () => {
     section: 'All documents',
     title: 'Risk Assessment 16 A',
     threeHint: 'This is a 8 character code',
+    pagetitle: '',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
@@ -46,6 +48,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
   const orders: object[] = [];
 
   return {

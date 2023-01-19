@@ -5,6 +5,7 @@ import {
   form as manualAddressForm,
   generateContent as manualAddressGenerateContent,
 } from '../../../../common/components/address-manual';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 
 const MANUAL_ADDRESS = 'manual-address';
 
@@ -35,6 +36,7 @@ export const generateContent: TranslationFn = content => {
   const en = () => {
     return {
       ...translations.en,
+      pagetitle: '',
       errors: {
         ...errors.en,
       },
@@ -43,6 +45,7 @@ export const generateContent: TranslationFn = content => {
   const cy = () => {
     return {
       ...translations.cy,
+      pagetitle: '',
       errors: {
         ...errors.cy,
       },
@@ -56,7 +59,7 @@ export const generateContent: TranslationFn = content => {
 
   const manualAddressContent = manualAddressGenerateContent(content);
   const translationContent = languages[content.language]();
-
+  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...manualAddressContent,
     ...translationContent,

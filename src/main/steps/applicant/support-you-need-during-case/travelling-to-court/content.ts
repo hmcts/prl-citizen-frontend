@@ -1,10 +1,11 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: 'Reasonable adjustments',
   title: 'I need help travelling to, or moving around court buildings',
+  pagetitle: '',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   parkingspace: 'Parking space close to the venue',
@@ -31,6 +32,7 @@ const en = {
 const cy: typeof en = {
   section: 'Reasonable adjustments',
   title: 'I need help travelling to, or moving around court buildings',
+  pagetitle: '',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   parkingspace: 'Parking space close to the venue',
@@ -136,6 +138,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
   return {
     ...translations,
     form,

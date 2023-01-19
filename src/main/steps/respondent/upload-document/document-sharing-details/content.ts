@@ -1,12 +1,13 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const emailId = 'example@test.com';
 
 const en = {
   section: 'How your documents will be shared',
   email: emailId,
   continue: 'Continue',
+  pagetitle: '',
   warning: 'Warning',
   warningTxt: 'When you upload a document, it will  be shared with the other people in the case.',
   documentSharedLine1:
@@ -23,6 +24,7 @@ const cy: typeof en = {
   section: 'How your documents will be shared',
   email: emailId,
   continue: 'Continue',
+  pagetitle: '',
   warning: 'Warning',
   warningTxt: 'When you upload a document, it will  be shared with the other people in the case.',
   documentSharedLine1:
@@ -50,6 +52,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

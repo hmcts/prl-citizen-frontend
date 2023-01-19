@@ -12,14 +12,15 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   RESPOND_TO_APPLICATION,
 } from '../../../steps/urls';
+import { typeofcaseuser } from '../../common/typeofcaseuser';
 
 import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 import { getRespondentPartyDetailsCa } from './utils';
-
 const en = () => ({
   title: '',
+  pagetitle: '',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
@@ -138,6 +139,7 @@ const en = () => ({
 
 const cy = () => ({
   title: '',
+  pagetitle: '',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
@@ -261,6 +263,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   const banners: Banner[] =
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)

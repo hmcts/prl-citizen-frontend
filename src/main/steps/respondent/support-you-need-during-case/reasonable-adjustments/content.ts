@@ -1,9 +1,10 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: 'Reasonable adjustments',
+  pagetitle: '',
   title:
     'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
   courtcommunication:
@@ -31,6 +32,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
+  pagetitle: '',
   title:
     'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
   courtcommunication:
@@ -119,6 +121,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

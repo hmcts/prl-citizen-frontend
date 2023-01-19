@@ -1,11 +1,11 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
-import { typeofcaseuser } from '../../../../../steps/typeofcaseuserutil';
 import {
   form as selectAddressForm,
   generateContent as selectAddressGenerateContent,
 } from '../../../../common/components/address-select';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 import { APPLICANT_FIND_ADDRESS, APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
 
 const selectAddressFormFields = selectAddressForm.fields as FormFields;
@@ -60,7 +60,7 @@ export const generateContent: TranslationFn = content => {
 
   const selectAddressContent = selectAddressGenerateContent(content);
   const translationContent = languages[content.language]();
-  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
+  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
 
   return {
     ...selectAddressContent,

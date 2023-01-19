@@ -3,9 +3,10 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import { isDateInputInvalid, isFieldFilledIn, isFutureDate } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: 'Current or previous proceedings',
+  pagetitle: '',
   title: 'Provide details of court cases you or the children have been involved in',
   emergencyOrder: 'Emergency Protection Order',
   caseno: 'Case number',
@@ -95,6 +96,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Current or previous proceedings',
+  pagetitle: '',
   title: 'Provide details of court cases you or the children have been involved in',
   emergencyOrder: 'Emergency Protection Order',
   caseno: 'Case number',
@@ -1310,6 +1312,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

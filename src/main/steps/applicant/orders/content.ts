@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { typeofcaseuser } from '../../../steps/typeofcaseuserutil';
+import { typeofcaseuser } from '../../common/typeofcaseuser';
 const en = () => {
   return {
     section: 'All documents',
@@ -46,7 +46,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, true);
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },

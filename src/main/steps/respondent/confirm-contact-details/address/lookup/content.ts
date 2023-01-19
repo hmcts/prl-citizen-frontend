@@ -5,6 +5,7 @@ import {
   form as addressLookupForm,
   generateContent as addressLookupGenerateContent,
 } from '../../../../common/components/address-lookup';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 import { RESPONDENT_ADDRESS_MANUAL } from '../../../../urls';
 
 const LOOKUP_ADDRESS = 'address-lookup';
@@ -32,6 +33,7 @@ export const generateContent: TranslationFn = content => {
   const en = () => {
     return {
       ...translations.en,
+      pagetitle: '',
       errors: {
         ...errors.en,
       },
@@ -41,6 +43,7 @@ export const generateContent: TranslationFn = content => {
   const cy = () => {
     return {
       ...translations.cy,
+      pagetitle: '',
       errors: {
         ...errors.cy,
       },
@@ -55,7 +58,7 @@ export const generateContent: TranslationFn = content => {
 
   const addressLookupContent = addressLookupGenerateContent(content);
   const translationContent = languages[content.language]();
-
+  translationContent.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...addressLookupContent,
     ...translationContent,
