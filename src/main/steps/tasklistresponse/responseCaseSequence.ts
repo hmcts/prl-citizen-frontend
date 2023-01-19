@@ -1,4 +1,6 @@
+import { Case } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
   C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
@@ -36,6 +38,7 @@ import {
   MIAM_SAVE,
   MIAM_START,
   MIAM_SUMMARY,
+  OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
   PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
@@ -46,7 +49,11 @@ import {
   PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE,
   PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_ORDER_DETAILS,
   PROCEEDINGS_START,
+  PROCEEDINGS_SUMMARY,
+  PROCEEDING_SAVE,
+  PageLink,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
   RESPONDENT_ADDRESS_HISTORY,
@@ -78,6 +85,7 @@ import {
 } from '../urls';
 
 import SafteyConcernsNavigationController from './allegations-of-harm-and-violence/navigationController';
+import OtherProceedingsNavigationController from './proceedings/navigationController';
 import ReasonableAdjustmentsNavigationController from './support-you-need-during-case/navigationController';
 
 export const responseCaseSequence: Step[] = [
@@ -229,20 +237,40 @@ export const responseCaseSequence: Step[] = [
   {
     url: PROCEEDINGS_START,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
-        ? PROCEEDINGS_COURT_PROCEEDINGS
-        : COURT_PROCEEDINGS_SUMMARY,
+    getNextStep: (caseData: Partial<Case>): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_START, caseData);
+    },
   },
   {
     url: PROCEEDINGS_COURT_PROCEEDINGS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => COURT_PROCEEDINGS_SUMMARY,
+    getNextStep: (caseData: Partial<Case>): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_COURT_PROCEEDINGS, caseData);
+    },
+  },
+  {
+    url: PROCEEDINGS_ORDER_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_ORDER_DETAILS, caseData, req!.params);
+    },
+  },
+  {
+    url: OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, caseData, req!.params);
+    },
   },
   {
     url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: PROCEEDINGS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PROCEEDING_SAVE,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
