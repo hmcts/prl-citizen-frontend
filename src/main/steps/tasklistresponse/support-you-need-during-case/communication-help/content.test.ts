@@ -30,13 +30,13 @@ const en = {
   noSupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentHelpCommunication: {
+    helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
     },
-    respondentSignLanguageDetails: {
+    describeSignLanguageDetails: {
       required: 'Please provide sign language details',
     },
-    respondentDescribeOtherNeed: {
+    describeOtherNeed: {
       required: 'Please provide the details',
     },
   },
@@ -68,13 +68,13 @@ const cy: typeof en = {
   noSupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentHelpCommunication: {
+    helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
     },
-    respondentSignLanguageDetails: {
+    describeSignLanguageDetails: {
       required: 'Please provide sign language details',
     },
-    respondentDescribeOtherNeed: {
+    describeOtherNeed: {
       required: 'Please provide the details',
     },
   },
@@ -132,7 +132,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain helpcommunication field', () => {
-    const helpcommunicationField = fields.respondentHelpCommunication as FormOptions;
+    const helpcommunicationField = fields.helpCommunication as FormOptions;
     expect(helpcommunicationField.type).toBe('checkboxes');
     expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
   });

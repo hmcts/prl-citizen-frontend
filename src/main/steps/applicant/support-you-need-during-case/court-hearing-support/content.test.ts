@@ -28,14 +28,17 @@ const en = {
     communicationSupportOther: {
       required: 'Please provide the details',
     },
-    supportWorkerProvideDetails: {
+    supportWorkerDetails: {
       required: 'Please provide the support worker details',
     },
-    familyMemberProvideDetails: {
+    familyProviderDetails: {
       required: 'Please provide the family member details',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
+    },
+    therapyDetails: {
+      required: 'Please provide therapy animal details',
     },
   },
 };
@@ -64,14 +67,17 @@ const cy: typeof en = {
     communicationSupportOther: {
       required: 'Please provide the details',
     },
-    supportWorkerProvideDetails: {
+    supportWorkerDetails: {
       required: 'Please provide the support worker details',
     },
-    familyMemberProvideDetails: {
+    familyProviderDetails: {
       required: 'Please provide the family member details',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
+    },
+    therapyDetails: {
+      required: 'Please provide therapy animal details',
     },
   },
 };

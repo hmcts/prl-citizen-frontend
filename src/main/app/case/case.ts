@@ -42,6 +42,7 @@ import {
   OthersToNotify,
   PRLDocument,
   PartyDetails,
+  ReasonableAdjustments,
   Respondent,
   ResponseDocumentList,
   SelectTypeOfOrderEnum,
@@ -441,61 +442,55 @@ export interface Case {
 
   //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case
-  languageRequirements?: string;
   languageDetails?: string;
-  reasonableAdjustments?: string;
-  helpCommunication?: string;
+  helpCommunication?: string[];
   describeOtherNeed?: string;
-  courtHearing?: string;
-  communicationSupportOther?: string;
-  docsSupport?: string;
-  otherDetails?: string;
-  courtComfort?: string;
-  otherProvideDetails?: string;
-  safetyArrangements?: string;
+  safetyArrangements?: string[];
   safetyArrangementsDetails?: string;
-  travellingToCourt?: string;
   travellingOtherDetails?: string;
-  unableForCourtProceedings?: string;
+  unableForCourtProceedings?: YesOrNo;
   courtProceedingProvideDetails?: string;
 
   //CA-DA-Respondent
-  respondentAttendingToCourt?: string;
+  attendingToCourt?: string[];
   respondentConcernedonChildAbout?: string;
   ConcernedonSelfAbout?: string;
-  respondentHearingDetails?: string;
-  respondentLangRequirements?: string;
-  respondentLangDetails?: string;
-  respondentSpecialArrangements?: string;
-  respondentSpecialArrangementsDetails?: string;
-  respondentReasonableAdjustments?: string;
-  respondentDocsSupport?: string;
-  respondentDocsDetails?: string;
-  respondentLargePrintDetails?: string;
-  respondentOtherDetails?: string;
-  respondentHelpCommunication?: string;
-  respondentSignLanguageDetails?: string;
-  respondentDescribeOtherNeed?: string;
-  respondentCourtHearing?: string;
-  respondentSupportWorkerDetails?: string;
-  respondentFamilyDetails?: string;
-  respondentTherapyDetails?: string;
-  respondentCommSupportOther?: string;
-  respondentCourtComfort?: string;
-  respondentLightingDetails?: string;
-  respondentOtherProvideDetails?: string;
-  respondentTravellingToCourt?: string;
-  respondentParkingDetails?: string;
-  respondentDifferentChairDetails?: string;
-  respondentTravellingOtherDetails?: string;
+  hearingDetails?: string;
+  languageRequirements?: string[];
+  reasonableAdjustments?: string[];
+  docsSupport?: string[];
+  docsDetails?: string;
+  largePrintDetails?: string;
+  otherDetails?: string;
+  describeSignLanguageDetails?: string;
+  courtHearing?: string[];
+  supportWorkerDetails?: string;
+  familyProviderDetails?: string;
+  therapyDetails?: string;
+  communicationSupportOther?: string;
+  courtComfort?: string[];
+  lightingProvideDetails?: string;
+  otherProvideDetails?: string;
+  travellingToCourt?: string[];
+  parkingDetails?: string;
+  differentChairDetails?: string;
+  //applicant1LanguagePreference?: LanguagePreference;
+
   safetyConcerns?: string;
+
   citizenRole?: FieldPrefix;
   orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
-
+  reasonableAdjustmentsPages?: ReasonableAdjustments[];
+  respondentDocsSupportPage?: string[];
+  respondentHelpCommunicationPage?: string[];
+  respondentCourtHearingPage?: string[];
+  respondentCourtComfortPage?: string[];
+  respondentTravellingToCourtPage?: string[];
+  //selectedPageUrls: Array<PageLink>;
   //C100 Rebuild
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;

@@ -14,7 +14,6 @@ const en = {
     communicationSupportOther: 'Describe what you need',
     courtComfort: 'I need something to make me feel comfortable during a court hearing',
     courtHearing: 'I need to bring support with me to a court hearing',
-    courtProceedingProvideDetails: 'Provie details',
     describeOtherNeed: 'Describe what you need',
     docsSupport: 'I need documents in an alternative format',
     helpCommunication: 'I need help communicating and understanding',
@@ -28,7 +27,6 @@ const en = {
     safetyArrangementsDetails: 'Describe what you need',
     travellingOtherDetails: 'Describe what you need',
     travellingToCourt: 'I need help travelling to, or moving around court buildings',
-    unableForCourtProceedings: 'I need something to make me feel comfortable during a court hearing',
   },
   dependencies: {
     languageDetails: {
@@ -80,7 +78,6 @@ const cy: typeof en = {
     communicationSupportOther: 'Describe what you need',
     courtComfort: 'I need something to make me feel comfortable during a court hearing',
     courtHearing: 'I need to bring support with me to a court hearing',
-    courtProceedingProvideDetails: 'Provie details',
     describeOtherNeed: 'Describe what you need',
     docsSupport: 'I need documents in an alternative format',
     helpCommunication: 'I need help communicating and understanding',
@@ -94,7 +91,6 @@ const cy: typeof en = {
     safetyArrangementsDetails: 'Describe what you need',
     travellingOtherDetails: 'Describe what you need',
     travellingToCourt: 'I need help travelling to, or moving around court buildings',
-    unableForCourtProceedings: 'I need something to make me feel comfortable during a court hearing',
   },
   dependencies: {
     languageDetails: {
@@ -142,7 +138,25 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   beforeEach(() => {
-    commonContent.userCase = mockUserCase;
+    commonContent.userCase = {
+      ...mockUserCase,
+      helpCommunication: [''],
+      courtComfort: [''],
+      courtHearing: [''],
+      docsSupport: [''],
+      attendingToCourt: [''],
+      languageRequirements: [''],
+      safetyArrangements: [''],
+      reasonableAdjustments: [''],
+      travellingToCourt: [''],
+      communicationSupportOther: '',
+      describeOtherNeed: '',
+      languageDetails: '',
+      otherDetails: '',
+      otherProvideDetails: '',
+      safetyArrangementsDetails: '',
+      travellingOtherDetails: '',
+    };
     generatedContent = generateContent(commonContent);
   });
 
