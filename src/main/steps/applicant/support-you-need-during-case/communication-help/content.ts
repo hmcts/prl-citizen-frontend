@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
 import { typeofcaseuser } from '../../../common/typeofcaseuser';
 
 const en = {
