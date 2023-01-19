@@ -38,6 +38,7 @@ module.exports = {
     await I.retry(retryCount).fillField(this.fields.dateMadeDay, OtherProceedings.day);
     await I.retry(retryCount).fillField(this.fields.dateMadeMonth, OtherProceedings.month);
     await I.retry(retryCount).fillField(this.fields.dateMadeYear, OtherProceedings.year);
+    I.wait('1');
     await I.retry(retryCount).click(this.fields.currentOrderYes);
     await I.retry(retryCount).click(this.fields.copyOfOrderYes);
     I.wait('2');

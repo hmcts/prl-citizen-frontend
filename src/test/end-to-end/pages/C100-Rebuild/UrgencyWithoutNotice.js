@@ -35,9 +35,11 @@ module.exports = {
         await I.retry(retryCount).click(this.fields.reasonOfUrgentHearing2);
         await I.retry(retryCount).click(this.fields.reasonOfUrgentHearing3);
         await I.retry(retryCount).click(this.fields.reasonOfUrgentHearing4);
+        I.wait('1');
         await I.retry(retryCount).fillField(this.fields.otherRiskDetailsField, this.fields.testingText);
         await I.retry(retryCount).fillField(this.fields.timeOfHearingDetailsField, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.earingWithNext48HrsDetails);
+        I.wait('1');
         await I.retry(retryCount).fillField(this.fields.hearingWithNext48HrsMsgField, this.fields.testingText);
         I.wait(2);
         await I.retry(retryCount).click('Continue');
@@ -52,8 +54,10 @@ module.exports = {
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeDetailsPageTitle);
         await I.retry(retryCount).fillField(this.fields.withoutNoticeDetails, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.obstructOrderYes);
+        I.wait('1');
         await I.retry(retryCount).fillField(this.fields.obstructOrderDetails, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.noTimeNoticeYes);
+        I.wait('1');
         await I.retry(retryCount).fillField(this.fields.noTimeNoticeDetails, this.fields.testingText);
         I.wait('2');
         await I.retry(retryCount).click('Continue');

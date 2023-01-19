@@ -58,6 +58,7 @@ module.exports = {
     async concernsSafety() {
         await I.retry(retryCount).waitForText(SafetyConcerns.concernsSafety);
         await I.retry(retryCount).click(this.fields.concernsSafetyYes);
+        I.wait('1');
         await I.retry(retryCount).waitForText(SafetyConcerns.concernsSafetyYesInfo);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
@@ -81,10 +82,12 @@ module.exports = {
         await I.retry(retryCount).waitForText(SafetyConcerns.describePhysicalAbuseTitle);
         await I.retry(retryCount).waitForText(SafetyConcerns.whichChildren);
         await I.retry(retryCount).click(this.fields.childOne);
+        I.wait('1');
         await I.retry(retryCount).fillField(this.fields.behaviourDetails, SafetyConcerns.testingText);
         await I.retry(retryCount).fillField(this.fields.behaviourStartDate, SafetyConcerns.testingText);
         await I.retry(retryCount).click(this.fields.ongoingBehaviourYes);
         await I.retry(retryCount).click(this.fields.seekHelpYes);
+        I.wait('1');
         await I.retry(retryCount).waitForText(SafetyConcerns.seekHelpYesText);
         await I.retry(retryCount).fillField(this.fields.seekHelpDetails, SafetyConcerns.testingText);
         I.wait('2');
@@ -167,6 +170,7 @@ module.exports = {
     async otherConcerns() {
         await I.retry(retryCount).waitForText(SafetyConcerns.childImpactedDrugAlcohol);
         await I.retry(retryCount).click(this.fields.otherConcernsYes);
+        I.wait('1');
         await I.retry(retryCount).fillField(this.fields.otherConcernsDetails, SafetyConcerns.testingText);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
@@ -190,6 +194,7 @@ module.exports = {
         await I.retry(retryCount).waitForText(SafetyConcerns.contactWithChildTitle);
         await I.retry(retryCount).waitForText(SafetyConcerns.childSpendingTimeSubtitle);
         await I.retry(retryCount).click(this.fields.supervisedYes);
+        I.wait('1');
         await I.retry(retryCount).waitForText(SafetyConcerns.contactOtherWaysSubtitle);
         await I.retry(retryCount).click(this.fields.otherWaysContactYes);
         I.wait('2');

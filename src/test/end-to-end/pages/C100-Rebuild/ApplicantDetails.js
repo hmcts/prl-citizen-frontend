@@ -45,6 +45,7 @@ module.exports = {
     async keepingConfidentialContact() {
     await I.retry(retryCount).waitForText(ApplicantDetails.keepingConfidentialContactPageTitle);
     await I.retry(retryCount).waitForText(ApplicantDetails.keepingConfidentialContactSubHeading);
+    I.wait('1');
     await I.retry(retryCount).click(this.fields.startOptions);
     await I.retry(retryCount).click(this.fields.privateAddress);
     await I.retry(retryCount).click(this.fields.privateTelephoneNumber);
@@ -61,23 +62,28 @@ module.exports = {
     await I.retry(retryCount).waitForText(ApplicantDetails.provideDetailsPageTitle);
     await I.retry(retryCount).waitForText(ApplicantDetails.provideDetailsPageTitleSubHeading);
     await I.retry(retryCount).click(this.fields.haveYouChangeNameYes);
+    I.wait('1');
     await I.retry(retryCount).fillField(this.fields.applPreviousNameField, ApplicantDetails.previousName);
     await I.retry(retryCount).click(this.fields.genderMan);
+    I.wait('1');
     await I.retry(retryCount).fillField(this.fields.dayDOB, ApplicantDetails.day);
     await I.retry(retryCount).fillField(this.fields.monthDOB, ApplicantDetails.month);
     await I.retry(retryCount).fillField(this.fields.yearDOB, ApplicantDetails.year);
     await I.retry(retryCount).waitForText(ApplicantDetails.placeOfBirthSubHeading);
+    I.wait('1');
     await I.retry(retryCount).fillField(this.fields.applicantPlaceOfBirth, ApplicantDetails.placeOfBirth);
     await I.retry(retryCount).click('Continue');
   },
    async relationshipToChild() {
     await I.retry(retryCount).waitForText(ApplicantDetails.relationshipToChildPageTitle);
     await I.retry(retryCount).click(this.fields.fatherOption);
+    I.wait('1');
     await I.retry(retryCount).click('Continue');
   },
     async addressDetailsOfApplicant() {
     await I.retry(retryCount).waitForText(ApplicantDetails.addressDetailsOfApplicantPageTitle);
     await I.retry(retryCount).waitForText(ApplicantDetails.addressHintText);
+    I.wait('1');
     await I.retry(retryCount).fillField(this.fields.addressPostcode, ApplicantDetails.postcode);
     await I.retry(retryCount).click('Continue');
   },
@@ -97,9 +103,12 @@ module.exports = {
     async contactDetails() {
     await I.retry(retryCount).waitForText(ApplicantDetails.contactDetailsPageTitle);
     await I.retry(retryCount).click(this.fields.canProvideEmailButton);
+    I.wait('1');
     await I.retry(retryCount).fillField(this.fields.emailAddressField, ApplicantDetails.email);
     await I.retry(retryCount).click(this.fields.canProvideTelNumButton);
+    I.wait('1');
     await I.retry(retryCount).fillField(this.fields.telephoneNumberField, ApplicantDetails.phoneNumber);
+    I.wait('1');
     await I.retry(retryCount).waitForText(ApplicantDetails.contactDetailsSubHeading);
     await I.retry(retryCount).click(this.fields.canLeaveVoiceMailButton);
     I.wait('2');
@@ -107,6 +116,7 @@ module.exports = {
   },
     async contactPreferences() {
     await I.retry(retryCount).waitForText(ApplicantDetails.contactPreferencesPageTitle);
+    I.wait('1');
     await I.retry(retryCount).click(this.fields.digitalOption);
     await I.retry(retryCount).click(this.fields.postOption);
     I.wait('2');

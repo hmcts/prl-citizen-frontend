@@ -19,12 +19,14 @@ module.exports = {
     },
     async askingCourt() {
         await I.retry(retryCount).waitForText(TypeOfOrder.askingCourtPageTitle);
+        I.wait('1');
         await I.retry(retryCount).click(this.fields.courtToDo1);
         await I.retry(retryCount).click(this.fields.courtToDo2);
         await I.retry(retryCount).click(this.fields.courtToDo3);
+        I.wait('1');
         await I.retry(retryCount).click(this.fields.courtToDo3Nested);
-        I.wait('2');
         await I.retry(retryCount).click(this.fields.courtToDo4);
+        I.wait('1');
         await I.retry(retryCount).click(this.fields.courtToDo4Nested);
         I.wait('2');
         await I.retry(retryCount).click('Continue');

@@ -35,7 +35,8 @@ module.exports = {
     },
     async otherWaysToReachAnAgreement() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementPageTitle);
-        await I.retry(retryCount).click(this.fields.reachingAgreementYes);      
+        await I.retry(retryCount).click(this.fields.reachingAgreementYes); 
+        I.wait('1');     
         await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementSubHeading);
         await I.retry(retryCount).fillField(this.fields.alternativeOptionTextBox, this.fields.testingText);
         I.wait('2');
@@ -43,7 +44,7 @@ module.exports = {
     },
     async usingLegalRepresentative() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.usingLegalRepresentativePageTitle);
-        I.wait('2');
+        I.wait('1');
         await I.retry(retryCount).click(this.fields.legalRepresentativeNo);
         I.wait('2');
         await I.retry(retryCount).click('Continue');

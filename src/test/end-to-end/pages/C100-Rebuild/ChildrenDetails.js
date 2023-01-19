@@ -59,8 +59,10 @@ module.exports = {
     async furtherInformation() {
         await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationPageTitle);
         await I.retry(retryCount).click(this.fields.childrenKnownToSocialServices);
+        I.wait('1');
         await I.retry(retryCount).fillField(this.fields.childrenKnownToSocialServicesDetail, ChildrenDetails.testingText);
-        await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationSubHeading)
+        await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationSubHeading);
+        I.wait('1');
         await I.retry(retryCount).click(this.fields.childrenSubjectOfProtectionPlan);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
@@ -73,6 +75,7 @@ module.exports = {
     },
     async otherChildrenName() {
         await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenNamePageTitle);
+        I.wait('1');
         await I.retry(retryCount).fillField(this.fields.tempFirstName, ChildrenDetails.firstName);
         await I.retry(retryCount).fillField(this.fields.tempLastName, ChildrenDetails.surname);
         I.wait('2');
