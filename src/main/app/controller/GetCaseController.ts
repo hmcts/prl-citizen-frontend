@@ -1,7 +1,6 @@
 import { Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
-
 import { Respondent } from '../../app/case/definition';
 import { getInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
 import {
