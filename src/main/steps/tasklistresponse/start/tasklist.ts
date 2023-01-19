@@ -1,4 +1,5 @@
 import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
 import * as URL from '../../urls';
 
 import {
@@ -70,7 +71,7 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: SectionStatus.TO_DO,
+            status: getSupportYourNeedsDetails(userCase),
             href: URL.C7_ATTENDING_THE_COURT,
           },
         ],

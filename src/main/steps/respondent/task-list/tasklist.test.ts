@@ -31,7 +31,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             href: '/respondent/support-you-need-during-case/attending-the-court',
           },
         ],
@@ -115,7 +115,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             href: '/respondent/support-you-need-during-case/attending-the-court',
           },
         ],
@@ -199,7 +199,7 @@ describe('generateRespondentTaskList', () => {
           {
             href: '/respondent/support-you-need-during-case/attending-the-court',
             id: 'support_you_need_during_your_case',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Support you need during your case',
           },
         ],

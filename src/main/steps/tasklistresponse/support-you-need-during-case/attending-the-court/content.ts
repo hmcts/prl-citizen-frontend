@@ -65,12 +65,12 @@ export const form: FormContent = {
         {
           name: 'attendingToCourt',
           label: l => l.videoHearings,
-          value: 'video hearings',
+          value: 'videohearings',
         },
         {
           name: 'attendingToCourt',
           label: l => l.phoneHearings,
-          value: 'phone hearings',
+          value: 'phonehearings',
         },
         {
           divider: true,
@@ -79,7 +79,7 @@ export const form: FormContent = {
           name: 'attendingToCourt',
           label: l => l.noHearings,
           hint: l => l.noHearingsHint,
-          value: 'no hearings',
+          value: 'nohearings',
           exclusive: true,
           subFields: {
             hearingDetails: {

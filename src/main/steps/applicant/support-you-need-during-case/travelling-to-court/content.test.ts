@@ -65,7 +65,6 @@ const cy: typeof en = {
     differentChairDetails: {
       required: 'Please describe different chair details',
     },
-    
   },
 };
 

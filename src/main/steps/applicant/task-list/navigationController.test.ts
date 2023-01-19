@@ -14,13 +14,7 @@ const dummyRequest = mockRequest({
   query: {},
   session: {
     userCase: {
-      reasonableAdjustments: [
-        'I need documents in an alternative format',
-        'I need help communicating and understanding',
-        'I need to bring support with me to a hearing',
-        'I need something to feel comfortable during a hearing',
-        'I need help travelling to, or moving around court buildings',
-      ],
+      reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
     },
   },
 });
@@ -63,10 +57,7 @@ describe('ReasonableAdjustmentsNavigationController', () => {
       query: {},
       session: {
         userCase: {
-          reasonableAdjustments: [
-            'I need documents in an alternative format',
-            'I need something to feel comfortable during a hearing',
-          ],
+          reasonableAdjustments: ['docsformat', 'hearingcomfort'],
         },
       },
     });

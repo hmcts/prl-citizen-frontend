@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Case } from '../../../app/case/case';
-import { ReasonableAdjustmentsEnum } from '../../../app/case/definition';
 import {
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
@@ -11,39 +10,34 @@ import {
   SAFETY_ARRANGEMENTS,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   TRAVELLING_TO_COURT,
-  UNABLE_TO_TAKE_COURT_PROCEEDINGS,
 } from '../../urls';
 
 class ApplicantReasonableAdjustmentsNavigationController {
   protected selectedPages;
   selectedPageUrls: PageLink[] = [];
 
-  private pages: Record<ReasonableAdjustmentsEnum, Record<string, any>> = {
-    [ReasonableAdjustmentsEnum.docsformat]: {
+  private pages: Record<string, Record<string, any>> = {
+    ['docsformat']: {
       url: DOCUMENTS_SUPPORT,
       dataReference: 'applicantDocsSupportPage',
     },
-    [ReasonableAdjustmentsEnum.commhelp]: {
+    ['commhelp']: {
       url: COMMUNICATION_HELP,
       dataReference: 'applicantHelpCommunicationPage',
     },
-    [ReasonableAdjustmentsEnum.hearingsupport]: {
+    ['hearingsupport']: {
       url: COURT_HEARING_SUPPORT,
       dataReference: 'applicantCourtHearingPage',
     },
-    [ReasonableAdjustmentsEnum.hearingcomfort]: {
+    ['hearingcomfort']: {
       url: COURT_HEARING_COMFORT,
       dataReference: 'applicantCourtComfortPage',
     },
-    [ReasonableAdjustmentsEnum.travellinghelp]: {
+    ['travellinghelp']: {
       url: TRAVELLING_TO_COURT,
       dataReference: 'applicantTravellingToCourtPage',
     },
-    [ReasonableAdjustmentsEnum.unabletotakecourtproceedings]: {
-      url: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
-      dataReference: 'applicantUnableToTakeCourtProceedings',
-    },
-    [ReasonableAdjustmentsEnum.nosupport]: {
+    ['nosupport']: {
       url: SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
       dataReference: 'nosupportPage',
     },
@@ -67,7 +61,7 @@ class ApplicantReasonableAdjustmentsNavigationController {
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>): PageLink {
     this.selectedPages = caseData.reasonableAdjustments;
 
-    if (caseData.reasonableAdjustments?.includes(ReasonableAdjustmentsEnum.nosupport)) {
+    if (caseData.reasonableAdjustments?.includes('nosupport')) {
       return SAFETY_ARRANGEMENTS;
     }
 

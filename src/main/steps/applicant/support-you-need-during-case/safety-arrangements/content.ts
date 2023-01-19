@@ -1,4 +1,3 @@
-import { SafetyArrangemensEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -77,39 +76,39 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.waitingroom,
-          value: SafetyArrangemensEnum.waitingroom,
+          value: 'waitingroom',
         },
         {
           name: 'safetyArrangements',
           label: l => l.separateexitentry,
-          value: SafetyArrangemensEnum.separateexitentry,
+          value: 'separateexitentry',
         },
         {
           name: 'safetyArrangements',
           label: l => l.screens,
           hint: l => l.screenshint,
-          value: SafetyArrangemensEnum.screens,
+          value: 'screens',
         },
         {
           name: 'safetyArrangements',
           label: l => l.toilet,
-          value: SafetyArrangemensEnum.toilet,
+          value: 'toilet',
         },
         {
           name: 'safetyArrangements',
           label: l => l.advancedview,
-          value: SafetyArrangemensEnum.advancedview,
+          value: 'advancedview',
         },
         {
           name: 'safetyArrangements',
           label: l => l.videolinks,
           hint: l => l.videolinkshint,
-          value: SafetyArrangemensEnum.videolinks,
+          value: 'videolinks',
         },
         {
           name: 'safetyArrangements',
           label: l => l.other,
-          value: SafetyArrangemensEnum.other,
+          value: 'other',
           subFields: {
             safetyArrangementsDetails: {
               type: 'textarea',
@@ -125,7 +124,7 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.nosupport,
-          value: SafetyArrangemensEnum.nosupport,
+          value: 'nosupport',
           exclusive: true,
         },
       ],

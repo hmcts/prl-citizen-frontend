@@ -1,4 +1,3 @@
-import { HelpCommunicationEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -96,28 +95,28 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.hearingloop,
-          value: HelpCommunicationEnum.hearingloop,
+          value: 'hearingloop',
         },
         {
           name: 'helpCommunication',
           label: l => l.infraredreceiver,
-          value: HelpCommunicationEnum.infraredreceiver,
+          value: 'infraredreceiver',
         },
         {
           name: 'helpCommunication',
           label: l => l.needspeakinghelp,
-          value: HelpCommunicationEnum.needspeakinghelp,
+          value: 'needspeakinghelp',
         },
         {
           name: 'helpCommunication',
           label: l => l.lipspeaker,
           hint: l => l.lipspeakerhint,
-          value: HelpCommunicationEnum.lipspeaker,
+          value: 'lipspeaker',
         },
         {
           name: 'helpCommunication',
           label: l => l.signlanguage,
-          value: HelpCommunicationEnum.signlanguage,
+          value: 'signlanguage',
           subFields: {
             describeSignLanguageDetails: {
               type: 'textarea',
@@ -133,22 +132,22 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.speechreporter,
-          value: HelpCommunicationEnum.speechreporter,
+          value: 'speechreporter',
         },
         {
           name: 'helpCommunication',
           label: l => l.extratime,
-          value: HelpCommunicationEnum.extratime,
+          value: 'extratime',
         },
         {
           name: 'helpCommunication',
           label: l => l.courtvisit,
-          value: HelpCommunicationEnum.courtvisit,
+          value: 'courtvisit',
         },
         {
           name: 'helpCommunication',
           label: l => l.courthearing,
-          value: 'court hearing',
+          value: 'courthearing',
         },
         {
           name: 'helpCommunication',
@@ -175,7 +174,7 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

@@ -158,89 +158,67 @@ export interface ReasonableAdjustmentsSupport {
   differentChairDetails?: string,
 }
 
-export const enum TravellingToCourtEnum {
-  parkingspace = 'parkingspace',
-  stepfree = 'stepfree',
-  wheelchair = 'wheelchair',
-  toilet = 'toilet',
-  lift = 'lift',
-  differentchair = 'differentchair',
-  building = 'building',
-  other = 'other',
-  nosupport = 'nosupport',
-}
-
-export const enum HelpCommunicationEnum {
-  hearingloop = 'hearingloop',
-  infraredreceiver = 'infraredreceiver',
-  needspeakinghelp = 'needspeakinghelp',
-  lipspeaker = 'lipspeaker',
-  signlanguage = 'signlanguage',
-  speechreporter = 'speechreporter',
-  extratime = 'extratime',
-  courtvisit = 'courtvisit',
-  courthearing = 'courthearing',
-  intermediary = 'intermediary',
-  other = 'other',
-  nosupport = 'nosupport',
-}
-
-export const enum CourtComfortEnum {
-  appropriatelighting = 'appropriatelighting',
-  breaks = 'breaks',
-  space = 'space',
-  other = 'other',
-  nosupport = 'nosupport',
-}
-
-export const enum SafetyArrangemensEnum {
-  waitingroom= 'waitingroom',
-  separateexitentry= 'separateexitentry',
-  screens= 'screens',
-  toilet= 'toilet',
-  advancedview= 'advancedview',
-  videolinks= 'videolinks',
-  other= 'other',
-  nosupport = 'nosupport',
-}
-
-export const enum ReasonableAdjustmentsEnum {
-  docsformat= 'docsformat',
-  commhelp= 'commhelp',
-  hearingsupport= 'hearingsupport',
-  hearingcomfort= 'hearingcomfort',
-  travellinghelp= 'travellinghelp',
-  unabletotakecourtproceedings= 'unabletotakecourtproceedings',
-  nosupport= 'nosupport',
-}
-
-export const enum LanguageRequirementsEnum {
-  speakwelsh = 'speakwelsh',
-  readandwritewelsh = 'readandwritewelsh',
-  languageinterpreter = 'languageinterpreter',
-  nointerpreter = 'nointerpreter',
-
-}
-
-export const enum DocsSupportEnum {
-  docsprint = 'docsprint',
-  docsreadformat = 'docsreadformat',
-  brailledocs = 'brailledocs',
-  largeprintdocs = 'largeprintdocs',
-  docsaudio = 'docsaudio',
-  readoutdocs = 'readoutdocs',
-  emailInfo = 'emailInfo',
-  other = 'other',
-  nosupport = 'nosupport',
-}
-
-export const enum CourtHearingEnum {
-  supportworker = 'supportworker',
-  familymember = 'familymember',
-  assistance = 'assistance',
-  animal = 'animal',
-  other = 'other',
-  nosupport = 'nosupport',
+export const SupportYouNeedAllEnum = {
+  videohearings : 'Yes, I can take part in video hearings',
+  phonehearings : 'Yes, I can take part in phone hearings',
+  nohearings : 'No, I cannot take part in either video or phone hearings',
+  //Travelling
+  parkingspace : 'Parking space close to the venue',
+  stepfree : 'Step free / wheelchair access',
+  wheelchair : 'Use of venue wheelchair',
+  toilet : 'Accessible toilet',
+  lift : 'Help using a lift',
+  differentchair : 'A different type of chair',
+  building : 'Guiding in the building',
+  other : 'Other',
+  //Help Coomunication
+  hearingloop : 'Hearing loop (hearing enhancement system)',
+  infraredreceiver : 'Infrared receiver (hearing enhancement system)',
+  needspeakinghelp : 'Need to be close to who is speaking',
+  lipspeaker : 'Lip speaker',
+  signlanguage : 'Sign Language interpreter',
+  speechreporter : 'Speech to text reporter (palantypist)',
+  extratime : 'Extra time to think and explain myself',
+  courtvisit : 'Visit to court before the hearing',
+  courthearing : "Explanation of the court and who's in the room at the hearing",
+  intermediary : 'Intermediary',
+  nosupport : 'No, I do not need any support at this time',
+  //Court comfort
+  appropriatelighting : 'Appropriate lighting',
+  breaks : 'Regular breaks',
+  space : 'Space to be able to get up and move around',
+  //Safety Arrangements
+  waitingroom: 'Separate waiting room',
+  separateexitentry: 'Separate exits and entrances',
+  screens: 'Screens so you and the other people in the case cannot see each other',
+  separatetoilets: 'Separate toilets',
+  visitToCourt: 'Visit to court before the hearing',
+  videolinks : 'Video links',
+  noSafetyrequirements : 'No, I do not have any safety requirements at this time',
+  //Docs support
+  docsreadformat: 'Documents in an easy read format',
+  brailledocs : 'Braille documents',
+  largeprintdocs : 'Documents in large print',
+  docsaudio : 'Audio translation of documents',
+  docsReadOut : 'Documents read out to me',
+  emailInfo : 'Information emailed to me',
+  docsprint : 'Documents in a specified colour',
+  //Reasonable adjustments
+  docsformat: 'I need documents in an alternative format',
+  commhelp: 'I need help communicating and understanding',
+  hearingsupport: 'I need to bring support with me to a hearing',
+  hearingcomfort: 'I need something to feel comfortable during a hearing',
+  travellinghelp: 'I need help travelling to, or moving around court buildings',
+  //court support
+  supportworker: 'A support worker or carer',
+  familymember: 'A friend or family member',
+  assistance: 'Assistance / guide dog',
+  animal: 'Therapy animal',
+  //languagerequirements
+  speakwelsh: 'I need to speak in Welsh',
+  readandwritewelsh: 'I need to read and write in Welsh',
+  languageinterpreter: 'I need an interpreter in a certain language',
+  nointerpreter: 'No, I do not have any language requirements at this time',
 }
 
 export interface CitizenFlags {
@@ -2529,23 +2507,13 @@ export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
 
-export enum ApplicantReasonableAdjustments {
-  DOCUMENTS_SUPPORT = 'document format',
-  COMMUNICATION_HELP = 'comminication help',
-  COURT_HEARING_SUPPORT = 'hearing support',
-  COURT_HEARING_COMFORT = 'hearing comfort',
-  TRAVELLING_TO_COURT = 'travel help',
-  UNABLE_TO_TAKE_COURT_PROCEEDINGS = 'unable to take court proceedings',
-  NO_NEED_OF_SUPPORT = 'no need of support',
- }
-
  export enum ReasonableAdjustments {
-  DOCUMENTS_SUPPORT = 'document format',
-  COMMUNICATION_HELP = 'comminication help',
-  COURT_HEARING_SUPPORT = 'hearing support',
-  COURT_HEARING_COMFORT = 'hearing comfort',
-  TRAVELLING_TO_COURT = 'travel help',
-  NO_NEED_OF_SUPPORT = 'no need of support',
+  DOCUMENTS_SUPPORT = 'docsformat',
+  COMMUNICATION_HELP = 'commhelp',
+  COURT_HEARING_SUPPORT = 'hearingsupport',
+  COURT_HEARING_COMFORT = 'hearingcomfort',
+  TRAVELLING_TO_COURT = 'travellinghelp',
+  NO_NEED_OF_SUPPORT = 'nosupport',
  }
 
 export const enum C100_CASE_TYPE {

@@ -76,34 +76,34 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.waitingRoom,
-          value: 'separate waiting room',
+          value: 'waitingroom',
         },
         {
           name: 'safetyArrangements',
           label: l => l.separateExitEntry,
-          value: 'separate exits and entrances',
+          value: 'separateexitentry',
         },
         {
           name: 'safetyArrangements',
           label: l => l.screens,
           hint: l => l.screensHint,
-          value: 'screens to separate',
+          value: 'screens',
         },
         {
           name: 'safetyArrangements',
           label: l => l.toilet,
-          value: 'separate toilets',
+          value: 'separatetoilets',
         },
         {
           name: 'safetyArrangements',
           label: l => l.visitToCourt,
-          value: 'visit to court',
+          value: 'visitToCourt',
         },
         {
           name: 'safetyArrangements',
           label: l => l.videoLinks,
           hint: l => l.videoLinksHint,
-          value: 'video links',
+          value: 'videolinks',
         },
         {
           name: 'safetyArrangements',
@@ -124,7 +124,7 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.noSupport,
-          value: 'no need of support',
+          value: 'noSafetyrequirements',
           exclusive: true,
         },
       ],

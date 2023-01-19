@@ -1,4 +1,3 @@
-import { TravellingToCourtEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -83,7 +82,7 @@ export const form: FormContent = {
         {
           name: 'travellingToCourt',
           label: l => l.parkingspace,
-          value: TravellingToCourtEnum.parkingspace,
+          value: 'parkingspace',
           subFields: {
             parkingDetails: {
               type: 'textarea',
@@ -96,27 +95,27 @@ export const form: FormContent = {
         {
           name: 'travellingToCourt',
           label: l => l.stepfree,
-          value: TravellingToCourtEnum.stepfree,
+          value: 'stepfree',
         },
         {
           name: 'travellingToCourt',
           label: l => l.wheelchair,
-          value: TravellingToCourtEnum.wheelchair,
+          value: 'wheelchair',
         },
         {
           name: 'travellingToCourt',
           label: l => l.toilet,
-          value: TravellingToCourtEnum.toilet,
+          value: 'toilet',
         },
         {
           name: 'travellingToCourt',
           label: l => l.lift,
-          value: TravellingToCourtEnum.lift,
+          value: 'lift',
         },
         {
           name: 'travellingToCourt',
           label: l => l.differentchair,
-          value: TravellingToCourtEnum.differentchair,
+          value: 'differentchair',
           subFields: {
             differentChairDetails: {
               type: 'textarea',
@@ -130,12 +129,12 @@ export const form: FormContent = {
         {
           name: 'travellingToCourt',
           label: l => l.building,
-          value: TravellingToCourtEnum.building,
+          value: 'building',
         },
         {
           name: 'travellingToCourt',
           label: l => l.other,
-          value: TravellingToCourtEnum.other,
+          value: 'other',
           subFields: {
             travellingOtherDetails: {
               type: 'textarea',
@@ -152,7 +151,7 @@ export const form: FormContent = {
         {
           name: 'travellingToCourt',
           label: l => l.nosupport,
-          value: TravellingToCourtEnum.nosupport,
+          value: 'nosupport',
           exclusive: true,
         },
       ],

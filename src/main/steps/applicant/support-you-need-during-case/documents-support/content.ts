@@ -1,4 +1,3 @@
-import { DocsSupportEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -89,7 +88,7 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.docsprint,
-          value: DocsSupportEnum.docsprint,
+          value: 'docsprint',
           subFields: {
             docsDetails: {
               type: 'textarea',
@@ -102,17 +101,17 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.docsreadformat,
-          value: DocsSupportEnum.docsreadformat,
+          value: 'docsreadformat',
         },
         {
           name: 'docsSupport',
           label: l => l.brailledocs,
-          value: DocsSupportEnum.brailledocs,
+          value: 'brailledocs',
         },
         {
           name: 'docsSupport',
           label: l => l.largeprintdocs,
-          value: DocsSupportEnum.largeprintdocs,
+          value: 'largeprintdocs',
           subFields: {
             largePrintDetails: {
               type: 'textarea',
@@ -125,22 +124,22 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.docsaudio,
-          value: DocsSupportEnum.docsaudio,
+          value: 'docsaudio',
         },
         {
           name: 'docsSupport',
           label: l => l.readoutdocs,
-          value: DocsSupportEnum.readoutdocs,
+          value: 'readoutdocs',
         },
         {
           name: 'docsSupport',
           label: l => l.emailInfo,
-          value: DocsSupportEnum.emailInfo,
+          value: 'emailInfo',
         },
         {
           name: 'docsSupport',
           label: l => l.other,
-          value: DocsSupportEnum.other,
+          value: 'other',
           subFields: {
             otherDetails: {
               type: 'textarea',
@@ -156,7 +155,7 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.nosupport,
-          value: DocsSupportEnum.nosupport,
+          value: 'nosupport',
           exclusive: true,
         },
       ],

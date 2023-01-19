@@ -222,7 +222,16 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   beforeEach(() => {
-    commonContent.userCase = mockUserCase;
+    commonContent.userCase = {
+      ...mockUserCase,
+      attendingToCourt: [''],
+      hearingDetails: '',
+      languageRequirements: [''],
+      languageDetails: '',
+      safetyArrangements: [''],
+      safetyArrangementsDetails: 'Please describe your need in detail',
+      reasonableAdjustments: [''],
+    };
     generatedContent = generateContent(commonContent);
   });
 

@@ -92,7 +92,7 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.docsColour,
-          value: 'Documents in colour print',
+          value: 'docsprint',
           subFields: {
             docsDetails: {
               type: 'textarea',
@@ -106,17 +106,17 @@ export const form: FormContent = {
           name: 'docsSupport',
           label: l => l.docsReadFormat,
           hint: l => l.docsReadFormatHint,
-          value: 'documents in read format',
+          value: 'docsreadformat',
         },
         {
           name: 'docsSupport',
           label: l => l.brailleDocs,
-          value: 'Braille documents',
+          value: 'brailledocs',
         },
         {
           name: 'docsSupport',
           label: l => l.largePrintDocs,
-          value: 'Large print documents',
+          value: 'largeprintdocs',
           subFields: {
             largePrintDetails: {
               type: 'textarea',
@@ -129,17 +129,17 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.audioTranslation,
-          value: 'Audio translation of documents',
+          value: 'docsaudio',
         },
         {
           name: 'docsSupport',
           label: l => l.docsReadOut,
-          value: 'Documents read out to me',
+          value: 'docsReadOut',
         },
         {
           name: 'docsSupport',
           label: l => l.emailInfo,
-          value: 'email information',
+          value: 'emailInfo',
         },
         {
           name: 'docsSupport',
@@ -160,7 +160,7 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.noSupport,
-          value: 'no need of support',
+          value: 'noSupport',
           exclusive: true,
         },
       ],

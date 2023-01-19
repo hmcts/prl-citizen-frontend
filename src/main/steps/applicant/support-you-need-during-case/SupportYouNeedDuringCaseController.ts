@@ -27,11 +27,11 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
 
       if (req.url.includes('respondent') || req.url.includes('tasklistresponse')) {
         req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-          if (respondent?.value?.user?.idamId === req.session?.user.id) {
-            if (req.url.includes('support-you-need-during-case')) {
-              setSupportDetails(respondent, req);
-            }
+          //if (respondent?.value?.user?.idamId === req.session?.user.id) {
+          if (req.url.includes('support-you-need-during-case')) {
+            setSupportDetails(respondent, req);
           }
+          //}
         });
       } else if (req.url.includes('applicant')) {
         req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
@@ -43,8 +43,8 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
         });
       }
 
-      console.log("UserCase=====>" + JSON.stringify(req.session.userCase));
-      
+      console.log('UserCase=====>' + JSON.stringify(req.session.userCase));
+
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = caseReference;
       const updatedCaseDataFromCos = await client.updateCase(

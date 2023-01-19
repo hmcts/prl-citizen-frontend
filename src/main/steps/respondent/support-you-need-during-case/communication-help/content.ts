@@ -95,28 +95,28 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.hearingLoop,
-          value: 'hearing loop',
+          value: 'hearingloop',
         },
         {
           name: 'helpCommunication',
           label: l => l.infraredReceiver,
-          value: 'infrared receiver',
+          value: 'infraredreceiver',
         },
         {
           name: 'helpCommunication',
           label: l => l.needSpeakingHelp,
-          value: 'speaking help',
+          value: 'needspeakinghelp',
         },
         {
           name: 'helpCommunication',
           label: l => l.lipSpeaker,
           hint: l => l.lipSpeakerHint,
-          value: 'lip speaker',
+          value: 'lipspeaker',
         },
         {
           name: 'helpCommunication',
           label: l => l.signLanguage,
-          value: 'sign language interpreter',
+          value: 'signlanguage',
           subFields: {
             describeSignLanguageDetails: {
               type: 'textarea',
@@ -129,22 +129,22 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.speechReporter,
-          value: 'speech to text reporter',
+          value: 'speechreporter',
         },
         {
           name: 'helpCommunication',
           label: l => l.extraTime,
-          value: 'extra time to think and explain myself',
+          value: 'extratime',
         },
         {
           name: 'helpCommunication',
           label: l => l.courtVisit,
-          value: 'vist to court before hearing',
+          value: 'courtvisit',
         },
         {
           name: 'helpCommunication',
           label: l => l.courtHearing,
-          value: 'court hearing',
+          value: 'courthearing',
         },
         {
           name: 'helpCommunication',
@@ -155,7 +155,7 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.other,
-          value: 'Other',
+          value: 'other',
           subFields: {
             describeOtherNeed: {
               type: 'textarea',
@@ -171,7 +171,7 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.noSupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

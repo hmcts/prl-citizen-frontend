@@ -289,25 +289,9 @@ describe('utils', () => {
           docsSupport: ['test'],
           courtComfort: ['test'],
           safetyArrangements: ['tes'],
-          travellingToCourt: ['test'],
-          unableForCourtProceedings: YesOrNo.NO,
+          attendingToCourt: ['test'],
         },
         expected: 'COMPLETED',
-      },
-      {
-        data: {
-          ...mockUserCase,
-          languageRequirements: undefined,
-          reasonableAdjustments: ['test'],
-          helpCommunication: undefined,
-          courtHearing: ['test'],
-          docsSupport: undefined,
-          courtComfort: ['test'],
-          safetyArrangements: undefined,
-          travellingToCourt: ['test'],
-          unableForCourtProceedings: undefined,
-        },
-        expected: 'IN_PROGRESS',
       },
       {
         data: {

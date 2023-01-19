@@ -1,4 +1,3 @@
-import { ReasonableAdjustmentsEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -81,31 +80,31 @@ export const form: FormContent = {
           name: 'reasonableAdjustments',
           label: l => l.docsformat,
           hint: l => l.docsformathint,
-          value: ReasonableAdjustmentsEnum.docsformat,
+          value: 'docsformat',
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.commhelp,
           hint: l => l.commhelphint,
-          value: ReasonableAdjustmentsEnum.commhelp,
+          value: 'commhelp',
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.hearingsupport,
           hint: l => l.hearingsupporthint,
-          value: ReasonableAdjustmentsEnum.hearingsupport,
+          value: 'hearingsupport',
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.hearingcomfort,
           hint: l => l.hearingcomforthint,
-          value: ReasonableAdjustmentsEnum.hearingcomfort,
+          value: 'hearingcomfort',
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.travellinghelp,
           hint: l => l.travellinghelphint,
-          value: ReasonableAdjustmentsEnum.travellinghelp,
+          value: 'travellinghelp',
         },
         {
           divider: true,
@@ -113,7 +112,7 @@ export const form: FormContent = {
         {
           name: 'reasonableAdjustments',
           label: l => l.nosupport,
-          value: ReasonableAdjustmentsEnum.nosupport,
+          value: 'nosupport',
           exclusive: true,
         },
       ],
