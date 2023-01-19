@@ -22,7 +22,7 @@ const en = {
   travellinghelp: 'I need help travelling to, or moving around court buildings',
   travellinghelphint: 'access and mobility support if a hearing takes place in person',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     reasonableAdjustments: {
       required: 'Please select an answer',
@@ -50,7 +50,7 @@ const cy: typeof en = {
   travellinghelp: 'I need help travelling to, or moving around court buildings',
   travellinghelphint: 'access and mobility support if a hearing takes place in person',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     reasonableAdjustments: {
       required: 'Please select an answer',
@@ -114,7 +114,7 @@ export const form: FormContent = {
       ],
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

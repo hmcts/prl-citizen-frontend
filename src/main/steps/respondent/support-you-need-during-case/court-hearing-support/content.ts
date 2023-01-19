@@ -5,8 +5,8 @@ import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: 'Reasonable adjustments',
   pagetitle: '',
-  title: 'I would need to bring support with me to a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need to bring support with me to a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
@@ -18,11 +18,11 @@ const en = {
   animalDetails: 'Describe what you need',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
     respondentCourtHearing: {
-      required: 'Please select an answer',
+      required: 'Select what help you need to bring support with you to a court hearing',
     },
     respondentSupportWorkerDetails: {
       required: 'Please provide support worker details',
@@ -42,8 +42,8 @@ const en = {
 const cy: typeof en = {
   section: 'Reasonable adjustments',
   pagetitle: '',
-  title: 'I would need to bring support with me to a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need to bring support with me to a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
@@ -59,7 +59,7 @@ const cy: typeof en = {
   continue: 'Continue',
   errors: {
     respondentCourtHearing: {
-      required: 'Please select an answer',
+      required: 'Select what help you need to bring support with you to a court hearing',
     },
     respondentSupportWorkerDetails: {
       required: 'Please provide support worker details',
@@ -97,8 +97,11 @@ export const form: FormContent = {
             respondentSupportWorkerDetails: {
               type: 'textarea',
               label: l => l.supportWorkerDetails,
+              attributes: {
+                rows: 1,
+              },
               labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              validator: value => isFieldFilledIn(value),
             },
           },
         },
@@ -110,8 +113,11 @@ export const form: FormContent = {
             respondentFamilyDetails: {
               type: 'textarea',
               label: l => l.familyMemberDetails,
+              attributes: {
+                rows: 1,
+              },
               labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              validator: value => isFieldFilledIn(value),
             },
           },
         },
@@ -128,8 +134,11 @@ export const form: FormContent = {
             respondentTherapyDetails: {
               type: 'textarea',
               label: l => l.animalDetails,
+              attributes: {
+                rows: 1,
+              },
               labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              validator: value => isFieldFilledIn(value),
             },
           },
         },
@@ -142,7 +151,10 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              attributes: {
+                rows: 2,
+              },
+              validator: value => isFieldFilledIn(value),
             },
           },
         },

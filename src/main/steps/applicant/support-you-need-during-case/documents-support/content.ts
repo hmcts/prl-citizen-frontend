@@ -20,7 +20,7 @@ const en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'I do not need any of this support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
@@ -49,7 +49,7 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'I do not need any of this support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
@@ -134,7 +134,7 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

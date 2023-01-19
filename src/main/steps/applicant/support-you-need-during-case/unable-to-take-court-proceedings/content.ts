@@ -12,7 +12,7 @@ const en = {
   summaryText: 'Contacts for help',
   one: 'Yes',
   two: 'No',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     unableForCourtProceedings: {
       required: 'Please select an answer',
@@ -32,7 +32,7 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   one: 'Yes',
   two: 'No',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     unableForCourtProceedings: {
       required: 'Please select an answer',
@@ -77,7 +77,7 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };
