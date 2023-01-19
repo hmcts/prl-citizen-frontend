@@ -20,12 +20,19 @@ const en = {
   otherDetails: 'Describe what you need',
   nosupport: 'I do not need any of this support at this time',
   continue: 'Continue',
+  largePrintDocsDetails: 'Describe what you need',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
     },
     otherDetails: {
       required: 'Please provide the details',
+    },
+    largePrintDetails: {
+      required: 'Please provide the large print details',
+    },
+    docsDetails: {
+      required: 'Please provide the docs details',
     },
   },
 };
@@ -48,12 +55,19 @@ const cy: typeof en = {
   otherDetails: 'Describe what you need',
   nosupport: 'I do not need any of this support at this time',
   continue: 'Continue',
+  largePrintDocsDetails: 'Describe what you need',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
     },
     otherDetails: {
       required: 'Please provide the details',
+    },
+    largePrintDetails: {
+      required: 'Please provide the large print details',
+    },
+    docsDetails: {
+      required: 'Please provide the docs details',
     },
   },
 };
@@ -74,37 +88,53 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.docsprint,
-          value: 'Documents in colour print',
+          value: 'docsprint',
+          subFields: {
+            docsDetails: {
+              type: 'textarea',
+              label: l => l.docsColourDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'docsSupport',
           label: l => l.docsreadformat,
-          value: 'documents in read format',
+          value: 'docsreadformat',
         },
         {
           name: 'docsSupport',
           label: l => l.brailledocs,
-          value: 'Braille documents',
+          value: 'brailledocs',
         },
         {
           name: 'docsSupport',
           label: l => l.largeprintdocs,
-          value: 'Large print documents',
+          value: 'largeprintdocs',
+          subFields: {
+            largePrintDetails: {
+              type: 'textarea',
+              label: l => l.largePrintDocsDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'docsSupport',
           label: l => l.docsaudio,
-          value: 'Audio translation of documents',
+          value: 'docsaudio',
         },
         {
           name: 'docsSupport',
           label: l => l.readoutdocs,
-          value: 'Documents read out to me',
+          value: 'readoutdocs',
         },
         {
           name: 'docsSupport',
           label: l => l.emailInfo,
-          value: 'email information',
+          value: 'emailInfo',
         },
         {
           name: 'docsSupport',
@@ -125,7 +155,7 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

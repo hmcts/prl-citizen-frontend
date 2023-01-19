@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -26,14 +26,17 @@ const en = {
     communicationSupportOther: {
       required: 'Please provide the details',
     },
-    supportWorkerProvideDetails: {
+    supportWorkerDetails: {
       required: 'Please provide the support worker details',
     },
-    familyMemberProvideDetails: {
+    familyProviderDetails: {
       required: 'Please provide the family member details',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
+    },
+    therapyDetails: {
+      required: 'Please provide therapy animal details',
     },
   },
 };
@@ -62,14 +65,17 @@ const cy: typeof en = {
     communicationSupportOther: {
       required: 'Please provide the details',
     },
-    supportWorkerProvideDetails: {
+    supportWorkerDetails: {
       required: 'Please provide the support worker details',
     },
-    familyMemberProvideDetails: {
+    familyProviderDetails: {
       required: 'Please provide the family member details',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
+    },
+    therapyDetails: {
+      required: 'Please provide therapy animal details',
     },
   },
 };
@@ -92,7 +98,7 @@ export const form: FormContent = {
           label: l => l.supportworker,
           value: 'support worker or carer',
           subFields: {
-            supportWorkerProvideDetails: {
+            supportWorkerDetails: {
               type: 'textarea',
               label: l => l.supportWorkerDetails,
               attributes: {
@@ -108,7 +114,7 @@ export const form: FormContent = {
           label: l => l.familymember,
           value: 'friend or family member',
           subFields: {
-            familyMemberProvideDetails: {
+            familyProviderDetails: {
               type: 'textarea',
               label: l => l.familyMemberDetails,
               attributes: {
@@ -129,7 +135,7 @@ export const form: FormContent = {
           label: l => l.animal,
           value: 'animal',
           subFields: {
-            animalProvideDetails: {
+            therapyDetails: {
               type: 'textarea',
               label: l => l.animalDetails,
               attributes: {
@@ -152,7 +158,7 @@ export const form: FormContent = {
               attributes: {
                 rows: 2,
               },
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
